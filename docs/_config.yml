@@ -1,0 +1,146 @@
+# Jekyll: https://jekyllrb.com/docs/configuration/
+
+## Default Configuration: https://jekyllrb.com/docs/configuration/default/
+
+future                   : true
+
+### Conversion
+markdown                 : kramdown
+#markdown                 : CommonMarkGhPages
+highlighter              : rouge
+
+### Outputting
+permalink                : /:categories/:title
+paginate_path            : /:num
+timezone                 : "Europe/Warsaw" # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+### Where things are
+include:
+  - CONTRIBUTING.md
+  - CODE_OF_CONDUCT.md
+
+sass:
+  #  sass_dir: ui/_scss
+  style: compressed
+
+## Collections: https://jekyllrb.com/docs/collections/
+
+## Front Matter Defaults: https://jekyllrb.com/docs/configuration/front-matter-defaults/
+
+# Plugins
+plugins:
+  - jemoji
+  - jekyll-avatar
+  - jekyll-coffeescript
+  - jekyll-commonmark-ghpages
+  - jekyll-default-layout
+  - jekyll-feed
+  - jekyll-gist
+  - jekyll-github-metadata
+  - jekyll-include-cache
+  - jekyll-mentions
+  - jekyll-optional-front-matter
+  - jekyll-paginate
+  - jekyll-readme-index
+  - jekyll-redirect-from
+  - jekyll-relative-links
+  - jekyll-remote-theme
+  - jekyll-sass-converter
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-titles-from-headings
+
+## jekyll-commonmark-ghpages
+commonmark:
+  options                : ["SMART", "FOOTNOTES"]
+  extensions             : ["strikethrough", "autolink", "table", "tagfilter"]
+
+## jekyll-mentions
+jekyll-mentions:
+  base_url               : "https://twitter.com"
+
+## jekyll-paginate
+paginate                 : 1
+
+## jekyll-remote-theme
+remote_theme             : helvm/minima
+
+## jekyll-seo-tag
+title                    : "Heavenly Esoteric Little Concrete Absolute Machine"
+tagline                  : "Heavenly Esoteric Little Concrete Absolute Machine Evaluator Interpreter"
+description: >-
+  Documentation of Heavenly Esoteric Little Concrete Absolute Machine - Evaluator and Interpreter for Esoteric Languages implemented in Haskell/Eta
+url                      : "https://helvm.github.io/helcam/"
+author:
+  name                   : "Kamil Adam"
+  email                  : "kamil.adam.zabinski@gmail.com"
+  twitter                : "TheKamilAdam"
+  avatar                 : "/assets/images/kamil.adam.jpg"
+  bio                    : "My awesome biography constrained to a sentence or two goes here."
+twitter:
+  username               : "TheKamilAdam"
+facebook:
+logo                     : "/assets/favicon.ico"
+social:
+  name                   : "Kamil Adam"
+  links:
+    - https://twitter.com/TheKamilAdam
+    - https://github.com/helvm
+    - https://www.linkedin.com/company/writeonly-pl
+    - https://www.facebook.com/WriteOnlyPL
+    - https://www.instagram.com/degustujacaistota/
+
+# jekyll-titles-from-headings
+titles_from_headings:
+#  enabled:     false
+#  strip_title: false
+#  collections: false
+
+# External systems
+
+## Compress HTML
+compress_html:
+  clippings              : all
+  comments               : all
+  endings                : all
+  profile                : false
+  startings              : [head, body]
+
+# minima
+show_excerpts            : false
+google_analytics         : UA-136426906-3
+
+headings_form_titles:
+  enabled                : false
+
+edit:
+  enabled                : true
+  url                    : https://github.com/helvm/helcam/edit/master/docs
+  extention              : md
+
+header_pages:
+  - INSTALL.md
+  - TODO.md
+  - NEWS.md
+  - BUGS.md
+  - FAQ.md
+
+minima:
+#  skin: solarized-dark
+  skin: dark
+#  date_format: "%b %-d, %Y"
+  social_links:
+    rss                  : rss
+    github               : helvm
+    linkedin             : writeonly-pl
+    facebook             : WriteOnlyPL
+    instagram            : degustujacaistota
+    twitter              : TheKamilAdam
+    devto                : KamilAdam
+#    dribbble: jekyll
+#    flickr: jekyll
+#    pinterest: jekyll
+#    telegram: jekyll
+#    googleplus: +jekyll
+#    microdotblog: jekyll
+#    keybase: jekyll

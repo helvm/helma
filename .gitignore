@@ -21,3 +21,11 @@ cabal.project.local
 cabal.project.local~
 .HTF/
 .ghc.environment.*
+
+.idea
+.gradle
+
+Gemfile.lock
+_site
+
+
