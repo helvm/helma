@@ -2,6 +2,6 @@
 
 **New features.**
 
-*We do not have **news** now.*
+* Add BrainFuck Lexer
 
 For more see [CHANGELOG](CHANGELOG.md).

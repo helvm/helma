@@ -2,7 +2,7 @@
 -- documentation, see http://eta-lang.org/docs/
 
 name:                helcam
-version:             0.0.0.0
+version:             0.2.0.0
 
 synopsis:            Heavenly Esoteric Little Concrete Absolute Machine
 description:         Please see the README on GitHub at <https://github.com/helvm/helcam#readme>
@@ -26,7 +26,9 @@ source-repository head
 
 library
   other-modules:
+    HelVM.HelCam.BrainFuck.Token
   exposed-modules:
+    HelVM.HelCam.BrainFuck.Tokens
   other-extensions:
   build-depends:       base >=4.11 && <4.12
   hs-source-dirs:      src/main/eta
@@ -37,6 +39,7 @@ test-suite helcam-test
   type:                exitcode-stdio-1.0
   main-is:             Test.hs
   other-modules:
+    HelVM.HelCam.BrainFuck.TokensTest
   exposed-modules:
   other-extensions:
   build-depends:

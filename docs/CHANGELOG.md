@@ -1,4 +1,8 @@
-# Revision history for helcam
+# Revision history for HelCam
+
+## 0.2.0.0  -- 2020-05-16
+
+* Add BrainFuck Lexer
 
 ## 0.1.0.0  -- 2020-05-09
 

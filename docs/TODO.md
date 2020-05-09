@@ -3,7 +3,7 @@
 **Future Features**
 
 Features to do:
-* [ ] BrainFuck Tokenizer
+* [x] BrainFuck Lexer
 * [ ] BrainFuck Evaluator
 * [ ] BrainFuck Interpreter
 

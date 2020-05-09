@@ -1,11 +1,11 @@
 # HELCAM
-HELCAM - Heavenly Esoteric Little Concrete Absolute Machine for esoteric languages implemented in Haskell/Eta
+**HELCAM** - Heavenly Esoteric Little Concrete Absolute Machine for Esoteric Languages implemented in Haskell/Eta
 
 ```
 FOR everyone
 WHO want to run esoteric languages
-THE HELCAM IS a Heavenly Esoteric Little Concrete Absolute Machine for esoteric languages implemented in Haskell/Eta
-THAT is an Evaluator and an Interpreter for esoteric languages
+THE HELCAM IS a Heavenly Esoteric Little Concrete Absolute Machine for Esoteric Languages implemented in Haskell/Eta
+THAT is an Evaluator and an Interpreter for Esoteric Languages  (EsoLangs)
 ```
 
 ## For User
