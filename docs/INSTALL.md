@@ -14,6 +14,7 @@ cd helcam
 Compile and run with `cabal`:
 ```bash
 cabal clean && cabal build && cabal test
+cabal new-test --test-show-details=streaming
 cabal run helcam
 ```
 

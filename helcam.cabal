@@ -2,7 +2,7 @@
 -- documentation, see http://eta-lang.org/docs/
 
 name:                helcam
-version:             0.2.0.0
+version:             0.3.0.0
 
 synopsis:            Heavenly Esoteric Little Concrete Absolute Machine
 description:         Please see the README on GitHub at <https://github.com/helvm/helcam#readme>
@@ -26,11 +26,15 @@ source-repository head
 
 library
   other-modules:
+    HelVM.HelCam.Common.Util
     HelVM.HelCam.BrainFuck.Token
   exposed-modules:
     HelVM.HelCam.BrainFuck.Tokens
+    HelVM.HelCam.WhiteSpace.Token
+    HelVM.HelCam.WhiteSpace.Instruction
+    HelVM.HelCam.WhiteSpace.Parser
   other-extensions:
-  build-depends:       base >=4.11 && <4.12
+  build-depends:       base >=4.8
   hs-source-dirs:      src/main/eta
   default-language:    Haskell2010
   ghc-options:         -Wall
@@ -40,10 +44,10 @@ test-suite helcam-test
   main-is:             Test.hs
   other-modules:
     HelVM.HelCam.BrainFuck.TokensTest
-  exposed-modules:
+    HelVM.HelCam.WhiteSpace.ParserTest
   other-extensions:
   build-depends:
-      base >=4.11 && <4.12
+      base >=4.8
     , helcam
     , HUnit
   hs-source-dirs:      src/test/eta
@@ -53,9 +57,8 @@ test-suite helcam-test
 executable helcam
   main-is:             Main.hs
   other-modules:
-  exposed-modules:
   other-extensions:
-  build-depends:       base >=4.11 && <4.12
+  build-depends:       base >=4.8
   hs-source-dirs:      src/main/eta
   default-language:    Haskell2010
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N

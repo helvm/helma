@@ -32,4 +32,3 @@ instance Read Token where
   readsPrec _ "[" = [( JmpPast, "")]
   readsPrec _ "]" = [( JmpBack, "")]
   readsPrec _ _   = []
-

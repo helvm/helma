@@ -59,7 +59,8 @@ testTokenAsList :: Test
 testTokenAsList = TestCase (assertEqual "testTokenAsList" helloWorldAsList (show $ tokenList $ readTokens helloWorldWithComments))
 
 testsOfTokens :: Test
-testsOfTokens = TestList [ TestLabel "testHelloWorld" testHelloWorld
-                          , TestLabel "testHelloWorldWithComments" testHelloWorldWithComments
-                          , TestLabel "testTokenAsList" testTokenAsList
-                          ]
+testsOfTokens = TestList 
+  [ TestLabel "testHelloWorld" testHelloWorld
+  , TestLabel "testHelloWorldWithComments" testHelloWorldWithComments
+  , TestLabel "testTokenAsList" testTokenAsList
+  ]
