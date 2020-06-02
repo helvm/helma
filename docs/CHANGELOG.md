@@ -1,5 +1,10 @@
 # Revision history for HelCam
 
+## 0.4.0.0  -- 2020-06-15
+
+* Add Evaluator of BrainFuck and WhiteSpace
+* Add WrapperIO, FilterIf0, MockIO and tests for FilterIf0
+
 ## 0.3.0.0  -- 2020-05-30
 
 * Add WhiteSpace Parser

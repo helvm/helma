@@ -4,10 +4,11 @@
 
 Features to do:
 * [x] BrainFuck Lexer
-* [ ] BrainFuck Evaluator
+* [X] BrainFuck Evaluator
 * [ ] BrainFuck Interpreter
-* [x] WhiteSpace Parser 
-* [ ] WhiteSpace Evaluator
+* [x] WhiteSpace Lexer
+* [x] WhiteSpace Parser
+* [x] WhiteSpace Evaluator
 * [ ] WhiteSpace Interpreter
 
 You can propose feature by [GitHub](https://github.com/helvm/helcam/issues).

@@ -9,6 +9,12 @@ git clone https://github.com/helvm/helcam.git
 cd helcam
 ```
 
+## HLint
+
+```bash
+curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh | sh -s .
+```
+
 ## Cabal
 
 Compile and run with `cabal`:

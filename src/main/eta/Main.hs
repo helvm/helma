@@ -1,4 +1,8 @@
 module Main where
 
+import HelVM.HelCam.Common.FilterIf0
+
 main :: IO ()
-main = putStrLn "Hello, Eta!"
+main = do
+  putStrLn "Hello, Eta!"
+  iFilterIf0

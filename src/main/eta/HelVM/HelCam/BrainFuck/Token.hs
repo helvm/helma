@@ -1,14 +1,15 @@
 module HelVM.HelCam.BrainFuck.Token where
 
-data Token = MoveR
-           | MoveL
-           | Inc
-           | Dec
-           | Output
-           | Input
-           | JmpPast
-           | JmpBack
-           deriving (Eq, Ord, Enum)
+data Token = 
+    MoveR
+  | MoveL
+  | Inc
+  | Dec
+  | Output
+  | Input
+  | JmpPast
+  | JmpBack
+  deriving (Eq, Ord, Enum)
 
 type TokenList = [Token]
 

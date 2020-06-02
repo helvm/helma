@@ -2,7 +2,7 @@
 
 **New features.**
 
-* Add Parser for WhiteSpace
-* Add Lexer for BrainFuck 
+* Add Lexer and Evaluator for BrainFuck
+* Add Parser and Evaluator for WhiteSpace
 
 For more see [CHANGELOG](CHANGELOG.md).
