@@ -1,0 +1,1 @@
+[Liter 0,Dup,InputNum,Load,Branch EZ "\NUL",Mark "\SOH",Liter 1,OutputNum,Jump "\SOH",Mark "\NUL",Liter 0,OutputNum,End]

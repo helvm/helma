@@ -10,6 +10,6 @@ Features to do:
 * [x] 💙 SubLeq Interpreter
 * [x] 🤍 WhiteSpace Interpreter
 
-You can propose feature by [GitHub](https://github.com/helvm/helcam/issues).
+You can propose feature by [GitHub](https://github.com/helvm/helma/issues).
 
 For more see [ROADMAP](ROADMAP.md).

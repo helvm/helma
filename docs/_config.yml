@@ -70,7 +70,7 @@ title                    : "Heavenly Esoteric Little Concrete Absolute Machine"
 tagline                  : "Heavenly Esoteric Little Concrete Absolute Machine Evaluator Interpreter"
 description: >-
   Documentation of Heavenly Esoteric Little Concrete Absolute Machine - Evaluator and Interpreter for Esoteric Languages implemented in Haskell/Eta
-url                      : "https://helvm.github.io/helcam/"
+url                      : "https://helvm.github.io/helma/"
 author:
   name                   : "Kamil Adam"
   email                  : "kamil.adam.zabinski@gmail.com"
@@ -115,7 +115,7 @@ headings_form_titles:
 
 edit:
   enabled                : true
-  url                    : https://github.com/helvm/helcam/edit/master/docs
+  url                    : https://github.com/helvm/helma/edit/master/docs
   extention              : md
 
 header_pages:

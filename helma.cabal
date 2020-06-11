@@ -1,0 +1,342 @@
+cabal-version:       2.2
+
+name:                helma
+version:             0.6.5.0
+
+synopsis:            HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages implemented in Haskell
+description:         Please see the README on GitHub at <https://github.com/helvm/helma#readme>
+homepage:            https://helvm.github.io/helma/
+bug-reports:         https://github.com/helvm/helma/issues
+
+license:             Apache-2.0
+license-file:        docs/LICENSE-APACHE
+author:              Kamil Adam
+maintainer:          kamil.adam.zabinski@gmail.com
+copyright:           2020-2021 WriteOnly Developers
+
+category:            Language
+build-type:          Simple
+extra-source-files:  docs/CHANGELOG.md
+
+source-repository head
+  type:              git
+  location:          https://github.com/helvm/helma
+
+library
+  other-modules:
+        HelVM.HelMA.Automata.BrainFuck.Token
+        HelVM.HelMA.Automata.BrainFuck.Symbol
+        HelVM.HelMA.Automata.BrainFuck.TableOfInstructions
+
+        HelVM.HelMA.Automata.SubLeq.Symbol
+
+        HelVM.HelMA.Automata.WhiteSpace.EvaluatorUtil
+  exposed-modules:
+        HelVM.HelMA.Common.API.EvalParams
+        HelVM.HelMA.Common.API.TypeOptions
+        HelVM.HelMA.Common.Memories.RAM
+        HelVM.HelMA.Common.Memories.Stack
+        HelVM.HelMA.Common.IO.MockIO
+        HelVM.HelMA.Common.IO.WrapperIO
+        HelVM.HelMA.Common.OrError
+        HelVM.HelMA.Common.Types.CellType
+        HelVM.HelMA.Common.Types.StackType
+        HelVM.HelMA.Common.Types.TokenType
+        HelVM.HelMA.Common.Types.RAMType
+        HelVM.HelMA.Common.Util
+        HelVM.HelMA.Common.WrapTokenList
+
+        HelVM.HelMA.Automata.Cat.Evaluator
+        HelVM.HelMA.Automata.Rev.Evaluator
+
+        HelVM.HelMA.Automata.BrainFuck.Evaluator
+        HelVM.HelMA.Automata.BrainFuck.Lexer
+        HelVM.HelMA.Automata.BrainFuck.TapeOfSymbols
+
+        HelVM.HelMA.Automata.ETA.Evaluator
+        HelVM.HelMA.Automata.ETA.EvaluatorUtil
+        HelVM.HelMA.Automata.ETA.Lexer
+        HelVM.HelMA.Automata.ETA.StackOfSymbols
+        HelVM.HelMA.Automata.ETA.Token
+
+        HelVM.HelMA.Automata.SubLeq.Evaluator
+        HelVM.HelMA.Automata.SubLeq.Lexer
+
+        HelVM.HelMA.Automata.WhiteSpace.Evaluator
+        HelVM.HelMA.Automata.WhiteSpace.Instruction
+        HelVM.HelMA.Automata.WhiteSpace.Lexer
+        HelVM.HelMA.Automata.WhiteSpace.OperandParsers
+        HelVM.HelMA.Automata.WhiteSpace.Parser
+        HelVM.HelMA.Automata.WhiteSpace.StackOfSymbols
+        HelVM.HelMA.Automata.WhiteSpace.Token
+  other-extensions:
+  build-depends:
+      base
+    , relude               == 0.7.0.0
+    , containers           == 0.6.2.1
+    , mtl
+    , split
+    , data-default
+  mixins:
+      base hiding (Prelude)
+    , relude (Relude as Prelude, Relude.Extra, Relude.Unsafe)
+  hs-source-dirs:      hs/src
+  default-language:    Haskell2010
+  ghc-options:
+--Extensions
+    -XEmptyDataDecls
+    -XExistentialQuantification
+    -XFlexibleContexts
+    -XFlexibleInstances
+    -XFunctionalDependencies
+    -XGADTs
+    -XGeneralizedNewtypeDeriving
+    -XInstanceSigs
+    -XKindSignatures
+    -XLambdaCase
+    -XMonadFailDesugaring
+    -XMultiParamTypeClasses
+    -XMultiWayIf
+    -XNamedFieldPuns
+--    -XNoImplicitPrelude
+    -XOverloadedStrings
+    -XPartialTypeSignatures
+    -XPatternGuards
+    -XPolyKinds
+    -XRankNTypes
+    -XRecordWildCards
+    -XScopedTypeVariables
+    -XStandaloneDeriving
+    -XTupleSections
+    -XTypeFamilies
+    -XTypeSynonymInstances
+    -XViewPatterns
+--    -XCPP
+--    -XTemplateHaskell
+--    -XForeignFunctionInterface
+--    -XMagicHash
+--    -XUnliftedFFITypes
+    -XTypeOperators
+--    -XUnboxedTuples
+--    -XPackageImports
+--    -XQuasiQuotes
+--    -XDeriveAnyClass
+--    -XDeriveLift
+--    -XStaticPointers
+--Only for lib
+    -XDeriveFunctor
+--Warnings
+    -Wall
+    -Wcompat
+    -Widentities
+    -Wincomplete-uni-patterns
+    -Wincomplete-record-updates
+    -Wredundant-constraints
+    -Wnoncanonical-monad-instances
+    -fhide-source-paths
+--    -Wmissing-export-lists FIXME
+    -Wpartial-fields
+--    -Wmissing-deriving-strategies (GHC ⩾ 8.8)
+--    -fwrite-ide-info              (GHC ⩾ 8.8)
+--    -hiedir=.hie                  (GHC ⩾ 8.8)
+--    -Wunused-packages             (GHC ⩾ 8.10)
+    -Werror
+
+test-suite spec
+  type:                exitcode-stdio-1.0
+  main-is:             Main.hs
+  other-modules:
+        Spec
+
+        HelVM.HelMA.Common.FilterIf0Spec
+
+        HelVM.HelMA.Automata.CartesianProduct
+        HelVM.HelMA.Automata.Expectations
+
+        HelVM.HelMA.Automata.BrainFuck.TokensSpec
+        HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec
+        HelVM.HelMA.Automata.BrainFuck.EvaluatorSpecData
+        HelVM.HelMA.Automata.BrainFuck.FileUtil
+
+        HelVM.HelMA.Automata.Cat.EvaluatorSpec
+
+        HelVM.HelMA.Automata.ETA.EvaluatorSpec
+        HelVM.HelMA.Automata.ETA.EvaluatorSpecData
+        HelVM.HelMA.Automata.ETA.EvaluatorUtilSpec
+        HelVM.HelMA.Automata.ETA.FileUtil
+        HelVM.HelMA.Automata.ETA.LexerSpec
+
+        HelVM.HelMA.Automata.Rev.EvaluatorSpec
+
+        HelVM.HelMA.Automata.SubLeq.EvaluatorSpec
+        HelVM.HelMA.Automata.SubLeq.EvaluatorSpecData
+        HelVM.HelMA.Automata.SubLeq.LexerSpec
+        HelVM.HelMA.Automata.SubLeq.FileUtil
+
+        HelVM.HelMA.Automata.WhiteSpace.ParserSpec
+        HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec
+        HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpecData
+        HelVM.HelMA.Automata.WhiteSpace.FileUtil
+        HelVM.HelMA.Automata.WhiteSpace.LexerSpec
+        HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec
+  other-extensions:
+  build-depends:
+      base
+    , relude               == 0.7.0.0
+    , containers           == 0.6.2.1
+    , split
+    , data-default
+
+    , helma
+    , hspec
+    , hspec-core
+    , hspec-golden
+    , hspec-slow
+    , filepath
+  mixins:
+      base hiding (Prelude)
+    , relude (Relude as Prelude, Relude.Extra, Relude.Unsafe)
+  hs-source-dirs:      hs/test
+  default-language:    Haskell2010
+  build-tool-depends:  hspec-discover:hspec-discover == 2.*
+  ghc-options:
+--Extensions
+    -XEmptyDataDecls
+    -XExistentialQuantification
+    -XFlexibleContexts
+    -XFlexibleInstances
+    -XFunctionalDependencies
+    -XGADTs
+    -XGeneralizedNewtypeDeriving
+    -XInstanceSigs
+    -XKindSignatures
+    -XLambdaCase
+    -XMonadFailDesugaring
+    -XMultiParamTypeClasses
+    -XMultiWayIf
+    -XNamedFieldPuns
+--    -XNoImplicitPrelude
+    -XOverloadedStrings
+    -XPartialTypeSignatures
+    -XPatternGuards
+    -XPolyKinds
+    -XRankNTypes
+    -XRecordWildCards
+    -XScopedTypeVariables
+    -XStandaloneDeriving
+    -XTupleSections
+    -XTypeFamilies
+    -XTypeSynonymInstances
+    -XViewPatterns
+--    -XCPP
+--    -XTemplateHaskell
+--    -XForeignFunctionInterface
+--    -XMagicHash
+--    -XUnliftedFFITypes
+--    -XTypeOperators
+--    -XUnboxedTuples
+--    -XPackageImports
+--    -XQuasiQuotes
+--    -XDeriveAnyClass
+--    -XDeriveLift
+--    -XStaticPointers
+--Warnings
+    -Wall
+    -Wcompat
+    -Widentities
+    -Wincomplete-uni-patterns
+    -Wincomplete-record-updates
+    -Wredundant-constraints
+    -Wnoncanonical-monad-instances
+    -fhide-source-paths
+--    -Wmissing-export-lists FIXME
+    -Wpartial-fields
+--    -Wmissing-deriving-strategies (GHC ⩾ 8.8)
+--    -fwrite-ide-info              (GHC ⩾ 8.8)
+--    -hiedir=.hie                  (GHC ⩾ 8.8)
+--    -Wunused-packages             (GHC ⩾ 8.10)
+    -Werror
+--Only for tests
+    -threaded
+    -rtsopts
+    -with-rtsopts=-N
+
+executable helma
+  main-is:             Main.hs
+  other-modules:
+        AppOptions
+
+  other-extensions:
+  build-depends:
+      base
+    , relude               == 0.7.0.0
+    , containers           == 0.6.2.1
+    , split
+    , data-default
+
+    , optparse-applicative >= 0.14.3.0
+    , pretty-simple
+    , helma
+
+  mixins:
+      base hiding (Prelude)
+    , relude (Relude as Prelude, Relude.Extra, Relude.Unsafe)
+  hs-source-dirs:      hs/app
+  default-language:    Haskell2010
+  ghc-options:
+--Extensions
+    -XEmptyDataDecls
+    -XExistentialQuantification
+    -XFlexibleContexts
+    -XFlexibleInstances
+    -XFunctionalDependencies
+    -XGADTs
+    -XGeneralizedNewtypeDeriving
+    -XInstanceSigs
+    -XKindSignatures
+    -XLambdaCase
+    -XMonadFailDesugaring
+    -XMultiParamTypeClasses
+    -XMultiWayIf
+    -XNamedFieldPuns
+--    -XNoImplicitPrelude
+    -XOverloadedStrings
+    -XPartialTypeSignatures
+    -XPatternGuards
+    -XPolyKinds
+    -XRankNTypes
+    -XRecordWildCards
+    -XScopedTypeVariables
+    -XStandaloneDeriving
+    -XTupleSections
+    -XTypeFamilies
+    -XTypeSynonymInstances
+    -XViewPatterns
+--    -XCPP
+--    -XTemplateHaskell
+--    -XForeignFunctionInterface
+--    -XMagicHash
+--    -XUnliftedFFITypes
+--    -XTypeOperators
+--    -XUnboxedTuples
+--    -XPackageImports
+--    -XQuasiQuotes
+--    -XDeriveAnyClass
+--    -XDeriveLift
+--    -XStaticPointers
+--Warnings
+    -Wall
+    -Wcompat
+    -Widentities
+    -Wincomplete-uni-patterns
+    -Wincomplete-record-updates
+    -Wredundant-constraints
+    -Wnoncanonical-monad-instances
+    -fhide-source-paths
+--    -Wmissing-export-lists FIXME
+    -Wpartial-fields
+--    -Wmissing-deriving-strategies (GHC ⩾ 8.8)
+--    -fwrite-ide-info              (GHC ⩾ 8.8)
+--    -hiedir=.hie                  (GHC ⩾ 8.8)
+--    -Wunused-packages             (GHC ⩾ 8.10)
+    -Werror

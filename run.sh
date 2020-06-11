@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-cabal run helcam $1
+cabal new-run helma $1

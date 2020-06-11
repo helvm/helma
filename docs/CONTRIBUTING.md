@@ -21,25 +21,3 @@ We use `HLint`
 ```bash
 curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh | sh -s .
 ```
-
-## Another way to compilation
-
-### Etlas
-
-Compile and run with `etlas`:
-```bash
-etlas clean && etlas build && etlas test
-etlas run helcam
-```
-
-### Gradle
-
-Compile and run with `gradlew`:
-```bash
-./gradlew clean -PetaSendMetrics=true
-./gradlew compileEta
-./gradlew compileTestEta
-./gradlew test
-./gradlew run
-./gradlew shadowJar
-```

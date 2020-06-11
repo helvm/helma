@@ -6,8 +6,8 @@ How to download, test and run.
 
 You need a client of `git`:
 ```bash
-git clone https://github.com/helvm/helcam.git
-cd helcam
+git clone https://github.com/helvm/helma.git
+cd helma
 ```
 
 ## Compile
@@ -22,8 +22,8 @@ cabal new-clean && cabal new-build && cabal new-test
 
 You can run Helpa by `cabal` or directly:
 ```bash
-cabal run helcam file_to_interpret
-dist-newstyle/build/x86_64-osx/ghc-8.10.1/helcam-0.5.0.0/x/helcam/build/helcam/helcam file_to_interpret
+cabal run helma file_to_interpret
+dist-newstyle/build/x86_64-osx/ghc-8.10.1/helma-0.5.0.0/x/helma/build/helma/helma file_to_interpret
 ```
 
 ## Other

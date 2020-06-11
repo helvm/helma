@@ -1,4 +1,15 @@
-# 📅 Revision history for HelCam
+# 📅 Revision history for HelMA
+
+## 0.6.5.0  -- 2021-06-06
+
+* Change name to HelMA
+* Use HSpec
+* Remove HUnit
+* Extract Cat interpreter
+* Add Rev interpreter
+* Add examples
+* Remove gradle
+* Add golden tests
 
 ## 0.6.4.0  -- 2021-03-17
 

@@ -1,0 +1,6 @@
+# test.eas -- transitory file, may contain many different things.
+
+I A N1 N<WRITENUM Transfer
+N1 N0 T				# Exit
+*writenum.eas
+*writestr.eas
