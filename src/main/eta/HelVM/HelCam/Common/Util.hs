@@ -27,6 +27,13 @@ charToString = (:[])
 splitStringByEndLine :: String -> (String, String)
 splitStringByEndLine = splitBy '\n'
 
+-- ListUtil
+toList :: a -> [a]
+toList = (:[])
+
+appendToList :: [a] -> a -> [a]
+appendToList xs x = x : xs
+
 splitBySeparator :: Eq a => a -> [a] -> ([a], [a])
 splitBySeparator _ [] = ([], [])
 splitBySeparator separator (x:xs)
@@ -36,7 +43,7 @@ splitBySeparator separator (x:xs)
 splitBy :: Eq a => a -> [a] -> ([a], [a])
 splitBy separator xs = split $ elemIndex separator xs where
   split Nothing      = (xs, [])
-  split (Just index) = (acc, xs') where (acc, (_:xs')) = splitAt index xs
+  split (Just index) = (acc, xs') where (acc, _:xs') = splitAt index xs
 
 readOrError :: Read a => String -> a
 readOrError raw = match $ readEither raw where

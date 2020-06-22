@@ -3,13 +3,8 @@ module HelVM.HelCam.WhiteSpace.ParserTest where
 import HelVM.HelCam.WhiteSpace.EvaluatorTestData
 
 import HelVM.HelCam.WhiteSpace.Parser
-import HelVM.HelCam.WhiteSpace.OperandParsers
-import HelVM.HelCam.WhiteSpace.Token
-import HelVM.HelCam.WhiteSpace.Instruction
 
-import Numeric.Natural
-
-import Test.HUnit hiding (Label)
+import Test.HUnit
 
 testsOfWSParser :: Test
 testsOfWSParser = TestList

@@ -32,6 +32,7 @@ library
         HelVM.HelCam.WhiteSpace.EvaluatorUtil
         HelVM.HelCam.WhiteSpace.Lexer
   exposed-modules:
+        HelVM.HelCam.Common.Tape
         HelVM.HelCam.Common.Util
         HelVM.HelCam.Common.WrapperIO
         HelVM.HelCam.Common.FilterIf0
@@ -76,14 +77,17 @@ test-suite helcam-test
     , HUnit
   hs-source-dirs:      src/test/eta
   default-language:    Haskell2010
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
 
 executable helcam
   main-is:             Main.hs
   other-modules:
-        HelVM.HelCam.Common.Util
+        AppOptions
         HelVM.HelCam.Common.FilterIf0
+        HelVM.HelCam.Common.Tape
+        HelVM.HelCam.Common.Util
         HelVM.HelCam.Common.WrapperIO
+        HelVM.HelCam.BrainFuck.Evaluator
         HelVM.HelCam.BrainFuck.Evaluator.InteractEvaluator
         HelVM.HelCam.BrainFuck.Evaluator.MonadicEvaluator
         HelVM.HelCam.BrainFuck.Lexer
@@ -91,6 +95,7 @@ executable helcam
         HelVM.HelCam.BrainFuck.TableOfInstructions
         HelVM.HelCam.BrainFuck.TapeOfSymbols
         HelVM.HelCam.BrainFuck.Token
+        HelVM.HelCam.WhiteSpace.Evaluator
         HelVM.HelCam.WhiteSpace.Evaluator.InteractEvaluator
         HelVM.HelCam.WhiteSpace.Evaluator.MonadicEvaluator
         HelVM.HelCam.WhiteSpace.EvaluatorUtil
@@ -103,6 +108,8 @@ executable helcam
   build-depends:
       base >=4.8
     , mtl == 2.2.2
+    , optparse-applicative >= 0.14.3.0
+    , pretty-simple
   hs-source-dirs:      src/main/eta
   default-language:    Haskell2010
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N

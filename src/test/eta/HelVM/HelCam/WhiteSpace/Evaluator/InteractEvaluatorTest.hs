@@ -1,14 +1,8 @@
 module HelVM.HelCam.WhiteSpace.Evaluator.InteractEvaluatorTest where
 
 import HelVM.HelCam.WhiteSpace.Evaluator.InteractEvaluator
-import HelVM.HelCam.WhiteSpace.Instruction
-import HelVM.HelCam.WhiteSpace.ParserTest
 
 import HelVM.HelCam.WhiteSpace.EvaluatorTestData
-
-import HelVM.HelCam.Common.MockIO
-
-import Control.Monad.State.Lazy
 
 import Test.HUnit
 

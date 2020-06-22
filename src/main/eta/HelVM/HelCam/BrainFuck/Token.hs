@@ -1,6 +1,6 @@
 module HelVM.HelCam.BrainFuck.Token where
 
-data Token = 
+data Token =
     MoveR
   | MoveL
   | Inc

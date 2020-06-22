@@ -12,33 +12,33 @@ batchExecMockIO :: MockIO () -> Output
 batchExecMockIO = flip execMockIO []
 
 execMockIO :: MockIO () -> Interact
-execMockIO mockIO input = getOutput $ execState mockIO $ createMockIO input
+execMockIO mockIO i = getOutput $ execState mockIO $ createMockIO i
 
 ----
 
 mockGetChar :: MockIO Char
 mockGetChar = do
-  state <- get
-  let char = head $ input state
-  put state { input = tail $ input state }
+  mockIO <- get
+  let char = head $ input mockIO
+  put mockIO { input = tail $ input mockIO }
   return char
 
 mockPutChar :: Char -> MockIO ()
 mockPutChar char = do
-  state <- get
-  put state { output = char : output state }
+  mockIO <- get
+  put mockIO { output = char : output mockIO }
 
 mockGetLine :: MockIO String
 mockGetLine = do
-  state <- get
-  let pair = splitStringByEndLine (input state)
-  put state { input = snd pair }
+  mockIO <- get
+  let pair = splitStringByEndLine (input mockIO)
+  put mockIO { input = snd pair }
   return $ fst pair
 
 mockPutStr :: String -> MockIO ()
 mockPutStr string = do
-  state <- get
-  put $ state { output = reverse string ++ output state }
+  mockIO <- get
+  put $ mockIO { output = reverse string ++ output mockIO }
 
 instance WrapperIO MockIO where
   wGetChar = mockGetChar
@@ -51,7 +51,7 @@ instance WrapperIO MockIO where
 type MockIO = State MockIOData
 
 getOutput :: MockIOData -> String
-getOutput (MockIOData input output) = reverse output
+getOutput (MockIOData _ o) = reverse o
 
 createMockIO :: String -> MockIOData
 createMockIO = flip MockIOData []

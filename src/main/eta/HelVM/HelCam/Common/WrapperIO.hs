@@ -1,5 +1,7 @@
 module HelVM.HelCam.Common.WrapperIO where
 
+import Data.Char
+
 import System.IO
 
 type MGetChar m = m Char
@@ -21,8 +23,12 @@ class Monad m => WrapperIO m where
   wPutStr   :: String -> m ()
   wPutStrLn :: String -> m ()
   wFlush    :: m ()
+  wGetInt   :: m Int
+  wPutInt   :: Integral i => i -> m ()
   wPutStrLn s = wPutStr $ s ++ "\n"
   wFlush = return ()
+  wPutInt value = wPutChar (chr (fromIntegral value))
+  wGetInt = do ord <$> wGetChar
 
 instance WrapperIO IO where
   wGetChar  = getChar

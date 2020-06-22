@@ -1,13 +1,10 @@
 module HelVM.HelCam.WhiteSpace.Evaluator.MonadicEvaluatorTest where
 
 import HelVM.HelCam.WhiteSpace.Evaluator.MonadicEvaluator
-import HelVM.HelCam.WhiteSpace.Instruction
 
 import HelVM.HelCam.WhiteSpace.EvaluatorTestData
 
 import HelVM.HelCam.Common.MockIO
-
-import Control.Monad.State.Lazy
 
 import Test.HUnit
 

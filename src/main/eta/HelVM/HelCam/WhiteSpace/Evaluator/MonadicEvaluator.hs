@@ -13,83 +13,95 @@ import Data.Char
 monadicEvalWS :: Bool -> Source -> IO ()
 monadicEvalWS ascii = evalWSIL . parseWS ascii
 
+----
+
 evalWSTL :: WrapperIO m => Bool -> TokenList -> m ()
 evalWSTL ascii = evalWSIL . parseWSTL ascii
 
 evalWSIL :: WrapperIO m => InstructionList -> m ()
-evalWSIL il = next (IC 0 (IS []) il) (DS []) (H [])
+evalWSIL il = next (Stack []) (Heap []) (IC 0 (IS []) il)
+
+next :: WrapperIO m => Stack -> Heap -> InstructionControl -> m ()
+next s h (IC ip is il) = doInstruction (il!!ip) s h (IC (ip+1) is il)
 
 ----
 
-next :: WrapperIO m => InstructionControl -> DataStack -> Heap -> m ()
-next (IC ip is il) = doInstruction (il!!ip) (IC (ip+1) is il)
-
-doInstruction :: WrapperIO m => Instruction -> InstructionControl -> DataStack -> Heap -> m ()
-doInstruction (Label _)   = next
+doInstruction :: WrapperIO m => Instruction -> Stack -> Heap -> InstructionControl -> m ()
+doInstruction (Mark _)    = next
 -- IO instructions
 doInstruction  OutputChar = doOutputChar
-doInstruction  OutputNum  = doOutputNum
 doInstruction  InputChar  = doInputChar
+doInstruction  OutputNum  = doOutputNum
 doInstruction  InputNum   = doInputNum
 -- Other
-doInstruction instruction = doInstruction' instruction
+doInstruction i = doInstruction' i
 
-doInstruction' :: WrapperIO m => Instruction -> InstructionControl -> DataStack -> Heap -> m ()
+doInstruction' :: WrapperIO m => Instruction -> Stack -> Heap -> InstructionControl -> m ()
 -- Stack instructions
-doInstruction' (Const value) ic (DS               ds ) = next ic (DS                    (value:ds))
-doInstruction'  Dup          ic (DS        (value:ds)) = next ic (DS              (value:value:ds))
-doInstruction' (Ref   index) ic (DS               ds ) = next ic (DS              ((ds!!index):ds))
-doInstruction' (Slide index) ic (DS        (value:ds)) = next ic (DS         (value:drop index ds))
-doInstruction'  Swap         ic (DS (value:value':ds)) = next ic (DS             (value':value:ds))
-doInstruction'  Discard      ic (DS            (_:ds)) = next ic (DS                           ds )
+doInstruction' (Const symbol) (Stack                 s ) = next (Stack                     (symbol:s))
+doInstruction' (Copy  index)  (Stack                 s ) = next (Stack                 ((s!!index):s))
+doInstruction' (Slide index)  (Stack         (symbol:s)) = next (Stack          (symbol:drop index s))
+doInstruction'  Dup           (Stack         (symbol:s)) = next (Stack              (symbol:symbol:s))
+doInstruction'  Swap          (Stack (symbol:symbol':s)) = next (Stack             (symbol':symbol:s))
+doInstruction'  Discard       (Stack              (_:s)) = next (Stack                             s )
 -- Arithmetic
-doInstruction' (Binary op)   ic (DS (value:value':ds)) = next ic (DS (doBinary op value value':ds))
--- Control
-doInstruction'  Return         (IC _  (IS (address:is)) il) ds = next (IC  address           (IS is)      il) ds
-doInstruction' (Call        l) (IC ip (IS is)           il) ds = next (IC (findAddress il l) (IS (ip:is)) il) ds
-doInstruction' (Jump        l) (IC _   is               il) ds = next (IC (findAddress il l)  is          il) ds
-doInstruction' (Branch test l) (IC ip is il) (DS (value:ds))
-  | doBranchTest test value = next (IC (findAddress il l) is il) (DS ds)
-  | otherwise               = next (IC  ip                is il) (DS ds)
--- Other
-doInstruction' instruction ic ds = doInstruction'' instruction ic ds
+doInstruction' (Binary op)    (Stack (symbol:symbol':s)) = next (Stack (doBinary op symbol symbol':s))
+doInstruction' i s = doInstruction'' i s
 
-doInstruction'' :: WrapperIO m => Instruction -> InstructionControl -> DataStack -> Heap -> m ()
+doInstruction'' :: WrapperIO m => Instruction -> Stack -> Heap -> InstructionControl -> m ()
 -- Heap access
-doInstruction'' Load  ic (DS (pointer:ds))       h = next ic (DS ((load pointer h):ds))  h
-doInstruction'' Store ic (DS (value:pointer:ds)) h = next ic (DS ds)                    (store value pointer h)
--- Other
-doInstruction''  End _ _ _ = doEnd
-doInstruction''  i   _ _ _ = error $ "Can't do " ++ show i
+doInstruction'' Load  (Stack       (address:s)) h = next (Stack (load h address:s))                      h
+doInstruction'' Store (Stack (value:address:s)) h = next (Stack                 s ) (store address value h)
+doInstruction'' i s h = doInstruction''' i s h
 
-emptyStackError :: Instruction -> m ()
+-- Control
+doInstruction''' :: WrapperIO m => Instruction -> Stack -> Heap -> InstructionControl -> m ()
+doInstruction'''  Return      s h (IC _  (IS (address:is)) il) = next s h (IC  address           (IS is)      il)
+doInstruction''' (Call     l) s h (IC ip (IS is)           il) = next s h (IC (findAddress il l) (IS (ip:is)) il)
+doInstruction''' (Jump     l) s h (IC _   is               il) = next s h (IC (findAddress il l)  is          il)
+doInstruction''' (Branch t l) (Stack (symbol:s)) h (IC ip is il)
+    | doBranchTest t symbol = next (Stack s) h (IC (findAddress il l) is il)
+    | otherwise             = next (Stack s) h (IC  ip                is il)
+-- Other
+doInstruction''' i s h ic = doInstruction'''' i s h ic
+
+doInstruction'''' :: WrapperIO m => Instruction -> Stack -> Heap -> InstructionControl -> m ()
+-- Other
+doInstruction'''' End _ _ _ = doEnd
+doInstruction'''' i   _ _ _ = error $ "Can't do " ++ show i
+
+----
+
+emptyStackError :: Instruction -> r
 emptyStackError i = error $ "Empty stack for instruction " ++ show i
+
+----
 
 -- IO instructions
 
-doOutputChar :: WrapperIO m => InstructionControl -> DataStack -> Heap -> m ()
-doOutputChar _  (DS [])         _ = emptyStackError OutputChar
-doOutputChar ic (DS (value:ds)) h = do
+doOutputChar :: WrapperIO m => Stack -> Heap -> InstructionControl -> m ()
+doOutputChar (Stack [])        _ _  = emptyStackError OutputChar
+doOutputChar (Stack (value:s)) h ic = do
   wPutChar (chr (fromInteger value))
-  next ic (DS ds) h
+  next (Stack s) h ic
 
-doOutputNum :: WrapperIO m => InstructionControl -> DataStack -> Heap -> m ()
-doOutputNum _  (DS [])         _ = emptyStackError OutputNum
-doOutputNum ic (DS (value:ds)) h = do
+doOutputNum :: WrapperIO m => Stack -> Heap -> InstructionControl -> m ()
+doOutputNum (Stack [])        _ _  = emptyStackError OutputNum
+doOutputNum (Stack (value:s)) h ic = do
   wPutStr $ show value
-  next ic (DS ds) h
+  next (Stack s) h ic
 
-doInputChar :: WrapperIO m => InstructionControl -> DataStack -> Heap -> m ()
-doInputChar _  (DS [])           _ = emptyStackError InputChar
-doInputChar ic (DS (pointer:ds)) h = do
+doInputChar :: WrapperIO m => Stack -> Heap -> InstructionControl -> m ()
+doInputChar (Stack [])          _ _  = emptyStackError InputChar
+doInputChar (Stack (address:s)) h ic = do
   char <- wGetChar
-  next ic (DS ds) (store (toInteger (ord char)) pointer h)
+  next (Stack s) (store address (toInteger (ord char)) h) ic
 
-doInputNum :: WrapperIO m => InstructionControl -> DataStack -> Heap -> m ()
-doInputNum _  (DS [])           _ = emptyStackError InputNum
-doInputNum ic (DS (pointer:ds)) h = do
+doInputNum :: WrapperIO m => Stack -> Heap -> InstructionControl -> m ()
+doInputNum (Stack [])          _ _  = emptyStackError InputNum
+doInputNum (Stack (address:s)) h ic = do
   line <- wGetLine
-  next ic (DS ds) (storeNum line pointer h)
+  next (Stack s) (storeNum address line h) ic
 
 ----
 

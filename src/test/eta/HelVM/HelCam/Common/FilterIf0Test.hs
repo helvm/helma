@@ -3,8 +3,6 @@ module HelVM.HelCam.Common.FilterIf0Test where
 import HelVM.HelCam.Common.FilterIf0
 import HelVM.HelCam.Common.MockIO
 
-import Control.Monad.State.Lazy
-
 import Test.HUnit
 
 testsOfFilterIf0 :: Test

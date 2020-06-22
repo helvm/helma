@@ -99,14 +99,14 @@ truthMachineTL =
 
 catIL :: InstructionList
 catIL =
-  [ Label "0"
+  [ Mark "0"
   , Const 1, InputChar
   , Const 1, Load, OutputChar
   , Const 1
   , Branch EZ "1"
   , Jump "0"
 
-  , Label "1"
+  , Mark "1"
   , End
   ]
 
@@ -135,11 +135,11 @@ truthMachineIL =
   , Load
   , Branch EZ "0"
 
-  , Label "1"
+  , Mark "1"
   , Const 1, OutputNum
   , Jump "1"
 
-  , Label "0"
+  , Mark "0"
   , Const 0, OutputNum
   , End
   ]

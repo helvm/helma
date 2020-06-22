@@ -3,17 +3,9 @@ module HelVM.HelCam.BrainFuck.Evaluator.MonadicEvaluatorTest where
 import HelVM.HelCam.BrainFuck.Evaluator.MonadicEvaluator
 import HelVM.HelCam.BrainFuck.EvaluatorTestData
 
-import HelVM.HelCam.BrainFuck.TapeOfSymbols
-import HelVM.HelCam.BrainFuck.Lexer
-
 import HelVM.HelCam.Common.MockIO
 
-import Control.Monad.State.Lazy
-
 import Test.HUnit
-
-import Data.Int
-import Data.Word
 
 testsOfBFMonadicEvaluator :: Test
 testsOfBFMonadicEvaluator = TestList

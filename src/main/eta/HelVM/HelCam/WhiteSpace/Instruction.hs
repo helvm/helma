@@ -3,19 +3,19 @@ module HelVM.HelCam.WhiteSpace.Instruction where
 import HelVM.HelCam.WhiteSpace.OperandParsers
 
 data Instruction =
-    Const Value
-  | Dup
-  | Ref Index
+    Const Symbol
+  | Copy  Index
   | Slide Index
+  | Dup
   | Swap
   | Discard
   | Binary BinaryOperator
   | Store
   | Load
-  | Label Identifier
-  | Call Identifier
-  | Jump Identifier
-  | Branch BranchTest Identifier
+  | Mark Label
+  | Call Label
+  | Jump Label
+  | Branch BranchTest Label
   | Return
   | OutputChar
   | OutputNum
@@ -34,17 +34,17 @@ data BranchTest = EZ | Neg
 
 ----
 
-type Address = Int
+type InstructionAddress = Int
 
 type Index = Int
 parseIndex :: OperandParser Index
 parseIndex = parseInt
 
-type Value = Integer
-parseValue :: OperandParser Value
-parseValue = parseInteger
+type Symbol = Integer
+parseSymbol :: OperandParser Symbol
+parseSymbol = parseInteger
 
-type Identifier = String
-parseIdentifier :: Bool -> OperandParser Identifier
-parseIdentifier False = parseBitString
-parseIdentifier True  = parseAsciiString
+type Label = String
+parseLabel :: Bool -> OperandParser Label
+parseLabel False = parseBitString
+parseLabel True  = parseAsciiString

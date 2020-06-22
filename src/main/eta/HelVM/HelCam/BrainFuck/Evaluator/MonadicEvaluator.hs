@@ -1,4 +1,4 @@
-module HelVM.HelCam.BrainFuck.Evaluator.MonadicEvaluator (evalBFInt8, evalBFWord8, evalBF) where
+module HelVM.HelCam.BrainFuck.Evaluator.MonadicEvaluator (monadicEvalBF, evalBFInt8, evalBFWord8, evalBF) where
 
 import HelVM.HelCam.BrainFuck.Symbol
 import HelVM.HelCam.BrainFuck.TableOfInstructions
@@ -12,18 +12,21 @@ import HelVM.HelCam.Common.Util
 import Data.Int
 import Data.Word
 
+monadicEvalBF :: Source -> IO ()
+monadicEvalBF = evalBFWord8
+
 evalBFInt8 :: WrapperIO m => Source -> m ()
-evalBFInt8 = flip evalBF (newTape :: Tape Int8)
+evalBFInt8 = flip evalBF (newTape :: FullTape Int8)
 
 evalBFWord8 :: WrapperIO m => Source -> m ()
-evalBFWord8  = flip evalBF (newTape :: Tape Word8)
+evalBFWord8  = flip evalBF (newTape :: FullTape Word8)
 
-evalBF :: (Symbol s, WrapperIO m) => Source -> Tape s -> m ()
+evalBF :: (Symbol s, WrapperIO m) => Source -> FullTape s -> m ()
 evalBF source =  doInstruction ([], tokenizeBF source)
 
 --
 
-doInstruction :: (Symbol s, WrapperIO m) => Table -> Tape s -> m()
+doInstruction :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
 doInstruction table@(_, MoveR   :_) tape = doInstruction   (nextInst table) (moveHeadRight tape)
 doInstruction table@(_, MoveL   :_) tape = doInstruction   (nextInst table)  (moveHeadLeft tape)
 doInstruction table@(_, Inc     :_) tape = doInstruction   (nextInst table)   (wSuccSymbol tape)
@@ -34,20 +37,20 @@ doInstruction table@(_, Output  :_) tape = doOutput                  table      
 doInstruction table@(_, Input   :_) tape = doInput                   table                 tape
 doInstruction       (_, []        ) _    = doEnd
 
-doJmpPast :: (Symbol s, WrapperIO m) => Table -> Tape s -> m()
+doJmpPast :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
 doJmpPast table tape@(_, 0:_) = doInstruction (jumpPast table) tape
 doJmpPast table tape          = doInstruction (nextInst table) tape
 
-doJmpBack :: (Symbol s, WrapperIO m) => Table -> Tape s -> m()
+doJmpBack :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
 doJmpBack table tape@(_, 0:_) = doInstruction (nextInst table) tape
 doJmpBack table tape          = doInstruction (jumpBack table) tape
 
-doInput :: (Symbol s, WrapperIO m) => Table -> Tape s -> m()
+doInput :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
 doInput table tape = do
   char <- wGetChar
   doInstruction (nextInst table) (writeSymbol char tape)
 
-doOutput :: (Symbol s, WrapperIO m) => Table -> Tape s -> m()
+doOutput :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
 doOutput _          (_, [])       = error "Illegal State"
 doOutput table tape@(_, symbol:_) = do
   wPutChar $ toChar symbol

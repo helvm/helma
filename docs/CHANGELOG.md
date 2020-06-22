@@ -1,6 +1,10 @@
 # Revision history for HelCam
 
-## 0.4.0.0  -- 2020-06-15
+## 0.5.0.0  -- 2020-06-30
+
+* Add CLI Options Parser
+
+## 0.4.0.0  -- 2020-06-22
 
 * Add Evaluator of BrainFuck and WhiteSpace
 * Add WrapperIO, FilterIf0, MockIO and tests for FilterIf0

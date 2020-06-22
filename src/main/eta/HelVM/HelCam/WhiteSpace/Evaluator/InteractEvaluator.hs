@@ -18,85 +18,95 @@ batchEvalWSTL ascii = batchEvalWSIL . parseWSTL ascii
 batchEvalWSIL :: InstructionList -> Output
 batchEvalWSIL = flip evalWSIL ([]::String)
 
+----
+
 evalWSTL :: Bool -> TokenList -> Interact
 evalWSTL ascii = evalWSIL . parseWSTL ascii
 
 evalWSIL :: InstructionList -> Interact
-evalWSIL il = next (IC 0 (IS []) il) (DS []) (H [])
+evalWSIL il = next (Stack []) (Heap []) (IC 0 (IS []) il)
+
+next :: Stack -> Heap -> InstructionControl -> Interact
+next s h (IC ip is il) = doInstruction (il!!ip) s h (IC (ip+1) is il)
 
 ----
 
-next ::InstructionControl -> DataStack -> Heap -> Interact
-next (IC ip is il) = doInstruction (il!!ip) (IC (ip+1) is il)
-
-doInstruction ::Instruction -> InstructionControl -> DataStack -> Heap -> Interact
-doInstruction (Label _)   = next
+doInstruction :: Instruction -> Stack -> Heap -> InstructionControl -> Interact
+doInstruction (Mark _)    = next
 -- IO instructions
 doInstruction  OutputChar = doOutputChar
-doInstruction  OutputNum  = doOutputNum
 doInstruction  InputChar  = doInputChar
+doInstruction  OutputNum  = doOutputNum
 doInstruction  InputNum   = doInputNum
 -- Other
-doInstruction instruction = doInstruction' instruction
+doInstruction i = doInstruction' i
 
-doInstruction' ::Instruction -> InstructionControl -> DataStack -> Heap -> Interact
+doInstruction' :: Instruction -> Stack -> Heap -> InstructionControl -> Interact
 -- Stack instructions
-doInstruction' (Const value) ic (DS               ds ) = next ic (DS                    (value:ds))
-doInstruction'  Dup          ic (DS        (value:ds)) = next ic (DS              (value:value:ds))
-doInstruction' (Ref   index) ic (DS               ds ) = next ic (DS              ((ds!!index):ds))
-doInstruction' (Slide index) ic (DS        (value:ds)) = next ic (DS         (value:drop index ds))
-doInstruction'  Swap         ic (DS (value:value':ds)) = next ic (DS             (value':value:ds))
-doInstruction'  Discard      ic (DS            (_:ds)) = next ic (DS                           ds )
+doInstruction' (Const symbol) (Stack                 s ) = next (Stack                     (symbol:s))
+doInstruction' (Copy  index)  (Stack                 s ) = next (Stack                 ((s!!index):s))
+doInstruction' (Slide index)  (Stack         (symbol:s)) = next (Stack          (symbol:drop index s))
+doInstruction'  Dup           (Stack         (symbol:s)) = next (Stack              (symbol:symbol:s))
+doInstruction'  Swap          (Stack (symbol:symbol':s)) = next (Stack             (symbol':symbol:s))
+doInstruction'  Discard       (Stack              (_:s)) = next (Stack                             s )
 -- Arithmetic
-doInstruction' (Binary op)   ic (DS (value:value':ds)) = next ic (DS (doBinary op value value':ds))
--- Control
-doInstruction'  Return         (IC _  (IS (address:is)) il) ds = next (IC  address           (IS is)      il) ds
-doInstruction' (Call        l) (IC ip (IS is)           il) ds = next (IC (findAddress il l) (IS (ip:is)) il) ds
-doInstruction' (Jump        l) (IC _   is               il) ds = next (IC (findAddress il l)  is          il) ds
-doInstruction' (Branch test l) (IC ip is il) (DS (value:ds))
-  | doBranchTest test value = next (IC (findAddress il l) is il) (DS ds)
-  | otherwise               = next (IC  ip                is il) (DS ds)
--- Other
-doInstruction' instruction ic ds = doInstruction'' instruction ic ds
+doInstruction' (Binary op)    (Stack (symbol:symbol':s)) = next (Stack (doBinary op symbol symbol':s))
+doInstruction' i s = doInstruction'' i s
 
-doInstruction'' ::Instruction -> InstructionControl -> DataStack -> Heap -> Interact
+doInstruction'' :: Instruction -> Stack -> Heap -> InstructionControl -> Interact
 -- Heap access
-doInstruction'' Load  ic (DS (pointer:ds))       h = next ic (DS ((load pointer h):ds))  h
-doInstruction'' Store ic (DS (value:pointer:ds)) h = next ic (DS ds)                    (store value pointer h)
+doInstruction'' Load  (Stack       (address:s)) h = next (Stack (load h address:s))                      h
+doInstruction'' Store (Stack (value:address:s)) h = next (Stack                 s ) (store address value h)
+doInstruction'' i s h = doInstruction''' i s h
+
+-- Control
+doInstruction''' :: Instruction -> Stack -> Heap -> InstructionControl -> Interact
+doInstruction'''  Return      s h (IC _  (IS (address:is)) il) = next s h (IC  address           (IS is)      il)
+doInstruction''' (Call     l) s h (IC ip (IS is)           il) = next s h (IC (findAddress il l) (IS (ip:is)) il)
+doInstruction''' (Jump     l) s h (IC _   is               il) = next s h (IC (findAddress il l)  is          il)
+doInstruction''' (Branch t l) (Stack (symbol:s)) h (IC ip is il)
+    | doBranchTest t symbol = next (Stack s) h (IC (findAddress il l) is il)
+    | otherwise             = next (Stack s) h (IC  ip                is il)
 -- Other
-doInstruction''  End _ _ _ = doEnd
-doInstruction''  i   _ _ _ = error $ "Can't do " ++ show i
+doInstruction''' i s h ic = doInstruction'''' i s h ic
+
+doInstruction'''' :: Instruction -> Stack -> Heap -> InstructionControl -> Interact
+-- Other
+doInstruction'''' End _ _ _ = doEnd
+doInstruction'''' i   _ _ _ = error $ "Can't do " ++ show i
+
+----
 
 emptyStackError :: Instruction -> Interact
 emptyStackError i = error $ "Empty stack for instruction " ++ show i
 
+emptyInputError :: Instruction -> Interact
+emptyInputError i = error $ "Empty input for instruction " ++ show i
+
+----
+
 -- IO instructions
 
-doOutputChar :: InstructionControl -> DataStack -> Heap -> Interact
-doOutputChar _  (DS [])         _ input = emptyStackError OutputChar input
-doOutputChar ic (DS (value:ds)) h input = chr (fromInteger value) : next ic (DS ds) h input
+doOutputChar :: Stack -> Heap -> InstructionControl -> Interact
+doOutputChar (Stack [])        _ _  input = emptyStackError OutputChar input
+doOutputChar (Stack (value:s)) h ic input = chr (fromInteger value) : next (Stack s) h ic input
 
-doOutputNum :: InstructionControl -> DataStack -> Heap -> Interact
-doOutputNum _  (DS [])         _ input = emptyStackError OutputNum input
-doOutputNum ic (DS (value:ds)) h input = show value ++ next ic (DS ds) h input
+doOutputNum :: Stack -> Heap -> InstructionControl -> Interact
+doOutputNum (Stack [])        _ _  input = emptyStackError OutputNum input
+doOutputNum (Stack (value:s)) h ic input = show value ++ next (Stack s) h ic input
 
-doInputChar :: InstructionControl -> DataStack -> Heap -> Interact
-doInputChar _   _                _       []     = emptyInputError InputChar
-doInputChar _  (DS [])           _       input  = emptyStackError InputChar input
-doInputChar ic (DS (pointer:ds)) h (char:input) = next ic (DS ds) (store (toInteger (ord char)) pointer h) input
+doInputChar :: Stack -> Heap -> InstructionControl -> Interact
+doInputChar  _                  _ _        []     = emptyInputError InputChar []
+doInputChar (Stack [])          _ _        input  = emptyStackError InputChar input
+doInputChar (Stack (address:s)) h ic (char:input) = next (Stack s) (store address (toInteger (ord char)) h) ic input
 
-doInputNum :: InstructionControl -> DataStack -> Heap -> Interact
-doInputNum _   _                _ []    = emptyInputError InputNum
-doInputNum _  (DS [])           _ input = emptyStackError InputNum input
-doInputNum ic (DS (pointer:ds)) h input = next ic (DS ds) (storeNum line pointer h) input'
+doInputNum :: Stack -> Heap -> InstructionControl -> Interact
+doInputNum _                   _ _  []    = emptyInputError InputNum []
+doInputNum (Stack [])          _ _  input = emptyStackError InputNum input
+doInputNum (Stack (address:s)) h ic input = next (Stack s) (storeNum address line h) ic input'
   where (line, input') = splitStringByEndLine input
 
 ----
 
 doEnd :: Interact
 doEnd _ = []
-
-----
-
-emptyInputError :: Instruction -> Output
-emptyInputError i = error $ "Empty input for instruction " ++ show i

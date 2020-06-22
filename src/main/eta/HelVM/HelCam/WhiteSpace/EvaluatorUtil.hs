@@ -1,47 +1,44 @@
 module HelVM.HelCam.WhiteSpace.EvaluatorUtil where
 
 import HelVM.HelCam.WhiteSpace.Instruction
+import HelVM.HelCam.Common.Tape
 import HelVM.HelCam.Common.Util
-import Data.List
 
-type InstructionCounter = Address
-newtype InstructionStack = IS [Address]
-type Memory = [Value]
-newtype DataStack = DS Memory
-newtype Heap = H Memory
+type Memory = HalfTape Symbol
+newtype Stack = Stack Memory
+newtype Heap = Heap Memory
+
+type InstructionCounter = InstructionAddress
+newtype InstructionStack = IS [InstructionAddress]
 
 data InstructionControl = IC InstructionCounter InstructionStack InstructionList
 
-doBinary :: BinaryOperator -> Value -> Value -> Value
-doBinary Add v v' = v' + v
-doBinary Sub v v' = v' - v
-doBinary Mul v v' = v' * v
-doBinary Div v v' = v' `div` v
-doBinary Mod v v' = v' `mod` v
+doBinary :: BinaryOperator -> Symbol -> Symbol -> Symbol
+doBinary Add s s' = s' + s
+doBinary Sub s s' = s' - s
+doBinary Mul s s' = s' * s
+doBinary Div s s' = s' `div` s
+doBinary Mod s s' = s' `mod` s
 
-doBranchTest :: BranchTest -> Value -> Bool
-doBranchTest EZ  value = value == 0
-doBranchTest Neg value = value < 0
+doBranchTest :: BranchTest -> Symbol -> Bool
+doBranchTest EZ  s = s == 0
+doBranchTest Neg s = s < 0
 
-findAddress :: InstructionList -> Identifier -> Address
+findAddress :: InstructionList -> Label -> InstructionAddress
 findAddress = findAddress' 0
 
-findAddress' :: Address -> InstructionList -> Identifier -> Address
-findAddress' _       []                  identifier = error $ "Undefined identifier (" ++ show identifier  ++ ")"
-findAddress' address ((Label identifier'):il) identifier
-  | identifier == identifier'                       = address
-  | otherwise                                       = findAddress' (address+1) il identifier
-findAddress' address (_:il)              identifier = findAddress' (address+1) il identifier
+findAddress' :: InstructionAddress -> InstructionList -> Label -> InstructionAddress
+findAddress' _       []             l = error $ "Undefined label (" ++ show l  ++ ")"
+findAddress' address ((Mark l'):il) l
+  | l == l'                           = address
+  | otherwise                         = findAddress' (address+1) il l
+findAddress' address (_:il)         l = findAddress' (address+1) il l
 
-load :: Value -> Heap -> Value
-load pointer (H h) = genericIndex h pointer
+load :: Heap -> Symbol -> Symbol
+load (Heap tape) = loadFromHalfTape tape
 
-store :: Value -> Value -> Heap -> Heap
-store value pointer (H heap) = H $ store' value pointer heap where
-  store' v 0 []     = [v]
-  store' v 0 (_:h)  = v:h
-  store' v p []     = 0 : (store' v (p-1) [])
-  store' v p (v':h) = v': (store' v (p-1) h)
+store :: Symbol -> Symbol -> D Heap
+store address value (Heap tape) = Heap $ storeToHalfTape address value tape
 
-storeNum :: String -> Value -> Heap -> Heap
-storeNum line = store (readOrError line :: Integer)
+storeNum :: Symbol -> String -> D Heap
+storeNum address line = store address (readOrError line :: Integer)
