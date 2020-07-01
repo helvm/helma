@@ -1,13 +1,15 @@
 module Main(main) where
 
 import HelVM.HelCam.Common.FilterIf0Test
-import HelVM.HelCam.BrainFuck.TokensTest
-import HelVM.HelCam.BrainFuck.Evaluator.InteractEvaluatorTest
-import HelVM.HelCam.BrainFuck.Evaluator.MonadicEvaluatorTest
-import HelVM.HelCam.WhiteSpace.OperandParsersTest
-import HelVM.HelCam.WhiteSpace.ParserTest
-import HelVM.HelCam.WhiteSpace.Evaluator.InteractEvaluatorTest
-import HelVM.HelCam.WhiteSpace.Evaluator.MonadicEvaluatorTest
+
+import HelVM.HelCam.Machines.BrainFuck.TokensTest
+import HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluatorTest
+import HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluatorTest
+
+import HelVM.HelCam.Machines.WhiteSpace.OperandParsersTest
+import HelVM.HelCam.Machines.WhiteSpace.ParserTest
+import HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluatorTest
+import HelVM.HelCam.Machines.WhiteSpace.Evaluator.MonadicEvaluatorTest
 
 import Test.HUnit
 

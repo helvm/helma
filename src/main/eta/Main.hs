@@ -3,15 +3,15 @@
 module Main where
 
 import HelVM.HelCam.Common.Util
-import HelVM.HelCam.BrainFuck.Evaluator
-import HelVM.HelCam.WhiteSpace.Evaluator
-import HelVM.HelCam.WhiteSpace.Parser
-import HelVM.HelCam.WhiteSpace.Lexer
+import HelVM.HelCam.Machines.BrainFuck.Evaluator
+import HelVM.HelCam.Machines.WhiteSpace.Evaluator
+import HelVM.HelCam.Machines.WhiteSpace.Parser
+import HelVM.HelCam.Machines.WhiteSpace.Lexer
 
-import qualified HelVM.HelCam.BrainFuck.Evaluator.InteractEvaluator  as BFIE (interactEvalBF)
-import qualified HelVM.HelCam.BrainFuck.Evaluator.MonadicEvaluator   as BFME (monadicEvalBF)
-import qualified HelVM.HelCam.WhiteSpace.Evaluator.InteractEvaluator as WSIE (interactEvalWS)
-import qualified HelVM.HelCam.WhiteSpace.Evaluator.MonadicEvaluator  as WSME (monadicEvalWS)
+import qualified HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluator  as BFIE (interactEvalBF)
+import qualified HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluator   as BFME (monadicEvalBF)
+import qualified HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluator as WSIE (interactEvalWS)
+import qualified HelVM.HelCam.Machines.WhiteSpace.Evaluator.MonadicEvaluator  as WSME (monadicEvalWS)
 
 import AppOptions
 

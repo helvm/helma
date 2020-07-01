@@ -26,26 +26,29 @@ source-repository head
 
 library
   other-modules:
-        HelVM.HelCam.BrainFuck.Token
-        HelVM.HelCam.BrainFuck.Symbol
-        HelVM.HelCam.BrainFuck.TableOfInstructions
-        HelVM.HelCam.WhiteSpace.EvaluatorUtil
-        HelVM.HelCam.WhiteSpace.Lexer
+        HelVM.HelCam.Machines.BrainFuck.Token
+        HelVM.HelCam.Machines.BrainFuck.Symbol
+        HelVM.HelCam.Machines.BrainFuck.TableOfInstructions
+
+        HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil
+        HelVM.HelCam.Machines.WhiteSpace.Lexer
   exposed-modules:
         HelVM.HelCam.Common.Tape
         HelVM.HelCam.Common.Util
         HelVM.HelCam.Common.WrapperIO
         HelVM.HelCam.Common.FilterIf0
-        HelVM.HelCam.BrainFuck.Evaluator.InteractEvaluator
-        HelVM.HelCam.BrainFuck.Evaluator.MonadicEvaluator
-        HelVM.HelCam.BrainFuck.Lexer
-        HelVM.HelCam.BrainFuck.TapeOfSymbols
-        HelVM.HelCam.WhiteSpace.Evaluator.InteractEvaluator
-        HelVM.HelCam.WhiteSpace.Evaluator.MonadicEvaluator
-        HelVM.HelCam.WhiteSpace.Instruction
-        HelVM.HelCam.WhiteSpace.OperandParsers
-        HelVM.HelCam.WhiteSpace.Parser
-        HelVM.HelCam.WhiteSpace.Token
+
+        HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluator
+        HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluator
+        HelVM.HelCam.Machines.BrainFuck.Lexer
+        HelVM.HelCam.Machines.BrainFuck.TapeOfSymbols
+
+        HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluator
+        HelVM.HelCam.Machines.WhiteSpace.Evaluator.MonadicEvaluator
+        HelVM.HelCam.Machines.WhiteSpace.Instruction
+        HelVM.HelCam.Machines.WhiteSpace.OperandParsers
+        HelVM.HelCam.Machines.WhiteSpace.Parser
+        HelVM.HelCam.Machines.WhiteSpace.Token
   other-extensions:
   build-depends:
       base >=4.8
@@ -60,15 +63,17 @@ test-suite helcam-test
   other-modules:
         HelVM.HelCam.Common.MockIO
         HelVM.HelCam.Common.FilterIf0Test
-        HelVM.HelCam.BrainFuck.TokensTest
-        HelVM.HelCam.BrainFuck.Evaluator.InteractEvaluatorTest
-        HelVM.HelCam.BrainFuck.Evaluator.MonadicEvaluatorTest
-        HelVM.HelCam.BrainFuck.EvaluatorTestData
-        HelVM.HelCam.WhiteSpace.ParserTest
-        HelVM.HelCam.WhiteSpace.Evaluator.InteractEvaluatorTest
-        HelVM.HelCam.WhiteSpace.Evaluator.MonadicEvaluatorTest
-        HelVM.HelCam.WhiteSpace.EvaluatorTestData
-        HelVM.HelCam.WhiteSpace.OperandParsersTest
+
+        HelVM.HelCam.Machines.BrainFuck.TokensTest
+        HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluatorTest
+        HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluatorTest
+        HelVM.HelCam.Machines.BrainFuck.EvaluatorTestData
+
+        HelVM.HelCam.Machines.WhiteSpace.ParserTest
+        HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluatorTest
+        HelVM.HelCam.Machines.WhiteSpace.Evaluator.MonadicEvaluatorTest
+        HelVM.HelCam.Machines.WhiteSpace.EvaluatorTestData
+        HelVM.HelCam.Machines.WhiteSpace.OperandParsersTest
   other-extensions:
   build-depends:
       base >=4.8
@@ -87,23 +92,25 @@ executable helcam
         HelVM.HelCam.Common.Tape
         HelVM.HelCam.Common.Util
         HelVM.HelCam.Common.WrapperIO
-        HelVM.HelCam.BrainFuck.Evaluator
-        HelVM.HelCam.BrainFuck.Evaluator.InteractEvaluator
-        HelVM.HelCam.BrainFuck.Evaluator.MonadicEvaluator
-        HelVM.HelCam.BrainFuck.Lexer
-        HelVM.HelCam.BrainFuck.Symbol
-        HelVM.HelCam.BrainFuck.TableOfInstructions
-        HelVM.HelCam.BrainFuck.TapeOfSymbols
-        HelVM.HelCam.BrainFuck.Token
-        HelVM.HelCam.WhiteSpace.Evaluator
-        HelVM.HelCam.WhiteSpace.Evaluator.InteractEvaluator
-        HelVM.HelCam.WhiteSpace.Evaluator.MonadicEvaluator
-        HelVM.HelCam.WhiteSpace.EvaluatorUtil
-        HelVM.HelCam.WhiteSpace.Instruction
-        HelVM.HelCam.WhiteSpace.Lexer
-        HelVM.HelCam.WhiteSpace.OperandParsers
-        HelVM.HelCam.WhiteSpace.Parser
-        HelVM.HelCam.WhiteSpace.Token
+
+        HelVM.HelCam.Machines.BrainFuck.Evaluator
+        HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluator
+        HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluator
+        HelVM.HelCam.Machines.BrainFuck.Lexer
+        HelVM.HelCam.Machines.BrainFuck.Symbol
+        HelVM.HelCam.Machines.BrainFuck.TableOfInstructions
+        HelVM.HelCam.Machines.BrainFuck.TapeOfSymbols
+        HelVM.HelCam.Machines.BrainFuck.Token
+
+        HelVM.HelCam.Machines.WhiteSpace.Evaluator
+        HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluator
+        HelVM.HelCam.Machines.WhiteSpace.Evaluator.MonadicEvaluator
+        HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil
+        HelVM.HelCam.Machines.WhiteSpace.Instruction
+        HelVM.HelCam.Machines.WhiteSpace.Lexer
+        HelVM.HelCam.Machines.WhiteSpace.OperandParsers
+        HelVM.HelCam.Machines.WhiteSpace.Parser
+        HelVM.HelCam.Machines.WhiteSpace.Token
   other-extensions:
   build-depends:
       base >=4.8
