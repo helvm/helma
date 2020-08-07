@@ -46,6 +46,19 @@ library
         HelVM.HelCam.Machines.BrainFuck.Lexer
         HelVM.HelCam.Machines.BrainFuck.TapeOfSymbols
 
+        HelVM.HelCam.Machines.ETA.Evaluator
+        HelVM.HelCam.Machines.ETA.Evaluator.InteractEvaluator
+        HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluator
+        HelVM.HelCam.Machines.ETA.EvaluatorUtil
+        HelVM.HelCam.Machines.ETA.Lexer
+        HelVM.HelCam.Machines.ETA.Token
+
+        HelVM.HelCam.Machines.SubLeq.Evaluator
+        HelVM.HelCam.Machines.SubLeq.Evaluator.InteractEvaluator
+        HelVM.HelCam.Machines.SubLeq.Evaluator.MonadicEvaluator
+        HelVM.HelCam.Machines.SubLeq.EvaluatorUtil
+        HelVM.HelCam.Machines.SubLeq.Lexer
+
         HelVM.HelCam.Machines.WhiteSpace.Evaluator
         HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluator
         HelVM.HelCam.Machines.WhiteSpace.Evaluator.MonadicEvaluator
@@ -73,6 +86,16 @@ test-suite helcam-test
         HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluatorTest
         HelVM.HelCam.Machines.BrainFuck.EvaluatorTest
         HelVM.HelCam.Machines.BrainFuck.EvaluatorTestData
+        
+        HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluatorTest
+        HelVM.HelCam.Machines.ETA.EvaluatorTestData
+        HelVM.HelCam.Machines.ETA.EvaluatorUtilTest
+        HelVM.HelCam.Machines.ETA.LexerTest
+        
+        HelVM.HelCam.Machines.SubLeq.Evaluator.InteractEvaluatorTest
+        HelVM.HelCam.Machines.SubLeq.Evaluator.MonadicEvaluatorTest
+        HelVM.HelCam.Machines.SubLeq.EvaluatorTest
+        HelVM.HelCam.Machines.SubLeq.EvaluatorTestData
 
         HelVM.HelCam.Machines.WhiteSpace.ParserTest
         HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluatorTest
@@ -109,6 +132,19 @@ executable helcam
         HelVM.HelCam.Machines.BrainFuck.TableOfInstructions
         HelVM.HelCam.Machines.BrainFuck.TapeOfSymbols
         HelVM.HelCam.Machines.BrainFuck.Token
+
+        HelVM.HelCam.Machines.ETA.Evaluator
+        HelVM.HelCam.Machines.ETA.Evaluator.InteractEvaluator
+        HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluator
+        HelVM.HelCam.Machines.ETA.EvaluatorUtil
+        HelVM.HelCam.Machines.ETA.Lexer
+        HelVM.HelCam.Machines.ETA.Token
+
+        HelVM.HelCam.Machines.SubLeq.Evaluator
+        HelVM.HelCam.Machines.SubLeq.Evaluator.InteractEvaluator
+        HelVM.HelCam.Machines.SubLeq.Evaluator.MonadicEvaluator
+        HelVM.HelCam.Machines.SubLeq.EvaluatorUtil
+        HelVM.HelCam.Machines.SubLeq.Lexer
 
         HelVM.HelCam.Machines.WhiteSpace.Evaluator
         HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluator

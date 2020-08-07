@@ -1,5 +1,9 @@
 # Revision history for HelCam
 
+## 0.6.0.0  -- 2020-08-07
+
+* Add Evaluator of ETA and SubLeq
+
 ## 0.5.0.0  -- 2020-06-30
 
 * Add CLI Options Parser

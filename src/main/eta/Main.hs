@@ -8,6 +8,16 @@ import qualified HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluator   a
 import qualified HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluator    as BFME   (monadicEval)
 import qualified HelVM.HelCam.Machines.BrainFuck.Evaluator                     as BF
 
+import qualified HelVM.HelCam.Machines.ETA.Evaluator.InteractEvaluator         as ETAIE  (interactEval)
+import qualified HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluator          as ETAME  (monadicEval)
+import qualified HelVM.HelCam.Machines.ETA.Evaluator                           as ETA
+import qualified HelVM.HelCam.Machines.ETA.Lexer                               as ETA
+
+import qualified HelVM.HelCam.Machines.SubLeq.Evaluator.InteractEvaluator      as SQIE   (interactEval)
+import qualified HelVM.HelCam.Machines.SubLeq.Evaluator.MonadicEvaluator       as SQME   (monadicEval)
+import qualified HelVM.HelCam.Machines.SubLeq.Evaluator                        as SQ
+import qualified HelVM.HelCam.Machines.SubLeq.Lexer                            as SQ
+
 import qualified HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluator  as WSIE   (interactEval)
 import qualified HelVM.HelCam.Machines.WhiteSpace.Evaluator.MonadicEvaluator   as WSME   (monadicEval)
 import qualified HelVM.HelCam.Machines.WhiteSpace.Evaluator                    as WS
@@ -42,6 +52,18 @@ eval BF   _    _    _ True Interact = BFIE.interactEval
 eval BF   _    _    _ True _        = BFME.monadicEval
 eval BF   _    _    _ _    Interact = BF.interactEval
 eval BF   _    _    _ _    _        = BF.monadicEval
+
+eval ETA  True _    _ _    _        = print . ETA.tokenize
+eval ETA  _    _    _ True Interact = ETAIE.interactEval
+eval ETA  _    _    _ True _        = ETAME.monadicEval
+eval ETA  _    _    _ _    Interact = ETA.interactEval
+eval ETA  _    _    _ _    _        = ETA.monadicEval
+
+eval SQ   True _    _ _    _        = print . SQ.tokenize
+eval SQ   _    _    _ True Interact = SQIE.interactEval
+eval SQ   _    _    _ True _        = SQME.monadicEval
+eval SQ   _    _    _ _    Interact = SQ.interactEval
+eval SQ   _    _    _ _    _        = SQ.monadicEval
 
 eval WS   True _    _ _    _        = print . WS.tokenize
 eval WS   _    True a _    _        = pPrintNoColor . WS.parse a

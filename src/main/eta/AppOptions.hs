@@ -70,11 +70,11 @@ type Exec        = Bool
 
 ----
 
-data Lang = Cat | BF | WS
+data Lang = Cat | BF | ETA | SQ | WS
   deriving (Eq, Read, Show)
 
 langs :: [Lang]
-langs = [Cat, BF, WS]
+langs = [Cat, BF, ETA, SQ, WS]
 
 computeLang :: String -> Lang
 computeLang raw = valid $ readMaybe raw where
