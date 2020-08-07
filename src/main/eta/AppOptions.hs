@@ -43,6 +43,11 @@ optionParser = AppOptions
                    <> value (show Monadic)
                    <> showDefault
                    )
+  <*> switch       (  long    "exec"
+                   <> short   'e'
+                   <> help    "Exec"
+                   <> showDefault
+                   )
   <*> argument str (  metavar "FILE")
                      
 
@@ -53,6 +58,7 @@ data AppOptions = AppOptions
   , asciiLabels :: AsciiLabels
   , etaMode     :: EtaMode
   , impl        :: String      -- Impl
+  , exec        :: Exec
   , file        :: String
   }
 
@@ -60,6 +66,7 @@ type EmitIL      = Bool
 type EmitTL      = Bool
 type AsciiLabels = Bool
 type EtaMode     = Bool
+type Exec        = Bool
 
 ----
 

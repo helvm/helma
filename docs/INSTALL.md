@@ -19,6 +19,7 @@ curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh | sh -s .
 
 Compile and run with `cabal`:
 ```bash
+cabal update
 cabal clean && cabal build && cabal test
 cabal new-test --test-show-details=streaming
 cabal run helcam

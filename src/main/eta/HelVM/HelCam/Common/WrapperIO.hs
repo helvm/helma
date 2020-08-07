@@ -25,10 +25,13 @@ class Monad m => WrapperIO m where
   wFlush    :: m ()
   wGetInt   :: m Int
   wPutInt   :: Integral i => i -> m ()
+  wLogStr   :: String -> m ()
+  wLogStrLn   :: String -> m ()
   wPutStrLn s = wPutStr $ s ++ "\n"
   wFlush = return ()
   wPutInt value = wPutChar (chr (fromIntegral value))
   wGetInt = do ord <$> wGetChar
+  wLogStrLn s = wLogStr $ s ++ "\n"
 
 instance WrapperIO IO where
   wGetChar  = getChar
@@ -37,3 +40,4 @@ instance WrapperIO IO where
   wPutStr   = putStr
   wPutStrLn = putStrLn
   wFlush    = hFlush stdout
+  wLogStr   = hPutStr stderr

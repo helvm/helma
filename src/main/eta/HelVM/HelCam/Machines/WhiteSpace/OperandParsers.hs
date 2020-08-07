@@ -47,10 +47,7 @@ splitByN (t:tokens) = (t:acc, tokens') where (acc, tokens') = splitByN tokens
 ----
 
 makeIntegral :: (Integral a) => TokenList -> a
-makeIntegral = foldr (shiftAndAdd . toBit) 0
-
-shiftAndAdd :: (Integral a) => a -> a -> a
-shiftAndAdd bit acc = acc * 2 + bit
+makeIntegral = foldr (mul2AndAdd . toDigit) 0
 
 makeBitString :: TokenList -> String
 makeBitString = map toBitChar

@@ -7,9 +7,17 @@ data Token =  S | T | N
 
 type TokenList = [Token]
 
+toDigit :: (Num a) => Token -> a
+toDigit S = 0
+toDigit T = 1
+toDigit N = error $ show N
+
+toBitChar :: Token -> Char
+toBitChar = intToDigit . toDigit
+
 ----
 
-newtype WhiteToken = WhiteToken Token
+newtype WhiteToken = WhiteToken Token deriving (Eq)
 
 instance Show WhiteToken where
   show (WhiteToken S) = " "
@@ -25,15 +33,6 @@ instance Read WhiteToken where
 
 type WhiteTokenList = [WhiteToken]
 
-----
-
 whiteTokenToToken :: WhiteToken -> Token
 whiteTokenToToken (WhiteToken token) = token
 
-toBit :: (Num a) => Token -> a
-toBit S = 0
-toBit T = 1
-toBit N = error $ show N
-
-toBitChar :: Token -> Char
-toBitChar = intToDigit . toBit

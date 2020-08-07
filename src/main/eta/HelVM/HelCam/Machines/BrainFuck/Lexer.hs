@@ -8,8 +8,8 @@ import Data.Maybe
 import Text.Read
 
 -- Lexer
-tokenizeBF :: String -> TokenList
-tokenizeBF =  tokenList . readTokens
+tokenize :: String -> TokenList
+tokenize =  tokenList . readTokens
 
 readTokens :: String -> Tokens
 readTokens source = read source :: Tokens

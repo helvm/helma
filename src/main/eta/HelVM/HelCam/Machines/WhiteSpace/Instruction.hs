@@ -11,7 +11,7 @@ data Instruction =
   | Discard
   | Binary BinaryOperator
   | Store
-  | Load
+  | Load  --Restore
   | Mark Label
   | Call Label
   | Jump Label

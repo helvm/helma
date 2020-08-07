@@ -10,15 +10,15 @@ import Test.HUnit
 
 testsOfWSMonadicEvaluator :: Test
 testsOfWSMonadicEvaluator = test
-  [ "evalWSHelloWorld"    ~: "test evalWSIL Hello, world"  ~: "Hello, world" ~=? batchExecMockIO (evalWSIL helloWorldIL        )
-  , "evalWSTruthMachine0" ~: "test evalWSIL Truth-Machine" ~: "0"            ~=? execMockIO      (evalWSIL truthMachineIL      ) "0"
-  , "evalCalcTL"          ~: "test evalWSTL Calc"          ~: calcO          ~=? execMockIO      (evalWSTL False calcTL        ) "-1\n"
-  , "evalCountTL"         ~: "test evalWSTL Count"         ~: countO         ~=? batchExecMockIO (evalWSTL False countTL       )
-  , "evalFactTL"          ~: "test evalWSTL Fact"          ~: factO          ~=? execMockIO      (evalWSTL False factTL        ) "10\n"
-  , "evalHanoiTL"         ~: "test evalWSTL Hanoi"         ~: hanoiO         ~=? execMockIO      (evalWSTL False hanoiTL       ) "1\n"
-  , "evalHelloWorldTL"    ~: "test evalWSTL HelloWorld"    ~: "Hello, world" ~=? batchExecMockIO (evalWSTL False helloWorldTL  )
-  , "evalHWorldTL"        ~: "test evalWSTL HWorld"        ~: hWorldO        ~=? batchExecMockIO (evalWSTL False hWorldTL      )
-  , "evalLocTestTL"       ~: "test evalWSTL LocTest"       ~: locTestO       ~=? execMockIO      (evalWSTL False locTestTL     ) "1\n2\n"
-  , "evalNameTL"          ~: "test evalWSTL Name"          ~: nameO          ~=? execMockIO      (evalWSTL False nameTL        ) "WriteOnly\n"
-  , "evalTruthMachineTL"  ~: "test evalWSTL TruthMachine"  ~: "0"            ~=? execMockIO      (evalWSTL False truthMachineTL) "0\n"
+  [ "evalHelloWorld"    ~: "test evalIL Hello, world"  ~: "Hello, world" ~=? batchExecMockIO (evalIL helloWorldIL        )
+  , "evalTruthMachine0" ~: "test evalIL Truth-Machine" ~: "0"            ~=? execMockIO      (evalIL truthMachineIL      ) "0"
+  , "evalCalcTL"          ~: "test evalTL Calc"          ~: calcO          ~=? execMockIO      (evalTL False calcTL        ) "-1\n"
+  , "evalCountTL"         ~: "test evalTL Count"         ~: countO         ~=? batchExecMockIO (evalTL False countTL       )
+  , "evalFactTL"          ~: "test evalTL Fact"          ~: factO          ~=? execMockIO      (evalTL False factTL        ) "10\n"
+  , "evalHanoiTL"         ~: "test evalTL Hanoi"         ~: hanoiO         ~=? execMockIO      (evalTL False hanoiTL       ) "1\n"
+  , "evalHelloWorldTL"    ~: "test evalTL HelloWorld"    ~: "Hello, world" ~=? batchExecMockIO (evalTL False helloWorldTL  )
+  , "evalHWorldTL"        ~: "test evalTL HWorld"        ~: hWorldO        ~=? batchExecMockIO (evalTL False hWorldTL      )
+  , "evalLocTestTL"       ~: "test evalTL LocTest"       ~: locTestO       ~=? execMockIO      (evalTL False locTestTL     ) "1\n2\n"
+  , "evalNameTL"          ~: "test evalTL Name"          ~: nameO          ~=? execMockIO      (evalTL False nameTL        ) "WriteOnly\n"
+  , "evalTruthMachineTL"  ~: "test evalTL TruthMachine"  ~: "0"            ~=? execMockIO      (evalTL False truthMachineTL) "0\n"
   ]

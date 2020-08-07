@@ -14,7 +14,7 @@ storeToFullTape :: (Integral address, Num value) => address -> value -> FullTape
 storeToFullTape a v (left, right)
   | 0 <= a    = (left, right')
   | otherwise = (left', right)
-  where
+  where 
     right' = storeToHalfTape'   a  v right
     left'  = storeToHalfTape' (-a) v left
 

@@ -1,4 +1,4 @@
-module HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluator (interactEvalBF, batchEvalBFInt8, batchEvalBFWord8) where
+module HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluator (interactEval, batchEvalInt8, batchEvalWord8) where
 
 import HelVM.HelCam.Machines.BrainFuck.Symbol
 import HelVM.HelCam.Machines.BrainFuck.TableOfInstructions
@@ -11,23 +11,23 @@ import HelVM.HelCam.Common.Util
 import Data.Int
 import Data.Word
 
-interactEvalBF :: Source -> IO ()
-interactEvalBF source = interact (evalBFWord8 source)
+interactEval :: Source -> IO ()
+interactEval source = interact (evalWord8 source)
 
-batchEvalBFInt8 :: Source -> Output
-batchEvalBFInt8 = flip evalBFInt8 ([]::String)
+batchEvalInt8 :: Source -> Output
+batchEvalInt8 = flip evalInt8 ([]::String)
 
-batchEvalBFWord8 :: Source -> Output
-batchEvalBFWord8  = flip evalBFWord8 ([]::String)
+batchEvalWord8 :: Source -> Output
+batchEvalWord8  = flip evalWord8 ([]::String)
 
-evalBFInt8 :: Source -> Interact
-evalBFInt8 = flip evalBF (newTape :: FullTape Int8)
+evalInt8 :: Source -> Interact
+evalInt8 = flip eval (newTape :: FullTape Int8)
 
-evalBFWord8 :: Source -> Interact
-evalBFWord8  = flip evalBF (newTape :: FullTape Word8)
+evalWord8 :: Source -> Interact
+evalWord8  = flip eval (newTape :: FullTape Word8)
 
-evalBF :: Symbol s => Source -> FullTape s -> Interact
-evalBF source = doInstruction ([], tokenizeBF source)
+eval :: Symbol s => Source -> FullTape s -> Interact
+eval source = doInstruction ([], tokenize source)
 
 doInstruction :: Symbol s => Table -> FullTape s -> Interact
 doInstruction table@(_, MoveR   :_) tape = doInstruction    (nextInst table) (moveHeadRight tape)

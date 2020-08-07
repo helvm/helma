@@ -1,4 +1,4 @@
-module HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluator (monadicEvalBF, evalBFInt8, evalBFWord8, evalBF) where
+module HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluator (monadicEval, evalInt8, evalWord8, eval) where
 
 import HelVM.HelCam.Machines.BrainFuck.Symbol
 import HelVM.HelCam.Machines.BrainFuck.TableOfInstructions
@@ -12,17 +12,17 @@ import HelVM.HelCam.Common.Util
 import Data.Int
 import Data.Word
 
-monadicEvalBF :: Source -> IO ()
-monadicEvalBF = evalBFWord8
+monadicEval :: Source -> IO ()
+monadicEval = evalWord8
 
-evalBFInt8 :: WrapperIO m => Source -> m ()
-evalBFInt8 = flip evalBF (newTape :: FullTape Int8)
+evalInt8 :: WrapperIO m => Source -> m ()
+evalInt8 = flip eval (newTape :: FullTape Int8)
 
-evalBFWord8 :: WrapperIO m => Source -> m ()
-evalBFWord8  = flip evalBF (newTape :: FullTape Word8)
+evalWord8 :: WrapperIO m => Source -> m ()
+evalWord8  = flip eval (newTape :: FullTape Word8)
 
-evalBF :: (Symbol s, WrapperIO m) => Source -> FullTape s -> m ()
-evalBF source =  doInstruction ([], tokenizeBF source)
+eval :: (Symbol s, WrapperIO m) => Source -> FullTape s -> m ()
+eval source =  doInstruction ([], tokenize source)
 
 --
 

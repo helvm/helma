@@ -1,7 +1,7 @@
 module HelVM.HelCam.Common.Util where
 
+import Data.Char
 import Data.List
-import Text.Read
 
 type D a = a -> a
 
@@ -19,15 +19,6 @@ chunksOf n list
   | n > 0 = take n list : chunksOf n (drop n list)
   | otherwise = error "Non positive n"
 
--- StringUtil
-
-charToString :: Char -> String
-charToString = (:[])
-
-splitStringByEndLine :: String -> (String, String)
-splitStringByEndLine = splitBy '\n'
-
--- ListUtil
 toList :: a -> [a]
 toList = (:[])
 
@@ -45,7 +36,24 @@ splitBy separator xs = split $ elemIndex separator xs where
   split Nothing      = (xs, [])
   split (Just index) = (acc, xs') where (acc, _:xs') = splitAt index xs
 
-readOrError :: Read a => String -> a
-readOrError raw = match $ readEither raw where
-  match (Right result) = result
-  match (Left message) = error $ message ++ " [" ++ raw ++ "]"
+-- StringUtil
+
+charToString :: Char -> String
+charToString = (:[])
+
+splitStringByEndLine :: String -> (String, String)
+splitStringByEndLine = splitBy '\n'
+
+toUppers :: Source -> Source
+toUppers = map toUpper
+
+-- other
+
+mulAndAdd :: (Integral a) => a -> a -> a -> a
+mulAndAdd base digit acc = acc * base + digit
+
+mul2AndAdd :: (Integral a) => a -> a -> a
+mul2AndAdd = mulAndAdd 2
+
+mul7AndAdd :: (Integral a) => a -> a -> a
+mul7AndAdd = mulAndAdd 7

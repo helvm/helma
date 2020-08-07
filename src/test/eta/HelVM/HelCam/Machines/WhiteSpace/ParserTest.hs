@@ -8,7 +8,7 @@ import Test.HUnit
 
 testsOfWSParser :: Test
 testsOfWSParser = TestList
-  [ "testOfParseCat"          ~: "cat"                     ~: catIL          ~=? parseWSTL False catTL
-  , "testOfParseHelloWorld"   ~: "helloWorld"              ~: helloWorldIL   ~=? parseWSTL False helloWorldTL
-  , "testOfParseTruthMachine" ~: "testOfParseTruthMachine" ~: truthMachineIL ~=? parseWSTL False truthMachineTL
+  [ "testOfParseCat"          ~: "cat"                     ~: catIL          ~=? parseTL False catTL
+  , "testOfParseHelloWorld"   ~: "helloWorld"              ~: helloWorldIL   ~=? parseTL False helloWorldTL
+  , "testOfParseTruthMachine" ~: "testOfParseTruthMachine" ~: truthMachineIL ~=? parseTL False truthMachineTL
   ]

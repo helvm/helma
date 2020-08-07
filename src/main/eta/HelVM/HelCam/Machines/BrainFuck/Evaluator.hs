@@ -7,20 +7,21 @@ import HelVM.HelCam.Machines.BrainFuck.TapeOfSymbols
 import HelVM.HelCam.Machines.BrainFuck.Token
 import HelVM.HelCam.Machines.BrainFuck.Lexer
 
+import HelVM.HelCam.Common.MockIO
 import HelVM.HelCam.Common.Util
 
 import Data.Int
 import Data.Word
 
 class Evaluator r where
-  evalBFInt8 :: Source -> r
-  evalBFInt8 = flip evalBF (newTape :: FullTape Int8)
+  evalInt8 :: Source -> r
+  evalInt8 = flip eval (newTape :: FullTape Int8)
 
-  evalBFWord8 :: Source -> r
-  evalBFWord8  = flip evalBF (newTape :: FullTape Word8)
+  evalWord8 :: Source -> r
+  evalWord8  = flip eval (newTape :: FullTape Word8)
 
-  evalBF :: Symbol s => Source -> FullTape s -> r
-  evalBF source = doInstruction ([], tokenizeBF source)
+  eval :: Symbol s => Source -> FullTape s -> r
+  eval source = doInstruction ([], tokenize source)
 
   doInstruction :: Symbol s => Table -> FullTape s -> r
   doInstruction table@(_, MoveR   :_) tape = doInstruction    (nextInst table) (moveHeadRight tape)
@@ -47,14 +48,14 @@ class Evaluator r where
 
 ----
 
-interactEvalBF :: Source -> IO ()
-interactEvalBF source = interact (evalBFWord8 source)
+interactEval :: Source -> IO ()
+interactEval source = interact (evalWord8 source)
 
-batchEvalBFInt8 :: Source -> Output
-batchEvalBFInt8 = flip evalBFInt8 ([]::String)
+batchEvalInt8 :: Source -> Output
+batchEvalInt8 = flip evalInt8 ([]::String)
 
-batchEvalBFWord8 :: Source -> Output
-batchEvalBFWord8  = flip evalBFWord8 ([]::String)
+batchEvalWord8 :: Source -> Output
+batchEvalWord8  = flip evalWord8 ([]::String)
 
 instance Evaluator Interact where
   doInput _     _          []     = error "Empty input"
@@ -67,8 +68,8 @@ instance Evaluator Interact where
 
 ----
 
-monadicEvalBF :: Source -> IO ()
-monadicEvalBF = evalBFWord8
+monadicEval :: Source -> IO ()
+monadicEval = evalWord8
 
 instance Evaluator (IO ()) where
   doInput table tape = do
@@ -78,6 +79,20 @@ instance Evaluator (IO ()) where
   doOutput _          (_, [])       = error "Illegal State"
   doOutput table tape@(_, symbol:_) = do
     putChar $ toChar symbol
+    doInstruction (nextInst table) tape
+
+  doEnd = return ()
+
+----
+
+instance Evaluator (MockIO ()) where
+  doInput table tape = do
+    char <- mockGetChar
+    doInstruction (nextInst table) (writeSymbol char tape)
+
+  doOutput _          (_, [])       = error "Illegal State"
+  doOutput table tape@(_, symbol:_) = do
+    mockPutChar $ toChar symbol
     doInstruction (nextInst table) tape
 
   doEnd = return ()

@@ -5,7 +5,7 @@
 FOR everyone
 WHO want to run esoteric languages
 THE HELCAM IS a Heavenly Esoteric Little Concrete Absolute Machine for Esoteric Languages implemented in Haskell/Eta
-THAT is an Evaluator and an Interpreter for Esoteric Languages  (EsoLangs)
+THAT is an Evaluator and an Interpreter for Esoteric Languages  (EsoMachines)
 ```
 
 ## For User

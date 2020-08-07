@@ -8,8 +8,9 @@ import Data.Maybe
 import Text.Read
 
 -- Lexer
-tokenizeWS :: String -> TokenList
-tokenizeWS =  tokenList . readTokens
+
+tokenize :: String -> TokenList
+tokenize =  tokenList . readTokens
 
 readTokens :: String -> WhiteTokens
 readTokens source = read source :: WhiteTokens
@@ -17,9 +18,9 @@ readTokens source = read source :: WhiteTokens
 tokenList :: WhiteTokens -> TokenList
 tokenList (WhiteTokens tokens) = map whiteTokenToToken tokens
 
-----
+-- WhiteTokens
 
-newtype WhiteTokens = WhiteTokens WhiteTokenList
+newtype WhiteTokens = WhiteTokens WhiteTokenList deriving (Eq)
 
 instance Show WhiteTokens where
   show (WhiteTokens tokens) = tokens >>= show

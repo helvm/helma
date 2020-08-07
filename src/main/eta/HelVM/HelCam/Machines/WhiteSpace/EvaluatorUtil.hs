@@ -2,6 +2,7 @@ module HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil where
 
 import HelVM.HelCam.Machines.WhiteSpace.Instruction
 
+import HelVM.HelCam.Common.OrError
 import HelVM.HelCam.Common.Tape
 import HelVM.HelCam.Common.Util
 
@@ -12,7 +13,7 @@ newtype Heap = Heap Memory
 type InstructionCounter = InstructionAddress
 newtype InstructionStack = IS [InstructionAddress]
 
-data InstructionControl = IC InstructionCounter InstructionStack InstructionList
+data InstructionUnit = IU InstructionList InstructionCounter InstructionStack
 
 doBinary :: BinaryOperator -> Symbol -> Symbol -> Symbol
 doBinary Add s s' = s' + s
