@@ -53,7 +53,7 @@ makeBitString :: TokenList -> String
 makeBitString = map toBitChar
 
 makeAsciiString :: TokenList -> String
-makeAsciiString tokens = map makeChar $ chunksOf 8 tokens
+makeAsciiString tokens = makeChar <$> chunksOf 8 tokens
 
 makeChar :: TokenList -> Char
 makeChar = chr . makeIntegral . reverse

@@ -36,7 +36,7 @@ testsOfETAEvaluatorUtil = TestList
   , "test_nextLabel"  ~: "testNextLineNumber 4" ~:   4 ~=?  nextLabel ertrar 4
   , "test_nextLabel"  ~: "testNextLineNumber 5" ~:   4 ~=?  nextLabel ertrar 5
   , "test_nextLabel"  ~: "testNextLineNumber 6" ~:   5 ~=?  nextLabel ertrar 6
-  
+
   , "test_findAddress" ~: "test findAddress 1"     ~:   0 ~=?  findAddress etaretaretar 1
   , "test_findAddress" ~: "test findAddress 2"     ~:   4 ~=?  findAddress etaretaretar 2
   , "test_findAddress" ~: "test findAddress 3"     ~:   8 ~=?  findAddress etaretaretar 3
@@ -49,7 +49,7 @@ testsOfETAEvaluatorUtil = TestList
   , "test_nextLabel"  ~: "testNextLineNumber 4" ~:   3 ~=?  nextLabel etaretaretar 4
   , "test_nextLabel"  ~: "testNextLineNumber 5" ~:   3 ~=?  nextLabel etaretaretar 5
   , "test_nextLabel"  ~: "testNextLineNumber 6" ~:   3 ~=?  nextLabel etaretaretar 6
-  
+
   , "test_hello"  ~: "test 1 findAddress" ~:       0 ~=? findAddress hello2TL 1
   , "test_hello"  ~: "test 1 nextLabel"   ~:       2 ~=? nextLabel hello2TL 38
 

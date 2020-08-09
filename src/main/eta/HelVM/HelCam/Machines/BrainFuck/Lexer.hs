@@ -22,7 +22,7 @@ tokenList (Tokens tokens) = tokens
 newtype Tokens = Tokens TokenList
 
 instance Show Tokens where
-  show (Tokens tokens) = tokens >>= show
+  show (Tokens tokens) = show =<< tokens
 
 instance Read Tokens where
-  readsPrec _ source = [( Tokens $ source >>= maybeToList . readMaybe . charToString, "")]
+  readsPrec _ source = [( Tokens $ maybeToList . readMaybe . charToString =<< source, "")]

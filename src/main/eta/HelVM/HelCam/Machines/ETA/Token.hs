@@ -24,7 +24,7 @@ toString Nothing = ""
 
 newtype WhiteToken = WhiteToken Token deriving (Eq)
 
-type WhiteTokenList = [WhiteToken] 
+type WhiteTokenList = [WhiteToken]
 
 instance Show WhiteToken where
   show (WhiteToken R) = "\n"
@@ -42,8 +42,6 @@ instance Read WhiteToken where
   readsPrec _ "S" = [( WhiteToken S , "")]
   readsPrec _ "H" = [( WhiteToken H , "")]
   readsPrec _ _   = []
-  
---  readsPrec _ s    = map tokenToWhiteTokenPair (maybeToList $ readMaybe s) 
 
 tokenToWhiteTokenPair :: Token -> (WhiteToken, String)
 tokenToWhiteTokenPair t = (WhiteToken t, "")

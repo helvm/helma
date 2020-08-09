@@ -31,10 +31,10 @@ import System.IO
 import Text.Pretty.Simple
 
 main :: IO ()
-main = execParser opts >>= run where
+main = run =<< execParser opts where
   opts = info (optionParser <**> helper)
       ( fullDesc
-     <> header "HelCam: The Interpreter of BrainFuck and WhiteSpace"
+     <> header "HelCam: The Interpreter of BrainFuck, ETA, SubLeq and WhiteSpace"
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
 run :: AppOptions -> IO ()
@@ -42,10 +42,10 @@ run AppOptions{lang, emitTL, emitIL, asciiLabels, etaMode, impl, exec, file} = d
   hSetBuffering stdout NoBuffering
   source <- readFile2 exec file
   eval (computeLang lang) emitTL emitIL asciiLabels etaMode (computeImpl impl) source
-  
+
 readFile2 :: Exec -> String -> IO Source
 readFile2 True file = return   file
-readFile2 _    file = readFile file  
+readFile2 _    file = readFile file
 
 eval :: Lang -> EmitTL -> EmitIL -> AsciiLabels -> EtaMode -> Impl -> Source -> IO ()
 eval BF   _    _    _ True Interact = BFIE.interactEval

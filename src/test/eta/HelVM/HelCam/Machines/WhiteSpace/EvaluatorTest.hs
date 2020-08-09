@@ -10,8 +10,8 @@ import Test.HUnit
 
 testsOfWSEvaluator :: Test
 testsOfWSEvaluator = test
-  [ "evalHelloWorld"    ~: "test evalIL Hello, world"  ~: "Hello, world" ~=? batchEvalIL helloWorldIL
-  , "evalTruthMachine0" ~: "test evalIL Truth-Machine" ~: "0"            ~=? evalIL      truthMachineIL       "0\n"
+  [ "evalHelloWorld"      ~: "test evalIL Hello, world"  ~: "Hello, world" ~=? batchEvalIL helloWorldIL
+  , "evalTruthMachine0"   ~: "test evalIL Truth-Machine" ~: "0"            ~=? evalIL      truthMachineIL       "0\n"
   , "evalCalcTL"          ~: "test evalTL Calc"          ~: calcO          ~=? evalTL      False calcTL        "-1\n"
   , "evalCountTL"         ~: "test evalTL Count"         ~: countO         ~=? batchEvalTL False countTL
   , "evalFactTL"          ~: "test evalTL Fact"          ~: factO          ~=? evalTL      False factTL         "10\n"
@@ -22,8 +22,8 @@ testsOfWSEvaluator = test
   , "evalNameTL"          ~: "test evalTL Name"          ~: nameO          ~=? evalTL      False nameTL         "WriteOnly\n"
   , "evalTruthMachineTL"  ~: "test evalTL TruthMachine"  ~: "0"            ~=? evalTL      False truthMachineTL "0\n"
 
-  , "evalHelloWorld"    ~: "test evalIL Hello, world"  ~: "Hello, world" ~=? batchExecMockIO (evalIL helloWorldIL        )
-  , "evalTruthMachine0" ~: "test evalIL Truth-Machine" ~: "0"            ~=? execMockIO      (evalIL truthMachineIL      ) "0"
+  , "evalHelloWorld"      ~: "test evalIL Hello, world"  ~: "Hello, world" ~=? batchExecMockIO (evalIL helloWorldIL        )
+  , "evalTruthMachine0"   ~: "test evalIL Truth-Machine" ~: "0"            ~=? execMockIO      (evalIL truthMachineIL      ) "0"
   , "evalCalcTL"          ~: "test evalTL Calc"          ~: calcO          ~=? execMockIO      (evalTL False calcTL        ) "-1\n"
   , "evalCountTL"         ~: "test evalTL Count"         ~: countO         ~=? batchExecMockIO (evalTL False countTL       )
   , "evalFactTL"          ~: "test evalTL Fact"          ~: factO          ~=? execMockIO      (evalTL False factTL        ) "10\n"

@@ -7,4 +7,4 @@ import Data.Maybe
 import Text.Read
 
 tokenize :: Source -> [Int]
-tokenize source =  splitOneOf " \t\n" source >>= (maybeToList . readMaybe)
+tokenize source = (maybeToList . readMaybe) =<< splitOneOf " \t\n" source

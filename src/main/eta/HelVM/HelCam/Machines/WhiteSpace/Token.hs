@@ -35,4 +35,3 @@ type WhiteTokenList = [WhiteToken]
 
 whiteTokenToToken :: WhiteToken -> Token
 whiteTokenToToken (WhiteToken token) = token
-

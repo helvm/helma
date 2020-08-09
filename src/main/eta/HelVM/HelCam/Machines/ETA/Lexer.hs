@@ -15,14 +15,14 @@ readTokens :: String -> WhiteTokens
 readTokens source = (read . toUppers) source :: WhiteTokens
 
 toTokenList :: WhiteTokens -> TokenList
-toTokenList (WhiteTokens tokens) = map whiteTokenToToken tokens
+toTokenList (WhiteTokens tokens) = whiteTokenToToken <$> tokens
 
 -- WhiteTokens
 
 newtype WhiteTokens = WhiteTokens WhiteTokenList deriving (Eq)
 
 instance Show WhiteTokens where
-  show (WhiteTokens tokens) = tokens >>= show
+  show (WhiteTokens tokens) = show =<< tokens 
 
 instance Read WhiteTokens where
-  readsPrec _ source = [( WhiteTokens $ source >>= maybeToList . readMaybe . charToString, "")]
+  readsPrec _ source = [( WhiteTokens $ maybeToList . readMaybe . charToString =<< source, "")]

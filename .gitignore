@@ -31,4 +31,4 @@ gradle/
 Gemfile.lock
 _site
 
-
+.hlint-*/
