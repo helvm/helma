@@ -1,9 +1,9 @@
-# BUGS
+# 🐛 BUGS
 
 Know bugs.
 
 *We do not have any know bugs.*
 
-New bugs report by [Github Issues](https://github.com/writeonly/hs-eso-vm/issues).
+New bugs report by [Github Issues](https://github.com/writeonly/helcam/issues).
 
-If you want fix bug read [CONTRIBUTING](CONTRIBUTING.md).
+If you want to fix bug read [CONTRIBUTING](CONTRIBUTING.md) and [COC](CODE_OF_CONDUCT.md).

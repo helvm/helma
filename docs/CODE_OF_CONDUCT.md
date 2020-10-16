@@ -1,4 +1,4 @@
-# COC
+# 🫖 COC
 
 LOL.
 I'm a teapot.

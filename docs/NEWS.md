@@ -1,8 +1,14 @@
-# NEWS
+# 📰 NEWS
 
-**New features.**
+**New interpreters and features.**
 
-* Add Lexer and Evaluator for BrainFuck
-* Add Parser and Evaluator for WhiteSpace
+Currently, 🚁 **HelCam** interpret:
+* 🌈 BrainFuck
+* ❤️ ETA
+* 💙 SubLeq
+* 🤍 WhiteSpace
+
+[comment]: <> (* 💛 Funge)
+[comment]: <> (* 💚 Piet)
 
 For more see [CHANGELOG](CHANGELOG.md).

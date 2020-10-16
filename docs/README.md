@@ -1,5 +1,5 @@
-# HELCAM
-**HELCAM** - Heavenly Esoteric Little Concrete Absolute Machine for Esoteric Languages implemented in Haskell/Eta
+# Welcome to 🚁 HELCAM
+🚁 **HELCAM** - Heavenly Esoteric Little Concrete Absolute Machine for Esoteric Languages implemented in Haskell/Eta
 
 ```
 FOR everyone
@@ -10,10 +10,11 @@ THAT is an Evaluator and an Interpreter for Esoteric Languages  (EsoMachines)
 
 ## For User
 * [INSTALL](INSTALL.md) - How to download, test and run.
-* [TODO](TODO.md) - Features to do.
-* [NEWS](NEWS.md) - New features.
+* [TODO](TODO.md) - Interpreter and features to do.
+* [NEWS](NEWS.md) - New  interpreter and features.
 * [BUGS](BUGS.md) - Know bugs to fix.
 * [FAQ](FAQ.md) -  Frequently Asked Questions & Frequently Given Answers.
+* [Blog](https://writeonly.github.io/projects/helcam) - in Polish.
 
 ## For Developers
 
@@ -23,3 +24,4 @@ THAT is an Evaluator and an Interpreter for Esoteric Languages  (EsoMachines)
 * [CONTRIBUTING](CONTRIBUTING.md)
 * [CODE OF CONDUCT](CODE_OF_CONDUCT.md)
 
+## 🌈 ❤️ 💛 💚 💙 🤍 🖤 🦄

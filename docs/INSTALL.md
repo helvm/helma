@@ -1,48 +1,29 @@
-# INSTALL
+# 🏗️ INSTALL
 
 How to download, test and run.
 
 ## Download
 
+You need a client of `git`:
 ```bash
 git clone https://github.com/helvm/helcam.git
 cd helcam
 ```
 
-## HLint
+## Compile
 
-```bash
-curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh | sh -s .
-```
-
-## Cabal
-
-Compile and run with `cabal`:
+To compile you need `cabal`:
 ```bash
 cabal update
-cabal clean && cabal build && cabal test
-cabal new-test --test-show-details=streaming
-cabal run helcam
+cabal new-clean && cabal new-build && cabal new-test
 ```
 
-## Etlas
+## Run
 
-Compile and run with `etlas`:
+You can run Helpa by `cabal` or directly:
 ```bash
-etlas clean && etlas build && etlas test
-etlas run helcam
-```
-
-## Gradle
-
-Compile and run with `gradlew`:
-```bash
-./gradlew clean -PetaSendMetrics=true
-./gradlew compileEta
-./gradlew compileTestEta
-./gradlew test
-./gradlew run
-./gradlew shadowJar
+cabal run helcam file_to_interpret
+dist-newstyle/build/x86_64-osx/ghc-8.10.1/helcam-0.5.0.0/x/helcam/build/helcam/helcam file_to_interpret
 ```
 
 ## Other

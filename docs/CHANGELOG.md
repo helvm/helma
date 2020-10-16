@@ -1,4 +1,4 @@
-# Revision history for HelCam
+# 📅 Revision history for HelCam
 
 ## 0.6.0.0  -- 2020-08-07
 
