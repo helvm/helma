@@ -1,5 +1,9 @@
 # 📅 Revision history for HelCam
 
+## 0.6.1.0  -- 2021-02-08
+
+* Use `relude` library
+
 ## 0.6.0.0  -- 2020-08-07
 
 * Add Evaluator of ETA and SubLeq
