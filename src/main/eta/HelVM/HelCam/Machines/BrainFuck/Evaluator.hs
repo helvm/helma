@@ -10,8 +10,7 @@ import HelVM.HelCam.Machines.BrainFuck.Lexer
 import HelVM.HelCam.Common.MockIO
 import HelVM.HelCam.Common.Util
 
-import Data.Int
-import Data.Word
+import qualified System.IO as IO
 
 class Evaluator r where
   evalInt8 :: Source -> r
@@ -49,7 +48,7 @@ class Evaluator r where
 ----
 
 interactEval :: Source -> IO ()
-interactEval source = interact (evalWord8 source)
+interactEval source = IO.interact (evalWord8 source)
 
 batchEvalInt8 :: Source -> Output
 batchEvalInt8 = flip evalInt8 ([]::String)
@@ -73,15 +72,15 @@ monadicEval = evalWord8
 
 instance Evaluator (IO ()) where
   doInput table tape = do
-    char <- getChar
+    char <- IO.getChar
     doInstruction (nextInst table) (writeSymbol char tape)
 
   doOutput _          (_, [])       = error "Illegal State"
   doOutput table tape@(_, symbol:_) = do
-    putChar $ toChar symbol
+    IO.putChar $ toChar symbol
     doInstruction (nextInst table) tape
 
-  doEnd = return ()
+  doEnd = pass
 
 ----
 
@@ -95,4 +94,4 @@ instance Evaluator (MockIO ()) where
     mockPutChar $ toChar symbol
     doInstruction (nextInst table) tape
 
-  doEnd = return ()
+  doEnd = pass

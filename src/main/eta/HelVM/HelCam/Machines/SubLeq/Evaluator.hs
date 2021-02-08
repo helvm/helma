@@ -9,8 +9,6 @@ import HelVM.HelCam.Common.Tape
 import HelVM.HelCam.Common.Util
 import HelVM.HelCam.Common.WrapperIO
 
-import Data.Char
-
 class Evaluator r where
   eval :: Source -> r
   eval = evalIL . tokenize
@@ -39,7 +37,7 @@ class Evaluator r where
 ----
 
 interactEval :: Source -> IO ()
-interactEval _ = return ()
+interactEval _ = pass
 
 batchEval :: Source -> Output
 batchEval source = eval source ([]::String)
@@ -61,7 +59,7 @@ monadicEval :: Source -> IO ()
 monadicEval = eval
 
 instance Evaluator (IO ()) where
-  doEnd = return ()
+  doEnd = pass
 
   doInput address ic m = do
     value <- wGetInt
@@ -74,7 +72,7 @@ instance Evaluator (IO ()) where
 ----
 
 instance Evaluator (MockIO ()) where
-  doEnd = return ()
+  doEnd = pass
 
   doInput address ic m = do
     value <- mockGetInt

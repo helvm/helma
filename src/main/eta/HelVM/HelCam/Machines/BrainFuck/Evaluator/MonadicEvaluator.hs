@@ -9,9 +9,6 @@ import HelVM.HelCam.Machines.BrainFuck.Lexer
 import HelVM.HelCam.Common.WrapperIO
 import HelVM.HelCam.Common.Util
 
-import Data.Int
-import Data.Word
-
 monadicEval :: Source -> IO ()
 monadicEval = evalWord8
 
@@ -57,4 +54,4 @@ doOutput table tape@(_, symbol:_) = do
   doInstruction (nextInst table) tape
 
 doEnd :: WrapperIO m => m()
-doEnd = return ()
+doEnd = pass

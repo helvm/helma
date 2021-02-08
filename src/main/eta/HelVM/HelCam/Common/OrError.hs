@@ -1,16 +1,25 @@
 module HelVM.HelCam.Common.OrError where
 
-import Text.Read
-
-genericIndexOrError :: (Show m, Show a, Show i, Integral i) => m ->  [a] -> i -> a
-genericIndexOrError message list index = list `genericIndexOrError'` index where
-  genericIndexOrError' (x:_)  0 = x
-  genericIndexOrError' (_:xs) n
-   | 0 < n     = xs `genericIndexOrError'` (n-1)
-   | otherwise = error "List.genericIndex: negative argument."
-  genericIndexOrError' _ _      = error $ "genericIndexOrError: index too large. " <> show index <> " " <>  show list <> " " <> show message
-
-readOrError :: Read a => String -> a
+readOrError :: Read r => String -> r
 readOrError raw = check $ readEither raw where
   check (Right result) = result
-  check (Left message) = error $ message <> " [" <> raw <> "]"
+  check (Left message) = error $ message <> " [" <> toText raw <> "]"
+
+infix 9 !!!
+(!!!) :: (Show a) => [a] -> Int -> a
+(!!!) list index = check $ list !!? index where
+  check (Just result) = result
+  check  Nothing      = error $ "OnError.!!!" <> show index <> " " <>  show list
+
+indexOrError :: (Show m, Show a) => m -> [a] -> Int -> a
+indexOrError message list index = check $ list !!? index where
+  check (Just result) = result
+  check  Nothing      = error $ "OnError.indexOrError" <> show index <> " " <>  show list <> " " <> show message
+
+genericIndexOrError :: (Show m, Show a, Show i, Integral i) => m -> [a] -> i -> a
+genericIndexOrError message list index = recur list index where
+  recur (x:_)  0 = x
+  recur (_:xs) i
+   | 0 < i       = recur xs $ i-1
+   | otherwise   = error $ "OrError.genericIndexOrError: negative index." <> show index <> " " <>  show list <> " " <> show message
+  recur _ _      = error $ "OrError.genericIndexOrError: too large index." <> show index <> " " <>  show list <> " " <> show message

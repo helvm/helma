@@ -1,8 +1,6 @@
 module HelVM.HelCam.Common.WrapperIO where
 
-import Data.Char
-
-import System.IO
+import qualified System.IO as IO
 
 type MGetChar m = m Char
 type MPutChar m = Char -> m ()
@@ -28,16 +26,16 @@ class Monad m => WrapperIO m where
   wLogStr   :: String -> m ()
   wLogStrLn   :: String -> m ()
   wPutStrLn s = wPutStr $ s <> "\n"
-  wFlush = return ()
+  wFlush = pass
   wPutInt value = wPutChar (chr (fromIntegral value))
   wGetInt = do ord <$> wGetChar
   wLogStrLn s = wLogStr $ s <> "\n"
 
 instance WrapperIO IO where
-  wGetChar  = getChar
-  wPutChar  = putChar
-  wGetLine  = getLine
+  wGetChar  = IO.getChar
+  wPutChar  = IO.putChar
+  wGetLine  = IO.getLine
   wPutStr   = putStr
   wPutStrLn = putStrLn
-  wFlush    = hFlush stdout
-  wLogStr   = hPutStr stderr
+  wFlush    = IO.hFlush stdout
+  wLogStr   = IO.hPutStr stderr

@@ -8,11 +8,10 @@ import HelVM.HelCam.Machines.BrainFuck.Lexer
 
 import HelVM.HelCam.Common.Util
 
-import Data.Int
-import Data.Word
+import qualified System.IO as IO
 
 interactEval :: Source -> IO ()
-interactEval source = interact (evalWord8 source)
+interactEval source = IO.interact (evalWord8 source)
 
 batchEvalInt8 :: Source -> Output
 batchEvalInt8 = flip evalInt8 ([]::String)

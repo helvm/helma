@@ -2,10 +2,9 @@ module HelVM.HelCam.Machines.WhiteSpace.Lexer where
 
 import HelVM.HelCam.Machines.WhiteSpace.Token
 
-import HelVM.HelCam.Common.Util
-
-import Data.Maybe
 import Text.Read
+
+import qualified Text.Show
 
 -- Lexer
 
@@ -26,4 +25,4 @@ instance Show WhiteTokens where
   show (WhiteTokens tokens) = show =<< tokens
 
 instance Read WhiteTokens where
-  readsPrec _ source = [( WhiteTokens $ maybeToList . readMaybe . charToString =<< source, "")]
+  readsPrec _ source = [( WhiteTokens $ maybeToList . readMaybe . one =<< source, "")]

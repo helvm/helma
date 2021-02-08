@@ -1,6 +1,9 @@
 module HelVM.HelCam.Machines.WhiteSpace.Token where
 
 import Data.Char
+import Text.Read
+
+import qualified Text.Show
 
 data Token =  S | T | N
   deriving (Eq, Ord, Enum, Show, Read)

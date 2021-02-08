@@ -13,7 +13,7 @@ parseTL ascii = parseTL' where
   parseTL' :: TokenList -> InstructionList
   parseTL' []               = []
   -- Stack instructions
-  parseTL' (S:S:tokens)     = Const symbol      : parseTL' tokens' where (symbol, tokens') = parseSymbol tokens
+  parseTL' (S:S:tokens)     = Liter symbol      : parseTL' tokens' where (symbol, tokens') = parseSymbol tokens
   parseTL' (S:T:S:tokens)   = Copy  index       : parseTL' tokens' where (index, tokens') = parseIndex tokens
   parseTL' (S:T:T:_)        = panic "STT"
   parseTL' (S:T:N:tokens)   = Slide index       : parseTL' tokens' where (index, tokens') = parseIndex tokens
@@ -56,5 +56,5 @@ parseTL ascii = parseTL' where
   parseTL' (T:N:N:N:_)      = panic "TNNN"
   parseTL' tokens           = panic $ show tokens
 
-panic :: String -> InstructionList
+panic :: Text -> InstructionList
 panic token = error $ "Unrecognised " <> token

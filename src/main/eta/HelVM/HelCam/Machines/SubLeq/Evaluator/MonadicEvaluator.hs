@@ -33,7 +33,7 @@ doInstruction ic m
         | otherwise  = ic + 3
 
 doEnd :: WrapperIO m => m ()
-doEnd = return ()
+doEnd = pass
 
 doInput :: WrapperIO m => Symbol -> Symbol -> Memory -> m ()
 doInput address ic m = do

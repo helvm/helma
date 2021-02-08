@@ -1,5 +1,9 @@
 module HelVM.HelCam.Machines.ETA.Token where
 
+import Text.Read
+
+import qualified Text.Show
+
 data Token = E | T | A | O | I | N | S | H | R
   deriving (Eq, Ord, Enum, Show, Read)
 
@@ -16,9 +20,9 @@ toDigit S = 6
 toDigit E = error $ show E
 toDigit R = error $ show R
 
-toString :: Maybe Token -> String
-toString (Just t) = show t
-toString Nothing = ""
+toIsString :: Maybe Token -> String
+toIsString (Just t) = show t
+toIsString Nothing = ""
 
 ----
 

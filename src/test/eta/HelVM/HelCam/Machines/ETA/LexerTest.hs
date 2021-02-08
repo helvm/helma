@@ -10,12 +10,12 @@ import Test.HUnit
 
 testsOfETATokens :: Test
 testsOfETATokens = test
-  [ "tokenize_EE"   ~: "The classic ``Hello, world!'' program."                          ~: "E\n"   ~=? show ( WhiteTokens [WhiteToken E, WhiteToken R])
-  , "tokenize_E"   ~: "The classic ``Hello, world!'' program."                          ~: WhiteTokens [WhiteToken E, WhiteToken R]     ~=? readTokens "E\n"
-  , "tokenize_hello"   ~: "Zip hello."                         ~: helloZIP     ~=? show ( readTokens helloETA)
-  , "tokenize_hello"   ~: "Zip hello2."                          ~: hello2ZIP     ~=? show ( readTokens hello2ETA)
-  , "tokenize_hello"   ~: "Tokenize hello."                          ~: helloTL     ~=? tokenize helloETA
-  , "tokenize_hello"   ~: "Tokenize hello2."                          ~: hello2TL    ~=? tokenize hello2ETA
+  [ "tokenize_EE"      ~: "The classic ``Hello, world!'' program." ~: ("E\n"::String)                          ~=? show ( WhiteTokens [WhiteToken E, WhiteToken R])
+  , "tokenize_E"       ~: "The classic ``Hello, world!'' program." ~: WhiteTokens [WhiteToken E, WhiteToken R] ~=? readTokens "E\n"
+  , "tokenize_hello"   ~: "Zip hello."                             ~: helloZIP                                 ~=? show ( readTokens helloETA)
+  , "tokenize_hello"   ~: "Zip hello2."                            ~: hello2ZIP                                ~=? show ( readTokens hello2ETA)
+  , "tokenize_hello"   ~: "Tokenize hello."                        ~: helloTL                                  ~=? tokenize helloETA
+  , "tokenize_hello"   ~: "Tokenize hello2."                       ~: hello2TL                                 ~=? tokenize hello2ETA
 --  , "test_hello2"  ~: "An alternative implementation of ``Hello, world!''."             ~: "8 bit cells\n"     ~=? batchExecMockIO (evalWord8 value256)
 --  , "test_pip"     ~: "Copy standard input to standard output."                         ~: helloWorldExpected  ~=? batchExecMockIO (evalWord8 helloWorld)
 --  , "test_pip2"    ~: "A smaller copy-input-to-output program."                          ~: helloWorldExpected  ~=? batchExecMockIO (evalWord8 fascistHelloWorld)

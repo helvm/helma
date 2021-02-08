@@ -3,7 +3,7 @@ module HelVM.HelCam.Machines.WhiteSpace.Instruction where
 import HelVM.HelCam.Machines.WhiteSpace.OperandParsers
 
 data Instruction =
-    Const Symbol
+    Liter Symbol
   | Copy  Index
   | Slide Index
   | Dup

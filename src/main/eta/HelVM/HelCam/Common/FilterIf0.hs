@@ -2,19 +2,21 @@ module HelVM.HelCam.Common.FilterIf0 where
 
 import HelVM.HelCam.Common.WrapperIO
 
+import qualified System.IO as IO
+
 pipe :: IO ()
 pipe = do
-  char <- getChar
-  putChar char
+  char <- IO.getChar
+  IO.putChar char
   pipe
 
 filterIf0 :: IO ()
 filterIf0 = do
-  char <- getChar
+  char <- IO.getChar
   if char == '0'
-    then putChar '\n'
+    then IO.putChar '\n'
     else do
-      putChar char
+      IO.putChar char
       filterIf0
 
 listFilterIf0 :: String -> String
@@ -33,7 +35,7 @@ type IOGetChar = IO Char
 type IOPutChar = Char -> IO ()
 
 ioFilterIf0 :: IO ()
-ioFilterIf0 = ioFilterIf0' getChar putChar
+ioFilterIf0 = ioFilterIf0' IO.getChar IO.putChar
 
 ioFilterIf0' :: IOGetChar -> IOPutChar -> IO ()
 ioFilterIf0' ioGetChar ioPutChar = do
@@ -56,7 +58,7 @@ mFilterIf0 mGetChar mPutChar = do
       mFilterIf0 mGetChar mPutChar
 
 ioMFilterIf0 :: IO ()
-ioMFilterIf0 = mFilterIf0 getChar putChar
+ioMFilterIf0 = mFilterIf0 IO.getChar IO.putChar
 
 ----
 
@@ -75,4 +77,4 @@ ioWFilterIf0 = wFilterIf0
 ----
 
 iFilterIf0 :: IO ()
-iFilterIf0 = interact listFilterIf0
+iFilterIf0 = IO.interact listFilterIf0

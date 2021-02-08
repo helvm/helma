@@ -5,10 +5,9 @@ import HelVM.HelCam.Machines.WhiteSpace.Instruction
 import HelVM.HelCam.Machines.WhiteSpace.Parser
 import HelVM.HelCam.Machines.WhiteSpace.Token
 
+import HelVM.HelCam.Common.OrError
 import HelVM.HelCam.Common.Util
 import HelVM.HelCam.Common.WrapperIO
-
-import Data.Char
 
 monadicEval :: Bool -> Source -> IO ()
 monadicEval ascii = evalIL . parse ascii
@@ -22,7 +21,7 @@ evalIL :: WrapperIO m => InstructionList -> m ()
 evalIL il = next (IU il 0 (IS [])) (Stack []) (Heap [])
 
 next :: WrapperIO m => InstructionUnit -> Stack -> Heap -> m ()
-next (IU il ic is) = doInstruction (il!!ic) (IU il (ic+1) is)
+next iu@(IU il ic is) = doInstruction (genericIndexOrError ("next"::Text,iu) il ic) (IU il (ic+1) is)
 
 ----
 
@@ -35,8 +34,8 @@ doInstruction  OutputNum  iu s h = doOutputNum  iu s h
 doInstruction  InputNum   iu s h = doInputNum   iu s h
 
 -- Stack instructions
-doInstruction (Const symbol) iu (Stack                 s ) h = next iu (Stack                     (symbol:s)) h
-doInstruction (Copy  index)  iu (Stack                 s ) h = next iu (Stack                 ((s!!index):s)) h
+doInstruction (Liter symbol) iu (Stack                 s ) h = next iu (Stack                     (symbol:s)) h
+doInstruction (Copy  index)  iu (Stack                 s ) h = next iu (Stack              ((s !!! index):s)) h
 doInstruction (Slide index)  iu (Stack         (symbol:s)) h = next iu (Stack          (symbol:drop index s)) h
 doInstruction  Dup           iu (Stack         (symbol:s)) h = next iu (Stack              (symbol:symbol:s)) h
 doInstruction  Swap          iu (Stack (symbol:symbol':s)) h = next iu (Stack             (symbol':symbol:s)) h
@@ -98,4 +97,4 @@ doInputNum iu (Stack (address:s)) h = do
 ----
 
 doEnd :: WrapperIO m => m ()
-doEnd = return ()
+doEnd = pass

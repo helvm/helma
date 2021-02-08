@@ -6,10 +6,10 @@ import HelVM.HelCam.Machines.SubLeq.Lexer
 import HelVM.HelCam.Common.Tape
 import HelVM.HelCam.Common.Util
 
-import Data.Char
+import qualified System.IO as IO
 
 interactEval :: Source -> IO ()
-interactEval = interact . eval
+interactEval = IO.interact . eval
 
 batchEval :: Source -> Output
 batchEval source = eval source ([]::String)

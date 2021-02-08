@@ -7,9 +7,10 @@ import HelVM.HelCam.Machines.WhiteSpace.Parser
 import HelVM.HelCam.Machines.WhiteSpace.Token
 
 import HelVM.HelCam.Common.MockIO
+import HelVM.HelCam.Common.OrError
 import HelVM.HelCam.Common.Util
 
-import Data.Char
+import qualified System.IO as IO
 
 class Evaluator r where
   evalTL :: Bool -> TokenList -> r
@@ -19,7 +20,7 @@ class Evaluator r where
   evalIL il = next (IU il 0 (IS [])) (Stack []) (Heap [])
 
   next :: InstructionUnit -> Stack -> Heap -> r
-  next (IU il ic is) = doInstruction (il!!ic) (IU il (ic+1) is)
+  next iu@(IU il ic is) = doInstruction (genericIndexOrError ("next"::Text,iu) il ic) (IU il (ic+1) is)
 
   ----
 
@@ -32,8 +33,8 @@ class Evaluator r where
   doInstruction  InputNum   iu s h = doInputNum   iu s h
 
   -- Stack instructions
-  doInstruction (Const symbol) iu (Stack                 s ) h = next iu (Stack                     (symbol:s)) h
-  doInstruction (Copy  index)  iu (Stack                 s ) h = next iu (Stack                 ((s!!index):s)) h
+  doInstruction (Liter symbol) iu (Stack                 s ) h = next iu (Stack                     (symbol:s)) h
+  doInstruction (Copy  index)  iu (Stack                 s ) h = next iu (Stack             (( s !!! index):s)) h
   doInstruction (Slide index)  iu (Stack         (symbol:s)) h = next iu (Stack          (symbol:drop index s)) h
   doInstruction  Dup           iu (Stack         (symbol:s)) h = next iu (Stack              (symbol:symbol:s)) h
   doInstruction  Swap          iu (Stack (symbol:symbol':s)) h = next iu (Stack             (symbol':symbol:s)) h
@@ -79,7 +80,7 @@ class Evaluator r where
 ----
 
 interactEval :: Bool -> Source -> IO ()
-interactEval ascii source = interact $ evalIL $ parse ascii source
+interactEval ascii source = IO.interact $ evalIL $ parse ascii source
 
 batchEvalTL :: Bool -> TokenList -> Output
 batchEvalTL ascii = batchEvalIL . parseTL ascii
@@ -113,7 +114,7 @@ monadicEval ascii = evalIL . parse ascii
 instance Evaluator (IO ()) where
   doOutputChar _  (Stack [])        _ = emptyStackError OutputChar
   doOutputChar iu (Stack (value:s)) h = do
-    putChar (chr (fromInteger value))
+    IO.putChar (chr (fromInteger value))
     next iu (Stack s) h
 
   doOutputNum _  (Stack [])        _ = emptyStackError OutputNum
@@ -123,15 +124,15 @@ instance Evaluator (IO ()) where
 
   doInputChar _  (Stack [])          _ = emptyStackError InputChar
   doInputChar iu (Stack (address:s)) h = do
-    char <- getChar
+    char <- IO.getChar
     next iu (Stack s) (store address (toInteger (ord char)) h)
 
   doInputNum _  (Stack [])          _ = emptyStackError InputNum
   doInputNum iu (Stack (address:s)) h = do
-    line <- getLine
+    line <- IO.getLine
     next iu (Stack s) (storeNum address line h)
 
-  doEnd = return ()
+  doEnd = pass
 
 ----
 
@@ -156,4 +157,4 @@ instance Evaluator (MockIO ()) where
     line <- mockGetLine
     next iu (Stack s) (storeNum address line h)
 
-  doEnd = return ()
+  doEnd = pass

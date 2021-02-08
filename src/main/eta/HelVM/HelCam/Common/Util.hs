@@ -19,9 +19,6 @@ chunksOf n list
   | n > 0 = take n list : chunksOf n (drop n list)
   | otherwise = error "Non positive n"
 
-toList :: a -> [a]
-toList = (:[])
-
 appendToList :: [a] -> a -> [a]
 appendToList xs x = x : xs
 
@@ -38,13 +35,10 @@ splitBy separator xs = split $ elemIndex separator xs where
 
 -- StringUtil
 
-charToString :: Char -> String
-charToString = (:[])
-
 splitStringByEndLine :: String -> (String, String)
 splitStringByEndLine = splitBy '\n'
 
-toUppers :: Source -> Source
+toUppers :: String -> String
 toUppers = map toUpper
 
 -- other

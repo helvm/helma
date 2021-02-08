@@ -75,4 +75,3 @@ ertrar = [E, R, T, R, A, R]
 
 etaretaretar :: TokenList
 etaretaretar = [E, T, A, R, E, T, A, R, E, T, A, R]
-

@@ -1,5 +1,9 @@
 module HelVM.HelCam.Machines.BrainFuck.Token where
 
+import Text.Read
+
+import qualified Text.Show
+
 data Token =
     MoveR
   | MoveL

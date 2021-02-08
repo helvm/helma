@@ -27,8 +27,9 @@ import qualified HelVM.HelCam.Machines.WhiteSpace.Lexer                        a
 import AppOptions
 
 import Options.Applicative
-import System.IO
 import Text.Pretty.Simple
+
+import qualified System.IO as IO
 
 main :: IO ()
 main = run =<< execParser opts where
@@ -39,7 +40,7 @@ main = run =<< execParser opts where
 
 run :: AppOptions -> IO ()
 run AppOptions{lang, emitTL, emitIL, asciiLabels, etaMode, impl, exec, file} = do
-  hSetBuffering stdout NoBuffering
+  IO.hSetBuffering stdout IO.NoBuffering
   source <- readFile2 exec file
   eval (computeLang lang) emitTL emitIL asciiLabels etaMode (computeImpl impl) source
 

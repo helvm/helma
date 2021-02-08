@@ -24,26 +24,26 @@ import HelVM.HelCam.Machines.WhiteSpace.EvaluatorTest
 import Test.HUnit
 
 testExample :: Test
-testExample = TestCase (assertEqual "test" "test" "test")
+testExample = TestCase (assertEqual ("test"::String) ("test"::String) ("test"::String))
 
 testList :: Test
 testList = TestList
   [ TestLabel "testExample"                 testExample
   , TestLabel "testsOfFilterIf0"            testsOfFilterIf0
-  
+
   , TestLabel "testsOfBFTokens"             testsOfBFTokens
   , TestLabel "testsOfBFInteractEvaluator"  testsOfBFInteractEvaluator
   , TestLabel "testsOfBFMonadicEvaluator"   testsOfBFMonadicEvaluator
   , TestLabel "testsOfBFEvaluator"          testsOfBFEvaluator
-  
+
   , TestLabel "testsOfETATokens"            testsOfETATokens
   , TestLabel "testsOfETAEvaluatoUtil"      testsOfETAEvaluatorUtil
   , TestLabel "testsOfETAMonadicEvaluator"  testsOfETAMonadicEvaluator
-  
+
   , TestLabel "testsOfSQInteractEvaluator"  testsOfSQInteractEvaluator
   , TestLabel "testsOfSQMonadicEvaluator"   testsOfSQMonadicEvaluator
   , TestLabel "testsOfSQEvaluator"          testsOfSQEvaluator
-  
+
   , TestLabel "testsOfWSOperandParsers"     testsOfWSOperandParsers
   , TestLabel "testsOfWSParser"             testsOfWSParser
   , TestLabel "testsOfWSInteractEvaluator"  testsOfWSInteractEvaluator
@@ -54,4 +54,4 @@ testList = TestList
 main :: IO ()
 main = do
   _ <- runTestTT testList
-  return ()
+  pass

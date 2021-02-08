@@ -5,14 +5,12 @@ module AppOptions where
 
 import Options.Applicative
 
-import Text.Read
-
 optionParser :: Parser AppOptions
 optionParser = AppOptions
   <$> strOption    (  long    "lang"
                    <> short   'l'
                    <> metavar "[LANG]"
-                   <> help   ("Language to interpret " ++ show langs)
+                   <> help   ("Language to interpret " <> show langs)
                    <> value (show Cat)
                    <> showDefault
                    )
@@ -39,7 +37,7 @@ optionParser = AppOptions
   <*> strOption    (  long    "impl"
                    <> short   'i'
                    <> metavar "[IMPL]"
-                   <> help   ("Implementation of interpreter " ++ show impls)
+                   <> help   ("Implementation of interpreter " <> show impls)
                    <> value (show Monadic)
                    <> showDefault
                    )
@@ -49,7 +47,7 @@ optionParser = AppOptions
                    <> showDefault
                    )
   <*> argument str (  metavar "FILE")
-                     
+
 
 data AppOptions = AppOptions
   { lang        :: String      -- Lang
@@ -79,7 +77,7 @@ langs = [Cat, BF, ETA, SQ, WS]
 computeLang :: String -> Lang
 computeLang raw = valid $ readMaybe raw where
   valid (Just a)  = a
-  valid Nothing = error ("Lang '" ++ raw ++ "' is not valid lang. Valid langs are : " ++ show langs)
+  valid Nothing = error $ "Lang '" <> toText raw <> "' is not valid lang. Valid langs are : " <> show langs
 
 ----
 
@@ -91,4 +89,4 @@ impls = [Monadic, Interact]
 computeImpl :: String -> Impl
 computeImpl raw = valid $ readMaybe raw where
   valid (Just a)  = a
-  valid Nothing = error ("Impl '" ++ raw ++ "' is not valid impl. Valid impls are : " ++ show impls)
+  valid Nothing = error $ "Impl '" <> toText raw <> "' is not valid impl. Valid impls are : " <> show impls

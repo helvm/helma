@@ -36,5 +36,5 @@ writeSymbol :: (Symbol s) => Char -> FullTapeD s
 writeSymbol symbol = modifyCell (const $ fromChar symbol)
 
 modifyCell :: (Symbol s) => D s -> FullTapeD s
-modifyCell modify (left, cell:right) = (left, modify cell:right)
+modifyCell f (left, cell:right) = (left, f cell:right)
 modifyCell _ (_, [])                 = error "End of the Tipe"

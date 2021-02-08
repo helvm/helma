@@ -1,45 +1,37 @@
 module HelVM.HelCam.Machines.BrainFuck.Symbol where
 
-import Data.Char
-import Data.Int
-import Data.Word
+import Relude.Extra
 
-class (Num a, Eq a) => Symbol a where
-  blank      :: a
+import Data.Default
+
+class (Bounded a, Default a, Enum a, Eq a, Num a) => Symbol a where
   fromChar   :: Char -> a
   toChar     :: a -> Char
+
+  blank      :: a
+  blank      = def
   succSymbol :: a -> a
+  succSymbol = next
   predSymbol :: a -> a
+  predSymbol = prev
 
 --
 
 instance Symbol Int where
-  blank      = 0
   fromChar   = fromIntegral . ord
   toChar     = chr . fromIntegral
-  succSymbol = succMod
-  predSymbol = predMod
 
 instance Symbol Word where
-  blank      = 0
   fromChar   = fromIntegral . ord
   toChar     = chr . fromIntegral
-  succSymbol = succMod
-  predSymbol = predMod
 
 instance Symbol Int8 where
-  blank      = 0
   fromChar   = fromIntegral . ord
   toChar     = chr . normalizeMod . fromIntegral
-  succSymbol = (+1)
-  predSymbol = subtract 1
 
 instance Symbol Word8 where
-  blank      = 0
   fromChar   = fromIntegral . ord
   toChar     = chr . fromIntegral
-  succSymbol = (+1)
-  predSymbol = subtract 1
 
 --
 
@@ -52,11 +44,5 @@ modifyMod f i = f (i + countSymbols) `mod` countSymbols
 normalizeMod :: (Integral a) => a -> a
 normalizeMod = modifyMod id
 
-succMod :: (Integral a) => a -> a
-succMod = modifyMod succ
-
-predMod :: (Integral a) => a -> a
-predMod = modifyMod pred
-
 modifyChar :: (Int -> Int) -> Char -> Char
-modifyChar modify = chr . modify . ord
+modifyChar f = chr . f . ord

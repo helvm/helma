@@ -5,12 +5,13 @@ import HelVM.HelCam.Machines.WhiteSpace.Instruction
 import HelVM.HelCam.Machines.WhiteSpace.Parser
 import HelVM.HelCam.Machines.WhiteSpace.Token
 
+import HelVM.HelCam.Common.OrError
 import HelVM.HelCam.Common.Util
 
-import Data.Char
+import qualified System.IO as IO
 
 interactEval :: Bool -> Source -> IO ()
-interactEval ascii = interact . evalIL . parse ascii
+interactEval ascii = IO.interact . evalIL . parse ascii
 
 batchEvalTL :: Bool -> TokenList -> Output
 batchEvalTL ascii = batchEvalIL . parseTL ascii
@@ -27,7 +28,7 @@ evalIL :: InstructionList -> Interact
 evalIL il = next  (IU il 0 (IS [])) (Stack []) (Heap [])
 
 next :: InstructionUnit -> Stack -> Heap -> Interact
-next (IU il ic is) = doInstruction (il!!ic) (IU il (ic+1) is)
+next iu@(IU il ic is) = doInstruction (genericIndexOrError ("next"::Text,iu) il ic) (IU il (ic+1) is)
 
 ----
 
@@ -39,8 +40,8 @@ doInstruction  OutputNum  iu s h = doOutputNum  iu s h
 doInstruction  InputNum   iu s h = doInputNum   iu s h
 
 -- Stack instructions
-doInstruction (Const symbol) iu (Stack                 s ) h = next iu (Stack                     (symbol:s)) h
-doInstruction (Copy  index)  iu (Stack                 s ) h = next iu (Stack                 ((s!!index):s)) h
+doInstruction (Liter symbol) iu (Stack                 s ) h = next iu (Stack                     (symbol:s)) h
+doInstruction (Copy  index)  iu (Stack                 s ) h = next iu (Stack              ((s !!! index):s)) h
 doInstruction (Slide index)  iu (Stack         (symbol:s)) h = next iu (Stack          (symbol:drop index s)) h
 doInstruction  Dup           iu (Stack         (symbol:s)) h = next iu (Stack              (symbol:symbol:s)) h
 doInstruction  Swap          iu (Stack (symbol:symbol':s)) h = next iu (Stack             (symbol':symbol:s)) h

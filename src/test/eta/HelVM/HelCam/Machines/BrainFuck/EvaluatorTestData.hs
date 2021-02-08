@@ -1,8 +1,10 @@
 module HelVM.HelCam.Machines.BrainFuck.EvaluatorTestData where
 
+import HelVM.HelCam.Common.Util
+
 --------------------------------------------------------------------------------
 
-value256 :: String
+value256 :: Source
 value256 = "                                                              \
 \Calculate the value 256 and test if it's zero                            \
 \ If the interpreter errors on overflow this is where it'll happen        \
@@ -28,7 +30,7 @@ value256 = "                                                              \
 
 --------------------------------------------------------------------------------
 
-helloWorldWithComments :: String
+helloWorldWithComments :: Source
 helloWorldWithComments = "                                                       \
 \ 1 +++++ +++               Set Cell #0 to 8                                     \
 \ 2 [                                                                            \
@@ -67,22 +69,22 @@ helloWorldWithComments = "                                                      
 
 --------------------------------------------------------------------------------
 
-helloWorld :: String
+helloWorld :: Source
 helloWorld = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."
 
-fascistHelloWorld :: String
+fascistHelloWorld :: Source
 fascistHelloWorld = ">++++++++[-<+++++++++>]<.>>+>-[+]++>++>+++[>[->+++<<+++>]<<]>-----.>->+++..+++.>-.<<+[>[+>+]>>]<--------------.>>.+++.------.--------.>+.>+."
 
-padHelloWorld :: String
+padHelloWorld :: Source
 padHelloWorld = "--<-<<+[+[<+>--->->->-<<<]>]<<--.<++++++.<<-..<<.<+.>>.>>.<<<.+++.>>.>>-.<<<+."
 
-theShortestHelloWorld :: String
+theShortestHelloWorld :: Source
 theShortestHelloWorld = "+[-->-[>>+>-----<<]<--<---]>-.>>>+.>>..+++[.>]<<<<.+++.------.<<-.>>>>+."
 
 --------------------------------------------------------------------------------
 
-helloWorldExpected :: String
+helloWorldExpected :: Output
 helloWorldExpected = "Hello World!\n"
 
-hello_WorldExpected :: String
+hello_WorldExpected :: Output
 hello_WorldExpected = "Hello, World!"

@@ -4,9 +4,6 @@ import HelVM.HelCam.Machines.WhiteSpace.Token
 
 import HelVM.HelCam.Common.Util
 
-import Data.Char
-import Numeric.Natural
-
 type OperandParser a = TokenList -> (a, TokenList)
 
 parseInt :: OperandParser Int
@@ -40,7 +37,7 @@ parseString' :: (TokenList -> a) -> OperandParser a
 parseString' maker tokens = (maker acc, tokens') where (acc, tokens') = splitByN tokens
 
 splitByN :: OperandParser TokenList
-splitByN []         = error $ show "Empty list"
+splitByN []         = error "Empty list"
 splitByN (N:tokens) = ([], tokens)
 splitByN (t:tokens) = (t:acc, tokens') where (acc, tokens') = splitByN tokens
 

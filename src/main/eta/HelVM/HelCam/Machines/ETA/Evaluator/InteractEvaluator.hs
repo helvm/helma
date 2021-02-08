@@ -3,4 +3,4 @@ module HelVM.HelCam.Machines.ETA.Evaluator.InteractEvaluator (interactEval) wher
 import HelVM.HelCam.Common.Util
 
 interactEval :: Source -> IO ()
-interactEval _ = return ()
+interactEval _ = pass --TODO

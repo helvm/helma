@@ -12,8 +12,10 @@ newtype Heap = Heap Memory
 
 type InstructionCounter = InstructionAddress
 newtype InstructionStack = IS [InstructionAddress]
+  deriving (Show)
 
 data InstructionUnit = IU InstructionList InstructionCounter InstructionStack
+  deriving (Show)
 
 doBinary :: BinaryOperator -> Symbol -> Symbol -> Symbol
 doBinary Add s s' = s' + s
@@ -42,5 +44,5 @@ load (Heap tape) = loadFromHalfTape tape
 store :: Symbol -> Symbol -> D Heap
 store address value (Heap tape) = Heap $ storeToHalfTape address value tape
 
-storeNum :: Symbol -> String -> D Heap
+storeNum :: Symbol -> Input -> D Heap
 storeNum address line = store address (readOrError line :: Integer)

@@ -9,8 +9,6 @@ import HelVM.HelCam.Common.OrError
 import HelVM.HelCam.Common.Util
 import HelVM.HelCam.Common.WrapperIO
 
-import Data.Char
-
 monadicEval :: Source -> IO ()
 monadicEval = eval
 
@@ -25,7 +23,7 @@ evalTL il = do
 
 next :: WrapperIO m => InstructionUnit -> Stack -> m ()
 next iu@(IU il ic) s = do
-  wLogStr $ "("  <> toString t <> "," <> show (nextLabel il ic) <>  "," <> show ic <> "," <> show s <>  "),"
+  wLogStr $ "("  <> toIsString t <> "," <> show (nextLabel il ic) <>  "," <> show ic <> "," <> show s <>  "),"
   doInstruction t iu' s
     where (t, iu') = nextIU iu
 
@@ -38,7 +36,7 @@ doInstruction (Just I) iu s = doInput  iu s
 doInstruction (Just N) iu (Stack s) = next iu' (Stack (symbol:s))
   where (symbol, iu') = parseNumber iu
 doInstruction (Just H) iu (Stack (index:s))
-  | index <= 0 = next iu (Stack (genericIndexOrError ("Halibut", s) s (negate index):s))
+  | index <= 0 = next iu (Stack (genericIndexOrError ("Halibut"::Text, s) s (negate index):s))
   | otherwise  = next iu (Stack (symbol <> tops <> s'')) where
     (tops,s')    = splitAt index s
     (symbol,s'') = splitAt 1     s'
@@ -62,7 +60,7 @@ doInstruction t s iu = error $ "Can't do token " <> show t <> " "  <> show s <> 
 
 emptyStackError :: Token -> r
 emptyStackError t = error $ "Empty stack for instruction " <> show t
-  
+
 ----
 
 doOutput :: WrapperIO m => InstructionUnit -> Stack -> m ()
@@ -79,4 +77,4 @@ doInput iu (Stack s) = do
 ----
 
 doEnd :: WrapperIO m => m ()
-doEnd = return ()
+doEnd = pass

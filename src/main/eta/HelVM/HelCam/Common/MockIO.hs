@@ -1,5 +1,4 @@
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 module HelVM.HelCam.Common.MockIO (
   batchExecMockIO, execMockIO, batchEvalMockIO, evalMockIO,
@@ -11,9 +10,7 @@ module HelVM.HelCam.Common.MockIO (
 import HelVM.HelCam.Common.WrapperIO
 import HelVM.HelCam.Common.Util
 
-import Control.Monad.State.Lazy
-
-import Data.Char
+import qualified Relude.Unsafe as Unsafe
 
 batchExecMockIO :: MockIO () -> Output
 batchExecMockIO = flip execMockIO []
@@ -41,8 +38,8 @@ instance WrapperIO MockIO where
 mockGetChar :: MockIO Char
 mockGetChar = do
   mockIO <- get
-  let char = headOrError (show mockIO) $ input mockIO
-  put mockIO { input = tail $ input mockIO }
+  let char = headOrError mockIO $ input mockIO
+  put mockIO { input = Unsafe.tail $ input mockIO }
   return char
 
 mockGetInt :: MockIO Int

@@ -100,9 +100,9 @@ truthMachineTL =
 catIL :: InstructionList
 catIL =
   [ Mark "0"
-  , Const 1, InputChar
-  , Const 1, Load, OutputChar
-  , Const 1
+  , Liter 1, InputChar
+  , Liter 1, Load, OutputChar
+  , Liter 1
   , Branch EZ "1"
   , Jump "0"
 
@@ -112,39 +112,45 @@ catIL =
 
 helloWorldIL :: InstructionList
 helloWorldIL =
-  [ Const 72, OutputChar
-  , Const 101, OutputChar
-  , Const 108, OutputChar
-  , Const 108, OutputChar
-  , Const 111,OutputChar
-  , Const 44, OutputChar
-  , Const 32, OutputChar
-  , Const 119, OutputChar
-  , Const 111, OutputChar
-  , Const 114, OutputChar
-  , Const 108, OutputChar
-  , Const 100, OutputChar
+  [ Liter 72, OutputChar
+  , Liter 101, OutputChar
+  , Liter 108, OutputChar
+  , Liter 108, OutputChar
+  , Liter 111,OutputChar
+  , Liter 44, OutputChar
+  , Liter 32, OutputChar
+  , Liter 119, OutputChar
+  , Liter 111, OutputChar
+  , Liter 114, OutputChar
+  , Liter 108, OutputChar
+  , Liter 100, OutputChar
   , End
   ]
 
 truthMachineIL :: InstructionList
 truthMachineIL =
-  [ Const 0
+  [ Liter 0
   , Dup
   , InputNum
   , Load
   , Branch EZ "0"
 
   , Mark "1"
-  , Const 1, OutputNum
+  , Liter 1, OutputNum
   , Jump "1"
 
   , Mark "0"
-  , Const 0, OutputNum
+  , Liter 0, OutputNum
   , End
   ]
 
 ----
+
+zeroO :: Output
+zeroO = "0"
+
+helloWorldO :: Output
+helloWorldO = "Hello, world"
 
 calcO :: Output
 calcO = "Enter some numbers, then -1 to finish\r\nNumber:Total is 0\r\n"
