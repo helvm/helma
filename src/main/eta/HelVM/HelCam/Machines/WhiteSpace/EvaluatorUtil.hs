@@ -30,7 +30,7 @@ findAddress :: InstructionList -> Label -> InstructionAddress
 findAddress = findAddress' 0
 
 findAddress' :: InstructionAddress -> InstructionList -> Label -> InstructionAddress
-findAddress' _       []             l = error $ "Undefined label (" ++ show l  ++ ")"
+findAddress' _       []             l = error $ "Undefined label (" <> show l  <> ")"
 findAddress' address ((Mark l'):il) l
   | l == l'                           = address
   | otherwise                         = findAddress' (address+1) il l

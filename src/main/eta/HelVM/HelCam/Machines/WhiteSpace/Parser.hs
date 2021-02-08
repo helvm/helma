@@ -57,4 +57,4 @@ parseTL ascii = parseTL' where
   parseTL' tokens           = panic $ show tokens
 
 panic :: String -> InstructionList
-panic token = error $ "Unrecognised " ++ token
+panic token = error $ "Unrecognised " <> token

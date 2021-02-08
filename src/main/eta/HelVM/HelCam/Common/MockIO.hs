@@ -69,13 +69,13 @@ mockPutInt value = do
 mockPutStr :: String -> MockIO ()
 mockPutStr string = do
   mockIO <- get
-  put $ mockIO { output = reverse string ++ output mockIO }
+  put $ mockIO { output = reverse string <> output mockIO }
 
 
 mockLogStr :: String -> MockIO ()
 mockLogStr string = do
   mockIO <- get
-  put $ mockIO { logged = reverse string ++ logged mockIO }
+  put $ mockIO { logged = reverse string <> logged mockIO }
 
 ----
 

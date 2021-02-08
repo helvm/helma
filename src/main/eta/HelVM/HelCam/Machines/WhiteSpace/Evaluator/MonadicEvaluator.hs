@@ -60,12 +60,12 @@ doInstruction (Branch t l) (IU il ic is) (Stack (symbol:s)) h
 
 -- Other
 doInstruction End _ _ _ = doEnd
-doInstruction i   _ _ _ = error $ "Can't do " ++ show i
+doInstruction i   _ _ _ = error $ "Can't do " <> show i
 
 ----
 
 emptyStackError :: Instruction -> r
-emptyStackError i = error $ "Empty stack for instruction " ++ show i
+emptyStackError i = error $ "Empty stack for instruction " <> show i
 
 ----
 

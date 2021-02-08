@@ -57,15 +57,15 @@ class Evaluator r where
 
   -- Other
   doInstruction End _ _ _ = doEnd
-  doInstruction i   _ _ _ = error $ "Can't do " ++ show i
+  doInstruction i   _ _ _ = error $ "Can't do " <> show i
 
   ----
 
   emptyStackError :: Instruction -> r
-  emptyStackError i = error $ "Empty stack for instruction " ++ show i
+  emptyStackError i = error $ "Empty stack for instruction " <> show i
 
   emptyInputError :: Instruction -> r
-  emptyInputError i = error $ "Empty input for instruction " ++ show i
+  emptyInputError i = error $ "Empty input for instruction " <> show i
 
   -- IO instructions
   doOutputChar :: InstructionUnit -> Stack -> Heap -> r
@@ -92,7 +92,7 @@ instance Evaluator (Input -> Output) where
   doOutputChar iu (Stack (symbol:s)) h input = chr (fromInteger symbol) : next iu (Stack s) h input
 
   doOutputNum _  (Stack [])         _ input = emptyStackError OutputNum input
-  doOutputNum iu (Stack (symbol:s)) h input = show symbol ++ next iu (Stack s) h input
+  doOutputNum iu (Stack (symbol:s)) h input = show symbol <> next iu (Stack s) h input
 
   doInputChar _                  _   _       []     = emptyInputError InputChar ([]::Input)
   doInputChar _  (Stack [])          _       input  = emptyStackError InputChar input

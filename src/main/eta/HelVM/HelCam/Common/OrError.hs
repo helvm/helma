@@ -8,9 +8,9 @@ genericIndexOrError message list index = list `genericIndexOrError'` index where
   genericIndexOrError' (_:xs) n
    | 0 < n     = xs `genericIndexOrError'` (n-1)
    | otherwise = error "List.genericIndex: negative argument."
-  genericIndexOrError' _ _      = error $ "genericIndexOrError: index too large. " ++ show index ++ " " ++  show list ++ " " ++ show message
+  genericIndexOrError' _ _      = error $ "genericIndexOrError: index too large. " <> show index <> " " <>  show list <> " " <> show message
 
 readOrError :: Read a => String -> a
 readOrError raw = check $ readEither raw where
   check (Right result) = result
-  check (Left message) = error $ message ++ " [" ++ raw ++ "]"
+  check (Left message) = error $ message <> " [" <> raw <> "]"

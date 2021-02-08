@@ -64,15 +64,15 @@ doInstruction (Branch t l) (IU il ic is) (Stack (symbol:s)) h
 
 -- Other
 doInstruction End _ _ _ = doEnd
-doInstruction i   _ _ _ = error $ "Can't do " ++ show i
+doInstruction i   _ _ _ = error $ "Can't do " <> show i
 
 ----
 
 emptyStackError :: Instruction -> Interact
-emptyStackError i = error $ "Empty stack for instruction " ++ show i
+emptyStackError i = error $ "Empty stack for instruction " <> show i
 
 emptyInputError :: Instruction -> Interact
-emptyInputError i = error $ "Empty input for instruction " ++ show i
+emptyInputError i = error $ "Empty input for instruction " <> show i
 
 ----
 
@@ -84,7 +84,7 @@ doOutputChar iu (Stack (value:s)) h input = chr (fromInteger value) : next iu (S
 
 doOutputNum :: InstructionUnit -> Stack -> Heap -> Interact
 doOutputNum _  (Stack [])        _ input = emptyStackError OutputNum input
-doOutputNum iu (Stack (value:s)) h input = show value ++ next iu (Stack s) h input
+doOutputNum iu (Stack (value:s)) h input = show value <> next iu (Stack s) h input
 
 doInputChar :: InstructionUnit -> Stack -> Heap -> Interact
 doInputChar _   _                  _       []     = emptyInputError InputChar []

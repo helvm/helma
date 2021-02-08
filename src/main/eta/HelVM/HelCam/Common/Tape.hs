@@ -26,12 +26,12 @@ type HalfTapeD value = D (HalfTape value)
 loadFromHalfTape :: (Show address, Integral address, Num value) => HalfTape value -> address -> value
 loadFromHalfTape tape a
   | 0 <= a    = loadFromHalfTape' tape a
-  | otherwise = errorWithoutStackTrace $ "loadFromHalfTape: negative argument " ++ show a
+  | otherwise = errorWithoutStackTrace $ "loadFromHalfTape: negative argument " <> show a
 
 storeToHalfTape :: (Show address, Integral address, Num value) => address -> value -> HalfTapeD value
 storeToHalfTape a
   | 0 <= a    = storeToHalfTape' a
-  | otherwise = errorWithoutStackTrace $ "storeToHalfTape: negative argument " ++ show a
+  | otherwise = errorWithoutStackTrace $ "storeToHalfTape: negative argument " <> show a
 
 ----
 

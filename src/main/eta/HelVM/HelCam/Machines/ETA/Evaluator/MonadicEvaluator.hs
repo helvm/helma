@@ -25,7 +25,7 @@ evalTL il = do
 
 next :: WrapperIO m => InstructionUnit -> Stack -> m ()
 next iu@(IU il ic) s = do
-  wLogStr $ "("  ++ toString t ++ "," ++ show (nextLabel il ic) ++  "," ++ show ic ++ "," ++ show s ++  "),"
+  wLogStr $ "("  <> toString t <> "," <> show (nextLabel il ic) <>  "," <> show ic <> "," <> show s <>  "),"
   doInstruction t iu' s
     where (t, iu') = nextIU iu
 
@@ -39,7 +39,7 @@ doInstruction (Just N) iu (Stack s) = next iu' (Stack (symbol:s))
   where (symbol, iu') = parseNumber iu
 doInstruction (Just H) iu (Stack (index:s))
   | index <= 0 = next iu (Stack (genericIndexOrError ("Halibut", s) s (negate index):s))
-  | otherwise  = next iu (Stack (symbol ++ tops ++ s'')) where
+  | otherwise  = next iu (Stack (symbol <> tops <> s'')) where
     (tops,s')    = splitAt index s
     (symbol,s'') = splitAt 1     s'
 
@@ -56,12 +56,12 @@ doInstruction (Just A) iu@(IU il ic) (Stack          s ) = next  iu  (Stack (nex
 doInstruction Nothing _ _  = doEnd
 
 -- Other
-doInstruction t s iu = error $ "Can't do token " ++ show t ++ " "  ++ show s ++ " " ++ show iu
+doInstruction t s iu = error $ "Can't do token " <> show t <> " "  <> show s <> " " <> show iu
 
 ----
 
 emptyStackError :: Token -> r
-emptyStackError t = error $ "Empty stack for instruction " ++ show t
+emptyStackError t = error $ "Empty stack for instruction " <> show t
   
 ----
 
