@@ -10,14 +10,14 @@ import Test.HUnit
 
 testsOfETAEvaluator :: Test
 testsOfETAEvaluator = test
-  [ "eval_hello"   ~: "Test hello."                                                      ~: hello     ~=? batchEval helloETA
-  , "eval_hello2"  ~: "Test hello2."                                                     ~: hello     ~=? batchEval hello2ETA
-  , "eval_hello3"  ~: "Test hello3."                                                     ~: hello     ~=? batchEval hello3ETA
-  , "test_crlf"    ~: "Test whether the interpreter handles CR/LF sequences correctly."  ~: crlf      ~=? batchEval crlfETA
+  [ "eval_hello"   ~: "Test hello."                                                      ~: hello     ~=? batchSimpleEval helloETA
+  , "eval_hello2"  ~: "Test hello2."                                                     ~: hello     ~=? batchSimpleEval hello2ETA
+  , "eval_hello3"  ~: "Test hello3."                                                     ~: hello     ~=? batchSimpleEval hello3ETA
+  , "test_crlf"    ~: "Test whether the interpreter handles CR/LF sequences correctly."  ~: crlf      ~=? batchSimpleEval crlfETA
 
-  , "eval_hello"   ~: "Test hello."                                                      ~: hello     ~=? batchExecMockIO (eval helloETA)
-  , "eval_hello2"  ~: "Test hello2."                                                     ~: hello     ~=? batchExecMockIO (eval hello2ETA)
-  , "eval_hello3"  ~: "Test hello3."                                                     ~: hello     ~=? batchExecMockIO (eval hello3ETA)
-  , "test_crlf"    ~: "Test whether the interpreter handles CR/LF sequences correctly."  ~: crlf      ~=? batchExecMockIO (eval crlfETA)
+  , "eval_hello"   ~: "Test hello."                                                      ~: hello     ~=? batchExecMockIO (simpleEval helloETA)
+  , "eval_hello2"  ~: "Test hello2."                                                     ~: hello     ~=? batchExecMockIO (simpleEval hello2ETA)
+  , "eval_hello3"  ~: "Test hello3."                                                     ~: hello     ~=? batchExecMockIO (simpleEval hello3ETA)
+  , "test_crlf"    ~: "Test whether the interpreter handles CR/LF sequences correctly."  ~: crlf      ~=? batchExecMockIO (simpleEval crlfETA)
 
   ]

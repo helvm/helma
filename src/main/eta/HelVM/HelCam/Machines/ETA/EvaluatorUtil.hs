@@ -8,10 +8,8 @@ import HelVM.HelCam.Common.Util
 import Data.List
 
 type Symbol = Int
+type SymbolList = [Symbol]
 type InstructionAddress = Int
-
-newtype Stack = Stack [Symbol]
-  deriving (Show)
 
 type InstructionCounter = InstructionAddress
 
@@ -31,7 +29,7 @@ parseNumber' acc (Nothing, iu) = (makeIntegral acc, iu)
 
 nextIU :: OperandIUParser (Maybe Token)
 nextIU iu@(IU il ic)
-  | ic < length il = (Just (genericIndexOrError ("nextIU"::Text,iu) il ic), IU il (ic+1))
+  | ic < length il = (Just (indexOrError ("nextIU"::Text,iu) il ic), IU il (ic+1))
   | otherwise      = (Nothing, iu)
 
 makeIntegral :: (Integral a) => TokenList -> a
@@ -39,7 +37,7 @@ makeIntegral = foldr (mul7AndAdd . toDigit) 0
 
 findAddress :: TokenList -> Symbol -> InstructionAddress
 findAddress _  1 = 0
-findAddress il address = genericIndexOrError ("findAddress"::Text,il,address) (elemIndices R (il <> [R])) (address-2) + 1
+findAddress il address = indexOrError ("findAddress"::Text,il,address) (elemIndices R (il <> [R])) (address-2) + 1
 
 nextLabel :: TokenList -> InstructionAddress -> Symbol
 nextLabel il ic = length (elemIndices R il') + 2

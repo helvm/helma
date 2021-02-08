@@ -11,7 +11,7 @@ module HelVM.HelCam.Machines.SubLeq.Evaluator (
 import HelVM.HelCam.Machines.SubLeq.Lexer
 import HelVM.HelCam.Machines.SubLeq.Symbol
 
-import HelVM.HelCam.Common.RAM as RAM
+import HelVM.HelCam.Common.Memories.RAM as RAM
 import HelVM.HelCam.Common.Types.RAMType
 import HelVM.HelCam.Common.Util
 import HelVM.HelCam.Common.WrapperIO

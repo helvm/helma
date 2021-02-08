@@ -1,71 +1,74 @@
-{-# Language FlexibleInstances #-}
+{-# Language FlexibleContexts      #-}
+{-# Language FlexibleInstances     #-}
 module HelVM.HelCam.Machines.ETA.Evaluator (
-  batchEval,
+  batchSimpleEval,
+  simpleEval,
   eval
 ) where
 
 import HelVM.HelCam.Machines.ETA.EvaluatorUtil
 
 import HelVM.HelCam.Machines.ETA.Lexer
+import HelVM.HelCam.Machines.ETA.StackOfSymbols as Stack
 import HelVM.HelCam.Machines.ETA.Token
 
-import HelVM.HelCam.Common.OrError
+import HelVM.HelCam.Common.Memories.Stack as Stack
 import HelVM.HelCam.Common.Util
+import HelVM.HelCam.Common.Types.StackType
 import HelVM.HelCam.Common.WrapperIO
 
-batchEval :: Source -> Output
-batchEval = flip eval emptyInput
+import Data.Sequence as Seq (fromList)
+
+batchSimpleEval :: Source -> Output
+batchSimpleEval = flip simpleEval emptyInput
+
+simpleEval :: Evaluator r => Source -> r
+simpleEval source = eval source defaultStackType
 
 ----
 
-eval :: Evaluator r => Source -> r
-eval = evalTL . tokenize
+eval :: Evaluator r => Source -> StackType -> r
+eval source = evalTL $ tokenize source
 
-evalTL :: Evaluator r => TokenList -> r
-evalTL il = next (IU il 0) (Stack [])
+evalTL :: Evaluator r => TokenList -> StackType -> r
+evalTL tl ListStackType = start tl ([] :: SymbolList)
+evalTL tl SeqStackType  = start tl (Seq.fromList [] :: Seq Symbol)
+
+start :: (Stack Symbol m, Evaluator r) => TokenList -> m -> r
+start il = next (IU il 0)
 
 class Evaluator r where
-  next :: InstructionUnit -> Stack -> r
+  next :: Stack Symbol m => InstructionUnit -> m -> r
   next iu s = doInstruction t iu' s where (t, iu') = nextIU iu
 
-  doInstruction :: Maybe Token -> InstructionUnit -> Stack -> r
+  doInstruction :: Stack Symbol m => Maybe Token -> InstructionUnit -> m -> r
   -- IO instructions
   doInstruction (Just O) iu s = doOutputChar iu s
   doInstruction (Just I) iu s = doInputChar  iu s
 
   -- Stack instructions
-  doInstruction (Just N) iu (Stack s) = next iu' (Stack (symbol:s))
-    where (symbol, iu') = parseNumber iu
-  doInstruction (Just H) iu (Stack (index:s))
-    | index <= 0 = next iu (Stack (genericIndexOrError ("Halibut"::Text, s) s (negate index):s))
-    | otherwise  = next iu (Stack (symbol <> tops <> s'')) where
-      (tops,s')    = splitAt index s
-      (symbol,s'') = splitAt 1     s'
+  doInstruction (Just N) iu s = next iu' (push1 (symbol::Symbol) s) where (symbol, iu') = parseNumber iu
+  doInstruction (Just H) iu s = next iu $ halibut s
 
   -- Arithmetic
-  doInstruction (Just S) iu (Stack (symbol:symbol':s)) = next iu (Stack                            ((symbol' - symbol):s))
-  doInstruction (Just E) iu (Stack (symbol:symbol':s)) = next iu (Stack ((symbol' `mod` symbol):(symbol' `div` symbol):s))
+  doInstruction (Just S) iu s = next iu $ sub s
+  doInstruction (Just E) iu s = next iu $ Stack.divMod s
 
   -- Control
-  doInstruction (Just R) iu                            s   = next  iu s
-  doInstruction (Just T) iu            (Stack     (_:0:s)) = next  iu (Stack s)
-  doInstruction (Just T) _             (Stack     (0:_  )) = doEnd
-  doInstruction (Just T)    (IU il _ ) (Stack (label:_:s)) = next (IU il $ findAddress il label) (Stack s)
-  doInstruction (Just A) iu@(IU il ic) (Stack          s ) = next  iu  (Stack (nextLabel il ic:s))
+  doInstruction (Just R) iu s = next iu s
+  doInstruction (Just A) iu@(IU il ic) s = next iu (push1 (nextLabel il ic) s)
+  doInstruction (Just T) iu@(IU il _ ) s = transfer $ pop2 s where
+    transfer (_, 0, s') = next iu s'
+    transfer (0, _, _ ) = doEnd
+    transfer (l, _, s') = next (IU il $ findAddress il l) s'
   doInstruction Nothing _ _  = doEnd
-
-  -- Other
-  doInstruction t s iu = error $ "Can't do token " <> show t <> " "  <> show s <> " " <> show iu
 
   ----
   doEnd :: r
-  doOutputChar :: InstructionUnit -> Stack -> r
-  doInputChar  :: InstructionUnit -> Stack -> r
+  doOutputChar :: Stack Symbol m => InstructionUnit -> m -> r
+  doInputChar  :: Stack Symbol m => InstructionUnit -> m -> r
 
 ----
-
-emptyStackError :: Evaluator r => Token -> r
-emptyStackError t = error $ "Empty stack for instruction " <> show t
 
 emptyInputError :: Evaluator r => Token -> r
 emptyInputError t = error $ "Empty input for token " <> show t
@@ -75,24 +78,22 @@ emptyInputError t = error $ "Empty input for token " <> show t
 instance Evaluator Interact where
   doEnd _ = []
 
-  doInputChar _   _         []          = emptyInputError I ([]::Input)
-  doInputChar _  (Stack []) _           = emptyStackError I ([]::Input)
-  doInputChar iu (Stack s) (char:input) = next iu (Stack (ord char:s)) input
+  doInputChar _  _       []     = emptyInputError I ([]::Input)
+  doInputChar iu s (char:input) = next iu (push1 (ord char) s) input
 
-  doOutputChar _  (Stack [])         _     = emptyStackError O ([]::Input)
-  doOutputChar iu (Stack (symbol:s)) input = chr symbol : next iu (Stack s) input
+  doOutputChar iu s input = chr symbol : next iu s' input
+    where (symbol, s') = pop1 s
 
 ----
 
 instance WrapperIO m => Evaluator (m ()) where
   doEnd = pass
 
-  doInputChar _  (Stack []) = emptyStackError I
-  doInputChar iu (Stack s)  = do
+  doInputChar iu s = do
     char <- wGetChar
-    next iu $ Stack (ord char:s)
+    next iu $ push1 (ord char) s
 
-  doOutputChar _  (Stack [])        = emptyStackError O
-  doOutputChar iu (Stack (value:s)) = do
-    wPutChar $ chr value
-    next iu $ Stack s
+  doOutputChar iu s = do
+    wPutChar (chr value)
+    next iu s'
+      where (value, s') = pop1 s

@@ -14,11 +14,14 @@ import HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil
 import HelVM.HelCam.Machines.WhiteSpace.Instruction
 import HelVM.HelCam.Machines.WhiteSpace.Lexer
 import HelVM.HelCam.Machines.WhiteSpace.Parser
+import HelVM.HelCam.Machines.WhiteSpace.StackOfSymbols as Stack
 import HelVM.HelCam.Machines.WhiteSpace.Token
 
 import HelVM.HelCam.Common.OrError
-import HelVM.HelCam.Common.RAM as RAM
+import HelVM.HelCam.Common.Memories.RAM as RAM
+import HelVM.HelCam.Common.Memories.Stack as Stack
 import HelVM.HelCam.Common.Types.RAMType
+import HelVM.HelCam.Common.Types.StackType
 import HelVM.HelCam.Common.Util
 import HelVM.HelCam.Common.WrapperIO
 
@@ -32,62 +35,67 @@ batchSimpleEvalIL :: InstructionList -> Output
 batchSimpleEvalIL = flip simpleEvalIL emptyInput
 
 simpleEvalTL :: Evaluator r => TokenList -> r
-simpleEvalTL tl = evalTL tl False defaultRAMType
+simpleEvalTL tl = evalTL tl False defaultStackType defaultRAMType
 
 simpleEvalIL :: Evaluator r => InstructionList -> r
-simpleEvalIL = flip evalIL defaultRAMType
+simpleEvalIL il = evalIL il defaultStackType defaultRAMType
 
-eval :: Evaluator r => Source -> Bool -> RAMType -> r
+eval :: Evaluator r => Source -> Bool -> StackType -> RAMType -> r
 eval source = evalTL $ tokenize source
 
-evalTL :: Evaluator r => TokenList -> Bool -> RAMType -> r
+evalTL :: Evaluator r => TokenList -> Bool -> StackType -> RAMType -> r
 evalTL tl ascii = evalIL $ parseTL tl ascii
 
-evalIL :: Evaluator r => InstructionList -> RAMType -> r
-evalIL il ListRAMType   = start il ([] :: SymbolList)
-evalIL il SeqRAMType    = start il (Seq.fromList [] :: Seq Symbol)
-evalIL il IntMapRAMType = start il (IntMap.empty :: IntMap Symbol)
+evalIL :: Evaluator r => InstructionList -> StackType -> RAMType -> r
+evalIL il s ListRAMType   = evalIL' il s ([] :: SymbolList)
+evalIL il s SeqRAMType    = evalIL' il s (Seq.fromList [] :: Seq Symbol)
+evalIL il s IntMapRAMType = evalIL' il s (IntMap.empty :: IntMap Symbol)
 
-start :: (RAM Symbol m, Evaluator r) => InstructionList -> m -> r
-start il = next (IU il 0 (IS [])) (Stack []) 
+evalIL' :: (RAM Symbol m, Evaluator r) => InstructionList -> StackType -> m -> r
+evalIL' il ListStackType = start il ([] :: SymbolList)
+evalIL' il SeqStackType  = start il (Seq.fromList [] :: Seq Symbol)
+
+start :: (Stack Symbol s, RAM Symbol m, Evaluator r) => InstructionList -> s -> m -> r
+start il = next (IU il 0 (IS []))
 
 class Evaluator r where
-  next :: RAM Symbol m => InstructionUnit -> Stack -> m -> r
-  next iu@(IU il ic is) = doInstruction (genericIndexOrError ("next"::Text,iu) il ic) (IU il (ic+1) is)
+  next :: (Stack Symbol s, RAM Symbol m) => InstructionUnit -> s -> m -> r
+  next iu@(IU il ic is) = doInstruction (indexOrError ("next"::Text,iu) il ic) (IU il (ic+1) is)
 
   ----
 
-  doInstruction :: RAM Symbol m => Instruction -> InstructionUnit -> Stack -> m -> r
+  doInstruction :: (Stack Symbol s, RAM Symbol m) => Instruction -> InstructionUnit -> s -> m -> r
 
   -- IO instructions
-  doInstruction  OutputChar iu s h = doOutputChar iu s h
-  doInstruction  InputChar  iu s h = doInputChar  iu s h
-  doInstruction  OutputNum  iu s h = doOutputNum  iu s h
-  doInstruction  InputNum   iu s h = doInputNum   iu s h
+  doInstruction  OutputChar iu stack h = doOutputChar iu stack h
+  doInstruction  InputChar  iu stack h = doInputChar  iu stack h
+  doInstruction  OutputNum  iu stack h = doOutputNum  iu stack h
+  doInstruction  InputNum   iu stack h = doInputNum   iu stack h
 
   -- Stack instructions
-  doInstruction (Liter symbol) iu (Stack                 s ) h = next iu (Stack                     (symbol:s)) h
-  doInstruction (Copy  index)  iu (Stack                 s ) h = next iu (Stack             (( s !!! index):s)) h
-  doInstruction (Slide index)  iu (Stack         (symbol:s)) h = next iu (Stack          (symbol:drop index s)) h
-  doInstruction  Dup           iu (Stack         (symbol:s)) h = next iu (Stack              (symbol:symbol:s)) h
-  doInstruction  Swap          iu (Stack (symbol:symbol':s)) h = next iu (Stack             (symbol':symbol:s)) h
-  doInstruction  Discard       iu (Stack              (_:s)) h = next iu (Stack                             s ) h
+  doInstruction (Liter symbol) iu stack h = next iu (push1   symbol stack) h
+  doInstruction (Copy  index)  iu stack h = next iu (copy    index  stack) h
+  doInstruction (Slide index)  iu stack h = next iu (slide   index  stack) h
+  doInstruction  Dup           iu stack h = next iu (dup            stack) h
+  doInstruction  Swap          iu stack h = next iu (Stack.swap     stack) h
+  doInstruction  Discard       iu stack h = next iu (discard        stack) h
 
   -- Arithmetic
-  doInstruction (Binary op)    iu (Stack (symbol:symbol':s)) h = next iu (Stack (doBinary op symbol symbol':s)) h
+  doInstruction (Binary op)    iu stack h = next iu (binaryOp op stack) h
 
   -- Heap access
-  doInstruction Store iu (Stack (value:address:s)) h = next iu (Stack                 s ) (store address value h)
-  doInstruction Load  iu (Stack       (address:s)) h = next iu (Stack (load h address:s))                      h
+  doInstruction Store iu stack h = next iu stack' (store (address::Symbol) value h) where (value, address, stack') = pop2 stack
+  doInstruction Load  iu stack h = next iu (push1 (load h address ::Symbol) stack') h where (address, stack') = pop1 stack
 
   -- Control
-  doInstruction (Mark     _)  iu                          s h = next  iu                                     s h
-  doInstruction  Return      (IU il _  (IS (address:is))) s h = next (IU il  address           (IS is)     ) s h
-  doInstruction (Call     l) (IU il ic (IS is)          ) s h = next (IU il (findAddress il l) (IS (ic:is))) s h
-  doInstruction (Jump     l) (IU il _   is              ) s h = next (IU il (findAddress il l)  is         ) s h
-  doInstruction (Branch t l) (IU il ic is) (Stack (symbol:s)) h
-    | doBranchTest t symbol = next (IU il (findAddress il l) is) (Stack s) h
-    | otherwise             = next (IU il ic                 is) (Stack s) h
+  doInstruction (Mark     _)  iu                          stack h = next  iu                                     stack h
+  doInstruction  Return      (IU il _  (IS (address:is))) stack h = next (IU il  address           (IS is)     ) stack h
+  doInstruction (Call     l) (IU il ic (IS is)          ) stack h = next (IU il (findAddress il l) (IS (ic:is))) stack h
+  doInstruction (Jump     l) (IU il _   is              ) stack h = next (IU il (findAddress il l)  is         ) stack h
+  doInstruction (Branch t l) (IU il ic is) stack h
+    | doBranchTest t symbol = next (IU il (findAddress il l) is) stack' h
+    | otherwise             = next (IU il ic                 is) stack' h
+    where (symbol, stack') = pop1 stack
 
   -- Other
   doInstruction End _ _ _ = doEnd
@@ -95,20 +103,17 @@ class Evaluator r where
 
   ----
 
-  emptyStackError :: Instruction -> r
-  emptyStackError i = error $ "Empty stack for instruction " <> show i
-
   emptyInputError :: Instruction -> r
   emptyInputError i = error $ "Empty input for instruction " <> show i
 
-  ----
+  -- Special
   doEnd :: r
 
   -- IO instructions
-  doOutputChar :: RAM Symbol m => InstructionUnit -> Stack -> m -> r
-  doInputChar  :: RAM Symbol m => InstructionUnit -> Stack -> m -> r
-  doOutputNum  :: RAM Symbol m => InstructionUnit -> Stack -> m -> r
-  doInputNum   :: RAM Symbol m => InstructionUnit -> Stack -> m -> r
+  doOutputChar :: (Stack Symbol s, RAM Symbol m) => InstructionUnit -> s -> m -> r
+  doInputChar  :: (Stack Symbol s, RAM Symbol m) => InstructionUnit -> s -> m -> r
+  doOutputNum  :: (Stack Symbol s, RAM Symbol m) => InstructionUnit -> s -> m -> r
+  doInputNum   :: (Stack Symbol s, RAM Symbol m) => InstructionUnit -> s -> m -> r
 
 ----
 
@@ -117,46 +122,45 @@ storeNum address line = store address (readOrError line :: Symbol)
 
 ----
 
-
 instance Evaluator Interact where
   doEnd _ = []
 
-  doOutputChar _  (Stack [])         _ input = emptyStackError OutputChar input
-  doOutputChar iu (Stack (symbol:s)) h input = chr (fromInteger symbol) : next iu (Stack s) h input
+  doInputChar _  _ _       []     = emptyInputError InputChar ([]::Input)
+  doInputChar iu stack h (char:input) = next iu stack' (store address (toInteger (ord char)) h) input
+    where (address, stack') = pop1 stack
 
-  doOutputNum _  (Stack [])         _ input = emptyStackError OutputNum input
-  doOutputNum iu (Stack (symbol:s)) h input = show symbol <> next iu (Stack s) h input
+  doInputNum _  _ _ []    = emptyInputError InputNum ([]::Input)
+  doInputNum iu stack h input = next iu stack' (storeNum address line h) input'
+    where (address, stack') = pop1 stack
+          (line, input') = splitStringByEndLine input
 
-  doInputChar _                  _   _       []     = emptyInputError InputChar ([]::Input)
-  doInputChar _  (Stack [])          _       input  = emptyStackError InputChar input
-  doInputChar iu (Stack (address:s)) h (char:input) = next iu (Stack s) (store address (toInteger (ord char)) h) input
+  doOutputChar iu stack h input = chr (fromInteger symbol) : next iu stack' h input
+    where (symbol, stack') = pop1 stack
 
-  doInputNum _   _                  _ []    = emptyInputError InputNum ([]::Input)
-  doInputNum _  (Stack [])          _ input = emptyStackError InputNum input
-  doInputNum iu (Stack (address:s)) h input = next iu (Stack s) (storeNum address line h) input'
-    where (line, input') = splitStringByEndLine input
+  doOutputNum iu stack h input = show (symbol :: Symbol) <> next iu stack' h input
+    where (symbol, stack') = pop1 stack
 
 ----
 
 instance WrapperIO m => Evaluator (m ()) where
   doEnd = pass
 
-  doOutputChar _  (Stack [])        _ = emptyStackError OutputChar
-  doOutputChar iu (Stack (value:s)) h = do
-    wPutChar $ chr $ fromInteger value
-    next iu (Stack s) h
-
-  doOutputNum _  (Stack [])        _ = emptyStackError OutputNum
-  doOutputNum iu (Stack (value:s)) h = do
-    wPutStr $ show value
-    next iu (Stack s) h
-
-  doInputChar _  (Stack [])          _ = emptyStackError InputChar
-  doInputChar iu (Stack (address:s)) h = do
+  doInputChar iu stack h = do
     char <- wGetChar
-    next iu (Stack s) (store address (toInteger (ord char)) h)
+    next iu stack' (store address (toInteger (ord char)) h)
+      where (address, stack') = pop1 stack
 
-  doInputNum _  (Stack [])          _ = emptyStackError InputNum
-  doInputNum iu (Stack (address:s)) h = do
+  doInputNum iu stack h = do
     line <- wGetLine
-    next iu (Stack s) $ storeNum address line h
+    next iu stack' (storeNum address line h)
+      where (address, stack') = pop1 stack
+
+  doOutputChar iu stack h = do
+    wPutChar (chr (fromInteger value))
+    next iu stack' h
+      where (value, stack') = pop1 stack
+
+  doOutputNum iu stack h = do
+    wPutStr (show (symbol::Symbol))
+    next iu stack' h
+      where (symbol, stack') = pop1 stack

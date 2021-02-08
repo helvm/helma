@@ -2,8 +2,6 @@ module HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil where
 
 import HelVM.HelCam.Machines.WhiteSpace.Instruction
 
-newtype Stack = Stack [Symbol]
-
 type InstructionCounter = InstructionAddress
 newtype InstructionStack = IS [InstructionAddress]
   deriving (Show)

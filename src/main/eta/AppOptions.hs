@@ -4,6 +4,7 @@
 module AppOptions where
 
 import HelVM.HelCam.Common.Types.CellType
+import HelVM.HelCam.Common.Types.StackType
 import HelVM.HelCam.Common.Types.RAMType
 
 import Options.Applicative
@@ -43,14 +44,21 @@ optionParser = AppOptions
                    <> short   'm'
                    <> metavar "[RAMType]"
                    <> help   ("Implementation of RAM " <> show ramTypes)
-                   <> value (show ListRAMType)
+                   <> value (show defaultRAMType)
+                   <> showDefault
+                   )
+  <*> strOption    (  long    "StackType"
+                   <> short   's'
+                   <> metavar "[StackType]"
+                   <> help   ("Implementation of Stack " <> show stackTypes)
+                   <> value (show defaultStackType)
                    <> showDefault
                    )
   <*> strOption    (  long    "CellType"
                    <> short   'c'
                    <> metavar "[CellType]"
                    <> help   ("Implementation of Cell " <> show cellTypes)
-                   <> value (show ListRAMType)
+                   <> value (show defaultCellType)
                    <> showDefault
                    )
   <*> switch       (  long    "exec"
@@ -60,7 +68,6 @@ optionParser = AppOptions
                    )
   <*> argument str (  metavar "FILE")
 
-
 data AppOptions = AppOptions
   { lang        :: String      -- Lang
   , emitTL      :: EmitTL
@@ -68,6 +75,7 @@ data AppOptions = AppOptions
   , asciiLabels :: AsciiLabels
   , impl        :: String      -- Impl
   , ramType     :: String      -- RAMType
+  , stackType   :: String      -- StackType
   , cellType    :: String      -- CellType
   , exec        :: Exec
   , file        :: String

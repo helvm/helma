@@ -2,6 +2,8 @@ module HelVM.HelCam.Machines.WhiteSpace.Instruction where
 
 import HelVM.HelCam.Machines.WhiteSpace.OperandParsers
 
+import HelVM.HelCam.Common.Memories.Stack
+
 data Instruction =
     Liter Symbol
   | Copy  Index
@@ -36,7 +38,6 @@ data BranchTest = EZ | Neg
 
 type InstructionAddress = Int
 
-type Index = Int
 parseIndex :: OperandParser Index
 parseIndex = parseInt
 

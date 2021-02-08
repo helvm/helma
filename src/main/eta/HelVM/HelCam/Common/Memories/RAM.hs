@@ -1,10 +1,10 @@
+{-# Language AllowAmbiguousTypes   #-}
 {-# Language FlexibleInstances     #-}
 {-# Language MultiParamTypeClasses #-}
-{-# Language AllowAmbiguousTypes   #-}
-module HelVM.HelCam.Common.RAM (
+module HelVM.HelCam.Common.Memories.RAM (
   RAM,
-  HelVM.HelCam.Common.RAM.empty,
-  HelVM.HelCam.Common.RAM.fromList,
+  HelVM.HelCam.Common.Memories.RAM.empty,
+  HelVM.HelCam.Common.Memories.RAM.fromList,
   load,
   store
 ) where

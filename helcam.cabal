@@ -35,10 +35,12 @@ library
         HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil
         HelVM.HelCam.Machines.WhiteSpace.Lexer
   exposed-modules:
+        HelVM.HelCam.Common.Memories.RAM
+        HelVM.HelCam.Common.Memories.Stack
         HelVM.HelCam.Common.MockIO
         HelVM.HelCam.Common.OrError
-        HelVM.HelCam.Common.RAM
         HelVM.HelCam.Common.Types.CellType
+        HelVM.HelCam.Common.Types.StackType
         HelVM.HelCam.Common.Types.RAMType
         HelVM.HelCam.Common.Util
         HelVM.HelCam.Common.WrapperIO
@@ -50,6 +52,7 @@ library
         HelVM.HelCam.Machines.ETA.Evaluator
         HelVM.HelCam.Machines.ETA.EvaluatorUtil
         HelVM.HelCam.Machines.ETA.Lexer
+        HelVM.HelCam.Machines.ETA.StackOfSymbols
         HelVM.HelCam.Machines.ETA.Token
 
         HelVM.HelCam.Machines.SubLeq.Evaluator
@@ -59,6 +62,7 @@ library
         HelVM.HelCam.Machines.WhiteSpace.Instruction
         HelVM.HelCam.Machines.WhiteSpace.OperandParsers
         HelVM.HelCam.Machines.WhiteSpace.Parser
+        HelVM.HelCam.Machines.WhiteSpace.StackOfSymbols
         HelVM.HelCam.Machines.WhiteSpace.Token
   other-extensions:
   build-depends:
@@ -117,10 +121,14 @@ executable helcam
   main-is:             Main.hs
   other-modules:
         AppOptions
+        EvalOptions
+
+        HelVM.HelCam.Common.Memories.RAM
+        HelVM.HelCam.Common.Memories.Stack
         HelVM.HelCam.Common.MockIO
         HelVM.HelCam.Common.OrError
-        HelVM.HelCam.Common.RAM
         HelVM.HelCam.Common.Types.CellType
+        HelVM.HelCam.Common.Types.StackType
         HelVM.HelCam.Common.Types.RAMType
         HelVM.HelCam.Common.Util
         HelVM.HelCam.Common.WrapperIO
@@ -135,6 +143,7 @@ executable helcam
         HelVM.HelCam.Machines.ETA.Evaluator
         HelVM.HelCam.Machines.ETA.EvaluatorUtil
         HelVM.HelCam.Machines.ETA.Lexer
+        HelVM.HelCam.Machines.ETA.StackOfSymbols
         HelVM.HelCam.Machines.ETA.Token
 
         HelVM.HelCam.Machines.SubLeq.Evaluator
@@ -147,6 +156,7 @@ executable helcam
         HelVM.HelCam.Machines.WhiteSpace.Lexer
         HelVM.HelCam.Machines.WhiteSpace.OperandParsers
         HelVM.HelCam.Machines.WhiteSpace.Parser
+        HelVM.HelCam.Machines.WhiteSpace.StackOfSymbols
         HelVM.HelCam.Machines.WhiteSpace.Token
   other-extensions:
   build-depends:
