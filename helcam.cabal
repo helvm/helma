@@ -35,12 +35,14 @@ library
         HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil
         HelVM.HelCam.Machines.WhiteSpace.Lexer
   exposed-modules:
-        HelVM.HelCam.Common.FilterIf0
         HelVM.HelCam.Common.MockIO
         HelVM.HelCam.Common.OrError
+        HelVM.HelCam.Common.RAM
         HelVM.HelCam.Common.RAM.IntMapRAM
         HelVM.HelCam.Common.RAM.ListRAM
         HelVM.HelCam.Common.RAM.SeqRAM
+        HelVM.HelCam.Common.Types.CellType
+        HelVM.HelCam.Common.Types.RAMType
         HelVM.HelCam.Common.Util
         HelVM.HelCam.Common.WrapperIO
 
@@ -119,12 +121,14 @@ executable helcam
   main-is:             Main.hs
   other-modules:
         AppOptions
-        HelVM.HelCam.Common.FilterIf0
         HelVM.HelCam.Common.MockIO
         HelVM.HelCam.Common.OrError
+        HelVM.HelCam.Common.RAM
         HelVM.HelCam.Common.RAM.IntMapRAM
         HelVM.HelCam.Common.RAM.ListRAM
         HelVM.HelCam.Common.RAM.SeqRAM
+        HelVM.HelCam.Common.Types.CellType
+        HelVM.HelCam.Common.Types.RAMType
         HelVM.HelCam.Common.Util
         HelVM.HelCam.Common.WrapperIO
 

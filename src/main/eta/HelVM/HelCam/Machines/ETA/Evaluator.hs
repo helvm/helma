@@ -1,7 +1,5 @@
 {-# Language FlexibleInstances #-}
 module HelVM.HelCam.Machines.ETA.Evaluator (
-  monadicEval,
-  interactEval,
   batchEval,
   eval
 ) where
@@ -11,19 +9,22 @@ import HelVM.HelCam.Machines.ETA.EvaluatorUtil
 import HelVM.HelCam.Machines.ETA.Lexer
 import HelVM.HelCam.Machines.ETA.Token
 
-import HelVM.HelCam.Common.MockIO
 import HelVM.HelCam.Common.OrError
 import HelVM.HelCam.Common.Util
+import HelVM.HelCam.Common.WrapperIO
 
-import qualified System.IO as IO
+batchEval :: Source -> Output
+batchEval = flip eval emptyInput
+
+----
+
+eval :: Evaluator r => Source -> r
+eval = evalTL . tokenize
+
+evalTL :: Evaluator r => TokenList -> r
+evalTL il = next (IU il 0) (Stack [])
 
 class Evaluator r where
-  eval :: Source -> r
-  eval = evalTL . tokenize
-
-  evalTL :: TokenList -> r
-  evalTL il = next (IU il 0) (Stack [])
-
   next :: InstructionUnit -> Stack -> r
   next iu s = doInstruction t iu' s where (t, iu') = nextIU iu
 
@@ -57,25 +58,21 @@ class Evaluator r where
   doInstruction t s iu = error $ "Can't do token " <> show t <> " "  <> show s <> " " <> show iu
 
   ----
-  emptyStackError :: Token -> r
-  emptyStackError t = error $ "Empty stack for instruction " <> show t
-
-  emptyInputError :: Token -> r
-  emptyInputError t = error $ "Empty input for token " <> show t
-
-  ----
   doEnd :: r
   doOutputChar :: InstructionUnit -> Stack -> r
   doInputChar  :: InstructionUnit -> Stack -> r
 
 ----
-interactEval :: Source -> IO ()
-interactEval source = IO.interact $ evalTL $ tokenize source
 
-batchEval :: Source -> Output
-batchEval = flip eval ([]::String)
+emptyStackError :: Evaluator r => Token -> r
+emptyStackError t = error $ "Empty stack for instruction " <> show t
 
-instance Evaluator (Input -> Output) where
+emptyInputError :: Evaluator r => Token -> r
+emptyInputError t = error $ "Empty input for token " <> show t
+
+----
+
+instance Evaluator Interact where
   doEnd _ = []
 
   doInputChar _   _         []          = emptyInputError I ([]::Input)
@@ -86,32 +83,16 @@ instance Evaluator (Input -> Output) where
   doOutputChar iu (Stack (symbol:s)) input = chr symbol : next iu (Stack s) input
 
 ----
-monadicEval :: Source -> IO ()
-monadicEval = evalTL . tokenize
 
-instance Evaluator (IO ()) where
+instance WrapperIO m => Evaluator (m ()) where
   doEnd = pass
 
   doInputChar _  (Stack []) = emptyStackError I
   doInputChar iu (Stack s)  = do
-    char <- IO.getChar
-    next iu (Stack (ord char:s))
+    char <- wGetChar
+    next iu $ Stack (ord char:s)
 
   doOutputChar _  (Stack [])        = emptyStackError O
   doOutputChar iu (Stack (value:s)) = do
-    IO.putChar (chr value)
-    next iu $ Stack s
-
-----
-instance Evaluator (MockIO ()) where
-  doEnd = pass
-
-  doInputChar _  (Stack []) = emptyStackError I
-  doInputChar iu (Stack s)  = do
-    char <- mockGetChar
-    next iu (Stack (ord char:s))
-
-  doOutputChar _  (Stack [])        = emptyStackError O
-  doOutputChar iu (Stack (value:s)) = do
-    mockPutChar (chr value)
+    wPutChar $ chr value
     next iu $ Stack s

@@ -1,4 +1,12 @@
-module HelVM.HelCam.Machines.BrainFuck.TapeOfSymbols (FullTape, newTape, moveHeadRight, moveHeadLeft, wSuccSymbol, wPredSymbol, writeSymbol) where
+module HelVM.HelCam.Machines.BrainFuck.TapeOfSymbols (
+  FullTape,
+  newTape,
+  moveHeadRight,
+  moveHeadLeft,
+  wNextSymbol,
+  wPrevSymbol,
+  writeSymbol
+) where
 
 import HelVM.HelCam.Machines.BrainFuck.Symbol
 
@@ -14,7 +22,7 @@ type HalfTape s = [s]
 ----
 
 newTape :: (Symbol s) => FullTape s
-newTape = ([blank], [blank])
+newTape = ([def], [def])
 
 moveHeadRight :: (Symbol s) => FullTapeD s
 moveHeadRight (cell:left, right) = pad (left, cell:right)
@@ -26,21 +34,21 @@ moveHeadLeft (_, [])            = error "End of the Tipe"
 
 pad :: (Symbol s) => FullTapeD s
 pad ([], [])    = newTape
-pad ([], right) = ([blank], right)
-pad (left, [])  = (left, [blank])
+pad ([], right) = ([def], right)
+pad (left, [])  = (left, [def])
 pad tape        = tape
 
 ----
 
-wSuccSymbol :: (Symbol s) => FullTapeD s
-wSuccSymbol = modifyCell succSymbol
+wNextSymbol :: (Symbol s) => FullTapeD s
+wNextSymbol = modifyCell next
 
-wPredSymbol :: (Symbol s) => FullTapeD s
-wPredSymbol = modifyCell predSymbol
+wPrevSymbol :: (Symbol s) => FullTapeD s
+wPrevSymbol = modifyCell prev
 
 writeSymbol :: (Symbol s) => Char -> FullTapeD s
 writeSymbol symbol = modifyCell (const $ fromChar symbol)
 
 modifyCell :: (Symbol s) => D s -> FullTapeD s
 modifyCell f (left, cell:right) = (left, f cell:right)
-modifyCell _ (_, [])            = error "End of the Tipe"
+modifyCell _ (_, [])            = error "End of the Tape"

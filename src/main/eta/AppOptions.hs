@@ -3,6 +3,9 @@
 
 module AppOptions where
 
+import HelVM.HelCam.Common.Types.CellType
+import HelVM.HelCam.Common.Types.RAMType
+
 import Options.Applicative
 
 optionParser :: Parser AppOptions
@@ -29,16 +32,25 @@ optionParser = AppOptions
                    <> help    "Use ascii labels"
                    <> showDefault
                    )
-  <*> switch       (  long    "eta"
-                   <> short   'E'
-                   <> help    "Eta compliance mode"
-                   <> showDefault
-                   )
   <*> strOption    (  long    "impl"
                    <> short   'i'
                    <> metavar "[IMPL]"
                    <> help   ("Implementation of interpreter " <> show impls)
                    <> value (show Monadic)
+                   <> showDefault
+                   )
+  <*> strOption    (  long    "RAMType"
+                   <> short   'm'
+                   <> metavar "[RAMType]"
+                   <> help   ("Implementation of RAM " <> show ramTypes)
+                   <> value (show ListRAMType)
+                   <> showDefault
+                   )
+  <*> strOption    (  long    "CellType"
+                   <> short   'c'
+                   <> metavar "[CellType]"
+                   <> help   ("Implementation of Cell " <> show cellTypes)
+                   <> value (show ListRAMType)
                    <> showDefault
                    )
   <*> switch       (  long    "exec"
@@ -54,8 +66,9 @@ data AppOptions = AppOptions
   , emitTL      :: EmitTL
   , emitIL      :: EmitIL
   , asciiLabels :: AsciiLabels
-  , etaMode     :: EtaMode
   , impl        :: String      -- Impl
+  , ramType     :: String      -- RAMType
+  , cellType    :: String      -- CellType
   , exec        :: Exec
   , file        :: String
   }
@@ -74,10 +87,10 @@ data Lang = Cat | BF | ETA | SQ | WS
 langs :: [Lang]
 langs = [Cat, BF, ETA, SQ, WS]
 
-computeLang :: String -> Lang
-computeLang raw = valid $ readMaybe raw where
-  valid (Just a)  = a
-  valid Nothing = error $ "Lang '" <> toText raw <> "' is not valid lang. Valid langs are : " <> show langs
+parseLang :: String -> Lang
+parseLang raw = valid $ readMaybe raw where
+  valid (Just a) = a
+  valid Nothing  = error $ "Lang '" <> toText raw <> "' is not valid lang. Valid langs are : " <> show langs
 
 ----
 
@@ -86,7 +99,7 @@ data Impl = Monadic | Interact deriving (Eq, Read, Show)
 impls :: [Impl]
 impls = [Monadic, Interact]
 
-computeImpl :: String -> Impl
-computeImpl raw = valid $ readMaybe raw where
-  valid (Just a)  = a
-  valid Nothing = error $ "Impl '" <> toText raw <> "' is not valid impl. Valid impls are : " <> show impls
+parseImpl :: String -> Impl
+parseImpl raw = valid $ readMaybe raw where
+  valid (Just a) = a
+  valid Nothing  = error $ "Impl '" <> toText raw <> "' is not valid impl. Valid impls are : " <> show impls

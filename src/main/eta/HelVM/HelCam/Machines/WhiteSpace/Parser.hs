@@ -5,11 +5,11 @@ import HelVM.HelCam.Machines.WhiteSpace.Lexer
 import HelVM.HelCam.Machines.WhiteSpace.Instruction
 import HelVM.HelCam.Common.Util
 
-parse :: Bool -> Source -> InstructionList
-parse ascii = parseTL ascii . tokenize
+parse :: Source -> Bool -> InstructionList
+parse source = parseTL $ tokenize source
 
-parseTL :: Bool -> TokenList -> InstructionList
-parseTL ascii = parseTL' where
+parseTL :: TokenList -> Bool -> InstructionList
+parseTL source ascii = parseTL' source where
   parseTL' :: TokenList -> InstructionList
   parseTL' []               = []
   -- Stack instructions

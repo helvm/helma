@@ -11,6 +11,9 @@ type Output = String
 
 type Interact = Input -> Output
 
+emptyInput :: Input
+emptyInput = []
+
 -- ListUtil
 
 chunksOf :: Int -> [a] -> [[a]]

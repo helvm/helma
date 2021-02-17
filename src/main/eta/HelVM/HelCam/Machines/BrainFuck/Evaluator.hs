@@ -1,5 +1,11 @@
 {-# Language FlexibleInstances #-}
-module HelVM.HelCam.Machines.BrainFuck.Evaluator where
+module HelVM.HelCam.Machines.BrainFuck.Evaluator (
+  batchEvalInt8,
+  batchEvalWord8,
+  evalInt8,
+  evalWord8,
+  eval
+) where
 
 import HelVM.HelCam.Machines.BrainFuck.Symbol
 import HelVM.HelCam.Machines.BrainFuck.TableOfInstructions
@@ -7,26 +13,37 @@ import HelVM.HelCam.Machines.BrainFuck.TapeOfSymbols
 import HelVM.HelCam.Machines.BrainFuck.Token
 import HelVM.HelCam.Machines.BrainFuck.Lexer
 
-import HelVM.HelCam.Common.MockIO
+import HelVM.HelCam.Common.Types.CellType
 import HelVM.HelCam.Common.Util
+import HelVM.HelCam.Common.WrapperIO
 
-import qualified System.IO as IO
+batchEvalInt8 :: Source -> Output
+batchEvalInt8 = flip evalInt8 emptyInput
+
+batchEvalWord8 :: Source -> Output
+batchEvalWord8  = flip evalWord8 emptyInput
+
+----
+
+evalInt8 :: Evaluator r => Source -> r
+evalInt8 = flip eval Int8Type
+
+evalWord8 :: Evaluator r => Source -> r
+evalWord8 = flip eval Word8Type
+
+eval :: Evaluator r => Source -> CellType ->  r
+eval source Int8Type  = start source (newTape :: FullTape Int8)
+eval source Word8Type = start source (newTape :: FullTape Word8)
+
+start :: (Symbol s, Evaluator r) => String -> FullTape s -> r
+start source = doInstruction ([], tokenize source)
 
 class Evaluator r where
-  evalInt8 :: Source -> r
-  evalInt8 = flip eval (newTape :: FullTape Int8)
-
-  evalWord8 :: Source -> r
-  evalWord8  = flip eval (newTape :: FullTape Word8)
-
-  eval :: Symbol s => Source -> FullTape s -> r
-  eval source = doInstruction ([], tokenize source)
-
   doInstruction :: Symbol s => Table -> FullTape s -> r
   doInstruction table@(_, MoveR   :_) tape = doInstruction    (nextInst table) (moveHeadRight tape)
   doInstruction table@(_, MoveL   :_) tape = doInstruction    (nextInst table)  (moveHeadLeft tape)
-  doInstruction table@(_, Inc     :_) tape = doInstruction    (nextInst table)   (wSuccSymbol tape)
-  doInstruction table@(_, Dec     :_) tape = doInstruction    (nextInst table)   (wPredSymbol tape)
+  doInstruction table@(_, Inc     :_) tape = doInstruction    (nextInst table)   (wNextSymbol tape)
+  doInstruction table@(_, Dec     :_) tape = doInstruction    (nextInst table)   (wPrevSymbol tape)
   doInstruction table@(_, JmpPast :_) tape = doJmpPast                  table                 tape
   doInstruction table@(_, JmpBack :_) tape = doJmpBack                  table                 tape
   doInstruction table@(_, Output  :_) tape = doOutputChar               table                 tape
@@ -47,15 +64,6 @@ class Evaluator r where
 
 ----
 
-interactEval :: Source -> IO ()
-interactEval source = IO.interact (evalWord8 source)
-
-batchEvalInt8 :: Source -> Output
-batchEvalInt8 = flip evalInt8 ([]::String)
-
-batchEvalWord8 :: Source -> Output
-batchEvalWord8  = flip evalWord8 ([]::String)
-
 instance Evaluator Interact where
   doEnd _ = []
 
@@ -67,31 +75,14 @@ instance Evaluator Interact where
 
 ----
 
-monadicEval :: Source -> IO ()
-monadicEval = evalWord8
-
-instance Evaluator (IO ()) where
+instance WrapperIO m => Evaluator (m ()) where
   doEnd = pass
 
   doInputChar table tape = do
-    char <- IO.getChar
-    doInstruction (nextInst table) (writeSymbol char tape)
+    char <- wGetChar
+    doInstruction (nextInst table) $ writeSymbol char tape
 
   doOutputChar _          (_, [])       = error "Illegal State"
   doOutputChar table tape@(_, symbol:_) = do
-    IO.putChar $ toChar symbol
-    doInstruction (nextInst table) tape
-
-----
-
-instance Evaluator (MockIO ()) where
-  doEnd = pass
-
-  doInputChar table tape = do
-    char <- mockGetChar
-    doInstruction (nextInst table) (writeSymbol char tape)
-
-  doOutputChar _          (_, [])       = error "Illegal State"
-  doOutputChar table tape@(_, symbol:_) = do
-    mockPutChar $ toChar symbol
+    wPutChar $ toChar symbol
     doInstruction (nextInst table) tape

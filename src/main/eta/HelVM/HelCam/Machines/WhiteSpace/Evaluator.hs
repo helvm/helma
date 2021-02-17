@@ -1,43 +1,63 @@
+{-# Language FlexibleContexts  #-}
 {-# Language FlexibleInstances #-}
 module HelVM.HelCam.Machines.WhiteSpace.Evaluator (
-  interactEval,
-  monadicEval,
-  batchEvalIL,
-  batchEvalTL,
+  batchSimpleEvalIL,
+  batchSimpleEvalTL,
+  simpleEvalIL,
+  simpleEvalTL,
+  eval,
   evalIL,
   evalTL
 ) where
 
 import HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil
 import HelVM.HelCam.Machines.WhiteSpace.Instruction
+import HelVM.HelCam.Machines.WhiteSpace.Lexer
 import HelVM.HelCam.Machines.WhiteSpace.Parser
 import HelVM.HelCam.Machines.WhiteSpace.Token
 
-import HelVM.HelCam.Common.MockIO
 import HelVM.HelCam.Common.OrError
-import HelVM.HelCam.Common.RAM.IntMapRAM as Heap
+import HelVM.HelCam.Common.RAM as RAM
+import HelVM.HelCam.Common.Types.RAMType
 import HelVM.HelCam.Common.Util
+import HelVM.HelCam.Common.WrapperIO
 
-import qualified System.IO as IO
+import Data.IntMap as IntMap
+import Data.Sequence as Seq (fromList)
 
-type Heap = RAM Symbol
+batchSimpleEvalTL :: TokenList -> Output
+batchSimpleEvalTL = flip simpleEvalTL emptyInput
 
-storeNum :: Symbol -> Input -> Heap -> Heap
-storeNum address line = store address (readOrError line :: Symbol)
+batchSimpleEvalIL :: InstructionList -> Output
+batchSimpleEvalIL = flip simpleEvalIL emptyInput
+
+simpleEvalTL :: Evaluator r => TokenList -> r
+simpleEvalTL tl = evalTL tl False defaultRAMType
+
+simpleEvalIL :: Evaluator r => InstructionList -> r
+simpleEvalIL = flip evalIL defaultRAMType
+
+eval :: Evaluator r => Source -> Bool -> RAMType -> r
+eval source = evalTL $ tokenize source
+
+evalTL :: Evaluator r => TokenList -> Bool -> RAMType -> r
+evalTL tl ascii = evalIL $ parseTL tl ascii
+
+evalIL :: Evaluator r => InstructionList -> RAMType -> r
+evalIL il ListRAMType   = start il ([] :: SymbolList)
+evalIL il SeqRAMType    = start il (Seq.fromList [] :: Seq Symbol)
+evalIL il IntMapRAMType = start il (IntMap.empty :: IntMap Symbol)
+
+start :: (RAM Symbol m, Evaluator r) => InstructionList -> m -> r
+start il = next (IU il 0 (IS [])) (Stack []) 
 
 class Evaluator r where
-  evalTL :: Bool -> TokenList -> r
-  evalTL ascii = evalIL . parseTL ascii
-
-  evalIL :: InstructionList -> r
-  evalIL il = next (IU il 0 (IS [])) (Stack []) Heap.empty
-
-  next :: InstructionUnit -> Stack -> Heap -> r
+  next :: RAM Symbol m => InstructionUnit -> Stack -> m -> r
   next iu@(IU il ic is) = doInstruction (genericIndexOrError ("next"::Text,iu) il ic) (IU il (ic+1) is)
 
   ----
 
-  doInstruction :: Instruction -> InstructionUnit -> Stack -> Heap -> r
+  doInstruction :: RAM Symbol m => Instruction -> InstructionUnit -> Stack -> m -> r
 
   -- IO instructions
   doInstruction  OutputChar iu s h = doOutputChar iu s h
@@ -85,23 +105,20 @@ class Evaluator r where
   doEnd :: r
 
   -- IO instructions
-  doOutputChar :: InstructionUnit -> Stack -> Heap -> r
-  doInputChar  :: InstructionUnit -> Stack -> Heap -> r
-  doOutputNum  :: InstructionUnit -> Stack -> Heap -> r
-  doInputNum   :: InstructionUnit -> Stack -> Heap -> r
+  doOutputChar :: RAM Symbol m => InstructionUnit -> Stack -> m -> r
+  doInputChar  :: RAM Symbol m => InstructionUnit -> Stack -> m -> r
+  doOutputNum  :: RAM Symbol m => InstructionUnit -> Stack -> m -> r
+  doInputNum   :: RAM Symbol m => InstructionUnit -> Stack -> m -> r
 
 ----
 
-interactEval :: Bool -> Source -> IO ()
-interactEval ascii source = IO.interact $ evalIL $ parse ascii source
+storeNum :: RAM Symbol m => Symbol -> Input -> m -> m
+storeNum address line = store address (readOrError line :: Symbol)
 
-batchEvalTL :: Bool -> TokenList -> Output
-batchEvalTL ascii = batchEvalIL . parseTL ascii
+----
 
-batchEvalIL :: InstructionList -> Output
-batchEvalIL = flip evalIL ([]::String)
 
-instance Evaluator (Input -> Output) where
+instance Evaluator Interact where
   doEnd _ = []
 
   doOutputChar _  (Stack [])         _ input = emptyStackError OutputChar input
@@ -121,53 +138,25 @@ instance Evaluator (Input -> Output) where
 
 ----
 
-monadicEval :: Bool -> Source -> IO ()
-monadicEval ascii = evalIL . parse ascii
-
-instance Evaluator (IO ()) where
+instance WrapperIO m => Evaluator (m ()) where
   doEnd = pass
 
   doOutputChar _  (Stack [])        _ = emptyStackError OutputChar
   doOutputChar iu (Stack (value:s)) h = do
-    IO.putChar (chr (fromInteger value))
+    wPutChar $ chr $ fromInteger value
     next iu (Stack s) h
 
   doOutputNum _  (Stack [])        _ = emptyStackError OutputNum
   doOutputNum iu (Stack (value:s)) h = do
-    putStr (show value)
+    wPutStr $ show value
     next iu (Stack s) h
 
   doInputChar _  (Stack [])          _ = emptyStackError InputChar
   doInputChar iu (Stack (address:s)) h = do
-    char <- IO.getChar
+    char <- wGetChar
     next iu (Stack s) (store address (toInteger (ord char)) h)
 
   doInputNum _  (Stack [])          _ = emptyStackError InputNum
   doInputNum iu (Stack (address:s)) h = do
-    line <- IO.getLine
-    next iu (Stack s) (storeNum address line h)
-
-----
-
-instance Evaluator (MockIO ()) where
-  doEnd = pass
-
-  doOutputChar _  (Stack [])        _ = emptyStackError OutputChar
-  doOutputChar iu (Stack (value:s)) h = do
-    mockPutChar (chr (fromInteger value))
-    next iu (Stack s) h
-
-  doOutputNum _  (Stack [])        _ = emptyStackError OutputNum
-  doOutputNum iu (Stack (value:s)) h = do
-    mockPutStr (show value)
-    next iu (Stack s) h
-
-  doInputChar _  (Stack [])          _ = emptyStackError InputChar
-  doInputChar iu (Stack (address:s)) h = do
-    char <- mockGetChar
-    next iu (Stack s) (store address (toInteger (ord char)) h)
-
-  doInputNum _  (Stack [])          _ = emptyStackError InputNum
-  doInputNum iu (Stack (address:s)) h = do
-    line <- mockGetLine
-    next iu (Stack s) (storeNum address line h)
+    line <- wGetLine
+    next iu (Stack s) $ storeNum address line h

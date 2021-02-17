@@ -1,11 +1,11 @@
 {-# LANGUAGE FlexibleInstances #-}
 
 module HelVM.HelCam.Common.MockIO (
-  batchExecMockIO, execMockIO, batchEvalMockIO, evalMockIO,
-  mockGetChar, mockGetInt, mockGetLine,
-  mockPutChar, mockPutInt, mockPutStr,
+  batchExecMockIO, execMockIO, 
+  batchEvalMockIO, evalMockIO,
+  getLogged,
   MockIO
-  ) where
+) where
 
 import HelVM.HelCam.Common.WrapperIO
 import HelVM.HelCam.Common.Util

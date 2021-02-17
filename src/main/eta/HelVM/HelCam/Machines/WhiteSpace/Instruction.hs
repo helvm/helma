@@ -44,6 +44,8 @@ type Symbol = Integer
 parseSymbol :: OperandParser Symbol
 parseSymbol = parseInteger
 
+type SymbolList = [Symbol]
+
 type Label = String
 parseLabel :: Bool -> OperandParser Label
 parseLabel False = parseBitString

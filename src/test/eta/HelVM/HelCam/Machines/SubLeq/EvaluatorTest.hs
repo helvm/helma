@@ -9,9 +9,9 @@ import Test.HUnit
 
 testsOfSQEvaluator :: Test
 testsOfSQEvaluator = TestList
-  [ "eval_hello"   ~: "Test hello."     ~: hello     ~=? batchEvalIL helloSQIL
+  [ "eval_hello"   ~: "Test hello."     ~: hello     ~=? batchSimpleEvalIL helloSQIL
 --  , "eval_hello2"  ~: "Test hello2."  ~: hello     ~=? batchExecMockIO (eval hello2ETA)
 
-  , "eval_hello"   ~: "Test hello."     ~: hello     ~=? batchExecMockIO (evalIL helloSQIL)
+  , "eval_hello"   ~: "Test hello."     ~: hello     ~=? batchExecMockIO (simpleEvalIL helloSQIL)
 --  , "eval_hello2"  ~: "Test hello2."  ~: hello     ~=? batchExecMockIO (eval hello2ETA)
   ]
