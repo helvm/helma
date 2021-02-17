@@ -6,8 +6,14 @@ import HelVM.HelCam.Machines.WhiteSpace.Parser
 import HelVM.HelCam.Machines.WhiteSpace.Token
 
 import HelVM.HelCam.Common.OrError
+import HelVM.HelCam.Common.RAM.SeqRAM as Heap
 import HelVM.HelCam.Common.Util
 import HelVM.HelCam.Common.WrapperIO
+
+type Heap = RAM Symbol
+
+storeNum :: Symbol -> Input -> Heap -> Heap
+storeNum address line = store address (readOrError line :: Symbol)
 
 monadicEval :: Bool -> Source -> IO ()
 monadicEval ascii = evalIL . parse ascii
@@ -18,7 +24,7 @@ evalTL :: WrapperIO m => Bool -> TokenList -> m ()
 evalTL ascii = evalIL . parseTL ascii
 
 evalIL :: WrapperIO m => InstructionList -> m ()
-evalIL il = next (IU il 0 (IS [])) (Stack []) (Heap [])
+evalIL il = next (IU il 0 (IS [])) (Stack []) Heap.empty
 
 next :: WrapperIO m => InstructionUnit -> Stack -> Heap -> m ()
 next iu@(IU il ic is) = doInstruction (genericIndexOrError ("next"::Text,iu) il ic) (IU il (ic+1) is)
@@ -68,6 +74,9 @@ emptyStackError i = error $ "Empty stack for instruction " <> show i
 
 ----
 
+doEnd :: WrapperIO m => m ()
+doEnd = pass
+
 -- IO instructions
 
 doOutputChar :: WrapperIO m => InstructionUnit -> Stack -> Heap -> m ()
@@ -93,8 +102,3 @@ doInputNum _  (Stack [])          _ = emptyStackError InputNum
 doInputNum iu (Stack (address:s)) h = do
   line <- wGetLine
   next iu (Stack s) $ storeNum address line h
-
-----
-
-doEnd :: WrapperIO m => m ()
-doEnd = pass

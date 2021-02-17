@@ -1,5 +1,9 @@
 # 📅 Revision history for HelCam
 
+## 0.6.2.0  -- 2021-02-23
+
+* RAM encapsulation
+
 ## 0.6.1.0  -- 2021-02-08
 
 * Use `relude` library

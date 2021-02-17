@@ -3,7 +3,6 @@ module HelVM.HelCam.Machines.ETA.EvaluatorUtil where
 import HelVM.HelCam.Machines.ETA.Token
 
 import HelVM.HelCam.Common.OrError
-import HelVM.HelCam.Common.Tape
 import HelVM.HelCam.Common.Util
 
 import Data.List
@@ -11,8 +10,7 @@ import Data.List
 type Symbol = Int
 type InstructionAddress = Int
 
-type Memory = HalfTape Symbol
-newtype Stack = Stack Memory
+newtype Stack = Stack [Symbol]
   deriving (Show)
 
 type InstructionCounter = InstructionAddress

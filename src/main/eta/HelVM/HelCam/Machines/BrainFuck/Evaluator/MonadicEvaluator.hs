@@ -30,8 +30,8 @@ doInstruction table@(_, Inc     :_) tape = doInstruction   (nextInst table)   (w
 doInstruction table@(_, Dec     :_) tape = doInstruction   (nextInst table)   (wPredSymbol tape)
 doInstruction table@(_, JmpPast :_) tape = doJmpPast                 table                 tape
 doInstruction table@(_, JmpBack :_) tape = doJmpBack                 table                 tape
-doInstruction table@(_, Output  :_) tape = doOutput                  table                 tape
-doInstruction table@(_, Input   :_) tape = doInput                   table                 tape
+doInstruction table@(_, Output  :_) tape = doOutputChar                  table                 tape
+doInstruction table@(_, Input   :_) tape = doInputChar                   table                 tape
 doInstruction       (_, []        ) _    = doEnd
 
 doJmpPast :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
@@ -42,16 +42,16 @@ doJmpBack :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
 doJmpBack table tape@(_, 0:_) = doInstruction (nextInst table) tape
 doJmpBack table tape          = doInstruction (jumpBack table) tape
 
-doInput :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
-doInput table tape = do
+doEnd :: WrapperIO m => m()
+doEnd = pass
+
+doInputChar :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
+doInputChar table tape = do
   char <- wGetChar
   doInstruction (nextInst table) (writeSymbol char tape)
 
-doOutput :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
-doOutput _          (_, [])       = error "Illegal State"
-doOutput table tape@(_, symbol:_) = do
+doOutputChar :: (Symbol s, WrapperIO m) => Table -> FullTape s -> m()
+doOutputChar _          (_, [])       = error "Illegal State"
+doOutputChar table tape@(_, symbol:_) = do
   wPutChar $ toChar symbol
   doInstruction (nextInst table) tape
-
-doEnd :: WrapperIO m => m()
-doEnd = pass

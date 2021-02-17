@@ -35,8 +35,8 @@ doInstruction table@(_, Inc     :_) tape = doInstruction    (nextInst table)   (
 doInstruction table@(_, Dec     :_) tape = doInstruction    (nextInst table)   (wPredSymbol tape)
 doInstruction table@(_, JmpPast :_) tape = doJmpPast                  table                 tape
 doInstruction table@(_, JmpBack :_) tape = doJmpBack                  table                 tape
-doInstruction table@(_, Output  :_) tape = doOutput                   table                 tape
-doInstruction table@(_, Input   :_) tape = doInput                    table                 tape
+doInstruction table@(_, Output  :_) tape = doOutputChar                   table                 tape
+doInstruction table@(_, Input   :_) tape = doInputChar                    table                 tape
 doInstruction       (_, []        ) _    = doEnd
 
 doJmpPast :: Symbol s => Table -> FullTape s -> Interact
@@ -47,13 +47,14 @@ doJmpBack :: Symbol s => Table -> FullTape s -> Interact
 doJmpBack table tape@(_, 0:_) = doInstruction (nextInst table) tape
 doJmpBack table tape          = doInstruction (jumpBack table) tape
 
-doInput :: Symbol s => Table -> FullTape s -> Interact
-doInput _     _          []     = error "Empty input"
-doInput table tape (char:input) = doInstruction (nextInst table) (writeSymbol char tape) input
-
-doOutput :: Symbol s => Table -> FullTape s -> Interact
-doOutput _          (_, [])       _     = error "Illegal State"
-doOutput table tape@(_, symbol:_) input = toChar symbol : doInstruction (nextInst table) tape input
-
 doEnd :: Interact
 doEnd _ = []
+
+doInputChar :: Symbol s => Table -> FullTape s -> Interact
+doInputChar _     _          []     = error "Empty input"
+doInputChar table tape (char:input) = doInstruction (nextInst table) (writeSymbol char tape) input
+
+doOutputChar :: Symbol s => Table -> FullTape s -> Interact
+doOutputChar _          (_, [])       _     = error "Illegal State"
+doOutputChar table tape@(_, symbol:_) input = toChar symbol : doInstruction (nextInst table) tape input
+

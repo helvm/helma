@@ -1,6 +1,7 @@
 module Main(main) where
 
 import HelVM.HelCam.Common.FilterIf0Test
+import HelVM.HelCam.Common.RAMTest
 
 import HelVM.HelCam.Machines.BrainFuck.TokensTest
 import HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluatorTest
@@ -9,7 +10,9 @@ import HelVM.HelCam.Machines.BrainFuck.EvaluatorTest
 
 import HelVM.HelCam.Machines.ETA.LexerTest
 import HelVM.HelCam.Machines.ETA.EvaluatorUtilTest
+import HelVM.HelCam.Machines.ETA.Evaluator.InteractEvaluatorTest
 import HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluatorTest
+import HelVM.HelCam.Machines.ETA.EvaluatorTest
 
 import HelVM.HelCam.Machines.SubLeq.Evaluator.InteractEvaluatorTest
 import HelVM.HelCam.Machines.SubLeq.Evaluator.MonadicEvaluatorTest
@@ -30,6 +33,7 @@ testList :: Test
 testList = TestList
   [ TestLabel "testExample"                 testExample
   , TestLabel "testsOfFilterIf0"            testsOfFilterIf0
+  , TestLabel "testsOfRAM"                  testsOfRAM
 
   , TestLabel "testsOfBFTokens"             testsOfBFTokens
   , TestLabel "testsOfBFInteractEvaluator"  testsOfBFInteractEvaluator
@@ -38,7 +42,9 @@ testList = TestList
 
   , TestLabel "testsOfETATokens"            testsOfETATokens
   , TestLabel "testsOfETAEvaluatoUtil"      testsOfETAEvaluatorUtil
+  , TestLabel "testsOfETAInteractEvaluator" testsOfETAInteractEvaluator
   , TestLabel "testsOfETAMonadicEvaluator"  testsOfETAMonadicEvaluator
+  , TestLabel "testsOfETAEvaluator"         testsOfETAEvaluator
 
   , TestLabel "testsOfSQInteractEvaluator"  testsOfSQInteractEvaluator
   , TestLabel "testsOfSQMonadicEvaluator"   testsOfSQMonadicEvaluator

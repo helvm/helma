@@ -10,8 +10,8 @@ import Test.HUnit
 
 testsOfWSMonadicEvaluator :: Test
 testsOfWSMonadicEvaluator = test
-  [ "evalHelloWorld"    ~: "test evalIL Hello, world"  ~: "Hello, world" ~=? batchExecMockIO (evalIL helloWorldIL        )
-  , "evalTruthMachine0" ~: "test evalIL Truth-Machine" ~: "0"            ~=? execMockIO      (evalIL truthMachineIL      ) "0"
+  [ "evalHelloWorld"    ~: "test evalIL Hello, world"  ~: "Hello, world"   ~=? batchExecMockIO (evalIL helloWorldIL        )
+  , "evalTruthMachine0" ~: "test evalIL Truth-Machine" ~: "0"              ~=? execMockIO      (evalIL truthMachineIL      ) "0"
   , "evalCalcTL"          ~: "test evalTL Calc"          ~: calcO          ~=? execMockIO      (evalTL False calcTL        ) "-1\n"
   , "evalCountTL"         ~: "test evalTL Count"         ~: countO         ~=? batchExecMockIO (evalTL False countTL       )
   , "evalFactTL"          ~: "test evalTL Fact"          ~: factO          ~=? execMockIO      (evalTL False factTL        ) "10\n"

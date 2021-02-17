@@ -2,8 +2,14 @@ module HelVM.HelCam.Machines.BrainFuck.TapeOfSymbols (FullTape, newTape, moveHea
 
 import HelVM.HelCam.Machines.BrainFuck.Symbol
 
-import HelVM.HelCam.Common.Tape
 import HelVM.HelCam.Common.Util
+
+----
+
+type FullTape s = (HalfTape s, HalfTape s)
+type FullTapeD s = D (FullTape s)
+
+type HalfTape s = [s]
 
 ----
 
@@ -37,4 +43,4 @@ writeSymbol symbol = modifyCell (const $ fromChar symbol)
 
 modifyCell :: (Symbol s) => D s -> FullTapeD s
 modifyCell f (left, cell:right) = (left, f cell:right)
-modifyCell _ (_, [])                 = error "End of the Tipe"
+modifyCell _ (_, [])            = error "End of the Tipe"

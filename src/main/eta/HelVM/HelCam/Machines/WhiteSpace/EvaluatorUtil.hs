@@ -2,13 +2,7 @@ module HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil where
 
 import HelVM.HelCam.Machines.WhiteSpace.Instruction
 
-import HelVM.HelCam.Common.OrError
-import HelVM.HelCam.Common.Tape
-import HelVM.HelCam.Common.Util
-
-type Memory = HalfTape Symbol
-newtype Stack = Stack Memory
-newtype Heap = Heap Memory
+newtype Stack = Stack [Symbol]
 
 type InstructionCounter = InstructionAddress
 newtype InstructionStack = IS [InstructionAddress]
@@ -37,12 +31,3 @@ findAddress' address ((Mark l'):il) l
   | l == l'                           = address
   | otherwise                         = findAddress' (address+1) il l
 findAddress' address (_:il)         l = findAddress' (address+1) il l
-
-load :: Heap -> Symbol -> Symbol
-load (Heap tape) = loadFromHalfTape tape
-
-store :: Symbol -> Symbol -> D Heap
-store address value (Heap tape) = Heap $ storeToHalfTape address value tape
-
-storeNum :: Symbol -> Input -> D Heap
-storeNum address line = store address (readOrError line :: Integer)

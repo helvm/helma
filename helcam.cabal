@@ -3,7 +3,7 @@ cabal-version:       2.2
 -- documentation, see http://eta-lang.org/docs/
 
 name:                helcam
-version:             0.6.1.0
+version:             0.6.2.0
 
 synopsis:            Heavenly Esoteric Little Concrete Absolute Machine
 description:         Please see the README on GitHub at <https://github.com/helvm/helcam#readme>
@@ -30,13 +30,17 @@ library
         HelVM.HelCam.Machines.BrainFuck.Symbol
         HelVM.HelCam.Machines.BrainFuck.TableOfInstructions
 
+        HelVM.HelCam.Machines.SubLeq.Symbol
+
         HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil
         HelVM.HelCam.Machines.WhiteSpace.Lexer
   exposed-modules:
         HelVM.HelCam.Common.FilterIf0
         HelVM.HelCam.Common.MockIO
         HelVM.HelCam.Common.OrError
-        HelVM.HelCam.Common.Tape
+        HelVM.HelCam.Common.RAM.IntMapRAM
+        HelVM.HelCam.Common.RAM.ListRAM
+        HelVM.HelCam.Common.RAM.SeqRAM
         HelVM.HelCam.Common.Util
         HelVM.HelCam.Common.WrapperIO
 
@@ -56,7 +60,6 @@ library
         HelVM.HelCam.Machines.SubLeq.Evaluator
         HelVM.HelCam.Machines.SubLeq.Evaluator.InteractEvaluator
         HelVM.HelCam.Machines.SubLeq.Evaluator.MonadicEvaluator
-        HelVM.HelCam.Machines.SubLeq.EvaluatorUtil
         HelVM.HelCam.Machines.SubLeq.Lexer
 
         HelVM.HelCam.Machines.WhiteSpace.Evaluator
@@ -70,6 +73,7 @@ library
   build-depends:
       base
     , relude               == 0.7.0.0
+    , containers           == 0.6.2.1
     , split
     , data-default
   mixins:
@@ -84,6 +88,7 @@ test-suite helcam-test
   main-is:             Test.hs
   other-modules:
         HelVM.HelCam.Common.FilterIf0Test
+        HelVM.HelCam.Common.RAMTest
 
         HelVM.HelCam.Machines.BrainFuck.TokensTest
         HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluatorTest
@@ -91,7 +96,9 @@ test-suite helcam-test
         HelVM.HelCam.Machines.BrainFuck.EvaluatorTest
         HelVM.HelCam.Machines.BrainFuck.EvaluatorTestData
 
+        HelVM.HelCam.Machines.ETA.Evaluator.InteractEvaluatorTest
         HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluatorTest
+        HelVM.HelCam.Machines.ETA.EvaluatorTest
         HelVM.HelCam.Machines.ETA.EvaluatorTestData
         HelVM.HelCam.Machines.ETA.EvaluatorUtilTest
         HelVM.HelCam.Machines.ETA.LexerTest
@@ -111,6 +118,7 @@ test-suite helcam-test
   build-depends:
       base
     , relude               == 0.7.0.0
+    , containers           == 0.6.2.1
     , split
     , data-default
 
@@ -130,7 +138,9 @@ executable helcam
         HelVM.HelCam.Common.FilterIf0
         HelVM.HelCam.Common.MockIO
         HelVM.HelCam.Common.OrError
-        HelVM.HelCam.Common.Tape
+        HelVM.HelCam.Common.RAM.IntMapRAM
+        HelVM.HelCam.Common.RAM.ListRAM
+        HelVM.HelCam.Common.RAM.SeqRAM
         HelVM.HelCam.Common.Util
         HelVM.HelCam.Common.WrapperIO
 
@@ -153,8 +163,8 @@ executable helcam
         HelVM.HelCam.Machines.SubLeq.Evaluator
         HelVM.HelCam.Machines.SubLeq.Evaluator.InteractEvaluator
         HelVM.HelCam.Machines.SubLeq.Evaluator.MonadicEvaluator
-        HelVM.HelCam.Machines.SubLeq.EvaluatorUtil
         HelVM.HelCam.Machines.SubLeq.Lexer
+        HelVM.HelCam.Machines.SubLeq.Symbol
 
         HelVM.HelCam.Machines.WhiteSpace.Evaluator
         HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluator
@@ -169,6 +179,7 @@ executable helcam
   build-depends:
       base
     , relude               == 0.7.0.0
+    , containers           == 0.6.2.1
     , split
     , data-default
 

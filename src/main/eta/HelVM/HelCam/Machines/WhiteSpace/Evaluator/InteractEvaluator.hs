@@ -6,9 +6,15 @@ import HelVM.HelCam.Machines.WhiteSpace.Parser
 import HelVM.HelCam.Machines.WhiteSpace.Token
 
 import HelVM.HelCam.Common.OrError
+import HelVM.HelCam.Common.RAM.ListRAM as Heap
 import HelVM.HelCam.Common.Util
 
 import qualified System.IO as IO
+
+type Heap = RAM Symbol
+
+storeNum :: Symbol -> Input -> Heap -> Heap
+storeNum address line = store address (readOrError line :: Symbol)
 
 interactEval :: Bool -> Source -> IO ()
 interactEval ascii = IO.interact . evalIL . parse ascii
@@ -25,7 +31,7 @@ evalTL :: Bool -> TokenList -> Interact
 evalTL ascii = evalIL . parseTL ascii
 
 evalIL :: InstructionList -> Interact
-evalIL il = next  (IU il 0 (IS [])) (Stack []) (Heap [])
+evalIL il = next  (IU il 0 (IS [])) (Stack []) Heap.empty
 
 next :: InstructionUnit -> Stack -> Heap -> Interact
 next iu@(IU il ic is) = doInstruction (genericIndexOrError ("next"::Text,iu) il ic) (IU il (ic+1) is)
@@ -77,6 +83,9 @@ emptyInputError i = error $ "Empty input for instruction " <> show i
 
 ----
 
+doEnd :: Interact
+doEnd _ = []
+
 -- IO instructions
 
 doOutputChar :: InstructionUnit -> Stack -> Heap -> Interact
@@ -97,8 +106,3 @@ doInputNum _   _                  _ []    = emptyInputError InputNum []
 doInputNum _  (Stack [])          _ input = emptyStackError InputNum input
 doInputNum iu (Stack (address:s)) h input = next iu (Stack s) (storeNum address line h) input'
   where (line, input') = splitStringByEndLine input
-
-----
-
-doEnd :: Interact
-doEnd _ = []

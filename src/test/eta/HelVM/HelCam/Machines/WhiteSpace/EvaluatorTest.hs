@@ -5,7 +5,6 @@ import HelVM.HelCam.Machines.WhiteSpace.Evaluator
 import HelVM.HelCam.Machines.WhiteSpace.EvaluatorTestData
 
 import HelVM.HelCam.Common.MockIO
-
 import HelVM.HelCam.Common.Util
 
 import Test.HUnit

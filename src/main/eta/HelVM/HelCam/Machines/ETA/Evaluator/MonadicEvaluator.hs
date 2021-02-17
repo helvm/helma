@@ -1,4 +1,7 @@
-module HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluator (monadicEval, eval, evalTL) where
+module HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluator (
+  monadicEval,
+  eval
+) where
 
 import HelVM.HelCam.Machines.ETA.EvaluatorUtil
 
@@ -13,13 +16,11 @@ monadicEval :: Source -> IO ()
 monadicEval = eval
 
 ----
-
 eval :: WrapperIO m => Source -> m ()
 eval = evalTL . tokenize
 
 evalTL :: WrapperIO m => TokenList -> m ()
-evalTL il = do
-  next (IU il 0) (Stack [])
+evalTL il = next (IU il 0) (Stack [])
 
 next :: WrapperIO m => InstructionUnit -> Stack -> m ()
 next iu@(IU il ic) s = do
@@ -29,8 +30,8 @@ next iu@(IU il ic) s = do
 
 doInstruction :: WrapperIO m => Maybe Token -> InstructionUnit -> Stack -> m ()
 -- IO instructions
-doInstruction (Just O) iu s = doOutput iu s
-doInstruction (Just I) iu s = doInput  iu s
+doInstruction (Just O) iu s = doOutputChar iu s
+doInstruction (Just I) iu s = doInputChar  iu s
 
 -- Stack instructions
 doInstruction (Just N) iu (Stack s) = next iu' (Stack (symbol:s))
@@ -57,24 +58,20 @@ doInstruction Nothing _ _  = doEnd
 doInstruction t s iu = error $ "Can't do token " <> show t <> " "  <> show s <> " " <> show iu
 
 ----
-
 emptyStackError :: Token -> r
 emptyStackError t = error $ "Empty stack for instruction " <> show t
 
 ----
+doEnd :: WrapperIO m => m ()
+doEnd = pass
 
-doOutput :: WrapperIO m => InstructionUnit -> Stack -> m ()
-doOutput _  (Stack       [] ) = emptyStackError O
-doOutput iu (Stack (value:s)) = do
-  wPutChar (chr (fromIntegral value))
-  next iu (Stack s)
-
-doInput :: WrapperIO m => InstructionUnit -> Stack -> m ()
-doInput iu (Stack s) = do
+doInputChar :: WrapperIO m => InstructionUnit -> Stack -> m ()
+doInputChar iu (Stack s) = do
   char <- wGetChar
   next iu (Stack (ord char:s))
 
-----
-
-doEnd :: WrapperIO m => m ()
-doEnd = pass
+doOutputChar :: WrapperIO m => InstructionUnit -> Stack -> m ()
+doOutputChar _  (Stack       [] ) = emptyStackError O
+doOutputChar iu (Stack (value:s)) = do
+  wPutChar (chr (fromIntegral value))
+  next iu (Stack s)

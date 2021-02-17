@@ -1,5 +1,12 @@
 {-# Language FlexibleInstances #-}
-module HelVM.HelCam.Machines.WhiteSpace.Evaluator where
+module HelVM.HelCam.Machines.WhiteSpace.Evaluator (
+  interactEval,
+  monadicEval,
+  batchEvalIL,
+  batchEvalTL,
+  evalIL,
+  evalTL
+) where
 
 import HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil
 import HelVM.HelCam.Machines.WhiteSpace.Instruction
@@ -8,16 +15,22 @@ import HelVM.HelCam.Machines.WhiteSpace.Token
 
 import HelVM.HelCam.Common.MockIO
 import HelVM.HelCam.Common.OrError
+import HelVM.HelCam.Common.RAM.IntMapRAM as Heap
 import HelVM.HelCam.Common.Util
 
 import qualified System.IO as IO
+
+type Heap = RAM Symbol
+
+storeNum :: Symbol -> Input -> Heap -> Heap
+storeNum address line = store address (readOrError line :: Symbol)
 
 class Evaluator r where
   evalTL :: Bool -> TokenList -> r
   evalTL ascii = evalIL . parseTL ascii
 
   evalIL :: InstructionList -> r
-  evalIL il = next (IU il 0 (IS [])) (Stack []) (Heap [])
+  evalIL il = next (IU il 0 (IS [])) (Stack []) Heap.empty
 
   next :: InstructionUnit -> Stack -> Heap -> r
   next iu@(IU il ic is) = doInstruction (genericIndexOrError ("next"::Text,iu) il ic) (IU il (ic+1) is)
@@ -68,14 +81,14 @@ class Evaluator r where
   emptyInputError :: Instruction -> r
   emptyInputError i = error $ "Empty input for instruction " <> show i
 
+  ----
+  doEnd :: r
+
   -- IO instructions
   doOutputChar :: InstructionUnit -> Stack -> Heap -> r
   doInputChar  :: InstructionUnit -> Stack -> Heap -> r
   doOutputNum  :: InstructionUnit -> Stack -> Heap -> r
   doInputNum   :: InstructionUnit -> Stack -> Heap -> r
-
-  ----
-  doEnd :: r
 
 ----
 
@@ -89,6 +102,8 @@ batchEvalIL :: InstructionList -> Output
 batchEvalIL = flip evalIL ([]::String)
 
 instance Evaluator (Input -> Output) where
+  doEnd _ = []
+
   doOutputChar _  (Stack [])         _ input = emptyStackError OutputChar input
   doOutputChar iu (Stack (symbol:s)) h input = chr (fromInteger symbol) : next iu (Stack s) h input
 
@@ -104,14 +119,14 @@ instance Evaluator (Input -> Output) where
   doInputNum iu (Stack (address:s)) h input = next iu (Stack s) (storeNum address line h) input'
     where (line, input') = splitStringByEndLine input
 
-  doEnd _ = []
-
 ----
 
 monadicEval :: Bool -> Source -> IO ()
 monadicEval ascii = evalIL . parse ascii
 
 instance Evaluator (IO ()) where
+  doEnd = pass
+
   doOutputChar _  (Stack [])        _ = emptyStackError OutputChar
   doOutputChar iu (Stack (value:s)) h = do
     IO.putChar (chr (fromInteger value))
@@ -132,11 +147,11 @@ instance Evaluator (IO ()) where
     line <- IO.getLine
     next iu (Stack s) (storeNum address line h)
 
-  doEnd = pass
-
 ----
 
 instance Evaluator (MockIO ()) where
+  doEnd = pass
+
   doOutputChar _  (Stack [])        _ = emptyStackError OutputChar
   doOutputChar iu (Stack (value:s)) h = do
     mockPutChar (chr (fromInteger value))
@@ -156,5 +171,3 @@ instance Evaluator (MockIO ()) where
   doInputNum iu (Stack (address:s)) h = do
     line <- mockGetLine
     next iu (Stack s) (storeNum address line h)
-
-  doEnd = pass
