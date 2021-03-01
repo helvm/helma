@@ -45,26 +45,18 @@ library
         HelVM.HelCam.Common.WrapperIO
 
         HelVM.HelCam.Machines.BrainFuck.Evaluator
-        HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluator
-        HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluator
         HelVM.HelCam.Machines.BrainFuck.Lexer
         HelVM.HelCam.Machines.BrainFuck.TapeOfSymbols
 
         HelVM.HelCam.Machines.ETA.Evaluator
-        HelVM.HelCam.Machines.ETA.Evaluator.InteractEvaluator
-        HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluator
         HelVM.HelCam.Machines.ETA.EvaluatorUtil
         HelVM.HelCam.Machines.ETA.Lexer
         HelVM.HelCam.Machines.ETA.Token
 
         HelVM.HelCam.Machines.SubLeq.Evaluator
-        HelVM.HelCam.Machines.SubLeq.Evaluator.InteractEvaluator
-        HelVM.HelCam.Machines.SubLeq.Evaluator.MonadicEvaluator
         HelVM.HelCam.Machines.SubLeq.Lexer
 
         HelVM.HelCam.Machines.WhiteSpace.Evaluator
-        HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluator
-        HelVM.HelCam.Machines.WhiteSpace.Evaluator.MonadicEvaluator
         HelVM.HelCam.Machines.WhiteSpace.Instruction
         HelVM.HelCam.Machines.WhiteSpace.OperandParsers
         HelVM.HelCam.Machines.WhiteSpace.Parser
@@ -91,26 +83,18 @@ test-suite helcam-test
         HelVM.HelCam.Common.RAMTest
 
         HelVM.HelCam.Machines.BrainFuck.TokensTest
-        HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluatorTest
-        HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluatorTest
         HelVM.HelCam.Machines.BrainFuck.EvaluatorTest
         HelVM.HelCam.Machines.BrainFuck.EvaluatorTestData
 
-        HelVM.HelCam.Machines.ETA.Evaluator.InteractEvaluatorTest
-        HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluatorTest
         HelVM.HelCam.Machines.ETA.EvaluatorTest
         HelVM.HelCam.Machines.ETA.EvaluatorTestData
         HelVM.HelCam.Machines.ETA.EvaluatorUtilTest
         HelVM.HelCam.Machines.ETA.LexerTest
 
-        HelVM.HelCam.Machines.SubLeq.Evaluator.InteractEvaluatorTest
-        HelVM.HelCam.Machines.SubLeq.Evaluator.MonadicEvaluatorTest
         HelVM.HelCam.Machines.SubLeq.EvaluatorTest
         HelVM.HelCam.Machines.SubLeq.EvaluatorTestData
 
         HelVM.HelCam.Machines.WhiteSpace.ParserTest
-        HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluatorTest
-        HelVM.HelCam.Machines.WhiteSpace.Evaluator.MonadicEvaluatorTest
         HelVM.HelCam.Machines.WhiteSpace.EvaluatorTest
         HelVM.HelCam.Machines.WhiteSpace.EvaluatorTestData
         HelVM.HelCam.Machines.WhiteSpace.OperandParsersTest
@@ -145,8 +129,6 @@ executable helcam
         HelVM.HelCam.Common.WrapperIO
 
         HelVM.HelCam.Machines.BrainFuck.Evaluator
-        HelVM.HelCam.Machines.BrainFuck.Evaluator.InteractEvaluator
-        HelVM.HelCam.Machines.BrainFuck.Evaluator.MonadicEvaluator
         HelVM.HelCam.Machines.BrainFuck.Lexer
         HelVM.HelCam.Machines.BrainFuck.Symbol
         HelVM.HelCam.Machines.BrainFuck.TableOfInstructions
@@ -154,21 +136,15 @@ executable helcam
         HelVM.HelCam.Machines.BrainFuck.Token
 
         HelVM.HelCam.Machines.ETA.Evaluator
-        HelVM.HelCam.Machines.ETA.Evaluator.InteractEvaluator
-        HelVM.HelCam.Machines.ETA.Evaluator.MonadicEvaluator
         HelVM.HelCam.Machines.ETA.EvaluatorUtil
         HelVM.HelCam.Machines.ETA.Lexer
         HelVM.HelCam.Machines.ETA.Token
 
         HelVM.HelCam.Machines.SubLeq.Evaluator
-        HelVM.HelCam.Machines.SubLeq.Evaluator.InteractEvaluator
-        HelVM.HelCam.Machines.SubLeq.Evaluator.MonadicEvaluator
         HelVM.HelCam.Machines.SubLeq.Lexer
         HelVM.HelCam.Machines.SubLeq.Symbol
 
         HelVM.HelCam.Machines.WhiteSpace.Evaluator
-        HelVM.HelCam.Machines.WhiteSpace.Evaluator.InteractEvaluator
-        HelVM.HelCam.Machines.WhiteSpace.Evaluator.MonadicEvaluator
         HelVM.HelCam.Machines.WhiteSpace.EvaluatorUtil
         HelVM.HelCam.Machines.WhiteSpace.Instruction
         HelVM.HelCam.Machines.WhiteSpace.Lexer
