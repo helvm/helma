@@ -1,7 +1,6 @@
 module Main(main) where
 
 import HelVM.HelCam.Common.FilterIf0Test
-import HelVM.HelCam.Common.RAMTest
 
 import HelVM.HelCam.Machines.BrainFuck.TokensTest
 import HelVM.HelCam.Machines.BrainFuck.EvaluatorTest
@@ -25,7 +24,6 @@ testList :: Test
 testList = TestList
   [ TestLabel "testExample"                 testExample
   , TestLabel "testsOfFilterIf0"            testsOfFilterIf0
-  , TestLabel "testsOfRAM"                  testsOfRAM
 
   , TestLabel "testsOfBFTokens"             testsOfBFTokens
   , TestLabel "testsOfBFEvaluator"          testsOfBFEvaluator

@@ -38,9 +38,6 @@ library
         HelVM.HelCam.Common.MockIO
         HelVM.HelCam.Common.OrError
         HelVM.HelCam.Common.RAM
-        HelVM.HelCam.Common.RAM.IntMapRAM
-        HelVM.HelCam.Common.RAM.ListRAM
-        HelVM.HelCam.Common.RAM.SeqRAM
         HelVM.HelCam.Common.Types.CellType
         HelVM.HelCam.Common.Types.RAMType
         HelVM.HelCam.Common.Util
@@ -82,7 +79,6 @@ test-suite helcam-test
   main-is:             Test.hs
   other-modules:
         HelVM.HelCam.Common.FilterIf0Test
-        HelVM.HelCam.Common.RAMTest
 
         HelVM.HelCam.Machines.BrainFuck.TokensTest
         HelVM.HelCam.Machines.BrainFuck.EvaluatorTest
@@ -124,9 +120,6 @@ executable helcam
         HelVM.HelCam.Common.MockIO
         HelVM.HelCam.Common.OrError
         HelVM.HelCam.Common.RAM
-        HelVM.HelCam.Common.RAM.IntMapRAM
-        HelVM.HelCam.Common.RAM.ListRAM
-        HelVM.HelCam.Common.RAM.SeqRAM
         HelVM.HelCam.Common.Types.CellType
         HelVM.HelCam.Common.Types.RAMType
         HelVM.HelCam.Common.Util
