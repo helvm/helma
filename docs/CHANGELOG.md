@@ -1,5 +1,9 @@
 # 📅 Revision history for HelCam
 
+## 0.6.4.0  -- 2021-03-17
+
+* Stack abstraction
+
 ## 0.6.3.0  -- 2021-03-10
 
 * RAM abstraction

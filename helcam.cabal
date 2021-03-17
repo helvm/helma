@@ -3,7 +3,7 @@ cabal-version:       2.2
 -- documentation, see http://eta-lang.org/docs/
 
 name:                helcam
-version:             0.6.3.0
+version:             0.6.4.0
 
 synopsis:            Heavenly Esoteric Little Concrete Absolute Machine
 description:         Please see the README on GitHub at <https://github.com/helvm/helcam#readme>
