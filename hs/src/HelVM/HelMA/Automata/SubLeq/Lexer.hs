@@ -23,4 +23,4 @@ instance Show Symbols where
   show (Symbols symbols) = String.unwords $ show <$> symbols
 
 instance Read Symbols where
-  readsPrec _ source = [( Symbols $ (maybeToList . readMaybe) =<< splitOneOf " \t\n" source, "")]
+  readsPrec _ source = [( Symbols $ (maybeToList . readMaybe) =<< splitOneOf " \t\n" source , "")]

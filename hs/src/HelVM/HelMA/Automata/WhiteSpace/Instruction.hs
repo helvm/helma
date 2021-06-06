@@ -2,17 +2,18 @@ module HelVM.HelMA.Automata.WhiteSpace.Instruction where
 
 import HelVM.HelMA.Automata.WhiteSpace.OperandParsers
 
-import HelVM.HelMA.Common.Memories.Stack
+import HelVM.HelMA.Common.BinaryOperator
+import HelVM.HelMA.Common.Memories.StackConst
 
 data Instruction =
-    Liter Symbol
+    Liter Integer
   | Copy  Index
   | Slide Index
   | Dup
   | Swap
   | Discard
   | Binary BinaryOperator
-  | Store
+  | Store --Save
   | Load  --Restore
   | Mark Label
   | Call Label
@@ -24,15 +25,12 @@ data Instruction =
   | InputChar
   | InputNum
   | End
-  deriving (Eq, Show, Read)
+  deriving (Eq , Show , Read)
 
 type InstructionList = [Instruction]
 
-data BinaryOperator = Add | Sub | Mul | Div | Mod
-   deriving (Eq, Show, Read)
-
 data BranchTest = EZ | Neg
-   deriving (Eq, Show, Read)
+   deriving (Eq , Show , Read)
 
 ----
 

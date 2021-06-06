@@ -9,4 +9,4 @@ helloWorldExpected :: Output
 helloWorldExpected = "Hello World!\n"
 
 hello_WorldExpected :: Output
-hello_WorldExpected = "Hello, World!"
+hello_WorldExpected = "Hello , World!"

@@ -1,15 +1,16 @@
 module HelVM.HelMA.Automata.BrainFuck.Symbol (
   Symbol,
-  HelVM.HelMA.Automata.BrainFuck.Symbol.def,
-  HelVM.HelMA.Automata.BrainFuck.Symbol.next,
-  HelVM.HelMA.Automata.BrainFuck.Symbol.prev,
+  def,
+  next,
+  prev,
   fromChar,
   toChar
 ) where
 
-import Relude.Extra as Extra
+import Data.Default (Default)
 
-import Data.Default as Default
+import qualified Data.Default as Default
+import qualified Relude.Extra as Extra
 
 def :: Symbol s => s
 def = Default.def
@@ -20,7 +21,7 @@ next = Extra.next
 prev :: Symbol s => s -> s
 prev = Extra.prev
 
-class (Bounded a, Default a, Enum a, Eq a, Num a, Show a) => Symbol a where
+class (Bounded a , Default a , Enum a , Eq a , Num a , Show a) => Symbol a where
   fromChar   :: Char -> a
   toChar     :: a -> Char
 

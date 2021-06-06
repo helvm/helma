@@ -1,9 +1,9 @@
 module HelVM.HelMA.Common.Types.RAMType where
 
-data RAMType = ListRAMType | SeqRAMType | IntMapRAMType deriving (Eq, Read, Show)
+data RAMType = ListRAMType | SeqRAMType | IntMapRAMType deriving (Eq , Read , Show)
 
 ramTypes :: [RAMType]
-ramTypes = [ListRAMType, SeqRAMType, IntMapRAMType]
+ramTypes = [ListRAMType , SeqRAMType , IntMapRAMType]
 
 defaultRAMType :: RAMType
 defaultRAMType = IntMapRAMType

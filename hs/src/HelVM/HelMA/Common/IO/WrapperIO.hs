@@ -6,8 +6,8 @@ module HelVM.HelMA.Common.IO.WrapperIO (
   wPutStr,
   wPutStrLn,
   wFlush,
-  wGetInt,
   wPutInt,
+  wPutIntegral,
   wLogStr,
   wLogStrLn,
   wLogShow,
@@ -16,23 +16,23 @@ module HelVM.HelMA.Common.IO.WrapperIO (
 import qualified System.IO as IO
 
 class Monad m => WrapperIO m where
-  wGetChar  :: m Char
-  wPutChar  :: Char -> m ()
-  wGetLine  :: m String
-  wPutStr   :: String -> m ()
-  wPutStrLn :: String -> m ()
-  wFlush    :: m ()
-  wGetInt   :: m Int
-  wPutInt   :: Int -> m ()
-  wLogStr   :: String -> m ()
-  wLogStrLn :: String -> m ()
-  wLogShow  :: Show s => s -> m ()
-  wPutStrLn s = wPutStr $ s <> "\n"
-  wFlush      = pass
-  wPutInt     = wPutChar . chr
-  wGetInt     = ord <$> wGetChar
-  wLogStrLn s = wLogStr $ s <> "\n"
-  wLogShow  s = wLogStrLn $ show s
+  wGetChar     :: m Char
+  wPutChar     :: Char -> m ()
+  wGetLine     :: m String
+  wPutStr      :: String -> m ()
+  wPutStrLn    :: String -> m ()
+  wFlush       :: m ()
+  wPutInt      :: Int -> m ()
+  wPutIntegral :: Integral v => v -> m ()
+  wLogStr      :: String -> m ()
+  wLogStrLn    :: String -> m ()
+  wLogShow     :: Show s => s -> m ()
+  wPutStrLn s  = wPutStr $ s <> "\n"
+  wFlush       = pass
+  wPutInt      = wPutChar . chr
+  wPutIntegral = wPutInt . fromIntegral
+  wLogStrLn s  = wLogStr $ s <> "\n"
+  wLogShow     = wLogStrLn . show
 
 instance WrapperIO IO where
   wGetChar  = IO.getChar

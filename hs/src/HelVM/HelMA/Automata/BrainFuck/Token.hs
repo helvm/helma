@@ -13,7 +13,7 @@ data Token =
   | Input
   | JmpPast
   | JmpBack
-  deriving (Eq, Ord, Enum)
+  deriving (Eq , Ord , Enum)
 
 type TokenList = [Token]
 
@@ -34,6 +34,6 @@ instance Read Token where
   readsPrec _ "-" = [( Dec    , "")]
   readsPrec _ "." = [( Output , "")]
   readsPrec _ "," = [( Input  , "")]
-  readsPrec _ "[" = [( JmpPast, "")]
-  readsPrec _ "]" = [( JmpBack, "")]
+  readsPrec _ "[" = [( JmpPast , "")]
+  readsPrec _ "]" = [( JmpBack , "")]
   readsPrec _ _   = []

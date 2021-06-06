@@ -97,8 +97,8 @@ truthMachineTL =
 catIL :: InstructionList
 catIL =
   [ Mark "0"
-  , Liter 1, InputChar
-  , Liter 1, Load, OutputChar
+  , Liter 1 , InputChar
+  , Liter 1 , Load , OutputChar
   , Liter 1
   , Branch EZ "1"
   , Jump "0"
@@ -109,18 +109,18 @@ catIL =
 
 helloWorldIL :: InstructionList
 helloWorldIL =
-  [ Liter 72, OutputChar
-  , Liter 101, OutputChar
-  , Liter 108, OutputChar
-  , Liter 108, OutputChar
+  [ Liter 72 , OutputChar
+  , Liter 101 , OutputChar
+  , Liter 108 , OutputChar
+  , Liter 108 , OutputChar
   , Liter 111,OutputChar
-  , Liter 44, OutputChar
-  , Liter 32, OutputChar
-  , Liter 119, OutputChar
-  , Liter 111, OutputChar
-  , Liter 114, OutputChar
-  , Liter 108, OutputChar
-  , Liter 100, OutputChar
+  , Liter 44 , OutputChar
+  , Liter 32 , OutputChar
+  , Liter 119 , OutputChar
+  , Liter 111 , OutputChar
+  , Liter 114 , OutputChar
+  , Liter 108 , OutputChar
+  , Liter 100 , OutputChar
   , End
   ]
 
@@ -133,10 +133,10 @@ truthMachineIL =
   , Branch EZ "0"
 
   , Mark "1"
-  , Liter 1, OutputNum
+  , Liter 1 , OutputNum
   , Jump "1"
 
   , Mark "0"
-  , Liter 0, OutputNum
+  , Liter 0 , OutputNum
   , End
   ]

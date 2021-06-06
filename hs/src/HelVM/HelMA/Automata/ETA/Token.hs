@@ -5,7 +5,7 @@ import Text.Read
 import qualified Text.Show
 
 data Token = E | T | A | O | I | N | S | H | R
-  deriving (Eq, Ord, Enum, Show, Read)
+  deriving (Eq , Ord , Enum , Show , Read)
 
 type TokenList = [Token]
 
@@ -47,8 +47,8 @@ instance Read WhiteToken where
   readsPrec _ "H" = [( WhiteToken H , "")]
   readsPrec _ _   = []
 
-tokenToWhiteTokenPair :: Token -> (WhiteToken, String)
-tokenToWhiteTokenPair t = (WhiteToken t, "")
+tokenToWhiteTokenPair :: Token -> (WhiteToken , String)
+tokenToWhiteTokenPair t = (WhiteToken t , "")
 
 whiteTokenListToTokenList :: WhiteTokenList -> TokenList
 whiteTokenListToTokenList = fmap whiteTokenToToken

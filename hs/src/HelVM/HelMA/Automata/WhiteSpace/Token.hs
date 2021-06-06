@@ -6,7 +6,7 @@ import Text.Read
 import qualified Text.Show
 
 data Token =  S | T | N
-  deriving (Eq, Ord, Enum, Show, Read)
+  deriving (Eq , Ord , Enum , Show , Read)
 
 type TokenList = [Token]
 

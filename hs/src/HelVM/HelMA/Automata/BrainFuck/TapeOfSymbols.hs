@@ -14,7 +14,7 @@ import HelVM.HelMA.Common.Util
 
 ----
 
-type FullTape s = (HalfTape s, HalfTape s)
+type FullTape s = (HalfTape s , HalfTape s)
 type FullTapeD s = D (FullTape s)
 
 type HalfTape s = [s]
@@ -22,20 +22,20 @@ type HalfTape s = [s]
 ----
 
 newTape :: (Symbol s) => FullTape s
-newTape = ([def], [def])
+newTape = ([def] , [def])
 
 moveHeadRight :: (Symbol s) => FullTapeD s
-moveHeadRight (cell:left, right) = pad (left, cell:right)
-moveHeadRight ([], _)            = error "End of the Tipe"
+moveHeadRight (cell:left , right) = pad (left , cell:right)
+moveHeadRight ([] , _)            = error "End of the Tipe"
 
 moveHeadLeft :: (Symbol s) => FullTapeD s
-moveHeadLeft (left, cell:right) = pad (cell:left, right)
-moveHeadLeft (_, [])            = error "End of the Tipe"
+moveHeadLeft (left , cell:right) = pad (cell:left , right)
+moveHeadLeft (_ , [])            = error "End of the Tipe"
 
 pad :: (Symbol s) => FullTapeD s
-pad ([], [])    = newTape
-pad ([], right) = ([def], right)
-pad (left, [])  = (left, [def])
+pad ([] , [])    = newTape
+pad ([] , right) = ([def] , right)
+pad (left , [])  = (left , [def])
 pad tape        = tape
 
 ----
@@ -50,5 +50,5 @@ writeSymbol :: (Symbol s) => Char -> FullTapeD s
 writeSymbol symbol = modifyCell (const $ fromChar symbol)
 
 modifyCell :: D s -> FullTapeD s
-modifyCell f (left, cell:right) = (left, f cell:right)
-modifyCell _ (_, [])            = error "End of the Tape"
+modifyCell f (left , cell:right) = (left , f cell:right)
+modifyCell _ (_ , [])            = error "End of the Tape"

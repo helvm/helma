@@ -63,7 +63,7 @@ spec = do
            , ("bottles" , "" )
            , ("crlf"    , "" )
            ] >><| stackTypes
-          ) $ \(fileName , input, stackType) -> do
+          ) $ \(fileName , input , stackType) -> do
       let minorPath = show stackType </> fileName <> input
       let params = ( , stackType) <$> readEtaFile ("original" </> fileName)
       describe minorPath $ do

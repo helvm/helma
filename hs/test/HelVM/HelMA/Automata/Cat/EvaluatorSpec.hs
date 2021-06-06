@@ -10,10 +10,10 @@ import Test.Hspec
 spec :: Spec
 spec = do
   describe "interact" $ do
-    it "Hello, world!" $ do batchEval hw `shouldBe` hw
+    it "Hello , world!" $ do batchEval hw `shouldBe` hw
 
   describe "monadic" $ do
-    it "Hello, world!" $ do (batchExecMockIO . eval) hw `shouldBe` hw
+    it "Hello , world!" $ do (batchExecMockIO . eval) hw `shouldBe` hw
 
 hw :: Source
-hw = "#!/bin/cat\nHello, world!\n"
+hw = "#!/bin/cat\nHello , world!\n"

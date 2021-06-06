@@ -1,6 +1,10 @@
 # Welcome to 🔧 🎨 HelMA
 🔧 🎨 **HelMA** - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages implemented in Haskell
 
+**🧑‍🔧 🧑‍🎨 HAMAMAL** - Holistic Actual Minimalist Automatic Mechanical Languages is a kind of [Low-level] [First-generation] [Code] for Esoteric Languages.
+
+**🧑‍🔧 🧑‍🎨 HAMALAM** - Holistic Actual Minimalist Languages of Automatic Machine
+
 ```
 FOR everyone
 WHO want to run esoteric languages
@@ -26,3 +30,7 @@ THAT is an Evaluator and an Interpreter for Esoteric Languages (EsoAutomata)
 * [CODE OF CONDUCT](CODE_OF_CONDUCT.md)
 
 ## 🌈 ❤️ 💛 💚 💙 🤍 🖤 🦄
+
+[Low-level]:        https://en.wikipedia.org/wiki/Low-level_programming_language
+[First-generation]: https://en.wikipedia.org/wiki/First-generation_programming_language
+[Code]:             https://en.wikipedia.org/wiki/Machine_code

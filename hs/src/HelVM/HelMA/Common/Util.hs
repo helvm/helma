@@ -1,7 +1,6 @@
 module HelVM.HelMA.Common.Util where
 
 import Data.Char
-import Data.List
 
 type D a = a -> a
 
@@ -22,33 +21,25 @@ chunksOf n list
   | n > 0 = take n list : chunksOf n (drop n list)
   | otherwise = error "Non positive n"
 
-appendToList :: [a] -> a -> [a]
-appendToList xs x = x : xs
-
-splitBySeparator :: Eq a => a -> [a] -> ([a], [a])
-splitBySeparator _ [] = ([], [])
-splitBySeparator separator (x:xs)
-  | separator == x = ([separator], xs)
-  | otherwise = (x:acc, xs') where (acc, xs') = splitBySeparator separator xs
-
-splitBy :: Eq a => a -> [a] -> ([a], [a])
-splitBy separator xs = split $ elemIndex separator xs where
-  split Nothing      = (xs, [])
-  split (Just index) = splitBy' $ splitAt index xs where
-    splitBy' (acc, _:xs') = (acc, xs')
-    splitBy' (acc, [])    = (acc, [])
+splitBy :: Eq a => a -> [a] -> ([a] , [a])
+splitBy separator xs = (acc , drop 1 xs') where (acc , xs') = break (== separator) xs
 
 -- StringUtil
 
-splitStringByEndLine :: String -> (String, String)
+splitStringByEndLine :: String -> (String , String)
 splitStringByEndLine = splitBy '\n'
 
 toUppers :: String -> String
 toUppers = map toUpper
 
+-- CharUtil
+
+genericChr :: Integral a => a -> Char
+genericChr = chr . fromIntegral
+
 -- other
 
-mulAndAdd :: (Integral a) => a -> a -> a -> a
+mulAndAdd :: Integral a => a -> a -> a -> a
 mulAndAdd base digit acc = acc * base + digit
 
 mul2AndAdd :: (Integral a) => a -> a -> a

@@ -7,6 +7,7 @@ import HelVM.HelMA.Common.IO.WrapperIO
 import HelVM.HelMA.Common.API.TypeOptions
 
 import HelVM.HelMA.Common.Types.CellType
+import HelVM.HelMA.Common.Types.IntCellType
 import HelVM.HelMA.Common.Types.StackType
 import HelVM.HelMA.Common.Types.TokenType
 import HelVM.HelMA.Common.Types.RAMType
@@ -39,14 +40,15 @@ main :: IO ()
 main = runApp =<< execParser opts where
   opts = info (optionParser <**> helper)
       ( fullDesc
-     <> header "HelMA: The Interpreter of BrainFuck, ETA, SubLeq and WhiteSpace"
+     <> header "HelMA: The Interpreter of BrainFuck , ETA , SubLeq and WhiteSpace"
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
 runApp:: AppOptions -> IO ()
-runApp AppOptions{lang, minified, emitTL, emitIL, asciiLabels, impl, ramType, stackType, cellType, exec, file} = do
+runApp AppOptions{lang , minified , emitTL , emitIL , asciiLabels , impl , ramType , stackType , cellType , intCellType , exec , file} = do
   IO.hSetBuffering stdout IO.NoBuffering
   source <- readSource exec file
-  run minified emitTL emitIL (parseImpl impl) (TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType)) asciiLabels (parseLang lang) source
+  run minified emitTL emitIL (parseImpl impl) typeOptions asciiLabels (parseLang lang) source
+    where typeOptions = TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType) (parseIntCellType intCellType)
 
 readSource :: Exec -> String -> IO Source
 readSource True = pure
@@ -79,17 +81,17 @@ parse WS   a = pPrintNoColor . flip (WS.parse WhiteTokenType) a
 parse lang _ = tokenize lang
 
 eval :: Impl -> TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
-eval impl options a lang s = evalParams impl (lang, EvalParams {asciiLabel = a, source = s, typeOptions = options})
+eval impl options a lang s = evalParams impl (lang , EvalParams {asciiLabel = a , source = s , typeOptions = options})
 
-evalParams :: Impl -> (Lang, EvalParams) -> IO ()
+evalParams :: Impl -> (Lang , EvalParams) -> IO ()
 evalParams Interact = IO.interact . interactEval'
 evalParams Monadic  = monadicEval'
 
-interactEval' :: (Lang, EvalParams) -> Interact
-interactEval' (lang, params) = interactEval lang params
+interactEval' :: (Lang , EvalParams) -> Interact
+interactEval' (lang , params) = interactEval lang params
 
-monadicEval' :: WrapperIO m => (Lang, EvalParams) -> m ()
-monadicEval' (lang, params) = monadicEval lang params
+monadicEval' :: WrapperIO m => (Lang , EvalParams) -> m ()
+monadicEval' (lang , params) = monadicEval lang params
 
 interactEval :: Lang -> EvalParams -> Interact
 interactEval Cat = Cat.evalParams

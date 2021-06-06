@@ -36,7 +36,6 @@ evalMockIO mockIO = getLogged . execState mockIO . createMockIO
 
 instance WrapperIO MockIO where
   wGetChar = mockGetChar
-  wGetInt  = mockGetInt
   wGetLine = mockGetLine
   wPutChar = mockPutChar
   wPutInt  = mockPutInt
@@ -46,9 +45,6 @@ instance WrapperIO MockIO where
 mockGetChar :: MockIO Char
 mockGetChar = mockGetChar' =<< get where
   mockGetChar' mockIO = headOrError mockIO (input mockIO) <$ put mockIO { input = Unsafe.tail $ input mockIO }
-
-mockGetInt :: MockIO Int
-mockGetInt = ord <$> mockGetChar
 
 mockGetLine :: MockIO String
 mockGetLine = mockGetLine' =<< get where
@@ -90,7 +86,7 @@ data MockIOData = MockIOData
   , output :: String
   , logged  :: String
   }
-  deriving (Eq, Show, Read)
+  deriving (Eq , Show , Read)
 
 ----
 

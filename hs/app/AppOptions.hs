@@ -1,6 +1,7 @@
 module AppOptions where
 
 import HelVM.HelMA.Common.Types.CellType
+import HelVM.HelMA.Common.Types.IntCellType
 import HelVM.HelMA.Common.Types.StackType
 import HelVM.HelMA.Common.Types.RAMType
 
@@ -63,6 +64,13 @@ optionParser = AppOptions
                    <> value (show defaultCellType)
                    <> showDefault
                    )
+  <*> strOption    (  long    "IntCellType"
+                   <> short   'i'
+                   <> metavar "[IntCellType]"
+                   <> help   ("Implementation of IntCell " <> show intCellTypes)
+                   <> value (show defaultIntCellType)
+                   <> showDefault
+                   )
   <*> switch       (  long    "exec"
                    <> short   'e'
                    <> help    "Exec"
@@ -80,6 +88,7 @@ data AppOptions = AppOptions
   , ramType     :: String      -- RAMType
   , stackType   :: String      -- StackType
   , cellType    :: String      -- CellType
+  , intCellType :: String      -- IntCellType
   , exec        :: Exec
   , file        :: String
   }
@@ -94,7 +103,7 @@ type Exec        = Bool
 ----
 
 data Lang = Cat | Rev | BF | ETA | SQ | STN | WS
-  deriving (Eq, Read, Show)
+  deriving (Eq , Read , Show)
 
 langs :: [Lang]
 langs = [Cat , Rev , BF , ETA , SQ , STN , WS]
@@ -106,10 +115,10 @@ parseLang raw = valid $ readMaybe raw where
 
 ----
 
-data Impl = Monadic | Interact deriving (Eq, Read, Show)
+data Impl = Monadic | Interact deriving (Eq , Read , Show)
 
 impls :: [Impl]
-impls = [Monadic, Interact]
+impls = [Monadic , Interact]
 
 parseImpl :: String -> Impl
 parseImpl raw = valid $ readMaybe raw where

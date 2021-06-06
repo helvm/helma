@@ -96,7 +96,7 @@ spec = do
           , ("locTestTL"      , locTestTL      , "1\n2\n"     )
           , ("nameTL"         , nameTL         , "WriteOnly\n")
           , ("truthMachineTL" , truthMachineTL , "0\n"        )
-          ] $ \(fileName , tl, input) -> do
+          ] $ \(fileName , tl , input) -> do
       describe fileName $ do
         it ("interact" </> fileName) $ do
           flipSimpleEvalTL input                 tl `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalTL" </> "interact" </> fileName)
@@ -106,9 +106,9 @@ spec = do
           (flipEvalMockIO  input . simpleEvalTL) tl `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalTL" </> "logging"  </> fileName)
 
   describe "simpleEvalIL" $ do
-    forM_ [ ("call"     , [Call "A", End, Mark "A", Return] , "")
-          , ("push-pop" , [Liter 0 , Discard, End]          , "")
-          , ("pop"      , [Discard, End]                    , "")
-          ] $ \(fileName , il, input) -> do
+    forM_ [ ("call"     , [Call "A", End , Mark "A", Return] , "")
+          , ("push-pop" , [Liter 0 , Discard , End]          , "")
+          , ("pop"      , [Discard , End]                    , "")
+          ] $ \(fileName , il , input) -> do
       it fileName $ do
         flipEvalMockIO input (evalIL il SeqStackType IntMapRAMType) `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalIL" </> "logging"  </> fileName)

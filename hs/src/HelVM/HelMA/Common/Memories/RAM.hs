@@ -1,50 +1,69 @@
-{-# Language AllowAmbiguousTypes   #-}--FIXME
 module HelVM.HelMA.Common.Memories.RAM (
-  RAM,
-  HelVM.HelMA.Common.Memories.RAM.empty,
-  HelVM.HelMA.Common.Memories.RAM.fromList,
+  genericLoad,
   load,
-  store
+  storeChar,
+  genericStore,
+  store,
+  fromList,
+  empty,
+  RAM,
+  intMapFromList
 ) where
 
 import Data.Default
-import Data.IntMap as IntMap
-import Data.Sequence as Seq
+import Data.List.Index
+import Data.Sequence          ((|>))
+import Prelude         hiding (empty , fromList , splitAt)
+
+import qualified Data.IntMap   as IntMap
+import qualified Data.Sequence as Seq
 
 type Address = Int
 
-load :: (Integral a, RAM s m) => m -> a -> s
-load memory address = index' memory (fromIntegral address) ?: def
+genericLoad :: (Integral i , RAM e c) => c -> i -> e
+genericLoad c i = load c $ fromIntegral i
 
-store :: (Integral a, RAM s m) => a -> s -> m -> m
-store address = insert' (fromIntegral address)
+load :: (RAM e c) => c -> Address -> e
+load c i = indexMaybe c i ?: def
 
-class Default s => RAM s m where
-  fromList :: [s] -> m
-  empty    :: m
-  index'   :: m -> Address -> Maybe s
-  insert'  :: Address -> s -> m -> m
+storeChar :: (Num e , Integral a , RAM e c) => a -> Char -> c -> c
+storeChar a char = genericStore a $ ord char
 
-instance Default s => RAM s [s] where
-  fromList = id
-  empty    = []
-  index'   = (!!?)
-  insert' 0       symbol []     = [symbol]
-  insert' 0       symbol (_:xs) = symbol : xs
-  insert' address symbol []     = def    : insert' (address-1) symbol []
-  insert' address symbol (x:xs) = x      : insert' (address-1) symbol xs
+genericStore :: (Integral v , Num e , Integral a , RAM e c) => a -> v -> c -> c
+genericStore a value = store a $ fromIntegral value
 
-instance Default s => RAM s (Seq s) where
-  fromList = Seq.fromList
-  empty    = Seq.fromList []
-  index'   = (Seq.!?)
-  insert' address symbol memory = insert'' (Seq.length memory) where
-    insert'' l
-      | address < l = Seq.update address symbol memory
-      | otherwise   = memory <> Seq.replicate (address - l) def |> symbol
+store :: (Integral a , RAM e c) => a -> e -> c -> c
+store = insert . fromIntegral
 
-instance Default s => RAM s (IntMap s) where
-  fromList list = IntMap.fromList $ Prelude.zip [0..] list
-  empty         = IntMap.empty
-  index'        = (IntMap.!?)
-  insert'       = IntMap.insert
+class Default e => RAM e c | c -> e where
+  fromList   :: [e] -> c
+  empty      :: c
+  indexMaybe :: c -> Address -> Maybe e
+  insert     :: Address -> e -> c -> c
+
+instance Default e => RAM e [e] where
+  fromList   = id
+  empty      = []
+  indexMaybe = (!!?)
+  insert 0 e []     = [e]
+  insert 0 e (_:xs) = e   : xs
+  insert a e []     = def : insert (a-1) e []
+  insert a e (x:xs) = x   : insert (a-1) e xs
+
+instance Default e => RAM e (Seq e) where
+  fromList   = Seq.fromList
+  empty      = Seq.empty
+  indexMaybe = (Seq.!?)
+  insert a e c = insert' $ Seq.length c where
+    insert' l
+      | a < l     = Seq.update a e c
+      | otherwise = c <> Seq.replicate (a - l) def |> e
+
+instance Default e => RAM e (IntMap e) where
+  fromList   = intMapFromList
+  empty      = IntMap.empty
+  indexMaybe = (IntMap.!?)
+  insert     = IntMap.insert
+
+intMapFromList :: [e] -> IntMap e
+intMapFromList = IntMap.fromList . indexed

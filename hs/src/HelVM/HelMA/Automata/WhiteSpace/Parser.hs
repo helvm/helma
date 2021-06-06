@@ -10,8 +10,8 @@ import HelVM.HelMA.Automata.WhiteSpace.Token
 import HelVM.HelMA.Automata.WhiteSpace.Lexer
 import HelVM.HelMA.Automata.WhiteSpace.Instruction
 
+import HelVM.HelMA.Common.BinaryOperator
 import HelVM.HelMA.Common.Types.TokenType
-
 import HelVM.HelMA.Common.Util
 
 flipParseVisible :: Bool -> Source -> InstructionList
@@ -31,10 +31,10 @@ parseTL tl ascii = parseTL' tl where
   parseTL' :: TokenList -> InstructionList
   parseTL' []               = []
   -- Stack instructions
-  parseTL' (S:S:tokens)     = Liter symbol      : parseTL' tokens' where (symbol, tokens') = parseSymbol tokens
-  parseTL' (S:T:S:tokens)   = Copy  index       : parseTL' tokens' where (index, tokens') = parseIndex tokens
+  parseTL' (S:S:tokens)     = Liter symbol      : parseTL' tokens' where (symbol , tokens') = parseSymbol tokens
+  parseTL' (S:T:S:tokens)   = Copy  index       : parseTL' tokens' where (index , tokens') = parseIndex tokens
   parseTL' (S:T:T:_)        = panic "STT"
-  parseTL' (S:T:N:tokens)   = Slide index       : parseTL' tokens' where (index, tokens') = parseIndex tokens
+  parseTL' (S:T:N:tokens)   = Slide index       : parseTL' tokens' where (index , tokens') = parseIndex tokens
   parseTL' (S:N:S:tokens)   = Dup               : parseTL' tokens
   parseTL' (S:N:T:tokens)   = Swap              : parseTL' tokens
   parseTL' (S:N:N:tokens)   = Discard           : parseTL' tokens
@@ -53,11 +53,11 @@ parseTL tl ascii = parseTL' tl where
   parseTL' (T:T:T:tokens)   = Load              : parseTL' tokens
   parseTL' (T:T:N:_)        = panic "TTN"
   -- Control
-  parseTL' (N:S:S:tokens)   = Mark        label : parseTL' tokens' where (label, tokens') = parseLabel ascii tokens
-  parseTL' (N:S:T:tokens)   = Call        label : parseTL' tokens' where (label, tokens') = parseLabel ascii tokens
-  parseTL' (N:S:N:tokens)   = Jump        label : parseTL' tokens' where (label, tokens') = parseLabel ascii tokens
-  parseTL' (N:T:S:tokens)   = Branch EZ   label : parseTL' tokens' where (label, tokens') = parseLabel ascii tokens
-  parseTL' (N:T:T:tokens)   = Branch Neg  label : parseTL' tokens' where (label, tokens') = parseLabel ascii tokens
+  parseTL' (N:S:S:tokens)   = Mark        label : parseTL' tokens' where (label , tokens') = parseLabel ascii tokens
+  parseTL' (N:S:T:tokens)   = Call        label : parseTL' tokens' where (label , tokens') = parseLabel ascii tokens
+  parseTL' (N:S:N:tokens)   = Jump        label : parseTL' tokens' where (label , tokens') = parseLabel ascii tokens
+  parseTL' (N:T:S:tokens)   = Branch EZ   label : parseTL' tokens' where (label , tokens') = parseLabel ascii tokens
+  parseTL' (N:T:T:tokens)   = Branch Neg  label : parseTL' tokens' where (label , tokens') = parseLabel ascii tokens
   parseTL' (N:T:N:tokens)   = Return            : parseTL' tokens
   parseTL' (N:N:S:_)        = panic "NNS"
   parseTL' (N:N:T:_)        = panic "NNT"

@@ -1,4 +1,7 @@
 # 📅 Revision history for HelMA
+## 0.6.6.0  -- 2021-06-11
+
+* Use Functional Dependency in Memories and Collections
 
 ## 0.6.5.0  -- 2021-06-06
 

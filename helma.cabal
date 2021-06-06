@@ -1,7 +1,7 @@
 cabal-version:       2.2
 
 name:                helma
-version:             0.6.5.0
+version:             0.6.6.0
 
 synopsis:            HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages implemented in Haskell
 description:         Please see the README on GitHub at <https://github.com/helvm/helma#readme>
@@ -34,12 +34,27 @@ library
   exposed-modules:
         HelVM.HelMA.Common.API.EvalParams
         HelVM.HelMA.Common.API.TypeOptions
+        HelVM.HelMA.Common.BinaryOperator
+        HelVM.HelMA.Common.Collections
+        HelVM.HelMA.Common.Collections.Drop
+        HelVM.HelMA.Common.Collections.FromList
+        HelVM.HelMA.Common.Collections.Insert
+        HelVM.HelMA.Common.Collections.Lookup
+        HelVM.HelMA.Common.Collections.Pop
+        HelVM.HelMA.Common.Collections.SplitAt
         HelVM.HelMA.Common.Memories.RAM
+        HelVM.HelMA.Common.Memories.RAMConst
+        HelVM.HelMA.Common.Memories.RAMImpl
+        HelVM.HelMA.Common.Memories.RAMUtil
         HelVM.HelMA.Common.Memories.Stack
+        HelVM.HelMA.Common.Memories.StackConst
+        HelVM.HelMA.Common.Memories.StackImpl
+        HelVM.HelMA.Common.Memories.StackUtil
         HelVM.HelMA.Common.IO.MockIO
         HelVM.HelMA.Common.IO.WrapperIO
         HelVM.HelMA.Common.OrError
         HelVM.HelMA.Common.Types.CellType
+        HelVM.HelMA.Common.Types.IntCellType
         HelVM.HelMA.Common.Types.StackType
         HelVM.HelMA.Common.Types.TokenType
         HelVM.HelMA.Common.Types.RAMType
@@ -56,7 +71,6 @@ library
         HelVM.HelMA.Automata.ETA.Evaluator
         HelVM.HelMA.Automata.ETA.EvaluatorUtil
         HelVM.HelMA.Automata.ETA.Lexer
-        HelVM.HelMA.Automata.ETA.StackOfSymbols
         HelVM.HelMA.Automata.ETA.Token
 
         HelVM.HelMA.Automata.SubLeq.Evaluator
@@ -67,7 +81,6 @@ library
         HelVM.HelMA.Automata.WhiteSpace.Lexer
         HelVM.HelMA.Automata.WhiteSpace.OperandParsers
         HelVM.HelMA.Automata.WhiteSpace.Parser
-        HelVM.HelMA.Automata.WhiteSpace.StackOfSymbols
         HelVM.HelMA.Automata.WhiteSpace.Token
   other-extensions:
   build-depends:
@@ -77,6 +90,7 @@ library
     , mtl
     , split
     , data-default
+    , ilist
   mixins:
       base hiding (Prelude)
     , relude (Relude as Prelude, Relude.Extra, Relude.Unsafe)
@@ -149,6 +163,7 @@ test-suite spec
         Spec
 
         HelVM.HelMA.Common.FilterIf0Spec
+        HelVM.HelMA.Common.UtilSpec
 
         HelVM.HelMA.Automata.CartesianProduct
         HelVM.HelMA.Automata.Expectations

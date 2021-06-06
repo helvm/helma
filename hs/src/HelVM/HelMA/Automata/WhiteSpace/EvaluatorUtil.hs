@@ -9,14 +9,7 @@ newtype InstructionStack = IS [InstructionAddress]
 data InstructionUnit = IU InstructionList InstructionCounter InstructionStack
   deriving (Show)
 
-doBinary :: BinaryOperator -> Symbol -> Symbol -> Symbol
-doBinary Add s s' = s' + s
-doBinary Sub s s' = s' - s
-doBinary Mul s s' = s' * s
-doBinary Div s s' = s' `div` s
-doBinary Mod s s' = s' `mod` s
-
-doBranchTest :: BranchTest -> Symbol -> Bool
+doBranchTest :: Integral s => BranchTest -> s -> Bool
 doBranchTest EZ  s = s == 0
 doBranchTest Neg s = s < 0
 
