@@ -1,3 +1,4 @@
+{-#LANGUAGE ConstraintKinds#-}
 module HelVM.HelMA.Automata.WhiteSpace.Evaluator (
   simpleEval,
   simpleEvalTL,
@@ -7,131 +8,143 @@ module HelVM.HelMA.Automata.WhiteSpace.Evaluator (
   evalTL
 ) where
 
-import HelVM.HelMA.Automata.WhiteSpace.EvaluatorUtil
+import HelVM.HelMA.Automata.WhiteSpace.Addressing
 import HelVM.HelMA.Automata.WhiteSpace.Instruction
 import HelVM.HelMA.Automata.WhiteSpace.Lexer
 import HelVM.HelMA.Automata.WhiteSpace.Parser
+import HelVM.HelMA.Automata.WhiteSpace.Symbol
 import HelVM.HelMA.Automata.WhiteSpace.Token
 
-import HelVM.HelMA.Common.API.EvalParams
-import HelVM.HelMA.Common.API.TypeOptions
+import HelVM.HelMA.Automaton.API.IOTypes
+import HelVM.HelMA.Automaton.API.EvalParams
+import HelVM.HelMA.Automaton.API.TypeOptions
 
-import HelVM.HelMA.Common.IO.WrapperIO
+import HelVM.Common.Containers.Lookup
 
-import HelVM.HelMA.Common.Memories.RAMConst   as RAM
-import HelVM.HelMA.Common.Memories.StackConst as Stack
+import HelVM.HelMA.Automaton.IO.WrapperIO
 
-import HelVM.HelMA.Common.OrError
+import HelVM.HelMA.Automaton.Memories.RAMConst   as RAM
+import HelVM.HelMA.Automaton.Memories.StackConst as Stack
 
-import HelVM.HelMA.Common.Types.RAMType
-import HelVM.HelMA.Common.Types.StackType
-import HelVM.HelMA.Common.Types.TokenType
+import HelVM.Common.SafeMonadT
 
-import HelVM.HelMA.Common.Util
+import HelVM.HelMA.Automaton.Types.RAMType
+import HelVM.HelMA.Automaton.Types.StackType
+import HelVM.HelMA.Automaton.Types.TokenType
+
+import HelVM.Common.Util
 
 import Data.Default as Default
+import Prelude hiding (swap)
 
 import qualified Data.IntMap   as IntMap
 import qualified Data.Sequence as Seq
 
-simpleEval :: Evaluator Symbol r => (TokenType , Source , Bool , StackType , RAMType) -> r
+simpleEval :: Evaluator Symbol m => (TokenType , Source , Bool , StackType , RAMType) -> SafeMonadT_ m
 simpleEval (tokenType , source , asciiLabel , stackType , ramType) = eval tokenType source asciiLabel stackType ramType
 
-simpleEvalTL :: Evaluator Symbol r => TokenList -> r
+simpleEvalTL :: Evaluator Symbol m => TokenList -> SafeMonadT_ m
 simpleEvalTL tl = evalTL tl False defaultStackType defaultRAMType
 
-evalParams :: Evaluator Symbol r => TokenType -> EvalParams ->  r
+evalParams :: Evaluator Symbol m => TokenType -> EvalParams -> SafeMonadT_ m
 evalParams tokenType p = eval tokenType (source p) (asciiLabel p) (stack $ typeOptions p) (ram $ typeOptions p)
 
-eval :: Evaluator Symbol r => TokenType -> Source -> Bool -> StackType -> RAMType -> r
+eval :: Evaluator Symbol m => TokenType -> Source -> Bool -> StackType -> RAMType -> SafeMonadT_ m
 eval tokenType source = evalTL $ tokenize tokenType source
 
-evalTL :: Evaluator Symbol r => TokenList -> Bool -> StackType -> RAMType -> r
-evalTL tl ascii = evalIL $ parseTL tl ascii
+evalTL :: Evaluator Symbol m => TokenList -> Bool -> StackType -> RAMType -> SafeMonadT_ m
+evalTL tl ascii st rt = evalTL' =<< hoistSafe (parseTL tl ascii) where evalTL' il = evalIL il st rt
 
-evalIL :: Evaluator Symbol r => InstructionList -> StackType -> RAMType -> r
+evalIL :: Evaluator Symbol m => InstructionList -> StackType -> RAMType -> SafeMonadT_ m
 evalIL il s ListRAMType   = evalIL' il s []
 evalIL il s SeqRAMType    = evalIL' il s Seq.empty
 evalIL il s IntMapRAMType = evalIL' il s IntMap.empty
 
-evalIL' :: Evaluator Symbol r => RAM Symbol m => InstructionList -> StackType -> m -> r
+evalIL' :: Evaluator Symbol m => RAM Symbol r => InstructionList -> StackType -> r -> SafeMonadT_ m
 evalIL' il ListStackType = start il []
 evalIL' il SeqStackType  = start il Seq.empty
 
-class (Default cell , Show cell , Integral cell) => Evaluator cell r where
+start :: (Stack Symbol s , RAM Symbol r , Evaluator Symbol m) => InstructionList -> s -> r -> SafeMonadT_ m
+start il = next (IU il 0 (IS []))
 
-  start :: (Stack cell s , RAM cell m) => InstructionList -> s -> m -> r
-  start il = next (IU il 0 (IS []))
+class (Element e , Monad m) => Evaluator e m where
 
-  next :: (Stack cell s , RAM cell m) => InstructionUnit -> s -> m -> r
-  next iu@(IU il ic is) = doInstruction (indexOrError ("next"::Text,iu) il ic) (IU il (ic+1) is)
+  next :: (Stack e s , RAM e r) => InstructionUnit -> s -> r -> SafeMonadT_ m
+  next (IU il ic is) s r = doInstruction' =<< hoistSafe (indexSafe il ic) where doInstruction' i = doInstruction i (IU il (ic+1) is) s r
+
+  stackNext :: (Stack e s , RAM e r) => InstructionUnit -> r -> s -> SafeMonadT_ m
+  stackNext ic r s = next ic s r
+
+  iuNext :: (Stack e s , RAM e r) => s -> r -> InstructionUnit -> SafeMonadT_ m
+  iuNext s r ic = next ic s r
 
   ----
 
-  doInstruction :: (Stack cell s , RAM cell m) => Instruction -> InstructionUnit -> s -> m -> r
+  doInstruction :: (Stack e s , RAM e r) => Instruction -> InstructionUnit -> s -> r -> SafeMonadT_ m
 
   -- IO instructions
-  doInstruction  OutputChar iu stack h = doOutputChar iu stack h
-  doInstruction  InputChar  iu stack h = doInputChar  iu stack h
-  doInstruction  OutputNum  iu stack h = doOutputNum  iu stack h
-  doInstruction  InputNum   iu stack h = doInputNum   iu stack h
+  doInstruction  OutputChar iu s r = doOutputChar iu s r
+  doInstruction  InputChar  iu s r = doInputChar  iu s r
+  doInstruction  OutputNum  iu s r = doOutputNum  iu s r
+  doInstruction  InputNum   iu s r = doInputNum   iu s r
 
   -- Stack instructions
-  doInstruction (Liter symbol) iu stack h = next iu (push1   (fromIntegral symbol) stack) h
-  doInstruction (Copy  index)  iu stack h = next iu (copy    index  stack) h
-  doInstruction (Slide index)  iu stack h = next iu (slide   index  stack) h
-  doInstruction  Dup           iu stack h = next iu (dup            stack) h
-  doInstruction  Swap          iu stack h = next iu (Stack.swap     stack) h
-  doInstruction  Discard       iu stack h = next iu (discard        stack) h
+  doInstruction (Liter value) iu s r = stackNext iu r $ genericPush1 value s
+  doInstruction (Copy  index) iu s r = stackNext iu r =<< hoistSafe (copy    index  s)
+  doInstruction (Slide index) iu s r = stackNext iu r =<< hoistSafe (slide   index  s)
+  doInstruction  Dup          iu s r = stackNext iu r =<< hoistSafe (dup            s)
+  doInstruction  Swap         iu s r = stackNext iu r =<< hoistSafe (swap           s)
+  doInstruction  Discard      iu s r = stackNext iu r =<< hoistSafe (discard        s)
 
   -- Arithmetic
-  doInstruction (Binary op)    iu stack h = next iu (binaryOp op stack) h
+  doInstruction (Binary op)    iu s r = stackNext iu r =<< hoistSafe (binaryOp op s)
 
   -- Heap access
-  doInstruction Store iu stack h = next iu stack' (store address value h) where (value , address , stack') = pop2 stack
-  doInstruction Load  iu stack h = next iu (push1 (genericLoad h address) stack') h where (address , stack') = pop1 stack
+  doInstruction Store iu s r = doStore =<< hoistSafe (pop2 s) where doStore (v , a , s') = next iu s' $ store a v r
+  doInstruction Load  iu s r = doLoad  =<< hoistSafe (pop1 s) where doLoad  (a , s') = stackNext iu r $ flipPush1 s' $ genericLoad r a
 
   -- Control
-  doInstruction (Mark     _)  iu                          stack h = next  iu                                     stack h
-  doInstruction  Return      (IU il _  (IS (address:is))) stack h = next (IU il  address           (IS is)     ) stack h
-  doInstruction (Call     l) (IU il ic (IS is)          ) stack h = next (IU il (findAddress il l) (IS (ic:is))) stack h
-  doInstruction (Jump     l) (IU il _   is              ) stack h = next (IU il (findAddress il l)  is         ) stack h
-  doInstruction (Branch t l) (IU il ic is) stack h
-    | doBranchTest t symbol = next (IU il (findAddress il l) is) stack' h
-    | otherwise             = next (IU il ic                 is) stack' h
-    where (symbol , stack') = pop1 stack
+  doInstruction (Mark     _)  iu                          s r = iuNext s r   iu
+  doInstruction  Return      (IU il _  (IS (a:is))) s r = iuNext s r $ IU il a $ IS     is
+  doInstruction (Call     l) (IU il ic (IS is)    ) s r = iuNext s r $ IU il a $ IS (ic:is) where a = findAddress il l
+  doInstruction (Jump     l) (IU il _   is        ) s r = iuNext s r $ IU il a          is  where a = findAddress il l
+  doInstruction (Branch t l) (IU il ic is) s r = doBranch =<< hoistSafe (pop1 s) where
+    doBranch (e , s')
+      | isNotJump t e = iuNext s' r $ IU il ic  is
+      | otherwise     = iuNext s' r $ IU il ic' is where ic' = findAddress il l
 
   -- Other
-  doInstruction End iu s m = doEnd iu s m
-  doInstruction i   iu _ _ = error $ "Can't do " <> show i <> " " <> show iu
+  doInstruction End iu s r = doEnd iu s r
+  doInstruction i   iu _ _ = hoistError $ "Can't do " <> show i <> " " <> show iu
 
   -- Special
-  doEnd :: (Stack cell s , RAM cell m) => InstructionUnit -> s -> m -> r
+  doEnd :: (Stack e s , RAM e r) => InstructionUnit -> s -> r -> SafeMonadT_ m
 
   -- IO instructions
-  doOutputChar :: (Stack cell s , RAM cell m) => InstructionUnit -> s -> m -> r
-  doInputChar  :: (Stack cell s , RAM cell m) => InstructionUnit -> s -> m -> r
-  doOutputNum  :: (Stack cell s , RAM cell m) => InstructionUnit -> s -> m -> r
-  doInputNum   :: (Stack cell s , RAM cell m) => InstructionUnit -> s -> m -> r
+  doOutputChar :: (Stack e s , RAM e r) => InstructionUnit -> s -> r -> SafeMonadT_ m
+  doInputChar  :: (Stack e s , RAM e r) => InstructionUnit -> s -> r -> SafeMonadT_ m
+  doOutputNum  :: (Stack e s , RAM e r) => InstructionUnit -> s -> r -> SafeMonadT_ m
+  doInputNum   :: (Stack e s , RAM e r) => InstructionUnit -> s -> r -> SafeMonadT_ m
 
 ----
 
-storeNum :: (Read cell , Integral cell , RAM cell m) => cell -> Input -> m -> m
-storeNum address = store address . readOrError
+type Element e  = (Default e , Read e , Show e , Integral e)
 
 ----
 
-instance (Default cell , Read cell , Show cell , Integral cell , WrapperIO m) => Evaluator cell (m ()) where
-  doEnd iu stack _ = wLogStrLn (show stack) *> wLogStrLn (show iu)
+instance (Element e , WrapperIO m) => Evaluator e m where
+  doEnd iu s _ = hoistMonad (wLogStrLn (show s) *> wLogStrLn (show iu))
 
-  doInputChar iu stack h = doInputChar' =<< wGetChar where
-    doInputChar' char = next iu stack' (storeChar address char h)
-    (address , stack') = pop1 stack
+  doInputChar iu s r = doInputChar' =<< hoistSafe (pop1 s) where
+    doInputChar' (address , s') = doInputChar'' =<< hoistMonad wGetChar where
+      doInputChar'' char = next iu s' $ storeChar address char r
 
-  doInputNum iu stack h = doInputNum' =<< wGetLine where
-    doInputNum' line = next iu stack' (storeNum address line h)
-    (address , stack') = pop1 stack
+  doInputNum iu s r = doInputNum' =<< hoistSafe (pop1 s) where
+    doInputNum' (address , s') = doInputNum'' =<< hoistMonad wGetLine where
+      doInputNum'' line = next iu s' =<< hoistSafe (storeNum address line r)
 
-  doOutputChar iu stack h = wPutChar (genericChr symbol) *> next iu stack' h  where (symbol , stack') = pop1 stack
+  doOutputChar iu s r = doOutputChar' =<< hoistSafe (pop1 s) where
+    doOutputChar' (e , s') = hoistMonad (wPutChar $ genericChr e) *> next iu s' r
 
-  doOutputNum iu stack h = wPutStr (show symbol) *> next iu stack' h  where (symbol , stack') = pop1 stack
+  doOutputNum iu s r = doOutputNum' =<< hoistSafe (pop1 s) where
+    doOutputNum' (e , s') = hoistMonad (wPutStr $ show e) *> next iu s' r

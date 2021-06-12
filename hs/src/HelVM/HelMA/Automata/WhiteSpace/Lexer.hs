@@ -2,28 +2,28 @@ module HelVM.HelMA.Automata.WhiteSpace.Lexer where
 
 import HelVM.HelMA.Automata.WhiteSpace.Token
 
-import HelVM.HelMA.Common.Types.TokenType
-import HelVM.HelMA.Common.WrapTokenList
-
-import qualified Text.Read as Read
+import HelVM.HelMA.Automaton.API.IOTypes
+import HelVM.Common.ReadText
+import HelVM.HelMA.Automaton.Types.TokenType
+import HelVM.HelMA.Automaton.WrapTokenList
 
 -- Lexer
 
-tokenize :: TokenType -> String -> TokenList
+tokenize :: TokenType -> Source -> TokenList
 tokenize VisibleTokenType = tokenizeVisible
 tokenize _                = tokenizeWhite
 
-tokenizeVisible :: String -> TokenList
+tokenizeVisible :: Source -> TokenList
 tokenizeVisible = unWrapTokenList . readVisibleTokens
 
-tokenizeWhite :: String -> TokenList
+tokenizeWhite :: Source -> TokenList
 tokenizeWhite = whiteTokenListToTokenList . unWrapTokenList . readWhiteTokens
 
-readVisibleTokens :: String -> VisibleTokens
-readVisibleTokens source = Read.read source :: VisibleTokens
+readVisibleTokens :: Source -> VisibleTokens
+readVisibleTokens source = readText source :: VisibleTokens
 
-readWhiteTokens :: String -> WhiteTokens
-readWhiteTokens source = Read.read source :: WhiteTokens
+readWhiteTokens :: Source -> WhiteTokens
+readWhiteTokens source = readText source :: WhiteTokens
 
 type VisibleTokens = WrapTokenList TokenList
 

@@ -8,44 +8,46 @@ module HelVM.HelMA.Automata.SubLeq.Evaluator (
 import HelVM.HelMA.Automata.SubLeq.Lexer
 import HelVM.HelMA.Automata.SubLeq.Symbol
 
-import HelVM.HelMA.Common.API.EvalParams
-import HelVM.HelMA.Common.API.TypeOptions
-import HelVM.HelMA.Common.Collections.FromList
-import HelVM.HelMA.Common.IO.WrapperIO
-import HelVM.HelMA.Common.Memories.RAMConst as RAM
-import HelVM.HelMA.Common.Types.RAMType
-import HelVM.HelMA.Common.Util
+import HelVM.HelMA.Automaton.API.IOTypes
+import HelVM.HelMA.Automaton.API.EvalParams
+import HelVM.HelMA.Automaton.API.TypeOptions
+import HelVM.Common.Containers.FromList
+import HelVM.HelMA.Automaton.IO.WrapperIO
+import HelVM.HelMA.Automaton.Memories.RAMConst as RAM
+import HelVM.HelMA.Automaton.Types.RAMType
+
+import HelVM.Common.SafeMonadT
 
 import Data.Default as Default
 
 import qualified Data.Sequence as Seq
 
-simpleEval :: Evaluator Symbol r => Source -> r
+simpleEval :: Evaluator Symbol m_ => Source -> m_
 simpleEval source = eval source defaultRAMType
 
-simpleEvalIL :: Evaluator Symbol r => SymbolList -> r
+simpleEvalIL :: Evaluator Symbol m_ => SymbolList -> m_
 simpleEvalIL il = evalIL il defaultRAMType
 
-evalParams :: Evaluator Symbol r => EvalParams -> r
-evalParams p = eval (source p) (ram $ typeOptions p)
+evalParams :: (Monad m , Evaluator Symbol (m ())) => EvalParams -> SafeMonadT_ m
+evalParams p = hoistMonad $ eval (source p) (ram $ typeOptions p)
 
-eval :: Evaluator Symbol r => Source -> RAMType -> r
+eval :: Evaluator Symbol m_ => Source -> RAMType -> m_
 eval source = evalIL $ tokenize source
 
-class (Default cell , Integral cell) => Evaluator cell r where
+class (Default e , Integral e) => Evaluator e m_ where
 
-  evalIL :: [cell] -> RAMType -> r
+  evalIL :: [e] -> RAMType -> m_
   evalIL = flip evalIL'
 
-  evalIL' :: RAMType -> [cell] -> r
+  evalIL' :: RAMType -> [e] -> m_
   evalIL' ListRAMType   = start
   evalIL' SeqRAMType    = start . Seq.fromList
   evalIL' IntMapRAMType = start . intMapFromList
 
-  start :: RAM cell m => m -> r
+  start :: RAM e r => r -> m_
   start = doInstruction 0
 
-  doInstruction :: RAM cell m => cell -> m -> r
+  doInstruction :: RAM e r => e -> r -> m_
   doInstruction ic memory
     | ic  < 0   = doEnd ic memory
     | src < 0   = doInputChar  dst ic memory
@@ -59,13 +61,13 @@ class (Default cell , Integral cell) => Evaluator cell r where
           | diff <= 0 = genericLoad memory $ ic + 2
           | otherwise = ic + 3
 
-  doEnd        :: RAM cell m => cell -> m -> r
-  doInputChar  :: RAM cell m => cell -> cell -> m -> r
-  doOutputChar :: RAM cell m => cell -> cell -> m -> r
+  doEnd        :: RAM e r => e -> r -> m_
+  doInputChar  :: RAM e r => e -> e -> r -> m_
+  doOutputChar :: RAM e r => e -> e -> r -> m_
 
 ----
 
-instance (Show cell , Default cell , Integral cell , WrapperIO m) => Evaluator cell (m ()) where
+instance (Show e , Default e , Integral e , WrapperIO m) => Evaluator e (m ()) where
   doEnd ic _ = wLogStrLn (show ic)
 
   doInputChar address ic memory = doInputChar' =<< wGetChar where

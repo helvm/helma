@@ -2,7 +2,7 @@
 
 **New interpreters and features.**
 
-Currently, 🚁 **HelMA** interpret:
+Currently, **🔧 🎨 HelMA** interpret:
 * 🌈 BrainFuck
 * ❤️ ETA
 * 💙 SubLeq

@@ -1,4 +1,11 @@
 # 📅 Revision history for HelMA
+
+## 0.6.8.0  -- 2021-07-06
+
+* Use `Safe`, remove `error` calls
+* Replace `String` by `Text`
+* Extract `HelVM.Common` and `HelVM.Common.Digit` packages
+
 ## 0.6.7.0  -- 2021-06-11
 
 * Remove Interact implementation

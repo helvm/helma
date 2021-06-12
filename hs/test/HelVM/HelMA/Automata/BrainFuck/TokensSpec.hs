@@ -3,9 +3,9 @@ module HelVM.HelMA.Automata.BrainFuck.TokensSpec (spec) where
 import HelVM.HelMA.Automata.BrainFuck.Lexer
 import HelVM.HelMA.Automata.BrainFuck.FileUtil
 
-import HelVM.HelMA.Common.WrapTokenList
+import HelVM.HelMA.Automaton.WrapTokenList
 
-import HelVM.HelMA.Automata.Expectations
+import HelVM.Expectations
 
 import Test.Hspec
 

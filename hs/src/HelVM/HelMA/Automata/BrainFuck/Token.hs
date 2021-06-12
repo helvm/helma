@@ -13,7 +13,7 @@ data Token =
   | Input
   | JmpPast
   | JmpBack
-  deriving (Eq , Ord , Enum)
+  deriving stock (Eq , Ord , Enum)
 
 type TokenList = [Token]
 

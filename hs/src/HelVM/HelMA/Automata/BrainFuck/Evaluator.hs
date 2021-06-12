@@ -10,22 +10,23 @@ import HelVM.HelMA.Automata.BrainFuck.TapeOfSymbols
 import HelVM.HelMA.Automata.BrainFuck.Token
 import HelVM.HelMA.Automata.BrainFuck.Lexer
 
-import HelVM.HelMA.Common.API.EvalParams
-import HelVM.HelMA.Common.API.TypeOptions
-import HelVM.HelMA.Common.IO.WrapperIO
-import HelVM.HelMA.Common.Types.CellType
-import HelVM.HelMA.Common.Util
+import HelVM.HelMA.Automaton.API.EvalParams
+import HelVM.HelMA.Automaton.API.IOTypes
+import HelVM.HelMA.Automaton.API.TypeOptions
+import HelVM.HelMA.Automaton.IO.WrapperIO
+import HelVM.HelMA.Automaton.Types.CellType
 
-uncurryEval :: Evaluator r => (Source , CellType) -> r
+import HelVM.Common.SafeMonadT
+
+uncurryEval :: Evaluator m_ => (Source , CellType) -> m_
 uncurryEval = uncurry eval
 
 ----
 
-evalParams :: Evaluator r => EvalParams ->  r
-evalParams p = eval (source p) (cell $ typeOptions p)
+evalParams :: (Monad m , Evaluator (m ())) => EvalParams -> SafeMonadT_ m
+evalParams p = hoistMonad $ eval (source p) (cell $ typeOptions p)
 
-
-eval :: Evaluator r => Source -> CellType ->  r
+eval :: Evaluator m_ => Source -> CellType ->  m_
 eval source Int8Type   = start source (newTape :: FullTape Int8)
 eval source Word8Type  = start source (newTape :: FullTape Word8)
 eval source Int16Type  = start source (newTape :: FullTape Int16)
@@ -35,12 +36,12 @@ eval source Word32Type = start source (newTape :: FullTape Word32)
 eval source Int64Type  = start source (newTape :: FullTape Int64)
 eval source Word64Type = start source (newTape :: FullTape Word64)
 
-class Evaluator r where
+class Evaluator m_ where
 
-  start :: Symbol s => String -> FullTape s -> r
+  start :: Symbol e => Source -> FullTape e -> m_
   start source = doInstruction ([] , tokenize source)
 
-  doInstruction :: Symbol s => Table -> FullTape s -> r
+  doInstruction :: Symbol e => Table -> FullTape e -> m_
   doInstruction table@(_ , MoveR   :_) tape = doInstruction    (nextInst table) (moveHeadRight tape)
   doInstruction table@(_ , MoveL   :_) tape = doInstruction    (nextInst table)  (moveHeadLeft tape)
   doInstruction table@(_ , Inc     :_) tape = doInstruction    (nextInst table)   (wNextSymbol tape)
@@ -51,17 +52,17 @@ class Evaluator r where
   doInstruction table@(_ , Input   :_) tape = doInputChar                table                 tape
   doInstruction       (_ , []        ) _    = doEnd
 
-  doJmpPast :: Symbol s => Table -> FullTape s -> r
+  doJmpPast :: Symbol e => Table -> FullTape e -> m_
   doJmpPast table tape@(_ , 0:_) = doInstruction (jumpPast table) tape
-  doJmpPast table tape          = doInstruction (nextInst table) tape
+  doJmpPast table tape           = doInstruction (nextInst table) tape
 
-  doJmpBack :: Symbol s => Table -> FullTape s -> r
+  doJmpBack :: Symbol e => Table -> FullTape e -> m_
   doJmpBack table tape@(_ , 0:_) = doInstruction (nextInst table) tape
-  doJmpBack table tape          = doInstruction (jumpBack table) tape
+  doJmpBack table tape           = doInstruction (jumpBack table) tape
 
-  doEnd        :: r
-  doOutputChar :: Symbol s => Table -> FullTape s -> r
-  doInputChar  :: Symbol s => Table -> FullTape s -> r
+  doEnd        :: m_
+  doOutputChar :: Symbol e => Table -> FullTape e -> m_
+  doInputChar  :: Symbol e => Table -> FullTape e -> m_
 
 ----
 
@@ -71,5 +72,5 @@ instance WrapperIO m => Evaluator (m ()) where
   doInputChar table tape = doInputChar' =<< wGetChar where
     doInputChar' char = doInstruction (nextInst table) $ writeSymbol char tape
 
-  doOutputChar _          (_ , [])       = error "Illegal State"
-  doOutputChar table tape@(_ , symbol:_) = wPutChar (toChar symbol) *> doInstruction (nextInst table) tape
+  doOutputChar _          (_ ,  []) = error "Illegal State"
+  doOutputChar table tape@(_ , e:_) = wPutChar (toChar e) *> doInstruction (nextInst table) tape

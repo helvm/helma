@@ -2,55 +2,48 @@ module HelVM.HelMA.Automata.WhiteSpace.OperandParsers where
 
 import HelVM.HelMA.Automata.WhiteSpace.Token
 
-import HelVM.HelMA.Common.Util
+import HelVM.Common.Safe
+import HelVM.Common.Digit.ToDigit
 
-type OperandParser a = TokenList -> (a , TokenList)
+type OperandParser a = TokenList -> Safe (a , TokenList)
 
 parseInt :: OperandParser Int
-parseInt tokens = (fromIntegral integer , tokens') where (integer , tokens') = parseInteger tokens
+parseInt tl = parseInt' <$> parseInteger tl where
+  parseInt' (integer , tl') = (fromIntegral integer , tl')
 
 parseInteger :: OperandParser Integer
-parseInteger []         = error "EOL"
-parseInteger (S:tokens) = parseUtil makeIntegral tokens
-parseInteger (T:tokens) = negationIntegral $ parseUtil makeIntegral tokens
-parseInteger (N:tokens) = (0,tokens)
+parseInteger []     = safeError "EOL"
+parseInteger (S:tl) = parseUtil (makeIntegral 2) tl
+parseInteger (T:tl) = negationIntegral <$> parseUtil (makeIntegral 2) tl
+parseInteger (N:tl) = safe (0 , tl)
 
 negationIntegral :: (Integer , TokenList) -> (Integer , TokenList)
 negationIntegral (i , l) = (-i , l)
 
 parseNatural :: OperandParser Natural
-parseNatural = parseUtil makeIntegral
+parseNatural = parseUtil (makeIntegral 2)
 
-parseUtil :: (TokenList -> a) -> OperandParser a
+parseUtil :: (TokenList -> Safe a) -> OperandParser a
 parseUtil maker = parseUtil' ([]::TokenList) where
-  parseUtil' acc []         = error $ show acc
-  parseUtil' acc (N:tokens) = (maker acc , tokens)
-  parseUtil' acc (t:tokens) = parseUtil' (t:acc) tokens
+  parseUtil' acc []     = safeError $ show acc
+  parseUtil' acc (N:tl) = moveSafe (maker acc , tl)
+  parseUtil' acc (t:tl) = parseUtil' (t:acc) tl
 
-parseBitString :: OperandParser String
-parseBitString = parseString' makeBitString
+parseDigitString :: OperandParser String
+parseDigitString tl = moveSafe =<< parseString' makeDigitString tl
 
 parseAsciiString :: OperandParser String
-parseAsciiString = parseString' makeAsciiString
+parseAsciiString tl = moveSafe =<< parseString' (makeAsciiString 2 8) tl
+
+moveSafe :: (Safe a , TokenList) -> Safe (a , TokenList)
+moveSafe (a , tl) = appendErrorTuple ("TokenList" , show tl) $ ( , tl) <$> a
 
 parseString' :: (TokenList -> a) -> OperandParser a
-parseString' maker tokens = (maker acc , tokens') where (acc , tokens') = splitByN tokens
+parseString' maker tl = parseString'' <$> splitByN tl where
+  parseString'' (acc , tl') = (maker acc , tl')
 
 splitByN :: OperandParser TokenList
-splitByN []         = error "Empty list"
-splitByN (N:tokens) = ([]    , tokens)
-splitByN (t:tokens) = (t:acc , tokens') where (acc , tokens') = splitByN tokens
-
-----
-
-makeIntegral :: (Integral a) => TokenList -> a
-makeIntegral = foldr (mul2AndAdd . toDigit) 0
-
-makeBitString :: TokenList -> String
-makeBitString = map toBitChar
-
-makeAsciiString :: TokenList -> String
-makeAsciiString tokens = makeChar <$> chunksOf 8 tokens
-
-makeChar :: TokenList -> Char
-makeChar = chr . makeIntegral . reverse
+splitByN []         = safeError "Empty list"
+splitByN (N:tl) = safe ([]    , tl)
+splitByN (t:tl) = splitByN' <$> splitByN tl where
+  splitByN' (acc , tl') = (t:acc , tl')

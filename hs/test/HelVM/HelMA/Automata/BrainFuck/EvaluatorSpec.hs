@@ -3,11 +3,11 @@ module HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec (spec) where
 import HelVM.HelMA.Automata.BrainFuck.Evaluator
 import HelVM.HelMA.Automata.BrainFuck.FileUtil
 
-import HelVM.HelMA.Automata.CartesianProduct
-import HelVM.HelMA.Automata.Expectations
+import HelVM.CartesianProduct
+import HelVM.WrappedGoldenIO
 
-import HelVM.HelMA.Common.IO.MockIO
-import HelVM.HelMA.Common.Types.CellType
+import HelVM.HelMA.Automaton.IO.MockIO
+import HelVM.HelMA.Automaton.Types.CellType
 
 import System.FilePath.Posix
 

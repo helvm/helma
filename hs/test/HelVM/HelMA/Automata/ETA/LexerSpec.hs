@@ -5,7 +5,7 @@ import HelVM.HelMA.Automata.ETA.Lexer
 import HelVM.HelMA.Automata.ETA.EvaluatorSpecData
 import HelVM.HelMA.Automata.ETA.FileUtil
 
-import HelVM.HelMA.Automata.Expectations
+import HelVM.WrappedGoldenIO
 
 import System.FilePath.Posix
 

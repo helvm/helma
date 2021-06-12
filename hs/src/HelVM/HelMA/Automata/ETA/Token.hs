@@ -1,32 +1,30 @@
 module HelVM.HelMA.Automata.ETA.Token where
 
-import Text.Read
+import HelVM.Common.Digit.ToDigit
+import HelVM.Common.Safe
 
+import qualified Text.Read
 import qualified Text.Show
 
 data Token = E | T | A | O | I | N | S | H | R
-  deriving (Eq , Ord , Enum , Show , Read)
+  deriving stock (Eq , Ord , Enum , Show , Read)
 
 type TokenList = [Token]
 
-toDigit :: (Num a) => Token -> a
-toDigit H = 0
-toDigit T = 1
-toDigit A = 2
-toDigit O = 3
-toDigit I = 4
-toDigit N = 5
-toDigit S = 6
-toDigit E = error $ show E
-toDigit R = error $ show R
-
-toIsString :: Maybe Token -> String
-toIsString (Just t) = show t
-toIsString Nothing = ""
+instance ToDigit Token where
+  toDigit H = safe 0
+  toDigit T = safe 1
+  toDigit A = safe 2
+  toDigit O = safe 3
+  toDigit I = safe 4
+  toDigit N = safe 5
+  toDigit S = safe 6
+  toDigit E = safeErrorTuple ("Wrong token" , show E)
+  toDigit R = safeErrorTuple ("Wrong token" , show R)
 
 ----
 
-newtype WhiteToken = WhiteToken Token deriving (Eq)
+newtype WhiteToken = WhiteToken Token deriving stock (Eq)
 
 type WhiteTokenList = [WhiteToken]
 

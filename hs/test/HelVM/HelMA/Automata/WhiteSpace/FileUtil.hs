@@ -8,31 +8,33 @@ module HelVM.HelMA.Automata.WhiteSpace.FileUtil (
   buildAbsoluteOutFileName
 ) where
 
+import HelVM.HelMA.Automaton.API.IOTypes
+
 import System.FilePath.Posix
 
-readWsFile :: String -> IO String
-readWsFile fileName = readFile $ buildAbsoluteWsFileName fileName
+readWsFile :: FilePath -> IO Source
+readWsFile fileName = readFileText $ buildAbsoluteWsFileName fileName
 
-readStnFile :: String -> IO String
-readStnFile fileName = readFile $ buildAbsoluteStnFileName fileName
+readStnFile :: FilePath -> IO Source
+readStnFile fileName = readFileText $ buildAbsoluteStnFileName fileName
 
-readOutFile :: String -> IO String
-readOutFile fileName = readFile $ buildAbsoluteOutFileName fileName
+readOutFile :: FilePath -> IO Source
+readOutFile fileName = readFileText $ buildAbsoluteOutFileName fileName
 
-buildAbsoluteWsFileName :: String -> String
+buildAbsoluteWsFileName :: FilePath -> FilePath
 buildAbsoluteWsFileName fileName = wsDir </> "ws" </> fileName <.> "ws"
 
-buildAbsoluteStnFileName :: String -> String
+buildAbsoluteStnFileName :: FilePath -> FilePath
 buildAbsoluteStnFileName fileName = wsDir </> "stn" </> fileName <.> "stn"
 
-buildAbsoluteIlFileName :: String -> String
+buildAbsoluteIlFileName :: FilePath -> FilePath
 buildAbsoluteIlFileName fileName = wsDir </> "il" </> fileName <.> "il"
 
-buildAbsoluteOutFileName :: String -> String
+buildAbsoluteOutFileName :: FilePath -> FilePath
 buildAbsoluteOutFileName fileName = wsDir </> "output" </> fileName <.> "out"
 
-wsDir :: String
+wsDir :: FilePath
 wsDir = dir </> "ws/"
 
-dir :: String
+dir :: FilePath
 dir = "examples"

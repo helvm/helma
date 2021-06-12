@@ -4,22 +4,24 @@ module HelVM.HelMA.Automata.BrainFuck.FileUtil (
   buildAbsoluteOutFileName
 ) where
 
+import HelVM.HelMA.Automaton.API.IOTypes
+
 import System.FilePath.Posix
 
-readBfFile :: String -> IO String
-readBfFile fileName = readFile $ buildAbsoluteBfFileName fileName
+readBfFile :: FilePath -> IO Source
+readBfFile fileName = readFileText $ buildAbsoluteBfFileName fileName
 
-readOutFile :: String -> IO String
-readOutFile fileName = readFile $ buildAbsoluteOutFileName fileName
+readOutFile :: FilePath -> IO Source
+readOutFile fileName = readFileText $ buildAbsoluteOutFileName fileName
 
-buildAbsoluteBfFileName :: String -> String
+buildAbsoluteBfFileName :: FilePath -> FilePath
 buildAbsoluteBfFileName fileName = bfDir </> fileName <.> "bf"
 
-buildAbsoluteOutFileName :: String -> String
+buildAbsoluteOutFileName :: FilePath -> FilePath
 buildAbsoluteOutFileName fileName = bfDir </> "output" </> fileName <.> "out"
 
-bfDir :: String
+bfDir :: FilePath
 bfDir = dir </> "bf"
 
-dir :: String
+dir :: FilePath
 dir = "examples"

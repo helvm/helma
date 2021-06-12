@@ -3,11 +3,13 @@ module HelVM.HelMA.Automata.ETA.EvaluatorSpec (spec) where
 import HelVM.HelMA.Automata.ETA.Evaluator
 import HelVM.HelMA.Automata.ETA.FileUtil
 
-import HelVM.HelMA.Automata.CartesianProduct
-import HelVM.HelMA.Automata.Expectations
+import HelVM.CartesianProduct
+import HelVM.WrappedGoldenIO
 
-import HelVM.HelMA.Common.IO.MockIO
-import HelVM.HelMA.Common.Types.StackType
+import HelVM.HelMA.Automaton.IO.MockIO
+import HelVM.HelMA.Automaton.Types.StackType
+
+import HelVM.Common.SafeMonadT
 
 import System.FilePath.Posix
 
@@ -39,11 +41,12 @@ spec = do
           ) $ \(fileName , input , stackType) -> do
       let minorPath = show stackType </> fileName <> input
       let params = ( , stackType) <$> readEtaFile ("from-eas" </> fileName)
+      let inputText = toText input
       describe minorPath$ do
         it ("monadic" </> minorPath) $ do
-          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "monadic" </> minorPath)
+          flipExecMockIO inputText . unsafeRunExceptT . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "monadic" </> minorPath)
         it ("logging" </> minorPath) $ do
-          flipEvalMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "logging" </> minorPath)
+          flipEvalMockIO inputText . unsafeRunExceptT . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "logging" </> minorPath)
 
   describe "original" $ do
     forM_ ([ ("hello"   , "" )
@@ -64,9 +67,9 @@ spec = do
           ) $ \(fileName , input , stackType) -> do
       let minorPath = show stackType </> fileName <> input
       let params = ( , stackType) <$> readEtaFile ("original" </> fileName)
+      let inputText = toText input
       describe minorPath $ do
         it ("monadic" </> minorPath) $ do
-          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "monadic" </> minorPath)
+          flipExecMockIO inputText . unsafeRunExceptT . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "monadic" </> minorPath)
         it ("logging" </> minorPath) $ do
-          flipEvalMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "logging" </> minorPath)
-
+          flipEvalMockIO inputText . unsafeRunExceptT . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "logging" </> minorPath)

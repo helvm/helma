@@ -3,20 +3,22 @@ module HelVM.HelMA.Automata.Rev.Evaluator (
   eval
 ) where
 
-import HelVM.HelMA.Common.API.EvalParams
-import HelVM.HelMA.Common.IO.WrapperIO
-import HelVM.HelMA.Common.Util
+import HelVM.HelMA.Automaton.API.IOTypes
+import HelVM.HelMA.Automaton.API.EvalParams
+import HelVM.HelMA.Automaton.IO.WrapperIO
 
-import qualified Data.String as S
+import HelVM.Common.SafeMonadT
 
-evalParams :: Evaluator r => EvalParams ->  r
-evalParams = eval . source
+import qualified Data.Text as Text
+
+evalParams :: (Monad m , Evaluator (m ())) => EvalParams -> SafeMonadT_ m
+evalParams = hoistMonad . eval . source
 
 eval :: Evaluator r => Source ->  r
-eval = evalLines . S.lines
+eval = evalLines . lines
 
 evalLines :: Evaluator r => [Source] -> r
-evalLines ll = doOutput $ S.unlines $ reverse <$> ll
+evalLines ll = doOutput $ unlines $ Text.reverse <$> ll
 
 ----
 

@@ -1,26 +1,25 @@
 module HelVM.HelMA.Automata.WhiteSpace.Token where
 
-import Data.Char
+import HelVM.Common.Safe
+import HelVM.Common.Digit.ToDigit
+
 import Text.Read
 
 import qualified Text.Show
 
 data Token =  S | T | N
-  deriving (Eq , Ord , Enum , Show , Read)
+  deriving stock (Eq , Ord , Enum , Show , Read)
 
 type TokenList = [Token]
 
-toDigit :: (Num a) => Token -> a
-toDigit S = 0
-toDigit T = 1
-toDigit N = error $ show N
-
-toBitChar :: Token -> Char
-toBitChar = intToDigit . toDigit
+instance ToDigit Token where
+  toDigit S = safe 0
+  toDigit T = safe 1
+  toDigit N = safeErrorTuple ("Wrong token" , show N)
 
 ----
 
-newtype WhiteToken = WhiteToken Token deriving (Eq)
+newtype WhiteToken = WhiteToken Token deriving stock (Eq)
 
 instance Show WhiteToken where
   show (WhiteToken S) = " "

@@ -1,9 +1,10 @@
 module HelVM.HelMA.Automata.WhiteSpace.Instruction where
 
-import HelVM.HelMA.Automata.WhiteSpace.OperandParsers
+import HelVM.HelMA.Automata.WhiteSpace.OperandParsers  
+import HelVM.HelMA.Automata.WhiteSpace.Symbol
 
-import HelVM.HelMA.Common.BinaryOperator
-import HelVM.HelMA.Common.Memories.StackConst
+import HelVM.HelMA.Automaton.BinaryOperator
+import HelVM.HelMA.Automaton.Memories.StackConst
 
 data Instruction =
     Liter Integer
@@ -25,27 +26,21 @@ data Instruction =
   | InputChar
   | InputNum
   | End
-  deriving (Eq , Show , Read)
+  deriving stock (Eq , Show , Read)
 
 type InstructionList = [Instruction]
 
 data BranchTest = EZ | Neg
-   deriving (Eq , Show , Read)
+   deriving stock (Eq , Show , Read)
 
 ----
-
-type InstructionAddress = Int
 
 parseIndex :: OperandParser Index
 parseIndex = parseInt
 
-type Symbol = Integer
 parseSymbol :: OperandParser Symbol
 parseSymbol = parseInteger
 
-type SymbolList = [Symbol]
-
-type Label = String
 parseLabel :: Bool -> OperandParser Label
-parseLabel False = parseBitString
+parseLabel False = parseDigitString
 parseLabel True  = parseAsciiString

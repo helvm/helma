@@ -4,7 +4,10 @@ import HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpecData
 import HelVM.HelMA.Automata.WhiteSpace.Parser
 import HelVM.HelMA.Automata.WhiteSpace.FileUtil
 
-import HelVM.HelMA.Automata.Expectations
+import HelVM.Expectations
+import HelVM.WrappedGoldenIO
+
+import HelVM.Common.Safe
 
 import System.FilePath.Posix
 
@@ -24,7 +27,7 @@ spec = do
             ] $ \ fileName -> do
         let minorPath = "from-wsa" </> fileName
         it minorPath $ do 
-          (show . flipParseVisible True <$> readStnFile minorPath) `goldenShouldReturn` buildAbsoluteIlFileName (majorPath </> minorPath)
+          (show . unsafe . flipParseVisible True <$> readStnFile minorPath) `goldenShouldReturn` buildAbsoluteIlFileName (majorPath </> minorPath)
 
     describe "original" $ do
       let majorPath = "parse" </> "from-wsa"
@@ -40,9 +43,9 @@ spec = do
             ] $ \ fileName -> do
         let minorPath = "original" </> fileName
         it minorPath $ do 
-          (show . flipParseVisible True <$> readStnFile minorPath) `goldenShouldReturn` buildAbsoluteIlFileName (majorPath </> minorPath)
+          (show . unsafe . flipParseVisible True <$> readStnFile minorPath) `goldenShouldReturn` buildAbsoluteIlFileName (majorPath </> minorPath)
 
     describe "parseTL" $ do
-      it "cat"          $ do parseTL catTL          False `shouldBe` catIL
-      it "helloWorld"   $ do parseTL helloWorldTL   False `shouldBe` helloWorldIL
-      it "truthMachine" $ do parseTL truthMachineTL False `shouldBe` truthMachineIL
+      it "cat"          $ do parseTL catTL          False `shouldSafe` catIL
+      it "helloWorld"   $ do parseTL helloWorldTL   False `shouldSafe` helloWorldIL
+      it "truthMachine" $ do parseTL truthMachineTL False `shouldSafe` truthMachineIL

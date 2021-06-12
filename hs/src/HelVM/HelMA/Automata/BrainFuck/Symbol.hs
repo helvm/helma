@@ -12,18 +12,18 @@ import Data.Default (Default)
 import qualified Data.Default as Default
 import qualified Relude.Extra as Extra
 
-def :: Symbol s => s
+def :: Symbol e => e
 def = Default.def
 
-next :: Symbol s => s -> s
+next :: Symbol e => e -> e
 next = Extra.next
 
-prev :: Symbol s => s -> s
+prev :: Symbol e => e -> e
 prev = Extra.prev
 
-class (Bounded a , Default a , Enum a , Eq a , Num a , Show a) => Symbol a where
-  fromChar   :: Char -> a
-  toChar     :: a -> Char
+class (Bounded e , Default e , Enum e , Eq e , Num e , Show e) => Symbol e where
+  fromChar   :: Char -> e
+  toChar     :: e -> Char
 
 --
 
@@ -68,11 +68,11 @@ instance Symbol Word64 where
   toChar     = chr . fromIntegral
 --
 
-countSymbols :: (Integral a) => a
+countSymbols :: (Integral e) => e
 countSymbols = 256
 
-modifyMod :: (Integral a) => (a -> a) -> a -> a
+modifyMod :: (Integral e) => (e -> e) -> e -> e
 modifyMod f i = f (i + countSymbols) `mod` countSymbols
 
-normalizeMod :: (Integral a) => a -> a
+normalizeMod :: (Integral e) => e -> e
 normalizeMod = modifyMod id

@@ -4,9 +4,9 @@ import HelVM.HelMA.Automata.SubLeq.Evaluator
 import HelVM.HelMA.Automata.SubLeq.EvaluatorSpecData
 import HelVM.HelMA.Automata.SubLeq.FileUtil
 
-import HelVM.HelMA.Automata.Expectations
+import HelVM.WrappedGoldenIO
 
-import HelVM.HelMA.Common.IO.MockIO
+import HelVM.HelMA.Automaton.IO.MockIO
 
 import System.FilePath.Posix
 

@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.SubLeq.LexerSpec (spec) where
 import HelVM.HelMA.Automata.SubLeq.Lexer
 import HelVM.HelMA.Automata.SubLeq.FileUtil
 
-import HelVM.HelMA.Automata.Expectations
+import HelVM.Expectations
 
 import Test.Hspec
 

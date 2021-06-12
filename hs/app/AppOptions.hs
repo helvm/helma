@@ -1,9 +1,9 @@
 module AppOptions where
 
-import HelVM.HelMA.Common.Types.CellType
-import HelVM.HelMA.Common.Types.IntCellType
-import HelVM.HelMA.Common.Types.StackType
-import HelVM.HelMA.Common.Types.RAMType
+import HelVM.HelMA.Automaton.Types.CellType
+import HelVM.HelMA.Automaton.Types.IntCellType
+import HelVM.HelMA.Automaton.Types.StackType
+import HelVM.HelMA.Automaton.Types.RAMType
 
 import Options.Applicative
 
@@ -95,7 +95,7 @@ type Exec        = Bool
 ----
 
 data Lang = Cat | Rev | BF | ETA | SQ | STN | WS
-  deriving (Eq , Read , Show)
+  deriving stock (Eq , Read , Show)
 
 langs :: [Lang]
 langs = [Cat , Rev , BF , ETA , SQ , STN , WS]

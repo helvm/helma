@@ -10,29 +10,29 @@ module HelVM.HelMA.Automata.BrainFuck.TapeOfSymbols (
 
 import HelVM.HelMA.Automata.BrainFuck.Symbol
 
-import HelVM.HelMA.Common.Util
+import HelVM.Common.Util
 
 ----
 
-type FullTape s = (HalfTape s , HalfTape s)
-type FullTapeD s = D (FullTape s)
+type FullTape e = (HalfTape e , HalfTape e)
+type FullTapeD e = D (FullTape e)
 
-type HalfTape s = [s]
+type HalfTape e = [e]
 
 ----
 
-newTape :: (Symbol s) => FullTape s
+newTape :: (Symbol e) => FullTape e
 newTape = ([def] , [def])
 
-moveHeadRight :: (Symbol s) => FullTapeD s
+moveHeadRight :: (Symbol e) => FullTapeD e
 moveHeadRight (cell:left , right) = pad (left , cell:right)
 moveHeadRight ([] , _)            = error "End of the Tipe"
 
-moveHeadLeft :: (Symbol s) => FullTapeD s
+moveHeadLeft :: (Symbol e) => FullTapeD e
 moveHeadLeft (left , cell:right) = pad (cell:left , right)
 moveHeadLeft (_ , [])            = error "End of the Tipe"
 
-pad :: (Symbol s) => FullTapeD s
+pad :: (Symbol e) => FullTapeD e
 pad ([] , [])    = newTape
 pad ([] , right) = ([def] , right)
 pad (left , [])  = (left , [def])
@@ -40,15 +40,15 @@ pad tape        = tape
 
 ----
 
-wNextSymbol :: (Symbol s) => FullTapeD s
+wNextSymbol :: (Symbol e) => FullTapeD e
 wNextSymbol = modifyCell next
 
-wPrevSymbol :: (Symbol s) => FullTapeD s
+wPrevSymbol :: (Symbol e) => FullTapeD e
 wPrevSymbol = modifyCell prev
 
-writeSymbol :: (Symbol s) => Char -> FullTapeD s
+writeSymbol :: (Symbol e) => Char -> FullTapeD e
 writeSymbol symbol = modifyCell (const $ fromChar symbol)
 
-modifyCell :: D s -> FullTapeD s
+modifyCell :: D e -> FullTapeD e
 modifyCell f (left , cell:right) = (left , f cell:right)
 modifyCell _ (_ , [])            = error "End of the Tape"

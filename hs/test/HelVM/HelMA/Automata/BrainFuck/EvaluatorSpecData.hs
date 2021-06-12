@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.BrainFuck.EvaluatorSpecData where
 
-import HelVM.HelMA.Common.Util
+import HelVM.HelMA.Automaton.API.IOTypes
 
 occtet :: Output
 occtet = "8 bit cells\n"

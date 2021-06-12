@@ -2,17 +2,19 @@ module Main where
 
 import AppOptions
 
-import HelVM.HelMA.Common.API.EvalParams
-import HelVM.HelMA.Common.IO.WrapperIO
-import HelVM.HelMA.Common.API.TypeOptions
+import HelVM.HelMA.Automaton.API.EvalParams
+import HelVM.HelMA.Automaton.API.IOTypes
+import HelVM.HelMA.Automaton.API.TypeOptions
 
-import HelVM.HelMA.Common.Types.CellType
-import HelVM.HelMA.Common.Types.IntCellType
-import HelVM.HelMA.Common.Types.StackType
-import HelVM.HelMA.Common.Types.TokenType
-import HelVM.HelMA.Common.Types.RAMType
+import HelVM.HelMA.Automaton.IO.WrapperIO
 
-import HelVM.HelMA.Common.Util
+import HelVM.Common.SafeMonadT
+
+import HelVM.HelMA.Automaton.Types.CellType
+import HelVM.HelMA.Automaton.Types.IntCellType
+import HelVM.HelMA.Automaton.Types.StackType
+import HelVM.HelMA.Automaton.Types.TokenType
+import HelVM.HelMA.Automaton.Types.RAMType
 
 import qualified HelVM.HelMA.Automata.Cat.Evaluator        as Cat
 
@@ -51,8 +53,8 @@ runApp AppOptions{lang , minified , emitTL , emitIL , asciiLabels , ramType , st
     where typeOptions = TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType) (parseIntCellType intCellType)
 
 readSource :: Exec -> String -> IO Source
-readSource True = pure
-readSource _    = readFile
+readSource True s = pure $ toText s
+readSource _    s = readFileText s
 
 run :: Minified -> EmitTL -> EmitIL -> TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
 run True _    _    _ _ = minification
@@ -81,9 +83,9 @@ parse WS   a = pPrintNoColor . flip (WS.parse WhiteTokenType) a
 parse lang _ = tokenize lang
 
 eval :: TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
-eval options a lang s = evalParams lang EvalParams {asciiLabel = a , source = s , typeOptions = options}
+eval options a lang s = safeMonadToFail $ evalParams lang EvalParams {asciiLabel = a , source = s , typeOptions = options}
 
-evalParams :: WrapperIO m => Lang -> EvalParams -> m ()
+evalParams :: WrapperIO m => Lang -> EvalParams -> SafeMonadT_ m
 evalParams Cat = Cat.evalParams
 evalParams Rev = Rev.evalParams
 evalParams BF  = BF.evalParams

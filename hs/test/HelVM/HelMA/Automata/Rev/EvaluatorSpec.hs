@@ -2,8 +2,8 @@ module HelVM.HelMA.Automata.Rev.EvaluatorSpec (spec) where
 
 import HelVM.HelMA.Automata.Rev.Evaluator
 
-import HelVM.HelMA.Common.IO.MockIO
-import HelVM.HelMA.Common.Util
+import HelVM.HelMA.Automaton.IO.MockIO
+import HelVM.HelMA.Automaton.API.IOTypes
 
 import Test.Hspec
 

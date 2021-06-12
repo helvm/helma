@@ -5,22 +5,24 @@ module HelVM.HelMA.Automata.ETA.FileUtil (
   buildAbsoluteOutFileName
 ) where
 
+import HelVM.HelMA.Automaton.API.IOTypes
+
 import System.FilePath.Posix
 
-readEtaFile :: String -> IO String
-readEtaFile fileName = readFile $ buildAbsoluteEtaFileName fileName
+readEtaFile :: FilePath -> IO Source
+readEtaFile fileName = readFileText $ buildAbsoluteEtaFileName fileName
 
-readOutFile :: String -> IO String
-readOutFile fileName = readFile $ buildAbsoluteOutFileName fileName
+readOutFile :: FilePath -> IO Source
+readOutFile fileName = readFileText $ buildAbsoluteOutFileName fileName
 
-buildAbsoluteEtaFileName :: String -> String
+buildAbsoluteEtaFileName :: FilePath -> FilePath
 buildAbsoluteEtaFileName fileName = etaDir </> fileName <.> "eta"
 
-buildAbsoluteOutFileName :: String -> String
+buildAbsoluteOutFileName :: FilePath -> FilePath
 buildAbsoluteOutFileName fileName = etaDir </> "output" </> fileName <.> "out"
 
-etaDir :: String
+etaDir :: FilePath
 etaDir = dir </> "eta/"
 
-dir :: String
+dir :: FilePath
 dir = "examples"

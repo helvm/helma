@@ -1,4 +1,4 @@
-cabal-version:       2.2
+cabal-version:       3.4
 
 name:                helma
 version:             0.6.7.0
@@ -24,76 +24,82 @@ source-repository head
 
 library
   other-modules:
-        HelVM.HelMA.Automata.BrainFuck.Token
-        HelVM.HelMA.Automata.BrainFuck.Symbol
-        HelVM.HelMA.Automata.BrainFuck.TableOfInstructions
-
-        HelVM.HelMA.Automata.SubLeq.Symbol
-
-        HelVM.HelMA.Automata.WhiteSpace.EvaluatorUtil
   exposed-modules:
-        HelVM.HelMA.Common.API.EvalParams
-        HelVM.HelMA.Common.API.TypeOptions
-        HelVM.HelMA.Common.BinaryOperator
-        HelVM.HelMA.Common.Collections
-        HelVM.HelMA.Common.Collections.Drop
-        HelVM.HelMA.Common.Collections.FromList
-        HelVM.HelMA.Common.Collections.Insert
-        HelVM.HelMA.Common.Collections.Lookup
-        HelVM.HelMA.Common.Collections.Pop
-        HelVM.HelMA.Common.Collections.SplitAt
-        HelVM.HelMA.Common.Memories.RAM
-        HelVM.HelMA.Common.Memories.RAMConst
-        HelVM.HelMA.Common.Memories.RAMImpl
-        HelVM.HelMA.Common.Memories.RAMUtil
-        HelVM.HelMA.Common.Memories.Stack
-        HelVM.HelMA.Common.Memories.StackConst
-        HelVM.HelMA.Common.Memories.StackImpl
-        HelVM.HelMA.Common.Memories.StackUtil
-        HelVM.HelMA.Common.IO.MockIO
-        HelVM.HelMA.Common.IO.WrapperIO
-        HelVM.HelMA.Common.OrError
-        HelVM.HelMA.Common.Types.CellType
-        HelVM.HelMA.Common.Types.IntCellType
-        HelVM.HelMA.Common.Types.StackType
-        HelVM.HelMA.Common.Types.TokenType
-        HelVM.HelMA.Common.Types.RAMType
-        HelVM.HelMA.Common.Util
-        HelVM.HelMA.Common.WrapTokenList
+        HelVM.Common.Containers.ChunksOf
+        HelVM.Common.Containers.FromList
+        HelVM.Common.Containers.Insert
+        HelVM.Common.Containers.Lookup
+        HelVM.Common.Containers.Pop
+        HelVM.Common.Containers.Reverse
+        HelVM.Common.Containers.SplitAt
+        HelVM.Common.Digit.Digitable
+        HelVM.Common.Digit.Digits
+        HelVM.Common.Digit.ToDigit
+        HelVM.Common.ReadText
+        HelVM.Common.Safe
+        HelVM.Common.SafeMonadT
+        HelVM.Common.Util
+
+        HelVM.HelMA.Automaton.API.EvalParams
+        HelVM.HelMA.Automaton.API.IOTypes
+        HelVM.HelMA.Automaton.API.TypeOptions
+        HelVM.HelMA.Automaton.BinaryOperator
+        HelVM.HelMA.Automaton.Memories.RAMConst
+        HelVM.HelMA.Automaton.Memories.StackConst
+        HelVM.HelMA.Automaton.IO.MockIO
+        HelVM.HelMA.Automaton.IO.WrapperIO
+        HelVM.HelMA.Automaton.Types.CellType
+        HelVM.HelMA.Automaton.Types.IntCellType
+        HelVM.HelMA.Automaton.Types.StackType
+        HelVM.HelMA.Automaton.Types.TokenType
+        HelVM.HelMA.Automaton.Types.RAMType
+        HelVM.HelMA.Automaton.WrapTokenList
 
         HelVM.HelMA.Automata.Cat.Evaluator
         HelVM.HelMA.Automata.Rev.Evaluator
 
         HelVM.HelMA.Automata.BrainFuck.Evaluator
         HelVM.HelMA.Automata.BrainFuck.Lexer
+        HelVM.HelMA.Automata.BrainFuck.Symbol
+        HelVM.HelMA.Automata.BrainFuck.TableOfInstructions
         HelVM.HelMA.Automata.BrainFuck.TapeOfSymbols
+        HelVM.HelMA.Automata.BrainFuck.Token
 
         HelVM.HelMA.Automata.ETA.Evaluator
-        HelVM.HelMA.Automata.ETA.EvaluatorUtil
+        HelVM.HelMA.Automata.ETA.Addressing
         HelVM.HelMA.Automata.ETA.Lexer
+        HelVM.HelMA.Automata.ETA.OperandParsers
+        HelVM.HelMA.Automata.ETA.Symbol
         HelVM.HelMA.Automata.ETA.Token
 
         HelVM.HelMA.Automata.SubLeq.Evaluator
         HelVM.HelMA.Automata.SubLeq.Lexer
+        HelVM.HelMA.Automata.SubLeq.Symbol
 
+        HelVM.HelMA.Automata.WhiteSpace.Addressing
         HelVM.HelMA.Automata.WhiteSpace.Evaluator
         HelVM.HelMA.Automata.WhiteSpace.Instruction
         HelVM.HelMA.Automata.WhiteSpace.Lexer
         HelVM.HelMA.Automata.WhiteSpace.OperandParsers
         HelVM.HelMA.Automata.WhiteSpace.Parser
+        HelVM.HelMA.Automata.WhiteSpace.Symbol
         HelVM.HelMA.Automata.WhiteSpace.Token
   other-extensions:
   build-depends:
       base
-    , relude               == 0.7.0.0
+--    , rio                  == 0.1.20.0
+--    , classy-prelude       == 1.5.0
+    , relude               == 1.0.0.0
+
     , containers           == 0.6.2.1
-    , mtl
-    , split
     , data-default
     , ilist
+    , list-singleton
+    , mtl
+    , split
   mixins:
       base hiding (Prelude)
-    , relude (Relude as Prelude, Relude.Extra, Relude.Unsafe)
+    , relude (Relude as Prelude, Relude.Extra, Relude.Unsafe, Data.Text)
   hs-source-dirs:      hs/src
   default-language:    Haskell2010
   ghc-options:
@@ -108,7 +114,7 @@ library
     -XInstanceSigs
     -XKindSignatures
     -XLambdaCase
-    -XMonadFailDesugaring
+--    -XMonadFailDesugaring
     -XMultiParamTypeClasses
     -XMultiWayIf
     -XNamedFieldPuns
@@ -137,6 +143,7 @@ library
 --    -XDeriveAnyClass
 --    -XDeriveLift
 --    -XStaticPointers
+    -XDerivingStrategies
 --Only for lib
     -XDeriveFunctor
 --Warnings
@@ -150,10 +157,10 @@ library
     -fhide-source-paths
 --    -Wmissing-export-lists FIXME
     -Wpartial-fields
---    -Wmissing-deriving-strategies (GHC ⩾ 8.8)
---    -fwrite-ide-info              (GHC ⩾ 8.8)
---    -hiedir=.hie                  (GHC ⩾ 8.8)
---    -Wunused-packages             (GHC ⩾ 8.10)
+    -Wmissing-deriving-strategies
+    -fwrite-ide-info
+    -hiedir=.hie
+    -Wunused-packages
     -Werror
 
 test-suite spec
@@ -162,11 +169,13 @@ test-suite spec
   other-modules:
         Spec
 
-        HelVM.HelMA.Common.FilterIf0Spec
-        HelVM.HelMA.Common.UtilSpec
+        HelVM.CartesianProduct
+        HelVM.Expectations
+        HelVM.WrappedGoldenIO
 
-        HelVM.HelMA.Automata.CartesianProduct
-        HelVM.HelMA.Automata.Expectations
+        HelVM.Common.Containers.SplitAtSpec
+
+        HelVM.HelMA.Automaton.FilterIf0Spec
 
         HelVM.HelMA.Automata.BrainFuck.TokensSpec
         HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec
@@ -177,9 +186,10 @@ test-suite spec
 
         HelVM.HelMA.Automata.ETA.EvaluatorSpec
         HelVM.HelMA.Automata.ETA.EvaluatorSpecData
-        HelVM.HelMA.Automata.ETA.EvaluatorUtilSpec
+        HelVM.HelMA.Automata.ETA.AddressingSpec
         HelVM.HelMA.Automata.ETA.FileUtil
         HelVM.HelMA.Automata.ETA.LexerSpec
+        HelVM.HelMA.Automata.ETA.OperandParsersSpec
 
         HelVM.HelMA.Automata.Rev.EvaluatorSpec
 
@@ -197,20 +207,20 @@ test-suite spec
   other-extensions:
   build-depends:
       base
-    , relude               == 0.7.0.0
-    , containers           == 0.6.2.1
-    , split
-    , data-default
+--    , rio                  == 0.1.20.0
+--    , classy-prelude       == 1.5.0
+    , relude               == 1.0.0.0
 
     , helma
+    , filepath
+
     , hspec
     , hspec-core
     , hspec-golden
     , hspec-slow
-    , filepath
   mixins:
       base hiding (Prelude)
-    , relude (Relude as Prelude, Relude.Extra, Relude.Unsafe)
+    , relude (Relude as Prelude, Relude.Extra, Relude.Unsafe, Data.Text)
   hs-source-dirs:      hs/test
   default-language:    Haskell2010
   build-tool-depends:  hspec-discover:hspec-discover == 2.*
@@ -226,7 +236,7 @@ test-suite spec
     -XInstanceSigs
     -XKindSignatures
     -XLambdaCase
-    -XMonadFailDesugaring
+--    -XMonadFailDesugaring
     -XMultiParamTypeClasses
     -XMultiWayIf
     -XNamedFieldPuns
@@ -255,6 +265,7 @@ test-suite spec
 --    -XDeriveAnyClass
 --    -XDeriveLift
 --    -XStaticPointers
+    -XDerivingStrategies
 --Warnings
     -Wall
     -Wcompat
@@ -266,10 +277,10 @@ test-suite spec
     -fhide-source-paths
 --    -Wmissing-export-lists FIXME
     -Wpartial-fields
---    -Wmissing-deriving-strategies (GHC ⩾ 8.8)
---    -fwrite-ide-info              (GHC ⩾ 8.8)
---    -hiedir=.hie                  (GHC ⩾ 8.8)
---    -Wunused-packages             (GHC ⩾ 8.10)
+    -Wmissing-deriving-strategies
+    -fwrite-ide-info
+    -hiedir=.hie
+    -Wunused-packages
     -Werror
 --Only for tests
     -threaded
@@ -284,18 +295,17 @@ executable helma
   other-extensions:
   build-depends:
       base
-    , relude               == 0.7.0.0
-    , containers           == 0.6.2.1
-    , split
-    , data-default
+--    , rio                  == 0.1.20.0
+--    , classy-prelude       == 1.5.0
+    , relude               == 1.0.0.0
 
+    , helma
     , optparse-applicative >= 0.14.3.0
     , pretty-simple
-    , helma
 
   mixins:
       base hiding (Prelude)
-    , relude (Relude as Prelude, Relude.Extra, Relude.Unsafe)
+    , relude (Relude as Prelude, Relude.Extra, Relude.Unsafe, Data.Text)
   hs-source-dirs:      hs/app
   default-language:    Haskell2010
   ghc-options:
@@ -310,7 +320,7 @@ executable helma
     -XInstanceSigs
     -XKindSignatures
     -XLambdaCase
-    -XMonadFailDesugaring
+--    -XMonadFailDesugaring
     -XMultiParamTypeClasses
     -XMultiWayIf
     -XNamedFieldPuns
@@ -339,6 +349,7 @@ executable helma
 --    -XDeriveAnyClass
 --    -XDeriveLift
 --    -XStaticPointers
+    -XDerivingStrategies
 --Warnings
     -Wall
     -Wcompat
@@ -350,8 +361,8 @@ executable helma
     -fhide-source-paths
 --    -Wmissing-export-lists FIXME
     -Wpartial-fields
---    -Wmissing-deriving-strategies (GHC ⩾ 8.8)
---    -fwrite-ide-info              (GHC ⩾ 8.8)
---    -hiedir=.hie                  (GHC ⩾ 8.8)
---    -Wunused-packages             (GHC ⩾ 8.10)
+    -Wmissing-deriving-strategies
+    -fwrite-ide-info
+    -hiedir=.hie
+    -Wunused-packages
     -Werror

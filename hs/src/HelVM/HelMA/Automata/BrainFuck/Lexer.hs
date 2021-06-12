@@ -2,15 +2,15 @@ module HelVM.HelMA.Automata.BrainFuck.Lexer where
 
 import HelVM.HelMA.Automata.BrainFuck.Token
 
-import HelVM.HelMA.Common.WrapTokenList
-
-import qualified Text.Read as Read
+import HelVM.HelMA.Automaton.API.IOTypes
+import HelVM.Common.ReadText
+import HelVM.HelMA.Automaton.WrapTokenList
 
 -- Lexer
-tokenize :: String -> TokenList
+tokenize :: Source -> TokenList
 tokenize =  unWrapTokenList . readTokens
 
-readTokens :: String -> Tokens
-readTokens source = Read.read source :: Tokens
+readTokens :: Source -> Tokens
+readTokens source = readText source :: Tokens
 
 type Tokens = WrapTokenList TokenList

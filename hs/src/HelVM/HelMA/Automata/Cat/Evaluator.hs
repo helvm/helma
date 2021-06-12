@@ -3,12 +3,14 @@ module HelVM.HelMA.Automata.Cat.Evaluator (
   eval
 ) where
 
-import HelVM.HelMA.Common.API.EvalParams
-import HelVM.HelMA.Common.IO.WrapperIO
-import HelVM.HelMA.Common.Util
+import HelVM.HelMA.Automaton.API.EvalParams
+import HelVM.HelMA.Automaton.API.IOTypes
+import HelVM.HelMA.Automaton.IO.WrapperIO
 
-evalParams :: Evaluator r => EvalParams ->  r
-evalParams = eval . source
+import HelVM.Common.SafeMonadT
+
+evalParams :: (Monad m , Evaluator (m ())) => EvalParams -> SafeMonadT_ m
+evalParams = hoistMonad . eval . source
 
 ----
 

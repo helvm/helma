@@ -17,15 +17,15 @@ nextInst (_ , [])           = error "End of the table"
 matchPrevJmp :: TableD
 matchPrevJmp table@(JmpPast:_ , _) =                                                   table
 matchPrevJmp table@(JmpBack:_ , _) = matchPrevJmp $ prevInst $ matchPrevJmp $ prevInst table
-matchPrevJmp table                =                           matchPrevJmp $ prevInst table
+matchPrevJmp table                 =                           matchPrevJmp $ prevInst table
 
 matchNextJmp :: TableD
 matchNextJmp table@(_ , JmpBack:_) =                               nextInst table
 matchNextJmp table@(_ , JmpPast:_) = matchNextJmp $ matchNextJmp $ nextInst table
-matchNextJmp table                =                matchNextJmp $ nextInst table
+matchNextJmp table                 =                matchNextJmp $ nextInst table
 
 jumpPast :: TableD
-jumpPast table = matchNextJmp $ nextInst table
+jumpPast = matchNextJmp . nextInst
 
 jumpBack :: TableD
-jumpBack table = matchPrevJmp $ prevInst table
+jumpBack = matchPrevJmp . prevInst
