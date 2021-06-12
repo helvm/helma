@@ -1,8 +1,4 @@
 module HelVM.HelMA.Automata.SubLeq.Evaluator (
-  batchSimpleEval,
-  batchSimpleEvalIL,
-  flipSimpleEval,
-  flipSimpleEvalIL,
   simpleEval,
   simpleEvalIL,
   evalParams,
@@ -23,18 +19,6 @@ import HelVM.HelMA.Common.Util
 import Data.Default as Default
 
 import qualified Data.Sequence as Seq
-
-batchSimpleEval :: Source -> Output
-batchSimpleEval = flipSimpleEval emptyInput
-
-batchSimpleEvalIL :: SymbolList -> Output
-batchSimpleEvalIL = flipSimpleEvalIL emptyInput
-
-flipSimpleEval :: Input -> Source -> Output
-flipSimpleEval = flip simpleEval
-
-flipSimpleEvalIL :: Input -> SymbolList -> Output
-flipSimpleEvalIL = flip simpleEvalIL
 
 simpleEval :: Evaluator Symbol r => Source -> r
 simpleEval source = eval source defaultRAMType
@@ -78,16 +62,6 @@ class (Default cell , Integral cell) => Evaluator cell r where
   doEnd        :: RAM cell m => cell -> m -> r
   doInputChar  :: RAM cell m => cell -> cell -> m -> r
   doOutputChar :: RAM cell m => cell -> cell -> m -> r
-
-----
-
-instance (Default cell , Integral cell) => Evaluator cell Interact where
-  doEnd _ _ _ = []
-
-  doInputChar _       _  _ []    = error "Empty input"
-  doInputChar address ic memory (char:input) = doInstruction (ic+3) (storeChar address char memory) input
-
-  doOutputChar address ic memory input = genericChr (genericLoad memory address) : doInstruction (ic+3) memory input
 
 ----
 

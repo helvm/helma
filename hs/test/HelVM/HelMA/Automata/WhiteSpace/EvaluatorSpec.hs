@@ -36,12 +36,10 @@ spec = do
           let minorPath = show ascii <-> show stackType <-> show ramType </> fileName
           let params = (WhiteTokenType ,  , ascii , stackType , ramType) <$> readWsFile ("original" </> fileName)
           describe minorPath $ do
-            it ("interact" </> minorPath) $ do
-              flipSimpleEval input              <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "interact" </> minorPath)
-            it ("monadic"  </> minorPath) $ do
-              flipExecMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "monadic"  </> minorPath)
-            it ("logging"  </> minorPath) $ do
-              flipEvalMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "logging"  </> minorPath)
+            it ("monadic" </> minorPath) $ do
+              flipExecMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "monadic" </> minorPath)
+            it ("logging" </> minorPath) $ do
+              flipEvalMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "logging" </> minorPath)
 
     describe "stn" $ do
 
@@ -57,12 +55,10 @@ spec = do
           let minorPath = show ascii <-> show stackType <-> show ramType </> fileName
           let params = (VisibleTokenType ,  , ascii , stackType , ramType) <$> readStnFile ("from-wsa" </> fileName)
           describe minorPath $ do
-            it ("interact" </> minorPath) $ do
-              flipSimpleEval input              <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "interact" </> minorPath)
-            it ("monadic"  </> minorPath) $ do
-              flipExecMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "monadic"  </> minorPath)
-            it ("logging"  </> minorPath) $ do
-              flipEvalMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "logging"  </> minorPath)
+            it ("monadic" </> minorPath) $ do
+              flipExecMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "monadic" </> minorPath)
+            it ("logging" </> minorPath) $ do
+              flipEvalMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "logging" </> minorPath)
 
       describe "original" $ do
         let majorPath = "simpleEval" </> "original" </> "stn"
@@ -79,12 +75,10 @@ spec = do
           let minorPath = show ascii <-> show stackType <-> show ramType </> fileName
           let params = (VisibleTokenType ,  , ascii , stackType , ramType) <$> readStnFile ("original" </> fileName)
           describe minorPath $ do
-            it ("interact" </> minorPath) $ do
-              flipSimpleEval input              <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "interact" </> minorPath)
-            it ("monadic"  </> minorPath) $ do
-              flipExecMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "monadic"  </> minorPath)
-            it ("logging"  </> minorPath) $ do
-              flipEvalMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "logging"  </> minorPath)
+            it ("monadic" </> minorPath) $ do
+              flipExecMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "monadic" </> minorPath)
+            it ("logging" </> minorPath) $ do
+              flipEvalMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "logging" </> minorPath)
 
   describe "simpleEvalTL" $ do
     forM_ [ ("countTL"        , countTL        , ""           )
@@ -98,12 +92,10 @@ spec = do
           , ("truthMachineTL" , truthMachineTL , "0\n"        )
           ] $ \(fileName , tl , input) -> do
       describe fileName $ do
-        it ("interact" </> fileName) $ do
-          flipSimpleEvalTL input                 tl `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalTL" </> "interact" </> fileName)
-        it ("monadic"  </> fileName) $ do
-          (flipExecMockIO  input . simpleEvalTL) tl `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalTL" </> "monadic"  </> fileName)
-        it ("logging"  </> fileName) $ do
-          (flipEvalMockIO  input . simpleEvalTL) tl `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalTL" </> "logging"  </> fileName)
+        it ("monadic" </> fileName) $ do
+          (flipExecMockIO  input . simpleEvalTL) tl `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalTL" </> "monadic" </> fileName)
+        it ("logging" </> fileName) $ do
+          (flipEvalMockIO  input . simpleEvalTL) tl `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalTL" </> "logging" </> fileName)
 
   describe "simpleEvalIL" $ do
     forM_ [ ("call"     , [Call "A", End , Mark "A", Return] , "")
@@ -111,4 +103,4 @@ spec = do
           , ("pop"      , [Discard , End]                    , "")
           ] $ \(fileName , il , input) -> do
       it fileName $ do
-        flipEvalMockIO input (evalIL il SeqStackType IntMapRAMType) `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalIL" </> "logging"  </> fileName)
+        flipEvalMockIO input (evalIL il SeqStackType IntMapRAMType) `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalIL" </> "logging" </> fileName)

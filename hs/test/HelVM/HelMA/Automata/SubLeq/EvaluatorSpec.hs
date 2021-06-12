@@ -19,9 +19,8 @@ spec = do
     forM_ [ ("helloSQIL" , helloSQIL)
           ] $ \(fileName , il)  -> do
       describe fileName $ do
-        it "interact" $ do  batchSimpleEvalIL               il `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalIL" </> "interact" </> fileName)
-        it "monadic"  $ do (batchExecMockIO . simpleEvalIL) il `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalIL" </> "monadic"  </> fileName)
-        it "monadic"  $ do (batchEvalMockIO . simpleEvalIL) il `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalIL" </> "logging"  </> fileName)
+        it "monadic"  $ do (batchExecMockIO . simpleEvalIL) il `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalIL" </> "monadic" </> fileName)
+        it "monadic"  $ do (batchEvalMockIO . simpleEvalIL) il `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalIL" </> "logging" </> fileName)
 
   describe "simpleEval" $ do
     forM_ [ ("hello"     , "" )
@@ -29,6 +28,5 @@ spec = do
           ] $ \(fileName , input)  -> do
       let params = readSqFile fileName
       describe fileName $ do
-        it "interact" $ do flipSimpleEval input              <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("simpleEval" </> "interact" </> fileName)
-        it "monadic"  $ do flipExecMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("simpleEval" </> "monadic"  </> fileName)
-        it "logging"  $ do flipEvalMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("simpleEval" </> "logging"  </> fileName)
+        it "monadic"  $ do flipExecMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("simpleEval" </> "monadic" </> fileName)
+        it "logging"  $ do flipEvalMockIO input . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("simpleEval" </> "logging" </> fileName)

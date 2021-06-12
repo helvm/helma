@@ -1,4 +1,8 @@
 # 📅 Revision history for HelMA
+## 0.6.7.0  -- 2021-06-11
+
+* Remove Interact implementation
+
 ## 0.6.6.0  -- 2021-06-11
 
 * Use Functional Dependency in Memories and Collections

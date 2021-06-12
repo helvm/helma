@@ -36,13 +36,6 @@ optionParser = AppOptions
                    <> help    "Use ascii labels"
                    <> showDefault
                    )
-  <*> strOption    (  long    "impl"
-                   <> short   'i'
-                   <> metavar "[IMPL]"
-                   <> help   ("Implementation of interpreter " <> show impls)
-                   <> value (show Monadic)
-                   <> showDefault
-                   )
   <*> strOption    (  long    "RAMType"
                    <> short   'm'
                    <> metavar "[RAMType]"
@@ -84,7 +77,6 @@ data AppOptions = AppOptions
   , emitTL      :: EmitTL
   , emitIL      :: EmitIL
   , asciiLabels :: AsciiLabels
-  , impl        :: String      -- Impl
   , ramType     :: String      -- RAMType
   , stackType   :: String      -- StackType
   , cellType    :: String      -- CellType
@@ -112,15 +104,3 @@ parseLang :: String -> Lang
 parseLang raw = valid $ readMaybe raw where
   valid (Just a) = a
   valid Nothing  = error $ "Lang '" <> toText raw <> "' is not valid lang. Valid langs are : " <> show langs
-
-----
-
-data Impl = Monadic | Interact deriving (Eq , Read , Show)
-
-impls :: [Impl]
-impls = [Monadic , Interact]
-
-parseImpl :: String -> Impl
-parseImpl raw = valid $ readMaybe raw where
-  valid (Just a) = a
-  valid Nothing  = error $ "Impl '" <> toText raw <> "' is not valid impl. Valid impls are : " <> show impls

@@ -1,5 +1,4 @@
 module HelVM.HelMA.Automata.BrainFuck.Evaluator (
-  flipUncurryEval,
   uncurryEval,
   evalParams,
   eval
@@ -16,9 +15,6 @@ import HelVM.HelMA.Common.API.TypeOptions
 import HelVM.HelMA.Common.IO.WrapperIO
 import HelVM.HelMA.Common.Types.CellType
 import HelVM.HelMA.Common.Util
-
-flipUncurryEval :: Input -> (Source , CellType) -> Output
-flipUncurryEval = flip uncurryEval
 
 uncurryEval :: Evaluator r => (Source , CellType) -> r
 uncurryEval = uncurry eval
@@ -66,17 +62,6 @@ class Evaluator r where
   doEnd        :: r
   doOutputChar :: Symbol s => Table -> FullTape s -> r
   doInputChar  :: Symbol s => Table -> FullTape s -> r
-
-----
-
-instance Evaluator Interact where
-  doEnd _ = []
-
-  doInputChar _     tape       []     = error $ "Empty input " <> show tape
-  doInputChar table tape (char:input) = doInstruction (nextInst table) (writeSymbol char tape) input
-
-  doOutputChar _     tape@(_ , [])       _     = error $ "Illegal State " <> show tape
-  doOutputChar table tape@(_ , symbol:_) input = toChar symbol : doInstruction (nextInst table) tape input
 
 ----
 

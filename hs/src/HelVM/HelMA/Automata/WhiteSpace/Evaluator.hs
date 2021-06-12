@@ -1,7 +1,5 @@
 module HelVM.HelMA.Automata.WhiteSpace.Evaluator (
-  flipSimpleEval,
   simpleEval,
-  flipSimpleEvalTL,
   simpleEvalTL,
   evalParams,
   eval,
@@ -36,14 +34,8 @@ import Data.Default as Default
 import qualified Data.IntMap   as IntMap
 import qualified Data.Sequence as Seq
 
-flipSimpleEval :: Input -> (TokenType , Source , Bool , StackType , RAMType) -> Output
-flipSimpleEval = flip simpleEval
-
 simpleEval :: Evaluator Symbol r => (TokenType , Source , Bool , StackType , RAMType) -> r
 simpleEval (tokenType , source , asciiLabel , stackType , ramType) = eval tokenType source asciiLabel stackType ramType
-
-flipSimpleEvalTL :: Input -> TokenList -> Output
-flipSimpleEvalTL = flip simpleEvalTL
 
 simpleEvalTL :: Evaluator Symbol r => TokenList -> r
 simpleEvalTL tl = evalTL tl False defaultStackType defaultRAMType
@@ -126,29 +118,6 @@ class (Default cell , Show cell , Integral cell) => Evaluator cell r where
 
 storeNum :: (Read cell , Integral cell , RAM cell m) => cell -> Input -> m -> m
 storeNum address = store address . readOrError
-
-----
-
-emptyInputError :: Instruction -> Output
-emptyInputError i = error $ "Empty input for instruction " <> show i
-
-----
-
-instance (Default cell , Read cell , Show cell , Integral cell) => Evaluator cell Interact where
-  doEnd _ _ _ _ = []
-
-  doInputChar _  _ _       []     = emptyInputError InputChar
-  doInputChar iu stack h (char:input) = next iu stack' (storeChar address char h) input where
-    (address , stack') = pop1 stack
-
-  doInputNum _  _ _ []    = emptyInputError InputNum
-  doInputNum iu stack h input = next iu stack' (storeNum address line h) input' where
-    (address , stack') = pop1 stack
-    (line , input') = splitStringByEndLine input
-
-  doOutputChar iu stack h input = genericChr symbol : next iu stack' h input where (symbol , stack') = pop1 stack
-
-  doOutputNum iu stack h input = show symbol <> next iu stack' h input where (symbol , stack') = pop1 stack
 
 ----
 

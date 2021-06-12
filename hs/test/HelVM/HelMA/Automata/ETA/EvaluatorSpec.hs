@@ -40,12 +40,10 @@ spec = do
       let minorPath = show stackType </> fileName <> input
       let params = ( , stackType) <$> readEtaFile ("from-eas" </> fileName)
       describe minorPath$ do
-        it ("interact" </> minorPath) $ do
-          flipUncurryEval input              <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "interact" </> minorPath)
-        it ("monadic"  </> minorPath) $ do
-          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "monadic"  </> minorPath)
-        it ("logging"  </> minorPath) $ do
-          flipEvalMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "logging"  </> minorPath)
+        it ("monadic" </> minorPath) $ do
+          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "monadic" </> minorPath)
+        it ("logging" </> minorPath) $ do
+          flipEvalMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "logging" </> minorPath)
 
   describe "original" $ do
     forM_ ([ ("hello"   , "" )
@@ -67,10 +65,8 @@ spec = do
       let minorPath = show stackType </> fileName <> input
       let params = ( , stackType) <$> readEtaFile ("original" </> fileName)
       describe minorPath $ do
-        it ("interact" </> minorPath) $ do
-          flipUncurryEval input              <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "interact" </> minorPath)
-        it ("monadic"  </> minorPath) $ do
-          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "monadic"  </> minorPath)
-        it ("logging"  </> minorPath) $ do
-          flipEvalMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "logging"  </> minorPath)
+        it ("monadic" </> minorPath) $ do
+          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "monadic" </> minorPath)
+        it ("logging" </> minorPath) $ do
+          flipEvalMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "logging" </> minorPath)
 

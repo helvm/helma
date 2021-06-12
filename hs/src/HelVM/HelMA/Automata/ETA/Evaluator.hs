@@ -1,6 +1,4 @@
 module HelVM.HelMA.Automata.ETA.Evaluator (
-  batchUncurryEval,
-  flipUncurryEval,
   uncurryEval,
   evalParams,
   eval
@@ -21,12 +19,6 @@ import HelVM.HelMA.Common.Types.StackType
 import Data.Default as Default
 
 import qualified Data.Sequence as Seq
-
-batchUncurryEval :: (Source , StackType) -> Output
-batchUncurryEval = flipUncurryEval emptyInput
-
-flipUncurryEval :: Input -> (Source , StackType) -> Output
-flipUncurryEval = flip uncurryEval
 
 uncurryEval :: Evaluator Symbol r => (Source , StackType) -> r
 uncurryEval = uncurry eval
@@ -77,21 +69,6 @@ class (Show cell , Integral cell) => Evaluator cell r where
   doEnd :: Stack cell m => InstructionUnit -> m -> r
   doOutputChar :: Stack cell m => InstructionUnit -> m -> r
   doInputChar  :: Stack cell m => InstructionUnit -> m -> r
-
-----
-
-emptyInputError :: Token -> r
-emptyInputError t = error $ "Empty input for token " <> show t
-
-----
-
-instance (Default cell , Read cell , Show cell , Integral cell) => Evaluator cell Interact where
-  doEnd _ _ _ = []
-
-  doInputChar _  _       []     = emptyInputError I ([]::Input)
-  doInputChar iu s (char:input) = next iu (pushChar1 char s) input
-
-  doOutputChar iu s input = genericChr symbol : next iu s' input where (symbol , s') = pop1 s
 
 ----
 

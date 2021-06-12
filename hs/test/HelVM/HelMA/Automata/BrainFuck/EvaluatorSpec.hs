@@ -38,7 +38,7 @@ spec = do
       let params = ( , cellType) <$> readBfFile fileName
       let minorPath = show cellType </> fileName
       describe minorPath $ do
-        it ("interact" </> minorPath) $ do
-          flipUncurryEval input              <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("interact" </> minorPath)
-        it ("monadic"  </> minorPath) $ do
-          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("monadic"  </> minorPath)
+        it ("monadic" </> minorPath) $ do
+          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("monadic" </> minorPath)
+        it ("logging" </> minorPath) $ do
+          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("logging" </> minorPath)

@@ -44,21 +44,21 @@ main = runApp =<< execParser opts where
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
 runApp:: AppOptions -> IO ()
-runApp AppOptions{lang , minified , emitTL , emitIL , asciiLabels , impl , ramType , stackType , cellType , intCellType , exec , file} = do
+runApp AppOptions{lang , minified , emitTL , emitIL , asciiLabels , ramType , stackType , cellType , intCellType , exec , file} = do
   IO.hSetBuffering stdout IO.NoBuffering
   source <- readSource exec file
-  run minified emitTL emitIL (parseImpl impl) typeOptions asciiLabels (parseLang lang) source
+  run minified emitTL emitIL typeOptions asciiLabels (parseLang lang) source
     where typeOptions = TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType) (parseIntCellType intCellType)
 
 readSource :: Exec -> String -> IO Source
 readSource True = pure
 readSource _    = readFile
 
-run :: Minified -> EmitTL -> EmitIL -> Impl -> TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
-run True _    _    _ _ _ = minification
-run _    True _    _ _ _ = tokenize
-run _    _    True _ _ a = flip parse a
-run _    _    _    i e a = eval i e a
+run :: Minified -> EmitTL -> EmitIL -> TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
+run True _    _    _ _ = minification
+run _    True _    _ _ = tokenize
+run _    _    True _ a = flip parse a
+run _    _    _    e a = eval e a
 
 minification :: Lang -> Source -> IO ()
 minification BF   = print . BF.readTokens
@@ -80,33 +80,14 @@ parse STN  a = pPrintNoColor . flip (WS.parse VisibleTokenType)  a
 parse WS   a = pPrintNoColor . flip (WS.parse WhiteTokenType) a
 parse lang _ = tokenize lang
 
-eval :: Impl -> TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
-eval impl options a lang s = evalParams impl (lang , EvalParams {asciiLabel = a , source = s , typeOptions = options})
+eval :: TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
+eval options a lang s = evalParams lang EvalParams {asciiLabel = a , source = s , typeOptions = options}
 
-evalParams :: Impl -> (Lang , EvalParams) -> IO ()
-evalParams Interact = IO.interact . interactEval'
-evalParams Monadic  = monadicEval'
-
-interactEval' :: (Lang , EvalParams) -> Interact
-interactEval' (lang , params) = interactEval lang params
-
-monadicEval' :: WrapperIO m => (Lang , EvalParams) -> m ()
-monadicEval' (lang , params) = monadicEval lang params
-
-interactEval :: Lang -> EvalParams -> Interact
-interactEval Cat = Cat.evalParams
-interactEval Rev = Rev.evalParams
-interactEval BF  = BF.evalParams
-interactEval ETA = ETA.evalParams
-interactEval SQ  = SQ.evalParams
-interactEval STN = WS.evalParams VisibleTokenType
-interactEval WS  = WS.evalParams WhiteTokenType
-
-monadicEval :: WrapperIO m => Lang -> EvalParams -> m ()
-monadicEval Cat = Cat.evalParams
-monadicEval Rev = Rev.evalParams
-monadicEval BF  = BF.evalParams
-monadicEval ETA = ETA.evalParams
-monadicEval SQ  = SQ.evalParams
-monadicEval STN = WS.evalParams VisibleTokenType
-monadicEval WS  = WS.evalParams WhiteTokenType
+evalParams :: WrapperIO m => Lang -> EvalParams -> m ()
+evalParams Cat = Cat.evalParams
+evalParams Rev = Rev.evalParams
+evalParams BF  = BF.evalParams
+evalParams ETA = ETA.evalParams
+evalParams SQ  = SQ.evalParams
+evalParams STN = WS.evalParams VisibleTokenType
+evalParams WS  = WS.evalParams WhiteTokenType
