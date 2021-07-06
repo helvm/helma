@@ -1,3 +1,4 @@
+{-# LANGUAGE StrictData #-}
 module AppOptions where
 
 import HelVM.HelMA.Automaton.Types.CellType
@@ -72,17 +73,17 @@ optionParser = AppOptions
   <*> argument str (  metavar "FILE")
 
 data AppOptions = AppOptions
-  { lang        :: String      -- Lang
-  , minified    :: Minified
-  , emitTL      :: EmitTL
-  , emitIL      :: EmitIL
-  , asciiLabels :: AsciiLabels
-  , ramType     :: String      -- RAMType
-  , stackType   :: String      -- StackType
-  , cellType    :: String      -- CellType
-  , intCellType :: String      -- IntCellType
-  , exec        :: Exec
-  , file        :: String
+  { lang        :: !String      -- Lang
+  , minified    :: !Minified
+  , emitTL      :: !EmitTL
+  , emitIL      :: !EmitIL
+  , asciiLabels :: !AsciiLabels
+  , ramType     :: !String      -- RAMType
+  , stackType   :: !String      -- StackType
+  , cellType    :: !String      -- CellType
+  , intCellType :: !String      -- IntCellType
+  , exec        :: !Exec
+  , file        :: !String
   }
 
 type Minified    = Bool

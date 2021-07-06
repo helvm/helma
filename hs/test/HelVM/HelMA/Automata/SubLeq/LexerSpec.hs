@@ -5,7 +5,7 @@ import HelVM.HelMA.Automata.SubLeq.FileUtil
 
 import HelVM.Expectations
 
-import Test.Hspec
+import Test.Hspec (Spec , describe , it)
 
 spec :: Spec
 spec = do

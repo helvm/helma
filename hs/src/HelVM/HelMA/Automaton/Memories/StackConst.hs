@@ -1,4 +1,3 @@
-{-#LANGUAGE ConstraintKinds#-}
 module HelVM.HelMA.Automaton.Memories.StackConst (
   Index,
   Stack,
@@ -18,7 +17,6 @@ module HelVM.HelMA.Automaton.Memories.StackConst (
   genericPush1,
   push1,
   push2,
-  empty,
   lookup,
   splitAt,
   drop,
@@ -30,7 +28,7 @@ import HelVM.HelMA.Automaton.BinaryOperator
 
 import HelVM.Common.Safe
 
-import Prelude hiding (divMod , drop , empty , fromList , splitAt , swap)
+import Prelude hiding (divMod , drop , fromList , splitAt , swap)
 
 import HelVM.Common.Containers.FromList
 import HelVM.Common.Containers.Lookup
@@ -105,4 +103,7 @@ pushList es c = fromList es <> c
 
 ----
 
-type Stack e c = (Show c , Semigroup c , FromList e c , Lookup e c , SplitAt e c , Pop1 e c , Pop2 e c)
+type Stack e c = (Show c , Stack0 e c)
+type Stack0 e c = (SplitAt e c , Pop e c, ReadOnly e c)
+type Pop e c = (Pop1 e c , Pop2 e c)
+type ReadOnly e c = (FromList e c , Lookup e c)

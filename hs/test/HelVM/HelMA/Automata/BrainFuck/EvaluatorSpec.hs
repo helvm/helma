@@ -4,14 +4,14 @@ import HelVM.HelMA.Automata.BrainFuck.Evaluator
 import HelVM.HelMA.Automata.BrainFuck.FileUtil
 
 import HelVM.CartesianProduct
-import HelVM.WrappedGoldenIO
+import HelVM.GoldenExpectations
 
 import HelVM.HelMA.Automaton.IO.MockIO
 import HelVM.HelMA.Automaton.Types.CellType
 
 import System.FilePath.Posix
 
-import Test.Hspec
+import Test.Hspec (Spec , describe , it)
 
 spec :: Spec
 spec = do
@@ -35,10 +35,10 @@ spec = do
            , ("fascistHelloWorld"     , ""     )
            ] >><| [Int32Type , Word32Type]
           ) $ \(fileName , input , cellType) -> do
-      let params = ( , cellType) <$> readBfFile fileName
+      let exec = execMockIOWithInput input . uncurryEval <$> (( , cellType) <$> readBfFile fileName)
       let minorPath = show cellType </> fileName
       describe minorPath $ do
         it ("monadic" </> minorPath) $ do
-          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("monadic" </> minorPath)
+          calculateOutput <$> exec `goldenShouldIO` buildAbsoluteOutFileName ("monadic" </> minorPath)
         it ("logging" </> minorPath) $ do
-          flipExecMockIO input . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("logging" </> minorPath)
+          calculateLogged <$> exec `goldenShouldIO` buildAbsoluteOutFileName ("logging" </> minorPath)

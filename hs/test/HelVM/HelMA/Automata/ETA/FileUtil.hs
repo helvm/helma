@@ -22,7 +22,7 @@ buildAbsoluteOutFileName :: FilePath -> FilePath
 buildAbsoluteOutFileName fileName = etaDir </> "output" </> fileName <.> "out"
 
 etaDir :: FilePath
-etaDir = dir </> "eta/"
+etaDir = dir </> "eta"
 
 dir :: FilePath
 dir = "examples"

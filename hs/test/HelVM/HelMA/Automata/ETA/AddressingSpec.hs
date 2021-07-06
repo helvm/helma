@@ -6,7 +6,8 @@ import HelVM.HelMA.Automata.ETA.Token
 
 import HelVM.Expectations
 
-import Test.Hspec
+import Test.Hspec (Spec , describe , it)
+import Test.Hspec.Expectations.Pretty
 
 spec :: Spec
 spec = do

@@ -7,10 +7,12 @@ module HelVM.Common.ReadText (
 import HelVM.Common.Safe
 
 readText :: Read a => Text -> a
-readText = unsafe . readTextSafe
+readText = unsafe . readTextSafe where
+  unsafe (Right a) = a
+  unsafe (Left a) = error $ errorsToText a
 
-readTextSafe :: Read a => Text -> Safe a
-readTextSafe a = appendErrorTuple ("" , a) $ readEither $ toString a
+readTextSafe :: (MonadSafeError m , Read a) => Text -> m a
+readTextSafe a = appendError a $ liftEitherError $ readEither $ toString a
 
 readTextMaybe :: Read a => Text -> Maybe a
 readTextMaybe = readMaybe . toString

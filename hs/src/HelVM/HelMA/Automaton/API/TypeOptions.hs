@@ -5,8 +5,8 @@ import HelVM.HelMA.Automaton.Types.IntCellType
 import HelVM.HelMA.Automaton.Types.StackType
 import HelVM.HelMA.Automaton.Types.RAMType
 
-data TypeOptions = TypeOptions { ram     :: RAMType
-                               , stack   :: StackType
-                               , cell    :: CellType
-                               , intCell :: IntCellType
+data TypeOptions = TypeOptions { ram     :: !RAMType
+                               , stack   :: !StackType
+                               , cell    :: !CellType
+                               , intCell :: !IntCellType
                                }

@@ -1,19 +1,25 @@
 module HelVM.Common.Safe (
-  safeFailToFail,
-  safeToFail,
-  safeLegacyToFail,
+  safeIOToPTextIO,
 
-  safe,
-  safeLegacyToSafe,
-  safeToSafeLegacy,
+  safeIOToIO,
+  safeToIO,
+  exceptTToIO,
+  safeExceptT,
+  safeToEitherLegacy,
+  errorsToText,
 
-  maybeToSafeOrErrorTupleList,
-  maybeToSafeOrErrorTuple,
-  maybeToSafeOrError,
+  liftExceptT,
+  liftSafe,
+  liftEitherError,
+  liftEitherLegacy,
 
-  safeErrorTupleList,
-  safeErrorTuple,
-  safeError,
+  liftMaybeOrErrorTupleList,
+  liftMaybeOrErrorTuple,
+  liftMaybeOrError,
+
+  liftErrorTupleList,
+  liftErrorTuple,
+  liftError,
 
   appendErrorTupleList,
   appendErrorTuple,
@@ -22,68 +28,92 @@ module HelVM.Common.Safe (
   tupleListToError,
   tupleToError,
 
-  unsafe,
-
-  SafeFail_,
-  SafeFail,
-  Safe_,
+  MonadSafeError,
+  SafeExceptT,
+  EitherLegacy,
+  EitherError,
   Safe,
   Error,
 ) where
 
-safeFailToFail ::  MonadFail m => SafeFail m a -> m a
-safeFailToFail m = safeToFail =<< m
+import HelVM.Common.Util
 
-safeToFail ::  MonadFail m => Safe a -> m a
-safeToFail = safeLegacyToFail . safeToSafeLegacy
+import Control.Monad.Except hiding (ExceptT , runExceptT)
 
-safeLegacyToFail :: MonadFail m => SafeLegacy a -> m a
-safeLegacyToFail (Right a) = pure a
-safeLegacyToFail (Left a)  = fail a
+import System.IO.Error
 
--- Create Safe
+import qualified Data.List.Singleton as List
 
-safe :: a -> Safe a
-safe = pure
+safeIOToPTextIO :: Show a => IO (Safe a) -> IO Text
+safeIOToPTextIO a = showP <$> safeIOToIO a
 
-safeLegacyToSafe :: SafeLegacy a -> Safe a
-safeLegacyToSafe = first toText
+safeIOToIO :: IO (Safe a) -> IO a
+safeIOToIO a = safeToIO =<< a
 
-safeToSafeLegacy :: Safe a -> SafeLegacy a
-safeToSafeLegacy = first toString
+safeToIO :: Safe a -> IO a
+safeToIO = exceptTToIO . liftSafe
 
----- Create from Maybe
+exceptTToIO :: SafeExceptT IO a -> IO a
+exceptTToIO = liftExceptT . withExceptT (userError . errorsToString)
 
-maybeToSafeOrErrorTupleList :: [ErrorTuple] -> Maybe a -> Safe a
-maybeToSafeOrErrorTupleList = maybeToSafeOrError . tupleListToError
+safeExceptT :: Monad m => m a -> SafeExceptT m a
+safeExceptT a = ExceptT $ pure <$> a
 
-maybeToSafeOrErrorTuple :: ErrorTuple -> Maybe a -> Safe a
-maybeToSafeOrErrorTuple = maybeToSafeOrError . tupleToError
+safeToEitherLegacy :: Safe a -> EitherLegacy a
+safeToEitherLegacy = first errorsToString
 
-maybeToSafeOrError :: Error -> Maybe a -> Safe a
-maybeToSafeOrError = maybeToRight
+errorsToString :: Errors -> String
+errorsToString = toString . errorsToText
 
----- Create Error
+errorsToText :: Errors -> Text
+errorsToText = unlines . reverse
 
-safeErrorTupleList :: [ErrorTuple] -> Safe a
-safeErrorTupleList = safeError . tupleListToError
+-- Lift
 
-safeErrorTuple :: ErrorTuple -> Safe a
-safeErrorTuple = safeError . tupleToError
+liftExceptT :: MonadError e m => ExceptT e m a -> m a
+liftExceptT m = liftEither =<< runExceptT m
 
-safeError :: Error -> Safe a
-safeError = Left
+liftSafe :: MonadSafeError m => Safe a -> m a
+liftSafe = liftEither
 
----- Append Error
+liftEitherError :: MonadSafeError m => Either Text a -> m a
+liftEitherError = liftEither . first List.singleton
 
-appendErrorTupleList :: [ErrorTuple] -> Safe a -> Safe a
+liftEitherLegacy :: MonadSafeError m => EitherLegacy a -> m a
+liftEitherLegacy = liftSafe . first (List.singleton . toText)
+
+-- Lift from Maybe
+
+liftMaybeOrErrorTupleList :: MonadSafeError m => [ErrorTuple] -> Maybe a -> m a
+liftMaybeOrErrorTupleList = liftMaybeOrError . tupleListToError
+
+liftMaybeOrErrorTuple :: MonadSafeError m => ErrorTuple -> Maybe a -> m a
+liftMaybeOrErrorTuple = liftMaybeOrError . tupleToError
+
+liftMaybeOrError :: MonadSafeError m => Error -> Maybe a -> m a
+liftMaybeOrError e = liftSafe . maybeToRight [e]
+
+-- Lift from Error
+
+liftErrorTupleList :: MonadSafeError m => [ErrorTuple] -> m a
+liftErrorTupleList = liftError . tupleListToError
+
+liftErrorTuple :: MonadSafeError m => ErrorTuple -> m a
+liftErrorTuple = liftError . tupleToError
+
+liftError :: MonadSafeError m => Error -> m a
+liftError e = throwError [e]
+
+-- Append Error
+
+appendErrorTupleList :: MonadSafeError m => [ErrorTuple] -> m a -> m a
 appendErrorTupleList = appendError . tupleListToError
 
-appendErrorTuple :: ErrorTuple -> Safe a -> Safe a
+appendErrorTuple :: MonadSafeError m => ErrorTuple -> m a -> m a
 appendErrorTuple = appendError . tupleToError
 
-appendError :: Error -> Safe a -> Safe a
-appendError message = first (<> message)
+appendError :: MonadSafeError m => Error -> m a -> m a
+appendError message a = catchError a appendAndThrow where appendAndThrow es = throwError ([message] <> es)
 
 ----
 
@@ -97,20 +127,18 @@ tupleToError (prefix , showed) = " [" <> format prefix <> showed <> "]" where
 
 ----
 
-unsafe :: Safe a -> a
-unsafe (Right a) = a
-unsafe (Left a) = error a
+type MonadSafeError m = MonadError Errors m
 
-----
+type SafeExceptT m = ExceptT Errors m
 
-type SafeFail_ m = SafeFail m ()
-type SafeFail m a = m (Safe a)
+type EitherLegacy = Either String
 
-type SafeLegacy a = Either String a
+type EitherError = Either Text
 
-type Safe_  = Safe ()
-type Safe a = Either Error a
+type Safe = Either Errors
 
 type ErrorTuple = (Error , Error)
+
+type Errors = [Text]
 
 type Error = Text

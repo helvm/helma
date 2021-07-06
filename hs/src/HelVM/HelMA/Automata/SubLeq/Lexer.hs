@@ -13,7 +13,7 @@ tokenize :: Source -> SymbolList
 tokenize source = (maybeToList . readTextMaybe) =<< splitOneOf " \t\n" source
 
 readSymbols :: Source -> Symbols
-readSymbols source = Read.read (toString source) :: Symbols
+readSymbols source = readText source :: Symbols
 
 ----
 

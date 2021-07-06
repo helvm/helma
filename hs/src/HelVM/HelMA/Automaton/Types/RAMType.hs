@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automaton.Types.RAMType where
 
-data RAMType = ListRAMType | SeqRAMType | IntMapRAMType deriving stock (Eq , Read , Show)
+data RAMType = ListRAMType | SeqRAMType | IntMapRAMType
+  deriving stock (Eq , Read , Show)
 
 ramTypes :: [RAMType]
 ramTypes = [ListRAMType , SeqRAMType , IntMapRAMType]

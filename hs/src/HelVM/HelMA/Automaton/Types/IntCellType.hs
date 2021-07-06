@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automaton.Types.IntCellType where
 
-data IntCellType = Int8Type | Int16Type | Int32Type  | Int64Type | IntegerType deriving stock (Eq , Read , Show)
+data IntCellType = Int8Type | Int16Type | Int32Type  | Int64Type | IntegerType
+  deriving stock (Eq , Read , Show)
 
 intCellTypes :: [IntCellType]
 intCellTypes = [Int8Type , Int16Type , Int32Type , Int64Type , IntegerType]

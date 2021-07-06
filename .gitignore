@@ -33,3 +33,5 @@ _site
 
 .hlint-*/
 out/
+
+/stan.html

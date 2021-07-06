@@ -12,19 +12,20 @@ data Token = E | T | A | O | I | N | S | H | R
 type TokenList = [Token]
 
 instance ToDigit Token where
-  toDigit H = safe 0
-  toDigit T = safe 1
-  toDigit A = safe 2
-  toDigit O = safe 3
-  toDigit I = safe 4
-  toDigit N = safe 5
-  toDigit S = safe 6
-  toDigit E = safeErrorTuple ("Wrong token" , show E)
-  toDigit R = safeErrorTuple ("Wrong token" , show R)
+  toDigit H = pure 0
+  toDigit T = pure 1
+  toDigit A = pure 2
+  toDigit O = pure 3
+  toDigit I = pure 4
+  toDigit N = pure 5
+  toDigit S = pure 6
+  toDigit E = liftErrorTuple ("Wrong token" , show E)
+  toDigit R = liftErrorTuple ("Wrong token" , show R)
 
 ----
 
-newtype WhiteToken = WhiteToken Token deriving stock (Eq)
+newtype WhiteToken = WhiteToken { unWhiteToken :: Token}
+  deriving stock (Eq)
 
 type WhiteTokenList = [WhiteToken]
 
@@ -49,7 +50,4 @@ tokenToWhiteTokenPair :: Token -> (WhiteToken , String)
 tokenToWhiteTokenPair t = (WhiteToken t , "")
 
 whiteTokenListToTokenList :: WhiteTokenList -> TokenList
-whiteTokenListToTokenList = fmap whiteTokenToToken
-
-whiteTokenToToken :: WhiteToken -> Token
-whiteTokenToToken (WhiteToken token) = token
+whiteTokenListToTokenList = fmap unWhiteToken

@@ -7,7 +7,7 @@ import HelVM.Expectations
 
 import HelVM.Common.Safe
 
-import Test.Hspec
+import Test.Hspec (Spec , describe , it)
 
 spec :: Spec
 spec = do

@@ -6,18 +6,16 @@ import HelVM.HelMA.Automata.WhiteSpace.FileUtil
 import HelVM.HelMA.Automata.WhiteSpace.Instruction
 
 import HelVM.CartesianProduct
-import HelVM.WrappedGoldenIO
+import HelVM.GoldenExpectations
 
 import HelVM.HelMA.Automaton.IO.MockIO
 import HelVM.HelMA.Automaton.Types.RAMType
 import HelVM.HelMA.Automaton.Types.StackType
 import HelVM.HelMA.Automaton.Types.TokenType
 
-import HelVM.Common.SafeMonadT
-
 import System.FilePath.Posix
 
-import Test.Hspec
+import Test.Hspec (Spec , describe , it)
 
 spec :: Spec
 spec = do
@@ -34,32 +32,34 @@ spec = do
                , ("loctest"      , "1\n2\n"     )
                , ("name"         , "WriteOnly\n")
                ] >><<< options) $ \(fileName , input , ascii , stackType , ramType) -> do
-          let minorPath = show ascii <-> show stackType <-> show ramType </> fileName
           let params = (WhiteTokenType ,  , ascii , stackType , ramType) <$> readWsFile ("original" </> fileName)
+          let mock = ioExecMockIOWithInput input . simpleEval =<< params
+          let minorPath = show ascii <-> show stackType <-> show ramType </> fileName
           describe minorPath $ do
             it ("monadic" </> minorPath) $ do
-              flipExecMockIO input . unsafeRunExceptT . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "monadic" </> minorPath)
+              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "monadic" </> minorPath)
             it ("logging" </> minorPath) $ do
-              flipEvalMockIO input . unsafeRunExceptT . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "logging" </> minorPath)
+              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "logging" </> minorPath)
 
     describe "stn" $ do
 
       describe "from-wsa" $ do
         let majorPath = "simpleEval" </> "from-wsa" </> "stn"
-        forM_ ([ ("true"        , ""           )
-               , ("hello"       , ""           )
-               , ("hello2"      , ""           )
-               , ("hello4"      , ""           )
-               , ("bottles"     , ""           )
-               , ("prim"        , ""           )
-               ] >><<< options) $ \(fileName , input , ascii , stackType , ramType) -> do
-          let minorPath = show ascii <-> show stackType <-> show ramType </> fileName
+        forM_ ([ "true"
+               , "hello"
+               , "hello2"
+               , "hello4"
+               , "bottles"
+               , "prim"
+               ] |><<< options) $ \(fileName , ascii , stackType , ramType) -> do
           let params = (VisibleTokenType ,  , ascii , stackType , ramType) <$> readStnFile ("from-wsa" </> fileName)
+          let mock = ioExecMockIOBatch . simpleEval =<< params
+          let minorPath = show ascii <-> show stackType <-> show ramType </> fileName
           describe minorPath $ do
             it ("monadic" </> minorPath) $ do
-              flipExecMockIO input . unsafeRunExceptT . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "monadic" </> minorPath)
+              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "monadic" </> minorPath)
             it ("logging" </> minorPath) $ do
-              flipEvalMockIO input . unsafeRunExceptT . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "logging" </> minorPath)
+              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "logging" </> minorPath)
 
       describe "original" $ do
         let majorPath = "simpleEval" </> "original" </> "stn"
@@ -73,13 +73,14 @@ spec = do
                , ("name"         , "WriteOnly\n")
                , ("truthMachine" , "0\n"        )
                ] >><<< options) $ \(fileName , input , ascii , stackType , ramType) -> do
-          let minorPath = show ascii <-> show stackType <-> show ramType </> fileName
           let params = (VisibleTokenType ,  , ascii , stackType , ramType) <$> readStnFile ("original" </> fileName)
+          let mock = ioExecMockIOWithInput input . simpleEval =<< params
+          let minorPath = show ascii <-> show stackType <-> show ramType </> fileName
           describe minorPath $ do
             it ("monadic" </> minorPath) $ do
-              flipExecMockIO input . unsafeRunExceptT . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "monadic" </> minorPath)
+              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "monadic" </> minorPath)
             it ("logging" </> minorPath) $ do
-              flipEvalMockIO input . unsafeRunExceptT . simpleEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName (majorPath </> "logging" </> minorPath)
+              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "logging" </> minorPath)
 
   describe "simpleEvalTL" $ do
     forM_ [ ("countTL"        , countTL        , ""           )
@@ -92,15 +93,17 @@ spec = do
           , ("nameTL"         , nameTL         , "WriteOnly\n")
           , ("truthMachineTL" , truthMachineTL , "0\n"        )
           ] $ \(fileName , tl , input) -> do
+      let mock = (safeExecMockIOWithInput input . simpleEvalTL) tl
       describe fileName $ do
         it ("monadic" </> fileName) $ do
-          (flipExecMockIO input . unsafeRunExceptT . simpleEvalTL) tl `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalTL" </> "monadic" </> fileName)
+          calculateOutput <$> mock `goldenShouldSafe` buildAbsoluteOutFileName ("simpleEvalTL" </> "monadic" </> fileName)
         it ("logging" </> fileName) $ do
-          (flipEvalMockIO input . unsafeRunExceptT . simpleEvalTL) tl `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalTL" </> "logging" </> fileName)
+          calculateLogged <$> mock `goldenShouldSafe` buildAbsoluteOutFileName ("simpleEvalTL" </> "logging" </> fileName)
 
   describe "simpleEvalIL" $ do
     forM_ [ ("call"     , [Call "A", End , Mark "A", Return] , "")
           , ("push-pop" , [Liter 0 , Discard , End]          , "")
           ] $ \(fileName , il , input) -> do
+      let mock = safeExecMockIOWithInput input $ evalIL il SeqStackType IntMapRAMType
       it fileName $ do
-        flipEvalMockIO input (unsafeRunExceptT $ evalIL il SeqStackType IntMapRAMType) `goldenShouldBe` buildAbsoluteOutFileName ("simpleEvalIL" </> "logging" </> fileName)
+        calculateLogged <$> mock `goldenShouldSafe` buildAbsoluteOutFileName ("simpleEvalIL" </> "logging" </> fileName)

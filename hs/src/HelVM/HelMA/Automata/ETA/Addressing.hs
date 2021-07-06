@@ -19,7 +19,7 @@ genericFindAddress :: Integral cell => TokenList -> cell -> Safe InstructionAddr
 genericFindAddress il address = findAddress il $ fromIntegral address
 
 findAddress :: TokenList -> Int -> Safe InstructionAddress
-findAddress _  1 = safe 0
+findAddress _  1 = pure 0
 findAddress il address = (+1) <$> indexSafe (List.elemIndices R (il <> [R])) (address-2)
 
 ----

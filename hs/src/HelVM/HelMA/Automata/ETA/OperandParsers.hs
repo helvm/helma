@@ -7,7 +7,7 @@ import HelVM.Common.Containers.Lookup
 import HelVM.Common.Safe
 import HelVM.Common.Digit.ToDigit
 
-data InstructionUnit = IU TokenList InstructionCounter
+data InstructionUnit = IU !TokenList !InstructionCounter
   deriving stock (Show)
 
 type OperandIUParser a = InstructionUnit -> Safe (a , InstructionUnit)
@@ -24,5 +24,5 @@ parseNumber' acc (Just t  , iu) = parseNumber' (t:acc) =<< nextIU iu
 nextIU :: OperandIUParser (Maybe Token)
 nextIU iu@(IU il ic)
   | ic < length il = wrap <$> indexSafe il ic
-  | otherwise      = safe (Nothing , iu)
+  | otherwise      = pure (Nothing , iu)
   where wrap i = (Just i, IU il (ic+1))

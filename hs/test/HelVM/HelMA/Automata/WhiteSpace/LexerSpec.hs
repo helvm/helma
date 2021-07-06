@@ -5,11 +5,12 @@ import HelVM.HelMA.Automata.WhiteSpace.Lexer
 import HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpecData
 import HelVM.HelMA.Automata.WhiteSpace.FileUtil
 
-import HelVM.WrappedGoldenIO
+import HelVM.GoldenExpectations
 
 import System.FilePath.Posix
 
-import Test.Hspec
+import Test.Hspec (Spec , describe , it)
+import Test.Hspec.Expectations.Pretty
 
 spec :: Spec
 spec = do
@@ -25,7 +26,7 @@ spec = do
         let minorPath = "from-wsa" </> fileName
         describe minorPath $ do
           it "minified" $ do
-            show . readVisibleTokens <$> readStnFile minorPath `goldenShouldReturn` buildAbsoluteStnFileName ("lexer" </> minorPath)
+            show . readVisibleTokens <$> readStnFile minorPath `goldenShouldIO` buildAbsoluteStnFileName ("lexer" </> minorPath)
 
     describe "original" $ do
       forM_ [ ("count"        , countTL        )
@@ -41,6 +42,6 @@ spec = do
         let minorPath = "original" </> fileName
         describe minorPath $ do
           it "minified" $ do
-            show . readVisibleTokens <$> readStnFile minorPath `goldenShouldReturn` buildAbsoluteStnFileName ("lexer" </> minorPath)
+            show . readVisibleTokens <$> readStnFile minorPath `goldenShouldIO` buildAbsoluteStnFileName ("lexer" </> minorPath)
           it "tokenize" $ do
             tokenizeVisible          <$> readStnFile minorPath `shouldReturn` tl

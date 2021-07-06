@@ -1,1 +1,31 @@
-[Liter 0,Liter 10,Liter 33,Liter 100,Liter 108,Liter 114,Liter 111,Liter 119,Liter 32,Liter 44,Liter 111,Liter 108,Liter 108,Liter 101,Liter 72,Call "prints",End,Mark "prints",Dup,Branch EZ "prints_end",OutputChar,Jump "prints",Mark "prints_end",Discard,Return,Mark "printsln",Call "prints",Liter 10,OutputChar,Return]
+[ Liter 0
+, Liter 10
+, Liter 33
+, Liter 100
+, Liter 108
+, Liter 114
+, Liter 111
+, Liter 119
+, Liter 32
+, Liter 44
+, Liter 111
+, Liter 108
+, Liter 108
+, Liter 101
+, Liter 72
+, Call "prints"
+, End
+, Mark "prints"
+, Dup
+, Branch EZ "prints_end"
+, OutputChar
+, Jump "prints"
+, Mark "prints_end"
+, Discard
+, Return
+, Mark "printsln"
+, Call "prints"
+, Liter 10
+, OutputChar
+, Return
+]

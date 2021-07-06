@@ -1,42 +1,61 @@
 module HelVM.HelMA.Automaton.IO.MockIO (
-  batchExecMockIO,
-  flipExecMockIO,
+  ioExecMockIOBatch,
+  ioExecMockIOWithInput,
+  safeExecMockIOBatch,
+  safeExecMockIOWithInput,
+  execMockIOBatch,
+  execMockIOWithInput,
+
   execMockIO,
-  batchEvalMockIO,
-  flipEvalMockIO,
-  evalMockIO,
-  getLogged,
-  MockIO
+  createMockIO,
+  calculateOutput,
+  calculateLogged,
+
+  MockIO,
+  MockIOData,
 ) where
 
 import HelVM.HelMA.Automaton.API.IOTypes
-import HelVM.HelMA.Automaton.IO.WrapperIO
+import HelVM.HelMA.Automaton.IO.BusinessIO
 
 import HelVM.Common.Containers.SplitAt
+import HelVM.Common.Safe
 
-import qualified Relude.Unsafe as Unsafe
+ioExecMockIOBatch :: SafeExceptT MockIO () -> IO MockIOData
+ioExecMockIOBatch = ioExecMockIOWithInput ""
 
-batchExecMockIO :: MockIO_ -> Output
-batchExecMockIO = flipExecMockIO ""
+ioExecMockIOWithInput :: Input -> SafeExceptT MockIO () -> IO MockIOData
+ioExecMockIOWithInput i = safeToIO . pure . execMockIOWithInput i . runExceptT
 
-flipExecMockIO :: Input -> MockIO_ -> Output
-flipExecMockIO = flip execMockIO
+safeExecMockIOBatch ::  SafeExceptT MockIO () -> Safe MockIOData
+safeExecMockIOBatch = safeExecMockIOWithInput ""
 
-execMockIO :: MockIO () -> Interact
-execMockIO mockIO  = getOutput . execState mockIO . createMockIO
+safeExecMockIOWithInput :: Input -> SafeExceptT MockIO () -> Safe MockIOData
+safeExecMockIOWithInput i = pure . execMockIOWithInput i . runExceptT
 
-batchEvalMockIO :: MockIO_ -> Output
-batchEvalMockIO = flipEvalMockIO ""
+execMockIOBatch :: MockIO a -> MockIOData
+execMockIOBatch = execMockIOWithInput ""
 
-flipEvalMockIO :: Input -> MockIO_ -> Output
-flipEvalMockIO = flip evalMockIO
-
-evalMockIO :: MockIO_ -> Interact
-evalMockIO mockIO = getLogged . execState mockIO . createMockIO
+execMockIOWithInput :: Input -> MockIO a -> MockIOData
+execMockIOWithInput = flip execMockIO
 
 ----
 
-instance WrapperIO MockIO where
+execMockIO :: MockIO a -> Input -> MockIOData
+execMockIO mockIO = execState mockIO . createMockIO
+
+createMockIO :: Input -> MockIOData
+createMockIO i = MockIOData (toString i) "" ""
+
+calculateOutput :: MockIOData -> Output
+calculateOutput = calculate . output
+
+calculateLogged :: MockIOData -> Output
+calculateLogged = calculate . logged
+
+----
+
+instance BusinessIO MockIO where
   wGetChar = mockGetChar
   wGetLine = mockGetLine
   wPutChar = mockPutChar
@@ -44,59 +63,70 @@ instance WrapperIO MockIO where
   wPutStr  = mockPutStr
   wLogStr  = mockLogStr
 
+instance BusinessIO (SafeExceptT MockIO) where
+  wGetChar = safeExceptT   mockGetChar
+  wGetLine = safeExceptT   mockGetLine
+  wPutChar = safeExceptT . mockPutChar
+  wPutInt  = safeExceptT . mockPutInt
+  wPutStr  = safeExceptT . mockPutStr
+  wLogStr  = safeExceptT . mockLogStr
+
+----
+
 mockGetChar :: MockIO Char
 mockGetChar = mockGetChar' =<< get where
-  mockGetChar' mockIO = headOrError mockIO (input mockIO) <$ put mockIO { input = Unsafe.tail $ input mockIO }
+  mockGetChar' :: MonadState MockIOData f => MockIOData -> f Char
+  mockGetChar' mockIO = headOrError mockIO (input mockIO) <$ put mockIO { input = tailOrError mockIO $ input mockIO }
 
 mockGetLine :: MockIO Text
 mockGetLine = mockGetLine' =<< get where
+  mockGetLine' :: MonadState MockIOData f => MockIOData -> f Text
   mockGetLine' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
 
-mockPutChar :: Char -> MockIO_
+mockPutChar :: Char -> MockIO ()
 mockPutChar char = mockPutChar' =<< get where
+  mockPutChar' :: MonadState MockIOData f => MockIOData -> f ()
   mockPutChar' mockIO = put mockIO { output = char : output mockIO }
 
-mockPutInt :: Int -> MockIO_
+mockPutInt :: Int -> MockIO ()
 mockPutInt value = mockPutInt' =<< get where
+  mockPutInt' :: MonadState MockIOData f => MockIOData -> f ()
   mockPutInt' mockIO = put $ mockIO { output = chr  value : output mockIO }
 
-
-mockPutStr :: Text -> MockIO_
+mockPutStr :: Text -> MockIO ()
 mockPutStr text = mockPutStr' =<< get where
+  mockPutStr' :: MonadState MockIOData f => MockIOData -> f ()
   mockPutStr' mockIO = put $ mockIO { output = reverse (toString text) <> output mockIO }
 
-
-mockLogStr :: Text -> MockIO_
+mockLogStr :: Text -> MockIO ()
 mockLogStr text = mockLogStr' =<< get where
+  mockLogStr' :: MonadState MockIOData f => MockIOData -> f ()
   mockLogStr' mockIO = put $ mockIO { logged = reverse (toString text) <> logged mockIO }
 
 ----
 
-type MockIO_ = MockIO ()
-
 type MockIO = State MockIOData
 
-createMockIO :: Input -> MockIOData
-createMockIO i = MockIOData (toString i) "" ""
-
-getOutput :: MockIOData -> Output
-getOutput (MockIOData _ o _) = toText $ reverse o
-
-getLogged :: MockIOData -> Output
-getLogged (MockIOData _ _ e) = toText $ reverse e
+calculate :: String -> Output
+calculate = toText . reverse
 
 data MockIOData = MockIOData
-  { input  :: String
-  , output :: String
-  , logged  :: String
+  { input   :: !String
+  , output  :: !String
+  , logged  :: !String
+--  , saved :: Text
   }
   deriving stock (Eq , Show , Read)
 
 ----
 
 headOrError :: Show e => e -> [a] -> a
-headOrError _ (x:_) =  x
-headOrError e []    =  error $ show e
+headOrError _ (x : _) =  x
+headOrError e []      =  error $ show e
+
+tailOrError :: Show e => e -> [a] -> [a]
+tailOrError _ (_ : xs) =  xs
+tailOrError e []       =  error $ show e
 
 splitStringByLn :: String -> (String , String)
 splitStringByLn = splitBy '\n'

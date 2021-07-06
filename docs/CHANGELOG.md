@@ -1,5 +1,14 @@
 # 📅 Revision history for HelMA
 
+## 0.6.9.0  -- 2021-07-22
+
+* Use MonadError
+* Use Stan
+* Use pretty-simple for golden tests
+* Fill up ARCHITECTURE.md
+* Replace WrapperIO by BusinessIO
+* Remove repeated tests
+
 ## 0.6.8.0  -- 2021-07-06
 
 * Use `Safe`, remove `error` calls
@@ -52,7 +61,7 @@
 ## 0.4.0.0  -- 2020-06-22
 
 * Add Evaluator of BrainFuck and WhiteSpace
-* Add WrapperIO, FilterIf0, MockIO and tests for FilterIf0
+* Add BusinessIO, FilterIf0, MockIO and tests for FilterIf0
 
 ## 0.3.0.0  -- 2020-05-30
 

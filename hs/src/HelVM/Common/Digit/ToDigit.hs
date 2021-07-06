@@ -7,23 +7,23 @@ import Data.Char hiding (chr)
 
 import qualified Data.List.Split as List
 
-makeDigitString :: ToDigit a => [a] -> Safe String
+makeDigitString :: (MonadSafeError m , ToDigit a) => [a] -> m String
 makeDigitString xs = sequenceA $ toDigitChar <$> xs
 
-makeAsciiString :: ToDigit a => Int -> Int -> [a] -> Safe String
+makeAsciiString :: (MonadSafeError m , ToDigit a) => Int -> Int -> [a] -> m String
 makeAsciiString base n xs = sequenceA $ makeChar base <$> List.chunksOf n xs
 
-makeChar :: ToDigit a => Int -> [a] -> Safe Char
+makeChar :: (MonadSafeError m , ToDigit a) => Int -> [a] -> m Char
 makeChar base xs = chr <$> makeIntegral base (reverse xs)
 
-toDigitChar :: ToDigit a => a -> Safe Char
+toDigitChar :: MonadSafeError m => ToDigit a => a -> m Char
 toDigitChar a = integerToDigit <$> toDigit a
 
 integerToDigit :: Integer -> Char
 integerToDigit = intToDigit . fromInteger
 
-makeIntegral :: (ToDigit a , Integral b) => b -> [a] -> Safe b
+makeIntegral :: (MonadSafeError m , ToDigit a , Integral b) => b -> [a] -> m b
 makeIntegral base digits = digitsToIntegral base (toDigit <$> digits)
 
 class ToDigit t where
-  toDigit :: Integral a => t -> Safe a
+  toDigit :: (MonadSafeError m, Integral a) => t -> m a

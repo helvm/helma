@@ -13,13 +13,14 @@ data Token =  S | T | N
 type TokenList = [Token]
 
 instance ToDigit Token where
-  toDigit S = safe 0
-  toDigit T = safe 1
-  toDigit N = safeErrorTuple ("Wrong token" , show N)
+  toDigit S = pure 0
+  toDigit T = pure 1
+  toDigit N = liftErrorTuple ("Wrong token" , show N)
 
 ----
 
-newtype WhiteToken = WhiteToken Token deriving stock (Eq)
+newtype WhiteToken = WhiteToken { unWhiteToken :: Token}
+  deriving stock (Eq)
 
 instance Show WhiteToken where
   show (WhiteToken S) = " "
@@ -36,7 +37,5 @@ instance Read WhiteToken where
 type WhiteTokenList = [WhiteToken]
 
 whiteTokenListToTokenList :: WhiteTokenList -> TokenList
-whiteTokenListToTokenList = fmap whiteTokenToToken
+whiteTokenListToTokenList = fmap unWhiteToken
 
-whiteTokenToToken :: WhiteToken -> Token
-whiteTokenToToken (WhiteToken token) = token

@@ -34,7 +34,7 @@ buildAbsoluteOutFileName :: FilePath -> FilePath
 buildAbsoluteOutFileName fileName = wsDir </> "output" </> fileName <.> "out"
 
 wsDir :: FilePath
-wsDir = dir </> "ws/"
+wsDir = dir </> "ws"
 
 dir :: FilePath
 dir = "examples"

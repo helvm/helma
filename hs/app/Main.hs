@@ -6,9 +6,9 @@ import HelVM.HelMA.Automaton.API.EvalParams
 import HelVM.HelMA.Automaton.API.IOTypes
 import HelVM.HelMA.Automaton.API.TypeOptions
 
-import HelVM.HelMA.Automaton.IO.WrapperIO
+import HelVM.HelMA.Automaton.IO.BusinessIO
 
-import HelVM.Common.SafeMonadT
+import HelVM.Common.Safe
 
 import HelVM.HelMA.Automaton.Types.CellType
 import HelVM.HelMA.Automaton.Types.IntCellType
@@ -47,7 +47,7 @@ main = runApp =<< execParser opts where
 
 runApp:: AppOptions -> IO ()
 runApp AppOptions{lang , minified , emitTL , emitIL , asciiLabels , ramType , stackType , cellType , intCellType , exec , file} = do
-  IO.hSetBuffering stdout IO.NoBuffering
+  hSetBuffering stdout IO.NoBuffering
   source <- readSource exec file
   run minified emitTL emitIL typeOptions asciiLabels (parseLang lang) source
     where typeOptions = TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType) (parseIntCellType intCellType)
@@ -83,9 +83,10 @@ parse WS   a = pPrintNoColor . flip (WS.parse WhiteTokenType) a
 parse lang _ = tokenize lang
 
 eval :: TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
-eval options a lang s = safeMonadToFail $ evalParams lang EvalParams {asciiLabel = a , source = s , typeOptions = options}
+eval options a lang s = exceptTToIO $ evalParams lang params
+  where params = EvalParams {asciiLabel = a , source = s , typeOptions = options}
 
-evalParams :: WrapperIO m => Lang -> EvalParams -> SafeMonadT_ m
+evalParams :: BIO m => Lang -> EvalParams -> m ()
 evalParams Cat = Cat.evalParams
 evalParams Rev = Rev.evalParams
 evalParams BF  = BF.evalParams

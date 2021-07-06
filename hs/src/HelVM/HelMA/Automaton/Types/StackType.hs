@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automaton.Types.StackType where
 
-data StackType = ListStackType | SeqStackType deriving stock (Eq , Read , Show)
+data StackType = ListStackType | SeqStackType
+  deriving stock (Eq , Read , Show)
 
 stackTypes :: [StackType]
 stackTypes = [ListStackType , SeqStackType]

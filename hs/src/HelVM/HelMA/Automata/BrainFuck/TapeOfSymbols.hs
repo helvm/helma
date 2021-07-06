@@ -10,10 +10,9 @@ module HelVM.HelMA.Automata.BrainFuck.TapeOfSymbols (
 
 import HelVM.HelMA.Automata.BrainFuck.Symbol
 
-import HelVM.Common.Util
-
 ----
 
+type D a = a -> a
 type FullTape e = (HalfTape e , HalfTape e)
 type FullTapeD e = D (FullTape e)
 

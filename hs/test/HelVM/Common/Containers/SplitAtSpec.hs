@@ -2,7 +2,8 @@ module HelVM.Common.Containers.SplitAtSpec (spec) where
 
 import HelVM.Common.Containers.SplitAt
 
-import Test.Hspec
+import Test.Hspec (Spec , describe , it)
+import Test.Hspec.Expectations.Pretty
 
 spec :: Spec
 spec = do

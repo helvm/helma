@@ -30,7 +30,7 @@ parse tokenType source = parseTL $ tokenize tokenType source
 parseTL :: TokenList -> Bool -> Safe InstructionList
 parseTL tl ascii = parseTL' tl where
   parseTL' :: TokenList -> Safe InstructionList
-  parseTL' []            = safe []
+  parseTL' []            = pure []
   -- Stack instructions
   parseTL' (S:S:tl')     = parseTL'' =<< parseSymbol tl' where parseTL'' (symbol , tl'') = (Liter symbol  : ) <$> parseTL' tl''
   parseTL' (S:T:S:tl')   = parseTL'' =<< parseIndex  tl' where parseTL'' (index  , tl'') = (Copy  index   : ) <$> parseTL' tl''
@@ -58,7 +58,7 @@ parseTL tl ascii = parseTL' tl where
   parseTL' (N:S:T:tl')   = parseTL'' =<< parseLabel ascii tl' where parseTL'' (label  , tl'') = (Call       label : ) <$> parseTL' tl''
   parseTL' (N:S:N:tl')   = parseTL'' =<< parseLabel ascii tl' where parseTL'' (label  , tl'') = (Jump       label : ) <$> parseTL' tl''
   parseTL' (N:T:S:tl')   = parseTL'' =<< parseLabel ascii tl' where parseTL'' (label  , tl'') = (Branch EZ  label : ) <$> parseTL' tl''
-  parseTL' (N:T:T:tl')   = parseTL'' =<< parseLabel ascii tl' where parseTL'' (label  , tl'') = (Branch Neg label : ) <$> parseTL' tl''  
+  parseTL' (N:T:T:tl')   = parseTL'' =<< parseLabel ascii tl' where parseTL'' (label  , tl'') = (Branch Neg label : ) <$> parseTL' tl''
   parseTL' (N:T:N:tl')   = (Return            : ) <$> parseTL' tl'
   parseTL' (N:N:S:tl')   = panic "NNS" tl'
   parseTL' (N:N:T:tl')   = panic "NNT" tl'
@@ -76,4 +76,4 @@ parseTL tl ascii = parseTL' tl where
   parseTL' tl'           = panic (show tl') []
 
 panic :: Text -> TokenList -> Safe InstructionList
-panic token tl = safeErrorTupleList [("Unrecognised" , token) , ("Rest" , show tl)] 
+panic token tl = liftErrorTupleList [("Unrecognised" , token) , ("Rest" , show tl)]

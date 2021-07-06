@@ -4,16 +4,14 @@ import HelVM.HelMA.Automata.ETA.Evaluator
 import HelVM.HelMA.Automata.ETA.FileUtil
 
 import HelVM.CartesianProduct
-import HelVM.WrappedGoldenIO
+import HelVM.GoldenExpectations
 
 import HelVM.HelMA.Automaton.IO.MockIO
 import HelVM.HelMA.Automaton.Types.StackType
 
-import HelVM.Common.SafeMonadT
-
 import System.FilePath.Posix
 
-import Test.Hspec
+import Test.Hspec (Spec , describe , it)
 
 spec :: Spec
 spec = do
@@ -39,14 +37,14 @@ spec = do
            , ("bottles" , ""   )
            ] >><| stackTypes
           ) $ \(fileName , input , stackType) -> do
+      let params = (, stackType) <$> readEtaFile ("from-eas" </> fileName)
+      let mock = ioExecMockIOWithInput (toText input) . uncurryEval =<< params
       let minorPath = show stackType </> fileName <> input
-      let params = ( , stackType) <$> readEtaFile ("from-eas" </> fileName)
-      let inputText = toText input
       describe minorPath$ do
         it ("monadic" </> minorPath) $ do
-          flipExecMockIO inputText . unsafeRunExceptT . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "monadic" </> minorPath)
+          calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("from-eas" </> "monadic" </> minorPath)
         it ("logging" </> minorPath) $ do
-          flipEvalMockIO inputText . unsafeRunExceptT . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("from-eas" </> "logging" </> minorPath)
+          calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("from-eas" </> "logging" </> minorPath)
 
   describe "original" $ do
     forM_ ([ ("hello"   , "" )
@@ -65,11 +63,11 @@ spec = do
            , ("crlf"    , "" )
            ] >><| stackTypes
           ) $ \(fileName , input , stackType) -> do
+      let params = (, stackType) <$> readEtaFile ("original" </> fileName)
+      let mock = ioExecMockIOWithInput (toText input) . uncurryEval =<< params
       let minorPath = show stackType </> fileName <> input
-      let params = ( , stackType) <$> readEtaFile ("original" </> fileName)
-      let inputText = toText input
       describe minorPath $ do
         it ("monadic" </> minorPath) $ do
-          flipExecMockIO inputText . unsafeRunExceptT . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "monadic" </> minorPath)
+          calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("original" </> "monadic" </> minorPath)
         it ("logging" </> minorPath) $ do
-          flipEvalMockIO inputText . unsafeRunExceptT . uncurryEval <$> params `goldenShouldReturn` buildAbsoluteOutFileName ("original" </> "logging" </> minorPath)
+          calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("original" </> "logging" </> minorPath)
