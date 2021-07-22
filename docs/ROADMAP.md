@@ -2,12 +2,19 @@
 
 **Planned features.**
 
+See [Issues](https://github.com/helvm/helma/issues).
+
 For short version see [TODO](TODO.md).
 
-* 🌈 [BrainFuck](https://esolangs.org/wiki/Brainfuck)
-* ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/manual.html) ([Backup](https://helvm.github.io/eta/manual))
-* 💛 [Funge](https://catseye.tc/article/Languages.md#funge-98) and [BeFunge](https://catseye.tc/view/Befunge-93/doc/Befunge-93.markdown)
-* 💚 [Piet](https://www.dangermouse.net/esoteric/piet.html)
-* 💙 [SubLeq](http://mazonka.com/subleq/)
-* 🤍 [WhiteSpace](https://helvm.github.io/WSpace/tutorial.html) ([Original](http://web.archive.org/web/20150623025348/http://compsoc.dur.ac.uk/whitespace/))
-* 🖤 WMachine
+* 💛 Funge:
+  * [Funge-98 Specification Documents](https://github.com/helvm/Funge-98) 
+  * [BeFunge93 - A Befunge Interpreter by jberryman](https://github.com/helvm/BeFunge93)
+  * [Fungoid - Befunge-93 interpreter written in Haskell!](https://github.com/helvm/Fungoid)
+  * [Befunge - A Befunge-93 and doublefunge interpreter written in haskell by Joe Jevnik](https://github.com/helvm/befunge)
+  * [Fungi](https://github.com/helvm/fungi)
+* 💚 Piet:
+  * [Original Piet Interpreter](https://github.com/helvm/npiet)
+  * [An interpreter for the programming language Piet](https://github.com/helvm/piet-willem-o)
+  * [piet-interpreters](https://github.com/helvm/piet-interpreters)
+
+## 🌈 ❤️ 💛 💚 💙 🤍 🖤 🦄

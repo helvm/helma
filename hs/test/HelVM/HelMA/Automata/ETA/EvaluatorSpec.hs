@@ -1,73 +1,56 @@
 module HelVM.HelMA.Automata.ETA.EvaluatorSpec (spec) where
 
-import HelVM.HelMA.Automata.ETA.Evaluator
-import HelVM.HelMA.Automata.ETA.FileUtil
+import           HelVM.HelMA.Automata.ETA.Evaluator.LLEvaluator
+import           HelVM.HelMA.Automata.ETA.FileUtil
 
-import HelVM.CartesianProduct
-import HelVM.GoldenExpectations
+import           HelVM.GoldenExpectations
 
-import HelVM.HelMA.Automaton.IO.MockIO
-import HelVM.HelMA.Automaton.Types.StackType
+import           HelVM.HelMA.Automaton.IO.MockIO
+import           HelVM.HelMA.Automaton.Types.StackType
 
-import System.FilePath.Posix
+import           System.FilePath.Posix
 
-import Test.Hspec (Spec , describe , it)
+import           Test.Hspec                                     (Spec, describe, it)
 
 spec :: Spec
 spec = do
   describe "from-eas" $ do
-    forM_ ([ ("true"    , ""   )
-           , ("hello"   , ""   )
-           , ("hello2"  , ""   )
-           , ("hello3"  , ""   )
-           , ("hello4"  , ""   )
-           , ("readnum" , "0\n")
-           , ("readnum" , "1\n")
-           , ("fact"    , "0\n")
-           , ("fact"    , "1\n")
-           , ("fact"    , "2\n")
-           , ("fact"    , "3\n")
-           , ("fact"    , "4\n")
-           , ("fact"    , "5\n")
-           , ("fact"    , "6\n")
-           , ("fact"    , "7\n")
-           , ("fact"    , "8\n")
-           , ("fact"    , "9\n")
---           , ("fact"    , "10\n")
-           , ("bottles" , ""   )
-           ] >><| stackTypes
-          ) $ \(fileName , input , stackType) -> do
-      let params = (, stackType) <$> readEtaFile ("from-eas" </> fileName)
-      let mock = ioExecMockIOWithInput (toText input) . uncurryEval =<< params
-      let minorPath = show stackType </> fileName <> input
-      describe minorPath$ do
-        it ("monadic" </> minorPath) $ do
-          calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("from-eas" </> "monadic" </> minorPath)
-        it ("logging" </> minorPath) $ do
-          calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("from-eas" </> "logging" </> minorPath)
+    forM_
+      [ ("true"    , [""])
+      , ("hello"   , [""])
+      , ("hello2"  , [""])
+      , ("hello3"  , [""])
+      , ("hello4"  , [""])
+      , ("readnum" , ["0\n" , "1\n"])
+      , ("fact"    , ["0\n" , "1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n" , "9\n" ])
+      , ("bottles" , [""])
+      ] $ \(fileName , inputs) -> do
+        let file = readEtaFile ("from-eas" </> fileName)
+        forM_ inputs $ \ input  -> do
+          let params = (, defaultStackType) <$> file
+          let mock = ioExecMockIOWithInput (toText input) . uncurryEval =<< params
+          let minorPath = fileName <> input
+          describe minorPath$ do
+            it ("output" </> minorPath) $ do
+              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("from-eas" </> "output" </> minorPath)
+            it ("logged" </> minorPath) $ do
+              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("from-eas" </> "logged" </> minorPath)
 
   describe "original" $ do
-    forM_ ([ ("hello"   , "" )
-           , ("hello2"  , "" )
---           , ("fact"    , "0\n" )
-           , ("fact"    , "1\n" )
-           , ("fact"    , "2\n" )
-           , ("fact"    , "3\n" )
-           , ("fact"    , "4\n" )
-           , ("fact"    , "5\n" )
-           , ("fact"    , "6\n" )
-           , ("fact"    , "7\n" )
-           , ("fact"    , "8\n" )
---           , ("fact"    , "9\n" )
-           , ("bottles" , "" )
-           , ("crlf"    , "" )
-           ] >><| stackTypes
-          ) $ \(fileName , input , stackType) -> do
-      let params = (, stackType) <$> readEtaFile ("original" </> fileName)
-      let mock = ioExecMockIOWithInput (toText input) . uncurryEval =<< params
-      let minorPath = show stackType </> fileName <> input
-      describe minorPath $ do
-        it ("monadic" </> minorPath) $ do
-          calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("original" </> "monadic" </> minorPath)
-        it ("logging" </> minorPath) $ do
-          calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("original" </> "logging" </> minorPath)
+    forM_
+      [ ("hello"   , [""])
+      , ("hello2"  , [""])
+      , ("fact"    , ["1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n"])
+      , ("bottles" , [""])
+      , ("crlf"    , [""])
+      ] $ \(fileName , inputs) -> do
+        let file = readEtaFile ("original" </> fileName)
+        forM_ inputs $ \ input -> do
+          let params = (, defaultStackType) <$> file
+          let mock = ioExecMockIOWithInput (toText input) . uncurryEval =<< params
+          let minorPath = fileName <> input
+          describe minorPath $ do
+            it ("output" </> minorPath) $ do
+              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("original" </> "output" </> minorPath)
+            it ("logged" </> minorPath) $ do
+              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("original" </> "logged" </> minorPath)

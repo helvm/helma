@@ -1,8 +1,8 @@
 module Main where
 
 import qualified Spec
-import Test.Hspec.Slow
-import Test.Hspec (hspec)
+import           Test.Hspec      (hspec)
+import           Test.Hspec.Slow
 
 main :: IO ()
 main = main' =<< configure 1 where

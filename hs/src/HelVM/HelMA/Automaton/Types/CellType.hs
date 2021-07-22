@@ -11,5 +11,5 @@ defaultCellType = Word8Type
 
 parseCellType :: String -> CellType
 parseCellType raw = valid $ readMaybe raw where
-  valid (Just value)  = value
-  valid Nothing = error $ "CellType '" <> toText raw <> "' is not valid CellType. Valid cellTypes are : " <> show cellTypes
+  valid (Just value) = value
+  valid Nothing      = error $ "CellType '" <> toText raw <> "' is not valid CellType. Valid cellTypes are : " <> show cellTypes

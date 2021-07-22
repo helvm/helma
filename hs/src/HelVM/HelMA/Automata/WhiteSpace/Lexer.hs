@@ -1,13 +1,13 @@
 module HelVM.HelMA.Automata.WhiteSpace.Lexer where
 
-import HelVM.HelMA.Automata.WhiteSpace.Token
+import           HelVM.HelMA.Automata.WhiteSpace.Token
 
-import HelVM.HelMA.Automaton.API.IOTypes
-import HelVM.Common.ReadText
-import HelVM.HelMA.Automaton.Types.TokenType
-import HelVM.HelMA.Automaton.WrapTokenList
+import           HelVM.Common.ReadText
+import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.Types.TokenType
+import           HelVM.HelMA.Automaton.WrapTokenList
 
--- Lexer
+-- | Lexer
 
 tokenize :: TokenType -> Source -> TokenList
 tokenize VisibleTokenType = tokenizeVisible

@@ -8,12 +8,12 @@ module HelVM.Common.Util (
   fromMaybeOrDef,
 ) where
 
-import Data.Char hiding (chr)
-import Data.Default
-import Data.Typeable
-import Text.Pretty.Simple
+import           Data.Char          hiding (chr)
+import           Data.Default
+import           Data.Typeable
+import           Text.Pretty.Simple
 
-import qualified Data.Text as Text
+import qualified Data.Text          as Text
 
 --- TextUtil
 
@@ -36,7 +36,7 @@ genericChr = chr . fromIntegral
 
 ---- MaybeUtil
 
-infixl 1 ???
+infixr 0 ???
 (???) :: Maybe a -> a -> a
 (???) = flip fromMaybe
 

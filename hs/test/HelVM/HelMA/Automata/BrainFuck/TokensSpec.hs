@@ -1,14 +1,14 @@
 module HelVM.HelMA.Automata.BrainFuck.TokensSpec (spec) where
 
-import HelVM.HelMA.Automata.BrainFuck.Lexer
-import HelVM.HelMA.Automata.BrainFuck.FileUtil
+import           HelVM.HelMA.Automata.BrainFuck.FileUtil
+import           HelVM.HelMA.Automata.BrainFuck.Lexer
 
-import HelVM.HelMA.Automaton.WrapTokenList
+import           HelVM.HelMA.Automaton.WrapTokenList
 
-import HelVM.Expectations
+import           HelVM.Expectations
 
-import Test.Hspec (Spec , describe , it)
-import Test.Hspec.Expectations.Pretty
+import           Test.Hspec                              (Spec, describe, it)
+import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec
 spec = do

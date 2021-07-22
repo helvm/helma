@@ -1,11 +1,11 @@
 module HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec (spec) where
 
-import HelVM.HelMA.Automata.WhiteSpace.OperandParsers
-import HelVM.HelMA.Automata.WhiteSpace.Token
+import           HelVM.HelMA.Automata.WhiteSpace.OperandParsers
+import           HelVM.HelMA.Automata.WhiteSpace.Token
 
-import HelVM.Expectations
+import           HelVM.Expectations
 
-import Test.Hspec (Spec , describe , it)
+import           Test.Hspec                                     (Spec, describe, it)
 
 spec :: Spec
 spec = do

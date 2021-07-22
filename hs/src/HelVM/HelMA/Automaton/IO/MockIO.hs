@@ -15,11 +15,13 @@ module HelVM.HelMA.Automaton.IO.MockIO (
   MockIOData,
 ) where
 
-import HelVM.HelMA.Automaton.API.IOTypes
-import HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import HelVM.Common.Containers.SplitAt
-import HelVM.Common.Safe
+import           HelVM.Common.ListLikeUtil
+import           HelVM.Common.Safe
+
+import           Data.Text                           as Text
 
 ioExecMockIOBatch :: SafeExceptT MockIO () -> IO MockIOData
 ioExecMockIOBatch = ioExecMockIOWithInput ""
@@ -48,10 +50,10 @@ createMockIO :: Input -> MockIOData
 createMockIO i = MockIOData (toString i) "" ""
 
 calculateOutput :: MockIOData -> Output
-calculateOutput = calculate . output
+calculateOutput = calculateText . output
 
 calculateLogged :: MockIOData -> Output
-calculateLogged = calculate . logged
+calculateLogged = calculateText . logged
 
 ----
 
@@ -96,25 +98,27 @@ mockPutInt value = mockPutInt' =<< get where
 mockPutStr :: Text -> MockIO ()
 mockPutStr text = mockPutStr' =<< get where
   mockPutStr' :: MonadState MockIOData f => MockIOData -> f ()
-  mockPutStr' mockIO = put $ mockIO { output = reverse (toString text) <> output mockIO }
+  mockPutStr' mockIO = put $ mockIO { output = calculateString text <> output mockIO }
 
 mockLogStr :: Text -> MockIO ()
 mockLogStr text = mockLogStr' =<< get where
   mockLogStr' :: MonadState MockIOData f => MockIOData -> f ()
-  mockLogStr' mockIO = put $ mockIO { logged = reverse (toString text) <> logged mockIO }
+  mockLogStr' mockIO = put $ mockIO { logged = calculateString text <> logged mockIO }
 
 ----
 
 type MockIO = State MockIOData
 
-calculate :: String -> Output
-calculate = toText . reverse
+calculateText :: String -> Output
+calculateText = Text.reverse . toText
+
+calculateString :: Output -> String
+calculateString =  toString . Text.reverse
 
 data MockIOData = MockIOData
-  { input   :: !String
-  , output  :: !String
-  , logged  :: !String
---  , saved :: Text
+  { input  :: !String
+  , output :: !String
+  , logged :: !String
   }
   deriving stock (Eq , Show , Read)
 

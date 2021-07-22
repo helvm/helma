@@ -1,12 +1,23 @@
 # 📅 Revision history for HelMA
 
+## 0.6.10.0 -- 2021-09-07
+
+* Use `Vector`
+* Use `Slist`
+* Use `LinkedList`
+* Add `MonoTraversable` but not use
+* Use `gauge` and remove duplicate tests
+* Use `stylish-haskell`
+* Use `haddock`
+* Add `Makefile`
+
 ## 0.6.9.0  -- 2021-07-22
 
-* Use MonadError
-* Use Stan
-* Use pretty-simple for golden tests
-* Fill up ARCHITECTURE.md
-* Replace WrapperIO by BusinessIO
+* Use `MonadError`
+* Use `Stan`
+* Use `pretty-simple` for golden tests
+* Fill up `ARCHITECTURE.md`
+* Replace `WrapperIO` by `BusinessIO`
 * Remove repeated tests
 
 ## 0.6.8.0  -- 2021-07-06
@@ -26,25 +37,25 @@
 ## 0.6.5.0  -- 2021-06-06
 
 * Change name to HelMA
-* Use HSpec
-* Remove HUnit
+* Use `HSpec`
+* Remove `HUnit`
 * Extract Cat interpreter
 * Add Rev interpreter
 * Add examples
-* Remove gradle
+* Remove `gradle`
 * Add golden tests
 
 ## 0.6.4.0  -- 2021-03-17
 
-* Stack abstraction
+* `Stack` abstraction
 
 ## 0.6.3.0  -- 2021-03-10
 
-* RAM abstraction
+* `RAM` abstraction
 
 ## 0.6.2.0  -- 2021-02-23
 
-* RAM encapsulation
+* `RAM` encapsulation
 
 ## 0.6.1.0  -- 2021-02-08
 
@@ -52,7 +63,7 @@
 
 ## 0.6.0.0  -- 2020-08-07
 
-* Add Evaluator of ETA and SubLeq
+* Add `Evaluator` of ETA and SubLeq
 
 ## 0.5.0.0  -- 2020-06-30
 
@@ -60,8 +71,8 @@
 
 ## 0.4.0.0  -- 2020-06-22
 
-* Add Evaluator of BrainFuck and WhiteSpace
-* Add BusinessIO, FilterIf0, MockIO and tests for FilterIf0
+* Add `Evaluator` of BrainFuck and WhiteSpace
+* Add `WrapperIO`, `FilterIf0`, `MockIO` and tests for `FilterIf0`
 
 ## 0.3.0.0  -- 2020-05-30
 
@@ -74,3 +85,5 @@
 ## 0.1.0.0  -- 2020-05-09
 
 * First version. Released on an unsuspecting world.
+
+## 🌈 ❤️ 💛 💚 💙 🤍 🖤 🦄

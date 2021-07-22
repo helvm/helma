@@ -7,10 +7,11 @@ module HelVM.Expectations  (
   shouldBeDo,
 ) where
 
-import HelVM.Common.Safe
+import           HelVM.Common.Safe
 
-import Test.Hspec.Expectations.Pretty
+import           Test.Hspec.Expectations.Pretty
 
+-- | ioShould* functions
 infix 1 `ioShouldSafe`
 ioShouldSafe :: (Show a , Eq a) => IO (Safe a) -> IO a -> Expectation
 ioShouldSafe action expected = join $ liftA2 shouldSafe action expected
@@ -19,8 +20,7 @@ infix 1 `ioShouldBe`
 ioShouldBe :: (HasCallStack , Show a , Eq a) => IO a -> IO a -> Expectation
 ioShouldBe action expected = join $ liftA2 shouldBe action expected
 
-----
-
+-- | shouldSafe* functions
 infix 1 `shouldSafeExceptT`
 shouldSafeExceptT :: (Show a , Eq a) => SafeExceptT IO a -> a -> Expectation
 shouldSafeExceptT action = shouldReturn (exceptTToIO action)

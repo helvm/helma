@@ -1,7 +1,9 @@
 module HelVM.HelMA.Automata.ETA.Token where
 
-import HelVM.Common.Digit.ToDigit
-import HelVM.Common.Safe
+import           HelVM.Common.Digit.ToDigit
+import           HelVM.Common.Safe
+
+import           Data.Vector                as Vector
 
 import qualified Text.Read
 import qualified Text.Show
@@ -9,7 +11,8 @@ import qualified Text.Show
 data Token = E | T | A | O | I | N | S | H | R
   deriving stock (Eq , Ord , Enum , Show , Read)
 
-type TokenList = [Token]
+type TokenList   = [Token]
+type TokenVector = Vector Token
 
 instance ToDigit Token where
   toDigit H = pure 0
@@ -33,18 +36,18 @@ instance Show WhiteToken where
   show (WhiteToken R) = "\n"
   show (WhiteToken t) = show t
 
--- Scanner
+-- | Scanner
 instance Read WhiteToken where
   readsPrec _ "\n" = [( WhiteToken R , "")]
-  readsPrec _ "E" = [( WhiteToken E , "")]
-  readsPrec _ "T" = [( WhiteToken T , "")]
-  readsPrec _ "A" = [( WhiteToken A , "")]
-  readsPrec _ "O" = [( WhiteToken O , "")]
-  readsPrec _ "I" = [( WhiteToken I , "")]
-  readsPrec _ "N" = [( WhiteToken N , "")]
-  readsPrec _ "S" = [( WhiteToken S , "")]
-  readsPrec _ "H" = [( WhiteToken H , "")]
-  readsPrec _ _   = []
+  readsPrec _ "E"  = [( WhiteToken E , "")]
+  readsPrec _ "T"  = [( WhiteToken T , "")]
+  readsPrec _ "A"  = [( WhiteToken A , "")]
+  readsPrec _ "O"  = [( WhiteToken O , "")]
+  readsPrec _ "I"  = [( WhiteToken I , "")]
+  readsPrec _ "N"  = [( WhiteToken N , "")]
+  readsPrec _ "S"  = [( WhiteToken S , "")]
+  readsPrec _ "H"  = [( WhiteToken H , "")]
+  readsPrec _ _    = []
 
 tokenToWhiteTokenPair :: Token -> (WhiteToken , String)
 tokenToWhiteTokenPair t = (WhiteToken t , "")

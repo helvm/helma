@@ -1,22 +1,17 @@
 module HelVM.GoldenExpectations (
-  (<->),
   goldenShouldSafeExceptT,
   goldenShouldSafe,
   goldenShouldIO,
   goldenShouldBe,
 ) where
 
-import HelVM.Common.Safe
+import           HelVM.Common.Safe
 
-import Control.Type.Operator
-import System.FilePath.Posix
+import           Control.Type.Operator
+import           System.FilePath.Posix
 
-import Test.Hspec.Golden
-import Test.Hspec.Core.Spec
-
-infixl 1 <->
-(<->) :: FilePath -> FilePath -> FilePath
-(<->) major minor = major <> "-" <> minor
+import           Test.Hspec.Core.Spec
+import           Test.Hspec.Golden
 
 infix 1 `goldenShouldSafeExceptT`
 goldenShouldSafeExceptT:: SafeExceptT IO Text -> FilePath -> GoldenExpectations Text

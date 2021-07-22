@@ -7,7 +7,7 @@ module HelVM.HelMA.Automata.BrainFuck.Symbol (
   toChar
 ) where
 
-import Data.Default (Default)
+import           Data.Default (Default)
 
 import qualified Data.Default as Default
 import qualified Relude.Extra as Extra

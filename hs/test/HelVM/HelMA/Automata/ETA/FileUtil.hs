@@ -5,9 +5,9 @@ module HelVM.HelMA.Automata.ETA.FileUtil (
   buildAbsoluteOutFileName
 ) where
 
-import HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.IOTypes
 
-import System.FilePath.Posix
+import           System.FilePath.Posix
 
 readEtaFile :: FilePath -> IO Source
 readEtaFile fileName = readFileText $ buildAbsoluteEtaFileName fileName

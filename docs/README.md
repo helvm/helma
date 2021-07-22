@@ -1,10 +1,8 @@
-# Welcome to 🔧 🎨 HelMA
-**🔧 🎨 HelMA** - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages implemented in Haskell
-and it is first part of [HelVM](http://helvm.online/) project.
+# 🔧 🎨 HelMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages implemented in Haskell
 
-**🧑‍🔧 🧑‍🎨 HAMAMAL** - Holistic Actual Minimalist Automatic Mechanical Languages is a kind of [Low-level] [First-generation] [Code] for Esoteric Languages.
-
-**🧑‍🔧 🧑‍🎨 HAMALAM** - Holistic Actual Minimalist Languages of Automatic Machine
+**🔧 🎨 HelMA** is first part of [HelVM](http://helvm.online/) project and implementation of:
+* **🧑‍🔧 🧑‍🎨 HAMALAM** - Holistic Actual Minimalist Languages of Automatic Machine.
+* **🧑‍🔧 🧑‍🎨 HAMAMAL** - Holistic Actual Minimalist Automatic Mechanical Languages is a kind of [Low-level] [First-generation] [Code] for Esoteric Languages.
 
 ```
 FOR everyone
@@ -23,6 +21,7 @@ THAT is an Evaluator and an Interpreter for Esoteric Languages (EsoAutomata)
 
 ## For Developers
 
+* [THANKS](THANKS.md)
 * [AUTHORS](AUTHORS.md)
 * [ROADMAP](ROADMAP.md)
 * [CHANGELOG](CHANGELOG.md)

@@ -1,13 +1,15 @@
 module HelVM.HelMA.Automata.ETA.AddressingSpec (spec) where
 
-import HelVM.HelMA.Automata.ETA.Addressing
-import HelVM.HelMA.Automata.ETA.EvaluatorSpecData
-import HelVM.HelMA.Automata.ETA.Token
+import           HelVM.HelMA.Automata.ETA.Addressing
+import           HelVM.HelMA.Automata.ETA.EvaluatorSpecData
+import           HelVM.HelMA.Automata.ETA.Token
 
-import HelVM.Expectations
+import           HelVM.Expectations
 
-import Test.Hspec (Spec , describe , it)
-import Test.Hspec.Expectations.Pretty
+import qualified Data.Vector                                as Vector
+
+import           Test.Hspec                                 (Spec, describe, it)
+import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec
 spec = do
@@ -57,8 +59,8 @@ spec = do
           ] $ \(input , output) -> do
       it (show input) $ do nextLabel hello2TL input `shouldBe` output
 
-ertrar :: TokenList
-ertrar = [E , R , T , R , A , R]
+ertrar :: TokenVector
+ertrar = Vector.fromList [E , R , T , R , A , R]
 
-etaretaretar :: TokenList
-etaretaretar = [E , T , A , R , E , T , A , R , E , T , A , R]
+etaretaretar :: TokenVector
+etaretaretar = Vector.fromList [E , T , A , R , E , T , A , R , E , T , A , R]

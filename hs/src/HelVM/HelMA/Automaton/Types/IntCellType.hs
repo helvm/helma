@@ -10,6 +10,6 @@ defaultIntCellType :: IntCellType
 defaultIntCellType = IntegerType
 
 parseIntCellType :: String -> IntCellType
-parseIntCellType raw = valid $ readMaybe raw where
-  valid (Just value)  = value
-  valid Nothing = error $ "IntCellType '" <> toText raw <> "' is not valid IntCellType. Valid intCellTypes are : " <> show intCellTypes
+parseIntCellType raw = (valid . readMaybe) raw where
+  valid (Just value) = value
+  valid Nothing      = error $ "IntCellType '" <> toText raw <> "' is not valid IntCellType. Valid intCellTypes are : " <> show intCellTypes

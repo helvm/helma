@@ -3,9 +3,9 @@ module HelVM.HelMA.Automata.Cat.Evaluator (
   eval
 ) where
 
-import HelVM.HelMA.Automaton.API.EvalParams
-import HelVM.HelMA.Automaton.API.IOTypes
-import HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.API.EvalParams
+import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.IO.BusinessIO
 
 evalParams :: BIO m => EvalParams -> m ()
 evalParams = eval . source

@@ -13,3 +13,5 @@ Features to do:
 You can propose feature by [GitHub](https://github.com/helvm/helma/issues).
 
 For more see [ROADMAP](ROADMAP.md).
+
+## 🌈 ❤️ 💛 💚 💙 🤍 🖤 🦄

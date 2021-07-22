@@ -1,13 +1,14 @@
 module HelVM.HelMA.Automata.ETA.OperandParsersSpec (spec) where
 
-import HelVM.HelMA.Automata.ETA.OperandParsers
-import HelVM.HelMA.Automata.ETA.Token
+import           HelVM.HelMA.Automata.ETA.OperandParsers
+import           HelVM.HelMA.Automata.ETA.Token
 
-import HelVM.Expectations
+import           HelVM.Common.Safe
+import           HelVM.Expectations
 
-import HelVM.Common.Safe
+import qualified Data.Vector                             as Vector
 
-import Test.Hspec (Spec , describe , it)
+import           Test.Hspec                              (Spec, describe, it)
 
 spec :: Spec
 spec = do
@@ -29,4 +30,4 @@ spec = do
     it "[T , T , T , E]" $ do parseInteger [T , T , T , E] `shouldSafe` 57
 
 parseInteger :: TokenList -> Safe Integer
-parseInteger tl = fst <$> parseNumber (IU tl 0)
+parseInteger tl = fst <$> parseNumber (IU (Vector.fromList tl) 0)

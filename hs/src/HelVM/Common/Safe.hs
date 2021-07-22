@@ -36,13 +36,13 @@ module HelVM.Common.Safe (
   Error,
 ) where
 
-import HelVM.Common.Util
+import           HelVM.Common.Util
 
-import Control.Monad.Except hiding (ExceptT , runExceptT)
+import           Control.Monad.Except hiding (ExceptT, runExceptT)
 
-import System.IO.Error
+import           System.IO.Error
 
-import qualified Data.List.Singleton as List
+import qualified Data.DList           as DList
 
 safeIOToPTextIO :: Show a => IO (Safe a) -> IO Text
 safeIOToPTextIO a = showP <$> safeIOToIO a
@@ -66,9 +66,9 @@ errorsToString :: Errors -> String
 errorsToString = toString . errorsToText
 
 errorsToText :: Errors -> Text
-errorsToText = unlines . reverse
+errorsToText = unlines . DList.toList
 
--- Lift
+-- | Lift
 
 liftExceptT :: MonadError e m => ExceptT e m a -> m a
 liftExceptT m = liftEither =<< runExceptT m
@@ -77,12 +77,15 @@ liftSafe :: MonadSafeError m => Safe a -> m a
 liftSafe = liftEither
 
 liftEitherError :: MonadSafeError m => Either Text a -> m a
-liftEitherError = liftEither . first List.singleton
+liftEitherError = liftSafe . first DList.singleton
 
 liftEitherLegacy :: MonadSafeError m => EitherLegacy a -> m a
-liftEitherLegacy = liftSafe . first (List.singleton . toText)
+liftEitherLegacy = liftSafe . first stringToErrors
 
--- Lift from Maybe
+stringToErrors :: String -> Errors
+stringToErrors = DList.singleton . toText
+
+-- | Lift from Maybe
 
 liftMaybeOrErrorTupleList :: MonadSafeError m => [ErrorTuple] -> Maybe a -> m a
 liftMaybeOrErrorTupleList = liftMaybeOrError . tupleListToError
@@ -91,9 +94,9 @@ liftMaybeOrErrorTuple :: MonadSafeError m => ErrorTuple -> Maybe a -> m a
 liftMaybeOrErrorTuple = liftMaybeOrError . tupleToError
 
 liftMaybeOrError :: MonadSafeError m => Error -> Maybe a -> m a
-liftMaybeOrError e = liftSafe . maybeToRight [e]
+liftMaybeOrError e = liftSafe . maybeToRight (DList.singleton e)
 
--- Lift from Error
+-- | Lift from Error
 
 liftErrorTupleList :: MonadSafeError m => [ErrorTuple] -> m a
 liftErrorTupleList = liftError . tupleListToError
@@ -102,9 +105,9 @@ liftErrorTuple :: MonadSafeError m => ErrorTuple -> m a
 liftErrorTuple = liftError . tupleToError
 
 liftError :: MonadSafeError m => Error -> m a
-liftError e = throwError [e]
+liftError = throwError . DList.singleton
 
--- Append Error
+-- | Append Error
 
 appendErrorTupleList :: MonadSafeError m => [ErrorTuple] -> m a -> m a
 appendErrorTupleList = appendError . tupleListToError
@@ -113,7 +116,7 @@ appendErrorTuple :: MonadSafeError m => ErrorTuple -> m a -> m a
 appendErrorTuple = appendError . tupleToError
 
 appendError :: MonadSafeError m => Error -> m a -> m a
-appendError message a = catchError a appendAndThrow where appendAndThrow es = throwError ([message] <> es)
+appendError message a = catchError a appendAndThrow where appendAndThrow es = throwError (es `DList.snoc` message)
 
 ----
 
@@ -139,6 +142,6 @@ type Safe = Either Errors
 
 type ErrorTuple = (Error , Error)
 
-type Errors = [Text]
+type Errors = DList.DList Text
 
 type Error = Text

@@ -12,3 +12,5 @@ Currently, **🔧 🎨 HelMA** interpret:
 [comment]: <> (* 💚 Piet)
 
 For more see [CHANGELOG](CHANGELOG.md).
+
+## 🌈 ❤️ 💛 💚 💙 🤍 🖤 🦄

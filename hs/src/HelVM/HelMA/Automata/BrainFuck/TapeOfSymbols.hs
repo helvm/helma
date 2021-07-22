@@ -8,7 +8,7 @@ module HelVM.HelMA.Automata.BrainFuck.TapeOfSymbols (
   writeSymbol
 ) where
 
-import HelVM.HelMA.Automata.BrainFuck.Symbol
+import           HelVM.HelMA.Automata.BrainFuck.Symbol
 
 ----
 
@@ -25,17 +25,17 @@ newTape = ([def] , [def])
 
 moveHeadRight :: (Symbol e) => FullTapeD e
 moveHeadRight (cell:left , right) = pad (left , cell:right)
-moveHeadRight ([] , _)            = error "End of the Tipe"
+moveHeadRight ([] , _)            = error "End of the Tape"
 
 moveHeadLeft :: (Symbol e) => FullTapeD e
 moveHeadLeft (left , cell:right) = pad (cell:left , right)
-moveHeadLeft (_ , [])            = error "End of the Tipe"
+moveHeadLeft (_ , [])            = error "End of the Tape"
 
 pad :: (Symbol e) => FullTapeD e
 pad ([] , [])    = newTape
 pad ([] , right) = ([def] , right)
 pad (left , [])  = (left , [def])
-pad tape        = tape
+pad tape         = tape
 
 ----
 

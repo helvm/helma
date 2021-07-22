@@ -1,16 +1,16 @@
 module HelVM.HelMA.Automata.WhiteSpace.LexerSpec (spec) where
 
-import HelVM.HelMA.Automata.WhiteSpace.Lexer
+import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 
-import HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpecData
-import HelVM.HelMA.Automata.WhiteSpace.FileUtil
+import           HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpecData
+import           HelVM.HelMA.Automata.WhiteSpace.FileUtil
 
-import HelVM.GoldenExpectations
+import           HelVM.GoldenExpectations
 
-import System.FilePath.Posix
+import           System.FilePath.Posix
 
-import Test.Hspec (Spec , describe , it)
-import Test.Hspec.Expectations.Pretty
+import           Test.Hspec                                        (Spec, describe, it)
+import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec
 spec = do

@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.BrainFuck.Token where
 
-import Text.Read
+import           Text.Read
 
 import qualified Text.Show
 

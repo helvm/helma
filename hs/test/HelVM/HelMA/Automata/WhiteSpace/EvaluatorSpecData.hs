@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpecData where
 
-import HelVM.HelMA.Automata.WhiteSpace.Token
-import HelVM.HelMA.Automata.WhiteSpace.Instruction
+import           HelVM.HelMA.Automata.WhiteSpace.Instruction
+import           HelVM.HelMA.Automata.WhiteSpace.Token
 
 calcTL :: TokenList
 calcTL =

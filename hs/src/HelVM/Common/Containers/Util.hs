@@ -1,11 +1,11 @@
 module HelVM.Common.Containers.Util where
 
-import HelVM.Common.Safe
+import           HelVM.Common.Safe
 
-import Relude.Extra
+import           Relude.Extra
 
-indexSafeByKey :: (Show k, Ord k, Show v) => k -> Map k v -> Safe v
-indexSafeByKey k mapKV = maybeToSafeOrErrorTupleList [( "key" , show k) , ("map" , show mapKV)] $ lookup k mapKV
+indexSafeByKey :: (MonadSafeError m , Show k , Ord k , Show v) => k -> Map k v -> m v
+indexSafeByKey k mapKV = liftMaybeOrErrorTupleList [( "key" , show k) , ("map" , show mapKV)] $ lookup k mapKV
 
 showFoldable ::  (Foldable c , Functor c , Show e) => c e -> Text
 showFoldable f = fmconcat $ show <$> f

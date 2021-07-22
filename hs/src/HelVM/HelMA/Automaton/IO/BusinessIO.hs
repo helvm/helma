@@ -1,8 +1,12 @@
 module HelVM.HelMA.Automaton.IO.BusinessIO (
-  SREvaluator,
-  REvaluator,
-  SEvaluator,
-  Evaluator,
+  SRLLEvaluator,
+  RLLEvaluator,
+  SLLEvaluator,
+  LLEvaluator,
+  SRMTEvaluator,
+  RMTEvaluator,
+  SMTEvaluator,
+  MTEvaluator,
   Element,
   BIO,
   BusinessIO,
@@ -19,19 +23,27 @@ module HelVM.HelMA.Automaton.IO.BusinessIO (
   wLogShow,
 ) where
 
-import HelVM.Common.Safe
+import           HelVM.Common.Safe
 
-import HelVM.HelMA.Automaton.Memories.RAMConst   as RAM
-import HelVM.HelMA.Automaton.Memories.StackConst as Stack
+import           HelVM.HelMA.Automaton.Memories.LLRAM   as LLRAM
+import           HelVM.HelMA.Automaton.Memories.LLStack as LLStack
 
-import Data.Default as Default
+import           HelVM.HelMA.Automaton.Memories.MTRAM   as MTRAM
+import           HelVM.HelMA.Automaton.Memories.MTStack as MTStack
 
-import qualified System.IO as IO
+import           Data.Default                           as Default
 
-type SREvaluator e s r m = (Stack e s , RAM e r , Evaluator e m)
-type REvaluator e r m = (RAM e r , Evaluator e m)
-type SEvaluator e s m = (Stack e s , Evaluator e m)
-type Evaluator e m = (Element e , BIO m)
+import qualified System.IO                              as IO
+
+type SRLLEvaluator e s r m = (LLStack.Stack s e, LLRAM.RAM r e, LLEvaluator e m)
+type RLLEvaluator e r m = (LLRAM.RAM r e, LLEvaluator e m)
+type SLLEvaluator e s m = (LLStack.Stack s e, LLEvaluator e m)
+type LLEvaluator e m = (Element e , BIO m)
+
+type SRMTEvaluator s r m = (MTStack.Stack s, MTRAM.RAM r, MTEvaluator m)
+type RMTEvaluator r m = (MTRAM.RAM r, MTEvaluator m)
+type SMTEvaluator s m = (MTStack.Stack s, MTEvaluator m)
+type MTEvaluator m = BIO m
 
 type Element e  = (ReadShow e, Integral e, Default e)
 type ReadShow e = (Read e , Show e )

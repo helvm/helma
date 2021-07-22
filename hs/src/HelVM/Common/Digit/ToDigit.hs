@@ -1,20 +1,35 @@
-module HelVM.Common.Digit.ToDigit where
+module HelVM.Common.Digit.ToDigit (
+  makeDigitString,
+  makeAsciiString28,
+  makeAsciiString,
+  makeIntegral2,
+  makeIntegral,
+  ToDigit,
+  toDigit,
+) where
 
-import HelVM.Common.Digit.Digits
-import HelVM.Common.Safe
+import           HelVM.Common.Digit.Digits
 
-import Data.Char hiding (chr)
+import           HelVM.Common.Collections.SList
+import           HelVM.Common.Safe
 
-import qualified Data.List.Split as List
+import           Data.Char                      hiding (chr)
 
-makeDigitString :: (MonadSafeError m , ToDigit a) => [a] -> m String
+import qualified HelVM.Common.Collections.SList as SList
+
+import qualified Data.ListLike                  as LL
+
+makeDigitString :: (MonadSafeError m , ToDigit a) => SList a -> m SString
 makeDigitString xs = sequenceA $ toDigitChar <$> xs
 
-makeAsciiString :: (MonadSafeError m , ToDigit a) => Int -> Int -> [a] -> m String
-makeAsciiString base n xs = sequenceA $ makeChar base <$> List.chunksOf n xs
+makeAsciiString28 :: (MonadSafeError m , ToDigit a) => SList a -> m SString
+makeAsciiString28 = makeAsciiString 2 8
 
-makeChar :: (MonadSafeError m , ToDigit a) => Int -> [a] -> m Char
-makeChar base xs = chr <$> makeIntegral base (reverse xs)
+makeAsciiString :: (MonadSafeError m , ToDigit a) => Int -> Int -> SList a -> m SString
+makeAsciiString base n xs = sequenceA $ makeChar base <$> SList.chunksOf n xs
+
+makeChar :: (MonadSafeError m , ToDigit a) => Int -> SList a -> m Char
+makeChar base xs = chr <$> makeIntegral base (LL.reverse xs)
 
 toDigitChar :: MonadSafeError m => ToDigit a => a -> m Char
 toDigitChar a = integerToDigit <$> toDigit a
@@ -22,7 +37,10 @@ toDigitChar a = integerToDigit <$> toDigit a
 integerToDigit :: Integer -> Char
 integerToDigit = intToDigit . fromInteger
 
-makeIntegral :: (MonadSafeError m , ToDigit a , Integral b) => b -> [a] -> m b
+makeIntegral2 :: (MonadSafeError m , ToDigit a , Integral b) => SList a -> m b
+makeIntegral2 = makeIntegral 2
+
+makeIntegral :: (MonadSafeError m , ToDigit a , Integral b) => b -> SList a -> m b
 makeIntegral base digits = digitsToIntegral base (toDigit <$> digits)
 
 class ToDigit t where

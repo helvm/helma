@@ -5,27 +5,32 @@ module HelVM.HelMA.Automata.ETA.Addressing (
   nextLabel
 ) where
 
-import HelVM.HelMA.Automata.ETA.Symbol
-import HelVM.HelMA.Automata.ETA.Token
+import           HelVM.HelMA.Automata.ETA.Symbol
+import           HelVM.HelMA.Automata.ETA.Token
 
-import HelVM.Common.Containers.Lookup
-import HelVM.Common.Safe
+import           HelVM.Common.Containers.LLIndexSafe
 
-import qualified Data.List as List
+import           HelVM.Common.Safe
 
-----
+import           Data.ListLike
 
-genericFindAddress :: Integral cell => TokenList -> cell -> Safe InstructionAddress
-genericFindAddress il address = findAddress il $ fromIntegral address
+import           Prelude                             hiding (length, splitAt)
 
-findAddress :: TokenList -> Int -> Safe InstructionAddress
-findAddress _  1 = pure 0
-findAddress il address = (+1) <$> indexSafe (List.elemIndices R (il <> [R])) (address-2)
+import qualified Data.Vector                         as Vector
 
 ----
 
-genericNextLabel :: Integral cell => TokenList -> InstructionAddress -> cell
-genericNextLabel il ic = fromIntegral $ nextLabel il ic
+genericFindAddress :: Integral cell => Vector.Vector Token -> cell -> Safe InstructionAddress
+genericFindAddress il = findAddress il . fromIntegral
 
-nextLabel :: TokenList -> InstructionAddress -> Int
-nextLabel il ic = length (List.elemIndices R il') + 2  where (il' , _) = splitAt ic il
+findAddress :: Vector.Vector Token -> Int -> Safe InstructionAddress
+findAddress _  1       = pure 0
+findAddress il address = (+1) <$> indexSafe (Vector.elemIndices R il) (address-2)
+
+----
+
+genericNextLabel :: Integral cell => Vector.Vector Token -> InstructionAddress -> cell
+genericNextLabel il = fromIntegral . nextLabel il
+
+nextLabel :: Vector.Vector Token -> InstructionAddress -> Int
+nextLabel il ic = length (Vector.elemIndices R il') + 2  where (il' , _) = splitAt ic il

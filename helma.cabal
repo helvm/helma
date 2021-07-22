@@ -1,9 +1,9 @@
 cabal-version:       2.4
 
 name:                helma
-version:             0.6.9.0
+version:             0.6.10.0
 
-synopsis:            HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages implemented in Haskell
+synopsis:            HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages
 description:         Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:            https://helvm.github.io/helma/
 bug-reports:         https://github.com/helvm/helma/issues
@@ -20,153 +20,176 @@ extra-source-files:
   docs/CHANGELOG.md
   docs/README.md
 
-tested-with:         GHC == 8.10.5
+tested-with:         GHC == 9.0.1
 
 source-repository head
   type:              git
   location:          https://github.com/helvm/helma
 
+flag ghcoptions
+    description: compile with options
+    manual     : True
+    default    : False
+
 common common-options
   build-depends:
-      base
-    , relude               == 1.0.0.0
+      base                 <  4.16
+    , relude               == 1.0.0.1
   mixins:
       base hiding (Prelude)
     , relude (Relude as Prelude, Relude.Extra, Data.Text)
-  ghc-options:
---Extensions
-    -XEmptyDataDecls
-    -XExistentialQuantification
-    -XFlexibleContexts
-    -XFlexibleInstances
-    -XFunctionalDependencies
-    -XGADTs
-    -XGeneralizedNewtypeDeriving
-    -XInstanceSigs
-    -XKindSignatures
-    -XLambdaCase
---    -XMonadFailDesugaring
-    -XMultiParamTypeClasses
-    -XMultiWayIf
-    -XNamedFieldPuns
---    -XNoImplicitPrelude
-    -XOverloadedStrings
-    -XPartialTypeSignatures
-    -XPatternGuards
-    -XPolyKinds
-    -XRankNTypes
-    -XRecordWildCards
-    -XScopedTypeVariables
-    -XStandaloneDeriving
-    -XTupleSections
-    -XTypeFamilies
-    -XTypeSynonymInstances
-    -XViewPatterns
---    -XCPP
---    -XTemplateHaskell
---    -XForeignFunctionInterface
---    -XMagicHash
---    -XUnliftedFFITypes
-    -XTypeOperators
---    -XUnboxedTuples
---    -XPackageImports
---    -XQuasiQuotes
---    -XDeriveAnyClass
---    -XDeriveLift
---    -XStaticPointers
-    -XDerivingStrategies
-    -XConstraintKinds
-    -XStrictData
---Warnings
-    -Wall
-    -Wcompat
-    -Widentities
-    -Wincomplete-uni-patterns
-    -Wincomplete-record-updates
-    -Wredundant-constraints
-    -Wnoncanonical-monad-instances
-    -fhide-source-paths
---    -Wmissing-export-lists FIXME
-    -Wpartial-fields
-    -Wmissing-deriving-strategies
-    -fwrite-ide-info
-    -hiedir=.hie
-    -Wunused-packages
-    -Werror
-    -fprint-potential-instances
-
   default-language:    Haskell2010
+  default-extensions:
+    EmptyDataDecls
+    ExistentialQuantification
+    FlexibleContexts
+    FlexibleInstances
+    FunctionalDependencies
+    GADTs
+    GeneralizedNewtypeDeriving
+    InstanceSigs
+    KindSignatures
+    LambdaCase
+    MultiParamTypeClasses
+    MultiWayIf
+    NamedFieldPuns
+--    NoImplicitPrelude
+    OverloadedStrings
+    PartialTypeSignatures
+    PatternGuards
+    PolyKinds
+    RankNTypes
+    RecordWildCards
+    ScopedTypeVariables
+    StandaloneDeriving
+    TupleSections
+    TypeFamilies
+    TypeSynonymInstances
+    ViewPatterns
+--    CPP
+--    TemplateHaskell
+--    ForeignFunctionInterface
+--    MagicHash
+--    UnliftedFFITypes
+    TypeOperators
+--    UnboxedTuples
+--    PackageImports
+--    QuasiQuotes
+--    DeriveAnyClass
+--    DeriveLift
+--    StaticPointers
+    DerivingStrategies
+    ConstraintKinds
+    StrictData
+  if flag(ghcoptions)
+    ghc-options:
+      -Wall
+      -Wcompat
+      -Widentities
+      -Wincomplete-uni-patterns
+      -Wincomplete-record-updates
+      -Wredundant-constraints
+      -Wnoncanonical-monad-instances
+      -fhide-source-paths
+--      -Wmissing-export-lists FIXME
+       -Wpartial-fields
+      -Wmissing-deriving-strategies
+      -fwrite-ide-info
+      -hiedir=.hie
+      -Wunused-packages
+      -fprint-potential-instances
+      -Werror
 
 library
   import:              common-options
   hs-source-dirs:      hs/src
   exposed-modules:
-    HelVM.Common.Containers.ChunksOf
-    HelVM.Common.Containers.FromList
-    HelVM.Common.Containers.Insert
-    HelVM.Common.Containers.Lookup
-    HelVM.Common.Containers.Pop
-    HelVM.Common.Containers.Reverse
-    HelVM.Common.Containers.SplitAt
+    HelVM.Common.Collections.MapList
+    HelVM.Common.Collections.SList
+
+    HelVM.Common.Containers.LLIndexSafe
+    HelVM.Common.Containers.LLInsertDef
+    HelVM.Common.Containers.MTIndexSafe
+    HelVM.Common.Containers.MTInsertDef
+    HelVM.Common.Containers.Util
+
     HelVM.Common.Digit.Digitable
     HelVM.Common.Digit.Digits
     HelVM.Common.Digit.ToDigit
+
+    HelVM.Common.ListLikeUtil
+    HelVM.Common.NamedValue
     HelVM.Common.ReadText
     HelVM.Common.Safe
+    HelVM.Common.SequencesUtil
     HelVM.Common.Util
 
-    HelVM.HelMA.Automaton.API.EvalParams
-    HelVM.HelMA.Automaton.API.IOTypes
-    HelVM.HelMA.Automaton.API.TypeOptions
-    HelVM.HelMA.Automaton.BinaryOperator
-    HelVM.HelMA.Automaton.Memories.RAMConst
-    HelVM.HelMA.Automaton.Memories.StackConst
-    HelVM.HelMA.Automaton.IO.BusinessIO
-    HelVM.HelMA.Automaton.IO.MockIO
-    HelVM.HelMA.Automaton.Types.CellType
-    HelVM.HelMA.Automaton.Types.IntCellType
-    HelVM.HelMA.Automaton.Types.StackType
-    HelVM.HelMA.Automaton.Types.TokenType
-    HelVM.HelMA.Automaton.Types.RAMType
-    HelVM.HelMA.Automaton.WrapTokenList
-
-    HelVM.HelMA.Automata.Cat.Evaluator
-    HelVM.HelMA.Automata.Rev.Evaluator
-
-    HelVM.HelMA.Automata.BrainFuck.Evaluator
+    HelVM.HelMA.Automata.BrainFuck.Evaluator.TEvaluator
+    HelVM.HelMA.Automata.BrainFuck.Evaluator.IEvaluator
+    HelVM.HelMA.Automata.BrainFuck.Instruction
     HelVM.HelMA.Automata.BrainFuck.Lexer
+    HelVM.HelMA.Automata.BrainFuck.Parser
     HelVM.HelMA.Automata.BrainFuck.Symbol
     HelVM.HelMA.Automata.BrainFuck.TableOfInstructions
     HelVM.HelMA.Automata.BrainFuck.TapeOfSymbols
     HelVM.HelMA.Automata.BrainFuck.Token
 
-    HelVM.HelMA.Automata.ETA.Evaluator
+    HelVM.HelMA.Automata.Cat.Evaluator
+
     HelVM.HelMA.Automata.ETA.Addressing
+    HelVM.HelMA.Automata.ETA.Evaluator.LLEvaluator
+    HelVM.HelMA.Automata.ETA.Evaluator.MTEvaluator
     HelVM.HelMA.Automata.ETA.Lexer
     HelVM.HelMA.Automata.ETA.OperandParsers
     HelVM.HelMA.Automata.ETA.Symbol
     HelVM.HelMA.Automata.ETA.Token
 
-    HelVM.HelMA.Automata.SubLeq.Evaluator
+    HelVM.HelMA.Automata.Rev.Evaluator
+
+    HelVM.HelMA.Automata.SubLeq.Evaluator.LLEvaluator
     HelVM.HelMA.Automata.SubLeq.Lexer
     HelVM.HelMA.Automata.SubLeq.Symbol
 
     HelVM.HelMA.Automata.WhiteSpace.Addressing
-    HelVM.HelMA.Automata.WhiteSpace.Evaluator
+    HelVM.HelMA.Automata.WhiteSpace.Evaluator.LLEvaluator
     HelVM.HelMA.Automata.WhiteSpace.Instruction
     HelVM.HelMA.Automata.WhiteSpace.Lexer
     HelVM.HelMA.Automata.WhiteSpace.OperandParsers
     HelVM.HelMA.Automata.WhiteSpace.Parser
+    HelVM.HelMA.Automata.WhiteSpace.SimpleParams
     HelVM.HelMA.Automata.WhiteSpace.Symbol
     HelVM.HelMA.Automata.WhiteSpace.Token
+
+    HelVM.HelMA.Automaton.API.EvalParams
+    HelVM.HelMA.Automaton.API.IOTypes
+    HelVM.HelMA.Automaton.API.TypeOptions
+    HelVM.HelMA.Automaton.BinaryOperator
+    HelVM.HelMA.Automaton.IO.BusinessIO
+    HelVM.HelMA.Automaton.IO.MockIO
+    HelVM.HelMA.Automaton.Memories.LLRAM
+    HelVM.HelMA.Automaton.Memories.LLStack
+    HelVM.HelMA.Automaton.Memories.MTRAM
+    HelVM.HelMA.Automaton.Memories.MTStack
+    HelVM.HelMA.Automaton.Types.CellType
+    HelVM.HelMA.Automaton.Types.IntCellType
+    HelVM.HelMA.Automaton.Types.RAMType
+    HelVM.HelMA.Automaton.Types.StackType
+    HelVM.HelMA.Automaton.Types.TokenType
+    HelVM.HelMA.Automaton.WrapTokenList
+
   build-depends:
       containers           == 0.6.2.1
     , data-default
+    , dlist
     , ilist
-    , list-singleton
+    , ListLike
+    , mono-traversable
     , mtl
     , pretty-simple
-    , split
+    , slist
+    , type-operators
+    , vector
+
   ghc-options:
 
 executable helma
@@ -177,7 +200,6 @@ executable helma
     AppOptions
   build-depends:
       helma
-
     , optparse-applicative >= 0.14.3.0
     , pretty-simple
   ghc-options:
@@ -196,21 +218,22 @@ test-suite helma-test
     HelVM.CartesianProduct
     HelVM.Expectations
     HelVM.GoldenExpectations
+    HelVM.MonadErrorSpec
 
-    HelVM.Common.Containers.SplitAtSpec
+    HelVM.Common.Collections.MapListSpec
+    HelVM.Common.ListLikeUtilSpec
 
-    HelVM.HelMA.Automaton.FilterIf0Spec
-
-    HelVM.HelMA.Automata.BrainFuck.TokensSpec
-    HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec
+    HelVM.HelMA.Automata.BrainFuck.Evaluator.IEvaluatorSpec
+    HelVM.HelMA.Automata.BrainFuck.Evaluator.TEvaluatorSpec
     HelVM.HelMA.Automata.BrainFuck.EvaluatorSpecData
     HelVM.HelMA.Automata.BrainFuck.FileUtil
+    HelVM.HelMA.Automata.BrainFuck.TokensSpec
 
     HelVM.HelMA.Automata.Cat.EvaluatorSpec
 
+    HelVM.HelMA.Automata.ETA.AddressingSpec
     HelVM.HelMA.Automata.ETA.EvaluatorSpec
     HelVM.HelMA.Automata.ETA.EvaluatorSpecData
-    HelVM.HelMA.Automata.ETA.AddressingSpec
     HelVM.HelMA.Automata.ETA.FileUtil
     HelVM.HelMA.Automata.ETA.LexerSpec
     HelVM.HelMA.Automata.ETA.OperandParsersSpec
@@ -219,40 +242,67 @@ test-suite helma-test
 
     HelVM.HelMA.Automata.SubLeq.EvaluatorSpec
     HelVM.HelMA.Automata.SubLeq.EvaluatorSpecData
-    HelVM.HelMA.Automata.SubLeq.LexerSpec
     HelVM.HelMA.Automata.SubLeq.FileUtil
+    HelVM.HelMA.Automata.SubLeq.LexerSpec
 
-    HelVM.HelMA.Automata.WhiteSpace.ParserSpec
     HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec
     HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpecData
     HelVM.HelMA.Automata.WhiteSpace.FileUtil
     HelVM.HelMA.Automata.WhiteSpace.LexerSpec
     HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec
+    HelVM.HelMA.Automata.WhiteSpace.ParserSpec
+    HelVM.HelMA.Automaton.FilterIf0Spec
+
   build-depends:
-      helma
-
-    , filepath
-    , type-operators
-
-    , hspec
+      hspec
     , hspec-core
     , hspec-expectations-pretty-diff
     , hspec-golden
     , hspec-slow
+
+    , helma
+
+    , filepath
+    , ListLike
+    , mtl
+    , type-operators
+    , vector
+
   build-tool-depends:  hspec-discover:hspec-discover == 2.*
   ghc-options:
     -threaded
     -rtsopts
     -with-rtsopts=-N
 
---benchmark helma-benchmark
---  import:              common-options
---  type:                exitcode-stdio-1.0
---  hs-source-dirs:      hs/benchmark
---  main-is:             Main.hs
---  build-depends:
---    helma
---  ghc-options:
---    -threaded
---    -rtsopts
---    -with-rtsopts=-N
+benchmark helma-benchmark
+  import:              common-options
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      hs/benchmark
+  main-is:             Main.hs
+  other-modules:
+    HelVM.CartesianProduct
+
+    HelVM.HelMA.Automata.BrainFuck.Evaluator.IEvaluatorBenchMark
+    HelVM.HelMA.Automata.BrainFuck.Evaluator.TEvaluatorBenchMark
+    HelVM.HelMA.Automata.BrainFuck.FileUtil
+
+    HelVM.HelMA.Automata.ETA.EvaluatorBenchMark
+    HelVM.HelMA.Automata.ETA.FileUtil
+
+    HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark
+    HelVM.HelMA.Automata.SubLeq.FileUtil
+
+    HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark
+    HelVM.HelMA.Automata.WhiteSpace.FileUtil
+  build-depends:
+      gauge
+
+    , helma
+
+    , filepath
+    , ListLike
+
+  ghc-options:
+    -threaded
+    -rtsopts
+    -with-rtsopts=-N

@@ -1,12 +1,12 @@
 {-# LANGUAGE StrictData #-}
 module AppOptions where
 
-import HelVM.HelMA.Automaton.Types.CellType
-import HelVM.HelMA.Automaton.Types.IntCellType
-import HelVM.HelMA.Automaton.Types.StackType
-import HelVM.HelMA.Automaton.Types.RAMType
+import           HelVM.HelMA.Automaton.Types.CellType
+import           HelVM.HelMA.Automaton.Types.IntCellType
+import           HelVM.HelMA.Automaton.Types.RAMType
+import           HelVM.HelMA.Automaton.Types.StackType
 
-import Options.Applicative
+import           Options.Applicative
 
 optionParser :: Parser AppOptions
 optionParser = AppOptions
@@ -73,15 +73,15 @@ optionParser = AppOptions
   <*> argument str (  metavar "FILE")
 
 data AppOptions = AppOptions
-  { lang        :: !String      -- Lang
+  { lang        :: !String      -- | Lang
   , minified    :: !Minified
   , emitTL      :: !EmitTL
   , emitIL      :: !EmitIL
   , asciiLabels :: !AsciiLabels
-  , ramType     :: !String      -- RAMType
-  , stackType   :: !String      -- StackType
-  , cellType    :: !String      -- CellType
-  , intCellType :: !String      -- IntCellType
+  , ramType     :: !String      -- | RAMType
+  , stackType   :: !String      -- | StackType
+  , cellType    :: !String      -- | CellType
+  , intCellType :: !String      -- | IntCellType
   , exec        :: !Exec
   , file        :: !String
   }
@@ -102,6 +102,6 @@ langs :: [Lang]
 langs = [Cat , Rev , BF , ETA , SQ , STN , WS]
 
 parseLang :: String -> Lang
-parseLang raw = valid $ readMaybe raw where
+parseLang raw = (valid . readMaybe) raw where
   valid (Just a) = a
   valid Nothing  = error $ "Lang '" <> toText raw <> "' is not valid lang. Valid langs are : " <> show langs

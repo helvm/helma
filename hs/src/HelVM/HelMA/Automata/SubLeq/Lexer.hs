@@ -1,13 +1,13 @@
 module HelVM.HelMA.Automata.SubLeq.Lexer where
 
-import HelVM.HelMA.Automata.SubLeq.Symbol
+import           HelVM.HelMA.Automata.SubLeq.Symbol
 
-import HelVM.HelMA.Automaton.API.IOTypes
-import HelVM.Common.ReadText
-import HelVM.Common.Util
+import           HelVM.Common.ReadText
+import           HelVM.Common.Util
+import           HelVM.HelMA.Automaton.API.IOTypes
 
-import qualified Text.Read as Read
-import qualified Text.Show as Show
+import qualified Text.Read                          as Read
+import qualified Text.Show                          as Show
 
 tokenize :: Source -> SymbolList
 tokenize source = (maybeToList . readTextMaybe) =<< splitOneOf " \t\n" source
