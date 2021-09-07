@@ -1,4 +1,4 @@
-.PHONY: all bench build check clean configure fast haddock hlint main repl report run stan stylish test update
+.PHONY: all bench build check clean configure golden fast haddock hlint main repl report run stan stylish test update
 
 all: update fast bench
 
@@ -18,10 +18,14 @@ clean:
 	cabal new-clean
 	if test -d .cabal-sandbox; then cabal sandbox delete; fi
 	if test -d .hpc; then rm -r .hpc; fi
+	if test -d .hie; then rm -r .hie; fi
 
 configure:
-	rm cabal.project.local*
+	rm -f cabal.project.local*
 	cabal configure --enable-benchmarks --enable-coverage --enable-tests -f ghcoptions
+
+golden:
+	if test -d .output/golden; then rm -r .output/golden; fi
 
 haddock:
 	cabal new-haddock
@@ -39,6 +43,7 @@ report:
 	make haddock stan hlint
 
 run:
+	rm -f helma.tix
 	cabal new-run --jobs helma
 
 stan:

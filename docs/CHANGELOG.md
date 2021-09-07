@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.6.11.0 -- 2021-12-13
+
+* Add examples for SubLeq
+
 ## 0.6.10.0 -- 2021-09-07
 
 * Use `Vector`

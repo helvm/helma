@@ -14,15 +14,15 @@ parseInt tl = parseInt' <$> parseInteger tl where
 
 parseInteger :: OperandParser Integer
 parseInteger []       = liftError "EOL"
-parseInteger (S : tl) = parseUtil makeIntegral2' tl
-parseInteger (T : tl) = negationIntegral <$> parseUtil makeIntegral2' tl
+parseInteger (S : tl) = parseUtil makeIntegral2FromList tl
+parseInteger (T : tl) = negationIntegral <$> parseUtil makeIntegral2FromList tl
 parseInteger (N : tl) = pure (0 , tl)
 
 negationIntegral :: (Integer , TokenList) -> (Integer , TokenList)
 negationIntegral (i , l) = (-i , l)
 
 parseNatural :: OperandParser Natural
-parseNatural = parseUtil makeIntegral2'
+parseNatural = parseUtil makeIntegral2FromList
 
 parseUtil :: (TokenList -> Safe a) -> OperandParser a
 parseUtil maker = go ([] :: TokenList) where
@@ -31,10 +31,10 @@ parseUtil maker = go ([] :: TokenList) where
   go acc (t:tl) = go (t : acc) tl
 
 parseDigitString :: OperandParser SString
-parseDigitString tl = moveSafe =<< parseString' makeDigitString' tl
+parseDigitString tl = moveSafe =<< parseString' makeDigitStringFromList tl
 
 parseAsciiString :: OperandParser SString
-parseAsciiString tl = moveSafe =<< parseString' makeAsciiString28' tl
+parseAsciiString tl = moveSafe =<< parseString' makeAsciiString28FromList tl
 
 moveSafe :: (Safe a , TokenList) -> Safe (a , TokenList)
 moveSafe (a , tl) = appendErrorTuple ("TokenList" , show tl) $ ( , tl) <$> a
@@ -48,13 +48,4 @@ splitByN []       = liftError "Empty list"
 splitByN (N : tl) = pure ([]    , tl)
 splitByN (t : tl) = splitByN' <$> splitByN tl where
   splitByN' (acc , tl') = (t:acc , tl')
-
-makeDigitString' :: (MonadSafeError m , ToDigit a) => [a] -> m SString
-makeDigitString' = makeDigitString . fromList
-
-makeAsciiString28' :: (MonadSafeError m , ToDigit a) => [a] -> m SString
-makeAsciiString28' = makeAsciiString28 . fromList
-
-makeIntegral2' :: (MonadSafeError m , ToDigit a, Integral b) => [a] -> m b
-makeIntegral2' = makeIntegral2 . fromList
 

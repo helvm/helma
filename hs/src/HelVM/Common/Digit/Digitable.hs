@@ -8,13 +8,13 @@ import           HelVM.Common.Safe
 -- | Public functions
 
 naturalToDL :: (MonadSafeError m , Digitable a) => Natural -> m [a]
-naturalToDL n = liftSafe $ sequenceA $ fromDigit <$> naturalToDigits2 n
+naturalToDL = liftSafe . traverse fromDigit . naturalToDigits2
 
 stringToDL :: (MonadSafeError m , Digitable a) => String -> m [a]
-stringToDL s = join <$> sequenceA (charToDL <$> s)
+stringToDL s = join <$> traverse charToDL s
 
 charToDL :: (MonadSafeError m, Digitable a) => Char -> m [a]
-charToDL c = sequenceA $ fromDigit <$> toBits8 (ord c `mod` 256)
+charToDL c = traverse fromDigit $ toBits8 $ ord c `mod` 256
 
 -- | Type Classes
 

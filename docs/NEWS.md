@@ -4,11 +4,11 @@
 
 Currently, **🔧 🎨 HelMA** interpret:
 * 🌈 BrainFuck
-* ❤️ ETA
-* 💙 SubLeq
-* 🤍 WhiteSpace
+* ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/)
+* 💙 [SubLeq](http://mazonka.com/subleq/)
+* 🤍 [WhiteSpace](https://helvm.github.io/wspace/tutorial.html)
 
-[comment]: <> (* 💛 Funge)
+[comment]: <> (* 💛 Malbolge)
 [comment]: <> (* 💚 Piet)
 
 For more see [CHANGELOG](CHANGELOG.md).

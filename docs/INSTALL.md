@@ -12,10 +12,9 @@ cd helma
 
 ## Compile
 
-To compile you need `cabal`:
+To compile you need `cabal` and `make`:
 ```bash
-cabal update
-cabal new-clean && cabal new-build && cabal new-test
+make
 ```
 
 ## Run

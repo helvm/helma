@@ -17,8 +17,8 @@ type OperandIUParser a = InstructionUnit -> Safe (a , InstructionUnit)
 parseNumber :: (Integral a) => OperandIUParser a
 parseNumber iu = go [] =<< nextIU iu where
   go :: Integral a => TokenList -> (Maybe Token, InstructionUnit) -> Safe (a, InstructionUnit)
-  go acc (Nothing , iu') = ( , iu') <$> makeIntegral 7 (fromList acc)
-  go acc (Just E  , iu') = ( , iu') <$> makeIntegral 7 (fromList acc)
+  go acc (Nothing , iu') = ( , iu') <$> makeIntegral7FromList acc
+  go acc (Just E  , iu') = ( , iu') <$> makeIntegral7FromList acc
   go acc (Just R  , iu') = go      acc  =<< nextIU iu'
   go acc (Just t  , iu') = go (t : acc) =<< nextIU iu'
 

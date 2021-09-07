@@ -15,8 +15,13 @@ import           Test.Hspec                                        (Spec, descri
 
 spec :: Spec
 spec = do
-  forM_ [ ("hello"     , "" )
-        , ("longHello" , "" )
+  forM_ [ ("hello"               , "" )
+        , ("longHello"           , "" )
+        , ("esolangs/helloWorld" , "" )
+        , ("mazonka/hi"          , "" )
+        , ("mazonka/helloWorld"  , "" )
+        , ("mazonka/factorial"   , "" )
+--        , ("99-bottles-of-beer"  , "" )
 --        , ("eForth"    , "" )
         ] $ \(fileName , input)  -> do
     let file = readSqFile fileName
