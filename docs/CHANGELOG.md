@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.6.11.1 -- 2021-12-14
+* 
+* Fix version in cabal
+
 ## 0.6.11.0 -- 2021-12-13
 
 * Add examples for SubLeq
