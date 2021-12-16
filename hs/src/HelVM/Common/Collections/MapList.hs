@@ -2,7 +2,7 @@ module HelVM.Common.Collections.MapList where
 
 import           HelVM.Common.Containers.LLIndexSafe
 import           HelVM.Common.Containers.LLInsertDef
-import           HelVM.Common.Safe
+import           HelVM.Common.Control.Safe
 
 import           Data.Default
 
@@ -79,7 +79,7 @@ instance {-# OVERLAPPING #-} IndexSafe (MapList a) a where
   findMaybe    = mapListFindMaybe
   indexMaybe   = mapListIndexMaybe
   findSafe   i = liftMaybeOrError "MapList.findSafe: index is not correct" . mapListFindMaybe i
-  indexSafe  l = liftMaybeOrError "MapList.indexSafe: index is not correct" . mapListIndexMaybe l
+  indexSafe  l = liftMaybeOrError "MapList.LLIndexSafe: index is not correct" . mapListIndexMaybe l
 
 instance InsertDef (MapList a) a where
   insertDef i e = fromIntMap . IntMap.insert i e . unMapList

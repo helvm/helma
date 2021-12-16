@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.FileUtil
 import           HelVM.HelMA.Automata.WhiteSpace.Instruction
 import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 
-import           HelVM.CartesianProduct
+import           HelVM.Common.ZipA
 import           HelVM.GoldenExpectations
 
 import           HelVM.HelMA.Automaton.IO.MockIO
@@ -41,9 +41,9 @@ spec = do
               let mock = ioExecMockIOWithInput input . simpleEval =<< paramsIO
               let minorPath = show ascii </> fileName
               describe minorPath $ do
-                it ("output" </> minorPath) $ do
+                it ("output" </> minorPath) $
                   calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "output" </> minorPath)
-                it ("logged" </> minorPath) $ do
+                it ("logged" </> minorPath) $
                   calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "logged" </> minorPath)
 
     describe "stn" $ do
@@ -65,9 +65,9 @@ spec = do
               let mock = ioExecMockIOBatch . simpleEval =<< paramsIO
               let minorPath = show ascii </> fileName
               describe minorPath $ do
-                it ("output" </> minorPath) $ do
+                it ("output" </> minorPath) $
                   calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "output" </> minorPath)
-                it ("logged" </> minorPath) $ do
+                it ("logged" </> minorPath) $
                   calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "logged" </> minorPath)
 
       describe "original" $ do
@@ -88,12 +88,12 @@ spec = do
           let mock = ioExecMockIOWithInput input . simpleEval =<< paramsIO
           let minorPath = show ascii </> fileName
           describe minorPath $ do
-            it ("output" </> minorPath) $ do
+            it ("output" </> minorPath) $
               calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "output" </> minorPath)
-            it ("logged" </> minorPath) $ do
+            it ("logged" </> minorPath) $
               calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "logged" </> minorPath)
 
-  describe "simpleEvalTL" $ do
+  describe "simpleEvalTL" $
     forM_ [ ("countTL"        , countTL        , ""           )
           , ("helloWorldTL"   , helloWorldTL   , ""           )
           , ("hWorldTL"       , hWorldTL       , ""           )
@@ -106,15 +106,15 @@ spec = do
           ] $ \(fileName , tl , input) -> do
       let mock = (safeExecMockIOWithInput input . simpleEvalTL) tl
       describe fileName $ do
-        it ("output" </> fileName) $ do
+        it ("output" </> fileName) $
           calculateOutput <$> mock `goldenShouldSafe` buildAbsoluteOutFileName ("simpleEvalTL" </> "output" </> fileName)
-        it ("logged" </> fileName) $ do
+        it ("logged" </> fileName) $
           calculateLogged <$> mock `goldenShouldSafe` buildAbsoluteOutFileName ("simpleEvalTL" </> "logged" </> fileName)
 
-  describe "simpleEvalIL" $ do
+  describe "simpleEvalIL" $
     forM_ [ ("call"     , [Call "A", End , Mark "A", Return] , "")
           , ("push-pop" , [Liter 0 , Discard , End]          , "")
           ] $ \(fileName , il , input) -> do
       let mock = safeExecMockIOWithInput input $ evalIL il SeqStackType MapListRAMType
-      it fileName $ do
+      it fileName $
         calculateLogged <$> mock `goldenShouldSafe` buildAbsoluteOutFileName ("simpleEvalIL" </> "logged" </> fileName)

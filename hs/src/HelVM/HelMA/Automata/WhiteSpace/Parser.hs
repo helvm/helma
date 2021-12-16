@@ -10,7 +10,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.Instruction
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 import           HelVM.HelMA.Automata.WhiteSpace.Token
 
-import           HelVM.Common.Safe
+import           HelVM.Common.Control.Safe
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.BinaryOperator
 import           HelVM.HelMA.Automaton.Types.TokenType

@@ -4,6 +4,7 @@ import           HelVM.HelMA.Automata.BrainFuck.Evaluator.IEvaluator
 import           HelVM.HelMA.Automata.BrainFuck.FileUtil
 
 import           HelVM.HelMA.Automaton.IO.MockIO
+
 import           HelVM.HelMA.Automaton.Types.CellType
 
 import qualified Data.ListLike                                       as LL

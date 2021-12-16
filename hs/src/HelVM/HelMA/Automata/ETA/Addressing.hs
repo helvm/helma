@@ -10,7 +10,7 @@ import           HelVM.HelMA.Automata.ETA.Token
 
 import           HelVM.Common.Containers.LLIndexSafe
 
-import           HelVM.Common.Safe
+import           HelVM.Common.Control.Safe
 
 import           Data.ListLike
 

@@ -1,8 +1,8 @@
 module HelVM.HelMA.Automata.WhiteSpace.Token where
 
 import           HelVM.Common.Collections.SList
+import           HelVM.Common.Control.Safe
 import           HelVM.Common.Digit.ToDigit
-import           HelVM.Common.Safe
 
 import           Text.Read
 

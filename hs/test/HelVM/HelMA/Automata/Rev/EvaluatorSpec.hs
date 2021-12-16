@@ -9,9 +9,9 @@ import           Test.Hspec                         (Spec, describe, it)
 import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec
-spec = do
-  describe "output" $ do
-    it "Hello, world!" $ do (calculateOutput . execMockIOBatch . eval) hw `shouldBe` hwo
+spec =
+  describe "output" $
+    it "Hello, world!" $ (calculateOutput . execMockIOBatch . eval) hw `shouldBe` hwo
 
 hw :: Source
 hw = "#!/usr/bin/rev\n!dlrow ,olleH\n"

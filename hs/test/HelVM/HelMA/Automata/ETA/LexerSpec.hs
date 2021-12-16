@@ -14,7 +14,7 @@ import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec
 spec = do
-  describe "original" $ do
+  describe "original" $
     forM_ [ ("hello"   , helloTL  )
           , ("hello2"  , hello2TL )
           , ("pip"     , pipTL    )
@@ -22,14 +22,14 @@ spec = do
           , ("fact"    , factTL   )
           , ("bottles" , bottlesTL)
           , ("crlf"    , crlfTL   )
-          ] $ \(fileName , tl) -> do
+          ] $ \(fileName , tl) ->
       describe fileName $ do
-        it ("minified" </> fileName) $ do
+        it ("minified" </> fileName) $
           (show . readTokens <$> readEtaFile ("original" </> fileName)) `goldenShouldIO` buildAbsoluteEtaFileName ("original" </> "minified" </> fileName)
-        it ("tokenize" </> fileName) $ do
+        it ("tokenize" </> fileName) $
           tokenize           <$> readEtaFile ("original" </> fileName)  `shouldReturn` tl
 
-  describe "from-eas" $ do
+  describe "from-eas" $
     forM_ [ ("true"     , trueEASTL    )
           , ("hello"    , helloEASTL   )
           , ("pip"      , pipEASTL     )
@@ -46,9 +46,9 @@ spec = do
           , ("fact"     , factEASTL    )
           , ("bottles"  , bottlesEASTL )
           , ("euclid"   , euclidEASTL  )
-          ] $ \(fileName , tl) -> do
+          ] $ \(fileName , tl) ->
       describe fileName $ do
-        it ("minified" </> fileName) $ do
+        it ("minified" </> fileName) $
           (show . readTokens <$> readEtaFile ("from-eas" </> fileName)) `goldenShouldIO` buildAbsoluteEtaFileName ("from-eas" </> "minified" </> fileName)
-        it ("tokenize" </> fileName) $ do
+        it ("tokenize" </> fileName) $
           tokenize           <$> readEtaFile ("from-eas" </> fileName)  `shouldReturn` tl

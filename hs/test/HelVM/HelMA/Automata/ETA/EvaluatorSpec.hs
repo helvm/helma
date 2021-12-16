@@ -14,7 +14,7 @@ import           Test.Hspec                                     (Spec, describe,
 
 spec :: Spec
 spec = do
-  describe "from-eas" $ do
+  describe "from-eas" $
     forM_
       [ ("true"    , [""])
       , ("hello"   , [""])
@@ -31,12 +31,12 @@ spec = do
           let mock = ioExecMockIOWithInput (toText input) . uncurryEval =<< params
           let minorPath = fileName <> input
           describe minorPath$ do
-            it ("output" </> minorPath) $ do
+            it ("output" </> minorPath) $
               calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("from-eas" </> "output" </> minorPath)
-            it ("logged" </> minorPath) $ do
+            it ("logged" </> minorPath) $
               calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("from-eas" </> "logged" </> minorPath)
 
-  describe "original" $ do
+  describe "original" $
     forM_
       [ ("hello"   , [""])
       , ("hello2"  , [""])
@@ -50,7 +50,7 @@ spec = do
           let mock = ioExecMockIOWithInput (toText input) . uncurryEval =<< params
           let minorPath = fileName <> input
           describe minorPath $ do
-            it ("output" </> minorPath) $ do
+            it ("output" </> minorPath) $
               calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("original" </> "output" </> minorPath)
-            it ("logged" </> minorPath) $ do
+            it ("logged" </> minorPath) $
               calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("original" </> "logged" </> minorPath)

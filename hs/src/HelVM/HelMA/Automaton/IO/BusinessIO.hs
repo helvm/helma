@@ -23,7 +23,8 @@ module HelVM.HelMA.Automaton.IO.BusinessIO (
   wLogShow,
 ) where
 
-import           HelVM.Common.Safe
+import           HelVM.Common.Control.Control
+import           HelVM.Common.Control.Safe
 
 import           HelVM.HelMA.Automaton.Memories.LLRAM   as LLRAM
 import           HelVM.HelMA.Automaton.Memories.LLStack as LLStack
@@ -47,7 +48,7 @@ type MTEvaluator m = BIO m
 
 type Element e  = (ReadShow e, Integral e, Default e)
 type ReadShow e = (Read e , Show e )
-type BIO m = (MonadSafeError m , BusinessIO m)
+type BIO m = (MonadControl m , BusinessIO m)
 
 class Monad m => BusinessIO m where
   wGetChar     :: m Char
@@ -77,11 +78,20 @@ instance BusinessIO IO where
   wLogStr   = IO.hPutStr stderr . toString
   wFlush    = hFlush stdout
 
-instance BusinessIO (SafeExceptT IO) where
-  wGetChar  = safeExceptT   IO.getChar
-  wGetLine  = safeExceptT   getLine
-  wPutChar  = safeExceptT . IO.putChar
-  wPutStr   = safeExceptT . putText
-  wPutStrLn = safeExceptT . putTextLn
-  wLogStr   = safeExceptT . IO.hPutStr stderr . toString
-  wFlush    = safeExceptT $ hFlush stdout
+instance BusinessIO (SafeT IO) where
+  wGetChar  = safeT   IO.getChar
+  wGetLine  = safeT   getLine
+  wPutChar  = safeT . IO.putChar
+  wPutStr   = safeT . putText
+  wPutStrLn = safeT . putTextLn
+  wLogStr   = safeT . IO.hPutStr stderr . toString
+  wFlush    = safeT $ hFlush stdout
+
+instance BusinessIO (ControlT IO) where
+    wGetChar  = controlT   IO.getChar
+    wGetLine  = controlT   getLine
+    wPutChar  = controlT . IO.putChar
+    wPutStr   = controlT . putText
+    wPutStrLn = controlT . putTextLn
+    wLogStr   = controlT . IO.hPutStr stderr . toString
+    wFlush    = controlT $ hFlush stdout

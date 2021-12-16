@@ -4,8 +4,8 @@ import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
 import           HelVM.Common.Containers.LLIndexSafe
+import           HelVM.Common.Control.Safe
 import           HelVM.Common.Digit.ToDigit
-import           HelVM.Common.Safe
 
 import qualified Data.Vector                         as Vector
 

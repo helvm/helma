@@ -17,6 +17,8 @@ import           HelVM.HelMA.Automaton.Types.RAMType
 import qualified HelVM.Common.Collections.MapList     as MapList
 import qualified HelVM.Common.Collections.SList       as SList
 
+import           HelVM.Common.Control.Logger
+
 import qualified Data.Sequence                        as Seq
 
 flippedEval :: LLEvaluator Symbol m => RAMType -> Source -> m ()
@@ -67,4 +69,4 @@ doInputChar address ic memory = doInputChar' =<< wGetChar where
 
 -- | Terminate instruction
 doEnd :: RLLEvaluator e r m => e -> r -> m ()
-doEnd ic _ = wLogStrLn (show ic)
+doEnd ic _ = logData ic

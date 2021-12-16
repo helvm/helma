@@ -23,7 +23,8 @@ import           HelVM.HelMA.Automaton.Memories.LLRAM         as RAM
 import           HelVM.HelMA.Automaton.Memories.LLStack       as Stack
 
 import           HelVM.Common.Containers.LLIndexSafe
-import           HelVM.Common.Safe
+import           HelVM.Common.Control.Logger
+import           HelVM.Common.Control.Safe
 
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
@@ -139,4 +140,4 @@ doInputNum iu s r = doInputNum' =<< liftSafe (pop1 s) where
 
 -- | Terminate instruction
 doEnd :: (SRLLEvaluator Symbol s r m) => InstructionUnit -> s -> r -> m ()
-doEnd iu s _ = wLogStrLn (show s) *> wLogStrLn (show iu)
+doEnd iu s _ = logData s <* logData iu

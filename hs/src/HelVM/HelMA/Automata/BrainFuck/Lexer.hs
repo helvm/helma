@@ -11,6 +11,6 @@ tokenize :: Source -> TokenList
 tokenize =  unWrapTokenList . readTokens
 
 readTokens :: Source -> Tokens
-readTokens source = readText source :: Tokens
+readTokens source = readTextUnsafe source :: Tokens
 
 type Tokens = WrapTokenList TokenList

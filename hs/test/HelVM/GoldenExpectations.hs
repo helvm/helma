@@ -1,11 +1,15 @@
 module HelVM.GoldenExpectations (
-  goldenShouldSafeExceptT,
+  (<->),
+
+  goldenShouldControlT,
+  goldenShouldSafeT,
   goldenShouldSafe,
   goldenShouldIO,
   goldenShouldBe,
 ) where
 
-import           HelVM.Common.Safe
+import           HelVM.Common.Control.Control
+import           HelVM.Common.Control.Safe
 
 import           Control.Type.Operator
 import           System.FilePath.Posix
@@ -13,9 +17,17 @@ import           System.FilePath.Posix
 import           Test.Hspec.Core.Spec
 import           Test.Hspec.Golden
 
-infix 1 `goldenShouldSafeExceptT`
-goldenShouldSafeExceptT:: SafeExceptT IO Text -> FilePath -> GoldenExpectations Text
-goldenShouldSafeExceptT actualOutput = goldenShouldIO (exceptTToIO actualOutput)
+infixl 1 <->
+(<->) :: FilePath -> FilePath -> FilePath
+(<->) major minor = major <> "-" <> minor
+
+infix 1 `goldenShouldControlT`
+goldenShouldControlT :: ControlT IO Text -> FilePath -> GoldenExpectations Text
+goldenShouldControlT actualOutput = goldenShouldIO (controlTToIO actualOutput)
+
+infix 1 `goldenShouldSafeT`
+goldenShouldSafeT :: SafeT IO Text -> FilePath -> GoldenExpectations Text
+goldenShouldSafeT actualOutput = goldenShouldIO (safeTToIO actualOutput)
 
 infix 1 `goldenShouldSafe`
 goldenShouldSafe :: Safe Text -> FilePath -> GoldenExpectations Text

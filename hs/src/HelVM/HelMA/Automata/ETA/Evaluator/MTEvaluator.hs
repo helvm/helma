@@ -19,7 +19,8 @@ import           HelVM.HelMA.Automaton.Types.StackType
 
 import           HelVM.Common.Collections.SList          as SList
 
-import           HelVM.Common.Safe
+import           HelVM.Common.Control.Logger
+import           HelVM.Common.Control.Safe
 import           HelVM.Common.Util
 
 import           Prelude                                 hiding (divMod)
@@ -81,4 +82,4 @@ doInputChar iu s = doInputChar' =<< wGetChar where
 
 -- | Terminate instruction
 doEnd :: (SLLEvaluator e s m) => InstructionUnit -> s -> m ()
-doEnd iu s = wLogShow iu *> wLogShow s
+doEnd iu s = logData iu *> logData s

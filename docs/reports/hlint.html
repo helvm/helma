@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>HLint Report</title>
+<script type='text/javascript'>
+
+/* == Algorithm for show/unshow ==
+   Each hint/file is given a number, hint# or file#
+   When we say showOnly with a class name we add the rules to
+   the css #content div {display:none}, #content div.className {display:block}
+   When going back to showAll we remove these results
+*/
+
+// CSS MANIPULATION //
+
+function deleteRules(n)
+{
+    var css = document.styleSheets[0];
+    for (var i = 0; i < n; i++)
+        css.deleteRule(css.cssRules.length-1);
+}
+
+function insertRule(s)
+{
+    var css = document.styleSheets[0];
+    css.insertRule(s, css.cssRules.length);
+}
+
+// SHOW/HIDE LOGIC //
+
+/**
+ * @param {bool} [initialise=false] - Used to signal we are loading the page, so
+ the current location doesn't match our presumed state.
+ */
+function show(id, initialise=false)
+{
+    var last;
+    if (initialise)
+    {
+        last = "";
+    }
+    else
+    {
+        last = document.location.hash.slice(1);
+    }
+
+    if (id === last) return;
+    if (id.length === 0)
+    {
+        deleteRules(3);
+        insertRule(".all {font-weight: bold;}");
+    }
+    else
+    {
+        if (last.length === 0)
+        {
+            deleteRules(1);
+            insertRule("#content div {display:none;}");
+        }
+        else
+        {
+            deleteRules(2);
+        }
+        insertRule("#content div." + id + " {display:block;}");
+        insertRule("#" + id + "{font-weight:bold;}");
+    }
+
+    if (window.history)
+        history.replaceState("", document.title, window.location.pathname + window.location.search + (id === "" ? "" : "#" + id));
+    else
+        document.location.hash = '#'.concat(id);
+}
+
+</script>
+<style type="text/css">
+/* These rules are manipulated by the script.
+   The commented form is how it looks with an id selected */
+
+.all {font-weight: bold;}      /* #content div {display:none;} */
+                               /* #content div.id {display:block;} */
+                               /* #id {font-weight: bold;} */
+
+</style>
+<style type="text/css">
+/* See http://www.webreference.com/programming/css_frames/ */
+body {
+    margin:0;
+    border:0;
+    padding:0;
+    height:100%;
+    max-height:100%;
+    font-family: sans-serif;
+    font-size:76%;
+    overflow: hidden;
+}
+
+#leftbar {
+    position:absolute;
+    top:0px;
+    left:0px;
+    width: 215px;
+    bottom: 0px;
+    overflow:auto;
+    background:rgb(202,223,255);
+    margin: 10px;
+    padding-top: 0;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 5px;
+
+    display:none; /* Override if script present */
+}
+
+#content {
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    overflow:auto;
+    padding-bottom: 15px;
+    padding-right: 7px;
+
+    left:10px; /* Override if script present */
+}
+
+#leftbar ul {margin-top: 0px; padding-left: 15px;}
+#leftbar p {margin-bottom: 0px;}
+.note {color: gray; font-size: smaller;}
+
+pre {
+    font-family: "lucida console", monospace;
+    padding-left: 15px;
+    margin: 2px;
+}
+
+#content div {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding-top: 4px;
+    border-top: 1px solid #ccc;
+}
+
+.script #content {left:250px;}
+.script #leftbar {display: block;}
+
+/* From HsColour */
+.hs-keyglyph, .hs-layout {color: red;}
+.hs-keyword {color: blue;}
+.hs-comment, .hs-comment a {color: green;}
+.hs-str, .hs-chr {color: teal;}
+</style>
+</head>
+<body>
+
+<script type='text/javascript'>
+document.body.className = "script";
+</script>
+
+<div id="leftbar" valign="top" style="min-width:200px">
+
+<p><a class="all" href="javascript:show('')">All hints</a></p>
+<ul>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Redundant do (4)</a></li>
+<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Move brackets to avoid $ (1)</a></li>
+<li><a id="hint2" href="javascript:show('hint2')">Suggestion: Reduce duplication (6)</a></li>
+</ul>
+
+<p><a class="all" href="javascript:show('')">All files</a></p>
+<ul>
+<li><a id="file0" href="javascript:show('file0')">./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/IEvaluatorBenchMark.hs (2)</a></li>
+<li><a id="file1" href="javascript:show('file1')">./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/TEvaluatorBenchMark.hs (2)</a></li>
+<li><a id="file2" href="javascript:show('file2')">./hs/benchmark/HelVM/HelMA/Automata/ETA/EvaluatorBenchMark.hs (2)</a></li>
+<li><a id="file3" href="javascript:show('file3')">./hs/src/HelVM/HelMA/Automaton/IO/MockIO.hs (1)</a></li>
+<li><a id="file4" href="javascript:show('file4')">./hs/test/HelVM/HelMA/Automata/ETA/EvaluatorSpec.hs (1)</a></li>
+<li><a id="file5" href="javascript:show('file5')">./hs/test/HelVM/HelMA/Automata/WhiteSpace/EvaluatorSpec.hs (2)</a></li>
+<li><a id="file6" href="javascript:show('file6')">./hs/test/HelVM/MonadErrorSpec.hs (1)</a></li>
+</ul>
+
+</div>
+<div id="content" valign="top" width="100%">
+<p>
+    Report generated by <a href="http://community.haskell.org/~ndm/hlint/">HLint</a>
+v2.1.11
+    - a tool to suggest improvements to your Haskell code.
+</p>
+
+<div class="hint2 file0">
+./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/IEvaluatorBenchMark.hs:45:3: Suggestion: Reduce duplication<br/>
+Found<br/>
+<pre><span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readBfFile</span> <span class='hs-varid'>fileName</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>cellType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>exec</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>params</span>
+<span class='hs-definition'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>exec</span>
+</pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>benchmark</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelMA</span><span class='hs-varop'>/</span><span class='hs-conid'>Automata</span><span class='hs-varop'>/</span><span class='hs-conid'>BrainFuck</span><span class='hs-varop'>/</span><span class='hs-conid'>Evaluator</span><span class='hs-varop'>/</span><span class='hs-conid'>IEvaluatorBenchMark.hs</span><span class='hs-conop'>:</span><span class='hs-num'>65</span><span class='hs-conop'>:</span><span class='hs-num'>3</span></pre>
+
+</div>
+
+<div class="hint2 file0">
+./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/IEvaluatorBenchMark.hs:45:3: Suggestion: Reduce duplication<br/>
+Found<br/>
+<pre><span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readBfFile</span> <span class='hs-varid'>fileName</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>cellType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>exec</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>params</span>
+<span class='hs-definition'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>exec</span>
+</pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>benchmark</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelMA</span><span class='hs-varop'>/</span><span class='hs-conid'>Automata</span><span class='hs-varop'>/</span><span class='hs-conid'>BrainFuck</span><span class='hs-varop'>/</span><span class='hs-conid'>Evaluator</span><span class='hs-varop'>/</span><span class='hs-conid'>IEvaluatorBenchMark.hs</span><span class='hs-conop'>:</span><span class='hs-num'>82</span><span class='hs-conop'>:</span><span class='hs-num'>3</span></pre>
+
+</div>
+
+<div class="hint2 file1">
+./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/TEvaluatorBenchMark.hs:44:5: Suggestion: Reduce duplication<br/>
+Found<br/>
+<pre><span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readBfFile</span> <span class='hs-varid'>fileName</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>cellType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>exec</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>execMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>params</span>
+<span class='hs-definition'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>exec</span>
+</pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>benchmark</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelMA</span><span class='hs-varop'>/</span><span class='hs-conid'>Automata</span><span class='hs-varop'>/</span><span class='hs-conid'>BrainFuck</span><span class='hs-varop'>/</span><span class='hs-conid'>Evaluator</span><span class='hs-varop'>/</span><span class='hs-conid'>TEvaluatorBenchMark.hs</span><span class='hs-conop'>:</span><span class='hs-num'>64</span><span class='hs-conop'>:</span><span class='hs-num'>5</span></pre>
+
+</div>
+
+<div class="hint2 file1">
+./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/TEvaluatorBenchMark.hs:44:5: Suggestion: Reduce duplication<br/>
+Found<br/>
+<pre><span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readBfFile</span> <span class='hs-varid'>fileName</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>cellType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>exec</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>execMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>params</span>
+<span class='hs-definition'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>exec</span>
+</pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>benchmark</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelMA</span><span class='hs-varop'>/</span><span class='hs-conid'>Automata</span><span class='hs-varop'>/</span><span class='hs-conid'>BrainFuck</span><span class='hs-varop'>/</span><span class='hs-conid'>Evaluator</span><span class='hs-varop'>/</span><span class='hs-conid'>TEvaluatorBenchMark.hs</span><span class='hs-conop'>:</span><span class='hs-num'>81</span><span class='hs-conop'>:</span><span class='hs-num'>5</span></pre>
+
+</div>
+
+<div class="hint0 file2">
+./hs/benchmark/HelVM/HelMA/Automata/ETA/EvaluatorBenchMark.hs:35:31: Warning: Redundant do<br/>
+Found<br/>
+<pre><span class='hs-keyword'>do</span> <span class='hs-varid'>ioExec</span> <span class='hs-varid'>stackType</span> <span class='hs-str'>"from-eas"</span> <span class='hs-varid'>fileName</span> <span class='hs-varid'>inputs</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>ioExec</span> <span class='hs-varid'>stackType</span> <span class='hs-str'>"from-eas"</span> <span class='hs-varid'>fileName</span> <span class='hs-varid'>inputs</span></pre>
+
+</div>
+
+<div class="hint0 file2">
+./hs/benchmark/HelVM/HelMA/Automata/ETA/EvaluatorBenchMark.hs:45:31: Warning: Redundant do<br/>
+Found<br/>
+<pre><span class='hs-keyword'>do</span> <span class='hs-varid'>ioExec</span> <span class='hs-varid'>stackType</span> <span class='hs-str'>"original"</span> <span class='hs-varid'>fileName</span> <span class='hs-varid'>inputs</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>ioExec</span> <span class='hs-varid'>stackType</span> <span class='hs-str'>"original"</span> <span class='hs-varid'>fileName</span> <span class='hs-varid'>inputs</span></pre>
+
+</div>
+
+<div class="hint1 file3">
+./hs/src/HelVM/HelMA/Automaton/IO/MockIO.hs:94:25: Suggestion: Move brackets to avoid $<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>orError</span> <span class='hs-varid'>mockIO</span> <span class='hs-varop'>$</span> <span class='hs-varid'>top</span> <span class='hs-layout'>(</span><span class='hs-varid'>input</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$</span>
+  <span class='hs-varid'>put</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>{</span><span class='hs-varid'>input</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>orError</span> <span class='hs-varid'>mockIO</span> <span class='hs-varop'>$</span> <span class='hs-varid'>discard</span> <span class='hs-varop'>$</span> <span class='hs-varid'>input</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>}</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>orError</span> <span class='hs-varid'>mockIO</span> <span class='hs-layout'>(</span><span class='hs-varid'>top</span> <span class='hs-layout'>(</span><span class='hs-varid'>input</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$</span>
+  <span class='hs-varid'>put</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>{</span><span class='hs-varid'>input</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>orError</span> <span class='hs-varid'>mockIO</span> <span class='hs-varop'>$</span> <span class='hs-varid'>discard</span> <span class='hs-varop'>$</span> <span class='hs-varid'>input</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>}</span></pre>
+
+</div>
+
+<div class="hint0 file6">
+./hs/test/HelVM/MonadErrorSpec.hs:9:8: Warning: Redundant do<br/>
+Found<br/>
+<pre><span class='hs-keyword'>do</span> <span class='hs-varid'>describe</span> <span class='hs-str'>"MonadError"</span> <span class='hs-varop'>$</span>
+     <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-str'>"Right"</span> <span class='hs-varop'>$</span> <span class='hs-varid'>textRight</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-conid'>Right</span> <span class='hs-num'>1</span>
+        <span class='hs-varid'>it</span> <span class='hs-str'>"Left"</span> <span class='hs-varop'>$</span> <span class='hs-varid'>textLeft</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-conid'>Left</span> <span class='hs-str'>"one"</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>describe</span> <span class='hs-str'>"MonadError"</span> <span class='hs-varop'>$</span>
+  <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-str'>"Right"</span> <span class='hs-varop'>$</span> <span class='hs-varid'>textRight</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-conid'>Right</span> <span class='hs-num'>1</span>
+     <span class='hs-varid'>it</span> <span class='hs-str'>"Left"</span> <span class='hs-varop'>$</span> <span class='hs-varid'>textLeft</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-conid'>Left</span> <span class='hs-str'>"one"</span></pre>
+
+</div>
+
+<div class="hint2 file4">
+./hs/test/HelVM/HelMA/Automata/ETA/EvaluatorSpec.hs:30:11: Suggestion: Reduce duplication<br/>
+Found<br/>
+<pre><span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>defaultStackType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>mock</span>
+      <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-layout'>(</span><span class='hs-varid'>toText</span> <span class='hs-varid'>input</span><span class='hs-layout'>)</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>params</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>minorPath</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>fileName</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-varid'>input</span>
+</pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelMA</span><span class='hs-varop'>/</span><span class='hs-conid'>Automata</span><span class='hs-varop'>/</span><span class='hs-conid'>ETA</span><span class='hs-varop'>/</span><span class='hs-conid'>EvaluatorSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>49</span><span class='hs-conop'>:</span><span class='hs-num'>11</span></pre>
+
+</div>
+
+<div class="hint0 file5">
+./hs/test/HelVM/HelMA/Automata/WhiteSpace/EvaluatorSpec.hs:25:21: Warning: Redundant do<br/>
+Found<br/>
+<pre><span class='hs-keyword'>do</span> <span class='hs-varid'>describe</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>$</span>
+     <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>majorPath</span> <span class='hs-keyglyph'>=</span> <span class='hs-str'>"simpleEval"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"ws"</span>
+        <span class='hs-varid'>forM_</span>
+          <span class='hs-keyglyph'>[</span><span class='hs-layout'>(</span><span class='hs-str'>"count"</span><span class='hs-layout'>,</span> <span class='hs-str'>""</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-str'>"hworld"</span><span class='hs-layout'>,</span> <span class='hs-str'>""</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-str'>"calc"</span><span class='hs-layout'>,</span> <span class='hs-str'>"-1\n"</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-str'>"fact"</span><span class='hs-layout'>,</span> <span class='hs-str'>"10\n"</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
+           <span class='hs-layout'>(</span><span class='hs-str'>"hanoi"</span><span class='hs-layout'>,</span> <span class='hs-str'>"1\n"</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-str'>"loctest"</span><span class='hs-layout'>,</span> <span class='hs-str'>"1\n2\n"</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-str'>"name"</span><span class='hs-layout'>,</span> <span class='hs-str'>"WriteOnly\n"</span><span class='hs-layout'>)</span><span class='hs-keyglyph'>]</span>
+          <span class='hs-varop'>$</span>
+          <span class='hs-keyglyph'>\</span> <span class='hs-layout'>(</span><span class='hs-varid'>fileName</span><span class='hs-layout'>,</span> <span class='hs-varid'>input</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>-&gt;</span>
+            <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readWsFile</span> <span class='hs-layout'>(</span><span class='hs-str'>"original"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>fileName</span><span class='hs-layout'>)</span>
+               <span class='hs-varid'>forM_</span> <span class='hs-varid'>options</span> <span class='hs-varop'>$</span>
+                 <span class='hs-keyglyph'>\</span> <span class='hs-varid'>ascii</span> <span class='hs-keyglyph'>-&gt;</span>
+                   <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>paramsF</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>simpleParamsWithDefaultsAndWhiteTokenType</span> <span class='hs-varid'>ascii</span>
+                      <span class='hs-keyword'>let</span> <span class='hs-varid'>paramsIO</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>paramsF</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
+                      <span class='hs-keyword'>let</span> <span class='hs-varid'>mock</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>simpleEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>paramsIO</span>
+                      <span class='hs-keyword'>let</span> <span class='hs-varid'>minorPath</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>show</span> <span class='hs-varid'>ascii</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>fileName</span>
+                      <span class='hs-varid'>describe</span> <span class='hs-varid'>minorPath</span> <span class='hs-varop'>$</span>
+                        <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
+                             <span class='hs-varid'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span>
+                               <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
+                                 <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
+                           <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
+                             <span class='hs-varid'>calculateLogged</span> <span class='hs-varop'>&lt;$&gt;</span>
+                               <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
+                                 <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>describe</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>$</span>
+  <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>majorPath</span> <span class='hs-keyglyph'>=</span> <span class='hs-str'>"simpleEval"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"ws"</span>
+     <span class='hs-varid'>forM_</span>
+       <span class='hs-keyglyph'>[</span><span class='hs-layout'>(</span><span class='hs-str'>"count"</span><span class='hs-layout'>,</span> <span class='hs-str'>""</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-str'>"hworld"</span><span class='hs-layout'>,</span> <span class='hs-str'>""</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-str'>"calc"</span><span class='hs-layout'>,</span> <span class='hs-str'>"-1\n"</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-str'>"fact"</span><span class='hs-layout'>,</span> <span class='hs-str'>"10\n"</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span>
+        <span class='hs-layout'>(</span><span class='hs-str'>"hanoi"</span><span class='hs-layout'>,</span> <span class='hs-str'>"1\n"</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-str'>"loctest"</span><span class='hs-layout'>,</span> <span class='hs-str'>"1\n2\n"</span><span class='hs-layout'>)</span><span class='hs-layout'>,</span> <span class='hs-layout'>(</span><span class='hs-str'>"name"</span><span class='hs-layout'>,</span> <span class='hs-str'>"WriteOnly\n"</span><span class='hs-layout'>)</span><span class='hs-keyglyph'>]</span>
+       <span class='hs-varop'>$</span>
+       <span class='hs-keyglyph'>\</span> <span class='hs-layout'>(</span><span class='hs-varid'>fileName</span><span class='hs-layout'>,</span> <span class='hs-varid'>input</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>-&gt;</span>
+         <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readWsFile</span> <span class='hs-layout'>(</span><span class='hs-str'>"original"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>fileName</span><span class='hs-layout'>)</span>
+            <span class='hs-varid'>forM_</span> <span class='hs-varid'>options</span> <span class='hs-varop'>$</span>
+              <span class='hs-keyglyph'>\</span> <span class='hs-varid'>ascii</span> <span class='hs-keyglyph'>-&gt;</span>
+                <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>paramsF</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>simpleParamsWithDefaultsAndWhiteTokenType</span> <span class='hs-varid'>ascii</span>
+                   <span class='hs-keyword'>let</span> <span class='hs-varid'>paramsIO</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>paramsF</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
+                   <span class='hs-keyword'>let</span> <span class='hs-varid'>mock</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>simpleEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>paramsIO</span>
+                   <span class='hs-keyword'>let</span> <span class='hs-varid'>minorPath</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>show</span> <span class='hs-varid'>ascii</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>fileName</span>
+                   <span class='hs-varid'>describe</span> <span class='hs-varid'>minorPath</span> <span class='hs-varop'>$</span>
+                     <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
+                          <span class='hs-varid'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span>
+                            <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
+                              <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
+                        <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
+                          <span class='hs-varid'>calculateLogged</span> <span class='hs-varop'>&lt;$&gt;</span>
+                            <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
+                              <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint2 file5">
+./hs/test/HelVM/HelMA/Automata/WhiteSpace/EvaluatorSpec.hs:40:15: Suggestion: Reduce duplication<br/>
+Found<br/>
+<pre><span class='hs-keyword'>let</span> <span class='hs-varid'>paramsIO</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>paramsF</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>mock</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>simpleEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>paramsIO</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>minorPath</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>show</span> <span class='hs-varid'>ascii</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>fileName</span>
+<span class='hs-definition'>describe</span> <span class='hs-varid'>minorPath</span> <span class='hs-varop'>$</span>
+  <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
+       <span class='hs-varid'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span>
+         <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
+           <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
+     <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
+       <span class='hs-varid'>calculateLogged</span> <span class='hs-varop'>&lt;$&gt;</span>
+         <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
+           <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
+</pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelMA</span><span class='hs-varop'>/</span><span class='hs-conid'>Automata</span><span class='hs-varop'>/</span><span class='hs-conid'>WhiteSpace</span><span class='hs-varop'>/</span><span class='hs-conid'>EvaluatorSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>87</span><span class='hs-conop'>:</span><span class='hs-num'>11</span></pre>
+
+</div>
+
+</div>
+<script type='text/javascript'>
+show(window.location.hash.slice(1), true);
+</script>
+</body>
+</html>

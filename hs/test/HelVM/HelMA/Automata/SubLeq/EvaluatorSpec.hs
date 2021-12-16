@@ -14,7 +14,7 @@ import           System.FilePath.Posix
 import           Test.Hspec                                        (Spec, describe, it)
 
 spec :: Spec
-spec = do
+spec =
   forM_ [ ("hello"               , "" )
         , ("longHello"           , "" )
         , ("esolangs/helloWorld" , "" )
@@ -27,7 +27,7 @@ spec = do
     let file = readSqFile fileName
     let mock = (ioExecMockIOWithInput input . flippedEval defaultRAMType) =<< file
     describe fileName $ do
-      it "output" $ do
+      it "output" $
          (calculateOutput <$> mock) `goldenShouldIO` buildAbsoluteOutFileName ("output" </> fileName)
-      it "logged" $ do
+      it "logged" $
          (calculateLogged <$> mock) `goldenShouldIO` buildAbsoluteOutFileName ("logged" </> fileName)

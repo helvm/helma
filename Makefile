@@ -1,4 +1,4 @@
-.PHONY: all bench build check clean configure golden fast haddock hlint main repl report run stan stylish test update
+.PHONY: all bench build check clean configure golden fast haddock hlint main output repl report run stan stylish test update
 
 all: update fast bench
 
@@ -35,6 +35,9 @@ hlint:
 
 main:
 	make stylish configure check build test
+
+output:
+	if test -d .output; then rm -r .output; fi
 
 repl:
 	cabal new-repl lib:helma

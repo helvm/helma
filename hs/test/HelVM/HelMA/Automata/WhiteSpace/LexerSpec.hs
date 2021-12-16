@@ -13,9 +13,9 @@ import           Test.Hspec                                        (Spec, descri
 import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec
-spec = do
+spec =
   describe "lexer" $ do
-    describe "from-wsa" $ do
+    describe "from-wsa" $
       forM_ [ "true"
             , "hello"
             , "hello2"
@@ -24,11 +24,11 @@ spec = do
             , "prim"
             ] $ \ fileName -> do
         let minorPath = "from-wsa" </> fileName
-        describe minorPath $ do
-          it "minified" $ do
+        describe minorPath $
+          it "minified" $
             show . readVisibleTokens <$> readStnFile minorPath `goldenShouldIO` buildAbsoluteStnFileName ("lexer" </> minorPath)
 
-    describe "original" $ do
+    describe "original" $
       forM_ [ ("count"        , countTL        )
             , ("helloWorld"   , helloWorldTL   )
             , ("hWorld"       , hWorldTL       )
@@ -41,7 +41,7 @@ spec = do
             ] $ \(fileName , tl) -> do
         let minorPath = "original" </> fileName
         describe minorPath $ do
-          it "minified" $ do
+          it "minified" $
             show . readVisibleTokens <$> readStnFile minorPath `goldenShouldIO` buildAbsoluteStnFileName ("lexer" </> minorPath)
-          it "tokenize" $ do
+          it "tokenize" $
             tokenizeVisible          <$> readStnFile minorPath `shouldReturn` tl

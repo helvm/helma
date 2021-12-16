@@ -1,5 +1,12 @@
 # 📅 Revision history for HelMA
 
+## 0.6.12.0 -- 2022-01-07
+
+* Add `Logger` based on Writer
+* Refactor `Safe`
+* Replace `CartesianProduct` to `ZipA`
+* Use local `hlint`
+
 ## 0.6.11.2 -- 2021-12-14
 
 * Fix version in cabal

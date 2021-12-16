@@ -8,7 +8,7 @@ import           HelVM.Expectations
 import           Test.Hspec                           (Spec, describe, it)
 
 spec :: Spec
-spec = do
+spec =
   describe "minification" $ do
-    it "hello"     $ do show . readSymbols <$> readSqFile "hello"     `ioShouldBe` readSqFile "hello"
-    it "longHello" $ do show . readSymbols <$> readSqFile "longHello" `ioShouldBe` readSqFile "hello"
+    it "hello"     $ show . readSymbols <$> readSqFile "hello"     `ioShouldBe` readSqFile "hello"
+    it "longHello" $ show . readSymbols <$> readSqFile "longHello" `ioShouldBe` readSqFile "hello"

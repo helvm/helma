@@ -6,8 +6,8 @@ import           HelVM.HelMA.Automata.BrainFuck.Token       as T
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
+import           HelVM.Common.Control.Safe
 import           HelVM.Common.ListLikeUtil
-import           HelVM.Common.Safe
 
 import           Data.ListLike                              hiding (show)
 
@@ -15,16 +15,16 @@ import qualified Data.DList                                 as D
 
 type OperandParser a = TokenList -> Safe (a , TokenList)
 
-parseAsVector :: MonadSafeError m => Source -> m InstructionVector
+parseAsVector :: MonadSafe m => Source -> m InstructionVector
 parseAsVector = parseTLAsVector . tokenize
 
-parseTLAsVector :: MonadSafeError m => TokenList -> m InstructionVector
+parseTLAsVector :: MonadSafe m => TokenList -> m InstructionVector
 parseTLAsVector tl = fromList <$> parseTL tl
 
-liftedParseTL :: MonadSafeError m => TokenList -> m InstructionList
+liftedParseTL :: MonadSafe m => TokenList -> m InstructionList
 liftedParseTL = liftSafe . parseTL
 
-parseTL :: MonadSafeError m => TokenList -> m InstructionList
+parseTL :: MonadSafe m => TokenList -> m InstructionList
 parseTL = liftSafe . go where
   go :: TokenList -> Safe InstructionList
   go (T.MoveR   : tl) = (I.MoveR  :  ) <$> go tl

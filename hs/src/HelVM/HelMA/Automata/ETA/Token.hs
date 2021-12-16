@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.ETA.Token where
 
+import           HelVM.Common.Control.Safe
 import           HelVM.Common.Digit.ToDigit
-import           HelVM.Common.Safe
 
 import           Data.Vector                as Vector
 

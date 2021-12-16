@@ -11,8 +11,8 @@ module HelVM.HelMA.Automaton.Memories.LLRAM (
 
 import           HelVM.Common.Containers.LLIndexSafe
 import           HelVM.Common.Containers.LLInsertDef
+import           HelVM.Common.Control.Safe
 import           HelVM.Common.ReadText
-import           HelVM.Common.Safe
 
 import           Data.Default
 import           Prelude                             hiding (divMod, drop, splitAt, swap)

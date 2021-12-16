@@ -55,7 +55,7 @@ doInstruction (Just Dec       ) table tape = nextStep     table   (wPrevSymbol t
 doInstruction (Just Output    ) table tape = doOutputChar table                tape
 doInstruction (Just Input     ) table tape = doInputChar  table                tape
 doInstruction (Just (While iv)) table tape = doWhile iv   table                tape
-doInstruction  Nothing          _     tape = pure tape
+doInstruction  Nothing          table tape = doEnd table tape
 
 doWhile :: (Symbol e , BusinessIO m) => InstructionVector -> InstructionUnit -> FullTape e -> m $ FullTape e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape
@@ -71,6 +71,10 @@ doOutputChar table tape@(_ , e:_) = wPutChar (toChar e) *> nextStep table tape
 doInputChar  :: (Symbol e , BusinessIO m) => InstructionUnit -> FullTape e -> m $ FullTape e
 doInputChar table tape = doInputCharWithChar =<< wGetChar where
   doInputCharWithChar char = (nextStep table . writeSymbol char) tape
+
+-- | Terminate instruction
+doEnd :: (BusinessIO m) => InstructionUnit -> FullTape e -> m $ FullTape e
+doEnd _ = pure
 
 -- | Types
 data InstructionUnit = IU !InstructionVector !InstructionCounter

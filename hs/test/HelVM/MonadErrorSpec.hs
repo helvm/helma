@@ -8,8 +8,8 @@ import           Test.Hspec.Expectations.Pretty
 spec :: Spec
 spec = do
   describe "MonadError" $ do
-    it "Right" $ do textRight `shouldBe` Right 1
-    it "Left"  $ do textLeft  `shouldBe` Left "one"
+    it "Right" $ textRight `shouldBe` Right 1
+    it "Left"  $ textLeft  `shouldBe` Left "one"
 
 type MonadTextError m = MonadError Text m
 

@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.BrainFuck.Evaluator.TEvaluatorSpec (spec) where
 import           HelVM.HelMA.Automata.BrainFuck.Evaluator.TEvaluator
 import           HelVM.HelMA.Automata.BrainFuck.FileUtil
 
-import           HelVM.CartesianProduct
+import           HelVM.Common.ZipA
 import           HelVM.GoldenExpectations
 
 import           HelVM.HelMA.Automaton.IO.MockIO
@@ -14,8 +14,8 @@ import           System.FilePath.Posix
 import           Test.Hspec                                          (Spec, describe, it)
 
 spec :: Spec
-spec = do
-  describe "eval" $ do
+spec =
+  describe "eval" $
     forM_ (
       [ ("value256"              , ""     )
       , ("helloWorld"            , ""     )
@@ -38,7 +38,7 @@ spec = do
         let exec = execMockIOWithInput input . uncurryEval <$> params
         let minorPath = show cellType </> fileName
         describe minorPath $ do
-          it ("output" </> minorPath) $ do
+          it ("output" </> minorPath) $
             calculateOutput <$> exec `goldenShouldIO` buildAbsoluteOutFileName ("output" </> minorPath)
-          it ("logged" </> minorPath) $ do
+          it ("logged" </> minorPath) $
             calculateLogged <$> exec `goldenShouldIO` buildAbsoluteOutFileName ("logged" </> minorPath)

@@ -20,10 +20,10 @@ tokenizeWhite :: Source -> TokenList
 tokenizeWhite = whiteTokenListToTokenList . unWrapTokenList . readWhiteTokens
 
 readVisibleTokens :: Source -> VisibleTokens
-readVisibleTokens source = readText source :: VisibleTokens
+readVisibleTokens source = readTextUnsafe source :: VisibleTokens
 
 readWhiteTokens :: Source -> WhiteTokens
-readWhiteTokens source = readText source :: WhiteTokens
+readWhiteTokens source = readTextUnsafe source :: WhiteTokens
 
 type VisibleTokens = WrapTokenList TokenList
 

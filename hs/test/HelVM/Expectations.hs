@@ -1,17 +1,20 @@
 module HelVM.Expectations  (
   ioShouldSafe,
   ioShouldBe,
-  shouldSafeExceptT,
+
+
+  shouldControlT,
+  shouldSafeT,
   shouldSafeIO,
   shouldSafe,
   shouldBeDo,
 ) where
 
-import           HelVM.Common.Safe
+import           HelVM.Common.Control.Control
+import           HelVM.Common.Control.Safe
 
 import           Test.Hspec.Expectations.Pretty
 
--- | ioShould* functions
 infix 1 `ioShouldSafe`
 ioShouldSafe :: (Show a , Eq a) => IO (Safe a) -> IO a -> Expectation
 ioShouldSafe action expected = join $ liftA2 shouldSafe action expected
@@ -20,10 +23,15 @@ infix 1 `ioShouldBe`
 ioShouldBe :: (HasCallStack , Show a , Eq a) => IO a -> IO a -> Expectation
 ioShouldBe action expected = join $ liftA2 shouldBe action expected
 
--- | shouldSafe* functions
-infix 1 `shouldSafeExceptT`
-shouldSafeExceptT :: (Show a , Eq a) => SafeExceptT IO a -> a -> Expectation
-shouldSafeExceptT action = shouldReturn (exceptTToIO action)
+----
+
+infix 1 `shouldControlT`
+shouldControlT :: (Show a , Eq a) => ControlT IO a -> a -> Expectation
+shouldControlT action = shouldReturn (controlTToIO action)
+
+infix 1 `shouldSafeT`
+shouldSafeT :: (Show a , Eq a) => SafeT IO a -> a -> Expectation
+shouldSafeT action = shouldReturn (safeTToIO action)
 
 infix 1 `shouldSafeIO`
 shouldSafeIO :: (Show a , Eq a) => IO (Safe a) -> a -> Expectation

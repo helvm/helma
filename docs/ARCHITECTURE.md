@@ -32,6 +32,7 @@ Tools and libraries:
   * [x] [slist](https://kowainik.github.io/projects/slist) for sized list
   * [x] [ListLike](https://hackage.haskell.org/package/ListLike) for list abstraction
   * [ ] [mono-traversable](https://github.com/snoyberg/mono-traversable#readme) for list abstraction
+  * [ ] [lens](https://github.com/ekmett/lens#lens-lenses-folds-and-traversals) for for modification
 * For production code:
   * [x] [mtl](https://github.com/haskell/mtl) for IoC
   * [X] [polysemy](https://github.com/polysemy-research/polysemy#readme) for IoC

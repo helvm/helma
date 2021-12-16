@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automaton.IO.MockIO
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
-import           HelVM.CartesianProduct
+import           HelVM.Common.ZipA
 
 import           System.FilePath.Posix
 

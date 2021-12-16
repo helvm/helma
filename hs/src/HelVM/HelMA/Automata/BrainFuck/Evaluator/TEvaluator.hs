@@ -45,7 +45,7 @@ doInstruction table@(_ , Output  :_) tape = doOutputChar               table    
 doInstruction table@(_ , Input   :_) tape = doInputChar                table                 tape
 doInstruction table@(_ , JmpPast :_) tape = doJmpPast                  table                 tape
 doInstruction table@(_ , JmpBack :_) tape = doJmpBack                  table                 tape
-doInstruction       (_ , []        ) _    = doEnd
+doInstruction table@(_ , []        ) tape = doEnd table tape
 
 doJmpPast :: (Symbol e , BusinessIO m) => Table -> FullTape e -> m ()
 doJmpPast table tape@(_ , 0:_) = doInstruction (jumpPast table) tape
@@ -60,10 +60,10 @@ doOutputChar :: (Symbol e , BusinessIO m) => Table -> FullTape e -> m ()
 doOutputChar _          (_ ,    []) = error "Illegal State"
 doOutputChar table tape@(_ , e : _) = wPutChar (toChar e) *> doInstruction (nextInst table) tape
 
-doInputChar  :: (Symbol e , BusinessIO m) => Table -> FullTape e -> m ()
+doInputChar :: (Symbol e , BusinessIO m) => Table -> FullTape e -> m ()
 doInputChar table tape = doInputChar' =<< wGetChar where
   doInputChar' char = doInstruction (nextInst table) $ writeSymbol char tape
 
 -- | Terminate instruction
-doEnd  :: BusinessIO m => m ()
-doEnd = pass
+doEnd :: BusinessIO m => Table -> FullTape e -> m ()
+doEnd _ _ = pass

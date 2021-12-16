@@ -11,8 +11,8 @@ module HelVM.HelMA.Automaton.Memories.MTRAM (
 
 import           HelVM.Common.Containers.MTIndexSafe
 import           HelVM.Common.Containers.MTInsertDef
+import           HelVM.Common.Control.Safe
 import           HelVM.Common.ReadText
-import           HelVM.Common.Safe
 
 import           Data.Default
 import           Data.MonoTraversable

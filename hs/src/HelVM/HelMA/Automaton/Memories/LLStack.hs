@@ -25,28 +25,28 @@ module HelVM.HelMA.Automaton.Memories.LLStack (
 import           HelVM.HelMA.Automaton.BinaryOperator
 
 import           HelVM.Common.Containers.LLIndexSafe
+import           HelVM.Common.Control.Safe
 import           HelVM.Common.ListLikeUtil
-import           HelVM.Common.Safe
 
 import           Data.ListLike
 import           Prelude                              hiding (divMod, drop, fromList, splitAt, swap)
 
 -- | Arithmetic
-divMod :: (MonadSafeError m , Integral element , Stack ll element) => ll -> m ll
+divMod :: (MonadSafe m , Integral element , Stack ll element) => ll -> m ll
 divMod = binaryOps [Mod , Div]
 
-sub :: (MonadSafeError m , Integral element , Stack ll element) => ll -> m ll
+sub :: (MonadSafe m , Integral element , Stack ll element) => ll -> m ll
 sub = binaryOp Sub
 
-binaryOp :: (MonadSafeError m , Integral element , Stack ll element) => BinaryOperator -> ll -> m ll
+binaryOp :: (MonadSafe m , Integral element , Stack ll element) => BinaryOperator -> ll -> m ll
 binaryOp op = binaryOps [op]
 
-binaryOps :: (MonadSafeError m , Integral element , Stack ll element) => [BinaryOperator] -> ll -> m ll
+binaryOps :: (MonadSafe m , Integral element , Stack ll element) => [BinaryOperator] -> ll -> m ll
 binaryOps ops l = binaryOps' <$> pop2 l where
   binaryOps' (e , e', l') = pushList (calculateOps e e' ops) l'
 
 -- | Stack instructions
-halibut :: (MonadSafeError m , Integral element , Stack ll element) => ll -> m ll
+halibut :: (MonadSafe m , Integral element , Stack ll element) => ll -> m ll
 halibut l = halibut' =<< pop1 l where
   halibut' (e , l')
     | i <= 0    = copy (negate i) l'
@@ -58,18 +58,18 @@ move i l = l1 <> l2 <> l3 where
   (l1 , l3) = splitAt 1 l'
   (l2 , l') = splitAt i l
 
-swap :: (MonadSafeError m , Stack ll element) => ll -> m ll
+swap :: (MonadSafe m , Stack ll element) => ll -> m ll
 swap l = swap' <$> pop2 l where
   swap' (e , e', l') = push2 e' e l'
 
-slide :: (MonadSafeError m , Stack ll element) => Index -> ll -> m ll
+slide :: (MonadSafe m , Stack ll element) => Index -> ll -> m ll
 slide i l = slide' <$> pop1 l where
   slide' (e , l') = push1 e $ drop i l'
 
-dup :: (MonadSafeError m , Stack ll element) => ll -> m ll
+dup :: (MonadSafe m , Stack ll element) => ll -> m ll
 dup = copy 0
 
-copy :: (MonadSafeError m , Stack ll element) => Index -> ll -> m ll
+copy :: (MonadSafe m , Stack ll element) => Index -> ll -> m ll
 copy i l = flipPush1 l <$> l `indexSafe` i
 
 -- | Push instructions

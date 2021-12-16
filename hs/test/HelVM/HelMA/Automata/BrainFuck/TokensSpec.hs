@@ -11,11 +11,11 @@ import           Test.Hspec                              (Spec, describe, it)
 import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec
-spec = do
+spec =
   describe "tokenize" $ do
-    it "helloWorld"             $ do show . readTokens                   <$> readBfFile "helloWorld"             `ioShouldBe`   readBfFile "helloWorld"
-    it "helloWorldWithComments" $ do show . readTokens                   <$> readBfFile "helloWorldWithComments" `ioShouldBe`   readBfFile "helloWorld"
-    it "helloWorldAsList"       $ do show . unWrapTokenList . readTokens <$> readBfFile "helloWorldWithComments" `shouldReturn` helloWorldAsList
+    it "helloWorld"             $ show . readTokens                   <$> readBfFile "helloWorld"             `ioShouldBe`   readBfFile "helloWorld"
+    it "helloWorldWithComments" $ show . readTokens                   <$> readBfFile "helloWorldWithComments" `ioShouldBe`   readBfFile "helloWorld"
+    it "helloWorldAsList"       $ show . unWrapTokenList . readTokens <$> readBfFile "helloWorldWithComments" `shouldReturn` helloWorldAsList
 
 helloWorldAsList :: String
 helloWorldAsList = "[+,+,+,+,+,+,+,+,[,>,+,+,+,+,[,>,+,+,>,+,+,+,>,+,+,+,>,+,<,<,<,<,-,],>,+,>,+,>,-,>,>,+,[,<,],<,-,],>,>,.,>,-,-,-,.,+,+,+,+,+,+,+,.,.,+,+,+,.,>,>,.,<,-,.,<,.,+,+,+,.,-,-,-,-,-,-,.,-,-,-,-,-,-,-,-,.,>,>,+,.,>,+,+,.]"
