@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.False.Util where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>data Operator =
+<span class="lineno">    4 </span>    Dup
+<span class="lineno">    5 </span>  | Drop
+<span class="lineno">    6 </span>  | Swap
+<span class="lineno">    7 </span>  | Rot
+<span class="lineno">    8 </span>  | Pick
+<span class="lineno">    9 </span>  | Plus
+<span class="lineno">   10 </span>  | Minus
+<span class="lineno">   11 </span>  | Multiply
+<span class="lineno">   12 </span>  | Division
+<span class="lineno">   13 </span>  | Negate
+<span class="lineno">   14 </span>  | And
+<span class="lineno">   15 </span>  | Or
+<span class="lineno">   16 </span>  | Not
+<span class="lineno">   17 </span>  | Greater
+<span class="lineno">   18 </span>  | Equal
+<span class="lineno">   19 </span>  | Comment
+<span class="lineno">   20 </span>  | Execute
+<span class="lineno">   21 </span>  | If
+<span class="lineno">   22 </span>  | While
+<span class="lineno">   23 </span>  | Store
+<span class="lineno">   24 </span>  | Fetch
+<span class="lineno">   25 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span>)
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>data StdIO =
+<span class="lineno">   28 </span>    ReadChar
+<span class="lineno">   29 </span>  | WriteChar
+<span class="lineno">   30 </span>  | WriteDec
+<span class="lineno">   31 </span>  | Str String
+<span class="lineno">   32 </span>  | Flush
+<span class="lineno">   33 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span>)
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>data Value =
+<span class="lineno">   36 </span>    Ope Operator
+<span class="lineno">   37 </span>  | Num Integer
+<span class="lineno">   38 </span>  | Ch Char
+<span class="lineno">   39 </span>  | Io StdIO
+<span class="lineno">   40 </span>  | Fn [Value]
+<span class="lineno">   41 </span>  | Var Int
+<span class="lineno">   42 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span>)
+<span class="lineno">   43 </span>
+<span class="lineno">   44 </span>-- Util Functions
+<span class="lineno">   45 </span>emptyReg :: [Value]
+<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">emptyReg = take 26 $ repeat (Num 0)</span></span>
+<span class="lineno">   47 </span>
+<span class="lineno">   48 </span>-- Converters
+<span class="lineno">   49 </span>valueToBool :: Value -&gt; Bool
+<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">valueToBool (Num 0) = False</span>
+<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">valueToBool (Num _) = True</span>
+<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">valueToBool _       = <span class="nottickedoff">False</span></span></span>
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>charToVar :: Char -&gt; Int
+<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">charToVar c = (ord c) - (ord 'a')</span></span>
+<span class="lineno">   56 </span>
+<span class="lineno">   57 </span>charToNum :: Char -&gt; Integer
+<span class="lineno">   58 </span><span class="decl"><span class="nottickedoff">charToNum = fromIntegral . ord</span></span>
+<span class="lineno">   59 </span>
+<span class="lineno">   60 </span>numToChar :: Integer -&gt; Char
+<span class="lineno">   61 </span><span class="decl"><span class="nottickedoff">numToChar = chr . fromInteger</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>boolToNum :: Bool -&gt; Integer
+<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">boolToNum True  = 1</span>
+<span class="lineno">   65 </span><span class="spaces"></span><span class="istickedoff">boolToNum False = 0</span></span>
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>numToBool :: Integer -&gt; Bool
+<span class="lineno">   68 </span><span class="decl"><span class="istickedoff">numToBool 0 = False</span>
+<span class="lineno">   69 </span><span class="spaces"></span><span class="istickedoff">numToBool _ = True</span></span>
+
+</pre>
+</body>
+</html>

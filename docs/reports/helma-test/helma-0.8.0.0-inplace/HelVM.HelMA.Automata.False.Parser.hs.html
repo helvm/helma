@@ -1,0 +1,141 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.False.Parser where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automata.False.Util
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           HelVM.HelIO.ReadText
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           Data.Char
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelIO.Control.Safe
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>parseFromTextSafe :: Text -&gt; Safe [Value]
+<span class="lineno">   12 </span><span class="decl"><span class="istickedoff">parseFromTextSafe = pure . parse . toString</span></span>
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>parse :: [Char] -&gt; [Value]
+<span class="lineno">   15 </span><span class="decl"><span class="istickedoff">parse [] = []</span>
+<span class="lineno">   16 </span><span class="spaces"></span><span class="istickedoff">-- Parse Arithmetic</span>
+<span class="lineno">   17 </span><span class="spaces"></span><span class="istickedoff">parse ('+':prog) = (Ope Plus):(parse prog)</span>
+<span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">parse ('-':prog) = (Ope Minus):(parse prog)</span>
+<span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">parse ('*':prog) = (Ope Multiply):(parse prog)</span>
+<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">parse ('/':prog) = (Ope Division):(parse prog)</span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">parse ('_':prog) = <span class="nottickedoff">(Ope Negate):(parse prog)</span></span>
+<span class="lineno">   22 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">-- Parse Comparison</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">parse ('=':prog) = (Ope Equal):(parse prog)</span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">parse ('&gt;':prog) = (Ope Greater):(parse prog)</span>
+<span class="lineno">   26 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   27 </span><span class="spaces"></span><span class="istickedoff">-- Parse Boolean Algebra</span>
+<span class="lineno">   28 </span><span class="spaces"></span><span class="istickedoff">parse ('&amp;':prog) = <span class="nottickedoff">(Ope And):(parse prog)</span></span>
+<span class="lineno">   29 </span><span class="spaces"></span><span class="istickedoff">parse ('|':prog) = <span class="nottickedoff">(Ope Or):(parse prog)</span></span>
+<span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">parse ('~':prog) = (Ope Not):(parse prog)</span>
+<span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">-- Parse Stack Ope</span>
+<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">parse ('$':prog) = (Ope Dup):(parse prog)</span>
+<span class="lineno">   34 </span><span class="spaces"></span><span class="istickedoff">parse ('%':prog) = (Ope Drop):(parse prog)</span>
+<span class="lineno">   35 </span><span class="spaces"></span><span class="istickedoff">parse ('\\':prog) = (Ope Swap):(parse prog)</span>
+<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">parse ('@':prog) = (Ope Rot):(parse prog)</span>
+<span class="lineno">   37 </span><span class="spaces"></span><span class="istickedoff">parse ('o':prog) = (Ope Pick):(parse prog)</span>
+<span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff">-- Parse Control Flow</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">parse ('!':prog) = (Ope Execute):(parse prog)</span>
+<span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff">parse ('?':prog) = (Ope If):(parse prog)</span>
+<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">parse ('#':prog) = (Ope While):(parse prog)</span>
+<span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">parse ('{':prog) = (parse (afterComment prog))</span>
+<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">parse ('[':prog) = (Fn (parse $ parseLambda 0 prog)):(parse $ afterLambda 0 prog)</span>
+<span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">-- Parse Standard Input/Output</span>
+<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">parse ('^':prog) = <span class="nottickedoff">(Io ReadChar):(parse prog)</span></span>
+<span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">parse (',':prog) = <span class="nottickedoff">(Io WriteChar):(parse prog)</span></span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">parse ('.':prog) = (Io WriteDec):(parse prog)</span>
+<span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">parse ('&quot;':prog) = (Io (Str (parseString prog))):(parse $ afterString prog)</span>
+<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">-- Parse Variables</span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">parse (c:prog) | isAlpha c = (Var (charToVar c)):(parse prog)</span>
+<span class="lineno">   54 </span><span class="spaces"></span><span class="istickedoff">parse (':':prog) = (Ope Store):(parse prog)</span>
+<span class="lineno">   55 </span><span class="spaces"></span><span class="istickedoff">parse (';':prog) = (Ope Fetch):(parse prog)</span>
+<span class="lineno">   56 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff">-- Parse Literals</span>
+<span class="lineno">   58 </span><span class="spaces"></span><span class="istickedoff">parse ('\'':c:prog) = <span class="nottickedoff">(Ch c):(parse prog)</span></span>
+<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">parse full@(i:prog) | isDigit i = (Num (readTextUnsafe $ toText $ parseNum full)):(parse (afterNum prog))</span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">-- Skip other shit</span>
+<span class="lineno">   62 </span><span class="spaces"></span><span class="istickedoff">parse (_:prog) = (parse prog)</span></span>
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>-- Parse manipulators
+<span class="lineno">   66 </span>-- Parse Strings
+<span class="lineno">   67 </span>parseString :: [Char] -&gt; [Char]
+<span class="lineno">   68 </span><span class="decl"><span class="istickedoff">parseString ('&quot;':_)         = []</span>
+<span class="lineno">   69 </span><span class="spaces"></span><span class="istickedoff">-- Handle special characters explicitly</span>
+<span class="lineno">   70 </span><span class="spaces"></span><span class="istickedoff">parseString ('\\':'a':prog) = <span class="nottickedoff">(chr 7):(parseString prog)</span></span>
+<span class="lineno">   71 </span><span class="spaces"></span><span class="istickedoff">parseString ('\\':'b':prog) = <span class="nottickedoff">(chr 8):(parseString prog)</span></span>
+<span class="lineno">   72 </span><span class="spaces"></span><span class="istickedoff">parseString ('\\':'f':prog) = <span class="nottickedoff">(chr 12):(parseString prog)</span></span>
+<span class="lineno">   73 </span><span class="spaces"></span><span class="istickedoff">parseString ('\\':'n':prog) = <span class="nottickedoff">(chr 10):(parseString prog)</span></span>
+<span class="lineno">   74 </span><span class="spaces"></span><span class="istickedoff">parseString ('\\':'r':prog) = <span class="nottickedoff">(chr 13):(parseString prog)</span></span>
+<span class="lineno">   75 </span><span class="spaces"></span><span class="istickedoff">parseString ('\\':'t':prog) = <span class="nottickedoff">(chr 9):(parseString prog)</span></span>
+<span class="lineno">   76 </span><span class="spaces"></span><span class="istickedoff">parseString ('\\':'&quot;':prog) = <span class="nottickedoff">(chr 34):(parseString prog)</span></span>
+<span class="lineno">   77 </span><span class="spaces"></span><span class="istickedoff">parseString (c:prog)        = c:(parseString prog)</span>
+<span class="lineno">   78 </span><span class="spaces"></span><span class="istickedoff">parseString []              = <span class="nottickedoff">error &quot;Empty&quot;</span></span></span>
+<span class="lineno">   79 </span>
+<span class="lineno">   80 </span>afterString :: [Char] -&gt; [Char]
+<span class="lineno">   81 </span><span class="decl"><span class="istickedoff">afterString ('&quot;' : prog) = prog</span>
+<span class="lineno">   82 </span><span class="spaces"></span><span class="istickedoff">afterString (_   : prog) = afterString prog</span>
+<span class="lineno">   83 </span><span class="spaces"></span><span class="istickedoff">afterString []           = <span class="nottickedoff">error &quot;Empty&quot;</span></span></span>
+<span class="lineno">   84 </span>
+<span class="lineno">   85 </span>
+<span class="lineno">   86 </span>-- Parse Lambdas
+<span class="lineno">   87 </span>parseLambda :: Int -&gt; [Char] -&gt; [Char]
+<span class="lineno">   88 </span><span class="decl"><span class="istickedoff">parseLambda _ []         = <span class="nottickedoff">error &quot;Unclosed lambda&quot;</span></span>
+<span class="lineno">   89 </span><span class="spaces"></span><span class="istickedoff">parseLambda 0 (']':_)    = []</span>
+<span class="lineno">   90 </span><span class="spaces"></span><span class="istickedoff">parseLambda n (']':prog) = ']':(parseLambda (n-1) prog)</span>
+<span class="lineno">   91 </span><span class="spaces"></span><span class="istickedoff">parseLambda n ('[':prog) = '[':(parseLambda (n+1) prog)</span>
+<span class="lineno">   92 </span><span class="spaces"></span><span class="istickedoff">parseLambda n (c:prog)   = c:(parseLambda n prog)</span></span>
+<span class="lineno">   93 </span>
+<span class="lineno">   94 </span>afterLambda :: Int -&gt; [Char] -&gt; [Char]
+<span class="lineno">   95 </span><span class="decl"><span class="istickedoff">afterLambda _ []         = <span class="nottickedoff">error &quot;Unclosed lambda&quot;</span></span>
+<span class="lineno">   96 </span><span class="spaces"></span><span class="istickedoff">afterLambda 0 (']':prog) = prog</span>
+<span class="lineno">   97 </span><span class="spaces"></span><span class="istickedoff">afterLambda n (']':prog) = afterLambda (n-1) prog</span>
+<span class="lineno">   98 </span><span class="spaces"></span><span class="istickedoff">afterLambda n ('[':prog) = afterLambda (n+1) prog</span>
+<span class="lineno">   99 </span><span class="spaces"></span><span class="istickedoff">afterLambda n (_:prog)   = afterLambda n prog</span></span>
+<span class="lineno">  100 </span>
+<span class="lineno">  101 </span>-- Parse Numbers
+<span class="lineno">  102 </span>parseNum :: [Char] -&gt; [Char]
+<span class="lineno">  103 </span><span class="decl"><span class="istickedoff">parseNum [] = <span class="nottickedoff">[]</span></span>
+<span class="lineno">  104 </span><span class="spaces"></span><span class="istickedoff">parseNum ('.':i:prog) | <span class="nottickedoff">isDigit i</span> = <span class="nottickedoff">'.':i:(parseNum prog)</span></span>
+<span class="lineno">  105 </span><span class="spaces"></span><span class="istickedoff">parseNum (i:prog) | isDigit i = i:(parseNum prog)</span>
+<span class="lineno">  106 </span><span class="spaces"></span><span class="istickedoff">parseNum (_ : _) = []</span></span>
+<span class="lineno">  107 </span>
+<span class="lineno">  108 </span>afterNum :: [Char] -&gt; [Char]
+<span class="lineno">  109 </span><span class="decl"><span class="istickedoff">afterNum [] = <span class="nottickedoff">[]</span></span>
+<span class="lineno">  110 </span><span class="spaces"></span><span class="istickedoff">afterNum (i:prog) | isDigit i = afterNum prog</span>
+<span class="lineno">  111 </span><span class="spaces"></span><span class="istickedoff">afterNum full@(_:_) = full</span></span>
+<span class="lineno">  112 </span>
+<span class="lineno">  113 </span>
+<span class="lineno">  114 </span>-- Ignore Comments
+<span class="lineno">  115 </span>afterComment :: [Char] -&gt; [Char]
+<span class="lineno">  116 </span><span class="decl"><span class="istickedoff">afterComment []         = <span class="nottickedoff">error &quot;Unclosed Comment&quot;</span></span>
+<span class="lineno">  117 </span><span class="spaces"></span><span class="istickedoff">afterComment ('}':prog) = prog</span>
+<span class="lineno">  118 </span><span class="spaces"></span><span class="istickedoff">afterComment (_:prog)   = afterComment prog</span></span>
+
+</pre>
+</body>
+</html>

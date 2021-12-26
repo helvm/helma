@@ -37,7 +37,7 @@ common common-options
     , relude               == 1.0.0.1
   mixins:
       base hiding (Prelude)
-    , relude (Relude as Prelude, Relude.Extra, Data.Text)
+    , relude (Relude as Prelude , Relude.Extra , Relude.Unsafe , Data.Text)
   default-language:    Haskell2010
   default-extensions:
     EmptyDataDecls
@@ -162,6 +162,11 @@ library
     HelVM.HelMA.Automata.ETA.Symbol
     HelVM.HelMA.Automata.ETA.Token
 
+    HelVM.HelMA.Automata.False.Evaluator.LLEvaluator
+    HelVM.HelMA.Automata.False.Exec
+    HelVM.HelMA.Automata.False.Parser
+    HelVM.HelMA.Automata.False.Util
+
     HelVM.HelMA.Automata.LazyK.Automaton
     HelVM.HelMA.Automata.LazyK.Constants
     HelVM.HelMA.Automata.LazyK.Evaluator
@@ -254,6 +259,10 @@ test-suite helma-test
     HelVM.HelMA.Automata.ETA.FileExtra
     HelVM.HelMA.Automata.ETA.LexerSpec
     HelVM.HelMA.Automata.ETA.OperandParsersSpec
+
+    HelVM.HelMA.Automata.False.EvaluatorSpec
+    HelVM.HelMA.Automata.False.FileUtil
+    HelVM.HelMA.Automata.False.ParserSpec
 
     HelVM.HelMA.Automata.LazyK.AutomatonSpec
     HelVM.HelMA.Automata.LazyK.FileExtra

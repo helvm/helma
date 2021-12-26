@@ -1,0 +1,136 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.False.Exec where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automata.False.Util
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import qualified Relude.Unsafe                       as Unsafe
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>exec :: BIO m =&gt; [Value] -&gt; [Value] -&gt; [Value] -&gt; m ([Value], [Value])
+<span class="lineno">   10 </span><span class="decl"><span class="istickedoff">exec [] stack reg = return (stack, reg)</span>
+<span class="lineno">   11 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   12 </span><span class="spaces"></span><span class="istickedoff">-- Handle Arithmetic</span>
+<span class="lineno">   13 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Plus    ):prog) ((Num a):(Num b):stack) reg = exec prog ((Num (b+a)):stack) reg</span>
+<span class="lineno">   14 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Minus   ):prog) ((Num a):(Num b):stack) reg = exec prog ((Num (b-a)):stack) reg</span>
+<span class="lineno">   15 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Multiply):prog) ((Num a):(Num b):stack) reg = exec prog ((Num (b*a)):stack) <span class="nottickedoff">reg</span></span>
+<span class="lineno">   16 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Division):prog) ((Num a):(Num b):stack) reg = exec prog ((Num (b `div` a)):stack) <span class="nottickedoff">reg</span></span>
+<span class="lineno">   17 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Negate  ):prog) ((Num a):stack) reg = <span class="nottickedoff">exec prog ((Num (negate a)):stack) reg</span></span>
+<span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">-- Handle Comparison</span>
+<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Equal):prog) ((Num a):(Num b):stack) reg = exec prog ((Num (boolToNum (b == a))):stack) reg</span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Greater):prog) ((Num a):(Num b):stack) reg = exec prog ((Num (boolToNum (b &gt; a))):<span class="nottickedoff">stack</span>) reg</span>
+<span class="lineno">   22 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">-- Handle Boolean Algebra</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope And):prog) ((Num a):(Num b):stack) reg = <span class="nottickedoff">exec prog ((Num (b `nAnd` a)):stack) reg</span></span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Or ):prog) ((Num a):(Num b):stack) reg = <span class="nottickedoff">exec prog ((Num (b `nOr` a)):stack) reg</span></span>
+<span class="lineno">   26 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Not):prog) ((Num a):stack) reg = exec prog ((Num (nNot a)):stack) reg</span>
+<span class="lineno">   27 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   28 </span><span class="spaces"></span><span class="istickedoff">-- Handle Stack Operation</span>
+<span class="lineno">   29 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Dup ):prog) (a : stack) reg = exec prog (a:a:stack) reg</span>
+<span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Drop):prog) (_ : stack) reg = exec prog stack <span class="nottickedoff">reg</span></span>
+<span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Swap):prog) (a : b : stack) reg = exec prog (b:a:stack) <span class="nottickedoff">reg</span></span>
+<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Rot ):prog) (a : b : c : stack) reg = exec prog (c:a:b:stack) reg</span>
+<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Pick):prog) ((Num a) : stack ) reg = exec prog ((pick a stack) : stack) <span class="nottickedoff">reg</span></span>
+<span class="lineno">   34 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   35 </span><span class="spaces"></span><span class="istickedoff">-- Handle Control Flow</span>
+<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Execute):prog) ((Fn lambda):stack) reg = do</span>
+<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">(newStack, newReg) &lt;- exec lambda stack reg</span>
+<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">exec prog newStack <span class="nottickedoff">newReg</span></span>
+<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope If):prog) (fn:(Num a):stack) reg =</span>
+<span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">if (numToBool a)</span>
+<span class="lineno">   42 </span><span class="spaces">  </span><span class="istickedoff">then exec ((Ope Execute):prog) (fn:stack) reg</span>
+<span class="lineno">   43 </span><span class="spaces">  </span><span class="istickedoff">else exec prog stack reg</span>
+<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">exec true@((Ope While):prog) ((Fn body):(Fn cond):stack) reg = do</span>
+<span class="lineno">   46 </span><span class="spaces">  </span><span class="istickedoff">(condStack, condReg) &lt;- exec cond stack reg</span>
+<span class="lineno">   47 </span><span class="spaces">  </span><span class="istickedoff">if (while condStack)</span>
+<span class="lineno">   48 </span><span class="spaces">  </span><span class="istickedoff">then do</span>
+<span class="lineno">   49 </span><span class="spaces">    </span><span class="istickedoff">(newStack, newReg) &lt;- (exec body stack condReg)</span>
+<span class="lineno">   50 </span><span class="spaces">    </span><span class="istickedoff">exec true ((Fn body):(Fn cond):newStack) newReg</span>
+<span class="lineno">   51 </span><span class="spaces">  </span><span class="istickedoff">else exec prog stack <span class="nottickedoff">condReg</span></span>
+<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">-- Handle Standard Input/Output</span>
+<span class="lineno">   54 </span><span class="spaces"></span><span class="istickedoff">exec ((Io ReadChar):prog) stack reg = <span class="nottickedoff">do</span></span>
+<span class="lineno">   55 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">char &lt;- wGetChar</span></span>
+<span class="lineno">   56 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">exec prog ((Num (charToNum char)):stack) reg</span></span>
+<span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff">exec ((Io WriteChar):prog) ((Num a):stack) reg = <span class="nottickedoff">do</span></span>
+<span class="lineno">   58 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">wPutChar $ numToChar a</span></span>
+<span class="lineno">   59 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">exec prog stack reg</span></span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">exec ((Io WriteDec):prog) ((Num a):stack) reg = do</span>
+<span class="lineno">   61 </span><span class="spaces">  </span><span class="istickedoff">wPutStr $ show a</span>
+<span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">exec prog stack reg</span>
+<span class="lineno">   63 </span><span class="spaces"></span><span class="istickedoff">exec ((Io (Str str)):prog) stack reg = do</span>
+<span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">wPutStr $ toText str</span>
+<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">exec prog stack reg</span>
+<span class="lineno">   66 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   67 </span><span class="spaces"></span><span class="istickedoff">-- Handle Variables Operations</span>
+<span class="lineno">   68 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Store):prog) ((Var key):val:stack) reg = exec prog stack (putByIndex reg key val)</span>
+<span class="lineno">   69 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope Fetch):prog) ((Var key):stack) reg = exec prog ((getByIndex reg key):stack) reg</span>
+<span class="lineno">   70 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   71 </span><span class="spaces"></span><span class="istickedoff">-- Handle Values</span>
+<span class="lineno">   72 </span><span class="spaces"></span><span class="istickedoff">exec ((Ope op):prog) stack reg = <span class="nottickedoff">error (&quot;Invalid operator parameters: &quot; &lt;&gt; (show op) &lt;&gt; &quot;, nprog &quot; &lt;&gt; (show prog) &lt;&gt; &quot;, stack &quot; &lt;&gt; (show stack) &lt;&gt; &quot;, reg&quot; &lt;&gt; (show reg))</span> --(exec prog stack reg)</span>
+<span class="lineno">   73 </span><span class="spaces"></span><span class="istickedoff">--exec ((Ope _):_) stack reg = pure $ (stack , reg)</span>
+<span class="lineno">   74 </span><span class="spaces"></span><span class="istickedoff">exec ((Ch c):prog)   stack reg = <span class="nottickedoff">exec prog ((Num (charToNum c)):stack) reg</span></span>
+<span class="lineno">   75 </span><span class="spaces"></span><span class="istickedoff">exec (a:prog)        stack reg = exec prog (a:stack) reg</span></span>
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>-- FALSE operators
+<span class="lineno">   78 </span>pick :: Integer -&gt; [Value] -&gt; Value
+<span class="lineno">   79 </span><span class="decl"><span class="istickedoff">pick n stack = Unsafe.head $ drop (fromInteger n) stack</span></span>
+<span class="lineno">   80 </span>
+<span class="lineno">   81 </span>while :: [Value] -&gt; Bool
+<span class="lineno">   82 </span><span class="decl"><span class="istickedoff">while = valueToBool . Unsafe.head</span></span>
+<span class="lineno">   83 </span>
+<span class="lineno">   84 </span>putByIndex' :: [Value] -&gt; [Value] -&gt; Value -&gt; Int -&gt; [Value]
+<span class="lineno">   85 </span><span class="decl"><span class="istickedoff">putByIndex' left (  _ : right) val   0 = left &lt;&gt; [val] &lt;&gt; <span class="nottickedoff">right</span></span>
+<span class="lineno">   86 </span><span class="spaces"></span><span class="istickedoff">putByIndex' left (mov : right) val key = putByIndex' (left&lt;&gt;[<span class="nottickedoff">mov</span>]) right val (key-1)</span>
+<span class="lineno">   87 </span><span class="spaces"></span><span class="istickedoff">putByIndex'    _            []   _   _ = <span class="nottickedoff">error &quot;Empty&quot;</span></span></span>
+<span class="lineno">   88 </span>
+<span class="lineno">   89 </span>
+<span class="lineno">   90 </span>putByIndex :: [Value] -&gt; Int -&gt; Value -&gt; [Value]
+<span class="lineno">   91 </span><span class="decl"><span class="istickedoff">putByIndex reg key val = putByIndex' [] reg val key</span></span>
+<span class="lineno">   92 </span>
+<span class="lineno">   93 </span>getByIndex :: [Value] -&gt; Int -&gt; Value
+<span class="lineno">   94 </span><span class="decl"><span class="istickedoff">getByIndex (val :   _)   0 = val</span>
+<span class="lineno">   95 </span><span class="spaces"></span><span class="istickedoff">getByIndex (  _ : reg) key = getByIndex reg (key - 1)</span>
+<span class="lineno">   96 </span><span class="spaces"></span><span class="istickedoff">getByIndex []            _ = <span class="nottickedoff">error &quot;Empty&quot;</span></span></span>
+<span class="lineno">   97 </span>
+<span class="lineno">   98 </span>-- Boolean Num Operators
+<span class="lineno">   99 </span>nAnd :: Integer -&gt; Integer -&gt; Integer
+<span class="lineno">  100 </span><span class="decl"><span class="nottickedoff">nAnd 0 0     = 0</span>
+<span class="lineno">  101 </span><span class="spaces"></span><span class="nottickedoff">nAnd   _ 0   = 0</span>
+<span class="lineno">  102 </span><span class="spaces"></span><span class="nottickedoff">nAnd 0   _   = 0</span>
+<span class="lineno">  103 </span><span class="spaces"></span><span class="nottickedoff">nAnd   _   _ = 1</span></span>
+<span class="lineno">  104 </span>
+<span class="lineno">  105 </span>nNot :: Integer -&gt; Integer
+<span class="lineno">  106 </span><span class="decl"><span class="istickedoff">nNot 0   = 1</span>
+<span class="lineno">  107 </span><span class="spaces"></span><span class="istickedoff">nNot   _ = 0</span></span>
+<span class="lineno">  108 </span>
+<span class="lineno">  109 </span>nOr :: Integer -&gt; Integer -&gt; Integer
+<span class="lineno">  110 </span><span class="decl"><span class="nottickedoff">nOr 0 0     = 0</span>
+<span class="lineno">  111 </span><span class="spaces"></span><span class="nottickedoff">nOr   _ 0   = 1</span>
+<span class="lineno">  112 </span><span class="spaces"></span><span class="nottickedoff">nOr 0   _   = 1</span>
+<span class="lineno">  113 </span><span class="spaces"></span><span class="nottickedoff">nOr   _   _ = 1</span></span>
+
+</pre>
+</body>
+</html>

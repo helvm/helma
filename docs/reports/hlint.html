@@ -161,12 +161,24 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Suggestion: Reduce duplication (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Use &#39;chr&#39; from Relude (7)</a></li>
+<li><a id="hint1" href="javascript:show('hint1')">Warning: Use &#39;getArgs&#39; from Relude (1)</a></li>
+<li><a id="hint2" href="javascript:show('hint2')">Warning: Use print (1)</a></li>
+<li><a id="hint3" href="javascript:show('hint3')">Warning: Use replicate (1)</a></li>
+<li><a id="hint4" href="javascript:show('hint4')">Suggestion: Move brackets to avoid $ (2)</a></li>
+<li><a id="hint5" href="javascript:show('hint5')">Suggestion: Reduce duplication (1)</a></li>
+<li><a id="hint6" href="javascript:show('hint6')">Suggestion: Redundant bracket (102)</a></li>
+<li><a id="hint7" href="javascript:show('hint7')">Suggestion: Use pass (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
 <li><a id="file0" href="javascript:show('file0')">./dist-newstyle/src/helio-47df7eb819007334/hs/test/HelVM/HelIO/Collections/MapListSpec.hs (1)</a></li>
+<li><a id="file1" href="javascript:show('file1')">./hs/src/HelVM/HelMA/Automata/False/Evaluator/LLEvaluator.hs (1)</a></li>
+<li><a id="file2" href="javascript:show('file2')">./hs/src/HelVM/HelMA/Automata/False/Exec.hs (24)</a></li>
+<li><a id="file3" href="javascript:show('file3')">./hs/src/HelVM/HelMA/Automata/False/False.hs (2)</a></li>
+<li><a id="file4" href="javascript:show('file4')">./hs/src/HelVM/HelMA/Automata/False/Parser.hs (85)</a></li>
+<li><a id="file5" href="javascript:show('file5')">./hs/src/HelVM/HelMA/Automata/False/Util.hs (3)</a></li>
 </ul>
 
 </div>
@@ -177,7 +189,7 @@ v3.1.6
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-<div class="hint0 file0">
+<div class="hint5 file0">
 dist-newstyle/src/helio-47df7eb819007334/hs/test/HelVM/HelIO/Collections/MapListSpec.hs:50:11-112: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-definition'>it</span> <span class='hs-str'>"mapListToList . fromIntIndexedList"</span>
@@ -190,6 +202,1069 @@ Found<br/>
 Perhaps<br/>
 <pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varid'>dist</span><span class='hs-comment'>-</span><span class='hs-varid'>newstyle</span><span class='hs-varop'>/</span><span class='hs-varid'>src</span><span class='hs-varop'>/</span><span class='hs-varid'>helio</span><span class='hs-comment'>-</span><span class='hs-num'>47</span><span class='hs-varid'>df7eb819007334</span><span class='hs-varop'>/</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelIO</span><span class='hs-varop'>/</span><span class='hs-conid'>Collections</span><span class='hs-varop'>/</span><span class='hs-conid'>MapListSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>59</span><span class='hs-conop'>:</span><span class='hs-num'>11</span><span class='hs-comment'>-</span><span class='hs-num'>112</span></pre>
 
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:13:69-79: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>+</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>+</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:14:69-79: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-comment'>-</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-comment'>-</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:15:69-79: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>*</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>*</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:16:69-85: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>`div`</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>`div`</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:17:61-76: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>negate</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>negate</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:20:66-91: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>boolToNum</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>==</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>boolToNum</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>==</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:21:68-92: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>boolToNum</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>&gt;</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>boolToNum</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>&gt;</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:24:64-81: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>`nAnd`</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>`nAnd`</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:25:64-80: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>`nOr`</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>b</span> <span class='hs-varop'>`nOr`</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:26:56-69: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>nNot</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>nNot</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:33:60-73: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>pick</span> <span class='hs-varid'>a</span> <span class='hs-varid'>stack</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>pick</span> <span class='hs-varid'>a</span> <span class='hs-varid'>stack</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:41:6-18: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-keyword'>if</span> <span class='hs-layout'>(</span><span class='hs-varid'>numToBool</span> <span class='hs-varid'>a</span><span class='hs-layout'>)</span> <span class='hs-keyword'>then</span>
+    <span class='hs-varid'>exec</span> <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Execute</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>fn</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span><span class='hs-layout'>)</span> <span class='hs-varid'>reg</span>
+<span class='hs-keyword'>else</span>
+    <span class='hs-varid'>exec</span> <span class='hs-varid'>prog</span> <span class='hs-varid'>stack</span> <span class='hs-varid'>reg</span></pre>
+Perhaps<br/>
+<pre><span class='hs-keyword'>if</span> <span class='hs-varid'>numToBool</span> <span class='hs-varid'>a</span> <span class='hs-keyword'>then</span>
+    <span class='hs-varid'>exec</span> <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Execute</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>fn</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span><span class='hs-layout'>)</span> <span class='hs-varid'>reg</span>
+<span class='hs-keyword'>else</span>
+    <span class='hs-varid'>exec</span> <span class='hs-varid'>prog</span> <span class='hs-varid'>stack</span> <span class='hs-varid'>reg</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:42:14-26: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Execute</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>prog</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Execute</span> <span class='hs-conop'>:</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:47:6-22: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-keyword'>if</span> <span class='hs-layout'>(</span><span class='hs-varid'>while</span> <span class='hs-varid'>condStack</span><span class='hs-layout'>)</span> <span class='hs-keyword'>then</span>
+    <span class='hs-keyword'>do</span> <span class='hs-layout'>(</span><span class='hs-varid'>newStack</span><span class='hs-layout'>,</span> <span class='hs-varid'>newReg</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>&lt;-</span> <span class='hs-layout'>(</span><span class='hs-varid'>exec</span> <span class='hs-varid'>body</span> <span class='hs-varid'>stack</span> <span class='hs-varid'>condReg</span><span class='hs-layout'>)</span>
+       <span class='hs-varid'>exec</span> <span class='hs-varid'>true</span> <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>body</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>cond</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>newStack</span><span class='hs-layout'>)</span> <span class='hs-varid'>newReg</span>
+<span class='hs-keyword'>else</span>
+    <span class='hs-varid'>exec</span> <span class='hs-varid'>prog</span> <span class='hs-varid'>stack</span> <span class='hs-varid'>condReg</span></pre>
+Perhaps<br/>
+<pre><span class='hs-keyword'>if</span> <span class='hs-varid'>while</span> <span class='hs-varid'>condStack</span> <span class='hs-keyword'>then</span>
+    <span class='hs-keyword'>do</span> <span class='hs-layout'>(</span><span class='hs-varid'>newStack</span><span class='hs-layout'>,</span> <span class='hs-varid'>newReg</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>&lt;-</span> <span class='hs-layout'>(</span><span class='hs-varid'>exec</span> <span class='hs-varid'>body</span> <span class='hs-varid'>stack</span> <span class='hs-varid'>condReg</span><span class='hs-layout'>)</span>
+       <span class='hs-varid'>exec</span> <span class='hs-varid'>true</span> <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>body</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>cond</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>newStack</span><span class='hs-layout'>)</span> <span class='hs-varid'>newReg</span>
+<span class='hs-keyword'>else</span>
+    <span class='hs-varid'>exec</span> <span class='hs-varid'>prog</span> <span class='hs-varid'>stack</span> <span class='hs-varid'>condReg</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:49:27-51: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-keyword'>do</span> <span class='hs-layout'>(</span><span class='hs-varid'>newStack</span><span class='hs-layout'>,</span> <span class='hs-varid'>newReg</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>&lt;-</span> <span class='hs-layout'>(</span><span class='hs-varid'>exec</span> <span class='hs-varid'>body</span> <span class='hs-varid'>stack</span> <span class='hs-varid'>condReg</span><span class='hs-layout'>)</span>
+   <span class='hs-varid'>exec</span> <span class='hs-varid'>true</span> <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>body</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>cond</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>newStack</span><span class='hs-layout'>)</span> <span class='hs-varid'>newReg</span></pre>
+Perhaps<br/>
+<pre><span class='hs-keyword'>do</span> <span class='hs-layout'>(</span><span class='hs-varid'>newStack</span><span class='hs-layout'>,</span> <span class='hs-varid'>newReg</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>&lt;-</span> <span class='hs-varid'>exec</span> <span class='hs-varid'>body</span> <span class='hs-varid'>stack</span> <span class='hs-varid'>condReg</span>
+   <span class='hs-varid'>exec</span> <span class='hs-varid'>true</span> <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>body</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>cond</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>newStack</span><span class='hs-layout'>)</span> <span class='hs-varid'>newReg</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:50:16-24: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>body</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>cond</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>newStack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Fn</span> <span class='hs-varid'>body</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>cond</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>newStack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:50:26-34: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-varid'>cond</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>newStack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Fn</span> <span class='hs-varid'>cond</span> <span class='hs-conop'>:</span> <span class='hs-varid'>newStack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:56:14-35: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>charToNum</span> <span class='hs-varid'>char</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>charToNum</span> <span class='hs-varid'>char</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:69:60-79: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>getByIndex</span> <span class='hs-varid'>reg</span> <span class='hs-varid'>key</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>getByIndex</span> <span class='hs-varid'>reg</span> <span class='hs-varid'>key</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:72:76-84: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>op</span><span class='hs-layout'>)</span>
+  <span class='hs-varop'>&lt;&gt;</span>
+    <span class='hs-str'>", nprog "</span>
+      <span class='hs-varop'>&lt;&gt;</span>
+        <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-str'>", stack "</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>stack</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-str'>", reg"</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>reg</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>show</span> <span class='hs-varid'>op</span>
+  <span class='hs-varop'>&lt;&gt;</span>
+    <span class='hs-str'>", nprog "</span>
+      <span class='hs-varop'>&lt;&gt;</span>
+        <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-str'>", stack "</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>stack</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-str'>", reg"</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>reg</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:72:103-113: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-str'>", stack "</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>stack</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-str'>", reg"</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>reg</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>show</span> <span class='hs-varid'>prog</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-str'>", stack "</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>stack</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-str'>", reg"</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>reg</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:72:132-143: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>stack</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-str'>", reg"</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>reg</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>show</span> <span class='hs-varid'>stack</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-str'>", reg"</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>reg</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:72:159-168: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-str'>", reg"</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varid'>reg</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-str'>", reg"</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-varid'>show</span> <span class='hs-varid'>reg</span></pre>
+
+</div>
+
+<div class="hint6 file2">
+hs/src/HelVM/HelMA/Automata/False/Exec.hs:74:45-63: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>charToNum</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>charToNum</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint1 file3">
+hs/src/HelVM/HelMA/Automata/False/False.hs:9:17-23: Warning: Use &#39;getArgs&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>getArgs</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>getArgs</span></pre>
+<span class='note'>Note: &#39;getArgs&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint2 file3">
+hs/src/HelVM/HelMA/Automata/False/False.hs:12:9-29: Warning: Use print<br/>
+Found<br/>
+<pre><span class='hs-definition'>putStrLn</span> <span class='hs-varop'>$</span> <span class='hs-varid'>show</span> <span class='hs-varid'>stack</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>print</span> <span class='hs-varid'>stack</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:17:20-29: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Plus</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Plus</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:17:31-42: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Plus</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Plus</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:18:20-30: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Minus</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Minus</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:18:32-43: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Minus</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Minus</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:19:20-33: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Multiply</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Multiply</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:19:35-46: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Multiply</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Multiply</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:20:20-33: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Division</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Division</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:20:35-46: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Division</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Division</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:21:20-31: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Negate</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Negate</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:21:33-44: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Negate</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Negate</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:24:20-30: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Equal</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Equal</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:24:32-43: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Equal</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Equal</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:25:20-32: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Greater</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Greater</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:25:34-45: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Greater</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Greater</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:28:20-28: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>And</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>And</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:28:30-41: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>And</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>And</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:29:20-27: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Or</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Or</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:29:29-40: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Or</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Or</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:30:20-28: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Not</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Not</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:30:30-41: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Not</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Not</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:33:20-28: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Dup</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Dup</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:33:30-41: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Dup</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Dup</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:34:20-29: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Drop</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Drop</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:34:31-42: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Drop</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Drop</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:35:21-30: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Swap</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Swap</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:35:32-43: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Swap</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Swap</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:36:20-28: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Rot</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Rot</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:36:30-41: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Rot</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Rot</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:37:20-29: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Pick</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Pick</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:37:31-42: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Pick</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Pick</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:40:20-32: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Execute</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Execute</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:40:34-45: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Execute</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Execute</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:41:20-27: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>If</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>If</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:41:29-40: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>If</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>If</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:42:20-30: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>While</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>While</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:42:32-43: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>While</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>While</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:43:20-46: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-layout'>(</span><span class='hs-varid'>afterComment</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>parse</span> <span class='hs-layout'>(</span><span class='hs-varid'>afterComment</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:44:20-52: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varop'>$</span> <span class='hs-varid'>parseLambda</span> <span class='hs-num'>0</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varop'>$</span> <span class='hs-varid'>afterLambda</span> <span class='hs-num'>0</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Fn</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varop'>$</span> <span class='hs-varid'>parseLambda</span> <span class='hs-num'>0</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varop'>$</span> <span class='hs-varid'>afterLambda</span> <span class='hs-num'>0</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint4 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:44:20-81: Suggestion: Move brackets to avoid $<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varop'>$</span> <span class='hs-varid'>parseLambda</span> <span class='hs-num'>0</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varop'>$</span> <span class='hs-varid'>afterLambda</span> <span class='hs-num'>0</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Fn</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varop'>$</span> <span class='hs-varid'>parseLambda</span> <span class='hs-num'>0</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-layout'>(</span><span class='hs-varid'>afterLambda</span> <span class='hs-num'>0</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:47:20-32: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-conid'>ReadChar</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Io</span> <span class='hs-conid'>ReadChar</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:47:34-45: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-conid'>ReadChar</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-conid'>ReadChar</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:48:20-33: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-conid'>WriteChar</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Io</span> <span class='hs-conid'>WriteChar</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:48:35-46: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-conid'>WriteChar</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-conid'>WriteChar</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:49:20-32: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-conid'>WriteDec</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Io</span> <span class='hs-conid'>WriteDec</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:49:34-45: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-conid'>WriteDec</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-conid'>WriteDec</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:50:20-48: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-layout'>(</span><span class='hs-conid'>Str</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varop'>$</span> <span class='hs-varid'>afterString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Io</span> <span class='hs-layout'>(</span><span class='hs-conid'>Str</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varop'>$</span> <span class='hs-varid'>afterString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint4 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:50:20-75: Suggestion: Move brackets to avoid $<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-layout'>(</span><span class='hs-conid'>Str</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varop'>$</span> <span class='hs-varid'>afterString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Io</span> <span class='hs-layout'>(</span><span class='hs-conid'>Str</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-layout'>(</span><span class='hs-varid'>afterString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:53:30-48: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Var</span> <span class='hs-layout'>(</span><span class='hs-varid'>charToVar</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Var</span> <span class='hs-layout'>(</span><span class='hs-varid'>charToVar</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:53:50-61: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Var</span> <span class='hs-layout'>(</span><span class='hs-varid'>charToVar</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Var</span> <span class='hs-layout'>(</span><span class='hs-varid'>charToVar</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:54:20-30: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Store</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Store</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:54:32-43: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Store</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Store</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:55:20-30: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Fetch</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ope</span> <span class='hs-conid'>Fetch</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:55:32-43: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Fetch</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ope</span> <span class='hs-conid'>Fetch</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:58:23-28: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ch</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Ch</span> <span class='hs-varid'>c</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:58:30-41: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ch</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Ch</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:59:35-81: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>readTextUnsafe</span> <span class='hs-varop'>$</span> <span class='hs-varid'>toText</span> <span class='hs-varop'>$</span> <span class='hs-varid'>parseNum</span> <span class='hs-varid'>full</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+  <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-layout'>(</span><span class='hs-varid'>afterNum</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>readTextUnsafe</span> <span class='hs-varop'>$</span> <span class='hs-varid'>toText</span> <span class='hs-varop'>$</span> <span class='hs-varid'>parseNum</span> <span class='hs-varid'>full</span><span class='hs-layout'>)</span>
+  <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-layout'>(</span><span class='hs-varid'>afterNum</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:59:83-105: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>readTextUnsafe</span> <span class='hs-varop'>$</span> <span class='hs-varid'>toText</span> <span class='hs-varop'>$</span> <span class='hs-varid'>parseNum</span> <span class='hs-varid'>full</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+  <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-layout'>(</span><span class='hs-varid'>afterNum</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-layout'>(</span><span class='hs-varid'>readTextUnsafe</span> <span class='hs-varop'>$</span> <span class='hs-varid'>toText</span> <span class='hs-varop'>$</span> <span class='hs-varid'>parseNum</span> <span class='hs-varid'>full</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
+  <span class='hs-conop'>:</span> <span class='hs-varid'>parse</span> <span class='hs-layout'>(</span><span class='hs-varid'>afterNum</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:62:18-29: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>parse</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>parse</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:70:31-37: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>7</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span> <span class='hs-num'>7</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint0 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:70:32-34: Warning: Use &#39;chr&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+<span class='note'>Note: &#39;chr&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:70:39-56: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>7</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>7</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:71:31-37: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>8</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span> <span class='hs-num'>8</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint0 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:71:32-34: Warning: Use &#39;chr&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+<span class='note'>Note: &#39;chr&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:71:39-56: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>8</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>8</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:72:31-38: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>12</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span> <span class='hs-num'>12</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint0 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:72:32-34: Warning: Use &#39;chr&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+<span class='note'>Note: &#39;chr&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:72:40-57: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>12</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>12</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:73:31-38: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>10</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span> <span class='hs-num'>10</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint0 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:73:32-34: Warning: Use &#39;chr&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+<span class='note'>Note: &#39;chr&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:73:40-57: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>10</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>10</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:74:31-38: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>13</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span> <span class='hs-num'>13</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint0 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:74:32-34: Warning: Use &#39;chr&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+<span class='note'>Note: &#39;chr&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:74:40-57: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>13</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>13</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:75:31-37: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>9</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span> <span class='hs-num'>9</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint0 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:75:32-34: Warning: Use &#39;chr&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+<span class='note'>Note: &#39;chr&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:75:39-56: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>9</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>9</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:76:31-38: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>34</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span> <span class='hs-num'>34</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint0 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:76:32-34: Warning: Use &#39;chr&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>chr</span></pre>
+<span class='note'>Note: &#39;chr&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:76:40-57: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>34</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>chr</span> <span class='hs-num'>34</span><span class='hs-layout'>)</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:77:33-50: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-definition'>c</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>c</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseString</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:90:32-55: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-chr'>']'</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseLambda</span> <span class='hs-layout'>(</span><span class='hs-varid'>n</span> <span class='hs-comment'>-</span> <span class='hs-num'>1</span><span class='hs-layout'>)</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-chr'>']'</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseLambda</span> <span class='hs-layout'>(</span><span class='hs-varid'>n</span> <span class='hs-comment'>-</span> <span class='hs-num'>1</span><span class='hs-layout'>)</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:91:32-55: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-chr'>'['</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseLambda</span> <span class='hs-layout'>(</span><span class='hs-varid'>n</span> <span class='hs-varop'>+</span> <span class='hs-num'>1</span><span class='hs-layout'>)</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-chr'>'['</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseLambda</span> <span class='hs-layout'>(</span><span class='hs-varid'>n</span> <span class='hs-varop'>+</span> <span class='hs-num'>1</span><span class='hs-layout'>)</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:92:30-49: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-definition'>c</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseLambda</span> <span class='hs-varid'>n</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>c</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseLambda</span> <span class='hs-varid'>n</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:104:43-57: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-definition'>i</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseNum</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>i</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseNum</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint6 file4">
+hs/src/HelVM/HelMA/Automata/False/Parser.hs:105:35-49: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-definition'>i</span> <span class='hs-conop'>:</span> <span class='hs-layout'>(</span><span class='hs-varid'>parseNum</span> <span class='hs-varid'>prog</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>i</span> <span class='hs-conop'>:</span> <span class='hs-varid'>parseNum</span> <span class='hs-varid'>prog</span></pre>
+
+</div>
+
+<div class="hint3 file5">
+hs/src/HelVM/HelMA/Automata/False/Util.hs:46:12-35: Warning: Use replicate<br/>
+Found<br/>
+<pre><span class='hs-definition'>take</span> <span class='hs-num'>26</span> <span class='hs-varop'>$</span> <span class='hs-varid'>repeat</span> <span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-num'>0</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>replicate</span> <span class='hs-num'>26</span> <span class='hs-layout'>(</span><span class='hs-conid'>Num</span> <span class='hs-num'>0</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file5">
+hs/src/HelVM/HelMA/Automata/False/Util.hs:55:15-21: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>ord</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span> <span class='hs-comment'>-</span> <span class='hs-layout'>(</span><span class='hs-varid'>ord</span> <span class='hs-chr'>'a'</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>ord</span> <span class='hs-varid'>c</span> <span class='hs-comment'>-</span> <span class='hs-layout'>(</span><span class='hs-varid'>ord</span> <span class='hs-chr'>'a'</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint6 file5">
+hs/src/HelVM/HelMA/Automata/False/Util.hs:55:25-33: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>ord</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span> <span class='hs-comment'>-</span> <span class='hs-layout'>(</span><span class='hs-varid'>ord</span> <span class='hs-chr'>'a'</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>ord</span> <span class='hs-varid'>c</span><span class='hs-layout'>)</span> <span class='hs-comment'>-</span> <span class='hs-varid'>ord</span> <span class='hs-chr'>'a'</span></pre>
+
+</div>
+
+<div class="hint7 file1">
+hs/src/HelVM/HelMA/Automata/False/Evaluator/LLEvaluator.hs:14:3-9: Suggestion: Use pass<br/>
+Found<br/>
+<pre><span class='hs-definition'>pure</span> <span class='hs-conid'>()</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>pass</span></pre>
+<span class='note'>Note: Use &#39;pass&#39;</span>
 </div>
 
 </div>
