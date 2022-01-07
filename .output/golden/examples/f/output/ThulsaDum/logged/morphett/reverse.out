@@ -1,0 +1,3 @@
+parser error: "<console>" (line 1, column 2):
+unexpected "]"
+expecting "{", space, "+", "-", "*", "/", "_", "=", ">", "&", "|", "~", "!", "$", "%", "\\", "@", "`", "\248", "?", "#", ".", "\223", ",", "^", lowercase letter, digit, "'", "[" or "\""

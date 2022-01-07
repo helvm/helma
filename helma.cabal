@@ -109,10 +109,19 @@ library
     HelVM.HelMA.Automaton.API.RunParams
     HelVM.HelMA.Automaton.API.TypeOptions
 
+    HelVM.HelMA.Automaton.BIntegral
+
+    HelVM.HelMA.Automaton.Dynamic.DynamicIntegral
+    HelVM.HelMA.Automaton.Dynamic.DynamicVar
+
     HelVM.HelMA.Automaton.IO.BusinessIO
     HelVM.HelMA.Automaton.IO.EvaluatorIO
     HelVM.HelMA.Automaton.IO.FreeIO
     HelVM.HelMA.Automaton.IO.MockIO
+
+    HelVM.HelMA.Automaton.Memories.Stack.LLStack
+    HelVM.HelMA.Automaton.Memories.Stack.MTStack
+    HelVM.HelMA.Automaton.Memories.RAM.MTRAM
 
     HelVM.HelMA.Automaton.Instruction
 
@@ -120,6 +129,16 @@ library
     HelVM.HelMA.Automaton.Instruction.CFInstruction
     HelVM.HelMA.Automaton.Instruction.IOInstruction
     HelVM.HelMA.Automaton.Instruction.LSInstruction
+
+    HelVM.HelMA.Automaton.Operator.BinaryOperator
+    HelVM.HelMA.Automaton.Operator.HighControlOperator
+    HelVM.HelMA.Automaton.Operator.IOOperator
+    HelVM.HelMA.Automaton.Operator.IORamOperator
+    HelVM.HelMA.Automaton.Operator.LowControlOperator
+    HelVM.HelMA.Automaton.Operator.MemoryOperator
+    HelVM.HelMA.Automaton.Operator.StackOperator
+    HelVM.HelMA.Automaton.Operator.UnaryOperator
+    HelVM.HelMA.Automaton.Operator.Util
 
     HelVM.HelMA.Automaton.ReadPExtra
 
@@ -162,9 +181,21 @@ library
     HelVM.HelMA.Automata.ETA.Symbol
     HelVM.HelMA.Automata.ETA.Token
 
+    HelVM.HelMA.Automata.False.Value
+
+    HelVM.HelMA.Automata.False.API.Version
     HelVM.HelMA.Automata.False.Evaluator.LLEvaluator
-    HelVM.HelMA.Automata.False.Exec
     HelVM.HelMA.Automata.False.Parser
+
+    HelVM.HelMA.Automata.False.ThulsaDum.Evaluator.LLEvaluator
+    HelVM.HelMA.Automata.False.ThulsaDum.Evaluator
+    HelVM.HelMA.Automata.False.ThulsaDum.Parser
+
+    HelVM.HelMA.Automata.False.ThunderSeethe.Evaluator.LLEvaluator
+    HelVM.HelMA.Automata.False.ThunderSeethe.Evaluator
+    HelVM.HelMA.Automata.False.ThunderSeethe.Parser
+
+    HelVM.HelMA.Automata.False.Util.Util
     HelVM.HelMA.Automata.False.Util
 
     HelVM.HelMA.Automata.LazyK.Automaton
@@ -206,9 +237,11 @@ library
     , extra
     , free
     , ListLike
-    , natural-transformation
+    , mono-traversable
     , mtl
+    , natural-transformation
     , text
+    , parsec
     , type-operators
     , vector
 
@@ -245,6 +278,9 @@ test-suite helma-test
     HelVM.HelMA.Automaton.API.TypeOptionsExtra
     HelVM.HelMA.Automaton.FilterIf0Spec
 
+    HelVM.HelMA.Automaton.Memories.Stack.LLStackSpec
+    HelVM.HelMA.Automaton.Memories.Stack.MTStackSpec
+
     HelVM.HelMA.Automata.FileExtra
 
     HelVM.HelMA.Automata.BrainFuck.AutomatonSpec
@@ -260,9 +296,10 @@ test-suite helma-test
     HelVM.HelMA.Automata.ETA.LexerSpec
     HelVM.HelMA.Automata.ETA.OperandParsersSpec
 
-    HelVM.HelMA.Automata.False.EvaluatorSpec
-    HelVM.HelMA.Automata.False.FileUtil
+    HelVM.HelMA.Automata.False.FileExtra
     HelVM.HelMA.Automata.False.ParserSpec
+    HelVM.HelMA.Automata.False.ThulsaDum.EvaluatorSpec
+    HelVM.HelMA.Automata.False.ThunderSeethe.EvaluatorSpec
 
     HelVM.HelMA.Automata.LazyK.AutomatonSpec
     HelVM.HelMA.Automata.LazyK.FileExtra

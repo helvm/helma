@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.False.ParserSpec (spec) where
 
-import           HelVM.HelMA.Automata.False.FileUtil
+import           HelVM.HelMA.Automata.False.FileExtra
 import           HelVM.HelMA.Automata.False.Parser
 
 --import           HelVM.Expectations
@@ -10,7 +10,7 @@ import           HelVM.HelIO.Control.Safe
 
 --import           System.FilePath.Posix
 
-import           Test.Hspec                          (Spec, describe, it)
+import           Test.Hspec                           (Spec, describe, it)
 
 spec :: Spec
 spec = do

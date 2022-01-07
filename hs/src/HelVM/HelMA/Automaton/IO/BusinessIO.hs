@@ -36,6 +36,7 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.ReadText
 
+--import           Data.Bits
 import qualified Data.ByteString.Lazy        as LBS
 import           Data.Default                as Default
 import qualified Data.Text.Lazy              as LT
@@ -43,6 +44,7 @@ import qualified Data.Text.Lazy.IO           as LT
 
 import           System.IO                   hiding (getLine, hFlush, stderr, stdout)
 
+--type Element e  = (ReadShow e , Bits e, Integral e , Default e)
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)
 type BIO m = (MonadControl m , BusinessIO m)

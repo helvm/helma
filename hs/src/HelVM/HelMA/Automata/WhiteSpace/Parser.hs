@@ -4,7 +4,7 @@ module HelVM.HelMA.Automata.WhiteSpace.Parser (
   parseVisible,
   parseWhite,
   parse,
-  parseFromTL
+  parseFromTL,
 ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer

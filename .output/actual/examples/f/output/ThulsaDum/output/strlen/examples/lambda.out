@@ -1,0 +1,18 @@
+not testcase:
+false
+true
+and testcase:
+true
+false
+false
+false
+or testcase:
+true
+true
+true
+false
+xnor testcase:
+true
+false
+false
+true
