@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.6.13.0 -- 2022-01-19
+
+* Use `forM_` in tests
+
 ## 0.6.12.0 -- 2022-01-07
 
 * Add `Logger` based on Writer

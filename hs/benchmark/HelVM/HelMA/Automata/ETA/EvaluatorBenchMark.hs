@@ -32,8 +32,7 @@ execFromEas stackType = forM
   , ("readnum" , ["0\n" , "1\n"])
   , ("fact"    , ["0\n" , "1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n" , "9\n" ])
   , ("bottles" , [""])
-  ] $ \(fileName , inputs) -> do
-    ioExec stackType "from-eas" fileName inputs
+  ] $ uncurry (ioExec stackType "from-eas")
 
 execOriginal :: StackType -> IO [[Text]]
 execOriginal stackType = forM
@@ -42,8 +41,7 @@ execOriginal stackType = forM
   , ("fact"    , ["1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n"])
   , ("bottles" , [""])
   , ("crlf"    , [""])
-  ] $ \(fileName , inputs) -> do
-    ioExec stackType "original" fileName inputs
+  ] $ uncurry (ioExec stackType "original")
 
 ioExec :: StackType -> FilePath -> FilePath -> [Text] -> IO [Text]
 ioExec stackType dirName fileName inputs = do

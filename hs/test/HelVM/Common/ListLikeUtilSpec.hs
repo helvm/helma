@@ -7,7 +7,9 @@ import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec
 spec =
-  describe "splitBy" $ do
-    it "(3) [1,2,3,4,1,2,3,4]" $ splitBy (3 :: Integer) [1,2,3,4,1,2,3,4] `shouldBe` ([1,2] , [4,1,2,3,4])
-    it "(9) [1,2,3]"           $ splitBy (9 :: Integer) [1,2,3]           `shouldBe` ([1,2,3] , [])
-    it "(0) [1,2,3]"           $ splitBy (9 :: Integer) [1,2,3]           `shouldBe` ([1,2,3] , [])
+  describe "splitBy" $
+    forM_ [ ("(3) [1,2,3,4,1,2,3,4]" , (3 , [1,2,3,4,1,2,3,4] , ([1,2]   , [4,1,2,3,4])))
+          , ("(9) [1,2,3]"           , (9 , [1,2,3]           , ([1,2,3] , []         )))
+          , ("(0) [1,2,3]"           , (9 , [1,2,3]           , ([1,2,3] , []         )))
+          ] $ \(name , (by , input , output)) ->
+      it name $ splitBy (by :: Integer) input `shouldBe` output

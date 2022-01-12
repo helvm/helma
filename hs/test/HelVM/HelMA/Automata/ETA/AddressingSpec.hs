@@ -13,42 +13,52 @@ import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec
 spec = do
-  describe "findAddress ertrar" $ do
-    it "1" $ findAddress ertrar 1 `shouldSafe` 0
-    it "2" $ findAddress ertrar 2 `shouldSafe` 2
-    it "3" $ findAddress ertrar 3 `shouldSafe` 4
-    it "4" $ findAddress ertrar 4 `shouldSafe` 6
+  describe "findAddress ertrar" $
+    forM_ [ (1 , 0)
+          , (2 , 2)
+          , (3 , 4)
+          , (4 , 6)
+          ] $ \(input , output) ->
+      it (show input) $ findAddress ertrar input `shouldSafe` output
 
-  describe "nextLabel ertrar" $ do
-    it "0" $ nextLabel ertrar 0 `shouldBe` 2
-    it "1" $ nextLabel ertrar 1 `shouldBe` 2
-    it "2" $ nextLabel ertrar 2 `shouldBe` 3
-    it "3" $ nextLabel ertrar 3 `shouldBe` 3
-    it "4" $ nextLabel ertrar 4 `shouldBe` 4
-    it "5" $ nextLabel ertrar 5 `shouldBe` 4
-    it "6" $ nextLabel ertrar 6 `shouldBe` 5
+  describe "nextLabel ertrar" $
+    forM_ [ (0 , 2)
+          , (1 , 2)
+          , (2 , 3)
+          , (3 , 3)
+          , (4 , 4)
+          , (5 , 4)
+          , (6 , 5)
+          ] $ \(input , output) ->
+      it (show input) $ nextLabel ertrar input `shouldBe` output
 
-  describe "findAddress etaretaretar" $ do
-    it "1" $ findAddress etaretaretar 1 `shouldSafe` 0
-    it "2" $ findAddress etaretaretar 2 `shouldSafe` 4
-    it "3" $ findAddress etaretaretar 3 `shouldSafe` 8
-    it "4" $ findAddress etaretaretar 4 `shouldSafe` 12
+  describe "findAddress etaretaretar" $
+    forM_ [ (1 , 0)
+          , (2 , 4)
+          , (3 , 8)
+          , (4 , 12)
+          ] $ \(input , output) ->
+      it (show input) $ findAddress etaretaretar input `shouldSafe` output
 
-  describe "nextLabel etaretaretar" $ do
-    it "0" $ nextLabel etaretaretar 0 `shouldBe` 2
-    it "1" $ nextLabel etaretaretar 1 `shouldBe` 2
-    it "2" $ nextLabel etaretaretar 2 `shouldBe` 2
-    it "3" $ nextLabel etaretaretar 3 `shouldBe` 2
-    it "4" $ nextLabel etaretaretar 4 `shouldBe` 3
-    it "5" $ nextLabel etaretaretar 5 `shouldBe` 3
-    it "6" $ nextLabel etaretaretar 6 `shouldBe` 3
+  describe "nextLabel etaretaretar" $
+    forM_ [ (0 , 2)
+          , (1 , 2)
+          , (2 , 2)
+          , (3 , 2)
+          , (4 , 3)
+          , (5 , 3)
+          , (6 , 3)
+          ] $ \(input , output) ->
+      it (show input) $ nextLabel etaretaretar input `shouldBe` output
 
-  describe "findAddress hello2TL" $ do
-    it "1" $ findAddress hello2TL 1 `shouldSafe` 0
-    it "2" $ findAddress hello2TL 2 `shouldSafe` 40
-    it "3" $ findAddress hello2TL 3 `shouldSafe` 78
-    it "4" $ findAddress hello2TL 4 `shouldSafe` 106
-    it "5" $ findAddress hello2TL 5 `shouldSafe` 123
+  describe "findAddress hello2TL" $
+    forM_ [ (1 , 0)
+          , (2 , 40)
+          , (3 , 78)
+          , (4 , 106)
+          , (5 , 123)
+          ] $ \(input , output) ->
+      it (show input) $ findAddress hello2TL input `shouldSafe` output
 
   describe "nextLabel hello2TL" $
     forM_ [ (38  , 2)

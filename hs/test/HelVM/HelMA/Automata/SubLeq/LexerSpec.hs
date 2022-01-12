@@ -9,6 +9,8 @@ import           Test.Hspec                           (Spec, describe, it)
 
 spec :: Spec
 spec =
-  describe "minification" $ do
-    it "hello"     $ show . readSymbols <$> readSqFile "hello"     `ioShouldBe` readSqFile "hello"
-    it "longHello" $ show . readSymbols <$> readSqFile "longHello" `ioShouldBe` readSqFile "hello"
+  describe "minification" $
+    forM_ [ ("hello"     , "hello")
+          , ("longHello" , "hello")
+          ] $ \(input , output) ->
+      it input $ show . readSymbols <$> readSqFile input `ioShouldBe` readSqFile output

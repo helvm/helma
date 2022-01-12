@@ -8,47 +8,25 @@ import           HelVM.Expectations
 import           Test.Hspec                                     (Spec, describe, it)
 
 spec :: Spec
-spec = do
-  describe "(fst <$> parseNatural)" $ do
-    it "[N]"             $ (fst <$> parseNatural [N]            ) `shouldSafe` 0
-    it "[S , N]"         $ (fst <$> parseNatural [S , N]        ) `shouldSafe` 0
-    it "[T , N]"         $ (fst <$> parseNatural [T , N]        ) `shouldSafe` 1
-    it "[S , S , N]"     $ (fst <$> parseNatural [S , S , N]    ) `shouldSafe` 0
-    it "[S , T , N]"     $ (fst <$> parseNatural [S , T , N]    ) `shouldSafe` 1
-    it "[T , S , N]"     $ (fst <$> parseNatural [T , S , N]    ) `shouldSafe` 2
-    it "[T , T , N]"     $ (fst <$> parseNatural [T , T , N]    ) `shouldSafe` 3
-    it "[S , S , S , N]" $ (fst <$> parseNatural [S , S , S , N]) `shouldSafe` 0
-    it "[S , S , T , N]" $ (fst <$> parseNatural [S , S , T , N]) `shouldSafe` 1
-    it "[S , T , S , N]" $ (fst <$> parseNatural [S , T , S , N]) `shouldSafe` 2
-    it "[S , T , T , N]" $ (fst <$> parseNatural [S , T , T , N]) `shouldSafe` 3
-    it "[T , S , S , N]" $ (fst <$> parseNatural [T , S , S , N]) `shouldSafe` 4
-    it "[T , S , T , N]" $ (fst <$> parseNatural [T , S , T , N]) `shouldSafe` 5
-    it "[T , T , S , N]" $ (fst <$> parseNatural [T , T , S , N]) `shouldSafe` 6
-    it "[T , T , T , N]" $ (fst <$> parseNatural [T , T , T , N]) `shouldSafe` 7
-
-  describe "(fst <$> parseInteger)" $ do
-    it "[N]"             $ (fst <$> parseInteger [N]            ) `shouldSafe`   0
-    it "[S , N]"         $ (fst <$> parseInteger [S , N]        ) `shouldSafe`   0
-    it "[T , N]"         $ (fst <$> parseInteger [T , N]        ) `shouldSafe`   0
-    it "[S , S , N]"     $ (fst <$> parseInteger [S , S , N]    ) `shouldSafe`   0
-    it "[S , T , N]"     $ (fst <$> parseInteger [S , T , N]    ) `shouldSafe`   1
-    it "[T , S , N]"     $ (fst <$> parseInteger [T , S , N]    ) `shouldSafe`   0
-    it "[T , T , N]"     $ (fst <$> parseInteger [T , T , N]    ) `shouldSafe` (-1)
-    it "[S , S , S , N]" $ (fst <$> parseInteger [S , S , S , N]) `shouldSafe`   0
-    it "[S , S , T , N]" $ (fst <$> parseInteger [S , S , T , N]) `shouldSafe`   1
-    it "[S , T , S , N]" $ (fst <$> parseInteger [S , T , S , N]) `shouldSafe`   2
-    it "[S , T , T , N]" $ (fst <$> parseInteger [S , T , T , N]) `shouldSafe`   3
-    it "[T , S , S , N]" $ (fst <$> parseInteger [T , S , S , N]) `shouldSafe`   0
-    it "[T , S , T , N]" $ (fst <$> parseInteger [T , S , T , N]) `shouldSafe` (-1)
-    it "[T , T , S , N]" $ (fst <$> parseInteger [T , T , S , N]) `shouldSafe` (-2)
-    it "[T , T , T , N]" $ (fst <$> parseInteger [T , T , T , N]) `shouldSafe` (-3)
-
-  describe "(fst <$> parseDigitString)" $ do
-    it "[S , S , S , N]" $ (fst <$> parseDigitString [S , S , S , N]) `shouldSafe` "000"
-    it "[S , S , T , N]" $ (fst <$> parseDigitString [S , S , T , N]) `shouldSafe` "001"
-    it "[S , T , S , N]" $ (fst <$> parseDigitString [S , T , S , N]) `shouldSafe` "010"
-    it "[S , T , T , N]" $ (fst <$> parseDigitString [S , T , T , N]) `shouldSafe` "011"
-    it "[T , S , S , N]" $ (fst <$> parseDigitString [T , S , S , N]) `shouldSafe` "100"
-    it "[T , S , T , N]" $ (fst <$> parseDigitString [T , S , T , N]) `shouldSafe` "101"
-    it "[T , T , S , N]" $ (fst <$> parseDigitString [T , T , S , N]) `shouldSafe` "110"
-    it "[T , T , T , N]" $ (fst <$> parseDigitString [T , T , T , N]) `shouldSafe` "111"
+spec =
+  describe "parse" $
+    forM_ [ ([N]             , (0 ,  0 , ""   ))
+          , ([S , N]         , (0 ,  0 , "0"  ))
+          , ([T , N]         , (1 ,  0 , "1"  ))
+          , ([S , S , N]     , (0 ,  0 , "00" ))
+          , ([S , T , N]     , (1 ,  1 , "01" ))
+          , ([T , S , N]     , (2 ,  0 , "10" ))
+          , ([T , T , N]     , (3 , -1 , "11" ))
+          , ([S , S , S , N] , (0 ,  0 , "000"))
+          , ([S , S , T , N] , (1 ,  1 , "001"))
+          , ([S , T , S , N] , (2 ,  2 , "010"))
+          , ([S , T , T , N] , (3 ,  3 , "011"))
+          , ([T , S , S , N] , (4 ,  0 , "100"))
+          , ([T , S , T , N] , (5 , -1 , "101"))
+          , ([T , T , S , N] , (6 , -2 , "110"))
+          , ([T , T , T , N] , (7 , -3 , "111"))
+          ] $ \(input , (n , i , d)) ->
+      describe (show input) $ do
+        it "natural" $ (fst <$> parseNatural     input) `shouldSafe` n
+        it "integer" $ (fst <$> parseInteger     input) `shouldSafe` i
+        it "digits"  $ (fst <$> parseDigitString input) `shouldSafe` d

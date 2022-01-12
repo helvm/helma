@@ -161,20 +161,17 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Warning: Redundant do (4)</a></li>
-<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Move brackets to avoid $ (1)</a></li>
-<li><a id="hint2" href="javascript:show('hint2')">Suggestion: Reduce duplication (6)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Redundant do (1)</a></li>
+<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Reduce duplication (7)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
 <li><a id="file0" href="javascript:show('file0')">./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/IEvaluatorBenchMark.hs (2)</a></li>
 <li><a id="file1" href="javascript:show('file1')">./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/TEvaluatorBenchMark.hs (2)</a></li>
-<li><a id="file2" href="javascript:show('file2')">./hs/benchmark/HelVM/HelMA/Automata/ETA/EvaluatorBenchMark.hs (2)</a></li>
-<li><a id="file3" href="javascript:show('file3')">./hs/src/HelVM/HelMA/Automaton/IO/MockIO.hs (1)</a></li>
-<li><a id="file4" href="javascript:show('file4')">./hs/test/HelVM/HelMA/Automata/ETA/EvaluatorSpec.hs (1)</a></li>
-<li><a id="file5" href="javascript:show('file5')">./hs/test/HelVM/HelMA/Automata/WhiteSpace/EvaluatorSpec.hs (2)</a></li>
-<li><a id="file6" href="javascript:show('file6')">./hs/test/HelVM/MonadErrorSpec.hs (1)</a></li>
+<li><a id="file2" href="javascript:show('file2')">./hs/test/HelVM/Common/Collections/MapListSpec.hs (1)</a></li>
+<li><a id="file3" href="javascript:show('file3')">./hs/test/HelVM/HelMA/Automata/ETA/EvaluatorSpec.hs (1)</a></li>
+<li><a id="file4" href="javascript:show('file4')">./hs/test/HelVM/HelMA/Automata/WhiteSpace/EvaluatorSpec.hs (2)</a></li>
 </ul>
 
 </div>
@@ -185,7 +182,7 @@ v2.1.11
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-<div class="hint2 file0">
+<div class="hint1 file0">
 ./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/IEvaluatorBenchMark.hs:45:3: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readBfFile</span> <span class='hs-varid'>fileName</span>
@@ -198,7 +195,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint2 file0">
+<div class="hint1 file0">
 ./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/IEvaluatorBenchMark.hs:45:3: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readBfFile</span> <span class='hs-varid'>fileName</span>
@@ -211,7 +208,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint2 file1">
+<div class="hint1 file1">
 ./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/TEvaluatorBenchMark.hs:44:5: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readBfFile</span> <span class='hs-varid'>fileName</span>
@@ -224,7 +221,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint2 file1">
+<div class="hint1 file1">
 ./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/TEvaluatorBenchMark.hs:44:5: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readBfFile</span> <span class='hs-varid'>fileName</span>
@@ -237,49 +234,22 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint0 file2">
-./hs/benchmark/HelVM/HelMA/Automata/ETA/EvaluatorBenchMark.hs:35:31: Warning: Redundant do<br/>
+<div class="hint1 file2">
+./hs/test/HelVM/Common/Collections/MapListSpec.hs:50:11: Suggestion: Reduce duplication<br/>
 Found<br/>
-<pre><span class='hs-keyword'>do</span> <span class='hs-varid'>ioExec</span> <span class='hs-varid'>stackType</span> <span class='hs-str'>"from-eas"</span> <span class='hs-varid'>fileName</span> <span class='hs-varid'>inputs</span></pre>
+<pre><span class='hs-definition'>it</span> <span class='hs-str'>"mapListToList . fromIntIndexedList"</span> <span class='hs-varop'>$</span>
+  <span class='hs-layout'>(</span><span class='hs-varid'>mapListToList</span> <span class='hs-varop'>.</span> <span class='hs-varid'>fromIntIndexedList</span><span class='hs-layout'>)</span> <span class='hs-varid'>input</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-varid'>output</span>
+<span class='hs-definition'>it</span> <span class='hs-str'>"I.toList      . fromIntIndexedList"</span> <span class='hs-varop'>$</span>
+  <span class='hs-layout'>(</span><span class='hs-conid'>I.toList</span> <span class='hs-varop'>.</span> <span class='hs-varid'>fromIntIndexedList</span><span class='hs-layout'>)</span> <span class='hs-varid'>input</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-varid'>output</span>
+<span class='hs-definition'>it</span> <span class='hs-str'>"LL.toList     . fromIntIndexedList"</span> <span class='hs-varop'>$</span>
+  <span class='hs-layout'>(</span><span class='hs-conid'>LL.toList</span> <span class='hs-varop'>.</span> <span class='hs-varid'>fromIntIndexedList</span><span class='hs-layout'>)</span> <span class='hs-varid'>input</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-varid'>output</span>
+</pre>
 Perhaps<br/>
-<pre><span class='hs-definition'>ioExec</span> <span class='hs-varid'>stackType</span> <span class='hs-str'>"from-eas"</span> <span class='hs-varid'>fileName</span> <span class='hs-varid'>inputs</span></pre>
-
-</div>
-
-<div class="hint0 file2">
-./hs/benchmark/HelVM/HelMA/Automata/ETA/EvaluatorBenchMark.hs:45:31: Warning: Redundant do<br/>
-Found<br/>
-<pre><span class='hs-keyword'>do</span> <span class='hs-varid'>ioExec</span> <span class='hs-varid'>stackType</span> <span class='hs-str'>"original"</span> <span class='hs-varid'>fileName</span> <span class='hs-varid'>inputs</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>ioExec</span> <span class='hs-varid'>stackType</span> <span class='hs-str'>"original"</span> <span class='hs-varid'>fileName</span> <span class='hs-varid'>inputs</span></pre>
+<pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>Common</span><span class='hs-varop'>/</span><span class='hs-conid'>Collections</span><span class='hs-varop'>/</span><span class='hs-conid'>MapListSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>59</span><span class='hs-conop'>:</span><span class='hs-num'>11</span></pre>
 
 </div>
 
 <div class="hint1 file3">
-./hs/src/HelVM/HelMA/Automaton/IO/MockIO.hs:94:25: Suggestion: Move brackets to avoid $<br/>
-Found<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-varid'>orError</span> <span class='hs-varid'>mockIO</span> <span class='hs-varop'>$</span> <span class='hs-varid'>top</span> <span class='hs-layout'>(</span><span class='hs-varid'>input</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$</span>
-  <span class='hs-varid'>put</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>{</span><span class='hs-varid'>input</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>orError</span> <span class='hs-varid'>mockIO</span> <span class='hs-varop'>$</span> <span class='hs-varid'>discard</span> <span class='hs-varop'>$</span> <span class='hs-varid'>input</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>}</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>orError</span> <span class='hs-varid'>mockIO</span> <span class='hs-layout'>(</span><span class='hs-varid'>top</span> <span class='hs-layout'>(</span><span class='hs-varid'>input</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$</span>
-  <span class='hs-varid'>put</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>{</span><span class='hs-varid'>input</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>orError</span> <span class='hs-varid'>mockIO</span> <span class='hs-varop'>$</span> <span class='hs-varid'>discard</span> <span class='hs-varop'>$</span> <span class='hs-varid'>input</span> <span class='hs-varid'>mockIO</span><span class='hs-layout'>}</span></pre>
-
-</div>
-
-<div class="hint0 file6">
-./hs/test/HelVM/MonadErrorSpec.hs:9:8: Warning: Redundant do<br/>
-Found<br/>
-<pre><span class='hs-keyword'>do</span> <span class='hs-varid'>describe</span> <span class='hs-str'>"MonadError"</span> <span class='hs-varop'>$</span>
-     <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-str'>"Right"</span> <span class='hs-varop'>$</span> <span class='hs-varid'>textRight</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-conid'>Right</span> <span class='hs-num'>1</span>
-        <span class='hs-varid'>it</span> <span class='hs-str'>"Left"</span> <span class='hs-varop'>$</span> <span class='hs-varid'>textLeft</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-conid'>Left</span> <span class='hs-str'>"one"</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>describe</span> <span class='hs-str'>"MonadError"</span> <span class='hs-varop'>$</span>
-  <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-str'>"Right"</span> <span class='hs-varop'>$</span> <span class='hs-varid'>textRight</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-conid'>Right</span> <span class='hs-num'>1</span>
-     <span class='hs-varid'>it</span> <span class='hs-str'>"Left"</span> <span class='hs-varop'>$</span> <span class='hs-varid'>textLeft</span> <span class='hs-varop'>`shouldBe`</span> <span class='hs-conid'>Left</span> <span class='hs-str'>"one"</span></pre>
-
-</div>
-
-<div class="hint2 file4">
 ./hs/test/HelVM/HelMA/Automata/ETA/EvaluatorSpec.hs:30:11: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>defaultStackType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
@@ -292,7 +262,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint0 file5">
+<div class="hint0 file4">
 ./hs/test/HelVM/HelMA/Automata/WhiteSpace/EvaluatorSpec.hs:25:21: Warning: Redundant do<br/>
 Found<br/>
 <pre><span class='hs-keyword'>do</span> <span class='hs-varid'>describe</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>$</span>
@@ -345,7 +315,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint2 file5">
+<div class="hint1 file4">
 ./hs/test/HelVM/HelMA/Automata/WhiteSpace/EvaluatorSpec.hs:40:15: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-keyword'>let</span> <span class='hs-varid'>paramsIO</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>paramsF</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>

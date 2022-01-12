@@ -1,7 +1,7 @@
 cabal-version:       2.4
 
 name:                helma
-version:             0.6.12.0
+version:             0.6.13.0
 
 synopsis:            HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages
 description:         Please see the README on GitHub at <https://github.com/helvm/helma#readme>

@@ -91,7 +91,7 @@ instance BusinessIO (ControlT MockIO) where
 mockGetChar :: MockIO Char
 mockGetChar = mockGetChar' =<< get where
   mockGetChar' :: MonadState MockIOData f => MockIOData -> f Char
-  mockGetChar' mockIO = (orError mockIO $ top (input mockIO)) <$ put mockIO { input = orError mockIO $ discard $ input mockIO }
+  mockGetChar' mockIO = orError mockIO (top $ input mockIO) <$ put mockIO { input = orError mockIO $ discard $ input mockIO }
 
 mockGetLine :: MockIO Text
 mockGetLine = mockGetLine' =<< get where

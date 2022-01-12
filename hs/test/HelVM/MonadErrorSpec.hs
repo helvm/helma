@@ -6,10 +6,12 @@ import           Test.Hspec                     (Spec, describe, it)
 import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec
-spec = do
-  describe "MonadError" $ do
-    it "Right" $ textRight `shouldBe` Right 1
-    it "Left"  $ textLeft  `shouldBe` Left "one"
+spec =
+  describe "MonadError" $
+    forM_ [ ("Right", textRight, Right 1   )
+          , ("Left" , textLeft , Left "one")
+          ] $ \(name , input , output) ->
+      it name $ input `shouldBe` output
 
 type MonadTextError m = MonadError Text m
 
