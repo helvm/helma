@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.SubLeq.FileUtil (
   readSqFile,
-  buildAbsoluteOutFileName
+  buildAbsoluteExecFileName
 ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
@@ -13,8 +13,8 @@ readSqFile fileName = readFileText $ buildAbsoluteSqFileName fileName
 buildAbsoluteSqFileName :: FilePath -> FilePath
 buildAbsoluteSqFileName fileName = sqDir </> fileName <.> "sq"
 
-buildAbsoluteOutFileName :: FilePath -> FilePath
-buildAbsoluteOutFileName fileName = sqDir </> "output" </> fileName <.> "out"
+buildAbsoluteExecFileName :: FilePath -> FilePath
+buildAbsoluteExecFileName fileName = sqDir </> "exec" </> fileName
 
 sqDir :: FilePath
 sqDir = dir </> "sq"

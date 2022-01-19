@@ -24,10 +24,11 @@ spec = do
           , ("crlf"    , crlfTL   )
           ] $ \(fileName , tl) ->
       describe fileName $ do
-        it ("minified" </> fileName) $
-          (show . readTokens <$> readEtaFile ("original" </> fileName)) `goldenShouldIO` buildAbsoluteEtaFileName ("original" </> "minified" </> fileName)
-        it ("tokenize" </> fileName) $
-          tokenize           <$> readEtaFile ("original" </> fileName)  `shouldReturn` tl
+        let path = "original" </> fileName
+        it ("minified" </> path) $
+          (show . readTokens <$> readEtaFile path) `goldenShouldIO` buildAbsoluteEtaFileName ("minified" </> path)
+        it ("tokenize" </> path) $
+          tokenize           <$> readEtaFile path  `shouldReturn` tl
 
   describe "from-eas" $
     forM_ [ ("true"     , trueEASTL    )
@@ -48,7 +49,8 @@ spec = do
           , ("euclid"   , euclidEASTL  )
           ] $ \(fileName , tl) ->
       describe fileName $ do
-        it ("minified" </> fileName) $
-          (show . readTokens <$> readEtaFile ("from-eas" </> fileName)) `goldenShouldIO` buildAbsoluteEtaFileName ("from-eas" </> "minified" </> fileName)
+        let path = "from-eas" </> fileName
+        it ("minified" </> path) $
+          (show . readTokens <$> readEtaFile path) `goldenShouldIO` buildAbsoluteEtaFileName ("minified" </> path)
         it ("tokenize" </> fileName) $
-          tokenize           <$> readEtaFile ("from-eas" </> fileName)  `shouldReturn` tl
+          tokenize           <$> readEtaFile path  `shouldReturn` tl

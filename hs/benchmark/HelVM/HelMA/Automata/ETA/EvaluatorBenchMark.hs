@@ -14,10 +14,10 @@ benchMark :: Benchmark
 benchMark = bgroup "ETA" (benchMarkByStackType <$> stackTypes)
 
 benchMarkByStackType :: StackType -> Benchmark
-benchMarkByStackType stackType = bench (show stackType) $ nfIO $ exec stackType
+benchMarkByStackType stackType = bench (show stackType) $ nfIO $ execAll stackType
 
-exec :: StackType -> IO [[Text]]
-exec stackType = do
+execAll :: StackType -> IO [[Text]]
+execAll stackType = do
   fromEas <- execFromEas stackType
   original <- execOriginal stackType
   pure $ fromEas <> original
@@ -48,4 +48,5 @@ ioExec stackType dirName fileName inputs = do
   let file = readEtaFile (dirName </> fileName)
   forM inputs $ \ input -> do
     let params = (, stackType) <$> file
-    calculateOutput <$> (ioExecMockIOWithInput input . uncurryEval =<< params)
+    let exec = (ioExecMockIOWithInput input . uncurryEval =<< params)
+    calculateOutput <$> exec

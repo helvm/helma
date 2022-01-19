@@ -42,9 +42,9 @@ spec = do
               let minorPath = show ascii </> fileName
               describe minorPath $ do
                 it ("output" </> minorPath) $
-                  calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "output" </> minorPath)
+                  calculateOutput <$> mock `goldenShouldIO` buildAbsoluteWsOutFileName (majorPath </> minorPath)
                 it ("logged" </> minorPath) $
-                  calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "logged" </> minorPath)
+                  calculateLogged <$> mock `goldenShouldIO` buildAbsoluteWsLogFileName (majorPath </> minorPath)
 
     describe "stn" $ do
 
@@ -66,9 +66,9 @@ spec = do
               let minorPath = show ascii </> fileName
               describe minorPath $ do
                 it ("output" </> minorPath) $
-                  calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "output" </> minorPath)
+                  calculateOutput <$> mock `goldenShouldIO` buildAbsoluteWsOutFileName (majorPath </> minorPath)
                 it ("logged" </> minorPath) $
-                  calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "logged" </> minorPath)
+                  calculateLogged <$> mock `goldenShouldIO` buildAbsoluteWsLogFileName (majorPath </> minorPath)
 
       describe "original" $ do
         let majorPath = "simpleEval" </> "original" </> "stn"
@@ -89,9 +89,9 @@ spec = do
           let minorPath = show ascii </> fileName
           describe minorPath $ do
             it ("output" </> minorPath) $
-              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "output" </> minorPath)
+              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteWsOutFileName (majorPath </> minorPath)
             it ("logged" </> minorPath) $
-              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName (majorPath </> "logged" </> minorPath)
+              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteWsLogFileName (majorPath </> minorPath)
 
   describe "simpleEvalTL" $
     forM_ [ ("countTL"        , countTL        , ""           )
@@ -107,9 +107,9 @@ spec = do
       let mock = (safeExecMockIOWithInput input . simpleEvalTL) tl
       describe fileName $ do
         it ("output" </> fileName) $
-          calculateOutput <$> mock `goldenShouldSafe` buildAbsoluteOutFileName ("simpleEvalTL" </> "output" </> fileName)
+          calculateOutput <$> mock `goldenShouldSafe` buildAbsoluteWsOutFileName ("simpleEvalTL" </> fileName)
         it ("logged" </> fileName) $
-          calculateLogged <$> mock `goldenShouldSafe` buildAbsoluteOutFileName ("simpleEvalTL" </> "logged" </> fileName)
+          calculateLogged <$> mock `goldenShouldSafe` buildAbsoluteWsLogFileName ("simpleEvalTL" </> fileName)
 
   describe "simpleEvalIL" $
     forM_ [ ("call"     , [Call "A", End , Mark "A", Return] , "")
@@ -117,4 +117,4 @@ spec = do
           ] $ \(fileName , il , input) -> do
       let mock = safeExecMockIOWithInput input $ evalIL il SeqStackType MapListRAMType
       it fileName $
-        calculateLogged <$> mock `goldenShouldSafe` buildAbsoluteOutFileName ("simpleEvalIL" </> "logged" </> fileName)
+        calculateLogged <$> mock `goldenShouldSafe` buildAbsoluteWsLogFileName ("simpleEvalIL" </> fileName)

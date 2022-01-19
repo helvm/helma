@@ -16,6 +16,8 @@ import           HelVM.HelMA.Automaton.Types.CellType
 
 import           HelVM.Common.Containers.LLIndexSafe
 
+import           HelVM.Common.Control.Logger
+
 import           Control.Type.Operator
 
 uncurryEval :: BIO m => (Source , CellType) -> m ()
@@ -36,18 +38,18 @@ eval source Word32Type = evalSource source (newTape :: FullTape Word32)
 eval source Int64Type  = evalSource source (newTape :: FullTape Int64)
 eval source Word64Type = evalSource source (newTape :: FullTape Word64)
 
-evalSource :: (Symbol e , BIO m) => Source -> FullTape e -> m ()
+evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> m ()
 evalSource source tape = evalVector' =<< parseAsVector source where
-  evalVector' :: BusinessIO m => InstructionVector -> m ()
-  evalVector' iv = evalVector iv tape *> pass
+  evalVector' :: BIO m => InstructionVector -> m ()
+  evalVector' iv = logMessageTuple ("iv" , show iv) *> (evalVector iv tape >>= (\ tape' -> logMessageTuple ("tape" , show tape'))) *> pass
 
-evalVector :: (Symbol e , BusinessIO m) => InstructionVector -> FullTape e -> m $ FullTape e
+evalVector :: (BIO m , Symbol e) => InstructionVector -> FullTape e -> m $ FullTape e
 evalVector iv = nextStep (IU iv 0)
 
-nextStep :: (Symbol e , BusinessIO m) => InstructionUnit -> FullTape e -> m $ FullTape e
+nextStep :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ FullTape e
 nextStep (IU iv ic) = doInstruction (iv `indexMaybe` ic) (IU iv $ ic + 1)
 
-doInstruction :: (Symbol e , BusinessIO m) => Maybe Instruction -> InstructionUnit -> FullTape e -> m $ FullTape e
+doInstruction :: (BIO m , Symbol e) => Maybe Instruction -> InstructionUnit -> FullTape e -> m $ FullTape e
 doInstruction (Just MoveR     ) table tape = nextStep     table (moveHeadRight tape)
 doInstruction (Just MoveL     ) table tape = nextStep     table  (moveHeadLeft tape)
 doInstruction (Just Inc       ) table tape = nextStep     table   (wNextSymbol tape)
@@ -57,23 +59,23 @@ doInstruction (Just Input     ) table tape = doInputChar  table                t
 doInstruction (Just (While iv)) table tape = doWhile iv   table                tape
 doInstruction  Nothing          table tape = doEnd table tape
 
-doWhile :: (Symbol e , BusinessIO m) => InstructionVector -> InstructionUnit -> FullTape e -> m $ FullTape e
+doWhile :: (BIO m , Symbol e) => InstructionVector -> InstructionUnit -> FullTape e -> m $ FullTape e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape
 doWhile iv table tape           = doWhileWithTape =<< evalVector iv tape where
-  doWhileWithTape :: (Symbol e , BusinessIO m) => FullTape e -> m $ FullTape e
+  doWhileWithTape :: (BIO m , Symbol e) => FullTape e -> m $ FullTape e
   doWhileWithTape = doWhile iv table
 
 -- | IO instructions
-doOutputChar :: (Symbol e , BusinessIO m) => InstructionUnit -> FullTape e -> m $ FullTape e
+doOutputChar :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ FullTape e
 doOutputChar _          (_ ,  []) = error "Illegal State"
 doOutputChar table tape@(_ , e:_) = wPutChar (toChar e) *> nextStep table tape
 
-doInputChar  :: (Symbol e , BusinessIO m) => InstructionUnit -> FullTape e -> m $ FullTape e
+doInputChar  :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ FullTape e
 doInputChar table tape = doInputCharWithChar =<< wGetChar where
   doInputCharWithChar char = (nextStep table . writeSymbol char) tape
 
 -- | Terminate instruction
-doEnd :: (BusinessIO m) => InstructionUnit -> FullTape e -> m $ FullTape e
+doEnd :: BIO m => InstructionUnit -> FullTape e -> m $ FullTape e
 doEnd _ = pure
 
 -- | Types

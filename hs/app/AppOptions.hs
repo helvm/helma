@@ -32,6 +32,11 @@ optionParser = AppOptions
                    <> help    "Emit the parsed instructions"
                    <> showDefault
                    )
+  <*> switch       (  long    "print-logs"
+                   <> short   'L'
+                   <> help    "Pring logs to strerr"
+                   <> showDefault
+                   )
   <*> switch       (  long    "ascii-labels"
                    <> short   'A'
                    <> help    "Use ascii labels"
@@ -77,6 +82,7 @@ data AppOptions = AppOptions
   , minified    :: !Minified
   , emitTL      :: !EmitTL
   , emitIL      :: !EmitIL
+  , printLogs   :: !PrintLogs
   , asciiLabels :: !AsciiLabels
   , ramType     :: !String      -- | RAMType
   , stackType   :: !String      -- | StackType
@@ -89,8 +95,8 @@ data AppOptions = AppOptions
 type Minified    = Bool
 type EmitIL      = Bool
 type EmitTL      = Bool
+type PrintLogs   = Bool
 type AsciiLabels = Bool
-type EtaMode     = Bool
 type Exec        = Bool
 
 ----

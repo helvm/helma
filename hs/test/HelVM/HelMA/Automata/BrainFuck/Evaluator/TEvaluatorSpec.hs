@@ -35,10 +35,10 @@ spec =
       ) $ \(fileName , input , cellType) -> do
         let file = readBfFile fileName
         let params = ( , cellType) <$> file
-        let exec = execMockIOWithInput input . uncurryEval <$> params
-        let minorPath = show cellType </> fileName
+        let exec = ioExecMockIOWithInput input . uncurryEval =<< params
+        let minorPath = "TL" </> show cellType </> fileName
         describe minorPath $ do
           it ("output" </> minorPath) $
-            calculateOutput <$> exec `goldenShouldIO` buildAbsoluteOutFileName ("output" </> minorPath)
+            calculateOutput <$> exec `goldenShouldIO` buildAbsoluteBfOutFileName minorPath
           it ("logged" </> minorPath) $
-            calculateLogged <$> exec `goldenShouldIO` buildAbsoluteOutFileName ("logged" </> minorPath)
+            calculateLogged <$> exec `goldenShouldIO` buildAbsoluteBfLogFileName minorPath

@@ -1,7 +1,7 @@
 cabal-version:       2.4
 
 name:                helma
-version:             0.6.13.0
+version:             0.6.14.0
 
 synopsis:            HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages
 description:         Please see the README on GitHub at <https://github.com/helvm/helma#readme>
@@ -143,7 +143,6 @@ library
 
     HelVM.HelMA.Automata.ETA.Addressing
     HelVM.HelMA.Automata.ETA.Evaluator.LLEvaluator
-    HelVM.HelMA.Automata.ETA.Evaluator.MTEvaluator
     HelVM.HelMA.Automata.ETA.Lexer
     HelVM.HelMA.Automata.ETA.OperandParsers
     HelVM.HelMA.Automata.ETA.Symbol
@@ -229,6 +228,8 @@ test-suite helma-test
 
     HelVM.Common.ListLikeUtilSpec
 
+    HelVM.HelMA.Automata.FileUtil
+
     HelVM.HelMA.Automata.BrainFuck.Evaluator.IEvaluatorSpec
     HelVM.HelMA.Automata.BrainFuck.Evaluator.TEvaluatorSpec
     HelVM.HelMA.Automata.BrainFuck.EvaluatorSpecData
@@ -257,6 +258,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.WhiteSpace.LexerSpec
     HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec
     HelVM.HelMA.Automata.WhiteSpace.ParserSpec
+
     HelVM.HelMA.Automaton.FilterIf0Spec
 
   build-depends:

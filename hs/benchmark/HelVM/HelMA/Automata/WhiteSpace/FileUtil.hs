@@ -5,7 +5,7 @@ module HelVM.HelMA.Automata.WhiteSpace.FileUtil (
   buildAbsoluteWsFileName,
   buildAbsoluteStnFileName,
   buildAbsoluteIlFileName,
-  buildAbsoluteOutFileName
+  buildAbsoluteExecFileName
 ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
@@ -19,7 +19,7 @@ readStnFile :: FilePath -> IO Source
 readStnFile fileName = readFileText $ buildAbsoluteStnFileName fileName
 
 readOutFile :: FilePath -> IO Source
-readOutFile fileName = readFileText $ buildAbsoluteOutFileName fileName
+readOutFile fileName = readFileText $ buildAbsoluteExecFileName fileName
 
 buildAbsoluteWsFileName :: FilePath -> FilePath
 buildAbsoluteWsFileName fileName = wsDir </> "ws" </> fileName <.> "ws"
@@ -30,8 +30,8 @@ buildAbsoluteStnFileName fileName = wsDir </> "stn" </> fileName <.> "stn"
 buildAbsoluteIlFileName :: FilePath -> FilePath
 buildAbsoluteIlFileName fileName = wsDir </> "il" </> fileName <.> "il"
 
-buildAbsoluteOutFileName :: FilePath -> FilePath
-buildAbsoluteOutFileName fileName = wsDir </> "output" </> fileName <.> "out"
+buildAbsoluteExecFileName :: FilePath -> FilePath
+buildAbsoluteExecFileName fileName = wsDir </> "exec" </> fileName
 
 wsDir :: FilePath
 wsDir = dir </> "ws"

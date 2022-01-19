@@ -43,7 +43,7 @@ exec8 cellType = forM
   ]  $ \(fileName , input) -> do
     let file = readBfFile fileName
     let params = ( , cellType) <$> file
-    let exec = execMockIOWithInput input . uncurryEval <$> params
+    let exec = ioExecMockIOWithInput input . uncurryEval =<< params
     calculateOutput <$> exec
 
 -- | 16 bits
@@ -63,7 +63,7 @@ exec16 cellType = forM
   ]  $ \(fileName , input) -> do
     let file = readBfFile fileName
     let params = ( , cellType) <$> file
-    let exec = execMockIOWithInput input . uncurryEval <$> params
+    let exec = ioExecMockIOWithInput input . uncurryEval =<< params
     calculateOutput <$> exec
 
 -- | 32 bits
@@ -80,5 +80,5 @@ exec32 cellType = forM
   ]  $ \(fileName , input) -> do
     let file = readBfFile fileName
     let params = ( , cellType) <$> file
-    let exec = execMockIOWithInput input . uncurryEval <$> params
+    let exec = ioExecMockIOWithInput input . uncurryEval =<< params
     calculateOutput <$> exec

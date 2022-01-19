@@ -81,4 +81,4 @@ doInputChar iu s = doInputChar' =<< wGetChar where
 
 -- | Terminate instruction
 doEnd :: (SLLEvaluator e s m) => InstructionUnit -> s -> m ()
-doEnd iu s = logData iu *> logData s
+doEnd iu s = logMessageTuple ("iu" , show iu) *> logMessageTuple ("stack" , show s)

@@ -162,15 +162,16 @@ document.body.className = "script";
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
 <li><a id="hint0" href="javascript:show('hint0')">Warning: Redundant do (1)</a></li>
-<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Reduce duplication (7)</a></li>
+<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Reduce duplication (6)</a></li>
+<li><a id="hint2" href="javascript:show('hint2')">Suggestion: Redundant bracket (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
 <li><a id="file0" href="javascript:show('file0')">./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/IEvaluatorBenchMark.hs (2)</a></li>
 <li><a id="file1" href="javascript:show('file1')">./hs/benchmark/HelVM/HelMA/Automata/BrainFuck/Evaluator/TEvaluatorBenchMark.hs (2)</a></li>
-<li><a id="file2" href="javascript:show('file2')">./hs/test/HelVM/Common/Collections/MapListSpec.hs (1)</a></li>
-<li><a id="file3" href="javascript:show('file3')">./hs/test/HelVM/HelMA/Automata/ETA/EvaluatorSpec.hs (1)</a></li>
+<li><a id="file2" href="javascript:show('file2')">./hs/benchmark/HelVM/HelMA/Automata/ETA/EvaluatorBenchMark.hs (1)</a></li>
+<li><a id="file3" href="javascript:show('file3')">./hs/test/HelVM/Common/Collections/MapListSpec.hs (1)</a></li>
 <li><a id="file4" href="javascript:show('file4')">./hs/test/HelVM/HelMA/Automata/WhiteSpace/EvaluatorSpec.hs (2)</a></li>
 </ul>
 
@@ -213,7 +214,7 @@ Perhaps<br/>
 Found<br/>
 <pre><span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readBfFile</span> <span class='hs-varid'>fileName</span>
 <span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>cellType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
-<span class='hs-keyword'>let</span> <span class='hs-varid'>exec</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>execMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>params</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>exec</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>params</span>
 <span class='hs-definition'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>exec</span>
 </pre>
 Perhaps<br/>
@@ -226,7 +227,7 @@ Perhaps<br/>
 Found<br/>
 <pre><span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readBfFile</span> <span class='hs-varid'>fileName</span>
 <span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>cellType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
-<span class='hs-keyword'>let</span> <span class='hs-varid'>exec</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>execMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>params</span>
+<span class='hs-keyword'>let</span> <span class='hs-varid'>exec</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>params</span>
 <span class='hs-definition'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>exec</span>
 </pre>
 Perhaps<br/>
@@ -234,7 +235,20 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint1 file2">
+<div class="hint2 file2">
+./hs/benchmark/HelVM/HelMA/Automata/ETA/EvaluatorBenchMark.hs:49:28: Suggestion: Redundant bracket<br/>
+Found<br/>
+<pre><span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>stackType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
+   <span class='hs-keyword'>let</span> <span class='hs-varid'>exec</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>params</span><span class='hs-layout'>)</span>
+   <span class='hs-varid'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>exec</span></pre>
+Perhaps<br/>
+<pre><span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>stackType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
+   <span class='hs-keyword'>let</span> <span class='hs-varid'>exec</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>params</span>
+   <span class='hs-varid'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>exec</span></pre>
+
+</div>
+
+<div class="hint1 file3">
 ./hs/test/HelVM/Common/Collections/MapListSpec.hs:50:11: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-definition'>it</span> <span class='hs-str'>"mapListToList . fromIntIndexedList"</span> <span class='hs-varop'>$</span>
@@ -246,19 +260,6 @@ Found<br/>
 </pre>
 Perhaps<br/>
 <pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>Common</span><span class='hs-varop'>/</span><span class='hs-conid'>Collections</span><span class='hs-varop'>/</span><span class='hs-conid'>MapListSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>59</span><span class='hs-conop'>:</span><span class='hs-num'>11</span></pre>
-
-</div>
-
-<div class="hint1 file3">
-./hs/test/HelVM/HelMA/Automata/ETA/EvaluatorSpec.hs:30:11: Suggestion: Reduce duplication<br/>
-Found<br/>
-<pre><span class='hs-keyword'>let</span> <span class='hs-varid'>params</span> <span class='hs-keyglyph'>=</span> <span class='hs-layout'>(</span><span class='hs-layout'>,</span> <span class='hs-varid'>defaultStackType</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span>
-<span class='hs-keyword'>let</span> <span class='hs-varid'>mock</span>
-      <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-layout'>(</span><span class='hs-varid'>toText</span> <span class='hs-varid'>input</span><span class='hs-layout'>)</span> <span class='hs-varop'>.</span> <span class='hs-varid'>uncurryEval</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>params</span>
-<span class='hs-keyword'>let</span> <span class='hs-varid'>minorPath</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>fileName</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-varid'>input</span>
-</pre>
-Perhaps<br/>
-<pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelMA</span><span class='hs-varop'>/</span><span class='hs-conid'>Automata</span><span class='hs-varop'>/</span><span class='hs-conid'>ETA</span><span class='hs-varop'>/</span><span class='hs-conid'>EvaluatorSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>49</span><span class='hs-conop'>:</span><span class='hs-num'>11</span></pre>
 
 </div>
 
@@ -283,11 +284,11 @@ Found<br/>
                         <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
                              <span class='hs-varid'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span>
                                <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
-                                 <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
+                                 <span class='hs-varid'>buildAbsoluteWsOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
                            <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
                              <span class='hs-varid'>calculateLogged</span> <span class='hs-varop'>&lt;$&gt;</span>
                                <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
-                                 <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span></pre>
+                                 <span class='hs-varid'>buildAbsoluteWsLogFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span></pre>
 Perhaps<br/>
 <pre><span class='hs-definition'>describe</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>$</span>
   <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>majorPath</span> <span class='hs-keyglyph'>=</span> <span class='hs-str'>"simpleEval"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"ws"</span>
@@ -307,11 +308,11 @@ Perhaps<br/>
                      <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
                           <span class='hs-varid'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span>
                             <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
-                              <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
+                              <span class='hs-varid'>buildAbsoluteWsOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
                         <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
                           <span class='hs-varid'>calculateLogged</span> <span class='hs-varop'>&lt;$&gt;</span>
                             <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
-                              <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span></pre>
+                              <span class='hs-varid'>buildAbsoluteWsLogFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span></pre>
 
 </div>
 
@@ -325,11 +326,11 @@ Found<br/>
   <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
        <span class='hs-varid'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span>
          <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
-           <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
+           <span class='hs-varid'>buildAbsoluteWsOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
      <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
        <span class='hs-varid'>calculateLogged</span> <span class='hs-varop'>&lt;$&gt;</span>
          <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span>
-           <span class='hs-varid'>buildAbsoluteOutFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
+           <span class='hs-varid'>buildAbsoluteWsLogFileName</span> <span class='hs-layout'>(</span><span class='hs-varid'>majorPath</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>minorPath</span><span class='hs-layout'>)</span>
 </pre>
 Perhaps<br/>
 <pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelMA</span><span class='hs-varop'>/</span><span class='hs-conid'>Automata</span><span class='hs-varop'>/</span><span class='hs-conid'>WhiteSpace</span><span class='hs-varop'>/</span><span class='hs-conid'>EvaluatorSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>87</span><span class='hs-conop'>:</span><span class='hs-num'>11</span></pre>

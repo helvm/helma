@@ -1,40 +1,41 @@
 module HelVM.HelMA.Automata.WhiteSpace.FileUtil (
   readWsFile,
-  readOutFile,
   readStnFile,
   buildAbsoluteWsFileName,
   buildAbsoluteStnFileName,
-  buildAbsoluteIlFileName,
-  buildAbsoluteOutFileName
+  buildAbsoluteWsIlFileName,
+  buildAbsoluteWsOutFileName,
+  buildAbsoluteWsLogFileName,
 ) where
+
+import           HelVM.HelMA.Automata.FileUtil
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           System.FilePath.Posix
-
 readWsFile :: FilePath -> IO Source
-readWsFile fileName = readFileText $ buildAbsoluteWsFileName fileName
+readWsFile = readFileText . buildAbsoluteWsFileName
 
 readStnFile :: FilePath -> IO Source
-readStnFile fileName = readFileText $ buildAbsoluteStnFileName fileName
-
-readOutFile :: FilePath -> IO Source
-readOutFile fileName = readFileText $ buildAbsoluteOutFileName fileName
+readStnFile = readFileText . buildAbsoluteStnFileName
 
 buildAbsoluteWsFileName :: FilePath -> FilePath
-buildAbsoluteWsFileName fileName = wsDir </> "ws" </> fileName <.> "ws"
+buildAbsoluteWsFileName = buildAbsoluteExtFileName lang lang
 
 buildAbsoluteStnFileName :: FilePath -> FilePath
-buildAbsoluteStnFileName fileName = wsDir </> "stn" </> fileName <.> "stn"
+buildAbsoluteStnFileName = buildAbsoluteExtFileName stn lang
 
-buildAbsoluteIlFileName :: FilePath -> FilePath
-buildAbsoluteIlFileName fileName = wsDir </> "il" </> fileName <.> "il"
+buildAbsoluteWsIlFileName :: FilePath -> FilePath
+buildAbsoluteWsIlFileName = buildAbsoluteIlFileName lang
 
-buildAbsoluteOutFileName :: FilePath -> FilePath
-buildAbsoluteOutFileName fileName = wsDir </> "output" </> fileName <.> "out"
+buildAbsoluteWsOutFileName :: FilePath -> FilePath
+buildAbsoluteWsOutFileName = buildAbsoluteOutFileName lang
 
-wsDir :: FilePath
-wsDir = dir </> "ws"
+buildAbsoluteWsLogFileName :: FilePath -> FilePath
+buildAbsoluteWsLogFileName = buildAbsoluteLogFileName lang
 
-dir :: FilePath
-dir = "examples"
+stn :: FilePath
+stn = "stn"
+
+lang :: FilePath
+lang = "ws"
+

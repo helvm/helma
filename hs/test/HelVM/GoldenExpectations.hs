@@ -23,7 +23,7 @@ infixl 1 <->
 
 infix 1 `goldenShouldControlT`
 goldenShouldControlT :: ControlT IO Text -> FilePath -> GoldenExpectations Text
-goldenShouldControlT actualOutput = goldenShouldIO (controlTToIO actualOutput)
+goldenShouldControlT actualOutput = goldenShouldIO (controlTToIOWithLogs actualOutput)
 
 infix 1 `goldenShouldSafeT`
 goldenShouldSafeT :: SafeT IO Text -> FilePath -> GoldenExpectations Text

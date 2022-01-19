@@ -46,21 +46,21 @@ main = runApp =<< execParser opts where
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
 runApp:: AppOptions -> IO ()
-runApp AppOptions{lang , minified , emitTL , emitIL , asciiLabels , ramType , stackType , cellType , intCellType , exec , file} = do
+runApp AppOptions{lang , minified , emitTL , emitIL , printLogs , asciiLabels , ramType , stackType , cellType , intCellType , exec , file} = do
   hSetBuffering stdout IO.NoBuffering
   source <- readSource exec file
-  run minified emitTL emitIL typeOptions asciiLabels (parseLang lang) source
+  run minified emitTL emitIL printLogs typeOptions asciiLabels (parseLang lang) source
     where typeOptions = TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType) (parseIntCellType intCellType)
 
 readSource :: Exec -> String -> IO Source
 readSource True = pure . toText
 readSource _    = readFileText
 
-run :: Minified -> EmitTL -> EmitIL -> TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
-run True _    _    _ _ = minification
-run _    True _    _ _ = tokenize
-run _    _    True _ a = flip parse a
-run _    _    _    e a = eval e a
+run :: Minified -> EmitTL -> EmitIL -> PrintLogs -> TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
+run True _    _    _ _ _ = minification
+run _    True _    _ _ _ = tokenize
+run _    _    True _ _ a = flip parse a
+run _    _    _    p e a = eval p e a
 
 minification :: Lang -> Source -> IO ()
 minification BF  = print . BF.readTokens
@@ -82,8 +82,8 @@ parse STN  a = pPrintNoColor . flip (WS.parse VisibleTokenType) a
 parse WS   a = pPrintNoColor . flip (WS.parse WhiteTokenType) a
 parse lang _ = tokenize lang
 
-eval :: TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
-eval options a lang s = (controlTToIO . evalParams lang) params
+eval :: PrintLogs -> TypeOptions -> AsciiLabels -> Lang -> Source -> IO ()
+eval p options a lang s = (controlTToIO p . evalParams lang) params
   where params = EvalParams {asciiLabel = a , source = s , typeOptions = options}
 
 evalParams :: BIO m => Lang -> EvalParams -> m ()

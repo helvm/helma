@@ -90,7 +90,10 @@ logMessageTupleList :: MonadLogger m => [MessageTuple] -> m ()
 logMessageTupleList = logMessage . tupleListToMessage
 
 logMessageTuple :: MonadLogger m => MessageTuple -> m ()
-logMessageTuple = logMessage . tupleToMessage
+logMessageTuple = logMessage . logTupleToMessage
+
+logTupleToMessage :: MessageTuple -> Message
+logTupleToMessage (k , v) = k <> ": " <> v
 
 logData :: (MonadLogger m , Show a) => a -> m ()
 logData = logMessage . show

@@ -140,4 +140,4 @@ doInputNum iu s r = doInputNum' =<< liftSafe (pop1 s) where
 
 -- | Terminate instruction
 doEnd :: (SRLLEvaluator Symbol s r m) => InstructionUnit -> s -> r -> m ()
-doEnd iu s _ = logData s <* logData iu
+doEnd iu s r = logMessageTuple ("iu" , show iu) *> logMessageTuple ("stack" , show s) *> logMessageTuple ("ram" , show r)

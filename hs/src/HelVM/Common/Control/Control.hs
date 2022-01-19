@@ -1,5 +1,7 @@
 module HelVM.Common.Control.Control (
   controlTToIO,
+  controlTToIOWithoutLogs,
+  controlTToIOWithLogs,
   controlToIO,
 
   runControlT,
@@ -26,8 +28,17 @@ import           HelVM.Common.Control.Safe
 
 import           Control.Type.Operator
 
-controlTToIO :: ControlT IO a -> IO a
-controlTToIO a = safeWithMessagesToIO =<< runControlT a
+import qualified System.IO                    as IO
+
+controlTToIO :: Bool -> ControlT IO a -> IO a
+controlTToIO False = controlTToIOWithoutLogs
+controlTToIO True  = controlTToIOWithLogs
+
+controlTToIOWithoutLogs :: ControlT IO a -> IO a
+controlTToIOWithoutLogs a = safeWithMessagesToIOWithoutLogs =<< runControlT a
+
+controlTToIOWithLogs :: ControlT IO a -> IO a
+controlTToIOWithLogs a = safeWithMessagesToIOWithLogs =<< runControlT a
 
 controlToIO :: Control a -> IO a
 controlToIO = safeToIO . removeLogger
@@ -38,8 +49,11 @@ runControlT = runLoggerT . runSafeT
 runControl :: Control a -> SafeWithMessages a
 runControl a = runLogger $ runSafe <$> a
 
-safeWithMessagesToIO :: SafeWithMessages a -> IO a
-safeWithMessagesToIO (safe , _) = safeToIO safe
+safeWithMessagesToIOWithoutLogs :: SafeWithMessages a -> IO a
+safeWithMessagesToIOWithoutLogs (safe , _) = safeToIO safe
+
+safeWithMessagesToIOWithLogs :: SafeWithMessages a -> IO a
+safeWithMessagesToIOWithLogs (safe , logs) = safeToIO safe <* IO.hPutStr stderr (errorsToString logs)
 
 safeWithMessagesToText :: SafeWithMessages a -> Text
 safeWithMessagesToText (safe , messages) = errorsToText messages <> safeToText safe

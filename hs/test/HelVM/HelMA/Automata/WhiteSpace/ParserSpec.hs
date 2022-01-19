@@ -27,7 +27,7 @@ spec =
             ] $ \ fileName -> do
         let minorPath = "from-wsa" </> fileName
         it minorPath $
-          safeIOToPTextIO (flipParseVisible True <$> readStnFile minorPath) `goldenShouldIO` buildAbsoluteIlFileName (majorPath </> minorPath)
+          safeIOToPTextIO (flipParseVisible True <$> readStnFile minorPath) `goldenShouldIO` buildAbsoluteWsIlFileName (majorPath </> minorPath)
 
     describe "original" $ do
       let majorPath = "parse" </> "from-wsa"
@@ -43,7 +43,7 @@ spec =
             ] $ \ fileName -> do
         let minorPath = "original" </> fileName
         it minorPath $
-          safeIOToPTextIO (flipParseVisible True <$> readStnFile minorPath) `goldenShouldIO` buildAbsoluteIlFileName (majorPath </> minorPath)
+          safeIOToPTextIO (flipParseVisible True <$> readStnFile minorPath) `goldenShouldIO` buildAbsoluteWsIlFileName (majorPath </> minorPath)
 
     describe "parseTL" $ do
       it "cat"          $ parseTL catTL          False `shouldSafe` catIL

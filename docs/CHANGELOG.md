@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.6.14.0 -- 2022-01-20
+
+* Add `print-logs` flag
+
 ## 0.6.13.0 -- 2022-01-19
 
 * Use `forM_` in tests

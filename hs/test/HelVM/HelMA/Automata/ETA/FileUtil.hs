@@ -1,28 +1,29 @@
 module HelVM.HelMA.Automata.ETA.FileUtil (
   readEtaFile,
-  readOutFile,
+  buildAbsoluteMinifiedEtaFileName,
   buildAbsoluteEtaFileName,
-  buildAbsoluteOutFileName
+  buildAbsoluteEtaOutFileName,
+  buildAbsoluteEtaLogFileName,
 ) where
+
+import           HelVM.HelMA.Automata.FileUtil
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           System.FilePath.Posix
-
 readEtaFile :: FilePath -> IO Source
-readEtaFile fileName = readFileText $ buildAbsoluteEtaFileName fileName
+readEtaFile = readFileText . buildAbsoluteEtaFileName
 
-readOutFile :: FilePath -> IO Source
-readOutFile fileName = readFileText $ buildAbsoluteOutFileName fileName
+buildAbsoluteMinifiedEtaFileName :: FilePath -> FilePath
+buildAbsoluteMinifiedEtaFileName = buildAbsoluteModeFileName "minified" lang
 
 buildAbsoluteEtaFileName :: FilePath -> FilePath
-buildAbsoluteEtaFileName fileName = etaDir </> fileName <.> "eta"
+buildAbsoluteEtaFileName = buildAbsoluteLangFileName lang
 
-buildAbsoluteOutFileName :: FilePath -> FilePath
-buildAbsoluteOutFileName fileName = etaDir </> "output" </> fileName <.> "out"
+buildAbsoluteEtaOutFileName :: FilePath -> FilePath
+buildAbsoluteEtaOutFileName = buildAbsoluteOutFileName lang
 
-etaDir :: FilePath
-etaDir = dir </> "eta"
+buildAbsoluteEtaLogFileName :: FilePath -> FilePath
+buildAbsoluteEtaLogFileName = buildAbsoluteLogFileName lang
 
-dir :: FilePath
-dir = "examples"
+lang :: FilePath
+lang = "eta"

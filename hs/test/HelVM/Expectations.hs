@@ -27,7 +27,7 @@ ioShouldBe action expected = join $ liftA2 shouldBe action expected
 
 infix 1 `shouldControlT`
 shouldControlT :: (Show a , Eq a) => ControlT IO a -> a -> Expectation
-shouldControlT action = shouldReturn (controlTToIO action)
+shouldControlT action = shouldReturn (controlTToIOWithLogs action)
 
 infix 1 `shouldSafeT`
 shouldSafeT :: (Show a , Eq a) => SafeT IO a -> a -> Expectation

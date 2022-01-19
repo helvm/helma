@@ -9,8 +9,6 @@ import           HelVM.GoldenExpectations
 
 import           HelVM.HelMA.Automaton.IO.MockIO
 
-import           System.FilePath.Posix
-
 import           Test.Hspec                                        (Spec, describe, it)
 
 spec :: Spec
@@ -28,6 +26,6 @@ spec =
     let mock = (ioExecMockIOWithInput input . flippedEval defaultRAMType) =<< file
     describe fileName $ do
       it "output" $
-         (calculateOutput <$> mock) `goldenShouldIO` buildAbsoluteOutFileName ("output" </> fileName)
+         (calculateOutput <$> mock) `goldenShouldIO` buildAbsoluteSqOutFileName fileName
       it "logged" $
-         (calculateLogged <$> mock) `goldenShouldIO` buildAbsoluteOutFileName ("logged" </> fileName)
+         (calculateLogged <$> mock) `goldenShouldIO` buildAbsoluteSqLogFileName fileName

@@ -29,12 +29,12 @@ spec = do
         forM_ inputs $ \ input  -> do
           let params = (, defaultStackType) <$> file
           let mock = ioExecMockIOWithInput (toText input) . uncurryEval =<< params
-          let minorPath = fileName <> input
-          describe minorPath$ do
+          let minorPath = "from-eas" </> fileName <> input
+          describe minorPath $ do
             it ("output" </> minorPath) $
-              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("from-eas" </> "output" </> minorPath)
+              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteEtaOutFileName minorPath
             it ("logged" </> minorPath) $
-              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("from-eas" </> "logged" </> minorPath)
+              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteEtaLogFileName minorPath
 
   describe "original" $
     forM_
@@ -48,9 +48,9 @@ spec = do
         forM_ inputs $ \ input -> do
           let params = (, defaultStackType) <$> file
           let mock = ioExecMockIOWithInput (toText input) . uncurryEval =<< params
-          let minorPath = fileName <> input
+          let minorPath = "original" </> fileName <> input
           describe minorPath $ do
             it ("output" </> minorPath) $
-              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("original" </> "output" </> minorPath)
+              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteEtaOutFileName minorPath
             it ("logged" </> minorPath) $
-              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteOutFileName ("original" </> "logged" </> minorPath)
+              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteEtaLogFileName minorPath

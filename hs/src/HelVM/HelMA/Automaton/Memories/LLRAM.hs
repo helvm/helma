@@ -38,4 +38,6 @@ store = insertDef . fromIntegral
 -- | Types
 type Address = Int
 
-type RAM ll element = (Default element , InsertDef ll element, IndexSafe ll element)
+type RAM ll element = (Show ll , Default element , RA ll element)
+
+type RA ll element = (InsertDef ll element , IndexSafe ll element)

@@ -1,8 +1,6 @@
-.PHONY: all bench build check clean configure golden fast haddock hlint main output repl report run stan stylish test update
+.PHONY: all bench build check clean configure exec fast golden haddock hlint main output repl report run stan stylish test tix update
 
 all: update fast bench
-
-fast: main report
 
 bench:
 	rm -f helma-benchmark.tix
@@ -23,6 +21,12 @@ clean:
 configure:
 	rm -f cabal.project.local*
 	cabal configure --enable-benchmarks --enable-coverage --enable-tests -f ghcoptions
+
+exec:
+	make tix
+	cabal new-exec --jobs helma
+
+fast: main report
 
 golden:
 	if test -d .output/golden; then rm -r .output/golden; fi
@@ -46,7 +50,7 @@ report:
 	make haddock stan hlint
 
 run:
-	rm -f helma.tix
+	make tix
 	cabal new-run --jobs helma
 
 stan:
@@ -57,6 +61,9 @@ stylish:
 
 test:
 	cabal new-test --jobs --test-show-details=streaming -f ghcoptions
+
+tix:
+	rm -f helma.tix
 
 update:
 	cabal update

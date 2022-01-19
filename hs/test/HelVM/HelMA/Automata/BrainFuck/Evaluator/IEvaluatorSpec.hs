@@ -15,7 +15,7 @@ import           Test.Hspec                                          (Spec, desc
 
 spec :: Spec
 spec =
-  describe "eval" $
+  describe "exec" $
     forM_ (
       [ ("value256"              , ""     )
       , ("helloWorld"            , ""     )
@@ -36,9 +36,9 @@ spec =
         let file = readBfFile fileName
         let params = ( , cellType) <$> file
         let exec = ioExecMockIOWithInput input . uncurryEval =<< params
-        let minorPath = show cellType </> fileName
+        let minorPath = "IL" </> show cellType </> fileName
         describe minorPath $ do
           it ("output" </> minorPath) $
-            calculateOutput <$> exec `goldenShouldIO` buildAbsoluteOutFileName ("output" </> minorPath)
+            calculateOutput <$> exec `goldenShouldIO` buildAbsoluteBfOutFileName minorPath
           it ("logged" </> minorPath) $
-            calculateLogged <$> exec `goldenShouldIO` buildAbsoluteOutFileName ("logged" </> minorPath)
+            calculateLogged <$> exec `goldenShouldIO` buildAbsoluteBfLogFileName minorPath

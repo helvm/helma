@@ -46,27 +46,27 @@ start :: RLLEvaluator e r m => r -> m ()
 start = doInstruction 0
 
 doInstruction :: RLLEvaluator e r m => e -> r -> m ()
-doInstruction ic memory
-  | ic  < 0   = doEnd ic memory
-  | src < 0   = doInputChar  dst ic memory
-  | dst < 0   = doOutputChar src ic memory
-  | otherwise = doInstruction ic' $ store dst diff memory
+doInstruction ic ram
+  | ic  < 0   = doEnd ic ram
+  | src < 0   = doInputChar  dst ic ram
+  | dst < 0   = doOutputChar src ic ram
+  | otherwise = doInstruction ic' $ store dst diff ram
     where
-      src  = genericLoad memory ic
-      dst  = genericLoad memory $ ic + 1
-      diff = genericLoad memory dst - genericLoad memory src
+      src  = genericLoad ram ic
+      dst  = genericLoad ram $ ic + 1
+      diff = genericLoad ram dst - genericLoad ram src
       ic'
-        | diff <= 0 = genericLoad memory $ ic + 2
+        | diff <= 0 = genericLoad ram $ ic + 2
         | otherwise = ic + 3
 
 -- | IO instructions
 doOutputChar :: RLLEvaluator e r m => e -> e -> r -> m ()
-doOutputChar address ic memory = wPutIntegral (genericLoad memory address) *> doInstruction (ic+3) memory
+doOutputChar address ic ram = wPutIntegral (genericLoad ram address) *> doInstruction (ic+3) ram
 
-doInputChar :: RLLEvaluator e r m=> e -> e -> r -> m ()
-doInputChar address ic memory = doInputChar' =<< wGetChar where
-  doInputChar' char = doInstruction (ic+3) $ storeChar address char memory
+doInputChar :: RLLEvaluator e r m => e -> e -> r -> m ()
+doInputChar address ic ram = doInputChar' =<< wGetChar where
+  doInputChar' char = doInstruction (ic+3) $ storeChar address char ram
 
 -- | Terminate instruction
 doEnd :: RLLEvaluator e r m => e -> r -> m ()
-doEnd ic _ = logData ic
+doEnd ic ram = logMessageTuple ("ic" , show ic) *> logMessageTuple ("ram" , show ram)
