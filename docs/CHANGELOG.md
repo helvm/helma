@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.6.15.0 -- 2022-01-30
+
+* Add Common Instruction List
+
 ## 0.6.14.0 -- 2022-01-20
 
 * Add `print-logs` flag
@@ -55,7 +59,7 @@
 
 ## 0.6.6.0  -- 2021-06-11
 
-* Use Functional Dependency in Memories and Collections
+* Use Functional Dependency in Units and Collections
 
 ## 0.6.5.0  -- 2021-06-06
 

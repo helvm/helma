@@ -22,8 +22,7 @@ instance ToDigit Token where
   toDigit I = pure 4
   toDigit N = pure 5
   toDigit S = pure 6
-  toDigit E = liftErrorTuple ("Wrong token" , show E)
-  toDigit R = liftErrorTuple ("Wrong token" , show R)
+  toDigit t = liftErrorTuple ("Wrong token" , show t)
 
 ----
 

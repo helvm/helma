@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark where
 
-import           HelVM.HelMA.Automata.WhiteSpace.Evaluator.LLEvaluator
+import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
 import           HelVM.HelMA.Automata.WhiteSpace.FileUtil
 import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 
@@ -17,13 +17,13 @@ import           Gauge.Main
 benchMark :: Benchmark
 benchMark = bgroup "WS" (benchMarkByStackType <$> (stackTypes |><| ramTypes))
 
-benchMarkByStackType :: (StackType , RAMType) -> Benchmark
+benchMarkByStackType :: BenchParams -> Benchmark
 benchMarkByStackType t = bench (show t) $ nfIO $ exec t
 
-exec :: (StackType , RAMType) -> IO [[Text]]
+exec :: BenchParams -> IO [[Text]]
 exec = simpleEvalWS
 
-simpleEvalWS :: (StackType , RAMType) -> IO [[Text]]
+simpleEvalWS :: BenchParams -> IO [[Text]]
 simpleEvalWS t = forM
   [ ("count"        , ""           )
   , ("hworld"       , ""           )
@@ -37,6 +37,8 @@ simpleEvalWS t = forM
     forM options $ \ ascii -> do
       let paramsIO = simpleParamsWithWhiteTokenType t ascii <$> file
       calculateOutput <$> (ioExecMockIOWithInput input . simpleEval =<< paramsIO)
+
+type BenchParams = (StackType , RAMType)
 
 options :: [Bool]
 options = [False , True]

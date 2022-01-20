@@ -9,21 +9,22 @@ import           HelVM.Common.Digit.ToDigit
 
 import qualified Data.Vector                         as Vector
 
-data InstructionUnit = IU !TokenVector !InstructionCounter
-  deriving stock (Show)
-
-type OperandIUParser a = InstructionUnit -> Safe (a , InstructionUnit)
-
-parseNumber :: (Integral a) => OperandIUParser a
+parseNumber :: (MonadSafe m , Integral a) => OperandIUParser m a
 parseNumber iu = go [] =<< nextIU iu where
-  go :: Integral a => TokenList -> (Maybe Token, InstructionUnit) -> Safe (a, InstructionUnit)
+  go :: (MonadSafe m , Integral a) => TokenList -> (Maybe Token, InstructionUnit) -> m (a, InstructionUnit)
   go acc (Nothing , iu') = ( , iu') <$> makeIntegral7FromList acc
   go acc (Just E  , iu') = ( , iu') <$> makeIntegral7FromList acc
   go acc (Just R  , iu') = go      acc  =<< nextIU iu'
   go acc (Just t  , iu') = go (t : acc) =<< nextIU iu'
 
-nextIU :: OperandIUParser (Maybe Token)
+nextIU :: MonadSafe m => OperandIUParser m (Maybe Token)
 nextIU iu@(IU il ic)
   | ic < Vector.length il = wrap <$> indexSafe il ic
   | otherwise             = pure (Nothing , iu)
   where wrap i = (Just i, IU il (ic+1))
+
+-- | Types
+data InstructionUnit = IU !TokenVector !InstructionCounter
+  deriving stock (Show)
+
+type OperandIUParser m a = InstructionUnit -> m (a , InstructionUnit)

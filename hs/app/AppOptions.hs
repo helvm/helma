@@ -37,6 +37,11 @@ optionParser = AppOptions
                    <> help    "Pring logs to strerr"
                    <> showDefault
                    )
+  <*> switch       (  long    "compile"
+                   <> short   'C'
+                   <> help    "Compiler tokens, only for BF and ETA"
+                   <> showDefault
+                   )
   <*> switch       (  long    "ascii-labels"
                    <> short   'A'
                    <> help    "Use ascii labels"
@@ -70,7 +75,7 @@ optionParser = AppOptions
                    <> value (show defaultIntCellType)
                    <> showDefault
                    )
-  <*> switch       (  long    "exec"
+  <*> switch       (  long    "eval"
                    <> short   'e'
                    <> help    "Exec"
                    <> showDefault
@@ -83,6 +88,7 @@ data AppOptions = AppOptions
   , emitTL      :: !EmitTL
   , emitIL      :: !EmitIL
   , printLogs   :: !PrintLogs
+  , compile     :: !Compile
   , asciiLabels :: !AsciiLabels
   , ramType     :: !String      -- | RAMType
   , stackType   :: !String      -- | StackType
@@ -96,6 +102,7 @@ type Minified    = Bool
 type EmitIL      = Bool
 type EmitTL      = Bool
 type PrintLogs   = Bool
+type Compile     = Bool
 type AsciiLabels = Bool
 type Exec        = Bool
 

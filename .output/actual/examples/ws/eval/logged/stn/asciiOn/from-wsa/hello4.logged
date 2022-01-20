@@ -1,0 +1,3 @@
+cu: CU {program = [IAL (Cons 0),IAL (Cons 33),IAL (Cons 100),IAL (Cons 108),IAL (Cons 114),IAL (Cons 111),IAL (Cons 119),IAL (Cons 32),IAL (Cons 44),IAL (Cons 111),IAL (Cons 108),IAL (Cons 108),IAL (Cons 101),IAL (Cons 72),IControl (CStatic "printsln" Call),End,IControl (Mark "prints"),IAL Dup,IControl (CStatic "prints_end" (Branch EZ)),IAL (SIO OutputChar),IControl (CStatic "prints" Jump),IControl (Mark "prints_end"),IAL Discard,IControl Return,IControl (Mark "printsln"),IControl (CStatic "prints" Call),IAL (Cons 10),IAL (SIO OutputChar),IControl Return], programCounter = 16, returnStack = IS []}
+stack: fromList []
+ram: []

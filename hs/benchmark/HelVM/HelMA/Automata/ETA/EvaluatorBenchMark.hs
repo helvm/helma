@@ -1,29 +1,31 @@
 module HelVM.HelMA.Automata.ETA.EvaluatorBenchMark where
 
-import           HelVM.HelMA.Automata.ETA.Evaluator.LLEvaluator
+import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.FileUtil
 
 import           HelVM.HelMA.Automaton.IO.MockIO
 import           HelVM.HelMA.Automaton.Types.StackType
+
+import           HelVM.Common.ZipA
 
 import           System.FilePath.Posix
 
 import           Gauge.Main
 
 benchMark :: Benchmark
-benchMark = bgroup "ETA" (benchMarkByStackType <$> stackTypes)
+benchMark = bgroup "ETA" (benchMarkByStackType <$> options |><| stackTypes)
 
-benchMarkByStackType :: StackType -> Benchmark
-benchMarkByStackType stackType = bench (show stackType) $ nfIO $ execAll stackType
+benchMarkByStackType :: BenchParams -> Benchmark
+benchMarkByStackType t = bench (show t) $ nfIO $ execAll t
 
-execAll :: StackType -> IO [[Text]]
-execAll stackType = do
-  fromEas <- execFromEas stackType
-  original <- execOriginal stackType
+execAll :: BenchParams -> IO [[Text]]
+execAll t = do
+  fromEas  <- execFromEas t
+  original <- execOriginal t
   pure $ fromEas <> original
 
-execFromEas :: StackType -> IO [[Text]]
-execFromEas stackType = forM
+execFromEas :: BenchParams -> IO [[Text]]
+execFromEas t = forM
   [ ("true"    , [""])
   , ("hello"   , [""])
   , ("hello2"  , [""])
@@ -32,21 +34,26 @@ execFromEas stackType = forM
   , ("readnum" , ["0\n" , "1\n"])
   , ("fact"    , ["0\n" , "1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n" , "9\n" ])
   , ("bottles" , [""])
-  ] $ uncurry (ioExec stackType "from-eas")
+  ] $ uncurry (ioExec t "from-eas")
 
-execOriginal :: StackType -> IO [[Text]]
-execOriginal stackType = forM
+execOriginal :: BenchParams -> IO [[Text]]
+execOriginal t = forM
   [ ("hello"   , [""])
   , ("hello2"  , [""])
   , ("fact"    , ["1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n"])
   , ("bottles" , [""])
   , ("crlf"    , [""])
-  ] $ uncurry (ioExec stackType "original")
+  ] $ uncurry (ioExec t "original")
 
-ioExec :: StackType -> FilePath -> FilePath -> [Text] -> IO [Text]
-ioExec stackType dirName fileName inputs = do
+ioExec :: BenchParams -> FilePath -> FilePath -> [Text] -> IO [Text]
+ioExec (compile , stackType) dirName fileName inputs = do
   let file = readEtaFile (dirName </> fileName)
   forM inputs $ \ input -> do
-    let params = (, stackType) <$> file
-    let exec = (ioExecMockIOWithInput input . uncurryEval =<< params)
+    let params = (compile ,  , stackType) <$> file
+    let exec = ioExecMockIOWithInput input . simpleEval =<< params
     calculateOutput <$> exec
+
+type BenchParams = (Bool, StackType)
+
+options :: [Bool]
+options = [False , True]

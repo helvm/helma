@@ -1,3 +1,0 @@
-iu: IU [Call "A",End,Mark "A",Return] 2 (IS [])
-stack: fromList []
-ram: []

@@ -1,3 +1,0 @@
-iu: IU [Liter 0,Dup,InputNum,Load,Branch EZ "0",Mark "1",Liter 1,OutputNum,Jump "1",Mark "0",Liter 0,OutputNum,End] 13 (IS [])
-stack: fromList []
-ram: [0]

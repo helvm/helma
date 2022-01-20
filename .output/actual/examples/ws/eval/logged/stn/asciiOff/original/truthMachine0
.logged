@@ -1,0 +1,3 @@
+cu: CU {program = [IAL (Cons 0),IAL Dup,ILS (MIO InputDec),ILS Load,IControl (CStatic "0" (Branch EZ)),IControl (Mark "1"),IAL (Cons 1),IAL (SIO OutputDec),IControl (CStatic "1" Jump),IControl (Mark "0"),IAL (Cons 0),IAL (SIO OutputDec),End], programCounter = 13, returnStack = IS []}
+stack: fromList []
+ram: [0]

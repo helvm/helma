@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.ETA.Symbol where
 
-type Symbol = Int
+type Symbol = Integer
 type SymbolList = [Symbol]
 
 type InstructionAddress = Int

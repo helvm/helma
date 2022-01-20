@@ -7,14 +7,12 @@ import           HelVM.Common.Util
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.WrapTokenList
 
-import           Data.Vector                         as Vector
-
 -- | Lexer
-
-tokenize :: Source -> TokenVector
-tokenize = Vector.fromList . whiteTokenListToTokenList . unWrapTokenList . readTokens
+tokenize :: Source -> TokenList
+tokenize = whiteTokenListToTokenList . unWrapTokenList . readTokens
 
 readTokens :: Source -> WhiteTokens
 readTokens source = (readTextUnsafe . toUppers) source :: WhiteTokens
 
+-- | Types
 type WhiteTokens = WrapTokenList WhiteTokenList

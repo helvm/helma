@@ -3,7 +3,7 @@ module HelVM.Common.Containers.LLIndexSafe where
 
 import           HelVM.Common.Control.Safe
 
-import           Data.ListLike
+import           Data.ListLike             hiding (show)
 
 import           Prelude                   hiding (break, divMod, drop, fromList, length, splitAt, swap, uncons)
 
@@ -29,6 +29,7 @@ instance ListLike full item => IndexSafe full item where
 -- | Internal functions
 indexSafeLL :: (MonadSafe m , ListLike full item) => full -> Int -> m item
 indexSafeLL l i
-  | i < 0         = liftError "LLIndexSafe.indexSafeLL: index must be >= 0"
-  | length l <= i = liftError "LLIndexSafe.indexSafeLL: index must not found"
-  | otherwise     = (pure . index l) i
+  | i < 0     = liftErrorWithTupleList "LLIndexSafe.indexSafeLL: index must be >= 0" [("i" , show i)]
+  | ll <= i   = liftErrorWithTupleList "LLIndexSafe.indexSafeLL: index must not found" [("i" , show i) , ("length l" , show ll)]
+  | otherwise = (pure . index l) i
+    where ll = length l

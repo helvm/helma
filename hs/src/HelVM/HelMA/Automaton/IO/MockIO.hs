@@ -23,7 +23,7 @@ import           HelVM.HelMA.Automaton.IO.BusinessIO
 import           HelVM.Common.Control.Control
 import           HelVM.Common.Control.Safe
 
-import           HelVM.Common.SequencesUtil
+import           HelVM.Common.ListLikeUtil
 
 import           Data.Text                           as Text
 
@@ -66,7 +66,6 @@ instance BusinessIO MockIO where
   wGetChar = mockGetChar
   wGetLine = mockGetLine
   wPutChar = mockPutChar
-  wPutInt  = mockPutInt
   wPutStr  = mockPutStr
   wLogStr  = mockLogStr
 
@@ -74,7 +73,6 @@ instance BusinessIO (SafeT MockIO) where
   wGetChar = safeT   mockGetChar
   wGetLine = safeT   mockGetLine
   wPutChar = safeT . mockPutChar
-  wPutInt  = safeT . mockPutInt
   wPutStr  = safeT . mockPutStr
   wLogStr  = safeT . mockLogStr
 
@@ -82,7 +80,6 @@ instance BusinessIO (ControlT MockIO) where
   wGetChar = controlT   mockGetChar
   wGetLine = controlT   mockGetLine
   wPutChar = controlT . mockPutChar
-  wPutInt  = controlT . mockPutInt
   wPutStr  = controlT . mockPutStr
   wLogStr  = controlT . mockLogStr
 
@@ -91,7 +88,7 @@ instance BusinessIO (ControlT MockIO) where
 mockGetChar :: MockIO Char
 mockGetChar = mockGetChar' =<< get where
   mockGetChar' :: MonadState MockIOData f => MockIOData -> f Char
-  mockGetChar' mockIO = orError mockIO (top $ input mockIO) <$ put mockIO { input = orError mockIO $ discard $ input mockIO }
+  mockGetChar' mockIO = orErrorTuple ("mockGetChar" , show mockIO) (top (input mockIO)) <$ put mockIO { input = orErrorTuple ("mockGetChar" , show mockIO) $ discard $ input mockIO }
 
 mockGetLine :: MockIO Text
 mockGetLine = mockGetLine' =<< get where
@@ -100,9 +97,6 @@ mockGetLine = mockGetLine' =<< get where
 
 mockPutChar :: Char -> MockIO ()
 mockPutChar = modify . mockDataPutChar
-
-mockPutInt :: Int -> MockIO ()
-mockPutInt = modify . mockDataPutInt
 
 mockPutStr :: Text -> MockIO ()
 mockPutStr = modify . mockDataPutStr
@@ -114,9 +108,6 @@ mockLogStr = modify . mockDataLogStr
 
 mockDataPutChar :: Char -> MockIOData -> MockIOData
 mockDataPutChar char mockIO = mockIO { output = char : output mockIO }
-
-mockDataPutInt :: Int -> MockIOData -> MockIOData
-mockDataPutInt value mockIO = mockIO { output = chr value : output mockIO }
 
 mockDataPutStr :: Text -> MockIOData -> MockIOData
 mockDataPutStr text mockIO = mockIO { output = calculateString text <> output mockIO }

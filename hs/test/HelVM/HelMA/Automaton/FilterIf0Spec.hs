@@ -23,7 +23,8 @@ spec :: Spec
 spec =
   describe "Test WFilter0" $ do
     let mockIO = runMockIO "qwerty0uiop" $ safeWithMessages <$> wFilterIf0
-    forM_ [ ("Test WFilterIf0 with calculateOutput" , calculateOutput , "qwerty\n")
-          , ("Test WFilterIf0 with calculateLogged" , calculateLogged , "\n"      )
-          ] $ \(name , action , output) ->
+    forM_
+      [ ("Test WFilterIf0 with calculateOutput" , calculateOutput , "qwerty\n")
+      , ("Test WFilterIf0 with calculateLogged" , calculateLogged , "\n"      )
+      ] $ \(name , action , output) ->
       it name $ action mockIO `shouldBe` output

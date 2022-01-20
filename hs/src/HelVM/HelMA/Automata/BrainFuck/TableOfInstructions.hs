@@ -1,8 +1,8 @@
 module HelVM.HelMA.Automata.BrainFuck.TableOfInstructions where
 
-import           HelVM.HelMA.Automata.BrainFuck.Token
+import           HelVM.HelMA.Automata.BrainFuck.Instruction.FlatInstruction
 
-type HalfTable = TokenList
+type HalfTable = FlatTreeInstructionList
 type Table = (HalfTable , HalfTable)
 type TableD = Table -> Table
 

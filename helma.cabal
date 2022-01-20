@@ -1,7 +1,7 @@
 cabal-version:       2.4
 
 name:                helma
-version:             0.6.14.0
+version:             0.6.15.0
 
 synopsis:            HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages
 description:         Please see the README on GitHub at <https://github.com/helvm/helma#readme>
@@ -12,7 +12,7 @@ license:             Apache-2.0
 license-file:        docs/LICENSE-APACHE
 author:              Kamil Adam
 maintainer:          kamil.adam.zabinski@gmail.com
-copyright:           2020-2021 WriteOnly Developers
+copyright:           2020-2022 WriteOnly Developers
 
 category:            Language
 build-type:          Simple
@@ -129,20 +129,24 @@ library
     HelVM.Common.Util
     HelVM.Common.ZipA
 
-    HelVM.HelMA.Automata.BrainFuck.Evaluator.TEvaluator
-    HelVM.HelMA.Automata.BrainFuck.Evaluator.IEvaluator
-    HelVM.HelMA.Automata.BrainFuck.Instruction
+    HelVM.HelMA.Automata.BrainFuck.Evaluator
+    HelVM.HelMA.Automata.BrainFuck.Evaluator.FlatEvaluator
+    HelVM.HelMA.Automata.BrainFuck.Evaluator.TreeEvaluator
+
+    HelVM.HelMA.Automata.BrainFuck.Instruction.FlatInstruction
+    HelVM.HelMA.Automata.BrainFuck.Instruction.SimpleInstruction
+    HelVM.HelMA.Automata.BrainFuck.Instruction.TreeInstruction
+
     HelVM.HelMA.Automata.BrainFuck.Lexer
     HelVM.HelMA.Automata.BrainFuck.Parser
     HelVM.HelMA.Automata.BrainFuck.Symbol
     HelVM.HelMA.Automata.BrainFuck.TableOfInstructions
     HelVM.HelMA.Automata.BrainFuck.TapeOfSymbols
-    HelVM.HelMA.Automata.BrainFuck.Token
 
     HelVM.HelMA.Automata.Cat.Evaluator
 
     HelVM.HelMA.Automata.ETA.Addressing
-    HelVM.HelMA.Automata.ETA.Evaluator.LLEvaluator
+    HelVM.HelMA.Automata.ETA.Evaluator
     HelVM.HelMA.Automata.ETA.Lexer
     HelVM.HelMA.Automata.ETA.OperandParsers
     HelVM.HelMA.Automata.ETA.Symbol
@@ -150,13 +154,11 @@ library
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
-    HelVM.HelMA.Automata.SubLeq.Evaluator.LLEvaluator
+    HelVM.HelMA.Automata.SubLeq.Evaluator
     HelVM.HelMA.Automata.SubLeq.Lexer
     HelVM.HelMA.Automata.SubLeq.Symbol
 
-    HelVM.HelMA.Automata.WhiteSpace.Addressing
-    HelVM.HelMA.Automata.WhiteSpace.Evaluator.LLEvaluator
-    HelVM.HelMA.Automata.WhiteSpace.Instruction
+    HelVM.HelMA.Automata.WhiteSpace.Evaluator
     HelVM.HelMA.Automata.WhiteSpace.Lexer
     HelVM.HelMA.Automata.WhiteSpace.OperandParsers
     HelVM.HelMA.Automata.WhiteSpace.Parser
@@ -167,13 +169,23 @@ library
     HelVM.HelMA.Automaton.API.EvalParams
     HelVM.HelMA.Automaton.API.IOTypes
     HelVM.HelMA.Automaton.API.TypeOptions
-    HelVM.HelMA.Automaton.BinaryOperator
+
     HelVM.HelMA.Automaton.IO.BusinessIO
+    HelVM.HelMA.Automaton.IO.EvaluatorIO
     HelVM.HelMA.Automaton.IO.MockIO
-    HelVM.HelMA.Automaton.Memories.LLRAM
-    HelVM.HelMA.Automaton.Memories.LLStack
-    HelVM.HelMA.Automaton.Memories.MTRAM
-    HelVM.HelMA.Automaton.Memories.MTStack
+
+    HelVM.HelMA.Automaton.Units.ALU
+    HelVM.HelMA.Automaton.Units.CPU
+    HelVM.HelMA.Automaton.Units.LSU
+    HelVM.HelMA.Automaton.Units.RAM
+
+    HelVM.HelMA.Automaton.Instruction
+
+    HelVM.HelMA.Automaton.Instruction.ALInstruction
+    HelVM.HelMA.Automaton.Instruction.ControlInstruction
+    HelVM.HelMA.Automaton.Instruction.IOInstruction
+    HelVM.HelMA.Automaton.Instruction.LSInstruction
+
     HelVM.HelMA.Automaton.Types.CellType
     HelVM.HelMA.Automaton.Types.IntCellType
     HelVM.HelMA.Automaton.Types.RAMType
@@ -182,7 +194,7 @@ library
     HelVM.HelMA.Automaton.WrapTokenList
 
   build-depends:
-      containers           == 0.6.2.1
+      containers           <  0.7
     , data-default
     , dlist
     , ilist
@@ -230,19 +242,17 @@ test-suite helma-test
 
     HelVM.HelMA.Automata.FileUtil
 
-    HelVM.HelMA.Automata.BrainFuck.Evaluator.IEvaluatorSpec
-    HelVM.HelMA.Automata.BrainFuck.Evaluator.TEvaluatorSpec
+    HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec
     HelVM.HelMA.Automata.BrainFuck.EvaluatorSpecData
     HelVM.HelMA.Automata.BrainFuck.FileUtil
-    HelVM.HelMA.Automata.BrainFuck.TokensSpec
+    HelVM.HelMA.Automata.BrainFuck.InstructionSpec
 
     HelVM.HelMA.Automata.Cat.EvaluatorSpec
 
     HelVM.HelMA.Automata.ETA.AddressingSpec
     HelVM.HelMA.Automata.ETA.EvaluatorSpec
-    HelVM.HelMA.Automata.ETA.EvaluatorSpecData
     HelVM.HelMA.Automata.ETA.FileUtil
-    HelVM.HelMA.Automata.ETA.LexerSpec
+    HelVM.HelMA.Automata.ETA.ParserSpec
     HelVM.HelMA.Automata.ETA.OperandParsersSpec
 
     HelVM.HelMA.Automata.Rev.EvaluatorSpec
@@ -253,9 +263,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.SubLeq.LexerSpec
 
     HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec
-    HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpecData
     HelVM.HelMA.Automata.WhiteSpace.FileUtil
-    HelVM.HelMA.Automata.WhiteSpace.LexerSpec
     HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec
     HelVM.HelMA.Automata.WhiteSpace.ParserSpec
 
@@ -290,8 +298,7 @@ benchmark helma-benchmark
   main-is:             Main.hs
   other-modules:
 
-    HelVM.HelMA.Automata.BrainFuck.Evaluator.IEvaluatorBenchMark
-    HelVM.HelMA.Automata.BrainFuck.Evaluator.TEvaluatorBenchMark
+    HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark
     HelVM.HelMA.Automata.BrainFuck.FileUtil
 
     HelVM.HelMA.Automata.ETA.EvaluatorBenchMark

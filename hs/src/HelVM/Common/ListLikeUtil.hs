@@ -6,9 +6,6 @@ import           Data.ListLike
 
 import           Prelude                   hiding (break, divMod, drop, fromList, length, splitAt, swap, toList, uncons)
 
--- | Don't use ListLikeUtil
--- | Use SequencesUtil
-
 -- | Construction
 convert :: (ListLike full1 item , ListLike full2 item) => full1 -> full2
 convert = fromList . toList
@@ -23,16 +20,16 @@ splitBy separator l =  (acc , drop 1 l') where (acc , l') = break (== separator)
 
 -- | Pop
 discard :: (MonadSafe m , ListLike full item) => full -> m full
-discard l = snd <$> pop1 l
+discard l = snd <$> unconsSafe l
 
 top :: (MonadSafe m , ListLike full item) => full -> m item
-top s = fst <$> pop1 s
+top s = fst <$> unconsSafe s
 
-pop1 :: (MonadSafe m , ListLike full item) => full -> m (item , full)
-pop1 = liftMaybeOrError "Empty" . uncons
+unconsSafe :: (MonadSafe m , ListLike full item) => full -> m (item , full)
+unconsSafe = liftMaybeOrError "Empty ListLike" . uncons
 
-pop2 :: (MonadSafe m , ListLike full item) => full -> m (item , item , full)
-pop2 = liftMaybeOrError "Empty" . uncons2
+uncons2Safe :: (MonadSafe m , ListLike full item) => full -> m (item , item , full)
+uncons2Safe = liftMaybeOrError "Empty ListLike" . uncons2
 
 uncons2 :: ListLike full item => full -> Maybe (item, item, full)
 uncons2 l = uncons2' =<< uncons l where

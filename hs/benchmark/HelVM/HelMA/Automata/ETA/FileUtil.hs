@@ -19,7 +19,7 @@ buildAbsoluteEtaFileName :: FilePath -> FilePath
 buildAbsoluteEtaFileName fileName = etaDir </> fileName <.> "eta"
 
 buildAbsoluteExecFileName :: FilePath -> FilePath
-buildAbsoluteExecFileName fileName = etaDir </> "exec" </> fileName
+buildAbsoluteExecFileName fileName = etaDir </> "eval" </> fileName
 
 etaDir :: FilePath
 etaDir = dir </> "eta"

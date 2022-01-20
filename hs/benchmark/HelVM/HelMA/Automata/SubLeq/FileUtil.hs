@@ -14,7 +14,7 @@ buildAbsoluteSqFileName :: FilePath -> FilePath
 buildAbsoluteSqFileName fileName = sqDir </> fileName <.> "sq"
 
 buildAbsoluteExecFileName :: FilePath -> FilePath
-buildAbsoluteExecFileName fileName = sqDir </> "exec" </> fileName
+buildAbsoluteExecFileName fileName = sqDir </> "eval" </> fileName
 
 sqDir :: FilePath
 sqDir = dir </> "sq"

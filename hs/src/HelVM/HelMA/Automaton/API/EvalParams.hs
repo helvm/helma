@@ -23,7 +23,8 @@ intCellTypeOptions = intCell . typeOptions
 
 -- | Type
 data EvalParams = EvalParams
-  { asciiLabel  :: !Bool
+  { compile     :: !Bool
+  , asciiLabel  :: !Bool
   , source      :: !Source
   , typeOptions :: !TypeOptions
   }

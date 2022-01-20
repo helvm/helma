@@ -1,62 +1,47 @@
 module HelVM.HelMA.Automata.BrainFuck.Parser where
 
-import           HelVM.HelMA.Automata.BrainFuck.Instruction as I
+import           HelVM.HelMA.Automata.BrainFuck.Instruction.FlatInstruction as Flat
+import           HelVM.HelMA.Automata.BrainFuck.Instruction.TreeInstruction as Tree
 import           HelVM.HelMA.Automata.BrainFuck.Lexer
-import           HelVM.HelMA.Automata.BrainFuck.Token       as T
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.Common.Control.Safe
 import           HelVM.Common.ListLikeUtil
 
-import           Data.ListLike                              hiding (show)
+import           Data.ListLike                                              hiding (show)
 
-import qualified Data.DList                                 as D
+import qualified Data.DList                                                 as D
 
-type OperandParser a = TokenList -> Safe (a , TokenList)
+type OperandParser m a = FlatTreeInstructionList -> m (a , FlatTreeInstructionList)
 
-parseAsVector :: MonadSafe m => Source -> m InstructionVector
-parseAsVector = parseTLAsVector . tokenize
+parseAsVector :: MonadSafe m => Source -> m TreeInstructionVector
+parseAsVector = parseFILAsVector . tokenize
 
-parseTLAsVector :: MonadSafe m => TokenList -> m InstructionVector
-parseTLAsVector tl = fromList <$> parseTL tl
+parseFILAsVector :: MonadSafe m => FlatTreeInstructionList -> m TreeInstructionVector
+parseFILAsVector fil = fromList <$> parseFIL fil
 
-liftedParseTL :: MonadSafe m => TokenList -> m InstructionList
-liftedParseTL = liftSafe . parseTL
+parseFIL :: MonadSafe m => FlatTreeInstructionList -> m TreeInstructionList
+parseFIL (Flat.Simple i : fil) = (Tree.Simple i :  ) <$> parseFIL fil
+parseFIL []                = pure []
+parseFIL (Flat.JmpBack  : fil) = liftErrorTuple ("JmpBack" , show fil)
+parseFIL (Flat.JmpPast  : fil) = addWhile =<< parseWhile fil where
+  addWhile (i , fil') = (i : ) <$> parseFIL fil'
 
-parseTL :: MonadSafe m => TokenList -> m InstructionList
-parseTL = liftSafe . go where
-  go :: TokenList -> Safe InstructionList
-  go (T.MoveR   : tl) = (I.MoveR  :  ) <$> go tl
-  go (T.MoveL   : tl) = (I.MoveL  :  ) <$> go tl
-  go (T.Inc     : tl) = (I.Inc    :  ) <$> go tl
-  go (T.Dec     : tl) = (I.Dec    :  ) <$> go tl
-  go (T.Output  : tl) = (I.Output :  ) <$> go tl
-  go (T.Input   : tl) = (I.Input  :  ) <$> go tl
-  go []               = pure []
-  go (T.JmpBack : tl) = liftErrorTuple ("JmpBack" , show tl)
-  go (T.JmpPast : tl) = addWhile =<< parseWhile tl where
-    addWhile (i , tl') = (i : ) <$> go tl'
+parseWhile :: MonadSafe m => OperandParser m TreeInstruction
+parseWhile fil = buildWhile <$> parseWhileD fil where
+  buildWhile :: (TreeInstructionDList , FlatTreeInstructionList) -> (TreeInstruction , FlatTreeInstructionList)
+  buildWhile (idl , fil') = (buildWhileFromDList idl , fil')
 
-parseWhile :: OperandParser Instruction
-parseWhile tl = buildWhile <$> parseWhileD tl where
-  buildWhile :: (InstructionDList , TokenList) -> (Instruction , TokenList)
-  buildWhile (idl , tl') = (buildWhileFromDList idl , tl')
+buildWhileFromDList :: TreeInstructionDList -> TreeInstruction
+buildWhileFromDList = Tree.While . convert
 
-buildWhileFromDList :: InstructionDList -> Instruction
-buildWhileFromDList = I.While . convert
-
-parseWhileD :: OperandParser InstructionDList
+parseWhileD :: MonadSafe m => OperandParser m TreeInstructionDList
 parseWhileD = go D.empty where
-  go :: InstructionDList -> TokenList -> Safe (InstructionDList , TokenList)
-  go acc (T.MoveR   : tl) = go (acc `snoc` I.MoveR  ) tl
-  go acc (T.MoveL   : tl) = go (acc `snoc` I.MoveL  ) tl
-  go acc (T.Inc     : tl) = go (acc `snoc` I.Inc    ) tl
-  go acc (T.Dec     : tl) = go (acc `snoc` I.Dec    ) tl
-  go acc (T.Output  : tl) = go (acc `snoc` I.Output ) tl
-  go acc (T.Input   : tl) = go (acc `snoc` I.Input  ) tl
-  go acc              []  = liftErrorTuple ("End of List" , show acc)
-  go acc (T.JmpBack : tl) = pure (acc , tl)
-  go acc (T.JmpPast : tl) = snocInstruction =<< parseWhile tl where
-    snocInstruction :: (Instruction , TokenList) -> Safe (InstructionDList , TokenList)
-    snocInstruction (i , tl') = go (acc `snoc` i) tl'
+  go :: MonadSafe m => TreeInstructionDList -> FlatTreeInstructionList -> m (TreeInstructionDList , FlatTreeInstructionList)
+  go acc (Flat.Simple i : fil) = go (acc `snoc` Tree.Simple i  ) fil
+  go acc                  []  = liftErrorTuple ("End of List" , show acc)
+  go acc (Flat.JmpBack  : fil) = pure (acc , fil)
+  go acc (Flat.JmpPast  : fil) = snocInstruction =<< parseWhile fil where
+    snocInstruction :: MonadSafe m => (TreeInstruction , FlatTreeInstructionList) -> m (TreeInstructionDList , FlatTreeInstructionList)
+    snocInstruction (i , fil') = go (acc `snoc` i) fil'

@@ -12,7 +12,7 @@ import           HelVM.Common.Containers.LLIndexSafe
 
 import           HelVM.Common.Control.Safe
 
-import           Data.ListLike
+import           Data.ListLike                       hiding (show)
 
 import           Prelude                             hiding (length, splitAt)
 
@@ -20,12 +20,12 @@ import qualified Data.Vector                         as Vector
 
 ----
 
-genericFindAddress :: Integral cell => Vector.Vector Token -> cell -> Safe InstructionAddress
+genericFindAddress :: (MonadSafe m , Integral cell) => Vector.Vector Token -> cell -> m InstructionAddress
 genericFindAddress il = findAddress il . fromIntegral
 
-findAddress :: Vector.Vector Token -> Int -> Safe InstructionAddress
+findAddress :: MonadSafe m => Vector.Vector Token -> Int -> m InstructionAddress
 findAddress _  1       = pure 0
-findAddress il address = (+1) <$> indexSafe (Vector.elemIndices R il) (address-2)
+findAddress il address = appendErrorTupleList [("il" , show il) , ("address" , show address)] ((+1) <$> indexSafe (Vector.elemIndices R il) (address-2))
 
 ----
 

@@ -29,7 +29,6 @@ sListFromList :: [a] -> SList a
 sListFromList = SList . fromList
 
 -- | DeConstruction
-
 sListToList :: SList a -> [a]
 sListToList = toList . unSList
 
@@ -182,7 +181,6 @@ instance Default a => LL.InsertDef (SList a) a where
   insertDef i e = sListFromList. LL.insertDef i e . sListToList
 
 -- | Internals sList
-
 sListCons :: a -> SList a -> SList a
 sListCons e = SList . L.cons e . unSList
 

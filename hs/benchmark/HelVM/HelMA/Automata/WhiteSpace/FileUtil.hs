@@ -31,7 +31,7 @@ buildAbsoluteIlFileName :: FilePath -> FilePath
 buildAbsoluteIlFileName fileName = wsDir </> "il" </> fileName <.> "il"
 
 buildAbsoluteExecFileName :: FilePath -> FilePath
-buildAbsoluteExecFileName fileName = wsDir </> "exec" </> fileName
+buildAbsoluteExecFileName fileName = wsDir </> "eval" </> fileName
 
 wsDir :: FilePath
 wsDir = dir </> "ws"

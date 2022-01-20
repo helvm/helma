@@ -34,16 +34,16 @@ splitBy separator l =  (acc , drop 1 l') where (acc , l') = break (== separator)
 
 -- | Pop
 discard :: (MonadSafe m , IsSequence seq) => seq -> m seq
-discard s = snd <$> pop1 s
+discard s = snd <$> unconsSafe s
 
 top :: (MonadSafe m , IsSequence seq) => seq -> m $ Element seq
-top s = fst <$> pop1 s
+top s = fst <$> unconsSafe s
 
-pop1 :: (MonadSafe m , IsSequence seq) => seq -> m (Element seq , seq)
-pop1 = liftMaybeOrError "Empty" . uncons
+unconsSafe :: (MonadSafe m , IsSequence seq) => seq -> m (Element seq , seq)
+unconsSafe = liftMaybeOrError "Empty IsSequence" . uncons
 
-pop2 :: (MonadSafe m , IsSequence seq) => seq -> m (Element seq , Element seq , seq)
-pop2 = liftMaybeOrError "Empty" . uncons2
+uncons2Safe :: (MonadSafe m , IsSequence seq) => seq -> m (Element seq , Element seq , seq)
+uncons2Safe = liftMaybeOrError "Empty" . uncons2
 
 uncons2 :: IsSequence seq => seq -> Maybe (Element seq, Element seq, seq)
 uncons2 s = uncons2' =<< uncons s where

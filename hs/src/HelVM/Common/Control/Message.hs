@@ -3,7 +3,6 @@ module HelVM.Common.Control.Message where
 import qualified Data.DList as D
 
 -- | Destructors
-
 errorsToText :: Messages -> Text
 errorsToText = unlines . D.toList
 
@@ -23,7 +22,6 @@ tupleToMessage (prefix , showed) = " [" <> format prefix <> showed <> "]" where
   format _  = prefix <> " "
 
 -- | Types
-
 type MessageTuple = (Message , Message)
 
 type Messages = D.DList Text

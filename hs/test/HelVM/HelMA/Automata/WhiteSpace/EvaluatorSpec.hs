@@ -1,120 +1,60 @@
 module HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec (spec) where
 
-import           HelVM.HelMA.Automata.WhiteSpace.Evaluator.LLEvaluator
-import           HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpecData
+import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
 import           HelVM.HelMA.Automata.WhiteSpace.FileUtil
-import           HelVM.HelMA.Automata.WhiteSpace.Instruction
 import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
+
+import           HelVM.HelMA.Automaton.IO.MockIO
+import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.Common.ZipA
 import           HelVM.GoldenExpectations
 
-import           HelVM.HelMA.Automaton.IO.MockIO
-import           HelVM.HelMA.Automaton.Types.RAMType
-import           HelVM.HelMA.Automaton.Types.StackType
-
 import           System.FilePath.Posix
 
-import           Test.Hspec                                            (Spec, describe, it)
+import           Test.Hspec                                   (Spec, describe, it)
 
 spec :: Spec
-spec = do
-  describe "simpleEval" $ do
-    let options =  [True , False]
-
-    describe "ws" $ do
-      describe "original" $ do
-        let majorPath = "simpleEval" </> "original" </> "ws"
-        forM_
-          [ ("count"        , ""           )
-          , ("hworld"       , ""           )
-          , ("calc"         , "-1\n"       )
-          , ("fact"         , "10\n"       )
-          , ("hanoi"        , "1\n"        )
-          , ("loctest"      , "1\n2\n"     )
-          , ("name"         , "WriteOnly\n")
-          ] $ \(fileName , input) -> do
-            let file = readWsFile ("original" </> fileName)
-            forM_ options $ \ ascii -> do
-              let paramsF = simpleParamsWithDefaultsAndWhiteTokenType ascii
-              let paramsIO = paramsF <$> file
-              let mock = ioExecMockIOWithInput input . simpleEval =<< paramsIO
-              let minorPath = show ascii </> fileName
-              describe minorPath $ do
-                it ("output" </> minorPath) $
-                  calculateOutput <$> mock `goldenShouldIO` buildAbsoluteWsOutFileName (majorPath </> minorPath)
-                it ("logged" </> minorPath) $
-                  calculateLogged <$> mock `goldenShouldIO` buildAbsoluteWsLogFileName (majorPath </> minorPath)
-
-    describe "stn" $ do
-
-      describe "from-wsa" $ do
-        let majorPath = "simpleEval" </> "from-wsa" </> "stn"
-        forM_
-          [ "true"
-          , "hello"
-          , "hello2"
-          , "hello4"
-          , "bottles"
-          , "prim"
-          ] $ \ fileName -> do
-            let file = readStnFile ("from-wsa" </> fileName)
-            forM_ options $ \ ascii -> do
-              let paramsF = simpleParamsWithDefaultsAndVisibleTokenType ascii
-              let paramsIO = paramsF <$> file
-              let mock = ioExecMockIOBatch . simpleEval =<< paramsIO
-              let minorPath = show ascii </> fileName
-              describe minorPath $ do
-                it ("output" </> minorPath) $
-                  calculateOutput <$> mock `goldenShouldIO` buildAbsoluteWsOutFileName (majorPath </> minorPath)
-                it ("logged" </> minorPath) $
-                  calculateLogged <$> mock `goldenShouldIO` buildAbsoluteWsLogFileName (majorPath </> minorPath)
-
-      describe "original" $ do
-        let majorPath = "simpleEval" </> "original" </> "stn"
-        forM_ ([ ("count"        , ""           )
-               , ("helloWorld"   , ""           )
-               , ("hWorld"       , ""           )
-               , ("calc"         , "-1\n"       )
-               , ("fact"         , "10\n"       )
-               , ("hanoi"        , "1\n"        )
-               , ("locTest"      , "1\n2\n"     )
-               , ("name"         , "WriteOnly\n")
-               , ("truthMachine" , "0\n"        )
-               ] >><| options) $ \(fileName , input , ascii) -> do
-          let file = readStnFile ("original" </> fileName)
-          let paramsF = simpleParamsWithDefaultsAndVisibleTokenType ascii
-          let paramsIO = paramsF <$> file
-          let mock = ioExecMockIOWithInput input . simpleEval =<< paramsIO
-          let minorPath = show ascii </> fileName
-          describe minorPath $ do
-            it ("output" </> minorPath) $
-              calculateOutput <$> mock `goldenShouldIO` buildAbsoluteWsOutFileName (majorPath </> minorPath)
-            it ("logged" </> minorPath) $
-              calculateLogged <$> mock `goldenShouldIO` buildAbsoluteWsLogFileName (majorPath </> minorPath)
-
-  describe "simpleEvalTL" $
-    forM_ [ ("countTL"        , countTL        , ""           )
-          , ("helloWorldTL"   , helloWorldTL   , ""           )
-          , ("hWorldTL"       , hWorldTL       , ""           )
-          , ("calcTL"         , calcTL         , "-1\n"       )
-          , ("factTL"         , factTL         , "10\n"       )
-          , ("hanoiTL"        , hanoiTL        , "1\n"        )
-          , ("locTestTL"      , locTestTL      , "1\n2\n"     )
-          , ("nameTL"         , nameTL         , "WriteOnly\n")
-          , ("truthMachineTL" , truthMachineTL , "0\n"        )
-          ] $ \(fileName , tl , input) -> do
-      let mock = (safeExecMockIOWithInput input . simpleEvalTL) tl
-      describe fileName $ do
-        it ("output" </> fileName) $
-          calculateOutput <$> mock `goldenShouldSafe` buildAbsoluteWsOutFileName ("simpleEvalTL" </> fileName)
-        it ("logged" </> fileName) $
-          calculateLogged <$> mock `goldenShouldSafe` buildAbsoluteWsLogFileName ("simpleEvalTL" </> fileName)
-
-  describe "simpleEvalIL" $
-    forM_ [ ("call"     , [Call "A", End , Mark "A", Return] , "")
-          , ("push-pop" , [Liter 0 , Discard , End]          , "")
-          ] $ \(fileName , il , input) -> do
-      let mock = safeExecMockIOWithInput input $ evalIL il SeqStackType MapListRAMType
-      it fileName $
-        calculateLogged <$> mock `goldenShouldSafe` buildAbsoluteWsLogFileName ("simpleEvalIL" </> fileName)
+spec =
+  describe "eval" $ forM_ (((
+    [ ("count"        , ""           )
+    , ("hworld"       , ""           )
+    , ("calc"         , "-1\n"       )
+    , ("fact"         , "10\n"       )
+    , ("hanoi"        , "1\n"        )
+    , ("loctest"      , "1\n2\n"     )
+    , ("name"         , "WriteOnly\n")
+    ] |><| ["original"]) |><| [WhiteTokenType]
+    ) <> ((
+    [ ("count"        , ""           )
+    , ("helloWorld"   , ""           )
+    , ("hWorld"       , ""           )
+    , ("calc"         , "-1\n"       )
+    , ("fact"         , "10\n"       )
+    , ("hanoi"        , "1\n"        )
+    , ("locTest"      , "1\n2\n"     )
+    , ("name"         , "WriteOnly\n")
+    , ("truthMachine" , "0\n"        )
+    ] |><| ["original"]) |><| [VisibleTokenType]
+    ) <> (((
+    [ "true"
+    , "hello"
+    , "hello2"
+    , "hello4"
+    , "bottles"
+    , "prim"
+    ] |><| [""]) |><| ["from-wsa"]) |><| [VisibleTokenType]
+    )) $ \ (((fileName , input) , dirName) , tokenType) -> do
+      let ext = tokenTypeToExt tokenType
+      let filePath = dirName </> fileName
+      let file = readExtFile ext filePath
+      forM_ options $ \ ascii -> do
+        let paramsF = simpleParamsWithDefaults tokenType ascii
+        let paramsIO = paramsF <$> file
+        let mock = ioExecMockIOWithInput input . simpleEval =<< paramsIO
+        let path = ext </> showAscii ascii </> filePath <> toString input
+        describe path $ do
+          it ("output" </> path) $
+            calculateOutput <$> mock `goldenShouldIO` buildAbsoluteWsOutFileName path
+          it ("logged" </> path) $
+            calculateLogged <$> mock `goldenShouldIO` buildAbsoluteWsLogFileName path

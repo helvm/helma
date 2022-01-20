@@ -5,8 +5,9 @@ module HelVM.HelMA.Automata.FileUtil (
   buildAbsoluteExtFileName,
   buildAbsoluteOutFileName,
   buildAbsoluteLogFileName,
-  buildAbsoluteExecFileName,
+  buildAbsoluteEvalFileName,
   dir,
+  options,
 ) where
 
 import           System.FilePath.Posix
@@ -24,13 +25,16 @@ buildAbsoluteExtFileName :: FilePath -> FilePath -> FilePath -> FilePath
 buildAbsoluteExtFileName ext lang fileName = dir </> lang </> ext </> fileName <.> ext
 
 buildAbsoluteOutFileName :: FilePath -> FilePath -> FilePath
-buildAbsoluteOutFileName = buildAbsoluteExecFileName "output"
+buildAbsoluteOutFileName = buildAbsoluteEvalFileName "output"
 
 buildAbsoluteLogFileName :: FilePath -> FilePath -> FilePath
-buildAbsoluteLogFileName = buildAbsoluteExecFileName "logged"
+buildAbsoluteLogFileName = buildAbsoluteEvalFileName "logged"
 
-buildAbsoluteExecFileName :: FilePath -> FilePath -> FilePath -> FilePath
-buildAbsoluteExecFileName mode lang fileName = dir </> lang </> "exec" </> mode </> fileName <.> mode
+buildAbsoluteEvalFileName :: FilePath -> FilePath -> FilePath -> FilePath
+buildAbsoluteEvalFileName mode lang fileName = dir </> lang </> "eval" </> mode </> fileName <.> mode
 
 dir :: FilePath
 dir = "examples"
+
+options :: [Bool]
+options = [True , False]

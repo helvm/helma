@@ -59,7 +59,6 @@ safeWithMessagesToText :: SafeWithMessages a -> Text
 safeWithMessagesToText (safe , messages) = errorsToText messages <> safeToText safe
 
 -- | Constructors
-
 controlT :: Monad m => m a -> ControlT m a
 controlT = safeT . loggerT
 
@@ -70,7 +69,6 @@ safeWithMessages :: a -> SafeWithMessages a
 safeWithMessages = withMessages . pure
 
 -- | Types
-
 type MonadControl m = (MonadLogger m, MonadSafe m)
 
 type ControlT m = SafeT (LoggerT m)

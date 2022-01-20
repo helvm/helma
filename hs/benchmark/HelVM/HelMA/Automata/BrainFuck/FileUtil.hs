@@ -18,7 +18,7 @@ buildAbsoluteBfFileName :: FilePath -> FilePath
 buildAbsoluteBfFileName fileName = bfDir </> fileName <.> "bf"
 
 buildAbsoluteExecFileName :: FilePath -> FilePath
-buildAbsoluteExecFileName fileName = bfDir </> "exec" </> fileName
+buildAbsoluteExecFileName fileName = bfDir </> "eval" </> fileName
 
 bfDir :: FilePath
 bfDir = dir </> "bf"

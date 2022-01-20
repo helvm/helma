@@ -1,9 +1,8 @@
 module HelVM.HelMA.Automata.WhiteSpace.Symbol where
 
-import           HelVM.Common.Collections.SList
-
 type Symbol = Integer
 type SymbolList = [Symbol]
 
+type Index = Int
+
 type InstructionAddress = Int
-type Label = SString
