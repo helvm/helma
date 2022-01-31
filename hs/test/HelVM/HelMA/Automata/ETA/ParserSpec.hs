@@ -13,7 +13,7 @@ import           System.FilePath.Posix
 import           Test.Hspec                        (Spec, describe, it)
 
 spec :: Spec
-spec = do
+spec =
   describe "parser" $ forM_ ((
     [ "hello"
     , "hello2"

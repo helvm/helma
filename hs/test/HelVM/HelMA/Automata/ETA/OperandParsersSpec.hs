@@ -29,7 +29,7 @@ spec =
     , ([T , T , S , E] , 62)
     , ([T , T , T , E] , 57)
     ] $ \(input , output) ->
-    describe (show input) $ do
+    describe (show input) $
       it "parseInteger" $ parseInteger input `shouldSafe` output
 
 parseInteger :: TokenList -> Safe Integer

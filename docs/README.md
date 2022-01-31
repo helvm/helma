@@ -1,4 +1,6 @@
-# 🔧 🎨 HelMA - Haskellish Esoteric Little Minimal Automaton for Esoteric Languages implemented in Haskell
+# 🔧 🎨 HelMA - Haskellish Esoteric Limited Minimal Automaton for Esoteric Languages implemented in Haskell
+
+*One Automaton to rule them all, One Automaton to find them, One Automaton to bring them all and in the rainbow bind them.*
 
 **🔧 🎨 HelMA** is first part of [HelVM](http://helvm.github.io/) project and implementation of:
 * **🧑‍🔧 🧑‍🎨 HAMALAM** - Holistic Actual Minimalist Languages of Automatic Machine.
@@ -10,6 +12,16 @@ WHO want to run esoteric languages
 THE HelMA IS a Heavenly Esoteric Little Minimal Automaton for Esoteric Languages implemented in Haskell
 THAT is an Evaluator and an Interpreter for Esoteric Languages (EsoAutomata)
 ```
+
+## Features
+Currently, **🔧 🎨 HelMA** can interpret:
+* 🌈 BrainFuck
+* ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/)
+* 💙 [SubLeq](http://mazonka.com/subleq/)
+* 🤍 [WhiteSpace](https://helvm.github.io/wspace/tutorial.html)
+
+[comment]: <> (* 💛 Malbolge)
+[comment]: <> (* 💚 Piet)
 
 ## For User
 * [INSTALL](INSTALL.md) - How to download, test and run.
@@ -28,6 +40,10 @@ THAT is an Evaluator and an Interpreter for Esoteric Languages (EsoAutomata)
 * [ARCHITECTURE](ARCHITECTURE.md)
 * [CONTRIBUTING](CONTRIBUTING.md)
 * [CODE OF CONDUCT](CODE_OF_CONDUCT.md)
+
+## Reports
+* [hlint](reports/hlint.html)
+* [stan](reports/stan.html)
 
 ## 🌈 ❤️ 💛 💚 💙 🤍 🖤 🦄
 

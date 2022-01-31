@@ -161,15 +161,12 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Warning: Redundant do (2)</a></li>
-<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Reduce duplication (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Suggestion: Reduce duplication (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
 <li><a id="file0" href="javascript:show('file0')">./hs/test/HelVM/Common/Collections/MapListSpec.hs (1)</a></li>
-<li><a id="file1" href="javascript:show('file1')">./hs/test/HelVM/HelMA/Automata/ETA/OperandParsersSpec.hs (1)</a></li>
-<li><a id="file2" href="javascript:show('file2')">./hs/test/HelVM/HelMA/Automata/ETA/ParserSpec.hs (1)</a></li>
 </ul>
 
 </div>
@@ -180,7 +177,7 @@ v2.1.11
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-<div class="hint1 file0">
+<div class="hint0 file0">
 ./hs/test/HelVM/Common/Collections/MapListSpec.hs:50:11: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-definition'>it</span> <span class='hs-str'>"mapListToList . fromIntIndexedList"</span> <span class='hs-varop'>$</span>
@@ -192,56 +189,6 @@ Found<br/>
 </pre>
 Perhaps<br/>
 <pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>Common</span><span class='hs-varop'>/</span><span class='hs-conid'>Collections</span><span class='hs-varop'>/</span><span class='hs-conid'>MapListSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>59</span><span class='hs-conop'>:</span><span class='hs-num'>11</span></pre>
-
-</div>
-
-<div class="hint0 file1">
-./hs/test/HelVM/HelMA/Automata/ETA/OperandParsersSpec.hs:32:29: Warning: Redundant do<br/>
-Found<br/>
-<pre><span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-str'>"parseInteger"</span> <span class='hs-varop'>$</span> <span class='hs-varid'>parseInteger</span> <span class='hs-varid'>input</span> <span class='hs-varop'>`shouldSafe`</span> <span class='hs-varid'>output</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>it</span> <span class='hs-str'>"parseInteger"</span> <span class='hs-varop'>$</span> <span class='hs-varid'>parseInteger</span> <span class='hs-varid'>input</span> <span class='hs-varop'>`shouldSafe`</span> <span class='hs-varid'>output</span></pre>
-
-</div>
-
-<div class="hint0 file2">
-./hs/test/HelVM/HelMA/Automata/ETA/ParserSpec.hs:16:8: Warning: Redundant do<br/>
-Found<br/>
-<pre><span class='hs-keyword'>do</span> <span class='hs-varid'>describe</span> <span class='hs-str'>"parser"</span> <span class='hs-varop'>$</span>
-     <span class='hs-varid'>forM_</span>
-       <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-keyglyph'>[</span><span class='hs-str'>"hello"</span><span class='hs-layout'>,</span> <span class='hs-str'>"hello2"</span><span class='hs-layout'>,</span> <span class='hs-str'>"pip"</span><span class='hs-layout'>,</span> <span class='hs-str'>"pip2"</span><span class='hs-layout'>,</span> <span class='hs-str'>"fact"</span><span class='hs-layout'>,</span> <span class='hs-str'>"bottles"</span><span class='hs-layout'>,</span> <span class='hs-str'>"crlf"</span><span class='hs-keyglyph'>]</span>
-           <span class='hs-varop'>|&gt;&lt;|</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"original"</span><span class='hs-keyglyph'>]</span><span class='hs-layout'>)</span>
-          <span class='hs-varop'>&lt;&gt;</span>
-          <span class='hs-layout'>(</span><span class='hs-keyglyph'>[</span><span class='hs-str'>"true"</span><span class='hs-layout'>,</span> <span class='hs-str'>"hello"</span><span class='hs-layout'>,</span> <span class='hs-str'>"pip"</span><span class='hs-layout'>,</span> <span class='hs-str'>"pip2"</span><span class='hs-layout'>,</span> <span class='hs-str'>"reverse"</span><span class='hs-layout'>,</span> <span class='hs-str'>"function"</span><span class='hs-layout'>,</span>
-            <span class='hs-str'>"writestr"</span><span class='hs-layout'>,</span> <span class='hs-str'>"hello2"</span><span class='hs-layout'>,</span> <span class='hs-str'>"hello3"</span><span class='hs-layout'>,</span> <span class='hs-str'>"hello4"</span><span class='hs-layout'>,</span> <span class='hs-str'>"writenum"</span><span class='hs-layout'>,</span> <span class='hs-str'>"multiply"</span><span class='hs-layout'>,</span>
-            <span class='hs-str'>"readnum"</span><span class='hs-layout'>,</span> <span class='hs-str'>"fact"</span><span class='hs-layout'>,</span> <span class='hs-str'>"bottles"</span><span class='hs-layout'>,</span> <span class='hs-str'>"euclid"</span><span class='hs-keyglyph'>]</span>
-             <span class='hs-varop'>|&gt;&lt;|</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"from-eas"</span><span class='hs-keyglyph'>]</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
-       <span class='hs-varop'>$</span>
-       <span class='hs-keyglyph'>\</span> <span class='hs-layout'>(</span><span class='hs-varid'>fileName</span><span class='hs-layout'>,</span> <span class='hs-varid'>dirName</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>-&gt;</span>
-         <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>path</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>dirName</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>fileName</span>
-            <span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readEtaFile</span> <span class='hs-varid'>path</span>
-            <span class='hs-varid'>describe</span> <span class='hs-varid'>path</span> <span class='hs-varop'>$</span>
-              <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"minified"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>path</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
-                <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varop'>.</span> <span class='hs-varid'>readTokens</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span><span class='hs-layout'>)</span> <span class='hs-varop'>`goldenShouldIO`</span>
-                  <span class='hs-varid'>buildAbsoluteEtaFileName</span> <span class='hs-layout'>(</span><span class='hs-str'>"minified"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>path</span><span class='hs-layout'>)</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>describe</span> <span class='hs-str'>"parser"</span> <span class='hs-varop'>$</span>
-  <span class='hs-varid'>forM_</span>
-    <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-keyglyph'>[</span><span class='hs-str'>"hello"</span><span class='hs-layout'>,</span> <span class='hs-str'>"hello2"</span><span class='hs-layout'>,</span> <span class='hs-str'>"pip"</span><span class='hs-layout'>,</span> <span class='hs-str'>"pip2"</span><span class='hs-layout'>,</span> <span class='hs-str'>"fact"</span><span class='hs-layout'>,</span> <span class='hs-str'>"bottles"</span><span class='hs-layout'>,</span> <span class='hs-str'>"crlf"</span><span class='hs-keyglyph'>]</span>
-        <span class='hs-varop'>|&gt;&lt;|</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"original"</span><span class='hs-keyglyph'>]</span><span class='hs-layout'>)</span>
-       <span class='hs-varop'>&lt;&gt;</span>
-       <span class='hs-layout'>(</span><span class='hs-keyglyph'>[</span><span class='hs-str'>"true"</span><span class='hs-layout'>,</span> <span class='hs-str'>"hello"</span><span class='hs-layout'>,</span> <span class='hs-str'>"pip"</span><span class='hs-layout'>,</span> <span class='hs-str'>"pip2"</span><span class='hs-layout'>,</span> <span class='hs-str'>"reverse"</span><span class='hs-layout'>,</span> <span class='hs-str'>"function"</span><span class='hs-layout'>,</span>
-         <span class='hs-str'>"writestr"</span><span class='hs-layout'>,</span> <span class='hs-str'>"hello2"</span><span class='hs-layout'>,</span> <span class='hs-str'>"hello3"</span><span class='hs-layout'>,</span> <span class='hs-str'>"hello4"</span><span class='hs-layout'>,</span> <span class='hs-str'>"writenum"</span><span class='hs-layout'>,</span> <span class='hs-str'>"multiply"</span><span class='hs-layout'>,</span>
-         <span class='hs-str'>"readnum"</span><span class='hs-layout'>,</span> <span class='hs-str'>"fact"</span><span class='hs-layout'>,</span> <span class='hs-str'>"bottles"</span><span class='hs-layout'>,</span> <span class='hs-str'>"euclid"</span><span class='hs-keyglyph'>]</span>
-          <span class='hs-varop'>|&gt;&lt;|</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"from-eas"</span><span class='hs-keyglyph'>]</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
-    <span class='hs-varop'>$</span>
-    <span class='hs-keyglyph'>\</span> <span class='hs-layout'>(</span><span class='hs-varid'>fileName</span><span class='hs-layout'>,</span> <span class='hs-varid'>dirName</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>-&gt;</span>
-      <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>path</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>dirName</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>fileName</span>
-         <span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readEtaFile</span> <span class='hs-varid'>path</span>
-         <span class='hs-varid'>describe</span> <span class='hs-varid'>path</span> <span class='hs-varop'>$</span>
-           <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"minified"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>path</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
-             <span class='hs-layout'>(</span><span class='hs-varid'>show</span> <span class='hs-varop'>.</span> <span class='hs-varid'>readTokens</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>file</span><span class='hs-layout'>)</span> <span class='hs-varop'>`goldenShouldIO`</span>
-               <span class='hs-varid'>buildAbsoluteEtaFileName</span> <span class='hs-layout'>(</span><span class='hs-str'>"minified"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>path</span><span class='hs-layout'>)</span></pre>
 
 </div>
 
