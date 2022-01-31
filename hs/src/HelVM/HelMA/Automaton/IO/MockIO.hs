@@ -77,23 +77,35 @@ instance BusinessIO (SafeT MockIO) where
   wLogStr  = safeT . mockLogStr
 
 instance BusinessIO (ControlT MockIO) where
-  wGetChar = controlT   mockGetChar
-  wGetLine = controlT   mockGetLine
+  wGetChar =            mockGetCharSafe
+  wGetLine =            mockGetLineSafe
   wPutChar = controlT . mockPutChar
   wPutStr  = controlT . mockPutStr
   wLogStr  = controlT . mockLogStr
 
 ----
 
-mockGetChar :: MockIO Char
+mockGetChar :: MonadMockIO m => m Char
 mockGetChar = mockGetChar' =<< get where
-  mockGetChar' :: MonadState MockIOData f => MockIOData -> f Char
+  mockGetChar' :: MonadMockIO m => MockIOData -> m Char
   mockGetChar' mockIO = orErrorTuple ("mockGetChar" , show mockIO) (top (input mockIO)) <$ put mockIO { input = orErrorTuple ("mockGetChar" , show mockIO) $ discard $ input mockIO }
 
-mockGetLine :: MockIO Text
+mockGetLine :: MonadMockIO m => m Text
 mockGetLine = mockGetLine' =<< get where
-  mockGetLine' :: MonadState MockIOData f => MockIOData -> f Text
+  mockGetLine' :: MonadMockIO m => MockIOData -> m Text
   mockGetLine' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
+
+mockGetCharSafe :: MonadControlMockIO m => m Char
+mockGetCharSafe = mockGetChar' =<< get where
+  mockGetChar' :: MonadControlMockIO m => MockIOData -> m Char
+  mockGetChar' mockIO = appendErrorTuple ("mockGetCharSafe" , show mockIO) $ mockGetChar'' =<< unconsSafe (input mockIO) where
+    mockGetChar'' (c, input') = put mockIO { input = input' } $> c
+
+mockGetLineSafe :: MonadControlMockIO m => m Text
+mockGetLineSafe = mockGetLine' =<< get where
+  mockGetLine' :: MonadControlMockIO m => MockIOData -> m Text
+  mockGetLine' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
+
 
 mockPutChar :: Char -> MockIO ()
 mockPutChar = modify . mockDataPutChar
@@ -116,6 +128,12 @@ mockDataLogStr :: Text -> MockIOData -> MockIOData
 mockDataLogStr text mockIO = mockIO { logged = calculateString text <> logged mockIO }
 
 ----
+
+type MonadControlMockIO m = (MonadMockIO m , MonadControl m)
+
+--type MonadSafeMockIO m = (MonadMockIO m , MonadSafe m)
+
+type MonadMockIO m = MonadState MockIOData m
 
 type MockIO = State MockIOData
 

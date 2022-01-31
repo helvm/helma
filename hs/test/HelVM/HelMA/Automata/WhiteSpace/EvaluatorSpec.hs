@@ -5,6 +5,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.FileUtil
 import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 
 import           HelVM.HelMA.Automaton.IO.MockIO
+
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.Common.ZipA
@@ -51,10 +52,11 @@ spec =
       forM_ options $ \ ascii -> do
         let paramsF = simpleParamsWithDefaults tokenType ascii
         let paramsIO = paramsF <$> file
-        let mock = ioExecMockIOWithInput input . simpleEval =<< paramsIO
         let path = ext </> showAscii ascii </> filePath <> toString input
+        let mock = ioExecMockIOWithInput input . simpleEval =<< paramsIO
         describe path $ do
           it ("output" </> path) $
             calculateOutput <$> mock `goldenShouldIO` buildAbsoluteWsOutFileName path
           it ("logged" </> path) $
             calculateLogged <$> mock `goldenShouldIO` buildAbsoluteWsLogFileName path
+

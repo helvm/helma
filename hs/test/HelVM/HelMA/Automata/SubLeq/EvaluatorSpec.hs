@@ -25,7 +25,7 @@ spec = describe "eval" $ forM_
 --  , ("eForth"    , "" )
   ] $ \(fileName , input)  -> do
   let file = readSqFile fileName
-  let mock = (ioExecMockIOWithInput input . flippedEval defaultRAMType) =<< file
+  let mock = (ioExecMockIOWithInput input . simpleEval defaultRAMType) =<< file
   describe fileName $ do
     it ("output" </> fileName) $
       (calculateOutput <$> mock) `goldenShouldIO` buildAbsoluteSqOutFileName fileName

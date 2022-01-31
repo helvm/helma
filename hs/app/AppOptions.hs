@@ -2,6 +2,7 @@
 module AppOptions where
 
 import           HelVM.HelMA.Automaton.Types.CellType
+import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.IntCellType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
@@ -75,6 +76,13 @@ optionParser = AppOptions
                    <> value (show defaultIntCellType)
                    <> showDefault
                    )
+  <*> strOption    (  long    "DumpType"
+                   <> short   'd'
+                   <> metavar "[DumpType]"
+                   <> help   ("Implementation of DumpType " <> show dumpTypes)
+                   <> value (show defaultDumpType)
+                   <> showDefault
+                   )
   <*> switch       (  long    "eval"
                    <> short   'e'
                    <> help    "Exec"
@@ -94,6 +102,7 @@ data AppOptions = AppOptions
   , stackType   :: !String      -- | StackType
   , cellType    :: !String      -- | CellType
   , intCellType :: !String      -- | IntCellType
+  , dumpType    :: !String      -- | DumpType
   , exec        :: !Exec
   , file        :: !String
   }

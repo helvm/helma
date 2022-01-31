@@ -11,6 +11,7 @@ import           HelVM.HelMA.Automaton.IO.BusinessIO
 import           HelVM.Common.Control.Control
 
 import           HelVM.HelMA.Automaton.Types.CellType
+import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.IntCellType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
@@ -46,12 +47,11 @@ main = runApp =<< execParser opts where
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
 runApp:: AppOptions -> IO ()
---runApp AppOptions{lang , minified , emitTL , emitIL , printLogs , compile , asciiLabels , ramType , stackType , cellType , intCellType , exec , file} = do
-runApp (AppOptions lang minified emitTL emitIL printLogs compile asciiLabels ramType stackType cellType intCellType exec file) = do
+runApp (AppOptions lang minified emitTL emitIL printLogs compile asciiLabels ramType stackType cellType intCellType dumpType exec file) = do
   hSetBuffering stdout IO.NoBuffering
   source <- readSource exec file
   run minified emitTL emitIL printLogs typeOptions asciiLabels compile (parseLang lang) source
-    where typeOptions = TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType) (parseIntCellType intCellType)
+    where typeOptions = TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType) (parseIntCellType intCellType) (parseDumpType dumpType)
 
 readSource :: Exec -> String -> IO Source
 readSource True = pure . toText

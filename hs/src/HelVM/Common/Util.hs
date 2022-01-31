@@ -23,6 +23,8 @@ toUppers = Text.map toUpper
 splitOneOf :: String -> Text -> [Text]
 splitOneOf s = Text.split contains where contains c = c `elem` s
 
+----
+
 showP :: Show a => a -> Text
 showP = toText . pShowNoColor
 

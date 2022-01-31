@@ -4,6 +4,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.TypeOptions
 
 import           HelVM.HelMA.Automaton.Types.CellType
+import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.IntCellType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
@@ -20,6 +21,9 @@ cellTypeOptions = cell . typeOptions
 
 intCellTypeOptions :: EvalParams -> IntCellType
 intCellTypeOptions = intCell . typeOptions
+
+dumpTypeOptions :: EvalParams -> DumpType
+dumpTypeOptions = dumpType . typeOptions
 
 -- | Type
 data EvalParams = EvalParams

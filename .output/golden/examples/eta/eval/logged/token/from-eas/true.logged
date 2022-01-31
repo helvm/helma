@@ -1,2 +1,4 @@
-iu: IU [] 0
-stack: fromList []
+dump: Unit
+    { unitIU = IU [] 0
+    , unitStack = fromList []
+    }

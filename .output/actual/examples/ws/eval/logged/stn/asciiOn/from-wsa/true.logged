@@ -1,3 +1,9 @@
-cu: CU {program = [End], programCounter = 1, returnStack = IS []}
-stack: fromList []
-ram: []
+dump: Unit
+    { unitCU = CU
+        { program = [ End ]
+        , programCounter = 1
+        , returnStack = IS []
+        }
+    , unitStack = fromList []
+    , unitRAM = []
+    }

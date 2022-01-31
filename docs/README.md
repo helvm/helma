@@ -2,6 +2,8 @@
 
 *One Automaton to rule them all, One Automaton to find them, One Automaton to bring them all and in the rainbow bind them.*
 
+*One Automaton to rule them all, One Automaton to find them, One Automaton to bring them all and in the rainbow bind them.*
+
 **🔧 🎨 HelMA** is first part of [HelVM](http://helvm.github.io/) project and implementation of:
 * **🧑‍🔧 🧑‍🎨 HAMALAM** - Holistic Actual Minimalist Languages of Automatic Machine.
 * **🧑‍🔧 🧑‍🎨 HAMAMAL** - Holistic Actual Minimalist Automatic Mechanical Languages is a kind of [Low-level] [First-generation] [Code] for Esoteric Languages.

@@ -1,5 +1,12 @@
 # 📅 Revision history for HelMA
 
+## 0.6.16.0 -- 2022-02-10
+
+* Remove `MonoTraversable`
+* Add `Free` Monad
+* Add `DumpType` switch
+* Remove `error` from `MockIO`
+
 ## 0.6.15.0 -- 2022-01-30
 
 * Add Common Instruction List

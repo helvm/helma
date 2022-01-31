@@ -1,35 +1,35 @@
-cabal-version:       2.4
+cabal-version:         2.4
 
-name:                helma
-version:             0.6.15.0
+name:                  helma
+version:               0.6.16.0
 
-synopsis:            HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages
-description:         Please see the README on GitHub at <https://github.com/helvm/helma#readme>
-homepage:            https://helvm.github.io/helma/
-bug-reports:         https://github.com/helvm/helma/issues
+synopsis:              HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages
+description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
+homepage:              http://helvm.org/helma/
+bug-reports:           https://github.com/helvm/helma/issues
 
-license:             Apache-2.0
-license-file:        docs/LICENSE-APACHE
-author:              Kamil Adam
-maintainer:          kamil.adam.zabinski@gmail.com
-copyright:           2020-2022 WriteOnly Developers
+license:               Apache-2.0
+license-file:          docs/LICENSE-APACHE
+author:                Kamil Adam
+maintainer:            kamil.adam.zabinski@gmail.com
+copyright:             2020-2022 WriteOnly Developers
 
-category:            Language
-build-type:          Simple
+category:              Language
+build-type:            Simple
 extra-source-files:
   docs/CHANGELOG.md
   docs/README.md
 
-tested-with:         GHC == 9.2.1
+tested-with:           GHC == 9.2.1
 
 source-repository head
-  type:              git
-  location:          https://github.com/helvm/helma
+  type:                git
+  location:            https://github.com/helvm/helma
 
 flag ghcoptions
-    description: compile with options
-    manual     : True
-    default    : False
+  description:         compile with options
+  manual:              True
+  default:             False
 
 common common-options
   build-depends:
@@ -172,12 +172,8 @@ library
 
     HelVM.HelMA.Automaton.IO.BusinessIO
     HelVM.HelMA.Automaton.IO.EvaluatorIO
+    HelVM.HelMA.Automaton.IO.FreeIO
     HelVM.HelMA.Automaton.IO.MockIO
-
-    HelVM.HelMA.Automaton.Units.ALU
-    HelVM.HelMA.Automaton.Units.CPU
-    HelVM.HelMA.Automaton.Units.LSU
-    HelVM.HelMA.Automaton.Units.RAM
 
     HelVM.HelMA.Automaton.Instruction
 
@@ -186,7 +182,14 @@ library
     HelVM.HelMA.Automaton.Instruction.IOInstruction
     HelVM.HelMA.Automaton.Instruction.LSInstruction
 
+    HelVM.HelMA.Automaton.Units.ALU
+    HelVM.HelMA.Automaton.Units.CPU
+    HelVM.HelMA.Automaton.Units.LSU
+    HelVM.HelMA.Automaton.Units.RAM
+    HelVM.HelMA.Automaton.Units.Unit
+
     HelVM.HelMA.Automaton.Types.CellType
+    HelVM.HelMA.Automaton.Types.DumpType
     HelVM.HelMA.Automaton.Types.IntCellType
     HelVM.HelMA.Automaton.Types.RAMType
     HelVM.HelMA.Automaton.Types.StackType
@@ -206,6 +209,8 @@ library
     , type-operators
     , vector
 
+    , free
+    , natural-transformation
   ghc-options:
 
 executable helma
@@ -267,6 +272,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec
     HelVM.HelMA.Automata.WhiteSpace.ParserSpec
 
+    HelVM.HelMA.Automaton.API.TypeOptionsUtil
     HelVM.HelMA.Automaton.FilterIf0Spec
 
   build-depends:

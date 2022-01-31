@@ -1,3 +1,47 @@
-cu: CU {program = [IAL (Cons 72),IAL (SIO OutputChar),IAL (Cons 101),IAL (SIO OutputChar),IAL (Cons 108),IAL (SIO OutputChar),IAL (Cons 108),IAL (SIO OutputChar),IAL (Cons 111),IAL (SIO OutputChar),IAL (Cons 44),IAL (SIO OutputChar),IAL (Cons 32),IAL (SIO OutputChar),IAL (Cons 119),IAL (SIO OutputChar),IAL (Cons 111),IAL (SIO OutputChar),IAL (Cons 114),IAL (SIO OutputChar),IAL (Cons 108),IAL (SIO OutputChar),IAL (Cons 100),IAL (SIO OutputChar),End], programCounter = 25, returnStack = IS []}
-stack: fromList []
-ram: []
+dump: Unit
+    { unitCU = CU
+        { program =
+            [ IAL
+                ( Cons 72 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 101 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 108 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 108 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 111 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 44 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 32 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 119 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 111 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 114 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 108 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 100 )
+            , IAL ( SIO OutputChar )
+            , End
+            ]
+        , programCounter = 25
+        , returnStack = IS []
+        }
+    , unitStack = fromList []
+    , unitRAM = []
+    }

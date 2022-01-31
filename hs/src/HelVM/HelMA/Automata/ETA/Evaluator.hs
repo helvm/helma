@@ -15,12 +15,14 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.IO.EvaluatorIO
 
+import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.StackType
+
 import           HelVM.HelMA.Automaton.Units.ALU         as Stack
 
 import           HelVM.Common.Collections.SList          as SList
 
-import           HelVM.Common.Control.Logger
+import           Control.Type.Operator
 
 import           Prelude                                 hiding (divMod)
 
@@ -28,28 +30,28 @@ import qualified Data.Sequence                           as Seq
 import qualified Data.Vector                             as Vector
 
 simpleEval :: (Evaluator Symbol m) => (Bool , Source , StackType) -> m ()
-simpleEval (c , s , t) = eval c s t
+simpleEval (c , s , t) = eval c s t Pretty
 
 ----
 
 evalParams :: (Evaluator Symbol m) => EvalParams -> m ()
-evalParams p = eval (compile p) (source p) (stackTypeOptions p)
+evalParams p = eval (compile p) (source p) (stackTypeOptions p) (dumpTypeOptions p)
 
-eval :: (Evaluator Symbol m) => Bool -> Source -> StackType -> m ()
+eval :: (Evaluator Symbol m) => Bool -> Source -> StackType -> DumpType -> m ()
 eval compile source = evalTL compile (tokenize source)
 
-evalTL ::  (Evaluator Symbol m) => Bool -> TokenList -> StackType -> m ()
+evalTL ::  (Evaluator Symbol m) => Bool -> TokenList -> StackType -> DumpType -> m ()
 evalTL c tl ListStackType  = start c tl []
 evalTL c tl SeqStackType   = start c tl Seq.empty
 evalTL c tl SListStackType = start c tl SList.sListEmpty
 
-start :: (SEvaluator Symbol s m) => Bool -> TokenList -> s -> m ()
-start _ tl = next (IU (Vector.fromList tl) 0)
+start :: (SEvaluator Symbol s m) => Bool -> TokenList -> s -> DumpType -> m ()
+start _ tl s dt = logDump dt =<< next (IU (Vector.fromList tl) 0) s
 
-next :: (SEvaluator e s m) => InstructionUnit -> s -> m ()
+next :: (SEvaluator e s m) => InstructionUnit -> s -> m $ Unit s
 next iu s = doInstruction' =<< nextIU iu  where doInstruction' (t , iu') = doInstruction t iu' s
 
-doInstruction :: (SEvaluator e s m) => Maybe Token -> InstructionUnit -> s -> m ()
+doInstruction :: (SEvaluator e s m) => Maybe Token -> InstructionUnit -> s -> m $ Unit s
 -- | IO instructions
 doInstruction (Just O) iu s = next iu =<< doOutputChar2 s
 doInstruction (Just I) iu s = next iu =<< doInputChar2 s
@@ -72,5 +74,13 @@ doInstruction (Just T) iu@(IU il _ ) s = transfer =<< pop2 s where
 doInstruction Nothing iu s = doEnd iu s
 
 -- | Terminate instruction
-doEnd :: (SEvaluator e s m) => InstructionUnit -> s -> m ()
-doEnd iu s = logMessageTuple ("iu" , show iu) *> logMessageTuple ("stack" , show s)
+doEnd :: (SEvaluator e s m) => InstructionUnit -> s -> m $ Unit s
+doEnd iu s = pure $ Unit iu s
+
+-- | Types
+
+data Unit s = Unit
+  { unitIU    :: !InstructionUnit
+  , unitStack :: s
+  }
+  deriving stock (Show)
