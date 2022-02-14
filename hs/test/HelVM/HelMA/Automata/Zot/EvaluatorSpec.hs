@@ -15,16 +15,16 @@ import           Test.Hspec                         (Spec, describe, it)
 spec :: Spec
 spec = describe "eval" $ forM_ ((
   [ ("hello"             , ""         , options)
-  , ("reverse"           , "10101010" , [False])
-  , ("reverse"           , "01010101" , [False])
+  , ("reverse"           , "10101010" , binaryOnly)
+  , ("reverse"           , "01010101" , binaryOnly)
   ] |><| ["original"]
   ) <> (
-  [ ("flipPrint" , "10101010" , options)
-  , ("id"        , "10101010" , options)
-  , ("print3"    , "10101010" , options)
---  , ("rev"       , "10101010" , options)
-  , ("reverse"   , "10101010" , options)
-  ] |><| ["lambda"]
+  [ ("flipPrint" , "10101010" , binaryOnly)
+  , ("id"        , "10101010" , binaryOnly)
+  , ("print3"    , "10101010" , binaryOnly)
+--  , ("rev"       , "10101010" , binaryOnly)
+  , ("reverse"   , "10101010" , binaryOnly)
+  ] |><| ["calculus"]
   )) $ \((fileName , input , asciis) , dirName) -> do
   let filePath = dirName </> fileName
   let file = readZotFile filePath

@@ -1,1 +1,0 @@
-(\x -> x x (\x -> x)) (\self remainder c -> c (\x -> x) (\x -> x) (\x -> x) (\x y -> x) (self self) (self self) (\print -> remainder (print c)))

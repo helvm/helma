@@ -4,6 +4,7 @@ module HelVM.HelMA.Automata.Zot.FileUtil (
   buildAbsoluteZotOutFileName,
   buildAbsoluteZotLogFileName,
   showAscii,
+  binaryOnly,
   options,
 ) where
 
@@ -25,3 +26,6 @@ buildAbsoluteZotLogFileName = buildAbsoluteLogFileName lang
 
 lang :: FilePath
 lang = "zot"
+
+binaryOnly :: [Bool]
+binaryOnly = [False]

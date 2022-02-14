@@ -37,7 +37,7 @@ common common-options
     , relude               == 1.0.0.1
   mixins:
       base hiding (Prelude)
-    , relude (Relude as Prelude, Relude.Extra, Data.Text, Relude.Unsafe)
+    , relude (Relude as Prelude, Relude.Extra, Data.Text)
   default-language:    Haskell2010
   default-extensions:
     EmptyDataDecls
