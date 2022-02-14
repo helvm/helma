@@ -16,5 +16,7 @@
   * [WSpace - original interpreter](https://github.com/helvm/WSpace)
   * [whitespace-nd - interpreter wirh random](https://github.com/helvm/whitespace-nd)
   * [marginal - new interpreter](https://github.com/helvm/marginal)
+* 🦄 Zot:
+  * [Zot in Haskell](https://github.com/helvm/zot_haskell)
 
 ## 🌈 ❤️ 💛 💚 💙 🤍 🖤 🦄

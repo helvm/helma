@@ -1,6 +1,7 @@
 module Main where
 
 import           AppOptions
+import           Lang
 
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes

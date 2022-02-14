@@ -29,6 +29,7 @@ module HelVM.Common.Control.Safe (
 
   liftErrorWithTupleList,
   liftErrorTupleList,
+  liftErrorWithPrefix,
   liftErrorTuple,
   liftError,
 
@@ -128,6 +129,9 @@ liftErrorWithTupleList m l = liftError (m <> tupleListToMessage l)
 
 liftErrorTupleList :: MonadSafe m => [MessageTuple] -> m a
 liftErrorTupleList = liftError . tupleListToMessage
+
+liftErrorWithPrefix :: MonadSafe m => Message -> Message -> m a
+liftErrorWithPrefix prefix showed = liftErrorTuple (prefix , showed)
 
 liftErrorTuple :: MonadSafe m => MessageTuple -> m a
 liftErrorTuple = liftError . tupleToMessage

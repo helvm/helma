@@ -11,5 +11,5 @@ showFoldable ::  (Foldable c , Functor c , Show e) => c e -> Text
 showFoldable f = fmconcat $ show <$> f
 
 fmconcat ::  (Foldable c , Monoid e) => c e -> e
-fmconcat =  mconcat . toList
+fmconcat = mconcat . toList
 --fmconcat = foldr mappend mempty

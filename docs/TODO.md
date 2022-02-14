@@ -9,7 +9,7 @@ Features to implemented in Haskell:
 * [ ] 💚 [Piet](https://www.dangermouse.net/esoteric/piet.html) Interpreter
 * [x] 💙 [SubLeq](http://mazonka.com/subleq/) Interpreter
 * [x] 🤍 [WhiteSpace](https://helvm.github.io/WSpace/tutorial.html) Interpreter
-* [ ] 🦄 [Zot](https://github.com/helvm/zot_haskell) Interpreter
+* [x] 🦄 [Zot](https://github.com/helvm/zot_haskell) Interpreter
 
 You can propose feature by [GitHub](https://github.com/helvm/helma/issues).
 

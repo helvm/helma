@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.6.16.0
+version:               0.7.0.0
 
 synopsis:              HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
@@ -37,7 +37,7 @@ common common-options
     , relude               == 1.0.0.1
   mixins:
       base hiding (Prelude)
-    , relude (Relude as Prelude, Relude.Extra, Data.Text)
+    , relude (Relude as Prelude, Relude.Extra, Data.Text, Relude.Unsafe)
   default-language:    Haskell2010
   default-extensions:
     EmptyDataDecls
@@ -129,6 +129,37 @@ library
     HelVM.Common.Util
     HelVM.Common.ZipA
 
+    HelVM.HelMA.Automaton.API.EvalParams
+    HelVM.HelMA.Automaton.API.IOTypes
+    HelVM.HelMA.Automaton.API.TypeOptions
+
+    HelVM.HelMA.Automaton.IO.BusinessIO
+    HelVM.HelMA.Automaton.IO.EvaluatorIO
+    HelVM.HelMA.Automaton.IO.FreeIO
+    HelVM.HelMA.Automaton.IO.MockIO
+
+    HelVM.HelMA.Automaton.Instruction
+
+    HelVM.HelMA.Automaton.Instruction.ALInstruction
+    HelVM.HelMA.Automaton.Instruction.ControlInstruction
+    HelVM.HelMA.Automaton.Instruction.IOInstruction
+    HelVM.HelMA.Automaton.Instruction.LSInstruction
+
+    HelVM.HelMA.Automaton.Units.ALU
+    HelVM.HelMA.Automaton.Units.CPU
+    HelVM.HelMA.Automaton.Units.LSU
+    HelVM.HelMA.Automaton.Units.RAM
+    HelVM.HelMA.Automaton.Units.Unit
+
+    HelVM.HelMA.Automaton.Types.CellType
+    HelVM.HelMA.Automaton.Types.DumpType
+    HelVM.HelMA.Automaton.Types.IntCellType
+    HelVM.HelMA.Automaton.Types.RAMType
+    HelVM.HelMA.Automaton.Types.StackType
+    HelVM.HelMA.Automaton.Types.TokenType
+
+    HelVM.HelMA.Automaton.WrapTokenList
+
     HelVM.HelMA.Automata.BrainFuck.Evaluator
     HelVM.HelMA.Automata.BrainFuck.Evaluator.FlatEvaluator
     HelVM.HelMA.Automata.BrainFuck.Evaluator.TreeEvaluator
@@ -166,51 +197,24 @@ library
     HelVM.HelMA.Automata.WhiteSpace.Symbol
     HelVM.HelMA.Automata.WhiteSpace.Token
 
-    HelVM.HelMA.Automaton.API.EvalParams
-    HelVM.HelMA.Automaton.API.IOTypes
-    HelVM.HelMA.Automaton.API.TypeOptions
-
-    HelVM.HelMA.Automaton.IO.BusinessIO
-    HelVM.HelMA.Automaton.IO.EvaluatorIO
-    HelVM.HelMA.Automaton.IO.FreeIO
-    HelVM.HelMA.Automaton.IO.MockIO
-
-    HelVM.HelMA.Automaton.Instruction
-
-    HelVM.HelMA.Automaton.Instruction.ALInstruction
-    HelVM.HelMA.Automaton.Instruction.ControlInstruction
-    HelVM.HelMA.Automaton.Instruction.IOInstruction
-    HelVM.HelMA.Automaton.Instruction.LSInstruction
-
-    HelVM.HelMA.Automaton.Units.ALU
-    HelVM.HelMA.Automaton.Units.CPU
-    HelVM.HelMA.Automaton.Units.LSU
-    HelVM.HelMA.Automaton.Units.RAM
-    HelVM.HelMA.Automaton.Units.Unit
-
-    HelVM.HelMA.Automaton.Types.CellType
-    HelVM.HelMA.Automaton.Types.DumpType
-    HelVM.HelMA.Automaton.Types.IntCellType
-    HelVM.HelMA.Automaton.Types.RAMType
-    HelVM.HelMA.Automaton.Types.StackType
-    HelVM.HelMA.Automaton.Types.TokenType
-    HelVM.HelMA.Automaton.WrapTokenList
+    HelVM.HelMA.Automata.Zot.Evaluator
 
   build-depends:
       containers           <  0.7
     , data-default
     , dlist
+    , free
     , ilist
     , ListLike
+    , natural-transformation
     , mono-traversable
     , mtl
     , pretty-simple
     , slist
+    , text
     , type-operators
     , vector
 
-    , free
-    , natural-transformation
   ghc-options:
 
 executable helma
@@ -219,6 +223,7 @@ executable helma
   main-is:             Main.hs
   other-modules:
     AppOptions
+    Lang
   build-depends:
       helma
     , optparse-applicative >= 0.14.3.0
@@ -244,6 +249,9 @@ test-suite helma-test
     HelVM.Common.Control.LoggerSpec
 
     HelVM.Common.ListLikeUtilSpec
+
+    HelVM.HelMA.Automaton.API.TypeOptionsUtil
+    HelVM.HelMA.Automaton.FilterIf0Spec
 
     HelVM.HelMA.Automata.FileUtil
 
@@ -272,8 +280,8 @@ test-suite helma-test
     HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec
     HelVM.HelMA.Automata.WhiteSpace.ParserSpec
 
-    HelVM.HelMA.Automaton.API.TypeOptionsUtil
-    HelVM.HelMA.Automaton.FilterIf0Spec
+    HelVM.HelMA.Automata.Zot.EvaluatorSpec
+    HelVM.HelMA.Automata.Zot.FileUtil
 
   build-depends:
       hspec
@@ -315,6 +323,7 @@ benchmark helma-benchmark
 
     HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark
     HelVM.HelMA.Automata.WhiteSpace.FileUtil
+
   build-depends:
       gauge
 

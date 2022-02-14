@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.7.0.0 -- 2022-02-19
+
+* Implement `Evaluator` of `Zot` 
+
 ## 0.6.16.0 -- 2022-02-10
 
 * Remove `MonoTraversable`

@@ -17,7 +17,7 @@ type TokenSList = SList Token
 instance ToDigit Token where
   toDigit S = pure 0
   toDigit T = pure 1
-  toDigit N = liftErrorTuple ("Wrong token" , show N)
+  toDigit t = liftErrorWithPrefix "Wrong token" $ show t
 
 ----
 

@@ -24,7 +24,7 @@ parseFILAsVector fil = fromList <$> parseFIL fil
 parseFIL :: MonadSafe m => FlatTreeInstructionList -> m TreeInstructionList
 parseFIL (Flat.Simple i : fil) = (Tree.Simple i :  ) <$> parseFIL fil
 parseFIL []                = pure []
-parseFIL (Flat.JmpBack  : fil) = liftErrorTuple ("JmpBack" , show fil)
+parseFIL (Flat.JmpBack  : fil) = liftErrorWithPrefix "JmpBack" $ show fil
 parseFIL (Flat.JmpPast  : fil) = addWhile =<< parseWhile fil where
   addWhile (i , fil') = (i : ) <$> parseFIL fil'
 
@@ -40,7 +40,7 @@ parseWhileD :: MonadSafe m => OperandParser m TreeInstructionDList
 parseWhileD = go D.empty where
   go :: MonadSafe m => TreeInstructionDList -> FlatTreeInstructionList -> m (TreeInstructionDList , FlatTreeInstructionList)
   go acc (Flat.Simple i : fil) = go (acc `snoc` Tree.Simple i  ) fil
-  go acc                  []  = liftErrorTuple ("End of List" , show acc)
+  go acc                  []  = liftErrorWithPrefix "End of List" $ show acc
   go acc (Flat.JmpBack  : fil) = pure (acc , fil)
   go acc (Flat.JmpPast  : fil) = snocInstruction =<< parseWhile fil where
     snocInstruction :: MonadSafe m => (TreeInstruction , FlatTreeInstructionList) -> m (TreeInstructionDList , FlatTreeInstructionList)

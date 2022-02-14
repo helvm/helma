@@ -21,6 +21,7 @@ Currently, **🔧 🎨 HelMA** can interpret:
 * ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/)
 * 💙 [SubLeq](http://mazonka.com/subleq/)
 * 🤍 [WhiteSpace](https://helvm.github.io/wspace/tutorial.html)
+* 🦄 Zot
 
 [comment]: <> (* 💛 Malbolge)
 [comment]: <> (* 💚 Piet)

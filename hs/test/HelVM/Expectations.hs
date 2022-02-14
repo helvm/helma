@@ -1,8 +1,6 @@
 module HelVM.Expectations  (
   ioShouldSafe,
   ioShouldBe,
-
-
   shouldControlT,
   shouldSafeT,
   shouldSafeIO,

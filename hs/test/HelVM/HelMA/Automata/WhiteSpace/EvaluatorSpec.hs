@@ -59,4 +59,3 @@ spec =
             calculateOutput <$> mock `goldenShouldIO` buildAbsoluteWsOutFileName path
           it ("logged" </> path) $
             calculateLogged <$> mock `goldenShouldIO` buildAbsoluteWsLogFileName path
-

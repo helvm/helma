@@ -7,6 +7,7 @@ module HelVM.HelMA.Automata.FileUtil (
   buildAbsoluteLogFileName,
   buildAbsoluteEvalFileName,
   dir,
+  showAscii,
   options,
 ) where
 
@@ -35,6 +36,10 @@ buildAbsoluteEvalFileName mode lang fileName = dir </> lang </> "eval" </> mode 
 
 dir :: FilePath
 dir = "examples"
+
+showAscii:: Bool -> FilePath
+showAscii False = "asciiOff"
+showAscii True  = "asciiOn"
 
 options :: [Bool]
 options = [True , False]

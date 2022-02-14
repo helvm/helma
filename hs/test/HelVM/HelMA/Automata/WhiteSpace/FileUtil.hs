@@ -51,7 +51,3 @@ stn = "stn"
 
 lang :: FilePath
 lang = "ws"
-
-showAscii:: Bool -> FilePath
-showAscii False = "asciiOff"
-showAscii True  = "asciiOn"

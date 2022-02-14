@@ -1,6 +1,8 @@
 {-# LANGUAGE StrictData #-}
 module AppOptions where
 
+import           Lang
+
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.IntCellType
@@ -114,16 +116,3 @@ type PrintLogs   = Bool
 type Compile     = Bool
 type AsciiLabels = Bool
 type Exec        = Bool
-
-----
-
-data Lang = Cat | Rev | BF | ETA | SQ | STN | WS
-  deriving stock (Eq , Read , Show)
-
-langs :: [Lang]
-langs = [Cat , Rev , BF , ETA , SQ , STN , WS]
-
-parseLang :: String -> Lang
-parseLang raw = (valid . readMaybe) raw where
-  valid (Just a) = a
-  valid Nothing  = error $ "Lang '" <> toText raw <> "' is not valid lang. Valid langs are : " <> show langs

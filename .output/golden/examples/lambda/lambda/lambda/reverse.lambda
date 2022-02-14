@@ -1,0 +1,1 @@
+\c -> (\x -> c (\x -> x) (\x -> x) (\x -> x) (\x y -> x) x x (\x -> x)) (\ignore -> (\y -> y (\p -> p c) y) (\r s c -> c (\x -> x) (\x -> x) (\x -> x) (\x y -> x) (\ignore -> s (\p -> r (p c)) s) (\ignore -> s (\p -> r (p c)) s) r))
