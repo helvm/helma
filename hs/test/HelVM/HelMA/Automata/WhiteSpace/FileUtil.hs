@@ -18,13 +18,13 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 readWsFile :: FilePath -> IO Source
-readWsFile = readFileText . buildAbsoluteWsFileName
+readWsFile = readSourceFile . buildAbsoluteWsFileName
 
 readStnFile :: FilePath -> IO Source
-readStnFile = readFileText . buildAbsoluteStnFileName
+readStnFile = readSourceFile . buildAbsoluteStnFileName
 
 readExtFile :: FilePath -> FilePath -> IO Source
-readExtFile ext = readFileText . buildAbsoluteExtFileName ext lang
+readExtFile ext = readSourceFile . buildAbsoluteExtFileName ext lang
 
 buildAbsoluteWsFileName :: FilePath -> FilePath
 buildAbsoluteWsFileName = buildAbsoluteExtFileName lang lang

@@ -10,7 +10,7 @@ data FlatInstruction =
     Simple SimpleInstruction
   | JmpPast
   | JmpBack
-  deriving stock (Eq , Ord)
+  deriving stock (Eq)
 
 type FlatTreeInstructionList = [FlatInstruction]
 

@@ -56,18 +56,18 @@ data ALInstruction =
   | Rot
   | Swap
   | Discard
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq , Read , Show)
 
 data UnaryInstruction = Neg | BNot | LNot
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq , Read , Show)
 
 data BinaryInstruction =
      Add | Sub | Mul | Div | Mod
   | BAnd | BOr | BXor | BEQ | BGT
   | LAnd | LOr | LXor | LEQ | LGT
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq , Read , Show)
 
 data ManipulationInstruction = Copy | Move | Slide
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq , Read , Show)
 
 type StackIndex = Int

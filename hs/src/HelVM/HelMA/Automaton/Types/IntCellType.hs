@@ -14,4 +14,4 @@ intCellTypes = [Int8Type , Int16Type , Int32Type , Int64Type , IntegerType]
 
 -- | Types
 data IntCellType = Int8Type | Int16Type | Int32Type  | Int64Type | IntegerType
-  deriving stock (Eq , Read , Show)
+  deriving stock (Bounded , Enum , Eq , Read , Show)

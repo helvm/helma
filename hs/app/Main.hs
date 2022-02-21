@@ -35,6 +35,9 @@ import qualified HelVM.HelMA.Automata.WhiteSpace.Evaluator as WS
 import qualified HelVM.HelMA.Automata.WhiteSpace.Lexer     as WS
 import qualified HelVM.HelMA.Automata.WhiteSpace.Parser    as WS
 
+import qualified HelVM.HelMA.Automata.Zot.Evaluator        as Zot
+
+
 import           Options.Applicative
 import           Text.Pretty.Simple
 
@@ -50,13 +53,13 @@ main = runApp =<< execParser opts where
 runApp:: AppOptions -> IO ()
 runApp (AppOptions lang minified emitTL emitIL printLogs compile asciiLabels ramType stackType cellType intCellType dumpType exec file) = do
   hSetBuffering stdout IO.NoBuffering
-  source <- readSource exec file
+  source <- readSourceFile exec file
   run minified emitTL emitIL printLogs typeOptions asciiLabels compile (parseLang lang) source
     where typeOptions = TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType) (parseIntCellType intCellType) (parseDumpType dumpType)
 
-readSource :: Exec -> String -> IO Source
-readSource True = pure . toText
-readSource _    = readFileText
+readSourceFile :: Exec -> String -> IO Source
+readSourceFile True = pure . toText
+readSourceFile _    = readFileText
 
 run :: Minified -> EmitTL -> EmitIL -> PrintLogs -> TypeOptions -> Compile -> AsciiLabels -> Lang -> Source -> IO ()
 run True _    _    _ _ _ _ = minification
@@ -96,3 +99,4 @@ evalParams ETA = ETA.evalParams
 evalParams SQ  = SQ.evalParams
 evalParams STN = WS.evalParams VisibleTokenType
 evalParams WS  = WS.evalParams WhiteTokenType
+evalParams Zot = Zot.evalParams

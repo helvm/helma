@@ -11,7 +11,7 @@ import qualified Text.Show
 data TreeInstruction =
     Simple SimpleInstruction
   | While !TreeInstructionVector
-  deriving stock (Eq , Ord)
+  deriving stock (Eq)
 
 type TreeInstructionList   = [TreeInstruction]
 type TreeInstructionDList  = DList TreeInstruction

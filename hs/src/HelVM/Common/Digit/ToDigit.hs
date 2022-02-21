@@ -11,6 +11,7 @@ module HelVM.Common.Digit.ToDigit (
   makeIntegral2FromList,
   makeIntegral2,
   makeIntegral,
+  wrongToken,
   ToDigit,
   toDigit,
 ) where
@@ -69,6 +70,9 @@ makeIntegral2 = makeIntegral 2
 
 makeIntegral :: (MonadSafe m , ToDigit a , Integral b) => b -> S.SList a -> m b
 makeIntegral base digits = digitsToIntegral base (toDigit <$> digits)
+
+wrongToken :: (MonadSafe m , Show t) => t -> m a
+wrongToken = liftErrorWithPrefix "Wrong token" . show
 
 class ToDigit t where
   toDigit :: (MonadSafe m, Integral a) => t -> m a

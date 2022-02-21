@@ -5,4 +5,4 @@ data IOInstruction =
   | OutputDec
   | InputChar
   | InputDec
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq , Read , Show)

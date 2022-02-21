@@ -8,4 +8,4 @@ data LSInstruction =
     Load  --Restore --Fetch
   | Store --Save
   | MIO   !IOInstruction
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq , Read , Show)

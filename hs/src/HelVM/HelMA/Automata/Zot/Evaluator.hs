@@ -1,8 +1,12 @@
 module HelVM.HelMA.Automata.Zot.Evaluator (
+  evalParams,
   eval,
 ) where
 
+import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
+
+import           HelVM.HelMA.Automaton.IO.BusinessIO
 
 import           HelVM.Common.Containers.Util
 import           HelVM.Common.Control.Safe
@@ -15,11 +19,14 @@ import           HelVM.Common.ListLikeUtil
 import           Control.Monad.Writer.Lazy
 
 
-import qualified Data.DList                        as D
-import qualified Data.Text                         as Text
+import qualified Data.DList                           as D
+import qualified Data.Text                            as Text
 
 import           Text.Read
 import qualified Text.Show
+
+evalParams :: BIO m => EvalParams -> m ()
+evalParams p = wPutStr =<< eval (asciiLabel p) (source p) =<< wGetContents
 
 eval :: MonadSafe m => Bool -> Source -> Input -> m Output
 eval False source input = pure $ showFoldable $ internalRun2 source input
@@ -152,9 +159,9 @@ instance Show Fun where
 instance Digitable Fun where
   fromDigit 0 = pure Zero
   fromDigit 1 = pure One
-  fromDigit t = liftErrorWithPrefix "Wrong token" $ show t
+  fromDigit t = wrongToken t
 
 instance ToDigit Fun where
   toDigit Zero = pure 0
   toDigit One  = pure 1
-  toDigit t    = liftErrorWithPrefix "Wrong token" $ show t
+  toDigit t    = wrongToken t

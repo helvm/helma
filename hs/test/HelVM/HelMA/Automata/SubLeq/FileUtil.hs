@@ -10,7 +10,7 @@ import           HelVM.HelMA.Automata.FileUtil
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 readSqFile :: FilePath -> IO Source
-readSqFile = readFileText . buildAbsoluteSqFileName
+readSqFile = readSourceFile . buildAbsoluteSqFileName
 
 buildAbsoluteSqFileName :: FilePath -> FilePath
 buildAbsoluteSqFileName = buildAbsoluteLangFileName lang

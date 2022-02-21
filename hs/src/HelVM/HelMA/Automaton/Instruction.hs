@@ -17,7 +17,7 @@ data Instruction =
   | ILS  !LSInstruction
   | IControl !ControlInstruction
   | End
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq , Read , Show)
 
 type InstructionList   = [Instruction]
 type InstructionVector = Vector Instruction

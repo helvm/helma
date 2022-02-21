@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.7.0.0
+version:               0.7.1.0
 
 synopsis:              HELMA - Heavenly Esoteric Little Minimal Automaton for Esoteric Languages
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
@@ -311,6 +311,8 @@ benchmark helma-benchmark
   hs-source-dirs:      hs/benchmark
   main-is:             Main.hs
   other-modules:
+
+    HelVM.HelMA.Automata.FileUtil
 
     HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark
     HelVM.HelMA.Automata.BrainFuck.FileUtil

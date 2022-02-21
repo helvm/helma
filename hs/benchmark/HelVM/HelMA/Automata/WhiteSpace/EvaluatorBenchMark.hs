@@ -39,6 +39,3 @@ simpleEvalWS t = forM
       calculateOutput <$> (ioExecMockIOWithInput input . simpleEval =<< paramsIO)
 
 type BenchParams = (StackType , RAMType)
-
-options :: [Bool]
-options = [False , True]

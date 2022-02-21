@@ -12,7 +12,7 @@ import           HelVM.HelMA.Automata.FileUtil
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 readBfFile :: FilePath -> IO Source
-readBfFile = readFileText . buildAbsoluteBfFileName
+readBfFile = readSourceFile . buildAbsoluteBfFileName
 
 buildAbsoluteBfFileName :: FilePath -> FilePath
 buildAbsoluteBfFileName = buildAbsoluteLangFileName lang

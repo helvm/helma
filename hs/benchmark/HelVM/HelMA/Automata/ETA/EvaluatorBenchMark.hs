@@ -54,6 +54,3 @@ ioExec (compile , stackType) dirName fileName inputs = do
     calculateOutput <$> exec
 
 type BenchParams = (Bool, StackType)
-
-options :: [Bool]
-options = [False , True]

@@ -54,4 +54,4 @@ data Unit e = Unit
   { unitTable :: Table
   , unitTape  :: FullTape e
   }
-  deriving stock (Show)
+  deriving stock (Eq , Read , Show)

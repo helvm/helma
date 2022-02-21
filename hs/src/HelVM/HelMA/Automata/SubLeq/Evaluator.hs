@@ -79,4 +79,4 @@ data Unit ic ram = Unit
    { unitIU  :: ic
    , unitRAM :: ram
    }
-  deriving stock (Show)
+  deriving stock (Eq , Read , Show)

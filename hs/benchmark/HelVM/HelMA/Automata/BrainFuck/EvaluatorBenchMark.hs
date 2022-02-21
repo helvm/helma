@@ -80,8 +80,7 @@ exec (cellType , compile) (fileName , input) = do
   let ioExec = ioExecMockIOWithInput input . simpleEval =<< params
   calculateOutput <$> ioExec
 
-options :: [Bool]
-options = [False , True]
+
 
 -- | Types
 type BenchParams = (CellType , Bool)

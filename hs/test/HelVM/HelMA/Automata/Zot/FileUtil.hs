@@ -13,7 +13,7 @@ import           HelVM.HelMA.Automata.FileUtil
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 readZotFile :: FilePath -> IO Source
-readZotFile = readFileText . buildAbsoluteZotFileName
+readZotFile = readSourceFile . buildAbsoluteZotFileName
 
 buildAbsoluteZotFileName :: FilePath -> FilePath
 buildAbsoluteZotFileName = buildAbsoluteLangFileName lang

@@ -16,12 +16,12 @@ data ControlInstruction =
   | CStatic  !Label !LabelInstruction
   | CDynamic        !LabelInstruction
   | Return
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq , Read , Show)
 
 type Label = SString
 
 data LabelInstruction = Call | Jump | Branch !BranchTest
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq , Read , Show)
 
 data BranchTest = EZ | LTZ | GTZ
-   deriving stock (Eq , Show , Read)
+   deriving stock (Eq , Read , Show)

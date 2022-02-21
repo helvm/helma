@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.7.1.0 -- 2022-02-21
+
+* Add `Zot` to `Main`
+
 ## 0.7.0.0 -- 2022-02-19
 
 * Implement `Evaluator` of `Zot` 

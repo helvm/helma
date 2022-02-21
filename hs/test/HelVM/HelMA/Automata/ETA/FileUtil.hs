@@ -14,7 +14,7 @@ import           HelVM.HelMA.Automata.FileUtil
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 readEtaFile :: FilePath -> IO Source
-readEtaFile = readFileText . buildAbsoluteEtaFileName
+readEtaFile = readSourceFile . buildAbsoluteEtaFileName
 
 buildAbsoluteMinifiedEtaFileName :: FilePath -> FilePath
 buildAbsoluteMinifiedEtaFileName = buildAbsoluteModeFileName "minified" lang

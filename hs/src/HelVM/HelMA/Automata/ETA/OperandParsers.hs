@@ -25,6 +25,6 @@ nextIU iu@(IU il ic)
 
 -- | Types
 data InstructionUnit = IU !TokenVector !InstructionCounter
-  deriving stock (Show)
+  deriving stock (Eq , Read , Show)
 
 type OperandIUParser m a = InstructionUnit -> m (a , InstructionUnit)

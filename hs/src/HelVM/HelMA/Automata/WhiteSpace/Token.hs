@@ -9,7 +9,7 @@ import           Text.Read
 import qualified Text.Show
 
 data Token =  S | T | N
-  deriving stock (Eq , Ord , Enum , Show , Read)
+  deriving stock (Bounded , Enum , Eq , Read , Show)
 
 type TokenList = [Token]
 type TokenSList = SList Token

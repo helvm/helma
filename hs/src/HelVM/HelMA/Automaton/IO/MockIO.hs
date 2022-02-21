@@ -63,25 +63,28 @@ calculateLogged = calculateText . logged
 ----
 
 instance BusinessIO MockIO where
-  wGetChar = mockGetChar
-  wGetLine = mockGetLine
-  wPutChar = mockPutChar
-  wPutStr  = mockPutStr
-  wLogStr  = mockLogStr
+  wGetChar     = mockGetChar
+  wGetLine     = mockGetLine
+  wGetContents = mockGetContent
+  wPutChar     = mockPutChar
+  wPutStr      = mockPutStr
+  wLogStr      = mockLogStr
 
 instance BusinessIO (SafeT MockIO) where
-  wGetChar = safeT   mockGetChar
-  wGetLine = safeT   mockGetLine
-  wPutChar = safeT . mockPutChar
-  wPutStr  = safeT . mockPutStr
-  wLogStr  = safeT . mockLogStr
+  wGetChar     = safeT   mockGetChar
+  wGetLine     = safeT   mockGetLine
+  wGetContents = safeT   mockGetContent
+  wPutChar     = safeT . mockPutChar
+  wPutStr      = safeT . mockPutStr
+  wLogStr      = safeT . mockLogStr
 
 instance BusinessIO (ControlT MockIO) where
-  wGetChar =            mockGetCharSafe
-  wGetLine =            mockGetLineSafe
-  wPutChar = controlT . mockPutChar
-  wPutStr  = controlT . mockPutStr
-  wLogStr  = controlT . mockLogStr
+  wGetChar     =            mockGetCharSafe
+  wGetLine     =            mockGetLineSafe
+  wGetContents = controlT   mockGetContent
+  wPutChar     = controlT . mockPutChar
+  wPutStr      = controlT . mockPutStr
+  wLogStr      = controlT . mockLogStr
 
 ----
 
@@ -94,6 +97,11 @@ mockGetLine :: MonadMockIO m => m Text
 mockGetLine = mockGetLine' =<< get where
   mockGetLine' :: MonadMockIO m => MockIOData -> m Text
   mockGetLine' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
+
+mockGetContent :: MonadMockIO m => m Text
+mockGetContent = mockGetContent' =<< get where
+  mockGetContent' :: MonadMockIO m => MockIOData -> m Text
+  mockGetContent' mockIO = toText content <$ put mockIO { input = "" } where content = input mockIO
 
 mockGetCharSafe :: MonadControlMockIO m => m Char
 mockGetCharSafe = mockGetChar' =<< get where
@@ -148,7 +156,7 @@ data MockIOData = MockIOData
   , output :: !String
   , logged :: !String
   }
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq , Read , Show)
 
 ----
 

@@ -83,4 +83,4 @@ data Unit s = Unit
   { unitIU    :: !InstructionUnit
   , unitStack :: s
   }
-  deriving stock (Show)
+  deriving stock (Eq , Read , Show)

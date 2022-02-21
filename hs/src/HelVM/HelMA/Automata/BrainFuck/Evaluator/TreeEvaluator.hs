@@ -58,9 +58,9 @@ data Unit e = Unit
   { unitUI   :: InstructionUnit
   , unitTape :: FullTape e
   }
-  deriving stock (Show)
+  deriving stock (Eq , Show)
 
 data InstructionUnit = IU !TreeInstructionVector !InstructionCounter
-  deriving stock (Show)
+  deriving stock (Eq , Show)
 
 type InstructionCounter = Int
