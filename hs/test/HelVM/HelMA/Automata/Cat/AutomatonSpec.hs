@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.Cat.EvaluatorSpec (spec) where
+module HelVM.HelMA.Automata.Cat.AutomatonSpec (spec) where
 
-import           HelVM.HelMA.Automata.Cat.Evaluator
+import           HelVM.HelMA.Automata.Cat.Automaton
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.IO.MockIO

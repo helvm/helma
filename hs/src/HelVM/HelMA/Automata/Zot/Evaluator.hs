@@ -1,167 +1,73 @@
 module HelVM.HelMA.Automata.Zot.Evaluator (
-  evalParams,
-  eval,
-) where
+  evalExpressionList,
+)  where
 
-import           HelVM.HelMA.Automaton.API.EvalParams
-import           HelVM.HelMA.Automaton.API.IOTypes
-
-import           HelVM.HelMA.Automaton.IO.BusinessIO
-
-import           HelVM.Common.Containers.Util
-import           HelVM.Common.Control.Safe
-
-import           HelVM.Common.Digit.Digitable
-import           HelVM.Common.Digit.ToDigit
-
-import           HelVM.Common.ListLikeUtil
+import           HelVM.HelMA.Automata.Zot.Expression
 
 import           Control.Monad.Writer.Lazy
 
+import qualified Data.ListLike                       as LL
 
-import qualified Data.DList                           as D
-import qualified Data.Text                            as Text
+-- | High-level Expressions
+evalExpressionList :: ExpressionList -> Out Expression
+evalExpressionList el = foldExpression el >><< outputExpression >>< printExpression
 
-import           Text.Read
-import qualified Text.Show
+foldExpression :: ExpressionList -> Out Expression
+foldExpression = foldM (><) emptyExpression
 
-evalParams :: BIO m => EvalParams -> m ()
-evalParams p = wPutStr =<< eval (asciiLabel p) (source p) =<< wGetContents
+emptyExpression :: Expression
+emptyExpression = contExpression iExpression
 
-eval :: MonadSafe m => Bool -> Source -> Input -> m Output
-eval False source input = pure $ showFoldable $ internalRun2 source input
-eval True  source input = makeAsciiText28 . convert . internalRun2 source =<< asciiTextToZotText input
+outputExpression :: Out Expression
+outputExpression = kExpression ><< kExpression ><< kExpression ><< kExpression ><< kExpression ><< kExpression >< iExpression
 
-asciiTextToZotText :: MonadSafe m => Input -> m Output
-asciiTextToZotText input = showFunList <$> textToDL input
+printExpression :: Expression
+printExpression = Expression innerPrintExpression
 
-internalRun2 :: Source -> Input -> FunDList
-internalRun2 source input = internalRun $ source <> input
+innerPrintExpression :: Expression -> Out Expression
+innerPrintExpression f = interrogateExpression f >>< Zero >>< One >>= tell . LL.singleton >> pure printExpression
 
-internalRun :: Text -> FunDList
-internalRun = execWriter . interpret
+interrogateExpression :: Expression -> Out Expression
+interrogateExpression f = f >< iExpression >>< iExpression >>< iExpression >>< kExpression
 
-interpret :: Text -> Out ()
-interpret source = readZot source >><< outputFun >>< printFun *> tell D.empty
-
-readZot :: Text -> Out Fun
-readZot = foldFun . readTextAsFunList
-
-foldFun :: FunList -> Out Fun
-foldFun = foldM (><) emptyFun
-
-outputFun :: Out Fun
-outputFun = kFun ><< kFun ><< kFun ><< kFun ><< kFun ><< kFun >< iFun
-
-printFun :: Fun
-printFun = Fun innerFun
-
-innerFun :: Fun -> Out Fun
-innerFun f = interrogateFun f >>< Zero >>< One >>= tell . D.singleton >> pure printFun
-
-interrogateFun :: Fun -> Out Fun
-interrogateFun f = f >< iFun >>< iFun >>< iFun >>< kFun
-
+-- | Operators
 infixl 9 ><
-(><) :: Fun -> Fun -> Out Fun
-(><) Zero    = (zeroFun ><)
-(><) One     = (oneFun ><)
-(><) (Fun f) = f
+(><) :: Expression -> Expression -> Out Expression
+(><) Zero           = (zeroExpression ><)
+(><) One            = (oneExpression ><)
+(><) (Expression f) = f
 
 infixl 6 >><
-(>><) :: Out Fun -> Fun -> Out Fun
+(>><) :: Out Expression -> Expression -> Out Expression
 f >>< a = f >>= (>< a)
 
 infixr 8 ><<
-(><<) :: Fun -> Out Fun -> Out Fun
+(><<) :: Expression -> Out Expression -> Out Expression
 f ><< a = (f ><) =<< a
 
 infixl 7 >><<
-(>><<) :: Out Fun -> Out Fun -> Out Fun
+(>><<) :: Out Expression -> Out Expression -> Out Expression
 f >><< a = f >>= (><< a)
 
-emptyFun :: Fun
-emptyFun = contFun iFun
 
-zeroFun :: Fun
-zeroFun = contFun $ Fun $ \f -> f >< sFun >>< kFun
+-- | Low-level Expressions
+zeroExpression :: Expression
+zeroExpression = contExpression $ Expression $ \ f -> f >< sExpression >>< kExpression
 
-oneFun :: Fun
-oneFun = makeFun $ \c -> contFun $ makeFun $ \l -> contFun $ Fun $ \r -> c ><< l >< r
+oneExpression :: Expression
+oneExpression = makeExpression $ \c -> contExpression $ makeExpression $ \l -> contExpression $ Expression $ \r -> c ><< l >< r
 
-contFun :: Fun -> Fun
-contFun = Fun . flip (><)
+contExpression :: Expression -> Expression
+contExpression = Expression . flip (><)
 
-sFun :: Fun
-sFun = makeFun $ \x -> makeFun $ \y -> Fun $ \z -> x >< z >><< y >< z
+sExpression :: Expression
+sExpression = makeExpression $ \x -> makeExpression $ \y -> Expression $ \z -> x >< z >><< y >< z
 
-kFun :: Fun
-kFun = makeFun $ makeFun . const
+kExpression :: Expression
+kExpression = makeExpression $ makeExpression . const
 
-iFun :: Fun
-iFun = makeFun id
+iExpression :: Expression
+iExpression = makeExpression id
 
-makeFun :: (Fun -> Fun) -> Fun
-makeFun f =  Fun $ pure . f
-
-showFunList :: FunList -> Text
-showFunList = showFoldable
-
-readTextAsFunList :: Text -> FunList
-readTextAsFunList = concatMap readTextLineAsFunList . lines
-
-readTextLineAsFunList :: Text -> FunList
-readTextLineAsFunList = textToFunList . filter01 . Text.takeWhile (/= '#')
-
-filter01 ::Text -> Text
-filter01 = Text.filter is01
-
-is01 :: Char -> Bool
-is01 c = c == '0' || c == '1'
-
-textToFunList :: Text -> FunList
-textToFunList = stringToFunList . toString
-
-stringToFunList :: String -> FunList
-stringToFunList s = charToFunList =<< s
-
-charToFunList :: Char -> FunList
-charToFunList = maybeToList . rightToMaybe . charToFunSafe
-
-charToFun :: Char -> Fun
-charToFun = unsafe . charToFunSafe
-
-charToFunSafe :: MonadSafe m => Char -> m Fun
-charToFunSafe '0' = pure Zero
-charToFunSafe '1' = pure One
-charToFunSafe  c  = liftErrorWithPrefix "charToFun" $ one c
-
--- | Types
-type FunDList = D.DList Fun
-
-type FunList = [Fun]
-
-data Fun = Zero | One | Fun (Fun -> Out Fun)
-
-type Out = Writer FunDList
-
-instance Read Fun where
-  readsPrec _ []      = []
-  readsPrec _ (c : s) = [(charToFun c , s)]
-  readList s = [(stringToFunList s , "")]
-
-instance Show Fun where
-  show Zero    = "0"
-  show One     = "1"
-  show (Fun _) = "function"
-  showList fs  = (concatMap show fs <>)
-
-instance Digitable Fun where
-  fromDigit 0 = pure Zero
-  fromDigit 1 = pure One
-  fromDigit t = wrongToken t
-
-instance ToDigit Fun where
-  toDigit Zero = pure 0
-  toDigit One  = pure 1
-  toDigit t    = wrongToken t
+makeExpression :: (Expression -> Expression) -> Expression
+makeExpression f =  Expression $ pure . f

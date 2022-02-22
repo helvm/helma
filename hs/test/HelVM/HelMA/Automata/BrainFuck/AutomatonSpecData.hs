@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.BrainFuck.EvaluatorSpecData where
+module HelVM.HelMA.Automata.BrainFuck.AutomatonSpecData where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 

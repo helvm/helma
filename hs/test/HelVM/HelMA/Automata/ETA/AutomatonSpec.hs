@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.ETA.EvaluatorSpec (spec) where
+module HelVM.HelMA.Automata.ETA.AutomatonSpec (spec) where
 
-import           HelVM.HelMA.Automata.ETA.Evaluator
+import           HelVM.HelMA.Automata.ETA.Automaton
 import           HelVM.HelMA.Automata.ETA.FileUtil
 
 import           HelVM.HelMA.Automaton.IO.MockIO

@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec (spec) where
+module HelVM.HelMA.Automata.WhiteSpace.AutomatonSpec (spec) where
 
-import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
+import           HelVM.HelMA.Automata.WhiteSpace.Automaton
 import           HelVM.HelMA.Automata.WhiteSpace.FileUtil
 import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 

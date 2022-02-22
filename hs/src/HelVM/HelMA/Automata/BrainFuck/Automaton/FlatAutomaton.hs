@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.BrainFuck.Evaluator.FlatEvaluator (
+module HelVM.HelMA.Automata.BrainFuck.Automaton.FlatAutomaton (
   evalSource,
 ) where
 

@@ -66,10 +66,10 @@ paginate                 : 1
 remote_theme             : helvm/minima
 
 ## jekyll-seo-tag
-title                    : "Heavenly Esoteric Little Concrete Absolute Machine"
-tagline                  : "Heavenly Esoteric Little Concrete Absolute Machine Evaluator Interpreter"
+title                    : "Haskellish Esoteric Limited Minimal Automaton"
+tagline                  : "Haskellish Esoteric Limited Minimal Automaton Evaluator Interpreter"
 description: >-
-  Documentation of Heavenly Esoteric Little Concrete Absolute Machine - Evaluator and Interpreter for Esoteric Languages implemented in Haskell/Eta
+  Documentation of Haskellish Esoteric Limited Minimal Automaton - Evaluator and Interpreter for Esoteric Languages implemented in Haskell/Eta
 url                      : "https://helvm.github.io/helma/"
 author:
   name                   : "Kamil Adam"

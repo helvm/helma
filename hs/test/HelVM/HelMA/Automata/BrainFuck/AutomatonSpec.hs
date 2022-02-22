@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec (spec) where
+module HelVM.HelMA.Automata.BrainFuck.AutomatonSpec (spec) where
 
-import           HelVM.HelMA.Automata.BrainFuck.Evaluator
+import           HelVM.HelMA.Automata.BrainFuck.Automaton
 import           HelVM.HelMA.Automata.BrainFuck.FileUtil
 
 import           HelVM.Common.ZipA

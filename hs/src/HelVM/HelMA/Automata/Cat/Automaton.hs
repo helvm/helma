@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Cat.Evaluator (
+module HelVM.HelMA.Automata.Cat.Automaton (
   evalParams,
   eval
 ) where

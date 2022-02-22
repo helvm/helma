@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.BrainFuck.Evaluator.TreeEvaluator (
+module HelVM.HelMA.Automata.BrainFuck.Automaton.TreeAutomaton (
   evalSource,
 ) where
 

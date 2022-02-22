@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark where
+module HelVM.HelMA.Automata.WhiteSpace.AutomatonBenchMark where
 
-import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
+import           HelVM.HelMA.Automata.WhiteSpace.Automaton
 import           HelVM.HelMA.Automata.WhiteSpace.FileUtil
 import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 

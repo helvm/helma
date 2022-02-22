@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.Zot.EvaluatorSpec where
+module HelVM.HelMA.Automata.Zot.AutomatonSpec where
 
-import           HelVM.HelMA.Automata.Zot.Evaluator
+import           HelVM.HelMA.Automata.Zot.Automaton
 import           HelVM.HelMA.Automata.Zot.FileUtil
 
 import           HelVM.Common.Control.Safe

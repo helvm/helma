@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark where
+module HelVM.HelMA.Automata.BrainFuck.AutomatonBenchMark where
 
-import           HelVM.HelMA.Automata.BrainFuck.Evaluator
+import           HelVM.HelMA.Automata.BrainFuck.Automaton
 import           HelVM.HelMA.Automata.BrainFuck.FileUtil
 
 import           HelVM.HelMA.Automaton.IO.MockIO

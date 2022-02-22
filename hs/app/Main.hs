@@ -18,24 +18,24 @@ import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
-import qualified HelVM.HelMA.Automata.Cat.Evaluator        as Cat
+import qualified HelVM.HelMA.Automata.Cat.Automaton        as Cat
 
-import qualified HelVM.HelMA.Automata.Rev.Evaluator        as Rev
+import qualified HelVM.HelMA.Automata.Rev.Automaton        as Rev
 
-import qualified HelVM.HelMA.Automata.BrainFuck.Evaluator  as BF
+import qualified HelVM.HelMA.Automata.BrainFuck.Automaton  as BF
 import qualified HelVM.HelMA.Automata.BrainFuck.Lexer      as BF
 
-import qualified HelVM.HelMA.Automata.ETA.Evaluator        as ETA
+import qualified HelVM.HelMA.Automata.ETA.Automaton        as ETA
 import qualified HelVM.HelMA.Automata.ETA.Lexer            as ETA
 
-import qualified HelVM.HelMA.Automata.SubLeq.Evaluator     as SQ
+import qualified HelVM.HelMA.Automata.SubLeq.Automaton     as SQ
 import qualified HelVM.HelMA.Automata.SubLeq.Lexer         as SQ
 
-import qualified HelVM.HelMA.Automata.WhiteSpace.Evaluator as WS
+import qualified HelVM.HelMA.Automata.WhiteSpace.Automaton as WS
 import qualified HelVM.HelMA.Automata.WhiteSpace.Lexer     as WS
 import qualified HelVM.HelMA.Automata.WhiteSpace.Parser    as WS
 
-import qualified HelVM.HelMA.Automata.Zot.Evaluator        as Zot
+import qualified HelVM.HelMA.Automata.Zot.Automaton        as Zot
 
 
 import           Options.Applicative

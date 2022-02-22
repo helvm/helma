@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark where
+module HelVM.HelMA.Automata.SubLeq.AutomatonBenchMark where
 
-import           HelVM.HelMA.Automata.SubLeq.Evaluator
+import           HelVM.HelMA.Automata.SubLeq.Automaton
 import           HelVM.HelMA.Automata.SubLeq.FileUtil
 
 import           HelVM.HelMA.Automaton.IO.MockIO

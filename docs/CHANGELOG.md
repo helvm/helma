@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.7.2.0 -- 2022-02-22
+
+* Extract `Automaton` from `Evaluator`
+
 ## 0.7.1.0 -- 2022-02-21
 
 * Add `Zot` to `Main`

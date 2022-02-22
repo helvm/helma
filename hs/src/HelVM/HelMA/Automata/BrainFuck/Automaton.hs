@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.BrainFuck.Evaluator where
+module HelVM.HelMA.Automata.BrainFuck.Automaton where
 
-import qualified HelVM.HelMA.Automata.BrainFuck.Evaluator.FlatEvaluator as Flat
-import qualified HelVM.HelMA.Automata.BrainFuck.Evaluator.TreeEvaluator as Tree
+import qualified HelVM.HelMA.Automata.BrainFuck.Automaton.FlatAutomaton as Flat
+import qualified HelVM.HelMA.Automata.BrainFuck.Automaton.TreeAutomaton as Tree
 
 import           HelVM.HelMA.Automata.BrainFuck.Symbol
 import           HelVM.HelMA.Automata.BrainFuck.TapeOfSymbols
