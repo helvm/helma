@@ -304,7 +304,7 @@
 , IAL Dup
 , IAL
     ( Cons
-        ( - 1 )
+        ( -1 )
     )
 , IAL ( Binary Sub )
 , IControl

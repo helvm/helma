@@ -1,3 +1,27 @@
+![haskell workflow](https://github.com/helvm/helma/actions/workflows/haskell.yml/badge.svg)
+![jekyll workflow](https://github.com/helvm/helma/actions/workflows/jekyll.yml/badge.svg)
+
+![watchers](https://img.shields.io/github/watchers/helvm/helma?style=social)
+![forks](https://img.shields.io/github/forks/helvm/helma?style=social)
+![stars](https://img.shields.io/github/stars/helvm/helma?style=social)
+
+![issues](https://img.shields.io/github/issues/helvm/helma)
+![issues closed](https://img.shields.io/github/issues-closed/helvm/helma)
+![issues pr](https://img.shields.io/github/issues-pr/helvm/helma)
+![issues pr closed](https://img.shields.io/github/issues-pr-closed/helvm/helma)
+
+![discussions](https://img.shields.io/github/discussions/helvm/helma)
+![release](https://img.shields.io/github/v/release/helvm/helma)
+![release-date](https://img.shields.io/github/release-date/helvm/helma)
+![tag](https://img.shields.io/github/v/tag/helvm/helma)
+![last-commit](https://img.shields.io/github/last-commit/helvm/helma)
+
+![languages count](https://img.shields.io/github/languages/count/helvm/helma)
+![languages code size](https://img.shields.io/github/languages/code-size/helvm/helma)
+![repo size](https://img.shields.io/github/repo-size/helvm/helma)
+![downloads](https://img.shields.io/github/downloads/helvm/helma/total)
+![licanse](https://img.shields.io/github/license/helvm/helma)
+
 # 🔧 🎨 HelMA - Haskellish Esoteric Limited Minimal Automaton for Esoteric Languages implemented in Haskell
 
 *One Automaton to rule them all, One Automaton to find them, One Automaton to bring them all and in the rainbow bind them.*
