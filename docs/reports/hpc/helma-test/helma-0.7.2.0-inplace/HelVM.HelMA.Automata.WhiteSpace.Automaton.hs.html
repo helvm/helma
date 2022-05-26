@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.WhiteSpace.Automaton (
+<span class="lineno">    2 </span>  simpleEval,
+<span class="lineno">    3 </span>  evalParams,
+<span class="lineno">    4 </span>  eval,
+<span class="lineno">    5 </span>  evalIL,
+<span class="lineno">    6 </span>  evalTL,
+<span class="lineno">    7 </span>  start,
+<span class="lineno">    8 </span>) where
+<span class="lineno">    9 </span>
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automata.WhiteSpace.Lexer
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automata.WhiteSpace.Parser
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automata.WhiteSpace.Symbol
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automata.WhiteSpace.Token
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.API.EvalParams
+<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.API.IOTypes
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
+<span class="lineno">   20 </span>import           HelVM.HelMA.Automaton.IO.EvaluatorIO
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>import           HelVM.HelMA.Automaton.Units.CPU              as CPU
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>import           HelVM.HelMA.Automaton.Types.DumpType
+<span class="lineno">   27 </span>import           HelVM.HelMA.Automaton.Types.RAMType
+<span class="lineno">   28 </span>import           HelVM.HelMA.Automaton.Types.StackType
+<span class="lineno">   29 </span>import           HelVM.HelMA.Automaton.Types.TokenType
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>import           HelVM.HelIO.Control.Safe
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>import           Prelude                                      hiding (swap)
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>import qualified HelVM.HelMA.Automata.WhiteSpace.SimpleParams as S
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>import qualified HelVM.HelIO.Collections.MapList             as MapList
+<span class="lineno">   38 </span>import qualified HelVM.HelIO.Collections.SList               as SList
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>import qualified Data.Sequence                                as Seq
+<span class="lineno">   41 </span>import qualified Data.Vector                                  as Vector
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>simpleEval :: BIO m =&gt; S.SimpleParams -&gt; m ()
+<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">simpleEval p = eval (S.tokenType p) (S.source p) (S.asciiLabel p) (S.stackType p) (S.ramType p) (S.dumpType p)</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>----
+<span class="lineno">   47 </span>
+<span class="lineno">   48 </span>evalParams :: BIO m =&gt; TokenType -&gt; EvalParams -&gt; m ()
+<span class="lineno">   49 </span><span class="decl"><span class="nottickedoff">evalParams tokenType p = eval tokenType (source p) (asciiLabel p) (stackTypeOptions p) (ramTypeOptions p) (dumpTypeOptions p)</span></span>
+<span class="lineno">   50 </span>
+<span class="lineno">   51 </span>eval :: BIO m =&gt; TokenType -&gt; Source -&gt; Bool -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">eval tokenType source = evalTL $ tokenize tokenType source</span></span>
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>evalTL :: BIO m =&gt; TokenList -&gt; Bool -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
+<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">evalTL tl ascii st rt dt = evalTL' =&lt;&lt; liftSafe (parseTL ascii tl) where evalTL' il = evalIL il st rt dt</span></span>
+<span class="lineno">   56 </span>
+<span class="lineno">   57 </span>evalIL :: BIO m =&gt; InstructionList -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
+<span class="lineno">   58 </span><span class="decl"><span class="istickedoff">evalIL il s ListRAMType    = <span class="nottickedoff">evalIL' il s []</span></span>
+<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">evalIL il s SeqRAMType     = <span class="nottickedoff">evalIL' il s Seq.empty</span></span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">evalIL il s SListRAMType   = <span class="nottickedoff">evalIL' il s SList.sListEmpty</span></span>
+<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">evalIL il s MapListRAMType = evalIL' il s MapList.mapListEmpty</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>evalIL' :: (REvaluator Symbol r m) =&gt; InstructionList -&gt; StackType -&gt; r -&gt; DumpType -&gt; m ()
+<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">evalIL' il ListStackType  = <span class="nottickedoff">start il []</span></span>
+<span class="lineno">   65 </span><span class="spaces"></span><span class="istickedoff">evalIL' il SeqStackType   = start il Seq.empty</span>
+<span class="lineno">   66 </span><span class="spaces"></span><span class="istickedoff">evalIL' il SListStackType = <span class="nottickedoff">start il SList.sListEmpty</span></span></span>
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>start :: (SREvaluator Symbol s r m) =&gt; InstructionList -&gt; s -&gt; r -&gt; DumpType -&gt; m ()
+<span class="lineno">   69 </span><span class="decl"><span class="istickedoff">start il s r dt = logDump dt =&lt;&lt; next (CU (Vector.fromList il) 0 (IS [])) s r</span></span>
+
+</pre>
+</body>
+</html>

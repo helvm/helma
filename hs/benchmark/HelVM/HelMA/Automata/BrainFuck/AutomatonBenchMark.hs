@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automata.BrainFuck.FileUtil
 import           HelVM.HelMA.Automaton.IO.MockIO
 import           HelVM.HelMA.Automaton.Types.CellType
 
-import           HelVM.Common.ZipA
+import           HelVM.HelIO.ZipA
 
 import qualified Data.ListLike                            as LL
 

@@ -3,11 +3,11 @@ module HelVM.HelMA.Automata.ETA.OperandParsers where
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
-import           HelVM.Common.Containers.LLIndexSafe
-import           HelVM.Common.Control.Safe
-import           HelVM.Common.Digit.ToDigit
+import           HelVM.HelIO.Containers.LLIndexSafe
+import           HelVM.HelIO.Control.Safe
+import           HelVM.HelIO.Digit.ToDigit
 
-import qualified Data.Vector                         as Vector
+import qualified Data.Vector                        as Vector
 
 parseNumber :: (MonadSafe m , Integral a) => OperandIUParser m a
 parseNumber iu = go [] =<< nextIU iu where

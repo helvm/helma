@@ -32,11 +32,11 @@ import           HelVM.HelMA.Automaton.Instruction.IOInstruction
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.Common.Control.Safe
+import           HelVM.HelIO.Control.Safe
 
-import           HelVM.Common.Containers.LLIndexSafe
+import           HelVM.HelIO.Containers.LLIndexSafe
 
-import           HelVM.Common.ListLikeUtil
+import           HelVM.HelIO.ListLikeUtil
 
 import           Data.ListLike                                   hiding (show)
 import           Prelude                                         hiding (divMod, drop, fromList, splitAt, swap)

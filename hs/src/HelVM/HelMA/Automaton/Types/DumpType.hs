@@ -2,9 +2,9 @@ module HelVM.HelMA.Automaton.Types.DumpType where
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.Common.Control.Logger
+import           HelVM.HelIO.Control.Logger
 
-import           HelVM.Common.Util
+import           HelVM.HelIO.Util
 
 logDump :: (BIO m , Show d) => DumpType -> d -> m ()
 logDump dt d = logDump' $ dump dt d where

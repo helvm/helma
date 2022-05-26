@@ -4,7 +4,7 @@ import           HelVM.HelMA.Automaton.IO.BusinessIO
 import           HelVM.HelMA.Automaton.IO.FreeIO
 import           HelVM.HelMA.Automaton.IO.MockIO
 
-import           HelVM.Common.Control.Control
+import           HelVM.HelIO.Control.Control
 
 import           Test.Hspec                          (Spec, describe, it)
 import           Test.Hspec.Expectations.Pretty

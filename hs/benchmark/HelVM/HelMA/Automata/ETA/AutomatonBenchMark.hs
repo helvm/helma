@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automata.ETA.FileUtil
 import           HelVM.HelMA.Automaton.IO.MockIO
 import           HelVM.HelMA.Automaton.Types.StackType
 
-import           HelVM.Common.ZipA
+import           HelVM.HelIO.ZipA
 
 import           System.FilePath.Posix
 

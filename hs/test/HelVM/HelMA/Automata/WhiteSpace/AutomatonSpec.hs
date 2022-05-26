@@ -8,8 +8,8 @@ import           HelVM.HelMA.Automaton.IO.MockIO
 
 import           HelVM.HelMA.Automaton.Types.TokenType
 
-import           HelVM.Common.ZipA
 import           HelVM.GoldenExpectations
+import           HelVM.HelIO.ZipA
 
 import           System.FilePath.Posix
 

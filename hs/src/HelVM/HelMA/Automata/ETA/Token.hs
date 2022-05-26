@@ -1,9 +1,9 @@
 module HelVM.HelMA.Automata.ETA.Token where
 
-import           HelVM.Common.Control.Safe
-import           HelVM.Common.Digit.ToDigit
+import           HelVM.HelIO.Control.Safe
+import           HelVM.HelIO.Digit.ToDigit
 
-import           Data.Vector                as Vector
+import           Data.Vector               as Vector
 
 import qualified Text.Read
 import qualified Text.Show

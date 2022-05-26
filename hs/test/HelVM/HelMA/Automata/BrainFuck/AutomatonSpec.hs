@@ -3,8 +3,8 @@ module HelVM.HelMA.Automata.BrainFuck.AutomatonSpec (spec) where
 import           HelVM.HelMA.Automata.BrainFuck.Automaton
 import           HelVM.HelMA.Automata.BrainFuck.FileUtil
 
-import           HelVM.Common.ZipA
 import           HelVM.GoldenExpectations
+import           HelVM.HelIO.ZipA
 
 import           HelVM.HelMA.Automaton.IO.MockIO
 import           HelVM.HelMA.Automaton.Types.CellType

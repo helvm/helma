@@ -8,8 +8,8 @@ module HelVM.HelMA.Automaton.IO.FreeIO (
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.Common.Control.Control
-import           HelVM.Common.Control.Safe
+import           HelVM.HelIO.Control.Control
+import           HelVM.HelIO.Control.Safe
 
 import           Control.Monad.Free
 import           Control.Natural

@@ -3,8 +3,8 @@ module HelVM.HelMA.Automata.Zot.AutomatonSpec where
 import           HelVM.HelMA.Automata.Zot.Automaton
 import           HelVM.HelMA.Automata.Zot.FileUtil
 
-import           HelVM.Common.Control.Safe
-import           HelVM.Common.ZipA
+import           HelVM.HelIO.Control.Safe
+import           HelVM.HelIO.ZipA
 
 import           HelVM.GoldenExpectations
 

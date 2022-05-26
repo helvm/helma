@@ -8,15 +8,15 @@ module HelVM.HelMA.Automata.ETA.Addressing (
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
-import           HelVM.Common.Containers.LLIndexSafe
+import           HelVM.HelIO.Containers.LLIndexSafe
 
-import           HelVM.Common.Control.Safe
+import           HelVM.HelIO.Control.Safe
 
-import           Data.ListLike                       hiding (show)
+import           Data.ListLike                      hiding (show)
 
-import           Prelude                             hiding (length, splitAt)
+import           Prelude                            hiding (length, splitAt)
 
-import qualified Data.Vector                         as Vector
+import qualified Data.Vector                        as Vector
 
 ----
 

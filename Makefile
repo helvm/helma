@@ -1,4 +1,4 @@
-.PHONY: all bench build check clean configure exec fast golden haddock hlint main output repl report run stan stylish test tix update
+.PHONY: all bench build check check-whitespace clean configure exec fast golden haddock hlint hpack install main output repl report run sdist stan stylish test tix update
 
 all: update fast bench
 
@@ -11,6 +11,9 @@ build:
 
 check:
 	cabal check
+
+check-whitespace:
+	git check-whitespace
 
 clean:
 	cabal new-clean
@@ -26,7 +29,7 @@ exec:
 	make tix
 	cabal new-exec --jobs helma
 
-fast: main report
+fast: main report sdist install
 
 golden:
 	if test -d .output/golden; then rm -r .output/golden; fi
@@ -36,6 +39,12 @@ haddock:
 
 hlint:
 	./hlint.sh
+
+hpack:
+	curl -sSL https://github.com/sol/hpack/raw/main/get-hpack.sh | bash
+
+install:
+	cabal install all --overwrite-policy=always
 
 main:
 	make stylish configure check build test
@@ -48,15 +57,21 @@ repl:
 
 report:
 	make haddock stan hlint
+	./report.sh
 
 run:
 	make tix
 	cabal new-run --jobs helma
 
+sdist:
+	cabal sdist
+
 stan:
 	./stan.sh
+	mv stan.html docs/reports
 
 stylish:
+	#curl -sL https://raw.github.com/haskell/stylish-haskell/master/scripts/latest.sh | sh -s "-r -v -i hs"
 	stylish-haskell -r -v -i hs
 
 test:

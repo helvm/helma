@@ -3,21 +3,6 @@ module Main where
 import           AppOptions
 import           Lang
 
-import           HelVM.HelMA.Automaton.API.EvalParams
-import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.API.TypeOptions
-
-import           HelVM.HelMA.Automaton.IO.BusinessIO
-
-import           HelVM.Common.Control.Control
-
-import           HelVM.HelMA.Automaton.Types.CellType
-import           HelVM.HelMA.Automaton.Types.DumpType
-import           HelVM.HelMA.Automaton.Types.IntCellType
-import           HelVM.HelMA.Automaton.Types.RAMType
-import           HelVM.HelMA.Automaton.Types.StackType
-import           HelVM.HelMA.Automaton.Types.TokenType
-
 import qualified HelVM.HelMA.Automata.Cat.Automaton        as Cat
 
 import qualified HelVM.HelMA.Automata.Rev.Automaton        as Rev
@@ -37,6 +22,21 @@ import qualified HelVM.HelMA.Automata.WhiteSpace.Parser    as WS
 
 import qualified HelVM.HelMA.Automata.Zot.Automaton        as Zot
 
+import           HelVM.HelMA.Automaton.API.EvalParams
+import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.TypeOptions
+
+import           HelVM.HelMA.Automaton.IO.BusinessIO
+
+import           HelVM.HelMA.Automaton.Types.CellType
+import           HelVM.HelMA.Automaton.Types.DumpType
+import           HelVM.HelMA.Automaton.Types.IntCellType
+import           HelVM.HelMA.Automaton.Types.RAMType
+import           HelVM.HelMA.Automaton.Types.StackType
+import           HelVM.HelMA.Automaton.Types.TokenType
+
+import           HelVM.HelIO.Control.Control
+import           HelVM.HelIO.SwitchEnum
 
 import           Options.Applicative
 import           Text.Pretty.Simple
@@ -51,52 +51,51 @@ main = runApp =<< execParser opts where
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
 runApp:: AppOptions -> IO ()
-runApp (AppOptions lang minified emitTL emitIL printLogs compile asciiLabels ramType stackType cellType intCellType dumpType exec file) = do
+runApp (AppOptions lang visibleTokens minified emitTL emitIL printLogs compile asciiLabels ramType stackType cellType intCellType dumpType exec file) = do
   hSetBuffering stdout IO.NoBuffering
   source <- readSourceFile exec file
-  run minified emitTL emitIL printLogs typeOptions asciiLabels compile (parseLang lang) source
+  run minified emitTL emitIL printLogs typeOptions asciiLabels compile (parseLang lang) (enumFromBool visibleTokens) source
     where typeOptions = TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType) (parseIntCellType intCellType) (parseDumpType dumpType)
 
 readSourceFile :: Exec -> String -> IO Source
 readSourceFile True = pure . toText
 readSourceFile _    = readFileText
 
-run :: Minified -> EmitTL -> EmitIL -> PrintLogs -> TypeOptions -> Compile -> AsciiLabels -> Lang -> Source -> IO ()
-run True _    _    _ _ _ _ = minification
-run _    True _    _ _ _ _ = tokenize
-run _    _    True _ _ _ a = flip parse a
-run _    _    _    p t c a = eval p t c a
+run :: Minified -> EmitTL -> EmitIL -> PrintLogs -> TypeOptions -> Compile -> AsciiLabels -> Lang -> TokenType -> Source -> IO ()
+run True _    _    _ _ _ _ l t s  = minification l t s
+run _    True _    _ _ _ _ l t s  = tokenize l t s
+run _    _    True _ _ _ a l t s  = parse l t a s
+run _    _    _    p to c a l t s = eval p to c a l t s
 
-minification :: Lang -> Source -> IO ()
-minification BF  = print . BF.readTokens
-minification ETA = print . ETA.readTokens
-minification SQ  = print . SQ.readSymbols
-minification STN = print . WS.readVisibleTokens
-minification WS  = print . WS.readWhiteTokens
-minification _   = print
+minification :: Lang -> TokenType -> Source -> IO ()
+minification WS VisibleTokenType = print . WS.readVisibleTokens
+minification WS WhiteTokenType   = print . WS.readWhiteTokens
+minification BF  _               = print . BF.readTokens
+minification ETA _               = print . ETA.readTokens
+minification SQ  _               = print . SQ.readSymbols
+minification _   _               = print
 
-tokenize :: Lang -> Source -> IO ()
-tokenize ETA = print . ETA.tokenize
-tokenize SQ  = print . SQ.tokenize
-tokenize STN = print . WS.tokenizeVisible
-tokenize WS  = print . WS.tokenizeWhite
-tokenize _   = print
+tokenize :: Lang -> TokenType -> Source -> IO ()
+tokenize WS  VisibleTokenType = print . WS.tokenizeVisible
+tokenize WS  WhiteTokenType   = print . WS.tokenizeWhite
+tokenize ETA _                = print . ETA.tokenize
+tokenize SQ  _                = print . SQ.tokenize
+tokenize _   _                = print
 
-parse :: Lang -> AsciiLabels -> Source -> IO ()
-parse STN  a = pPrintNoColor . WS.flipParseVisible a
-parse WS   a = pPrintNoColor . WS.flipParseWhite   a
-parse lang _ = tokenize lang
+parse :: Lang -> TokenType -> AsciiLabels -> Source -> IO ()
+parse WS   VisibleTokenType a = pPrintNoColor . WS.flipParseVisible a
+parse WS   WhiteTokenType   a = pPrintNoColor . WS.flipParseWhite   a
+parse lang tt               _ = tokenize lang tt
 
-eval :: PrintLogs -> TypeOptions -> Compile -> AsciiLabels -> Lang -> Source -> IO ()
-eval p options c a lang s = (controlTToIO p . evalParams lang) params
+eval :: PrintLogs -> TypeOptions -> Compile -> AsciiLabels -> Lang -> TokenType -> Source -> IO ()
+eval p options c a lang tt s = (controlTToIO p . evalParams lang tt) params
   where params = EvalParams {compile = c , asciiLabel = a , source = s , typeOptions = options}
 
-evalParams :: BIO m => Lang -> EvalParams -> m ()
-evalParams Cat = Cat.evalParams
-evalParams Rev = Rev.evalParams
-evalParams BF  = BF.evalParams
-evalParams ETA = ETA.evalParams
-evalParams SQ  = SQ.evalParams
-evalParams STN = WS.evalParams VisibleTokenType
-evalParams WS  = WS.evalParams WhiteTokenType
-evalParams Zot = Zot.evalParams
+evalParams :: BIO m => Lang -> TokenType -> EvalParams -> m ()
+evalParams WS tt = WS.evalParams tt
+evalParams Cat _ = Cat.evalParams
+evalParams Rev _ = Rev.evalParams
+evalParams BF  _ = BF.evalParams
+evalParams ETA _ = ETA.evalParams
+evalParams SQ  _ = SQ.evalParams
+evalParams Zot _ = Zot.evalParams

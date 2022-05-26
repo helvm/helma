@@ -2,7 +2,7 @@ module HelVM.HelMA.Automata.BrainFuck.Lexer where
 
 import           HelVM.HelMA.Automata.BrainFuck.Instruction.FlatInstruction
 
-import           HelVM.Common.ReadText
+import           HelVM.HelIO.ReadText
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.WrapTokenList
 

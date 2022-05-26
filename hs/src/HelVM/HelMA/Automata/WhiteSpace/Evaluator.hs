@@ -13,7 +13,7 @@ import           HelVM.HelMA.Automaton.Units.CPU        as CPU
 import           HelVM.HelMA.Automaton.Units.LSU        as LSU
 import           HelVM.HelMA.Automaton.Units.Unit
 
-import           HelVM.Common.Containers.LLIndexSafe
+import           HelVM.HelIO.Containers.LLIndexSafe
 
 import           Control.Type.Operator
 

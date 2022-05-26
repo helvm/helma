@@ -20,6 +20,11 @@ optionParser = AppOptions
                    <> value (show Cat)
                    <> showDefault
                    )
+  <*> switch      (  long    "visibleTokes"
+                   <> short   't'
+                   <> help   "Visible tokens for WS"
+                   <> showDefault
+                   )
   <*> switch       (  long    "minification"
                    <> short   'M'
                    <> help    "Emit minified code"
@@ -93,26 +98,28 @@ optionParser = AppOptions
   <*> argument str (  metavar "FILE")
 
 data AppOptions = AppOptions
-  { lang        :: !String      -- | Lang
-  , minified    :: !Minified
-  , emitTL      :: !EmitTL
-  , emitIL      :: !EmitIL
-  , printLogs   :: !PrintLogs
-  , compile     :: !Compile
-  , asciiLabels :: !AsciiLabels
-  , ramType     :: !String      -- | RAMType
-  , stackType   :: !String      -- | StackType
-  , cellType    :: !String      -- | CellType
-  , intCellType :: !String      -- | IntCellType
-  , dumpType    :: !String      -- | DumpType
-  , exec        :: !Exec
-  , file        :: !String
+  { lang          :: !String      -- | Lang
+  , visibleTokens :: !VisibleTokens
+  , minified      :: !Minified
+  , emitTL        :: !EmitTL
+  , emitIL        :: !EmitIL
+  , printLogs     :: !PrintLogs
+  , compile       :: !Compile
+  , asciiLabels   :: !AsciiLabels
+  , ramType       :: !String      -- | RAMType
+  , stackType     :: !String      -- | StackType
+  , cellType      :: !String      -- | CellType
+  , intCellType   :: !String      -- | IntCellType
+  , dumpType      :: !String      -- | DumpType
+  , exec          :: !Exec
+  , file          :: !String
   }
 
-type Minified    = Bool
-type EmitIL      = Bool
-type EmitTL      = Bool
-type PrintLogs   = Bool
-type Compile     = Bool
-type AsciiLabels = Bool
-type Exec        = Bool
+type VisibleTokens = Bool
+type Minified      = Bool
+type EmitIL        = Bool
+type EmitTL        = Bool
+type PrintLogs     = Bool
+type Compile       = Bool
+type AsciiLabels   = Bool
+type Exec          = Bool

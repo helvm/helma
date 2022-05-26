@@ -8,11 +8,11 @@ module HelVM.HelMA.Automaton.Units.RAM (
   RAM,
 ) where
 
-import           HelVM.Common.Containers.LLIndexSafe
-import           HelVM.Common.Containers.LLInsertDef
+import           HelVM.HelIO.Containers.LLIndexSafe
+import           HelVM.HelIO.Containers.LLInsertDef
 
 import           Data.Default
-import           Prelude                             hiding (divMod, drop, splitAt, swap)
+import           Prelude                            hiding (divMod, drop, splitAt, swap)
 
 genericLoad :: (Integral i , RAM ll element) => ll -> i -> element
 genericLoad l = load l . fromIntegral

@@ -3,8 +3,8 @@ module HelVM.HelMA.Automata.ETA.OperandParsersSpec (spec) where
 import           HelVM.HelMA.Automata.ETA.OperandParsers
 import           HelVM.HelMA.Automata.ETA.Token
 
-import           HelVM.Common.Control.Safe
 import           HelVM.Expectations
+import           HelVM.HelIO.Control.Safe
 
 import qualified Data.Vector                             as Vector
 

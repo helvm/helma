@@ -44,7 +44,6 @@ buildAbsoluteWsLogFileName = buildAbsoluteLogFileName lang
 tokenTypeToExt :: TokenType -> FilePath
 tokenTypeToExt WhiteTokenType   = lang
 tokenTypeToExt VisibleTokenType = stn
-tokenTypeToExt tokenType        = error $ show tokenType
 
 stn :: FilePath
 stn = "stn"

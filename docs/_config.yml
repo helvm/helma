@@ -119,11 +119,12 @@ edit:
   extention              : md
 
 header_pages:
-  - INSTALL.md
-  - TODO.md
-  - NEWS.md
-  - BUGS.md
-  - FAQ.md
+  - users/INSTALL.md
+  - users/AUTHORS.md
+  - users/THANKS.md
+  - users/TODO.md
+  - users/NEWS.md
+  - users/FAQ.md
 
 minima:
 #  skin: solarized-dark

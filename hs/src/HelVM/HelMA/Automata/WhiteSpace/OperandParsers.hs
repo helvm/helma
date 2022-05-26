@@ -5,9 +5,9 @@ import           HelVM.HelMA.Automata.WhiteSpace.Token
 
 import           HelVM.HelMA.Automaton.Instruction.ControlInstruction
 
-import           HelVM.Common.Collections.SList
-import           HelVM.Common.Control.Safe
-import           HelVM.Common.Digit.ToDigit
+import           HelVM.HelIO.Collections.SList
+import           HelVM.HelIO.Control.Safe
+import           HelVM.HelIO.Digit.ToDigit
 
 type OperandParser m a = TokenList -> m (a , TokenList)
 

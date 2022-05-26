@@ -19,7 +19,7 @@ import           HelVM.HelMA.Automaton.IO.EvaluatorIO
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.StackType
 
-import           HelVM.Common.Collections.SList          as SList
+import           HelVM.HelIO.Collections.SList           as SList
 
 import           Prelude                                 hiding (divMod)
 

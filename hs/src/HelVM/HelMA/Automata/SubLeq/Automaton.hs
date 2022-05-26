@@ -16,8 +16,8 @@ import           HelVM.HelMA.Automaton.IO.EvaluatorIO
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.RAMType
 
-import qualified HelVM.Common.Collections.MapList      as MapList
-import qualified HelVM.Common.Collections.SList        as SList
+import qualified HelVM.HelIO.Collections.MapList       as MapList
+import qualified HelVM.HelIO.Collections.SList         as SList
 
 import qualified Data.Sequence                         as Seq
 

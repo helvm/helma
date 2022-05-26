@@ -5,7 +5,7 @@ import           HelVM.HelMA.Automaton.Units.ALU
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.ControlInstruction
 
-import           HelVM.Common.Control.Safe
+import           HelVM.HelIO.Control.Safe
 
 import           Control.Type.Operator
 

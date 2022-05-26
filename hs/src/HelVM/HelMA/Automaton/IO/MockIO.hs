@@ -20,10 +20,10 @@ module HelVM.HelMA.Automaton.IO.MockIO (
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.Common.Control.Control
-import           HelVM.Common.Control.Safe
+import           HelVM.HelIO.Control.Control
+import           HelVM.HelIO.Control.Safe
 
-import           HelVM.Common.ListLikeUtil
+import           HelVM.HelIO.ListLikeUtil
 
 import           Data.Text                           as Text
 

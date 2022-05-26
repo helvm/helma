@@ -29,15 +29,15 @@ module HelVM.HelMA.Automaton.IO.BusinessIO (
   flush,
 ) where
 
-import           HelVM.Common.Control.Control
-import           HelVM.Common.Control.Safe
+import           HelVM.HelIO.Control.Control
+import           HelVM.HelIO.Control.Safe
 
-import           HelVM.Common.ReadText
+import           HelVM.HelIO.ReadText
 
-import           Data.Default                 as Default
-import           Data.Text.IO                 (getContents)
+import           Data.Default                as Default
+import           Data.Text.IO                (getContents)
 
-import           System.IO                    hiding (getContents, getLine, hFlush, stderr, stdout)
+import           System.IO                   hiding (getContents, getLine, hFlush, stderr, stdout)
 
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)

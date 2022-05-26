@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automaton.Instruction.ControlInstruction where
 
-import           HelVM.Common.Collections.SList
+import           HelVM.HelIO.Collections.SList
 
 isNotJump :: Integral e => BranchTest -> e -> Bool
 isNotJump t = not . isJump t

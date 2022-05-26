@@ -4,8 +4,8 @@ import           HelVM.HelMA.Automata.WhiteSpace.FileUtil
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 import           HelVM.HelMA.Automata.WhiteSpace.Parser
 
-import           HelVM.Common.Control.Safe
-import           HelVM.Common.ZipA
+import           HelVM.HelIO.Control.Safe
+import           HelVM.HelIO.ZipA
 
 import           HelVM.GoldenExpectations
 

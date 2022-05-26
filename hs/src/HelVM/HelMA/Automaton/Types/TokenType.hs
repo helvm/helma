@@ -1,16 +1,19 @@
 module HelVM.HelMA.Automaton.Types.TokenType where
 
+import           HelVM.HelIO.SwitchEnum
+
 -- | Constructors
-parseTokenType :: Bool -> TokenType
-parseTokenType True = VisibleTokenType
-parseTokenType _    = WhiteTokenType
+parseTokenType:: String -> TokenType
+parseTokenType raw = valid $ readMaybe raw where
+  valid (Just value) = value
+  valid Nothing      = error $ "'" <> toText raw <> "' is not valid TokenType. Valid tokenTypes are : " <> show tokenTypes
 
 defaultTokenType :: TokenType
-defaultTokenType = VisibleTokenType
+defaultTokenType = defaultEnum
 
 tokenTypes :: [TokenType]
-tokenTypes = [VisibleTokenType , WhiteTokenType , BothTokenType]
+tokenTypes = bothEnums
 
 -- | Types
-data TokenType = VisibleTokenType | WhiteTokenType | BothTokenType
-  deriving stock (Eq , Read , Show)
+data TokenType = VisibleTokenType | WhiteTokenType
+  deriving stock (Bounded , Enum , Eq , Read , Show)

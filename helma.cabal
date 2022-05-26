@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.7.2.0
+version:               0.7.2.1
 
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
@@ -9,7 +9,7 @@ homepage:              http://helvm.org/helma/
 bug-reports:           https://github.com/helvm/helma/issues
 
 license:               Apache-2.0
-license-file:          docs/LICENSE-APACHE
+license-file:          docs/license/LICENSE-APACHE
 author:                Kamil Adam
 maintainer:            kamil.adam.zabinski@gmail.com
 copyright:             2020-2022 WriteOnly Developers
@@ -17,7 +17,7 @@ copyright:             2020-2022 WriteOnly Developers
 category:              Language
 build-type:            Simple
 extra-source-files:
-  docs/CHANGELOG.md
+  docs/developers/CHANGELOG.md
   docs/README.md
 
 tested-with:           GHC == 9.2.1
@@ -104,31 +104,6 @@ library
   import:              common-options
   hs-source-dirs:      hs/src
   exposed-modules:
-    HelVM.Common.Collections.MapList
-    HelVM.Common.Collections.SList
-
-    HelVM.Common.Containers.LLIndexSafe
-    HelVM.Common.Containers.LLInsertDef
-    HelVM.Common.Containers.MTIndexSafe
-    HelVM.Common.Containers.MTInsertDef
-    HelVM.Common.Containers.Util
-
-    HelVM.Common.Control.Control
-    HelVM.Common.Control.Message
-    HelVM.Common.Control.Logger
-    HelVM.Common.Control.Safe
-
-    HelVM.Common.Digit.Digitable
-    HelVM.Common.Digit.Digits
-    HelVM.Common.Digit.ToDigit
-
-    HelVM.Common.ListLikeUtil
-    HelVM.Common.NamedValue
-    HelVM.Common.ReadText
-    HelVM.Common.SequencesUtil
-    HelVM.Common.Util
-    HelVM.Common.ZipA
-
     HelVM.HelMA.Automaton.API.EvalParams
     HelVM.HelMA.Automaton.API.IOTypes
     HelVM.HelMA.Automaton.API.TypeOptions
@@ -206,17 +181,14 @@ library
     HelVM.HelMA.Automata.Zot.Expression
 
   build-depends:
-      containers           <  0.7
+      helio
+    , containers           <  0.7
     , data-default
     , dlist
     , free
-    , ilist
     , ListLike
     , natural-transformation
-    , mono-traversable
     , mtl
-    , pretty-simple
-    , slist
     , text
     , type-operators
     , vector
@@ -231,7 +203,8 @@ executable helma
     AppOptions
     Lang
   build-depends:
-      helma
+      helio
+    , helma
     , optparse-applicative >= 0.14.3.0
     , pretty-simple
   ghc-options:
@@ -250,11 +223,6 @@ test-suite helma-test
     HelVM.Expectations
     HelVM.GoldenExpectations
     HelVM.MonadErrorSpec
-
-    HelVM.Common.Collections.MapListSpec
-    HelVM.Common.Control.LoggerSpec
-
-    HelVM.Common.ListLikeUtilSpec
 
     HelVM.HelMA.Automaton.API.TypeOptionsUtil
     HelVM.HelMA.Automaton.FilterIf0Spec
@@ -296,11 +264,10 @@ test-suite helma-test
     , hspec-golden
     , hspec-slow
 
+    , helio
     , helma
 
-    , dlist
     , filepath
-    , ListLike
     , mtl
     , type-operators
     , vector
@@ -335,6 +302,7 @@ benchmark helma-benchmark
   build-depends:
       gauge
 
+    , helio
     , helma
 
     , filepath

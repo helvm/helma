@@ -22,8 +22,9 @@ import           HelVM.HelMA.Automaton.Instruction.LSInstruction
 
 import           HelVM.HelMA.Automaton.Types.TokenType
 
-import           HelVM.Common.Control.Safe
+import           HelVM.HelIO.Control.Safe
 
+-- FIXME
 flipParseVisible :: Bool -> Source -> Safe InstructionList
 flipParseVisible = flip parseVisible
 

@@ -1,14 +1,14 @@
 module HelVM.HelMA.Automata.Zot.Expression where
 
-import           HelVM.Common.Control.Safe
+import           HelVM.HelIO.Control.Safe
 
-import           HelVM.Common.Containers.Util
-import           HelVM.Common.Digit.Digitable
-import           HelVM.Common.Digit.ToDigit
+import           HelVM.HelIO.Containers.Util
+import           HelVM.HelIO.Digit.Digitable
+import           HelVM.HelIO.Digit.ToDigit
 
 import           Control.Monad.Writer.Lazy
 
-import qualified Data.DList                   as D
+import qualified Data.DList                  as D
 
 import           Text.Read
 import qualified Text.Show

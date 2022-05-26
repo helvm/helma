@@ -28,14 +28,14 @@ import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
-import           HelVM.Common.Control.Safe
+import           HelVM.HelIO.Control.Safe
 
 import           Prelude                                      hiding (swap)
 
 import qualified HelVM.HelMA.Automata.WhiteSpace.SimpleParams as S
 
-import qualified HelVM.Common.Collections.MapList             as MapList
-import qualified HelVM.Common.Collections.SList               as SList
+import qualified HelVM.HelIO.Collections.MapList              as MapList
+import qualified HelVM.HelIO.Collections.SList                as SList
 
 import qualified Data.Sequence                                as Seq
 import qualified Data.Vector                                  as Vector

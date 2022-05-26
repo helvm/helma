@@ -6,8 +6,8 @@ import           HelVM.HelMA.Automata.BrainFuck.Lexer
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.Common.Control.Safe
-import           HelVM.Common.ListLikeUtil
+import           HelVM.HelIO.Control.Safe
+import           HelVM.HelIO.ListLikeUtil
 
 import           Data.ListLike                                              hiding (show)
 

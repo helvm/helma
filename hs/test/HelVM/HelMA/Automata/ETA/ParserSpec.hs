@@ -4,7 +4,7 @@ import           HelVM.HelMA.Automata.ETA.Lexer
 
 import           HelVM.HelMA.Automata.ETA.FileUtil
 
-import           HelVM.Common.ZipA
+import           HelVM.HelIO.ZipA
 
 import           HelVM.GoldenExpectations
 

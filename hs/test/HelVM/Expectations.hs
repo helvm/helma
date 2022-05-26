@@ -8,8 +8,8 @@ module HelVM.Expectations  (
   shouldBeDo,
 ) where
 
-import           HelVM.Common.Control.Control
-import           HelVM.Common.Control.Safe
+import           HelVM.HelIO.Control.Control
+import           HelVM.HelIO.Control.Safe
 
 import           Test.Hspec.Expectations.Pretty
 
