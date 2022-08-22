@@ -1,0 +1,132 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.Common.Control.Logger (
+<span class="lineno">    2 </span>  loggerIOToPTextIO,
+<span class="lineno">    3 </span>  loggerIOToIO,
+<span class="lineno">    4 </span>  loggerToIO,
+<span class="lineno">    5 </span>  removeLoggerT,
+<span class="lineno">    6 </span>  removeLogger,
+<span class="lineno">    7 </span>  runLoggerT,
+<span class="lineno">    8 </span>  runLogger,
+<span class="lineno">    9 </span>
+<span class="lineno">   10 </span>  logsFromLoggerT,
+<span class="lineno">   11 </span>  logsFromLogger,
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>  loggerT,
+<span class="lineno">   14 </span>  logger,
+<span class="lineno">   15 </span>  withMessages,
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>  liftLogger,
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>  logMessageTupleList,
+<span class="lineno">   20 </span>  logMessageTuple,
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>  logData,
+<span class="lineno">   23 </span>  logMessage,
+<span class="lineno">   24 </span>  logMessages,
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>  MonadLogger,
+<span class="lineno">   27 </span>  LoggerT,
+<span class="lineno">   28 </span>  Logger,
+<span class="lineno">   29 </span>  WithMessages,
+<span class="lineno">   30 </span>) where
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>import           HelVM.Common.Control.Message
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>import           Control.Monad.Writer.Lazy
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>import           HelVM.Common.Util
+<span class="lineno">   37 </span>
+<span class="lineno">   38 </span>import qualified Data.DList                   as D
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>-- | DeConstructors
+<span class="lineno">   41 </span>loggerIOToPTextIO :: Show a =&gt; IO (Logger a) -&gt; IO Text
+<span class="lineno">   42 </span><span class="decl"><span class="nottickedoff">loggerIOToPTextIO a = showP &lt;$&gt; loggerIOToIO a</span></span>
+<span class="lineno">   43 </span>
+<span class="lineno">   44 </span>loggerIOToIO :: IO (Logger a) -&gt; IO a
+<span class="lineno">   45 </span><span class="decl"><span class="nottickedoff">loggerIOToIO a = loggerToIO =&lt;&lt; a</span></span>
+<span class="lineno">   46 </span>
+<span class="lineno">   47 </span>loggerToIO :: Logger a -&gt; IO a
+<span class="lineno">   48 </span><span class="decl"><span class="nottickedoff">loggerToIO = pure . removeLogger</span></span>
+<span class="lineno">   49 </span>
+<span class="lineno">   50 </span>removeLoggerT :: Monad m =&gt; LoggerT m a -&gt; m a
+<span class="lineno">   51 </span><span class="decl"><span class="nottickedoff">removeLoggerT a = fst &lt;$&gt; runWriterT a</span></span>
+<span class="lineno">   52 </span>
+<span class="lineno">   53 </span>removeLogger :: Logger a -&gt; a
+<span class="lineno">   54 </span><span class="decl"><span class="nottickedoff">removeLogger = fst . runWriter</span></span>
+<span class="lineno">   55 </span>
+<span class="lineno">   56 </span>runLoggerT :: LoggerT m a -&gt; m (a , Messages)
+<span class="lineno">   57 </span><span class="decl"><span class="istickedoff">runLoggerT = runWriterT</span></span>
+<span class="lineno">   58 </span>
+<span class="lineno">   59 </span>runLogger :: Logger a -&gt; (a , Messages)
+<span class="lineno">   60 </span><span class="decl"><span class="nottickedoff">runLogger = runWriter</span></span>
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>-- | Logs
+<span class="lineno">   63 </span>logsFromLoggerT :: Monad m =&gt; LoggerT m a -&gt; m Messages
+<span class="lineno">   64 </span><span class="decl"><span class="nottickedoff">logsFromLoggerT a = snd &lt;$&gt; runWriterT a</span></span>
+<span class="lineno">   65 </span>
+<span class="lineno">   66 </span>logsFromLogger :: Logger a -&gt; Messages
+<span class="lineno">   67 </span><span class="decl"><span class="istickedoff">logsFromLogger = snd . runWriter</span></span>
+<span class="lineno">   68 </span>
+<span class="lineno">   69 </span>-- | Constructors
+<span class="lineno">   70 </span>loggerT :: Monad m =&gt; m a -&gt; LoggerT m a
+<span class="lineno">   71 </span><span class="decl"><span class="istickedoff">loggerT a = WriterT $ withMessages &lt;$&gt; a</span></span>
+<span class="lineno">   72 </span>
+<span class="lineno">   73 </span>logger :: a -&gt; Logger a
+<span class="lineno">   74 </span><span class="decl"><span class="istickedoff">logger a = WriterT  $ Identity $ withMessages <span class="nottickedoff">a</span></span></span>
+<span class="lineno">   75 </span>
+<span class="lineno">   76 </span>withMessages :: a -&gt; WithMessages a
+<span class="lineno">   77 </span><span class="decl"><span class="istickedoff">withMessages a = (a , D.empty)</span></span>
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>-- | Lift
+<span class="lineno">   80 </span>liftLogger :: MonadLogger m =&gt; Logger a -&gt; m a
+<span class="lineno">   81 </span><span class="decl"><span class="istickedoff">liftLogger = writer . runWriter</span></span>
+<span class="lineno">   82 </span>
+<span class="lineno">   83 </span>-- | Append Messages
+<span class="lineno">   84 </span>logMessageTupleList :: MonadLogger m =&gt; [MessageTuple] -&gt; m ()
+<span class="lineno">   85 </span><span class="decl"><span class="nottickedoff">logMessageTupleList = logMessage . tupleListToMessage</span></span>
+<span class="lineno">   86 </span>
+<span class="lineno">   87 </span>logMessageTuple :: MonadLogger m =&gt; MessageTuple -&gt; m ()
+<span class="lineno">   88 </span><span class="decl"><span class="istickedoff">logMessageTuple = logMessage . logTupleToMessage</span></span>
+<span class="lineno">   89 </span>
+<span class="lineno">   90 </span>logTupleToMessage :: MessageTuple -&gt; Message
+<span class="lineno">   91 </span><span class="decl"><span class="istickedoff">logTupleToMessage (k , v) = k &lt;&gt; &quot;: &quot; &lt;&gt; v</span></span>
+<span class="lineno">   92 </span>
+<span class="lineno">   93 </span>logData :: (MonadLogger m , Show a) =&gt; a -&gt; m ()
+<span class="lineno">   94 </span><span class="decl"><span class="nottickedoff">logData = logMessage . show</span></span>
+<span class="lineno">   95 </span>
+<span class="lineno">   96 </span>logMessage :: MonadLogger m =&gt; Message -&gt; m ()
+<span class="lineno">   97 </span><span class="decl"><span class="istickedoff">logMessage = logMessages . D.singleton</span></span>
+<span class="lineno">   98 </span>
+<span class="lineno">   99 </span>logMessages :: MonadLogger m =&gt; Messages -&gt; m ()
+<span class="lineno">  100 </span><span class="decl"><span class="istickedoff">logMessages = tell</span></span>
+<span class="lineno">  101 </span>
+<span class="lineno">  102 </span>-- | Types
+<span class="lineno">  103 </span>type MonadLogger m = MonadWriter Messages m
+<span class="lineno">  104 </span>
+<span class="lineno">  105 </span>type LoggerT m = WriterT Messages m
+<span class="lineno">  106 </span>
+<span class="lineno">  107 </span>type Logger = Writer Messages
+<span class="lineno">  108 </span>
+<span class="lineno">  109 </span>type WithMessages a = (a , Messages)
+
+</pre>
+</body>
+</html>

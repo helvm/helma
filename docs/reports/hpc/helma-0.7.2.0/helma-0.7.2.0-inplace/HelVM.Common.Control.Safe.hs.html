@@ -1,0 +1,184 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.Common.Control.Safe (
+<span class="lineno">    2 </span>  safeIOToPTextIO,
+<span class="lineno">    3 </span>
+<span class="lineno">    4 </span>  safeIOToIO,
+<span class="lineno">    5 </span>  safeToIO,
+<span class="lineno">    6 </span>  safeTToIO,
+<span class="lineno">    7 </span>  runSafeT,
+<span class="lineno">    8 </span>  runSafe,
+<span class="lineno">    9 </span>
+<span class="lineno">   10 </span>  safeToText,
+<span class="lineno">   11 </span>  safeToEitherLegacy,
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>  orErrorTuple,
+<span class="lineno">   14 </span>  orError,
+<span class="lineno">   15 </span>  unsafe,
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>  maybeOrError,
+<span class="lineno">   18 </span>  maybeToSafe,
+<span class="lineno">   19 </span>  safeT,
+<span class="lineno">   20 </span>
+<span class="lineno">   21 </span>  liftExceptT,
+<span class="lineno">   22 </span>  liftSafe,
+<span class="lineno">   23 </span>  liftEitherError,
+<span class="lineno">   24 </span>  liftEitherLegacy,
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>  liftMaybeOrErrorTupleList,
+<span class="lineno">   27 </span>  liftMaybeOrErrorTuple,
+<span class="lineno">   28 </span>  liftMaybeOrError,
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>  liftErrorWithTupleList,
+<span class="lineno">   31 </span>  liftErrorTupleList,
+<span class="lineno">   32 </span>  liftErrorWithPrefix,
+<span class="lineno">   33 </span>  liftErrorTuple,
+<span class="lineno">   34 </span>  liftError,
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>  appendErrorTupleList,
+<span class="lineno">   37 </span>  appendErrorTuple,
+<span class="lineno">   38 </span>  appendError,
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>  MonadSafe,
+<span class="lineno">   41 </span>  SafeT,
+<span class="lineno">   42 </span>  EitherLegacy,
+<span class="lineno">   43 </span>  EitherError,
+<span class="lineno">   44 </span>  Safe,
+<span class="lineno">   45 </span>) where
+<span class="lineno">   46 </span>
+<span class="lineno">   47 </span>import           HelVM.Common.Control.Message
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>import           HelVM.Common.Util
+<span class="lineno">   50 </span>
+<span class="lineno">   51 </span>import           Control.Monad.Except         hiding (ExceptT, runExceptT)
+<span class="lineno">   52 </span>
+<span class="lineno">   53 </span>import           System.IO.Error
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>import qualified Data.DList                   as D
+<span class="lineno">   56 </span>
+<span class="lineno">   57 </span>-- | DeConstructors
+<span class="lineno">   58 </span>safeIOToPTextIO :: Show a =&gt; IO (Safe a) -&gt; IO Text
+<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">safeIOToPTextIO a = showP &lt;$&gt; safeIOToIO a</span></span>
+<span class="lineno">   60 </span>
+<span class="lineno">   61 </span>safeIOToIO :: IO (Safe a) -&gt; IO a
+<span class="lineno">   62 </span><span class="decl"><span class="istickedoff">safeIOToIO a = safeToIO =&lt;&lt; a</span></span>
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>safeToIO :: Safe a -&gt; IO a
+<span class="lineno">   65 </span><span class="decl"><span class="istickedoff">safeToIO = safeTToIO . liftSafe</span></span>
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>safeTToIO :: SafeT IO a -&gt; IO a
+<span class="lineno">   68 </span><span class="decl"><span class="istickedoff">safeTToIO = liftExceptT . withExceptT <span class="nottickedoff">(userError . errorsToString)</span></span></span>
+<span class="lineno">   69 </span>
+<span class="lineno">   70 </span>runSafeT :: SafeT m a -&gt; m (Safe a)
+<span class="lineno">   71 </span><span class="decl"><span class="istickedoff">runSafeT = runExceptT</span></span>
+<span class="lineno">   72 </span>
+<span class="lineno">   73 </span>runSafe :: Safe a -&gt; Safe a
+<span class="lineno">   74 </span><span class="decl"><span class="nottickedoff">runSafe = id</span></span>
+<span class="lineno">   75 </span>
+<span class="lineno">   76 </span>safeToText :: Safe a -&gt; Text
+<span class="lineno">   77 </span><span class="decl"><span class="istickedoff">safeToText (Left messages) = <span class="nottickedoff">errorsToText messages</span></span>
+<span class="lineno">   78 </span><span class="spaces"></span><span class="istickedoff">safeToText (Right       _) = &quot;&quot;</span></span>
+<span class="lineno">   79 </span>
+<span class="lineno">   80 </span>safeToEitherLegacy :: Safe a -&gt; EitherLegacy a
+<span class="lineno">   81 </span><span class="decl"><span class="nottickedoff">safeToEitherLegacy = first errorsToString</span></span>
+<span class="lineno">   82 </span>
+<span class="lineno">   83 </span>orErrorTuple :: MessageTuple -&gt; Safe a -&gt; a
+<span class="lineno">   84 </span><span class="decl"><span class="istickedoff">orErrorTuple t = unsafe . appendErrorTuple <span class="nottickedoff">t</span></span></span>
+<span class="lineno">   85 </span>
+<span class="lineno">   86 </span>orError :: Show e =&gt; e -&gt; Safe a -&gt; a
+<span class="lineno">   87 </span><span class="decl"><span class="nottickedoff">orError e = unsafe . appendError (show e)</span></span>
+<span class="lineno">   88 </span>
+<span class="lineno">   89 </span>unsafe :: Safe a -&gt; a
+<span class="lineno">   90 </span><span class="decl"><span class="istickedoff">unsafe (Right a) = a</span>
+<span class="lineno">   91 </span><span class="spaces"></span><span class="istickedoff">unsafe (Left  a) = <span class="nottickedoff">(error . errorsToText) a</span></span></span>
+<span class="lineno">   92 </span>
+<span class="lineno">   93 </span>-- | Constructors
+<span class="lineno">   94 </span>maybeOrError :: Show e =&gt; e -&gt; Maybe a -&gt; Safe a
+<span class="lineno">   95 </span><span class="decl"><span class="nottickedoff">maybeOrError = maybeToSafe . show</span></span>
+<span class="lineno">   96 </span>
+<span class="lineno">   97 </span>maybeToSafe :: Message -&gt; Maybe a -&gt; Safe a
+<span class="lineno">   98 </span><span class="decl"><span class="nottickedoff">maybeToSafe = maybeToRight . D.singleton</span></span>
+<span class="lineno">   99 </span>
+<span class="lineno">  100 </span>safeT :: Monad m =&gt; m a -&gt; SafeT m a
+<span class="lineno">  101 </span><span class="decl"><span class="istickedoff">safeT a = ExceptT $ pure &lt;$&gt; a</span></span>
+<span class="lineno">  102 </span>
+<span class="lineno">  103 </span>-- | Lift
+<span class="lineno">  104 </span>liftExceptT :: MonadError e m =&gt; ExceptT e m a -&gt; m a
+<span class="lineno">  105 </span><span class="decl"><span class="istickedoff">liftExceptT m = liftEither =&lt;&lt; runExceptT m</span></span>
+<span class="lineno">  106 </span>
+<span class="lineno">  107 </span>liftSafe :: MonadSafe m =&gt; Safe a -&gt; m a
+<span class="lineno">  108 </span><span class="decl"><span class="istickedoff">liftSafe = liftEither</span></span>
+<span class="lineno">  109 </span>
+<span class="lineno">  110 </span>liftEitherError :: MonadSafe m =&gt; EitherError a -&gt; m a
+<span class="lineno">  111 </span><span class="decl"><span class="istickedoff">liftEitherError = liftSafe . first <span class="nottickedoff">D.singleton</span></span></span>
+<span class="lineno">  112 </span>
+<span class="lineno">  113 </span>liftEitherLegacy :: MonadSafe m =&gt; EitherLegacy a -&gt; m a
+<span class="lineno">  114 </span><span class="decl"><span class="nottickedoff">liftEitherLegacy = liftSafe . first stringToErrors</span></span>
+<span class="lineno">  115 </span>
+<span class="lineno">  116 </span>-- | Lift from Maybe
+<span class="lineno">  117 </span>liftMaybeOrErrorTupleList :: MonadSafe m =&gt; [MessageTuple] -&gt; Maybe a -&gt; m a
+<span class="lineno">  118 </span><span class="decl"><span class="nottickedoff">liftMaybeOrErrorTupleList = liftMaybeOrError . tupleListToMessage</span></span>
+<span class="lineno">  119 </span>
+<span class="lineno">  120 </span>liftMaybeOrErrorTuple :: MonadSafe m =&gt; MessageTuple -&gt; Maybe a -&gt; m a
+<span class="lineno">  121 </span><span class="decl"><span class="istickedoff">liftMaybeOrErrorTuple = liftMaybeOrError . <span class="nottickedoff">tupleToMessage</span></span></span>
+<span class="lineno">  122 </span>
+<span class="lineno">  123 </span>liftMaybeOrError :: MonadSafe m =&gt; Message -&gt; Maybe a -&gt; m a
+<span class="lineno">  124 </span><span class="decl"><span class="istickedoff">liftMaybeOrError e = liftSafe . maybeToRight <span class="nottickedoff">(D.singleton e)</span></span></span>
+<span class="lineno">  125 </span>
+<span class="lineno">  126 </span>-- | Lift from Message
+<span class="lineno">  127 </span>liftErrorWithTupleList :: MonadSafe m =&gt; Message -&gt; [MessageTuple] -&gt; m a
+<span class="lineno">  128 </span><span class="decl"><span class="istickedoff">liftErrorWithTupleList m l = liftError <span class="nottickedoff">(m &lt;&gt; tupleListToMessage l)</span></span></span>
+<span class="lineno">  129 </span>
+<span class="lineno">  130 </span>liftErrorTupleList :: MonadSafe m =&gt; [MessageTuple] -&gt; m a
+<span class="lineno">  131 </span><span class="decl"><span class="nottickedoff">liftErrorTupleList = liftError . tupleListToMessage</span></span>
+<span class="lineno">  132 </span>
+<span class="lineno">  133 </span>liftErrorWithPrefix :: MonadSafe m =&gt; Message -&gt; Message -&gt; m a
+<span class="lineno">  134 </span><span class="decl"><span class="nottickedoff">liftErrorWithPrefix prefix showed = liftErrorTuple (prefix , showed)</span></span>
+<span class="lineno">  135 </span>
+<span class="lineno">  136 </span>liftErrorTuple :: MonadSafe m =&gt; MessageTuple -&gt; m a
+<span class="lineno">  137 </span><span class="decl"><span class="nottickedoff">liftErrorTuple = liftError . tupleToMessage</span></span>
+<span class="lineno">  138 </span>
+<span class="lineno">  139 </span>liftError :: MonadSafe m =&gt; Message -&gt; m a
+<span class="lineno">  140 </span><span class="decl"><span class="istickedoff">liftError = throwError . <span class="nottickedoff">D.singleton</span></span></span>
+<span class="lineno">  141 </span>
+<span class="lineno">  142 </span>-- | Append Message
+<span class="lineno">  143 </span>appendErrorTupleList :: MonadSafe m =&gt; [MessageTuple] -&gt; m a -&gt; m a
+<span class="lineno">  144 </span><span class="decl"><span class="istickedoff">appendErrorTupleList = appendError . <span class="nottickedoff">tupleListToMessage</span></span></span>
+<span class="lineno">  145 </span>
+<span class="lineno">  146 </span>appendErrorTuple :: MonadSafe m =&gt; MessageTuple -&gt; m a -&gt; m a
+<span class="lineno">  147 </span><span class="decl"><span class="istickedoff">appendErrorTuple = appendError . <span class="nottickedoff">tupleToMessage</span></span></span>
+<span class="lineno">  148 </span>
+<span class="lineno">  149 </span>appendError :: MonadSafe m =&gt; Message -&gt; m a -&gt; m a
+<span class="lineno">  150 </span><span class="decl"><span class="istickedoff">appendError message a = catchError a <span class="nottickedoff">appendAndThrow</span> where <span class="nottickedoff">appendAndThrow es = throwError (es `D.snoc` message)</span></span></span>
+<span class="lineno">  151 </span>
+<span class="lineno">  152 </span>-- | Types
+<span class="lineno">  153 </span>type MonadSafe m = MonadError Messages m
+<span class="lineno">  154 </span>
+<span class="lineno">  155 </span>type SafeT m = ExceptT Messages m
+<span class="lineno">  156 </span>
+<span class="lineno">  157 </span>type Safe = Either Messages
+<span class="lineno">  158 </span>
+<span class="lineno">  159 </span>type EitherError = Either Text
+<span class="lineno">  160 </span>
+<span class="lineno">  161 </span>type EitherLegacy = Either String
+
+</pre>
+</body>
+</html>

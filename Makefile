@@ -51,6 +51,7 @@ repl:
 
 report:
 	make haddock stan hlint
+	./report.sh
 
 run:
 	make tix
