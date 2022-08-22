@@ -1,6 +1,6 @@
-.PHONY: all bench build check clean configure exec fast golden haddock hlint main output repl report run stan stylish test tix update
+.PHONY: all bench build check clean configure exec fast golden haddock hlint install main output repl report run sdist stan stylish test tix update
 
-all: update fast bench
+all: update fast install sdist bench
 
 bench:
 	rm -f helma-benchmark.tix
@@ -37,6 +37,9 @@ haddock:
 hlint:
 	./hlint.sh
 
+install:
+	cabal install all --overwrite-policy=always
+
 main:
 	make stylish configure check build test
 
@@ -52,6 +55,9 @@ report:
 run:
 	make tix
 	cabal new-run --jobs helma
+
+sdist:
+	cabal sdist
 
 stan:
 	./stan.sh
