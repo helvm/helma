@@ -100,11 +100,9 @@ common common-options
       -fprint-potential-instances
       -Werror
 
-library internal
---  coverage: False
---  library-coverage: False
+library helvm-common
   import:              common-options
-  hs-source-dirs:      hs/internal
+  hs-source-dirs:      hs/common
   exposed-modules:
     HelVM.Common.Collections.MapList
     HelVM.Common.Collections.SList
@@ -147,8 +145,6 @@ library internal
   ghc-options:
 
 library
---  coverage: True
---  library-coverage: True
   import:              common-options
   hs-source-dirs:      hs/src
   exposed-modules:
@@ -229,7 +225,7 @@ library
     HelVM.HelMA.Automata.Zot.Expression
 
   build-depends:
-      internal
+      helvm-common
     , containers           <  0.7
     , data-default
     , dlist
@@ -251,7 +247,7 @@ executable helma
     AppOptions
     Lang
   build-depends:
-      internal
+      helvm-common
     , helma
     , optparse-applicative >= 0.14.3.0
     , pretty-simple
@@ -317,7 +313,7 @@ test-suite helma-test
     , hspec-golden
     , hspec-slow
 
-    , internal
+    , helvm-common
     , helma
 
     , dlist
@@ -357,7 +353,7 @@ benchmark helma-benchmark
   build-depends:
       gauge
 
-    , internal
+    , helvm-common
     , helma
 
     , filepath

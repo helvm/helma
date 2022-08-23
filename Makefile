@@ -20,7 +20,7 @@ clean:
 
 configure:
 	rm -f cabal.project.local*
-	cabal configure --disable-library-coverage --enable-benchmarks --enable-coverage --enable-tests -f ghcoptions
+	cabal configure enable-benchmarks --enable-tests -f ghcoptions
 
 exec:
 	make tix
@@ -41,7 +41,7 @@ install:
 	cabal install all --overwrite-policy=always
 
 main:
-	make stylish configure check build test
+	make stylish check build test
 
 output:
 	if test -d .output; then rm -r .output; fi
