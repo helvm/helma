@@ -1,0 +1,115 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.Common.Collections.MapList where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           HelVM.Common.Containers.LLIndexSafe
+<span class="lineno">    4 </span>import           HelVM.Common.Containers.LLInsertDef
+<span class="lineno">    5 </span>import           HelVM.Common.Control.Safe
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           Data.Default
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import qualified Data.IntMap                         as IntMap
+<span class="lineno">   10 </span>import qualified Data.List.Index                     as List
+<span class="lineno">   11 </span>import qualified Data.ListLike                       as LL
+<span class="lineno">   12 </span>import qualified GHC.Exts                            as I (IsList (..))
+<span class="lineno">   13 </span>import qualified Text.Show
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>-- | Construction
+<span class="lineno">   16 </span>mapListEmpty :: MapList a
+<span class="lineno">   17 </span><span class="decl"><span class="istickedoff">mapListEmpty = mapListFromList []</span></span>
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>mapListFromList :: [a] -&gt; MapList a
+<span class="lineno">   20 </span><span class="decl"><span class="istickedoff">mapListFromList = fromIndexedList . List.indexed</span></span>
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>fromIndexedList :: IndexedList a -&gt; MapList a
+<span class="lineno">   23 </span><span class="decl"><span class="istickedoff">fromIndexedList = fromIntMap . IntMap.fromList</span></span>
+<span class="lineno">   24 </span>
+<span class="lineno">   25 </span>fromIntMap :: IntMap a -&gt; MapList a
+<span class="lineno">   26 </span><span class="decl"><span class="istickedoff">fromIntMap = MapList</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>-- | DeConstruction
+<span class="lineno">   29 </span>mapListToList :: Default a =&gt; MapList a -&gt; [a]
+<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">mapListToList = listFromDescList . toDescList</span></span>
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>toDescList :: MapList a -&gt; IndexedList a
+<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">toDescList = IntMap.toDescList . unMapList</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>-- | Internal function
+<span class="lineno">   36 </span>listFromDescList :: Default a =&gt; IndexedList a -&gt; [a]
+<span class="lineno">   37 </span><span class="decl"><span class="istickedoff">listFromDescList = flip go [] where</span>
+<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">go :: Default a =&gt; IndexedList a -&gt; [a] -&gt; [a]</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">go []                          acc = acc</span>
+<span class="lineno">   40 </span><span class="spaces">  </span><span class="istickedoff">go [(i , v)]                   acc = consDef i $ v : acc</span>
+<span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">go ((i1 , v1) : (i2 , v2) : l) acc = go ((i2 , v2) : l) $ consDef (i1 - i2 - 1)  $ v1 : acc</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>consDef :: Default a =&gt; Key -&gt; [a] -&gt; [a]
+<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">consDef i l = (check . compare i) 0 where</span>
+<span class="lineno">   45 </span><span class="spaces">  </span><span class="istickedoff">check LT = <span class="nottickedoff">error &quot;MapList.consDef index is negative&quot;</span></span>
+<span class="lineno">   46 </span><span class="spaces">  </span><span class="istickedoff">check EQ = l</span>
+<span class="lineno">   47 </span><span class="spaces">  </span><span class="istickedoff">check GT = consDef (i - 1) (def : l)</span></span>
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>-- | Types
+<span class="lineno">   50 </span>type Key = IntMap.Key
+<span class="lineno">   51 </span>type IndexedList a = [(Key , a)]
+<span class="lineno">   52 </span>type MapString = MapList Char
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>newtype MapList a = MapList {<span class="istickedoff"><span class="decl"><span class="istickedoff">unMapList</span></span></span> :: IntMap a}
+<span class="lineno">   55 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span>)
+<span class="lineno">   56 </span>  deriving newtype (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Semigroup</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Monoid</span></span></span></span></span></span>)
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>-- | Standard instances
+<span class="lineno">   59 </span>instance (Default a , Show a) =&gt; Show (MapList a) where
+<span class="lineno">   60 </span>  <span class="decl"><span class="istickedoff">show = show . I.toList</span></span>
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>instance IsString MapString where
+<span class="lineno">   63 </span>  <span class="decl"><span class="nottickedoff">fromString = mapListFromList</span></span>
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>instance Default a =&gt; IsList (MapList a) where
+<span class="lineno">   66 </span>  type (Item (MapList a)) = a
+<span class="lineno">   67 </span>  <span class="decl"><span class="istickedoff">toList      = mapListToList</span></span>
+<span class="lineno">   68 </span>  <span class="decl"><span class="istickedoff">fromList    = mapListFromList</span></span>
+<span class="lineno">   69 </span>  <span class="decl"><span class="nottickedoff">fromListN n = mapListFromList . fromListN n</span></span>
+<span class="lineno">   70 </span>
+<span class="lineno">   71 </span>-- | ListLike instances
+<span class="lineno">   72 </span>instance Default a =&gt; LL.FoldableLL (MapList a) a where
+<span class="lineno">   73 </span>  <span class="decl"><span class="nottickedoff">foldl f b = IntMap.foldl f b . unMapList</span></span>
+<span class="lineno">   74 </span>  <span class="decl"><span class="nottickedoff">foldr f b = IntMap.foldr f b . unMapList</span></span>
+<span class="lineno">   75 </span>
+<span class="lineno">   76 </span>-- | My instances
+<span class="lineno">   77 </span>instance {-# OVERLAPPING #-} IndexSafe (MapList a) a where
+<span class="lineno">   78 </span>  <span class="decl"><span class="nottickedoff">findWithDefault e i = IntMap.findWithDefault e i . unMapList</span></span>
+<span class="lineno">   79 </span>  <span class="decl"><span class="nottickedoff">findMaybe    = mapListFindMaybe</span></span>
+<span class="lineno">   80 </span>  <span class="decl"><span class="istickedoff">indexMaybe   = mapListIndexMaybe</span></span>
+<span class="lineno">   81 </span>  <span class="decl"><span class="nottickedoff">findSafe   i = liftMaybeOrError &quot;MapList.findSafe: index is not correct&quot; . mapListFindMaybe i</span></span>
+<span class="lineno">   82 </span>  <span class="decl"><span class="nottickedoff">indexSafe  l = liftMaybeOrError &quot;MapList.LLIndexSafe: index is not correct&quot; . mapListIndexMaybe l</span></span>
+<span class="lineno">   83 </span>
+<span class="lineno">   84 </span>instance InsertDef (MapList a) a where
+<span class="lineno">   85 </span>  <span class="decl"><span class="istickedoff">insertDef i e = fromIntMap . IntMap.insert i e . unMapList</span></span>
+<span class="lineno">   86 </span>
+<span class="lineno">   87 </span>-- | Internal functions
+<span class="lineno">   88 </span>mapListFindMaybe :: Key -&gt; MapList a -&gt; Maybe a
+<span class="lineno">   89 </span><span class="decl"><span class="nottickedoff">mapListFindMaybe  i   = IntMap.lookup i . unMapList</span></span>
+<span class="lineno">   90 </span>
+<span class="lineno">   91 </span>mapListIndexMaybe :: MapList a -&gt; Key -&gt; Maybe a
+<span class="lineno">   92 </span><span class="decl"><span class="istickedoff">mapListIndexMaybe l i = unMapList l IntMap.!? i</span></span>
+
+</pre>
+</body>
+</html>

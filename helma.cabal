@@ -100,9 +100,11 @@ common common-options
       -fprint-potential-instances
       -Werror
 
-library
+library internal
+--  coverage: False
+--  library-coverage: False
   import:              common-options
-  hs-source-dirs:      hs/src
+  hs-source-dirs:      hs/internal
   exposed-modules:
     HelVM.Common.Collections.MapList
     HelVM.Common.Collections.SList
@@ -129,6 +131,27 @@ library
     HelVM.Common.Util
     HelVM.Common.ZipA
 
+  build-depends:
+      containers           <  0.7
+    , data-default
+    , dlist
+    , ilist
+    , ListLike
+    , mono-traversable
+    , mtl
+    , pretty-simple
+    , slist
+    , text
+    , type-operators
+
+  ghc-options:
+
+library
+--  coverage: True
+--  library-coverage: True
+  import:              common-options
+  hs-source-dirs:      hs/src
+  exposed-modules:
     HelVM.HelMA.Automaton.API.EvalParams
     HelVM.HelMA.Automaton.API.IOTypes
     HelVM.HelMA.Automaton.API.TypeOptions
@@ -206,17 +229,14 @@ library
     HelVM.HelMA.Automata.Zot.Expression
 
   build-depends:
-      containers           <  0.7
+      internal
+    , containers           <  0.7
     , data-default
     , dlist
     , free
-    , ilist
     , ListLike
     , natural-transformation
-    , mono-traversable
     , mtl
-    , pretty-simple
-    , slist
     , text
     , type-operators
     , vector
@@ -231,7 +251,8 @@ executable helma
     AppOptions
     Lang
   build-depends:
-      helma
+      internal
+    , helma
     , optparse-applicative >= 0.14.3.0
     , pretty-simple
   ghc-options:
@@ -296,6 +317,7 @@ test-suite helma-test
     , hspec-golden
     , hspec-slow
 
+    , internal
     , helma
 
     , dlist
@@ -335,6 +357,7 @@ benchmark helma-benchmark
   build-depends:
       gauge
 
+    , internal
     , helma
 
     , filepath

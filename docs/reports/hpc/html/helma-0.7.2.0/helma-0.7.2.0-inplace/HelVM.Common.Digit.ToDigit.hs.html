@@ -1,0 +1,101 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.Common.Digit.ToDigit (
+<span class="lineno">    2 </span>  makeDigitStringFromList,
+<span class="lineno">    3 </span>  makeDigitString,
+<span class="lineno">    4 </span>  makeAsciiText28FromList,
+<span class="lineno">    5 </span>  makeAsciiText28,
+<span class="lineno">    6 </span>  makeAsciiString28FromList,
+<span class="lineno">    7 </span>  makeAsciiString28,
+<span class="lineno">    8 </span>  makeAsciiString,
+<span class="lineno">    9 </span>  makeIntegral7FromList,
+<span class="lineno">   10 </span>  makeIntegral7,
+<span class="lineno">   11 </span>  makeIntegral2FromList,
+<span class="lineno">   12 </span>  makeIntegral2,
+<span class="lineno">   13 </span>  makeIntegral,
+<span class="lineno">   14 </span>  wrongToken,
+<span class="lineno">   15 </span>  ToDigit,
+<span class="lineno">   16 </span>  toDigit,
+<span class="lineno">   17 </span>) where
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>import           HelVM.Common.Digit.Digits
+<span class="lineno">   20 </span>
+<span class="lineno">   21 </span>import           HelVM.Common.Control.Safe
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>import           Data.Char                      hiding (chr)
+<span class="lineno">   24 </span>
+<span class="lineno">   25 </span>import qualified HelVM.Common.Collections.SList as S
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>import qualified Data.ListLike                  as LL
+<span class="lineno">   28 </span>
+<span class="lineno">   29 </span>makeDigitStringFromList :: (MonadSafe m , ToDigit a) =&gt; [a] -&gt; m S.SString
+<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">makeDigitStringFromList = makeDigitString . fromList</span></span>
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>makeDigitString :: (MonadSafe m , ToDigit a) =&gt; S.SList a -&gt; m S.SString
+<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">makeDigitString = traverse toDigitChar</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>makeAsciiText28FromList :: (MonadSafe m , ToDigit a) =&gt; [a] -&gt; m Text
+<span class="lineno">   36 </span><span class="decl"><span class="nottickedoff">makeAsciiText28FromList = makeAsciiText28 . fromList</span></span>
+<span class="lineno">   37 </span>
+<span class="lineno">   38 </span>makeAsciiText28 :: (MonadSafe m , ToDigit a) =&gt; S.SList a -&gt; m Text
+<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">makeAsciiText28 l = toText . S.sListToList &lt;$&gt; makeAsciiString28 l</span></span>
+<span class="lineno">   40 </span>
+<span class="lineno">   41 </span>makeAsciiString28FromList :: (MonadSafe m , ToDigit a) =&gt; [a] -&gt; m S.SString
+<span class="lineno">   42 </span><span class="decl"><span class="istickedoff">makeAsciiString28FromList = makeAsciiString28 . fromList</span></span>
+<span class="lineno">   43 </span>
+<span class="lineno">   44 </span>makeAsciiString28 :: (MonadSafe m , ToDigit a) =&gt; S.SList a -&gt; m S.SString
+<span class="lineno">   45 </span><span class="decl"><span class="istickedoff">makeAsciiString28 = makeAsciiString 2 8</span></span>
+<span class="lineno">   46 </span>
+<span class="lineno">   47 </span>makeAsciiString :: (MonadSafe m , ToDigit a) =&gt; Int -&gt; Int -&gt; S.SList a -&gt; m S.SString
+<span class="lineno">   48 </span><span class="decl"><span class="istickedoff">makeAsciiString base n xs = traverse (makeChar base) $ S.chunksOf n xs</span></span>
+<span class="lineno">   49 </span>
+<span class="lineno">   50 </span>makeChar :: (MonadSafe m , ToDigit a) =&gt; Int -&gt; S.SList a -&gt; m Char
+<span class="lineno">   51 </span><span class="decl"><span class="istickedoff">makeChar base xs = chr &lt;$&gt; makeIntegral base (LL.reverse xs)</span></span>
+<span class="lineno">   52 </span>
+<span class="lineno">   53 </span>toDigitChar :: MonadSafe m =&gt; ToDigit a =&gt; a -&gt; m Char
+<span class="lineno">   54 </span><span class="decl"><span class="istickedoff">toDigitChar a = integerToDigit &lt;$&gt; toDigit a</span></span>
+<span class="lineno">   55 </span>
+<span class="lineno">   56 </span>integerToDigit :: Integer -&gt; Char
+<span class="lineno">   57 </span><span class="decl"><span class="istickedoff">integerToDigit = intToDigit . fromInteger</span></span>
+<span class="lineno">   58 </span>
+<span class="lineno">   59 </span>makeIntegral7FromList :: (MonadSafe m , ToDigit a, Integral b) =&gt; [a] -&gt; m b
+<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">makeIntegral7FromList = makeIntegral7 . fromList</span></span>
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>makeIntegral7 :: (MonadSafe m , ToDigit a , Integral b) =&gt; S.SList a -&gt; m b
+<span class="lineno">   63 </span><span class="decl"><span class="istickedoff">makeIntegral7 = makeIntegral 7</span></span>
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>makeIntegral2FromList :: (MonadSafe m , ToDigit a, Integral b) =&gt; [a] -&gt; m b
+<span class="lineno">   66 </span><span class="decl"><span class="istickedoff">makeIntegral2FromList = makeIntegral2 . fromList</span></span>
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>makeIntegral2 :: (MonadSafe m , ToDigit a , Integral b) =&gt; S.SList a -&gt; m b
+<span class="lineno">   69 </span><span class="decl"><span class="istickedoff">makeIntegral2 = makeIntegral 2</span></span>
+<span class="lineno">   70 </span>
+<span class="lineno">   71 </span>makeIntegral :: (MonadSafe m , ToDigit a , Integral b) =&gt; b -&gt; S.SList a -&gt; m b
+<span class="lineno">   72 </span><span class="decl"><span class="istickedoff">makeIntegral base digits = digitsToIntegral base (toDigit &lt;$&gt; digits)</span></span>
+<span class="lineno">   73 </span>
+<span class="lineno">   74 </span>wrongToken :: (MonadSafe m , Show t) =&gt; t -&gt; m a
+<span class="lineno">   75 </span><span class="decl"><span class="nottickedoff">wrongToken = liftErrorWithPrefix &quot;Wrong token&quot; . show</span></span>
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>class ToDigit t where
+<span class="lineno">   78 </span>  toDigit :: (MonadSafe m, Integral a) =&gt; t -&gt; m a
+
+</pre>
+</body>
+</html>

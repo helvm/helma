@@ -20,7 +20,7 @@ clean:
 
 configure:
 	rm -f cabal.project.local*
-	cabal configure --enable-benchmarks --enable-coverage --enable-tests -f ghcoptions
+	cabal configure --disable-library-coverage --enable-benchmarks --enable-coverage --enable-tests -f ghcoptions
 
 exec:
 	make tix

@@ -1,0 +1,187 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.IO.MockIO (
+<span class="lineno">    2 </span>  ioExecMockIOBatch,
+<span class="lineno">    3 </span>  ioExecMockIOWithInput,
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>  safeExecMockIOBatch,
+<span class="lineno">    6 </span>  safeExecMockIOWithInput,
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>  execMockIOBatch,
+<span class="lineno">    9 </span>  execMockIOWithInput,
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>  runMockIO,
+<span class="lineno">   12 </span>  createMockIO,
+<span class="lineno">   13 </span>  calculateOutput,
+<span class="lineno">   14 </span>  calculateLogged,
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>  MockIO,
+<span class="lineno">   17 </span>  MockIOData,
+<span class="lineno">   18 </span>) where
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import           HelVM.HelMA.Automaton.API.IOTypes
+<span class="lineno">   21 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>import           HelVM.Common.Control.Control
+<span class="lineno">   24 </span>import           HelVM.Common.Control.Safe
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>import           HelVM.Common.ListLikeUtil
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>import           Data.Text                           as Text
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>ioExecMockIOBatch :: ControlT MockIO () -&gt; IO MockIOData
+<span class="lineno">   31 </span><span class="decl"><span class="nottickedoff">ioExecMockIOBatch = ioExecMockIOWithInput &quot;&quot;</span></span>
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>ioExecMockIOWithInput :: Input -&gt; ControlT MockIO () -&gt; IO MockIOData
+<span class="lineno">   34 </span><span class="decl"><span class="istickedoff">ioExecMockIOWithInput i = safeToIO . safeExecMockIOWithInput i</span></span>
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>safeExecMockIOBatch :: ControlT MockIO () -&gt; Safe MockIOData
+<span class="lineno">   37 </span><span class="decl"><span class="nottickedoff">safeExecMockIOBatch = safeExecMockIOWithInput &quot;&quot;</span></span>
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>safeExecMockIOWithInput :: Input -&gt; ControlT MockIO () -&gt; Safe MockIOData
+<span class="lineno">   40 </span><span class="decl"><span class="istickedoff">safeExecMockIOWithInput i = pure . runMockIO i . runControlT</span></span>
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>execMockIOBatch :: MockIO () -&gt; MockIOData
+<span class="lineno">   43 </span><span class="decl"><span class="istickedoff">execMockIOBatch = execMockIOWithInput &quot;&quot;</span></span>
+<span class="lineno">   44 </span>
+<span class="lineno">   45 </span>execMockIOWithInput :: Input -&gt; MockIO () -&gt; MockIOData
+<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">execMockIOWithInput i a = runMockIO i $ safeWithMessages &lt;$&gt; a</span></span>
+<span class="lineno">   47 </span>
+<span class="lineno">   48 </span>----
+<span class="lineno">   49 </span>
+<span class="lineno">   50 </span>runMockIO :: Input -&gt; MockIO UnitSafeWithMessages -&gt; MockIOData
+<span class="lineno">   51 </span><span class="decl"><span class="istickedoff">runMockIO i mockIO = flip mockDataLogStr mockIOData $ safeWithMessagesToText s</span>
+<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">where (s , mockIOData) = runState mockIO $ createMockIO i</span></span>
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>createMockIO :: Input -&gt; MockIOData
+<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">createMockIO i = MockIOData (toString i) &quot;&quot; &quot;&quot;</span></span>
+<span class="lineno">   56 </span>
+<span class="lineno">   57 </span>calculateOutput :: MockIOData -&gt; Output
+<span class="lineno">   58 </span><span class="decl"><span class="istickedoff">calculateOutput = calculateText . output</span></span>
+<span class="lineno">   59 </span>
+<span class="lineno">   60 </span>calculateLogged :: MockIOData -&gt; Output
+<span class="lineno">   61 </span><span class="decl"><span class="istickedoff">calculateLogged = calculateText . logged</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>----
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>instance BusinessIO MockIO where
+<span class="lineno">   66 </span>  <span class="decl"><span class="istickedoff">wGetChar     = mockGetChar</span></span>
+<span class="lineno">   67 </span>  <span class="decl"><span class="nottickedoff">wGetLine     = mockGetLine</span></span>
+<span class="lineno">   68 </span>  <span class="decl"><span class="nottickedoff">wGetContents = mockGetContent</span></span>
+<span class="lineno">   69 </span>  <span class="decl"><span class="istickedoff">wPutChar     = mockPutChar</span></span>
+<span class="lineno">   70 </span>  <span class="decl"><span class="istickedoff">wPutStr      = mockPutStr</span></span>
+<span class="lineno">   71 </span>  <span class="decl"><span class="istickedoff">wLogStr      = mockLogStr</span></span>
+<span class="lineno">   72 </span>
+<span class="lineno">   73 </span>instance BusinessIO (SafeT MockIO) where
+<span class="lineno">   74 </span>  <span class="decl"><span class="nottickedoff">wGetChar     = safeT   mockGetChar</span></span>
+<span class="lineno">   75 </span>  <span class="decl"><span class="nottickedoff">wGetLine     = safeT   mockGetLine</span></span>
+<span class="lineno">   76 </span>  <span class="decl"><span class="nottickedoff">wGetContents = safeT   mockGetContent</span></span>
+<span class="lineno">   77 </span>  <span class="decl"><span class="nottickedoff">wPutChar     = safeT . mockPutChar</span></span>
+<span class="lineno">   78 </span>  <span class="decl"><span class="nottickedoff">wPutStr      = safeT . mockPutStr</span></span>
+<span class="lineno">   79 </span>  <span class="decl"><span class="nottickedoff">wLogStr      = safeT . mockLogStr</span></span>
+<span class="lineno">   80 </span>
+<span class="lineno">   81 </span>instance BusinessIO (ControlT MockIO) where
+<span class="lineno">   82 </span>  <span class="decl"><span class="istickedoff">wGetChar     =            mockGetCharSafe</span></span>
+<span class="lineno">   83 </span>  <span class="decl"><span class="istickedoff">wGetLine     =            mockGetLineSafe</span></span>
+<span class="lineno">   84 </span>  <span class="decl"><span class="nottickedoff">wGetContents = controlT   mockGetContent</span></span>
+<span class="lineno">   85 </span>  <span class="decl"><span class="istickedoff">wPutChar     = controlT . mockPutChar</span></span>
+<span class="lineno">   86 </span>  <span class="decl"><span class="istickedoff">wPutStr      = controlT . mockPutStr</span></span>
+<span class="lineno">   87 </span>  <span class="decl"><span class="nottickedoff">wLogStr      = controlT . mockLogStr</span></span>
+<span class="lineno">   88 </span>
+<span class="lineno">   89 </span>----
+<span class="lineno">   90 </span>
+<span class="lineno">   91 </span>mockGetChar :: MonadMockIO m =&gt; m Char
+<span class="lineno">   92 </span><span class="decl"><span class="istickedoff">mockGetChar = mockGetChar' =&lt;&lt; get where</span>
+<span class="lineno">   93 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' :: MonadMockIO m =&gt; MockIOData -&gt; m Char</span>
+<span class="lineno">   94 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' mockIO = orErrorTuple <span class="nottickedoff">(&quot;mockGetChar&quot; , show mockIO)</span> (top (input mockIO)) &lt;$ put mockIO { input = orErrorTuple <span class="nottickedoff">(&quot;mockGetChar&quot; , show mockIO)</span> $ discard $ input mockIO }</span></span>
+<span class="lineno">   95 </span>
+<span class="lineno">   96 </span>mockGetLine :: MonadMockIO m =&gt; m Text
+<span class="lineno">   97 </span><span class="decl"><span class="nottickedoff">mockGetLine = mockGetLine' =&lt;&lt; get where</span>
+<span class="lineno">   98 </span><span class="spaces">  </span><span class="nottickedoff">mockGetLine' :: MonadMockIO m =&gt; MockIOData -&gt; m Text</span>
+<span class="lineno">   99 </span><span class="spaces">  </span><span class="nottickedoff">mockGetLine' mockIO = toText line &lt;$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO</span></span>
+<span class="lineno">  100 </span>
+<span class="lineno">  101 </span>mockGetContent :: MonadMockIO m =&gt; m Text
+<span class="lineno">  102 </span><span class="decl"><span class="nottickedoff">mockGetContent = mockGetContent' =&lt;&lt; get where</span>
+<span class="lineno">  103 </span><span class="spaces">  </span><span class="nottickedoff">mockGetContent' :: MonadMockIO m =&gt; MockIOData -&gt; m Text</span>
+<span class="lineno">  104 </span><span class="spaces">  </span><span class="nottickedoff">mockGetContent' mockIO = toText content &lt;$ put mockIO { input = &quot;&quot; } where content = input mockIO</span></span>
+<span class="lineno">  105 </span>
+<span class="lineno">  106 </span>mockGetCharSafe :: MonadControlMockIO m =&gt; m Char
+<span class="lineno">  107 </span><span class="decl"><span class="istickedoff">mockGetCharSafe = mockGetChar' =&lt;&lt; get where</span>
+<span class="lineno">  108 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' :: MonadControlMockIO m =&gt; MockIOData -&gt; m Char</span>
+<span class="lineno">  109 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' mockIO = appendErrorTuple <span class="nottickedoff">(&quot;mockGetCharSafe&quot; , show mockIO)</span> $ mockGetChar'' =&lt;&lt; unconsSafe (input mockIO) where</span>
+<span class="lineno">  110 </span><span class="spaces">    </span><span class="istickedoff">mockGetChar'' (c, input') = put mockIO { input = input' } $&gt; c</span></span>
+<span class="lineno">  111 </span>
+<span class="lineno">  112 </span>mockGetLineSafe :: MonadControlMockIO m =&gt; m Text
+<span class="lineno">  113 </span><span class="decl"><span class="istickedoff">mockGetLineSafe = mockGetLine' =&lt;&lt; get where</span>
+<span class="lineno">  114 </span><span class="spaces">  </span><span class="istickedoff">mockGetLine' :: MonadControlMockIO m =&gt; MockIOData -&gt; m Text</span>
+<span class="lineno">  115 </span><span class="spaces">  </span><span class="istickedoff">mockGetLine' mockIO = toText line &lt;$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO</span></span>
+<span class="lineno">  116 </span>
+<span class="lineno">  117 </span>
+<span class="lineno">  118 </span>mockPutChar :: Char -&gt; MockIO ()
+<span class="lineno">  119 </span><span class="decl"><span class="istickedoff">mockPutChar = modify . mockDataPutChar</span></span>
+<span class="lineno">  120 </span>
+<span class="lineno">  121 </span>mockPutStr :: Text -&gt; MockIO ()
+<span class="lineno">  122 </span><span class="decl"><span class="istickedoff">mockPutStr = modify . mockDataPutStr</span></span>
+<span class="lineno">  123 </span>
+<span class="lineno">  124 </span>mockLogStr :: Text -&gt; MockIO ()
+<span class="lineno">  125 </span><span class="decl"><span class="istickedoff">mockLogStr = modify . mockDataLogStr</span></span>
+<span class="lineno">  126 </span>
+<span class="lineno">  127 </span>----
+<span class="lineno">  128 </span>
+<span class="lineno">  129 </span>mockDataPutChar :: Char -&gt; MockIOData -&gt; MockIOData
+<span class="lineno">  130 </span><span class="decl"><span class="istickedoff">mockDataPutChar char mockIO = mockIO { output = char : output mockIO }</span></span>
+<span class="lineno">  131 </span>
+<span class="lineno">  132 </span>mockDataPutStr :: Text -&gt; MockIOData -&gt; MockIOData
+<span class="lineno">  133 </span><span class="decl"><span class="istickedoff">mockDataPutStr text mockIO = mockIO { output = calculateString text &lt;&gt; output mockIO }</span></span>
+<span class="lineno">  134 </span>
+<span class="lineno">  135 </span>mockDataLogStr :: Text -&gt; MockIOData -&gt; MockIOData
+<span class="lineno">  136 </span><span class="decl"><span class="istickedoff">mockDataLogStr text mockIO = mockIO { logged = calculateString text &lt;&gt; logged mockIO }</span></span>
+<span class="lineno">  137 </span>
+<span class="lineno">  138 </span>----
+<span class="lineno">  139 </span>
+<span class="lineno">  140 </span>type MonadControlMockIO m = (MonadMockIO m , MonadControl m)
+<span class="lineno">  141 </span>
+<span class="lineno">  142 </span>--type MonadSafeMockIO m = (MonadMockIO m , MonadSafe m)
+<span class="lineno">  143 </span>
+<span class="lineno">  144 </span>type MonadMockIO m = MonadState MockIOData m
+<span class="lineno">  145 </span>
+<span class="lineno">  146 </span>type MockIO = State MockIOData
+<span class="lineno">  147 </span>
+<span class="lineno">  148 </span>calculateText :: String -&gt; Output
+<span class="lineno">  149 </span><span class="decl"><span class="istickedoff">calculateText = Text.reverse . toText</span></span>
+<span class="lineno">  150 </span>
+<span class="lineno">  151 </span>calculateString :: Output -&gt; String
+<span class="lineno">  152 </span><span class="decl"><span class="istickedoff">calculateString =  toString . Text.reverse</span></span>
+<span class="lineno">  153 </span>
+<span class="lineno">  154 </span>data MockIOData = MockIOData
+<span class="lineno">  155 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">input</span></span></span>  :: !String
+<span class="lineno">  156 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">output</span></span></span> :: !String
+<span class="lineno">  157 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">logged</span></span></span> :: !String
+<span class="lineno">  158 </span>  }
+<span class="lineno">  159 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff">Show</span></span>)
+<span class="lineno">  160 </span>
+<span class="lineno">  161 </span>----
+<span class="lineno">  162 </span>
+<span class="lineno">  163 </span>splitStringByLn :: String -&gt; (String , String)
+<span class="lineno">  164 </span><span class="decl"><span class="istickedoff">splitStringByLn = splitBy '\n'</span></span>
+
+</pre>
+</body>
+</html>
