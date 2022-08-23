@@ -1,0 +1,16 @@
+packages: *.cabal
+
+coverage: False
+library-coverage: False
+
+package helvm-common
+  coverage: False
+  library-coverage: False
+
+package helma
+  coverage: True
+  library-coverage: True
+
+package helma-test
+  coverage: True
+  library-coverage: True
