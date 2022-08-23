@@ -42,7 +42,7 @@ install:
 	cabal install all --overwrite-policy=always
 
 main:
-	make stylish check build test
+	make stylish configure check build test
 
 output:
 	if test -d .output; then rm -r .output; fi
