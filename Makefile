@@ -7,6 +7,7 @@ bench:
 	cabal new-bench --jobs -f ghcoptions
 
 build:
+	rm -f hspec-discover.tix
 	cabal new-build --jobs --enable-profiling -f ghcoptions
 
 check:
