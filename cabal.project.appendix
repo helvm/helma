@@ -1,7 +1,0 @@
-package *
-  coverage: True
-  library-coverage: True
-
-package helvm-common
-  coverage: False
-  library-coverage: False

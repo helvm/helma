@@ -21,7 +21,6 @@ clean:
 configure:
 	rm -f cabal.project.local*
 	cabal configure --enable-benchmarks --enable-tests -f ghcoptions
-	#cat cabal.project.appendix >> cabal.project.local
 
 exec:
 	make tix
