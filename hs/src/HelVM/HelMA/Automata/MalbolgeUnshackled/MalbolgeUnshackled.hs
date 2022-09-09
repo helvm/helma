@@ -1,23 +1,7 @@
-{-
- - An interpreter for the Malbolge Unshackled dialect, which it is hoped
- - is genuinely Turing complete.
- -
- - By Ørjan Johansen (Feb 2007-)
- - This program is in the public domain.
- -
- - Feb 25:
- -  Initial uploading.
- -  Fixed bug that caused rotation width to stay at default 10,
- -      causing spurious backward compatibility.  On the positive side,
- -      it made it possible to test the rest of the program.
- - Oct 25, 2013:
- -  Made to compile with recent ghc.
- -}
-
 {-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE RecursiveDo    #-}
 
-module Main where
+module HelVM.HelMA.Automata.MalbolgeUnshackled where
 
 -- modules for lazy mutable structures
 import qualified Control.Monad.Fix
