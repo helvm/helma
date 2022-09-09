@@ -14,23 +14,24 @@
  -  Made to compile with recent ghc.
  -}
 
-{-# LANGUAGE RecursiveDo, NamedFieldPuns #-}
+{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE RecursiveDo    #-}
 
 module Main where
 
 -- modules for lazy mutable structures
 import qualified Control.Monad.Fix
-import System.IO.Unsafe(unsafeInterleaveIO)
-import Data.IORef
+import           Data.IORef
+import           System.IO.Unsafe    (unsafeInterleaveIO)
 
-import System.Environment(getArgs)
-import System.IO
-import Control.Monad
-import Control.Monad.State
-import Data.Array
-import Data.Char(isSpace, ord)
-import Data.List
-import System.Random(randomIO, randomRIO)
+import           Control.Monad
+import           Control.Monad.State
+import           Data.Array
+import           Data.Char           (isSpace, ord)
+import           Data.List
+import           System.Environment  (getArgs)
+import           System.IO
+import           System.Random       (randomIO, randomRIO)
 
 -- The memory structure, a combined trie and linked list
 data MemNode = MemNode {
@@ -46,13 +47,13 @@ data BranchEnv = BEnv {
 type UMonad = StateT UState IO
 data UState = UState {
     other :: OtherState,
-    a :: Value,
-    c :: MemNode,
-    d :: MemNode }
+    a     :: Value,
+    c     :: MemNode,
+    d     :: MemNode }
 data OtherState = Other { -- Things that change rarely, if at all
-    memory :: MemNode,
-    rotWidth :: Int,
-    maxWidth :: Int,
+    memory       :: MemNode,
+    rotWidth     :: Int,
+    maxWidth     :: Int,
     growthPolicy :: Int -> UMonad OtherState }
 data Instruction = OutOfBounds | DefaultNop | I | LS | DIV | MUL | J | P | O | V
     deriving (Show)
@@ -64,9 +65,9 @@ data Instruction = OutOfBounds | DefaultNop | I | LS | DIV | MUL | J | P | O | V
 main = do
     args <- getArgs
     let(allowOutOfBounds, file) = case args of
-        [file] -> (True, file)
+        [file]       -> (True, file)
         ["-n", file] -> (False, file)
-        _ -> error "Usage: [-n] <filename>"
+        _            -> error "Usage: [-n] <filename>"
     mem <- fillMemory allowOutOfBounds =<< readFile file
     runProg mem
 
@@ -83,7 +84,7 @@ fillMemory allowOutOfBounds prog = mdo
     return mem
   where
     checkProgLength p@(_:_:_) = p
-    checkProgLength _ = error "Source program too short"
+    checkProgLength _         = error "Source program too short"
 
 fillProg :: Bool -> MemNode -> String -> IO (Array Int Value)
 fillProg _ _ [] = return $ bug "Return value of fillProg _ _ [] used"
@@ -108,7 +109,7 @@ fillProg allowOutOfBounds fromNode (c:rest) =
     fillRestProg = fillProg allowOutOfBounds (next fromNode) rest
     illegalProgram = error $
         "Illegal instruction " ++ show c ++
-        " in source at offset " ++ show m 
+        " in source at offset " ++ show m
 
 newMemory :: Array Int Value -> IO MemNode
 newMemory rArr = mdo
@@ -213,10 +214,10 @@ execInstr I = do
 execInstr LS = do
     a <- liftM vToOffset $ gets a
     io $ case a of
-        OffsetV T0 o -> putChar $ toEnum $ fromInteger o
-        OffsetV T2 0 -> hClose stdout
+        OffsetV T0 o    -> putChar $ toEnum $ fromInteger o
+        OffsetV T2 0    -> hClose stdout
         OffsetV T2 (-1) -> putChar '\n'
-        _ -> error $ "Unimplemented output character"
+        _               -> error $ "Unimplemented output character"
 execInstr DIV = do
     newa <- io $ do
         e <- isEOF
@@ -297,17 +298,17 @@ rotate width val = ListV $ compressList $ rot w t r where
     w = if width >= 1 then width else bug "Rotation width not positive"
     ListV (t:r') = vToList val
     r = case r' of
-        []  -> [t]
-        _   -> r'
-    rot 1 t r       = t : r
-    rot w t [l]     = l : rot (w-1) t [l]
-    rot w t (t':l)  = t' : rot (w-1) t l
+        [] -> [t]
+        _  -> r'
+    rot 1 t r      = t : r
+    rot w t [l]    = l : rot (w-1) t [l]
+    rot w t (t':l) = t' : rot (w-1) t l
 
 opValue v1 v2 = ListV $ compressList $ opv l1 l2 where
-    opv [t] l = map (t `op`) l
-    opv l [t] = map (`op` t) l
+    opv [t] l           = map (t `op`) l
+    opv l [t]           = map (`op` t) l
     opv (t1:r1) (t2:r2) = (t1 `op` t2):opv r1 r2
-    opv _ _ = bug "opv given empty ListV"
+    opv _ _             = bug "opv given empty ListV"
     ListV l1 = vToList v1
     ListV l2 = vToList v2
 
@@ -347,8 +348,8 @@ vToList (OffsetV base offset) = ListV (buildList offset) where
 -- Might be used for consistency check
 vCheck (OffsetV T0 offset) = offset >= 0
 vCheck (OffsetV T2 offset) = offset <= 0
-vCheck (ListV []) = False
-vCheck _ = True
+vCheck (ListV [])          = False
+vCheck _                   = True
 
 io = liftIO :: IO a -> UMonad a
 
