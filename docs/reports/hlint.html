@@ -161,12 +161,27 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Suggestion: Reduce duplication (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Eta reduce (1)</a></li>
+<li><a id="hint1" href="javascript:show('hint1')">Warning: Use &#39;getArgs&#39; from Relude (1)</a></li>
+<li><a id="hint2" href="javascript:show('hint2')">Warning: Use &#39;modifyIORef&#39; from Relude (1)</a></li>
+<li><a id="hint3" href="javascript:show('hint3')">Warning: Use &#39;newIORef&#39; from Relude (2)</a></li>
+<li><a id="hint4" href="javascript:show('hint4')">Warning: Use &#39;readIORef&#39; from Relude (6)</a></li>
+<li><a id="hint5" href="javascript:show('hint5')">Warning: Use &#39;stderr&#39; from Relude (1)</a></li>
+<li><a id="hint6" href="javascript:show('hint6')">Warning: Use &#39;stdout&#39; from Relude (1)</a></li>
+<li><a id="hint7" href="javascript:show('hint7')">Warning: Use &#39;writeIORef&#39; from Relude (4)</a></li>
+<li><a id="hint8" href="javascript:show('hint8')">Warning: Use fmap (6)</a></li>
+<li><a id="hint9" href="javascript:show('hint9')">Warning: Use repeat (1)</a></li>
+<li><a id="hint10" href="javascript:show('hint10')">Warning: Use sum (1)</a></li>
+<li><a id="hint11" href="javascript:show('hint11')">Suggestion: Reduce duplication (1)</a></li>
+<li><a id="hint12" href="javascript:show('hint12')">Suggestion: Redundant $ (1)</a></li>
+<li><a id="hint13" href="javascript:show('hint13')">Suggestion: Use pass (3)</a></li>
+<li><a id="hint14" href="javascript:show('hint14')">Suggestion: Use safeToEnum (2)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
 <li><a id="file0" href="javascript:show('file0')">./dist-newstyle/src/helio-47df7eb819007334/hs/test/HelVM/HelIO/Collections/MapListSpec.hs (1)</a></li>
+<li><a id="file1" href="javascript:show('file1')">./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs (31)</a></li>
 </ul>
 
 </div>
@@ -177,7 +192,7 @@ v2.1.11
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-<div class="hint0 file0">
+<div class="hint11 file0">
 ./dist-newstyle/src/helio-47df7eb819007334/hs/test/HelVM/HelIO/Collections/MapListSpec.hs:50:11: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-definition'>it</span> <span class='hs-str'>"mapListToList . fromIntIndexedList"</span> <span class='hs-varop'>$</span>
@@ -190,6 +205,285 @@ Found<br/>
 Perhaps<br/>
 <pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>dist</span><span class='hs-comment'>-</span><span class='hs-varid'>newstyle</span><span class='hs-varop'>/</span><span class='hs-varid'>src</span><span class='hs-varop'>/</span><span class='hs-varid'>helio</span><span class='hs-comment'>-</span><span class='hs-num'>47</span><span class='hs-varid'>df7eb819007334</span><span class='hs-varop'>/</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelIO</span><span class='hs-varop'>/</span><span class='hs-conid'>Collections</span><span class='hs-varop'>/</span><span class='hs-conid'>MapListSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>59</span><span class='hs-conop'>:</span><span class='hs-num'>11</span></pre>
 
+</div>
+
+<div class="hint1 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:66:13: Warning: Use &#39;getArgs&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>getArgs</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>getArgs</span></pre>
+<span class='note'>Note: &#39;getArgs&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint7 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:96:13: Warning: Use &#39;writeIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>writeIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>writeIORef</span></pre>
+<span class='note'>Note: &#39;writeIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint3 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:133:14: Warning: Use &#39;newIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>newIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>newIORef</span></pre>
+<span class='note'>Note: &#39;newIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint3 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:163:18: Warning: Use &#39;newIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>newIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>newIORef</span></pre>
+<span class='note'>Note: &#39;newIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint4 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:184:15: Warning: Use &#39;readIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+<span class='note'>Note: &#39;readIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint13 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:186:14: Suggestion: Use pass<br/>
+Found<br/>
+<pre><span class='hs-definition'>return</span> <span class='hs-conid'>()</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>pass</span></pre>
+<span class='note'>Note: Use &#39;pass&#39;</span>
+</div>
+
+<div class="hint8 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:195:10: Warning: Use fmap<br/>
+Found<br/>
+<pre><span class='hs-definition'>liftM</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>fmap</span></pre>
+
+</div>
+
+<div class="hint4 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:195:33: Warning: Use &#39;readIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+<span class='note'>Note: &#39;readIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint7 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:198:21: Warning: Use &#39;writeIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>writeIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>writeIORef</span></pre>
+<span class='note'>Note: &#39;writeIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint13 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:208:25: Suggestion: Use pass<br/>
+Found<br/>
+<pre><span class='hs-definition'>return</span> <span class='hs-conid'>()</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>pass</span></pre>
+<span class='note'>Note: Use &#39;pass&#39;</span>
+</div>
+
+<div class="hint2 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:211:10: Warning: Use &#39;modifyIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>modifyIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>modifyIORef</span></pre>
+<span class='note'>Note: &#39;modifyIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint4 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:212:31: Warning: Use &#39;readIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+<span class='note'>Note: &#39;readIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint8 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:215:10: Warning: Use fmap<br/>
+Found<br/>
+<pre><span class='hs-definition'>liftM</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>fmap</span></pre>
+
+</div>
+
+<div class="hint14 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:217:38: Suggestion: Use safeToEnum<br/>
+Found<br/>
+<pre><span class='hs-definition'>toEnum</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>safeToEnum</span></pre>
+<span class='note'>Note: <tt>toEnum</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>safeToEnum</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
+</div>
+
+<div class="hint6 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:218:35: Warning: Use &#39;stdout&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>stdout</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>stdout</span></pre>
+<span class='note'>Note: &#39;stdout&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint12 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:220:28: Suggestion: Redundant $<br/>
+Found<br/>
+<pre><span class='hs-definition'>error</span> <span class='hs-varop'>$</span> <span class='hs-str'>"Unimplemented output character"</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>error</span> <span class='hs-str'>"Unimplemented output character"</span></pre>
+
+</div>
+
+<div class="hint8 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:233:12: Warning: Use fmap<br/>
+Found<br/>
+<pre><span class='hs-definition'>liftM</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>fmap</span></pre>
+
+</div>
+
+<div class="hint4 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:233:43: Warning: Use &#39;readIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+<span class='note'>Note: &#39;readIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint7 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:234:10: Warning: Use &#39;writeIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>writeIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>writeIORef</span></pre>
+<span class='note'>Note: &#39;writeIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint4 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:238:46: Warning: Use &#39;readIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+<span class='note'>Note: &#39;readIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint8 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:243:12: Warning: Use fmap<br/>
+Found<br/>
+<pre><span class='hs-definition'>liftM</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>fmap</span></pre>
+
+</div>
+
+<div class="hint4 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:243:37: Warning: Use &#39;readIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>readIORef</span></pre>
+<span class='note'>Note: &#39;readIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint7 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:244:10: Warning: Use &#39;writeIORef&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>writeIORef</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>writeIORef</span></pre>
+<span class='note'>Note: &#39;writeIORef&#39; is already exported from Relude</span>
+</div>
+
+<div class="hint13 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:246:15: Suggestion: Use pass<br/>
+Found<br/>
+<pre><span class='hs-definition'>return</span> <span class='hs-conid'>()</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>pass</span></pre>
+<span class='note'>Note: Use &#39;pass&#39;</span>
+</div>
+
+<div class="hint8 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:287:22: Warning: Use fmap<br/>
+Found<br/>
+<pre><span class='hs-definition'>liftM</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>fmap</span></pre>
+
+</div>
+
+<div class="hint8 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:289:22: Warning: Use fmap<br/>
+Found<br/>
+<pre><span class='hs-definition'>liftM</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>fmap</span></pre>
+
+</div>
+
+<div class="hint0 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:329:1: Warning: Eta reduce<br/>
+Found<br/>
+<pre><span class='hs-definition'>compressList</span> <span class='hs-varid'>l</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>foldr</span> <span class='hs-varid'>cpr</span> <span class='hs-conid'>[]</span> <span class='hs-varid'>l</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>compressList</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>foldr</span> <span class='hs-varid'>cpr</span> <span class='hs-conid'>[]</span></pre>
+
+</div>
+
+<div class="hint14 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:345:19: Suggestion: Use safeToEnum<br/>
+Found<br/>
+<pre><span class='hs-definition'>toEnum</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>safeToEnum</span></pre>
+<span class='note'>Note: <tt>toEnum</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>safeToEnum</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
+</div>
+
+<div class="hint9 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:356:53: Warning: Use repeat<br/>
+Found<br/>
+<pre><span class='hs-definition'>cycle</span> <span class='hs-keyglyph'>[</span><span class='hs-num'>2</span><span class='hs-keyglyph'>]</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>repeat</span> <span class='hs-num'>2</span></pre>
+
+</div>
+
+<div class="hint10 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:357:24: Warning: Use sum<br/>
+Found<br/>
+<pre><span class='hs-definition'>foldl'</span> <span class='hs-layout'>(</span><span class='hs-varop'>+</span><span class='hs-layout'>)</span> <span class='hs-num'>0</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>sum</span></pre>
+
+</div>
+
+<div class="hint5 file1">
+./hs/src/HelVM/HelMA/Automata/Unshackled/Unshackled.hs:362:30: Warning: Use &#39;stderr&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-definition'>stderr</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>stderr</span></pre>
+<span class='note'>Note: &#39;stderr&#39; is already exported from Relude</span>
 </div>
 
 </div>
