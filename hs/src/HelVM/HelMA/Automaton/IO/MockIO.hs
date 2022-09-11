@@ -25,7 +25,10 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.ListLikeUtil
 
+import qualified Data.ByteString.Lazy                as LBS
+
 import           Data.Text                           as Text
+import qualified Data.Text.Lazy                      as LT
 
 ioExecMockIOBatch :: ControlT MockIO () -> IO MockIOData
 ioExecMockIOBatch = ioExecMockIOWithInput ""
@@ -63,30 +66,47 @@ calculateLogged = calculateText . logged
 ----
 
 instance BusinessIO MockIO where
-  wGetChar     = mockGetChar
-  wGetLine     = mockGetLine
-  wGetContents = mockGetContent
-  wPutChar     = mockPutChar
-  wPutStr      = mockPutStr
-  wLogStr      = mockLogStr
+  wGetContentsBS   = mockGetContentsBS
+  wGetContentsText = mockGetContentsText
+  wGetContents     = mockGetContents
+  wGetChar         = mockGetChar
+  wGetLine         = mockGetLine
+  wPutChar         = mockPutChar
+  wPutStr          = mockPutStr
+  wLogStr          = mockLogStr
 
 instance BusinessIO (SafeT MockIO) where
-  wGetChar     = safeT   mockGetChar
-  wGetLine     = safeT   mockGetLine
-  wGetContents = safeT   mockGetContent
-  wPutChar     = safeT . mockPutChar
-  wPutStr      = safeT . mockPutStr
-  wLogStr      = safeT . mockLogStr
+  wGetContentsBS   = safeT   mockGetContentsBS
+  wGetContentsText = safeT   mockGetContentsText
+  wGetContents     = safeT   mockGetContents
+  wGetChar         = safeT   mockGetChar
+  wGetLine         = safeT   mockGetLine
+  wPutChar         = safeT . mockPutChar
+  wPutStr          = safeT . mockPutStr
+  wLogStr          = safeT . mockLogStr
 
 instance BusinessIO (ControlT MockIO) where
-  wGetChar     =            mockGetCharSafe
-  wGetLine     =            mockGetLineSafe
-  wGetContents = controlT   mockGetContent
-  wPutChar     = controlT . mockPutChar
-  wPutStr      = controlT . mockPutStr
-  wLogStr      = controlT . mockLogStr
+  wGetContentsBS   = controlT   mockGetContentsBS
+  wGetContentsText = controlT   mockGetContentsText
+  wGetContents     = controlT   mockGetContents
+  wGetChar         =            mockGetCharSafe
+  wGetLine         =            mockGetLineSafe
+  wPutChar         = controlT . mockPutChar
+  wPutStr          = controlT . mockPutStr
+  wLogStr          = controlT . mockLogStr
 
 ----
+
+mockGetContentsBS :: MonadMockIO m => m LBS.ByteString
+mockGetContentsBS =  fromStrict . encodeUtf8 <$> mockGetContentsText
+
+mockGetContentsText :: MonadMockIO m => m LT.Text
+mockGetContentsText = fromStrict . toText <$> mockGetContents
+
+mockGetContents :: MonadMockIO m => m String
+mockGetContents = mockGetContents' =<< get where
+  mockGetContents' :: MonadMockIO m => MockIOData -> m String
+  mockGetContents' mockIO = content <$ put mockIO { input = "" } where content = input mockIO
 
 mockGetChar :: MonadMockIO m => m Char
 mockGetChar = mockGetChar' =<< get where
@@ -97,11 +117,6 @@ mockGetLine :: MonadMockIO m => m Text
 mockGetLine = mockGetLine' =<< get where
   mockGetLine' :: MonadMockIO m => MockIOData -> m Text
   mockGetLine' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
-
-mockGetContent :: MonadMockIO m => m Text
-mockGetContent = mockGetContent' =<< get where
-  mockGetContent' :: MonadMockIO m => MockIOData -> m Text
-  mockGetContent' mockIO = toText content <$ put mockIO { input = "" } where content = input mockIO
 
 mockGetCharSafe :: MonadControlMockIO m => m Char
 mockGetCharSafe = mockGetChar' =<< get where
@@ -137,9 +152,9 @@ mockDataLogStr text mockIO = mockIO { logged = calculateString text <> logged mo
 
 ----
 
-type MonadControlMockIO m = (MonadMockIO m , MonadControl m)
+type MonadControlMockIO m = (MonadMockIO m , MonadControl m)--FIXME
 
---type MonadSafeMockIO m = (MonadMockIO m , MonadSafe m)
+--type MonadSafeMockIO m = (MonadMockIO m , MonadSafe m) --FIXME
 
 type MonadMockIO m = MonadState MockIOData m
 

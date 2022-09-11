@@ -36,7 +36,7 @@
 FOR everyone
 WHO want to run esoteric languages
 THE HelMA IS a Heavenly Esoteric Little Minimal Automaton for Esoteric Languages implemented in Haskell
-THAT is an Evaluator and an Interpreter for Esoteric Languages (EsoAutomata)
+THAT is an Automaton and an Interpreter for Esoteric Languages (EsoAutomata)
 ```
 
 ## Features

@@ -16,7 +16,7 @@ import           Test.Hspec                            (Spec, describe, it)
 
 spec :: Spec
 spec =
-  describe "eval" $ forM_ ((
+  describe "run" $ forM_ ((
     [ ("hello"   , [""])
     , ("hello2"  , [""])
     , ("fact"    , ["1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n"])
@@ -38,7 +38,7 @@ spec =
       let file = readEtaFile filePath
       forM_ (inputs |><| [False]) $ \ (input , compile) -> do
         let params = (compile ,  , defaultStackType) <$> file
-        let mock = ioExecMockIOWithInput (toText input) . simpleEval =<< params
+        let mock = ioExecMockIOWithInput (toText input) . simpleRun =<< params
         let path = showCompile compile </> filePath <> input
         describe path $ do
           it ("output" </> path) $

@@ -50,7 +50,7 @@ ioExec (compile , stackType) dirName fileName inputs = do
   let file = readEtaFile (dirName </> fileName)
   forM inputs $ \ input -> do
     let params = (compile ,  , stackType) <$> file
-    let exec = ioExecMockIOWithInput input . simpleEval =<< params
+    let exec = ioExecMockIOWithInput input . simpleRun =<< params
     calculateOutput <$> exec
 
 type BenchParams = (Bool, StackType)

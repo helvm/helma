@@ -1,0 +1,107 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.LazyK.Rst76.Constants where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automata.LazyK.Constants
+<span class="lineno">    4 </span>import           HelVM.HelMA.Automata.LazyK.Lambda
+<span class="lineno">    5 </span>
+<span class="lineno">    6 </span>cons :: Lambda
+<span class="lineno">    7 </span><span class="decl"><span class="nottickedoff">cons = delete (Var &quot;x&quot;) $ consX $ Var &quot;x&quot;</span></span>
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>consX :: Lambda -&gt; Lambda
+<span class="lineno">   10 </span><span class="decl"><span class="nottickedoff">consX x = delete (Var &quot;y&quot;) $ consXY x $ Var &quot;y&quot;</span></span>
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>consXY :: Lambda -&gt; Lambda -&gt; Lambda
+<span class="lineno">   13 </span><span class="decl"><span class="nottickedoff">consXY x y = S `App` (si `App` (K `App` x)) `App` (K `App` y)</span></span>
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>delete :: Lambda -&gt; Lambda -&gt; Lambda
+<span class="lineno">   16 </span><span class="decl"><span class="nottickedoff">delete v (App x y) | elem' v x &amp;&amp; elem' v y = S `App` delete v x `App` delete v y</span>
+<span class="lineno">   17 </span><span class="spaces"></span><span class="nottickedoff">delete v (App x y) | elem' v x = S `App` delete v x `App` App K y</span>
+<span class="lineno">   18 </span><span class="spaces"></span><span class="nottickedoff">delete v (App x y) | v == y = x</span>
+<span class="lineno">   19 </span><span class="spaces"></span><span class="nottickedoff">delete v (App x y) | elem' v y = S `App` App K x `App` delete v y</span>
+<span class="lineno">   20 </span><span class="spaces"></span><span class="nottickedoff">delete v x | v == x = I</span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="nottickedoff">delete v x = error $ show v &lt;&gt; &quot;&quot; &lt;&gt; show x</span></span>
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>elem' :: Lambda -&gt; Lambda -&gt; Bool
+<span class="lineno">   24 </span><span class="decl"><span class="nottickedoff">elem' v x | v == x = True</span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="nottickedoff">elem' v (App x y) = elem' v x ||  elem' v y</span>
+<span class="lineno">   26 </span><span class="spaces"></span><span class="nottickedoff">elem' _ _ = False</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>nil :: Lambda
+<span class="lineno">   29 </span><span class="decl"><span class="nottickedoff">nil = K `App` true</span></span>
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>isNil :: Lambda
+<span class="lineno">   32 </span><span class="decl"><span class="nottickedoff">isNil = K `App` (K `App` false)</span></span>
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>carX :: Lambda -&gt; Lambda
+<span class="lineno">   35 </span><span class="decl"><span class="nottickedoff">carX x = x `App` true</span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>cdrX :: Lambda -&gt; Lambda
+<span class="lineno">   38 </span><span class="decl"><span class="nottickedoff">cdrX x = x `App` false</span></span>
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>car :: Lambda
+<span class="lineno">   41 </span><span class="decl"><span class="nottickedoff">car = si `App` (K `App` true)</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>cdr :: Lambda
+<span class="lineno">   44 </span><span class="decl"><span class="nottickedoff">cdr = si `App` (K `App` false)</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>nthNX :: Lambda -&gt; Lambda -&gt; Lambda
+<span class="lineno">   47 </span><span class="decl"><span class="nottickedoff">nthNX n x = carX (n `App` cdrX x)</span></span>
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>b :: Lambda
+<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">b = S `App` (K `App` S) `App` K</span></span>
+<span class="lineno">   51 </span>
+<span class="lineno">   52 </span>m :: Lambda
+<span class="lineno">   53 </span><span class="decl"><span class="istickedoff">m = S `App` I `App` I</span></span>
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>t :: Lambda
+<span class="lineno">   56 </span><span class="decl"><span class="nottickedoff">t = S `App` (K `App` si) `App` K</span></span>
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>----
+<span class="lineno">   59 </span>ssssss :: Lambda
+<span class="lineno">   60 </span><span class="decl"><span class="nottickedoff">ssssss = ssss `App` S `App` S</span></span>
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>ssiss :: Lambda
+<span class="lineno">   63 </span><span class="decl"><span class="nottickedoff">ssiss = S `App` (S `App` I `App` S) `App` S</span></span>
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>ssss :: Lambda
+<span class="lineno">   66 </span><span class="decl"><span class="nottickedoff">ssss = ss `App` S `App` S</span></span>
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>ssss1 :: Lambda
+<span class="lineno">   69 </span><span class="decl"><span class="nottickedoff">ssss1 = App S  sss</span></span>
+<span class="lineno">   70 </span>
+<span class="lineno">   71 </span>ssf :: Lambda
+<span class="lineno">   72 </span><span class="decl"><span class="nottickedoff">ssf = App ss  false</span></span>
+<span class="lineno">   73 </span>
+<span class="lineno">   74 </span>ssi :: Lambda
+<span class="lineno">   75 </span><span class="decl"><span class="nottickedoff">ssi = App ss  I</span></span>
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>sss :: Lambda
+<span class="lineno">   78 </span><span class="decl"><span class="nottickedoff">sss = App ss S</span></span>
+<span class="lineno">   79 </span>
+<span class="lineno">   80 </span>si :: Lambda
+<span class="lineno">   81 </span><span class="decl"><span class="nottickedoff">si = App S I</span></span>
+<span class="lineno">   82 </span>
+<span class="lineno">   83 </span>ss :: Lambda
+<span class="lineno">   84 </span><span class="decl"><span class="nottickedoff">ss = App S S</span></span>
+
+</pre>
+</body>
+</html>

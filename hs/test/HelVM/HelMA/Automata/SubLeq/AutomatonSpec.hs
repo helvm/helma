@@ -14,7 +14,7 @@ import           System.FilePath.Posix
 import           Test.Hspec                            (Spec, describe, it)
 
 spec :: Spec
-spec = describe "eval" $ forM_
+spec = describe "run" $ forM_
   [ ("hello"               , "" )
   , ("longHello"           , "" )
   , ("esolangs/helloWorld" , "" )
@@ -25,7 +25,7 @@ spec = describe "eval" $ forM_
 --  , ("eForth"    , "" )
   ] $ \(fileName , input)  -> do
   let file = readSqFile fileName
-  let mock = (ioExecMockIOWithInput input . simpleEval defaultRAMType) =<< file
+  let mock = (ioExecMockIOWithInput input . simpleRun defaultRAMType) =<< file
   describe fileName $ do
     it ("output" </> fileName) $
       (calculateOutput <$> mock) `goldenShouldIO` buildAbsoluteSqOutFileName fileName

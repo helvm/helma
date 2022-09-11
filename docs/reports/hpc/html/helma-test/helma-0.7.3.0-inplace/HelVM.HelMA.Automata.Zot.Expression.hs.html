@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Zot.Expression where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           HelVM.HelIO.Control.Safe
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           HelVM.HelIO.Containers.Util
+<span class="lineno">    6 </span>import           HelVM.HelIO.Digit.Digitable
+<span class="lineno">    7 </span>import           HelVM.HelIO.Digit.ToDigit
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           Control.Monad.Writer.Lazy
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import qualified Data.DList                  as D
+<span class="lineno">   12 </span>import qualified Data.Text.Lazy              as LT
+<span class="lineno">   13 </span>import           Text.Read
+<span class="lineno">   14 </span>import qualified Text.Show
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>showExpressionList :: ExpressionList -&gt; LT.Text
+<span class="lineno">   17 </span><span class="decl"><span class="istickedoff">showExpressionList f = fmconcat $ <span class="nottickedoff">show</span> &lt;$&gt; f</span></span>
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>readExpressionList :: LT.Text -&gt; ExpressionList
+<span class="lineno">   20 </span><span class="decl"><span class="istickedoff">readExpressionList = stringToExpressionList . toString</span></span>
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>stringToExpressionList :: String -&gt; ExpressionList
+<span class="lineno">   23 </span><span class="decl"><span class="istickedoff">stringToExpressionList s = charToExpressionList =&lt;&lt; s</span></span>
+<span class="lineno">   24 </span>
+<span class="lineno">   25 </span>charToExpressionList :: Char -&gt; ExpressionList
+<span class="lineno">   26 </span><span class="decl"><span class="istickedoff">charToExpressionList = maybeToList . rightToMaybe . charToExpressionSafe</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>charToExpression :: Char -&gt; Expression
+<span class="lineno">   29 </span><span class="decl"><span class="nottickedoff">charToExpression = unsafe . charToExpressionSafe</span></span>
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>charToExpressionSafe :: MonadSafe m =&gt; Char -&gt; m Expression
+<span class="lineno">   32 </span><span class="decl"><span class="istickedoff">charToExpressionSafe '0' = pure Zero</span>
+<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">charToExpressionSafe '1' = pure One</span>
+<span class="lineno">   34 </span><span class="spaces"></span><span class="istickedoff">charToExpressionSafe  c  = <span class="nottickedoff">liftErrorWithPrefix &quot;charToExpression&quot; $ one c</span></span></span>
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>-- | Types
+<span class="lineno">   37 </span>type ExpressionDList = D.DList Expression
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>type ExpressionList = [Expression]
+<span class="lineno">   40 </span>
+<span class="lineno">   41 </span>data Expression = Zero | One | Expression (Expression -&gt; Out Expression)
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>type Out = Writer ExpressionDList
+<span class="lineno">   44 </span>
+<span class="lineno">   45 </span>instance Read Expression where
+<span class="lineno">   46 </span>  <span class="decl"><span class="nottickedoff">readsPrec _ []      = []</span>
+<span class="lineno">   47 </span><span class="spaces">  </span><span class="nottickedoff">readsPrec _ (c : s) = [(charToExpression c , s)]</span></span>
+<span class="lineno">   48 </span>  <span class="decl"><span class="nottickedoff">readList s = [(stringToExpressionList s , &quot;&quot;)]</span></span>
+<span class="lineno">   49 </span>
+<span class="lineno">   50 </span>instance Show Expression where
+<span class="lineno">   51 </span>  <span class="decl"><span class="istickedoff">show  Zero          = &quot;0&quot;</span>
+<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">show  One           = &quot;1&quot;</span>
+<span class="lineno">   53 </span><span class="spaces">  </span><span class="istickedoff">show (Expression _) = <span class="nottickedoff">&quot;function&quot;</span></span></span>
+<span class="lineno">   54 </span>  <span class="decl"><span class="nottickedoff">showList fs  = (concatMap show fs &lt;&gt;)</span></span>
+<span class="lineno">   55 </span>
+<span class="lineno">   56 </span>instance Digitable Expression where
+<span class="lineno">   57 </span>  <span class="decl"><span class="nottickedoff">fromDigit 0 = pure Zero</span>
+<span class="lineno">   58 </span><span class="spaces">  </span><span class="nottickedoff">fromDigit 1 = pure One</span>
+<span class="lineno">   59 </span><span class="spaces">  </span><span class="nottickedoff">fromDigit t = wrongToken t</span></span>
+<span class="lineno">   60 </span>
+<span class="lineno">   61 </span>instance ToDigit Expression where
+<span class="lineno">   62 </span>  <span class="decl"><span class="istickedoff">toDigit Zero = pure 0</span>
+<span class="lineno">   63 </span><span class="spaces">  </span><span class="istickedoff">toDigit One  = pure 1</span>
+<span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">toDigit t    = <span class="nottickedoff">wrongToken t</span></span></span>
+
+</pre>
+</body>
+</html>

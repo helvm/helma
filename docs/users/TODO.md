@@ -7,7 +7,7 @@ Features to implemented in Haskell:
   * [ ] 🦄 [BLC](https://github.com/helvm/blc) Calculator
   * [ ] 🦄 [Crazy L](https://crypto.stanford.edu/~blynn/lambda/crazyl.html) Calculator
   * [ ] 🦄 [DBLC](https://github.com/helvm/Dependent-Binary-Lambda-Calculus) Calculator
-  * [ ] 🦄 [Lazy K](https://helvm.org/lazy-k/lazy-k.html) Calculator
+  * [x] 🦄 [Lazy K](https://helvm.org/lazy-k/lazy-k.html) Calculator
   * [x] 🦄 [Zot](https://github.com/helvm/zot_haskell) Calculator
 * Intepreters:
   * [x] 🌈 BrainFuck Interpreter

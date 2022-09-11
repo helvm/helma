@@ -34,7 +34,7 @@ spec =
     ) |><| options) $ \((fileName , input , cellType) , compile) -> do
       let file = readBfFile fileName
       let params = (compile , , cellType) <$> file
-      let exec = ioExecMockIOWithInput input . simpleEval =<< params
+      let exec = ioExecMockIOWithInput input . simpleRun =<< params
       let path = compileToFilePath compile </> show cellType </> fileName
       describe path $ do
         it ("output" </> path) $

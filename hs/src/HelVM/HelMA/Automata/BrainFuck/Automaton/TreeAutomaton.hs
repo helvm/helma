@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.BrainFuck.Automaton.TreeAutomaton (
-  evalSource,
+  runSource,
 ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Instruction.SimpleInstruction
@@ -16,8 +16,8 @@ import           HelVM.HelIO.Containers.LLIndexSafe
 
 import           Control.Type.Operator
 
-evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> DumpType -> m ()
-evalSource source tape dt = logDump dt =<< flip evalVector tape =<< parseAsVector source
+runSource :: (BIO m , Symbol e) => Source -> FullTape e -> DumpType -> m ()
+runSource source tape dt = logDump dt =<< flip evalVector tape =<< parseAsVector source
 
 evalVector :: (BIO m , Symbol e) => TreeInstructionVector -> FullTape e -> m $ Unit e
 evalVector iv = nextStep (IU iv 0)

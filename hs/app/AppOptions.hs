@@ -3,6 +3,8 @@ module AppOptions where
 
 import           Lang
 
+import           HelVM.HelMA.Automata.LazyK.API.ParserType
+
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.IntCellType
@@ -23,6 +25,13 @@ optionParser = AppOptions
   <*> switch      (  long    "visibleTokes"
                    <> short   't'
                    <> help   "Visible tokens for WS"
+                   <> showDefault
+                   )
+  <*> strOption    (  long    "ParserType"
+                   <> short   'p'
+                   <> metavar "[ParserType]"
+                   <> help   ("Implementation of parser for Lazy K " <> show parserTypes)
+                   <> value (show defaultParserType)
                    <> showDefault
                    )
   <*> switch       (  long    "minification"
@@ -100,6 +109,7 @@ optionParser = AppOptions
 data AppOptions = AppOptions
   { lang          :: !String      -- | Lang
   , visibleTokens :: !VisibleTokens
+  , parserType    :: !String      -- | ParserType
   , minified      :: !Minified
   , emitTL        :: !EmitTL
   , emitIL        :: !EmitIL

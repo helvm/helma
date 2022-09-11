@@ -9,14 +9,14 @@ import           HelVM.HelIO.Digit.ToDigit
 import           Control.Monad.Writer.Lazy
 
 import qualified Data.DList                  as D
-
+import qualified Data.Text.Lazy              as LT
 import           Text.Read
 import qualified Text.Show
 
-showExpressionList :: ExpressionList -> Text
-showExpressionList = showFoldable
+showExpressionList :: ExpressionList -> LT.Text
+showExpressionList f = fmconcat $ show <$> f
 
-readExpressionList :: Text -> ExpressionList
+readExpressionList :: LT.Text -> ExpressionList
 readExpressionList = stringToExpressionList . toString
 
 stringToExpressionList :: String -> ExpressionList
@@ -48,8 +48,8 @@ instance Read Expression where
   readList s = [(stringToExpressionList s , "")]
 
 instance Show Expression where
-  show Zero           = "0"
-  show One            = "1"
+  show  Zero          = "0"
+  show  One           = "1"
   show (Expression _) = "function"
   showList fs  = (concatMap show fs <>)
 
