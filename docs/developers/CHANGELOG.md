@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.0.0 -- 2022-09-11
+
+* Add `LazyK`
+
 ## 0.7.2.1 -- 2022-09-09
 
 * Extract HelIO
