@@ -25,45 +25,28 @@ span.spaces    { background: white }
 <span class="lineno">    6 </span>import           HelVM.HelMA.Automata.LazyK.Lexer
 <span class="lineno">    7 </span>
 <span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">    9 </span>
-<span class="lineno">   10 </span>import           HelVM.HelIO.Control.Safe
-<span class="lineno">   11 </span>
-<span class="lineno">   12 </span>import           Control.Type.Operator
-<span class="lineno">   13 </span>
-<span class="lineno">   14 </span>import           Text.ParserCombinators.ReadP      hiding (many)
-<span class="lineno">   15 </span>
-<span class="lineno">   16 </span>parse :: MonadSafe m =&gt; Source -&gt; m Lambda
-<span class="lineno">   17 </span><span class="decl"><span class="istickedoff">parse = parseCode . filterComments</span></span>
-<span class="lineno">   18 </span>
-<span class="lineno">   19 </span>parseCode :: MonadSafe m =&gt; Source -&gt; m Lambda
-<span class="lineno">   20 </span><span class="decl"><span class="istickedoff">parseCode = runParser appParser</span></span>
-<span class="lineno">   21 </span>
-<span class="lineno">   22 </span>appParser :: ReadP Lambda
-<span class="lineno">   23 </span><span class="decl"><span class="istickedoff">appParser = foldlLambda &lt;$&gt; manyNonEmpty lambdaParser</span></span>
-<span class="lineno">   24 </span>
-<span class="lineno">   25 </span>lambdaParser :: ReadP Lambda
-<span class="lineno">   26 </span><span class="decl"><span class="istickedoff">lambdaParser =</span>
-<span class="lineno">   27 </span><span class="spaces">       </span><span class="istickedoff">S &lt;$ oneOf &quot;sS&quot;</span>
-<span class="lineno">   28 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt;  K &lt;$ oneOf &quot;kK&quot;</span>
-<span class="lineno">   29 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt;  I &lt;$ oneOf &quot;iI&quot;</span>
-<span class="lineno">   30 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt;  App &lt;$ char '`' &lt;*&gt; lambdaParser &lt;*&gt; lambdaParser</span>
-<span class="lineno">   31 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt;  char '(' *&gt; appParser &lt;* char ')'</span></span>
-<span class="lineno">   32 </span>
-<span class="lineno">   33 </span>-- | ParserExtras
-<span class="lineno">   34 </span>runParser :: MonadSafe m =&gt; ReadP Lambda -&gt; Source -&gt; m Lambda
-<span class="lineno">   35 </span><span class="decl"><span class="istickedoff">runParser parser source = fst . last &lt;$&gt; nonEmptyRunParser parser source</span></span>
-<span class="lineno">   36 </span>
-<span class="lineno">   37 </span>nonEmptyRunParser :: MonadSafe m =&gt; ReadP Lambda -&gt; Source -&gt; m $ NonEmpty (Lambda , String)
-<span class="lineno">   38 </span><span class="decl"><span class="istickedoff">nonEmptyRunParser parser source = nonEmptyFromList <span class="nottickedoff">(&quot;Cannot parse source\n&quot; &lt;&gt; source)</span> $ listRunParser parser source</span></span>
-<span class="lineno">   39 </span>
-<span class="lineno">   40 </span>listRunParser :: ReadP Lambda -&gt; Source -&gt; [(Lambda , String)]
-<span class="lineno">   41 </span><span class="decl"><span class="istickedoff">listRunParser parser = readP_to_S parser . toString</span></span>
-<span class="lineno">   42 </span>
-<span class="lineno">   43 </span>oneOf :: String -&gt; ReadP Char
-<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">oneOf cs = satisfy (`elem` cs)</span></span>
-<span class="lineno">   45 </span>
-<span class="lineno">   46 </span>manyNonEmpty :: Alternative f =&gt; f a -&gt; f $ NonEmpty a
-<span class="lineno">   47 </span><span class="decl"><span class="istickedoff">manyNonEmpty p = liftA2 (:|) p (many p)</span></span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.ReadPExtra
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import           HelVM.HelIO.Control.Safe
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>import           Text.ParserCombinators.ReadP      hiding (many)
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>parse :: MonadSafe m =&gt; Source -&gt; m Lambda
+<span class="lineno">   16 </span><span class="decl"><span class="istickedoff">parse = parseCode . filterComments</span></span>
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>parseCode :: MonadSafe m =&gt; Source -&gt; m Lambda
+<span class="lineno">   19 </span><span class="decl"><span class="istickedoff">parseCode = runParser appParser</span></span>
+<span class="lineno">   20 </span>
+<span class="lineno">   21 </span>appParser :: ReadP Lambda
+<span class="lineno">   22 </span><span class="decl"><span class="istickedoff">appParser = foldlLambda &lt;$&gt; manyNonEmpty lambdaParser</span></span>
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>lambdaParser :: ReadP Lambda
+<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">lambdaParser =</span>
+<span class="lineno">   26 </span><span class="spaces">       </span><span class="istickedoff">S &lt;$ oneOf &quot;sS&quot;</span>
+<span class="lineno">   27 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt;  K &lt;$ oneOf &quot;kK&quot;</span>
+<span class="lineno">   28 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt;  I &lt;$ oneOf &quot;iI&quot;</span>
+<span class="lineno">   29 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt;  App &lt;$ char '`' &lt;*&gt; lambdaParser &lt;*&gt; lambdaParser</span>
+<span class="lineno">   30 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt;  char '(' *&gt; appParser &lt;* char ')'</span></span>
 
 </pre>
 </body>

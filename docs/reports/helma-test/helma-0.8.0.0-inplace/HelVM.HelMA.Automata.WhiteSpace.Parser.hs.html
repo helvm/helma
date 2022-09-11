@@ -63,7 +63,7 @@ span.spaces    { background: white }
 <span class="lineno">   44 </span><span class="decl"><span class="istickedoff">parseTL ascii = go where</span>
 <span class="lineno">   45 </span><span class="spaces">  </span><span class="istickedoff">go :: MonadSafe m =&gt; TokenList -&gt; m InstructionList</span>
 <span class="lineno">   46 </span><span class="spaces">  </span><span class="istickedoff">go []            = pure []</span>
-<span class="lineno">   47 </span><span class="spaces">  </span><span class="istickedoff">-- | IAL instructions</span>
+<span class="lineno">   47 </span><span class="spaces">  </span><span class="istickedoff">--IAL instructions</span>
 <span class="lineno">   48 </span><span class="spaces">  </span><span class="istickedoff">go (S:S:tl')     = go' =&lt;&lt; parseSymbol tl' where go' (symbol , tl'') = (IAL (Cons symbol)  : ) &lt;$&gt; go tl''</span>
 <span class="lineno">   49 </span><span class="spaces">  </span><span class="istickedoff">go (S:T:S:tl')   = go' =&lt;&lt; parseIndex  tl' where go' (index  , tl'') = (IAL (SStatic index Copy)     : ) &lt;$&gt; go tl''</span>
 <span class="lineno">   50 </span><span class="spaces">  </span><span class="istickedoff">go (S:T:T:tl')   = <span class="nottickedoff">panic &quot;STT&quot; tl'</span></span>
@@ -81,11 +81,11 @@ span.spaces    { background: white }
 <span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:N:S:tl') = <span class="nottickedoff">panic &quot;TSNS&quot; tl'</span></span>
 <span class="lineno">   63 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:N:T:tl') = <span class="nottickedoff">panic &quot;TSNT&quot; tl'</span></span>
 <span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:N:N:tl') = <span class="nottickedoff">panic &quot;TSNN&quot; tl'</span></span>
-<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">-- | Heap access</span>
+<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">--Heap access</span>
 <span class="lineno">   66 </span><span class="spaces">  </span><span class="istickedoff">go (T:T:S:tl')   = (ILS Store            : ) &lt;$&gt; go tl'</span>
 <span class="lineno">   67 </span><span class="spaces">  </span><span class="istickedoff">go (T:T:T:tl')   = (ILS Load             : ) &lt;$&gt; go tl'</span>
 <span class="lineno">   68 </span><span class="spaces">  </span><span class="istickedoff">go (T:T:N:tl')   = <span class="nottickedoff">panic &quot;TTN&quot; tl'</span></span>
-<span class="lineno">   69 </span><span class="spaces">  </span><span class="istickedoff">-- | IControl</span>
+<span class="lineno">   69 </span><span class="spaces">  </span><span class="istickedoff">--IControl</span>
 <span class="lineno">   70 </span><span class="spaces">  </span><span class="istickedoff">go (N:S:S:tl')   = go' =&lt;&lt; parseLabel ascii tl' where go' (label  , tl'') = (IControl (Mark    label) : ) &lt;$&gt; go tl''</span>
 <span class="lineno">   71 </span><span class="spaces">  </span><span class="istickedoff">go (N:S:T:tl')   = go' =&lt;&lt; parseLabel ascii tl' where go' (label  , tl'') = (IControl (CStatic label Call       ) : ) &lt;$&gt; go tl''</span>
 <span class="lineno">   72 </span><span class="spaces">  </span><span class="istickedoff">go (N:S:N:tl')   = go' =&lt;&lt; parseLabel ascii tl' where go' (label  , tl'') = (IControl (CStatic label Jump       ) : ) &lt;$&gt; go tl''</span>
@@ -95,7 +95,7 @@ span.spaces    { background: white }
 <span class="lineno">   76 </span><span class="spaces">  </span><span class="istickedoff">go (N:N:S:tl')   = <span class="nottickedoff">panic &quot;NNS&quot; tl'</span></span>
 <span class="lineno">   77 </span><span class="spaces">  </span><span class="istickedoff">go (N:N:T:tl')   = <span class="nottickedoff">panic &quot;NNT&quot; tl'</span></span>
 <span class="lineno">   78 </span><span class="spaces">  </span><span class="istickedoff">go (N:N:N:tl')   = (End                            : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   79 </span><span class="spaces">  </span><span class="istickedoff">-- | IO instructions</span>
+<span class="lineno">   79 </span><span class="spaces">  </span><span class="istickedoff">--IO instructions</span>
 <span class="lineno">   80 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:S:S:tl') = (IAL (SIO OutputChar)        : ) &lt;$&gt; go tl'</span>
 <span class="lineno">   81 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:S:T:tl') = (IAL (SIO OutputDec)         : ) &lt;$&gt; go tl'</span>
 <span class="lineno">   82 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:S:N:tl') = <span class="nottickedoff">panic &quot;TNSN&quot; tl'</span></span>

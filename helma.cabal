@@ -104,6 +104,8 @@ library
   import:              common-options
   hs-source-dirs:      hs/src
   exposed-modules:
+
+
     HelVM.HelMA.Automaton.API.IOTypes
     HelVM.HelMA.Automaton.API.RunParams
     HelVM.HelMA.Automaton.API.TypeOptions
@@ -119,6 +121,8 @@ library
     HelVM.HelMA.Automaton.Instruction.ControlInstruction
     HelVM.HelMA.Automaton.Instruction.IOInstruction
     HelVM.HelMA.Automaton.Instruction.LSInstruction
+
+    HelVM.HelMA.Automaton.ReadPExtra
 
     HelVM.HelMA.Automaton.Units.ALU
     HelVM.HelMA.Automaton.Units.CPU
