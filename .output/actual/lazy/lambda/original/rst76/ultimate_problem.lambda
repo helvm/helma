@@ -1,0 +1,45 @@
+App K
+    ( App
+        ( App S
+            ( App
+                ( App S
+                    ( App ( App S I )
+                        ( App K
+                            ( App
+                                ( App
+                                    ( App S
+                                        ( App ( App S S ) ( App S K ) )
+                                    ) S
+                                )
+                                ( App
+                                    ( App S ( App K S ) ) K
+                                )
+                            )
+                        )
+                    )
+                ) ( App K K )
+            )
+        )
+        ( App K
+            ( App
+                ( App ( App S S )
+                    ( App
+                        ( App ( App S S )
+                            ( App
+                                ( App S
+                                    ( App K ( App S S ) )
+                                )
+                                ( App S
+                                    ( App ( App S S ) S )
+                                )
+                            )
+                        )
+                        ( App ( App S S ) ( App S K ) )
+                    )
+                )
+                ( App
+                    ( App S ( App K S ) ) K
+                )
+            )
+        )
+    )

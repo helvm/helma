@@ -14,10 +14,12 @@ module HelVM.HelMA.Automaton.IO.BusinessIO (
 --  wGetCharAsInt,
 --  wGetDecAsInt,
 
+  wGetContentsBS,
+  wGetContentsText,
+  wGetContents,
   wGetChar,
   wPutChar,
   wGetLine,
-  wGetContents,
   wPutStr,
   wPutStrLn,
   wFlush,
@@ -34,10 +36,12 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.ReadText
 
+import qualified Data.ByteString.Lazy        as LBS
 import           Data.Default                as Default
-import           Data.Text.IO                (getContents)
+import qualified Data.Text.Lazy              as LT
+import qualified Data.Text.Lazy.IO           as LT
 
-import           System.IO                   hiding (getContents, getLine, hFlush, stderr, stdout)
+import           System.IO                   hiding (getLine, hFlush, stderr, stdout)
 
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)
@@ -45,29 +49,31 @@ type BIO m = (MonadControl m , BusinessIO m)
 
 class Monad m => BusinessIO m where
 
-  wPutAsChar    :: Integral v => v -> m ()
-  wPutAsDec     :: Integral v => v -> m ()
-  wGetCharAs    :: Integral v => m v
-  wGetDecAs     :: Integral v => m v
+  wPutAsChar       :: Integral v => v -> m ()
+  wPutAsDec        :: Integral v => v -> m ()
+  wGetCharAs       :: Integral v => m v
+  wGetDecAs        :: Integral v => m v
 
-  wPutIntAsChar :: Int -> m ()
-  wPutIntAsDec  :: Int -> m ()
-  wGetCharAsInt :: m Int
-  wGetDecAsInt  :: m Int
+  wPutIntAsChar    :: Int -> m ()
+  wPutIntAsDec     :: Int -> m ()
+  wGetCharAsInt    :: m Int
+  wGetDecAsInt     :: m Int
 
-  wGetChar      :: m Char
-  wGetLine      :: m Text
-  wGetContents  :: m Text
-  wPutChar      :: Char -> m ()
-  wPutStr       :: Text -> m ()
-  wPutStrLn     :: Text -> m ()
-  wLogStr       :: Text -> m ()
-  wLogStrLn     :: Text -> m ()
-  wLogShow      :: Show s => s -> m ()
-  wFlush        :: m ()
+  wGetContentsBS   :: m LBS.ByteString
+  wGetContentsText :: m LT.Text
+  wGetContents     :: m String
+  wGetChar         :: m Char
+  wGetLine         :: m Text
+  wPutChar         :: Char -> m ()
+  wPutStr          :: Text -> m ()
+  wPutStrLn        :: Text -> m ()
+  wLogStr          :: Text -> m ()
+  wLogStrLn        :: Text -> m ()
+  wLogShow         :: Show s => s -> m ()
+  wFlush           :: m ()
 
   wPutAsChar    = wPutIntAsChar . fromIntegral
-  wPutAsDec     = wPutIntAsDec . fromIntegral
+  wPutAsDec     = wPutIntAsDec  . fromIntegral
   wGetCharAs    = fromIntegral <$> wGetCharAsInt
   wGetDecAs     = fromIntegral <$> wGetDecAsInt
 
@@ -88,14 +94,16 @@ flush :: IO ()
 flush = hFlush stdout
 
 instance BusinessIO IO where
-  wGetChar     = getChar
-  wGetLine     = getLine
-  wGetContents = getContents
-  wPutChar     = putChar
-  wPutStr      = putText
-  wPutStrLn    = putTextLn
-  wLogStr      = logStr
-  wFlush       = flush
+  wGetContentsBS   = LBS.getContents
+  wGetContentsText = LT.getContents
+  wGetContents     = getContents
+  wGetChar         = getChar
+  wGetLine         = getLine
+  wPutChar         = putChar
+  wPutStr          = putText
+  wPutStrLn        = putTextLn
+  wLogStr          = logStr
+  wFlush           = flush
 
 type ExceptTLegacy = ExceptT String
 
@@ -103,31 +111,37 @@ exceptTLegacy :: Monad m => m a -> ExceptTLegacy m a
 exceptTLegacy a = ExceptT $ pure <$> a
 
 instance BusinessIO (ExceptT String IO) where --FIXXME
-  wGetChar     = exceptTLegacy   getChar
-  wGetLine     = exceptTLegacy   getLine
-  wGetContents = exceptTLegacy   getContents
-  wPutChar     = exceptTLegacy . putChar
-  wPutStr      = exceptTLegacy . putText
-  wPutStrLn    = exceptTLegacy . putTextLn
-  wLogStr      = exceptTLegacy . logStr
-  wFlush       = exceptTLegacy   flush
+  wGetContentsBS   = exceptTLegacy   LBS.getContents
+  wGetContentsText = exceptTLegacy   LT.getContents
+  wGetContents     = exceptTLegacy   getContents
+  wGetChar         = exceptTLegacy   getChar
+  wGetLine         = exceptTLegacy   getLine
+  wPutChar         = exceptTLegacy . putChar
+  wPutStr          = exceptTLegacy . putText
+  wPutStrLn        = exceptTLegacy . putTextLn
+  wLogStr          = exceptTLegacy . logStr
+  wFlush           = exceptTLegacy   flush
 
 instance BusinessIO (SafeT IO) where
-  wGetChar     = safeT   getChar
-  wGetLine     = safeT   getLine
-  wGetContents = safeT   getContents
-  wPutChar     = safeT . putChar
-  wPutStr      = safeT . putText
-  wPutStrLn    = safeT . putTextLn
-  wLogStr      = safeT . logStr
-  wFlush       = safeT   flush
+  wGetContentsBS   = safeT   LBS.getContents
+  wGetContentsText = safeT   LT.getContents
+  wGetContents     = safeT   getContents
+  wGetChar         = safeT   getChar
+  wGetLine         = safeT   getLine
+  wPutChar         = safeT . putChar
+  wPutStr          = safeT . putText
+  wPutStrLn        = safeT . putTextLn
+  wLogStr          = safeT . logStr
+  wFlush           = safeT   flush
 
 instance BusinessIO (ControlT IO) where
-  wGetChar     = controlT   getChar
-  wGetLine     = controlT   getLine
-  wGetContents = controlT   getContents
-  wPutChar     = controlT . putChar
-  wPutStr      = controlT . putText
-  wPutStrLn    = controlT . putTextLn
-  wLogStr      = controlT . logStr
-  wFlush       = controlT   flush
+  wGetContentsBS   = controlT   LBS.getContents
+  wGetContentsText = controlT   LT.getContents
+  wGetContents     = controlT   getContents
+  wGetChar         = controlT   getChar
+  wGetLine         = controlT   getLine
+  wPutChar         = controlT . putChar
+  wPutStr          = controlT . putText
+  wPutStrLn        = controlT . putTextLn
+  wLogStr          = controlT . logStr
+  wFlush           = controlT   flush

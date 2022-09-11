@@ -1,14 +1,14 @@
 module HelVM.HelMA.Automata.Cat.Automaton (
-  evalParams,
-  eval
+  runWithParams,
+  run
 ) where
 
-import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.RunParams
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-evalParams :: BIO m => EvalParams -> m ()
-evalParams = eval . source
+runWithParams :: BIO m => RunParams -> m ()
+runWithParams = run . source
 
-eval :: BusinessIO m => Source -> m ()
-eval = wPutStr
+run :: BusinessIO m => Source -> m ()
+run = wPutStr

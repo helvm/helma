@@ -77,7 +77,7 @@ exec :: BenchParams -> (FilePath , Text) -> IO Text
 exec (cellType , compile) (fileName , input) = do
   let file   = readBfFile fileName
   let params = (compile ,  , cellType) <$> file
-  let ioExec = ioExecMockIOWithInput input . simpleEval =<< params
+  let ioExec = ioExecMockIOWithInput input . simpleRun =<< params
   calculateOutput <$> ioExec
 
 

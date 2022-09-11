@@ -2,6 +2,7 @@ module HelVM.HelMA.Automata.FileUtil (
   readSourceFile,
   buildAbsoluteLangFileName,
   buildAbsoluteModeFileName,
+  buildAbsoluteLambdaFileName,
   buildAbsoluteIlFileName,
   buildAbsoluteExtFileName,
   buildAbsoluteOutFileName,
@@ -24,6 +25,9 @@ buildAbsoluteModeFileName mode lang fileName = lang </> mode </> fileName <.> la
 
 buildAbsoluteIlFileName :: FilePath -> FilePath -> FilePath
 buildAbsoluteIlFileName = buildAbsoluteExtFileName "il"
+
+buildAbsoluteLambdaFileName :: FilePath -> FilePath -> FilePath
+buildAbsoluteLambdaFileName = buildAbsoluteExtFileName "lambda"
 
 buildAbsoluteExtFileName :: FilePath -> FilePath -> FilePath -> FilePath
 buildAbsoluteExtFileName ext lang fileName = lang </> ext </> fileName <.> ext

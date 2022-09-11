@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.BrainFuck.Automaton.FlatAutomaton (
-  evalSource,
+  runSource,
 ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Instruction.FlatInstruction
@@ -15,8 +15,8 @@ import           HelVM.HelMA.Automaton.Types.DumpType
 
 import           Control.Type.Operator
 
-evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> DumpType -> m ()
-evalSource source tape dt = logDump dt =<< doInstruction ([] , tokenize source) tape
+runSource :: (BIO m , Symbol e) => Source -> FullTape e -> DumpType -> m ()
+runSource source tape dt = logDump dt =<< doInstruction ([] , tokenize source) tape
 
 doInstruction :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Unit e
 doInstruction table@(_ , Simple MoveR  : _) tape = doInstruction    (nextInst table) (moveHeadRight tape)

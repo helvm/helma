@@ -1,0 +1,62 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.LazyK.Evaluator (
+<span class="lineno">    2 </span>  eval,
+<span class="lineno">    3 </span>  evalWithTerminator,
+<span class="lineno">    4 </span>  realize,
+<span class="lineno">    5 </span>  realizeWithTrue,
+<span class="lineno">    6 </span>) where
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>import           HelVM.HelMA.Automata.LazyK.Constants
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.LazyK.Lambda
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.LazyK.Reducer
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>import           HelVM.HelIO.Control.Safe
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>eval :: BIO m =&gt; Lambda -&gt; m ()
+<span class="lineno">   17 </span><span class="decl"><span class="istickedoff">eval = evalWithTerminator false</span></span>
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>evalWithTerminator :: BIO m =&gt; Lambda -&gt; Lambda -&gt; m ()
+<span class="lineno">   20 </span><span class="decl"><span class="istickedoff">evalWithTerminator terminator lambda = output terminator lambda =&lt;&lt; realizeWithTrue lambda</span></span>
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>realizeWithTrue :: MonadSafe m =&gt; Lambda -&gt; m Natural
+<span class="lineno">   23 </span><span class="decl"><span class="istickedoff">realizeWithTrue = realize . flippedApply true</span></span>
+<span class="lineno">   24 </span>
+<span class="lineno">   25 </span>realize :: MonadSafe m =&gt; Lambda -&gt; m Natural
+<span class="lineno">   26 </span><span class="decl"><span class="istickedoff">realize = naturalSafe . flippedApply number0 . flippedApply Succ</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>number0 :: Lambda
+<span class="lineno">   29 </span><span class="decl"><span class="istickedoff">number0 = Number 0</span></span>
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>naturalSafe :: MonadSafe m =&gt; Lambda -&gt; m Natural
+<span class="lineno">   32 </span><span class="decl"><span class="istickedoff">naturalSafe (Number x) = pure x</span>
+<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">naturalSafe x          = liftErrorWithPrefix &quot;Invalid output format. Output should be the list of Church numerals. &quot; $ show x</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>output :: BIO m =&gt; Lambda -&gt; Lambda -&gt; Natural -&gt; m ()
+<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">output terminator lambda number = check $ compare 256 number where</span>
+<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">check GT = wPutAsChar number *&gt; evalWithTerminator terminator (apply lambda terminator)</span>
+<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">check EQ = pass</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">check LT = <span class="nottickedoff">wLogStr (show number) *&gt; wLogStr (show lambda)</span></span></span>
+
+</pre>
+</body>
+</html>

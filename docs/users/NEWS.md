@@ -4,7 +4,8 @@
 
 Currently, **🔧 🎨 HelMA** can:
 * calculate:
-  * 🦄 Zot
+  * 🦄 [Lazy K](https://helvm.org/lazy-k/lazy-k.html)
+  * 🦄 [Zot](https://github.com/helvm/zot_haskell)
 * interpret:
   * 🌈 BrainFuck
   * ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/)
@@ -14,7 +15,6 @@ Currently, **🔧 🎨 HelMA** can:
 [comment]: <> (* 🦄 BLC)
 [comment]: <> (* 🦄 Crazy L)
 [comment]: <> (* 🦄 DBLC)
-[comment]: <> (* 🦄 Lazy K)
 [comment]: <> (* 💛 Malbolge)
 [comment]: <> (* 💚 Piet)
 

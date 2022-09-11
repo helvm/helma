@@ -1,14 +1,14 @@
 module HelVM.HelMA.Automata.SubLeq.Automaton (
-  simpleEval,
-  evalParams,
-  eval,
+  simpleRun,
+  runWithParams,
+  run,
 ) where
 
 import           HelVM.HelMA.Automata.SubLeq.Evaluator
 import           HelVM.HelMA.Automata.SubLeq.Lexer
 
-import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.RunParams
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 import           HelVM.HelMA.Automaton.IO.EvaluatorIO
@@ -21,16 +21,16 @@ import qualified HelVM.HelIO.Collections.SList         as SList
 
 import qualified Data.Sequence                         as Seq
 
-simpleEval :: BIO m => RAMType -> Source -> m ()
-simpleEval rt s = eval s rt Pretty
+simpleRun :: BIO m => RAMType -> Source -> m ()
+simpleRun rt s = run s rt Pretty
 
 ----
 
-evalParams :: BIO m => EvalParams -> m ()
-evalParams p = eval (source p) (ramTypeOptions p) (dumpTypeOptions p)
+runWithParams :: BIO m => RunParams -> m ()
+runWithParams p = run (source p) (ramTypeOptions p) (dumpTypeOptions p)
 
-eval :: BIO m => Source -> RAMType -> DumpType -> m ()
-eval source = evalIL $ tokenize source
+run :: BIO m => Source -> RAMType -> DumpType -> m ()
+run source = evalIL $ tokenize source
 
 evalIL :: Evaluator e m => [e] -> RAMType -> DumpType -> m ()
 evalIL = flip evalIL'

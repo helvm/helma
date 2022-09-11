@@ -36,13 +36,14 @@
 FOR everyone
 WHO want to run esoteric languages
 THE HelMA IS a Heavenly Esoteric Little Minimal Automaton for Esoteric Languages implemented in Haskell
-THAT is an Evaluator and an Interpreter for Esoteric Languages (EsoAutomata)
+THAT is an Automaton and an Interpreter for Esoteric Languages (EsoAutomata)
 ```
 
 ## Features
 Currently, **🔧 🎨 HelMA** can:
 * calculate:
-  * 🦄 Zot
+  * 🦄 [Lazy K](https://helvm.org/lazy-k/lazy-k.html)
+  * 🦄 [Zot](https://github.com/helvm/zot_haskell)
 * interpret:
   * 🌈 BrainFuck
   * ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/)
@@ -52,7 +53,6 @@ Currently, **🔧 🎨 HelMA** can:
 [comment]: <> (* 🦄 BLC)
 [comment]: <> (* 🦄 Crazy L)
 [comment]: <> (* 🦄 DBLC)
-[comment]: <> (* 🦄 Lazy K)
 [comment]: <> (* 💛 Malbolge)
 [comment]: <> (* 💚 Piet)
 
@@ -73,10 +73,10 @@ Currently, **🔧 🎨 HelMA** can:
 * [CODE OF CONDUCT](developers/CODE_OF_CONDUCT.md)
 
 ## Reports
-* [hadock](reports/doc/index.html) - A documentation
-* [hlint](reports/hlint.html) - Source code suggestions report
-* [hpc](reports/hpc/helma-test/hpc_index_fun.html) - Haskell program coverage report
+* [hadock](reports/helma/index.html) - A documentation
+* [hpc](reports/helma-test/hpc_index_fun.html) - Haskell program coverage report
 * [stan](reports/stan.html) - Haskell STatic ANalyser report
+* [hlint](reports/hlint.html) - Source code suggestions report
 
 ## 🦄 🌈 ❤️ 💛 💚 💙 🤍 🖤
 

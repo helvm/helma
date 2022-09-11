@@ -14,6 +14,10 @@ import           HelVM.HelIO.Control.Safe
 import           Control.Monad.Free
 import           Control.Natural
 
+import qualified Data.ByteString.Lazy                as LBS
+
+import qualified Data.Text.Lazy                      as LT
+
 interpretFreeIOToBusinessIO :: BusinessIO m => FreeIO a -> m a
 interpretFreeIOToBusinessIO = foldFree interpretFreeIOFToBusinessIO
 
@@ -26,22 +30,23 @@ logOutput = foldFree logOutputF
 ----
 
 interpretFreeIOFToBusinessIO :: BusinessIO m => FreeIOF a -> m a
-interpretFreeIOFToBusinessIO (GetChar     cd) = cd <$> wGetChar
-interpretFreeIOFToBusinessIO (GetLine     cd) = cd <$> wGetLine
-interpretFreeIOFToBusinessIO (GetContents cd) = cd <$> wGetContents
-interpretFreeIOFToBusinessIO (PutChar    c v) = wPutChar  c $> v
-interpretFreeIOFToBusinessIO (PutStr     s v) = wPutStr   s $> v
-interpretFreeIOFToBusinessIO (PutStrLn   s v) = wPutStrLn s $> v
-interpretFreeIOFToBusinessIO (LogStr     s v) = wLogStr   s $> v
-interpretFreeIOFToBusinessIO (LogStrLn   s v) = wLogStrLn s $> v
-interpretFreeIOFToBusinessIO (Flush        v) = wFlush      $> v
+interpretFreeIOFToBusinessIO (GetContentsBS   cd) = cd <$> wGetContentsBS
+interpretFreeIOFToBusinessIO (GetContentsText cd) = cd <$> wGetContentsText
+interpretFreeIOFToBusinessIO (GetContents     cd) = cd <$> wGetContents
+interpretFreeIOFToBusinessIO (GetChar         cd) = cd <$> wGetChar
+interpretFreeIOFToBusinessIO (GetLine         cd) = cd <$> wGetLine
+interpretFreeIOFToBusinessIO (PutChar        c v) = wPutChar  c $> v
+interpretFreeIOFToBusinessIO (PutStr         s v) = wPutStr   s $> v
+interpretFreeIOFToBusinessIO (PutStrLn       s v) = wPutStrLn s $> v
+interpretFreeIOFToBusinessIO (LogStr         s v) = wLogStr   s $> v
+interpretFreeIOFToBusinessIO (LogStrLn       s v) = wLogStrLn s $> v
+interpretFreeIOFToBusinessIO (Flush            v) = wFlush      $> v
 
 ----
 
 logInputF :: FreeIOF a -> FreeIO a
-logInputF (GetChar     cd) = freeGetChar     >>= (\c -> liftF $ LogStr (one c) (cd c))
-logInputF (GetLine     cd) = freeGetLine     >>= (\l -> liftF $ LogStr       l (cd l))
-logInputF (GetContents cd) = freeGetContents >>= (\l -> liftF $ LogStr       l (cd l))
+logInputF (GetChar     cd) = freeGetChar     >>= (\c -> liftF $ LogStr (one      c) (cd c))
+logInputF (GetLine     cd) = freeGetLine     >>= (\l -> liftF $ LogStr           l  (cd l))
 logInputF               f  =                            liftF f
 
 logOutputF :: FreeIOF a -> FreeIO a
@@ -51,47 +56,59 @@ logOutputF f               =                             liftF f
 
 -- | Instances
 instance BusinessIO FreeIO where
-  wGetChar      = freeGetChar
-  wGetLine      = freeGetLine
-  wGetContents  = freeGetContents
-  wPutChar      = freePutChar
-  wPutStr       = freePutStr
-  wPutStrLn     = freePutStrLn
-  wLogStr       = freeLogStr
-  wLogStrLn     = freeLogStrLn
-  wFlush        = freeFlush
+  wGetContentsBS   = freeGetContentsBS
+  wGetContentsText = freeGetContentsText
+  wGetContents     = freeGetContents
+  wGetChar         = freeGetChar
+  wGetLine         = freeGetLine
+  wPutChar         = freePutChar
+  wPutStr          = freePutStr
+  wPutStrLn        = freePutStrLn
+  wLogStr          = freeLogStr
+  wLogStrLn        = freeLogStrLn
+  wFlush           = freeFlush
 
 instance BusinessIO (SafeT FreeIO) where
-  wGetChar      = safeT   freeGetChar
-  wGetLine      = safeT   freeGetLine
-  wGetContents  = safeT   freeGetContents
-  wPutChar      = safeT . freePutChar
-  wPutStr       = safeT . freePutStr
-  wPutStrLn     = safeT . freePutStrLn
-  wLogStr       = safeT . freeLogStr
-  wLogStrLn     = safeT . freeLogStrLn
-  wFlush        = safeT   freeFlush
+  wGetContentsBS   = safeT   freeGetContentsBS
+  wGetContentsText = safeT   freeGetContentsText
+  wGetContents     = safeT   freeGetContents
+  wGetChar         = safeT   freeGetChar
+  wGetLine         = safeT   freeGetLine
+  wPutChar         = safeT . freePutChar
+  wPutStr          = safeT . freePutStr
+  wPutStrLn        = safeT . freePutStrLn
+  wLogStr          = safeT . freeLogStr
+  wLogStrLn        = safeT . freeLogStrLn
+  wFlush           = safeT   freeFlush
 
 instance BusinessIO (ControlT FreeIO) where
-  wGetChar      = controlT   freeGetChar
-  wGetLine      = controlT   freeGetLine
-  wGetContents  = controlT   freeGetContents
-  wPutChar      = controlT . freePutChar
-  wPutStr       = controlT . freePutStr
-  wPutStrLn     = controlT . freePutStrLn
-  wLogStr       = controlT . freeLogStr
-  wLogStrLn     = controlT . freeLogStrLn
-  wFlush        = controlT   freeFlush
+  wGetContentsBS    = controlT   freeGetContentsBS
+  wGetContentsText  = controlT   freeGetContentsText
+  wGetContents      = controlT   freeGetContents
+  wGetChar          = controlT   freeGetChar
+  wGetLine          = controlT   freeGetLine
+  wPutChar          = controlT . freePutChar
+  wPutStr           = controlT . freePutStr
+  wPutStrLn         = controlT . freePutStrLn
+  wLogStr           = controlT . freeLogStr
+  wLogStrLn         = controlT . freeLogStrLn
+  wFlush            = controlT   freeFlush
 
 -- | Low level functions
+freeGetContentsBS :: FreeIO LBS.ByteString
+freeGetContentsBS = liftF $ GetContentsBS id
+
+freeGetContentsText :: FreeIO LT.Text
+freeGetContentsText = liftF $ GetContentsText id
+
+freeGetContents :: FreeIO String
+freeGetContents = liftF $ GetContents id
+
 freeGetChar :: FreeIO Char
 freeGetChar = liftF $ GetChar id
 
 freeGetLine :: FreeIO Text
 freeGetLine = liftF $ GetLine id
-
-freeGetContents :: FreeIO Text
-freeGetContents = liftF $ GetContents id
 
 freePutChar :: Char -> FreeIO ()
 freePutChar = liftF . flip PutChar ()
@@ -115,13 +132,15 @@ freeFlush = liftF $ Flush ()
 type FreeIO = Free FreeIOF
 
 data FreeIOF a
- = GetChar     (Char -> a)
- | GetLine     (Text -> a)
- | GetContents (Text -> a)
- | PutChar      Char a
- | PutStr       Text a
- | PutStrLn     Text a
- | LogStr       Text a
- | LogStrLn     Text a
- | Flush             a
+ = GetContentsBS   (LBS.ByteString -> a)
+ | GetContentsText (LT.Text        -> a)
+ | GetContents     (String         -> a)
+ | GetChar         (Char           -> a)
+ | GetLine         (Text           -> a)
+ | PutChar          Char a
+ | PutStr           Text a
+ | PutStrLn         Text a
+ | LogStr           Text a
+ | LogStrLn         Text a
+ | Flush                 a
  deriving stock (Functor)

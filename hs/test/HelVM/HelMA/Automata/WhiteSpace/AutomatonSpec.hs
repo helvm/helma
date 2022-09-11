@@ -17,7 +17,7 @@ import           Test.Hspec                                   (Spec, describe, i
 
 spec :: Spec
 spec =
-  describe "eval" $ forM_ (((
+  describe "run" $ forM_ (((
     [ ("count"        , ""           )
     , ("hworld"       , ""           )
     , ("calc"         , "-1\n"       )
@@ -53,7 +53,7 @@ spec =
         let paramsF = simpleParamsWithDefaults tokenType ascii
         let paramsIO = paramsF <$> file
         let path = ext </> showAscii ascii </> filePath <> toString input
-        let mock = ioExecMockIOWithInput input . simpleEval =<< paramsIO
+        let mock = ioExecMockIOWithInput input . simpleRun =<< paramsIO
         describe path $ do
           it ("output" </> path) $
             calculateOutput <$> mock `goldenShouldIO` buildAbsoluteWsOutFileName path

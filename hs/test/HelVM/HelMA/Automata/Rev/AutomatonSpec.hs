@@ -11,7 +11,7 @@ import           Test.Hspec.Expectations.Pretty
 spec :: Spec
 spec =
   describe "output" $
-    it "Hello, world!" $ (calculateOutput . execMockIOBatch . eval) hw `shouldBe` hwo
+    it "Hello, world!" $ (calculateOutput . execMockIOBatch . run) hw `shouldBe` hwo
 
 hw :: Source
 hw = "#!/usr/bin/rev\n!dlrow ,olleH\n"

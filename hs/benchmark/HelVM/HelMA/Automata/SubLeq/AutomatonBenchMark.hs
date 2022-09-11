@@ -20,4 +20,4 @@ exec t = forM
   , ("longHello" , "")
   ] $ \(fileName , input) -> do
     let file = readSqFile fileName
-    calculateOutput <$> ((ioExecMockIOWithInput input . simpleEval t) =<< file)
+    calculateOutput <$> ((ioExecMockIOWithInput input . simpleRun t) =<< file)

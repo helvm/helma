@@ -36,6 +36,6 @@ simpleEvalWS t = forM
     let file = readWsFile ("original" </> fileName)
     forM options $ \ ascii -> do
       let paramsIO = simpleParamsWithWhiteTokenType t ascii <$> file
-      calculateOutput <$> (ioExecMockIOWithInput input . simpleEval =<< paramsIO)
+      calculateOutput <$> (ioExecMockIOWithInput input . simpleRun =<< paramsIO)
 
 type BenchParams = (StackType , RAMType)

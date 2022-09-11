@@ -13,6 +13,8 @@ import qualified HelVM.HelMA.Automata.BrainFuck.Lexer      as BF
 import qualified HelVM.HelMA.Automata.ETA.Automaton        as ETA
 import qualified HelVM.HelMA.Automata.ETA.Lexer            as ETA
 
+import qualified HelVM.HelMA.Automata.LazyK.Automaton      as Lazy
+
 import qualified HelVM.HelMA.Automata.SubLeq.Automaton     as SQ
 import qualified HelVM.HelMA.Automata.SubLeq.Lexer         as SQ
 
@@ -22,8 +24,9 @@ import qualified HelVM.HelMA.Automata.WhiteSpace.Parser    as WS
 
 import qualified HelVM.HelMA.Automata.Zot.Automaton        as Zot
 
-import           HelVM.HelMA.Automaton.API.EvalParams
+
 import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.RunParams
 import           HelVM.HelMA.Automaton.API.TypeOptions
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
@@ -62,10 +65,10 @@ readSourceFile True = pure . toText
 readSourceFile _    = readFileText
 
 run :: Minified -> EmitTL -> EmitIL -> PrintLogs -> TypeOptions -> Compile -> AsciiLabels -> Lang -> TokenType -> Source -> IO ()
-run True _    _    _ _ _ _ l t s  = minification l t s
-run _    True _    _ _ _ _ l t s  = tokenize l t s
-run _    _    True _ _ _ a l t s  = parse l t a s
-run _    _    _    p to c a l t s = eval p to c a l t s
+run True _    _    _ _ _ _ l t s = minification l t s
+run _    True _    _ _ _ _ l t s = tokenize l t s
+run _    _    True _ _ _ a l t s = parse l t a s
+run _    _    _    p o c a l t s = eval p o c a l t s
 
 minification :: Lang -> TokenType -> Source -> IO ()
 minification WS VisibleTokenType = print . WS.readVisibleTokens
@@ -88,14 +91,15 @@ parse WS   WhiteTokenType   a = pPrintNoColor . WS.flipParseWhite   a
 parse lang tt               _ = tokenize lang tt
 
 eval :: PrintLogs -> TypeOptions -> Compile -> AsciiLabels -> Lang -> TokenType -> Source -> IO ()
-eval p options c a lang tt s = (controlTToIO p . evalParams lang tt) params
-  where params = EvalParams {compile = c , asciiLabel = a , source = s , typeOptions = options}
+eval p options c a lang tt s = (controlTToIO p . runWithParams lang tt) params
+  where params = RunParams {compile = c , asciiLabel = a , source = s , typeOptions = options}
 
-evalParams :: BIO m => Lang -> TokenType -> EvalParams -> m ()
-evalParams WS tt = WS.evalParams tt
-evalParams Cat _ = Cat.evalParams
-evalParams Rev _ = Rev.evalParams
-evalParams BF  _ = BF.evalParams
-evalParams ETA _ = ETA.evalParams
-evalParams SQ  _ = SQ.evalParams
-evalParams Zot _ = Zot.evalParams
+runWithParams :: BIO m => Lang -> TokenType -> RunParams -> m ()
+runWithParams Lazy _ = Lazy.runWithParams
+runWithParams WS   t = WS.runWithParams t
+runWithParams Cat  _ = Cat.runWithParams
+runWithParams Rev  _ = Rev.runWithParams
+runWithParams BF   _ = BF.runWithParams
+runWithParams ETA  _ = ETA.runWithParams
+runWithParams SQ   _ = SQ.runWithParams
+runWithParams Zot  _ = Zot.runWithParams

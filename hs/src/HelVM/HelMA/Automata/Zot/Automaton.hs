@@ -1,14 +1,14 @@
 module HelVM.HelMA.Automata.Zot.Automaton (
-  evalParams,
-  eval,
+  runWithParams,
+  run,
 ) where
 
 import           HelVM.HelMA.Automata.Zot.Evaluator
 import           HelVM.HelMA.Automata.Zot.Expression
 import           HelVM.HelMA.Automata.Zot.Parser
 
-import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.RunParams
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
@@ -22,15 +22,17 @@ import           HelVM.HelIO.ListLikeUtil
 
 import           Control.Monad.Writer.Lazy
 
-evalParams :: BIO m => EvalParams -> m ()
-evalParams p = wPutStr =<< eval (asciiLabel p) (source p) =<< wGetContents
+import qualified Data.Text.Lazy                      as LT
 
-eval :: MonadSafe m => Bool -> Source -> Input -> m Output
-eval False source input = pure $ showFoldable $ evalSource source input
-eval True  source input = (makeAsciiText28 . convert . evalSource source) . showExpressionList =<< textToDL input
+runWithParams :: BIO m => RunParams -> m ()
+runWithParams p = wPutStr =<< run (asciiLabel p) (source p) =<< wGetContentsText
 
-evalSource :: Source -> Input -> ExpressionDList
-evalSource source input = evalText $ source <> input
+run :: MonadSafe m => Bool -> Source -> LT.Text -> m Output
+run False source input = pure $ showFoldable $ run2 source input
+run True  source input = (makeAsciiText28 . convert . run2 source) . showExpressionList =<< stringToDL (toString input)
 
-evalText :: Text -> ExpressionDList
+run2 :: Source -> LT.Text  -> ExpressionDList
+run2 source input = evalText $ fromStrict source <> input
+
+evalText :: LT.Text  -> ExpressionDList
 evalText = execWriter . evalExpressionList . parse

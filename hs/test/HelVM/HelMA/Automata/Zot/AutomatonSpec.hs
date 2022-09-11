@@ -13,7 +13,7 @@ import           System.FilePath.Posix
 import           Test.Hspec                         (Spec, describe, it)
 
 spec :: Spec
-spec = describe "eval" $ forM_ ((
+spec = describe "run" $ forM_ ((
   [ ("hello"             , ""         , options)
   , ("reverse"           , "10101010" , binaryOnly)
   , ("reverse"           , "01010101" , binaryOnly)
@@ -32,4 +32,4 @@ spec = describe "eval" $ forM_ ((
     let path = showAscii ascii </> filePath <> toString input
     describe path $
       it ("output" </> path) $
-        safeIOToIO (flip (eval ascii) input <$> file) `goldenShouldIO` buildAbsoluteZotOutFileName path
+        safeIOToIO (flip (run ascii) input <$> file) `goldenShouldIO` buildAbsoluteZotOutFileName path

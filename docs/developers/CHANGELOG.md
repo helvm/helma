@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.0.0 -- 2022-09-11
+
+* Add `Lazy K` Calculator
+
 ## 0.7.2.1 -- 2022-09-09
 
 * Extract HelIO
@@ -15,7 +19,7 @@
 
 ## 0.7.0.0 -- 2022-02-19
 
-* Implement `Evaluator` of `Zot` 
+* Implement `Automaton` of `Zot` 
 
 ## 0.6.16.0 -- 2022-02-10
 
@@ -114,7 +118,7 @@
 
 ## 0.6.0.0  -- 2020-08-07
 
-* Add `Evaluator` of ETA and SubLeq
+* Add `Automaton` of ETA and SubLeq
 
 ## 0.5.0.0  -- 2020-06-30
 
@@ -122,7 +126,7 @@
 
 ## 0.4.0.0  -- 2020-06-22
 
-* Add `Evaluator` of BrainFuck and WhiteSpace
+* Add `Automaton` of BrainFuck and WhiteSpace
 * Add `WrapperIO`, `FilterIf0`, `MockIO` and tests for `FilterIf0`
 
 ## 0.3.0.0  -- 2020-05-30
