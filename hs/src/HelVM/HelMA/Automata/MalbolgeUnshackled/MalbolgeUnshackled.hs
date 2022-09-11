@@ -1,29 +1,24 @@
 {-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE RecursiveDo    #-}
 
-module HelVM.HelMA.Automata.MalbolgeUnshackled where
+module HelVM.HelMA.Automata.MalbolgeUnshackled.MalbolgeUnshackled where
 
--- modules for lazy mutable structures
-import qualified Control.Monad.Fix
-import           Data.IORef
+import HelVM.HelMA.Automata.MalbolgeUnshackled.MemNode
+import HelVM.HelMA.Automata.MalbolgeUnshackled.Trit
+import HelVM.HelMA.Automata.MalbolgeUnshackled.Util
+import HelVM.HelMA.Automata.MalbolgeUnshackled.Value
+
 import           System.IO.Unsafe    (unsafeInterleaveIO)
 
 import           Control.Monad
-import           Control.Monad.State
 import           Data.Array
-import           Data.Char           (isSpace, ord)
-import           Data.List
-import           System.Environment  (getArgs)
-import           System.IO
+import           Data.Char           (isSpace)
+import           System.IO (getChar , hClose , hPutStr , isEOF , putChar)
 import           System.Random       (randomIO, randomRIO)
 
--- The memory structure, a combined trie and linked list
-data MemNode = MemNode {
-    nodes :: MemNodes, next :: MemNode,
-    value :: IORef Value, modClass :: Int, width :: Int}
-type MemNodes = Trit -> MemNode
-data Value = OffsetV Trit Integer | ListV [Trit] deriving (Show)
-data Trit = T0 | T1 | T2 deriving (Enum, Show, Eq)
+import Prelude hiding ( bug )
+
+-- | The memory structure, a combined trie and linked list
 
 data BranchEnv = BEnv {
     restArray :: Array Int Value, modCombine :: Int -> Trit -> Int }
@@ -40,12 +35,10 @@ data OtherState = Other { -- Things that change rarely, if at all
     maxWidth     :: Int,
     growthPolicy :: Int -> UMonad OtherState }
 data Instruction = OutOfBounds | DefaultNop | I | LS | DIV | MUL | J | P | O | V
-    deriving (Show)
+    deriving stock (Show)
 
-{-
- - Main function
- -}
-
+-- | Main function
+main :: IO ((), UState)
 main = do
     args <- getArgs
     let(allowOutOfBounds, file) = case args of
@@ -92,8 +85,8 @@ fillProg allowOutOfBounds fromNode (c:rest) =
     v = charToValue c
     fillRestProg = fillProg allowOutOfBounds (next fromNode) rest
     illegalProgram = error $
-        "Illegal instruction " ++ show c ++
-        " in source at offset " ++ show m
+        "Illegal instruction " <> show c <>
+        " in source at offset " <> show m
 
 newMemory :: Array Int Value -> IO MemNode
 newMemory rArr = mdo
@@ -113,6 +106,7 @@ newMemory rArr = mdo
     doubleBug = bug "Duplicate initial trit"
     rootBug = bug "Root memory node used as leaf"
 
+topNode :: (MonadIO m, Enum a) => Array Int Value -> MemNodes -> MemNode -> a -> m (MemNode, BranchEnv)
 topNode rArr nodes next trit = do
     value <- newIORef $ rArr ! (modClass `mod` restMod)
     return
@@ -128,15 +122,12 @@ topNode rArr nodes next trit = do
     modCombine modClass trit =
         (modClass * 3 + fromEnum trit + modAdjust) `mod` fullMod
 
+newNodes :: BranchEnv -> MemNode -> MemNode -> IO (Trit -> MemNode)
 newNodes benv parent next = unsafeInterleaveIO $ do
     n2 <- newNode benv parent (next `nodes` T0) T2
     n1 <- newNode benv parent n2 T1
     n0 <- newNode benv parent n1 T0
     return $ nodeMap n0 n1 n2
-
-nodeMap t0 _ _ T0 = t0
-nodeMap _ t1 _ T1 = t1
-nodeMap _ _ t2 T2 = t2
 
 newNode :: BranchEnv -> MemNode -> MemNode -> Trit -> IO MemNode
 newNode benv parent next trit = unsafeInterleaveIO $ mdo
@@ -150,10 +141,9 @@ newNode benv parent next trit = unsafeInterleaveIO $ mdo
             value = value, modClass = modClass, width = width }
     return this
 
-{-
- - Running a program in memory
- -}
 
+-- | Running a program in memory
+runProg :: MemNode -> IO ((), UState)
 runProg mem = do
     o <- selectPolicy mem
     let memStart = mem `nodes` T0
@@ -163,6 +153,7 @@ runProg mem = do
         c = memStart,
         d = memStart }
 
+progLoop :: StateT UState IO ()
 progLoop = do
     c <- gets c
     v <- io $ readIORef (value c)
@@ -173,7 +164,8 @@ progLoop = do
             postalStage
             progLoop
 
--- Encrypt and increment
+-- | Encrypt and increment
+postalStage :: StateT UState IO ()
 postalStage = do
     st@UState{c=c@MemNode{value}, d} <- get
     v <- liftM vToOffset $ io $ readIORef value
@@ -183,11 +175,8 @@ postalStage = do
         _ -> crash
     put st{c = next c, d = next d}
 
-encrypt = listArray (33 :: Integer, 126) $ map charToValue
-    "5z]&gqtyfr$(we4{WP)H-Zn,[%\\3dL+Q;>U!pJS72FhOA1C\
-    \B6v^=I_0/8|jsb9m<.TVac`uY*MK'X~xDl}REokN:#?G\"i@"
-
--- Execute any instruction other than v
+-- | Execute any instruction other than v
+execInstr :: Instruction -> StateT UState IO ()
 execInstr OutOfBounds = hang
 execInstr DefaultNop  = return ()
 execInstr I = do
@@ -206,8 +195,8 @@ execInstr DIV = do
     newa <- io $ do
         e <- isEOF
         if e then return $ OffsetV T2 0 else do
-        ch <- getChar
-        return $ if ch=='\n'
+          ch <- getChar
+          return $ if ch=='\n'
             then OffsetV T2 (-1)
             else OffsetV T0 $ toInteger $ fromEnum ch
     st <- get
@@ -230,13 +219,15 @@ execInstr P = do
 execInstr O = return ()
 
 
--- Look up a memory node from an address value
+-- | Look up a memory node from an address value
+lookupMem :: MonadState UState m => Value -> m MemNode
 lookupMem addr = do
     mem <- gets (memory . other)
     let ListV l = vToList addr
     return $ foldl' nodes mem $ reverse l
 
--- Decode instruction from value and mod
+-- | Decode instruction from value and mod
+instruction :: Value -> Int -> Instruction
 instruction val m = case vToOffset val of
     OffsetV T0 o
         | o < 33 || o > 126 -> OutOfBounds
@@ -247,7 +238,8 @@ instruction val m = case vToOffset val of
     OffsetV _ _ -> OutOfBounds
 
 
--- Random policy generator
+-- | Random policy generator
+selectPolicy :: MonadIO m => MemNode -> m OtherState
 selectPolicy mem = do
     rw <- randomRIO (10, 15)
     det <- randomIO
@@ -265,82 +257,32 @@ selectPolicy mem = do
         slack <- randomRIO (0, 5)
         return $ \newMax -> do
             o@Other{rotWidth} <- gets other
-            let min = newMax * 2
-            will <- if min > rotWidth
+            let min0 = newMax * 2
+            will <- if min0 > rotWidth
                 then return True
                 else liftM (<= prob) $ io randomIO
             newRot <- if will
-                then liftM (+ max min rotWidth) $ io $ randomRIO (0, slack)
+                then liftM (+ max min0 rotWidth) $ io $ randomRIO (0, slack)
                 else return rotWidth
             return o{ maxWidth = newMax, rotWidth = newRot }
     return Other {
         memory=mem, maxWidth=0, rotWidth=rw, growthPolicy=gp }
 
-charToValue = OffsetV T0 . toInteger . ord
-
-rotate width val = ListV $ compressList $ rot w t r where
-    w = if width >= 1 then width else bug "Rotation width not positive"
-    ListV (t:r') = vToList val
-    r = case r' of
-        [] -> [t]
-        _  -> r'
-    rot 1 t r      = t : r
-    rot w t [l]    = l : rot (w-1) t [l]
-    rot w t (t':l) = t' : rot (w-1) t l
-
-opValue v1 v2 = ListV $ compressList $ opv l1 l2 where
-    opv [t] l           = map (t `op`) l
-    opv l [t]           = map (`op` t) l
-    opv (t1:r1) (t2:r2) = (t1 `op` t2):opv r1 r2
-    opv _ _             = bug "opv given empty ListV"
-    ListV l1 = vToList v1
-    ListV l2 = vToList v2
-
--- Iteration of a function on the previous two values, like Fibonacci sequence
+-- | Iteration of a function on the previous two values, like Fibonacci sequence
+iterate2 :: (b -> b -> b) -> b -> b -> [b]
 iterate2 f l1 l2 = map fst $ flip iterate (l1,l2) $ \(p1,p2) -> (p2, f p1 p2)
 
--- Moduli for filling memory and decoding instructions
+-- | Moduli for filling memory and decoding instructions
+restMod :: Int
 restMod = 6 :: Int
+
+instrMod :: Int
 instrMod = 94 :: Int
+
+fullMod :: Int
 fullMod = lcm restMod instrMod
 
--- The "crazy" operation on trits.
-op T0 T0 = T1;      op T1 T0 = T0;      op T2 T0 = T0
-op T0 T1 = T1;      op T1 T1 = T0;      op T2 T1 = T2
-op T0 T2 = T2;      op T1 T2 = T2;      op T2 T2 = T1
 
--- Remove extra digits in list
-compressList l = foldr cpr [] l where
-    cpr x l@[y] | x == y = l
-    cpr x l = x:l
 
--- Conversion between value representations
-vToOffset val@(OffsetV _ _) = val
-vToOffset (ListV []) = bug "Empty tritlist"
-vToOffset (ListV l) = OffsetV base offset where
-    (base:rest) = reverse l
-    offset = foldl' collect 0 rest
-    collect x t = x*3 + toInteger (fromEnum t - fromEnum base)
-
-vToList val@(ListV _) = val
-vToList (OffsetV base offset) = ListV (buildList offset) where
-    b = toInteger (fromEnum base)
-    buildList 0 = [base]
-    buildList o = toEnum (fromInteger m) : buildList d where
-        (d,m) = (o+b) `divMod` 3
-
--- Might be used for consistency check
-vCheck (OffsetV T0 offset) = offset >= 0
-vCheck (OffsetV T2 offset) = offset <= 0
-vCheck (ListV [])          = False
-vCheck _                   = True
-
+io :: IO a -> UMonad a
 io = liftIO :: IO a -> UMonad a
-
-crash = error $! show $ foldl' (^) (2 :: Integer) $ cycle [2]
-hang = error $! show $ foldl' (+) 0 $ cycle [-1,1]
-
--- Errors that shouldn't be possible.
-bug msg = error $ "Internal error: " ++ msg
-
-debug msg = liftIO $ hPutStr stderr msg

@@ -159,6 +159,12 @@ library
     HelVM.HelMA.Automata.ETA.Symbol
     HelVM.HelMA.Automata.ETA.Token
 
+    HelVM.HelMA.Automata.MalbolgeUnshackled.MalbolgeUnshackled
+    HelVM.HelMA.Automata.MalbolgeUnshackled.MemNode
+    HelVM.HelMA.Automata.MalbolgeUnshackled.Trit
+    HelVM.HelMA.Automata.MalbolgeUnshackled.Util
+    HelVM.HelMA.Automata.MalbolgeUnshackled.Value
+
     HelVM.HelMA.Automata.Rev.Automaton
 
     HelVM.HelMA.Automata.SubLeq.Automaton
@@ -182,6 +188,7 @@ library
 
   build-depends:
       helio
+    , array
     , containers           <  0.7
     , data-default
     , dlist
@@ -189,6 +196,7 @@ library
     , ListLike
     , natural-transformation
     , mtl
+    , random
     , text
     , type-operators
     , vector
