@@ -36,7 +36,7 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.Containers.LLIndexSafe
 
-import           HelVM.HelIO.ListLikeUtil
+import           HelVM.HelIO.ListLikeExtra
 
 import           Data.ListLike                                   hiding (show)
 import           Prelude                                         hiding (divMod, drop, fromList, splitAt, swap)

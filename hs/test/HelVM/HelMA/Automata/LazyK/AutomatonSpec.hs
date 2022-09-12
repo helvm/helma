@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.LazyK.AutomatonSpec where
 
 import           HelVM.HelMA.Automata.LazyK.Automaton
-import           HelVM.HelMA.Automata.LazyK.FileUtil
+import           HelVM.HelMA.Automata.LazyK.FileExtra
 
 import           HelVM.HelMA.Automaton.IO.MockIO
 

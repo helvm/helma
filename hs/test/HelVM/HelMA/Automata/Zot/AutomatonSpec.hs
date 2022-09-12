@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.Zot.AutomatonSpec where
 
 import           HelVM.HelMA.Automata.Zot.Automaton
-import           HelVM.HelMA.Automata.Zot.FileUtil
+import           HelVM.HelMA.Automata.Zot.FileExtra
 
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.ZipA

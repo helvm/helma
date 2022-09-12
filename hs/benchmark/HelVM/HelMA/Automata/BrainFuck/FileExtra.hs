@@ -1,11 +1,11 @@
-module HelVM.HelMA.Automata.BrainFuck.FileUtil (
+module HelVM.HelMA.Automata.BrainFuck.FileExtra (
   readBfFile,
 
   buildAbsoluteExecFileName,
   options,
 ) where
 
-import           HelVM.HelMA.Automata.FileUtil
+import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 

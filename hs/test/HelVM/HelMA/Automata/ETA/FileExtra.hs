@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.ETA.FileUtil (
+module HelVM.HelMA.Automata.ETA.FileExtra (
   readEtaFile,
   buildAbsoluteMinifiedEtaFileName,
   buildAbsoluteEtaFileName,
@@ -9,7 +9,7 @@ module HelVM.HelMA.Automata.ETA.FileUtil (
   options,
 ) where
 
-import           HelVM.HelMA.Automata.FileUtil
+import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 

@@ -4,7 +4,7 @@ import           HelVM.HelMA.Automaton.IO.BusinessIO
 
 import           HelVM.HelIO.Control.Logger
 
-import           HelVM.HelIO.Util
+import           HelVM.HelIO.Extra
 
 logDump :: (BIO m , Show d) => DumpType -> d -> m ()
 logDump dt d = logDump' $ dump dt d where
@@ -18,9 +18,8 @@ dump Pretty a = Just $ showP a
 
 -- | Constructors
 parseDumpType :: String -> DumpType
-parseDumpType raw = (valid . readMaybe) raw where
-  valid (Just value) = value
-  valid Nothing      = error $ "DumpType '" <> toText raw <> "' is not valid DumpType. Valid dumpTypes are : " <> show dumpTypes
+parseDumpType raw = fromJustWithText message $ readMaybe raw where
+  message = "DumpType '" <> toText raw <> "' is not valid DumpType. Valid dumpTypes are : " <> show dumpTypes
 
 defaultDumpType :: DumpType
 defaultDumpType = No

@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automaton.API.TypeOptionsUtil where
+module HelVM.HelMA.Automaton.API.TypeOptionsExtra where
 
 import           HelVM.HelMA.Automaton.API.TypeOptions
 

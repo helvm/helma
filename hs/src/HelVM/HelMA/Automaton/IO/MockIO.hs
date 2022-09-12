@@ -23,7 +23,7 @@ import           HelVM.HelMA.Automaton.IO.BusinessIO
 import           HelVM.HelIO.Control.Control
 import           HelVM.HelIO.Control.Safe
 
-import           HelVM.HelIO.ListLikeUtil
+import           HelVM.HelIO.ListLikeExtra
 
 import qualified Data.ByteString.Lazy                as LBS
 

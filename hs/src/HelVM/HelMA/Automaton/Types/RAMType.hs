@@ -1,10 +1,11 @@
 module HelVM.HelMA.Automaton.Types.RAMType where
 
+import           HelVM.HelIO.Extra
+
 -- | Constructors
 parseRAMType :: String -> RAMType
-parseRAMType raw = (valid . readMaybe) raw where
-  valid (Just value) = value
-  valid Nothing      = error $ "RAMType '" <> toText raw <> "' is not valid RAMType. Valid ramTypes are : " <> show ramTypes
+parseRAMType raw = fromJustWithText message $ readMaybe raw where
+  message = "RAMType '" <> toText raw <> "' is not valid RAMType. Valid ramTypes are : " <> show ramTypes
 
 defaultRAMType :: RAMType
 defaultRAMType = MapListRAMType

@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.LazyK.FileUtil (
+module HelVM.HelMA.Automata.LazyK.FileExtra (
   readLazyKFile,
   buildAbsoluteMinifiedLazyKFileName,
   buildAbsoluteLazyKFileName,
@@ -9,7 +9,7 @@ module HelVM.HelMA.Automata.LazyK.FileUtil (
   options,
 ) where
 
-import           HelVM.HelMA.Automata.FileUtil
+import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 

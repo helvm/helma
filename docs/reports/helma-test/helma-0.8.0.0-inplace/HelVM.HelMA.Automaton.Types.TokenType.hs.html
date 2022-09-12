@@ -19,13 +19,13 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Types.TokenType where
 <span class="lineno">    2 </span>
-<span class="lineno">    3 </span>import           HelVM.HelIO.SwitchEnum
-<span class="lineno">    4 </span>
-<span class="lineno">    5 </span>-- | Constructors
-<span class="lineno">    6 </span>parseTokenType:: String -&gt; TokenType
-<span class="lineno">    7 </span><span class="decl"><span class="nottickedoff">parseTokenType raw = valid $ readMaybe raw where</span>
-<span class="lineno">    8 </span><span class="spaces">  </span><span class="nottickedoff">valid (Just value) = value</span>
-<span class="lineno">    9 </span><span class="spaces">  </span><span class="nottickedoff">valid Nothing      = error $ &quot;'&quot; &lt;&gt; toText raw &lt;&gt; &quot;' is not valid TokenType. Valid tokenTypes are : &quot; &lt;&gt; show tokenTypes</span></span>
+<span class="lineno">    3 </span>import           HelVM.HelIO.Extra
+<span class="lineno">    4 </span>import           HelVM.HelIO.SwitchEnum
+<span class="lineno">    5 </span>
+<span class="lineno">    6 </span>-- | Constructors
+<span class="lineno">    7 </span>parseTokenType:: String -&gt; TokenType
+<span class="lineno">    8 </span><span class="decl"><span class="nottickedoff">parseTokenType raw = fromJustWithText message $ readMaybe raw where</span>
+<span class="lineno">    9 </span><span class="spaces">  </span><span class="nottickedoff">message = &quot;'&quot; &lt;&gt; toText raw &lt;&gt; &quot;' is not valid TokenType. Valid tokenTypes are : &quot; &lt;&gt; show tokenTypes</span></span>
 <span class="lineno">   10 </span>
 <span class="lineno">   11 </span>defaultTokenType :: TokenType
 <span class="lineno">   12 </span><span class="decl"><span class="nottickedoff">defaultTokenType = defaultEnum</span></span>

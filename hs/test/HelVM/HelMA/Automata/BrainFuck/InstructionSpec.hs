@@ -1,13 +1,13 @@
 module HelVM.HelMA.Automata.BrainFuck.InstructionSpec (spec) where
 
-import           HelVM.HelMA.Automata.BrainFuck.FileUtil
+import           HelVM.HelMA.Automata.BrainFuck.FileExtra
 import           HelVM.HelMA.Automata.BrainFuck.Lexer
 
 import           HelVM.HelMA.Automaton.WrapTokenList
 
 import           HelVM.Expectations
 
-import           Test.Hspec                              (Spec, describe, it)
+import           Test.Hspec                               (Spec, describe, it)
 import           Test.Hspec.Expectations.Pretty
 
 spec :: Spec

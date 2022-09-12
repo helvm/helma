@@ -232,28 +232,27 @@ test-suite helma-test
 
     HelVM.Expectations
     HelVM.GoldenExpectations
-    HelVM.MonadErrorSpec
 
-    HelVM.HelMA.Automaton.API.TypeOptionsUtil
+    HelVM.HelMA.Automaton.API.TypeOptionsExtra
     HelVM.HelMA.Automaton.FilterIf0Spec
 
-    HelVM.HelMA.Automata.FileUtil
+    HelVM.HelMA.Automata.FileExtra
 
     HelVM.HelMA.Automata.BrainFuck.AutomatonSpec
     HelVM.HelMA.Automata.BrainFuck.AutomatonSpecData
-    HelVM.HelMA.Automata.BrainFuck.FileUtil
+    HelVM.HelMA.Automata.BrainFuck.FileExtra
     HelVM.HelMA.Automata.BrainFuck.InstructionSpec
 
     HelVM.HelMA.Automata.Cat.AutomatonSpec
 
     HelVM.HelMA.Automata.ETA.AddressingSpec
     HelVM.HelMA.Automata.ETA.AutomatonSpec
-    HelVM.HelMA.Automata.ETA.FileUtil
+    HelVM.HelMA.Automata.ETA.FileExtra
     HelVM.HelMA.Automata.ETA.LexerSpec
     HelVM.HelMA.Automata.ETA.OperandParsersSpec
 
     HelVM.HelMA.Automata.LazyK.AutomatonSpec
-    HelVM.HelMA.Automata.LazyK.FileUtil
+    HelVM.HelMA.Automata.LazyK.FileExtra
     HelVM.HelMA.Automata.LazyK.NumberSpec
     HelVM.HelMA.Automata.LazyK.ParserSpec
 
@@ -261,16 +260,16 @@ test-suite helma-test
 
     HelVM.HelMA.Automata.SubLeq.AutomatonSpec
     HelVM.HelMA.Automata.SubLeq.AutomatonSpecData
-    HelVM.HelMA.Automata.SubLeq.FileUtil
+    HelVM.HelMA.Automata.SubLeq.FileExtra
     HelVM.HelMA.Automata.SubLeq.LexerSpec
 
     HelVM.HelMA.Automata.WhiteSpace.AutomatonSpec
-    HelVM.HelMA.Automata.WhiteSpace.FileUtil
+    HelVM.HelMA.Automata.WhiteSpace.FileExtra
     HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec
     HelVM.HelMA.Automata.WhiteSpace.ParserSpec
 
     HelVM.HelMA.Automata.Zot.AutomatonSpec
-    HelVM.HelMA.Automata.Zot.FileUtil
+    HelVM.HelMA.Automata.Zot.FileExtra
 
   build-depends:
       hspec
@@ -283,7 +282,6 @@ test-suite helma-test
     , helma
 
     , filepath
-    , mtl
     , type-operators
     , vector
 
@@ -300,19 +298,19 @@ benchmark helma-benchmark
   main-is:             Main.hs
   other-modules:
 
-    HelVM.HelMA.Automata.FileUtil
+    HelVM.HelMA.Automata.FileExtra
 
     HelVM.HelMA.Automata.BrainFuck.AutomatonBenchMark
-    HelVM.HelMA.Automata.BrainFuck.FileUtil
+    HelVM.HelMA.Automata.BrainFuck.FileExtra
 
     HelVM.HelMA.Automata.ETA.AutomatonBenchMark
-    HelVM.HelMA.Automata.ETA.FileUtil
+    HelVM.HelMA.Automata.ETA.FileExtra
 
     HelVM.HelMA.Automata.SubLeq.AutomatonBenchMark
-    HelVM.HelMA.Automata.SubLeq.FileUtil
+    HelVM.HelMA.Automata.SubLeq.FileExtra
 
     HelVM.HelMA.Automata.WhiteSpace.AutomatonBenchMark
-    HelVM.HelMA.Automata.WhiteSpace.FileUtil
+    HelVM.HelMA.Automata.WhiteSpace.FileExtra
 
   build-depends:
       gauge

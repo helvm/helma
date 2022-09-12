@@ -12,13 +12,13 @@ import           HelVM.HelMA.Automaton.API.RunParams
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.HelIO.Containers.Util
+import           HelVM.HelIO.Containers.Extra
 import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.Digit.Digitable
 import           HelVM.HelIO.Digit.ToDigit
 
-import           HelVM.HelIO.ListLikeUtil
+import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Monad.Writer.Lazy
 

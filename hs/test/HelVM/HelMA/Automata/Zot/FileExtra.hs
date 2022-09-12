@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Zot.FileUtil (
+module HelVM.HelMA.Automata.Zot.FileExtra (
   readZotFile,
   buildAbsoluteZotFileName,
   buildAbsoluteZotOutFileName,
@@ -8,7 +8,7 @@ module HelVM.HelMA.Automata.Zot.FileUtil (
   options,
 ) where
 
-import           HelVM.HelMA.Automata.FileUtil
+import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 

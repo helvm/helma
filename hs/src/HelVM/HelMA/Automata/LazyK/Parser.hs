@@ -30,7 +30,7 @@ lambdaParser =
   <|>  App <$ char '`' <*> lambdaParser <*> lambdaParser
   <|>  char '(' *> appParser <* char ')'
 
--- | ParserUtils
+-- | ParserExtras
 runParser :: MonadSafe m => ReadP Lambda -> Source -> m Lambda
 runParser parser source = fst . last <$> nonEmptyRunParser parser source
 

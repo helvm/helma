@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.ETA.AutomatonSpec (spec) where
 
 import           HelVM.HelMA.Automata.ETA.Automaton
-import           HelVM.HelMA.Automata.ETA.FileUtil
+import           HelVM.HelMA.Automata.ETA.FileExtra
 
 import           HelVM.HelMA.Automaton.IO.MockIO
 import           HelVM.HelMA.Automaton.Types.StackType

@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.FileUtil (
+module HelVM.HelMA.Automata.FileExtra (
   readSourceFile,
   buildAbsoluteLangFileName,
   buildAbsoluteModeFileName,

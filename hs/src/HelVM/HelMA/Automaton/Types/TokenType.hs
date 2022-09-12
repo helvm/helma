@@ -1,12 +1,12 @@
 module HelVM.HelMA.Automaton.Types.TokenType where
 
+import           HelVM.HelIO.Extra
 import           HelVM.HelIO.SwitchEnum
 
 -- | Constructors
 parseTokenType:: String -> TokenType
-parseTokenType raw = valid $ readMaybe raw where
-  valid (Just value) = value
-  valid Nothing      = error $ "'" <> toText raw <> "' is not valid TokenType. Valid tokenTypes are : " <> show tokenTypes
+parseTokenType raw = fromJustWithText message $ readMaybe raw where
+  message = "'" <> toText raw <> "' is not valid TokenType. Valid tokenTypes are : " <> show tokenTypes
 
 defaultTokenType :: TokenType
 defaultTokenType = defaultEnum

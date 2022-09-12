@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.WhiteSpace.AutomatonSpec (spec) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.Automaton
-import           HelVM.HelMA.Automata.WhiteSpace.FileUtil
+import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
 import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 
 import           HelVM.HelMA.Automaton.IO.MockIO

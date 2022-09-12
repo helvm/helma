@@ -2,8 +2,8 @@ module HelVM.HelMA.Automata.SubLeq.Lexer where
 
 import           HelVM.HelMA.Automata.SubLeq.Symbol
 
+import           HelVM.HelIO.Extra
 import           HelVM.HelIO.ReadText
-import           HelVM.HelIO.Util
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 import qualified Text.Read                          as Read

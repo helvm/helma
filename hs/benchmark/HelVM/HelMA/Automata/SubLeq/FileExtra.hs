@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.SubLeq.FileUtil (
+module HelVM.HelMA.Automata.SubLeq.FileExtra (
   readSqFile,
   buildAbsoluteExecFileName,
 ) where
 
-import           HelVM.HelMA.Automata.FileUtil
+import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 

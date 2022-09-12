@@ -1,10 +1,11 @@
 module HelVM.HelMA.Automaton.Types.CellType where
 
+import           HelVM.HelIO.Extra
+
 -- | Constructors
 parseCellType :: String -> CellType
-parseCellType raw = valid $ readMaybe raw where
-  valid (Just value) = value
-  valid Nothing      = error $ "CellType '" <> toText raw <> "' is not valid CellType. Valid cellTypes are : " <> show cellTypes
+parseCellType raw = fromJustWithText message $ readMaybe raw where
+  message = "CellType '" <> toText raw <> "' is not valid CellType. Valid cellTypes are : " <> show cellTypes
 
 defaultCellType :: CellType
 defaultCellType = Word8Type

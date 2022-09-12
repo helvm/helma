@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.BrainFuck.AutomatonSpec (spec) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Automaton
-import           HelVM.HelMA.Automata.BrainFuck.FileUtil
+import           HelVM.HelMA.Automata.BrainFuck.FileExtra
 
 import           HelVM.GoldenExpectations
 import           HelVM.HelIO.ZipA

@@ -31,18 +31,18 @@ parseInt tl = parseInt' <$> parseInteger tl where
 
 parseInteger :: MonadSafe m => OperandParser m Integer
 parseInteger []       = liftError "EOL"
-parseInteger (S : tl) = parseUtil makeIntegral2FromList tl
-parseInteger (T : tl) = negationIntegral <$> parseUtil makeIntegral2FromList tl
+parseInteger (S : tl) = parseExtra makeIntegral2FromList tl
+parseInteger (T : tl) = negationIntegral <$> parseExtra makeIntegral2FromList tl
 parseInteger (N : tl) = pure (0 , tl)
 
 negationIntegral :: (Integer , TokenList) -> (Integer , TokenList)
 negationIntegral (i , l) = (-i , l)
 
 parseNatural :: MonadSafe m => OperandParser m Natural
-parseNatural = parseUtil makeIntegral2FromList
+parseNatural = parseExtra makeIntegral2FromList
 
-parseUtil :: MonadSafe m => (TokenList -> m a) -> OperandParser m a
-parseUtil maker = go ([] :: TokenList) where
+parseExtra :: MonadSafe m => (TokenList -> m a) -> OperandParser m a
+parseExtra maker = go ([] :: TokenList) where
   go acc []     = liftError $ show acc
   go acc (N:tl) = moveSafe (maker acc , tl)
   go acc (t:tl) = go (t : acc) tl

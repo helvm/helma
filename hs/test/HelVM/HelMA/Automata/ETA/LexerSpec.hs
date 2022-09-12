@@ -2,7 +2,7 @@ module HelVM.HelMA.Automata.ETA.LexerSpec (spec) where
 
 import           HelVM.HelMA.Automata.ETA.Lexer
 
-import           HelVM.HelMA.Automata.ETA.FileUtil
+import           HelVM.HelMA.Automata.ETA.FileExtra
 
 import           HelVM.HelIO.ZipA
 
@@ -10,7 +10,7 @@ import           HelVM.GoldenExpectations
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                        (Spec, describe, it)
+import           Test.Hspec                         (Spec, describe, it)
 
 spec :: Spec
 spec =

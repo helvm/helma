@@ -1,10 +1,11 @@
 module HelVM.HelMA.Automaton.Types.IntCellType where
 
+import           HelVM.HelIO.Extra
+
 -- | Constructors
 parseIntCellType :: String -> IntCellType
-parseIntCellType raw = (valid . readMaybe) raw where
-  valid (Just value) = value
-  valid Nothing      = error $ "IntCellType '" <> toText raw <> "' is not valid IntCellType. Valid intCellTypes are : " <> show intCellTypes
+parseIntCellType raw = fromJustWithText message $ readMaybe raw where
+  message = "IntCellType '" <> toText raw <> "' is not valid IntCellType. Valid intCellTypes are : " <> show intCellTypes
 
 defaultIntCellType :: IntCellType
 defaultIntCellType = IntegerType

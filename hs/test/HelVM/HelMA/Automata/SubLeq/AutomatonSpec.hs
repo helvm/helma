@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.SubLeq.AutomatonSpec (spec) where
 
 import           HelVM.HelMA.Automata.SubLeq.Automaton
-import           HelVM.HelMA.Automata.SubLeq.FileUtil
+import           HelVM.HelMA.Automata.SubLeq.FileExtra
 
 import           HelVM.HelMA.Automaton.Types.RAMType
 

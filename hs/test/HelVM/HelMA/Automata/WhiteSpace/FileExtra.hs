@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.WhiteSpace.FileUtil (
+module HelVM.HelMA.Automata.WhiteSpace.FileExtra (
   readWsFile,
   readStnFile,
   readExtFile,
@@ -12,7 +12,7 @@ module HelVM.HelMA.Automata.WhiteSpace.FileUtil (
   options,
 ) where
 
-import           HelVM.HelMA.Automata.FileUtil
+import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Types.TokenType
