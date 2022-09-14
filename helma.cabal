@@ -195,6 +195,7 @@ library
     , bytestring
     , data-default
     , dlist
+    , extra
     , free
     , ListLike
     , natural-transformation

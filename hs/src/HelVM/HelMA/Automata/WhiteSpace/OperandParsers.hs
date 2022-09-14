@@ -9,9 +9,7 @@ import           HelVM.HelIO.Collections.SList
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Digit.ToDigit
 
-type OperandParser m a = TokenList -> m (a , TokenList)
-
-----
+import           Control.Monad.Extra
 
 parseIndex :: MonadSafe m => OperandParser m Index
 parseIndex = parseInt
@@ -42,10 +40,10 @@ parseNatural :: MonadSafe m => OperandParser m Natural
 parseNatural = parseExtra makeIntegral2FromList
 
 parseExtra :: MonadSafe m => (TokenList -> m a) -> OperandParser m a
-parseExtra maker = go ([] :: TokenList) where
-  go acc []     = liftError $ show acc
-  go acc (N:tl) = moveSafe (maker acc , tl)
-  go acc (t:tl) = go (t : acc) tl
+parseExtra maker = loop act . ([] , ) where
+  act (acc ,      []) = Right $ liftError $ show acc
+  act (acc ,  N : tl) = Right $ moveSafe (maker acc , tl)
+  act (acc ,  t : tl) = Left (t : acc , tl)
 
 parseDigitString :: MonadSafe m => OperandParser m SString
 parseDigitString tl = moveSafe =<< parseString' makeDigitStringFromList tl
@@ -65,3 +63,6 @@ splitByN []       = liftError "Empty list"
 splitByN (N : tl) = pure ([]    , tl)
 splitByN (t : tl) = splitByN' <$> splitByN tl where
   splitByN' (acc , tl') = (t:acc , tl')
+
+-- | Types
+type OperandParser m a = TokenList -> m (a , TokenList)

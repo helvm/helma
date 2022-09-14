@@ -161,14 +161,12 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Warning: Redundant do (1)</a></li>
-<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Reduce duplication (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Suggestion: Reduce duplication (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
 <li><a id="file0" href="javascript:show('file0')">./dist-newstyle/src/helio-47df7eb819007334/hs/test/HelVM/HelIO/Collections/MapListSpec.hs (1)</a></li>
-<li><a id="file1" href="javascript:show('file1')">./hs/test/HelVM/HelMA/Automata/LazyK/AutomatonSpec.hs (1)</a></li>
 </ul>
 
 </div>
@@ -179,7 +177,7 @@ v2.1.11
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-<div class="hint1 file0">
+<div class="hint0 file0">
 ./dist-newstyle/src/helio-47df7eb819007334/hs/test/HelVM/HelIO/Collections/MapListSpec.hs:50:11: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-definition'>it</span> <span class='hs-str'>"mapListToList . fromIntIndexedList"</span> <span class='hs-varop'>$</span>
@@ -191,51 +189,6 @@ Found<br/>
 </pre>
 Perhaps<br/>
 <pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varop'>./</span><span class='hs-varid'>dist</span><span class='hs-comment'>-</span><span class='hs-varid'>newstyle</span><span class='hs-varop'>/</span><span class='hs-varid'>src</span><span class='hs-varop'>/</span><span class='hs-varid'>helio</span><span class='hs-comment'>-</span><span class='hs-num'>47</span><span class='hs-varid'>df7eb819007334</span><span class='hs-varop'>/</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelIO</span><span class='hs-varop'>/</span><span class='hs-conid'>Collections</span><span class='hs-varop'>/</span><span class='hs-conid'>MapListSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>59</span><span class='hs-conop'>:</span><span class='hs-num'>11</span></pre>
-
-</div>
-
-<div class="hint0 file1">
-./hs/test/HelVM/HelMA/Automata/LazyK/AutomatonSpec.hs:20:20: Warning: Redundant do<br/>
-Found<br/>
-<pre><span class='hs-keyword'>do</span> <span class='hs-varid'>describe</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>$</span>
-     <span class='hs-varid'>forM_</span>
-       <span class='hs-layout'>(</span><span class='hs-keyglyph'>[</span><span class='hs-str'>"echo"</span><span class='hs-keyglyph'>]</span> <span class='hs-varop'>|&gt;&lt;|</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"irori"</span><span class='hs-keyglyph'>]</span> <span class='hs-varop'>&lt;&gt;</span>
-          <span class='hs-keyglyph'>[</span><span class='hs-str'>"hello_world"</span><span class='hs-layout'>,</span> <span class='hs-str'>"quine"</span><span class='hs-layout'>,</span> <span class='hs-str'>"ultimate_problem"</span><span class='hs-layout'>,</span> <span class='hs-str'>"v"</span><span class='hs-keyglyph'>]</span> <span class='hs-varop'>|&gt;&lt;|</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"rst76"</span><span class='hs-keyglyph'>]</span> <span class='hs-varop'>&lt;&gt;</span>
-            <span class='hs-conid'>[]</span> <span class='hs-varop'>|&gt;&lt;|</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"tromp"</span><span class='hs-keyglyph'>]</span><span class='hs-layout'>)</span>
-       <span class='hs-varop'>$</span>
-       <span class='hs-keyglyph'>\</span> <span class='hs-layout'>(</span><span class='hs-varid'>fileName</span><span class='hs-layout'>,</span> <span class='hs-varid'>dirName</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>-&gt;</span>
-         <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>filePath</span> <span class='hs-keyglyph'>=</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>dirName</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>fileName</span>
-            <span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readLazyKFile</span> <span class='hs-varid'>filePath</span>
-            <span class='hs-keyword'>let</span> <span class='hs-varid'>input</span> <span class='hs-keyglyph'>=</span> <span class='hs-str'>""</span>
-            <span class='hs-keyword'>let</span> <span class='hs-varid'>path</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>filePath</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-varid'>toString</span> <span class='hs-varid'>input</span>
-            <span class='hs-keyword'>let</span> <span class='hs-varid'>mock</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>run</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>file</span>
-            <span class='hs-varid'>describe</span> <span class='hs-varid'>path</span> <span class='hs-varop'>$</span>
-              <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>path</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
-                   <span class='hs-varid'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span>
-                     <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span> <span class='hs-varid'>buildAbsoluteLazyKOutFileName</span> <span class='hs-varid'>path</span>
-                 <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>path</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
-                   <span class='hs-varid'>calculateLogged</span> <span class='hs-varop'>&lt;$&gt;</span>
-                     <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span> <span class='hs-varid'>buildAbsoluteLazyKLogFileName</span> <span class='hs-varid'>path</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>describe</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>$</span>
-  <span class='hs-varid'>forM_</span>
-    <span class='hs-layout'>(</span><span class='hs-keyglyph'>[</span><span class='hs-str'>"echo"</span><span class='hs-keyglyph'>]</span> <span class='hs-varop'>|&gt;&lt;|</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"irori"</span><span class='hs-keyglyph'>]</span> <span class='hs-varop'>&lt;&gt;</span>
-       <span class='hs-keyglyph'>[</span><span class='hs-str'>"hello_world"</span><span class='hs-layout'>,</span> <span class='hs-str'>"quine"</span><span class='hs-layout'>,</span> <span class='hs-str'>"ultimate_problem"</span><span class='hs-layout'>,</span> <span class='hs-str'>"v"</span><span class='hs-keyglyph'>]</span> <span class='hs-varop'>|&gt;&lt;|</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"rst76"</span><span class='hs-keyglyph'>]</span> <span class='hs-varop'>&lt;&gt;</span>
-         <span class='hs-conid'>[]</span> <span class='hs-varop'>|&gt;&lt;|</span> <span class='hs-keyglyph'>[</span><span class='hs-str'>"tromp"</span><span class='hs-keyglyph'>]</span><span class='hs-layout'>)</span>
-    <span class='hs-varop'>$</span>
-    <span class='hs-keyglyph'>\</span> <span class='hs-layout'>(</span><span class='hs-varid'>fileName</span><span class='hs-layout'>,</span> <span class='hs-varid'>dirName</span><span class='hs-layout'>)</span> <span class='hs-keyglyph'>-&gt;</span>
-      <span class='hs-keyword'>do</span> <span class='hs-keyword'>let</span> <span class='hs-varid'>filePath</span> <span class='hs-keyglyph'>=</span> <span class='hs-str'>"original"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>dirName</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>fileName</span>
-         <span class='hs-keyword'>let</span> <span class='hs-varid'>file</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>readLazyKFile</span> <span class='hs-varid'>filePath</span>
-         <span class='hs-keyword'>let</span> <span class='hs-varid'>input</span> <span class='hs-keyglyph'>=</span> <span class='hs-str'>""</span>
-         <span class='hs-keyword'>let</span> <span class='hs-varid'>path</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>filePath</span> <span class='hs-varop'>&lt;&gt;</span> <span class='hs-varid'>toString</span> <span class='hs-varid'>input</span>
-         <span class='hs-keyword'>let</span> <span class='hs-varid'>mock</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>ioExecMockIOWithInput</span> <span class='hs-varid'>input</span> <span class='hs-varop'>.</span> <span class='hs-varid'>run</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>file</span>
-         <span class='hs-varid'>describe</span> <span class='hs-varid'>path</span> <span class='hs-varop'>$</span>
-           <span class='hs-keyword'>do</span> <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"output"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>path</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
-                <span class='hs-varid'>calculateOutput</span> <span class='hs-varop'>&lt;$&gt;</span>
-                  <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span> <span class='hs-varid'>buildAbsoluteLazyKOutFileName</span> <span class='hs-varid'>path</span>
-              <span class='hs-varid'>it</span> <span class='hs-layout'>(</span><span class='hs-str'>"logged"</span> <span class='hs-varop'>&lt;/&gt;</span> <span class='hs-varid'>path</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span>
-                <span class='hs-varid'>calculateLogged</span> <span class='hs-varop'>&lt;$&gt;</span>
-                  <span class='hs-varid'>mock</span> <span class='hs-varop'>`goldenShouldIO`</span> <span class='hs-varid'>buildAbsoluteLazyKLogFileName</span> <span class='hs-varid'>path</span></pre>
 
 </div>
 

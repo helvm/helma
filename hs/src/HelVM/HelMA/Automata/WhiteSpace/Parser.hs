@@ -44,7 +44,7 @@ parseTL :: MonadSafe m => Bool -> TokenList -> m InstructionList
 parseTL ascii = go where
   go :: MonadSafe m => TokenList -> m InstructionList
   go []            = pure []
-  -- | IAL instructions
+  --IAL instructions
   go (S:S:tl')     = go' =<< parseSymbol tl' where go' (symbol , tl'') = (IAL (Cons symbol)  : ) <$> go tl''
   go (S:T:S:tl')   = go' =<< parseIndex  tl' where go' (index  , tl'') = (IAL (SStatic index Copy)     : ) <$> go tl''
   go (S:T:T:tl')   = panic "STT" tl'
@@ -62,11 +62,11 @@ parseTL ascii = go where
   go (T:S:N:S:tl') = panic "TSNS" tl'
   go (T:S:N:T:tl') = panic "TSNT" tl'
   go (T:S:N:N:tl') = panic "TSNN" tl'
-  -- | Heap access
+  --Heap access
   go (T:T:S:tl')   = (ILS Store            : ) <$> go tl'
   go (T:T:T:tl')   = (ILS Load             : ) <$> go tl'
   go (T:T:N:tl')   = panic "TTN" tl'
-  -- | IControl
+  --IControl
   go (N:S:S:tl')   = go' =<< parseLabel ascii tl' where go' (label  , tl'') = (IControl (Mark    label) : ) <$> go tl''
   go (N:S:T:tl')   = go' =<< parseLabel ascii tl' where go' (label  , tl'') = (IControl (CStatic label Call       ) : ) <$> go tl''
   go (N:S:N:tl')   = go' =<< parseLabel ascii tl' where go' (label  , tl'') = (IControl (CStatic label Jump       ) : ) <$> go tl''
@@ -76,7 +76,7 @@ parseTL ascii = go where
   go (N:N:S:tl')   = panic "NNS" tl'
   go (N:N:T:tl')   = panic "NNT" tl'
   go (N:N:N:tl')   = (End                            : ) <$> go tl'
-  -- | IO instructions
+  --IO instructions
   go (T:N:S:S:tl') = (IAL (SIO OutputChar)        : ) <$> go tl'
   go (T:N:S:T:tl') = (IAL (SIO OutputDec)         : ) <$> go tl'
   go (T:N:S:N:tl') = panic "TNSN" tl'

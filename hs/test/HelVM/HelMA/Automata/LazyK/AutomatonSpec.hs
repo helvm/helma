@@ -17,7 +17,7 @@ import           Test.Hspec                           (Spec, describe, it)
 
 spec :: Spec
 spec =
-  describe "run" $ do
+  describe "run" $
     describe "original" $ forM_ (
 --      [
       [ "echo"
@@ -64,20 +64,3 @@ spec =
             calculateOutput <$> mock `goldenShouldIO` buildAbsoluteLazyKOutFileName path
           it ("logged" </> path) $
             calculateLogged <$> mock `goldenShouldIO` buildAbsoluteLazyKLogFileName path
---    describe "generated" $ forM_ (
---      [ "ab"
---      , "fib"
---      , "powers2"
---      , "reverse"
---      ] |><| homogeneousParserTypes
---      ) $ \ (fileName , parseType) -> do
---        let filePath = "generated" </> "tromp" </> (toLower <$> (show parseType)) </> fileName
---        let file = readLazyKFile filePath
---        let input = ""
---        let path = filePath <> toString input
---        let mock = ioExecMockIOWithInput input . run parseType =<< file
---        describe path $ do
---          it ("output" </> path) $
---            calculateOutput <$> mock `goldenShouldIO` buildAbsoluteLazyKOutFileName path
---          it ("logged" </> path) $
---            calculateLogged <$> mock `goldenShouldIO` buildAbsoluteLazyKLogFileName path

@@ -9,6 +9,8 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.ListLikeExtra
 
+import           Control.Monad.Extra
+
 import           Data.ListLike                                              hiding (show)
 
 import qualified Data.DList                                                 as D
@@ -23,7 +25,7 @@ parseFILAsVector fil = fromList <$> parseFIL fil
 
 parseFIL :: MonadSafe m => FlatTreeInstructionList -> m TreeInstructionList
 parseFIL (Flat.Simple i : fil) = (Tree.Simple i :  ) <$> parseFIL fil
-parseFIL []                = pure []
+parseFIL []                    = pure []
 parseFIL (Flat.JmpBack  : fil) = liftErrorWithPrefix "JmpBack" $ show fil
 parseFIL (Flat.JmpPast  : fil) = addWhile =<< parseWhile fil where
   addWhile (i , fil') = (i : ) <$> parseFIL fil'
@@ -37,11 +39,9 @@ buildWhileFromDList :: TreeInstructionDList -> TreeInstruction
 buildWhileFromDList = Tree.While . convert
 
 parseWhileD :: MonadSafe m => OperandParser m TreeInstructionDList
-parseWhileD = go D.empty where
-  go :: MonadSafe m => TreeInstructionDList -> FlatTreeInstructionList -> m (TreeInstructionDList , FlatTreeInstructionList)
-  go acc (Flat.Simple i : fil) = go (acc `snoc` Tree.Simple i  ) fil
-  go acc                  []  = liftErrorWithPrefix "End of List" $ show acc
-  go acc (Flat.JmpBack  : fil) = pure (acc , fil)
-  go acc (Flat.JmpPast  : fil) = snocInstruction =<< parseWhile fil where
-    snocInstruction :: MonadSafe m => (TreeInstruction , FlatTreeInstructionList) -> m (TreeInstructionDList , FlatTreeInstructionList)
-    snocInstruction (i , fil') = go (acc `snoc` i) fil'
+parseWhileD = loopM act . (D.empty , ) where
+  act (acc , Flat.Simple i : fil) = pure $ Left (acc `snoc` Tree.Simple i , fil)
+  act (acc ,                  []) = fmap Right $ liftErrorWithPrefix "End of List" $ show acc
+  act (acc , Flat.JmpBack  : fil) = pure $ Right (acc , fil)
+  act (acc , Flat.JmpPast  : fil) = snocInstruction <$> parseWhile fil where
+    snocInstruction (i , fil') = Left (acc `snoc` i , fil')

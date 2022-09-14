@@ -7,15 +7,16 @@ import           HelVM.HelIO.Containers.LLIndexSafe
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Digit.ToDigit
 
+import           Control.Monad.Extra
+
 import qualified Data.Vector                        as Vector
 
 parseNumber :: (MonadSafe m , Integral a) => OperandIUParser m a
-parseNumber iu = go [] =<< nextIU iu where
-  go :: (MonadSafe m , Integral a) => TokenList -> (Maybe Token, InstructionUnit) -> m (a, InstructionUnit)
-  go acc (Nothing , iu') = ( , iu') <$> makeIntegral7FromList acc
-  go acc (Just E  , iu') = ( , iu') <$> makeIntegral7FromList acc
-  go acc (Just R  , iu') = go      acc  =<< nextIU iu'
-  go acc (Just t  , iu') = go (t : acc) =<< nextIU iu'
+parseNumber iu = loopM act =<< (([] , ) <$> nextIU iu) where
+  act (acc , (Nothing , iu')) = Right . ( , iu') <$> makeIntegral7FromList acc
+  act (acc , (Just E  , iu')) = Right . ( , iu') <$> makeIntegral7FromList acc
+  act (acc , (Just R  , iu')) = Left  . (    acc , ) <$> nextIU iu'
+  act (acc , (Just t  , iu')) = Left  . (t : acc , ) <$> nextIU iu'
 
 nextIU :: MonadSafe m => OperandIUParser m (Maybe Token)
 nextIU iu@(IU il ic)
