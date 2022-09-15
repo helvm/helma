@@ -71,7 +71,7 @@ span.spaces    { background: white }
 <span class="lineno">   52 </span><span class="decl"><span class="istickedoff">run tokenType source = runTL $ tokenize tokenType source</span></span>
 <span class="lineno">   53 </span>
 <span class="lineno">   54 </span>runTL :: BIO m =&gt; TokenList -&gt; Bool -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
-<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">runTL tl ascii st rt dt = runTL' =&lt;&lt; liftSafe (parseTL ascii tl) where runTL' il = runIL il st rt dt</span></span>
+<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">runTL tl ascii st rt dt = runTL' =&lt;&lt; liftSafe (parseFromTL ascii tl) where runTL' il = runIL il st rt dt</span></span>
 <span class="lineno">   56 </span>
 <span class="lineno">   57 </span>runIL :: BIO m =&gt; InstructionList -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
 <span class="lineno">   58 </span><span class="decl"><span class="istickedoff">runIL il s ListRAMType    = <span class="nottickedoff">runIL' il s []</span></span>

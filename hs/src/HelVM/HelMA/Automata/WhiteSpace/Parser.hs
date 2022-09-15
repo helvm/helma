@@ -4,7 +4,7 @@ module HelVM.HelMA.Automata.WhiteSpace.Parser (
   parseVisible,
   parseWhite,
   parse,
-  parseTL
+  parseFromTL
 ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer
@@ -38,13 +38,13 @@ parseWhite :: Source -> Bool -> Safe InstructionList
 parseWhite = parse WhiteTokenType
 
 parse :: MonadSafe m => TokenType -> Source -> Bool -> m InstructionList
-parse tokenType = flip parseTL . tokenize tokenType
+parse tokenType = flip parseFromTL . tokenize tokenType
 
-parseTL :: MonadSafe m => Bool -> TokenList -> m InstructionList
-parseTL ascii = go where
+parseFromTL :: MonadSafe m => Bool -> TokenList -> m InstructionList
+parseFromTL ascii = go where
   go :: MonadSafe m => TokenList -> m InstructionList
   go []            = pure []
-  --IAL instructions
+  --Stack Manipulation instructions
   go (S:S:tl')     = go' =<< parseSymbol tl' where go' (symbol , tl'') = (IAL (Cons symbol)  : ) <$> go tl''
   go (S:T:S:tl')   = go' =<< parseIndex  tl' where go' (index  , tl'') = (IAL (SStatic index Copy)     : ) <$> go tl''
   go (S:T:T:tl')   = panic "STT" tl'
@@ -87,6 +87,14 @@ parseTL ascii = go where
   go (T:N:N:T:tl') = panic "TNNT" tl'
   go (T:N:N:N:tl') = panic "TNNN" tl'
   go tl'           = panic (show tl') []
+--
+--  stackManipulation (S:S:tl')     = go' =<< parseSymbol tl' where go' (symbol , tl'') = (IAL (Cons symbol)  : ) <$> go tl''
+--  stackManipulation (S:T:S:tl')   = go' =<< parseIndex  tl' where go' (index  , tl'') = (IAL (SStatic index Copy)     : ) <$> go tl''
+--  stackManipulation (S:T:T:tl')   = panic "STT" tl'
+--  stackManipulation (S:T:N:tl')   = go' =<< parseIndex  tl' where go' (index  , tl'') = (IAL (SStatic index Slide)    : ) <$> go tl''
+--  stackManipulation (S:N:S:tl')   = (IAL Dup               : ) <$> go tl'
+--  stackManipulation (S:N:T:tl')   = (IAL Swap              : ) <$> go tl'
+--  stackManipulation (S:N:N:tl')   = (IAL Discard           : ) <$> go tl'
 
 panic :: MonadSafe m => Text -> TokenList -> m InstructionList
 panic token tl = liftErrorTupleList [("Unrecognised tokenl" , token) , ("Rest tokens" , show tl)]

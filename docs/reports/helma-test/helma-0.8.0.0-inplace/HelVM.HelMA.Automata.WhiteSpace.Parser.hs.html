@@ -23,7 +23,7 @@ span.spaces    { background: white }
 <span class="lineno">    4 </span>  parseVisible,
 <span class="lineno">    5 </span>  parseWhite,
 <span class="lineno">    6 </span>  parse,
-<span class="lineno">    7 </span>  parseTL
+<span class="lineno">    7 </span>  parseFromTL
 <span class="lineno">    8 </span>) where
 <span class="lineno">    9 </span>
 <span class="lineno">   10 </span>import           HelVM.HelMA.Automata.WhiteSpace.Lexer
@@ -57,10 +57,10 @@ span.spaces    { background: white }
 <span class="lineno">   38 </span><span class="decl"><span class="nottickedoff">parseWhite = parse WhiteTokenType</span></span>
 <span class="lineno">   39 </span>
 <span class="lineno">   40 </span>parse :: MonadSafe m =&gt; TokenType -&gt; Source -&gt; Bool -&gt; m InstructionList
-<span class="lineno">   41 </span><span class="decl"><span class="istickedoff">parse tokenType = flip parseTL . tokenize tokenType</span></span>
+<span class="lineno">   41 </span><span class="decl"><span class="istickedoff">parse tokenType = flip parseFromTL . tokenize tokenType</span></span>
 <span class="lineno">   42 </span>
-<span class="lineno">   43 </span>parseTL :: MonadSafe m =&gt; Bool -&gt; TokenList -&gt; m InstructionList
-<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">parseTL ascii = go where</span>
+<span class="lineno">   43 </span>parseFromTL :: MonadSafe m =&gt; Bool -&gt; TokenList -&gt; m InstructionList
+<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">parseFromTL ascii = go where</span>
 <span class="lineno">   45 </span><span class="spaces">  </span><span class="istickedoff">go :: MonadSafe m =&gt; TokenList -&gt; m InstructionList</span>
 <span class="lineno">   46 </span><span class="spaces">  </span><span class="istickedoff">go []            = pure []</span>
 <span class="lineno">   47 </span><span class="spaces">  </span><span class="istickedoff">--IAL instructions</span>

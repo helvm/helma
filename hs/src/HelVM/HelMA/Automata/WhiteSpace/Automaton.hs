@@ -52,7 +52,7 @@ run :: BIO m => TokenType -> Source -> Bool -> StackType -> RAMType -> DumpType 
 run tokenType source = runTL $ tokenize tokenType source
 
 runTL :: BIO m => TokenList -> Bool -> StackType -> RAMType -> DumpType -> m ()
-runTL tl ascii st rt dt = runTL' =<< liftSafe (parseTL ascii tl) where runTL' il = runIL il st rt dt
+runTL tl ascii st rt dt = runTL' =<< liftSafe (parseFromTL ascii tl) where runTL' il = runIL il st rt dt
 
 runIL :: BIO m => InstructionList -> StackType -> RAMType -> DumpType -> m ()
 runIL il s ListRAMType    = runIL' il s []
