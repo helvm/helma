@@ -3,16 +3,16 @@
 , IAL Dup
 , ILS ( MIO InputDec )
 , ILS Load
-, IControl
+, ICF
     ( CStatic "\x0" ( Branch EZ ) )
-, IControl
+, ICF
     ( Mark "\x1" )
 , IAL
     ( Cons 1 )
 , IAL ( SIO OutputDec )
-, IControl
+, ICF
     ( CStatic "\x1" Jump )
-, IControl
+, ICF
     ( Mark "\x0" )
 , IAL
     ( Cons 0 )

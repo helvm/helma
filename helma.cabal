@@ -118,7 +118,7 @@ library
     HelVM.HelMA.Automaton.Instruction
 
     HelVM.HelMA.Automaton.Instruction.ALInstruction
-    HelVM.HelMA.Automaton.Instruction.ControlInstruction
+    HelVM.HelMA.Automaton.Instruction.CFInstruction
     HelVM.HelMA.Automaton.Instruction.IOInstruction
     HelVM.HelMA.Automaton.Instruction.LSInstruction
 

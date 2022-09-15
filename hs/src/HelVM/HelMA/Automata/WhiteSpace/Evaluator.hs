@@ -33,5 +33,5 @@ cuNext r cu s = next cu s r
 doInstruction :: (SREvaluator Symbol s r m) => Instruction -> ControlUnit -> s -> r -> m (Unit s r)
 doInstruction (IAL      i) cu s r = stackNext cu r =<< alInstruction i s
 doInstruction (ILS      i) cu s r = uncurry (next cu) . sluToTuple =<< slInstruction i (LSU s r)
-doInstruction (IControl i) cu s r = uncurry (cuNext r). cpuToTuple =<< controlInstruction i (CPU cu s)
+doInstruction (ICF i) cu s r      = uncurry (cuNext r). cpuToTuple =<< controlInstruction i (CPU cu s)
 doInstruction  End         cu s r = pure $ Unit cu s r

@@ -16,7 +16,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.ALInstruction
-import           HelVM.HelMA.Automaton.Instruction.ControlInstruction
+import           HelVM.HelMA.Automaton.Instruction.CFInstruction
 import           HelVM.HelMA.Automaton.Instruction.IOInstruction
 import           HelVM.HelMA.Automaton.Instruction.LSInstruction
 
@@ -80,12 +80,12 @@ parseFromTL ascii = go where
   heapAccess    tl'  = notEnoughTokensForIMP "heapAccess" tl'
 
   flowControl :: MonadSafe m => TokenList -> m InstructionList
-  flowControl (S:S:tl') = go' =<< parseLabel ascii tl' where go' (label , tl'') = (IControl (Mark    label             ) : ) <$> go tl''
-  flowControl (S:T:tl') = go' =<< parseLabel ascii tl' where go' (label , tl'') = (IControl (CStatic label Call        ) : ) <$> go tl''
-  flowControl (S:N:tl') = go' =<< parseLabel ascii tl' where go' (label , tl'') = (IControl (CStatic label Jump        ) : ) <$> go tl''
-  flowControl (T:S:tl') = go' =<< parseLabel ascii tl' where go' (label , tl'') = (IControl (CStatic label (Branch EZ )) : ) <$> go tl''
-  flowControl (T:T:tl') = go' =<< parseLabel ascii tl' where go' (label , tl'') = (IControl (CStatic label (Branch LTZ)) : ) <$> go tl''
-  flowControl (T:N:tl') = (IControl Return : ) <$> go tl'
+  flowControl (S:S:tl') = go' =<< parseLabel ascii tl' where go' (label , tl'') = (ICF (Mark    label             ) : ) <$> go tl''
+  flowControl (S:T:tl') = go' =<< parseLabel ascii tl' where go' (label , tl'') = (ICF (CStatic label Call        ) : ) <$> go tl''
+  flowControl (S:N:tl') = go' =<< parseLabel ascii tl' where go' (label , tl'') = (ICF (CStatic label Jump        ) : ) <$> go tl''
+  flowControl (T:S:tl') = go' =<< parseLabel ascii tl' where go' (label , tl'') = (ICF (CStatic label (Branch EZ )) : ) <$> go tl''
+  flowControl (T:T:tl') = go' =<< parseLabel ascii tl' where go' (label , tl'') = (ICF (CStatic label (Branch LTZ)) : ) <$> go tl''
+  flowControl (T:N:tl') = (ICF Return : ) <$> go tl'
   flowControl (N:S:tl') = unrecognisedTokens "NNS" tl'
   flowControl (N:T:tl') = unrecognisedTokens "NNT" tl'
   flowControl (N:N:tl') = (End             : ) <$> go tl'

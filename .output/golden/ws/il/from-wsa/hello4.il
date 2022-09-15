@@ -26,27 +26,27 @@
     ( Cons 101 )
 , IAL
     ( Cons 72 )
-, IControl
+, ICF
     ( CStatic "printsln" Call )
 , End
-, IControl
+, ICF
     ( Mark "prints" )
 , IAL Dup
-, IControl
+, ICF
     ( CStatic "prints_end" ( Branch EZ ) )
 , IAL ( SIO OutputChar )
-, IControl
+, ICF
     ( CStatic "prints" Jump )
-, IControl
+, ICF
     ( Mark "prints_end" )
 , IAL Discard
-, IControl Return
-, IControl
+, ICF Return
+, ICF
     ( Mark "printsln" )
-, IControl
+, ICF
     ( CStatic "prints" Call )
 , IAL
     ( Cons 10 )
 , IAL ( SIO OutputChar )
-, IControl Return
+, ICF Return
 ]

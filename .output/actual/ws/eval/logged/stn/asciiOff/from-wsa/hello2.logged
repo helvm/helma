@@ -31,29 +31,29 @@ dump: Unit
                 ( Cons 101 )
             , IAL
                 ( Cons 72 )
-            , IControl
+            , ICF
                 ( CStatic "011100000111001001101001011011100111010001110011" Call )
             , End
-            , IControl
+            , ICF
                 ( Mark "011100000111001001101001011011100111010001110011" )
             , IAL Dup
-            , IControl
+            , ICF
                 ( CStatic "01110000011100100110100101101110011101000111001101011111011001010110111001100100" ( Branch EZ ) )
             , IAL ( SIO OutputChar )
-            , IControl
+            , ICF
                 ( CStatic "011100000111001001101001011011100111010001110011" Jump )
-            , IControl
+            , ICF
                 ( Mark "01110000011100100110100101101110011101000111001101011111011001010110111001100100" )
             , IAL Discard
-            , IControl Return
-            , IControl
+            , ICF Return
+            , ICF
                 ( Mark "0111000001110010011010010110111001110100011100110110110001101110" )
-            , IControl
+            , ICF
                 ( CStatic "011100000111001001101001011011100111010001110011" Call )
             , IAL
                 ( Cons 10 )
             , IAL ( SIO OutputChar )
-            , IControl Return
+            , ICF Return
             ]
         , programCounter = 17
         , returnStack = IS []

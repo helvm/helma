@@ -6,16 +6,16 @@ dump: Unit
             , IAL Dup
             , ILS ( MIO InputDec )
             , ILS Load
-            , IControl
+            , ICF
                 ( CStatic "0" ( Branch EZ ) )
-            , IControl
+            , ICF
                 ( Mark "1" )
             , IAL
                 ( Cons 1 )
             , IAL ( SIO OutputDec )
-            , IControl
+            , ICF
                 ( CStatic "1" Jump )
-            , IControl
+            , ICF
                 ( Mark "0" )
             , IAL
                 ( Cons 0 )

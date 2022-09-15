@@ -110,7 +110,7 @@
 , ILS Store
 , IAL
     ( Cons 0 )
-, IControl
+, ICF
     ( CStatic "write" Call )
 , IAL
     ( Cons 100 )
@@ -124,10 +124,10 @@
     ( Cons 3 )
 , IAL
     ( Cons 2 )
-, IControl
+, ICF
     ( CStatic "hanoi" Call )
 , End
-, IControl
+, ICF
     ( Mark "hanoi" )
 , IAL
     ( Cons 103 )
@@ -148,7 +148,7 @@
 , IAL
     ( Cons 100 )
 , ILS Load
-, IControl
+, ICF
     ( CStatic "endhanoi" ( Branch EZ ) )
 , IAL
     ( Cons 100 )
@@ -177,7 +177,7 @@
 , IAL
     ( Cons 102 )
 , ILS Load
-, IControl
+, ICF
     ( CStatic "hanoi" Call )
 , IAL
     ( Cons 103 )
@@ -201,13 +201,13 @@
 , IAL ( SIO OutputDec )
 , IAL
     ( Cons 20 )
-, IControl
+, ICF
     ( CStatic "write" Call )
 , IAL
     ( Cons 102 )
 , ILS Load
 , IAL ( SIO OutputDec )
-, IControl
+, ICF
     ( CStatic "newline" Call )
 , IAL
     ( Cons 100 )
@@ -236,7 +236,7 @@
 , IAL
     ( Cons 101 )
 , ILS Load
-, IControl
+, ICF
     ( CStatic "hanoi" Call )
 , IAL
     ( Cons 103 )
@@ -254,32 +254,32 @@
     ( Cons 100 )
 , IAL Swap
 , ILS Store
-, IControl
+, ICF
     ( Mark "endhanoi" )
-, IControl Return
-, IControl
+, ICF Return
+, ICF
     ( Mark "add" )
 , IAL ( Binary Add )
-, IControl Return
-, IControl
+, ICF Return
+, ICF
     ( Mark "write" )
 , IAL Dup
 , ILS Load
 , IAL Dup
-, IControl
+, ICF
     ( CStatic "write_end" ( Branch EZ ) )
 , IAL ( SIO OutputChar )
 , IAL
     ( Cons 1 )
 , IAL ( Binary Add )
-, IControl
+, ICF
     ( CStatic "write" Jump )
-, IControl
+, ICF
     ( Mark "write_end" )
 , IAL Discard
 , IAL Discard
-, IControl Return
-, IControl
+, ICF Return
+, ICF
     ( Mark "read" )
 , IAL Dup
 , IAL Dup
@@ -289,15 +289,15 @@
 , IAL
     ( Cons 10 )
 , IAL ( Binary Sub )
-, IControl
+, ICF
     ( CStatic "read_end" ( Branch EZ ) )
 , IAL Discard
 , IAL
     ( Cons 1 )
 , IAL ( Binary Add )
-, IControl
+, ICF
     ( CStatic "read" Jump )
-, IControl
+, ICF
     ( Mark "read_end" )
 , IAL Discard
 , IAL
@@ -306,8 +306,8 @@
 , IAL
     ( Cons 0 )
 , ILS Store
-, IControl Return
-, IControl
+, ICF Return
+, ICF
     ( Mark "newline" )
 , IAL
     ( Cons 10 )
@@ -315,5 +315,5 @@
     ( Cons 13 )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
-, IControl Return
+, ICF Return
 ]

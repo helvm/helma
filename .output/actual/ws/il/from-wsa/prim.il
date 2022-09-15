@@ -1,4 +1,4 @@
-[ IControl
+[ ICF
     ( Mark "st" )
 , IAL
     ( Cons 0 )
@@ -42,17 +42,17 @@
     ( Cons 114 )
 , IAL
     ( Cons 112 )
-, IControl
+, ICF
     ( CStatic "printsln" Call )
 , IAL
     ( Cons 0 )
-, IControl
+, ICF
     ( Mark "f_start_1" )
 , IAL Dup
 , IAL
     ( Cons 100 )
 , IAL ( Binary Sub )
-, IControl
+, ICF
     ( CStatic "f_finished_1" ( Branch EZ ) )
 , IAL Dup
 , IAL
@@ -64,30 +64,30 @@
 , IAL
     ( Cons 1 )
 , IAL ( Binary Add )
-, IControl
+, ICF
     ( CStatic "f_start_1" Jump )
-, IControl
+, ICF
     ( Mark "f_finished_1" )
 , IAL Discard
 , IAL
     ( Cons 2 )
-, IControl
+, ICF
     ( Mark "f_start_2" )
 , IAL Dup
 , IAL
     ( Cons 11 )
 , IAL ( Binary Sub )
-, IControl
+, ICF
     ( CStatic "f_finished_2" ( Branch EZ ) )
 , IAL
     ( Cons 2 )
-, IControl
+, ICF
     ( Mark "f_start_3" )
 , IAL Dup
 , IAL
     ( Cons 100 )
 , IAL ( Binary Sub )
-, IControl
+, ICF
     ( CStatic "f_finished_3" ( Branch EZ ) )
 , IAL Dup
 , IAL
@@ -117,35 +117,35 @@
 , IAL
     ( Cons 1 )
 , IAL ( Binary Add )
-, IControl
+, ICF
     ( CStatic "f_start_3" Jump )
-, IControl
+, ICF
     ( Mark "f_finished_3" )
 , IAL Discard
 , IAL
     ( Cons 1 )
 , IAL ( Binary Add )
-, IControl
+, ICF
     ( CStatic "f_start_2" Jump )
-, IControl
+, ICF
     ( Mark "f_finished_2" )
 , IAL Discard
 , IAL
     ( Cons 2 )
-, IControl
+, ICF
     ( Mark "f_start_4" )
 , IAL Dup
 , IAL
     ( Cons 100 )
 , IAL ( Binary Sub )
-, IControl
+, ICF
     ( CStatic "f_finished_4" ( Branch EZ ) )
 , IAL Dup
 , IAL
     ( Cons 100 )
 , IAL ( Binary Add )
 , ILS Load
-, IControl
+, ICF
     ( CStatic "nodraw" ( Branch EZ ) )
 , IAL Dup
 , IAL ( SIO OutputDec )
@@ -153,41 +153,41 @@
     ( Cons 0 )
 , IAL
     ( Cons 32 )
-, IControl
+, ICF
     ( CStatic "prints" Call )
-, IControl
+, ICF
     ( Mark "nodraw" )
 , IAL
     ( Cons 1 )
 , IAL ( Binary Add )
-, IControl
+, ICF
     ( CStatic "f_start_4" Jump )
-, IControl
+, ICF
     ( Mark "f_finished_4" )
 , IAL Discard
 , IAL
     ( Cons 0 )
-, IControl
+, ICF
     ( CStatic "printsln" Call )
 , End
-, IControl
+, ICF
     ( Mark "prints" )
 , IAL Dup
-, IControl
+, ICF
     ( CStatic "prints_end" ( Branch EZ ) )
 , IAL ( SIO OutputChar )
-, IControl
+, ICF
     ( CStatic "prints" Jump )
-, IControl
+, ICF
     ( Mark "prints_end" )
 , IAL Discard
-, IControl Return
-, IControl
+, ICF Return
+, ICF
     ( Mark "printsln" )
-, IControl
+, ICF
     ( CStatic "prints" Call )
 , IAL
     ( Cons 10 )
 , IAL ( SIO OutputChar )
-, IControl Return
+, ICF Return
 ]

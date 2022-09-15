@@ -3,16 +3,16 @@ module HelVM.HelMA.Automaton.Units.CPU where
 import           HelVM.HelMA.Automaton.Units.ALU
 
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.ControlInstruction
+import           HelVM.HelMA.Automaton.Instruction.CFInstruction
 
 import           HelVM.HelIO.Control.Safe
 
 import           Control.Type.Operator
 
-import           Data.ListLike                                        hiding (show)
+import           Data.ListLike                                   hiding (show)
 
-controlInstruction :: (ALU m ll element , Show element) => ControlInstruction -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
---controlInstruction :: ALU m ll element => ControlInstruction -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
+controlInstruction :: (ALU m ll element , Show element) => CFInstruction -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
+--controlInstruction :: ALU m ll element => CFInstruction -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
 controlInstruction (Mark    _           ) = pure
 controlInstruction  Return                = popAddress
 controlInstruction (CDynamic   Call     ) = dynamicCall

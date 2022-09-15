@@ -52,7 +52,7 @@ span.spaces    { background: white }
 <span class="lineno">   33 </span>doInstruction :: (SREvaluator Symbol s r m) =&gt; Instruction -&gt; ControlUnit -&gt; s -&gt; r -&gt; m (Unit s r)
 <span class="lineno">   34 </span><span class="decl"><span class="istickedoff">doInstruction (IAL      i) cu s r = stackNext cu r =&lt;&lt; alInstruction i s</span>
 <span class="lineno">   35 </span><span class="spaces"></span><span class="istickedoff">doInstruction (ILS      i) cu s r = uncurry (next cu) . sluToTuple =&lt;&lt; slInstruction i (LSU s r)</span>
-<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">doInstruction (IControl i) cu s r = uncurry (cuNext r). cpuToTuple =&lt;&lt; controlInstruction i (CPU cu s)</span>
+<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">doInstruction (ICF i) cu s r      = uncurry (cuNext r). cpuToTuple =&lt;&lt; controlInstruction i (CPU cu s)</span>
 <span class="lineno">   37 </span><span class="spaces"></span><span class="istickedoff">doInstruction  End         cu s r = pure $ Unit cu s r</span></span>
 
 </pre>

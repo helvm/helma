@@ -85,14 +85,14 @@
 , ILS Store
 , IAL
     ( Cons 0 )
-, IControl
+, ICF
     ( CStatic "write" Call )
 , IAL
     ( Cons 100 )
 , ILS ( MIO InputDec )
 , IAL
     ( Cons 0 )
-, IControl
+, ICF
     ( CStatic "write" Call )
 , IAL
     ( Cons 101 )
@@ -103,11 +103,11 @@
 , IAL
     ( Cons 101 )
 , ILS Load
-, IControl
+, ICF
     ( CStatic "loctest" Call )
 , IAL ( SIO OutputDec )
 , End
-, IControl
+, ICF
     ( Mark "loctest" )
 , IAL
     ( SStatic 0 Copy )
@@ -116,30 +116,30 @@
 , IAL ( Binary Add )
 , IAL
     ( SStatic 2 Slide )
-, IControl Return
-, IControl
+, ICF Return
+, ICF
     ( Mark "add" )
 , IAL ( Binary Add )
-, IControl Return
-, IControl
+, ICF Return
+, ICF
     ( Mark "write" )
 , IAL Dup
 , ILS Load
 , IAL Dup
-, IControl
+, ICF
     ( CStatic "write_end" ( Branch EZ ) )
 , IAL ( SIO OutputChar )
 , IAL
     ( Cons 1 )
 , IAL ( Binary Add )
-, IControl
+, ICF
     ( CStatic "write" Jump )
-, IControl
+, ICF
     ( Mark "write_end" )
 , IAL Discard
 , IAL Discard
-, IControl Return
-, IControl
+, ICF Return
+, ICF
     ( Mark "read" )
 , IAL Dup
 , IAL Dup
@@ -149,15 +149,15 @@
 , IAL
     ( Cons 10 )
 , IAL ( Binary Sub )
-, IControl
+, ICF
     ( CStatic "read_end" ( Branch EZ ) )
 , IAL Discard
 , IAL
     ( Cons 1 )
 , IAL ( Binary Add )
-, IControl
+, ICF
     ( CStatic "read" Jump )
-, IControl
+, ICF
     ( Mark "read_end" )
 , IAL Discard
 , IAL
@@ -166,8 +166,8 @@
 , IAL
     ( Cons 0 )
 , ILS Store
-, IControl Return
-, IControl
+, ICF Return
+, ICF
     ( Mark "newline" )
 , IAL
     ( Cons 10 )
@@ -175,5 +175,5 @@
     ( Cons 13 )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
-, IControl Return
+, ICF Return
 ]

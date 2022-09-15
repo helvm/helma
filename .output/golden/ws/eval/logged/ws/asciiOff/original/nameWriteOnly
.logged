@@ -163,46 +163,46 @@ dump: Unit
             , ILS Store
             , IAL
                 ( Cons 0 )
-            , IControl
+            , ICF
                 ( CStatic "0111011101110010011010010111010001100101" Call )
             , IAL
                 ( Cons 100 )
-            , IControl
+            , ICF
                 ( CStatic "01110010011001010110000101100100" Call )
             , IAL
                 ( Cons 30 )
-            , IControl
+            , ICF
                 ( CStatic "0111011101110010011010010111010001100101" Call )
             , IAL
                 ( Cons 100 )
-            , IControl
+            , ICF
                 ( CStatic "0111011101110010011010010111010001100101" Call )
-            , IControl
+            , ICF
                 ( CStatic "01101110011001010111011101101100011010010110111001100101" Call )
             , End
-            , IControl
+            , ICF
                 ( Mark "011000010110010001100100" )
             , IAL ( Binary Add )
-            , IControl Return
-            , IControl
+            , ICF Return
+            , ICF
                 ( Mark "0111011101110010011010010111010001100101" )
             , IAL Dup
             , ILS Load
             , IAL Dup
-            , IControl
+            , ICF
                 ( CStatic "011101110111001001101001011101000110010101011111011001010110111001100100" ( Branch EZ ) )
             , IAL ( SIO OutputChar )
             , IAL
                 ( Cons 1 )
             , IAL ( Binary Add )
-            , IControl
+            , ICF
                 ( CStatic "0111011101110010011010010111010001100101" Jump )
-            , IControl
+            , ICF
                 ( Mark "011101110111001001101001011101000110010101011111011001010110111001100100" )
             , IAL Discard
             , IAL Discard
-            , IControl Return
-            , IControl
+            , ICF Return
+            , ICF
                 ( Mark "01110010011001010110000101100100" )
             , IAL Dup
             , IAL Dup
@@ -212,15 +212,15 @@ dump: Unit
             , IAL
                 ( Cons 10 )
             , IAL ( Binary Sub )
-            , IControl
+            , ICF
                 ( CStatic "0111001001100101011000010110010001011111011001010110111001100100" ( Branch EZ ) )
             , IAL Discard
             , IAL
                 ( Cons 1 )
             , IAL ( Binary Add )
-            , IControl
+            , ICF
                 ( CStatic "01110010011001010110000101100100" Jump )
-            , IControl
+            , ICF
                 ( Mark "0111001001100101011000010110010001011111011001010110111001100100" )
             , IAL Discard
             , IAL
@@ -229,8 +229,8 @@ dump: Unit
             , IAL
                 ( Cons 0 )
             , ILS Store
-            , IControl Return
-            , IControl
+            , ICF Return
+            , ICF
                 ( Mark "01101110011001010111011101101100011010010110111001100101" )
             , IAL
                 ( Cons 10 )
@@ -238,7 +238,7 @@ dump: Unit
                 ( Cons 13 )
             , IAL ( SIO OutputChar )
             , IAL ( SIO OutputChar )
-            , IControl Return
+            , ICF Return
             ]
         , programCounter = 106
         , returnStack = IS []

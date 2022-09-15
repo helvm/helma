@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automaton.Instruction.ControlInstruction where
+module HelVM.HelMA.Automaton.Instruction.CFInstruction where
 
 import           HelVM.HelIO.Collections.SList
 
@@ -11,7 +11,7 @@ isJump LTZ e = e <  0
 isJump GTZ e = e >  0
 
 -- | Types
-data ControlInstruction =
+data CFInstruction =
     Mark     !Label
   | CStatic  !Label !LabelInstruction
   | CDynamic        !LabelInstruction
