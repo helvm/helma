@@ -62,53 +62,74 @@ span.spaces    { background: white }
 <span class="lineno">   43 </span>parseFromTL :: MonadSafe m =&gt; Bool -&gt; TokenList -&gt; m InstructionList
 <span class="lineno">   44 </span><span class="decl"><span class="istickedoff">parseFromTL ascii = go where</span>
 <span class="lineno">   45 </span><span class="spaces">  </span><span class="istickedoff">go :: MonadSafe m =&gt; TokenList -&gt; m InstructionList</span>
-<span class="lineno">   46 </span><span class="spaces">  </span><span class="istickedoff">go []            = pure []</span>
-<span class="lineno">   47 </span><span class="spaces">  </span><span class="istickedoff">--IAL instructions</span>
-<span class="lineno">   48 </span><span class="spaces">  </span><span class="istickedoff">go (S:S:tl')     = go' =&lt;&lt; parseSymbol tl' where go' (symbol , tl'') = (IAL (Cons symbol)  : ) &lt;$&gt; go tl''</span>
-<span class="lineno">   49 </span><span class="spaces">  </span><span class="istickedoff">go (S:T:S:tl')   = go' =&lt;&lt; parseIndex  tl' where go' (index  , tl'') = (IAL (SStatic index Copy)     : ) &lt;$&gt; go tl''</span>
-<span class="lineno">   50 </span><span class="spaces">  </span><span class="istickedoff">go (S:T:T:tl')   = <span class="nottickedoff">panic &quot;STT&quot; tl'</span></span>
-<span class="lineno">   51 </span><span class="spaces">  </span><span class="istickedoff">go (S:T:N:tl')   = go' =&lt;&lt; parseIndex  tl' where go' (index  , tl'') = (IAL (SStatic index Slide)    : ) &lt;$&gt; go tl''</span>
-<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">go (S:N:S:tl')   = (IAL Dup               : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   53 </span><span class="spaces">  </span><span class="istickedoff">go (S:N:T:tl')   = (IAL Swap              : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   54 </span><span class="spaces">  </span><span class="istickedoff">go (S:N:N:tl')   = (IAL Discard           : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   55 </span><span class="spaces">  </span><span class="istickedoff">--Arithmetic</span>
-<span class="lineno">   56 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:S:S:tl') = (IAL (Binary Add)      : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   57 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:S:T:tl') = (IAL (Binary Sub)      : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   58 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:S:N:tl') = (IAL (Binary Mul)      : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   59 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:T:S:tl') = <span class="nottickedoff">(IAL (Binary Div)      : ) &lt;$&gt; go tl'</span></span>
-<span class="lineno">   60 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:T:T:tl') = <span class="nottickedoff">(IAL (Binary Mod)      : ) &lt;$&gt; go tl'</span></span>
-<span class="lineno">   61 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:T:N:tl') = <span class="nottickedoff">panic &quot;TSTN&quot; tl'</span></span>
-<span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:N:S:tl') = <span class="nottickedoff">panic &quot;TSNS&quot; tl'</span></span>
-<span class="lineno">   63 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:N:T:tl') = <span class="nottickedoff">panic &quot;TSNT&quot; tl'</span></span>
-<span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:N:N:tl') = <span class="nottickedoff">panic &quot;TSNN&quot; tl'</span></span>
-<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">--Heap access</span>
-<span class="lineno">   66 </span><span class="spaces">  </span><span class="istickedoff">go (T:T:S:tl')   = (ILS Store            : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   67 </span><span class="spaces">  </span><span class="istickedoff">go (T:T:T:tl')   = (ILS Load             : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   68 </span><span class="spaces">  </span><span class="istickedoff">go (T:T:N:tl')   = <span class="nottickedoff">panic &quot;TTN&quot; tl'</span></span>
-<span class="lineno">   69 </span><span class="spaces">  </span><span class="istickedoff">--IControl</span>
-<span class="lineno">   70 </span><span class="spaces">  </span><span class="istickedoff">go (N:S:S:tl')   = go' =&lt;&lt; parseLabel ascii tl' where go' (label  , tl'') = (IControl (Mark    label) : ) &lt;$&gt; go tl''</span>
-<span class="lineno">   71 </span><span class="spaces">  </span><span class="istickedoff">go (N:S:T:tl')   = go' =&lt;&lt; parseLabel ascii tl' where go' (label  , tl'') = (IControl (CStatic label Call       ) : ) &lt;$&gt; go tl''</span>
-<span class="lineno">   72 </span><span class="spaces">  </span><span class="istickedoff">go (N:S:N:tl')   = go' =&lt;&lt; parseLabel ascii tl' where go' (label  , tl'') = (IControl (CStatic label Jump       ) : ) &lt;$&gt; go tl''</span>
-<span class="lineno">   73 </span><span class="spaces">  </span><span class="istickedoff">go (N:T:S:tl')   = go' =&lt;&lt; parseLabel ascii tl' where go' (label  , tl'') = (IControl (CStatic label (Branch EZ)) : ) &lt;$&gt; go tl''</span>
-<span class="lineno">   74 </span><span class="spaces">  </span><span class="istickedoff">go (N:T:T:tl')   = <span class="nottickedoff">go' =&lt;&lt; parseLabel ascii tl'</span> where <span class="nottickedoff">go' (label  , tl'') = (IControl (CStatic label (Branch LTZ)) : ) &lt;$&gt; go tl''</span></span>
-<span class="lineno">   75 </span><span class="spaces">  </span><span class="istickedoff">go (N:T:N:tl')   = (IControl Return           : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   76 </span><span class="spaces">  </span><span class="istickedoff">go (N:N:S:tl')   = <span class="nottickedoff">panic &quot;NNS&quot; tl'</span></span>
-<span class="lineno">   77 </span><span class="spaces">  </span><span class="istickedoff">go (N:N:T:tl')   = <span class="nottickedoff">panic &quot;NNT&quot; tl'</span></span>
-<span class="lineno">   78 </span><span class="spaces">  </span><span class="istickedoff">go (N:N:N:tl')   = (End                            : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   79 </span><span class="spaces">  </span><span class="istickedoff">--IO instructions</span>
-<span class="lineno">   80 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:S:S:tl') = (IAL (SIO OutputChar)        : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   81 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:S:T:tl') = (IAL (SIO OutputDec)         : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   82 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:S:N:tl') = <span class="nottickedoff">panic &quot;TNSN&quot; tl'</span></span>
-<span class="lineno">   83 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:T:S:tl') = (ILS (MIO InputChar)         : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   84 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:T:T:tl') = (ILS (MIO InputDec)          : ) &lt;$&gt; go tl'</span>
-<span class="lineno">   85 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:T:N:tl') = <span class="nottickedoff">panic &quot;TNTN&quot; tl'</span></span>
-<span class="lineno">   86 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:N:S:tl') = <span class="nottickedoff">panic &quot;TNNS&quot; tl'</span></span>
-<span class="lineno">   87 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:N:T:tl') = <span class="nottickedoff">panic &quot;TNNT&quot; tl'</span></span>
-<span class="lineno">   88 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:N:N:tl') = <span class="nottickedoff">panic &quot;TNNN&quot; tl'</span></span>
-<span class="lineno">   89 </span><span class="spaces">  </span><span class="istickedoff">go tl'           = <span class="nottickedoff">panic (show tl') []</span></span></span>
-<span class="lineno">   90 </span>
-<span class="lineno">   91 </span>panic :: MonadSafe m =&gt; Text -&gt; TokenList -&gt; m InstructionList
-<span class="lineno">   92 </span><span class="decl"><span class="nottickedoff">panic token tl = liftErrorTupleList [(&quot;Unrecognised tokenl&quot; , token) , (&quot;Rest tokens&quot; , show tl)]</span></span>
+<span class="lineno">   46 </span><span class="spaces">  </span><span class="istickedoff">go      []   = pure              []</span>
+<span class="lineno">   47 </span><span class="spaces">  </span><span class="istickedoff">go (S:  tl') = stackManipulation tl'</span>
+<span class="lineno">   48 </span><span class="spaces">  </span><span class="istickedoff">go (T:S:tl') = arithmetic        tl'</span>
+<span class="lineno">   49 </span><span class="spaces">  </span><span class="istickedoff">go (T:T:tl') = heapAccess        tl'</span>
+<span class="lineno">   50 </span><span class="spaces">  </span><span class="istickedoff">go (N  :tl') = flowControl       tl'</span>
+<span class="lineno">   51 </span><span class="spaces">  </span><span class="istickedoff">go (T:N:tl') = ioInstruction     tl'</span>
+<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">go      tl'  = <span class="nottickedoff">notEnoughTokens   tl'</span></span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   54 </span><span class="spaces">  </span><span class="istickedoff">stackManipulation :: MonadSafe m =&gt; TokenList -&gt; m InstructionList</span>
+<span class="lineno">   55 </span><span class="spaces">  </span><span class="istickedoff">stackManipulation (S:  tl') = go' =&lt;&lt; parseSymbol tl' where go' (symbol , tl'') = (IAL (Cons symbol)         : ) &lt;$&gt; go tl''</span>
+<span class="lineno">   56 </span><span class="spaces">  </span><span class="istickedoff">stackManipulation (T:S:tl') = go' =&lt;&lt; parseIndex  tl' where go' (index  , tl'') = (IAL (SStatic index Copy)  : ) &lt;$&gt; go tl''</span>
+<span class="lineno">   57 </span><span class="spaces">  </span><span class="istickedoff">stackManipulation (T:T:tl') = <span class="nottickedoff">unrecognisedTokens &quot;STT&quot; tl'</span></span>
+<span class="lineno">   58 </span><span class="spaces">  </span><span class="istickedoff">stackManipulation (T:N:tl') = go' =&lt;&lt; parseIndex  tl' where go' (index  , tl'') = (IAL (SStatic index Slide) : ) &lt;$&gt; go tl''</span>
+<span class="lineno">   59 </span><span class="spaces">  </span><span class="istickedoff">stackManipulation (N:S:tl') = (IAL Dup               : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   60 </span><span class="spaces">  </span><span class="istickedoff">stackManipulation (N:T:tl') = (IAL Swap              : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   61 </span><span class="spaces">  </span><span class="istickedoff">stackManipulation (N:N:tl') = (IAL Discard           : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">stackManipulation      tl'  = <span class="nottickedoff">notEnoughTokensInGroup &quot;stackManipulation&quot; tl'</span></span>
+<span class="lineno">   63 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">arithmetic :: MonadSafe m =&gt; TokenList -&gt; m InstructionList</span>
+<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">arithmetic (S:S:tl') = (IAL (Binary Add) : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   66 </span><span class="spaces">  </span><span class="istickedoff">arithmetic (S:T:tl') = (IAL (Binary Sub) : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   67 </span><span class="spaces">  </span><span class="istickedoff">arithmetic (S:N:tl') = (IAL (Binary Mul) : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   68 </span><span class="spaces">  </span><span class="istickedoff">arithmetic (T:S:tl') = <span class="nottickedoff">(IAL (Binary Div) : ) &lt;$&gt; go tl'</span></span>
+<span class="lineno">   69 </span><span class="spaces">  </span><span class="istickedoff">arithmetic (T:T:tl') = <span class="nottickedoff">(IAL (Binary Mod) : ) &lt;$&gt; go tl'</span></span>
+<span class="lineno">   70 </span><span class="spaces">  </span><span class="istickedoff">arithmetic (T:N:tl') = <span class="nottickedoff">unrecognisedTokens &quot;TSTN&quot; tl'</span></span>
+<span class="lineno">   71 </span><span class="spaces">  </span><span class="istickedoff">arithmetic (N:S:tl') = <span class="nottickedoff">unrecognisedTokens &quot;TSNS&quot; tl'</span></span>
+<span class="lineno">   72 </span><span class="spaces">  </span><span class="istickedoff">arithmetic (N:T:tl') = <span class="nottickedoff">unrecognisedTokens &quot;TSNT&quot; tl'</span></span>
+<span class="lineno">   73 </span><span class="spaces">  </span><span class="istickedoff">arithmetic (N:N:tl') = <span class="nottickedoff">unrecognisedTokens &quot;TSNN&quot; tl'</span></span>
+<span class="lineno">   74 </span><span class="spaces">  </span><span class="istickedoff">arithmetic      tl'  = <span class="nottickedoff">notEnoughTokensInGroup &quot;arithmetic&quot; tl'</span></span>
+<span class="lineno">   75 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   76 </span><span class="spaces">  </span><span class="istickedoff">heapAccess :: MonadSafe m =&gt; TokenList -&gt; m InstructionList</span>
+<span class="lineno">   77 </span><span class="spaces">  </span><span class="istickedoff">heapAccess (S:tl') = (ILS Store : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   78 </span><span class="spaces">  </span><span class="istickedoff">heapAccess (T:tl') = (ILS Load  : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   79 </span><span class="spaces">  </span><span class="istickedoff">heapAccess (N:tl') = <span class="nottickedoff">unrecognisedTokens &quot;TTN&quot; tl'</span></span>
+<span class="lineno">   80 </span><span class="spaces">  </span><span class="istickedoff">heapAccess    tl'  = <span class="nottickedoff">notEnoughTokensInGroup &quot;heapAccess&quot; tl'</span></span>
+<span class="lineno">   81 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   82 </span><span class="spaces">  </span><span class="istickedoff">flowControl :: MonadSafe m =&gt; TokenList -&gt; m InstructionList</span>
+<span class="lineno">   83 </span><span class="spaces">  </span><span class="istickedoff">flowControl (S:S:tl') = go' =&lt;&lt; parseLabel ascii tl' where go' (label , tl'') = (IControl (Mark    label             ) : ) &lt;$&gt; go tl''</span>
+<span class="lineno">   84 </span><span class="spaces">  </span><span class="istickedoff">flowControl (S:T:tl') = go' =&lt;&lt; parseLabel ascii tl' where go' (label , tl'') = (IControl (CStatic label Call        ) : ) &lt;$&gt; go tl''</span>
+<span class="lineno">   85 </span><span class="spaces">  </span><span class="istickedoff">flowControl (S:N:tl') = go' =&lt;&lt; parseLabel ascii tl' where go' (label , tl'') = (IControl (CStatic label Jump        ) : ) &lt;$&gt; go tl''</span>
+<span class="lineno">   86 </span><span class="spaces">  </span><span class="istickedoff">flowControl (T:S:tl') = go' =&lt;&lt; parseLabel ascii tl' where go' (label , tl'') = (IControl (CStatic label (Branch EZ )) : ) &lt;$&gt; go tl''</span>
+<span class="lineno">   87 </span><span class="spaces">  </span><span class="istickedoff">flowControl (T:T:tl') = <span class="nottickedoff">go' =&lt;&lt; parseLabel ascii tl'</span> where <span class="nottickedoff">go' (label , tl'') = (IControl (CStatic label (Branch LTZ)) : ) &lt;$&gt; go tl''</span></span>
+<span class="lineno">   88 </span><span class="spaces">  </span><span class="istickedoff">flowControl (T:N:tl') = (IControl Return : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   89 </span><span class="spaces">  </span><span class="istickedoff">flowControl (N:S:tl') = <span class="nottickedoff">unrecognisedTokens &quot;NNS&quot; tl'</span></span>
+<span class="lineno">   90 </span><span class="spaces">  </span><span class="istickedoff">flowControl (N:T:tl') = <span class="nottickedoff">unrecognisedTokens &quot;NNT&quot; tl'</span></span>
+<span class="lineno">   91 </span><span class="spaces">  </span><span class="istickedoff">flowControl (N:N:tl') = (End : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   92 </span><span class="spaces">  </span><span class="istickedoff">flowControl      tl'  = <span class="nottickedoff">notEnoughTokensInGroup &quot;flowControl&quot; tl'</span></span>
+<span class="lineno">   93 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   94 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction :: MonadSafe m =&gt; TokenList -&gt; m InstructionList</span>
+<span class="lineno">   95 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction (S:S:tl') = (IAL (SIO OutputChar) : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   96 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction (S:T:tl') = (IAL (SIO OutputDec)  : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   97 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction (S:N:tl') = <span class="nottickedoff">unrecognisedTokens &quot;TNSN&quot; tl'</span></span>
+<span class="lineno">   98 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction (T:S:tl') = (ILS (MIO InputChar)  : ) &lt;$&gt; go tl'</span>
+<span class="lineno">   99 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction (T:T:tl') = (ILS (MIO InputDec)   : ) &lt;$&gt; go tl'</span>
+<span class="lineno">  100 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction (T:N:tl') = <span class="nottickedoff">unrecognisedTokens &quot;TNTN&quot; tl'</span></span>
+<span class="lineno">  101 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction (N:S:tl') = <span class="nottickedoff">unrecognisedTokens &quot;TNNS&quot; tl'</span></span>
+<span class="lineno">  102 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction (N:T:tl') = <span class="nottickedoff">unrecognisedTokens &quot;TNNT&quot; tl'</span></span>
+<span class="lineno">  103 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction (N:N:tl') = <span class="nottickedoff">unrecognisedTokens &quot;TNNN&quot; tl'</span></span>
+<span class="lineno">  104 </span><span class="spaces">  </span><span class="istickedoff">ioInstruction tl'       = <span class="nottickedoff">notEnoughTokensInGroup &quot;ioInstruction&quot; tl'</span></span></span>
+<span class="lineno">  105 </span>
+<span class="lineno">  106 </span>unrecognisedTokens :: MonadSafe m =&gt; Text -&gt; TokenList -&gt; m InstructionList
+<span class="lineno">  107 </span><span class="decl"><span class="nottickedoff">unrecognisedTokens tokens tl = liftErrorTupleList [(&quot;Unrecognised tokens&quot; , tokens) , (&quot;Rest tokens&quot; , show tl)]</span></span>
+<span class="lineno">  108 </span>
+<span class="lineno">  109 </span>notEnoughTokensInGroup :: MonadSafe m =&gt; Text -&gt; TokenList -&gt; m InstructionList
+<span class="lineno">  110 </span><span class="decl"><span class="nottickedoff">notEnoughTokensInGroup g tl = liftErrorTupleList [(&quot;Not enough tokens in group:&quot; , g) , (&quot;Rest tokens&quot; , show tl)]</span></span>
+<span class="lineno">  111 </span>
+<span class="lineno">  112 </span>notEnoughTokens :: MonadSafe m =&gt; TokenList -&gt; m InstructionList
+<span class="lineno">  113 </span><span class="decl"><span class="nottickedoff">notEnoughTokens tl = liftErrorTupleList [(&quot;Rest tokens&quot; , show tl)]</span></span>
 
 </pre>
 </body>
