@@ -105,7 +105,6 @@ library
   hs-source-dirs:      hs/src
   exposed-modules:
 
-
     HelVM.HelMA.Automaton.API.IOTypes
     HelVM.HelMA.Automaton.API.RunParams
     HelVM.HelMA.Automaton.API.TypeOptions
