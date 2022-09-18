@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automaton.Types.RAMType where
 
 import           HelVM.HelIO.Extra
+import           HelVM.HelIO.SwitchEnum
 
 -- | Constructors
 parseRAMType :: String -> RAMType
@@ -8,11 +9,11 @@ parseRAMType raw = fromJustWithText message $ readMaybe raw where
   message = "RAMType '" <> toText raw <> "' is not valid RAMType. Valid ramTypes are : " <> show ramTypes
 
 defaultRAMType :: RAMType
-defaultRAMType = MapListRAMType
+defaultRAMType = defaultEnum
 
 ramTypes :: [RAMType]
-ramTypes = [ListRAMType , SeqRAMType , SListRAMType , MapListRAMType]
+ramTypes = generateEnums 4
 
 -- | Types
-data RAMType = ListRAMType | SeqRAMType | SListRAMType | MapListRAMType
-  deriving stock (Eq , Read , Show)
+data RAMType = MapListRAMType | SListRAMType | SeqRAMType | ListRAMType
+  deriving stock (Bounded , Enum , Eq , Read , Show)

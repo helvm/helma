@@ -5,6 +5,7 @@ import           HelVM.HelMA.Automaton.IO.BusinessIO
 import           HelVM.HelIO.Control.Logger
 
 import           HelVM.HelIO.Extra
+import           HelVM.HelIO.SwitchEnum
 
 logDump :: (BIO m , Show d) => DumpType -> d -> m ()
 logDump dt d = logDump' $ dump dt d where
@@ -22,11 +23,11 @@ parseDumpType raw = fromJustWithText message $ readMaybe raw where
   message = "DumpType '" <> toText raw <> "' is not valid DumpType. Valid dumpTypes are : " <> show dumpTypes
 
 defaultDumpType :: DumpType
-defaultDumpType = No
+defaultDumpType = defaultEnum
 
 dumpTypes :: [DumpType]
-dumpTypes = [No , Ugly , Pretty]
+dumpTypes = generateEnums 3
 
 -- | Types
 data DumpType = No | Ugly | Pretty
-  deriving stock (Eq , Read , Show)
+  deriving stock (Bounded , Enum , Eq , Read , Show)
