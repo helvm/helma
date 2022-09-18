@@ -1,11 +1,9 @@
 module HelVM.HelMA.Automata.False.Value where
 
-import           HelVM.HelMA.Automaton.Operator.BinaryOperator
 import           HelVM.HelMA.Automaton.Operator.HighControlOperator
 import           HelVM.HelMA.Automaton.Operator.IOOperator
 import           HelVM.HelMA.Automaton.Operator.MemoryOperator
 import           HelVM.HelMA.Automaton.Operator.StackOperator
-import           HelVM.HelMA.Automaton.Operator.UnaryOperator
 
 import           HelVM.HelMA.Automaton.Dynamic.DynamicIntegral
 import           HelVM.HelMA.Automaton.Dynamic.DynamicVar
@@ -37,8 +35,6 @@ data Value i =
   | Print String
   | Flush
 
-  | Binary !BinaryOperator
-  | Unary !UnaryOperator
   | Stack !StackOperator
   | IOStack !IOOperator
   | Memory !MemoryOperator

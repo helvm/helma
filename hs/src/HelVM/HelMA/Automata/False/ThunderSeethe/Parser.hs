@@ -24,27 +24,27 @@ parseFromTextSafe = pure . parse . toString
 parse :: BIntegral i => String -> [Value i]
 parse [] = []
 -- Parse Arithmetic
-parse ('+' : source) = Binary Add : parse source
-parse ('-' : source) = Binary Sub : parse source
-parse ('*' : source) = Binary Mul : parse source
-parse ('/' : source) = Binary Div : parse source
-parse ('_' : source) = Unary  Neg : parse source
+parse ('+' : source) = Stack (Binary Add) : parse source
+parse ('-' : source) = Stack (Binary Sub) : parse source
+parse ('*' : source) = Stack (Binary Mul) : parse source
+parse ('/' : source) = Stack (Binary Div) : parse source
+parse ('_' : source) = Stack (Unary  Neg) : parse source
 
 -- Parse Comparison
-parse ('=' : source) = Binary (blEQ bl) : parse source
-parse ('>' : source) = Binary (blGT bl)  : parse source
+parse ('=' : source) = Stack (Binary (blEQ bl)) : parse source
+parse ('>' : source) = Stack (Binary (blGT bl))  : parse source
 
 -- Parse Boolean Algebra
-parse ('&' : source) = Binary (blAnd bl)  : parse source
-parse ('|' : source) = Binary (blOr bl)  : parse source
-parse ('~' : source) = Unary (blNot bl)  : parse source
+parse ('&' : source) = Stack (Binary (blAnd bl))  : parse source
+parse ('|' : source) = Stack (Binary (blOr bl))  : parse source
+parse ('~' : source) = Stack (Unary (blNot bl))  : parse source
 
 -- Parse Stack Ope
 parse ('$' : source)  = Stack Dup : parse source
 parse ('%' : source)  = Stack Discard : parse source
 parse ('\\' : source) = Stack Swap : parse source
 parse ('@' : source)  = Stack Rot : parse source
-parse ('o' : source)  = Stack DCopy : parse source
+parse ('o' : source)  = Stack (Dynamic Copy) : parse source
 
 -- Parse Control Flow
 parse ('!' : source) = High Apply : parse source

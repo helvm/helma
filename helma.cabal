@@ -119,10 +119,6 @@ library
     HelVM.HelMA.Automaton.IO.FreeIO
     HelVM.HelMA.Automaton.IO.MockIO
 
-    HelVM.HelMA.Automaton.Memories.Stack.LLStack
-    HelVM.HelMA.Automaton.Memories.Stack.MTStack
-    HelVM.HelMA.Automaton.Memories.RAM.MTRAM
-
     HelVM.HelMA.Automaton.Instruction
 
     HelVM.HelMA.Automaton.Instruction.ALInstruction
@@ -277,9 +273,6 @@ test-suite helma-test
 
     HelVM.HelMA.Automaton.API.TypeOptionsExtra
     HelVM.HelMA.Automaton.FilterIf0Spec
-
-    HelVM.HelMA.Automaton.Memories.Stack.LLStackSpec
-    HelVM.HelMA.Automaton.Memories.Stack.MTStackSpec
 
     HelVM.HelMA.Automata.FileExtra
 
