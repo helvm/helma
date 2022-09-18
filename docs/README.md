@@ -44,9 +44,9 @@ Currently, **🔧 🎨 HelMA** can:
 * calculate:
   * 🦄 [Lazy K](https://helvm.org/lazy-k/lazy-k.html)
   * 🦄 [Zot](https://github.com/helvm/zot_haskell)
-* interpret - structural:
+* interpret structured:
   * 🌈 BrainFuck
-* interpret and goto:  
+* interpret goto:
   * ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/)
   * 💙 [SubLeq](http://mazonka.com/subleq/)
   * 🤍 [WhiteSpace](https://helvm.github.io/wspace/tutorial.html)

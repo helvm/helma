@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.1.0 -- 2022-09-22
+
+* Add `FALSE` Parser
+
 ## 0.8.0.0 -- 2022-09-11
 
 * Add `Lazy K` Calculator

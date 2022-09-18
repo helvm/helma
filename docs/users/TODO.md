@@ -9,8 +9,12 @@ Features to implemented in Haskell:
   * [ ] 🦄 [DBLC](https://github.com/helvm/Dependent-Binary-Lambda-Calculus) Calculator
   * [x] 🦄 [Lazy K](https://helvm.org/lazy-k/lazy-k.html) Calculator
   * [x] 🦄 [Zot](https://github.com/helvm/zot_haskell) Calculator
-* Intepreters:
+* Structured Interpreters:
   * [x] 🌈 BrainFuck Interpreter
+  * [ ] 🌈 FAKE Interpreter
+  * [ ] 🌈 FALSE Interpreter
+    * [x] 🌈 FALSE Parser
+* GoTo Interpreters:
   * [x] ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/) Interpreter
   * [ ] 💛 [Malbolge](https://lutter.cc/malbolge/) Interpreter
   * [ ] 💚 [Piet](https://www.dangermouse.net/esoteric/piet.html) Interpreter

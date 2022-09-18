@@ -13,6 +13,8 @@ import qualified HelVM.HelMA.Automata.BrainFuck.Lexer      as BF
 import qualified HelVM.HelMA.Automata.ETA.Automaton        as ETA
 import qualified HelVM.HelMA.Automata.ETA.Lexer            as ETA
 
+import qualified HelVM.HelMA.Automata.FALSE.Parser         as F
+
 import qualified HelVM.HelMA.Automata.LazyK.Automaton      as Lazy
 
 import qualified HelVM.HelMA.Automata.SubLeq.Automaton     as SQ
@@ -88,6 +90,7 @@ tokenize _   _                = print
 parse :: Lang -> TokenType -> AsciiLabels -> Source -> IO ()
 parse WS   VisibleTokenType a = pPrintNoColor . WS.flipParseVisible a
 parse WS   WhiteTokenType   a = pPrintNoColor . WS.flipParseWhite   a
+parse F    _                _ = pPrintNoColor . F.parseSafe
 parse lang tt               _ = tokenize lang tt
 
 eval :: PrintLogs -> TypeOptions -> Compile -> AsciiLabels -> Lang -> TokenType -> Source -> IO ()
@@ -101,5 +104,6 @@ runWithParams Cat  _ = Cat.runWithParams
 runWithParams Rev  _ = Rev.runWithParams
 runWithParams BF   _ = BF.runWithParams
 runWithParams ETA  _ = ETA.runWithParams
+runWithParams F    _ = error "FALSE is not supported now"
 runWithParams SQ   _ = SQ.runWithParams
 runWithParams Zot  _ = Zot.runWithParams

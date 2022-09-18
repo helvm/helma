@@ -1,0 +1,130 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.FALSE.Parser (
+<span class="lineno">    2 </span>  parseSafe,
+<span class="lineno">    3 </span>  parse,
+<span class="lineno">    4 </span>) where
+<span class="lineno">    5 </span>
+<span class="lineno">    6 </span>import           HelVM.HelMA.Automata.FALSE.Value
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.API.IOTypes
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.Instruction.ALInstruction
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Instruction.IOInstruction
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.ReadPExtra
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>import           HelVM.HelIO.Control.Safe
+<span class="lineno">   15 </span>import           HelVM.HelIO.ReadText
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>import           Data.Char
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>import           Text.ParserCombinators.ReadP                    hiding (many)
+<span class="lineno">   20 </span>
+<span class="lineno">   21 </span>parseSafe :: Source -&gt; Safe ValueList
+<span class="lineno">   22 </span><span class="decl"><span class="nottickedoff">parseSafe = parse</span></span>
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>parse :: MonadSafe m =&gt; Source -&gt; m ValueList
+<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">parse = runParser vlParser</span></span>
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>vlParser :: ReadP ValueList
+<span class="lineno">   28 </span><span class="decl"><span class="istickedoff">vlParser = many (skipSpaces *&gt; valueParser) &lt;* skipSpaces</span></span>
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>valueParser :: ReadP Value
+<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">valueParser =</span>
+<span class="lineno">   32 </span><span class="spaces">      </span><span class="istickedoff">constParser</span>
+<span class="lineno">   33 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt; dupParser &lt;|&gt; dropParser &lt;|&gt; swapParser &lt;|&gt; rotParser &lt;|&gt; pickParser</span>
+<span class="lineno">   34 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt; addParser &lt;|&gt; subParser &lt;|&gt; mulParser &lt;|&gt; divParser &lt;|&gt; negParser</span>
+<span class="lineno">   35 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt; andParser &lt;|&gt; orParser &lt;|&gt; notParser</span>
+<span class="lineno">   36 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt; gtParser &lt;|&gt; eqParser</span>
+<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt; lambdaParser &lt;|&gt; execParser &lt;|&gt; condParser &lt;|&gt; whileParser</span>
+<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt; refParser &lt;|&gt; stParser &lt;|&gt; ldParser</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt; readCharParser &lt;|&gt; writeCharParser &lt;|&gt; writeStringParser &lt;|&gt; writeNumParser &lt;|&gt; flushParser</span>
+<span class="lineno">   40 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt; commentParser</span></span>
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>constParser :: ReadP Value
+<span class="lineno">   43 </span><span class="decl"><span class="istickedoff">constParser = Inst . IAL . Cons . fromIntegral &lt;$&gt; naturalParser</span></span>
+<span class="lineno">   44 </span>
+<span class="lineno">   45 </span>dupParser , dropParser , swapParser , rotParser , pickParser :: ReadP Value
+<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">dupParser  = Inst (IAL Dup    ) &lt;$ char '$'</span></span>
+<span class="lineno">   47 </span><span class="decl"><span class="istickedoff">dropParser = Inst (IAL Discard) &lt;$ char '%'</span></span>
+<span class="lineno">   48 </span><span class="decl"><span class="istickedoff">swapParser = Inst (IAL Swap   ) &lt;$ char '\\'</span></span>
+<span class="lineno">   49 </span><span class="decl"><span class="istickedoff">rotParser  = Inst (IAL Rot    ) &lt;$ char '@'</span></span>
+<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">pickParser = <span class="nottickedoff">Inst (IAL Pick   )</span> &lt;$ char '`'</span></span>
+<span class="lineno">   51 </span>
+<span class="lineno">   52 </span>addParser , subParser , mulParser , divParser , negParser :: ReadP Value
+<span class="lineno">   53 </span><span class="decl"><span class="istickedoff">addParser = Inst (IAL (Binary Add)) &lt;$ char '+'</span></span>
+<span class="lineno">   54 </span><span class="decl"><span class="istickedoff">subParser = Inst (IAL (Binary Sub)) &lt;$ char '-'</span></span>
+<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">mulParser = Inst (IAL (Binary Mul)) &lt;$ char '*'</span></span>
+<span class="lineno">   56 </span><span class="decl"><span class="istickedoff">divParser = Inst (IAL (Binary Div)) &lt;$ char '/'</span></span>
+<span class="lineno">   57 </span><span class="decl"><span class="istickedoff">negParser = Inst (IAL (Unary  Neg)) &lt;$ char '_'</span></span>
+<span class="lineno">   58 </span>
+<span class="lineno">   59 </span>andParser , orParser , notParser :: ReadP Value
+<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">andParser = Inst (IAL (Binary BAnd)) &lt;$ char '&amp;'</span></span>
+<span class="lineno">   61 </span><span class="decl"><span class="istickedoff">orParser  = Inst (IAL (Binary BOr )) &lt;$ char '|'</span></span>
+<span class="lineno">   62 </span><span class="decl"><span class="istickedoff">notParser = Inst (IAL (Unary  BNot)) &lt;$ char '~'</span></span>
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>gtParser , eqParser :: ReadP Value
+<span class="lineno">   65 </span><span class="decl"><span class="istickedoff">gtParser = <span class="nottickedoff">Inst (IAL (Binary LGT))</span> &lt;$ char '&lt;'</span></span>
+<span class="lineno">   66 </span><span class="decl"><span class="istickedoff">eqParser = Inst (IAL (Binary LEQ)) &lt;$ char '='</span></span>
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>lambdaParser , execParser , condParser , whileParser  :: ReadP Value
+<span class="lineno">   69 </span><span class="decl"><span class="istickedoff">lambdaParser = Lambda &lt;$&gt; (char '[' *&gt; vlParser &lt;* char ']')</span></span>
+<span class="lineno">   70 </span><span class="decl"><span class="istickedoff">execParser   = Exec &lt;$ char '!'</span></span>
+<span class="lineno">   71 </span><span class="decl"><span class="istickedoff">condParser   = Cond &lt;$ char '?'</span></span>
+<span class="lineno">   72 </span><span class="decl"><span class="istickedoff">whileParser  = While &lt;$ char '#'</span></span>
+<span class="lineno">   73 </span>
+<span class="lineno">   74 </span>refParser , stParser , ldParser :: ReadP Value
+<span class="lineno">   75 </span><span class="decl"><span class="istickedoff">refParser = refFromChar &lt;$&gt; letterAscii</span></span>
+<span class="lineno">   76 </span><span class="decl"><span class="istickedoff">stParser  = Store &lt;$ char ':'</span></span>
+<span class="lineno">   77 </span><span class="decl"><span class="istickedoff">ldParser  = Fetch &lt;$ char ';'</span></span>
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>readCharParser , writeCharParser , writeNumParser , writeStringParser , flushParser:: ReadP Value
+<span class="lineno">   80 </span><span class="decl"><span class="istickedoff">readCharParser    = Inst (IAL (SIO InputChar )) &lt;$ char '^'</span></span>
+<span class="lineno">   81 </span><span class="decl"><span class="istickedoff">writeCharParser   = Inst (IAL (SIO OutputChar)) &lt;$ char ','</span></span>
+<span class="lineno">   82 </span><span class="decl"><span class="istickedoff">writeStringParser = Str &lt;$&gt; stringParser</span></span>
+<span class="lineno">   83 </span><span class="decl"><span class="istickedoff">writeNumParser    = Inst (IAL (SIO OutputDec )) &lt;$ char '.'</span></span>
+<span class="lineno">   84 </span><span class="decl"><span class="istickedoff">flushParser       = Flush &lt;$ char 'ß'</span></span>
+<span class="lineno">   85 </span>
+<span class="lineno">   86 </span>commentParser :: ReadP Value
+<span class="lineno">   87 </span><span class="decl"><span class="istickedoff">commentParser = Comment &lt;$&gt; (char '{' *&gt; many (notChar '}') &lt;* char '}')</span></span>
+<span class="lineno">   88 </span>
+<span class="lineno">   89 </span>-- | Extra
+<span class="lineno">   90 </span>
+<span class="lineno">   91 </span>refFromChar :: Char -&gt; Value
+<span class="lineno">   92 </span><span class="decl"><span class="istickedoff">refFromChar c = Ref $ fromIntegral $ ord (toLower c) - ord 'a'</span></span>
+<span class="lineno">   93 </span>
+<span class="lineno">   94 </span>naturalParser :: ReadP Natural
+<span class="lineno">   95 </span><span class="decl"><span class="istickedoff">naturalParser = naturalLiteralParser &lt;|&gt; ordCharLiteralParser</span></span>
+<span class="lineno">   96 </span>
+<span class="lineno">   97 </span>naturalLiteralParser :: ReadP Natural
+<span class="lineno">   98 </span><span class="decl"><span class="istickedoff">naturalLiteralParser = readUnsafe &lt;$&gt; many1 digit</span></span>
+<span class="lineno">   99 </span>
+<span class="lineno">  100 </span>ordCharLiteralParser :: Integral a =&gt; ReadP a
+<span class="lineno">  101 </span><span class="decl"><span class="istickedoff">ordCharLiteralParser = fromIntegral . ord &lt;$&gt; (skipSpacesAndChar '\'' *&gt; anyChar)</span></span>
+<span class="lineno">  102 </span>
+<span class="lineno">  103 </span>stringParser :: ReadP String
+<span class="lineno">  104 </span><span class="decl"><span class="istickedoff">stringParser = skipSpacesAndChar '&quot;' *&gt; many (notChar '&quot;') &lt;* char '&quot;'</span></span>
+<span class="lineno">  105 </span>
+<span class="lineno">  106 </span>skipSpacesAndChar :: Char -&gt; ReadP Char
+<span class="lineno">  107 </span><span class="decl"><span class="istickedoff">skipSpacesAndChar c = skipSpaces *&gt; char c</span></span>
+
+</pre>
+</body>
+</html>
