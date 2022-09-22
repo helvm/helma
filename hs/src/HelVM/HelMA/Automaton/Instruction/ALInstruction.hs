@@ -41,7 +41,7 @@ doBinary Mod = mod
 doBinary o   = error $ show o
 
 -- | Types
-
+-- FIXME Remove Dup Rot Swap. Use (Copy | Move | Slide)
 data ALInstruction =
     Cons      Integer
   | Unary    !UnaryInstruction
