@@ -8,7 +8,10 @@
         ( IAL
             ( Cons 1 )
         )
-    , Inst ( IAL Rot )
+    , Inst
+        ( IAL
+            ( SStatic 2 Move )
+        )
     , Lambda
         [ Inst
             ( IAL
@@ -32,7 +35,10 @@
         , Ref 14
         , Inst
             ( IAL ( Binary Add ) )
-        , Inst ( IAL Swap )
+        , Inst
+            ( IAL
+                ( SStatic 1 Move )
+            )
         , Inst
             ( IAL
                 ( Cons 1 )

@@ -11,7 +11,10 @@
     )
 , Inst
     ( IAL ( Binary Sub ) )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Inst
     ( IAL
         ( Cons 1 )
@@ -25,7 +28,10 @@
     )
 , Inst
     ( IAL ( Binary BAnd ) )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Inst
     ( IAL
         ( Cons 10 )
@@ -42,14 +48,20 @@
     " ]
 , Cond
 , Lambda
-    [ Inst ( IAL Swap )
+    [ Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Inst
         ( IAL
             ( Cons 1 )
         )
     , Inst
         ( IAL ( Binary Add ) )
-    , Inst ( IAL Swap )
+    , Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Inst
         ( IAL
             ( Cons 10 )
@@ -67,7 +79,10 @@
     , Ref 1
     , Store
     , Lambda
-        [ Inst ( IAL Dup )
+        [ Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Fetch
         , Inst
             ( IAL
@@ -75,15 +90,24 @@
             )
         , Inst
             ( IAL ( Binary BAnd ) )
-        , Inst ( IAL Dup )
-        , Inst ( IAL Dup )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Inst
             ( IAL
                 ( Cons 10 )
             )
         , Inst
             ( IAL ( Binary LEQ ) )
-        , Inst ( IAL Swap )
+        , Inst
+            ( IAL
+                ( SStatic 1 Move )
+            )
         , Inst
             ( IAL
                 ( Cons 32 )
@@ -124,7 +148,10 @@
     , While
     , Ref 1
     , Fetch
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 0 )
@@ -134,7 +161,10 @@
     , Inst
         ( IAL ( Unary BNot ) )
     , Lambda
-        [ Inst ( IAL Dup )
+        [ Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Inst
             ( IAL ( SIO OutputDec ) )
         , Str " = "

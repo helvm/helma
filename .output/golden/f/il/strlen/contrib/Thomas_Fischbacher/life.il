@@ -30,7 +30,10 @@
         )
     , Inst
         ( IAL ( Binary Sub ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     ]
 , Lambda
     [ Ref 6
@@ -48,7 +51,10 @@
             )
         , Inst
             ( IAL ( Binary Sub ) )
-        , Inst ( IAL Dup )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         ]
     , Lambda
         [ Inst
@@ -59,8 +65,14 @@
             )
         , Inst
             ( IAL ( Binary LEQ ) )
-        , Inst ( IAL Rot )
-        , Inst ( IAL Rot )
+        , Inst
+            ( IAL
+                ( SStatic 2 Move )
+            )
+        , Inst
+            ( IAL
+                ( SStatic 2 Move )
+            )
         ]
     , While
     , Inst ( IAL Discard )
@@ -72,10 +84,16 @@
 , Inst ( IAL Discard )
 , Ref 6
 , Fetch
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Ref 25
 , Store
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Inst
     ( IAL ( Binary Mul ) )
 , Ref 4
@@ -89,7 +107,10 @@
         )
     , Inst
         ( IAL ( Binary Sub ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Ref 25
     , Store
     , Inst

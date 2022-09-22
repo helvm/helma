@@ -304,7 +304,8 @@ dump: Unit
             , IAL
                 ( Cons 101 )
             , ILS Load
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons
                     ( -1 )
@@ -318,7 +319,8 @@ dump: Unit
             , IAL ( Binary Add )
             , IAL
                 ( Cons 100 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , ICF
                 ( CStatic "01101100011011110110111101110000" Jump )
@@ -342,9 +344,11 @@ dump: Unit
             , ICF Return
             , ICF
                 ( Mark "0111011101110010011010010111010001100101" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , ILS Load
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , ICF
                 ( CStatic "011101110111001001101001011101000110010101011111011001010110111001100100" ( Branch EZ ) )
             , IAL ( SIO OutputChar )
@@ -360,11 +364,14 @@ dump: Unit
             , ICF Return
             , ICF
                 ( Mark "01110010011001010110000101100100" )
-            , IAL Dup
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
+            , IAL
+                ( SStatic 0 Copy )
             , ILS ( MIO InputChar )
             , ILS Load
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 10 )
             , IAL ( Binary Sub )

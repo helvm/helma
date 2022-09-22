@@ -75,8 +75,8 @@ span.spaces    { background: white }
 <span class="lineno">   56 </span><span class="decl"><span class="istickedoff">parseInstructionStackManipulation (S :     tl) = build &lt;$&gt; parseSymbol tl where build (symbol , tl') = (IAL (Cons    symbol     ) , tl')</span>
 <span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff">parseInstructionStackManipulation (T : S : tl) = build &lt;$&gt; parseIndex  tl where build (index  , tl') = (IAL (SStatic index Copy ) , tl')</span>
 <span class="lineno">   58 </span><span class="spaces"></span><span class="istickedoff">parseInstructionStackManipulation (T : N : tl) = build &lt;$&gt; parseIndex  tl where build (index  , tl') = (IAL (SStatic index Slide) , tl')</span>
-<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">parseInstructionStackManipulation (N : S : tl) = pure (IAL Dup     , tl)</span>
-<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">parseInstructionStackManipulation (N : T : tl) = pure (IAL Swap    , tl)</span>
+<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">parseInstructionStackManipulation (N : S : tl) = pure (IAL dupI    , tl)</span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">parseInstructionStackManipulation (N : T : tl) = pure (IAL swapI   , tl)</span>
 <span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">parseInstructionStackManipulation (N : N : tl) = pure (IAL Discard , tl)</span>
 <span class="lineno">   62 </span><span class="spaces"></span><span class="istickedoff">parseInstructionStackManipulation          tl  = <span class="nottickedoff">unrecognisedTokensIn &quot;parseInstructionStackManipulation&quot; tl</span></span></span>
 <span class="lineno">   63 </span>

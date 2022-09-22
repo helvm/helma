@@ -56,8 +56,8 @@ parseInstructionStackManipulation :: MonadSafe m => InstructionParser m
 parseInstructionStackManipulation (S :     tl) = build <$> parseSymbol tl where build (symbol , tl') = (IAL (Cons    symbol     ) , tl')
 parseInstructionStackManipulation (T : S : tl) = build <$> parseIndex  tl where build (index  , tl') = (IAL (SStatic index Copy ) , tl')
 parseInstructionStackManipulation (T : N : tl) = build <$> parseIndex  tl where build (index  , tl') = (IAL (SStatic index Slide) , tl')
-parseInstructionStackManipulation (N : S : tl) = pure (IAL Dup     , tl)
-parseInstructionStackManipulation (N : T : tl) = pure (IAL Swap    , tl)
+parseInstructionStackManipulation (N : S : tl) = pure (IAL dupI    , tl)
+parseInstructionStackManipulation (N : T : tl) = pure (IAL swapI   , tl)
 parseInstructionStackManipulation (N : N : tl) = pure (IAL Discard , tl)
 parseInstructionStackManipulation          tl  = unrecognisedTokensIn "parseInstructionStackManipulation" tl
 

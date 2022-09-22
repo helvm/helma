@@ -49,6 +49,9 @@
     ( IAL ( Binary LEQ ) )
 , Inst
     ( IAL ( Binary BAnd ) )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Comment " a has to be 'f' of 'b' followed by a space "
 ]

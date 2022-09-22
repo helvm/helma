@@ -33,7 +33,8 @@
 , End
 , ICF
     ( Mark "prints" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , ICF
     ( CStatic "prints_end" ( Branch EZ ) )
 , IAL ( SIO OutputChar )

@@ -134,19 +134,23 @@ dump: Unit
                 ( Mark "0110100001100001011011100110111101101001" )
             , IAL
                 ( Cons 103 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 102 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 101 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 100 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 100 )
@@ -184,19 +188,23 @@ dump: Unit
                 ( CStatic "0110100001100001011011100110111101101001" Call )
             , IAL
                 ( Cons 103 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 102 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 101 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 100 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 101 )
@@ -243,19 +251,23 @@ dump: Unit
                 ( CStatic "0110100001100001011011100110111101101001" Call )
             , IAL
                 ( Cons 103 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 102 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 101 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , IAL
                 ( Cons 100 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
             , ICF
                 ( Mark "0110010101101110011001000110100001100001011011100110111101101001" )
@@ -266,9 +278,11 @@ dump: Unit
             , ICF Return
             , ICF
                 ( Mark "0111011101110010011010010111010001100101" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , ILS Load
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , ICF
                 ( CStatic "011101110111001001101001011101000110010101011111011001010110111001100100" ( Branch EZ ) )
             , IAL ( SIO OutputChar )
@@ -284,11 +298,14 @@ dump: Unit
             , ICF Return
             , ICF
                 ( Mark "01110010011001010110000101100100" )
-            , IAL Dup
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
+            , IAL
+                ( SStatic 0 Copy )
             , ILS ( MIO InputChar )
             , ILS Load
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 10 )
             , IAL ( Binary Sub )

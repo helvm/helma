@@ -48,13 +48,15 @@
     ( Cons 0 )
 , ICF
     ( Mark "f_start_1" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 100 )
 , IAL ( Binary Sub )
 , ICF
     ( CStatic "f_finished_1" ( Branch EZ ) )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 100 )
 , IAL ( Binary Add )
@@ -73,7 +75,8 @@
     ( Cons 2 )
 , ICF
     ( Mark "f_start_2" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 11 )
 , IAL ( Binary Sub )
@@ -83,24 +86,31 @@
     ( Cons 2 )
 , ICF
     ( Mark "f_start_3" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 100 )
 , IAL ( Binary Sub )
 , ICF
     ( CStatic "f_finished_3" ( Branch EZ ) )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 1 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
-, IAL Swap
-, IAL Dup
+, IAL
+    ( SStatic 1 Move )
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 2 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , IAL
     ( Cons 1 )
 , ILS Load
@@ -134,20 +144,23 @@
     ( Cons 2 )
 , ICF
     ( Mark "f_start_4" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 100 )
 , IAL ( Binary Sub )
 , ICF
     ( CStatic "f_finished_4" ( Branch EZ ) )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 100 )
 , IAL ( Binary Add )
 , ILS Load
 , ICF
     ( CStatic "nodraw" ( Branch EZ ) )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL ( SIO OutputDec )
 , IAL
     ( Cons 0 )
@@ -172,7 +185,8 @@
 , End
 , ICF
     ( Mark "prints" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , ICF
     ( CStatic "prints_end" ( Branch EZ ) )
 , IAL ( SIO OutputChar )

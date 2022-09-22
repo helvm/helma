@@ -1,7 +1,10 @@
 [ Comment " lambda calculus in FALSE
     [] blocks are lambda functions already, so it isn't all that hard... "
 , Lambda
-    [ Inst ( IAL Swap )
+    [ Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Inst ( IAL Discard )
     ]
 , Ref 0
@@ -17,7 +20,10 @@
     , Fetch
     , Ref 1
     , Fetch
-    , Inst ( IAL Rot )
+    , Inst
+        ( IAL
+            ( SStatic 2 Move )
+        )
     , Exec
     ]
 , Ref 3
@@ -26,38 +32,65 @@
 , Lambda
     [ Ref 1
     , Fetch
-    , Inst ( IAL Rot )
-    , Inst ( IAL Rot )
-    , Inst ( IAL Swap )
+    , Inst
+        ( IAL
+            ( SStatic 2 Move )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 2 Move )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Exec
     ]
 , Ref 4
 , Store
 , Comment " and "
 , Lambda
-    [ Inst ( IAL Swap )
+    [ Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Ref 0
     , Fetch
-    , Inst ( IAL Swap )
+    , Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Exec
     ]
 , Ref 5
 , Store
 , Comment " or "
 , Lambda
-    [ Inst ( IAL Dup )
+    [ Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Ref 3
     , Fetch
     , Exec
-    , Inst ( IAL Swap )
-    , Inst ( IAL Rot )
+    , Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 2 Move )
+        )
     , Exec
     ]
 , Ref 6
 , Store
 , Comment " xnor "
 , Lambda
-    [ Inst ( IAL Dup )
+    [ Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Ref 0
     , Fetch
     , Inst

@@ -21,7 +21,10 @@
 , Lambda
     [ Inst
         ( IAL ( SIO InputChar ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 1 )
@@ -34,7 +37,10 @@
         ( IAL ( Unary BNot ) )
     ]
 , Lambda
-    [ Inst ( IAL Dup )
+    [ Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 40 )
@@ -54,7 +60,10 @@
         , Store
         ]
     , Cond
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 41 )
@@ -74,7 +83,10 @@
         , Store
         ]
     , Cond
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 91 )
@@ -94,7 +106,10 @@
         , Store
         ]
     , Cond
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 93 )
@@ -114,7 +129,10 @@
         , Store
         ]
     , Cond
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 123 )
@@ -134,7 +152,10 @@
         , Store
         ]
     , Cond
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 125 )
@@ -167,7 +188,10 @@
     ( IAL ( Binary LEQ ) )
 , Inst
     ( IAL ( Unary BNot ) )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Inst
     ( IAL ( Unary BNot ) )
 , Lambda
@@ -189,7 +213,10 @@
     ( IAL ( Binary LEQ ) )
 , Inst
     ( IAL ( Unary BNot ) )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Inst
     ( IAL ( Unary BNot ) )
 , Lambda
@@ -211,7 +238,10 @@
     ( IAL ( Binary LEQ ) )
 , Inst
     ( IAL ( Unary BNot ) )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Inst
     ( IAL ( Unary BNot ) )
 , Lambda

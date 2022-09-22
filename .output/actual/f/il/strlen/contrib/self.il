@@ -12,7 +12,10 @@
     )
 , Inst
     ( IAL ( SIO OutputChar ) )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Exec
 , Inst
     ( IAL

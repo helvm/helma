@@ -2,7 +2,8 @@
     ( Cons 1 )
 , ICF
     ( Mark "C" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL ( SIO OutputDec )
 , IAL
     ( Cons 10 )
@@ -10,7 +11,8 @@
 , IAL
     ( Cons 1 )
 , IAL ( Binary Add )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 11 )
 , IAL ( Binary Sub )
@@ -28,9 +30,11 @@
 , ICF Return
 , ICF
     ( Mark "write" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , ILS Load
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , ICF
     ( CStatic "write_end" ( Branch EZ ) )
 , IAL ( SIO OutputChar )
@@ -46,11 +50,14 @@
 , ICF Return
 , ICF
     ( Mark "read" )
-, IAL Dup
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
+, IAL
+    ( SStatic 0 Copy )
 , ILS ( MIO InputChar )
 , ILS Load
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 10 )
 , IAL ( Binary Sub )

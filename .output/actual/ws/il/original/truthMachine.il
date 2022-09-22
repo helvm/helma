@@ -1,6 +1,7 @@
 [ IAL
     ( Cons 0 )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , ILS ( MIO InputDec )
 , ILS Load
 , ICF

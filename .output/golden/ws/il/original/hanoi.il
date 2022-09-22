@@ -131,19 +131,23 @@
     ( Mark "hanoi" )
 , IAL
     ( Cons 103 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 102 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 101 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 100 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 100 )
@@ -181,19 +185,23 @@
     ( CStatic "hanoi" Call )
 , IAL
     ( Cons 103 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 102 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 101 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 100 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 101 )
@@ -240,19 +248,23 @@
     ( CStatic "hanoi" Call )
 , IAL
     ( Cons 103 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 102 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 101 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , IAL
     ( Cons 100 )
-, IAL Swap
+, IAL
+    ( SStatic 1 Move )
 , ILS Store
 , ICF
     ( Mark "endhanoi" )
@@ -263,9 +275,11 @@
 , ICF Return
 , ICF
     ( Mark "write" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , ILS Load
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , ICF
     ( CStatic "write_end" ( Branch EZ ) )
 , IAL ( SIO OutputChar )
@@ -281,11 +295,14 @@
 , ICF Return
 , ICF
     ( Mark "read" )
-, IAL Dup
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
+, IAL
+    ( SStatic 0 Copy )
 , ILS ( MIO InputChar )
 , ILS Load
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL
     ( Cons 10 )
 , IAL ( Binary Sub )

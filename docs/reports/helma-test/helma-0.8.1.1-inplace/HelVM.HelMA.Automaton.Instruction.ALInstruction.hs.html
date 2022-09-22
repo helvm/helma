@@ -71,25 +71,27 @@ span.spaces    { background: white }
 <span class="lineno">   52 </span>  | SIO      !IOInstruction
 <span class="lineno">   53 </span>  | Halibut
 <span class="lineno">   54 </span>  | Pick
-<span class="lineno">   55 </span>  | Dup
-<span class="lineno">   56 </span>  | Rot
-<span class="lineno">   57 </span>  | Swap
-<span class="lineno">   58 </span>  | Discard
-<span class="lineno">   59 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
-<span class="lineno">   60 </span>
-<span class="lineno">   61 </span>data UnaryInstruction = Neg | BNot | LNot
-<span class="lineno">   62 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
-<span class="lineno">   63 </span>
-<span class="lineno">   64 </span>data BinaryInstruction =
-<span class="lineno">   65 </span>     Add | Sub | Mul | Div | Mod
-<span class="lineno">   66 </span>  | BAnd | BOr | BXor | BEQ | BGT
-<span class="lineno">   67 </span>  | LAnd | LOr | LXor | LEQ | LGT
-<span class="lineno">   68 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
-<span class="lineno">   69 </span>
-<span class="lineno">   70 </span>data ManipulationInstruction = Copy | Move | Slide
-<span class="lineno">   71 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
-<span class="lineno">   72 </span>
-<span class="lineno">   73 </span>type StackIndex = Int
+<span class="lineno">   55 </span>  | Discard
+<span class="lineno">   56 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>dupI , swapI , rotI :: ALInstruction
+<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">dupI = SStatic 0 Copy</span></span>
+<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">swapI = SStatic 1 Move</span></span>
+<span class="lineno">   61 </span><span class="decl"><span class="istickedoff">rotI = SStatic 2 Move</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>data UnaryInstruction = Neg | BNot | LNot
+<span class="lineno">   64 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   65 </span>
+<span class="lineno">   66 </span>data BinaryInstruction =
+<span class="lineno">   67 </span>     Add | Sub | Mul | Div | Mod
+<span class="lineno">   68 </span>  | BAnd | BOr | BXor | BEQ | BGT
+<span class="lineno">   69 </span>  | LAnd | LOr | LXor | LEQ | LGT
+<span class="lineno">   70 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   71 </span>
+<span class="lineno">   72 </span>data ManipulationInstruction = Copy | Move | Slide
+<span class="lineno">   73 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   74 </span>
+<span class="lineno">   75 </span>type StackIndex = Int
 
 </pre>
 </body>

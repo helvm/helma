@@ -21,7 +21,10 @@
 , Lambda
     [ Inst
         ( IAL ( SIO InputChar ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 1 )
@@ -34,7 +37,10 @@
         ( IAL ( Unary BNot ) )
     ]
 , Lambda
-    [ Inst ( IAL Dup )
+    [ Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 10 )
@@ -60,8 +66,14 @@
         , Store
         ]
     , Cond
-    , Inst ( IAL Dup )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Ref 3
     , Store
     , Inst
@@ -90,7 +102,10 @@
         ( IAL ( Binary LEQ ) )
     , Inst
         ( IAL ( Binary BOr ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Lambda
         [ Ref 2
         , Fetch

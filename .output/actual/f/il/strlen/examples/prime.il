@@ -14,19 +14,52 @@
         )
     , Inst
         ( IAL ( Binary Sub ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     ]
 , Lambda
-    [ Inst ( IAL Swap )
-    , Inst ( IAL Dup )
-    , Inst ( IAL Rot )
-    , Inst ( IAL Dup )
-    , Inst ( IAL Rot )
-    , Inst ( IAL Dup )
-    , Inst ( IAL Rot )
-    , Inst ( IAL Dup )
-    , Inst ( IAL Rot )
-    , Inst ( IAL Swap )
+    [ Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 2 Move )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 2 Move )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 2 Move )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 2 Move )
+        )
+    , Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Inst
         ( IAL ( Binary Div ) )
     , Inst
@@ -40,19 +73,34 @@
             )
         , Inst
             ( IAL ( Binary Sub ) )
-        , Inst ( IAL Dup )
-        , Inst ( IAL Dup )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Lambda
             [ Inst ( IAL Discard )
-            , Inst ( IAL Swap )
+            , Inst
+                ( IAL
+                    ( SStatic 1 Move )
+                )
             , Inst
                 ( IAL
                     ( Cons 1 )
                 )
             , Inst
                 ( IAL ( Binary Sub ) )
-            , Inst ( IAL Dup )
-            , Inst ( IAL Rot )
+            , Inst
+                ( IAL
+                    ( SStatic 0 Copy )
+                )
+            , Inst
+                ( IAL
+                    ( SStatic 2 Move )
+                )
             ]
         , Cond
         , Inst
@@ -62,8 +110,14 @@
         , Inst
             ( IAL ( Binary LEQ ) )
         , Lambda
-            [ Inst ( IAL Swap )
-            , Inst ( IAL Dup )
+            [ Inst
+                ( IAL
+                    ( SStatic 1 Move )
+                )
+            , Inst
+                ( IAL
+                    ( SStatic 0 Copy )
+                )
             , Inst
                 ( IAL ( SIO OutputDec ) )
             , Inst
@@ -72,7 +126,10 @@
                 )
             , Inst
                 ( IAL ( SIO OutputChar ) )
-            , Inst ( IAL Swap )
+            , Inst
+                ( IAL
+                    ( SStatic 1 Move )
+                )
             ]
         , Cond
         ]

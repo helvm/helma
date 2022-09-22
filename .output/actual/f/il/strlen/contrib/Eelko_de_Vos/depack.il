@@ -28,5 +28,8 @@
     )
 , Inst
     ( IAL ( Binary LEQ ) )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 ]

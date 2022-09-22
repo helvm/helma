@@ -11,7 +11,10 @@
     , Lambda
         [ Inst
             ( IAL ( SIO InputChar ) )
-        , Inst ( IAL Dup )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Inst
             ( IAL
                 ( Cons 1 )
@@ -22,10 +25,16 @@
             ( IAL ( Binary LEQ ) )
         , Inst
             ( IAL ( Unary BNot ) )
-        , Inst ( IAL Dup )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Lambda
             [ Inst ( IAL Discard )
-            , Inst ( IAL Dup )
+            , Inst
+                ( IAL
+                    ( SStatic 0 Copy )
+                )
             , Inst
                 ( IAL
                     ( Cons 10 )
@@ -50,7 +59,10 @@
 , Lambda
     [ Inst
         ( IAL ( SIO InputChar ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 1 )
@@ -70,7 +82,10 @@
     , Lambda
         [ Inst
             ( IAL ( SIO InputChar ) )
-        , Inst ( IAL Dup )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Inst
             ( IAL
                 ( Cons 1 )
@@ -81,10 +96,16 @@
             ( IAL ( Binary LEQ ) )
         , Inst
             ( IAL ( Unary BNot ) )
-        , Inst ( IAL Dup )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Lambda
             [ Inst ( IAL Discard )
-            , Inst ( IAL Dup )
+            , Inst
+                ( IAL
+                    ( SStatic 0 Copy )
+                )
             , Inst
                 ( IAL
                     ( Cons 10 )

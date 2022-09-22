@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.1.1-- 2022-09-23
+
+* FIX Remove Dup Rot Swap. Use (Copy | Move | Slide)
+
 ## 0.8.1.0 -- 2022-09-22
 
 * Add `FALSE` Parser

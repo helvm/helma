@@ -51,13 +51,15 @@ dump: Unit
                 ( Cons 0 )
             , ICF
                 ( Mark "011001100101111101110011011101000110000101110010011101000101111100110001" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 100 )
             , IAL ( Binary Sub )
             , ICF
                 ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110001" ( Branch EZ ) )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 100 )
             , IAL ( Binary Add )
@@ -76,7 +78,8 @@ dump: Unit
                 ( Cons 2 )
             , ICF
                 ( Mark "011001100101111101110011011101000110000101110010011101000101111100110010" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 11 )
             , IAL ( Binary Sub )
@@ -86,24 +89,31 @@ dump: Unit
                 ( Cons 2 )
             , ICF
                 ( Mark "011001100101111101110011011101000110000101110010011101000101111100110011" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 100 )
             , IAL ( Binary Sub )
             , ICF
                 ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110011" ( Branch EZ ) )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 1 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
-            , IAL Swap
-            , IAL Dup
+            , IAL
+                ( SStatic 1 Move )
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 2 )
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , ILS Store
-            , IAL Swap
+            , IAL
+                ( SStatic 1 Move )
             , IAL
                 ( Cons 1 )
             , ILS Load
@@ -137,20 +147,23 @@ dump: Unit
                 ( Cons 2 )
             , ICF
                 ( Mark "011001100101111101110011011101000110000101110010011101000101111100110100" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 100 )
             , IAL ( Binary Sub )
             , ICF
                 ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110100" ( Branch EZ ) )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 100 )
             , IAL ( Binary Add )
             , ILS Load
             , ICF
                 ( CStatic "011011100110111101100100011100100110000101110111" ( Branch EZ ) )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL ( SIO OutputDec )
             , IAL
                 ( Cons 0 )
@@ -175,7 +188,8 @@ dump: Unit
             , End
             , ICF
                 ( Mark "011100000111001001101001011011100111010001110011" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , ICF
                 ( CStatic "01110000011100100110100101101110011101000111001101011111011001010110111001100100" ( Branch EZ ) )
             , IAL ( SIO OutputChar )

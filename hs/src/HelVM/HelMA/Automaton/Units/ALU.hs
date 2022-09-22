@@ -9,10 +9,8 @@ module HelVM.HelMA.Automaton.Units.ALU (
   halibut,
   alInstruction,
   move,
-  swap,
   discard,
   slide,
-  dup,
   copy,
   flipPush1,
   charPush1,
@@ -53,9 +51,6 @@ alInstruction (SIO OutputDec)  = doOutputDec2
 alInstruction (SIO InputChar)  = doInputChar2
 alInstruction  Halibut         = halibut
 alInstruction  Pick            = pick
-alInstruction  Dup             = dup
-alInstruction  Rot             = rot
-alInstruction  Swap            = swap
 alInstruction  Discard         = discard
 alInstruction             op   = error $ show op
 
@@ -121,21 +116,12 @@ slide i l = slide' <$> pop1 l where
   slide' (e , l') = push1 e $ drop i l'
 
 -- | Move instructions
-rot :: ALU m ll element => ll -> m ll
-rot = move 2
-
-swap :: ALU m ll element => ll -> m ll
-swap = move 1
-
 move :: ALU m ll element => Index -> ll -> m ll
 move i l = pure $ l1 <> l2 <> l3 where
   (l1 , l3) = splitAt 1 l'
   (l2 , l') = splitAt i l
 
 -- | Copy instructions
-dup :: ALU m ll element => ll -> m ll
-dup = copy 0
-
 copy :: ALU m ll element => Index -> ll -> m ll
 copy i l = flipPush1 l <$> l `indexSafe` i
 

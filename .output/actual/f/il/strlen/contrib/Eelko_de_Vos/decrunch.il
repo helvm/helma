@@ -2,7 +2,10 @@
 , Lambda
     [ Inst
         ( IAL ( SIO InputChar ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 10 )
@@ -42,7 +45,10 @@
     , Fetch
     , Inst
         ( IAL ( Binary LEQ ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL ( Unary BNot ) )
     , Lambda

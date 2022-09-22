@@ -9,7 +9,10 @@
     ( IAL ( Binary LEQ ) )
 , Inst
     ( IAL ( Unary BNot ) )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Lambda
     [ Str "2 integer arguments expected
     " ]

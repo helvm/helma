@@ -1,5 +1,8 @@
 [ Lambda
-    [ Inst ( IAL Dup )
+    [ Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 1 )
@@ -9,7 +12,10 @@
     , Inst
         ( IAL ( Unary BNot ) )
     , Lambda
-        [ Inst ( IAL Dup )
+        [ Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Inst
             ( IAL
                 ( Cons 1 )
@@ -38,8 +44,14 @@
     )
 , Inst
     ( IAL ( Binary Sub ) )
-, Inst ( IAL Dup )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Inst
     ( IAL
         ( Cons 0 )

@@ -1,9 +1,15 @@
 [ Comment " Factorial version 2 "
 , Lambda
-    [ Inst ( IAL Rot )
+    [ Inst
+        ( IAL
+            ( SStatic 2 Move )
+        )
     , Inst
         ( IAL ( Binary Mul ) )
-    , Inst ( IAL Swap )
+    , Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Exec
     ]
 , Ref 0
@@ -14,18 +20,36 @@
             ( IAL ( SIO OutputDec ) )
         ]
     , Lambda
-        [ Inst ( IAL Swap )
-        , Inst ( IAL Dup )
+        [ Inst
+            ( IAL
+                ( SStatic 1 Move )
+            )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Inst
             ( IAL
                 ( Cons 1 )
             )
         , Inst
             ( IAL ( Binary Sub ) )
-        , Inst ( IAL Swap )
-        , Inst ( IAL Rot )
-        , Inst ( IAL Rot )
-        , Inst ( IAL Dup )
+        , Inst
+            ( IAL
+                ( SStatic 1 Move )
+            )
+        , Inst
+            ( IAL
+                ( SStatic 2 Move )
+            )
+        , Inst
+            ( IAL
+                ( SStatic 2 Move )
+            )
+        , Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Inst
             ( IAL
                 ( Cons 1 )

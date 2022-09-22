@@ -5,7 +5,8 @@ dump: Unit
                 ( Cons 3 )
             , ICF
                 ( Mark "01001100010011110100111101010000" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL ( SIO OutputDec )
             , IAL
                 ( Cons 0 )
@@ -71,7 +72,8 @@ dump: Unit
                 ( Cons 32 )
             , ICF
                 ( CStatic "011100000111001001101001011011100111010001110011" Call )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL ( SIO OutputDec )
             , IAL
                 ( Cons 0 )
@@ -174,7 +176,8 @@ dump: Unit
             , IAL
                 ( Cons 1 )
             , IAL ( Binary Sub )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL ( SIO OutputDec )
             , IAL
                 ( Cons 0 )
@@ -240,7 +243,8 @@ dump: Unit
                 ( Cons 0 )
             , ICF
                 ( CStatic "0111000001110010011010010110111001110100011100110110110001101110" Call )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , ICF
                 ( CStatic "010011000100111101001111010100000011101000110001" ( Branch EZ ) )
             , ICF
@@ -250,7 +254,8 @@ dump: Unit
             , End
             , ICF
                 ( Mark "011100000111001001101001011011100111010001110011" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , ICF
                 ( CStatic "01110000011100100110100101101110011101000111001101011111011001010110111001100100" ( Branch EZ ) )
             , IAL ( SIO OutputChar )

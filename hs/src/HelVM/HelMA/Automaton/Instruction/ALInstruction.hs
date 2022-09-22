@@ -52,11 +52,13 @@ data ALInstruction =
   | SIO      !IOInstruction
   | Halibut
   | Pick
-  | Dup
-  | Rot
-  | Swap
   | Discard
   deriving stock (Eq , Read , Show)
+
+dupI , swapI , rotI :: ALInstruction
+dupI = SStatic 0 Copy
+swapI = SStatic 1 Move
+rotI = SStatic 2 Move
 
 data UnaryInstruction = Neg | BNot | LNot
   deriving stock (Eq , Read , Show)

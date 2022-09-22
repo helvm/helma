@@ -2,7 +2,8 @@
     ( Cons 3 )
 , ICF
     ( Mark "LOOP" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL ( SIO OutputDec )
 , IAL
     ( Cons 0 )
@@ -68,7 +69,8 @@
     ( Cons 32 )
 , ICF
     ( CStatic "prints" Call )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL ( SIO OutputDec )
 , IAL
     ( Cons 0 )
@@ -171,7 +173,8 @@
 , IAL
     ( Cons 1 )
 , IAL ( Binary Sub )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , IAL ( SIO OutputDec )
 , IAL
     ( Cons 0 )
@@ -237,7 +240,8 @@
     ( Cons 0 )
 , ICF
     ( CStatic "printsln" Call )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , ICF
     ( CStatic "LOOP:1" ( Branch EZ ) )
 , ICF
@@ -247,7 +251,8 @@
 , End
 , ICF
     ( Mark "prints" )
-, IAL Dup
+, IAL
+    ( SStatic 0 Copy )
 , ICF
     ( CStatic "prints_end" ( Branch EZ ) )
 , IAL ( SIO OutputChar )

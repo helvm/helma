@@ -1,27 +1,42 @@
 [ Comment " factorial program -- from original False distribution "
 , Lambda
-    [ Inst ( IAL Dup )
+    [ Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 1 )
         )
     , Inst
         ( IAL ( Binary LEQ ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Lambda
-        [ Inst ( IAL Swap )
+        [ Inst
+            ( IAL
+                ( SStatic 1 Move )
+            )
         , Inst ( IAL Discard )
         , Inst
             ( IAL
                 ( Cons 1 )
             )
-        , Inst ( IAL Swap )
+        , Inst
+            ( IAL
+                ( SStatic 1 Move )
+            )
         ]
     , Cond
     , Inst
         ( IAL ( Unary BNot ) )
     , Lambda
-        [ Inst ( IAL Dup )
+        [ Inst
+            ( IAL
+                ( SStatic 0 Copy )
+            )
         , Inst
             ( IAL
                 ( Cons 1 )
@@ -50,8 +65,14 @@
     )
 , Inst
     ( IAL ( Binary Sub ) )
-, Inst ( IAL Dup )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Inst
     ( IAL
         ( Cons 0 )

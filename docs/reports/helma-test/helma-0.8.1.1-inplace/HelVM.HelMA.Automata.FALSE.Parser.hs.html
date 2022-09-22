@@ -62,11 +62,11 @@ span.spaces    { background: white }
 <span class="lineno">   43 </span><span class="decl"><span class="istickedoff">constParser = Inst . IAL . Cons . fromIntegral &lt;$&gt; naturalParser</span></span>
 <span class="lineno">   44 </span>
 <span class="lineno">   45 </span>dupParser , dropParser , swapParser , rotParser , pickParser :: ReadP Value
-<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">dupParser  = Inst (IAL Dup    ) &lt;$ char '$'</span></span>
-<span class="lineno">   47 </span><span class="decl"><span class="istickedoff">dropParser = Inst (IAL Discard) &lt;$ char '%'</span></span>
-<span class="lineno">   48 </span><span class="decl"><span class="istickedoff">swapParser = Inst (IAL Swap   ) &lt;$ char '\\'</span></span>
-<span class="lineno">   49 </span><span class="decl"><span class="istickedoff">rotParser  = Inst (IAL Rot    ) &lt;$ char '@'</span></span>
-<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">pickParser = <span class="nottickedoff">Inst (IAL Pick   )</span> &lt;$ char '`'</span></span>
+<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">dupParser  = Inst (IAL dupI           ) &lt;$ char '$'</span></span>
+<span class="lineno">   47 </span><span class="decl"><span class="istickedoff">dropParser = Inst (IAL Discard        ) &lt;$ char '%'</span></span>
+<span class="lineno">   48 </span><span class="decl"><span class="istickedoff">swapParser = Inst (IAL swapI          ) &lt;$ char '\\'</span></span>
+<span class="lineno">   49 </span><span class="decl"><span class="istickedoff">rotParser  = Inst (IAL rotI           ) &lt;$ char '@'</span></span>
+<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">pickParser = <span class="nottickedoff">Inst (IAL (SDynamic Copy))</span> &lt;$ char '`'</span></span>
 <span class="lineno">   51 </span>
 <span class="lineno">   52 </span>addParser , subParser , mulParser , divParser , negParser :: ReadP Value
 <span class="lineno">   53 </span><span class="decl"><span class="istickedoff">addParser = Inst (IAL (Binary Add)) &lt;$ char '+'</span></span>
@@ -86,8 +86,8 @@ span.spaces    { background: white }
 <span class="lineno">   67 </span>
 <span class="lineno">   68 </span>lambdaParser , execParser , condParser , whileParser  :: ReadP Value
 <span class="lineno">   69 </span><span class="decl"><span class="istickedoff">lambdaParser = Lambda &lt;$&gt; (char '[' *&gt; vlParser &lt;* char ']')</span></span>
-<span class="lineno">   70 </span><span class="decl"><span class="istickedoff">execParser   = Exec &lt;$ char '!'</span></span>
-<span class="lineno">   71 </span><span class="decl"><span class="istickedoff">condParser   = Cond &lt;$ char '?'</span></span>
+<span class="lineno">   70 </span><span class="decl"><span class="istickedoff">execParser   = Exec  &lt;$ char '!'</span></span>
+<span class="lineno">   71 </span><span class="decl"><span class="istickedoff">condParser   = Cond  &lt;$ char '?'</span></span>
 <span class="lineno">   72 </span><span class="decl"><span class="istickedoff">whileParser  = While &lt;$ char '#'</span></span>
 <span class="lineno">   73 </span>
 <span class="lineno">   74 </span>refParser , stParser , ldParser :: ReadP Value

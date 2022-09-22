@@ -137,13 +137,15 @@ dump: Unit
             , End
             , ICF
                 ( Mark "01100110011000010110001101110100" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 1 )
             , IAL ( Binary Sub )
             , ICF
                 ( CStatic "0110011001100001011000110111010001100010011000010111001101100101" ( Branch EZ ) )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 1 )
             , IAL ( Binary Sub )
@@ -163,9 +165,11 @@ dump: Unit
             , ICF Return
             , ICF
                 ( Mark "0111011101110010011010010111010001100101" )
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , ILS Load
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , ICF
                 ( CStatic "011101110111001001101001011101000110010101011111011001010110111001100100" ( Branch EZ ) )
             , IAL ( SIO OutputChar )
@@ -181,11 +185,14 @@ dump: Unit
             , ICF Return
             , ICF
                 ( Mark "01110010011001010110000101100100" )
-            , IAL Dup
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
+            , IAL
+                ( SStatic 0 Copy )
             , ILS ( MIO InputChar )
             , ILS Load
-            , IAL Dup
+            , IAL
+                ( SStatic 0 Copy )
             , IAL
                 ( Cons 10 )
             , IAL ( Binary Sub )

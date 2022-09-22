@@ -43,11 +43,11 @@ constParser :: ReadP Value
 constParser = Inst . IAL . Cons . fromIntegral <$> naturalParser
 
 dupParser , dropParser , swapParser , rotParser , pickParser :: ReadP Value
-dupParser  = Inst (IAL Dup    ) <$ char '$'
-dropParser = Inst (IAL Discard) <$ char '%'
-swapParser = Inst (IAL Swap   ) <$ char '\\'
-rotParser  = Inst (IAL Rot    ) <$ char '@'
-pickParser = Inst (IAL Pick   ) <$ char '`'
+dupParser  = Inst (IAL dupI           ) <$ char '$'
+dropParser = Inst (IAL Discard        ) <$ char '%'
+swapParser = Inst (IAL swapI          ) <$ char '\\'
+rotParser  = Inst (IAL rotI           ) <$ char '@'
+pickParser = Inst (IAL (SDynamic Copy)) <$ char '`'
 
 addParser , subParser , mulParser , divParser , negParser :: ReadP Value
 addParser = Inst (IAL (Binary Add)) <$ char '+'
@@ -67,8 +67,8 @@ eqParser = Inst (IAL (Binary LEQ)) <$ char '='
 
 lambdaParser , execParser , condParser , whileParser  :: ReadP Value
 lambdaParser = Lambda <$> (char '[' *> vlParser <* char ']')
-execParser   = Exec <$ char '!'
-condParser   = Cond <$ char '?'
+execParser   = Exec  <$ char '!'
+condParser   = Cond  <$ char '?'
 whileParser  = While <$ char '#'
 
 refParser , stParser , ldParser :: ReadP Value

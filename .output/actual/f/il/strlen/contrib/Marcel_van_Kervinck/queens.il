@@ -6,20 +6,29 @@
 , Comment " e-mail <marcelk@stack.urc.tue.nl> "
 , Comment " June 1994 "
 , Lambda
-    [ Inst ( IAL Dup )
+    [ Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 0 )
         )
     , Inst
         ( IAL ( Binary LEQ ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Lambda
         [ Inst
             ( IAL
                 ( Cons 1 )
             )
-        , Inst ( IAL Swap )
+        , Inst
+            ( IAL
+                ( SStatic 1 Move )
+            )
         ]
     , Cond
     , Inst
@@ -35,7 +44,10 @@
             )
         , Ref 14
         , Lambda
-            [ Inst ( IAL Dup )
+            [ Inst
+                ( IAL
+                    ( SStatic 0 Copy )
+                )
             , Inst
                 ( IAL
                     ( Cons 0 )
@@ -46,13 +58,22 @@
                 ( IAL ( Unary BNot ) )
             ]
         , Lambda
-            [ Inst ( IAL Dup )
-            , Inst ( IAL Dup )
+            [ Inst
+                ( IAL
+                    ( SStatic 0 Copy )
+                )
+            , Inst
+                ( IAL
+                    ( SStatic 0 Copy )
+                )
             , Inst
                 ( IAL ( Unary Neg ) )
             , Inst
                 ( IAL ( Binary BAnd ) )
-            , Inst ( IAL Dup )
+            , Inst
+                ( IAL
+                    ( SStatic 0 Copy )
+                )
             , Inst
                 ( IAL
                     ( Cons 7 )
@@ -76,7 +97,10 @@
             , Inst
                 ( IAL ( Binary BAnd ) )
             , Lambda
-                [ Inst ( IAL Rot )
+                [ Inst
+                    ( IAL
+                        ( SStatic 2 Move )
+                    )
                 , Inst
                     ( IAL
                         ( Cons 1 )
@@ -89,7 +113,10 @@
                 , Ref 14
                 , Inst
                     ( IAL ( Binary BOr ) )
-                , Inst ( IAL Dup )
+                , Inst
+                    ( IAL
+                        ( SStatic 0 Copy )
+                    )
                 , Inst
                     ( IAL ( Binary Add ) )
                 , Inst
@@ -146,8 +173,14 @@
                 , Exec
                 , Inst
                     ( IAL ( Binary Add ) )
-                , Inst ( IAL Rot )
-                , Inst ( IAL Rot )
+                , Inst
+                    ( IAL
+                        ( SStatic 2 Move )
+                    )
+                , Inst
+                    ( IAL
+                        ( SStatic 2 Move )
+                    )
                 ]
             , Cond
             , Inst
@@ -165,13 +198,25 @@
         , Inst ( IAL Discard )
         ]
     , Cond
-    , Inst ( IAL Swap )
+    , Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Inst ( IAL Discard )
-    , Inst ( IAL Swap )
+    , Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Inst ( IAL Discard )
-    , Inst ( IAL Swap )
+    , Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Inst ( IAL Discard )
-    , Inst ( IAL Swap )
+    , Inst
+        ( IAL
+            ( SStatic 1 Move )
+        )
     , Inst ( IAL Discard )
     ]
 , Ref 16
@@ -191,9 +236,18 @@
     ( IAL
         ( Cons 0 )
     )
-, Inst ( IAL Dup )
-, Inst ( IAL Rot )
-, Inst ( IAL Dup )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
+, Inst
+    ( IAL
+        ( SStatic 2 Move )
+    )
+, Inst
+    ( IAL
+        ( SStatic 0 Copy )
+    )
 , Inst
     ( IAL
         ( Cons 1 )

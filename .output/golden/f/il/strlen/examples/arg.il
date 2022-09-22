@@ -15,7 +15,10 @@
 , Lambda
     [ Ref 0
     , Fetch
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Inst
         ( IAL
             ( Cons 1 )
@@ -31,7 +34,10 @@
         )
     , Inst
         ( IAL ( Binary BAnd ) )
-    , Inst ( IAL Dup )
+    , Inst
+        ( IAL
+            ( SStatic 0 Copy )
+        )
     , Ref 2
     , Store
     , Inst
