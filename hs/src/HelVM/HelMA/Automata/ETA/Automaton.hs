@@ -43,4 +43,4 @@ evalTL c tl SeqStackType   = start c tl Seq.empty
 evalTL c tl SListStackType = start c tl SList.sListEmpty
 
 start :: (SEvaluator Symbol s m) => Bool -> TokenList -> s -> DumpType -> m ()
-start _ tl s dt = logDump dt =<< next (IU (Vector.fromList tl) 0) s
+start _ tl s dt = logDump dt =<< next (IU (Vector.fromList tl) 0) s --FIXME https://github.com/helvm/helma/issues/83
