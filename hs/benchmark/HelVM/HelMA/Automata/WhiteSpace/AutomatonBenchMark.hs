@@ -5,6 +5,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
 import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 
 import           HelVM.HelMA.Automaton.IO.MockIO
+import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
@@ -34,7 +35,7 @@ simpleEvalWS t = forM
   , ("name"         , "WriteOnly\n")
   ] $ \(fileName , input) -> do
     let file = readWsFile ("original" </> fileName)
-    forM options $ \ ascii -> do
+    forM formatTypes $ \ ascii -> do
       let paramsIO = simpleParamsWithWhiteTokenType t ascii <$> file
       calculateOutput <$> (ioExecMockIOWithInput input . simpleRun =<< paramsIO)
 

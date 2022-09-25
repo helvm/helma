@@ -4,6 +4,8 @@ import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 import           HelVM.HelMA.Automata.WhiteSpace.Parser
 
+import           HelVM.HelMA.Automaton.Types.FormatType
+
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.ZipA
 
@@ -40,4 +42,4 @@ spec =
         it ("minified" </> path) $
           show . readVisibleTokens <$> readStnFile path `goldenShouldIO` buildAbsoluteStnFileName path
         it ("parse" </> path) $
-          safeIOToPTextIO (flipParseVisible True <$> readStnFile path) `goldenShouldIO` buildAbsoluteWsIlFileName path
+          safeIOToPTextIO (flipParseVisible TextLabel <$> readStnFile path) `goldenShouldIO` buildAbsoluteWsIlFileName path

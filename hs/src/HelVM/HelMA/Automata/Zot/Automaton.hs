@@ -12,6 +12,8 @@ import           HelVM.HelMA.Automaton.API.RunParams
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
+import           HelVM.HelMA.Automaton.Types.FormatType
+
 import           HelVM.HelIO.Containers.Extra
 import           HelVM.HelIO.Control.Safe
 
@@ -22,14 +24,14 @@ import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Monad.Writer.Lazy
 
-import qualified Data.Text.Lazy                      as LT
+import qualified Data.Text.Lazy                         as LT
 
 runWithParams :: BIO m => RunParams -> m ()
-runWithParams p = wPutStr =<< run (asciiLabel p) (source p) =<< wGetContentsText
+runWithParams p = wPutStr =<< run (formatType p) (source p) =<< wGetContentsText
 
-run :: MonadSafe m => Bool -> Source -> LT.Text -> m Output
-run False source input = pure $ showFoldable $ run2 source input
-run True  source input = (makeAsciiText28 . convert . run2 source) . showExpressionList =<< stringToDL (toString input)
+run :: MonadSafe m => FormatType -> Source -> LT.Text -> m Output
+run BinaryLabel source input = pure $ showFoldable $ run2 source input
+run TextLabel   source input = (makeAsciiText28 . convert . run2 source) . showExpressionList =<< stringToDL (toString input)
 
 run2 :: Source -> LT.Text  -> ExpressionDList
 run2 source input = evalText $ fromStrict source <> input

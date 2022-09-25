@@ -1,13 +1,8 @@
 module HelVM.HelMA.Automaton.Types.CellType where
 
-import           HelVM.HelIO.Extra
 import           HelVM.HelIO.SwitchEnum
 
 -- | Constructors
-parseCellType :: String -> CellType
-parseCellType raw = fromJustWithText message $ readMaybe raw where
-  message = "CellType '" <> toText raw <> "' is not valid CellType. Valid cellTypes are : " <> show cellTypes
-
 defaultCellType :: CellType
 defaultCellType = defaultEnum
 

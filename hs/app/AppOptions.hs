@@ -5,24 +5,27 @@ import           Lang
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
+import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.IntCellType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
+import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           Options.Applicative
 
 optionParser :: Parser AppOptions
 optionParser = AppOptions
-  <$> strOption    (  long    "lang"
+  <$> option auto  (  long    "lang"
                    <> short   'l'
                    <> metavar "[LANG]"
                    <> help   ("Language to interpret " <> show langs)
-                   <> value (show Cat)
+                   <> value    defaultLang
                    <> showDefault
                    )
-  <*> switch      (  long    "visibleTokes"
+  <*> flag WhiteTokenType VisibleTokenType
+                   (  long    "visibleTokes"
                    <> short   't'
-                   <> help   "Visible tokens for WS"
+                   <> help    "Visible tokens for WS"
                    <> showDefault
                    )
   <*> switch       (  long    "minification"
@@ -50,44 +53,45 @@ optionParser = AppOptions
                    <> help    "Compiler tokens, only for BF and ETA"
                    <> showDefault
                    )
-  <*> switch       (  long    "ascii-labels"
+  <*> flag BinaryLabel TextLabel
+                   (  long    "ascii-labels"
                    <> short   'A'
                    <> help    "Use ascii labels"
                    <> showDefault
                    )
-  <*> strOption    (  long    "RAMType"
+  <*> option auto  (  long    "RAMType"
                    <> short   'm'
                    <> metavar "[RAMType]"
                    <> help   ("Implementation of RAM " <> show ramTypes)
-                   <> value (show defaultRAMType)
+                   <> value    defaultRAMType
                    <> showDefault
                    )
-  <*> strOption    (  long    "StackType"
+  <*> option auto  (  long    "StackType"
                    <> short   's'
                    <> metavar "[StackType]"
                    <> help   ("Implementation of Stack " <> show stackTypes)
-                   <> value (show defaultStackType)
+                   <> value    defaultStackType
                    <> showDefault
                    )
-  <*> strOption    (  long    "CellType"
+  <*> option auto  (  long    "CellType"
                    <> short   'c'
                    <> metavar "[CellType]"
                    <> help   ("Implementation of Cell " <> show cellTypes)
-                   <> value (show defaultCellType)
+                   <> value    defaultCellType
                    <> showDefault
                    )
-  <*> strOption    (  long    "IntCellType"
+  <*> option auto  (  long    "IntCellType"
                    <> short   'i'
                    <> metavar "[IntCellType]"
                    <> help   ("Implementation of IntCell " <> show intCellTypes)
-                   <> value (show defaultIntCellType)
+                   <> value    defaultIntCellType
                    <> showDefault
                    )
-  <*> strOption    (  long    "DumpType"
+  <*> option auto  (  long    "DumpType"
                    <> short   'd'
                    <> metavar "[DumpType]"
                    <> help   ("Implementation of DumpType " <> show dumpTypes)
-                   <> value (show defaultDumpType)
+                   <> value    defaultDumpType
                    <> showDefault
                    )
   <*> switch       (  long    "eval"
@@ -98,28 +102,26 @@ optionParser = AppOptions
   <*> argument str (  metavar "FILE")
 
 data AppOptions = AppOptions
-  { lang          :: !String      -- | Lang
-  , visibleTokens :: !VisibleTokens
+  { lang          :: !Lang
+  , visibleTokens :: !TokenType
   , minified      :: !Minified
   , emitTL        :: !EmitTL
   , emitIL        :: !EmitIL
   , printLogs     :: !PrintLogs
   , compile       :: !Compile
-  , asciiLabels   :: !AsciiLabels
-  , ramType       :: !String      -- | RAMType
-  , stackType     :: !String      -- | StackType
-  , cellType      :: !String      -- | CellType
-  , intCellType   :: !String      -- | IntCellType
-  , dumpType      :: !String      -- | DumpType
+  , formatType    :: !FormatType
+  , ramType       :: !RAMType
+  , stackType     :: !StackType
+  , cellType      :: !CellType
+  , intCellType   :: !IntCellType
+  , dumpType      :: !DumpType
   , exec          :: !Exec
   , file          :: !String
   }
 
-type VisibleTokens = Bool
 type Minified      = Bool
 type EmitIL        = Bool
 type EmitTL        = Bool
 type PrintLogs     = Bool
 type Compile       = Bool
-type AsciiLabels   = Bool
 type Exec          = Bool

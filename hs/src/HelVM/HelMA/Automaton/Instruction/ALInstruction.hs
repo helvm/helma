@@ -4,25 +4,25 @@ import           HelVM.HelMA.Automaton.Instruction.IOInstruction
 
 -- | Constructors
 
-blAnd :: Bool -> BinaryInstruction
-blAnd False = BAnd
-blAnd True  = LAnd
+blAnd :: OperatorType -> BinaryInstruction
+blAnd Bitwise = BAnd
+blAnd Logical = LAnd
 
-blOr :: Bool -> BinaryInstruction
-blOr False = BOr
-blOr True  = LOr
+blOr :: OperatorType -> BinaryInstruction
+blOr Bitwise = BOr
+blOr Logical = LOr
 
-blXor :: Bool -> BinaryInstruction
-blXor False = BXor
-blXor True  = LXor
+blXor :: OperatorType -> BinaryInstruction
+blXor Bitwise = BXor
+blXor Logical = LXor
 
-blEQ :: Bool -> BinaryInstruction
-blEQ False = BEQ
-blEQ True  = LEQ
+blEQ :: OperatorType -> BinaryInstruction
+blEQ Bitwise = BEQ
+blEQ Logical = LEQ
 
-blGT :: Bool -> BinaryInstruction
-blGT False = BGT
-blGT True  = LGT
+blGT :: OperatorType -> BinaryInstruction
+blGT Bitwise = BGT
+blGT Logical = LGT
 
 -- | Other functions
 
@@ -41,7 +41,6 @@ doBinary Mod = mod
 doBinary o   = error $ show o
 
 -- | Types
--- FIXME Remove Dup Rot Swap. Use (Copy | Move | Slide)
 data ALInstruction =
     Cons      Integer
   | Unary    !UnaryInstruction
@@ -56,9 +55,9 @@ data ALInstruction =
   deriving stock (Eq , Read , Show)
 
 dupI , swapI , rotI :: ALInstruction
-dupI = SStatic 0 Copy
+dupI  = SStatic 0 Copy
 swapI = SStatic 1 Move
-rotI = SStatic 2 Move
+rotI  = SStatic 2 Move
 
 data UnaryInstruction = Neg | BNot | LNot
   deriving stock (Eq , Read , Show)
@@ -73,3 +72,5 @@ data ManipulationInstruction = Copy | Move | Slide
   deriving stock (Eq , Read , Show)
 
 type StackIndex = Int
+
+data OperatorType = Bitwise | Logical

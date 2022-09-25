@@ -12,6 +12,8 @@ module HelVM.HelMA.Automata.FileExtra (
   options,
 ) where
 
+import           HelVM.HelMA.Automaton.Types.FormatType
+
 import           System.FilePath.Posix
 
 readSourceFile :: MonadIO m => FilePath -> m Text
@@ -41,9 +43,10 @@ buildAbsoluteLogFileName = buildAbsoluteEvalFileName "logged"
 buildAbsoluteEvalFileName :: FilePath -> FilePath -> FilePath -> FilePath
 buildAbsoluteEvalFileName mode lang fileName = lang </> "eval" </> mode </> fileName <.> mode
 
-showAscii:: Bool -> FilePath
-showAscii False = "asciiOff"
-showAscii True  = "asciiOn"
+--FIXME
+showAscii:: FormatType -> FilePath
+showAscii BinaryLabel = "asciiOff"
+showAscii TextLabel   = "asciiOn"
 
 options :: [Bool]
 options = [True , False]

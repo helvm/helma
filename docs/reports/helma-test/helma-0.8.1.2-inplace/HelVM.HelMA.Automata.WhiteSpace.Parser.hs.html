@@ -30,40 +30,40 @@ span.spaces    { background: white }
 <span class="lineno">   11 </span>import           HelVM.HelMA.Automata.WhiteSpace.OperandParsers
 <span class="lineno">   12 </span>import           HelVM.HelMA.Automata.WhiteSpace.Token
 <span class="lineno">   13 </span>
-<span class="lineno">   14 </span>
-<span class="lineno">   15 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">   16 </span>
-<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Instruction
-<span class="lineno">   18 </span>import           HelVM.HelMA.Automaton.Instruction.ALInstruction
-<span class="lineno">   19 </span>import           HelVM.HelMA.Automaton.Instruction.CFInstruction
-<span class="lineno">   20 </span>import           HelVM.HelMA.Automaton.Instruction.IOInstruction
-<span class="lineno">   21 </span>import           HelVM.HelMA.Automaton.Instruction.LSInstruction
-<span class="lineno">   22 </span>
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.API.IOTypes
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Instruction.ALInstruction
+<span class="lineno">   18 </span>import           HelVM.HelMA.Automaton.Instruction.CFInstruction
+<span class="lineno">   19 </span>import           HelVM.HelMA.Automaton.Instruction.IOInstruction
+<span class="lineno">   20 </span>import           HelVM.HelMA.Automaton.Instruction.LSInstruction
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>import           HelVM.HelMA.Automaton.Types.FormatType
 <span class="lineno">   23 </span>import           HelVM.HelMA.Automaton.Types.TokenType
 <span class="lineno">   24 </span>
 <span class="lineno">   25 </span>import           HelVM.HelIO.Control.Safe
 <span class="lineno">   26 </span>import           HelVM.HelIO.Extra
 <span class="lineno">   27 </span>
 <span class="lineno">   28 </span>-- FIXME
-<span class="lineno">   29 </span>flipParseVisible :: Bool -&gt; Source -&gt; Safe InstructionList
+<span class="lineno">   29 </span>flipParseVisible :: FormatType -&gt; Source -&gt; Safe InstructionList
 <span class="lineno">   30 </span><span class="decl"><span class="istickedoff">flipParseVisible = flip parseVisible</span></span>
 <span class="lineno">   31 </span>
-<span class="lineno">   32 </span>flipParseWhite :: Bool -&gt; Source -&gt; Safe InstructionList
+<span class="lineno">   32 </span>flipParseWhite :: FormatType -&gt; Source -&gt; Safe InstructionList
 <span class="lineno">   33 </span><span class="decl"><span class="nottickedoff">flipParseWhite = flip parseWhite</span></span>
 <span class="lineno">   34 </span>
-<span class="lineno">   35 </span>parseVisible :: Source -&gt; Bool -&gt; Safe InstructionList
+<span class="lineno">   35 </span>parseVisible :: Source -&gt; FormatType -&gt; Safe InstructionList
 <span class="lineno">   36 </span><span class="decl"><span class="istickedoff">parseVisible = parse VisibleTokenType</span></span>
 <span class="lineno">   37 </span>
-<span class="lineno">   38 </span>parseWhite :: Source -&gt; Bool -&gt; Safe InstructionList
+<span class="lineno">   38 </span>parseWhite :: Source -&gt; FormatType -&gt; Safe InstructionList
 <span class="lineno">   39 </span><span class="decl"><span class="nottickedoff">parseWhite = parse WhiteTokenType</span></span>
 <span class="lineno">   40 </span>
-<span class="lineno">   41 </span>parse :: MonadSafe m =&gt; TokenType -&gt; Source -&gt; Bool -&gt; m InstructionList
+<span class="lineno">   41 </span>parse :: MonadSafe m =&gt; TokenType -&gt; Source -&gt; FormatType -&gt; m InstructionList
 <span class="lineno">   42 </span><span class="decl"><span class="istickedoff">parse tokenType = flip parseFromTL . tokenize tokenType</span></span>
 <span class="lineno">   43 </span>
-<span class="lineno">   44 </span>parseFromTL :: MonadSafe m =&gt; Bool -&gt; TokenList -&gt; m InstructionList
+<span class="lineno">   44 </span>parseFromTL :: MonadSafe m =&gt; FormatType -&gt; TokenList -&gt; m InstructionList
 <span class="lineno">   45 </span><span class="decl"><span class="istickedoff">parseFromTL ascii = repeatedlyM (parseInstruction ascii)</span></span>
 <span class="lineno">   46 </span>
-<span class="lineno">   47 </span>parseInstruction :: MonadSafe m =&gt; Bool -&gt; InstructionParser m
+<span class="lineno">   47 </span>parseInstruction :: MonadSafe m =&gt; FormatType -&gt; InstructionParser m
 <span class="lineno">   48 </span><span class="decl"><span class="istickedoff">parseInstruction     _ (S :     tl) = parseInstructionStackManipulation tl</span>
 <span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">parseInstruction     _ (T : S : tl) = parseInstructionArithmetic        tl</span>
 <span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">parseInstruction     _ (T : T : tl) = parseInstructionHeadAccess        tl</span>
@@ -93,7 +93,7 @@ span.spaces    { background: white }
 <span class="lineno">   74 </span><span class="spaces"></span><span class="istickedoff">parseInstructionHeadAccess (T : tl) = pure (ILS Load  , tl)</span>
 <span class="lineno">   75 </span><span class="spaces"></span><span class="istickedoff">parseInstructionHeadAccess      tl  = <span class="nottickedoff">unrecognisedTokensIn &quot;parseInstructionHeadAccess&quot; tl</span></span></span>
 <span class="lineno">   76 </span>
-<span class="lineno">   77 </span>parseInstructionFlowControl :: MonadSafe m =&gt; Bool -&gt; InstructionParser m
+<span class="lineno">   77 </span>parseInstructionFlowControl :: MonadSafe m =&gt; FormatType -&gt; InstructionParser m
 <span class="lineno">   78 </span><span class="decl"><span class="istickedoff">parseInstructionFlowControl ascii (S : S : tl) = build &lt;$&gt; parseLabel ascii tl where build (label , tl') = (ICF (Mark    label             ) , tl')</span>
 <span class="lineno">   79 </span><span class="spaces"></span><span class="istickedoff">parseInstructionFlowControl ascii (S : T : tl) = build &lt;$&gt; parseLabel ascii tl where build (label , tl') = (ICF (CStatic label  Call       ) , tl')</span>
 <span class="lineno">   80 </span><span class="spaces"></span><span class="istickedoff">parseInstructionFlowControl ascii (S : N : tl) = build &lt;$&gt; parseLabel ascii tl where build (label , tl') = (ICF (CStatic label  Jump       ) , tl')</span>

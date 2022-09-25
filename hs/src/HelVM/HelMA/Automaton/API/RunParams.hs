@@ -5,6 +5,7 @@ import           HelVM.HelMA.Automaton.API.TypeOptions
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
+import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.IntCellType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
@@ -28,7 +29,7 @@ dumpTypeOptions = dumpType . typeOptions
 -- | Type
 data RunParams = RunParams
   { compile     :: !Bool
-  , asciiLabel  :: !Bool
+  , formatType  :: !FormatType
   , source      :: !Source
   , typeOptions :: !TypeOptions
   }

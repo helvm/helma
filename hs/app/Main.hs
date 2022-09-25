@@ -26,22 +26,16 @@ import qualified HelVM.HelMA.Automata.WhiteSpace.Parser    as WS
 
 import qualified HelVM.HelMA.Automata.Zot.Automaton        as Zot
 
-
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.RunParams
 import           HelVM.HelMA.Automaton.API.TypeOptions
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.HelMA.Automaton.Types.CellType
-import           HelVM.HelMA.Automaton.Types.DumpType
-import           HelVM.HelMA.Automaton.Types.IntCellType
-import           HelVM.HelMA.Automaton.Types.RAMType
-import           HelVM.HelMA.Automaton.Types.StackType
+import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.HelIO.Control.Control
-import           HelVM.HelIO.SwitchEnum
 
 import           Options.Applicative
 import           Text.Pretty.Simple
@@ -56,17 +50,17 @@ main = runApp =<< execParser opts where
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
 runApp:: AppOptions -> IO ()
-runApp (AppOptions lang visibleTokens minified emitTL emitIL printLogs compile asciiLabels ramType stackType cellType intCellType dumpType exec file) = do
+runApp (AppOptions lang visibleTokens minified emitTL emitIL printLogs compile formatType ramType stackType cellType intCellType dumpType exec file) = do
   hSetBuffering stdout IO.NoBuffering
   source <- readSourceFile exec file
-  run minified emitTL emitIL printLogs typeOptions asciiLabels compile (parseLang lang) (enumFromBool visibleTokens) source
-    where typeOptions = TypeOptions (parseRAMType ramType) (parseStackType stackType) (parseCellType cellType) (parseIntCellType intCellType) (parseDumpType dumpType)
+  run minified emitTL emitIL printLogs typeOptions compile formatType lang visibleTokens source
+    where typeOptions = TypeOptions ramType stackType cellType intCellType dumpType
 
 readSourceFile :: Exec -> String -> IO Source
 readSourceFile True = pure . toText
 readSourceFile _    = readFileText
 
-run :: Minified -> EmitTL -> EmitIL -> PrintLogs -> TypeOptions -> Compile -> AsciiLabels -> Lang -> TokenType -> Source -> IO ()
+run :: Minified -> EmitTL -> EmitIL -> PrintLogs -> TypeOptions -> Compile -> FormatType -> Lang -> TokenType -> Source -> IO ()
 run True _    _    _ _ _ _ l t s = minification l t s
 run _    True _    _ _ _ _ l t s = tokenize l t s
 run _    _    True _ _ _ a l t s = parse l t a s
@@ -87,15 +81,15 @@ tokenize ETA _                = print . ETA.tokenize
 tokenize SQ  _                = print . SQ.tokenize
 tokenize _   _                = print
 
-parse :: Lang -> TokenType -> AsciiLabels -> Source -> IO ()
+parse :: Lang -> TokenType -> FormatType -> Source -> IO ()
 parse WS   VisibleTokenType a = pPrintNoColor . WS.flipParseVisible a
 parse WS   WhiteTokenType   a = pPrintNoColor . WS.flipParseWhite   a
 parse F    _                _ = pPrintNoColor . F.parseSafe
 parse lang tt               _ = tokenize lang tt
 
-eval :: PrintLogs -> TypeOptions -> Compile -> AsciiLabels -> Lang -> TokenType -> Source -> IO ()
+eval :: PrintLogs -> TypeOptions -> Compile -> FormatType -> Lang -> TokenType -> Source -> IO ()
 eval p options c a lang tt s = (controlTToIO p . runWithParams lang tt) params
-  where params = RunParams {compile = c , asciiLabel = a , source = s , typeOptions = options}
+  where params = RunParams {compile = c , formatType = a , source = s , typeOptions = options}
 
 runWithParams :: BIO m => Lang -> TokenType -> RunParams -> m ()
 runWithParams Lazy _ = Lazy.runWithParams

@@ -6,6 +6,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 
 import           HelVM.HelMA.Automaton.IO.MockIO
 
+import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.GoldenExpectations
@@ -49,7 +50,7 @@ spec =
       let ext = tokenTypeToExt tokenType
       let filePath = dirName </> fileName
       let file = readExtFile ext filePath
-      forM_ options $ \ ascii -> do
+      forM_ formatTypes $ \ ascii -> do
         let paramsF = simpleParamsWithDefaults tokenType ascii
         let paramsIO = paramsF <$> file
         let path = ext </> showAscii ascii </> filePath <> toString input

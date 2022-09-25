@@ -24,6 +24,7 @@ import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Units.CPU              as CPU
 
 import           HelVM.HelMA.Automaton.Types.DumpType
+import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 import           HelVM.HelMA.Automaton.Types.TokenType
@@ -41,17 +42,17 @@ import qualified Data.Sequence                                as Seq
 import qualified Data.Vector                                  as Vector
 
 simpleRun :: BIO m => S.SimpleParams -> m ()
-simpleRun p = run (S.tokenType p) (S.source p) (S.asciiLabel p) (S.stackType p) (S.ramType p) (S.dumpType p)
+simpleRun p = run (S.tokenType p) (S.source p) (S.formatType p) (S.stackType p) (S.ramType p) (S.dumpType p)
 
 ----
 
 runWithParams :: BIO m => TokenType -> RunParams -> m ()
-runWithParams tokenType p = run tokenType (source p) (asciiLabel p) (stackTypeOptions p) (ramTypeOptions p) (dumpTypeOptions p)
+runWithParams tokenType p = run tokenType (source p) (formatType p) (stackTypeOptions p) (ramTypeOptions p) (dumpTypeOptions p)
 
-run :: BIO m => TokenType -> Source -> Bool -> StackType -> RAMType -> DumpType -> m ()
+run :: BIO m => TokenType -> Source -> FormatType -> StackType -> RAMType -> DumpType -> m ()
 run tokenType source = runTL $ tokenize tokenType source
 
-runTL :: BIO m => TokenList -> Bool -> StackType -> RAMType -> DumpType -> m ()
+runTL :: BIO m => TokenList -> FormatType -> StackType -> RAMType -> DumpType -> m ()
 runTL tl ascii st rt dt = runTL' =<< liftSafe (parseFromTL ascii tl) where runTL' il = runIL il st rt dt
 
 runIL :: BIO m => InstructionList -> StackType -> RAMType -> DumpType -> m ()

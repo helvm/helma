@@ -1,6 +1,10 @@
 # 📅 Revision history for HelMA
 
-## 0.8.1.1-- 2022-09-23
+## 0.8.1.2 -- 2022-09-26
+
+*  Use optparse-applicative for CLI better
+
+## 0.8.1.1 -- 2022-09-23
 
 * FIX Remove Dup Rot Swap. Use (Copy | Move | Slide)
 

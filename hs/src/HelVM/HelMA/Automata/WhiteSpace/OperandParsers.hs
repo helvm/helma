@@ -5,6 +5,8 @@ import           HelVM.HelMA.Automata.WhiteSpace.Token
 
 import           HelVM.HelMA.Automaton.Instruction.CFInstruction
 
+import           HelVM.HelMA.Automaton.Types.FormatType
+
 import           HelVM.HelIO.Collections.SList
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Digit.ToDigit
@@ -17,9 +19,9 @@ parseIndex = parseInt
 parseSymbol :: MonadSafe m => ParserFromTokenList m Symbol
 parseSymbol = parseInteger
 
-parseLabel :: MonadSafe m => Bool -> ParserFromTokenList m Label
-parseLabel False = parseDigitString
-parseLabel True  = parseAsciiString
+parseLabel :: MonadSafe m => FormatType -> ParserFromTokenList m Label
+parseLabel BinaryLabel = parseDigitString
+parseLabel TextLabel   = parseAsciiString
 
 ----
 

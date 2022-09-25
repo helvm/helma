@@ -18,10 +18,6 @@ dump Ugly   a = Just $ show  a
 dump Pretty a = Just $ showP a
 
 -- | Constructors
-parseDumpType :: String -> DumpType
-parseDumpType raw = fromJustWithText message $ readMaybe raw where
-  message = "DumpType '" <> toText raw <> "' is not valid DumpType. Valid dumpTypes are : " <> show dumpTypes
-
 defaultDumpType :: DumpType
 defaultDumpType = defaultEnum
 
