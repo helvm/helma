@@ -12,6 +12,8 @@ module HelVM.HelMA.Automaton.IO.MockIO (
   createMockIO,
   calculateOutput,
   calculateLogged,
+  calculateOutputWithLimit,
+  calculateLoggedWithLimit,
 
   MockIO,
   MockIOData,
@@ -27,7 +29,7 @@ import           HelVM.HelIO.ListLikeExtra
 
 import qualified Data.ByteString.Lazy                as LBS
 
-import           Data.Text                           as Text
+import           Data.Text                           as Text hiding (take)
 import qualified Data.Text.Lazy                      as LT
 
 ioExecMockIOBatch :: ControlT MockIO () -> IO MockIOData
@@ -56,6 +58,12 @@ runMockIO i mockIO = flip mockDataLogStr mockIOData $ safeWithMessagesToText s
 
 createMockIO :: Input -> MockIOData
 createMockIO i = MockIOData (toString i) "" ""
+
+calculateOutputWithLimit :: Natural -> MockIOData -> Output
+calculateOutputWithLimit limit = calculateText . take (fromIntegral limit) . output
+
+calculateLoggedWithLimit :: Natural -> MockIOData -> Output
+calculateLoggedWithLimit limit = calculateText . take (fromIntegral limit) . logged
 
 calculateOutput :: MockIOData -> Output
 calculateOutput = calculateText . output
