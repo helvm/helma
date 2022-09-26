@@ -38,8 +38,8 @@ spec =
       , "v"
       ] |><| ["rst76"]
       <>
-      [
---      [ "ab"
+--      [
+      [ "ab"
 --      , "befunge"
 --      , "bwt"
 --      , "calc"
@@ -47,7 +47,7 @@ spec =
 --      , "iota-in-iota"
 --      , "power2"
 --      , "primes"
---        [ "quine"
+        , "quine"
 --      , "reverse"
 --      , "rot13"
 --      , "sort"
@@ -61,6 +61,6 @@ spec =
         let mock = ioExecMockIOWithInput input . run =<< file
         describe path $ do
           it ("output" </> path) $
-            calculateOutput <$> mock `goldenShouldIO` buildAbsoluteLazyKOutFileName path
+            calculateOutputWithLimit 100000 <$> mock `goldenShouldIO` buildAbsoluteLazyKOutFileName path
           it ("logged" </> path) $
-            calculateLogged <$> mock `goldenShouldIO` buildAbsoluteLazyKLogFileName path
+            calculateLoggedWithLimit 100000 <$> mock `goldenShouldIO` buildAbsoluteLazyKLogFileName path
