@@ -14,10 +14,12 @@ module HelVM.HelMA.Automata.FileExtra (
 
 import           HelVM.HelMA.Automaton.Types.FormatType
 
+import           HelVM.HelIO.Extra
+
 import           System.FilePath.Posix
 
 readSourceFile :: MonadIO m => FilePath -> m Text
-readSourceFile filePath = readFileText $ "examples" </> filePath
+readSourceFile filePath = readFileTextUtf8 $ "examples" </> filePath
 
 buildAbsoluteLangFileName :: FilePath -> FilePath -> FilePath
 buildAbsoluteLangFileName lang fileName = lang </> fileName <.> lang

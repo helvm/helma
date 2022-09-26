@@ -1,11 +1,11 @@
-module HelVM.HelMA.Automata.FALSE.Value where
+module HelVM.HelMA.Automata.FALSE.Expression where
 
 import           HelVM.HelMA.Automaton.Instruction
 
-type ValueList = [Value]
-data Value =
+type ExpressionList = [Expression]
+data Expression =
     Inst Instruction
-  | Lambda ValueList
+  | Lambda ExpressionList
   | Exec
   | Cond
   | While

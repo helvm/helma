@@ -59,7 +59,7 @@ spec = do
       , "strlen/contrib/Herb_Wollman/Fibonacci"
 
       , "strlen/contrib/Marcel_van_Kervinck/queens"
---      , "strlen/contrib/Marcel_van_Kervinck/tic" --FIXME TLDR 4s
+      , "strlen/contrib/Marcel_van_Kervinck/tic"
 
       , "strlen/contrib/Peter_Bengtsson/DoASC"
       , "strlen/contrib/Peter_Bengtsson/GetASC"

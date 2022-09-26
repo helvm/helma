@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.2.0 -- 2022-10-05
+
+*  Faster FALSE parser
+
 ## 0.8.1.2 -- 2022-09-26
 
 *  Use optparse-applicative for CLI better

@@ -37,6 +37,8 @@ import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.HelIO.Control.Control
 
+import           HelVM.HelIO.Extra
+
 import           Options.Applicative
 import           Text.Pretty.Simple
 
@@ -58,7 +60,7 @@ runApp (AppOptions lang visibleTokens minified emitTL emitIL printLogs compile f
 
 readSourceFile :: Exec -> String -> IO Source
 readSourceFile True = pure . toText
-readSourceFile _    = readFileText
+readSourceFile _    = readFileTextUtf8
 
 run :: Minified -> EmitTL -> EmitIL -> PrintLogs -> TypeOptions -> Compile -> FormatType -> Lang -> TokenType -> Source -> IO ()
 run True _    _    _ _ _ _ l t s = minification l t s

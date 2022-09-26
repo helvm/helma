@@ -1,9 +1,10 @@
 module HelVM.HelMA.Automata.FALSE.Parser (
   parseSafe,
   parse,
+  charToSimpleInstruction,
 ) where
 
-import           HelVM.HelMA.Automata.FALSE.Value
+import           HelVM.HelMA.Automata.FALSE.Expression
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Instruction
@@ -12,83 +13,95 @@ import           HelVM.HelMA.Automaton.Instruction.IOInstruction
 import           HelVM.HelMA.Automaton.ReadPExtra
 
 import           HelVM.HelIO.Control.Safe
+import           HelVM.HelIO.Extra                               hiding (runParser)
 import           HelVM.HelIO.ReadText
 
 import           Data.Char
 
 import           Text.ParserCombinators.ReadP                    hiding (many)
 
-parseSafe :: Source -> Safe ValueList
+parseSafe :: Source -> Safe ExpressionList
 parseSafe = parse
 
-parse :: MonadSafe m => Source -> m ValueList
+parse :: MonadSafe m => Source -> m ExpressionList
 parse = runParser vlParser
 
-vlParser :: ReadP ValueList
+vlParser :: ReadP ExpressionList
 vlParser = many (skipSpaces *> valueParser) <* skipSpaces
 
-valueParser :: ReadP Value
-valueParser =
-      constParser
-  <|> dupParser <|> dropParser <|> swapParser <|> rotParser <|> pickParser
-  <|> addParser <|> subParser <|> mulParser <|> divParser <|> negParser
-  <|> andParser <|> orParser <|> notParser
-  <|> gtParser <|> eqParser
-  <|> lambdaParser <|> execParser <|> condParser <|> whileParser
-  <|> refParser <|> stParser <|> ldParser
-  <|> readCharParser <|> writeCharParser <|> writeStringParser <|> writeNumParser <|> flushParser
-  <|> commentParser
+valueParser :: ReadP Expression
+valueParser = lambdaParser <|> commentParser <|> writeStringParser <|> constParser <|> refParser <|> simpleParser
 
-constParser :: ReadP Value
+lambdaParser :: ReadP Expression
+lambdaParser = Lambda <$> (char '[' *> vlParser <* char ']')
+
+commentParser :: ReadP Expression
+commentParser = Comment <$> (char '{' *> many (notChar '}') <* char '}')
+
+writeStringParser :: ReadP Expression
+writeStringParser = Str <$> stringParser
+
+constParser :: ReadP Expression
 constParser = Inst . IAL . Cons . fromIntegral <$> naturalParser
 
-dupParser , dropParser , swapParser , rotParser , pickParser :: ReadP Value
-dupParser  = Inst (IAL dupI           ) <$ char '$'
-dropParser = Inst (IAL Discard        ) <$ char '%'
-swapParser = Inst (IAL swapI          ) <$ char '\\'
-rotParser  = Inst (IAL rotI           ) <$ char '@'
-pickParser = Inst (IAL (SDynamic Copy)) <$ char '`'
-
-addParser , subParser , mulParser , divParser , negParser :: ReadP Value
-addParser = Inst (IAL (Binary Add)) <$ char '+'
-subParser = Inst (IAL (Binary Sub)) <$ char '-'
-mulParser = Inst (IAL (Binary Mul)) <$ char '*'
-divParser = Inst (IAL (Binary Div)) <$ char '/'
-negParser = Inst (IAL (Unary  Neg)) <$ char '_'
-
-andParser , orParser , notParser :: ReadP Value
-andParser = Inst (IAL (Binary BAnd)) <$ char '&'
-orParser  = Inst (IAL (Binary BOr )) <$ char '|'
-notParser = Inst (IAL (Unary  BNot)) <$ char '~'
-
-gtParser , eqParser :: ReadP Value
-gtParser = Inst (IAL (Binary LGT)) <$ char '<'
-eqParser = Inst (IAL (Binary LEQ)) <$ char '='
-
-lambdaParser , execParser , condParser , whileParser  :: ReadP Value
-lambdaParser = Lambda <$> (char '[' *> vlParser <* char ']')
-execParser   = Exec  <$ char '!'
-condParser   = Cond  <$ char '?'
-whileParser  = While <$ char '#'
-
-refParser , stParser , ldParser :: ReadP Value
+refParser :: ReadP Expression
 refParser = refFromChar <$> letterAscii
-stParser  = Store <$ char ':'
-ldParser  = Fetch <$ char ';'
 
-readCharParser , writeCharParser , writeNumParser , writeStringParser , flushParser:: ReadP Value
-readCharParser    = Inst (IAL (SIO InputChar )) <$ char '^'
-writeCharParser   = Inst (IAL (SIO OutputChar)) <$ char ','
-writeStringParser = Str <$> stringParser
-writeNumParser    = Inst (IAL (SIO OutputDec )) <$ char '.'
-flushParser       = Flush <$ char 'ß'
+simpleParser :: ReadP Expression
+simpleParser = fromJustWithText "imposible" . charToSimpleInstruction <$> oneOf simpleInstructionChars
 
-commentParser :: ReadP Value
-commentParser = Comment <$> (char '{' *> many (notChar '}') <* char '}')
+simpleInstructionChars :: String
+simpleInstructionChars = "$%\\@`+-*/_&|~<=!?#:;^,.ß"
+
+charToSimpleInstruction :: Char -> Maybe Expression
+charToSimpleInstruction '$'  = ial dupI
+charToSimpleInstruction '%'  = ial Discard
+charToSimpleInstruction '\\' = ial swapI
+charToSimpleInstruction '@'  = ial rotI
+charToSimpleInstruction '`'  = ial dCopy
+
+charToSimpleInstruction '+'  = binary Add
+charToSimpleInstruction '-'  = binary Sub
+charToSimpleInstruction '*'  = binary Mul
+charToSimpleInstruction '/'  = binary Div
+charToSimpleInstruction '_'  = unary Neg
+
+charToSimpleInstruction '&'  = binary BAnd
+charToSimpleInstruction '|'  = binary BOr
+charToSimpleInstruction '~'  = unary BNot
+
+charToSimpleInstruction '<'  = binary LGT
+charToSimpleInstruction '='  = binary LEQ
+
+charToSimpleInstruction '!'  = pure Exec
+charToSimpleInstruction '?'  = pure Cond
+charToSimpleInstruction '#'  = pure While
+
+charToSimpleInstruction ':'  = pure Store
+charToSimpleInstruction ';'  = pure Fetch
+
+charToSimpleInstruction '^'  = sio InputChar
+charToSimpleInstruction ','  = sio OutputChar
+charToSimpleInstruction '.'  = sio OutputDec
+charToSimpleInstruction 'ß'  = pure Flush
+
+charToSimpleInstruction  _   = Nothing
+
+unary :: UnaryInstruction -> Maybe Expression
+unary = ial . Unary
+
+binary :: BinaryInstruction -> Maybe Expression
+binary = ial . Binary
+
+sio :: IOInstruction -> Maybe Expression
+sio = ial . SIO
+
+ial :: ALInstruction -> Maybe Expression
+ial = pure . Inst . IAL
 
 -- | Extra
 
-refFromChar :: Char -> Value
+refFromChar :: Char -> Expression
 refFromChar c = Ref $ fromIntegral $ ord (toLower c) - ord 'a'
 
 naturalParser :: ReadP Natural

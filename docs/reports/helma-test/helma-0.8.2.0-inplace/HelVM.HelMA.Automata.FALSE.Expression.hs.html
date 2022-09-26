@@ -17,14 +17,14 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>module HelVM.HelMA.Automata.FALSE.Value where
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.FALSE.Expression where
 <span class="lineno">    2 </span>
 <span class="lineno">    3 </span>import           HelVM.HelMA.Automaton.Instruction
 <span class="lineno">    4 </span>
-<span class="lineno">    5 </span>type ValueList = [Value]
-<span class="lineno">    6 </span>data Value =
+<span class="lineno">    5 </span>type ExpressionList = [Expression]
+<span class="lineno">    6 </span>data Expression =
 <span class="lineno">    7 </span>    Inst Instruction
-<span class="lineno">    8 </span>  | Lambda ValueList
+<span class="lineno">    8 </span>  | Lambda ExpressionList
 <span class="lineno">    9 </span>  | Exec
 <span class="lineno">   10 </span>  | Cond
 <span class="lineno">   11 </span>  | While

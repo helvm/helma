@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.1.2
+version:               0.8.2.0
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -19,7 +19,7 @@ extra-source-files:
   docs/developers/CHANGELOG.md
   docs/README.md
 
-tested-with:           GHC == 9.2.1
+tested-with:           GHC == 9.4.2
 
 source-repository head
   type:                git
@@ -32,8 +32,8 @@ flag ghcoptions
 
 common common-options
   build-depends:
-      base                 <  4.16
-    , relude               == 1.0.0.1
+      base                 <  4.17
+    , relude               == 1.1.0.0
   mixins:
       base hiding (Prelude)
     , relude (Relude as Prelude, Relude.Extra, Data.Text)
@@ -162,8 +162,8 @@ library
     HelVM.HelMA.Automata.ETA.Symbol
     HelVM.HelMA.Automata.ETA.Token
 
+    HelVM.HelMA.Automata.FALSE.Expression
     HelVM.HelMA.Automata.FALSE.Parser
-    HelVM.HelMA.Automata.FALSE.Value
 
     HelVM.HelMA.Automata.LazyK.Automaton
     HelVM.HelMA.Automata.LazyK.Constants

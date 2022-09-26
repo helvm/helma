@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.ReadPExtra
 
 import           HelVM.HelIO.Control.Safe
-import           HelVM.HelIO.Extra
+import           HelVM.HelIO.Extra                                            hiding (runParser)
 
 import qualified Data.Text                                                    as Text
 import qualified Data.Vector                                                  as Vector
