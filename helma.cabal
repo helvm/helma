@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.2.0
+version:               0.8.3.0
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -138,19 +138,25 @@ library
 
     HelVM.HelMA.Automaton.WrapTokenList
 
+    HelVM.HelMA.Automata.BrainFuck.API.BFType
+
     HelVM.HelMA.Automata.BrainFuck.Automaton
-    HelVM.HelMA.Automata.BrainFuck.Automaton.FlatAutomaton
-    HelVM.HelMA.Automata.BrainFuck.Automaton.TreeAutomaton
+    HelVM.HelMA.Automata.BrainFuck.Flat.Automaton
+    HelVM.HelMA.Automata.BrainFuck.Fast.Automaton
+    HelVM.HelMA.Automata.BrainFuck.Tree.Automaton
 
-    HelVM.HelMA.Automata.BrainFuck.Instruction.FlatInstruction
-    HelVM.HelMA.Automata.BrainFuck.Instruction.SimpleInstruction
-    HelVM.HelMA.Automata.BrainFuck.Instruction.TreeInstruction
+    HelVM.HelMA.Automata.BrainFuck.Flat.Instruction
+    HelVM.HelMA.Automata.BrainFuck.Fast.Instruction
+    HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
+    HelVM.HelMA.Automata.BrainFuck.Tree.Instruction
 
-    HelVM.HelMA.Automata.BrainFuck.Lexer
-    HelVM.HelMA.Automata.BrainFuck.Parser
-    HelVM.HelMA.Automata.BrainFuck.Symbol
-    HelVM.HelMA.Automata.BrainFuck.TableOfInstructions
-    HelVM.HelMA.Automata.BrainFuck.TapeOfSymbols
+    HelVM.HelMA.Automata.BrainFuck.Fast.Parser
+    HelVM.HelMA.Automata.BrainFuck.Tree.Parser
+
+    HelVM.HelMA.Automata.BrainFuck.Flat.Parser
+    HelVM.HelMA.Automata.BrainFuck.Common.Symbol
+    HelVM.HelMA.Automata.BrainFuck.Flat.TableOfInstructions
+    HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
 
     HelVM.HelMA.Automata.Cat.Automaton
 
@@ -249,6 +255,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.BrainFuck.AutomatonSpecData
     HelVM.HelMA.Automata.BrainFuck.FileExtra
     HelVM.HelMA.Automata.BrainFuck.InstructionSpec
+    HelVM.HelMA.Automata.BrainFuck.ParserSpec
 
     HelVM.HelMA.Automata.Cat.AutomatonSpec
 

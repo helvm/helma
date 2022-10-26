@@ -3,12 +3,14 @@ module HelVM.HelMA.Automata.BrainFuck.AutomatonBenchMark where
 import           HelVM.HelMA.Automata.BrainFuck.Automaton
 import           HelVM.HelMA.Automata.BrainFuck.FileExtra
 
+import           HelVM.HelMA.Automata.BrainFuck.API.BFType
+
 import           HelVM.HelMA.Automaton.IO.MockIO
 import           HelVM.HelMA.Automaton.Types.CellType
 
 import           HelVM.HelIO.ZipA
 
-import qualified Data.ListLike                            as LL
+import qualified Data.ListLike                             as LL
 
 import           Gauge.Main
 
@@ -30,7 +32,7 @@ benchMark = bgroup "BF"
 
 -- | 8 bits
 benchMark8 :: Benchmark
-benchMark8 = bgroup "BF8" (benchMarkByCellType8 <$> cellTypes8 |><| options)
+benchMark8 = bgroup "BF8" (benchMarkByCellType8 <$> cellTypes8 |><| bfTypes)
 
 benchMarkByCellType8 :: BenchParams -> Benchmark
 benchMarkByCellType8 benchParams = bench (show benchParams) $ nfIO $ exec8 benchParams
@@ -46,7 +48,7 @@ exec8 t = forM
 
 -- | 16 bits
 benchMark16 :: Benchmark
-benchMark16 = bgroup "BF16" (benchMarkByCellType16 <$> cellTypes16 |><| options)
+benchMark16 = bgroup "BF16" (benchMarkByCellType16 <$> cellTypes16 |><| bfTypes)
 
 benchMarkByCellType16 :: BenchParams -> Benchmark
 benchMarkByCellType16 benchParams = bench (show benchParams) $ nfIO $ exec16 benchParams
@@ -62,7 +64,7 @@ exec16 t= forM
 
 -- | 32 bits
 benchMark32 :: Benchmark
-benchMark32 = bgroup "BF32" (benchMarkByCellType32 <$> cellTypes32 |><| options)
+benchMark32 = bgroup "BF32" (benchMarkByCellType32 <$> cellTypes32 |><| bfTypes)
 
 benchMarkByCellType32 :: BenchParams -> Benchmark
 benchMarkByCellType32 benchParams = bench (show benchParams) $ nfIO $ exec32 benchParams
@@ -74,13 +76,13 @@ exec32 t = forM
   ] $ exec t
 
 exec :: BenchParams -> (FilePath , Text) -> IO Text
-exec (cellType , compile) (fileName , input) = do
+exec (cellType , bfType) (fileName , input) = do
   let file   = readBfFile fileName
-  let params = (compile ,  , cellType) <$> file
+  let params = (bfType ,  , cellType) <$> file
   let ioExec = ioExecMockIOWithInput input . simpleRun =<< params
   calculateOutput <$> ioExec
 
 
 
 -- | Types
-type BenchParams = (CellType , Bool)
+type BenchParams = (CellType , BFType)

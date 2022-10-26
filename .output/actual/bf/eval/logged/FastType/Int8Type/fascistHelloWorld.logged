@@ -1,0 +1,202 @@
+dump: Unit
+    { unitUI = IU
+        [ Move 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , While
+            [ Inc
+                ( -1 )
+            , Move
+                ( -1 )
+            , Inc 1
+            , Inc 1
+            , Inc 1
+            , Inc 1
+            , Inc 1
+            , Inc 1
+            , Inc 1
+            , Inc 1
+            , Inc 1
+            , Move 1
+            ]
+        , Move
+            ( -1 )
+        , Output
+        , Move 1
+        , Move 1
+        , Inc 1
+        , Move 1
+        , Inc
+            ( -1 )
+        , While
+            [ Inc 1 ]
+        , Inc 1
+        , Inc 1
+        , Move 1
+        , Inc 1
+        , Inc 1
+        , Move 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , While
+            [ Move 1
+            , While
+                [ Inc
+                    ( -1 )
+                , Move 1
+                , Inc 1
+                , Inc 1
+                , Inc 1
+                , Move
+                    ( -1 )
+                , Move
+                    ( -1 )
+                , Inc 1
+                , Inc 1
+                , Inc 1
+                , Move 1
+                ]
+            , Move
+                ( -1 )
+            , Move
+                ( -1 )
+            ]
+        , Move 1
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Output
+        , Move 1
+        , Inc
+            ( -1 )
+        , Move 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Output
+        , Output
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Output
+        , Move 1
+        , Inc
+            ( -1 )
+        , Output
+        , Move
+            ( -1 )
+        , Move
+            ( -1 )
+        , Inc 1
+        , While
+            [ Move 1
+            , While
+                [ Inc 1
+                , Move 1
+                , Inc 1
+                ]
+            , Move 1
+            , Move 1
+            ]
+        , Move
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Output
+        , Move 1
+        , Move 1
+        , Output
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Output
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Output
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Output
+        , Move 1
+        , Inc 1
+        , Output
+        , Move 1
+        , Inc 1
+        , Output
+        ] 100
+    , unitTape =
+        ( [ 0 ]
+        ,
+            [ 10
+            , 33
+            , 100
+            , 0
+            , 87
+            , 0
+            , 72
+            ]
+        )
+    }

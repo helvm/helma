@@ -11,6 +11,8 @@ import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
+import           HelVM.HelMA.Automata.BrainFuck.API.BFType
+
 import           Options.Applicative
 
 optionParser :: Parser AppOptions
@@ -50,13 +52,20 @@ optionParser = AppOptions
                    )
   <*> switch       (  long    "compile"
                    <> short   'C'
-                   <> help    "Compiler tokens, only for BF and ETA"
+                   <> help    "Compiler tokens, only for ETA"
                    <> showDefault
                    )
   <*> flag BinaryLabel TextLabel
                    (  long    "ascii-labels"
                    <> short   'A'
                    <> help    "Use ascii labels"
+                   <> showDefault
+                   )
+  <*> option auto  (  long    "BFType"
+                   <> short   'b'
+                   <> metavar "[BFType]"
+                   <> help   ("Type of BF implementation " <> show bfTypes)
+                   <> value    defaultBFType
                    <> showDefault
                    )
   <*> option auto  (  long    "RAMType"
@@ -110,6 +119,7 @@ data AppOptions = AppOptions
   , printLogs     :: !PrintLogs
   , compile       :: !Compile
   , formatType    :: !FormatType
+  , bfType        :: !BFType
   , ramType       :: !RAMType
   , stackType     :: !StackType
   , cellType      :: !CellType

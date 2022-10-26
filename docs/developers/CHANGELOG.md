@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.3.0 -- 2022-11-01
+
+* Implement BrainFuck fast interpreter
+
 ## 0.8.2.0 -- 2022-10-05
 
 *  Faster FALSE parser

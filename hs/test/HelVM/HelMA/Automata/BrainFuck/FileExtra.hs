@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automata.BrainFuck.FileExtra (
   readBfFile,
   buildAbsoluteBfFileName,
+  buildAbsoluteBfIlFileName,
   buildAbsoluteBfOutFileName,
   buildAbsoluteBfLogFileName,
   compileToFilePath,
@@ -16,6 +17,9 @@ readBfFile = readSourceFile . buildAbsoluteBfFileName
 
 buildAbsoluteBfFileName :: FilePath -> FilePath
 buildAbsoluteBfFileName = buildAbsoluteLangFileName lang
+
+buildAbsoluteBfIlFileName :: FilePath -> FilePath
+buildAbsoluteBfIlFileName = buildAbsoluteIlFileName lang
 
 buildAbsoluteBfOutFileName :: FilePath -> FilePath
 buildAbsoluteBfOutFileName = buildAbsoluteOutFileName lang

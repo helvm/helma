@@ -1,0 +1,151 @@
+dump: Unit
+    { unitUI = IU
+        [ Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , While
+            [ Move 1
+            , Inc 1
+            , Inc 1
+            , Inc 1
+            , Inc 1
+            , While
+                [ Move 1
+                , Inc 1
+                , Inc 1
+                , Move 1
+                , Inc 1
+                , Inc 1
+                , Inc 1
+                , Move 1
+                , Inc 1
+                , Inc 1
+                , Inc 1
+                , Move 1
+                , Inc 1
+                , Move
+                    ( -1 )
+                , Move
+                    ( -1 )
+                , Move
+                    ( -1 )
+                , Move
+                    ( -1 )
+                , Inc
+                    ( -1 )
+                ]
+            , Move 1
+            , Inc 1
+            , Move 1
+            , Inc 1
+            , Move 1
+            , Inc
+                ( -1 )
+            , Move 1
+            , Move 1
+            , Inc 1
+            , While
+                [ Move
+                    ( -1 )
+                ]
+            , Move
+                ( -1 )
+            , Inc
+                ( -1 )
+            ]
+        , Move 1
+        , Move 1
+        , Output
+        , Move 1
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Output
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Output
+        , Output
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Output
+        , Move 1
+        , Move 1
+        , Output
+        , Move
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Output
+        , Move
+            ( -1 )
+        , Output
+        , Inc 1
+        , Inc 1
+        , Inc 1
+        , Output
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Output
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Inc
+            ( -1 )
+        , Output
+        , Move 1
+        , Move 1
+        , Inc 1
+        , Output
+        , Move 1
+        , Inc 1
+        , Inc 1
+        , Output
+        ] 67
+    , unitTape =
+        ( [ 0 ]
+        ,
+            [ 10
+            , 33
+            , 87
+            , 100
+            , 72
+            , 0
+            , 0
+            ]
+        )
+    }

@@ -1,0 +1,1016 @@
+dump: Unit
+    { unitUI = IU
+        [ Simple
+        , Simple .
+        , Simple
+        , Simple .
+        , Simple .
+        , Simple
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple >
+        , Simple +
+        , Simple >
+        , Simple >
+        , Simple >
+        , Simple >
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple >
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple <
+        , Simple <
+        , Simple <
+        , Simple <
+        , Simple <
+        , Simple <
+        , While
+            [ Simple >
+            , While
+                [ Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple +
+                , Simple >
+                , Simple +
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple -
+                ]
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , While
+                [ Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple +
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple -
+                ]
+            , Simple <
+            , While
+                [ Simple >
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , While
+                    [ Simple -
+                    , Simple <
+                    , Simple -
+                    , While
+                        [ Simple >
+                        , Simple >
+                        , Simple +
+                        , Simple >
+                        , Simple +
+                        , Simple <
+                        , Simple <
+                        , Simple <
+                        , Simple -
+                        ]
+                    , Simple >
+                    , Simple >
+                    , Simple >
+                    , While
+                        [ Simple <
+                        , Simple <
+                        , Simple <
+                        , Simple +
+                        , Simple >
+                        , Simple >
+                        , Simple >
+                        , Simple -
+                        ]
+                    , Simple +
+                    , Simple <
+                    , While
+                        [ Simple >
+                        , While [ Simple - ]
+                        , Simple <
+                        , While [ Simple - ]
+                        ]
+                    , Simple >
+                    , While
+                        [ Simple <
+                        , Simple <
+                        , While
+                            [ Simple >
+                            , Simple >
+                            , Simple >
+                            , Simple +
+                            , Simple <
+                            , Simple <
+                            , Simple <
+                            , Simple -
+                            ]
+                        , Simple >
+                        , Simple >
+                        , While [ Simple - ]
+                        ]
+                    , Simple <
+                    , Simple <
+                    ]
+                , Simple >
+                , Simple >
+                , Simple >
+                , While
+                    [ Simple >
+                    , Simple >
+                    , Simple +
+                    , Simple >
+                    , Simple +
+                    , Simple <
+                    , Simple <
+                    , Simple <
+                    , Simple -
+                    ]
+                , Simple >
+                , Simple >
+                , Simple >
+                , While
+                    [ Simple <
+                    , Simple <
+                    , Simple <
+                    , Simple +
+                    , Simple >
+                    , Simple >
+                    , Simple >
+                    , Simple -
+                    ]
+                , Simple +
+                , Simple <
+                , While
+                    [ Simple >
+                    , While [ Simple - ]
+                    , Simple <
+                    , While [ Simple - ]
+                    ]
+                , Simple >
+                , While
+                    [ Simple <
+                    , Simple <
+                    , Simple +
+                    , Simple >
+                    , Simple >
+                    , While [ Simple - ]
+                    ]
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                ]
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , While
+                [ Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple .
+                , While [ Simple - ]
+                ]
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple <
+            , While
+                [ Simple -
+                , Simple >
+                , Simple -
+                , Simple <
+                ]
+            , Simple >
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple .
+            , While [ Simple - ]
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , While
+                [ Simple >
+                , Simple >
+                , Simple >
+                , Simple +
+                , Simple >
+                , Simple +
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple -
+                ]
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , While
+                [ Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple +
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple -
+                ]
+            , Simple <
+            , Simple -
+            , While
+                [ Simple >
+                , Simple >
+                , Simple .
+                , Simple >
+                , Simple .
+                , Simple <
+                , Simple <
+                , Simple <
+                , While [ Simple - ]
+                ]
+            , Simple <
+            , Simple <
+            , While
+                [ Simple >
+                , Simple >
+                , Simple +
+                , Simple >
+                , Simple +
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple -
+                ]
+            , Simple >
+            , Simple >
+            , Simple >
+            , While
+                [ Simple <
+                , Simple <
+                , Simple <
+                , Simple +
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple -
+                ]
+            , Simple <
+            , Simple <
+            , While
+                [ Simple <
+                , Simple +
+                , Simple >
+                , Simple -
+                ]
+            , Simple >
+            , While
+                [ Simple <
+                , Simple +
+                , Simple >
+                , Simple -
+                ]
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple -
+            ]
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple >
+        , Simple +
+        , Simple >
+        , Simple >
+        , Simple >
+        , Simple >
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple >
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple <
+        , Simple <
+        , Simple <
+        , Simple <
+        , Simple <
+        , Simple <
+        , While
+            [ Simple >
+            , While
+                [ Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple +
+                , Simple >
+                , Simple +
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple -
+                ]
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , While
+                [ Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple +
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple -
+                ]
+            , Simple <
+            , While
+                [ Simple >
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , While
+                    [ Simple -
+                    , Simple <
+                    , Simple -
+                    , While
+                        [ Simple >
+                        , Simple >
+                        , Simple +
+                        , Simple >
+                        , Simple +
+                        , Simple <
+                        , Simple <
+                        , Simple <
+                        , Simple -
+                        ]
+                    , Simple >
+                    , Simple >
+                    , Simple >
+                    , While
+                        [ Simple <
+                        , Simple <
+                        , Simple <
+                        , Simple +
+                        , Simple >
+                        , Simple >
+                        , Simple >
+                        , Simple -
+                        ]
+                    , Simple +
+                    , Simple <
+                    , While
+                        [ Simple >
+                        , While [ Simple - ]
+                        , Simple <
+                        , While [ Simple - ]
+                        ]
+                    , Simple >
+                    , While
+                        [ Simple <
+                        , Simple <
+                        , While
+                            [ Simple >
+                            , Simple >
+                            , Simple >
+                            , Simple +
+                            , Simple <
+                            , Simple <
+                            , Simple <
+                            , Simple -
+                            ]
+                        , Simple >
+                        , Simple >
+                        , While [ Simple - ]
+                        ]
+                    , Simple <
+                    , Simple <
+                    ]
+                , Simple >
+                , Simple >
+                , Simple >
+                , While
+                    [ Simple >
+                    , Simple >
+                    , Simple +
+                    , Simple >
+                    , Simple +
+                    , Simple <
+                    , Simple <
+                    , Simple <
+                    , Simple -
+                    ]
+                , Simple >
+                , Simple >
+                , Simple >
+                , While
+                    [ Simple <
+                    , Simple <
+                    , Simple <
+                    , Simple +
+                    , Simple >
+                    , Simple >
+                    , Simple >
+                    , Simple -
+                    ]
+                , Simple +
+                , Simple <
+                , While
+                    [ Simple >
+                    , While [ Simple - ]
+                    , Simple <
+                    , While [ Simple - ]
+                    ]
+                , Simple >
+                , While
+                    [ Simple <
+                    , Simple <
+                    , Simple +
+                    , Simple >
+                    , Simple >
+                    , While [ Simple - ]
+                    ]
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                ]
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , While
+                [ Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple .
+                , While [ Simple - ]
+                ]
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple <
+            , While
+                [ Simple -
+                , Simple >
+                , Simple -
+                , Simple <
+                ]
+            , Simple >
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple .
+            , While [ Simple - ]
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple <
+            , While
+                [ Simple >
+                , Simple >
+                , Simple >
+                , Simple +
+                , Simple >
+                , Simple +
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple -
+                ]
+            , Simple >
+            , Simple >
+            , Simple >
+            , Simple >
+            , While
+                [ Simple <
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple +
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple -
+                ]
+            , Simple <
+            , Simple -
+            , While
+                [ Simple >
+                , Simple >
+                , Simple .
+                , Simple >
+                , Simple .
+                , Simple <
+                , Simple <
+                , Simple <
+                , While [ Simple - ]
+                ]
+            , Simple <
+            , Simple <
+            , While
+                [ Simple >
+                , Simple >
+                , Simple +
+                , Simple >
+                , Simple +
+                , Simple <
+                , Simple <
+                , Simple <
+                , Simple -
+                ]
+            , Simple >
+            , Simple >
+            , Simple >
+            , While
+                [ Simple <
+                , Simple <
+                , Simple <
+                , Simple +
+                , Simple >
+                , Simple >
+                , Simple >
+                , Simple -
+                ]
+            , Simple <
+            , Simple <
+            , While
+                [ Simple <
+                , Simple +
+                , Simple >
+                , Simple -
+                ]
+            , Simple >
+            , While
+                [ Simple <
+                , Simple +
+                , Simple >
+                , Simple -
+                ]
+            , Simple <
+            , Simple <
+            , Simple <
+            , Simple -
+            ]
+        ] 209
+    , unitTape =
+        (
+            [ 114
+            , 94
+            , 0
+            , 0
+            , 88
+            , 64
+            , 0
+            , 0
+            , 0
+            , 0
+            , 0
+            , 0
+            , 0
+            , 0
+            , 0
+            ]
+        , [ 0 ]
+        )
+    }
