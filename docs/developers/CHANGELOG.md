@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.3.3 -- 2022-11-11
+
+* Optimize BrainFuck interpreter
+
 ## 0.8.3.2 -- 2022-11-01
 
 * Add SpecHook for parallel tests

@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.3.2
+version:               0.8.3.3
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -138,25 +138,27 @@ library
 
     HelVM.HelMA.Automaton.WrapTokenList
 
+    HelVM.HelMA.Automata.BrainFuck.Automaton
+
     HelVM.HelMA.Automata.BrainFuck.API.BFType
 
-    HelVM.HelMA.Automata.BrainFuck.Automaton
-    HelVM.HelMA.Automata.BrainFuck.Flat.Automaton
-    HelVM.HelMA.Automata.BrainFuck.Fast.Automaton
-    HelVM.HelMA.Automata.BrainFuck.Tree.Automaton
-
-    HelVM.HelMA.Automata.BrainFuck.Flat.Instruction
-    HelVM.HelMA.Automata.BrainFuck.Fast.Instruction
     HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
-    HelVM.HelMA.Automata.BrainFuck.Tree.Instruction
-
-    HelVM.HelMA.Automata.BrainFuck.Fast.Parser
-    HelVM.HelMA.Automata.BrainFuck.Tree.Parser
-
-    HelVM.HelMA.Automata.BrainFuck.Flat.Parser
     HelVM.HelMA.Automata.BrainFuck.Common.Symbol
-    HelVM.HelMA.Automata.BrainFuck.Flat.TableOfInstructions
     HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
+
+    HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Automaton
+    HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Instruction
+    HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Optimizer
+    HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser
+
+    HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Automaton
+    HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Instruction
+    HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser
+    HelVM.HelMA.Automata.BrainFuck.Impl.Flat.TableOfInstructions
+
+    HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Automaton
+    HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Instruction
+    HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser
 
     HelVM.HelMA.Automata.Cat.Automaton
 
@@ -215,6 +217,7 @@ library
     , text
     , type-operators
     , vector
+    , yjtools
 
   ghc-options:
 

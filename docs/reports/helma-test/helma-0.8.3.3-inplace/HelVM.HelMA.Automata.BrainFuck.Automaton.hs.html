@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.BrainFuck.Automaton where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Automaton  as Fast
+<span class="lineno">    4 </span>import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Automaton  as Flat
+<span class="lineno">    5 </span>import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Automaton  as Tree
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.BrainFuck.API.BFType
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.API.IOTypes
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.API.RunParams
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Types.CellType
+<span class="lineno">   18 </span>import           HelVM.HelMA.Automaton.Types.DumpType
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>simpleRun :: BIO m =&gt; (BFType , Source , CellType) -&gt; m ()
+<span class="lineno">   21 </span><span class="decl"><span class="istickedoff">simpleRun (c , s , t) = run c s t Pretty</span></span>
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>----
+<span class="lineno">   24 </span>
+<span class="lineno">   25 </span>runWithParams :: BIO m =&gt; BFType -&gt; RunParams -&gt; m ()
+<span class="lineno">   26 </span><span class="decl"><span class="nottickedoff">runWithParams b p = run b (source p) (cellTypeOptions p) (dumpTypeOptions p)</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>run :: BIO m =&gt; BFType -&gt; Source -&gt; CellType -&gt; DumpType -&gt; m ()
+<span class="lineno">   29 </span><span class="decl"><span class="istickedoff">run c s Int8Type   = runSource c s (newTape :: FullTape Int8)</span>
+<span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">run c s Word8Type  = runSource c s (newTape :: FullTape Word8)</span>
+<span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">run c s Int16Type  = runSource c s (newTape :: FullTape Int16)</span>
+<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">run c s Word16Type = runSource c s (newTape :: FullTape Word16)</span>
+<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">run c s Int32Type  = <span class="nottickedoff">runSource c s (newTape :: FullTape Int32)</span></span>
+<span class="lineno">   34 </span><span class="spaces"></span><span class="istickedoff">run c s Word32Type = <span class="nottickedoff">runSource c s (newTape :: FullTape Word32)</span></span>
+<span class="lineno">   35 </span><span class="spaces"></span><span class="istickedoff">run c s Int64Type  = <span class="nottickedoff">runSource c s (newTape :: FullTape Int64)</span></span>
+<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">run c s Word64Type = <span class="nottickedoff">runSource c s (newTape :: FullTape Word64)</span></span></span>
+<span class="lineno">   37 </span>
+<span class="lineno">   38 </span>runSource :: (BIO m , Symbol e) =&gt; BFType -&gt; Source -&gt; FullTape e -&gt; DumpType -&gt; m ()
+<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">runSource FastType = Fast.runSource</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">runSource TreeType = Tree.runSource</span>
+<span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff">runSource FlatType = Flat.runSource</span></span>
+
+</pre>
+</body>
+</html>

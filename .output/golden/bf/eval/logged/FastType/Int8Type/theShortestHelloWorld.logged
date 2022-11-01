@@ -3,107 +3,60 @@ dump: Unit
         [ Inc 1
         , While
             [ Inc
-                ( -1 )
-            , Inc
-                ( -1 )
+                ( -2 )
             , Move 1
             , Inc
                 ( -1 )
             , While
-                [ Move 1
-                , Move 1
+                [ Move 2
                 , Inc 1
                 , Move 1
                 , Inc
-                    ( -1 )
-                , Inc
-                    ( -1 )
-                , Inc
-                    ( -1 )
-                , Inc
-                    ( -1 )
-                , Inc
-                    ( -1 )
+                    ( -5 )
                 , Move
-                    ( -1 )
-                , Move
-                    ( -1 )
+                    ( -2 )
                 ]
             , Move
                 ( -1 )
             , Inc
-                ( -1 )
-            , Inc
-                ( -1 )
+                ( -2 )
             , Move
                 ( -1 )
             , Inc
-                ( -1 )
-            , Inc
-                ( -1 )
-            , Inc
-                ( -1 )
+                ( -3 )
             ]
         , Move 1
         , Inc
             ( -1 )
         , Output
-        , Move 1
-        , Move 1
-        , Move 1
+        , Move 3
         , Inc 1
         , Output
-        , Move 1
-        , Move 1
+        , Move 2
         , Output
         , Output
-        , Inc 1
-        , Inc 1
-        , Inc 1
+        , Inc 3
         , While
             [ Output
             , Move 1
             ]
         , Move
-            ( -1 )
-        , Move
-            ( -1 )
-        , Move
-            ( -1 )
-        , Move
-            ( -1 )
+            ( -4 )
         , Output
-        , Inc 1
-        , Inc 1
-        , Inc 1
+        , Inc 3
         , Output
         , Inc
-            ( -1 )
-        , Inc
-            ( -1 )
-        , Inc
-            ( -1 )
-        , Inc
-            ( -1 )
-        , Inc
-            ( -1 )
+            ( -6 )
+        , Output
+        , Move
+            ( -2 )
         , Inc
             ( -1 )
         , Output
-        , Move
-            ( -1 )
-        , Move
-            ( -1 )
-        , Inc
-            ( -1 )
-        , Output
-        , Move 1
-        , Move 1
-        , Move 1
-        , Move 1
+        , Move 4
         , Inc 1
         , Output
-        ] 45
+        ] 26
     , unitTape =
         (
             [ 87

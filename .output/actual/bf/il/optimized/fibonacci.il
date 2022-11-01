@@ -1,0 +1,469 @@
+[ Input
+, Output
+, Input
+, Output
+, Output
+, Input
+, Inc 11
+, Move 1
+, Inc 1
+, Move 4
+, Inc 44
+, Move 1
+, Inc 32
+, Move
+    ( -6 )
+, While
+    [ Move 1
+    , While
+        [ Move 6
+        , Inc 1
+        , Move 1
+        , Inc 1
+        , Move
+            ( -7 )
+        , Inc
+            ( -1 )
+        ]
+    , Move 7
+    , While
+        [ Move
+            ( -7 )
+        , Inc 1
+        , Move 7
+        , Inc
+            ( -1 )
+        ]
+    , Move
+        ( -1 )
+    , While
+        [ Move 1
+        , Inc 10
+        , While
+            [ Inc
+                ( -1 )
+            , Move
+                ( -1 )
+            , Inc
+                ( -1 )
+            , While
+                [ Move 2
+                , Inc 1
+                , Move 1
+                , Inc 1
+                , Move
+                    ( -3 )
+                , Inc
+                    ( -1 )
+                ]
+            , Move 3
+            , While
+                [ Move
+                    ( -3 )
+                , Inc 1
+                , Move 3
+                , Inc
+                    ( -1 )
+                ]
+            , Inc 1
+            , Move
+                ( -1 )
+            , While
+                [ Move 1
+                , Clear
+                , Move
+                    ( -1 )
+                , Clear
+                ]
+            , Move 1
+            , While
+                [ Move
+                    ( -2 )
+                , While
+                    [ Move 3
+                    , Inc 1
+                    , Move
+                        ( -3 )
+                    , Inc
+                        ( -1 )
+                    ]
+                , Move 2
+                , Clear
+                ]
+            , Move
+                ( -2 )
+            ]
+        , Move 3
+        , While
+            [ Move 2
+            , Inc 1
+            , Move 1
+            , Inc 1
+            , Move
+                ( -3 )
+            , Inc
+                ( -1 )
+            ]
+        , Move 3
+        , While
+            [ Move
+                ( -3 )
+            , Inc 1
+            , Move 3
+            , Inc
+                ( -1 )
+            ]
+        , Inc 1
+        , Move
+            ( -1 )
+        , While
+            [ Move 1
+            , Clear
+            , Move
+                ( -1 )
+            , Clear
+            ]
+        , Move 1
+        , While
+            [ Move
+                ( -2 )
+            , Inc 1
+            , Move 2
+            , Clear
+            ]
+        , Move
+            ( -7 )
+        ]
+    , Move 5
+    , While
+        [ Inc 48
+        , Output
+        , Clear
+        ]
+    , Inc 10
+    , Move
+        ( -1 )
+    , While
+        [ Inc
+            ( -1 )
+        , Move 1
+        , Inc
+            ( -1 )
+        , Move
+            ( -1 )
+        ]
+    , Move 1
+    , Inc 48
+    , Output
+    , Clear
+    , Move
+        ( -12 )
+    , While
+        [ Move 3
+        , Inc 1
+        , Move 1
+        , Inc 1
+        , Move
+            ( -4 )
+        , Inc
+            ( -1 )
+        ]
+    , Move 4
+    , While
+        [ Move
+            ( -4 )
+        , Inc 1
+        , Move 4
+        , Inc
+            ( -1 )
+        ]
+    , Move
+        ( -1 )
+    , Inc
+        ( -1 )
+    , While
+        [ Move 2
+        , Output
+        , Move 1
+        , Output
+        , Move
+            ( -3 )
+        , Clear
+        ]
+    , Move
+        ( -2 )
+    , While
+        [ Move 2
+        , Inc 1
+        , Move 1
+        , Inc 1
+        , Move
+            ( -3 )
+        , Inc
+            ( -1 )
+        ]
+    , Move 3
+    , While
+        [ Move
+            ( -3 )
+        , Inc 1
+        , Move 3
+        , Inc
+            ( -1 )
+        ]
+    , Move
+        ( -2 )
+    , While
+        [ Move
+            ( -1 )
+        , Inc 1
+        , Move 1
+        , Inc
+            ( -1 )
+        ]
+    , Move 1
+    , While
+        [ Move
+            ( -1 )
+        , Inc 1
+        , Move 1
+        , Inc
+            ( -1 )
+        ]
+    , Move
+        ( -3 )
+    , Inc
+        ( -1 )
+    ]
+, Inc 11
+, Move 1
+, Inc 1
+, Move 4
+, Inc 44
+, Move 1
+, Inc 32
+, Move
+    ( -6 )
+, While
+    [ Move 1
+    , While
+        [ Move 6
+        , Inc 1
+        , Move 1
+        , Inc 1
+        , Move
+            ( -7 )
+        , Inc
+            ( -1 )
+        ]
+    , Move 7
+    , While
+        [ Move
+            ( -7 )
+        , Inc 1
+        , Move 7
+        , Inc
+            ( -1 )
+        ]
+    , Move
+        ( -1 )
+    , While
+        [ Move 1
+        , Inc 10
+        , While
+            [ Inc
+                ( -1 )
+            , Move
+                ( -1 )
+            , Inc
+                ( -1 )
+            , While
+                [ Move 2
+                , Inc 1
+                , Move 1
+                , Inc 1
+                , Move
+                    ( -3 )
+                , Inc
+                    ( -1 )
+                ]
+            , Move 3
+            , While
+                [ Move
+                    ( -3 )
+                , Inc 1
+                , Move 3
+                , Inc
+                    ( -1 )
+                ]
+            , Inc 1
+            , Move
+                ( -1 )
+            , While
+                [ Move 1
+                , Clear
+                , Move
+                    ( -1 )
+                , Clear
+                ]
+            , Move 1
+            , While
+                [ Move
+                    ( -2 )
+                , While
+                    [ Move 3
+                    , Inc 1
+                    , Move
+                        ( -3 )
+                    , Inc
+                        ( -1 )
+                    ]
+                , Move 2
+                , Clear
+                ]
+            , Move
+                ( -2 )
+            ]
+        , Move 3
+        , While
+            [ Move 2
+            , Inc 1
+            , Move 1
+            , Inc 1
+            , Move
+                ( -3 )
+            , Inc
+                ( -1 )
+            ]
+        , Move 3
+        , While
+            [ Move
+                ( -3 )
+            , Inc 1
+            , Move 3
+            , Inc
+                ( -1 )
+            ]
+        , Inc 1
+        , Move
+            ( -1 )
+        , While
+            [ Move 1
+            , Clear
+            , Move
+                ( -1 )
+            , Clear
+            ]
+        , Move 1
+        , While
+            [ Move
+                ( -2 )
+            , Inc 1
+            , Move 2
+            , Clear
+            ]
+        , Move
+            ( -7 )
+        ]
+    , Move 5
+    , While
+        [ Inc 48
+        , Output
+        , Clear
+        ]
+    , Inc 10
+    , Move
+        ( -1 )
+    , While
+        [ Inc
+            ( -1 )
+        , Move 1
+        , Inc
+            ( -1 )
+        , Move
+            ( -1 )
+        ]
+    , Move 1
+    , Inc 48
+    , Output
+    , Clear
+    , Move
+        ( -12 )
+    , While
+        [ Move 3
+        , Inc 1
+        , Move 1
+        , Inc 1
+        , Move
+            ( -4 )
+        , Inc
+            ( -1 )
+        ]
+    , Move 4
+    , While
+        [ Move
+            ( -4 )
+        , Inc 1
+        , Move 4
+        , Inc
+            ( -1 )
+        ]
+    , Move
+        ( -1 )
+    , Inc
+        ( -1 )
+    , While
+        [ Move 2
+        , Output
+        , Move 1
+        , Output
+        , Move
+            ( -3 )
+        , Clear
+        ]
+    , Move
+        ( -2 )
+    , While
+        [ Move 2
+        , Inc 1
+        , Move 1
+        , Inc 1
+        , Move
+            ( -3 )
+        , Inc
+            ( -1 )
+        ]
+    , Move 3
+    , While
+        [ Move
+            ( -3 )
+        , Inc 1
+        , Move 3
+        , Inc
+            ( -1 )
+        ]
+    , Move
+        ( -2 )
+    , While
+        [ Move
+            ( -1 )
+        , Inc 1
+        , Move 1
+        , Inc
+            ( -1 )
+        ]
+    , Move 1
+    , While
+        [ Move
+            ( -1 )
+        , Inc 1
+        , Move 1
+        , Inc
+            ( -1 )
+        ]
+    , Move
+        ( -3 )
+    , Inc
+        ( -1 )
+    ]
+]

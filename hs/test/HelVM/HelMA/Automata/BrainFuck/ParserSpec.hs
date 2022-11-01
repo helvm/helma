@@ -1,8 +1,8 @@
 module HelVM.HelMA.Automata.BrainFuck.ParserSpec (spec) where
 
-import qualified HelVM.HelMA.Automata.BrainFuck.Fast.Parser as Fast
-import qualified HelVM.HelMA.Automata.BrainFuck.Flat.Parser as Flat
-import qualified HelVM.HelMA.Automata.BrainFuck.Tree.Parser as Tree
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser as Fast
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser as Flat
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser as Tree
 
 import           HelVM.HelMA.Automata.BrainFuck.FileExtra
 
@@ -14,7 +14,7 @@ import           HelVM.GoldenExpectations
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                                 (Spec, describe, it)
+import           Test.Hspec                                      (Spec, describe, it)
 
 spec :: Spec
 spec =
@@ -31,8 +31,10 @@ spec =
     $ \ fileName -> do
       let file = readBfFile fileName
       describe fileName $ do
+        it ("optimized" </> fileName) $
+          safeIOToPTextIO (Fast.parseWithOptimizeSafe <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("optimized" </> fileName)
         it ("fast" </> fileName) $
-          safeIOToPTextIO (Fast.parseAsVector <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("fast" </> fileName)
+          safeIOToPTextIO (Fast.parseAsListSafe <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("fast" </> fileName)
         it ("tree" </> fileName) $
           safeIOToPTextIO (Tree.parseAsVector <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("tree" </> fileName)
         it ("flat" </> fileName) $

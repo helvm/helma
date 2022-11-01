@@ -20,7 +20,7 @@ runWithParams :: BIO m => RunParams -> m ()
 runWithParams = run . source
 
 run :: BIO m => Source -> m ()
-run s = runLambda =<< parse s
+run = runLambda <=< parse
 
 runReduce :: BIO m => Source -> m Source
 runReduce s = show . reduce <$> parse s

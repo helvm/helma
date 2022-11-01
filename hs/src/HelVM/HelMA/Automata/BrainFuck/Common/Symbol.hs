@@ -1,16 +1,32 @@
 module HelVM.HelMA.Automata.BrainFuck.Common.Symbol (
-  Symbol,
+  inc,
+  compare0,
   def,
   next,
   prev,
   fromChar,
-  toChar
+  toChar,
+  Symbol,
 ) where
 
-import           Data.Default (Default)
+import           Control.Monad.Extra
 
-import qualified Data.Default as Default
-import qualified Relude.Extra as Extra
+import           Data.Default        (Default)
+
+import qualified Data.Default        as Default
+import qualified Relude.Extra        as Extra
+
+inc :: Symbol e => Int -> e -> e
+inc i e = loop atc (i , e) where
+  atc (i' , e') = (check . compare0) i' where
+    check LT = Left (i' - 1 , next e')
+    check GT = Left (i' + 1 , prev e')
+    check EQ = Right e'
+
+compare0 :: Int -> Ordering
+compare0 = compare 0
+
+--
 
 def :: Symbol e => e
 def = Default.def

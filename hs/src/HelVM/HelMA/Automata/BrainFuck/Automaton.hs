@@ -1,8 +1,8 @@
 module HelVM.HelMA.Automata.BrainFuck.Automaton where
 
-import qualified HelVM.HelMA.Automata.BrainFuck.Fast.Automaton       as Fast
-import qualified HelVM.HelMA.Automata.BrainFuck.Flat.Automaton       as Flat
-import qualified HelVM.HelMA.Automata.BrainFuck.Tree.Automaton       as Tree
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Automaton  as Fast
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Automaton  as Flat
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Automaton  as Tree
 
 import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 

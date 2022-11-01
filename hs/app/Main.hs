@@ -1,35 +1,35 @@
 module Main where
 
-import qualified AppOptions                                 as App
+import qualified AppOptions                                      as App
 import           BoolTypes
 import           Emit
 import           Lang
 
-import qualified HelVM.HelMA.Automata.Cat.Automaton         as Cat
+import qualified HelVM.HelMA.Automata.Cat.Automaton              as Cat
 
-import qualified HelVM.HelMA.Automata.Rev.Automaton         as Rev
+import qualified HelVM.HelMA.Automata.Rev.Automaton              as Rev
 
-import qualified HelVM.HelMA.Automata.BrainFuck.Automaton   as BF
-import qualified HelVM.HelMA.Automata.BrainFuck.Flat.Parser as BF
+import qualified HelVM.HelMA.Automata.BrainFuck.Automaton        as BF
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser as BF
 
-import qualified HelVM.HelMA.Automata.BrainFuck.Fast.Parser as BF_Fast
-import qualified HelVM.HelMA.Automata.BrainFuck.Tree.Parser as BF_Tree
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser as BF_Fast
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser as BF_Tree
 
-import qualified HelVM.HelMA.Automata.ETA.Automaton         as ETA
-import qualified HelVM.HelMA.Automata.ETA.Lexer             as ETA
+import qualified HelVM.HelMA.Automata.ETA.Automaton              as ETA
+import qualified HelVM.HelMA.Automata.ETA.Lexer                  as ETA
 
-import qualified HelVM.HelMA.Automata.FALSE.Parser          as F
+import qualified HelVM.HelMA.Automata.FALSE.Parser               as F
 
-import qualified HelVM.HelMA.Automata.LazyK.Automaton       as Lazy
+import qualified HelVM.HelMA.Automata.LazyK.Automaton            as Lazy
 
-import qualified HelVM.HelMA.Automata.SubLeq.Automaton      as SQ
-import qualified HelVM.HelMA.Automata.SubLeq.Lexer          as SQ
+import qualified HelVM.HelMA.Automata.SubLeq.Automaton           as SQ
+import qualified HelVM.HelMA.Automata.SubLeq.Lexer               as SQ
 
-import qualified HelVM.HelMA.Automata.WhiteSpace.Automaton  as WS
-import qualified HelVM.HelMA.Automata.WhiteSpace.Lexer      as WS
-import qualified HelVM.HelMA.Automata.WhiteSpace.Parser     as WS
+import qualified HelVM.HelMA.Automata.WhiteSpace.Automaton       as WS
+import qualified HelVM.HelMA.Automata.WhiteSpace.Lexer           as WS
+import qualified HelVM.HelMA.Automata.WhiteSpace.Parser          as WS
 
-import qualified HelVM.HelMA.Automata.Zot.Automaton         as Zot
+import qualified HelVM.HelMA.Automata.Zot.Automaton              as Zot
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.RunParams
@@ -49,7 +49,7 @@ import           HelVM.HelIO.Extra
 import           Options.Applicative
 import           Text.Pretty.Simple
 
-import qualified System.IO                                  as IO
+import qualified System.IO                                       as IO
 
 main :: IO ()
 main = runApp =<< execParser opts where
@@ -91,7 +91,7 @@ runWithParams (LangWithOptions Zot  _ _) = Zot.runWithParams
 parse :: LangWithOptions -> FormatType -> Source -> IO ()
 parse (LangWithOptions WS   _        VisibleTokenType) f = pPrintNoColor . WS.flipParseVisible f
 parse (LangWithOptions WS   _        WhiteTokenType  ) f = pPrintNoColor . WS.flipParseWhite   f
-parse (LangWithOptions BF   FastType _               ) _ = pPrintNoColor . BF_Fast.parseAsVectorSafe
+parse (LangWithOptions BF   FastType _               ) _ = pPrintNoColor . BF_Fast.parseAsListSafe
 parse (LangWithOptions BF   TreeType _               ) _ = pPrintNoColor . BF_Tree.parseAsVectorSafe
 parse (LangWithOptions F    _        _               ) _ = pPrintNoColor . F.parseSafe
 parse  l                                               _ = tokenize l
