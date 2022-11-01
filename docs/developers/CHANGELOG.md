@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.3.2 -- 2022-11-01
+
+* Add SpecHook for parallel tests
+
 ## 0.8.3.1 -- 2022-11-01
 
 * Use optparse-applicative for CLI better - Add Emit option for CLI
