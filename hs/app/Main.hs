@@ -1,6 +1,8 @@
 module Main where
 
-import           AppOptions
+import qualified AppOptions                                 as App
+import           BoolTypes
+import           Emit
 import           Lang
 
 import qualified HelVM.HelMA.Automata.Cat.Automaton         as Cat
@@ -9,6 +11,9 @@ import qualified HelVM.HelMA.Automata.Rev.Automaton         as Rev
 
 import qualified HelVM.HelMA.Automata.BrainFuck.Automaton   as BF
 import qualified HelVM.HelMA.Automata.BrainFuck.Flat.Parser as BF
+
+import qualified HelVM.HelMA.Automata.BrainFuck.Fast.Parser as BF_Fast
+import qualified HelVM.HelMA.Automata.BrainFuck.Tree.Parser as BF_Tree
 
 import qualified HelVM.HelMA.Automata.ETA.Automaton         as ETA
 import qualified HelVM.HelMA.Automata.ETA.Lexer             as ETA
@@ -48,60 +53,60 @@ import qualified System.IO                                  as IO
 
 main :: IO ()
 main = runApp =<< execParser opts where
-  opts = info (optionParser <**> helper)
+  opts = info (App.optionParser <**> helper)
       ( fullDesc
-     <> header "HelMA: The Interpreter of BrainFuck , ETA , SubLeq and WhiteSpace"
+     <> header "HelMA: The Interpreter of BrainFuck , ETA , Lazy , SubLeq , WhiteSpace, Zot"
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
-runApp:: AppOptions -> IO ()
-runApp (AppOptions lang visibleTokens minified emitTL emitIL printLogs compile formatType bfType ramType stackType cellType intCellType dumpType exec file) = do
+runApp:: App.AppOptions -> IO ()
+runApp (App.AppOptions emit printLogs lang bfType tokenType compile formatType ramType stackType cellType intCellType dumpType exec file) = do
   hSetBuffering stdout IO.NoBuffering
   source <- readSourceFile exec file
-  run minified emitTL emitIL printLogs typeOptions compile formatType lang visibleTokens bfType source
-    where typeOptions = TypeOptions ramType stackType cellType intCellType dumpType
+  run emit printLogs langWithOptions (runParams source) where
+    langWithOptions  = LangWithOptions lang bfType tokenType
+    runParams source = RunParams compile formatType source typeOptions
+    typeOptions      = TypeOptions ramType stackType cellType intCellType dumpType
 
 readSourceFile :: Exec -> String -> IO Source
 readSourceFile True = pure . toText
 readSourceFile _    = readFileTextUtf8
 
-run :: Minified -> EmitTL -> EmitIL -> PrintLogs -> TypeOptions -> Compile -> FormatType -> Lang -> TokenType -> BFType -> Source -> IO ()
-run True _    _    _ _ _ _ l t _ s = minification l t s
-run _    True _    _ _ _ _ l t _ s = tokenize l t s
-run _    _    True _ _ _ a l t _ s = parse l t a s
-run _    _    _    p o c a l t b s = eval p o c a l t b s
+run :: Emit -> PrintLogs -> LangWithOptions -> RunParams -> IO ()
+run No   p l r = (controlTToIO p . runWithParams l) r
+run IL   _ l r = parse          l (formatType r) (source r)
+run TL   _ l r = tokenize       l (source r)
+run Code _ l r = minification   l (source r)
 
-minification :: Lang -> TokenType -> Source -> IO ()
-minification WS VisibleTokenType = print . WS.readVisibleTokens
-minification WS WhiteTokenType   = print . WS.readWhiteTokens
-minification BF  _               = print . BF.readTokens
-minification ETA _               = print . ETA.readTokens
-minification SQ  _               = print . SQ.readSymbols
-minification _   _               = print
+runWithParams :: BIO m => LangWithOptions-> RunParams -> m ()
+runWithParams (LangWithOptions BF   b _) = BF.runWithParams b
+runWithParams (LangWithOptions Cat  _ _) = Cat.runWithParams
+runWithParams (LangWithOptions ETA  _ _) = ETA.runWithParams
+runWithParams (LangWithOptions F    _ _) = error "FALSE is not supported now"
+runWithParams (LangWithOptions Lazy _ _) = Lazy.runWithParams
+runWithParams (LangWithOptions Rev  _ _) = Rev.runWithParams
+runWithParams (LangWithOptions SQ   _ _) = SQ.runWithParams
+runWithParams (LangWithOptions WS   _ t) = WS.runWithParams t
+runWithParams (LangWithOptions Zot  _ _) = Zot.runWithParams
 
-tokenize :: Lang -> TokenType -> Source -> IO ()
-tokenize WS  VisibleTokenType = print . WS.tokenizeVisible
-tokenize WS  WhiteTokenType   = print . WS.tokenizeWhite
-tokenize ETA _                = print . ETA.tokenize
-tokenize SQ  _                = print . SQ.tokenize
-tokenize _   _                = print
+parse :: LangWithOptions -> FormatType -> Source -> IO ()
+parse (LangWithOptions WS   _        VisibleTokenType) f = pPrintNoColor . WS.flipParseVisible f
+parse (LangWithOptions WS   _        WhiteTokenType  ) f = pPrintNoColor . WS.flipParseWhite   f
+parse (LangWithOptions BF   FastType _               ) _ = pPrintNoColor . BF_Fast.parseAsVectorSafe
+parse (LangWithOptions BF   TreeType _               ) _ = pPrintNoColor . BF_Tree.parseAsVectorSafe
+parse (LangWithOptions F    _        _               ) _ = pPrintNoColor . F.parseSafe
+parse  l                                               _ = tokenize l
 
-parse :: Lang -> TokenType -> FormatType -> Source -> IO ()
-parse WS   VisibleTokenType a = pPrintNoColor . WS.flipParseVisible a
-parse WS   WhiteTokenType   a = pPrintNoColor . WS.flipParseWhite   a
-parse F    _                _ = pPrintNoColor . F.parseSafe
-parse lang tt               _ = tokenize lang tt
+tokenize :: LangWithOptions -> Source -> IO ()
+tokenize (LangWithOptions WS  _ VisibleTokenType) = print . WS.tokenizeVisible
+tokenize (LangWithOptions WS  _ WhiteTokenType  ) = print . WS.tokenizeWhite
+tokenize (LangWithOptions ETA _ _               ) = print . ETA.tokenize
+tokenize (LangWithOptions SQ  _ _               ) = print . SQ.tokenize
+tokenize  _                                       = print
 
-eval :: PrintLogs -> TypeOptions -> Compile -> FormatType -> Lang -> TokenType -> BFType -> Source -> IO ()
-eval p options c a lang tt b s = (controlTToIO p . runWithParams lang tt b) params
-  where params = RunParams {compile = c , formatType = a , source = s , typeOptions = options}
-
-runWithParams :: BIO m => Lang -> TokenType -> BFType -> RunParams -> m ()
-runWithParams Lazy _ _ = Lazy.runWithParams
-runWithParams WS   t _ = WS.runWithParams t
-runWithParams Cat  _ _ = Cat.runWithParams
-runWithParams Rev  _ _ = Rev.runWithParams
-runWithParams BF   _ b = BF.runWithParams b
-runWithParams ETA  _ _ = ETA.runWithParams
-runWithParams F    _ _ = error "FALSE is not supported now"
-runWithParams SQ   _ _ = SQ.runWithParams
-runWithParams Zot  _ _ = Zot.runWithParams
+minification :: LangWithOptions -> Source -> IO ()
+minification (LangWithOptions WS  _ VisibleTokenType) = print . WS.readVisibleTokens
+minification (LangWithOptions WS  _ WhiteTokenType  ) = print . WS.readWhiteTokens
+minification (LangWithOptions BF  _ _               ) = print . BF.readTokens
+minification (LangWithOptions ETA _ _               ) = print . ETA.readTokens
+minification (LangWithOptions SQ  _ _               ) = print . SQ.readSymbols
+minification  _                                       = print

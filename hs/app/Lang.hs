@@ -1,17 +1,23 @@
 module Lang where
 
-import           HelVM.HelIO.Extra
+import           HelVM.HelMA.Automata.BrainFuck.API.BFType
+import           HelVM.HelMA.Automaton.Types.TokenType
+
 import           HelVM.HelIO.SwitchEnum
 
-parseLang :: String -> Lang
-parseLang raw = fromJustWithText message $ readMaybe raw where
-  message = "Lang '" <> toText raw <> "' is not valid lang. Valid langs are : " <> show langs
+data LangWithOptions = LangWithOptions
+  { lang      :: !Lang
+  , bfType    :: !BFType
+  , tokenType :: !TokenType
+  }
 
-langs :: [Lang]
-langs = generateEnums 9
+-- Lang
 
 defaultLang :: Lang
 defaultLang = defaultEnum
+
+langs :: [Lang]
+langs = generateEnums 9
 
 data Lang = Cat | Rev | BF | ETA | F | Lazy | SQ | WS | Zot
   deriving stock (Bounded , Enum , Eq , Read , Show)

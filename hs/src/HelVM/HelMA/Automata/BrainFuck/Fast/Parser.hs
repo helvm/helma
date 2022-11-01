@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.BrainFuck.Fast.Parser (
+  parseAsVectorSafe,
   parseAsVector,
 ) where
 
@@ -11,16 +12,18 @@ import           HelVM.HelMA.Automaton.ReadPExtra
 
 import           HelVM.HelIO.Control.Safe
 
---import qualified Data.ListLike                                                       as LL
 import qualified Data.Text                                               as Text
 import qualified Data.Vector                                             as Vector
 
 import           Text.ParserCombinators.ReadP                            hiding (many)
 
-parseAsVector :: MonadSafe m => Source -> m SomeInstructionVector
+parseAsVectorSafe :: Source -> Safe FastInstructionVector
+parseAsVectorSafe = parseAsVector
+
+parseAsVector :: MonadSafe m => Source -> m FastInstructionVector
 parseAsVector = runParser parameterizedInstructionsParser . filterComments
 
-parameterizedInstructionsParser :: ReadP SomeInstructionVector
+parameterizedInstructionsParser :: ReadP FastInstructionVector
 parameterizedInstructionsParser = Vector.fromList <$> many1 parameterizedInstructionParser
 
 parameterizedInstructionParser :: ReadP SomeInstruction
@@ -29,18 +32,6 @@ parameterizedInstructionParser =
   <|> incParser   <|> decParser
   <|> outParser   <|> inParser
   <|> whileParser
-
---moveRParser :: ReadP SomeInstruction
---moveRParser = Move . LL.length <$> many1 (char '>')
---
---moveLParser :: ReadP SomeInstruction
---moveLParser = Move . negate . LL.length <$> many1 (char '<')
---
---incParser :: ReadP SomeInstruction
---incParser = Inc . LL.length <$> many1 (char '+')
---
---decParser :: ReadP SomeInstruction
---decParser = Inc . negate . LL.length <$> many1 (char '-')
 
 moveRParser :: ReadP SomeInstruction
 moveRParser = Move 1 <$ char '>'

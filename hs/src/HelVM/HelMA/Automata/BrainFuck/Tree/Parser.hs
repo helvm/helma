@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.BrainFuck.Tree.Parser (
+  parseAsVectorSafe,
   parseAsVector,
 ) where
 
@@ -16,6 +17,9 @@ import qualified Data.Text                                               as Text
 import qualified Data.Vector                                             as Vector
 
 import           Text.ParserCombinators.ReadP                            hiding (many)
+
+parseAsVectorSafe :: Source -> Safe TreeInstructionVector
+parseAsVectorSafe = parseAsVector
 
 parseAsVector :: MonadSafe m => Source -> m TreeInstructionVector
 parseAsVector = runParser treeInstructionsParser . filterComments

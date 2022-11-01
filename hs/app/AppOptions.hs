@@ -1,6 +1,8 @@
 {-# LANGUAGE StrictData #-}
 module AppOptions where
 
+import           BoolTypes
+import           Emit
 import           Lang
 
 import           HelVM.HelMA.Automaton.Types.CellType
@@ -17,37 +19,36 @@ import           Options.Applicative
 
 optionParser :: Parser AppOptions
 optionParser = AppOptions
-  <$> option auto  (  long    "lang"
+  <$> option auto  (  long    "Emit"
+                   <> short   'E'
+                   <> metavar "[Emit]"
+                   <> help   ("Type of emit " <> show emits)
+                   <> value    defaultEmit
+                   <> showDefault
+                   )
+  <*> switch       (  long    "print-logs"
+                   <> short   'L'
+                   <> help    "Pring logs to strerr"
+                   <> showDefault
+                   )
+  <*> option auto  (  long    "lang"
                    <> short   'l'
                    <> metavar "[LANG]"
                    <> help   ("Language to interpret " <> show langs)
                    <> value    defaultLang
                    <> showDefault
                    )
+  <*> option auto  (  long    "BFType"
+                   <> short   'b'
+                   <> metavar "[BFType]"
+                   <> help   ("Type of BF implementation " <> show bfTypes)
+                   <> value    defaultBFType
+                   <> showDefault
+                   )
   <*> flag WhiteTokenType VisibleTokenType
-                   (  long    "visibleTokes"
+                   (  long    "tokenType"
                    <> short   't'
                    <> help    "Visible tokens for WS"
-                   <> showDefault
-                   )
-  <*> switch       (  long    "minification"
-                   <> short   'M'
-                   <> help    "Emit minified code"
-                   <> showDefault
-                   )
-  <*> switch       (  long    "emit-tl"
-                   <> short   'T'
-                   <> help    "Emit the lexed tokens"
-                   <> showDefault
-                   )
-  <*> switch       (  long    "emit-il"
-                   <> short   'I'
-                   <> help    "Emit the parsed instructions"
-                   <> showDefault
-                   )
-  <*> switch       (  long    "print-logs"
-                   <> short   'L'
-                   <> help    "Pring logs to strerr"
                    <> showDefault
                    )
   <*> switch       (  long    "compile"
@@ -59,13 +60,6 @@ optionParser = AppOptions
                    (  long    "ascii-labels"
                    <> short   'A'
                    <> help    "Use ascii labels"
-                   <> showDefault
-                   )
-  <*> option auto  (  long    "BFType"
-                   <> short   'b'
-                   <> metavar "[BFType]"
-                   <> help   ("Type of BF implementation " <> show bfTypes)
-                   <> value    defaultBFType
                    <> showDefault
                    )
   <*> option auto  (  long    "RAMType"
@@ -111,27 +105,20 @@ optionParser = AppOptions
   <*> argument str (  metavar "FILE")
 
 data AppOptions = AppOptions
-  { lang          :: !Lang
-  , visibleTokens :: !TokenType
-  , minified      :: !Minified
-  , emitTL        :: !EmitTL
-  , emitIL        :: !EmitIL
-  , printLogs     :: !PrintLogs
-  , compile       :: !Compile
-  , formatType    :: !FormatType
-  , bfType        :: !BFType
-  , ramType       :: !RAMType
-  , stackType     :: !StackType
-  , cellType      :: !CellType
-  , intCellType   :: !IntCellType
-  , dumpType      :: !DumpType
-  , exec          :: !Exec
-  , file          :: !String
-  }
+  { emit        :: !Emit
+  , printLogs   :: !PrintLogs
 
-type Minified      = Bool
-type EmitIL        = Bool
-type EmitTL        = Bool
-type PrintLogs     = Bool
-type Compile       = Bool
-type Exec          = Bool
+  , lang        :: !Lang
+  , bfType      :: !BFType
+  , tokenType   :: !TokenType
+
+  , compile     :: !Compile
+  , formatType  :: !FormatType
+  , ramType     :: !RAMType
+  , stackType   :: !StackType
+  , cellType    :: !CellType
+  , intCellType :: !IntCellType
+  , dumpType    :: !DumpType
+  , exec        :: !Exec
+  , file        :: !String
+  }

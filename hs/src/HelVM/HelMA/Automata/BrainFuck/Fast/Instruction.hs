@@ -8,9 +8,9 @@ data SomeInstruction =
   | Inc Int
   | Output
   | Input
-  | While SomeInstructionVector
+  | While FastInstructionVector
   deriving stock (Eq , Read , Show)
 
 type SomeInstructionList   = [SomeInstruction]
 type SomeInstructionDList  = D.DList SomeInstruction
-type SomeInstructionVector = V.Vector SomeInstruction
+type FastInstructionVector = V.Vector SomeInstruction

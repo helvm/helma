@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.3.1 -- 2022-11-01
+
+* Use optparse-applicative for CLI better - Add Emit option for CLI
+
 ## 0.8.3.0 -- 2022-11-01
 
 * Implement BrainFuck fast interpreter
@@ -10,7 +14,7 @@
 
 ## 0.8.1.2 -- 2022-09-26
 
-*  Use optparse-applicative for CLI better
+Use optparse-applicative for CLI better
 
 ## 0.8.1.1 -- 2022-09-23
 

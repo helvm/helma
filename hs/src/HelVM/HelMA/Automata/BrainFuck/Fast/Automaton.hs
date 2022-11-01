@@ -19,7 +19,7 @@ import           Control.Type.Operator
 runSource :: (BIO m , Symbol e) => Source -> FullTape e -> DumpType -> m ()
 runSource source tape dt = logDump dt =<< flip evalVector tape =<< parseAsVector source
 
-evalVector :: (BIO m , Symbol e) => SomeInstructionVector -> FullTape e -> m $ Unit e
+evalVector :: (BIO m , Symbol e) => FastInstructionVector -> FullTape e -> m $ Unit e
 evalVector iv = nextStep (IU iv 0)
 
 nextStep :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Unit e
@@ -33,7 +33,7 @@ doInstruction (Just  Input     ) table tape = doInputChar  table                
 doInstruction (Just (While  iv)) table tape = doWhile iv   table                 tape
 doInstruction  Nothing           table tape = doEnd        table                 tape
 
-doWhile :: (BIO m , Symbol e) => SomeInstructionVector -> InstructionUnit -> FullTape e -> m $ Unit e
+doWhile :: (BIO m , Symbol e) => FastInstructionVector -> InstructionUnit -> FullTape e -> m $ Unit e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape
 doWhile iv table tape           = doWhileWithTape =<< evalVector iv tape where
   doWhileWithTape :: (BIO m , Symbol e) => Unit e -> m $ Unit e
@@ -58,7 +58,7 @@ data Unit e = Unit
   }
   deriving stock (Eq , Show)
 
-data InstructionUnit = IU !SomeInstructionVector !InstructionCounter
+data InstructionUnit = IU !FastInstructionVector !InstructionCounter
   deriving stock (Eq , Show)
 
 type InstructionCounter = Int
