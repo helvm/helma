@@ -78,5 +78,5 @@ simpleInstructionChars = show =<< Simple.simpleInstructions
 
 --
 
-negate1 :: Int
+negate1 :: Integer
 negate1 = negate 1

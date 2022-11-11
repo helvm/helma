@@ -71,10 +71,10 @@
         , Inc
             ( -1 )
         , Output
-        , Clear
+        , Set 0
         , Move
             ( -2 )
-        , Clear
+        , Set 0
         , Move
             ( -1 )
         , Inc
@@ -98,7 +98,7 @@
         , Output
         , Inc 5
         , Output
-        , Clear
+        , Set 0
         , Move
             ( -3 )
         , Inc
@@ -119,7 +119,7 @@
         ]
     , Move 1
     , Output
-    , Clear
+    , Set 0
     , Move
         ( -2 )
     , Inc
@@ -174,7 +174,7 @@
     ( -1 )
 , Output
 , While
-    [ Clear
+    [ Set 0
     , Move
         ( -1 )
     ]

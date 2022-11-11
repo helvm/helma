@@ -4,26 +4,21 @@ module HelVM.HelMA.Automata.BrainFuck.Common.Symbol (
   def,
   next,
   prev,
+  toInteger,
   fromChar,
   toChar,
   Symbol,
 ) where
 
-import           Control.Monad.Extra
+import           Data.Default (Default)
 
-import           Data.Default        (Default)
+import qualified Data.Default as Default
+import qualified Relude.Extra as Extra
 
-import qualified Data.Default        as Default
-import qualified Relude.Extra        as Extra
+inc :: Symbol e => e -> e -> e
+inc = flip (+)
 
-inc :: Symbol e => Int -> e -> e
-inc i e = loop atc (i , e) where
-  atc (i' , e') = (check . compare0) i' where
-    check LT = Left (i' - 1 , next e')
-    check GT = Left (i' + 1 , prev e')
-    check EQ = Right e'
-
-compare0 :: Int -> Ordering
+compare0 :: Integer -> Ordering
 compare0 = compare 0
 
 --
@@ -37,49 +32,60 @@ next = Extra.next
 prev :: Symbol e => e -> e
 prev = Extra.prev
 
-class (Bounded e , Default e , Enum e , Eq e , Num e , Show e) => Symbol e where
+class (Bounded e , Default e , Enum e , Eq e , Integral e , Show e) => Symbol e where
+--  toInteger  :: e -> Integer
   fromChar   :: Char -> e
   toChar     :: e -> Char
 
 --
 
 instance Symbol Int where
+--  toInteger  = fromIntegral
   fromChar   = ord
   toChar     = chr
 
 instance Symbol Word where
+--  toInteger  = fromIntegral
   fromChar   = fromIntegral . ord
   toChar     = chr . fromIntegral
 
 instance Symbol Int8 where
+--  toInteger  = fromIntegral
   fromChar   = fromIntegral . ord
   toChar     = chr . normalizeMod . fromIntegral
 
 instance Symbol Word8 where
+--  toInteger  = fromIntegral
   fromChar   = fromIntegral . ord
   toChar     = chr . fromIntegral
 
 instance Symbol Int16 where
+--  toInteger  = fromIntegral
   fromChar   = fromIntegral . ord
   toChar     = chr . normalizeMod . fromIntegral
 
 instance Symbol Word16 where
+--  toInteger  = fromIntegral
   fromChar   = fromIntegral . ord
   toChar     = chr . fromIntegral
 
 instance Symbol Int32 where
+--  toInteger  = fromIntegral
   fromChar   = fromIntegral . ord
   toChar     = chr . normalizeMod . fromIntegral
 
 instance Symbol Word32 where
+--  toInteger  = fromIntegral
   fromChar   = fromIntegral . ord
   toChar     = chr . fromIntegral
 
 instance Symbol Int64 where
+--  toInteger  = fromIntegral
   fromChar   = fromIntegral . ord
   toChar     = chr . normalizeMod . fromIntegral
 
 instance Symbol Word64 where
+--  toInteger  = fromIntegral
   fromChar   = fromIntegral . ord
   toChar     = chr . fromIntegral
 --

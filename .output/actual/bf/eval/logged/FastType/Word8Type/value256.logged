@@ -73,10 +73,10 @@ dump: Unit
                 , Inc
                     ( -1 )
                 , Output
-                , Clear
+                , Set 0
                 , Move
                     ( -2 )
-                , Clear
+                , Set 0
                 , Move
                     ( -1 )
                 , Inc
@@ -100,7 +100,7 @@ dump: Unit
                 , Output
                 , Inc 5
                 , Output
-                , Clear
+                , Set 0
                 , Move
                     ( -3 )
                 , Inc
@@ -121,7 +121,7 @@ dump: Unit
                 ]
             , Move 1
             , Output
-            , Clear
+            , Set 0
             , Move
                 ( -2 )
             , Inc
@@ -176,7 +176,7 @@ dump: Unit
             ( -1 )
         , Output
         , While
-            [ Clear
+            [ Set 0
             , Move
                 ( -1 )
             ]

@@ -15,25 +15,10 @@
     ( -6 )
 , While
     [ Move 1
-    , While
-        [ Move 6
-        , Inc 1
-        , Move 1
-        , Inc 1
-        , Move
-            ( -7 )
-        , Inc
-            ( -1 )
-        ]
+    , DupClr 6 1
     , Move 7
-    , While
-        [ Move
-            ( -7 )
-        , Inc 1
-        , Move 7
-        , Inc
-            ( -1 )
-        ]
+    , AddClr
+        ( -7 )
     , Move
         ( -1 )
     , While
@@ -46,82 +31,45 @@
                 ( -1 )
             , Inc
                 ( -1 )
-            , While
-                [ Move 2
-                , Inc 1
-                , Move 1
-                , Inc 1
-                , Move
-                    ( -3 )
-                , Inc
-                    ( -1 )
-                ]
+            , DupClr 2 1
             , Move 3
-            , While
-                [ Move
-                    ( -3 )
-                , Inc 1
-                , Move 3
-                , Inc
-                    ( -1 )
-                ]
+            , AddClr
+                ( -3 )
             , Inc 1
             , Move
                 ( -1 )
             , While
                 [ Move 1
-                , Clear
+                , Set 0
                 , Move
                     ( -1 )
-                , Clear
+                , Set 0
                 ]
             , Move 1
             , While
                 [ Move
                     ( -2 )
-                , While
-                    [ Move 3
-                    , Inc 1
-                    , Move
-                        ( -3 )
-                    , Inc
-                        ( -1 )
-                    ]
+                , AddClr 3
                 , Move 2
-                , Clear
+                , Set 0
                 ]
             , Move
                 ( -2 )
             ]
         , Move 3
-        , While
-            [ Move 2
-            , Inc 1
-            , Move 1
-            , Inc 1
-            , Move
-                ( -3 )
-            , Inc
-                ( -1 )
-            ]
+        , DupClr 2 1
         , Move 3
-        , While
-            [ Move
-                ( -3 )
-            , Inc 1
-            , Move 3
-            , Inc
-                ( -1 )
-            ]
+        , AddClr
+            ( -3 )
         , Inc 1
         , Move
             ( -1 )
         , While
             [ Move 1
-            , Clear
+            , Set 0
             , Move
                 ( -1 )
-            , Clear
+            , Set 0
             ]
         , Move 1
         , While
@@ -129,7 +77,7 @@
                 ( -2 )
             , Inc 1
             , Move 2
-            , Clear
+            , Set 0
             ]
         , Move
             ( -7 )
@@ -138,45 +86,22 @@
     , While
         [ Inc 48
         , Output
-        , Clear
+        , Set 0
         ]
     , Inc 10
     , Move
         ( -1 )
-    , While
-        [ Inc
-            ( -1 )
-        , Move 1
-        , Inc
-            ( -1 )
-        , Move
-            ( -1 )
-        ]
+    , SubClr 1
     , Move 1
     , Inc 48
     , Output
-    , Clear
+    , Set 0
     , Move
         ( -12 )
-    , While
-        [ Move 3
-        , Inc 1
-        , Move 1
-        , Inc 1
-        , Move
-            ( -4 )
-        , Inc
-            ( -1 )
-        ]
+    , DupClr 3 1
     , Move 4
-    , While
-        [ Move
-            ( -4 )
-        , Inc 1
-        , Move 4
-        , Inc
-            ( -1 )
-        ]
+    , AddClr
+        ( -4 )
     , Move
         ( -1 )
     , Inc
@@ -188,48 +113,21 @@
         , Output
         , Move
             ( -3 )
-        , Clear
+        , Set 0
         ]
     , Move
         ( -2 )
-    , While
-        [ Move 2
-        , Inc 1
-        , Move 1
-        , Inc 1
-        , Move
-            ( -3 )
-        , Inc
-            ( -1 )
-        ]
+    , DupClr 2 1
     , Move 3
-    , While
-        [ Move
-            ( -3 )
-        , Inc 1
-        , Move 3
-        , Inc
-            ( -1 )
-        ]
+    , AddClr
+        ( -3 )
     , Move
         ( -2 )
-    , While
-        [ Move
-            ( -1 )
-        , Inc 1
-        , Move 1
-        , Inc
-            ( -1 )
-        ]
+    , AddClr
+        ( -1 )
     , Move 1
-    , While
-        [ Move
-            ( -1 )
-        , Inc 1
-        , Move 1
-        , Inc
-            ( -1 )
-        ]
+    , AddClr
+        ( -1 )
     , Move
         ( -3 )
     , Inc
@@ -246,25 +144,10 @@
     ( -6 )
 , While
     [ Move 1
-    , While
-        [ Move 6
-        , Inc 1
-        , Move 1
-        , Inc 1
-        , Move
-            ( -7 )
-        , Inc
-            ( -1 )
-        ]
+    , DupClr 6 1
     , Move 7
-    , While
-        [ Move
-            ( -7 )
-        , Inc 1
-        , Move 7
-        , Inc
-            ( -1 )
-        ]
+    , AddClr
+        ( -7 )
     , Move
         ( -1 )
     , While
@@ -277,82 +160,45 @@
                 ( -1 )
             , Inc
                 ( -1 )
-            , While
-                [ Move 2
-                , Inc 1
-                , Move 1
-                , Inc 1
-                , Move
-                    ( -3 )
-                , Inc
-                    ( -1 )
-                ]
+            , DupClr 2 1
             , Move 3
-            , While
-                [ Move
-                    ( -3 )
-                , Inc 1
-                , Move 3
-                , Inc
-                    ( -1 )
-                ]
+            , AddClr
+                ( -3 )
             , Inc 1
             , Move
                 ( -1 )
             , While
                 [ Move 1
-                , Clear
+                , Set 0
                 , Move
                     ( -1 )
-                , Clear
+                , Set 0
                 ]
             , Move 1
             , While
                 [ Move
                     ( -2 )
-                , While
-                    [ Move 3
-                    , Inc 1
-                    , Move
-                        ( -3 )
-                    , Inc
-                        ( -1 )
-                    ]
+                , AddClr 3
                 , Move 2
-                , Clear
+                , Set 0
                 ]
             , Move
                 ( -2 )
             ]
         , Move 3
-        , While
-            [ Move 2
-            , Inc 1
-            , Move 1
-            , Inc 1
-            , Move
-                ( -3 )
-            , Inc
-                ( -1 )
-            ]
+        , DupClr 2 1
         , Move 3
-        , While
-            [ Move
-                ( -3 )
-            , Inc 1
-            , Move 3
-            , Inc
-                ( -1 )
-            ]
+        , AddClr
+            ( -3 )
         , Inc 1
         , Move
             ( -1 )
         , While
             [ Move 1
-            , Clear
+            , Set 0
             , Move
                 ( -1 )
-            , Clear
+            , Set 0
             ]
         , Move 1
         , While
@@ -360,7 +206,7 @@
                 ( -2 )
             , Inc 1
             , Move 2
-            , Clear
+            , Set 0
             ]
         , Move
             ( -7 )
@@ -369,45 +215,22 @@
     , While
         [ Inc 48
         , Output
-        , Clear
+        , Set 0
         ]
     , Inc 10
     , Move
         ( -1 )
-    , While
-        [ Inc
-            ( -1 )
-        , Move 1
-        , Inc
-            ( -1 )
-        , Move
-            ( -1 )
-        ]
+    , SubClr 1
     , Move 1
     , Inc 48
     , Output
-    , Clear
+    , Set 0
     , Move
         ( -12 )
-    , While
-        [ Move 3
-        , Inc 1
-        , Move 1
-        , Inc 1
-        , Move
-            ( -4 )
-        , Inc
-            ( -1 )
-        ]
+    , DupClr 3 1
     , Move 4
-    , While
-        [ Move
-            ( -4 )
-        , Inc 1
-        , Move 4
-        , Inc
-            ( -1 )
-        ]
+    , AddClr
+        ( -4 )
     , Move
         ( -1 )
     , Inc
@@ -419,48 +242,21 @@
         , Output
         , Move
             ( -3 )
-        , Clear
+        , Set 0
         ]
     , Move
         ( -2 )
-    , While
-        [ Move 2
-        , Inc 1
-        , Move 1
-        , Inc 1
-        , Move
-            ( -3 )
-        , Inc
-            ( -1 )
-        ]
+    , DupClr 2 1
     , Move 3
-    , While
-        [ Move
-            ( -3 )
-        , Inc 1
-        , Move 3
-        , Inc
-            ( -1 )
-        ]
+    , AddClr
+        ( -3 )
     , Move
         ( -2 )
-    , While
-        [ Move
-            ( -1 )
-        , Inc 1
-        , Move 1
-        , Inc
-            ( -1 )
-        ]
+    , AddClr
+        ( -1 )
     , Move 1
-    , While
-        [ Move
-            ( -1 )
-        , Inc 1
-        , Move 1
-        , Inc
-            ( -1 )
-        ]
+    , AddClr
+        ( -1 )
     , Move
         ( -3 )
     , Inc

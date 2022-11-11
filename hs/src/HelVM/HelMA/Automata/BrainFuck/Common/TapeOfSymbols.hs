@@ -1,4 +1,10 @@
 module HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols (
+  triAndClearSymbol,
+  dupAndClearSymbol,
+
+  addAndClearSymbol,
+  subAndClearSymbol,
+
   setSymbol,
   incSymbol,
   nextSymbol,
@@ -18,13 +24,45 @@ import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
 
 import           Control.Monad.Extra
 
+-- | Complex instructions
+
+triAndClearSymbol :: (Symbol e) => Integer -> Integer -> Integer -> FullTapeD e
+triAndClearSymbol f1 f2 f3 tape = backAndClear back $ step e f3 $ step e f2 $ step e f1 tape where
+  back = negate (f1 + f2 + f3)
+  e = readSymbol tape
+
+dupAndClearSymbol :: (Symbol e) => Integer -> Integer -> FullTapeD e
+dupAndClearSymbol f1 f2 tape = backAndClear back $ step e f2 $ step e f1 tape where
+  back = negate (f1 + f2)
+  e = readSymbol tape
+
+addAndClearSymbol :: (Symbol e) => Integer -> FullTapeD e
+addAndClearSymbol = changeAndClearSymbol id
+
+subAndClearSymbol :: (Symbol e) => Integer -> FullTapeD e
+subAndClearSymbol = changeAndClearSymbol negate
+
+changeAndClearSymbol :: (Symbol e) => (e -> e) -> Integer -> FullTapeD e
+changeAndClearSymbol f forward tape = backAndClear back $ step e forward tape where
+  back = negate forward
+  e = f $ readSymbol tape
+
+step :: (Symbol e) => e -> Integer -> FullTapeD e
+step e forward = incSymbol' e . moveHead forward
+
+backAndClear :: (Symbol e) => Integer -> FullTapeD e
+backAndClear back = clearSymbol . moveHead back
+
 -- | Change symbols
 
-setSymbol :: (Symbol e) => Int -> FullTapeD e
-setSymbol i = incSymbol i . clearSymbol
+setSymbol :: (Symbol e) => Integer -> FullTapeD e
+setSymbol i = modifyCell $ const $ fromIntegral i
 
-incSymbol :: (Symbol e) => Int -> FullTapeD e
-incSymbol i = modifyCell (inc i)
+incSymbol :: (Symbol e) => Integer -> FullTapeD e
+incSymbol i = incSymbol' (fromIntegral i) --FIXME
+
+incSymbol' :: (Symbol e) => e -> FullTapeD e
+incSymbol' e = modifyCell (inc e) --FIXME
 
 clearSymbol :: (Symbol e) => FullTapeD e
 clearSymbol = modifyCell $ const def
@@ -39,15 +77,19 @@ writeSymbol :: (Symbol e) => Char -> FullTapeD e
 writeSymbol symbol = modifyCell (const $ fromChar symbol)
 
 modifyCell :: D e -> FullTapeD e
-modifyCell f (left , cell : right) = (left , f cell:right)
+modifyCell f (left , cell : right) = (left , f cell : right)
 modifyCell _ (_ , [])              = error "End of the Tape"
+
+readSymbol :: FullTape e -> e
+readSymbol (_ , cell : _) = cell
+readSymbol (_ , [])       = error "End of the Tape"
 
 -- | Moves
 
-moveHead :: (Symbol e) => Int -> FullTapeD e
+moveHead :: (Symbol e) => Integer -> FullTapeD e
 moveHead = changeTape moveHeadRight moveHeadLeft
 
-changeTape :: FullTapeD e -> FullTapeD e -> Int -> FullTapeD e
+changeTape :: FullTapeD e -> FullTapeD e -> Integer -> FullTapeD e
 changeTape lf gf i t = loop atc (i , t) where
   atc (i' , t') = (check . compare0) i' where
     check LT = Left (i' - 1 , lf t')

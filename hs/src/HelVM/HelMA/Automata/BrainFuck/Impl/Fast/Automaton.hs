@@ -27,14 +27,17 @@ nextStep :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Unit e
 nextStep (IU iv ic) = doInstruction (iv `indexMaybe` ic) (IU iv $ ic + 1)
 
 doInstruction :: (BIO m , Symbol e) => Maybe FastInstruction -> InstructionUnit -> FullTape e -> m $ Unit e
-doInstruction (Just (Move   i )) table tape = nextStep     table (moveHead     i tape)
-doInstruction (Just (Inc    i )) table tape = nextStep     table (incSymbol    i tape)
-doInstruction (Just  Output    ) table tape = doOutputChar table                 tape
-doInstruction (Just  Input     ) table tape = doInputChar  table                 tape
-doInstruction (Just (While  iv)) table tape = doWhile iv   table                 tape
-doInstruction (Just  Clear     ) table tape = nextStep     table (clearSymbol    tape)
-doInstruction (Just (Set i    )) table tape = nextStep     table (setSymbol    i tape)
-doInstruction  Nothing           table tape = doEnd        table                 tape
+doInstruction (Just (Move   i )) table tape       = nextStep     table (moveHead          i     tape)
+doInstruction (Just (Inc    i )) table tape       = nextStep     table (incSymbol         i     tape)
+doInstruction (Just  Output    ) table tape       = doOutputChar table                          tape
+doInstruction (Just  Input     ) table tape       = doInputChar  table                          tape
+doInstruction (Just (While  iv)) table tape       = doWhile iv   table                          tape
+doInstruction (Just (Set i    )) table tape       = nextStep     table (setSymbol         i     tape)
+doInstruction (Just (SubClr i )) table tape       = nextStep     table (subAndClearSymbol i     tape)
+doInstruction (Just (AddClr i )) table tape       = nextStep     table (addAndClearSymbol i     tape)
+doInstruction (Just (DupClr i1 i2)) table tape    = nextStep     table (dupAndClearSymbol i1 i2 tape)
+doInstruction (Just (TriClr i1 i2 i3)) table tape = nextStep     table (triAndClearSymbol i1 i2 i3 tape)
+doInstruction  Nothing           table tape       = doEnd        table                          tape
 
 doWhile :: (BIO m , Symbol e) => FastInstructionList -> InstructionUnit -> FullTape e -> m $ Unit e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape

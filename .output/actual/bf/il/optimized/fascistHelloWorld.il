@@ -1,12 +1,12 @@
 [ Move 1
 , Inc 8
 , While
-    [ Inc
-        ( -1 )
-    , Move
+    [ Move
         ( -1 )
     , Inc 9
     , Move 1
+    , Inc
+        ( -1 )
     ]
 , Move
     ( -1 )

@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.3.4 -- 2022-11-12
+
+* Optimize BrainFuck interpreter, add new instructions, `AddClr`, `SubCrl`, `DupClr` and `TriClr`
+
 ## 0.8.3.3 -- 2022-11-11
 
 * Optimize BrainFuck interpreter
