@@ -1,13 +1,7 @@
 [ Move 1
 , Inc 8
-, While
-    [ Move
-        ( -1 )
-    , Inc 9
-    , Move 1
-    , Inc
-        ( -1 )
-    ]
+, MulAddClr 9
+    ( -1 )
 , Move
     ( -1 )
 , Output
@@ -23,16 +17,8 @@
 , Inc 3
 , While
     [ Move 1
-    , While
-        [ Inc
-            ( -1 )
-        , Move 1
-        , Inc 3
-        , Move
-            ( -2 )
-        , Inc 3
-        , Move 1
-        ]
+    , MulDupClr 3 3 1
+        ( -2 )
     , Move
         ( -2 )
     ]

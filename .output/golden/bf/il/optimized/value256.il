@@ -1,21 +1,8 @@
 [ Inc 8
-, While
-    [ Move 1
-    , Inc 8
-    , Move
-        ( -1 )
-    , Inc
-        ( -1 )
-    ]
+, MulAddClr 8 1
 , Move 1
-, While
-    [ Move
-        ( -1 )
-    , Inc 4
-    , Move 1
-    , Inc
-        ( -1 )
-    ]
+, MulAddClr 4
+    ( -1 )
 , Inc 1
 , Move
     ( -1 )
@@ -25,46 +12,19 @@
         ( -1 )
     , Move
         ( -1 )
-    , While
-        [ Move 1
-        , Inc 4
-        , Move
-            ( -1 )
-        , Inc
-            ( -1 )
-        ]
+    , MulAddClr 4 1
     , Move 1
-    , While
-        [ Move
-            ( -1 )
-        , Inc 8
-        , Move 1
-        , Inc
-            ( -1 )
-        ]
+    , MulAddClr 8
+        ( -1 )
     , Move
         ( -1 )
-    , While
-        [ Move 1
-        , Inc 8
-        , Move
-            ( -1 )
-        , Inc
-            ( -1 )
-        ]
+    , MulAddClr 8 1
     , Inc 1
     , Move 1
     , While
         [ Move 1
         , Inc 10
-        , While
-            [ Move 1
-            , Inc 5
-            , Move
-                ( -1 )
-            , Inc
-                ( -1 )
-            ]
+        , MulAddClr 5 1
         , Move 1
         , Inc 1
         , Output
@@ -86,14 +46,7 @@
     , While
         [ Move 2
         , Inc 7
-        , While
-            [ Move 1
-            , Inc 7
-            , Move
-                ( -1 )
-            , Inc
-                ( -1 )
-            ]
+        , MulAddClr 7 1
         , Move 1
         , Output
         , Inc 5
@@ -109,14 +62,7 @@
 , While
     [ Move 1
     , Inc 8
-    , While
-        [ Move 1
-        , Inc 7
-        , Move
-            ( -1 )
-        , Inc
-            ( -1 )
-        ]
+    , MulAddClr 7 1
     , Move 1
     , Output
     , Set 0

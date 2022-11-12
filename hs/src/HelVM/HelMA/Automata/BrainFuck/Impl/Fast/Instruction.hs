@@ -9,7 +9,9 @@ data FastInstruction =
   | Set Integer
   | SubClr Integer
   | AddClr Integer
+  | MulAddClr Integer Integer
   | DupClr Integer Integer
+  | MulDupClr Integer Integer Integer Integer
   | TriClr Integer Integer Integer
   deriving stock (Eq , Read , Show)
 

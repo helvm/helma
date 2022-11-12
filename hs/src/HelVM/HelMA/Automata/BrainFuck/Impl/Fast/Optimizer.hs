@@ -21,26 +21,28 @@ optimizeSet (Inc s : il) = Set s : il
 optimizeSet          il  = Set 0 : il
 
 buildWhile :: FastInstructionList -> FastInstruction
-buildWhile [Move forward , Inc change , Move back , Inc (-1)]                           = buildAdd forward back change
-buildWhile [Inc (-1) , Move forward , Inc change , Move back]                           = buildAdd forward back change
-buildWhile [Move f1 , Inc 1 , Move f2 , Inc 1 , Move back , Inc (-1)]                   = buildDup f1 f2 back
-buildWhile [Inc (-1) , Move f1 , Inc 1 , Move f2 , Inc 1 , Move back]                   = buildDup f1 f2 back
-buildWhile [Move f1 , Inc 1 , Move f2 , Inc 1 , Move f3 , Inc 1 , Move back , Inc (-1)] = buildTri f1 f2 f3 back
-buildWhile [Inc (-1) , Move f1 , Inc 1 , Move f2 , Inc 1 , Move f3 , Inc 1 , Move back] = buildTri f1 f2 f3 back
+buildWhile [Move forward , Inc mul , Move back , Inc (-1)]                              = buildAdd back forward mul
+buildWhile [Inc (-1) , Move forward , Inc mul , Move back]                              = buildAdd back forward mul
+buildWhile [Move f1 , Inc m1 , Move f2 , Inc m2 , Move back , Inc (-1)]                 = buildDup back f1 f2 m1 m2
+buildWhile [Inc (-1) , Move f1 , Inc m1 , Move f2 , Inc m2 , Move back]                 = buildDup back f1 f2 m1 m2
+buildWhile [Move f1 , Inc 1 , Move f2 , Inc 1 , Move f3 , Inc 1 , Move back , Inc (-1)] = buildTri back f1 f2 f3
+buildWhile [Inc (-1) , Move f1 , Inc 1 , Move f2 , Inc 1 , Move f3 , Inc 1 , Move back] = buildTri back f1 f2 f3
 buildWhile il                                                                           = While il
 
 buildAdd :: Integer -> Integer -> Integer -> FastInstruction
-buildAdd forward back change
-  | forward == negate back && change == (-1) = SubClr forward
-  | forward == negate back && change == 1    = AddClr forward
-  | otherwise = While [Move forward , Inc change , Move back , Inc (-1)]
+buildAdd back forward = build (negate back == forward) where
+  build True  (-1) = SubClr        forward
+  build True    1  = AddClr        forward
+  build True  mul  = MulAddClr mul forward
+  build False mul  = While [Move forward , Inc mul , Move back , Inc (-1)]
 
-buildDup :: Integer -> Integer -> Integer -> FastInstruction
-buildDup f1 f2 back
-  | f1 + f2 == negate back = DupClr f1 f2
-  | otherwise = While [Move f1 , Inc 1 , Move f2 , Inc 1 , Move back , Inc (-1)]
+buildDup :: Integer -> Integer -> Integer -> Integer -> Integer -> FastInstruction
+buildDup back f1 f2 = build (negate back == f1 + f2) where
+  build True   1  1 = DupClr          f1 f2
+  build True  m1 m2 = MulDupClr m1 m2 f1 f2
+  build False m1 m2 = While [Move f1 , Inc m1 , Move f2 , Inc m2 , Move back , Inc (-1)]
 
 buildTri :: Integer -> Integer -> Integer -> Integer -> FastInstruction
-buildTri f1 f2 f3 back
+buildTri back f1 f2 f3
   | f1 + f2 + f3 == negate back = TriClr f1 f2 f3
   | otherwise = While [Move f1 , Inc 1 , Move f2 , Inc 1 , Move f3 , Inc 1 , Move back , Inc (-1)]

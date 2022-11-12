@@ -1,7 +1,10 @@
 module HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols (
   triAndClearSymbol,
+
+  mulDupAndClearSymbol,
   dupAndClearSymbol,
 
+  mulAddAndClearSymbol,
   addAndClearSymbol,
   subAndClearSymbol,
 
@@ -27,14 +30,29 @@ import           Control.Monad.Extra
 -- | Complex instructions
 
 triAndClearSymbol :: (Symbol e) => Integer -> Integer -> Integer -> FullTapeD e
-triAndClearSymbol f1 f2 f3 tape = backAndClear back $ step e f3 $ step e f2 $ step e f1 tape where
+triAndClearSymbol f1 f2 f3 tape = tape & stepSymbol f1 & stepSymbol f2 & stepSymbol f3 & backAndClear back where
   back = negate (f1 + f2 + f3)
-  e = readSymbol tape
+  stepSymbol = step symbol
+  symbol = readSymbol tape
+
+mulDupAndClearSymbol :: (Symbol e) => Integer -> Integer -> Integer -> Integer -> FullTapeD e
+mulDupAndClearSymbol m1 m2 f1 f2 tape = tape & step ms1 f1 & step ms2 f2 & backAndClear back where
+  back = negate (f1 + f2)
+  ms1 = symbol * fromIntegral m1
+  ms2 = symbol * fromIntegral m2
+  symbol = readSymbol tape
 
 dupAndClearSymbol :: (Symbol e) => Integer -> Integer -> FullTapeD e
-dupAndClearSymbol f1 f2 tape = backAndClear back $ step e f2 $ step e f1 tape where
+dupAndClearSymbol f1 f2 tape = tape & stepSymbol f1 & stepSymbol f2 & backAndClear back where
   back = negate (f1 + f2)
-  e = readSymbol tape
+  stepSymbol = step symbol
+  symbol = readSymbol tape
+
+mulAddAndClearSymbol :: (Symbol e) => Integer -> Integer -> FullTapeD e
+mulAddAndClearSymbol mul forward tape = tape & step mulSymbol forward & backAndClear back where
+  back = negate forward
+  mulSymbol = symbol * fromIntegral mul
+  symbol = readSymbol tape
 
 addAndClearSymbol :: (Symbol e) => Integer -> FullTapeD e
 addAndClearSymbol = changeAndClearSymbol id
@@ -43,12 +61,12 @@ subAndClearSymbol :: (Symbol e) => Integer -> FullTapeD e
 subAndClearSymbol = changeAndClearSymbol negate
 
 changeAndClearSymbol :: (Symbol e) => (e -> e) -> Integer -> FullTapeD e
-changeAndClearSymbol f forward tape = backAndClear back $ step e forward tape where
+changeAndClearSymbol f forward tape = tape & step symbol forward & backAndClear back where
   back = negate forward
-  e = f $ readSymbol tape
+  symbol = f $ readSymbol tape
 
 step :: (Symbol e) => e -> Integer -> FullTapeD e
-step e forward = incSymbol' e . moveHead forward
+step symbol forward = addSymbol symbol . moveHead forward
 
 backAndClear :: (Symbol e) => Integer -> FullTapeD e
 backAndClear back = clearSymbol . moveHead back
@@ -59,10 +77,10 @@ setSymbol :: (Symbol e) => Integer -> FullTapeD e
 setSymbol i = modifyCell $ const $ fromIntegral i
 
 incSymbol :: (Symbol e) => Integer -> FullTapeD e
-incSymbol i = incSymbol' (fromIntegral i) --FIXME
+incSymbol i = addSymbol $ fromIntegral i
 
-incSymbol' :: (Symbol e) => e -> FullTapeD e
-incSymbol' e = modifyCell (inc e) --FIXME
+addSymbol :: (Symbol e) => e -> FullTapeD e
+addSymbol e = modifyCell $ inc e
 
 clearSymbol :: (Symbol e) => FullTapeD e
 clearSymbol = modifyCell $ const def

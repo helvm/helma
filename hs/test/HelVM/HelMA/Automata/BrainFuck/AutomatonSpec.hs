@@ -34,7 +34,7 @@ spec =
     , ("99botles"              , ""     )
     , ("triangle"              , ""     )
     ] >><| [Int16Type , Word16Type]
-    ) |><| bfTypes) $ \((fileName , input , cellType) , bfType) -> do
+    ) |><| testedBfTypes) $ \((fileName , input , cellType) , bfType) -> do
       let file = readBfFile fileName
       let params = (bfType , , cellType) <$> file
       let exec = ioExecMockIOWithInput input . simpleRun =<< params
@@ -44,3 +44,7 @@ spec =
           calculateOutput <$> exec `goldenShouldIO` buildAbsoluteBfOutFileName path
         it ("logged" </> path) $
           calculateLogged <$> exec `goldenShouldIO` buildAbsoluteBfLogFileName path
+
+testedBfTypes :: [BFType]
+testedBfTypes = [defaultBFType]
+--testedBfTypes = bfTypes

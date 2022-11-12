@@ -28,11 +28,13 @@ span.spaces    { background: white }
 <span class="lineno">    9 </span>  | Set Integer
 <span class="lineno">   10 </span>  | SubClr Integer
 <span class="lineno">   11 </span>  | AddClr Integer
-<span class="lineno">   12 </span>  | DupClr Integer Integer
-<span class="lineno">   13 </span>  | TriClr Integer Integer Integer
-<span class="lineno">   14 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
-<span class="lineno">   15 </span>
-<span class="lineno">   16 </span>type FastInstructionList = [FastInstruction]
+<span class="lineno">   12 </span>  | MulAddClr Integer Integer
+<span class="lineno">   13 </span>  | DupClr Integer Integer
+<span class="lineno">   14 </span>  | MulDupClr Integer Integer Integer Integer
+<span class="lineno">   15 </span>  | TriClr Integer Integer Integer
+<span class="lineno">   16 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>type FastInstructionList = [FastInstruction]
 
 </pre>
 </body>

@@ -4,8 +4,6 @@ module HelVM.HelMA.Automata.BrainFuck.FileExtra (
   buildAbsoluteBfIlFileName,
   buildAbsoluteBfOutFileName,
   buildAbsoluteBfLogFileName,
-  compileToFilePath,
-  options,
 ) where
 
 import           HelVM.HelMA.Automata.FileExtra
@@ -29,7 +27,3 @@ buildAbsoluteBfLogFileName = buildAbsoluteLogFileName lang
 
 lang :: FilePath
 lang = "bf"
-
-compileToFilePath :: Bool -> FilePath
-compileToFilePath False = "flat"
-compileToFilePath True  = "tree"
