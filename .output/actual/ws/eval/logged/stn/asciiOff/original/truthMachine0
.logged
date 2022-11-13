@@ -10,14 +10,14 @@ dump: Unit
             , ICF
                 ( CStatic "0" ( Branch EZ ) )
             , ICF
-                ( Mark "1" )
+                ( SMark "1" )
             , IAL
                 ( Cons 1 )
             , IAL ( SIO OutputDec )
             , ICF
                 ( CStatic "1" Jump )
             , ICF
-                ( Mark "0" )
+                ( SMark "0" )
             , IAL
                 ( Cons 0 )
             , IAL ( SIO OutputDec )

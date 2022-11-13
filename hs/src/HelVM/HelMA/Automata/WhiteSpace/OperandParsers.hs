@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.WhiteSpace.OperandParsers where
 
-import           HelVM.HelMA.Automata.WhiteSpace.Symbol
 import           HelVM.HelMA.Automata.WhiteSpace.Token
+import           HelVM.HelMA.Automaton.Symbol
 
 import           HelVM.HelMA.Automaton.Instruction.CFInstruction
 

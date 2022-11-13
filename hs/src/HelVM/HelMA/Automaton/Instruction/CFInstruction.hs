@@ -2,6 +2,13 @@ module HelVM.HelMA.Automaton.Instruction.CFInstruction where
 
 import           HelVM.HelIO.Collections.SList
 
+-- | Constructors
+
+dJumpI :: CFInstruction
+dJumpI = CDynamic Jump
+
+-- | Others
+
 isNotJump :: Integral e => BranchTest -> e -> Bool
 isNotJump t = not . isJump t
 
@@ -12,7 +19,8 @@ isJump GTZ e = e >  0
 
 -- | Types
 data CFInstruction =
-    Mark     !Label
+    SMark    !Label
+  | DMark    !Natural
   | CStatic  !Label !LabelInstruction
   | CDynamic        !LabelInstruction
   | Return

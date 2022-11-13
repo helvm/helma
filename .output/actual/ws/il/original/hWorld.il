@@ -126,11 +126,11 @@
     ( CStatic "newline" Call )
 , End
 , ICF
-    ( Mark "add" )
+    ( SMark "add" )
 , IAL ( Binary Add )
 , ICF Return
 , ICF
-    ( Mark "write" )
+    ( SMark "write" )
 , IAL
     ( SStatic 0 Copy )
 , ILS Load
@@ -145,12 +145,12 @@
 , ICF
     ( CStatic "write" Jump )
 , ICF
-    ( Mark "write_end" )
+    ( SMark "write_end" )
 , IAL Discard
 , IAL Discard
 , ICF Return
 , ICF
-    ( Mark "read" )
+    ( SMark "read" )
 , IAL
     ( SStatic 0 Copy )
 , IAL
@@ -171,7 +171,7 @@
 , ICF
     ( CStatic "read" Jump )
 , ICF
-    ( Mark "read_end" )
+    ( SMark "read_end" )
 , IAL Discard
 , IAL
     ( Cons 1 )
@@ -181,7 +181,7 @@
 , ILS Store
 , ICF Return
 , ICF
-    ( Mark "newline" )
+    ( SMark "newline" )
 , IAL
     ( Cons 10 )
 , IAL

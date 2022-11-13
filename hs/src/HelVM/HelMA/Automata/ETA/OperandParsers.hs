@@ -11,6 +11,13 @@ import           Control.Monad.Extra
 
 import qualified Data.Vector                        as Vector
 
+parseNumberFromTL :: (MonadSafe m , Integral a) => OperandParser m a
+parseNumberFromTL tl = loop act ([] , tl) where
+  act (acc ,       []) = Right $ ( , [])  <$> makeIntegral7FromList acc
+  act (acc , E  : tl') = Right $ ( , tl') <$> makeIntegral7FromList acc
+  act (acc , R  : tl') = Left (    acc , tl')
+  act (acc , t  : tl') = Left (t : acc , tl')
+
 parseNumber :: (MonadSafe m , Integral a) => OperandIUParser m a
 parseNumber iu = loopM act =<< (([] , ) <$> nextIU iu) where
   act (acc , (Nothing , iu')) = Right . ( , iu') <$> makeIntegral7FromList acc
@@ -25,6 +32,8 @@ nextIU iu@(IU il ic)
   where wrap i = (Just i, IU il (ic+1))
 
 -- | Types
+type OperandParser m a = TokenList -> m (a , TokenList)
+
 data InstructionUnit = IU !TokenVector !InstructionCounter
   deriving stock (Eq , Read , Show)
 

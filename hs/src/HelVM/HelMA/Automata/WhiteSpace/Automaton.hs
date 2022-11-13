@@ -7,21 +7,21 @@ module HelVM.HelMA.Automata.WhiteSpace.Automaton (
   start,
 ) where
 
-import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 import           HelVM.HelMA.Automata.WhiteSpace.Parser
-import           HelVM.HelMA.Automata.WhiteSpace.Symbol
 import           HelVM.HelMA.Automata.WhiteSpace.Token
+
+import           HelVM.HelMA.Automaton.Symbol
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.RunParams
+
+import           HelVM.HelMA.Automaton.Automaton
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 import           HelVM.HelMA.Automaton.IO.EvaluatorIO
 
 import           HelVM.HelMA.Automaton.Instruction
-
-import           HelVM.HelMA.Automaton.Units.CPU              as CPU
 
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.FormatType
@@ -39,7 +39,6 @@ import qualified HelVM.HelIO.Collections.MapList              as MapList
 import qualified HelVM.HelIO.Collections.SList                as SList
 
 import qualified Data.Sequence                                as Seq
-import qualified Data.Vector                                  as Vector
 
 simpleRun :: BIO m => S.SimpleParams -> m ()
 simpleRun p = run (S.tokenType p) (S.source p) (S.formatType p) (S.stackType p) (S.ramType p) (S.dumpType p)
@@ -65,6 +64,3 @@ runIL' :: (REvaluator Symbol r m) => InstructionList -> StackType -> r -> DumpTy
 runIL' il ListStackType  = start il []
 runIL' il SeqStackType   = start il Seq.empty
 runIL' il SListStackType = start il SList.sListEmpty
-
-start :: (SREvaluator Symbol s r m) => InstructionList -> s -> r -> DumpType -> m ()
-start il s r dt = logDump dt =<< next (CU (Vector.fromList il) 0 (IS [])) s r

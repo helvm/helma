@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automata.ETA.AutomatonBenchMark where
 
+import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 import           HelVM.HelMA.Automata.ETA.Automaton
 import           HelVM.HelMA.Automata.ETA.FileExtra
 
@@ -13,7 +14,7 @@ import           System.FilePath.Posix
 import           Gauge.Main
 
 benchMark :: Benchmark
-benchMark = bgroup "ETA" (benchMarkByStackType <$> options |><| stackTypes)
+benchMark = bgroup "ETA" (benchMarkByStackType <$> [defaultETAImplType] |><| stackTypes)
 
 benchMarkByStackType :: BenchParams -> Benchmark
 benchMarkByStackType t = bench (show t) $ nfIO $ execAll t
@@ -53,4 +54,4 @@ ioExec (compile , stackType) dirName fileName inputs = do
     let exec = ioExecMockIOWithInput input . simpleRun =<< params
     calculateOutput <$> exec
 
-type BenchParams = (Bool, StackType)
+type BenchParams = (ETAImplType, StackType)

@@ -7,7 +7,6 @@ import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser as Tree
 import           HelVM.HelMA.Automata.BrainFuck.FileExtra
 
 import           HelVM.HelIO.Control.Safe
-
 import           HelVM.HelIO.Extra
 
 import           HelVM.GoldenExpectations

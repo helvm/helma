@@ -1,9 +1,11 @@
 module HelVM.HelMA.Automata.ETA.LexerSpec (spec) where
 
 import           HelVM.HelMA.Automata.ETA.Lexer
+import           HelVM.HelMA.Automata.ETA.Parser
 
 import           HelVM.HelMA.Automata.ETA.FileExtra
 
+import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.ZipA
 
 import           HelVM.GoldenExpectations
@@ -44,6 +46,8 @@ spec =
     )) $ \(fileName , dirName) -> do
     let path = dirName </> fileName
     let file = readEtaFile path
-    describe path $
+    describe path $ do
       it ("minified" </> path) $
         (show . readTokens <$> file) `goldenShouldIO` buildAbsoluteEtaFileName ("minified" </> path)
+      it ("parsed" </> path) $
+        (safeIOToPTextIO (parseSafe <$> file)) `goldenShouldIO` buildAbsoluteEtaIlFileName ("parsed" </> path)

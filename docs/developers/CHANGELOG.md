@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.3.6 -- 2022-12-10
+
+* Add fast parser for ETA
+
 ## 0.8.3.5 -- 2022-11-13
 
 * Optimize BrainFuck interpreter, add new instruction - `MulDupClr`
