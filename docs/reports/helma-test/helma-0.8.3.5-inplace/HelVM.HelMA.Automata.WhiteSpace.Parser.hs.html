@@ -94,7 +94,7 @@ span.spaces    { background: white }
 <span class="lineno">   75 </span><span class="spaces"></span><span class="istickedoff">parseInstructionHeadAccess      tl  = <span class="nottickedoff">unrecognisedTokensIn &quot;parseInstructionHeadAccess&quot; tl</span></span></span>
 <span class="lineno">   76 </span>
 <span class="lineno">   77 </span>parseInstructionFlowControl :: MonadSafe m =&gt; FormatType -&gt; InstructionParser m
-<span class="lineno">   78 </span><span class="decl"><span class="istickedoff">parseInstructionFlowControl ascii (S : S : tl) = build &lt;$&gt; parseLabel ascii tl where build (label , tl') = (ICF (Mark    label             ) , tl')</span>
+<span class="lineno">   78 </span><span class="decl"><span class="istickedoff">parseInstructionFlowControl ascii (S : S : tl) = build &lt;$&gt; parseLabel ascii tl where build (label , tl') = (ICF (SMark    label             ) , tl')</span>
 <span class="lineno">   79 </span><span class="spaces"></span><span class="istickedoff">parseInstructionFlowControl ascii (S : T : tl) = build &lt;$&gt; parseLabel ascii tl where build (label , tl') = (ICF (CStatic label  Call       ) , tl')</span>
 <span class="lineno">   80 </span><span class="spaces"></span><span class="istickedoff">parseInstructionFlowControl ascii (S : N : tl) = build &lt;$&gt; parseLabel ascii tl where build (label , tl') = (ICF (CStatic label  Jump       ) , tl')</span>
 <span class="lineno">   81 </span><span class="spaces"></span><span class="istickedoff">parseInstructionFlowControl ascii (T : S : tl) = build &lt;$&gt; parseLabel ascii tl where build (label , tl') = (ICF (CStatic label (Branch EZ )) , tl')</span>

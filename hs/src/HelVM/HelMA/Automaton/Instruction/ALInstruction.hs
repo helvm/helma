@@ -4,6 +4,12 @@ import           HelVM.HelMA.Automaton.Instruction.IOInstruction
 
 -- | Constructors
 
+dupI , swapI , rotI , dCopy :: ALInstruction
+dupI  = SStatic 0 Copy
+swapI = SStatic 1 Move
+rotI  = SStatic 2 Move
+dCopy = SDynamic Copy
+
 blAnd :: OperatorType -> BinaryInstruction
 blAnd Bitwise = BAnd
 blAnd Logical = LAnd
@@ -53,12 +59,6 @@ data ALInstruction =
   | Pick
   | Discard
   deriving stock (Eq , Read , Show)
-
-dupI , swapI , rotI , dCopy :: ALInstruction
-dupI  = SStatic 0 Copy
-swapI = SStatic 1 Move
-rotI  = SStatic 2 Move
-dCopy = SDynamic Copy
 
 data UnaryInstruction = Neg | BNot | LNot
   deriving stock (Eq , Read , Show)

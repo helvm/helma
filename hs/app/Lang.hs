@@ -1,14 +1,17 @@
 module Lang where
 
-import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 import           HelVM.HelMA.Automaton.Types.TokenType
+
+import           HelVM.HelMA.Automata.BrainFuck.API.BFType
+import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
 import           HelVM.HelIO.SwitchEnum
 
 data LangWithOptions = LangWithOptions
-  { lang      :: !Lang
-  , bfType    :: !BFType
-  , tokenType :: !TokenType
+  { lang        :: !Lang
+  , bfType      :: !BFType
+  , etaImplType :: !ETAImplType
+  , tokenType   :: !TokenType
   }
 
 -- Lang

@@ -17,6 +17,7 @@ import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser as BF_Tree
 
 import qualified HelVM.HelMA.Automata.ETA.Automaton              as ETA
 import qualified HelVM.HelMA.Automata.ETA.Lexer                  as ETA
+import qualified HelVM.HelMA.Automata.ETA.Parser                 as ETA
 
 import qualified HelVM.HelMA.Automata.FALSE.Parser               as F
 
@@ -59,11 +60,11 @@ main = runApp =<< execParser opts where
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
 runApp:: App.AppOptions -> IO ()
-runApp (App.AppOptions emit printLogs lang bfType tokenType compile formatType ramType stackType cellType intCellType dumpType exec file) = do
+runApp (App.AppOptions emit printLogs lang bfType etaImplType tokenType compile formatType ramType stackType cellType intCellType dumpType exec file) = do
   hSetBuffering stdout IO.NoBuffering
   source <- readSourceFile exec file
   run emit printLogs langWithOptions (runParams source) where
-    langWithOptions  = LangWithOptions lang bfType tokenType
+    langWithOptions  = LangWithOptions lang bfType etaImplType tokenType
     runParams source = RunParams compile formatType source typeOptions
     typeOptions      = TypeOptions ramType stackType cellType intCellType dumpType
 
@@ -78,35 +79,36 @@ run TL   _ l r = tokenize       l (source r)
 run Code _ l r = minification   l (source r)
 
 runWithParams :: BIO m => LangWithOptions-> RunParams -> m ()
-runWithParams (LangWithOptions BF   b _) = BF.runWithParams b
-runWithParams (LangWithOptions Cat  _ _) = Cat.runWithParams
-runWithParams (LangWithOptions ETA  _ _) = ETA.runWithParams
-runWithParams (LangWithOptions F    _ _) = error "FALSE is not supported now"
-runWithParams (LangWithOptions Lazy _ _) = Lazy.runWithParams
-runWithParams (LangWithOptions Rev  _ _) = Rev.runWithParams
-runWithParams (LangWithOptions SQ   _ _) = SQ.runWithParams
-runWithParams (LangWithOptions WS   _ t) = WS.runWithParams t
-runWithParams (LangWithOptions Zot  _ _) = Zot.runWithParams
+runWithParams (LangWithOptions BF   i _ _) = BF.runWithParams i
+runWithParams (LangWithOptions Cat  _ _ _) = Cat.runWithParams
+runWithParams (LangWithOptions ETA  _ i _) = ETA.runWithParams i
+runWithParams (LangWithOptions F    _ _ _) = error "FALSE is not supported now"
+runWithParams (LangWithOptions Lazy _ _ _) = Lazy.runWithParams
+runWithParams (LangWithOptions Rev  _ _ _) = Rev.runWithParams
+runWithParams (LangWithOptions SQ   _ _ _) = SQ.runWithParams
+runWithParams (LangWithOptions WS   _ _ t) = WS.runWithParams t
+runWithParams (LangWithOptions Zot  _ _ _) = Zot.runWithParams
 
 parse :: LangWithOptions -> FormatType -> Source -> IO ()
-parse (LangWithOptions WS   _        VisibleTokenType) f = pPrintNoColor . WS.flipParseVisible f
-parse (LangWithOptions WS   _        WhiteTokenType  ) f = pPrintNoColor . WS.flipParseWhite   f
-parse (LangWithOptions BF   FastType _               ) _ = pPrintNoColor . BF_Fast.parseAsListSafe
-parse (LangWithOptions BF   TreeType _               ) _ = pPrintNoColor . BF_Tree.parseAsVectorSafe
-parse (LangWithOptions F    _        _               ) _ = pPrintNoColor . F.parseSafe
-parse  l                                               _ = tokenize l
+parse (LangWithOptions WS   _        _ VisibleTokenType) f = pPrintNoColor . WS.flipParseVisible f
+parse (LangWithOptions WS   _        _ WhiteTokenType  ) f = pPrintNoColor . WS.flipParseWhite   f
+parse (LangWithOptions BF   FastType _ _               ) _ = pPrintNoColor . BF_Fast.parseAsListSafe
+parse (LangWithOptions BF   TreeType _ _               ) _ = pPrintNoColor . BF_Tree.parseAsVectorSafe
+parse (LangWithOptions ETA  _        _ _               ) _ = pPrintNoColor . ETA.parseSafe
+parse (LangWithOptions F    _        _ _               ) _ = pPrintNoColor . F.parseSafe
+parse  l                                                 _ = tokenize l
 
 tokenize :: LangWithOptions -> Source -> IO ()
-tokenize (LangWithOptions WS  _ VisibleTokenType) = print . WS.tokenizeVisible
-tokenize (LangWithOptions WS  _ WhiteTokenType  ) = print . WS.tokenizeWhite
-tokenize (LangWithOptions ETA _ _               ) = print . ETA.tokenize
-tokenize (LangWithOptions SQ  _ _               ) = print . SQ.tokenize
-tokenize  _                                       = print
+tokenize (LangWithOptions WS  _ _ VisibleTokenType) = print . WS.tokenizeVisible
+tokenize (LangWithOptions WS  _ _ WhiteTokenType  ) = print . WS.tokenizeWhite
+tokenize (LangWithOptions ETA _ _ _               ) = print . ETA.tokenize
+tokenize (LangWithOptions SQ  _ _ _               ) = print . SQ.tokenize
+tokenize  _                                         = print
 
 minification :: LangWithOptions -> Source -> IO ()
-minification (LangWithOptions WS  _ VisibleTokenType) = print . WS.readVisibleTokens
-minification (LangWithOptions WS  _ WhiteTokenType  ) = print . WS.readWhiteTokens
-minification (LangWithOptions BF  _ _               ) = print . BF.readTokens
-minification (LangWithOptions ETA _ _               ) = print . ETA.readTokens
-minification (LangWithOptions SQ  _ _               ) = print . SQ.readSymbols
-minification  _                                       = print
+minification (LangWithOptions WS  _ _ VisibleTokenType) = print . WS.readVisibleTokens
+minification (LangWithOptions WS  _ _ WhiteTokenType  ) = print . WS.readWhiteTokens
+minification (LangWithOptions BF  _ _ _               ) = print . BF.readTokens
+minification (LangWithOptions ETA _ _ _               ) = print . ETA.readTokens
+minification (LangWithOptions SQ  _ _ _               ) = print . SQ.readSymbols
+minification  _                                         = print

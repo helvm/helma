@@ -9,5 +9,6 @@ defaultBFType = defaultEnum
 bfTypes :: [BFType]
 bfTypes = generateEnums 3
 
+-- | Type
 data BFType = FastType | TreeType | FlatType
   deriving stock (Bounded , Enum , Eq , Read , Show)

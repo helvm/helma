@@ -1,5 +1,5 @@
 [ ICF
-    ( Mark "st" )
+    ( SMark "st" )
 , IAL
     ( Cons 0 )
 , IAL
@@ -47,7 +47,7 @@
 , IAL
     ( Cons 0 )
 , ICF
-    ( Mark "f_start_1" )
+    ( SMark "f_start_1" )
 , IAL
     ( SStatic 0 Copy )
 , IAL
@@ -69,12 +69,12 @@
 , ICF
     ( CStatic "f_start_1" Jump )
 , ICF
-    ( Mark "f_finished_1" )
+    ( SMark "f_finished_1" )
 , IAL Discard
 , IAL
     ( Cons 2 )
 , ICF
-    ( Mark "f_start_2" )
+    ( SMark "f_start_2" )
 , IAL
     ( SStatic 0 Copy )
 , IAL
@@ -85,7 +85,7 @@
 , IAL
     ( Cons 2 )
 , ICF
-    ( Mark "f_start_3" )
+    ( SMark "f_start_3" )
 , IAL
     ( SStatic 0 Copy )
 , IAL
@@ -130,7 +130,7 @@
 , ICF
     ( CStatic "f_start_3" Jump )
 , ICF
-    ( Mark "f_finished_3" )
+    ( SMark "f_finished_3" )
 , IAL Discard
 , IAL
     ( Cons 1 )
@@ -138,12 +138,12 @@
 , ICF
     ( CStatic "f_start_2" Jump )
 , ICF
-    ( Mark "f_finished_2" )
+    ( SMark "f_finished_2" )
 , IAL Discard
 , IAL
     ( Cons 2 )
 , ICF
-    ( Mark "f_start_4" )
+    ( SMark "f_start_4" )
 , IAL
     ( SStatic 0 Copy )
 , IAL
@@ -169,14 +169,14 @@
 , ICF
     ( CStatic "prints" Call )
 , ICF
-    ( Mark "nodraw" )
+    ( SMark "nodraw" )
 , IAL
     ( Cons 1 )
 , IAL ( Binary Add )
 , ICF
     ( CStatic "f_start_4" Jump )
 , ICF
-    ( Mark "f_finished_4" )
+    ( SMark "f_finished_4" )
 , IAL Discard
 , IAL
     ( Cons 0 )
@@ -184,7 +184,7 @@
     ( CStatic "printsln" Call )
 , End
 , ICF
-    ( Mark "prints" )
+    ( SMark "prints" )
 , IAL
     ( SStatic 0 Copy )
 , ICF
@@ -193,11 +193,11 @@
 , ICF
     ( CStatic "prints" Jump )
 , ICF
-    ( Mark "prints_end" )
+    ( SMark "prints_end" )
 , IAL Discard
 , ICF Return
 , ICF
-    ( Mark "printsln" )
+    ( SMark "printsln" )
 , ICF
     ( CStatic "prints" Call )
 , IAL

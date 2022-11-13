@@ -14,6 +14,7 @@ import           HelVM.HelMA.Automaton.Types.StackType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.HelMA.Automata.BrainFuck.API.BFType
+import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
 import           Options.Applicative
 
@@ -43,6 +44,12 @@ optionParser = AppOptions
                    <> metavar "[BFType]"
                    <> help   ("Type of BF implementation " <> show bfTypes)
                    <> value    defaultBFType
+                   <> showDefault
+                   )
+  <*> option auto  (  long    "ETAImplType"
+                   <> metavar "[ETAImplType]"
+                   <> help   ("Type of ETA implementation " <> show etaImplTypes)
+                   <> value    defaultETAImplType
                    <> showDefault
                    )
   <*> flag WhiteTokenType VisibleTokenType
@@ -110,6 +117,7 @@ data AppOptions = AppOptions
 
   , lang        :: !Lang
   , bfType      :: !BFType
+  , etaImplType :: !ETAImplType
   , tokenType   :: !TokenType
 
   , compile     :: !Compile

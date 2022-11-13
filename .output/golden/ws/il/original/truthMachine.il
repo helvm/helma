@@ -7,14 +7,14 @@
 , ICF
     ( CStatic "\x0" ( Branch EZ ) )
 , ICF
-    ( Mark "\x1" )
+    ( SMark "\x1" )
 , IAL
     ( Cons 1 )
 , IAL ( SIO OutputDec )
 , ICF
     ( CStatic "\x1" Jump )
 , ICF
-    ( Mark "\x0" )
+    ( SMark "\x0" )
 , IAL
     ( Cons 0 )
 , IAL ( SIO OutputDec )

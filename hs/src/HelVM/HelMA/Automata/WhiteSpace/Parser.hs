@@ -75,7 +75,7 @@ parseInstructionHeadAccess (T : tl) = pure (ILS Load  , tl)
 parseInstructionHeadAccess      tl  = unrecognisedTokensIn "parseInstructionHeadAccess" tl
 
 parseInstructionFlowControl :: MonadSafe m => FormatType -> InstructionParser m
-parseInstructionFlowControl ascii (S : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (ICF (Mark    label             ) , tl')
+parseInstructionFlowControl ascii (S : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (ICF (SMark    label             ) , tl')
 parseInstructionFlowControl ascii (S : T : tl) = build <$> parseLabel ascii tl where build (label , tl') = (ICF (CStatic label  Call       ) , tl')
 parseInstructionFlowControl ascii (S : N : tl) = build <$> parseLabel ascii tl where build (label , tl') = (ICF (CStatic label  Jump       ) , tl')
 parseInstructionFlowControl ascii (T : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (ICF (CStatic label (Branch EZ )) , tl')

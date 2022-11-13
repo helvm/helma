@@ -1,7 +1,7 @@
 [ IAL
     ( Cons 3 )
 , ICF
-    ( Mark "LOOP" )
+    ( SMark "LOOP" )
 , IAL
     ( SStatic 0 Copy )
 , IAL ( SIO OutputDec )
@@ -247,10 +247,10 @@
 , ICF
     ( CStatic "LOOP" Jump )
 , ICF
-    ( Mark "LOOP:1" )
+    ( SMark "LOOP:1" )
 , End
 , ICF
-    ( Mark "prints" )
+    ( SMark "prints" )
 , IAL
     ( SStatic 0 Copy )
 , ICF
@@ -259,11 +259,11 @@
 , ICF
     ( CStatic "prints" Jump )
 , ICF
-    ( Mark "prints_end" )
+    ( SMark "prints_end" )
 , IAL Discard
 , ICF Return
 , ICF
-    ( Mark "printsln" )
+    ( SMark "printsln" )
 , ICF
     ( CStatic "prints" Call )
 , IAL

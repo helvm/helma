@@ -26,21 +26,21 @@ span.spaces    { background: white }
 <span class="lineno">    7 </span>  start,
 <span class="lineno">    8 </span>) where
 <span class="lineno">    9 </span>
-<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
-<span class="lineno">   11 </span>import           HelVM.HelMA.Automata.WhiteSpace.Lexer
-<span class="lineno">   12 </span>import           HelVM.HelMA.Automata.WhiteSpace.Parser
-<span class="lineno">   13 </span>import           HelVM.HelMA.Automata.WhiteSpace.Symbol
-<span class="lineno">   14 </span>import           HelVM.HelMA.Automata.WhiteSpace.Token
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.WhiteSpace.Lexer
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automata.WhiteSpace.Parser
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automata.WhiteSpace.Token
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.Symbol
 <span class="lineno">   15 </span>
 <span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.API.IOTypes
 <span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.API.RunParams
 <span class="lineno">   18 </span>
-<span class="lineno">   19 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
-<span class="lineno">   20 </span>import           HelVM.HelMA.Automaton.IO.EvaluatorIO
-<span class="lineno">   21 </span>
-<span class="lineno">   22 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">   19 </span>import           HelVM.HelMA.Automaton.Automaton
+<span class="lineno">   20 </span>
+<span class="lineno">   21 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
+<span class="lineno">   22 </span>import           HelVM.HelMA.Automaton.IO.EvaluatorIO
 <span class="lineno">   23 </span>
-<span class="lineno">   24 </span>import           HelVM.HelMA.Automaton.Units.CPU              as CPU
+<span class="lineno">   24 </span>import           HelVM.HelMA.Automaton.Instruction
 <span class="lineno">   25 </span>
 <span class="lineno">   26 </span>import           HelVM.HelMA.Automaton.Types.DumpType
 <span class="lineno">   27 </span>import           HelVM.HelMA.Automaton.Types.FormatType
@@ -58,35 +58,31 @@ span.spaces    { background: white }
 <span class="lineno">   39 </span>import qualified HelVM.HelIO.Collections.SList                as SList
 <span class="lineno">   40 </span>
 <span class="lineno">   41 </span>import qualified Data.Sequence                                as Seq
-<span class="lineno">   42 </span>import qualified Data.Vector                                  as Vector
-<span class="lineno">   43 </span>
-<span class="lineno">   44 </span>simpleRun :: BIO m =&gt; S.SimpleParams -&gt; m ()
-<span class="lineno">   45 </span><span class="decl"><span class="istickedoff">simpleRun p = run (S.tokenType p) (S.source p) (S.formatType p) (S.stackType p) (S.ramType p) (S.dumpType p)</span></span>
-<span class="lineno">   46 </span>
-<span class="lineno">   47 </span>----
-<span class="lineno">   48 </span>
-<span class="lineno">   49 </span>runWithParams :: BIO m =&gt; TokenType -&gt; RunParams -&gt; m ()
-<span class="lineno">   50 </span><span class="decl"><span class="nottickedoff">runWithParams tokenType p = run tokenType (source p) (formatType p) (stackTypeOptions p) (ramTypeOptions p) (dumpTypeOptions p)</span></span>
-<span class="lineno">   51 </span>
-<span class="lineno">   52 </span>run :: BIO m =&gt; TokenType -&gt; Source -&gt; FormatType -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
-<span class="lineno">   53 </span><span class="decl"><span class="istickedoff">run tokenType source = runTL $ tokenize tokenType source</span></span>
-<span class="lineno">   54 </span>
-<span class="lineno">   55 </span>runTL :: BIO m =&gt; TokenList -&gt; FormatType -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
-<span class="lineno">   56 </span><span class="decl"><span class="istickedoff">runTL tl ascii st rt dt = runTL' =&lt;&lt; liftSafe (parseFromTL ascii tl) where runTL' il = runIL il st rt dt</span></span>
-<span class="lineno">   57 </span>
-<span class="lineno">   58 </span>runIL :: BIO m =&gt; InstructionList -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
-<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">runIL il s ListRAMType    = <span class="nottickedoff">runIL' il s []</span></span>
-<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">runIL il s SeqRAMType     = <span class="nottickedoff">runIL' il s Seq.empty</span></span>
-<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">runIL il s SListRAMType   = <span class="nottickedoff">runIL' il s SList.sListEmpty</span></span>
-<span class="lineno">   62 </span><span class="spaces"></span><span class="istickedoff">runIL il s MapListRAMType = runIL' il s MapList.mapListEmpty</span></span>
-<span class="lineno">   63 </span>
-<span class="lineno">   64 </span>runIL' :: (REvaluator Symbol r m) =&gt; InstructionList -&gt; StackType -&gt; r -&gt; DumpType -&gt; m ()
-<span class="lineno">   65 </span><span class="decl"><span class="istickedoff">runIL' il ListStackType  = <span class="nottickedoff">start il []</span></span>
-<span class="lineno">   66 </span><span class="spaces"></span><span class="istickedoff">runIL' il SeqStackType   = start il Seq.empty</span>
-<span class="lineno">   67 </span><span class="spaces"></span><span class="istickedoff">runIL' il SListStackType = <span class="nottickedoff">start il SList.sListEmpty</span></span></span>
-<span class="lineno">   68 </span>
-<span class="lineno">   69 </span>start :: (SREvaluator Symbol s r m) =&gt; InstructionList -&gt; s -&gt; r -&gt; DumpType -&gt; m ()
-<span class="lineno">   70 </span><span class="decl"><span class="istickedoff">start il s r dt = logDump dt =&lt;&lt; next (CU (Vector.fromList il) 0 (IS [])) s r</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>simpleRun :: BIO m =&gt; S.SimpleParams -&gt; m ()
+<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">simpleRun p = run (S.tokenType p) (S.source p) (S.formatType p) (S.stackType p) (S.ramType p) (S.dumpType p)</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>----
+<span class="lineno">   47 </span>
+<span class="lineno">   48 </span>runWithParams :: BIO m =&gt; TokenType -&gt; RunParams -&gt; m ()
+<span class="lineno">   49 </span><span class="decl"><span class="nottickedoff">runWithParams tokenType p = run tokenType (source p) (formatType p) (stackTypeOptions p) (ramTypeOptions p) (dumpTypeOptions p)</span></span>
+<span class="lineno">   50 </span>
+<span class="lineno">   51 </span>run :: BIO m =&gt; TokenType -&gt; Source -&gt; FormatType -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">run tokenType source = runTL $ tokenize tokenType source</span></span>
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>runTL :: BIO m =&gt; TokenList -&gt; FormatType -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
+<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">runTL tl ascii st rt dt = runTL' =&lt;&lt; liftSafe (parseFromTL ascii tl) where runTL' il = runIL il st rt dt</span></span>
+<span class="lineno">   56 </span>
+<span class="lineno">   57 </span>runIL :: BIO m =&gt; InstructionList -&gt; StackType -&gt; RAMType -&gt; DumpType -&gt; m ()
+<span class="lineno">   58 </span><span class="decl"><span class="istickedoff">runIL il s ListRAMType    = <span class="nottickedoff">runIL' il s []</span></span>
+<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">runIL il s SeqRAMType     = <span class="nottickedoff">runIL' il s Seq.empty</span></span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">runIL il s SListRAMType   = <span class="nottickedoff">runIL' il s SList.sListEmpty</span></span>
+<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">runIL il s MapListRAMType = runIL' il s MapList.mapListEmpty</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>runIL' :: (REvaluator Symbol r m) =&gt; InstructionList -&gt; StackType -&gt; r -&gt; DumpType -&gt; m ()
+<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">runIL' il ListStackType  = <span class="nottickedoff">start il []</span></span>
+<span class="lineno">   65 </span><span class="spaces"></span><span class="istickedoff">runIL' il SeqStackType   = start il Seq.empty</span>
+<span class="lineno">   66 </span><span class="spaces"></span><span class="istickedoff">runIL' il SListStackType = <span class="nottickedoff">start il SList.sListEmpty</span></span></span>
 
 </pre>
 </body>

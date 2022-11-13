@@ -50,27 +50,21 @@ span.spaces    { background: white }
 <span class="lineno">   31 </span>
 <span class="lineno">   32 </span>buildAdd :: Integer -&gt; Integer -&gt; Integer -&gt; FastInstruction
 <span class="lineno">   33 </span><span class="decl"><span class="istickedoff">buildAdd back forward = build (negate back == forward) where</span>
-<span class="lineno">   34 </span><span class="spaces">  </span><span class="istickedoff">build True  (-1) = SubClr forward</span>
-<span class="lineno">   35 </span><span class="spaces">  </span><span class="istickedoff">build True    1  = AddClr forward</span>
+<span class="lineno">   34 </span><span class="spaces">  </span><span class="istickedoff">build True  (-1) = SubClr        forward</span>
+<span class="lineno">   35 </span><span class="spaces">  </span><span class="istickedoff">build True    1  = AddClr        forward</span>
 <span class="lineno">   36 </span><span class="spaces">  </span><span class="istickedoff">build True  mul  = MulAddClr mul forward</span>
 <span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">build False mul  = <span class="nottickedoff">While [Move forward , Inc mul , Move back , Inc (-1)]</span></span></span>
 <span class="lineno">   38 </span>
-<span class="lineno">   39 </span>--buildDup :: Integer -&gt; Integer -&gt; Integer -&gt; Integer -&gt; Integer -&gt; FastInstruction
-<span class="lineno">   40 </span>--buildDup back f1 f2 m1 m2
-<span class="lineno">   41 </span>--  | f1 + f2 == negate back &amp;&amp; m1 == 1 &amp;&amp; m2 == 1 = DupClr f1 f2
-<span class="lineno">   42 </span>--  | f1 + f2 == negate back = MulDupClr m1 m2 f1 f2
-<span class="lineno">   43 </span>--  | otherwise = While [Move f1 , Inc m1 , Move f2 , Inc m2 , Move back , Inc (-1)]
+<span class="lineno">   39 </span>buildDup :: Integer -&gt; Integer -&gt; Integer -&gt; Integer -&gt; Integer -&gt; FastInstruction
+<span class="lineno">   40 </span><span class="decl"><span class="istickedoff">buildDup back f1 f2 = build (negate back == f1 + f2) where</span>
+<span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">build True   1  1 = DupClr          f1 f2</span>
+<span class="lineno">   42 </span><span class="spaces">  </span><span class="istickedoff">build True  m1 m2 = MulDupClr m1 m2 f1 f2</span>
+<span class="lineno">   43 </span><span class="spaces">  </span><span class="istickedoff">build False m1 m2 = <span class="nottickedoff">While [Move f1 , Inc m1 , Move f2 , Inc m2 , Move back , Inc (-1)]</span></span></span>
 <span class="lineno">   44 </span>
-<span class="lineno">   45 </span>buildDup :: Integer -&gt; Integer -&gt; Integer -&gt; Integer -&gt; Integer -&gt; FastInstruction
-<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">buildDup back f1 f2 = build (negate back == f1 + f2) where</span>
-<span class="lineno">   47 </span><span class="spaces">  </span><span class="istickedoff">build True   1  1 = DupClr f1 f2</span>
-<span class="lineno">   48 </span><span class="spaces">  </span><span class="istickedoff">build True  m1 m2 = MulDupClr m1 m2 f1 f2</span>
-<span class="lineno">   49 </span><span class="spaces">  </span><span class="istickedoff">build False m1 m2 = <span class="nottickedoff">While [Move f1 , Inc m1 , Move f2 , Inc m2 , Move back , Inc (-1)]</span></span></span>
-<span class="lineno">   50 </span>
-<span class="lineno">   51 </span>buildTri :: Integer -&gt; Integer -&gt; Integer -&gt; Integer -&gt; FastInstruction
-<span class="lineno">   52 </span><span class="decl"><span class="nottickedoff">buildTri back f1 f2 f3</span>
-<span class="lineno">   53 </span><span class="spaces">  </span><span class="nottickedoff">| f1 + f2 + f3 == negate back = TriClr f1 f2 f3</span>
-<span class="lineno">   54 </span><span class="spaces">  </span><span class="nottickedoff">| otherwise = While [Move f1 , Inc 1 , Move f2 , Inc 1 , Move f3 , Inc 1 , Move back , Inc (-1)]</span></span>
+<span class="lineno">   45 </span>buildTri :: Integer -&gt; Integer -&gt; Integer -&gt; Integer -&gt; FastInstruction
+<span class="lineno">   46 </span><span class="decl"><span class="nottickedoff">buildTri back f1 f2 f3</span>
+<span class="lineno">   47 </span><span class="spaces">  </span><span class="nottickedoff">| f1 + f2 + f3 == negate back = TriClr f1 f2 f3</span>
+<span class="lineno">   48 </span><span class="spaces">  </span><span class="nottickedoff">| otherwise = While [Move f1 , Inc 1 , Move f2 , Inc 1 , Move f3 , Inc 1 , Move back , Inc (-1)]</span></span>
 
 </pre>
 </body>

@@ -32,7 +32,7 @@
     ( CStatic "prints" Call )
 , End
 , ICF
-    ( Mark "prints" )
+    ( SMark "prints" )
 , IAL
     ( SStatic 0 Copy )
 , ICF
@@ -41,11 +41,11 @@
 , ICF
     ( CStatic "prints" Jump )
 , ICF
-    ( Mark "prints_end" )
+    ( SMark "prints_end" )
 , IAL Discard
 , ICF Return
 , ICF
-    ( Mark "printsln" )
+    ( SMark "printsln" )
 , ICF
     ( CStatic "prints" Call )
 , IAL
