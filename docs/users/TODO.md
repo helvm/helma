@@ -14,6 +14,7 @@ Features to implemented in Haskell:
   * [ ] 🌈 FAKE Interpreter
   * [ ] 🌈 FALSE Interpreter
     * [x] 🌈 FALSE Parser
+  * [ ] 🌈 UnLambda
 * GoTo Interpreters:
   * [x] ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/) Interpreter
   * [ ] 💛 [Malbolge](https://lutter.cc/malbolge/) Interpreter
