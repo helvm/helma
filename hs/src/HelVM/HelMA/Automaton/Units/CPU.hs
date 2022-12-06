@@ -12,15 +12,15 @@ import           Control.Type.Operator
 import           Data.ListLike                                   hiding (show)
 
 controlInstruction :: (ALU m ll element , Show element) => CFInstruction -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
-controlInstruction (DMark _           )    = pure
-controlInstruction (SMark    _           ) = pure
-controlInstruction  Return                 = popAddress
-controlInstruction (CDynamic   Call     )  = dynamicCall
-controlInstruction (CDynamic   Jump     )  = dynamicJump
-controlInstruction (CDynamic  (Branch t))  = dynamicBranch  t
-controlInstruction (CStatic l  Call     )  = staticCall   l
-controlInstruction (CStatic l  Jump     )  = staticJump   l
-controlInstruction (CStatic l (Branch t))  = staticBranch l t
+controlInstruction (DMark _             ) = pure
+controlInstruction (SMark    _          ) = pure
+controlInstruction  Return                = popAddress
+controlInstruction (CDynamic   Call     ) = dynamicCall
+controlInstruction (CDynamic   Jump     ) = dynamicJump
+controlInstruction (CDynamic  (Branch t)) = dynamicBranch  t
+controlInstruction (CStatic l  Call     ) = staticCall   l
+controlInstruction (CStatic l  Jump     ) = staticJump   l
+controlInstruction (CStatic l (Branch t)) = staticBranch l t
 
 popAddress :: ALU m ll element  => CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
 popAddress (CPU (CU il _ (IS (a : is))) s) = pure $ CPU (CU il a $ IS is) s
