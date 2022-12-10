@@ -14,13 +14,13 @@ consI = IAL . Cons
 
 subI , divModI , sInputI , sOutputI ,  halibutI :: Instruction
 subI     = IAL $ Binary Sub
-divModI  = IAL $ Binaries [Sub , Mod]
+divModI  = IAL $ Binaries [Div , Mod]
 sInputI  = IAL $ SIO InputChar
 sOutputI = IAL $ SIO OutputChar
 halibutI = IAL Halibut
 
-markNatI :: Natural -> Instruction
-markNatI = ICF . DMark
+dMarkI :: Natural -> Instruction
+dMarkI = ICF . DMark
 
 --transferI :: Instruction
 --transferI = ICF Transfer

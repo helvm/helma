@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.3.7 -- 2022-12-13
+
+* Add breaking the loop for tests
+
 ## 0.8.3.6 -- 2022-12-10
 
 * Add fast parser for ETA

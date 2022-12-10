@@ -11,7 +11,7 @@
 , IAL ( Binary Sub )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -23,7 +23,7 @@
 , Transfer
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -48,7 +48,7 @@
     ( Cons 3 )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -56,7 +56,7 @@
 , IAL ( SIO InputChar )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -71,7 +71,7 @@
 , Transfer
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -94,7 +94,7 @@
 , IAL ( Binary Sub )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -201,7 +201,7 @@
     ( Cons 10 )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -419,7 +419,7 @@
     ( Cons 0 )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -429,7 +429,7 @@
 , Transfer
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -438,7 +438,7 @@
     ( Cons 402523 )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -607,4 +607,5 @@
 , Transfer
 , ICF
     ( DMark 48 )
+, End
 ]

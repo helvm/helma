@@ -167,7 +167,7 @@
 , IAL Halibut
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -175,7 +175,7 @@
     ( Cons 22 )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -184,7 +184,7 @@
 , Transfer
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -305,7 +305,7 @@
     ( Cons 10 )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -488,4 +488,5 @@
 , Transfer
 , ICF
     ( DMark 64 )
+, End
 ]

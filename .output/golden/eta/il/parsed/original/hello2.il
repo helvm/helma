@@ -58,7 +58,7 @@
 , IAL ( SIO InputChar )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -112,4 +112,5 @@
     ( Cons 0 )
 , ICF
     ( DMark 7 )
+, End
 ]

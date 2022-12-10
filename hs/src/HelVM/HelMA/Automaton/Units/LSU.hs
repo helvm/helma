@@ -42,9 +42,6 @@ storeInputDec :: LSU m s r element => LoadStoreUnit s r -> m $ LoadStoreUnit s r
 storeInputDec (LSU s r) = storeInputDec' =<< pop1 s where
   storeInputDec' (address , s') = LSU s' . flip (RAM.store address) r <$> wGetDecAs
 
-sluToTuple :: LoadStoreUnit s r -> (s , r)
-sluToTuple (LSU s r) = (s , r)
-
 -- | Types
 type LSU m s r element = (ALU m s element , RAM.RAM r element)
 

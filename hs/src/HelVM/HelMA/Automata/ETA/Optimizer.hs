@@ -16,7 +16,10 @@ import qualified Data.List.Index                         as List
 --showParsed True
 
 optimize :: MonadSafe m => TokenList -> m InstructionList
-optimize = join <.> optimizeLines
+optimize = addEnd <.> join <.> optimizeLines
+
+addEnd :: InstructionList -> InstructionList
+addEnd l = l <> one End
 
 optimizeLines :: MonadSafe m => TokenList -> m [InstructionList]
 optimizeLines = sequence . uncurry optimizeLineWithIndex <.> splitOnRAndIndex
@@ -25,7 +28,7 @@ splitOnRAndIndex :: TokenList -> [(Int, TokenList)]
 splitOnRAndIndex = List.indexed . splitOn [R]
 
 optimizeLineWithIndex :: MonadSafe m => Int -> TokenList -> m InstructionList
-optimizeLineWithIndex index = (markNatI (fromIntegral $ index + 1) : ) <.> optimizeLine where
+optimizeLineWithIndex index = (dMarkI (fromIntegral $ index + 1) : ) <.> optimizeLine where
   optimizeLine :: MonadSafe m => TokenList -> m InstructionList
 
   optimizeLine (O : tl) = (sInputI   : ) <$> optimizeLine tl

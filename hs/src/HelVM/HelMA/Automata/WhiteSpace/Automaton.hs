@@ -41,26 +41,26 @@ import qualified HelVM.HelIO.Collections.SList                as SList
 import qualified Data.Sequence                                as Seq
 
 simpleRun :: BIO m => S.SimpleParams -> m ()
-simpleRun p = run (S.tokenType p) (S.source p) (S.formatType p) (S.stackType p) (S.ramType p) (S.dumpType p)
+simpleRun p = run (S.tokenType p) (S.source p) (S.formatType p) (S.stackType p) (S.ramType p) Nothing (S.dumpType p)
 
 ----
 
 runWithParams :: BIO m => TokenType -> RunParams -> m ()
-runWithParams tokenType p = run tokenType (source p) (formatType p) (stackTypeOptions p) (ramTypeOptions p) (dumpTypeOptions p)
+runWithParams tokenType p = run tokenType (source p) (formatType p) (stackTypeOptions p) (ramTypeOptions p) Nothing (dumpTypeOptions p)
 
-run :: BIO m => TokenType -> Source -> FormatType -> StackType -> RAMType -> DumpType -> m ()
+run :: BIO m => TokenType -> Source -> FormatType -> StackType -> RAMType -> Maybe Natural -> DumpType -> m ()
 run tokenType source = runTL $ tokenize tokenType source
 
-runTL :: BIO m => TokenList -> FormatType -> StackType -> RAMType -> DumpType -> m ()
-runTL tl ascii st rt dt = runTL' =<< liftSafe (parseFromTL ascii tl) where runTL' il = runIL il st rt dt
+runTL :: BIO m => TokenList -> FormatType -> StackType -> RAMType -> Maybe Natural -> DumpType -> m ()
+runTL tl ascii st rt limit dt = runTL' =<< liftSafe (parseFromTL ascii tl) where runTL' il = runIL il st rt limit dt
 
-runIL :: BIO m => InstructionList -> StackType -> RAMType -> DumpType -> m ()
+runIL :: BIO m => InstructionList -> StackType -> RAMType -> Maybe Natural -> DumpType -> m ()
 runIL il s ListRAMType    = runIL' il s []
 runIL il s SeqRAMType     = runIL' il s Seq.empty
 runIL il s SListRAMType   = runIL' il s SList.sListEmpty
 runIL il s MapListRAMType = runIL' il s MapList.mapListEmpty
 
-runIL' :: (REvaluator Symbol r m) => InstructionList -> StackType -> r -> DumpType -> m ()
+runIL' :: (REvaluator Symbol r m) => InstructionList -> StackType -> r -> Maybe Natural -> DumpType -> m ()
 runIL' il ListStackType  = start il []
 runIL' il SeqStackType   = start il Seq.empty
 runIL' il SListStackType = start il SList.sListEmpty

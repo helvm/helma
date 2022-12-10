@@ -1,0 +1,13 @@
+dump: Unit
+    { unitCU = CU
+        { program =
+            [ ICF
+                ( DMark 1 )
+            , End
+            ]
+        , programCounter = 2
+        , returnStack = IS []
+        }
+    , unitStack = fromList []
+    , unitRAM = []
+    }

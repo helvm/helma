@@ -8,12 +8,11 @@ import           HelVM.HelMA.Automaton.IO.EvaluatorIO
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Symbol
 import           HelVM.HelMA.Automaton.Types.DumpType
-import           HelVM.HelMA.Automaton.Units.CPU
 
-import qualified Data.Vector                          as Vector
+import           HelVM.HelMA.Automaton.Units.Unit
 
-startWithIL :: (SREvaluator Symbol s r m) => s -> r -> DumpType -> InstructionList -> m ()
-startWithIL s r dt il = start il s r dt
+startWithIL :: (SREvaluator Symbol s r m) => s -> r -> Maybe Natural -> DumpType -> InstructionList -> m ()
+startWithIL s r limit dt il = start il s r limit dt
 
-start :: (SREvaluator Symbol s r m) => InstructionList -> s -> r -> DumpType -> m ()
-start il s r dt = logDump dt =<< next (CU (Vector.fromList il) 0 (IS [])) s r
+start :: (SREvaluator Symbol s r m) => InstructionList -> s -> r -> Maybe Natural -> DumpType -> m ()
+start il s r limit dt = logDump dt =<< eval limit (newUnit il s r)

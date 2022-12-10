@@ -50,4 +50,4 @@ spec =
       it ("minified" </> path) $
         (show . readTokens <$> file) `goldenShouldIO` buildAbsoluteEtaFileName ("minified" </> path)
       it ("parsed" </> path) $
-        (safeIOToPTextIO (parseSafe <$> file)) `goldenShouldIO` buildAbsoluteEtaIlFileName ("parsed" </> path)
+        safeIOToPTextIO (parseSafe <$> file) `goldenShouldIO` buildAbsoluteEtaIlFileName ("parsed" </> path)

@@ -32,21 +32,21 @@ import qualified Data.Vector                              as Vector
 import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
 simpleRun :: BIO m => (ETAImplType , Source , StackType) -> m ()
-simpleRun (c , s , t) = run c s t Pretty
+simpleRun (c , s , t) = run c s t (Just $ fromIntegral (maxBound :: Int)) Pretty
 
 ----
 
 runWithParams :: BIO m => ETAImplType -> RunParams -> m ()
-runWithParams e p = run e (source p) (stackTypeOptions p) (dumpTypeOptions p)
+runWithParams e p = run e (source p) (stackTypeOptions p) Nothing (dumpTypeOptions p)
 
-run :: (Evaluator Symbol m) => ETAImplType -> Source -> StackType -> DumpType -> m ()
+run :: (Evaluator Symbol m) => ETAImplType -> Source -> StackType -> Maybe Natural -> DumpType -> m ()
 run etaImplType source = evalTL etaImplType (tokenize source)
 
-evalTL :: (Evaluator Symbol m) => ETAImplType -> TokenList -> StackType -> DumpType -> m ()
+evalTL :: (Evaluator Symbol m) => ETAImplType -> TokenList -> StackType -> Maybe Natural -> DumpType -> m ()
 evalTL c tl ListStackType  = start c tl []
 evalTL c tl SeqStackType   = start c tl Seq.empty
 evalTL c tl SListStackType = start c tl SList.sListEmpty
 
-start :: (SEvaluator Symbol s m) => ETAImplType -> TokenList -> s -> DumpType -> m ()
-start Original tl s dt = logDump dt =<< next (IU (Vector.fromList tl) 0) s
-start Fast     tl s dt = Automaton.startWithIL s [] dt =<< optimize tl
+start :: (SEvaluator Symbol s m) => ETAImplType -> TokenList -> s -> Maybe Natural -> DumpType -> m ()
+start Original tl s _     dt = logDump dt =<< next (IU (Vector.fromList tl) 0) s
+start Fast     tl s limit dt = Automaton.startWithIL s [] limit dt =<< optimize tl

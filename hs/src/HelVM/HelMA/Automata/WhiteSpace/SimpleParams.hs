@@ -32,6 +32,7 @@ simpleParams tt (st , rt) al s = SimpleParams
   , formatType = al
   , stackType = st
   , ramType = rt
+  , limit = Nothing
   , dumpType = Pretty
   }
 
@@ -42,6 +43,7 @@ data SimpleParams = SimpleParams
   , formatType :: !FormatType
   , stackType  :: !StackType
   , ramType    :: !RAMType
+  , limit      :: !(Maybe Natural)
   , dumpType   :: !DumpType
   }
 

@@ -5,11 +5,13 @@ import           HelVM.HelMA.Automaton.Units.ALU
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.CFInstruction
 
+import           HelVM.HelIO.Containers.LLIndexSafe
 import           HelVM.HelIO.Control.Safe
 
 import           Control.Type.Operator
 
 import           Data.ListLike                                   hiding (show)
+import qualified Data.Vector                                     as Vector
 
 controlInstruction :: (ALU m ll element , Show element) => CFInstruction -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
 controlInstruction (DMark _             ) = pure
@@ -68,8 +70,14 @@ staticBranch l t (CPU (CU il ic is) s) = branch =<< pop1 s where
 findAddressForStaticLabel :: MonadSafe m => Label -> InstructionVector -> m InstructionAddress
 findAddressForStaticLabel l = liftMaybeOrErrorTuple ("Undefined label", show l) . findIndex (isMark l)
 
-cpuToTuple :: CentralProcessingUnit s -> (ControlUnit , s)
-cpuToTuple (CPU cu s) = (cu , s)
+newCU :: InstructionList -> ControlUnit
+newCU il = CU (Vector.fromList il) 0 (IS [])
+
+currentInstruction :: MonadSafe m => ControlUnit -> m Instruction
+currentInstruction (CU il ic _) = indexSafe il ic
+
+incrementPC :: ControlUnit -> ControlUnit
+incrementPC cu = cu { programCounter = 1 + programCounter cu }
 
 -- | Types
 data CentralProcessingUnit al = CPU

@@ -41,7 +41,7 @@
     ( DMark 6 )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -82,4 +82,5 @@
 , Transfer
 , ICF
     ( DMark 13 )
+, End
 ]

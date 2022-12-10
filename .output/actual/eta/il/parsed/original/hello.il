@@ -8,14 +8,14 @@
 , IAL Halibut
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
 , IAL ( SIO InputChar )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -27,7 +27,7 @@
 , Transfer
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -55,7 +55,7 @@
 , IAL ( Binary Sub )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -114,4 +114,5 @@
 , IAL ( SIO InputChar )
 , ICF
     ( DMark 13 )
+, End
 ]

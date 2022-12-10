@@ -38,7 +38,7 @@ spec =
     )) $ \((fileName , inputs) , dirName) -> do
       let filePath = dirName </> fileName
       let file = readEtaFile filePath
-      forM_ (inputs |><| [defaultETAImplType]) $ \ (input , implType) -> do
+      forM_ (inputs |><| etaImplTypes) $ \ (input , implType) -> do
         let params = (implType ,  , defaultStackType) <$> file
         let mock = ioExecMockIOWithInput (toText input) . simpleRun =<< params
         let path = show implType </> filePath <> input

@@ -61,7 +61,7 @@
     ( Cons 10 )
 , IAL
     ( Binaries
-        [ Sub
+        [ Div
         , Mod
         ]
     )
@@ -144,4 +144,5 @@
 , Transfer
 , ICF
     ( DMark 19 )
+, End
 ]
