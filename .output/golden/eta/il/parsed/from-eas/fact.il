@@ -29,7 +29,7 @@
     ( DMark 4 )
 , IAL
     ( Cons 10 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , IAL
     ( Cons 1 )
 , IAL
@@ -104,7 +104,7 @@
 , Transfer
 , ICF
     ( DMark 14 )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , ICF
     ( DMark 15 )
 , IAL
@@ -177,7 +177,7 @@
 , IAL ( Binary Sub )
 , ICF
     ( DMark 24 )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , ICF
     ( DMark 25 )
 , IAL
@@ -269,7 +269,7 @@
     ( DMark 34 )
 , IAL
     ( Cons 48 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , Transfer
 , IAL
     ( Cons 1 )
@@ -307,8 +307,8 @@
     ( Cons 10 )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , ICF
@@ -480,7 +480,7 @@
 , Transfer
 , ICF
     ( DMark 64 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 65 )
 , IAL

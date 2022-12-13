@@ -55,17 +55,17 @@ transfer :: (SREvaluator Symbol s r m) => Unit s r -> m $ UnitBoth s r
 transfer u = branch =<< pop2ForStack u where
   branch (_ , 0 , u') = pure $ Left u'
   branch (0 , _ , u') = end u'
-  branch (_ , _ , u') = Left . updateFromCPU u' <$> controlInstruction dJumpI (toCPU u')
+  branch (a , _ , u') = Left . updateFromCPU u' <$> controlInstruction dJumpI (toCPU $ push1ForStack a u')
 
 pop2ForStack :: (SREvaluator Symbol s r m) => Unit s r -> m (Symbol , Symbol , Unit s r)
 pop2ForStack u = build <$> pop2 (unitStack u) where
   build (s1 , s2 , s') = (s1 , s2 , updateStack u s')
 
+push1ForStack :: Stack s Symbol => Symbol -> Unit s r -> Unit s r
+push1ForStack e u = u { unitStack = push1 e (unitStack u) }
+
 end :: (SREvaluator Symbol s r m) => Unit s r -> m $ UnitBoth s r
 end = pure . Right
-
---teeMap :: Functor f => (t -> a -> b) -> (t -> f a) -> t -> f b
---teeMap f2 f1 x = f2 x <$> f1 x
 
 type WithLimit a = (Natural , a)
 

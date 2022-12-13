@@ -30,7 +30,7 @@
 , Transfer
 , ICF
     ( DMark 5 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 6 )
 , IAL

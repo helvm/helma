@@ -1,6 +1,6 @@
 [ ICF
     ( DMark 1 )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , IAL
     ( Cons 0 )
 , IAL Halibut
@@ -26,7 +26,7 @@
 , Transfer
 , ICF
     ( DMark 2 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , IAL
     ( Cons 1 )
 , IAL

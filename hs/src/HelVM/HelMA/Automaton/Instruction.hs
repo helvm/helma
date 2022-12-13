@@ -14,7 +14,7 @@ consI = IAL . Cons
 
 subI , divModI , sInputI , sOutputI ,  halibutI :: Instruction
 subI     = IAL $ Binary Sub
-divModI  = IAL $ Binaries [Div , Mod]
+divModI  = IAL $ Binaries [Mod, Div]
 sInputI  = IAL $ SIO InputChar
 sOutputI = IAL $ SIO OutputChar
 halibutI = IAL Halibut

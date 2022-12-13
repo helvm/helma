@@ -15,7 +15,7 @@ import           Control.Type.Operator
 import           Prelude                                 hiding (divMod)
 
 next :: (SEvaluator e s m) => InstructionUnit -> s -> m $ Unit s
-next iu s = doInstruction' =<< nextIU iu  where doInstruction' (t , iu') = doInstruction t iu' s
+next iu s = build =<< nextIU iu  where build (t , iu') = doInstruction t iu' s
 
 doInstruction :: (SEvaluator e s m) => Maybe Token -> InstructionUnit -> s -> m $ Unit s
 -- | IO instructions
@@ -41,7 +41,7 @@ doInstruction Nothing iu s = doEnd iu s
 
 -- | Terminate instruction
 doEnd :: (SEvaluator e s m) => InstructionUnit -> s -> m $ Unit s
-doEnd iu s = pure $ Unit iu s
+doEnd iu = pure . Unit iu
 
 -- | Types
 

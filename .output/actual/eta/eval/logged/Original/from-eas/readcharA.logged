@@ -1,0 +1,7 @@
+dump: Unit
+    { unitIU = IU
+        [ I
+        , R
+        ] 2
+    , unitStack = fromList [ 65 ]
+    }

@@ -34,7 +34,7 @@ span.spaces    { background: white }
 <span class="lineno">   15 </span>import           Prelude                                 hiding (divMod)
 <span class="lineno">   16 </span>
 <span class="lineno">   17 </span>next :: (SEvaluator e s m) =&gt; InstructionUnit -&gt; s -&gt; m $ Unit s
-<span class="lineno">   18 </span><span class="decl"><span class="istickedoff">next iu s = doInstruction' =&lt;&lt; nextIU iu  where doInstruction' (t , iu') = doInstruction t iu' s</span></span>
+<span class="lineno">   18 </span><span class="decl"><span class="istickedoff">next iu s = build =&lt;&lt; nextIU iu  where build (t , iu') = doInstruction t iu' s</span></span>
 <span class="lineno">   19 </span>
 <span class="lineno">   20 </span>doInstruction :: (SEvaluator e s m) =&gt; Maybe Token -&gt; InstructionUnit -&gt; s -&gt; m $ Unit s
 <span class="lineno">   21 </span>-- | IO instructions
@@ -60,7 +60,7 @@ span.spaces    { background: white }
 <span class="lineno">   41 </span>
 <span class="lineno">   42 </span>-- | Terminate instruction
 <span class="lineno">   43 </span>doEnd :: (SEvaluator e s m) =&gt; InstructionUnit -&gt; s -&gt; m $ Unit s
-<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">doEnd iu s = pure $ Unit iu s</span></span>
+<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">doEnd iu = pure . Unit iu</span></span>
 <span class="lineno">   45 </span>
 <span class="lineno">   46 </span>-- | Types
 <span class="lineno">   47 </span>

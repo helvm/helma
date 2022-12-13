@@ -18,13 +18,13 @@
     ( Cons 72 )
 , ICF
     ( DMark 3 )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 4 )
 , IAL
@@ -45,13 +45,13 @@
     ( Cons 119 )
 , ICF
     ( DMark 6 )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 7 )
 , End

@@ -5,26 +5,26 @@
 , IAL
     ( Cons 32 )
 , Transfer
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , IAL
     ( Cons 155 )
 , IAL ( Binary Sub )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , Transfer
 , IAL
     ( Cons 2 )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , Transfer
 , Transfer
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , IAL
@@ -32,7 +32,7 @@
 , Transfer
 , IAL
     ( Cons 2 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 2 )
 , IAL
@@ -48,19 +48,19 @@
     ( Cons 3 )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
-, IAL ( SIO OutputChar )
 , IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , Transfer
 , IAL ( Binary Sub )
 , IAL Halibut
@@ -71,16 +71,16 @@
 , Transfer
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , IAL ( Binary Sub )
 , Transfer
+, IAL ( SIO InputChar )
 , IAL ( SIO OutputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 3 )
 , IAL
@@ -94,14 +94,14 @@
 , IAL ( Binary Sub )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , IAL ( Binary Sub )
 , Transfer
 , IAL ( Binary Sub )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , Transfer
 , IAL ( Binary Sub )
 , IAL
@@ -130,7 +130,7 @@
 , Transfer
 , ICF
     ( DMark 6 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 7 )
 , IAL
@@ -163,7 +163,7 @@
     ( DMark 10 )
 , IAL
     ( Cons 48 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , Transfer
 , IAL
     ( Cons 1 )
@@ -201,8 +201,8 @@
     ( Cons 10 )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , ICF
@@ -413,14 +413,14 @@
     ( Cons 1 )
 , IAL Halibut
 , Transfer
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , Transfer
 , IAL
     ( Cons 0 )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , IAL ( Binary Sub )
@@ -429,20 +429,20 @@
 , Transfer
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , IAL
     ( Cons 402523 )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , IAL
     ( Cons 0 )
 , ICF
@@ -465,10 +465,10 @@
     ( DMark 34 )
 , IAL
     ( Cons 44 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , IAL
     ( Cons 32 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 35 )
 , IAL
@@ -485,7 +485,7 @@
     ( DMark 36 )
 , IAL
     ( Cons 10 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 37 )
 , IAL
@@ -590,8 +590,8 @@
     ( Cons 10 )
 , IAL
     ( Cons 10 )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 46 )
 , IAL

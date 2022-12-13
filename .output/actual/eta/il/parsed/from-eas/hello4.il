@@ -78,7 +78,7 @@
 , Transfer
 , ICF
     ( DMark 8 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 9 )
 , IAL

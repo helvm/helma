@@ -32,7 +32,7 @@ import qualified Data.Vector                              as Vector
 import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
 simpleRun :: BIO m => (ETAImplType , Source , StackType) -> m ()
-simpleRun (c , s , t) = run c s t (Just $ fromIntegral (maxBound :: Int)) Pretty
+simpleRun (c , s , t) = run c s t (Just 10000) Pretty
 
 ----
 

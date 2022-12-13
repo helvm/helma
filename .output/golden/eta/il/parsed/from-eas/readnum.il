@@ -1,6 +1,6 @@
 [ ICF
     ( DMark 1 )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , ICF
     ( DMark 2 )
 , IAL
@@ -73,7 +73,7 @@
 , IAL ( Binary Sub )
 , ICF
     ( DMark 11 )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , ICF
     ( DMark 12 )
 , IAL

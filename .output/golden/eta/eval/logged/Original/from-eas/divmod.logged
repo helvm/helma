@@ -1,0 +1,16 @@
+dump: Unit
+    { unitIU = IU
+        [ N
+        , A
+        , E
+        , N
+        , T
+        , E
+        , E
+        , R
+        ] 8
+    , unitStack = fromList
+        [ 0
+        , 2
+        ]
+    }

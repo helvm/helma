@@ -17,11 +17,11 @@
     ( Cons 65 )
 , IAL
     ( Cons 66 )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
 , IAL
     ( Cons 1 )
 , IAL
@@ -35,9 +35,9 @@
     ( Cons 75 )
 , IAL
     ( Cons 79 )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
 , IAL
     ( Cons 1 )
 , IAL
@@ -55,11 +55,11 @@
     ( Cons 65 )
 , IAL
     ( Cons 66 )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
 , IAL
     ( Cons 1 )
 , IAL

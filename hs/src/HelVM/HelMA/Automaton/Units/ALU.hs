@@ -36,6 +36,7 @@ import           HelVM.HelIO.Containers.LLIndexSafe
 
 import           HelVM.HelIO.ListLikeExtra
 
+import           Control.Applicative.Tools
 import           Data.ListLike                                   hiding (show)
 import           Prelude                                         hiding (divMod, drop, fromList, splitAt, swap)
 
@@ -44,15 +45,17 @@ alInstruction :: ALU m ll element => ALInstruction -> ll -> m ll
 alInstruction (Cons    i   )   = push  i
 alInstruction (Unary     op)   = error $ show op
 alInstruction (Binary    op)   = binaryInstruction op
+alInstruction (Binaries  ops)  = binaryInstructions ops
 alInstruction (SDynamic  op)   = dynamicManipulation op
 alInstruction (SStatic i op)   = staticManipulation op i
 alInstruction (SIO OutputChar) = doOutputChar2
 alInstruction (SIO OutputDec)  = doOutputDec2
 alInstruction (SIO InputChar)  = doInputChar2
+alInstruction (SIO InputDec)   = doInputDec2
 alInstruction  Halibut         = halibut
 alInstruction  Pick            = pick
 alInstruction  Discard         = discard
-alInstruction             op   = error $ show op
+
 
 -- | Arithmetic instructions
 divMod :: ALU m ll element => ll -> m ll
@@ -65,30 +68,30 @@ binaryInstruction :: ALU m ll element => BinaryInstruction -> ll -> m ll
 binaryInstruction i = binaryInstructions [i]
 
 binaryInstructions :: ALU m ll element => [BinaryInstruction] -> ll -> m ll
-binaryInstructions il l = binaryInstructions' <$> pop2 l where
-  binaryInstructions' (e , e', l') = pushList (calculateOps e e' il) l'
+binaryInstructions il = build <.> pop2 where
+  build (e , e', l) = pushList (calculateOps e e' il) l
 
 -- | IO instructions
 doOutputChar2 :: ALU m ll element => ll -> m ll
-doOutputChar2 l = doOutputChar' =<< pop1 l where
-  doOutputChar' (e , l') = wPutAsChar e $> l'
+doOutputChar2 = appendError "ALU.doOutputChar2" . build <=< pop1 where
+  build (e , l) = wPutAsChar e $> l
 
 doOutputDec2 :: ALU m ll element => ll -> m ll
-doOutputDec2 l = doOutputDec' =<< pop1 l where
-  doOutputDec' (e , l') = wPutAsDec e $> l'
+doOutputDec2 = appendError "ALU.doOutputDec2" . build <=< pop1 where
+  build (e , l) = wPutAsDec e $> l
 
 doInputChar2 :: ALU m ll element => ll -> m ll
-doInputChar2 l = doInputChar' <$> wGetCharAs where
-  doInputChar' e = push1 e l
+doInputChar2 l = appendError "ALU.doOutputDec2" $ build <$> wGetCharAs where
+  build e = push1 e l
 
 doInputDec2 :: ALU m ll element => ll -> m ll
-doInputDec2 l = doInputChar' <$> wGetCharAs where
-  doInputChar' e = push1 e l
+doInputDec2 l = build <$> wGetCharAs where
+  build e = push1 e l
 
 -- | Manipulation instructions
 dynamicManipulation :: ALU m ll element => ManipulationInstruction -> ll -> m ll
-dynamicManipulation op l = dynamicManipulation' =<< unconsSafe l where
-  dynamicManipulation' (e , l') = staticManipulation op (fromIntegral e) l'
+dynamicManipulation op = appendError "ALU.dynamicManipulation" . build <=< unconsSafe where
+  build (e , l) = staticManipulation op (fromIntegral e) l
 
 staticManipulation :: ALU m ll element => ManipulationInstruction -> Index -> ll -> m ll
 staticManipulation Copy  = copy
@@ -97,23 +100,23 @@ staticManipulation Slide = slide
 
 -- | Halibut and Pick instructions
 halibut :: ALU m ll element => ll -> m ll
-halibut l = halibut' =<< pop1 l where
-  halibut' (e , l')
-    | 0 < i     = move i l'
-    | otherwise = copy (negate i) l'
+halibut = appendError "ALU.halibut" . build <=< pop1 where
+  build (e , l)
+    | 0 < i     = move i l
+    | otherwise = copy (negate i) l
       where i = fromIntegral e
 
 pick :: ALU m ll element => ll -> m ll
-pick l = pick' =<< pop1 l where
-  pick' (e , l')
-    | 0 <= i    = copy i l'
-    | otherwise = move (negate i) l'
+pick = appendError "ALU.pick" . build <=< pop1 where
+  build (e , l)
+    | 0 <= i    = copy i l
+    | otherwise = move (negate i) l
       where i = fromIntegral e
 
 -- | Slide instructions
 slide :: ALU m ll element => Index -> ll -> m ll
-slide i l = slide' <$> pop1 l where
-  slide' (e , l') = push1 e $ drop i l'
+slide i = appendError "ALU.pop2" . build <.> pop1 where
+  build (e , l) = push1 e $ drop i l
 
 -- | Move instructions
 move :: ALU m ll element => Index -> ll -> m ll
@@ -123,18 +126,18 @@ move i l = pure $ l1 <> l2 <> l3 where
 
 -- | Copy instructions
 copy :: ALU m ll element => Index -> ll -> m ll
-copy i l = flipPush1 l <$> l `indexSafe` i
+copy i = teeMap flipPush1 (findSafe i)
 
 -- | Pop instructions
 pop1 :: ALU m ll element => ll ->  m (element , ll)
-pop1 l = appendErrorTuple ("l" , show l) $ unconsSafe l
+pop1 = appendError "ALU.pop1" . unconsSafe
 
 pop2 :: ALU m ll element => ll -> m (element , element , ll)
-pop2 l = appendErrorTuple ("l" , show l) $ uncons2Safe l
+pop2 = appendError "ALU.pop2" . uncons2Safe
 
 -- | Push instructions
 push :: ALU m ll element => Integer -> ll -> m ll
-push i l = pure $ genericPush1 i l
+push i = pure . genericPush1 i
 
 flipPush1 :: Stack ll element => ll -> element -> ll
 flipPush1 = flip push1
@@ -153,6 +156,9 @@ push2 e e' = pushList [e , e']
 
 pushList :: Stack ll element => [element] -> ll -> ll
 pushList es l = fromList es <> l
+
+teeMap :: Functor f => (t -> a -> b) -> (t -> f a) -> t -> f b
+teeMap f2 f1 x = f2 x <$> f1 x
 
 -- | Types
 type ALU m ll element = (BIO m , Stack ll element , Integral element)

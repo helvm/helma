@@ -54,21 +54,21 @@ dump: Unit
             , IAL
                 ( Cons 22 )
             , Transfer
-            , IAL ( SIO OutputChar )
+            , IAL ( SIO InputChar )
             , IAL ( Binary Sub )
             , Transfer
-            , IAL ( SIO InputChar )
-            , IAL ( SIO InputChar )
+            , IAL ( SIO OutputChar )
+            , IAL ( SIO OutputChar )
             , IAL
                 ( Binaries
-                    [ Div
-                    , Mod
+                    [ Mod
+                    , Div
                     ]
                 )
             , IAL
                 ( Cons 4 )
             , Transfer
-            , IAL ( SIO OutputChar )
+            , IAL ( SIO InputChar )
             , IAL
                 ( Cons 337 )
             , IAL ( Binary Sub )
@@ -100,7 +100,7 @@ dump: Unit
             , Transfer
             , ICF
                 ( DMark 6 )
-            , IAL ( SIO InputChar )
+            , IAL ( SIO OutputChar )
             , IAL
                 ( Cons 7 )
             , IAL
@@ -108,7 +108,7 @@ dump: Unit
             , Transfer
             , IAL ( Binary Sub )
             , IAL ( Binary Sub )
-            , IAL ( SIO OutputChar )
+            , IAL ( SIO InputChar )
             , IAL
                 ( Cons 7 )
             , IAL
@@ -120,22 +120,6 @@ dump: Unit
         , programCounter = 25
         , returnStack = IS []
         }
-    , unitStack = fromList
-        [ 72
-        , 101
-        , 108
-        , 108
-        , 111
-        , 44
-        , 32
-        , 119
-        , 111
-        , 114
-        , 108
-        , 100
-        , 33
-        , 10
-        , 0
-        ]
+    , unitStack = fromList []
     , unitRAM = []
     }

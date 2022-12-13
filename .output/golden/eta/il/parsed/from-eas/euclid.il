@@ -41,8 +41,8 @@
     ( DMark 6 )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , ICF

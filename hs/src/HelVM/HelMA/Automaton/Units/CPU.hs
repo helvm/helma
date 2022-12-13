@@ -14,7 +14,7 @@ import           Data.ListLike                                   hiding (show)
 import qualified Data.Vector                                     as Vector
 
 controlInstruction :: (ALU m ll element , Show element) => CFInstruction -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
-controlInstruction (DMark _             ) = pure
+controlInstruction (DMark    _          ) = pure
 controlInstruction (SMark    _          ) = pure
 controlInstruction  Return                = popAddress
 controlInstruction (CDynamic   Call     ) = dynamicCall
@@ -29,17 +29,17 @@ popAddress (CPU (CU il _ (IS (a : is))) s) = pure $ CPU (CU il a $ IS is) s
 popAddress (CPU (CU il _ (IS      [] )) _) = liftErrorWithTupleList "Empty Return Stack" [("il" , show il)]
 
 dynamicCall :: (ALU m ll element , Show element) => CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
-dynamicCall (CPU (CU il ic (IS is)) s) = call1 =<< pop1 s where
+dynamicCall (CPU (CU il ic (IS is)) s) = appendError "CPU.dynamicCall" $ call1 =<< pop1 s where
   call1 (n , s') = call2 <$> findAddressForDynamicLabel n il where
     call2 a = CPU (CU il a (IS (ic : is))) s'
 
 dynamicJump :: (ALU m ll element , Show element) => CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
-dynamicJump (CPU (CU il _ is) s) = jump1 =<< pop1 s where
+dynamicJump (CPU (CU il _ is) s) = appendError "CPU.dynamicJump" $ jump1 =<< pop1 s where
   jump1 (n, s') = jump2 <$> findAddressForDynamicLabel n il where
     jump2 a = CPU (CU il a is) s'
 
 dynamicBranch :: (ALU m ll element , Show element) => BranchTest -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
-dynamicBranch t (CPU (CU il ic is) s) = branch =<< pop2 s where
+dynamicBranch t (CPU (CU il ic is) s) = appendError "CPU.dynamicBranch" $ branch =<< pop2 s where
   branch (n , e , s')
     | isNotJump t e = pure $ CPU (CU il ic is) s'
     | otherwise     = jump <$> findAddressForDynamicLabel n il where
@@ -53,15 +53,15 @@ findAddressForDynamicLabel n il
 --
 
 staticCall :: ALU m ll element => Label -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
-staticCall l (CPU (CU il ic (IS is)) s) = call <$> findAddressForStaticLabel l il where
+staticCall l (CPU (CU il ic (IS is)) s) = appendError "CPU.staticCall" $ call <$> findAddressForStaticLabel l il where
   call a = CPU (CU il a (IS (ic : is))) s
 
 staticJump :: ALU m ll element => Label -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
-staticJump l (CPU (CU il _  is) s) = jump <$> findAddressForStaticLabel l il where
+staticJump l (CPU (CU il _  is) s) = appendError "CPU.staticJump" $ jump <$> findAddressForStaticLabel l il where
   jump a = CPU (CU il a is) s
 
 staticBranch :: ALU m ll element => Label -> BranchTest -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
-staticBranch l t (CPU (CU il ic is) s) = branch =<< pop1 s where
+staticBranch l t (CPU (CU il ic is) s) = appendError "CPU.staticBranch" $ branch =<< pop1 s where
   branch (e , s')
     | isNotJump t e = pure $ CPU (CU il ic is) s'
     | otherwise     = jump <$> findAddressForStaticLabel l il where
@@ -69,6 +69,8 @@ staticBranch l t (CPU (CU il ic is) s) = branch =<< pop1 s where
 
 findAddressForStaticLabel :: MonadSafe m => Label -> InstructionVector -> m InstructionAddress
 findAddressForStaticLabel l = liftMaybeOrErrorTuple ("Undefined label", show l) . findIndex (isMark l)
+
+-- | ControlUnit methods
 
 newCU :: InstructionList -> ControlUnit
 newCU il = CU (Vector.fromList il) 0 (IS [])

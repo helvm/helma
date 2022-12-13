@@ -29,7 +29,7 @@
     ( DMark 4 )
 , IAL
     ( Cons 10 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , IAL
     ( Cons 1 )
 , IAL
@@ -104,7 +104,7 @@
 , Transfer
 , ICF
     ( DMark 14 )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , ICF
     ( DMark 15 )
 , IAL
@@ -167,25 +167,25 @@
 , IAL Halibut
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , IAL
     ( Cons 22 )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , Transfer
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , Transfer
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , ICF
@@ -201,7 +201,7 @@
 , IAL ( Binary Sub )
 , ICF
     ( DMark 24 )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , ICF
     ( DMark 25 )
 , IAL
@@ -305,8 +305,8 @@
     ( Cons 10 )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , ICF
@@ -478,7 +478,7 @@
 , Transfer
 , ICF
     ( DMark 62 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 63 )
 , IAL

@@ -140,7 +140,7 @@ span.spaces    { background: white }
 <span class="lineno">  121 </span>mockGetCharSafe :: MonadControlMockIO m =&gt; m Char
 <span class="lineno">  122 </span><span class="decl"><span class="istickedoff">mockGetCharSafe = mockGetChar' =&lt;&lt; get where</span>
 <span class="lineno">  123 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' :: MonadControlMockIO m =&gt; MockIOData -&gt; m Char</span>
-<span class="lineno">  124 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' mockIO = appendErrorTuple (&quot;mockGetCharSafe&quot; , show mockIO) $ mockGetChar'' =&lt;&lt; unconsSafe (input mockIO) where</span>
+<span class="lineno">  124 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' mockIO = appendErrorTuple <span class="nottickedoff">(&quot;mockGetCharSafe&quot; , show mockIO)</span> $ mockGetChar'' =&lt;&lt; unconsSafe (input mockIO) where</span>
 <span class="lineno">  125 </span><span class="spaces">    </span><span class="istickedoff">mockGetChar'' (c, input') = put mockIO { input = input' } $&gt; c</span></span>
 <span class="lineno">  126 </span>
 <span class="lineno">  127 </span>mockGetLineSafe :: MonadControlMockIO m =&gt; m Text
@@ -190,7 +190,7 @@ span.spaces    { background: white }
 <span class="lineno">  171 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">output</span></span></span> :: !String
 <span class="lineno">  172 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">logged</span></span></span> :: !String
 <span class="lineno">  173 </span>  }
-<span class="lineno">  174 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">  174 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff">Show</span></span>)
 <span class="lineno">  175 </span>
 <span class="lineno">  176 </span>----
 <span class="lineno">  177 </span>

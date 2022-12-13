@@ -12,9 +12,6 @@ import           Control.Applicative.Tools
 import           Data.List.Extra
 import qualified Data.List.Index                         as List
 
---showParsed :: Bool -> TokenList -> Text
---showParsed True
-
 optimize :: MonadSafe m => TokenList -> m InstructionList
 optimize = addEnd <.> join <.> optimizeLines
 
@@ -31,8 +28,8 @@ optimizeLineWithIndex :: MonadSafe m => Int -> TokenList -> m InstructionList
 optimizeLineWithIndex index = (dMarkI (fromIntegral $ index + 1) : ) <.> optimizeLine where
   optimizeLine :: MonadSafe m => TokenList -> m InstructionList
 
-  optimizeLine (O : tl) = (sInputI   : ) <$> optimizeLine tl
-  optimizeLine (I : tl) = (sOutputI  : ) <$> optimizeLine tl
+  optimizeLine (O : tl) = (sOutputI  : ) <$> optimizeLine tl
+  optimizeLine (I : tl) = (sInputI   : ) <$> optimizeLine tl
 
   optimizeLine (S : tl) = (subI      : ) <$> optimizeLine tl
   optimizeLine (E : tl) = (divModI   : ) <$> optimizeLine tl

@@ -1,0 +1,28 @@
+dump: Unit
+    { unitCU = CU
+        { program =
+            [ ICF
+                ( DMark 1 )
+            , IAL
+                ( Cons 2 )
+            , IAL
+                ( Cons 1 )
+            , IAL
+                ( Binaries
+                    [ Mod
+                    , Div
+                    ]
+                )
+            , ICF
+                ( DMark 2 )
+            , End
+            ]
+        , programCounter = 6
+        , returnStack = IS []
+        }
+    , unitStack = fromList
+        [ 0
+        , 2
+        ]
+    , unitRAM = []
+    }

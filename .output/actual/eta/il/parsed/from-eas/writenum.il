@@ -23,7 +23,7 @@
     ( DMark 3 )
 , IAL
     ( Cons 48 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , Transfer
 , IAL
     ( Cons 1 )
@@ -61,8 +61,8 @@
     ( Cons 10 )
 , IAL
     ( Binaries
-        [ Div
-        , Mod
+        [ Mod
+        , Div
         ]
     )
 , ICF
@@ -134,7 +134,7 @@
 , Transfer
 , ICF
     ( DMark 17 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , ICF
     ( DMark 18 )
 , IAL

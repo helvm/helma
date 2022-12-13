@@ -7,7 +7,7 @@
 , IAL ( Binary Sub )
 , ICF
     ( DMark 2 )
-, IAL ( SIO OutputChar )
+, IAL ( SIO InputChar )
 , ICF
     ( DMark 3 )
 , IAL
@@ -65,7 +65,7 @@
 , Transfer
 , ICF
     ( DMark 7 )
-, IAL ( SIO InputChar )
+, IAL ( SIO OutputChar )
 , IAL
     ( Cons 1 )
 , IAL

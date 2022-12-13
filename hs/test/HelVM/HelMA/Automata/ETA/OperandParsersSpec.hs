@@ -1,17 +1,23 @@
 module HelVM.HelMA.Automata.ETA.OperandParsersSpec (spec) where
 
 import           HelVM.HelMA.Automata.ETA.OperandParsers
+import           HelVM.HelMA.Automata.ETA.Optimizer
 import           HelVM.HelMA.Automata.ETA.Token
+
+import           HelVM.HelMA.Automaton.Instruction
+import           HelVM.HelMA.Automaton.Instruction.ALInstruction
+import           HelVM.HelMA.Automaton.Instruction.CFInstruction
+import           HelVM.HelMA.Automaton.Instruction.IOInstruction
 
 import           HelVM.Expectations
 import           HelVM.HelIO.Control.Safe
 
-import qualified Data.Vector                             as Vector
+import qualified Data.Vector                                     as Vector
 
-import           Test.Hspec                              (Spec, describe, it)
+import           Test.Hspec                                      (Spec, describe, it)
 
 spec :: Spec
-spec =
+spec = describe "parse" $ do
   describe "parseInteger" $ forM_
     [ ([E]             , 0)
     , ([S , E]         , 6)
@@ -29,8 +35,28 @@ spec =
     , ([T , T , S , E] , 62)
     , ([T , T , T , E] , 57)
     ] $ \(input , output) ->
-    describe (show input) $
+    describe (show input) $ do
       it "parseInteger" $ parseInteger input `shouldSafe` output
+      it "optimalize" $ optimize ([N] <> input) `shouldSafe` decorateInteger output
+  describe "single" $ forM_
+    [ (E , [IAL (Binaries [Mod,Div])])
+    , (T , [Transfer]                )
+    , (A , [IAL (Cons 2)]            )
+    , (O , [IAL (SIO OutputChar)]    )
+    , (I , [IAL (SIO InputChar)]     )
+    , (N , [IAL (Cons 0)]            )
+    , (S , [IAL (Binary Sub)]        )
+    , (H , [IAL Halibut]             )
+    , (R , [ICF (DMark 2)]           )
+    ] $ \(input , output) ->
+    describe (show input) $
+      it "optimalize" $ optimize [input] `shouldSafe` decorateIL output
 
 parseInteger :: TokenList -> Safe Integer
 parseInteger tl = fst <$> parseNumber (IU (Vector.fromList tl) 0)
+
+decorateInteger :: Integer -> [Instruction]
+decorateInteger i = [ICF (DMark 1) , IAL (Cons i) , End]
+
+decorateIL :: [Instruction] -> [Instruction]
+decorateIL il = [ICF (DMark 1)] <> il <> [End]
