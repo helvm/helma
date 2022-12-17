@@ -24,7 +24,7 @@ spec =
     , ("fact"     , ["1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n"])
     , ("bottles"  , [""])
     , ("crlf"     , [""])
-    ] |><| ["original"]
+    ] |><| (["original"] |><| [defaultETAImplType])
     ) <> (
     [ ("true"     , [""])
     , ("hello"    , [""])
@@ -36,11 +36,11 @@ spec =
     , ("bottles"  , [""])
     , ("divmod"   , [""])
     , ("readchar" , ["A"])
-    ] |><| ["from-eas"]
-    )) $ \((fileName , inputs) , dirName) -> do
+    ] |><| (["from-eas"] |><| etaImplTypes)
+    )) $ \((fileName , inputs) , (dirName , implType)) -> do
       let filePath = dirName </> fileName
       let file = readEtaFile filePath
-      forM_ (inputs |><| etaImplTypes) $ \ (input , implType) -> do
+      forM_ inputs $ \ input -> do
         let params = (implType ,  , defaultStackType) <$> file
         let mock = ioExecMockIOWithInput (toText input) . simpleRun =<< params
         let path = show implType </> filePath <> input

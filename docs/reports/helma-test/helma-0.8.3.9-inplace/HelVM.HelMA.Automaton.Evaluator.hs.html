@@ -1,0 +1,97 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Evaluator (
+<span class="lineno">    2 </span>  eval,
+<span class="lineno">    3 </span>) where
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.Symbol
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.IO.EvaluatorIO
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.Instruction.CFInstruction
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.Units.ALU                 as Stack
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.Units.CPU                 as CPU
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.Units.LSU                 as LSU
+<span class="lineno">   15 </span>import           HelVM.HelMA.Automaton.Units.Unit
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>import           Control.Monad.Extra
+<span class="lineno">   18 </span>import           Control.Type.Operator
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import           Data.Either.Extra
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>import           Prelude                                         hiding (swap)
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>eval :: (SREvaluator Symbol s r m) =&gt; Maybe Natural -&gt; Unit s r -&gt; m $ Unit s r
+<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">eval Nothing  = evalWithoutLimit</span>
+<span class="lineno">   26 </span><span class="spaces"></span><span class="istickedoff">eval (Just n) = evalWithLimit n</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>evalWithLimit :: (SREvaluator Symbol s r m) =&gt; Natural -&gt; Unit s r -&gt; m $ Unit s r
+<span class="lineno">   29 </span><span class="decl"><span class="istickedoff">evalWithLimit n u = loopM (actMWithLimit nextUnit) (n , u)</span></span>
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>actMWithLimit :: Monad m =&gt; (a -&gt; m $ Both a) -&gt; WithLimit a -&gt; m (Either (WithLimit a) a)
+<span class="lineno">   32 </span><span class="decl"><span class="istickedoff">actMWithLimit f (n , x) = checkN n where</span>
+<span class="lineno">   33 </span><span class="spaces">  </span><span class="istickedoff">checkN 0 = <span class="nottickedoff">pure $ Right x</span></span>
+<span class="lineno">   34 </span><span class="spaces">  </span><span class="istickedoff">checkN _ = mapLeft (n - 1 , ) &lt;$&gt; f x</span></span>
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>evalWithoutLimit ::  (SREvaluator Symbol s r m) =&gt; Unit s r -&gt; m $ Unit s r
+<span class="lineno">   37 </span><span class="decl"><span class="istickedoff">evalWithoutLimit = loopM nextUnit</span></span>
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>----
+<span class="lineno">   40 </span>
+<span class="lineno">   41 </span>nextUnit :: (SREvaluator Symbol s r m) =&gt; Unit s r -&gt; m $ UnitBoth s r
+<span class="lineno">   42 </span><span class="decl"><span class="istickedoff">nextUnit u@(Unit cu _ _) = nextUnitForInstruction =&lt;&lt; currentInstruction cu where</span>
+<span class="lineno">   43 </span><span class="spaces">  </span><span class="istickedoff">nextUnitForInstruction i = doInstruction i $ incrementIC u</span></span>
+<span class="lineno">   44 </span>
+<span class="lineno">   45 </span>----
+<span class="lineno">   46 </span>
+<span class="lineno">   47 </span>doInstruction :: (SREvaluator Symbol s r m) =&gt; Instruction -&gt; Unit s r -&gt; m $ UnitBoth s r
+<span class="lineno">   48 </span><span class="decl"><span class="istickedoff">doInstruction (IAL      i) u = Left . updateStack   u &lt;$&gt; alInstruction i (unitStack u)</span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">doInstruction (ILS      i) u = Left . updateFromLSU u &lt;$&gt; slInstruction i (toLSU u)</span>
+<span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">doInstruction (ICF      i) u = Left . updateFromCPU u &lt;$&gt; controlInstruction i (toCPU u)</span>
+<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Transfer    u = transfer u</span>
+<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">doInstruction  End         u = end u</span></span>
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>transfer :: (SREvaluator Symbol s r m) =&gt; Unit s r -&gt; m $ UnitBoth s r
+<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">transfer u = branch =&lt;&lt; pop2ForStack u where</span>
+<span class="lineno">   56 </span><span class="spaces">  </span><span class="istickedoff">branch (_ , 0 , u') = pure $ Left u'</span>
+<span class="lineno">   57 </span><span class="spaces">  </span><span class="istickedoff">branch (0 , _ , u') = end u'</span>
+<span class="lineno">   58 </span><span class="spaces">  </span><span class="istickedoff">branch (a , _ , u') = Left . updateFromCPU u' &lt;$&gt; controlInstruction dJumpI (toCPU $ push1ForStack a u')</span></span>
+<span class="lineno">   59 </span>
+<span class="lineno">   60 </span>pop2ForStack :: (SREvaluator Symbol s r m) =&gt; Unit s r -&gt; m (Symbol , Symbol , Unit s r)
+<span class="lineno">   61 </span><span class="decl"><span class="istickedoff">pop2ForStack u = build &lt;$&gt; pop2 (unitStack u) where</span>
+<span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">build (s1 , s2 , s') = (s1 , s2 , updateStack u s')</span></span>
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>push1ForStack :: Stack s Symbol =&gt; Symbol -&gt; Unit s r -&gt; Unit s r
+<span class="lineno">   65 </span><span class="decl"><span class="istickedoff">push1ForStack e u = u { unitStack = push1 e (unitStack u) }</span></span>
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>end :: (SREvaluator Symbol s r m) =&gt; Unit s r -&gt; m $ UnitBoth s r
+<span class="lineno">   68 </span><span class="decl"><span class="istickedoff">end = pure . Right</span></span>
+<span class="lineno">   69 </span>
+<span class="lineno">   70 </span>type WithLimit a = (Natural , a)
+<span class="lineno">   71 </span>
+<span class="lineno">   72 </span>type UnitBoth s r = Both (Unit s r)
+<span class="lineno">   73 </span>
+<span class="lineno">   74 </span>type Both a = Either a a
+
+</pre>
+</body>
+</html>

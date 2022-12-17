@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.ETA.Evaluator (
+  newUnit,
   next,
 ) where
 
@@ -10,43 +11,75 @@ import           HelVM.HelMA.Automaton.IO.EvaluatorIO
 
 import           HelVM.HelMA.Automaton.Units.ALU         as Stack
 
+import           Control.Monad.Extra
 import           Control.Type.Operator
+import           HelVM.HelMA.Automata.ETA.Symbol
+
+import qualified Data.Vector                             as Vector
 
 import           Prelude                                 hiding (divMod)
 
-next :: (SEvaluator e s m) => InstructionUnit -> s -> m $ Unit s
-next iu s = build =<< nextIU iu  where build (t , iu') = doInstruction t iu' s
+next :: (SEvaluator e s m) => Unit s -> m $ Unit s
+next = loopM act
 
-doInstruction :: (SEvaluator e s m) => Maybe Token -> InstructionUnit -> s -> m $ Unit s
+act :: (SEvaluator e s m) => Unit s -> m $ UnitBoth s
+act (Unit iu s) = build =<< nextIU iu where build (t , iu') = doInstruction t (Unit iu' s)
+
+doInstruction :: (SEvaluator e s m) => Maybe Token -> Unit s -> m $ UnitBoth s
 -- | IO instructions
-doInstruction (Just O) iu s = next iu =<< doOutputChar2 s
-doInstruction (Just I) iu s = next iu =<< doInputChar2 s
+doInstruction (Just O) u                      = Left . updateStack u <$> doOutputChar2 (unitStack u)
+doInstruction (Just I) u                      = Left . updateStack u <$> doInputChar2 (unitStack u)
 
 -- | Stack instructions
-doInstruction (Just N) iu s = next' =<< parseNumber iu where next' (symbol , iu') = next iu' (push1 symbol s)
-doInstruction (Just H) iu s = next iu =<< halibut s
+doInstruction (Just N) (Unit iu s)            = build <$> parseNumber iu where build (symbol , iu') = Left (Unit iu' (push1 symbol s))
+doInstruction (Just H) u                      = Left . updateStack u <$> halibut (unitStack u)
 
 -- | Arithmetic
-doInstruction (Just S) iu s = next iu =<< sub s
-doInstruction (Just E) iu s = next iu =<< divMod s
+doInstruction (Just S) u                      = Left . updateStack u <$> sub (unitStack u)
+doInstruction (Just E) u                      = Left . updateStack u <$> divMod (unitStack u)
 
 -- | Control
-doInstruction (Just R) iu s = next iu s
-doInstruction (Just A) iu@(IU il ic) s = (next iu . flipPush1 s . genericNextLabel il) ic
-doInstruction (Just T) iu@(IU il _ ) s = transfer =<< pop2 s where
-  transfer (_ , 0 , s') = next iu s'
-  transfer (0 , _ , _ ) = doEnd iu s
-  transfer (l , _ , s') = next' =<< genericFindAddress il l where next' address = next (IU il address) s'
-doInstruction Nothing iu s = doEnd iu s
+doInstruction (Just R) u                      = pure $ Left u
+doInstruction (Just A) (Unit iu@(IU il ic) s) = pure $ Left ((Unit iu . flipPush1 s . genericNextLabel il) ic)
+doInstruction (Just T) u                      = transfer u
+doInstruction Nothing u                       = end u
+
+transfer :: (SEvaluator e s m) => Unit s -> m $ UnitBoth s
+transfer = branch <=< pop2ForStack where
+  branch (_ , 0 , u) = pure $ Left u
+  branch (0 , _ , u) = end u
+  branch (l , _ , u) = Left . updateAddress u <$> genericFindAddress (unitProgram u) l
+
+pop2ForStack :: (SEvaluator e s m) => Unit s -> m (e , e , Unit s)
+pop2ForStack u = build <$> pop2 (unitStack u) where
+  build (s1 , s2 , s') = (s1 , s2 , updateStack u s')
 
 -- | Terminate instruction
-doEnd :: (SEvaluator e s m) => InstructionUnit -> s -> m $ Unit s
-doEnd iu = pure . Unit iu
+end :: (SEvaluator e s m) => Unit s -> m $ UnitBoth s
+end = pure . Right
+
+-- | Unit methods
+
+newUnit :: TokenList -> s -> Unit s
+newUnit tl = Unit (IU (Vector.fromList tl) 0)
+
+updateStack :: Unit s -> s -> Unit s
+updateStack u s =  u {unitStack = s}
+
+updateAddress :: Unit s -> InstructionCounter -> Unit s
+updateAddress u a =  u {unitIU = updatePC (unitIU u) a}
+
+unitProgram :: Unit s -> TokenVector
+unitProgram = program . unitIU
 
 -- | Types
+
+type UnitBoth s = Both (Unit s)
 
 data Unit s = Unit
   { unitIU    :: !InstructionUnit
   , unitStack :: s
   }
   deriving stock (Eq , Read , Show)
+
+type Both a = Either a a

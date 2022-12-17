@@ -6,7 +6,6 @@ module HelVM.HelMA.Automata.ETA.Automaton (
 
 import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.Lexer
-import           HelVM.HelMA.Automata.ETA.OperandParsers
 import           HelVM.HelMA.Automata.ETA.Optimizer
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
@@ -27,12 +26,11 @@ import           HelVM.HelIO.Collections.SList            as SList
 import           Prelude                                  hiding (divMod)
 
 import qualified Data.Sequence                            as Seq
-import qualified Data.Vector                              as Vector
 
 import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
 simpleRun :: BIO m => (ETAImplType , Source , StackType) -> m ()
-simpleRun (c , s , t) = run c s t (Just 10000) Pretty
+simpleRun (c , s , t) = run c s t (Just $ 1000 * 1000) Pretty
 
 ----
 
@@ -48,5 +46,5 @@ evalTL c tl SeqStackType   = start c tl Seq.empty
 evalTL c tl SListStackType = start c tl SList.sListEmpty
 
 start :: (SEvaluator Symbol s m) => ETAImplType -> TokenList -> s -> Maybe Natural -> DumpType -> m ()
-start Original tl s _     dt = logDump dt =<< next (IU (Vector.fromList tl) 0) s
+start Original tl s _     dt = logDump dt =<< next (newUnit tl s)
 start Fast     tl s limit dt = Automaton.startWithIL s [] limit dt =<< optimize tl

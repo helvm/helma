@@ -13,7 +13,7 @@ import qualified Data.Vector                        as Vector
 
 parseNumberFromTL :: (MonadSafe m , Integral a) => OperandParser m a
 parseNumberFromTL tl = loop act ([] , tl) where
-  act (acc ,       []) = Right $ ( , [])  <$> makeIntegral7FromList acc
+  act (acc ,       []) = Right (liftError $ show acc)
   act (acc , E  : tl') = Right $ ( , tl') <$> makeIntegral7FromList acc
   act (acc , R  : tl') = Left (    acc , tl')
   act (acc , t  : tl') = Left (t : acc , tl')
@@ -31,10 +31,15 @@ nextIU iu@(IU il ic)
   | otherwise             = pure (Nothing , iu)
   where wrap i = (Just i, IU il (ic+1))
 
+updatePC :: InstructionUnit -> InstructionCounter -> InstructionUnit
+updatePC iu a = iu { programCounter = a }
+
 -- | Types
 type OperandParser m a = TokenList -> m (a , TokenList)
 
-data InstructionUnit = IU !TokenVector !InstructionCounter
-  deriving stock (Eq , Read , Show)
+data InstructionUnit = IU
+  { program        :: !TokenVector
+  , programCounter :: !InstructionCounter
+  } deriving stock (Eq , Read , Show)
 
 type OperandIUParser m a = InstructionUnit -> m (a , InstructionUnit)

@@ -1,7 +1,10 @@
 dump: Unit
     { unitIU = IU
-        [ I
-        , R
-        ] 2
+        { program =
+            [ I
+            , R
+            ]
+        , programCounter = 2
+        }
     , unitStack = fromList [ 65 ]
     }

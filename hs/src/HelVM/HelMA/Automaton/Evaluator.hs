@@ -48,8 +48,8 @@ doInstruction :: (SREvaluator Symbol s r m) => Instruction -> Unit s r -> m $ Un
 doInstruction (IAL      i) u = Left . updateStack   u <$> alInstruction i (unitStack u)
 doInstruction (ILS      i) u = Left . updateFromLSU u <$> slInstruction i (toLSU u)
 doInstruction (ICF      i) u = Left . updateFromCPU u <$> controlInstruction i (toCPU u)
-doInstruction  Transfer    u =  transfer u
-doInstruction  End         u =  end u
+doInstruction  Transfer    u = transfer u
+doInstruction  End         u = end u
 
 transfer :: (SREvaluator Symbol s r m) => Unit s r -> m $ UnitBoth s r
 transfer u = branch =<< pop2ForStack u where

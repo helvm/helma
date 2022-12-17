@@ -44,7 +44,6 @@ spec = describe "parse" $ do
     , (A , [IAL (Cons 2)]            )
     , (O , [IAL (SIO OutputChar)]    )
     , (I , [IAL (SIO InputChar)]     )
-    , (N , [IAL (Cons 0)]            )
     , (S , [IAL (Binary Sub)]        )
     , (H , [IAL Halibut]             )
     , (R , [ICF (DMark 2)]           )
@@ -56,7 +55,7 @@ parseInteger :: TokenList -> Safe Integer
 parseInteger tl = fst <$> parseNumber (IU (Vector.fromList tl) 0)
 
 decorateInteger :: Integer -> [Instruction]
-decorateInteger i = [ICF (DMark 1) , IAL (Cons i) , End]
+decorateInteger i = decorateIL [IAL (Cons i)]
 
 decorateIL :: [Instruction] -> [Instruction]
 decorateIL il = [ICF (DMark 1)] <> il <> [End]

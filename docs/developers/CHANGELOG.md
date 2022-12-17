@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.3.9 -- 2022-12-28
+
+* Use loopM for ETA
+
 ## 0.8.3.8 -- 2022-12-16
 
 * Fix `divmod` for ETA
