@@ -17,11 +17,11 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>module HelVM.HelMA.Automata.BrainFuck.Automaton where
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.BrainFuck.Evaluator where
 <span class="lineno">    2 </span>
-<span class="lineno">    3 </span>import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Automaton  as Fast
-<span class="lineno">    4 </span>import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Automaton  as Flat
-<span class="lineno">    5 </span>import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Automaton  as Tree
+<span class="lineno">    3 </span>import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Evaluator  as Fast
+<span class="lineno">    4 </span>import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Evaluator as Flat
+<span class="lineno">    5 </span>import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Evaluator  as Tree
 <span class="lineno">    6 </span>
 <span class="lineno">    7 </span>import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 <span class="lineno">    8 </span>
@@ -29,7 +29,7 @@ span.spaces    { background: white }
 <span class="lineno">   10 </span>import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
 <span class="lineno">   11 </span>
 <span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.API.RunParams
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.API.EvalParams
 <span class="lineno">   14 </span>
 <span class="lineno">   15 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
 <span class="lineno">   16 </span>
@@ -41,7 +41,7 @@ span.spaces    { background: white }
 <span class="lineno">   22 </span>
 <span class="lineno">   23 </span>----
 <span class="lineno">   24 </span>
-<span class="lineno">   25 </span>runWithParams :: BIO m =&gt; BFType -&gt; RunParams -&gt; m ()
+<span class="lineno">   25 </span>runWithParams :: BIO m =&gt; BFType -&gt; EvalParams -&gt; m ()
 <span class="lineno">   26 </span><span class="decl"><span class="nottickedoff">runWithParams b p = run b (source p) (cellTypeOptions p) (dumpTypeOptions p)</span></span>
 <span class="lineno">   27 </span>
 <span class="lineno">   28 </span>run :: BIO m =&gt; BFType -&gt; Source -&gt; CellType -&gt; DumpType -&gt; m ()

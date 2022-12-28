@@ -1,50 +1,85 @@
 module HelVM.HelMA.Automata.ETA.Automaton (
-  simpleRun,
-  runWithParams,
   run,
+  newAutomaton,
 ) where
 
-import           HelVM.HelMA.Automata.ETA.Evaluator
-import           HelVM.HelMA.Automata.ETA.Lexer
-import           HelVM.HelMA.Automata.ETA.Optimizer
-import           HelVM.HelMA.Automata.ETA.Symbol
+import           HelVM.HelMA.Automata.ETA.Addressing
+import           HelVM.HelMA.Automata.ETA.OperandParsers
 import           HelVM.HelMA.Automata.ETA.Token
 
-import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.API.RunParams
+import           HelVM.HelMA.Automaton.Loop
 
-import qualified HelVM.HelMA.Automaton.Automaton          as Automaton
+import           HelVM.HelMA.Automaton.IO.AutomatonIO
 
-import           HelVM.HelMA.Automaton.IO.BusinessIO
-import           HelVM.HelMA.Automaton.IO.EvaluatorIO
+import           HelVM.HelMA.Automaton.Units.ALU         as Stack
 
-import           HelVM.HelMA.Automaton.Types.DumpType
-import           HelVM.HelMA.Automaton.Types.StackType
+import           Control.Monad.Extra
+import           Control.Type.Operator
+import           HelVM.HelMA.Automata.ETA.Symbol
 
-import           HelVM.HelIO.Collections.SList            as SList
+import qualified Data.Vector                             as Vector
 
-import           Prelude                                  hiding (divMod)
+import           Prelude                                 hiding (divMod)
 
-import qualified Data.Sequence                            as Seq
+run :: (SAutomatonIO e s m) => Maybe Natural -> Automaton s -> m $ Automaton s
+run = loopMWithLimit nextState
 
-import           HelVM.HelMA.Automata.ETA.API.ETAImplType
+nextState :: (SAutomatonIO e s m) => Automaton s -> m $ AutomatonSame s
+nextState (Automaton iu s) = build =<< nextIU iu where build (t , iu') = doInstruction t (Automaton iu' s)
 
-simpleRun :: BIO m => (ETAImplType , Source , StackType) -> m ()
-simpleRun (c , s , t) = run c s t (Just $ 1000 * 1000) Pretty
+doInstruction :: (SAutomatonIO e s m) => Maybe Token -> Automaton s -> m $ AutomatonSame s
+-- | IO instructions
+doInstruction (Just O) u                           = Left . updateStack u <$> doOutputChar2 (unitStack u)
+doInstruction (Just I) u                           = Left . updateStack u <$> doInputChar2 (unitStack u)
 
-----
+-- | Stack instructions
+doInstruction (Just N) (Automaton iu s)            = build <$> parseNumber iu where build (symbol , iu') = Left (Automaton iu' (push1 symbol s))
+doInstruction (Just H) u                           = Left . updateStack u <$> halibut (unitStack u)
 
-runWithParams :: BIO m => ETAImplType -> RunParams -> m ()
-runWithParams e p = run e (source p) (stackTypeOptions p) Nothing (dumpTypeOptions p)
+-- | Arithmetic
+doInstruction (Just S) u                           = Left . updateStack u <$> sub (unitStack u)
+doInstruction (Just E) u                           = Left . updateStack u <$> divMod (unitStack u)
 
-run :: (Evaluator Symbol m) => ETAImplType -> Source -> StackType -> Maybe Natural -> DumpType -> m ()
-run etaImplType source = evalTL etaImplType (tokenize source)
+-- | Control
+doInstruction (Just R) u                           = pure $ Left u
+doInstruction (Just A) (Automaton iu@(IU il ic) s) = pure $ Left ((Automaton iu . flipPush1 s . genericNextLabel il) ic)
+doInstruction (Just T) u                           = transfer u
+doInstruction Nothing u                            = end u
 
-evalTL :: (Evaluator Symbol m) => ETAImplType -> TokenList -> StackType -> Maybe Natural -> DumpType -> m ()
-evalTL c tl ListStackType  = start c tl []
-evalTL c tl SeqStackType   = start c tl Seq.empty
-evalTL c tl SListStackType = start c tl SList.sListEmpty
+transfer :: (SAutomatonIO e s m) => Automaton s -> m $ AutomatonSame s
+transfer = branch <=< pop2ForStack where
+  branch (_ , 0 , u) = pure $ Left u
+  branch (0 , _ , u) = end u
+  branch (l , _ , u) = Left . updateAddress u <$> genericFindAddress (unitProgram u) l
 
-start :: (SEvaluator Symbol s m) => ETAImplType -> TokenList -> s -> Maybe Natural -> DumpType -> m ()
-start Original tl s _     dt = logDump dt =<< next (newUnit tl s)
-start Fast     tl s limit dt = Automaton.startWithIL s [] limit dt =<< optimize tl
+pop2ForStack :: (SAutomatonIO e s m) => Automaton s -> m (e , e , Automaton s)
+pop2ForStack u = build <$> pop2 (unitStack u) where
+  build (s1 , s2 , s') = (s1 , s2 , updateStack u s')
+
+-- | Terminate instruction
+end :: (SAutomatonIO e s m) => Automaton s -> m $ AutomatonSame s
+end = pure . Right
+
+-- | Automaton methods
+
+newAutomaton :: TokenList -> s -> Automaton s
+newAutomaton tl = Automaton (IU (Vector.fromList tl) 0)
+
+updateStack :: Automaton s -> s -> Automaton s
+updateStack u s =  u {unitStack = s}
+
+updateAddress :: Automaton s -> InstructionCounter -> Automaton s
+updateAddress u a =  u {unitIU = updatePC (unitIU u) a}
+
+unitProgram :: Automaton s -> TokenVector
+unitProgram = program . unitIU
+
+-- | Types
+
+type AutomatonSame s = Same (Automaton s)
+
+data Automaton s = Automaton
+  { unitIU    :: !InstructionUnit
+  , unitStack :: s
+  }
+  deriving stock (Eq , Read , Show)

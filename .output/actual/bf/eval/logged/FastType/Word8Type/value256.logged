@@ -1,4 +1,4 @@
-dump: Unit
+dump: Automaton
     { unitUI = IU
         [ Inc 8
         , MulAddClr 8 1

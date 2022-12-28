@@ -1,4 +1,4 @@
-dump: Unit
+dump: Automaton
     { unitCU = CU
         { program =
             [ IAL

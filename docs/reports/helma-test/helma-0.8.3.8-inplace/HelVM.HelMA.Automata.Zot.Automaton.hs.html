@@ -27,7 +27,7 @@ span.spaces    { background: white }
 <span class="lineno">    8 </span>import           HelVM.HelMA.Automata.Zot.Parser
 <span class="lineno">    9 </span>
 <span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.API.RunParams
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.API.EvalParams
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
 <span class="lineno">   14 </span>
@@ -45,7 +45,7 @@ span.spaces    { background: white }
 <span class="lineno">   26 </span>
 <span class="lineno">   27 </span>import qualified Data.Text.Lazy                         as LT
 <span class="lineno">   28 </span>
-<span class="lineno">   29 </span>runWithParams :: BIO m =&gt; RunParams -&gt; m ()
+<span class="lineno">   29 </span>runWithParams :: BIO m =&gt; EvalParams -&gt; m ()
 <span class="lineno">   30 </span><span class="decl"><span class="nottickedoff">runWithParams p = wPutStr =&lt;&lt; run (formatType p) (source p) =&lt;&lt; wGetContentsText</span></span>
 <span class="lineno">   31 </span>
 <span class="lineno">   32 </span>run :: MonadSafe m =&gt; FormatType -&gt; Source -&gt; LT.Text -&gt; m Output

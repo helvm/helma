@@ -1,4 +1,4 @@
-dump: Unit
+dump: Automaton
     { unitUI = IU
         [ Move 1
         , Inc 8

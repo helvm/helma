@@ -1,74 +1,20 @@
 module HelVM.HelMA.Automaton.Evaluator (
-  eval,
+  startWithIL,
+  start,
+  startAutomaton,
 ) where
 
-import           HelVM.HelMA.Automaton.Symbol
-
-import           HelVM.HelMA.Automaton.IO.EvaluatorIO
-
+import           HelVM.HelMA.Automaton.Automaton
+import           HelVM.HelMA.Automaton.IO.AutomatonIO
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.CFInstruction
+import           HelVM.HelMA.Automaton.Symbol
+import           HelVM.HelMA.Automaton.Types.DumpType
 
-import           HelVM.HelMA.Automaton.Units.ALU                 as Stack
-import           HelVM.HelMA.Automaton.Units.CPU                 as CPU
-import           HelVM.HelMA.Automaton.Units.LSU                 as LSU
-import           HelVM.HelMA.Automaton.Units.Unit
+startWithIL :: (SRAutomatonIO Symbol s r m) => s -> r -> Maybe Natural -> DumpType -> InstructionList -> m ()
+startWithIL s r limit dt il = start il s r limit dt
 
-import           Control.Monad.Extra
-import           Control.Type.Operator
+start :: (SRAutomatonIO Symbol s r m) => InstructionList -> s -> r -> Maybe Natural -> DumpType -> m ()
+start il s r limit dt = startAutomaton dt limit (newAutomaton il s r)
 
-import           Data.Either.Extra
-
-import           Prelude                                         hiding (swap)
-
-eval :: (SREvaluator Symbol s r m) => Maybe Natural -> Unit s r -> m $ Unit s r
-eval Nothing  = evalWithoutLimit
-eval (Just n) = evalWithLimit n
-
-evalWithLimit :: (SREvaluator Symbol s r m) => Natural -> Unit s r -> m $ Unit s r
-evalWithLimit n u = loopM (actMWithLimit nextUnit) (n , u)
-
-actMWithLimit :: Monad m => (a -> m $ Both a) -> WithLimit a -> m (Either (WithLimit a) a)
-actMWithLimit f (n , x) = checkN n where
-  checkN 0 = pure $ Right x
-  checkN _ = mapLeft (n - 1 , ) <$> f x
-
-evalWithoutLimit ::  (SREvaluator Symbol s r m) => Unit s r -> m $ Unit s r
-evalWithoutLimit = loopM nextUnit
-
-----
-
-nextUnit :: (SREvaluator Symbol s r m) => Unit s r -> m $ UnitBoth s r
-nextUnit u@(Unit cu _ _) = nextUnitForInstruction =<< currentInstruction cu where
-  nextUnitForInstruction i = doInstruction i $ incrementIC u
-
-----
-
-doInstruction :: (SREvaluator Symbol s r m) => Instruction -> Unit s r -> m $ UnitBoth s r
-doInstruction (IAL      i) u = Left . updateStack   u <$> alInstruction i (unitStack u)
-doInstruction (ILS      i) u = Left . updateFromLSU u <$> slInstruction i (toLSU u)
-doInstruction (ICF      i) u = Left . updateFromCPU u <$> controlInstruction i (toCPU u)
-doInstruction  Transfer    u = transfer u
-doInstruction  End         u = end u
-
-transfer :: (SREvaluator Symbol s r m) => Unit s r -> m $ UnitBoth s r
-transfer u = branch =<< pop2ForStack u where
-  branch (_ , 0 , u') = pure $ Left u'
-  branch (0 , _ , u') = end u'
-  branch (a , _ , u') = Left . updateFromCPU u' <$> controlInstruction dJumpI (toCPU $ push1ForStack a u')
-
-pop2ForStack :: (SREvaluator Symbol s r m) => Unit s r -> m (Symbol , Symbol , Unit s r)
-pop2ForStack u = build <$> pop2 (unitStack u) where
-  build (s1 , s2 , s') = (s1 , s2 , updateStack u s')
-
-push1ForStack :: Stack s Symbol => Symbol -> Unit s r -> Unit s r
-push1ForStack e u = u { unitStack = push1 e (unitStack u) }
-
-end :: (SREvaluator Symbol s r m) => Unit s r -> m $ UnitBoth s r
-end = pure . Right
-
-type WithLimit a = (Natural , a)
-
-type UnitBoth s r = Both (Unit s r)
-
-type Both a = Either a a
+startAutomaton :: (SRAutomatonIO Symbol s r m) => DumpType -> Maybe Natural -> Automaton s r ->  m ()
+startAutomaton dt limit = logDump dt <=< run limit

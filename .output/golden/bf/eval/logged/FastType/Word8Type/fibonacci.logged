@@ -1,4 +1,4 @@
-dump: Unit
+dump: Automaton
     { unitUI = IU
         [ Input
         , Output

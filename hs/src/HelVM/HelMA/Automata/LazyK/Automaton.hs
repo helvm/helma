@@ -1,29 +1,39 @@
 module HelVM.HelMA.Automata.LazyK.Automaton (
-  runWithParams,
   run,
-  runReduce,
+  runWithTerminator,
+  realize,
+  realizeWithTrue,
 ) where
 
-import           HelVM.HelMA.Automata.LazyK.Evaluator
-import           HelVM.HelMA.Automata.LazyK.InputEncoder
+import           HelVM.HelMA.Automata.LazyK.Constants
 import           HelVM.HelMA.Automata.LazyK.Lambda
-import           HelVM.HelMA.Automata.LazyK.Parser
-
 import           HelVM.HelMA.Automata.LazyK.Reducer
-
-import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.API.RunParams
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-runWithParams :: BIO m => RunParams -> m ()
-runWithParams = run . source
+import           HelVM.HelIO.Control.Safe
 
-run :: BIO m => Source -> m ()
-run = runLambda <=< parse
+run :: BIO m => Lambda -> m ()
+run = runWithTerminator false
 
-runReduce :: BIO m => Source -> m Source
-runReduce s = show . reduce <$> parse s
+runWithTerminator :: BIO m => Lambda -> Lambda -> m ()
+runWithTerminator terminator lambda = output terminator lambda =<< realizeWithTrue lambda
 
-runLambda :: BIO m => Lambda -> m ()
-runLambda lambda = (eval . reduce . App lambda . readInput) =<< wGetContentsBS
+realizeWithTrue :: MonadSafe m => Lambda -> m Natural
+realizeWithTrue = realize . flippedApply true
+
+realize :: MonadSafe m => Lambda -> m Natural
+realize = naturalSafe . flippedApply number0 . flippedApply Succ
+
+number0 :: Lambda
+number0 = Number 0
+
+naturalSafe :: MonadSafe m => Lambda -> m Natural
+naturalSafe (Number x) = pure x
+naturalSafe x          = liftErrorWithPrefix "Invalid output format. Output should be the list of Church numerals. " $ show x
+
+output :: BIO m => Lambda -> Lambda -> Natural -> m ()
+output terminator lambda number = check $ compare 256 number where
+  check GT = wPutAsChar number *> runWithTerminator terminator (apply lambda terminator)
+  check EQ = pass
+  check LT = wLogStr (show number) *> wLogStr (show lambda)

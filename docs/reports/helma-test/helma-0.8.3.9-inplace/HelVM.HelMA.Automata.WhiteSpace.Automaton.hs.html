@@ -33,12 +33,12 @@ span.spaces    { background: white }
 <span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.Symbol
 <span class="lineno">   15 </span>
 <span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.API.RunParams
+<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.API.EvalParams
 <span class="lineno">   18 </span>
 <span class="lineno">   19 </span>import           HelVM.HelMA.Automaton.Automaton
 <span class="lineno">   20 </span>
 <span class="lineno">   21 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
-<span class="lineno">   22 </span>import           HelVM.HelMA.Automaton.IO.EvaluatorIO
+<span class="lineno">   22 </span>import           HelVM.HelMA.Automaton.IO.AutomatonIO
 <span class="lineno">   23 </span>
 <span class="lineno">   24 </span>import           HelVM.HelMA.Automaton.Instruction
 <span class="lineno">   25 </span>
@@ -64,7 +64,7 @@ span.spaces    { background: white }
 <span class="lineno">   45 </span>
 <span class="lineno">   46 </span>----
 <span class="lineno">   47 </span>
-<span class="lineno">   48 </span>runWithParams :: BIO m =&gt; TokenType -&gt; RunParams -&gt; m ()
+<span class="lineno">   48 </span>runWithParams :: BIO m =&gt; TokenType -&gt; EvalParams -&gt; m ()
 <span class="lineno">   49 </span><span class="decl"><span class="nottickedoff">runWithParams tokenType p = run tokenType (source p) (formatType p) (stackTypeOptions p) (ramTypeOptions p) Nothing (dumpTypeOptions p)</span></span>
 <span class="lineno">   50 </span>
 <span class="lineno">   51 </span>run :: BIO m =&gt; TokenType -&gt; Source -&gt; FormatType -&gt; StackType -&gt; RAMType -&gt; Maybe Natural -&gt; DumpType -&gt; m ()

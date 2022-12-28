@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.Zot.Evaluator (
-  evalExpressionList,
+  runExpressionList,
 )  where
 
 import           HelVM.HelMA.Automata.Zot.Expression
@@ -9,8 +9,8 @@ import           Control.Monad.Writer.Lazy
 import qualified Data.ListLike                       as LL
 
 -- | High-level Expressions
-evalExpressionList :: ExpressionList -> Out Expression
-evalExpressionList el = foldExpression el >><< outputExpression >>< printExpression
+runExpressionList :: ExpressionList -> Out Expression
+runExpressionList el = foldExpression el >><< outputExpression >>< printExpression
 
 foldExpression :: ExpressionList -> Out Expression
 foldExpression = foldM (><) emptyExpression

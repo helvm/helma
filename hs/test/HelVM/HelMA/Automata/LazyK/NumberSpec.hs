@@ -2,7 +2,7 @@ module HelVM.HelMA.Automata.LazyK.NumberSpec (spec) where
 
 import           HelVM.HelMA.Automata.LazyK.InputEncoder
 
-import           HelVM.HelMA.Automata.LazyK.Evaluator
+import           HelVM.HelMA.Automata.LazyK.Automaton
 import           HelVM.HelMA.Automata.LazyK.Reducer
 
 import           HelVM.HelIO.Control.Safe

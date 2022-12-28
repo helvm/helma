@@ -17,16 +17,16 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Cat.Automaton (
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Cat.Evaluator (
 <span class="lineno">    2 </span>  runWithParams,
 <span class="lineno">    3 </span>  run
 <span class="lineno">    4 </span>) where
 <span class="lineno">    5 </span>
 <span class="lineno">    6 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.API.RunParams
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.API.EvalParams
 <span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
 <span class="lineno">    9 </span>
-<span class="lineno">   10 </span>runWithParams :: BIO m =&gt; RunParams -&gt; m ()
+<span class="lineno">   10 </span>runWithParams :: BIO m =&gt; EvalParams -&gt; m ()
 <span class="lineno">   11 </span><span class="decl"><span class="nottickedoff">runWithParams = run . source</span></span>
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>run :: BusinessIO m =&gt; Source -&gt; m ()

@@ -27,10 +27,10 @@ span.spaces    { background: white }
 <span class="lineno">    8 </span>import           HelVM.HelMA.Automata.SubLeq.Lexer
 <span class="lineno">    9 </span>
 <span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.API.RunParams
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.API.EvalParams
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
-<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.IO.EvaluatorIO
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.IO.AutomatonIO
 <span class="lineno">   15 </span>
 <span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.Types.DumpType
 <span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Types.RAMType
@@ -45,7 +45,7 @@ span.spaces    { background: white }
 <span class="lineno">   26 </span>
 <span class="lineno">   27 </span>----
 <span class="lineno">   28 </span>
-<span class="lineno">   29 </span>runWithParams :: BIO m =&gt; RunParams -&gt; m ()
+<span class="lineno">   29 </span>runWithParams :: BIO m =&gt; EvalParams -&gt; m ()
 <span class="lineno">   30 </span><span class="decl"><span class="nottickedoff">runWithParams p = run (source p) (ramTypeOptions p) (dumpTypeOptions p)</span></span>
 <span class="lineno">   31 </span>
 <span class="lineno">   32 </span>run :: BIO m =&gt; Source -&gt; RAMType -&gt; DumpType -&gt; m ()

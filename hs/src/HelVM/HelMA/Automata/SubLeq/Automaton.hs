@@ -1,45 +1,60 @@
 module HelVM.HelMA.Automata.SubLeq.Automaton (
-  simpleRun,
-  runWithParams,
+  newAutomaton,
   run,
 ) where
 
-import           HelVM.HelMA.Automata.SubLeq.Evaluator
-import           HelVM.HelMA.Automata.SubLeq.Lexer
-
-import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.API.RunParams
-
+import           HelVM.HelMA.Automaton.IO.AutomatonIO
 import           HelVM.HelMA.Automaton.IO.BusinessIO
-import           HelVM.HelMA.Automaton.IO.EvaluatorIO
 
-import           HelVM.HelMA.Automaton.Types.DumpType
-import           HelVM.HelMA.Automaton.Types.RAMType
+import           HelVM.HelMA.Automaton.Loop
 
-import qualified HelVM.HelIO.Collections.MapList       as MapList
-import qualified HelVM.HelIO.Collections.SList         as SList
+import           HelVM.HelMA.Automaton.Units.RAM      as RAM
 
-import qualified Data.Sequence                         as Seq
+import           Control.Type.Operator
 
-simpleRun :: BIO m => RAMType -> Source -> m ()
-simpleRun rt s = run s rt Pretty
+run :: (RAutomatonIO e r m) => Maybe Natural -> Automaton e r -> m $ Automaton e r
+run = loopMWithLimit nextState
 
-----
+nextState :: RAutomatonIO e r m => Automaton e r -> m $ AutomatonSame e r
+nextState a@(Automaton ic ram)
+  | ic  < 0   = doEnd a
+  | src < 0   = doInputChar   dst a
+  | dst < 0   = doOutputChar  src a
+  | otherwise = doInstruction src dst a
+    where
+      src  = genericLoad ram ic
+      dst  = genericLoad ram $ ic + 1
 
-runWithParams :: BIO m => RunParams -> m ()
-runWithParams p = run (source p) (ramTypeOptions p) (dumpTypeOptions p)
+-- | IO instructions
+doOutputChar :: RAutomatonIO e r m => e -> Automaton e r -> m $ AutomatonSame e r
+doOutputChar address (Automaton ic ram) = wPutAsChar (genericLoad ram address) $> Left (next3Automaton ic ram)
 
-run :: BIO m => Source -> RAMType -> DumpType -> m ()
-run source = evalIL $ tokenize source
+doInputChar :: RAutomatonIO e r m => e -> Automaton e r -> m $ AutomatonSame e r
+doInputChar address (Automaton ic ram) = Left . next3Automaton ic . flippedStoreChar address ram <$> wGetChar
 
-evalIL :: Evaluator e m => [e] -> RAMType -> DumpType -> m ()
-evalIL = flip evalIL'
+-- | Terminate instruction
+doEnd :: RAutomatonIO e r m => Automaton e r -> m $ AutomatonSame e r
+doEnd = pure . Right
 
-evalIL' :: Evaluator e m => RAMType -> [e] -> DumpType -> m ()
-evalIL' ListRAMType    = start
-evalIL' SeqRAMType     = start . Seq.fromList
-evalIL' SListRAMType   = start . SList.sListFromList
-evalIL' MapListRAMType = start . MapList.mapListFromList
+doInstruction :: RAutomatonIO e r m => e -> e -> Automaton e r -> m $ AutomatonSame e r
+doInstruction src dst (Automaton ic ram) = pure $ Left $ Automaton ic' $ store dst diff ram where
+  diff = genericLoad ram dst - genericLoad ram src
+  ic'
+    | diff <= 0 = genericLoad ram $ ic + 2
+    | otherwise = ic + 3
 
-start :: REvaluator e r m => r -> DumpType -> m ()
-start r dt = logDump dt =<< doInstruction 0 r
+next3Automaton :: Num e => e -> ram -> Automaton e ram
+next3Automaton ic = Automaton (ic + 3)
+
+newAutomaton :: Num e => ram -> Automaton e ram
+newAutomaton = Automaton 0
+
+-- | Types
+
+type AutomatonSame ic ram = Same (Automaton ic ram)
+
+data Automaton ic ram = Automaton
+   { unitIU  :: ic
+   , unitRAM :: ram
+   }
+  deriving stock (Eq , Read , Show)

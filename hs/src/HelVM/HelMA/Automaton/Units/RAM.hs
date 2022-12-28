@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automaton.Units.RAM (
   genericLoad,
   load,
+  flippedStoreChar,
   storeChar,
   genericStore,
   store,
@@ -19,6 +20,9 @@ genericLoad l = load l . fromIntegral
 
 load :: (RAM ll element) => ll -> Address -> element
 load l i = indexMaybe l i ?: def
+
+flippedStoreChar :: (Num element , Integral address , RAM ll element) => address -> ll -> Char -> ll
+flippedStoreChar a = flip (storeChar a)
 
 storeChar :: (Num element , Integral address , RAM ll element) => address -> Char -> ll -> ll
 storeChar a char = genericStore a $ ord char

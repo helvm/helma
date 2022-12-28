@@ -17,10 +17,10 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.API.RunParams where
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.API.EvalParams where
 <span class="lineno">    2 </span>
 <span class="lineno">    3 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">    4 </span>import           HelVM.HelMA.Automaton.API.TypeOptions
+<span class="lineno">    4 </span>import           HelVM.HelMA.Automaton.API.AutoOptions
 <span class="lineno">    5 </span>
 <span class="lineno">    6 </span>import           HelVM.HelMA.Automaton.Types.CellType
 <span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.Types.DumpType
@@ -30,27 +30,27 @@ span.spaces    { background: white }
 <span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Types.StackType
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>-- | Accessors
-<span class="lineno">   14 </span>ramTypeOptions :: RunParams -&gt; RAMType
+<span class="lineno">   14 </span>ramTypeOptions :: EvalParams -&gt; RAMType
 <span class="lineno">   15 </span><span class="decl"><span class="nottickedoff">ramTypeOptions = ram . typeOptions</span></span>
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>stackTypeOptions :: RunParams -&gt; StackType
+<span class="lineno">   17 </span>stackTypeOptions :: EvalParams -&gt; StackType
 <span class="lineno">   18 </span><span class="decl"><span class="nottickedoff">stackTypeOptions = stack . typeOptions</span></span>
 <span class="lineno">   19 </span>
-<span class="lineno">   20 </span>cellTypeOptions :: RunParams -&gt; CellType
+<span class="lineno">   20 </span>cellTypeOptions :: EvalParams -&gt; CellType
 <span class="lineno">   21 </span><span class="decl"><span class="nottickedoff">cellTypeOptions = cell . typeOptions</span></span>
 <span class="lineno">   22 </span>
-<span class="lineno">   23 </span>intCellTypeOptions :: RunParams -&gt; IntCellType
+<span class="lineno">   23 </span>intCellTypeOptions :: EvalParams -&gt; IntCellType
 <span class="lineno">   24 </span><span class="decl"><span class="nottickedoff">intCellTypeOptions = intCell . typeOptions</span></span>
 <span class="lineno">   25 </span>
-<span class="lineno">   26 </span>dumpTypeOptions :: RunParams -&gt; DumpType
+<span class="lineno">   26 </span>dumpTypeOptions :: EvalParams -&gt; DumpType
 <span class="lineno">   27 </span><span class="decl"><span class="nottickedoff">dumpTypeOptions = dumpType . typeOptions</span></span>
 <span class="lineno">   28 </span>
 <span class="lineno">   29 </span>-- | Type
-<span class="lineno">   30 </span>data RunParams = RunParams
+<span class="lineno">   30 </span>data EvalParams = EvalParams
 <span class="lineno">   31 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">compile</span></span></span>     :: !Bool
 <span class="lineno">   32 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">formatType</span></span></span>  :: !FormatType
 <span class="lineno">   33 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">source</span></span></span>      :: !Source
-<span class="lineno">   34 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">typeOptions</span></span></span> :: !TypeOptions
+<span class="lineno">   34 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">typeOptions</span></span></span> :: !AutoOptions
 <span class="lineno">   35 </span>  }
 
 </pre>

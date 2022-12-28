@@ -1,9 +1,9 @@
 module Main where
 
-import           HelVM.HelMA.Automata.BrainFuck.AutomatonBenchMark  as BF
-import           HelVM.HelMA.Automata.ETA.AutomatonBenchMark        as ETA
-import           HelVM.HelMA.Automata.SubLeq.AutomatonBenchMark     as SQ
-import           HelVM.HelMA.Automata.WhiteSpace.AutomatonBenchMark as WS
+import           HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark  as BF
+import           HelVM.HelMA.Automata.ETA.EvaluatorBenchMark        as ETA
+import           HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark     as SQ
+import           HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark as WS
 
 import           Gauge.Main
 import           Gauge.Main.Options

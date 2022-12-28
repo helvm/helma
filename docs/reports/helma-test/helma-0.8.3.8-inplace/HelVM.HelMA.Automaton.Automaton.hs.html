@@ -23,17 +23,17 @@ span.spaces    { background: white }
 <span class="lineno">    4 </span>) where
 <span class="lineno">    5 </span>
 <span class="lineno">    6 </span>import           HelVM.HelMA.Automaton.Evaluator
-<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.IO.EvaluatorIO
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.IO.AutomatonIO
 <span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.Instruction
 <span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Symbol
 <span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.Types.DumpType
 <span class="lineno">   11 </span>
 <span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.Units.Unit
 <span class="lineno">   13 </span>
-<span class="lineno">   14 </span>startWithIL :: (SREvaluator Symbol s r m) =&gt; s -&gt; r -&gt; Maybe Natural -&gt; DumpType -&gt; InstructionList -&gt; m ()
+<span class="lineno">   14 </span>startWithIL :: (SRAutomaton Symbol s r m) =&gt; s -&gt; r -&gt; Maybe Natural -&gt; DumpType -&gt; InstructionList -&gt; m ()
 <span class="lineno">   15 </span><span class="decl"><span class="istickedoff">startWithIL s r limit dt il = start il s r limit dt</span></span>
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>start :: (SREvaluator Symbol s r m) =&gt; InstructionList -&gt; s -&gt; r -&gt; Maybe Natural -&gt; DumpType -&gt; m ()
+<span class="lineno">   17 </span>start :: (SRAutomaton Symbol s r m) =&gt; InstructionList -&gt; s -&gt; r -&gt; Maybe Natural -&gt; DumpType -&gt; m ()
 <span class="lineno">   18 </span><span class="decl"><span class="istickedoff">start il s r limit dt = logDump dt =&lt;&lt; eval limit (newUnit il s r)</span></span>
 
 </pre>

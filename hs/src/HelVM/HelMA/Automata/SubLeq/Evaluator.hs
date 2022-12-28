@@ -1,43 +1,46 @@
 module HelVM.HelMA.Automata.SubLeq.Evaluator (
-  doInstruction,
+  simpleEval,
+  evalParams,
 ) where
 
+import           HelVM.HelMA.Automata.SubLeq.Automaton
+import           HelVM.HelMA.Automata.SubLeq.Lexer
+
+import           HelVM.HelMA.Automaton.API.EvalParams
+import           HelVM.HelMA.Automaton.API.IOTypes
+
+import           HelVM.HelMA.Automaton.IO.AutomatonIO
 import           HelVM.HelMA.Automaton.IO.BusinessIO
-import           HelVM.HelMA.Automaton.IO.EvaluatorIO
 
-import           HelVM.HelMA.Automaton.Units.RAM      as RAM
+import           HelVM.HelMA.Automaton.Loop
 
-import           Control.Type.Operator
+import           HelVM.HelMA.Automaton.Types.DumpType
+import           HelVM.HelMA.Automaton.Types.RAMType
 
-doInstruction :: REvaluator e r m => e -> r -> m $ Unit e r
-doInstruction ic ram
-  | ic  < 0   = doEnd ic ram
-  | src < 0   = doInputChar  dst ic ram
-  | dst < 0   = doOutputChar src ic ram
-  | otherwise = doInstruction ic' $ store dst diff ram
-    where
-      src  = genericLoad ram ic
-      dst  = genericLoad ram $ ic + 1
-      diff = genericLoad ram dst - genericLoad ram src
-      ic'
-        | diff <= 0 = genericLoad ram $ ic + 2
-        | otherwise = ic + 3
+import qualified HelVM.HelIO.Collections.MapList       as MapList
+import qualified HelVM.HelIO.Collections.SList         as SList
 
--- | IO instructions
-doOutputChar :: REvaluator e r m => e -> e -> r -> m $ Unit e r
-doOutputChar address ic ram = wPutAsChar (genericLoad ram address) *> doInstruction (ic+3) ram
+import qualified Data.Sequence                         as Seq
 
-doInputChar :: REvaluator e r m => e -> e -> r -> m $ Unit e r
-doInputChar address ic ram = doInputChar' =<< wGetChar where
-  doInputChar' char = doInstruction (ic+3) $ storeChar address char ram
+simpleEval :: BIO m => RAMType -> Source -> m ()
+simpleEval rt s = evalSource s rt testMaybeLimit Pretty
 
--- | Terminate instruction
-doEnd :: REvaluator e r m => e -> r -> m $ Unit e r
-doEnd ic ram = pure $ Unit ic ram
+----
 
--- | Types
-data Unit ic ram = Unit
-   { unitIU  :: ic
-   , unitRAM :: ram
-   }
-  deriving stock (Eq , Read , Show)
+evalParams :: BIO m => EvalParams -> m ()
+evalParams p = evalSource (source p) (ramAutoOptions p) Nothing (dumpAutoOptions p)
+
+evalSource :: BIO m => Source -> RAMType -> LimitMaybe -> DumpType -> m ()
+evalSource source = evalIL $ tokenize source
+
+evalIL :: AutomatonIO e m => [e] -> RAMType -> LimitMaybe -> DumpType -> m ()
+evalIL = flip evalIL'
+
+evalIL' :: AutomatonIO e m => RAMType -> [e] -> LimitMaybe -> DumpType -> m ()
+evalIL' ListRAMType    = start
+evalIL' SeqRAMType     = start . Seq.fromList
+evalIL' SListRAMType   = start . SList.sListFromList
+evalIL' MapListRAMType = start . MapList.mapListFromList
+
+start :: RAutomatonIO e r m => r -> LimitMaybe -> DumpType -> m ()
+start r limit dt = logDump dt =<< run limit (newAutomaton r)

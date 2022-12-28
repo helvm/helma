@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.3.10 -- 2023-01-08
+
+* Refactor Automaton and Evaluator
+
 ## 0.8.3.9 -- 2022-12-28
 
 * Use loopM for ETA

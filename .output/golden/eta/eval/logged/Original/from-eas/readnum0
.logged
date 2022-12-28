@@ -1,4 +1,4 @@
-dump: Unit
+dump: Automaton
     { unitIU = IU
         { program =
             [ I
