@@ -62,7 +62,7 @@ span.spaces    { background: white }
 <span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just (MulDupClr m1 m2 f1 f2)) table tape = nextStep table (mulDupAndClearSymbol m1 m2 f1 f2 tape)</span>
 <span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff"></span>
 <span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just (TriClr i1 i2 i3)) table tape       = <span class="nottickedoff">nextStep     table (triAndClearSymbol i1 i2 i3 tape)</span></span>
-<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Nothing           table tape             = doEnd        table                             tape</span></span>
+<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Nothing           table tape             = doEnd        (Automaton table                             tape)</span></span>
 <span class="lineno">   47 </span>
 <span class="lineno">   48 </span>doWhile :: (BIO m , Symbol e) =&gt; FastInstructionList -&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
 <span class="lineno">   49 </span><span class="decl"><span class="istickedoff">doWhile _  table tape@(_ , 0:_) = nextStep table tape</span>
@@ -79,20 +79,22 @@ span.spaces    { background: white }
 <span class="lineno">   60 </span><span class="decl"><span class="istickedoff">doInputChar table tape = (nextStep table . flip writeSymbol tape) =&lt;&lt; wGetChar</span></span>
 <span class="lineno">   61 </span>
 <span class="lineno">   62 </span>-- | Terminate instruction
-<span class="lineno">   63 </span>doEnd :: BIO m =&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
-<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">doEnd iu tape = pure $ Automaton iu tape</span></span>
+<span class="lineno">   63 </span>doEnd :: BIO m =&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">doEnd = pure</span></span>
 <span class="lineno">   65 </span>
 <span class="lineno">   66 </span>-- | Types
-<span class="lineno">   67 </span>data Automaton e = Automaton
-<span class="lineno">   68 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitUI</span></span></span>   :: InstructionUnit
-<span class="lineno">   69 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">unitTape</span></span></span> :: FullTape e
-<span class="lineno">   70 </span>  }
-<span class="lineno">   71 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
-<span class="lineno">   72 </span>
-<span class="lineno">   73 </span>data InstructionUnit = IU !FastInstructionList !InstructionCounter
-<span class="lineno">   74 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
-<span class="lineno">   75 </span>
-<span class="lineno">   76 </span>type InstructionCounter = Int
+<span class="lineno">   67 </span>--type AutomatonSame e = Same (Automaton e)
+<span class="lineno">   68 </span>
+<span class="lineno">   69 </span>data Automaton e = Automaton
+<span class="lineno">   70 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitUI</span></span></span>   :: InstructionUnit
+<span class="lineno">   71 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">unitTape</span></span></span> :: FullTape e
+<span class="lineno">   72 </span>  }
+<span class="lineno">   73 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   74 </span>
+<span class="lineno">   75 </span>data InstructionUnit = IU !FastInstructionList !InstructionCounter
+<span class="lineno">   76 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   77 </span>
+<span class="lineno">   78 </span>type InstructionCounter = Int
 
 </pre>
 </body>

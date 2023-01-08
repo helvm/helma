@@ -52,6 +52,8 @@ doEnd :: BIO m => Table -> FullTape e -> m $ Automaton e
 doEnd table tape = pure $ Automaton table tape
 
 -- | Types
+--type AutomatonSame e = Same (Automaton e)
+
 data Automaton e = Automaton
   { unitTable :: Table
   , unitTape  :: FullTape e
