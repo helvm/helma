@@ -1,8 +1,12 @@
 # 📅 Revision history for HelMA
 
+## 0.8.3.11 -- 2023-01-09
+
+* Refactor Automaton and Evaluator for BrainFuck
+
 ## 0.8.3.10 -- 2023-01-08
 
-* Refactor Automaton and Evaluator
+* Refactor Automaton and Evaluator for ETA, SubLeq and WhiteSpace
 
 ## 0.8.3.9 -- 2022-12-28
 
