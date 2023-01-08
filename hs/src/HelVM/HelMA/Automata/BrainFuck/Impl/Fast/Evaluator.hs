@@ -43,7 +43,7 @@ doInstruction (Just (DupClr          f1 f2)) table tape = nextStep table (dupAnd
 doInstruction (Just (MulDupClr m1 m2 f1 f2)) table tape = nextStep table (mulDupAndClearSymbol m1 m2 f1 f2 tape)
 
 doInstruction (Just (TriClr i1 i2 i3)) table tape       = nextStep     table (triAndClearSymbol i1 i2 i3 tape)
-doInstruction  Nothing           table tape             = doEnd        table                             tape
+doInstruction  Nothing           table tape             = doEnd        (Automaton table                             tape)
 
 doWhile :: (BIO m , Symbol e) => FastInstructionList -> InstructionUnit -> FullTape e -> m $ Automaton e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape
@@ -60,10 +60,12 @@ doInputChar  :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Autom
 doInputChar table tape = (nextStep table . flip writeSymbol tape) =<< wGetChar
 
 -- | Terminate instruction
-doEnd :: BIO m => InstructionUnit -> FullTape e -> m $ Automaton e
-doEnd iu tape = pure $ Automaton iu tape
+doEnd :: BIO m => Automaton e -> m $ Automaton e
+doEnd = pure
 
 -- | Types
+--type AutomatonSame e = Same (Automaton e)
+
 data Automaton e = Automaton
   { unitUI   :: InstructionUnit
   , unitTape :: FullTape e
