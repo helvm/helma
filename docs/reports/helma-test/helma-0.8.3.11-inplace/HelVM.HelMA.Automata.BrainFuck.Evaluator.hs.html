@@ -33,31 +33,33 @@ span.spaces    { background: white }
 <span class="lineno">   14 </span>
 <span class="lineno">   15 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Types.CellType
-<span class="lineno">   18 </span>import           HelVM.HelMA.Automaton.Types.DumpType
-<span class="lineno">   19 </span>
-<span class="lineno">   20 </span>simpleEval :: BIO m =&gt; (BFType , Source , CellType) -&gt; m ()
-<span class="lineno">   21 </span><span class="decl"><span class="istickedoff">simpleEval (c , s , t) = eval c s t Pretty</span></span> --TODO Add MaybeLimit and use Loop
-<span class="lineno">   22 </span>
-<span class="lineno">   23 </span>----
+<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Loop
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>import           HelVM.HelMA.Automaton.Types.CellType
+<span class="lineno">   20 </span>import           HelVM.HelMA.Automaton.Types.DumpType
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>simpleEval :: BIO m =&gt; (BFType , Source , CellType) -&gt; m ()
+<span class="lineno">   23 </span><span class="decl"><span class="istickedoff">simpleEval (c , s , t) = eval c s t <span class="nottickedoff">testLoopLimit</span> Pretty</span></span>
 <span class="lineno">   24 </span>
-<span class="lineno">   25 </span>evalParams :: BIO m =&gt; BFType -&gt; EvalParams -&gt; m ()
-<span class="lineno">   26 </span><span class="decl"><span class="nottickedoff">evalParams b p = eval b (source p) (cellAutoOptions p) (dumpAutoOptions p)</span></span>
-<span class="lineno">   27 </span>
-<span class="lineno">   28 </span>eval :: BIO m =&gt; BFType -&gt; Source -&gt; CellType -&gt; DumpType -&gt; m ()
-<span class="lineno">   29 </span><span class="decl"><span class="istickedoff">eval c s Int8Type   = evalSource c s (newTape :: FullTape Int8)</span>
-<span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">eval c s Word8Type  = evalSource c s (newTape :: FullTape Word8)</span>
-<span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">eval c s Int16Type  = evalSource c s (newTape :: FullTape Int16)</span>
-<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">eval c s Word16Type = evalSource c s (newTape :: FullTape Word16)</span>
-<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">eval c s Int32Type  = <span class="nottickedoff">evalSource c s (newTape :: FullTape Int32)</span></span>
-<span class="lineno">   34 </span><span class="spaces"></span><span class="istickedoff">eval c s Word32Type = <span class="nottickedoff">evalSource c s (newTape :: FullTape Word32)</span></span>
-<span class="lineno">   35 </span><span class="spaces"></span><span class="istickedoff">eval c s Int64Type  = <span class="nottickedoff">evalSource c s (newTape :: FullTape Int64)</span></span>
-<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">eval c s Word64Type = <span class="nottickedoff">evalSource c s (newTape :: FullTape Word64)</span></span></span>
-<span class="lineno">   37 </span>
-<span class="lineno">   38 </span>evalSource :: (BIO m , Symbol e) =&gt; BFType -&gt; Source -&gt; FullTape e -&gt; DumpType -&gt; m ()
-<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">evalSource FastType = Fast.evalSource</span>
-<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">evalSource TreeType = <span class="nottickedoff">Tree.evalSource</span></span>
-<span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff">evalSource FlatType = <span class="nottickedoff">Flat.evalSource</span></span></span>
+<span class="lineno">   25 </span>----
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>evalParams :: BIO m =&gt; BFType -&gt; EvalParams -&gt; m ()
+<span class="lineno">   28 </span><span class="decl"><span class="nottickedoff">evalParams b p = eval b (source p) (cellAutoOptions p) Nothing (dumpAutoOptions p)</span></span>
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>eval :: BIO m =&gt; BFType -&gt; Source -&gt; CellType -&gt; LoopLimit -&gt; DumpType -&gt; m ()
+<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">eval c s Int8Type   = evalSource c s (newTape :: FullTape Int8)</span>
+<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">eval c s Word8Type  = evalSource c s (newTape :: FullTape Word8)</span>
+<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">eval c s Int16Type  = evalSource c s (newTape :: FullTape Int16)</span>
+<span class="lineno">   34 </span><span class="spaces"></span><span class="istickedoff">eval c s Word16Type = evalSource c s (newTape :: FullTape Word16)</span>
+<span class="lineno">   35 </span><span class="spaces"></span><span class="istickedoff">eval c s Int32Type  = <span class="nottickedoff">evalSource c s (newTape :: FullTape Int32)</span></span>
+<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">eval c s Word32Type = <span class="nottickedoff">evalSource c s (newTape :: FullTape Word32)</span></span>
+<span class="lineno">   37 </span><span class="spaces"></span><span class="istickedoff">eval c s Int64Type  = <span class="nottickedoff">evalSource c s (newTape :: FullTape Int64)</span></span>
+<span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff">eval c s Word64Type = <span class="nottickedoff">evalSource c s (newTape :: FullTape Word64)</span></span></span>
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>evalSource :: (BIO m , Symbol e) =&gt; BFType -&gt; Source -&gt; FullTape e -&gt; LoopLimit -&gt; DumpType -&gt; m ()
+<span class="lineno">   41 </span><span class="decl"><span class="istickedoff">evalSource FastType = Fast.evalSource</span>
+<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">evalSource TreeType = <span class="nottickedoff">Tree.evalSource</span></span>
+<span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">evalSource FlatType = <span class="nottickedoff">Flat.evalSource</span></span></span>
 
 </pre>
 </body>

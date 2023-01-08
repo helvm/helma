@@ -20,14 +20,14 @@ import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
 
 simpleEval :: BIO m => (BFType , Source , CellType) -> m ()
-simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Loop
+simpleEval (c , s , t) = eval c s t testLoopLimit Pretty
 
 ----
 
 evalParams :: BIO m => BFType -> EvalParams -> m ()
 evalParams b p = eval b (source p) (cellAutoOptions p) Nothing (dumpAutoOptions p)
 
-eval :: BIO m => BFType -> Source -> CellType -> DumpType -> m ()
+eval :: BIO m => BFType -> Source -> CellType -> LoopLimit -> DumpType -> m ()
 eval c s Int8Type   = evalSource c s (newTape :: FullTape Int8)
 eval c s Word8Type  = evalSource c s (newTape :: FullTape Word8)
 eval c s Int16Type  = evalSource c s (newTape :: FullTape Int16)
@@ -37,7 +37,7 @@ eval c s Word32Type = evalSource c s (newTape :: FullTape Word32)
 eval c s Int64Type  = evalSource c s (newTape :: FullTape Int64)
 eval c s Word64Type = evalSource c s (newTape :: FullTape Word64)
 
-evalSource :: (BIO m , Symbol e) => BFType -> Source -> FullTape e -> DumpType -> m ()
+evalSource :: (BIO m , Symbol e) => BFType -> Source -> FullTape e -> LoopLimit -> DumpType -> m ()
 evalSource FastType = Fast.evalSource
 evalSource TreeType = Tree.evalSource
 evalSource FlatType = Flat.evalSource

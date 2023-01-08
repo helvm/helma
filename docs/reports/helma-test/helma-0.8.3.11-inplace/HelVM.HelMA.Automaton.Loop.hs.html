@@ -24,10 +24,10 @@ span.spaces    { background: white }
 <span class="lineno">    5 </span>
 <span class="lineno">    6 </span>import           Data.Either.Extra
 <span class="lineno">    7 </span>
-<span class="lineno">    8 </span>testMaybeLimit :: LimitMaybe
-<span class="lineno">    9 </span><span class="decl"><span class="istickedoff">testMaybeLimit = Just $ fromIntegral (maxBound :: Int)</span></span>
+<span class="lineno">    8 </span>testLoopLimit :: LoopLimit
+<span class="lineno">    9 </span><span class="decl"><span class="istickedoff">testLoopLimit = Just $ fromIntegral (maxBound :: Int)</span></span>
 <span class="lineno">   10 </span>
-<span class="lineno">   11 </span>loopMWithLimit :: Monad m =&gt; (a -&gt; m $ Same a) -&gt; LimitMaybe -&gt; a -&gt; m a
+<span class="lineno">   11 </span>loopMWithLimit :: Monad m =&gt; (a -&gt; m $ Same a) -&gt; LoopLimit -&gt; a -&gt; m a
 <span class="lineno">   12 </span><span class="decl"><span class="istickedoff">loopMWithLimit f Nothing  x = <span class="nottickedoff">loopM f x</span></span>
 <span class="lineno">   13 </span><span class="spaces"></span><span class="istickedoff">loopMWithLimit f (Just n) x = loopM (actMWithLimit f) (n , x)</span></span>
 <span class="lineno">   14 </span>
@@ -36,7 +36,7 @@ span.spaces    { background: white }
 <span class="lineno">   17 </span><span class="spaces">  </span><span class="istickedoff">checkN 0 = <span class="nottickedoff">pure $ Right x</span></span>
 <span class="lineno">   18 </span><span class="spaces">  </span><span class="istickedoff">checkN _ = mapLeft (n - 1 , ) &lt;$&gt; f x</span></span>
 <span class="lineno">   19 </span>
-<span class="lineno">   20 </span>type LimitMaybe = Maybe Natural
+<span class="lineno">   20 </span>type LoopLimit = Maybe Natural
 <span class="lineno">   21 </span>
 <span class="lineno">   22 </span>type WithLimit a = (Natural , a)
 <span class="lineno">   23 </span>

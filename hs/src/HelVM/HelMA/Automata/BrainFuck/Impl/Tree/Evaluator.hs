@@ -11,14 +11,15 @@ import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.Loop
 import           HelVM.HelMA.Automaton.Types.DumpType
 
 import           HelVM.HelIO.Containers.LLIndexSafe
 
 import           Control.Type.Operator
 
-evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> DumpType -> m ()
-evalSource source tape dt = logDump dt =<< flip runVector tape =<< parseAsVector source
+evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> LoopLimit -> DumpType -> m ()
+evalSource source tape _limit dt = logDump dt =<< flip runVector tape =<< parseAsVector source
 
 runVector :: (BIO m , Symbol e) => TreeInstructionVector -> FullTape e -> m $ Automaton e
 runVector iv = nextStep (IU iv 0)
