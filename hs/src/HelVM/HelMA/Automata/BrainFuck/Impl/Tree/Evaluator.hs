@@ -35,7 +35,7 @@ doInstruction (Just (Simple Dec       )) table tape = nextStep     table    (pre
 doInstruction (Just (Simple Output    )) table tape = doOutputChar table                tape
 doInstruction (Just (Simple Input     )) table tape = doInputChar  table                tape
 doInstruction (Just (While  iv        )) table tape = doWhile iv   table                tape
-doInstruction  Nothing                   table tape = doEnd        table                tape
+doInstruction  Nothing                   table tape = doEnd        (Automaton table tape)
 
 doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> InstructionUnit -> FullTape e -> m $ Automaton e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape
@@ -52,8 +52,8 @@ doInputChar  :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Autom
 doInputChar table tape = (nextStep table . flip writeSymbol tape) =<< wGetChar
 
 -- | Terminate instruction
-doEnd :: BIO m => InstructionUnit -> FullTape e -> m $ Automaton e
-doEnd iu tape = pure $ Automaton iu tape
+doEnd :: BIO m => Automaton e -> m $ Automaton e
+doEnd = pure
 
 -- | Types
 --type AutomatonSame e = Same (Automaton e)

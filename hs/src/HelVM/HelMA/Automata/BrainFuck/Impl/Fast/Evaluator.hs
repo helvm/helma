@@ -43,7 +43,7 @@ doInstruction (Just (DupClr          f1 f2)) table tape = nextStep table (dupAnd
 doInstruction (Just (MulDupClr m1 m2 f1 f2)) table tape = nextStep table (mulDupAndClearSymbol m1 m2 f1 f2 tape)
 
 doInstruction (Just (TriClr i1 i2 i3)) table tape       = nextStep     table (triAndClearSymbol i1 i2 i3 tape)
-doInstruction  Nothing           table tape             = doEnd        (Automaton table                             tape)
+doInstruction  Nothing           table tape             = doEnd        (Automaton table tape)
 
 doWhile :: (BIO m , Symbol e) => FastInstructionList -> InstructionUnit -> FullTape e -> m $ Automaton e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape

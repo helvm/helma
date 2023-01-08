@@ -29,7 +29,7 @@ doInstruction table@(_ , Simple Output : _) tape = doOutputChar            table
 doInstruction table@(_ , Simple Input  : _) tape = doInputChar             table                 tape
 doInstruction table@(_ , JmpPast       : _) tape = doJmpPast               table                 tape
 doInstruction table@(_ , JmpBack       : _) tape = doJmpBack               table                 tape
-doInstruction table@(_ , []               ) tape = doEnd                   table                 tape
+doInstruction table@(_ , []               ) tape = doEnd                   (Automaton table tape)
 
 doJmpPast :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
 doJmpPast table tape@(_ , 0 : _) = doInstruction (jumpPast table) tape
@@ -48,8 +48,8 @@ doInputChar :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
 doInputChar table tape = (doInstruction (nextInst table) . flip writeSymbol tape) =<< wGetChar
 
 -- | Terminate instruction
-doEnd :: BIO m => Table -> FullTape e -> m $ Automaton e
-doEnd table tape = pure $ Automaton table tape
+doEnd :: BIO m => Automaton e -> m $ Automaton e
+doEnd = pure
 
 -- | Types
 --type AutomatonSame e = Same (Automaton e)
