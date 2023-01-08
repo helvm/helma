@@ -32,24 +32,25 @@ doInstruction (Just (Simple MoveR     )) table tape = nextStep     table (moveHe
 doInstruction (Just (Simple MoveL     )) table tape = nextStep     table  (moveHeadLeft tape)
 doInstruction (Just (Simple Inc       )) table tape = nextStep     table    (nextSymbol tape)
 doInstruction (Just (Simple Dec       )) table tape = nextStep     table    (prevSymbol tape)
-doInstruction (Just (Simple Output    )) table tape = doOutputChar table                tape
-doInstruction (Just (Simple Input     )) table tape = doInputChar  table                tape
-doInstruction (Just (While  iv        )) table tape = doWhile iv   table                tape
+doInstruction (Just (Simple Output    )) table tape = doOutputChar (Automaton table tape)
+doInstruction (Just (Simple Input     )) table tape = doInputChar  (Automaton table tape)
+doInstruction (Just (While  iv        )) table tape = doWhile iv   (Automaton table tape)
 doInstruction  Nothing                   table tape = doEnd        (Automaton table tape)
 
-doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> InstructionUnit -> FullTape e -> m $ Automaton e
-doWhile _  table tape@(_ , 0:_) = nextStep table tape
-doWhile iv table tape           = doWhileWithTape =<< runVector iv tape where
+-- | Control Instruction
+doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> Automaton e -> m $ Automaton e
+doWhile _  (Automaton table tape@(_ , 0:_)) = nextStep table tape
+doWhile iv (Automaton table tape          ) = doWhileWithTape =<< runVector iv tape where
   doWhileWithTape :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-  doWhileWithTape = doWhile iv table . unitTape
+  doWhileWithTape (Automaton _ tape') = doWhile iv (Automaton table tape')
 
 -- | IO instructions
-doOutputChar :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
-doOutputChar _          (_ ,  []) = error "Illegal State"
-doOutputChar table tape@(_ , e:_) = wPutChar (toChar e) *> nextStep table tape
+doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+doOutputChar (Automaton _          (_ ,  [])) = error "Illegal State"
+doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *> nextStep table tape
 
-doInputChar  :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
-doInputChar table tape = (nextStep table . flip writeSymbol tape) =<< wGetChar
+doInputChar  :: (BIO m , Symbol e) => Automaton e-> m $ Automaton e
+doInputChar (Automaton table tape) = (nextStep table . flip writeSymbol tape) =<< wGetChar
 
 -- | Terminate instruction
 doEnd :: BIO m => Automaton e -> m $ Automaton e

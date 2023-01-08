@@ -62,7 +62,7 @@ span.spaces    { background: white }
 <span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just (MulDupClr m1 m2 f1 f2)) table tape = nextStep table (mulDupAndClearSymbol m1 m2 f1 f2 tape)</span>
 <span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff"></span>
 <span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just (TriClr i1 i2 i3)) table tape       = <span class="nottickedoff">nextStep     table (triAndClearSymbol i1 i2 i3 tape)</span></span>
-<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Nothing           table tape             = doEnd        (Automaton table                             tape)</span></span>
+<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Nothing           table tape             = doEnd        (Automaton table tape)</span></span>
 <span class="lineno">   47 </span>
 <span class="lineno">   48 </span>doWhile :: (BIO m , Symbol e) =&gt; FastInstructionList -&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
 <span class="lineno">   49 </span><span class="decl"><span class="istickedoff">doWhile _  table tape@(_ , 0:_) = nextStep table tape</span>

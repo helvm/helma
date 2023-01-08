@@ -25,27 +25,29 @@ doInstruction table@(_ , Simple MoveR  : _) tape = doInstruction (nextInst table
 doInstruction table@(_ , Simple MoveL  : _) tape = doInstruction (nextInst table)  (moveHeadLeft tape)
 doInstruction table@(_ , Simple Inc    : _) tape = doInstruction (nextInst table)    (nextSymbol tape)
 doInstruction table@(_ , Simple Dec    : _) tape = doInstruction (nextInst table)    (prevSymbol tape)
-doInstruction table@(_ , Simple Output : _) tape = doOutputChar            table                 tape
-doInstruction table@(_ , Simple Input  : _) tape = doInputChar             table                 tape
-doInstruction table@(_ , JmpPast       : _) tape = doJmpPast               table                 tape
-doInstruction table@(_ , JmpBack       : _) tape = doJmpBack               table                 tape
-doInstruction table@(_ , []               ) tape = doEnd                   (Automaton table tape)
+doInstruction table@(_ , Simple Output : _) tape = doOutputChar  (Automaton table tape)
+doInstruction table@(_ , Simple Input  : _) tape = doInputChar   (Automaton table tape)
+doInstruction table@(_ , JmpPast       : _) tape = doJmpPast     (Automaton table tape)
+doInstruction table@(_ , JmpBack       : _) tape = doJmpBack     (Automaton table tape)
+doInstruction table@(_ , []               ) tape = doEnd         (Automaton table tape)
 
-doJmpPast :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
-doJmpPast table tape@(_ , 0 : _) = doInstruction (jumpPast table) tape
-doJmpPast table tape             = doInstruction (nextInst table) tape
+-- | Control instruction
 
-doJmpBack :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
-doJmpBack table tape@(_ , 0 : _) = doInstruction (nextInst table) tape
-doJmpBack table tape             = doInstruction (jumpBack table) tape
+doJmpPast :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+doJmpPast (Automaton table tape@(_ , 0 : _)) = doInstruction (jumpPast table) tape
+doJmpPast (Automaton table tape            ) = doInstruction (nextInst table) tape
+
+doJmpBack :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+doJmpBack (Automaton table tape@(_ , 0 : _)) = doInstruction (nextInst table) tape
+doJmpBack (Automaton table tape            ) = doInstruction (jumpBack table) tape
 
 -- | IO instructions
-doOutputChar :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
-doOutputChar _          (_ ,    []) = error "Illegal State"
-doOutputChar table tape@(_ , e : _) = wPutChar (toChar e) *> doInstruction (nextInst table) tape
+doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+doOutputChar (Automaton _          (_ ,    [])) = error "Illegal State"
+doOutputChar (Automaton table tape@(_ , e : _)) = wPutChar (toChar e) *> doInstruction (nextInst table) tape
 
-doInputChar :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
-doInputChar table tape = (doInstruction (nextInst table) . flip writeSymbol tape) =<< wGetChar
+doInputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+doInputChar (Automaton table tape) = (doInstruction (nextInst table) . flip writeSymbol tape) =<< wGetChar
 
 -- | Terminate instruction
 doEnd :: BIO m => Automaton e -> m $ Automaton e
