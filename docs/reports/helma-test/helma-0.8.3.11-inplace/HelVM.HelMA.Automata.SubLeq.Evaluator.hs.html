@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.SubLeq.Evaluator (
+<span class="lineno">    2 </span>  simpleEval,
+<span class="lineno">    3 </span>  evalParams,
+<span class="lineno">    4 </span>) where
+<span class="lineno">    5 </span>
+<span class="lineno">    6 </span>import           HelVM.HelMA.Automata.SubLeq.Automaton
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.SubLeq.Lexer
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.API.EvalParams
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.API.IOTypes
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.IO.AutomatonIO
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>import           HelVM.HelMA.Automaton.Loop
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Types.DumpType
+<span class="lineno">   18 </span>import           HelVM.HelMA.Automaton.Types.RAMType
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import qualified HelVM.HelIO.Collections.MapList       as MapList
+<span class="lineno">   21 </span>import qualified HelVM.HelIO.Collections.SList         as SList
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>import qualified Data.Sequence                         as Seq
+<span class="lineno">   24 </span>
+<span class="lineno">   25 </span>simpleEval :: BIO m =&gt; RAMType -&gt; Source -&gt; m ()
+<span class="lineno">   26 </span><span class="decl"><span class="istickedoff">simpleEval rt s = evalSource s rt testMaybeLimit Pretty</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>----
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>evalParams :: BIO m =&gt; EvalParams -&gt; m ()
+<span class="lineno">   31 </span><span class="decl"><span class="nottickedoff">evalParams p = evalSource (source p) (ramAutoOptions p) Nothing (dumpAutoOptions p)</span></span>
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>evalSource :: BIO m =&gt; Source -&gt; RAMType -&gt; LimitMaybe -&gt; DumpType -&gt; m ()
+<span class="lineno">   34 </span><span class="decl"><span class="istickedoff">evalSource source = evalIL $ tokenize source</span></span>
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>evalIL :: AutomatonIO e m =&gt; [e] -&gt; RAMType -&gt; LimitMaybe -&gt; DumpType -&gt; m ()
+<span class="lineno">   37 </span><span class="decl"><span class="istickedoff">evalIL = flip evalIL'</span></span>
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>evalIL' :: AutomatonIO e m =&gt; RAMType -&gt; [e] -&gt; LimitMaybe -&gt; DumpType -&gt; m ()
+<span class="lineno">   40 </span><span class="decl"><span class="istickedoff">evalIL' ListRAMType    = <span class="nottickedoff">start</span></span>
+<span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff">evalIL' SeqRAMType     = <span class="nottickedoff">start . Seq.fromList</span></span>
+<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">evalIL' SListRAMType   = <span class="nottickedoff">start . SList.sListFromList</span></span>
+<span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">evalIL' MapListRAMType = start . MapList.mapListFromList</span></span>
+<span class="lineno">   44 </span>
+<span class="lineno">   45 </span>start :: RAutomatonIO e r m =&gt; r -&gt; LimitMaybe -&gt; DumpType -&gt; m ()
+<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">start r limit dt = logDump dt =&lt;&lt; run limit (newAutomaton r)</span></span>
+
+</pre>
+</body>
+</html>

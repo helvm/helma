@@ -31,21 +31,21 @@ import qualified Data.Sequence                            as Seq
 import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
 simpleEval :: BIO m => (ETAImplType , Source , StackType) -> m ()
-simpleEval (c , s , t) = evalSource c s t testMaybeLimit Pretty
+simpleEval (c , s , t) = evalSource c s t testLoopLimit Pretty
 
 ----
 
 evalParams :: BIO m => ETAImplType -> EvalParams -> m ()
 evalParams e p = evalSource e (source p) (stackAutoOptions p) Nothing (dumpAutoOptions p)
 
-evalSource :: (AutomatonIO Symbol m) => ETAImplType -> Source -> StackType -> LimitMaybe -> DumpType -> m ()
+evalSource :: (AutomatonIO Symbol m) => ETAImplType -> Source -> StackType -> LoopLimit -> DumpType -> m ()
 evalSource etaImplType source = evalTL etaImplType (tokenize source)
 
-evalTL :: (AutomatonIO Symbol m) => ETAImplType -> TokenList -> StackType -> LimitMaybe -> DumpType -> m ()
+evalTL :: (AutomatonIO Symbol m) => ETAImplType -> TokenList -> StackType -> LoopLimit -> DumpType -> m ()
 evalTL c tl ListStackType  = eval c tl []
 evalTL c tl SeqStackType   = eval c tl Seq.empty
 evalTL c tl SListStackType = eval c tl SList.sListEmpty
 
-eval :: (SAutomatonIO Symbol s m) => ETAImplType -> TokenList -> s -> LimitMaybe -> DumpType -> m ()
+eval :: (SAutomatonIO Symbol s m) => ETAImplType -> TokenList -> s -> LoopLimit -> DumpType -> m ()
 eval Original tl s limit dt = logDump dt =<< run limit (newAutomaton tl s)
 eval Fast     tl s limit dt = logDump dt =<< (Automaton.run limit . Automaton.flippedNewAutomaton (s , [])) =<< optimize tl

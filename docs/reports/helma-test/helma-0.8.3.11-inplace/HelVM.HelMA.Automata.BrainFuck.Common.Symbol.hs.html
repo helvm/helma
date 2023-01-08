@@ -1,0 +1,123 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.BrainFuck.Common.Symbol (
+<span class="lineno">    2 </span>  inc,
+<span class="lineno">    3 </span>  compare0,
+<span class="lineno">    4 </span>  def,
+<span class="lineno">    5 </span>  next,
+<span class="lineno">    6 </span>  prev,
+<span class="lineno">    7 </span>  toInteger,
+<span class="lineno">    8 </span>  fromChar,
+<span class="lineno">    9 </span>  toChar,
+<span class="lineno">   10 </span>  Symbol,
+<span class="lineno">   11 </span>) where
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>import           Data.Default (Default)
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>import qualified Data.Default as Default
+<span class="lineno">   16 </span>import qualified Relude.Extra as Extra
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>inc :: Symbol e =&gt; e -&gt; e -&gt; e
+<span class="lineno">   19 </span><span class="decl"><span class="istickedoff">inc = flip (+)</span></span>
+<span class="lineno">   20 </span>
+<span class="lineno">   21 </span>compare0 :: Integer -&gt; Ordering
+<span class="lineno">   22 </span><span class="decl"><span class="istickedoff">compare0 = compare 0</span></span>
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>--
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>def :: Symbol e =&gt; e
+<span class="lineno">   27 </span><span class="decl"><span class="istickedoff">def = Default.def</span></span>
+<span class="lineno">   28 </span>
+<span class="lineno">   29 </span>next :: Symbol e =&gt; e -&gt; e
+<span class="lineno">   30 </span><span class="decl"><span class="nottickedoff">next = Extra.next</span></span>
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>prev :: Symbol e =&gt; e -&gt; e
+<span class="lineno">   33 </span><span class="decl"><span class="nottickedoff">prev = Extra.prev</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>class (Bounded e , Default e , Enum e , Eq e , Integral e , Show e) =&gt; Symbol e where
+<span class="lineno">   36 </span>--  toInteger  :: e -&gt; Integer
+<span class="lineno">   37 </span>  fromChar   :: Char -&gt; e
+<span class="lineno">   38 </span>  toChar     :: e -&gt; Char
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>--
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>instance Symbol Int where
+<span class="lineno">   43 </span>--  toInteger  = fromIntegral
+<span class="lineno">   44 </span>  <span class="decl"><span class="nottickedoff">fromChar   = ord</span></span>
+<span class="lineno">   45 </span>  <span class="decl"><span class="nottickedoff">toChar     = chr</span></span>
+<span class="lineno">   46 </span>
+<span class="lineno">   47 </span>instance Symbol Word where
+<span class="lineno">   48 </span>--  toInteger  = fromIntegral
+<span class="lineno">   49 </span>  <span class="decl"><span class="nottickedoff">fromChar   = fromIntegral . ord</span></span>
+<span class="lineno">   50 </span>  <span class="decl"><span class="nottickedoff">toChar     = chr . fromIntegral</span></span>
+<span class="lineno">   51 </span>
+<span class="lineno">   52 </span>instance Symbol Int8 where
+<span class="lineno">   53 </span>--  toInteger  = fromIntegral
+<span class="lineno">   54 </span>  <span class="decl"><span class="istickedoff">fromChar   = fromIntegral . ord</span></span>
+<span class="lineno">   55 </span>  <span class="decl"><span class="istickedoff">toChar     = chr . normalizeMod . fromIntegral</span></span>
+<span class="lineno">   56 </span>
+<span class="lineno">   57 </span>instance Symbol Word8 where
+<span class="lineno">   58 </span>--  toInteger  = fromIntegral
+<span class="lineno">   59 </span>  <span class="decl"><span class="istickedoff">fromChar   = fromIntegral . ord</span></span>
+<span class="lineno">   60 </span>  <span class="decl"><span class="istickedoff">toChar     = chr . fromIntegral</span></span>
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>instance Symbol Int16 where
+<span class="lineno">   63 </span>--  toInteger  = fromIntegral
+<span class="lineno">   64 </span>  <span class="decl"><span class="nottickedoff">fromChar   = fromIntegral . ord</span></span>
+<span class="lineno">   65 </span>  <span class="decl"><span class="istickedoff">toChar     = chr . normalizeMod . fromIntegral</span></span>
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>instance Symbol Word16 where
+<span class="lineno">   68 </span>--  toInteger  = fromIntegral
+<span class="lineno">   69 </span>  <span class="decl"><span class="nottickedoff">fromChar   = fromIntegral . ord</span></span>
+<span class="lineno">   70 </span>  <span class="decl"><span class="istickedoff">toChar     = chr . fromIntegral</span></span>
+<span class="lineno">   71 </span>
+<span class="lineno">   72 </span>instance Symbol Int32 where
+<span class="lineno">   73 </span>--  toInteger  = fromIntegral
+<span class="lineno">   74 </span>  <span class="decl"><span class="nottickedoff">fromChar   = fromIntegral . ord</span></span>
+<span class="lineno">   75 </span>  <span class="decl"><span class="nottickedoff">toChar     = chr . normalizeMod . fromIntegral</span></span>
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>instance Symbol Word32 where
+<span class="lineno">   78 </span>--  toInteger  = fromIntegral
+<span class="lineno">   79 </span>  <span class="decl"><span class="nottickedoff">fromChar   = fromIntegral . ord</span></span>
+<span class="lineno">   80 </span>  <span class="decl"><span class="nottickedoff">toChar     = chr . fromIntegral</span></span>
+<span class="lineno">   81 </span>
+<span class="lineno">   82 </span>instance Symbol Int64 where
+<span class="lineno">   83 </span>--  toInteger  = fromIntegral
+<span class="lineno">   84 </span>  <span class="decl"><span class="nottickedoff">fromChar   = fromIntegral . ord</span></span>
+<span class="lineno">   85 </span>  <span class="decl"><span class="nottickedoff">toChar     = chr . normalizeMod . fromIntegral</span></span>
+<span class="lineno">   86 </span>
+<span class="lineno">   87 </span>instance Symbol Word64 where
+<span class="lineno">   88 </span>--  toInteger  = fromIntegral
+<span class="lineno">   89 </span>  <span class="decl"><span class="nottickedoff">fromChar   = fromIntegral . ord</span></span>
+<span class="lineno">   90 </span>  <span class="decl"><span class="nottickedoff">toChar     = chr . fromIntegral</span></span>
+<span class="lineno">   91 </span>--
+<span class="lineno">   92 </span>
+<span class="lineno">   93 </span>countSymbols :: (Integral e) =&gt; e
+<span class="lineno">   94 </span><span class="decl"><span class="istickedoff">countSymbols = 256</span></span>
+<span class="lineno">   95 </span>
+<span class="lineno">   96 </span>modifyMod :: (Integral e) =&gt; (e -&gt; e) -&gt; e -&gt; e
+<span class="lineno">   97 </span><span class="decl"><span class="istickedoff">modifyMod f i = f (i + countSymbols) `mod` countSymbols</span></span>
+<span class="lineno">   98 </span>
+<span class="lineno">   99 </span>normalizeMod :: (Integral e) =&gt; e -&gt; e
+<span class="lineno">  100 </span><span class="decl"><span class="istickedoff">normalizeMod = modifyMod id</span></span>
+
+</pre>
+</body>
+</html>

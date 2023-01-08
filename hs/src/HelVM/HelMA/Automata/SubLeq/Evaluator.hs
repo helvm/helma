@@ -23,24 +23,24 @@ import qualified HelVM.HelIO.Collections.SList         as SList
 import qualified Data.Sequence                         as Seq
 
 simpleEval :: BIO m => RAMType -> Source -> m ()
-simpleEval rt s = evalSource s rt testMaybeLimit Pretty
+simpleEval rt s = evalSource s rt testLoopLimit Pretty
 
 ----
 
 evalParams :: BIO m => EvalParams -> m ()
 evalParams p = evalSource (source p) (ramAutoOptions p) Nothing (dumpAutoOptions p)
 
-evalSource :: BIO m => Source -> RAMType -> LimitMaybe -> DumpType -> m ()
+evalSource :: BIO m => Source -> RAMType -> LoopLimit -> DumpType -> m ()
 evalSource source = evalIL $ tokenize source
 
-evalIL :: AutomatonIO e m => [e] -> RAMType -> LimitMaybe -> DumpType -> m ()
+evalIL :: AutomatonIO e m => [e] -> RAMType -> LoopLimit -> DumpType -> m ()
 evalIL = flip evalIL'
 
-evalIL' :: AutomatonIO e m => RAMType -> [e] -> LimitMaybe -> DumpType -> m ()
+evalIL' :: AutomatonIO e m => RAMType -> [e] -> LoopLimit -> DumpType -> m ()
 evalIL' ListRAMType    = start
 evalIL' SeqRAMType     = start . Seq.fromList
 evalIL' SListRAMType   = start . SList.sListFromList
 evalIL' MapListRAMType = start . MapList.mapListFromList
 
-start :: RAutomatonIO e r m => r -> LimitMaybe -> DumpType -> m ()
+start :: RAutomatonIO e r m => r -> LoopLimit -> DumpType -> m ()
 start r limit dt = logDump dt =<< run limit (newAutomaton r)

@@ -14,6 +14,8 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
+import           HelVM.HelMA.Automaton.Loop
+
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
 
@@ -23,7 +25,7 @@ simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Loop
 ----
 
 evalParams :: BIO m => BFType -> EvalParams -> m ()
-evalParams b p = eval b (source p) (cellAutoOptions p) (dumpAutoOptions p)
+evalParams b p = eval b (source p) (cellAutoOptions p) Nothing (dumpAutoOptions p)
 
 eval :: BIO m => BFType -> Source -> CellType -> DumpType -> m ()
 eval c s Int8Type   = evalSource c s (newTape :: FullTape Int8)
