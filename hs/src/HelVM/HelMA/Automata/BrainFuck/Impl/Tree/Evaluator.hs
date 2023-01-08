@@ -56,6 +56,8 @@ doEnd :: BIO m => InstructionUnit -> FullTape e -> m $ Automaton e
 doEnd iu tape = pure $ Automaton iu tape
 
 -- | Types
+--type AutomatonSame e = Same (Automaton e)
+
 data Automaton e = Automaton
   { unitUI   :: InstructionUnit
   , unitTape :: FullTape e
