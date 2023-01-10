@@ -27,19 +27,19 @@ doInstruction a@(Automaton (_ , Simple Inc    : _) _) = doInstruction (incAutoma
 doInstruction a@(Automaton (_ , Simple Dec    : _) _) = doInstruction (decAutomaton a)
 doInstruction a@(Automaton (_ , Simple Output : _) _) = doOutputChar  a
 doInstruction a@(Automaton (_ , Simple Input  : _) _) = doInputChar   a
-doInstruction a@(Automaton (_ , JmpPast       : _) _) = doJmpPast     a
-doInstruction a@(Automaton (_ , JmpBack       : _) _) = doJmpBack     a
+doInstruction a@(Automaton (_ , JmpPast       : _) _) = doInstruction (doJmpPast     a)
+doInstruction a@(Automaton (_ , JmpBack       : _) _) = doInstruction (doJmpBack     a)
 doInstruction a@(Automaton (_ , []               ) _) = doEnd         a
 
 -- | Control instruction
 
-doJmpPast :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doJmpPast (Automaton table tape@(_ , 0 : _)) = doInstruction (Automaton (jumpPast table) tape)
-doJmpPast (Automaton table tape            ) = doInstruction (Automaton (nextInst table) tape)
+doJmpPast :: Symbol e => Automaton e -> Automaton e
+doJmpPast (Automaton table tape@(_ , 0 : _)) = Automaton (jumpPast table) tape
+doJmpPast (Automaton table tape            ) = Automaton (nextInst table) tape
 
-doJmpBack :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doJmpBack (Automaton table tape@(_ , 0 : _)) = doInstruction (Automaton (nextInst table) tape)
-doJmpBack (Automaton table tape            ) = doInstruction (Automaton (jumpBack table) tape)
+doJmpBack :: Symbol e => Automaton e -> Automaton e
+doJmpBack (Automaton table tape@(_ , 0 : _)) = Automaton (nextInst table) tape
+doJmpBack (Automaton table tape            ) = Automaton (jumpBack table) tape
 
 -- | IO instructions
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e

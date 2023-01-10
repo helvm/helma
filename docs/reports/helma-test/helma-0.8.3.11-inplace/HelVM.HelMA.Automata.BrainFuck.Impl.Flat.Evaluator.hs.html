@@ -46,19 +46,19 @@ span.spaces    { background: white }
 <span class="lineno">   27 </span><span class="spaces"></span><span class="nottickedoff">doInstruction a@(Automaton (_ , Simple Dec    : _) _) = doInstruction (decAutomaton a)</span>
 <span class="lineno">   28 </span><span class="spaces"></span><span class="nottickedoff">doInstruction a@(Automaton (_ , Simple Output : _) _) = doOutputChar  a</span>
 <span class="lineno">   29 </span><span class="spaces"></span><span class="nottickedoff">doInstruction a@(Automaton (_ , Simple Input  : _) _) = doInputChar   a</span>
-<span class="lineno">   30 </span><span class="spaces"></span><span class="nottickedoff">doInstruction a@(Automaton (_ , JmpPast       : _) _) = doJmpPast     a</span>
-<span class="lineno">   31 </span><span class="spaces"></span><span class="nottickedoff">doInstruction a@(Automaton (_ , JmpBack       : _) _) = doJmpBack     a</span>
+<span class="lineno">   30 </span><span class="spaces"></span><span class="nottickedoff">doInstruction a@(Automaton (_ , JmpPast       : _) _) = doInstruction (doJmpPast     a)</span>
+<span class="lineno">   31 </span><span class="spaces"></span><span class="nottickedoff">doInstruction a@(Automaton (_ , JmpBack       : _) _) = doInstruction (doJmpBack     a)</span>
 <span class="lineno">   32 </span><span class="spaces"></span><span class="nottickedoff">doInstruction a@(Automaton (_ , []               ) _) = doEnd         a</span></span>
 <span class="lineno">   33 </span>
 <span class="lineno">   34 </span>-- | Control instruction
 <span class="lineno">   35 </span>
-<span class="lineno">   36 </span>doJmpPast :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   37 </span><span class="decl"><span class="nottickedoff">doJmpPast (Automaton table tape@(_ , 0 : _)) = doInstruction (Automaton (jumpPast table) tape)</span>
-<span class="lineno">   38 </span><span class="spaces"></span><span class="nottickedoff">doJmpPast (Automaton table tape            ) = doInstruction (Automaton (nextInst table) tape)</span></span>
+<span class="lineno">   36 </span>doJmpPast :: Symbol e =&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   37 </span><span class="decl"><span class="nottickedoff">doJmpPast (Automaton table tape@(_ , 0 : _)) = Automaton (jumpPast table) tape</span>
+<span class="lineno">   38 </span><span class="spaces"></span><span class="nottickedoff">doJmpPast (Automaton table tape            ) = Automaton (nextInst table) tape</span></span>
 <span class="lineno">   39 </span>
-<span class="lineno">   40 </span>doJmpBack :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   41 </span><span class="decl"><span class="nottickedoff">doJmpBack (Automaton table tape@(_ , 0 : _)) = doInstruction (Automaton (nextInst table) tape)</span>
-<span class="lineno">   42 </span><span class="spaces"></span><span class="nottickedoff">doJmpBack (Automaton table tape            ) = doInstruction (Automaton (jumpBack table) tape)</span></span>
+<span class="lineno">   40 </span>doJmpBack :: Symbol e =&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   41 </span><span class="decl"><span class="nottickedoff">doJmpBack (Automaton table tape@(_ , 0 : _)) = Automaton (nextInst table) tape</span>
+<span class="lineno">   42 </span><span class="spaces"></span><span class="nottickedoff">doJmpBack (Automaton table tape            ) = Automaton (jumpBack table) tape</span></span>
 <span class="lineno">   43 </span>
 <span class="lineno">   44 </span>-- | IO instructions
 <span class="lineno">   45 </span>doOutputChar :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
