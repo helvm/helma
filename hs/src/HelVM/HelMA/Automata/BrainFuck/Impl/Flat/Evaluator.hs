@@ -21,15 +21,15 @@ evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> LoopLimit -> DumpTyp
 evalSource source tape _limit dt = logDump dt =<< doInstruction (Automaton ([] , tokenize source) tape)
 
 doInstruction :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doInstruction (Automaton table@(_ , Simple MoveR  : _) tape) = doInstruction (Automaton (nextInst table) (moveHeadRight tape))
-doInstruction (Automaton table@(_ , Simple MoveL  : _) tape) = doInstruction (Automaton (nextInst table)  (moveHeadLeft tape))
-doInstruction (Automaton table@(_ , Simple Inc    : _) tape) = doInstruction (Automaton (nextInst table)    (nextSymbol tape))
-doInstruction (Automaton table@(_ , Simple Dec    : _) tape) = doInstruction (Automaton (nextInst table)    (prevSymbol tape))
-doInstruction (Automaton table@(_ , Simple Output : _) tape) = doOutputChar  (Automaton table tape)
-doInstruction (Automaton table@(_ , Simple Input  : _) tape) = doInputChar   (Automaton table tape)
-doInstruction (Automaton table@(_ , JmpPast       : _) tape) = doJmpPast     (Automaton table tape)
-doInstruction (Automaton table@(_ , JmpBack       : _) tape) = doJmpBack     (Automaton table tape)
-doInstruction (Automaton table@(_ , []               ) tape) = doEnd         (Automaton table tape)
+doInstruction a@(Automaton (_ , Simple MoveR  : _) _) = doInstruction (moveRAutomaton a)
+doInstruction a@(Automaton (_ , Simple MoveL  : _) _) = doInstruction (moveLAutomaton a)
+doInstruction a@(Automaton (_ , Simple Inc    : _) _) = doInstruction (incAutomaton a)
+doInstruction a@(Automaton (_ , Simple Dec    : _) _) = doInstruction (decAutomaton a)
+doInstruction a@(Automaton (_ , Simple Output : _) _) = doOutputChar  a
+doInstruction a@(Automaton (_ , Simple Input  : _) _) = doInputChar   a
+doInstruction a@(Automaton (_ , JmpPast       : _) _) = doJmpPast     a
+doInstruction a@(Automaton (_ , JmpBack       : _) _) = doJmpBack     a
+doInstruction a@(Automaton (_ , []               ) _) = doEnd         a
 
 -- | Control instruction
 
@@ -43,8 +43,8 @@ doJmpBack (Automaton table tape            ) = doInstruction (Automaton (jumpBac
 
 -- | IO instructions
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar (Automaton _          (_ ,    [])) = error "Illegal State"
-doOutputChar (Automaton table tape@(_ , e : _)) = wPutChar (toChar e) *> doInstruction (Automaton (nextInst table) tape)
+doOutputChar   (Automaton _ (_ ,    [])) = error "Illegal State"
+doOutputChar a@(Automaton _ (_ , e : _)) = wPutChar (toChar e) *> doInstruction (nextInstAutomaton a)
 
 doInputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar a = (doInstruction . newAutomatonForChar a) =<< wGetChar
@@ -58,6 +58,21 @@ doEnd = pure
 
 newAutomatonForChar :: Symbol e => Automaton e -> Char -> Automaton e
 newAutomatonForChar (Automaton table tape) = Automaton (nextInst table) . flip writeSymbol tape
+
+moveRAutomaton :: Symbol e => Automaton e -> Automaton e
+moveRAutomaton (Automaton table tape) = (Automaton (nextInst table) (moveHeadRight tape))
+
+moveLAutomaton :: Symbol e => Automaton e -> Automaton e
+moveLAutomaton (Automaton table tape) = (Automaton (nextInst table) (moveHeadLeft tape))
+
+incAutomaton :: Symbol e => Automaton e -> Automaton e
+incAutomaton (Automaton table tape) = (Automaton (nextInst table) (nextSymbol tape))
+
+decAutomaton :: Symbol e => Automaton e -> Automaton e
+decAutomaton (Automaton table tape) = (Automaton (nextInst table) (prevSymbol tape))
+
+nextInstAutomaton :: Automaton e -> Automaton e
+nextInstAutomaton (Automaton table tape) = (Automaton (nextInst table) tape)
 
 data Automaton e = Automaton
   { unitTable :: Table
