@@ -37,10 +37,11 @@ doInstruction a = checkOpt $ currentInstruction a where
 
 -- | Control instruction
 doJmpPast :: Symbol e => Automaton e -> Automaton e
-doJmpPast (Automaton table tape@(_ , 0 : _)) = Automaton (Table.jumpPast table) tape
-doJmpPast (Automaton table tape            ) = Automaton (Table.nextInst table) tape
---doJmpPast a = doJmpPast' $ currentSymbol a where 
---  doJmpPast'
+--doJmpPast (Automaton table tape@(_ , 0 : _)) = Automaton (Table.jumpPast table) tape
+--doJmpPast (Automaton table tape            ) = Automaton (Table.nextInst table) tape
+doJmpPast a = doJmpPast' $ currentSymbol a where
+  doJmpPast' 0 = updateTable Table.jumpPast a
+  doJmpPast' _ = nextInstAutomaton a
 
 
 doJmpBack :: Symbol e => Automaton e -> Automaton e
