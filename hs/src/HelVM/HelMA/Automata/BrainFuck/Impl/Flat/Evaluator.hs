@@ -17,6 +17,8 @@ import           HelVM.HelMA.Automaton.IO.BusinessIO
 import           HelVM.HelMA.Automaton.Loop
 import           HelVM.HelMA.Automaton.Types.DumpType
 
+import           HelVM.HelIO.Extra
+
 import           Control.Type.Operator
 
 evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> LoopLimit -> DumpType -> m ()
@@ -37,14 +39,14 @@ doInstruction a = checkOpt $ currentInstruction a where
 
 -- | Control instruction
 doJmpPast :: Symbol e => Automaton e -> Automaton e
-doJmpPast a = flip doJmpPast' a $ currentSymbol a
+doJmpPast = tee (flip doJmpPast') currentSymbol
 
 doJmpPast' :: (Eq a, Num a) => a -> Automaton e -> Automaton e
 doJmpPast' 0 = updateTable Table.jumpPast
 doJmpPast' _ = nextInstAutomaton
 
 doJmpBack :: Symbol e => Automaton e -> Automaton e
-doJmpBack a = flip doJmpBack' a $ currentSymbol a
+doJmpBack = tee (flip doJmpBack') currentSymbol
 
 doJmpBack' :: (Eq a, Num a) => a -> Automaton e -> Automaton e
 doJmpBack' 0 = nextInstAutomaton
