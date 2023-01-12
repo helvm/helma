@@ -30,7 +30,7 @@ doInstruction a = checkOpt $ currentInstruction a where
   check (Simple Inc   ) = doInstruction $ incAutomaton a
   check (Simple Dec   ) = doInstruction $ decAutomaton a
   check (Simple Output) = doOutputChar  a
-  check (Simple Input ) = doInputChar   a
+  check (Simple Input ) = doInstruction =<< doInputChar a
   check  JmpPast        = doInstruction (doJmpPast     a)
   check  JmpBack        = doInstruction (doJmpBack     a)
 
@@ -49,7 +49,7 @@ doOutputChar   (Automaton _ (_ ,    [])) = error "Illegal State"
 doOutputChar a@(Automaton _ (_ , e : _)) = wPutChar (toChar e) *> doInstruction (nextInstAutomaton a)
 
 doInputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doInputChar a = (doInstruction . newAutomatonForChar a) =<< wGetChar
+doInputChar a = newAutomatonForChar a <$> wGetChar
 
 -- | Terminate instruction
 doEnd :: BIO m => Automaton e -> m $ Automaton e
