@@ -9,7 +9,8 @@ import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.TableOfInstructions as
 
 import           HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
-import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
+import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          (FullTape)
+import qualified HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          as Tape
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.IO.BusinessIO
@@ -38,10 +39,14 @@ doInstruction a = checkOpt $ currentInstruction a where
 doJmpPast :: Symbol e => Automaton e -> Automaton e
 doJmpPast (Automaton table tape@(_ , 0 : _)) = Automaton (Table.jumpPast table) tape
 doJmpPast (Automaton table tape            ) = Automaton (Table.nextInst table) tape
+--doJmpPast a = doJmpPast' $ currentSymbol a where 
+--  doJmpPast'
+
 
 doJmpBack :: Symbol e => Automaton e -> Automaton e
-doJmpBack (Automaton table tape@(_ , 0 : _)) = Automaton (Table.nextInst table) tape
-doJmpBack (Automaton table tape            ) = Automaton (Table.jumpBack table) tape
+doJmpBack a = build $ currentSymbol a where
+  build 0 = nextInstAutomaton a
+  build _ = updateTable Table.jumpBack a
 
 -- | IO instructions
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
@@ -58,23 +63,26 @@ doEnd = pure
 -- | Types
 --type AutomatonSame e = Same (Automaton e)
 
+currentSymbol :: Automaton e -> e
+currentSymbol = Tape.readSymbol . unitTape
+
 currentInstruction :: Automaton e -> Maybe FlatInstruction
-currentInstruction (Automaton table _) = Table.currentInstruction table
+currentInstruction = Table.currentInstruction . unitTable
 
 newAutomatonForChar :: Symbol e => Automaton e -> Char -> Automaton e
-newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip writeSymbol tape
+newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape
 
 moveRAutomaton :: Symbol e => Automaton e -> Automaton e
-moveRAutomaton = nextInstAutomaton . updateTape moveHeadRight
+moveRAutomaton = nextInstAutomaton . updateTape Tape.moveHeadRight
 
 moveLAutomaton :: Symbol e => Automaton e -> Automaton e
-moveLAutomaton = nextInstAutomaton . updateTape moveHeadLeft
+moveLAutomaton = nextInstAutomaton . updateTape Tape.moveHeadLeft
 
 incAutomaton :: Symbol e => Automaton e -> Automaton e
-incAutomaton = nextInstAutomaton . updateTape nextSymbol
+incAutomaton = nextInstAutomaton . updateTape Tape.nextSymbol
 
 decAutomaton :: Symbol e => Automaton e -> Automaton e
-decAutomaton = nextInstAutomaton . updateTape prevSymbol
+decAutomaton = nextInstAutomaton . updateTape Tape.prevSymbol
 
 nextInstAutomaton :: Automaton e -> Automaton e
 nextInstAutomaton = updateTable Table.nextInst

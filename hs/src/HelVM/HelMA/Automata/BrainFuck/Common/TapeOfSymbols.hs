@@ -19,6 +19,8 @@ module HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols (
   moveHeadRight,
   moveHeadLeft,
 
+  readSymbol,
+
   newTape,
   FullTape,
 ) where
@@ -26,6 +28,8 @@ module HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols (
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
 
 import           Control.Monad.Extra
+
+
 
 -- | Complex instructions
 
