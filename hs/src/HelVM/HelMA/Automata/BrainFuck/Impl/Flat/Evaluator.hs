@@ -75,6 +75,7 @@ incAutomaton (Automaton table tape) = Automaton (Table.nextInst table) (nextSymb
 
 decAutomaton :: Symbol e => Automaton e -> Automaton e
 decAutomaton (Automaton table tape) = Automaton (Table.nextInst table) (prevSymbol tape)
+--decAutomaton a = nextInstAutomaton $ a { unitTape = prevSymbol $ unitTape a }
 
 nextInstAutomaton :: Automaton e -> Automaton e
 nextInstAutomaton a = a { unitTable = Table.nextInst $ unitTable a }
