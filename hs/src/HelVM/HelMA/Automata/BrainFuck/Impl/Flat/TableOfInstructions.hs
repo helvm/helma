@@ -6,6 +6,10 @@ type HalfTable = FlatTreeInstructionList
 type Table = (HalfTable , HalfTable)
 type TableD = Table -> Table
 
+currentInstruction :: ([a], [a]) -> Maybe a
+currentInstruction (_ , i : _) = Just i
+currentInstruction (_ ,    []) = Nothing
+
 prevInst :: TableD
 prevInst (inst : prev , next) = (prev , inst : next)
 prevInst ([] , _)             = error "End of the table"

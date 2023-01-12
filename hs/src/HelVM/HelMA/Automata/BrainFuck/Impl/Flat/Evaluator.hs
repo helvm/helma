@@ -4,7 +4,8 @@ module HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Evaluator(
 
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Instruction
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser
-import           HelVM.HelMA.Automata.BrainFuck.Impl.Flat.TableOfInstructions
+import           HelVM.HelMA.Automata.BrainFuck.Impl.Flat.TableOfInstructions (Table)
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.TableOfInstructions as Table
 
 import           HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
@@ -21,25 +22,26 @@ evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> LoopLimit -> DumpTyp
 evalSource source tape _limit dt = logDump dt =<< doInstruction (Automaton ([] , tokenize source) tape)
 
 doInstruction :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doInstruction a@(Automaton (_ , Simple MoveR  : _) _) = doInstruction (moveRAutomaton a)
-doInstruction a@(Automaton (_ , Simple MoveL  : _) _) = doInstruction (moveLAutomaton a)
-doInstruction a@(Automaton (_ , Simple Inc    : _) _) = doInstruction (incAutomaton a)
-doInstruction a@(Automaton (_ , Simple Dec    : _) _) = doInstruction (decAutomaton a)
-doInstruction a@(Automaton (_ , Simple Output : _) _) = doOutputChar  a
-doInstruction a@(Automaton (_ , Simple Input  : _) _) = doInputChar   a
-doInstruction a@(Automaton (_ , JmpPast       : _) _) = doInstruction (doJmpPast     a)
-doInstruction a@(Automaton (_ , JmpBack       : _) _) = doInstruction (doJmpBack     a)
-doInstruction a@(Automaton (_ , []               ) _) = doEnd         a
+doInstruction a = checkOpt $ currentInstruction a where
+  checkOpt Nothing  = doEnd         a
+  checkOpt (Just i) = check i
+  check (Simple MoveR ) = doInstruction $ moveRAutomaton a
+  check (Simple MoveL ) = doInstruction $ moveLAutomaton a
+  check (Simple Inc   ) = doInstruction $ incAutomaton a
+  check (Simple Dec   ) = doInstruction $ decAutomaton a
+  check (Simple Output) = doOutputChar  a
+  check (Simple Input ) = doInputChar   a
+  check  JmpPast        = doInstruction (doJmpPast     a)
+  check  JmpBack        = doInstruction (doJmpBack     a)
 
 -- | Control instruction
-
 doJmpPast :: Symbol e => Automaton e -> Automaton e
-doJmpPast (Automaton table tape@(_ , 0 : _)) = Automaton (jumpPast table) tape
-doJmpPast (Automaton table tape            ) = Automaton (nextInst table) tape
+doJmpPast (Automaton table tape@(_ , 0 : _)) = Automaton (Table.jumpPast table) tape
+doJmpPast (Automaton table tape            ) = Automaton (Table.nextInst table) tape
 
 doJmpBack :: Symbol e => Automaton e -> Automaton e
-doJmpBack (Automaton table tape@(_ , 0 : _)) = Automaton (nextInst table) tape
-doJmpBack (Automaton table tape            ) = Automaton (jumpBack table) tape
+doJmpBack (Automaton table tape@(_ , 0 : _)) = Automaton (Table.nextInst table) tape
+doJmpBack (Automaton table tape            ) = Automaton (Table.jumpBack table) tape
 
 -- | IO instructions
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
@@ -56,23 +58,26 @@ doEnd = pure
 -- | Types
 --type AutomatonSame e = Same (Automaton e)
 
+currentInstruction :: Automaton e -> Maybe FlatInstruction
+currentInstruction (Automaton table _) = Table.currentInstruction table
+
 newAutomatonForChar :: Symbol e => Automaton e -> Char -> Automaton e
-newAutomatonForChar (Automaton table tape) = Automaton (nextInst table) . flip writeSymbol tape
+newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip writeSymbol tape
 
 moveRAutomaton :: Symbol e => Automaton e -> Automaton e
-moveRAutomaton (Automaton table tape) = (Automaton (nextInst table) (moveHeadRight tape))
+moveRAutomaton (Automaton table tape) = Automaton (Table.nextInst table) (moveHeadRight tape)
 
 moveLAutomaton :: Symbol e => Automaton e -> Automaton e
-moveLAutomaton (Automaton table tape) = (Automaton (nextInst table) (moveHeadLeft tape))
+moveLAutomaton (Automaton table tape) = Automaton (Table.nextInst table) (moveHeadLeft tape)
 
 incAutomaton :: Symbol e => Automaton e -> Automaton e
-incAutomaton (Automaton table tape) = (Automaton (nextInst table) (nextSymbol tape))
+incAutomaton (Automaton table tape) = Automaton (Table.nextInst table) (nextSymbol tape)
 
 decAutomaton :: Symbol e => Automaton e -> Automaton e
-decAutomaton (Automaton table tape) = (Automaton (nextInst table) (prevSymbol tape))
+decAutomaton (Automaton table tape) = Automaton (Table.nextInst table) (prevSymbol tape)
 
 nextInstAutomaton :: Automaton e -> Automaton e
-nextInstAutomaton (Automaton table tape) = (Automaton (nextInst table) tape)
+nextInstAutomaton (Automaton table tape) = Automaton (Table.nextInst table) tape
 
 data Automaton e = Automaton
   { unitTable :: Table
