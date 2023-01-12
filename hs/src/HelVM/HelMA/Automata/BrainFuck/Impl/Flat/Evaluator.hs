@@ -65,20 +65,25 @@ newAutomatonForChar :: Symbol e => Automaton e -> Char -> Automaton e
 newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip writeSymbol tape
 
 moveRAutomaton :: Symbol e => Automaton e -> Automaton e
-moveRAutomaton (Automaton table tape) = Automaton (Table.nextInst table) (moveHeadRight tape)
+moveRAutomaton = nextInstAutomaton . updateTape moveHeadRight
 
 moveLAutomaton :: Symbol e => Automaton e -> Automaton e
-moveLAutomaton (Automaton table tape) = Automaton (Table.nextInst table) (moveHeadLeft tape)
+moveLAutomaton = nextInstAutomaton . updateTape moveHeadLeft
 
 incAutomaton :: Symbol e => Automaton e -> Automaton e
-incAutomaton (Automaton table tape) = Automaton (Table.nextInst table) (nextSymbol tape)
+incAutomaton = nextInstAutomaton . updateTape nextSymbol
 
 decAutomaton :: Symbol e => Automaton e -> Automaton e
-decAutomaton (Automaton table tape) = Automaton (Table.nextInst table) (prevSymbol tape)
---decAutomaton a = nextInstAutomaton $ a { unitTape = prevSymbol $ unitTape a }
+decAutomaton = nextInstAutomaton . updateTape prevSymbol
 
 nextInstAutomaton :: Automaton e -> Automaton e
-nextInstAutomaton a = a { unitTable = Table.nextInst $ unitTable a }
+nextInstAutomaton = updateTable Table.nextInst
+
+updateTable :: (Table -> Table) -> Automaton e -> Automaton e
+updateTable f a = a { unitTable = f $ unitTable a }
+
+updateTape :: (FullTape e1 -> FullTape e2) -> Automaton e1 -> Automaton e2
+updateTape f a = a { unitTape = f $ unitTape a }
 
 data Automaton e = Automaton
   { unitTable :: Table

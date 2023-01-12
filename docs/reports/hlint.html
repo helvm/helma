@@ -162,13 +162,11 @@ document.body.className = "script";
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
 <li><a id="hint0" href="javascript:show('hint0')">Suggestion: Reduce duplication (1)</a></li>
-<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Redundant bracket (5)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
 <li><a id="file0" href="javascript:show('file0')">./dist-newstyle/src/helio-157a2fc26d319c83/hs/test/HelVM/HelIO/Collections/MapListSpec.hs (1)</a></li>
-<li><a id="file1" href="javascript:show('file1')">./hs/src/HelVM/HelMA/Automata/BrainFuck/Impl/Flat/Evaluator.hs (5)</a></li>
 </ul>
 
 </div>
@@ -191,51 +189,6 @@ Found<br/>
 </pre>
 Perhaps<br/>
 <pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varid'>dist</span><span class='hs-comment'>-</span><span class='hs-varid'>newstyle</span><span class='hs-varop'>/</span><span class='hs-varid'>src</span><span class='hs-varop'>/</span><span class='hs-varid'>helio</span><span class='hs-comment'>-</span><span class='hs-num'>157</span><span class='hs-varid'>a2fc26d319c83</span><span class='hs-varop'>/</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelIO</span><span class='hs-varop'>/</span><span class='hs-conid'>Collections</span><span class='hs-varop'>/</span><span class='hs-conid'>MapListSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>59</span><span class='hs-conop'>:</span><span class='hs-num'>11</span><span class='hs-comment'>-</span><span class='hs-num'>112</span></pre>
-
-</div>
-
-<div class="hint1 file1">
-hs/src/HelVM/HelMA/Automata/BrainFuck/Impl/Flat/Evaluator.hs:68:41-95: Suggestion: Redundant bracket<br/>
-Found<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-conid'>Automaton</span> <span class='hs-layout'>(</span><span class='hs-conid'>Table.nextInst</span> <span class='hs-varid'>table</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>moveHeadRight</span> <span class='hs-varid'>tape</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
-Perhaps<br/>
-<pre><span class='hs-conid'>Automaton</span> <span class='hs-layout'>(</span><span class='hs-conid'>Table.nextInst</span> <span class='hs-varid'>table</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>moveHeadRight</span> <span class='hs-varid'>tape</span><span class='hs-layout'>)</span></pre>
-
-</div>
-
-<div class="hint1 file1">
-hs/src/HelVM/HelMA/Automata/BrainFuck/Impl/Flat/Evaluator.hs:71:41-94: Suggestion: Redundant bracket<br/>
-Found<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-conid'>Automaton</span> <span class='hs-layout'>(</span><span class='hs-conid'>Table.nextInst</span> <span class='hs-varid'>table</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>moveHeadLeft</span> <span class='hs-varid'>tape</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
-Perhaps<br/>
-<pre><span class='hs-conid'>Automaton</span> <span class='hs-layout'>(</span><span class='hs-conid'>Table.nextInst</span> <span class='hs-varid'>table</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>moveHeadLeft</span> <span class='hs-varid'>tape</span><span class='hs-layout'>)</span></pre>
-
-</div>
-
-<div class="hint1 file1">
-hs/src/HelVM/HelMA/Automata/BrainFuck/Impl/Flat/Evaluator.hs:74:39-90: Suggestion: Redundant bracket<br/>
-Found<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-conid'>Automaton</span> <span class='hs-layout'>(</span><span class='hs-conid'>Table.nextInst</span> <span class='hs-varid'>table</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>nextSymbol</span> <span class='hs-varid'>tape</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
-Perhaps<br/>
-<pre><span class='hs-conid'>Automaton</span> <span class='hs-layout'>(</span><span class='hs-conid'>Table.nextInst</span> <span class='hs-varid'>table</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>nextSymbol</span> <span class='hs-varid'>tape</span><span class='hs-layout'>)</span></pre>
-
-</div>
-
-<div class="hint1 file1">
-hs/src/HelVM/HelMA/Automata/BrainFuck/Impl/Flat/Evaluator.hs:77:39-90: Suggestion: Redundant bracket<br/>
-Found<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-conid'>Automaton</span> <span class='hs-layout'>(</span><span class='hs-conid'>Table.nextInst</span> <span class='hs-varid'>table</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>prevSymbol</span> <span class='hs-varid'>tape</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
-Perhaps<br/>
-<pre><span class='hs-conid'>Automaton</span> <span class='hs-layout'>(</span><span class='hs-conid'>Table.nextInst</span> <span class='hs-varid'>table</span><span class='hs-layout'>)</span> <span class='hs-layout'>(</span><span class='hs-varid'>prevSymbol</span> <span class='hs-varid'>tape</span><span class='hs-layout'>)</span></pre>
-
-</div>
-
-<div class="hint1 file1">
-hs/src/HelVM/HelMA/Automata/BrainFuck/Impl/Flat/Evaluator.hs:80:44-82: Suggestion: Redundant bracket<br/>
-Found<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-conid'>Automaton</span> <span class='hs-layout'>(</span><span class='hs-conid'>Table.nextInst</span> <span class='hs-varid'>table</span><span class='hs-layout'>)</span> <span class='hs-varid'>tape</span><span class='hs-layout'>)</span></pre>
-Perhaps<br/>
-<pre><span class='hs-conid'>Automaton</span> <span class='hs-layout'>(</span><span class='hs-conid'>Table.nextInst</span> <span class='hs-varid'>table</span><span class='hs-layout'>)</span> <span class='hs-varid'>tape</span></pre>
 
 </div>
 
