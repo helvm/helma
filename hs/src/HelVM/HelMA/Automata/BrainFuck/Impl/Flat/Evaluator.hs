@@ -55,20 +55,13 @@ doJmpBack' _ = updateTable Table.jumpBack
 
 -- | IO instructions
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
---doOutputChar   (Automaton _ (_ ,    [])) = error "Illegal State"
---doOutputChar a@(Automaton _ (_ , e : _)) = wPutChar (toChar e) *> doInstruction (nextInstAutomaton a)
-doOutputChar a                           = wPutSymbol2 a *> doInstruction (nextInstAutomaton a)
-
---wPutSymbolOpt :: (BIO m , Symbol e) => Maybe e -> m ()
---wPutSymbolOpt (Just e) = wPutSymbol e
---wPutSymbolOpt Nothing  = liftError "Illegal State"
+doOutputChar a = wPutSymbol2 a *> doInstruction (nextInstAutomaton a)
 
 wPutSymbol2 :: (BIO m , Symbol e) => Automaton e -> m ()
 wPutSymbol2 = wPutSymbol <=< currentSymbolSafe
 
 wPutSymbol :: (BIO m , Symbol e) => e -> m ()
 wPutSymbol = wPutChar . toChar
-
 
 doInputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar a = newAutomatonForChar a <$> wGetChar
