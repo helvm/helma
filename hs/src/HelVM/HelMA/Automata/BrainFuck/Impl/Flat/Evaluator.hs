@@ -20,23 +20,29 @@ import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelIO.Control.Safe
 --import           HelVM.HelIO.Extra
 
+import           Control.Monad.Extra
 import           Control.Type.Operator
 
 evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> LoopLimit -> DumpType -> m ()
 evalSource source tape _limit dt = logDump dt =<< doInstruction (Automaton ([] , tokenize source) tape)
 
 doInstruction :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doInstruction a = checkOpt $ currentInstruction a where
-  checkOpt Nothing  = doEnd         a
-  checkOpt (Just i) = doInstruction =<< check i
-  check (Simple MoveR ) = pure $ moveRAutomaton a
-  check (Simple MoveL ) = pure $ moveLAutomaton a
-  check (Simple Inc   ) = pure $ incAutomaton   a
-  check (Simple Dec   ) = pure $ decAutomaton   a
-  check (Simple Output) = doOutputChar a
-  check (Simple Input ) = doInputChar  a
-  check  JmpPast        = doJmpPast   a
-  check  JmpBack        = doJmpBack   a
+doInstruction = loopM act
+
+act :: (BIO m , Symbol e) => Automaton e -> m $ AutomatonSame e
+act a = checkOpt $ currentInstruction a where
+  checkOpt (Just i) = Right <$> act2 i a
+  checkOpt Nothing  = Left <$> doEnd a
+
+act2 :: (BIO m , Symbol e) => FlatInstruction -> Automaton e -> m $ Automaton e
+act2 (Simple MoveR ) = pure . moveRAutomaton
+act2 (Simple MoveL ) = pure . moveLAutomaton
+act2 (Simple Inc   ) = pure . incAutomaton
+act2 (Simple Dec   ) = pure . decAutomaton
+act2 (Simple Output) = doOutputChar
+act2 (Simple Input ) = doInputChar
+act2  JmpPast        = doJmpPast
+act2  JmpBack        = doJmpBack
 
 -- | Control instruction
 doJmpPast :: (MonadSafe m , Symbol e) => Automaton e -> m $ Automaton e
@@ -68,7 +74,7 @@ doEnd :: BIO m => Automaton e -> m $ Automaton e
 doEnd = pure
 
 -- | Types
---type AutomatonSame e = Same (Automaton e)
+type AutomatonSame e = Same (Automaton e)
 
 currentSymbolSafe :: MonadSafe m => Automaton e -> m e
 currentSymbolSafe = Tape.readSymbolSafe . unitTape
