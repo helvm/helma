@@ -33,7 +33,7 @@ doInstruction a = checkOpt $ currentInstruction a where
   check (Simple MoveL ) = doInstruction $ moveLAutomaton a
   check (Simple Inc   ) = doInstruction $ incAutomaton   a
   check (Simple Dec   ) = doInstruction $ decAutomaton   a
-  check (Simple Output) = doOutputChar  a
+  check (Simple Output) = doInstruction =<< doOutputChar a
   check (Simple Input ) = doInstruction =<< doInputChar  a
   check  JmpPast        = doInstruction =<< (doJmpPast   a)
   check  JmpBack        = doInstruction =<< (doJmpBack   a)
@@ -55,7 +55,8 @@ doJmpBack' _ = updateTable Table.jumpBack
 
 -- | IO instructions
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar a = doInstruction (nextInstAutomaton a) <* wPutSymbol2 a
+doOutputChar a = (nextInstAutomaton a) <$ wPutSymbol2 a
+--doOutputChar = teeMap nextInstAutomaton wPutSymbol2
 
 wPutSymbol2 :: (BIO m , Symbol e) => Automaton e -> m ()
 wPutSymbol2 = wPutSymbol <=< currentSymbolSafe
