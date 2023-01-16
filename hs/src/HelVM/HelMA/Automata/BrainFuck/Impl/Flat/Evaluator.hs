@@ -18,31 +18,34 @@ import           HelVM.HelMA.Automaton.Loop
 import           HelVM.HelMA.Automaton.Types.DumpType
 
 import           HelVM.HelIO.Control.Safe
---import           HelVM.HelIO.Extra
+import           HelVM.HelIO.Extra
 
+import           Control.Applicative.Tools
 import           Control.Monad.Extra
 import           Control.Type.Operator
 
 evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> LoopLimit -> DumpType -> m ()
-evalSource source tape _limit dt = logDump dt =<< doInstruction (Automaton ([] , tokenize source) tape)
+evalSource source tape _limit dt = logDump dt =<< run (Automaton ([] , tokenize source) tape)
 
-doInstruction :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doInstruction = loopM act
+run :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+run = loopM nextState
 
-act :: (BIO m , Symbol e) => Automaton e -> m $ AutomatonSame e
-act a = checkOpt $ currentInstruction a where
-  checkOpt (Just i) = Right <$> act2 i a
-  checkOpt Nothing  = Left <$> doEnd a
+nextState :: (BIO m , Symbol e) => Automaton e -> m $ AutomatonSame e
+nextState = tee (flip doInstructionOpt) currentInstruction
 
-act2 :: (BIO m , Symbol e) => FlatInstruction -> Automaton e -> m $ Automaton e
-act2 (Simple MoveR ) = pure . moveRAutomaton
-act2 (Simple MoveL ) = pure . moveLAutomaton
-act2 (Simple Inc   ) = pure . incAutomaton
-act2 (Simple Dec   ) = pure . decAutomaton
-act2 (Simple Output) = doOutputChar
-act2 (Simple Input ) = doInputChar
-act2  JmpPast        = doJmpPast
-act2  JmpBack        = doJmpBack
+doInstructionOpt :: (BIO m , Symbol e) => Maybe FlatInstruction -> Automaton e -> m $ AutomatonSame e
+doInstructionOpt (Just i) = Right <.> doInstruction i
+doInstructionOpt Nothing  = Left <.> doEnd
+
+doInstruction :: (BIO m , Symbol e) => FlatInstruction -> Automaton e -> m $ Automaton e
+doInstruction (Simple MoveR ) = pure . moveRAutomaton
+doInstruction (Simple MoveL ) = pure . moveLAutomaton
+doInstruction (Simple Inc   ) = pure . incAutomaton
+doInstruction (Simple Dec   ) = pure . decAutomaton
+doInstruction (Simple Output) = doOutputChar
+doInstruction (Simple Input ) = doInputChar
+doInstruction  JmpPast        = doJmpPast
+doInstruction  JmpBack        = doJmpBack
 
 -- | Control instruction
 doJmpPast :: (MonadSafe m , Symbol e) => Automaton e -> m $ Automaton e
