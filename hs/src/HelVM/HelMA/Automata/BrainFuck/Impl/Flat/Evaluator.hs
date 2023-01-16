@@ -28,15 +28,15 @@ evalSource source tape _limit dt = logDump dt =<< doInstruction (Automaton ([] ,
 doInstruction :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInstruction a = checkOpt $ currentInstruction a where
   checkOpt Nothing  = doEnd         a
-  checkOpt (Just i) = check i
-  check (Simple MoveR ) = doInstruction $ moveRAutomaton a
-  check (Simple MoveL ) = doInstruction $ moveLAutomaton a
-  check (Simple Inc   ) = doInstruction $ incAutomaton   a
-  check (Simple Dec   ) = doInstruction $ decAutomaton   a
-  check (Simple Output) = doInstruction =<< doOutputChar a
-  check (Simple Input ) = doInstruction =<< doInputChar  a
-  check  JmpPast        = doInstruction =<< (doJmpPast   a)
-  check  JmpBack        = doInstruction =<< (doJmpBack   a)
+  checkOpt (Just i) = doInstruction =<< check i
+  check (Simple MoveR ) = pure $ moveRAutomaton a
+  check (Simple MoveL ) = pure $ moveLAutomaton a
+  check (Simple Inc   ) = pure $ incAutomaton   a
+  check (Simple Dec   ) = pure $ decAutomaton   a
+  check (Simple Output) = doOutputChar a
+  check (Simple Input ) = doInputChar  a
+  check  JmpPast        = doJmpPast   a
+  check  JmpBack        = doJmpBack   a
 
 -- | Control instruction
 doJmpPast :: (MonadSafe m , Symbol e) => Automaton e -> m $ Automaton e
@@ -56,7 +56,6 @@ doJmpBack' _ = updateTable Table.jumpBack
 -- | IO instructions
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doOutputChar a = (nextInstAutomaton a) <$ wPutSymbol2 a
---doOutputChar = teeMap nextInstAutomaton wPutSymbol2
 
 wPutSymbol2 :: (BIO m , Symbol e) => Automaton e -> m ()
 wPutSymbol2 = wPutSymbol <=< currentSymbolSafe
