@@ -17,7 +17,8 @@ import           HelVM.HelMA.Automaton.IO.BusinessIO
 import           HelVM.HelMA.Automaton.Loop
 import           HelVM.HelMA.Automaton.Types.DumpType
 
-import           HelVM.HelIO.Extra
+import           HelVM.HelIO.Control.Safe
+--import           HelVM.HelIO.Extra
 
 import           Control.Type.Operator
 
@@ -30,23 +31,23 @@ doInstruction a = checkOpt $ currentInstruction a where
   checkOpt (Just i) = check i
   check (Simple MoveR ) = doInstruction $ moveRAutomaton a
   check (Simple MoveL ) = doInstruction $ moveLAutomaton a
-  check (Simple Inc   ) = doInstruction $ incAutomaton a
-  check (Simple Dec   ) = doInstruction $ decAutomaton a
+  check (Simple Inc   ) = doInstruction $ incAutomaton   a
+  check (Simple Dec   ) = doInstruction $ decAutomaton   a
   check (Simple Output) = doOutputChar  a
-  check (Simple Input ) = doInstruction =<< doInputChar a
-  check  JmpPast        = doInstruction (doJmpPast     a)
-  check  JmpBack        = doInstruction (doJmpBack     a)
+  check (Simple Input ) = doInstruction =<< doInputChar  a
+  check  JmpPast        = doInstruction =<< (doJmpPast   a)
+  check  JmpBack        = doInstruction =<< (doJmpBack   a)
 
 -- | Control instruction
-doJmpPast :: Symbol e => Automaton e -> Automaton e
-doJmpPast = tee (flip doJmpPast') currentSymbol
+doJmpPast :: (MonadSafe m , Symbol e) => Automaton e -> m $ Automaton e
+doJmpPast = teeMap (flip doJmpPast') currentSymbolSafe
 
 doJmpPast' :: (Eq a, Num a) => a -> Automaton e -> Automaton e
 doJmpPast' 0 = updateTable Table.jumpPast
 doJmpPast' _ = nextInstAutomaton
 
-doJmpBack :: Symbol e => Automaton e -> Automaton e
-doJmpBack = tee (flip doJmpBack') currentSymbol
+doJmpBack :: (MonadSafe m , Symbol e) => Automaton e -> m $ Automaton e
+doJmpBack = teeMap (flip doJmpBack') currentSymbolSafe
 
 doJmpBack' :: (Eq a, Num a) => a -> Automaton e -> Automaton e
 doJmpBack' 0 = nextInstAutomaton
@@ -54,8 +55,20 @@ doJmpBack' _ = updateTable Table.jumpBack
 
 -- | IO instructions
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar   (Automaton _ (_ ,    [])) = error "Illegal State"
-doOutputChar a@(Automaton _ (_ , e : _)) = wPutChar (toChar e) *> doInstruction (nextInstAutomaton a)
+--doOutputChar   (Automaton _ (_ ,    [])) = error "Illegal State"
+--doOutputChar a@(Automaton _ (_ , e : _)) = wPutChar (toChar e) *> doInstruction (nextInstAutomaton a)
+doOutputChar a                           = wPutSymbol2 a *> doInstruction (nextInstAutomaton a)
+
+--wPutSymbolOpt :: (BIO m , Symbol e) => Maybe e -> m ()
+--wPutSymbolOpt (Just e) = wPutSymbol e
+--wPutSymbolOpt Nothing  = liftError "Illegal State"
+
+wPutSymbol2 :: (BIO m , Symbol e) => Automaton e -> m ()
+wPutSymbol2 = wPutSymbol <=< currentSymbolSafe
+
+wPutSymbol :: (BIO m , Symbol e) => e -> m ()
+wPutSymbol = wPutChar . toChar
+
 
 doInputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar a = newAutomatonForChar a <$> wGetChar
@@ -67,8 +80,8 @@ doEnd = pure
 -- | Types
 --type AutomatonSame e = Same (Automaton e)
 
-currentSymbol :: Automaton e -> e
-currentSymbol = Tape.readSymbol . unitTape
+currentSymbolSafe :: MonadSafe m => Automaton e -> m e
+currentSymbolSafe = Tape.readSymbolSafe . unitTape
 
 currentInstruction :: Automaton e -> Maybe FlatInstruction
 currentInstruction = Table.currentInstruction . unitTable
@@ -102,3 +115,6 @@ data Automaton e = Automaton
   , unitTape  :: FullTape e
   }
   deriving stock (Eq , Read , Show)
+
+teeMap :: Functor f => (t -> a -> b) -> (t -> f a) -> t -> f b
+teeMap f2 f1 x = f2 x <$> f1 x

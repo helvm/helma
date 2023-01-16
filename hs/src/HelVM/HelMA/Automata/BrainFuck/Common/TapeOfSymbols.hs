@@ -20,6 +20,7 @@ module HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols (
   moveHeadLeft,
 
   readSymbol,
+  readSymbolSafe,
 
   newTape,
   FullTape,
@@ -27,9 +28,10 @@ module HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols (
 
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
 
+import           HelVM.HelIO.Containers.LLIndexSafe
+import           HelVM.HelIO.Control.Safe
+
 import           Control.Monad.Extra
-
-
 
 -- | Complex instructions
 
@@ -105,6 +107,9 @@ modifyCell _ (_ , [])              = error "End of the Tape"
 readSymbol :: FullTape e -> e
 readSymbol (_ , cell : _) = cell
 readSymbol (_ , [])       = error "End of the Tape"
+
+readSymbolSafe :: MonadSafe m => FullTape e -> m e
+readSymbolSafe = findSafe 0 . snd
 
 -- | Moves
 
