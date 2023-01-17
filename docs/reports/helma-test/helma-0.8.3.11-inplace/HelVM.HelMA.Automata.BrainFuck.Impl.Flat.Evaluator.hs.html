@@ -89,47 +89,46 @@ span.spaces    { background: white }
 <span class="lineno">   70 </span><span class="decl"><span class="nottickedoff">wPutSymbol = wPutChar . toChar &lt;=&lt; currentSymbolSafe</span></span>
 <span class="lineno">   71 </span>
 <span class="lineno">   72 </span>-- | Pure Instruction
-<span class="lineno">   73 </span>
-<span class="lineno">   74 </span>doPure :: Symbol e =&gt; PureInstruction -&gt; FullTapeD e
-<span class="lineno">   75 </span><span class="decl"><span class="istickedoff">doPure MoveR = Tape.moveHeadRight</span>
-<span class="lineno">   76 </span><span class="spaces"></span><span class="istickedoff">doPure MoveL = <span class="nottickedoff">Tape.moveHeadLeft</span></span>
-<span class="lineno">   77 </span><span class="spaces"></span><span class="istickedoff">doPure Inc   = Tape.nextSymbol</span>
-<span class="lineno">   78 </span><span class="spaces"></span><span class="istickedoff">doPure Dec   = Tape.prevSymbol</span></span>
-<span class="lineno">   79 </span>
-<span class="lineno">   80 </span>-- | Constructors
-<span class="lineno">   81 </span>
-<span class="lineno">   82 </span>newAutomatonForChar :: Symbol e =&gt; Automaton e -&gt; Char -&gt; Automaton e
-<span class="lineno">   83 </span><span class="decl"><span class="istickedoff">newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape</span></span> --FIXME
-<span class="lineno">   84 </span>
-<span class="lineno">   85 </span>nextInstAutomaton :: Automaton e -&gt; Automaton e
-<span class="lineno">   86 </span><span class="decl"><span class="istickedoff">nextInstAutomaton = updateTable Table.nextInst</span></span>
-<span class="lineno">   87 </span>
-<span class="lineno">   88 </span>updateTable :: (Table -&gt; Table) -&gt; Automaton e -&gt; Automaton e
-<span class="lineno">   89 </span><span class="decl"><span class="istickedoff">updateTable f a = a { unitTable = f $ unitTable a }</span></span>
-<span class="lineno">   90 </span>
-<span class="lineno">   91 </span>updateTape :: (FullTape e1 -&gt; FullTape e2) -&gt; Automaton e1 -&gt; Automaton e2
-<span class="lineno">   92 </span><span class="decl"><span class="istickedoff">updateTape f a = a { unitTape = f $ unitTape a }</span></span>
-<span class="lineno">   93 </span>
-<span class="lineno">   94 </span>-- | Accessors
-<span class="lineno">   95 </span>
-<span class="lineno">   96 </span>currentSymbolSafe :: MonadSafe m =&gt; Automaton e -&gt; m e
-<span class="lineno">   97 </span><span class="decl"><span class="istickedoff">currentSymbolSafe = Tape.readSymbolSafe . unitTape</span></span>
-<span class="lineno">   98 </span>
-<span class="lineno">   99 </span>currentInstruction :: Automaton e -&gt; Maybe FlatInstruction
-<span class="lineno">  100 </span><span class="decl"><span class="istickedoff">currentInstruction = Table.currentInstruction . unitTable</span></span>
-<span class="lineno">  101 </span>
-<span class="lineno">  102 </span>-- | Types
-<span class="lineno">  103 </span>type AutomatonSame e = Same (Automaton e)
-<span class="lineno">  104 </span>
-<span class="lineno">  105 </span>data Automaton e = Automaton
-<span class="lineno">  106 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">unitTable</span></span></span> :: Table
-<span class="lineno">  107 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">unitTape</span></span></span>  :: FullTape e
-<span class="lineno">  108 </span>  }
-<span class="lineno">  109 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
-<span class="lineno">  110 </span>
-<span class="lineno">  111 </span>-- | Extras
-<span class="lineno">  112 </span>teeMap :: Functor f =&gt; (t -&gt; a -&gt; b) -&gt; (t -&gt; f a) -&gt; t -&gt; f b
-<span class="lineno">  113 </span><span class="decl"><span class="istickedoff">teeMap f2 f1 x = f2 x &lt;$&gt; f1 x</span></span>
+<span class="lineno">   73 </span>doPure :: Symbol e =&gt; PureInstruction -&gt; FullTapeD e
+<span class="lineno">   74 </span><span class="decl"><span class="istickedoff">doPure MoveR = Tape.moveHeadRight</span>
+<span class="lineno">   75 </span><span class="spaces"></span><span class="istickedoff">doPure MoveL = <span class="nottickedoff">Tape.moveHeadLeft</span></span>
+<span class="lineno">   76 </span><span class="spaces"></span><span class="istickedoff">doPure Inc   = Tape.nextSymbol</span>
+<span class="lineno">   77 </span><span class="spaces"></span><span class="istickedoff">doPure Dec   = Tape.prevSymbol</span></span>
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>-- | Constructors
+<span class="lineno">   80 </span>
+<span class="lineno">   81 </span>newAutomatonForChar :: Symbol e =&gt; Automaton e -&gt; Char -&gt; Automaton e
+<span class="lineno">   82 </span><span class="decl"><span class="istickedoff">newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape</span></span> --FIXME
+<span class="lineno">   83 </span>
+<span class="lineno">   84 </span>nextInstAutomaton :: Automaton e -&gt; Automaton e
+<span class="lineno">   85 </span><span class="decl"><span class="istickedoff">nextInstAutomaton = updateTable Table.nextInst</span></span>
+<span class="lineno">   86 </span>
+<span class="lineno">   87 </span>updateTable :: (Table -&gt; Table) -&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   88 </span><span class="decl"><span class="istickedoff">updateTable f a = a { unitTable = f $ unitTable a }</span></span>
+<span class="lineno">   89 </span>
+<span class="lineno">   90 </span>updateTape :: (FullTape e -&gt; FullTape e) -&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   91 </span><span class="decl"><span class="istickedoff">updateTape f a = a { unitTape = f $ unitTape a }</span></span>
+<span class="lineno">   92 </span>
+<span class="lineno">   93 </span>-- | Accessors
+<span class="lineno">   94 </span>
+<span class="lineno">   95 </span>currentSymbolSafe :: MonadSafe m =&gt; Automaton e -&gt; m e
+<span class="lineno">   96 </span><span class="decl"><span class="istickedoff">currentSymbolSafe = Tape.readSymbolSafe . unitTape</span></span>
+<span class="lineno">   97 </span>
+<span class="lineno">   98 </span>currentInstruction :: Automaton e -&gt; Maybe FlatInstruction
+<span class="lineno">   99 </span><span class="decl"><span class="istickedoff">currentInstruction = Table.currentInstruction . unitTable</span></span>
+<span class="lineno">  100 </span>
+<span class="lineno">  101 </span>-- | Types
+<span class="lineno">  102 </span>type AutomatonSame e = Same (Automaton e)
+<span class="lineno">  103 </span>
+<span class="lineno">  104 </span>data Automaton e = Automaton
+<span class="lineno">  105 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">unitTable</span></span></span> :: Table
+<span class="lineno">  106 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">unitTape</span></span></span>  :: FullTape e
+<span class="lineno">  107 </span>  }
+<span class="lineno">  108 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">  109 </span>
+<span class="lineno">  110 </span>-- | Extras
+<span class="lineno">  111 </span>teeMap :: Functor f =&gt; (t -&gt; a -&gt; b) -&gt; (t -&gt; f a) -&gt; t -&gt; f b
+<span class="lineno">  112 </span><span class="decl"><span class="istickedoff">teeMap f2 f1 x = f2 x &lt;$&gt; f1 x</span></span>
 
 </pre>
 </body>

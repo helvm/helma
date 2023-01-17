@@ -87,7 +87,7 @@ nextInstAutomaton = updateTable Table.nextInst
 updateTable :: (Table -> Table) -> Automaton e -> Automaton e
 updateTable f a = a { unitTable = f $ unitTable a }
 
-updateTape :: (FullTape e1 -> FullTape e2) -> Automaton e1 -> Automaton e2
+updateTape :: (FullTape e -> FullTape e) -> Automaton e -> Automaton e
 updateTape f a = a { unitTape = f $ unitTape a }
 
 -- | Accessors

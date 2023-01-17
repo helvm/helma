@@ -62,6 +62,14 @@ doPure MoveL = Tape.moveHeadLeft
 doPure Inc   = Tape.nextSymbol
 doPure Dec   = Tape.prevSymbol
 
+-- | Constructors
+
+--updateUI :: (InstructionUnit -> InstructionUnit) -> Automaton e -> Automaton e
+--updateUI f a = a { unitUI = f $ unitUI a }
+
+--updateTape :: (FullTape e -> FullTape e) -> Automaton e -> Automaton e
+--updateTape f a = a { unitTape = f $ unitTape a }
+
 -- | Types
 --type AutomatonSame e = Same (Automaton e)
 
