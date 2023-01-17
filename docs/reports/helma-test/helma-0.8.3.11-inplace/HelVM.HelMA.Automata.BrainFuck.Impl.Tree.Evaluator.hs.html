@@ -79,20 +79,26 @@ span.spaces    { background: white }
 <span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *&gt; nextStep table tape</span></span>
 <span class="lineno">   61 </span>
 <span class="lineno">   62 </span>-- | Pure Instructions
-<span class="lineno">   63 </span>
-<span class="lineno">   64 </span>-- | Types
-<span class="lineno">   65 </span>--type AutomatonSame e = Same (Automaton e)
-<span class="lineno">   66 </span>
-<span class="lineno">   67 </span>data Automaton e = Automaton
-<span class="lineno">   68 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitUI</span></span></span>   :: InstructionUnit
-<span class="lineno">   69 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitTape</span></span></span> :: FullTape e
-<span class="lineno">   70 </span>  }
-<span class="lineno">   71 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   63 </span>-- 
+<span class="lineno">   64 </span>--doPure  
+<span class="lineno">   65 </span>--doPure MoveR  (Automaton table tape) = nextStep      table (moveHeadRight tape)
+<span class="lineno">   66 </span>--doPure MoveL  (Automaton table tape) = nextStep      table  (moveHeadLeft tape)
+<span class="lineno">   67 </span>--doPure Inc    (Automaton table tape) = nextStep      table    (nextSymbol tape)
+<span class="lineno">   68 </span>--do<span class="nottickedoff"><span class="decl"><span class="nottickedoff">Pure D</span></span></span>ec    (Automaton table tape) = nextStep      table    (prevSymbol tape) 
+<span class="lineno">   69 </span>
+<span class="lineno">   70 </span>-- | Types
+<span class="lineno">   71 </span>--type AutomatonSa<span class="decl"><span class="nottickedoff">me</span></span> e <span class="decl"><span class="istickedoff">= Sa</span></span>me (Automaton e)
 <span class="lineno">   72 </span>
-<span class="lineno">   73 </span>data InstructionUnit = IU !TreeInstructionVector !InstructionCounter
-<span class="lineno">   74 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
-<span class="lineno">   75 </span>
-<span class="lineno">   76 </span>type InstructionCounter = Int
+<span class="lineno">   73 </span>data Automaton e = Automaton
+<span class="lineno">   74 </span>  { unitUI   :: In<span class="decl"><span class="nottickedoff">st</span></span>ruc<span class="decl"><span class="istickedoff">tion</span></span>Unit
+<span class="lineno">   75 </span>  , unitTape :: FullTape e
+<span class="lineno">   76 </span>  }
+<span class="lineno">   77 </span>  deriving stock (Eq , Show)
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>data InstructionUnit = IU !TreeInstructionVector !InstructionCounter
+<span class="lineno">   80 </span>  deriving stock (Eq , Show)
+<span class="lineno">   81 </span>
+<span class="lineno">   82 </span>type InstructionCounter = Int
 
 </pre>
 </body>

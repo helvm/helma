@@ -61,6 +61,12 @@ doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *> nextStep 
 
 -- | Pure Instructions
 
+--doPure :: Symbol e => PureInstruction -> FullTapeD e
+--doPure MoveR = Tape.moveHeadRight
+--doPure MoveL = Tape.moveHeadLeft
+--doPure Inc   = Tape.nextSymbol
+--doPure Dec   = Tape.prevSymbol
+
 -- | Types
 --type AutomatonSame e = Same (Automaton e)
 

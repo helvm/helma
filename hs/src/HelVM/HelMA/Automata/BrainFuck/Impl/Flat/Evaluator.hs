@@ -10,7 +10,7 @@ import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.TableOfInstructions as
 import           HelVM.HelMA.Automata.BrainFuck.Common.PureInstruction
 import           HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
-import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          (FullTape)
+import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          (FullTape, FullTapeD)
 import qualified HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          as Tape
 
 import           HelVM.HelMA.Automaton.API.IOTypes
@@ -22,7 +22,6 @@ import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Extra
 
 import           Control.Applicative.Tools
---import           Control.Monad.Extra
 import           Control.Type.Operator
 
 evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> LoopLimit -> DumpType -> m ()
@@ -39,14 +38,11 @@ doInstructionOpt (Just i) = Right <.> doInstruction i
 doInstructionOpt Nothing  = Left <.> pure
 
 doInstruction :: (BIO m , Symbol e) => FlatInstruction -> Automaton e -> m $ Automaton e
-doInstruction  JmpPast               = doJmpPast
-doInstruction  JmpBack               = doJmpBack
-doInstruction (Simple Output)        = doOutputChar
-doInstruction (Simple Input )        = doInputChar
-doInstruction (Simple (Pure MoveR )) = pure . nextInstAutomaton . updateTape Tape.moveHeadRight
-doInstruction (Simple (Pure MoveL )) = pure . nextInstAutomaton . updateTape Tape.moveHeadLeft
-doInstruction (Simple (Pure Inc   )) = pure . nextInstAutomaton . updateTape Tape.nextSymbol
-doInstruction (Simple (Pure Dec   )) = pure . nextInstAutomaton . updateTape Tape.prevSymbol
+doInstruction  JmpPast           = doJmpPast
+doInstruction  JmpBack           = doJmpBack
+doInstruction (Simple Output)    = doOutputChar
+doInstruction (Simple Input )    = doInputChar
+doInstruction (Simple (Pure i )) = pure . nextInstAutomaton . updateTape (doPure i)
 
 -- | Control instruction
 doJmpPast :: (MonadSafe m , Symbol e) => Automaton e -> m $ Automaton e
@@ -57,11 +53,11 @@ doJmpPastForValue 0 = updateTable Table.jumpPast
 doJmpPastForValue _ = nextInstAutomaton
 
 doJmpBack :: (MonadSafe m , Symbol e) => Automaton e -> m $ Automaton e
-doJmpBack = teeMap (flip doJmpBack') currentSymbolSafe
+doJmpBack = teeMap (flip doJmpBackForValue) currentSymbolSafe
 
-doJmpBack' :: (Eq a, Num a) => a -> Automaton e -> Automaton e
-doJmpBack' 0 = nextInstAutomaton
-doJmpBack' _ = updateTable Table.jumpBack
+doJmpBackForValue :: (Eq a, Num a) => a -> Automaton e -> Automaton e
+doJmpBackForValue 0 = nextInstAutomaton
+doJmpBackForValue _ = updateTable Table.jumpBack
 
 -- | IO instructions
 doInputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
@@ -74,6 +70,12 @@ wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
 wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
 
 -- | Pure Instruction
+
+doPure :: Symbol e => PureInstruction -> FullTapeD e
+doPure MoveR = Tape.moveHeadRight
+doPure MoveL = Tape.moveHeadLeft
+doPure Inc   = Tape.nextSymbol
+doPure Dec   = Tape.prevSymbol
 
 -- | Constructors
 

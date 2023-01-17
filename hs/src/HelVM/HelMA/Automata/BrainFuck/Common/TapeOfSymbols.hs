@@ -24,6 +24,7 @@ module HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols (
 
   newTape,
   FullTape,
+  FullTapeD,
 ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
