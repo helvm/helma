@@ -7,30 +7,30 @@ charToSimpleInstruction :: Char -> Maybe SimpleInstruction
 charToSimpleInstruction = readMaybe . one
 
 simpleInstructions :: [SimpleInstruction]
-simpleInstructions = [MoveR , MoveL , Inc , Dec , Output , Input]
+simpleInstructions = [Output , Input , MoveR , MoveL , Inc , Dec]
 
 data SimpleInstruction =
-    MoveR
+    Output
+  | Input
+  | MoveR
   | MoveL
   | Inc
   | Dec
-  | Output
-  | Input
   deriving stock (Bounded , Enum , Eq)
 
 instance Show SimpleInstruction where
+  show Output = "."
+  show Input  = ","
   show MoveR  = ">"
   show MoveL  = "<"
   show Inc    = "+"
   show Dec    = "-"
-  show Output = "."
-  show Input  = ","
 
 instance Read SimpleInstruction where
+  readsPrec _ "." = [( Output , "")]
+  readsPrec _ "," = [( Input  , "")]
   readsPrec _ ">" = [( MoveR  , "")]
   readsPrec _ "<" = [( MoveL  , "")]
   readsPrec _ "+" = [( Inc    , "")]
   readsPrec _ "-" = [( Dec    , "")]
-  readsPrec _ "." = [( Output , "")]
-  readsPrec _ "," = [( Input  , "")]
   readsPrec _  _  = []
