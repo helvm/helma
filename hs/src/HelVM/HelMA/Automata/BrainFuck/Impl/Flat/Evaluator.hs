@@ -70,7 +70,6 @@ wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
 wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
 
 -- | Pure Instruction
-
 doPure :: Symbol e => PureInstruction -> FullTapeD e
 doPure MoveR = Tape.moveHeadRight
 doPure MoveL = Tape.moveHeadLeft
