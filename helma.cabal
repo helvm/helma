@@ -148,6 +148,7 @@ library
     HelVM.HelMA.Automata.BrainFuck.API.BFType
 
     HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
+    HelVM.HelMA.Automata.BrainFuck.Common.PureInstruction
     HelVM.HelMA.Automata.BrainFuck.Common.Symbol
     HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
 

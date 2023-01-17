@@ -5,6 +5,7 @@ module HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Evaluator (
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Instruction
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser
 
+import           HelVM.HelMA.Automata.BrainFuck.Common.PureInstruction
 import           HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
 import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
@@ -34,13 +35,13 @@ doInstructionOpt (Just i) = doInstruction i
 doInstructionOpt  Nothing = pure
 
 doInstruction :: (BIO m , Symbol e) => TreeInstruction -> Automaton e -> m $ Automaton e
-doInstruction (While  iv    ) a                      = doWhile iv   a
-doInstruction (Simple Output) a                      = doOutputChar a
-doInstruction (Simple Input ) a                      = doInputChar  a
-doInstruction (Simple MoveR ) (Automaton table tape) = nextStep      table (moveHeadRight tape)
-doInstruction (Simple MoveL ) (Automaton table tape) = nextStep      table  (moveHeadLeft tape)
-doInstruction (Simple Inc   ) (Automaton table tape) = nextStep      table    (nextSymbol tape)
-doInstruction (Simple Dec   ) (Automaton table tape) = nextStep      table    (prevSymbol tape)
+doInstruction (While  iv    ) a                             = doWhile iv   a
+doInstruction (Simple Output) a                             = doOutputChar a
+doInstruction (Simple Input ) a                             = doInputChar  a
+doInstruction (Simple (Pure MoveR )) (Automaton table tape) = nextStep      table (moveHeadRight tape)
+doInstruction (Simple (Pure MoveL )) (Automaton table tape) = nextStep      table  (moveHeadLeft tape)
+doInstruction (Simple (Pure Inc   )) (Automaton table tape) = nextStep      table    (nextSymbol tape)
+doInstruction (Simple (Pure Dec   )) (Automaton table tape) = nextStep      table    (prevSymbol tape)
 
 -- | Control Instruction
 doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> Automaton e -> m $ Automaton e
@@ -57,6 +58,8 @@ doInputChar (Automaton table tape) = (nextStep table . flip writeSymbol tape) =<
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doOutputChar (Automaton _          (_ ,  [])) = error "Illegal State"
 doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *> nextStep table tape
+
+-- | Pure Instructions
 
 -- | Types
 --type AutomatonSame e = Same (Automaton e)

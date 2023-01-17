@@ -7,6 +7,7 @@ import           HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Flat.TableOfInstructions (Table)
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.TableOfInstructions as Table
 
+import           HelVM.HelMA.Automata.BrainFuck.Common.PureInstruction
 import           HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
 import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          (FullTape)
@@ -38,14 +39,14 @@ doInstructionOpt (Just i) = Right <.> doInstruction i
 doInstructionOpt Nothing  = Left <.> pure
 
 doInstruction :: (BIO m , Symbol e) => FlatInstruction -> Automaton e -> m $ Automaton e
-doInstruction  JmpPast        = doJmpPast
-doInstruction  JmpBack        = doJmpBack
-doInstruction (Simple Output) = doOutputChar
-doInstruction (Simple Input ) = doInputChar
-doInstruction (Simple MoveR ) = pure . nextInstAutomaton . updateTape Tape.moveHeadRight
-doInstruction (Simple MoveL ) = pure . nextInstAutomaton . updateTape Tape.moveHeadLeft
-doInstruction (Simple Inc   ) = pure . nextInstAutomaton . updateTape Tape.nextSymbol
-doInstruction (Simple Dec   ) = pure . nextInstAutomaton . updateTape Tape.prevSymbol
+doInstruction  JmpPast               = doJmpPast
+doInstruction  JmpBack               = doJmpBack
+doInstruction (Simple Output)        = doOutputChar
+doInstruction (Simple Input )        = doInputChar
+doInstruction (Simple (Pure MoveR )) = pure . nextInstAutomaton . updateTape Tape.moveHeadRight
+doInstruction (Simple (Pure MoveL )) = pure . nextInstAutomaton . updateTape Tape.moveHeadLeft
+doInstruction (Simple (Pure Inc   )) = pure . nextInstAutomaton . updateTape Tape.nextSymbol
+doInstruction (Simple (Pure Dec   )) = pure . nextInstAutomaton . updateTape Tape.prevSymbol
 
 -- | Control instruction
 doJmpPast :: (MonadSafe m , Symbol e) => Automaton e -> m $ Automaton e
@@ -71,6 +72,8 @@ doOutputChar a = nextInstAutomaton a <$ wPutSymbol a --FIXME
 
 wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
 wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
+
+-- | Pure Instruction
 
 -- | Constructors
 

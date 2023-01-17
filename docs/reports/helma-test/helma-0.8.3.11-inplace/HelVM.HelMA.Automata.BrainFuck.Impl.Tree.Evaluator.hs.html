@@ -24,72 +24,75 @@ span.spaces    { background: white }
 <span class="lineno">    5 </span>import           HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Instruction
 <span class="lineno">    6 </span>import           HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser
 <span class="lineno">    7 </span>
-<span class="lineno">    8 </span>import           HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
-<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
-<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
-<span class="lineno">   11 </span>--import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          (FullTape)
-<span class="lineno">   12 </span>--import qualified HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          as Tape
-<span class="lineno">   13 </span>
-<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">   15 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
-<span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.Loop
-<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Types.DumpType
-<span class="lineno">   18 </span>
-<span class="lineno">   19 </span>import           HelVM.HelIO.Containers.LLIndexSafe
-<span class="lineno">   20 </span>
-<span class="lineno">   21 </span>import           Control.Type.Operator
-<span class="lineno">   22 </span>
-<span class="lineno">   23 </span>evalSource :: (BIO m , Symbol e) =&gt; Source -&gt; FullTape e -&gt; LoopLimit -&gt; DumpType -&gt; m ()
-<span class="lineno">   24 </span><span class="decl"><span class="istickedoff">evalSource source tape _limit dt = logDump dt =&lt;&lt; flip runVector tape =&lt;&lt; parseAsVector source</span></span>
-<span class="lineno">   25 </span>
-<span class="lineno">   26 </span>runVector :: (BIO m , Symbol e) =&gt; TreeInstructionVector -&gt; FullTape e -&gt; m $ Automaton e
-<span class="lineno">   27 </span><span class="decl"><span class="istickedoff">runVector iv = nextStep (IU iv 0)</span></span>
-<span class="lineno">   28 </span>
-<span class="lineno">   29 </span>nextStep :: (BIO m , Symbol e) =&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
-<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">nextStep  (IU iv ic) tape = doInstructionOpt (iv `indexMaybe` ic) (Automaton (IU iv $ ic + 1) tape)</span></span>
-<span class="lineno">   31 </span>
-<span class="lineno">   32 </span>doInstructionOpt :: (BIO m , Symbol e) =&gt; Maybe TreeInstruction -&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">doInstructionOpt (Just i) = doInstruction i</span>
-<span class="lineno">   34 </span><span class="spaces"></span><span class="istickedoff">doInstructionOpt  Nothing = pure</span></span>
-<span class="lineno">   35 </span>
-<span class="lineno">   36 </span>doInstruction :: (BIO m , Symbol e) =&gt; TreeInstruction -&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   37 </span><span class="decl"><span class="istickedoff">doInstruction (While  iv    ) a                      = doWhile iv   a</span>
-<span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Output) a                      = doOutputChar a</span>
-<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Input ) a                      = doInputChar  a</span>
-<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple MoveR ) (Automaton table tape) = nextStep      table (moveHeadRight tape)</span>
-<span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple MoveL ) (Automaton table tape) = nextStep      table  (moveHeadLeft tape)</span>
-<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Inc   ) (Automaton table tape) = nextStep      table    (nextSymbol tape)</span>
-<span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Dec   ) (Automaton table tape) = nextStep      table    (prevSymbol tape)</span></span>
-<span class="lineno">   44 </span>
-<span class="lineno">   45 </span>-- | Control Instruction
-<span class="lineno">   46 </span>doWhile :: (BIO m , Symbol e) =&gt; TreeInstructionVector -&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   47 </span><span class="decl"><span class="istickedoff">doWhile _  (Automaton table tape@(_ , 0:_)) = nextStep table tape</span>
-<span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">doWhile iv (Automaton table tape          ) = doWhileWithTape iv table =&lt;&lt; runVector iv tape</span></span>
-<span class="lineno">   49 </span>
-<span class="lineno">   50 </span>doWhileWithTape :: (BIO m , Symbol e) =&gt; TreeInstructionVector -&gt; InstructionUnit -&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   51 </span><span class="decl"><span class="istickedoff">doWhileWithTape iv table (Automaton _ tape') = doWhile iv (Automaton table tape')</span></span>
-<span class="lineno">   52 </span>
-<span class="lineno">   53 </span>-- | IO instructions
-<span class="lineno">   54 </span>doInputChar  :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">doInputChar (Automaton table tape) = (nextStep table . flip writeSymbol tape) =&lt;&lt; wGetChar</span></span>
-<span class="lineno">   56 </span>
-<span class="lineno">   57 </span>doOutputChar :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   58 </span><span class="decl"><span class="istickedoff">doOutputChar (Automaton _          (_ ,  [])) = <span class="nottickedoff">error &quot;Illegal State&quot;</span></span>
-<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *&gt; nextStep table tape</span></span>
-<span class="lineno">   60 </span>
-<span class="lineno">   61 </span>-- | Types
-<span class="lineno">   62 </span>--type AutomatonSame e = Same (Automaton e)
+<span class="lineno">    8 </span>import           HelVM.HelMA.Automata.BrainFuck.Common.PureInstruction
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
+<span class="lineno">   12 </span>--import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          (FullTape)
+<span class="lineno">   13 </span>--import qualified HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          as Tape
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>import           HelVM.HelMA.Automaton.API.IOTypes
+<span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
+<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Loop
+<span class="lineno">   18 </span>import           HelVM.HelMA.Automaton.Types.DumpType
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import           HelVM.HelIO.Containers.LLIndexSafe
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>import           Control.Type.Operator
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>evalSource :: (BIO m , Symbol e) =&gt; Source -&gt; FullTape e -&gt; LoopLimit -&gt; DumpType -&gt; m ()
+<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">evalSource source tape _limit dt = logDump dt =&lt;&lt; flip runVector tape =&lt;&lt; parseAsVector source</span></span>
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>runVector :: (BIO m , Symbol e) =&gt; TreeInstructionVector -&gt; FullTape e -&gt; m $ Automaton e
+<span class="lineno">   28 </span><span class="decl"><span class="istickedoff">runVector iv = nextStep (IU iv 0)</span></span>
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>nextStep :: (BIO m , Symbol e) =&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
+<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">nextStep  (IU iv ic) tape = doInstructionOpt (iv `indexMaybe` ic) (Automaton (IU iv $ ic + 1) tape)</span></span>
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>doInstructionOpt :: (BIO m , Symbol e) =&gt; Maybe TreeInstruction -&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   34 </span><span class="decl"><span class="istickedoff">doInstructionOpt (Just i) = doInstruction i</span>
+<span class="lineno">   35 </span><span class="spaces"></span><span class="istickedoff">doInstructionOpt  Nothing = pure</span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>doInstruction :: (BIO m , Symbol e) =&gt; TreeInstruction -&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   38 </span><span class="decl"><span class="istickedoff">doInstruction (While  iv    ) a                             = doWhile iv   a</span>
+<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Output) a                             = doOutputChar a</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Input ) a                             = doInputChar  a</span>
+<span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple (Pure MoveR )) (Automaton table tape) = nextStep      table (moveHeadRight tape)</span>
+<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple (Pure MoveL )) (Automaton table tape) = nextStep      table  (moveHeadLeft tape)</span>
+<span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple (Pure Inc   )) (Automaton table tape) = nextStep      table    (nextSymbol tape)</span>
+<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple (Pure Dec   )) (Automaton table tape) = nextStep      table    (prevSymbol tape)</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>-- | Control Instruction
+<span class="lineno">   47 </span>doWhile :: (BIO m , Symbol e) =&gt; TreeInstructionVector -&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   48 </span><span class="decl"><span class="istickedoff">doWhile _  (Automaton table tape@(_ , 0:_)) = nextStep table tape</span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">doWhile iv (Automaton table tape          ) = doWhileWithTape iv table =&lt;&lt; runVector iv tape</span></span>
+<span class="lineno">   50 </span>
+<span class="lineno">   51 </span>doWhileWithTape :: (BIO m , Symbol e) =&gt; TreeInstructionVector -&gt; InstructionUnit -&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">doWhileWithTape iv table (Automaton _ tape') = doWhile iv (Automaton table tape')</span></span>
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>-- | IO instructions
+<span class="lineno">   55 </span>doInputChar  :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   56 </span><span class="decl"><span class="istickedoff">doInputChar (Automaton table tape) = (nextStep table . flip writeSymbol tape) =&lt;&lt; wGetChar</span></span>
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>doOutputChar :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">doOutputChar (Automaton _          (_ ,  [])) = <span class="nottickedoff">error &quot;Illegal State&quot;</span></span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *&gt; nextStep table tape</span></span>
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>-- | Pure Instructions
 <span class="lineno">   63 </span>
-<span class="lineno">   64 </span>data Automaton e = Automaton
-<span class="lineno">   65 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitUI</span></span></span>   :: InstructionUnit
-<span class="lineno">   66 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitTape</span></span></span> :: FullTape e
-<span class="lineno">   67 </span>  }
-<span class="lineno">   68 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
-<span class="lineno">   69 </span>
-<span class="lineno">   70 </span>data InstructionUnit = IU !TreeInstructionVector !InstructionCounter
+<span class="lineno">   64 </span>-- | Types
+<span class="lineno">   65 </span>--type AutomatonSame e = Same (Automaton e)
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>data Automaton e = Automaton
+<span class="lineno">   68 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitUI</span></span></span>   :: InstructionUnit
+<span class="lineno">   69 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitTape</span></span></span> :: FullTape e
+<span class="lineno">   70 </span>  }
 <span class="lineno">   71 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
 <span class="lineno">   72 </span>
-<span class="lineno">   73 </span>type InstructionCounter = Int
+<span class="lineno">   73 </span>data InstructionUnit = IU !TreeInstructionVector !InstructionCounter
+<span class="lineno">   74 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   75 </span>
+<span class="lineno">   76 </span>type InstructionCounter = Int
 
 </pre>
 </body>

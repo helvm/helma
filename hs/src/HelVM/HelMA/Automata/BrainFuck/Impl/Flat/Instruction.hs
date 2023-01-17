@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Instruction where
 
+import           HelVM.HelMA.Automata.BrainFuck.Common.PureInstruction
 import           HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
 
 import           Text.Read
@@ -20,10 +21,10 @@ instance Show FlatInstruction where
   show JmpBack    = "]"
 
 instance Read FlatInstruction where
-  readsPrec _ ">" = [( Simple MoveR  , "")]
-  readsPrec _ "<" = [( Simple MoveL  , "")]
-  readsPrec _ "+" = [( Simple Inc    , "")]
-  readsPrec _ "-" = [( Simple Dec    , "")]
+  readsPrec _ ">" = [( Simple $ Pure MoveR  , "")]
+  readsPrec _ "<" = [( Simple $ Pure MoveL  , "")]
+  readsPrec _ "+" = [( Simple $ Pure Inc    , "")]
+  readsPrec _ "-" = [( Simple $ Pure Dec    , "")]
   readsPrec _ "." = [( Simple Output , "")]
   readsPrec _ "," = [( Simple Input  , "")]
   readsPrec _ "[" = [( JmpPast       , "")]
