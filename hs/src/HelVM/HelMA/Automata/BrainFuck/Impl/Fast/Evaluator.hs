@@ -28,25 +28,25 @@ nextStep :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton
 nextStep (IU iv ic) = doInstructionOpt (iv `indexMaybe` ic) (IU iv $ ic + 1)
 
 doInstructionOpt :: (BIO m , Symbol e) => Maybe FastInstruction -> InstructionUnit -> FullTape e -> m $ Automaton e
-doInstructionOpt (Just i) table tape = doInstruction i table tape
-doInstructionOpt Nothing  table tape = doEnd           (Automaton table tape )
+doInstructionOpt (Just i) table tape = doInstruction i (Automaton table tape)
+doInstructionOpt Nothing  table tape = doEnd           (Automaton table tape)
 
-doInstruction :: (BIO m , Symbol e) => FastInstruction -> InstructionUnit -> FullTape e -> m $ Automaton e
-doInstruction (Move   i       ) table tape       = nextStep     table (moveHead          i        tape)
-doInstruction (Inc    i       ) table tape       = nextStep     table (incSymbol         i        tape)
-doInstruction  Output           table tape       = doOutputChar table                             tape
-doInstruction  Input            table tape       = doInputChar  table                             tape
-doInstruction (While  iv      ) table tape       = doWhile iv   table                             tape
-doInstruction (Set    i       ) table tape       = nextStep     table (setSymbol         i        tape)
+doInstruction :: (BIO m , Symbol e) => FastInstruction -> Automaton e -> m $ Automaton e
+doInstruction (Move   i             ) (Automaton table tape) = nextStep table (moveHead          i        tape)
+doInstruction (Inc    i             ) (Automaton table tape) = nextStep table (incSymbol         i        tape)
+doInstruction  Output                  a                     = doOutputChar a
+doInstruction  Input                   a                     = doInputChar a
+doInstruction (While  iv            ) (Automaton table tape) = doWhile iv table                             tape
+doInstruction (Set    i             ) (Automaton table tape) = nextStep   table (setSymbol         i        tape)
 
-doInstruction (SubClr          f    ) table tape = nextStep table (subAndClearSymbol          f     tape)
-doInstruction (AddClr          f    ) table tape = nextStep table (addAndClearSymbol          f     tape)
-doInstruction (MulAddClr m     f    ) table tape = nextStep table (mulAddAndClearSymbol m     f     tape)
+doInstruction (SubClr          f    ) (Automaton table tape) = nextStep   table (subAndClearSymbol          f     tape)
+doInstruction (AddClr          f    ) (Automaton table tape) = nextStep table (addAndClearSymbol          f     tape)
+doInstruction (MulAddClr m     f    ) (Automaton table tape) = nextStep table (mulAddAndClearSymbol m     f     tape)
 
-doInstruction (DupClr          f1 f2) table tape = nextStep table (dupAndClearSymbol          f1 f2 tape)
-doInstruction (MulDupClr m1 m2 f1 f2) table tape = nextStep table (mulDupAndClearSymbol m1 m2 f1 f2 tape)
+doInstruction (DupClr          f1 f2) (Automaton table tape) = nextStep table (dupAndClearSymbol          f1 f2 tape)
+doInstruction (MulDupClr m1 m2 f1 f2) (Automaton table tape) = nextStep table (mulDupAndClearSymbol m1 m2 f1 f2 tape)
 
-doInstruction (TriClr i1 i2 i3) table tape       = nextStep     table (triAndClearSymbol i1 i2 i3 tape)
+doInstruction (TriClr i1 i2 i3      ) (Automaton table tape) = nextStep table (triAndClearSymbol i1 i2 i3 tape)
 
 doWhile :: (BIO m , Symbol e) => FastInstructionList -> InstructionUnit -> FullTape e -> m $ Automaton e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape
@@ -56,12 +56,12 @@ doWhileWithTape :: (BIO m , Symbol e) => FastInstructionList -> InstructionUnit 
 doWhileWithTape iv table = doWhile iv table . unitTape
 
 -- | IO instructions
-doOutputChar :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
-doOutputChar _          (_ ,  []) = error "Illegal State"
-doOutputChar table tape@(_ , e:_) = wPutChar (toChar e) *> nextStep table tape
+doInputChar  :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+doInputChar (Automaton table tape) = (nextStep table . flip writeSymbol tape) =<< wGetChar
 
-doInputChar  :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
-doInputChar table tape = (nextStep table . flip writeSymbol tape) =<< wGetChar
+doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+doOutputChar (Automaton _          (_ ,  [])) = error "Illegal State"
+doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *> nextStep table tape
 
 -- | Terminate instruction
 doEnd :: BIO m => Automaton e -> m $ Automaton e

@@ -47,25 +47,25 @@ span.spaces    { background: white }
 <span class="lineno">   28 </span><span class="decl"><span class="istickedoff">nextStep (IU iv ic) = doInstructionOpt (iv `indexMaybe` ic) (IU iv $ ic + 1)</span></span>
 <span class="lineno">   29 </span>
 <span class="lineno">   30 </span>doInstructionOpt :: (BIO m , Symbol e) =&gt; Maybe FastInstruction -&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
-<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">doInstructionOpt (Just i) table tape = doInstruction i table tape</span>
-<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">doInstructionOpt Nothing  table tape = doEnd           (Automaton table tape )</span></span>
+<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">doInstructionOpt (Just i) table tape = doInstruction i (Automaton table tape)</span>
+<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">doInstructionOpt Nothing  table tape = doEnd           (Automaton table tape)</span></span>
 <span class="lineno">   33 </span>
-<span class="lineno">   34 </span>doInstruction :: (BIO m , Symbol e) =&gt; FastInstruction -&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
-<span class="lineno">   35 </span><span class="decl"><span class="istickedoff">doInstruction (Move   i       ) table tape       = nextStep     table (moveHead          i        tape)</span>
-<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Inc    i       ) table tape       = nextStep     table (incSymbol         i        tape)</span>
-<span class="lineno">   37 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Output           table tape       = doOutputChar table                             tape</span>
-<span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Input            table tape       = doInputChar  table                             tape</span>
-<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff">doInstruction (While  iv      ) table tape       = doWhile iv   table                             tape</span>
-<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Set    i       ) table tape       = nextStep     table (setSymbol         i        tape)</span>
+<span class="lineno">   34 </span>doInstruction :: (BIO m , Symbol e) =&gt; FastInstruction -&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   35 </span><span class="decl"><span class="istickedoff">doInstruction (Move   i             ) (Automaton table tape) = nextStep table (moveHead          i        tape)</span>
+<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Inc    i             ) (Automaton table tape) = nextStep table (incSymbol         i        tape)</span>
+<span class="lineno">   37 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Output                  a                     = doOutputChar a</span>
+<span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Input                   a                     = doInputChar a</span>
+<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff">doInstruction (While  iv            ) (Automaton table tape) = doWhile  iv table                             tape</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Set    i             ) (Automaton table tape) = nextStep table (setSymbol         i        tape)</span>
 <span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">doInstruction (SubClr          f    ) table tape = nextStep table (subAndClearSymbol          f     tape)</span>
-<span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">doInstruction (AddClr          f    ) table tape = nextStep table (addAndClearSymbol          f     tape)</span>
-<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">doInstruction (MulAddClr m     f    ) table tape = nextStep table (mulAddAndClearSymbol m     f     tape)</span>
+<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">doInstruction (SubClr          f    ) (Automaton table tape) = nextStep table (subAndClearSymbol          f     tape)</span>
+<span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">doInstruction (AddClr          f    ) (Automaton table tape) = nextStep table (addAndClearSymbol          f     tape)</span>
+<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">doInstruction (MulAddClr m     f    ) (Automaton table tape) = nextStep table (mulAddAndClearSymbol m     f     tape)</span>
 <span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doInstruction (DupClr          f1 f2) table tape = nextStep table (dupAndClearSymbol          f1 f2 tape)</span>
-<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">doInstruction (MulDupClr m1 m2 f1 f2) table tape = nextStep table (mulDupAndClearSymbol m1 m2 f1 f2 tape)</span>
+<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doInstruction (DupClr          f1 f2) (Automaton table tape) = nextStep table (dupAndClearSymbol          f1 f2 tape)</span>
+<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">doInstruction (MulDupClr m1 m2 f1 f2) (Automaton table tape) = nextStep table (mulDupAndClearSymbol m1 m2 f1 f2 tape)</span>
 <span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">doInstruction (TriClr i1 i2 i3) table tape       = <span class="nottickedoff">nextStep     table (triAndClearSymbol i1 i2 i3 tape)</span></span></span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">doInstruction (TriClr i1 i2 i3      ) (Automaton table tape) = <span class="nottickedoff">nextStep table (triAndClearSymbol i1 i2 i3 tape)</span></span></span>
 <span class="lineno">   50 </span>
 <span class="lineno">   51 </span>doWhile :: (BIO m , Symbol e) =&gt; FastInstructionList -&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
 <span class="lineno">   52 </span><span class="decl"><span class="istickedoff">doWhile _  table tape@(_ , 0:_) = nextStep table tape</span>
@@ -75,12 +75,12 @@ span.spaces    { background: white }
 <span class="lineno">   56 </span><span class="decl"><span class="istickedoff">doWhileWithTape iv table = doWhile iv table . unitTape</span></span>
 <span class="lineno">   57 </span>
 <span class="lineno">   58 </span>-- | IO instructions
-<span class="lineno">   59 </span>doOutputChar :: (BIO m , Symbol e) =&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
-<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">doOutputChar _          (_ ,  []) = <span class="nottickedoff">error &quot;Illegal State&quot;</span></span>
-<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">doOutputChar table tape@(_ , e:_) = wPutChar (toChar e) *&gt; nextStep table tape</span></span>
-<span class="lineno">   62 </span>
-<span class="lineno">   63 </span>doInputChar  :: (BIO m , Symbol e) =&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
-<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">doInputChar table tape = (nextStep table . flip writeSymbol tape) =&lt;&lt; wGetChar</span></span>
+<span class="lineno">   59 </span>doInputChar  :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">doInputChar (Automaton table tape) = (nextStep table . flip writeSymbol tape) =&lt;&lt; wGetChar</span></span>
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>doOutputChar :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   63 </span><span class="decl"><span class="istickedoff">doOutputChar (Automaton _          (_ ,  [])) = <span class="nottickedoff">error &quot;Illegal State&quot;</span></span>
+<span class="lineno">   64 </span><span class="spaces"></span><span class="istickedoff">doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *&gt; nextStep table tape</span></span>
 <span class="lineno">   65 </span>
 <span class="lineno">   66 </span>-- | Terminate instruction
 <span class="lineno">   67 </span>doEnd :: BIO m =&gt; Automaton e -&gt; m $ Automaton e
