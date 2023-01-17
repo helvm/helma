@@ -27,6 +27,10 @@ runList il = nextStep (IU il 0)
 nextStep :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
 nextStep (IU iv ic) = doInstructionOpt (iv `indexMaybe` ic) (IU iv $ ic + 1)
 
+--doInstructionOpt :: (BIO m , Symbol e) => Maybe FastInstruction -> InstructionUnit -> FullTape e -> m $ Automaton e
+--doInstructionOpt (Just i) = doInstruction i
+--doInstructionOpt Nothing  = doEnd
+
 doInstructionOpt :: (BIO m , Symbol e) => Maybe FastInstruction -> InstructionUnit -> FullTape e -> m $ Automaton e
 doInstructionOpt (Just (Move   i       )) table tape       = nextStep     table (moveHead          i        tape)
 doInstructionOpt (Just (Inc    i       )) table tape       = nextStep     table (incSymbol         i        tape)
@@ -44,8 +48,6 @@ doInstructionOpt (Just (MulDupClr m1 m2 f1 f2)) table tape = nextStep table (mul
 
 doInstructionOpt (Just (TriClr i1 i2 i3)) table tape       = nextStep     table (triAndClearSymbol i1 i2 i3 tape)
 doInstructionOpt  Nothing           table tape             = doEnd        (Automaton table tape)
-
-
 
 doWhile :: (BIO m , Symbol e) => FastInstructionList -> InstructionUnit -> FullTape e -> m $ Automaton e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape
