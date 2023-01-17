@@ -55,10 +55,10 @@ span.spaces    { background: white }
 <span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Inc    i             ) (Automaton table tape) = nextStep table (incSymbol         i        tape)</span>
 <span class="lineno">   37 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Output                  a                     = doOutputChar a</span>
 <span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff">doInstruction  Input                   a                     = doInputChar a</span>
-<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff">doInstruction (While  iv            ) (Automaton table tape) = doWhile  iv table                             tape</span>
-<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Set    i             ) (Automaton table tape) = nextStep table (setSymbol         i        tape)</span>
+<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff">doInstruction (While  iv            ) (Automaton table tape) = doWhile iv table                             tape</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Set    i             ) (Automaton table tape) = nextStep   table (setSymbol         i        tape)</span>
 <span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">doInstruction (SubClr          f    ) (Automaton table tape) = nextStep table (subAndClearSymbol          f     tape)</span>
+<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">doInstruction (SubClr          f    ) (Automaton table tape) = nextStep   table (subAndClearSymbol          f     tape)</span>
 <span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">doInstruction (AddClr          f    ) (Automaton table tape) = nextStep table (addAndClearSymbol          f     tape)</span>
 <span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">doInstruction (MulAddClr m     f    ) (Automaton table tape) = nextStep table (mulAddAndClearSymbol m     f     tape)</span>
 <span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff"></span>

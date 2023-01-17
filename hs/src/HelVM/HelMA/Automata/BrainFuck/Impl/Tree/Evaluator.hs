@@ -34,13 +34,13 @@ doInstructionOpt (Just i) = doInstruction i
 doInstructionOpt  Nothing = pure
 
 doInstruction :: (BIO m , Symbol e) => TreeInstruction -> Automaton e -> m $ Automaton e
+doInstruction (While  iv    ) a                      = doWhile iv   a
 doInstruction (Simple MoveR ) (Automaton table tape) = nextStep      table (moveHeadRight tape)
 doInstruction (Simple MoveL ) (Automaton table tape) = nextStep      table  (moveHeadLeft tape)
 doInstruction (Simple Inc   ) (Automaton table tape) = nextStep      table    (nextSymbol tape)
 doInstruction (Simple Dec   ) (Automaton table tape) = nextStep      table    (prevSymbol tape)
 doInstruction (Simple Output) a                      = doOutputChar a
 doInstruction (Simple Input ) a                      = doInputChar  a
-doInstruction (While  iv    ) a                      = doWhile iv   a
 
 -- | Control Instruction
 doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> Automaton e -> m $ Automaton e

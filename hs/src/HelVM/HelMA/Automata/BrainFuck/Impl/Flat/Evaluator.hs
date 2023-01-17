@@ -38,10 +38,10 @@ doInstructionOpt (Just i) = Right <.> doInstruction i
 doInstructionOpt Nothing  = Left <.> pure
 
 doInstruction :: (BIO m , Symbol e) => FlatInstruction -> Automaton e -> m $ Automaton e
-doInstruction (Simple MoveR ) = pure . moveRAutomaton
-doInstruction (Simple MoveL ) = pure . moveLAutomaton
-doInstruction (Simple Inc   ) = pure . incAutomaton
-doInstruction (Simple Dec   ) = pure . decAutomaton
+doInstruction (Simple MoveR ) = pure . nextInstAutomaton . updateTape Tape.moveHeadRight
+doInstruction (Simple MoveL ) = pure . nextInstAutomaton . updateTape Tape.moveHeadLeft
+doInstruction (Simple Inc   ) = pure . nextInstAutomaton . updateTape Tape.nextSymbol
+doInstruction (Simple Dec   ) = pure . nextInstAutomaton . updateTape Tape.prevSymbol
 doInstruction (Simple Output) = doOutputChar
 doInstruction (Simple Input ) = doInputChar
 doInstruction  JmpPast        = doJmpPast
@@ -77,17 +77,17 @@ wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
 newAutomatonForChar :: Symbol e => Automaton e -> Char -> Automaton e
 newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape --FIXME
 
-moveRAutomaton :: Symbol e => Automaton e -> Automaton e
-moveRAutomaton = nextInstAutomaton . updateTape Tape.moveHeadRight
-
-moveLAutomaton :: Symbol e => Automaton e -> Automaton e
-moveLAutomaton = nextInstAutomaton . updateTape Tape.moveHeadLeft
-
-incAutomaton :: Symbol e => Automaton e -> Automaton e
-incAutomaton = nextInstAutomaton . updateTape Tape.nextSymbol
-
-decAutomaton :: Symbol e => Automaton e -> Automaton e
-decAutomaton = nextInstAutomaton . updateTape Tape.prevSymbol
+--moveRAutomaton :: Symbol e => Automaton e -> Automaton e
+--moveRAutomaton = nextInstAutomaton . updateTape Tape.moveHeadRight
+--
+--moveLAutomaton :: Symbol e => Automaton e -> Automaton e
+--moveLAutomaton = nextInstAutomaton . updateTape Tape.moveHeadLeft
+--
+--incAutomaton :: Symbol e => Automaton e -> Automaton e
+--incAutomaton = nextInstAutomaton . updateTape Tape.nextSymbol
+--
+--decAutomaton :: Symbol e => Automaton e -> Automaton e
+--decAutomaton = nextInstAutomaton . updateTape Tape.prevSymbol
 
 nextInstAutomaton :: Automaton e -> Automaton e
 nextInstAutomaton = updateTable Table.nextInst

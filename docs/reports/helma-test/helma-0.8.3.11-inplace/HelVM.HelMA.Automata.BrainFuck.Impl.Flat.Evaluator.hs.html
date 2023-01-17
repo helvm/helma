@@ -57,10 +57,10 @@ span.spaces    { background: white }
 <span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff">doInstructionOpt Nothing  = <span class="nottickedoff">Left &lt;.&gt; pure</span></span></span>
 <span class="lineno">   39 </span>
 <span class="lineno">   40 </span>doInstruction :: (BIO m , Symbol e) =&gt; FlatInstruction -&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   41 </span><span class="decl"><span class="istickedoff">doInstruction (Simple MoveR ) = pure . moveRAutomaton</span>
-<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple MoveL ) = <span class="nottickedoff">pure . moveLAutomaton</span></span>
-<span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Inc   ) = pure . incAutomaton</span>
-<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Dec   ) = pure . decAutomaton</span>
+<span class="lineno">   41 </span><span class="decl"><span class="istickedoff">doInstruction (Simple MoveR ) = pure . nextInstAutomaton . updateTape Tape.moveHeadRight</span>
+<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple MoveL ) = <span class="nottickedoff">pure . nextInstAutomaton . updateTape Tape.moveHeadLeft</span></span>
+<span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Inc   ) = pure . nextInstAutomaton . updateTape Tape.nextSymbol</span>
+<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Dec   ) = pure . nextInstAutomaton . updateTape Tape.prevSymbol</span>
 <span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Output) = <span class="nottickedoff">doOutputChar</span></span>
 <span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Input ) = doInputChar</span>
 <span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">doInstruction  JmpPast        = doJmpPast</span>
@@ -96,17 +96,17 @@ span.spaces    { background: white }
 <span class="lineno">   77 </span>newAutomatonForChar :: Symbol e =&gt; Automaton e -&gt; Char -&gt; Automaton e
 <span class="lineno">   78 </span><span class="decl"><span class="istickedoff">newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape</span></span> --FIXME
 <span class="lineno">   79 </span>
-<span class="lineno">   80 </span>moveRAutomaton :: Symbol e =&gt; Automaton e -&gt; Automaton e
-<span class="lineno">   81 </span><span class="decl"><span class="istickedoff">moveRAutomaton = nextInstAutomaton . updateTape Tape.moveHeadRight</span></span>
-<span class="lineno">   82 </span>
-<span class="lineno">   83 </span>moveLAutomaton :: Symbol e =&gt; Automaton e -&gt; Automaton e
-<span class="lineno">   84 </span><span class="decl"><span class="nottickedoff">moveLAutomaton = nextInstAutomaton . updateTape Tape.moveHeadLeft</span></span>
-<span class="lineno">   85 </span>
-<span class="lineno">   86 </span>incAutomaton :: Symbol e =&gt; Automaton e -&gt; Automaton e
-<span class="lineno">   87 </span><span class="decl"><span class="istickedoff">incAutomaton = nextInstAutomaton . updateTape Tape.nextSymbol</span></span>
-<span class="lineno">   88 </span>
-<span class="lineno">   89 </span>decAutomaton :: Symbol e =&gt; Automaton e -&gt; Automaton e
-<span class="lineno">   90 </span><span class="decl"><span class="istickedoff">decAutomaton = nextInstAutomaton . updateTape Tape.prevSymbol</span></span>
+<span class="lineno">   80 </span>--moveRAutomaton :: Symbol e =&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   81 </span>--moveRAutomaton = nextInstAutomaton . updateTape Tape.moveHeadRight
+<span class="lineno">   82 </span>--
+<span class="lineno">   83 </span>--moveLAutomaton :: Symbol e =&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   84 </span>--moveLAutomaton = nextInstAutomaton . updateTape Tape.moveHeadLeft
+<span class="lineno">   85 </span>--
+<span class="lineno">   86 </span>--incAutomaton :: Symbol e =&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   87 </span>--incAutomaton = nextInstAutomaton . updateTape Tape.nextSymbol
+<span class="lineno">   88 </span>--
+<span class="lineno">   89 </span>--decAutomaton :: Symbol e =&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   90 </span>--decAutomaton = nextInstAutomaton . updateTape Tape.prevSymbol
 <span class="lineno">   91 </span>
 <span class="lineno">   92 </span>nextInstAutomaton :: Automaton e -&gt; Automaton e
 <span class="lineno">   93 </span><span class="decl"><span class="istickedoff">nextInstAutomaton = updateTable Table.nextInst</span></span>
