@@ -46,5 +46,5 @@ spec =
           calculateLogged <$> exec `goldenShouldIO` buildAbsoluteBfLogFileName path
 
 testedBfTypes :: [BFType]
-testedBfTypes = [defaultBFType]
---testedBfTypes = bfTypes
+--testedBfTypes = [defaultBFType]
+testedBfTypes = bfTypes

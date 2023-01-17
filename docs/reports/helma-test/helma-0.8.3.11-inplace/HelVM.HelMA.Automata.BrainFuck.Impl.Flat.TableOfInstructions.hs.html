@@ -26,16 +26,16 @@ span.spaces    { background: white }
 <span class="lineno">    7 </span>type TableD = Table -&gt; Table
 <span class="lineno">    8 </span>
 <span class="lineno">    9 </span>currentInstruction :: ([a], [a]) -&gt; Maybe a
-<span class="lineno">   10 </span><span class="decl"><span class="nottickedoff">currentInstruction (_ , i : _) = Just i</span>
-<span class="lineno">   11 </span><span class="spaces"></span><span class="nottickedoff">currentInstruction (_ ,    []) = Nothing</span></span>
+<span class="lineno">   10 </span><span class="decl"><span class="istickedoff">currentInstruction (_ , i : _) = Just i</span>
+<span class="lineno">   11 </span><span class="spaces"></span><span class="istickedoff">currentInstruction (_ ,    []) = <span class="nottickedoff">Nothing</span></span></span>
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>prevInst :: TableD
 <span class="lineno">   14 </span><span class="decl"><span class="nottickedoff">prevInst (inst : prev , next) = (prev , inst : next)</span>
 <span class="lineno">   15 </span><span class="spaces"></span><span class="nottickedoff">prevInst ([] , _)             = error &quot;End of the table&quot;</span></span>
 <span class="lineno">   16 </span>
 <span class="lineno">   17 </span>nextInst :: TableD
-<span class="lineno">   18 </span><span class="decl"><span class="nottickedoff">nextInst (prev , inst : next) = (inst : prev , next)</span>
-<span class="lineno">   19 </span><span class="spaces"></span><span class="nottickedoff">nextInst (_ , [])             = error &quot;End of the table&quot;</span></span>
+<span class="lineno">   18 </span><span class="decl"><span class="istickedoff">nextInst (prev , inst : next) = (inst : prev , next)</span>
+<span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">nextInst (_ , [])             = <span class="nottickedoff">error &quot;End of the table&quot;</span></span></span>
 <span class="lineno">   20 </span>
 <span class="lineno">   21 </span>matchPrevJmp :: TableD
 <span class="lineno">   22 </span><span class="decl"><span class="nottickedoff">matchPrevJmp table@(JmpPast : _ , _) =                                      table</span>
@@ -43,12 +43,12 @@ span.spaces    { background: white }
 <span class="lineno">   24 </span><span class="spaces"></span><span class="nottickedoff">matchPrevJmp table                   =                            jumpBack  table</span></span>
 <span class="lineno">   25 </span>
 <span class="lineno">   26 </span>matchNextJmp :: TableD
-<span class="lineno">   27 </span><span class="decl"><span class="nottickedoff">matchNextJmp table@(_ , JmpBack : _) =                 nextInst  table</span>
-<span class="lineno">   28 </span><span class="spaces"></span><span class="nottickedoff">matchNextJmp table@(_ , JmpPast : _) = (matchNextJmp . jumpPast) table</span>
-<span class="lineno">   29 </span><span class="spaces"></span><span class="nottickedoff">matchNextJmp table                   =                 jumpPast  table</span></span>
+<span class="lineno">   27 </span><span class="decl"><span class="istickedoff">matchNextJmp table@(_ , JmpBack : _) =                 nextInst  table</span>
+<span class="lineno">   28 </span><span class="spaces"></span><span class="istickedoff">matchNextJmp table@(_ , JmpPast : _) = <span class="nottickedoff">(matchNextJmp . jumpPast) table</span></span>
+<span class="lineno">   29 </span><span class="spaces"></span><span class="istickedoff">matchNextJmp table                   =                 jumpPast  table</span></span>
 <span class="lineno">   30 </span>
 <span class="lineno">   31 </span>jumpPast :: TableD
-<span class="lineno">   32 </span><span class="decl"><span class="nottickedoff">jumpPast = matchNextJmp . nextInst</span></span>
+<span class="lineno">   32 </span><span class="decl"><span class="istickedoff">jumpPast = matchNextJmp . nextInst</span></span>
 <span class="lineno">   33 </span>
 <span class="lineno">   34 </span>jumpBack :: TableD
 <span class="lineno">   35 </span><span class="decl"><span class="nottickedoff">jumpBack = matchPrevJmp . prevInst</span></span>

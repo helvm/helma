@@ -50,7 +50,7 @@ span.spaces    { background: white }
 <span class="lineno">   31 </span>
 <span class="lineno">   32 </span>nextState :: (SRAutomatonIO Symbol s r m) =&gt; Automaton s r -&gt; m $ AutomatonSame s r
 <span class="lineno">   33 </span><span class="decl"><span class="istickedoff">nextState u@(Automaton cu _ _) = nextStateForInstruction =&lt;&lt; currentInstruction cu where</span>
-<span class="lineno">   34 </span><span class="spaces">  </span><span class="istickedoff">nextStateForInstruction i = doInstruction i $ incrementIC u</span></span>
+<span class="lineno">   34 </span><span class="spaces">  </span><span class="istickedoff">nextStateForInstruction = flip doInstruction (incrementIC u)</span></span>
 <span class="lineno">   35 </span>
 <span class="lineno">   36 </span>----
 <span class="lineno">   37 </span>

@@ -31,7 +31,7 @@ run = loopMWithLimit nextState
 
 nextState :: (SRAutomatonIO Symbol s r m) => Automaton s r -> m $ AutomatonSame s r
 nextState u@(Automaton cu _ _) = nextStateForInstruction =<< currentInstruction cu where
-  nextStateForInstruction i = doInstruction i $ incrementIC u
+  nextStateForInstruction = flip doInstruction (incrementIC u)
 
 ----
 

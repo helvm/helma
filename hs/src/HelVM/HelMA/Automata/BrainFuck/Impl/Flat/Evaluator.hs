@@ -64,7 +64,7 @@ doJmpBack' _ = updateTable Table.jumpBack
 
 -- | IO instructions
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar a = (nextInstAutomaton a) <$ wPutSymbol a
+doOutputChar a = nextInstAutomaton a <$ wPutSymbol a --FIXME
 
 doInputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar a = newAutomatonForChar a <$> wGetChar
@@ -82,7 +82,7 @@ currentInstruction :: Automaton e -> Maybe FlatInstruction
 currentInstruction = Table.currentInstruction . unitTable
 
 newAutomatonForChar :: Symbol e => Automaton e -> Char -> Automaton e
-newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape
+newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape --FIXME
 
 moveRAutomaton :: Symbol e => Automaton e -> Automaton e
 moveRAutomaton = nextInstAutomaton . updateTape Tape.moveHeadRight

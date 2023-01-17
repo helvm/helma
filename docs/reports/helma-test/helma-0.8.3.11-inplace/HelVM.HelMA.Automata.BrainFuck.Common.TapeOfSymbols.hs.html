@@ -111,10 +111,10 @@ span.spaces    { background: white }
 <span class="lineno">   92 </span><span class="decl"><span class="istickedoff">clearSymbol = modifyCell $ const def</span></span>
 <span class="lineno">   93 </span>
 <span class="lineno">   94 </span>nextSymbol :: (Symbol e) =&gt; FullTapeD e
-<span class="lineno">   95 </span><span class="decl"><span class="nottickedoff">nextSymbol = modifyCell next</span></span>
+<span class="lineno">   95 </span><span class="decl"><span class="istickedoff">nextSymbol = modifyCell next</span></span>
 <span class="lineno">   96 </span>
 <span class="lineno">   97 </span>prevSymbol :: (Symbol e) =&gt; FullTapeD e
-<span class="lineno">   98 </span><span class="decl"><span class="nottickedoff">prevSymbol = modifyCell prev</span></span>
+<span class="lineno">   98 </span><span class="decl"><span class="istickedoff">prevSymbol = modifyCell prev</span></span>
 <span class="lineno">   99 </span>
 <span class="lineno">  100 </span>writeSymbol :: (Symbol e) =&gt; Char -&gt; FullTapeD e
 <span class="lineno">  101 </span><span class="decl"><span class="istickedoff">writeSymbol symbol = modifyCell (const $ fromChar symbol)</span></span>
@@ -128,7 +128,7 @@ span.spaces    { background: white }
 <span class="lineno">  109 </span><span class="spaces"></span><span class="istickedoff">readSymbol (_ , [])       = <span class="nottickedoff">error &quot;End of the Tape&quot;</span></span></span>
 <span class="lineno">  110 </span>
 <span class="lineno">  111 </span>readSymbolSafe :: MonadSafe m =&gt; FullTape e -&gt; m e
-<span class="lineno">  112 </span><span class="decl"><span class="nottickedoff">readSymbolSafe = findSafe 0 . snd</span></span>
+<span class="lineno">  112 </span><span class="decl"><span class="istickedoff">readSymbolSafe = findSafe 0 . snd</span></span>
 <span class="lineno">  113 </span>
 <span class="lineno">  114 </span>-- | Moves
 <span class="lineno">  115 </span>
