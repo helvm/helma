@@ -32,11 +32,13 @@ doInstructionOpt (Just i) table tape = doInstruction i (Automaton table tape)
 doInstructionOpt Nothing  table tape = doEnd           (Automaton table tape)
 
 doInstruction :: (BIO m , Symbol e) => FastInstruction -> Automaton e -> m $ Automaton e
-doInstruction (Move   i             ) (Automaton table tape) = nextStep table (moveHead          i        tape)
-doInstruction (Inc    i             ) (Automaton table tape) = nextStep table (incSymbol         i        tape)
+doInstruction (While  iv            ) (Automaton table tape) = doWhile iv table                             tape
+
 doInstruction  Output                  a                     = doOutputChar a
 doInstruction  Input                   a                     = doInputChar a
-doInstruction (While  iv            ) (Automaton table tape) = doWhile iv table                             tape
+
+doInstruction (Move   i             ) (Automaton table tape) = nextStep table (moveHead          i        tape)
+doInstruction (Inc    i             ) (Automaton table tape) = nextStep table (incSymbol         i        tape)
 doInstruction (Set    i             ) (Automaton table tape) = nextStep   table (setSymbol         i        tape)
 
 doInstruction (SubClr          f    ) (Automaton table tape) = nextStep   table (subAndClearSymbol          f     tape)
