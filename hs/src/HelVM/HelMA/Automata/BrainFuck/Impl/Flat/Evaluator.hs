@@ -21,14 +21,14 @@ import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Extra
 
 import           Control.Applicative.Tools
-import           Control.Monad.Extra
+--import           Control.Monad.Extra
 import           Control.Type.Operator
 
 evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> LoopLimit -> DumpType -> m ()
-evalSource source tape _limit dt = logDump dt =<< run (Automaton ([] , tokenize source) tape)
+evalSource source tape limit dt = logDump dt =<< run limit (Automaton ([] , tokenize source) tape)
 
-run :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-run = loopM nextState
+run :: (BIO m , Symbol e) => LoopLimit -> Automaton e -> m $ Automaton e
+run = loopMWithLimit nextState
 
 nextState :: (BIO m , Symbol e) => Automaton e -> m $ AutomatonSame e
 nextState = tee (flip doInstructionOpt) currentInstruction
@@ -49,11 +49,11 @@ doInstruction  JmpBack        = doJmpBack
 
 -- | Control instruction
 doJmpPast :: (MonadSafe m , Symbol e) => Automaton e -> m $ Automaton e
-doJmpPast = teeMap (flip doJmpPast') currentSymbolSafe
+doJmpPast = teeMap (flip doJmpPastForValue) currentSymbolSafe
 
-doJmpPast' :: (Eq a, Num a) => a -> Automaton e -> Automaton e
-doJmpPast' 0 = updateTable Table.jumpPast
-doJmpPast' _ = nextInstAutomaton
+doJmpPastForValue :: (Eq a, Num a) => a -> Automaton e -> Automaton e
+doJmpPastForValue 0 = updateTable Table.jumpPast
+doJmpPastForValue _ = nextInstAutomaton
 
 doJmpBack :: (MonadSafe m , Symbol e) => Automaton e -> m $ Automaton e
 doJmpBack = teeMap (flip doJmpBack') currentSymbolSafe

@@ -45,9 +45,10 @@ doInstruction (While  iv    ) a                      = doWhile iv   a
 -- | Control Instruction
 doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> Automaton e -> m $ Automaton e
 doWhile _  (Automaton table tape@(_ , 0:_)) = nextStep table tape
-doWhile iv (Automaton table tape          ) = doWhileWithTape =<< runVector iv tape where
-  doWhileWithTape :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-  doWhileWithTape (Automaton _ tape') = doWhile iv (Automaton table tape')
+doWhile iv (Automaton table tape          ) = doWhileWithTape iv table =<< runVector iv tape
+
+doWhileWithTape :: (BIO m , Symbol e) => TreeInstructionVector -> InstructionUnit -> Automaton e -> m $ Automaton e
+doWhileWithTape iv table (Automaton _ tape') = doWhile iv (Automaton table tape')
 
 -- | IO instructions
 doInputChar  :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
