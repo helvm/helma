@@ -72,14 +72,7 @@ doOutputChar a = nextInstAutomaton a <$ wPutSymbol a --FIXME
 wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
 wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
 
--- | Types
-type AutomatonSame e = Same (Automaton e)
-
-currentSymbolSafe :: MonadSafe m => Automaton e -> m e
-currentSymbolSafe = Tape.readSymbolSafe . unitTape
-
-currentInstruction :: Automaton e -> Maybe FlatInstruction
-currentInstruction = Table.currentInstruction . unitTable
+-- | Constructors
 
 newAutomatonForChar :: Symbol e => Automaton e -> Char -> Automaton e
 newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape --FIXME
@@ -105,11 +98,23 @@ updateTable f a = a { unitTable = f $ unitTable a }
 updateTape :: (FullTape e1 -> FullTape e2) -> Automaton e1 -> Automaton e2
 updateTape f a = a { unitTape = f $ unitTape a }
 
+-- | Accessors
+
+currentSymbolSafe :: MonadSafe m => Automaton e -> m e
+currentSymbolSafe = Tape.readSymbolSafe . unitTape
+
+currentInstruction :: Automaton e -> Maybe FlatInstruction
+currentInstruction = Table.currentInstruction . unitTable
+
+-- | Types
+type AutomatonSame e = Same (Automaton e)
+
 data Automaton e = Automaton
   { unitTable :: Table
   , unitTape  :: FullTape e
   }
   deriving stock (Eq , Read , Show)
 
+-- | Extras
 teeMap :: Functor f => (t -> a -> b) -> (t -> f a) -> t -> f b
 teeMap f2 f1 x = f2 x <$> f1 x

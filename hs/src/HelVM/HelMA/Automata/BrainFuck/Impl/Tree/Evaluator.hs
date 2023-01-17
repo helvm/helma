@@ -8,6 +8,8 @@ import           HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser
 import           HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
 import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
+--import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          (FullTape)
+--import qualified HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols          as Tape
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.IO.BusinessIO
@@ -25,17 +27,17 @@ runVector :: (BIO m , Symbol e) => TreeInstructionVector -> FullTape e -> m $ Au
 runVector iv = nextStep (IU iv 0)
 
 nextStep :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
-nextStep (IU iv ic) = doInstructionOpt (iv `indexMaybe` ic) (IU iv $ ic + 1)
+nextStep  (IU iv ic) tape = doInstructionOpt (iv `indexMaybe` ic) (Automaton (IU iv $ ic + 1) tape)
 
-doInstructionOpt :: (BIO m , Symbol e) => Maybe TreeInstruction -> InstructionUnit -> FullTape e -> m $ Automaton e
-doInstructionOpt (Just i) table tape = doInstruction i (Automaton table tape)
-doInstructionOpt  Nothing table tape = pure            (Automaton table tape)
+doInstructionOpt :: (BIO m , Symbol e) => Maybe TreeInstruction -> Automaton e -> m $ Automaton e
+doInstructionOpt (Just i) = doInstruction i
+doInstructionOpt  Nothing = pure
 
 doInstruction :: (BIO m , Symbol e) => TreeInstruction -> Automaton e -> m $ Automaton e
-doInstruction (Simple MoveR ) (Automaton table tape) = nextStep     table (moveHeadRight tape)
-doInstruction (Simple MoveL ) (Automaton table tape) = nextStep     table  (moveHeadLeft tape)
-doInstruction (Simple Inc   ) (Automaton table tape) = nextStep     table    (nextSymbol tape)
-doInstruction (Simple Dec   ) (Automaton table tape) = nextStep     table    (prevSymbol tape)
+doInstruction (Simple MoveR ) (Automaton table tape) = nextStep      table (moveHeadRight tape)
+doInstruction (Simple MoveL ) (Automaton table tape) = nextStep      table  (moveHeadLeft tape)
+doInstruction (Simple Inc   ) (Automaton table tape) = nextStep      table    (nextSymbol tape)
+doInstruction (Simple Dec   ) (Automaton table tape) = nextStep      table    (prevSymbol tape)
 doInstruction (Simple Output) a                      = doOutputChar a
 doInstruction (Simple Input ) a                      = doInputChar  a
 doInstruction (While  iv    ) a                      = doWhile iv   a
@@ -48,7 +50,7 @@ doWhile iv (Automaton table tape          ) = doWhileWithTape =<< runVector iv t
   doWhileWithTape (Automaton _ tape') = doWhile iv (Automaton table tape')
 
 -- | IO instructions
-doInputChar  :: (BIO m , Symbol e) => Automaton e-> m $ Automaton e
+doInputChar  :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar (Automaton table tape) = (nextStep table . flip writeSymbol tape) =<< wGetChar
 
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
