@@ -68,36 +68,37 @@ span.spaces    { background: white }
 <span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">doInstruction (TriClr i1 i2 i3) table tape       = <span class="nottickedoff">nextStep     table (triAndClearSymbol i1 i2 i3 tape)</span></span></span>
 <span class="lineno">   50 </span>
 <span class="lineno">   51 </span>doWhile :: (BIO m , Symbol e) =&gt; FastInstructionList -&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
-<span class="lineno">   52 </span>doWhile _  table tape@(_ , 0:_) = nextStep table tape
-<span class="lineno">   53 </span><span class="decl"><span class="istickedoff">doWhile iv table tape           = doWhileWithTape =&lt;&lt; runList iv tape where</span>
-<span class="lineno">   54 </span><span class="spaces">  </span><span class="istickedoff">doWhileWithTape :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e</span>
-<span class="lineno">   55 </span><span class="spaces">  </span><span class="istickedoff">doWhileWithTape = doWhile iv table . unitTape</span>
-<span class="lineno">   56 </span><span class="spaces"></span><span class="istickedoff">                                              </span>
-<span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff"></span></span>-- | IO instructions
-<span class="lineno">   58 </span>doOutputChar :: (BIO m , Symbol e) =&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
-<span class="lineno">   59 </span>doOutputChar _          (_ ,  []) = error &quot;Illegal State&quot;
-<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">doOutputChar table tape@(_ , e:_) = <span class="nottickedoff">wPutChar (toChar e) *</span>&gt; nextStep table tape</span>
-<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">                                                                             </span>
-<span class="lineno">   62 </span><span class="spaces"></span><span class="istickedoff"></span></span>doInputChar  :: (BIO m , Symbol e) =&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
-<span class="lineno">   63 </span>doInputChar table tape = (nextStep table . flip writeSymbol tape) =&lt;&lt; wGetChar
-<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">                                                                             </span>
-<span class="lineno">   65 </span><span class="spaces"></span><span class="istickedoff"></span></span>-- | Terminate instruction
-<span class="lineno">   66 </span>doEnd :: BIO m =&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   67 </span>doEnd = pure
-<span class="lineno">   68 </span><span class="decl"><span class="istickedoff">           </span>
-<span class="lineno">   69 </span><span class="spaces"></span><span class="istickedoff"></span></span>-- | Types
-<span class="lineno">   70 </span>--type AutomatonSame e = Same (Automaton e)
-<span class="lineno">   71 </span>
-<span class="lineno">   72 </span>data Automaton e = Automaton
-<span class="lineno">   73 </span>  { unitUI   :: InstructionUnit
-<span class="lineno">   74 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitTa</span></span></span>pe :: FullTape e
-<span class="lineno">   75 </span>  }
-<span class="lineno">   76 </span>  deriving stock (Eq , Show)
-<span class="lineno">   77 </span>
-<span class="lineno">   78 </span>data InstructionUnit = IU !FastInstructionList !InstructionCounter
-<span class="lineno">   79 </span>  deriving stock (Eq , Show)
-<span class="lineno">   80 </span>
-<span class="lineno">   81 </span>type InstructionCounter = Int
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">doWhile _  table tape@(_ , 0:_) = nextStep table tape</span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">doWhile iv table tape           = doWhileWithTape iv table =&lt;&lt; runList iv tape</span></span>
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>doWhileWithTape :: (BIO m , Symbol e) =&gt; FastInstructionList -&gt; InstructionUnit -&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   56 </span><span class="decl"><span class="istickedoff">doWhileWithTape iv table = doWhile iv table . unitTape</span></span>
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>-- | IO instructions
+<span class="lineno">   59 </span>doOutputChar :: (BIO m , Symbol e) =&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
+<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">doOutputChar _          (_ ,  []) = <span class="nottickedoff">error &quot;Illegal State&quot;</span></span>
+<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">doOutputChar table tape@(_ , e:_) = wPutChar (toChar e) *&gt; nextStep table tape</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>doInputChar  :: (BIO m , Symbol e) =&gt; InstructionUnit -&gt; FullTape e -&gt; m $ Automaton e
+<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">doInputChar table tape = (nextStep table . flip writeSymbol tape) =&lt;&lt; wGetChar</span></span>
+<span class="lineno">   65 </span>
+<span class="lineno">   66 </span>-- | Terminate instruction
+<span class="lineno">   67 </span>doEnd :: BIO m =&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   68 </span><span class="decl"><span class="istickedoff">doEnd = pure</span></span>
+<span class="lineno">   69 </span>
+<span class="lineno">   70 </span>-- | Types
+<span class="lineno">   71 </span>--type AutomatonSame e = Same (Automaton e)
+<span class="lineno">   72 </span>
+<span class="lineno">   73 </span>data Automaton e = Automaton
+<span class="lineno">   74 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitUI</span></span></span>   :: InstructionUnit
+<span class="lineno">   75 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">unitTape</span></span></span> :: FullTape e
+<span class="lineno">   76 </span>  }
+<span class="lineno">   77 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>data InstructionUnit = IU !FastInstructionList !InstructionCounter
+<span class="lineno">   80 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   81 </span>
+<span class="lineno">   82 </span>type InstructionCounter = Int
 
 </pre>
 </body>

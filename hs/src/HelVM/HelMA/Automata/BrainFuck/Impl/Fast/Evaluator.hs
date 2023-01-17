@@ -50,9 +50,10 @@ doInstruction (TriClr i1 i2 i3) table tape       = nextStep     table (triAndCle
 
 doWhile :: (BIO m , Symbol e) => FastInstructionList -> InstructionUnit -> FullTape e -> m $ Automaton e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape
-doWhile iv table tape           = doWhileWithTape =<< runList iv tape where
-  doWhileWithTape :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-  doWhileWithTape = doWhile iv table . unitTape
+doWhile iv table tape           = doWhileWithTape iv table =<< runList iv tape
+
+doWhileWithTape :: (BIO m , Symbol e) => FastInstructionList -> InstructionUnit -> Automaton e -> m $ Automaton e
+doWhileWithTape iv table = doWhile iv table . unitTape
 
 -- | IO instructions
 doOutputChar :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
