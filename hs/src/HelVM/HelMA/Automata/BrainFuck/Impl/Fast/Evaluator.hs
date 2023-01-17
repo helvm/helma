@@ -25,25 +25,27 @@ runList :: (BIO m , Symbol e) => FastInstructionList -> FullTape e -> m $ Automa
 runList il = nextStep (IU il 0)
 
 nextStep :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
-nextStep (IU iv ic) = doInstruction (iv `indexMaybe` ic) (IU iv $ ic + 1)
+nextStep (IU iv ic) = doInstructionOpt (iv `indexMaybe` ic) (IU iv $ ic + 1)
 
-doInstruction :: (BIO m , Symbol e) => Maybe FastInstruction -> InstructionUnit -> FullTape e -> m $ Automaton e
-doInstruction (Just (Move   i       )) table tape       = nextStep     table (moveHead          i        tape)
-doInstruction (Just (Inc    i       )) table tape       = nextStep     table (incSymbol         i        tape)
-doInstruction (Just  Output          ) table tape       = doOutputChar table                             tape
-doInstruction (Just  Input           ) table tape       = doInputChar  table                             tape
-doInstruction (Just (While  iv      )) table tape       = doWhile iv   table                             tape
-doInstruction (Just (Set    i       )) table tape       = nextStep     table (setSymbol         i        tape)
+doInstructionOpt :: (BIO m , Symbol e) => Maybe FastInstruction -> InstructionUnit -> FullTape e -> m $ Automaton e
+doInstructionOpt (Just (Move   i       )) table tape       = nextStep     table (moveHead          i        tape)
+doInstructionOpt (Just (Inc    i       )) table tape       = nextStep     table (incSymbol         i        tape)
+doInstructionOpt (Just  Output          ) table tape       = doOutputChar table                             tape
+doInstructionOpt (Just  Input           ) table tape       = doInputChar  table                             tape
+doInstructionOpt (Just (While  iv      )) table tape       = doWhile iv   table                             tape
+doInstructionOpt (Just (Set    i       )) table tape       = nextStep     table (setSymbol         i        tape)
 
-doInstruction (Just (SubClr          f    )) table tape = nextStep table (subAndClearSymbol          f     tape)
-doInstruction (Just (AddClr          f    )) table tape = nextStep table (addAndClearSymbol          f     tape)
-doInstruction (Just (MulAddClr m     f    )) table tape = nextStep table (mulAddAndClearSymbol m     f     tape)
+doInstructionOpt (Just (SubClr          f    )) table tape = nextStep table (subAndClearSymbol          f     tape)
+doInstructionOpt (Just (AddClr          f    )) table tape = nextStep table (addAndClearSymbol          f     tape)
+doInstructionOpt (Just (MulAddClr m     f    )) table tape = nextStep table (mulAddAndClearSymbol m     f     tape)
 
-doInstruction (Just (DupClr          f1 f2)) table tape = nextStep table (dupAndClearSymbol          f1 f2 tape)
-doInstruction (Just (MulDupClr m1 m2 f1 f2)) table tape = nextStep table (mulDupAndClearSymbol m1 m2 f1 f2 tape)
+doInstructionOpt (Just (DupClr          f1 f2)) table tape = nextStep table (dupAndClearSymbol          f1 f2 tape)
+doInstructionOpt (Just (MulDupClr m1 m2 f1 f2)) table tape = nextStep table (mulDupAndClearSymbol m1 m2 f1 f2 tape)
 
-doInstruction (Just (TriClr i1 i2 i3)) table tape       = nextStep     table (triAndClearSymbol i1 i2 i3 tape)
-doInstruction  Nothing           table tape             = doEnd        (Automaton table tape)
+doInstructionOpt (Just (TriClr i1 i2 i3)) table tape       = nextStep     table (triAndClearSymbol i1 i2 i3 tape)
+doInstructionOpt  Nothing           table tape             = doEnd        (Automaton table tape)
+
+
 
 doWhile :: (BIO m , Symbol e) => FastInstructionList -> InstructionUnit -> FullTape e -> m $ Automaton e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape

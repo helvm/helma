@@ -40,14 +40,14 @@ span.spaces    { background: white }
 <span class="lineno">   21 </span>import           HelVM.HelIO.Extra
 <span class="lineno">   22 </span>
 <span class="lineno">   23 </span>import           Control.Applicative.Tools
-<span class="lineno">   24 </span>import           Control.Monad.Extra
+<span class="lineno">   24 </span>--import           Control.Monad.Extra
 <span class="lineno">   25 </span>import           Control.Type.Operator
 <span class="lineno">   26 </span>
 <span class="lineno">   27 </span>evalSource :: (BIO m , Symbol e) =&gt; Source -&gt; FullTape e -&gt; LoopLimit -&gt; DumpType -&gt; m ()
-<span class="lineno">   28 </span><span class="decl"><span class="istickedoff">evalSource source tape _limit dt = logDump dt =&lt;&lt; run (Automaton ([] , tokenize source) tape)</span></span>
+<span class="lineno">   28 </span><span class="decl"><span class="istickedoff">evalSource source tape limit dt = logDump dt =&lt;&lt; run limit (Automaton ([] , tokenize source) tape)</span></span>
 <span class="lineno">   29 </span>
-<span class="lineno">   30 </span>run :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">run = loopM nextState</span></span>
+<span class="lineno">   30 </span>run :: (BIO m , Symbol e) =&gt; LoopLimit -&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">run = loopMWithLimit nextState</span></span>
 <span class="lineno">   32 </span>
 <span class="lineno">   33 </span>nextState :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ AutomatonSame e
 <span class="lineno">   34 </span><span class="decl"><span class="istickedoff">nextState = tee (flip doInstructionOpt) currentInstruction</span></span>
@@ -68,11 +68,11 @@ span.spaces    { background: white }
 <span class="lineno">   49 </span>
 <span class="lineno">   50 </span>-- | Control instruction
 <span class="lineno">   51 </span>doJmpPast :: (MonadSafe m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">doJmpPast = teeMap (flip doJmpPast') currentSymbolSafe</span></span>
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">doJmpPast = teeMap (flip doJmpPastForValue) currentSymbolSafe</span></span>
 <span class="lineno">   53 </span>
-<span class="lineno">   54 </span>doJmpPast' :: (Eq a, Num a) =&gt; a -&gt; Automaton e -&gt; Automaton e
-<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">doJmpPast' 0 = updateTable Table.jumpPast</span>
-<span class="lineno">   56 </span><span class="spaces"></span><span class="istickedoff">doJmpPast' _ = <span class="nottickedoff">nextInstAutomaton</span></span></span>
+<span class="lineno">   54 </span>doJmpPastForValue :: (Eq a, Num a) =&gt; a -&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">doJmpPastForValue 0 = updateTable Table.jumpPast</span>
+<span class="lineno">   56 </span><span class="spaces"></span><span class="istickedoff">doJmpPastForValue _ = <span class="nottickedoff">nextInstAutomaton</span></span></span>
 <span class="lineno">   57 </span>
 <span class="lineno">   58 </span>doJmpBack :: (MonadSafe m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
 <span class="lineno">   59 </span><span class="decl"><span class="nottickedoff">doJmpBack = teeMap (flip doJmpBack') currentSymbolSafe</span></span>
