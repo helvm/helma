@@ -28,23 +28,17 @@ nextStep :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton
 nextStep (IU iv ic) = doInstructionOpt (iv `indexMaybe` ic) (IU iv $ ic + 1)
 
 doInstructionOpt :: (BIO m , Symbol e) => Maybe TreeInstruction -> InstructionUnit -> FullTape e -> m $ Automaton e
-doInstructionOpt (Just (Simple MoveR     )) table tape = nextStep     table (moveHeadRight tape)
-doInstructionOpt (Just (Simple MoveL     )) table tape = nextStep     table  (moveHeadLeft tape)
-doInstructionOpt (Just (Simple Inc       )) table tape = nextStep     table    (nextSymbol tape)
-doInstructionOpt (Just (Simple Dec       )) table tape = nextStep     table    (prevSymbol tape)
-doInstructionOpt (Just (Simple Output    )) table tape = doOutputChar (Automaton table tape)
-doInstructionOpt (Just (Simple Input     )) table tape = doInputChar  (Automaton table tape)
-doInstructionOpt (Just (While  iv        )) table tape = doWhile iv   (Automaton table tape)
-doInstructionOpt  Nothing                   table tape = doEnd        (Automaton table tape)
+doInstructionOpt (Just i) table tape = doInstruction i (Automaton table tape)
+doInstructionOpt  Nothing table tape = pure            (Automaton table tape)
 
---doInstruction :: (BIO m , Symbol e) => TreeInstruction -> InstructionUnit -> FullTape e -> m $ Automaton e
---doInstructionOpt (Simple MoveR ) table tape = nextStep     table (moveHeadRight tape)
---doInstructionOpt (Simple MoveL ) table tape = nextStep     table  (moveHeadLeft tape)
---doInstructionOpt (Simple Inc   ) table tape = nextStep     table    (nextSymbol tape)
---doInstructionOpt (Simple Dec   ) table tape = nextStep     table    (prevSymbol tape)
---doInstructionOpt (Simple Output) table tape = doOutputChar (Automaton table tape)
---doInstructionOpt (Simple Input ) table tape = doInputChar  (Automaton table tape)
---doInstructionOpt (While  iv    ) table tape = doWhile iv   (Automaton table tape)
+doInstruction :: (BIO m , Symbol e) => TreeInstruction -> Automaton e -> m $ Automaton e
+doInstruction (Simple MoveR ) (Automaton table tape) = nextStep     table (moveHeadRight tape)
+doInstruction (Simple MoveL ) (Automaton table tape) = nextStep     table  (moveHeadLeft tape)
+doInstruction (Simple Inc   ) (Automaton table tape) = nextStep     table    (nextSymbol tape)
+doInstruction (Simple Dec   ) (Automaton table tape) = nextStep     table    (prevSymbol tape)
+doInstruction (Simple Output) a                      = doOutputChar a
+doInstruction (Simple Input ) a                      = doInputChar  a
+doInstruction (While  iv    ) a                      = doWhile iv   a
 
 -- | Control Instruction
 doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> Automaton e -> m $ Automaton e
@@ -54,16 +48,12 @@ doWhile iv (Automaton table tape          ) = doWhileWithTape =<< runVector iv t
   doWhileWithTape (Automaton _ tape') = doWhile iv (Automaton table tape')
 
 -- | IO instructions
-doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar (Automaton _          (_ ,  [])) = error "Illegal State"
-doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *> nextStep table tape
-
 doInputChar  :: (BIO m , Symbol e) => Automaton e-> m $ Automaton e
 doInputChar (Automaton table tape) = (nextStep table . flip writeSymbol tape) =<< wGetChar
 
--- | Terminate instruction
-doEnd :: BIO m => Automaton e -> m $ Automaton e
-doEnd = pure
+doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+doOutputChar (Automaton _          (_ ,  [])) = error "Illegal State"
+doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *> nextStep table tape
 
 -- | Types
 --type AutomatonSame e = Same (Automaton e)

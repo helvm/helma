@@ -63,11 +63,11 @@ doJmpBack' 0 = nextInstAutomaton
 doJmpBack' _ = updateTable Table.jumpBack
 
 -- | IO instructions
-doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar a = nextInstAutomaton a <$ wPutSymbol a --FIXME
-
 doInputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar a = newAutomatonForChar a <$> wGetChar
+
+doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+doOutputChar a = nextInstAutomaton a <$ wPutSymbol a --FIXME
 
 wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
 wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
