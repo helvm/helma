@@ -35,7 +35,7 @@ nextState = tee (flip doInstructionOpt) currentInstruction
 
 doInstructionOpt :: (BIO m , Symbol e) => Maybe FlatInstruction -> Automaton e -> m $ AutomatonSame e
 doInstructionOpt (Just i) = Right <.> doInstruction i
-doInstructionOpt Nothing  = Left <.> doEnd
+doInstructionOpt Nothing  = Left <.> pure
 
 doInstruction :: (BIO m , Symbol e) => FlatInstruction -> Automaton e -> m $ Automaton e
 doInstruction (Simple MoveR ) = pure . moveRAutomaton
@@ -66,15 +66,11 @@ doJmpBack' _ = updateTable Table.jumpBack
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doOutputChar a = (nextInstAutomaton a) <$ wPutSymbol a
 
-wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
-wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
-
 doInputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar a = newAutomatonForChar a <$> wGetChar
 
--- | Terminate instruction
-doEnd :: BIO m => Automaton e -> m $ Automaton e
-doEnd = pure
+wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
+wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
 
 -- | Types
 type AutomatonSame e = Same (Automaton e)
