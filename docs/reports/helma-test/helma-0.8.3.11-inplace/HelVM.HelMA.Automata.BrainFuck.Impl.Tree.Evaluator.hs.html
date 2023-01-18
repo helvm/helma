@@ -60,10 +60,10 @@ span.spaces    { background: white }
 <span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff">doInstructionOpt  Nothing = pure</span></span>
 <span class="lineno">   42 </span>
 <span class="lineno">   43 </span>doInstruction :: (BIO m , Symbol e) =&gt; TreeInstruction -&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">doInstruction (While  iv    ) a                         = doWhile iv   a</span>
-<span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Output) a                         = doOutputChar a</span>
-<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Input ) a                         = doInputChar  a</span>
-<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple (Pure i )) (Automaton table tape) = nextStep     table (doPure i tape)</span></span>
+<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">doInstruction (While  iv    ) a    = doWhile iv   a</span>
+<span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Output) a    = doOutputChar a</span>
+<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple Input ) a    = doInputChar  a</span>
+<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Simple (Pure i )) a = nextStepA $    updateTape (doPure i) a</span></span>
 <span class="lineno">   48 </span>
 <span class="lineno">   49 </span>-- | Control Instruction
 <span class="lineno">   50 </span>doWhile :: (BIO m , Symbol e) =&gt; TreeInstructionVector -&gt; Automaton e -&gt; m $ Automaton e
@@ -106,15 +106,15 @@ span.spaces    { background: white }
 <span class="lineno">   87 </span>updateUI :: (InstructionUnit -&gt; InstructionUnit) -&gt; Automaton e -&gt; Automaton e
 <span class="lineno">   88 </span><span class="decl"><span class="istickedoff">updateUI f a = a { unitUI = f $ unitUI a }</span></span>
 <span class="lineno">   89 </span>
-<span class="lineno">   90 </span>--updateTape :: (FullTape e -&gt; FullTape e) -&gt; Automaton e -&gt; Automaton e
-<span class="lineno">   91 </span>--updateTape f a = a { unitTape = f $ unitTape a }
+<span class="lineno">   90 </span>updateTape :: (FullTape e -&gt; FullTape e) -&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   91 </span><span class="decl"><span class="istickedoff">updateTape f a = a { unitTape = f $ unitTape a }</span></span>
 <span class="lineno">   92 </span>
 <span class="lineno">   93 </span>-- | Types
 <span class="lineno">   94 </span>--type AutomatonSame e = Same (Automaton e)
 <span class="lineno">   95 </span>
 <span class="lineno">   96 </span>data Automaton e = Automaton
 <span class="lineno">   97 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">unitUI</span></span></span>   :: InstructionUnit
-<span class="lineno">   98 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitTape</span></span></span> :: FullTape e
+<span class="lineno">   98 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">unitTape</span></span></span> :: FullTape e
 <span class="lineno">   99 </span>  }
 <span class="lineno">  100 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
 

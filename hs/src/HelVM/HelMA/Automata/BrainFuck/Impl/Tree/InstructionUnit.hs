@@ -8,7 +8,7 @@ currentInstruction :: InstructionUnit -> Maybe TreeInstruction
 currentInstruction (IU iv ic) = iv `indexMaybe` ic
 
 nextIC:: InstructionUnit -> InstructionUnit
-nextIC (IU iv ic) = (IU iv $ ic + 1)
+nextIC (IU iv ic) = IU iv $ ic + 1
 
 data InstructionUnit = IU !TreeInstructionVector !InstructionCounter
   deriving stock (Eq , Show)
