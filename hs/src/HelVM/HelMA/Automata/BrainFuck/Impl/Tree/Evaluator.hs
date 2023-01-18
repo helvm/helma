@@ -28,7 +28,7 @@ evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> LoopLimit -> DumpTyp
 evalSource source tape _limit dt = logDump dt =<< flip runVector tape =<< parseAsVector source
 
 runVector :: (BIO m , Symbol e) => TreeInstructionVector -> FullTape e -> m $ Automaton e
-runVector iv = nextStepDeprecated (IU iv 0)
+runVector iv tape = nextStep $ newAutomaton iv tape
 
 nextStepDeprecated :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
 nextStepDeprecated iu tape = nextStep (Automaton iu tape)
@@ -48,8 +48,8 @@ doInstruction (Simple (Pure i )) = nextStep . updateTape (doPure i)
 
 -- | Control Instruction
 doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> Automaton e -> m $ Automaton e
-doWhile _  (Automaton table tape@(_ , 0:_)) = nextStepDeprecated table tape
-doWhile iv (Automaton table tape          ) = doWhileWithTape iv table =<< runVector iv tape
+doWhile _  a@(Automaton _ (_ , 0 : _)) = nextStep a
+doWhile iv a                           = doWhileWithTape iv (unitUI a) =<< runVector iv (unitTape a)
 
 doWhileWithTape :: (BIO m , Symbol e) => TreeInstructionVector -> InstructionUnit -> Automaton e -> m $ Automaton e
 doWhileWithTape iv table (Automaton _ tape) = doWhile iv (Automaton table tape)
@@ -59,8 +59,11 @@ doInputChar  :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar (Automaton table tape) = (nextStepDeprecated table . flip writeSymbol tape) =<< wGetChar
 
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar (Automaton _          (_ ,  [])) = error "Illegal State"
-doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *> nextStepDeprecated table tape
+doOutputChar   (Automaton _          (_ ,  [])) = error "Illegal State"
+doOutputChar a@(Automaton _ (_ , e : _))        = wPutChar (toChar e) *> nextStep a
+
+--doOutputChar a = build =<< currentSymbolSafe a where
+--  build e = wPutChar (toChar e) *> nextStep a
 
 -- | Pure Instructions
 doPure :: Symbol e => PureInstruction -> FullTapeD e
@@ -78,6 +81,9 @@ currentInstruction :: Automaton e -> Maybe TreeInstruction
 currentInstruction = IU.currentInstruction . unitUI
 
 -- | Constructors
+
+newAutomaton :: TreeInstructionVector -> FullTape e -> Automaton e
+newAutomaton iv = Automaton (IU iv 0)
 
 nextIC :: Automaton e -> Automaton e
 nextIC = updateUI IU.nextIC
