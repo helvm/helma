@@ -76,6 +76,14 @@ doPure MoveL = Tape.moveHeadLeft
 doPure Inc   = Tape.nextSymbol
 doPure Dec   = Tape.prevSymbol
 
+-- | Accessors
+
+currentSymbolSafe :: MonadSafe m => Automaton e -> m e
+currentSymbolSafe = Tape.readSymbolSafe . unitTape
+
+currentInstruction :: Automaton e -> Maybe FlatInstruction
+currentInstruction = Table.currentInstruction . unitTable
+
 -- | Constructors
 
 newAutomatonForChar :: Symbol e => Automaton e -> Char -> Automaton e
@@ -89,14 +97,6 @@ updateTable f a = a { unitTable = f $ unitTable a }
 
 updateTape :: (FullTape e -> FullTape e) -> Automaton e -> Automaton e
 updateTape f a = a { unitTape = f $ unitTape a }
-
--- | Accessors
-
-currentSymbolSafe :: MonadSafe m => Automaton e -> m e
-currentSymbolSafe = Tape.readSymbolSafe . unitTape
-
-currentInstruction :: Automaton e -> Maybe FlatInstruction
-currentInstruction = Table.currentInstruction . unitTable
 
 -- | Types
 type AutomatonSame e = Same (Automaton e)
