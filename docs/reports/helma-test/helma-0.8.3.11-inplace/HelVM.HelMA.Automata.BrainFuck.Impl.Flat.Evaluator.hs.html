@@ -83,7 +83,7 @@ span.spaces    { background: white }
 <span class="lineno">   64 </span><span class="decl"><span class="istickedoff">doInputChar a = newAutomatonForChar a &lt;$&gt; wGetChar</span></span>
 <span class="lineno">   65 </span>
 <span class="lineno">   66 </span>doOutputChar :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   67 </span><span class="decl"><span class="nottickedoff">doOutputChar a = nextInstAutomaton a &lt;$ wPutSymbol a</span></span> --FIXME
+<span class="lineno">   67 </span><span class="decl"><span class="nottickedoff">doOutputChar a = wPutSymbol a $&gt; nextInstAutomaton a</span></span> --FIXME
 <span class="lineno">   68 </span>
 <span class="lineno">   69 </span>wPutSymbol :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m ()
 <span class="lineno">   70 </span><span class="decl"><span class="nottickedoff">wPutSymbol = wPutChar . toChar &lt;=&lt; currentSymbolSafe</span></span>

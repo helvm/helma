@@ -64,7 +64,7 @@ doInputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar a = newAutomatonForChar a <$> wGetChar
 
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar a = nextInstAutomaton a <$ wPutSymbol a --FIXME
+doOutputChar a = wPutSymbol a $> nextInstAutomaton a --FIXME
 
 wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
 wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
