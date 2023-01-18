@@ -70,64 +70,65 @@ span.spaces    { background: white }
 <span class="lineno">   51 </span><span class="decl"><span class="istickedoff">doWhile _  a@(Automaton _ (_ , 0 : _)) = nextStep a</span>
 <span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">doWhile iv a                           = doWhileWithTape iv (unitUI a) =&lt;&lt; runVector iv (unitTape a)</span></span>
 <span class="lineno">   53 </span>
-<span class="lineno">   54 </span>doWhileWithTape :: (BIO m , Symbol e) =&gt; TreeInstructionVector -&gt; InstructionUnit -&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">doWhileWithTape iv table (Automaton _ tape) = doWhile iv (Automaton table tape)</span></span>
-<span class="lineno">   56 </span>
-<span class="lineno">   57 </span>-- | IO instructions
-<span class="lineno">   58 </span>doInputChar  :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">doInputChar (Automaton table tape) = (nextStepDeprecated table . flip writeSymbol tape) =&lt;&lt; wGetChar</span></span>
+<span class="lineno">   54 </span>--doWhileForSymbol :: (BIO m , Symbol e) =&gt; e -&gt; TreeInstructionVector -&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   55 </span>--doWhileForSymbol 0 _  a = nextStep a
+<span class="lineno">   56 </span>--doWhileForSymbol _ iv a = doWhileWithTape iv (unitUI a) =&lt;&lt; runVector iv (unitTape a)
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>doWhileWithTape :: (BIO m , Symbol e) =&gt; TreeInstructionVector -&gt; InstructionUnit -&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">doWhileWithTape iv table (Automaton _ tape) = doWhile iv (Automaton table tape)</span></span>
 <span class="lineno">   60 </span>
-<span class="lineno">   61 </span>doOutputChar :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
-<span class="lineno">   62 </span>--doOutputChar a = nextStep a &lt;$ wPutSymbol a --FIXME
-<span class="lineno">   63 </span><span class="decl"><span class="istickedoff">doOutputChar a = build =&lt;&lt; currentSymbolSafe a where</span>
-<span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">build e = wPutChar (toChar e) *&gt; nextStep a</span></span>
-<span class="lineno">   65 </span>--  build e = nextStep a &lt;* wPutChar (toChar e)
-<span class="lineno">   66 </span>
-<span class="lineno">   67 </span>--wPutSymbol :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m ()
-<span class="lineno">   68 </span>--wPutSymbol = wPutChar . toChar &lt;=&lt; currentSymbolSafe
-<span class="lineno">   69 </span>
-<span class="lineno">   70 </span>-- | Pure Instructions
-<span class="lineno">   71 </span>doPure :: Symbol e =&gt; PureInstruction -&gt; FullTapeD e
-<span class="lineno">   72 </span><span class="decl"><span class="istickedoff">doPure MoveR = Tape.moveHeadRight</span>
-<span class="lineno">   73 </span><span class="spaces"></span><span class="istickedoff">doPure MoveL = Tape.moveHeadLeft</span>
-<span class="lineno">   74 </span><span class="spaces"></span><span class="istickedoff">doPure Inc   = Tape.nextSymbol</span>
-<span class="lineno">   75 </span><span class="spaces"></span><span class="istickedoff">doPure Dec   = Tape.prevSymbol</span></span>
-<span class="lineno">   76 </span>
-<span class="lineno">   77 </span>-- | Accessors
-<span class="lineno">   78 </span>
-<span class="lineno">   79 </span>currentSymbolSafe :: MonadSafe m =&gt; Automaton e -&gt; m e
-<span class="lineno">   80 </span><span class="decl"><span class="istickedoff">currentSymbolSafe = Tape.readSymbolSafe . unitTape</span></span>
-<span class="lineno">   81 </span>
-<span class="lineno">   82 </span>currentInstruction :: Automaton e -&gt; Maybe TreeInstruction
-<span class="lineno">   83 </span><span class="decl"><span class="istickedoff">currentInstruction = IU.currentInstruction . unitUI</span></span>
-<span class="lineno">   84 </span>
-<span class="lineno">   85 </span>-- | Constructors
-<span class="lineno">   86 </span>
-<span class="lineno">   87 </span>--newAutomatonForChar :: Symbol e =&gt; Automaton e -&gt; Char -&gt; Automaton e
-<span class="lineno">   88 </span><span class="decl"><span class="istickedoff">--newAutomatonForChar (Automaton iu t</span></span>ape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape --FIXME
-<span class="lineno">   89 </span>
-<span class="lineno">   90 </span>newAutomaton :: TreeInstructionVector -&gt; FullTape e -&gt; Automaton e
-<span class="lineno">   91 </span><span class="decl"><span class="istickedoff">newAutomaton iv = Automaton</span></span> (IU iv 0)
-<span class="lineno">   92 </span>
-<span class="lineno">   93 </span>nextIC :: Automaton e -&gt; Automaton e
-<span class="lineno">   94 </span>nextIC = updateUI IU.nextIC
-<span class="lineno">   95 </span>
-<span class="lineno">   96 </span><span class="decl"><span class="istickedoff">-- |                                     </span>
-<span class="lineno">   97 </span><span class="spaces"></span><span class="istickedoff"></span></span>
-<span class="lineno">   98 </span>updateUI :: (InstructionUnit -&gt; InstructionUnit) -&gt; Automaton e -&gt; Automaton e
-<span class="lineno">   99 </span><span class="decl"><span class="istickedoff">updateUI f a = a { unitUI = f $ unitUI a }     </span>
-<span class="lineno">  100 </span><span class="spaces"></span><span class="istickedoff"></span></span>
-<span class="lineno">  101 </span>updateTape :: (FullTape e -&gt; FullTape e) -&gt; Automaton e -&gt; Automaton e
-<span class="lineno">  102 </span>updateTape f a = a { unitTape = f $ unitTape a }
-<span class="lineno">  103 </span>
-<span class="lineno">  104 </span>-- | Types
-<span class="lineno">  105 </span>--ty<span class="istickedoff"><span class="decl"><span class="istickedoff">pe Aut</span></span></span>omatonSame e = Same (Automaton e)
-<span class="lineno">  106 </span>
-<span class="lineno">  107 </span>data Automaton e = Automaton
-<span class="lineno">  108 </span>  { unitUI   :: In<span class="decl"><span class="nottickedoff">st</span></span>ruc<span class="decl"><span class="istickedoff">tion</span></span>Unit
-<span class="lineno">  109 </span>  , unitTape :: FullTape e
-<span class="lineno">  110 </span>  }
-<span class="lineno">  111 </span>  deriving stock (Eq , Show)
+<span class="lineno">   61 </span>-- | IO instructions
+<span class="lineno">   62 </span>doInputChar  :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   63 </span><span class="decl"><span class="istickedoff">doInputChar (Automaton table tape) = (nextStepDeprecated table . flip writeSymbol tape) =&lt;&lt; wGetChar</span></span>
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>doOutputChar :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m $ Automaton e
+<span class="lineno">   66 </span><span class="decl"><span class="istickedoff">doOutputChar a = wPutSymbol a *&gt; nextStep a</span></span> --FIXME
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>wPutSymbol :: (BIO m , Symbol e) =&gt; Automaton e -&gt; m ()
+<span class="lineno">   69 </span><span class="decl"><span class="istickedoff">wPutSymbol = wPutChar . toChar &lt;=&lt; currentSymbolSafe</span></span>
+<span class="lineno">   70 </span>
+<span class="lineno">   71 </span>-- | Pure Instructions
+<span class="lineno">   72 </span>doPure :: Symbol e =&gt; PureInstruction -&gt; FullTapeD e
+<span class="lineno">   73 </span><span class="decl"><span class="istickedoff">doPure MoveR = Tape.moveHeadRight</span>
+<span class="lineno">   74 </span><span class="spaces"></span><span class="istickedoff">doPure MoveL = Tape.moveHeadLeft</span>
+<span class="lineno">   75 </span><span class="spaces"></span><span class="istickedoff">doPure Inc   = Tape.nextSymbol</span>
+<span class="lineno">   76 </span><span class="spaces"></span><span class="istickedoff">doPure Dec   = Tape.prevSymbol</span></span>
+<span class="lineno">   77 </span>
+<span class="lineno">   78 </span>-- | Accessors
+<span class="lineno">   79 </span>
+<span class="lineno">   80 </span>currentSymbolSafe :: MonadSafe m =&gt; Automaton e -&gt; m e
+<span class="lineno">   81 </span><span class="decl"><span class="istickedoff">currentSymbolSafe = Tape.readSymbolSafe . unitTape</span></span>
+<span class="lineno">   82 </span>
+<span class="lineno">   83 </span>currentInstruction :: Automaton e -&gt; Maybe TreeInstruction
+<span class="lineno">   84 </span><span class="decl"><span class="istickedoff">currentInstruction = IU.currentInstruction . unitUI</span></span>
+<span class="lineno">   85 </span>
+<span class="lineno">   86 </span>-- | Constructors
+<span class="lineno">   87 </span>
+<span class="lineno">   88 </span>--newAutomatonForChar :: Symbol e =&gt; Automaton e -&gt; Char -&gt; Automaton e
+<span class="lineno">   89 </span>--newAutomatonForChar (Automaton iu tape) = Automaton (IU.nextIC iu) . flip Tape.writeSymbol tape --FIXME
+<span class="lineno">   90 </span>
+<span class="lineno">   91 </span>newAutomaton :: TreeInstructionVector -&gt; FullTape e -&gt; Automaton e
+<span class="lineno">   92 </span><span class="decl"><span class="istickedoff">newAutomaton iv = Automaton (IU iv 0)</span></span>
+<span class="lineno">   93 </span>
+<span class="lineno">   94 </span>nextIC :: Automaton e -&gt; Automaton e
+<span class="lineno">   95 </span><span class="decl"><span class="istickedoff">nextIC = updateUI IU.nextIC</span></span>
+<span class="lineno">   96 </span>
+<span class="lineno">   97 </span>-- |
+<span class="lineno">   98 </span>
+<span class="lineno">   99 </span>updateUI :: (InstructionUnit -&gt; InstructionUnit) -&gt; Automaton e -&gt; Automaton e
+<span class="lineno">  100 </span><span class="decl"><span class="istickedoff">updateUI f a = a { unitUI = f $ unitUI a }</span></span>
+<span class="lineno">  101 </span>
+<span class="lineno">  102 </span>updateTape :: (FullTape e -&gt; FullTape e) -&gt; Automaton e -&gt; Automaton e
+<span class="lineno">  103 </span><span class="decl"><span class="istickedoff">updateTape f a = a { unitTape = f $ unitTape a }</span></span>
+<span class="lineno">  104 </span>
+<span class="lineno">  105 </span>-- | Types
+<span class="lineno">  106 </span>--type AutomatonSame e = Same (Automaton e)
+<span class="lineno">  107 </span>
+<span class="lineno">  108 </span>data Automaton e = Automaton
+<span class="lineno">  109 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">unitUI</span></span></span>   :: InstructionUnit
+<span class="lineno">  110 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">unitTape</span></span></span> :: FullTape e
+<span class="lineno">  111 </span>  }
+<span class="lineno">  112 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
 
 </pre>
 </body>

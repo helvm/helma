@@ -63,10 +63,7 @@ doInputChar  :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar (Automaton table tape) = (nextStepDeprecated table . flip writeSymbol tape) =<< wGetChar
 
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar a = nextStep a <* wPutSymbol a --FIXME
---doOutputChar a = build =<< currentSymbolSafe a where
---  build e = wPutChar (toChar e) *> nextStep a
-----  build e = nextStep a <* wPutChar (toChar e)
+doOutputChar a = wPutSymbol a *> nextStep a --FIXME
 
 wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
 wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
