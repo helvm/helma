@@ -164,6 +164,7 @@ library
 
     HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Evaluator
     HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Instruction
+    HelVM.HelMA.Automata.BrainFuck.Impl.Tree.InstructionUnit
     HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser
 
     HelVM.HelMA.Automata.Cat.Evaluator

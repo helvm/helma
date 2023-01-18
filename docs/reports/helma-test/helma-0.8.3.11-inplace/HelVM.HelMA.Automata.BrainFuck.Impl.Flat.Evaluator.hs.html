@@ -95,27 +95,27 @@ span.spaces    { background: white }
 <span class="lineno">   76 </span><span class="spaces"></span><span class="istickedoff">doPure Inc   = Tape.nextSymbol</span>
 <span class="lineno">   77 </span><span class="spaces"></span><span class="istickedoff">doPure Dec   = Tape.prevSymbol</span></span>
 <span class="lineno">   78 </span>
-<span class="lineno">   79 </span>-- | Constructors
+<span class="lineno">   79 </span>-- | Accessors
 <span class="lineno">   80 </span>
-<span class="lineno">   81 </span>newAutomatonForChar :: Symbol e =&gt; Automaton e -&gt; Char -&gt; Automaton e
-<span class="lineno">   82 </span><span class="decl"><span class="istickedoff">newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape</span></span> --FIXME
+<span class="lineno">   81 </span>currentSymbolSafe :: MonadSafe m =&gt; Automaton e -&gt; m e
+<span class="lineno">   82 </span><span class="decl"><span class="istickedoff">currentSymbolSafe = Tape.readSymbolSafe . unitTape</span></span>
 <span class="lineno">   83 </span>
-<span class="lineno">   84 </span>nextInstAutomaton :: Automaton e -&gt; Automaton e
-<span class="lineno">   85 </span><span class="decl"><span class="istickedoff">nextInstAutomaton = updateTable Table.nextInst</span></span>
+<span class="lineno">   84 </span>currentInstruction :: Automaton e -&gt; Maybe FlatInstruction
+<span class="lineno">   85 </span><span class="decl"><span class="istickedoff">currentInstruction = Table.currentInstruction . unitTable</span></span>
 <span class="lineno">   86 </span>
-<span class="lineno">   87 </span>updateTable :: (Table -&gt; Table) -&gt; Automaton e -&gt; Automaton e
-<span class="lineno">   88 </span><span class="decl"><span class="istickedoff">updateTable f a = a { unitTable = f $ unitTable a }</span></span>
-<span class="lineno">   89 </span>
-<span class="lineno">   90 </span>updateTape :: (FullTape e -&gt; FullTape e) -&gt; Automaton e -&gt; Automaton e
-<span class="lineno">   91 </span><span class="decl"><span class="istickedoff">updateTape f a = a { unitTape = f $ unitTape a }</span></span>
-<span class="lineno">   92 </span>
-<span class="lineno">   93 </span>-- | Accessors
+<span class="lineno">   87 </span>-- | Constructors
+<span class="lineno">   88 </span>
+<span class="lineno">   89 </span>newAutomatonForChar :: Symbol e =&gt; Automaton e -&gt; Char -&gt; Automaton e
+<span class="lineno">   90 </span><span class="decl"><span class="istickedoff">newAutomatonForChar (Automaton table tape) = Automaton (Table.nextInst table) . flip Tape.writeSymbol tape</span></span> --FIXME
+<span class="lineno">   91 </span>
+<span class="lineno">   92 </span>nextInstAutomaton :: Automaton e -&gt; Automaton e
+<span class="lineno">   93 </span><span class="decl"><span class="istickedoff">nextInstAutomaton = updateTable Table.nextInst</span></span>
 <span class="lineno">   94 </span>
-<span class="lineno">   95 </span>currentSymbolSafe :: MonadSafe m =&gt; Automaton e -&gt; m e
-<span class="lineno">   96 </span><span class="decl"><span class="istickedoff">currentSymbolSafe = Tape.readSymbolSafe . unitTape</span></span>
+<span class="lineno">   95 </span>updateTable :: (Table -&gt; Table) -&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   96 </span><span class="decl"><span class="istickedoff">updateTable f a = a { unitTable = f $ unitTable a }</span></span>
 <span class="lineno">   97 </span>
-<span class="lineno">   98 </span>currentInstruction :: Automaton e -&gt; Maybe FlatInstruction
-<span class="lineno">   99 </span><span class="decl"><span class="istickedoff">currentInstruction = Table.currentInstruction . unitTable</span></span>
+<span class="lineno">   98 </span>updateTape :: (FullTape e -&gt; FullTape e) -&gt; Automaton e -&gt; Automaton e
+<span class="lineno">   99 </span><span class="decl"><span class="istickedoff">updateTape f a = a { unitTape = f $ unitTape a }</span></span>
 <span class="lineno">  100 </span>
 <span class="lineno">  101 </span>-- | Types
 <span class="lineno">  102 </span>type AutomatonSame e = Same (Automaton e)
