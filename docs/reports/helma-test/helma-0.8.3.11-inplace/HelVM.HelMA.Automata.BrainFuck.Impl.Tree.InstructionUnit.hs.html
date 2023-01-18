@@ -27,7 +27,7 @@ span.spaces    { background: white }
 <span class="lineno">    8 </span><span class="decl"><span class="istickedoff">currentInstruction (IU iv ic) = iv `indexMaybe` ic</span></span>
 <span class="lineno">    9 </span>
 <span class="lineno">   10 </span>nextIC:: InstructionUnit -&gt; InstructionUnit
-<span class="lineno">   11 </span><span class="decl"><span class="istickedoff">nextIC (IU iv ic) = (IU iv $ ic + 1)</span></span>
+<span class="lineno">   11 </span><span class="decl"><span class="istickedoff">nextIC (IU iv ic) = IU iv $ ic + 1</span></span>
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>data InstructionUnit = IU !TreeInstructionVector !InstructionCounter
 <span class="lineno">   14 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)

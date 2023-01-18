@@ -41,10 +41,10 @@ doInstructionOpt (Just i) = doInstruction i
 doInstructionOpt  Nothing = pure
 
 doInstruction :: (BIO m , Symbol e) => TreeInstruction -> Automaton e -> m $ Automaton e
-doInstruction (While  iv    ) a    = doWhile iv   a
-doInstruction (Simple Output) a    = doOutputChar a
-doInstruction (Simple Input ) a    = doInputChar  a
-doInstruction (Simple (Pure i )) a = nextStepA $    updateTape (doPure i) a
+doInstruction (While  iv    )    = doWhile iv
+doInstruction (Simple Output)    = doOutputChar
+doInstruction (Simple Input )    = doInputChar
+doInstruction (Simple (Pure i )) = nextStepA . updateTape (doPure i)
 
 -- | Control Instruction
 doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> Automaton e -> m $ Automaton e
