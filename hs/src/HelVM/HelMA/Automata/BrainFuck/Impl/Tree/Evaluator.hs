@@ -59,11 +59,12 @@ doInputChar  :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar (Automaton table tape) = (nextStepDeprecated table . flip writeSymbol tape) =<< wGetChar
 
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar   (Automaton _          (_ ,  [])) = error "Illegal State"
-doOutputChar a@(Automaton _ (_ , e : _))        = wPutChar (toChar e) *> nextStep a
+doOutputChar a = build =<< currentSymbolSafe a where
+  build e = wPutChar (toChar e) *> nextStep a
+--  build e = nextStep a <* wPutChar (toChar e)
 
---doOutputChar a = build =<< currentSymbolSafe a where
---  build e = wPutChar (toChar e) *> nextStep a
+--wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
+--wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
 
 -- | Pure Instructions
 doPure :: Symbol e => PureInstruction -> FullTapeD e
