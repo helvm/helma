@@ -51,6 +51,10 @@ doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> Automaton e -> m $ Aut
 doWhile _  a@(Automaton _ (_ , 0 : _)) = nextStep a
 doWhile iv a                           = doWhileWithTape iv (unitUI a) =<< runVector iv (unitTape a)
 
+--doWhileForSymbol :: (BIO m , Symbol e) => e -> TreeInstructionVector -> Automaton e -> m $ Automaton e
+--doWhileForSymbol 0 _  a = nextStep a
+--doWhileForSymbol _ iv a = doWhileWithTape iv (unitUI a) =<< runVector iv (unitTape a)
+
 doWhileWithTape :: (BIO m , Symbol e) => TreeInstructionVector -> InstructionUnit -> Automaton e -> m $ Automaton e
 doWhileWithTape iv table (Automaton _ tape) = doWhile iv (Automaton table tape)
 
@@ -59,12 +63,13 @@ doInputChar  :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doInputChar (Automaton table tape) = (nextStepDeprecated table . flip writeSymbol tape) =<< wGetChar
 
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doOutputChar a = build =<< currentSymbolSafe a where
-  build e = wPutChar (toChar e) *> nextStep a
---  build e = nextStep a <* wPutChar (toChar e)
+doOutputChar a = nextStep a <* wPutSymbol a --FIXME
+--doOutputChar a = build =<< currentSymbolSafe a where
+--  build e = wPutChar (toChar e) *> nextStep a
+----  build e = nextStep a <* wPutChar (toChar e)
 
---wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
---wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
+wPutSymbol :: (BIO m , Symbol e) => Automaton e -> m ()
+wPutSymbol = wPutChar . toChar <=< currentSymbolSafe
 
 -- | Pure Instructions
 doPure :: Symbol e => PureInstruction -> FullTapeD e
@@ -82,6 +87,9 @@ currentInstruction :: Automaton e -> Maybe TreeInstruction
 currentInstruction = IU.currentInstruction . unitUI
 
 -- | Constructors
+
+--newAutomatonForChar :: Symbol e => Automaton e -> Char -> Automaton e
+--newAutomatonForChar (Automaton iu tape) = Automaton (IU.nextIC iu) . flip Tape.writeSymbol tape --FIXME
 
 newAutomaton :: TreeInstructionVector -> FullTape e -> Automaton e
 newAutomaton iv = Automaton (IU iv 0)
