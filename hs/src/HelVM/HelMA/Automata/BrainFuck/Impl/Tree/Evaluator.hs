@@ -41,10 +41,10 @@ doInstructionOpt (Just i) = doInstruction i
 doInstructionOpt  Nothing = pure
 
 doInstruction :: (BIO m , Symbol e) => TreeInstruction -> Automaton e -> m $ Automaton e
-doInstruction (While  iv    ) a                         = doWhile iv   a
-doInstruction (Simple Output) a                         = doOutputChar a
-doInstruction (Simple Input ) a                         = doInputChar  a
-doInstruction (Simple (Pure i )) (Automaton table tape) = nextStep     table (doPure i tape)
+doInstruction (While  iv    ) a    = doWhile iv   a
+doInstruction (Simple Output) a    = doOutputChar a
+doInstruction (Simple Input ) a    = doInputChar  a
+doInstruction (Simple (Pure i )) a = nextStepA $    updateTape (doPure i) a
 
 -- | Control Instruction
 doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> Automaton e -> m $ Automaton e
@@ -87,8 +87,8 @@ nextIC = updateUI IU.nextIC
 updateUI :: (InstructionUnit -> InstructionUnit) -> Automaton e -> Automaton e
 updateUI f a = a { unitUI = f $ unitUI a }
 
---updateTape :: (FullTape e -> FullTape e) -> Automaton e -> Automaton e
---updateTape f a = a { unitTape = f $ unitTape a }
+updateTape :: (FullTape e -> FullTape e) -> Automaton e -> Automaton e
+updateTape f a = a { unitTape = f $ unitTape a }
 
 -- | Types
 --type AutomatonSame e = Same (Automaton e)
