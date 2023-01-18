@@ -28,13 +28,13 @@ evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> LoopLimit -> DumpTyp
 evalSource source tape _limit dt = logDump dt =<< flip runVector tape =<< parseAsVector source
 
 runVector :: (BIO m , Symbol e) => TreeInstructionVector -> FullTape e -> m $ Automaton e
-runVector iv = nextStep (IU iv 0)
+runVector iv = nextStepDeprecated (IU iv 0)
 
-nextStep :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
-nextStep iu tape = nextStepA (Automaton iu tape)
+nextStepDeprecated :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
+nextStepDeprecated iu tape = nextStep (Automaton iu tape)
 
-nextStepA :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-nextStepA a = doInstructionOpt (currentInstruction a) (nextIC a)
+nextStep :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
+nextStep a = doInstructionOpt (currentInstruction a) (nextIC a)
 
 doInstructionOpt :: (BIO m , Symbol e) => Maybe TreeInstruction -> Automaton e -> m $ Automaton e
 doInstructionOpt (Just i) = doInstruction i
@@ -44,11 +44,11 @@ doInstruction :: (BIO m , Symbol e) => TreeInstruction -> Automaton e -> m $ Aut
 doInstruction (While  iv    )    = doWhile iv
 doInstruction (Simple Output)    = doOutputChar
 doInstruction (Simple Input )    = doInputChar
-doInstruction (Simple (Pure i )) = nextStepA . updateTape (doPure i)
+doInstruction (Simple (Pure i )) = nextStep . updateTape (doPure i)
 
 -- | Control Instruction
 doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> Automaton e -> m $ Automaton e
-doWhile _  (Automaton table tape@(_ , 0:_)) = nextStep table tape
+doWhile _  (Automaton table tape@(_ , 0:_)) = nextStepDeprecated table tape
 doWhile iv (Automaton table tape          ) = doWhileWithTape iv table =<< runVector iv tape
 
 doWhileWithTape :: (BIO m , Symbol e) => TreeInstructionVector -> InstructionUnit -> Automaton e -> m $ Automaton e
@@ -56,11 +56,11 @@ doWhileWithTape iv table (Automaton _ tape) = doWhile iv (Automaton table tape)
 
 -- | IO instructions
 doInputChar  :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-doInputChar (Automaton table tape) = (nextStep table . flip writeSymbol tape) =<< wGetChar
+doInputChar (Automaton table tape) = (nextStepDeprecated table . flip writeSymbol tape) =<< wGetChar
 
 doOutputChar :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
 doOutputChar (Automaton _          (_ ,  [])) = error "Illegal State"
-doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *> nextStep table tape
+doOutputChar (Automaton table tape@(_ , e:_)) = wPutChar (toChar e) *> nextStepDeprecated table tape
 
 -- | Pure Instructions
 doPure :: Symbol e => PureInstruction -> FullTapeD e
