@@ -14,10 +14,12 @@ dump: Automaton
                     ]
                 )
             , ICF
+                ( SMark "1" )
+            , ICF
                 ( DMark 2 )
             , End
             ]
-        , programCounter = 6
+        , programCounter = 7
         , returnStack = IS []
         }
     , unitStack = fromList

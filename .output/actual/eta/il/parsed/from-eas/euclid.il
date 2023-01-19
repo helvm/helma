@@ -46,6 +46,8 @@
         ]
     )
 , ICF
+    ( SMark "6" )
+, ICF
     ( DMark 7 )
 , IAL
     ( Cons 0 )

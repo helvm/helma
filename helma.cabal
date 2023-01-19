@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.3.10
+version:               0.8.4.0
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -163,6 +163,7 @@ library
 
     HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Evaluator
     HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Instruction
+    HelVM.HelMA.Automata.BrainFuck.Impl.Tree.InstructionUnit
     HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser
 
     HelVM.HelMA.Automata.Cat.Evaluator

@@ -21,9 +21,11 @@ spec =
   describe "eval" $ forM_ ((
     [ ("hello"    , [""])
     , ("hello2"   , [""])
-    , ("fact"     , ["1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n"])
-    , ("bottles"  , [""])
     , ("crlf"     , [""])
+    ] |><| (["original"] |><| etaImplTypes)
+    ) <> (
+    [ ("bottles"  , [""])
+    , ("fact"     , ["1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n"])
     ] |><| (["original"] |><| [defaultETAImplType])
     ) <> (
     [ ("true"     , [""])

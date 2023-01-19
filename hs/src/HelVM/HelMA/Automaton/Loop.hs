@@ -17,6 +17,12 @@ actMWithLimit f (n , x) = checkN n where
   checkN 0 = pure $ Right x
   checkN _ = mapLeft (n - 1 , ) <$> f x
 
+break :: b -> Either a b
+break = Right
+
+continue :: a -> Either a b
+continue = Left
+
 type LimitMaybe = Maybe Natural
 
 type WithLimit a = (Natural , a)

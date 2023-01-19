@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.0 -- 2023-01-21
+
+* Faster implementation for ETA
+
 ## 0.8.3.10 -- 2023-01-08
 
 * Refactor Automaton and Evaluator

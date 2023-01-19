@@ -39,14 +39,14 @@ spec = describe "parse" $ do
       it "parseInteger" $ parseInteger input `shouldSafe` output
       it "optimalize" $ optimize ([N] <> input) `shouldSafe` decorateInteger output
   describe "single" $ forM_
-    [ (E , [IAL (Binaries [Mod,Div])])
-    , (T , [Transfer]                )
-    , (A , [IAL (Cons 2)]            )
-    , (O , [IAL (SIO OutputChar)]    )
-    , (I , [IAL (SIO InputChar)]     )
-    , (S , [IAL (Binary Sub)]        )
-    , (H , [IAL Halibut]             )
-    , (R , [ICF (DMark 2)]           )
+    [ (E , [IAL (Binaries [Mod,Div]) , ICF (SMark "1")])
+    , (T , [Transfer                                  ])
+    , (A , [IAL (Cons 2)                              ])
+    , (O , [IAL (SIO OutputChar)                      ])
+    , (I , [IAL (SIO InputChar)                       ])
+    , (S , [IAL (Binary Sub)                          ])
+    , (H , [IAL Halibut                               ])
+    , (R , [ICF (DMark 2)                             ])
     ] $ \(input , output) ->
     describe (show input) $
       it "optimalize" $ optimize [input] `shouldSafe` decorateIL output

@@ -22,7 +22,7 @@ spec =
       let file = readEtaFile path
       it ("minified" </> path) $
         (show . readTokens <$> file) `goldenShouldIO` buildAbsoluteEtaFileName ("minified" </> path)
-    describe "parsed" $ forM_ fromEAS $ \(fileName , dirName) -> do
+    describe "parsed" $ forM_ (original <> fromEAS) $ \(fileName , dirName) -> do
       let path = dirName </> fileName
       let file = readEtaFile path
       it ("parsed" </> path) $

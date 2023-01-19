@@ -11,12 +11,21 @@ import           Control.Monad.Extra
 
 import qualified Data.Vector                        as Vector
 
+parseNumberFromTLL :: (MonadSafe m , Integral a) => (TokenList, [TokenList]) -> m (a , (TokenList, [TokenList]))
+parseNumberFromTLL a = loop act ([] , a) where
+  act (acc , (E  : tl , tll))      = Right $ ( , (tl , tll)) <$> makeIntegral7FromList acc
+  act (acc , (R  : tl , tll))      = Left (    acc , (tl , tll))
+  act (acc , (t  : tl , tll))      = Left (t : acc , (tl , tll))
+  act (acc ,      ([] , tl : tll)) = Left (    acc , (tl , tll))
+--  act (acc ,      ([] , []))       = Right $ pure (0, ([] , []))
+  act (acc ,      ([] , []))       = Right $ ( , ([] , [])) <$> makeIntegral7FromList acc
+
 parseNumberFromTL :: (MonadSafe m , Integral a) => OperandParser m a
-parseNumberFromTL tl = loop act ([] , tl) where
-  act (acc ,       []) = Right (liftError $ show acc)
-  act (acc , E  : tl') = Right $ ( , tl') <$> makeIntegral7FromList acc
-  act (acc , R  : tl') = Left (    acc , tl')
-  act (acc , t  : tl') = Left (t : acc , tl')
+parseNumberFromTL a = loop act ([] , a) where
+  act (acc , E  : tl) = Right $ ( , tl) <$> makeIntegral7FromList acc
+  act (acc , R  : tl) = Left (    acc , tl)
+  act (acc , t  : tl) = Left (t : acc , tl)
+  act (acc ,      []) = Right (liftError $ show acc)
 
 parseNumber :: (MonadSafe m , Integral a) => OperandIUParser m a
 parseNumber iu = loopM act =<< (([] , ) <$> nextIU iu) where

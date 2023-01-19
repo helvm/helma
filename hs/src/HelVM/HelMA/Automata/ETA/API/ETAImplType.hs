@@ -10,5 +10,5 @@ etaImplTypes:: [ETAImplType]
 etaImplTypes = generateEnums 2
 
 -- | Type
-data ETAImplType = Original | Fast
+data ETAImplType = Fast | Original
   deriving stock (Bounded , Enum , Eq , Read , Show)

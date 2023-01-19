@@ -1,0 +1,129 @@
+dump: Automaton
+    { unitCU = CU
+        { program =
+            [ ICF
+                ( DMark 1 )
+            , IAL
+                ( Cons 0 )
+            , IAL
+                ( Cons 10 )
+            , IAL
+                ( Cons 33 )
+            , IAL
+                ( Cons 100 )
+            , IAL
+                ( Cons 108 )
+            , IAL
+                ( Cons 114 )
+            , IAL
+                ( Cons 111 )
+            , IAL
+                ( Cons 119 )
+            , IAL
+                ( Cons 32 )
+            , ICF
+                ( DMark 2 )
+            , IAL
+                ( Cons 44 )
+            , IAL
+                ( Cons 111 )
+            , IAL
+                ( Cons 108 )
+            , IAL
+                ( Cons 108 )
+            , IAL
+                ( Cons 101 )
+            , IAL
+                ( Cons 72 )
+            , IAL
+                ( Cons 3 )
+            , IAL
+                ( Cons 1 )
+            , IAL
+                ( Cons 4 )
+            , Transfer
+            , ICF
+                ( DMark 3 )
+            , IAL
+                ( Cons 1 )
+            , IAL
+                ( Cons 0 )
+            , Transfer
+            , IAL
+                ( Cons 4 )
+            , IAL
+                ( Cons 22 )
+            , Transfer
+            , IAL ( SIO InputChar )
+            , IAL ( Binary Sub )
+            , Transfer
+            , IAL ( SIO OutputChar )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Binaries
+                    [ Mod
+                    , Div
+                    ]
+                )
+            , ICF
+                ( SMark "3" )
+            , IAL
+                ( Cons 4 )
+            , Transfer
+            , IAL ( SIO InputChar )
+            , IAL
+                ( Cons 337 )
+            , IAL ( Binary Sub )
+            , ICF
+                ( DMark 4 )
+            , IAL
+                ( Cons 1 )
+            , IAL Halibut
+            , IAL
+                ( Cons 0 )
+            , IAL Halibut
+            , IAL
+                ( Cons 5 )
+            , IAL
+                ( Cons 0 )
+            , IAL
+                ( Cons 1 )
+            , IAL ( Binary Sub )
+            , IAL ( Binary Sub )
+            , Transfer
+            , ICF
+                ( DMark 5 )
+            , IAL ( Binary Sub )
+            , IAL
+                ( Cons 11 )
+            , IAL
+                ( Cons 1 )
+            , IAL Halibut
+            , Transfer
+            , ICF
+                ( DMark 6 )
+            , IAL ( SIO OutputChar )
+            , IAL
+                ( Cons 7 )
+            , IAL
+                ( Cons 4 )
+            , Transfer
+            , IAL ( Binary Sub )
+            , IAL ( Binary Sub )
+            , IAL ( SIO InputChar )
+            , IAL
+                ( Cons 7 )
+            , IAL
+                ( Cons 0 )
+            , ICF
+                ( CStatic "7" Jump )
+            , ICF
+                ( DMark 7 )
+            , End
+            ]
+        , programCounter = 25
+        , returnStack = IS []
+        }
+    , unitStack = fromList []
+    , unitRAM = []
+    }

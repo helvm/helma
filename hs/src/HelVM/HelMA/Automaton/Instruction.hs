@@ -22,6 +22,13 @@ halibutI = IAL Halibut
 dMarkI :: Natural -> Instruction
 dMarkI = ICF . DMark
 
+sMarkI :: Natural -> Instruction
+sMarkI = ICF . SMark . show
+
+sJumpI :: Natural -> Instruction
+--sJumpI = ICF . flip SDynamic Jump . show
+sJumpI l = ICF $ CStatic (show l) Jump
+
 --transferI :: Instruction
 --transferI = ICF Transfer
 
