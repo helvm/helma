@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.SubLeq.Automaton (
+<span class="lineno">    2 </span>  newAutomaton,
+<span class="lineno">    3 </span>  run,
+<span class="lineno">    4 </span>) where
+<span class="lineno">    5 </span>
+<span class="lineno">    6 </span>import           HelVM.HelMA.Automaton.IO.AutomatonIO
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Loop
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Units.RAM      as RAM
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>import           Control.Type.Operator
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>run :: (RAutomatonIO e r m) =&gt; Maybe Natural -&gt; Automaton e r -&gt; m $ Automaton e r
+<span class="lineno">   16 </span><span class="decl"><span class="istickedoff">run = loopMWithLimit nextState</span></span>
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>nextState :: RAutomatonIO e r m =&gt; Automaton e r -&gt; m $ AutomatonSame e r
+<span class="lineno">   19 </span><span class="decl"><span class="istickedoff">nextState a@(Automaton ic ram)</span>
+<span class="lineno">   20 </span><span class="spaces">  </span><span class="istickedoff">| ic  &lt; 0   = doEnd a</span>
+<span class="lineno">   21 </span><span class="spaces">  </span><span class="istickedoff">| <span class="tickonlyfalse">src &lt; 0</span>   = <span class="nottickedoff">doInputChar   dst a</span></span>
+<span class="lineno">   22 </span><span class="spaces">  </span><span class="istickedoff">| dst &lt; 0   = doOutputChar  src a</span>
+<span class="lineno">   23 </span><span class="spaces">  </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span> = doInstruction src dst a</span>
+<span class="lineno">   24 </span><span class="spaces">    </span><span class="istickedoff">where</span>
+<span class="lineno">   25 </span><span class="spaces">      </span><span class="istickedoff">src  = genericLoad ram ic</span>
+<span class="lineno">   26 </span><span class="spaces">      </span><span class="istickedoff">dst  = genericLoad ram $ ic + 1</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>-- | IO instructions
+<span class="lineno">   29 </span>doOutputChar :: RAutomatonIO e r m =&gt; e -&gt; Automaton e r -&gt; m $ AutomatonSame e r
+<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">doOutputChar address (Automaton ic ram) = wPutAsChar (genericLoad ram address) $&gt; Left (next3Automaton ic ram)</span></span>
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>doInputChar :: RAutomatonIO e r m =&gt; e -&gt; Automaton e r -&gt; m $ AutomatonSame e r
+<span class="lineno">   33 </span><span class="decl"><span class="nottickedoff">doInputChar address (Automaton ic ram) = Left . next3Automaton ic . flippedStoreChar address ram &lt;$&gt; wGetChar</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>-- | Terminate instruction
+<span class="lineno">   36 </span>doEnd :: RAutomatonIO e r m =&gt; Automaton e r -&gt; m $ AutomatonSame e r
+<span class="lineno">   37 </span><span class="decl"><span class="istickedoff">doEnd = pure . Right</span></span>
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>doInstruction :: RAutomatonIO e r m =&gt; e -&gt; e -&gt; Automaton e r -&gt; m $ AutomatonSame e r
+<span class="lineno">   40 </span><span class="decl"><span class="istickedoff">doInstruction src dst (Automaton ic ram) = pure $ Left $ Automaton ic' $ store dst diff ram where</span>
+<span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">diff = genericLoad ram dst - genericLoad ram src</span>
+<span class="lineno">   42 </span><span class="spaces">  </span><span class="istickedoff">ic'</span>
+<span class="lineno">   43 </span><span class="spaces">    </span><span class="istickedoff">| diff &lt;= 0 = genericLoad ram $ ic + 2</span>
+<span class="lineno">   44 </span><span class="spaces">    </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span> = ic + 3</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>next3Automaton :: Num e =&gt; e -&gt; ram -&gt; Automaton e ram
+<span class="lineno">   47 </span><span class="decl"><span class="istickedoff">next3Automaton ic = Automaton (ic + 3)</span></span>
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>newAutomaton :: Num e =&gt; ram -&gt; Automaton e ram
+<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">newAutomaton = Automaton 0</span></span>
+<span class="lineno">   51 </span>
+<span class="lineno">   52 </span>-- | Types
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>type AutomatonSame ic ram = Same (Automaton ic ram)
+<span class="lineno">   55 </span>
+<span class="lineno">   56 </span>data Automaton ic ram = Automaton
+<span class="lineno">   57 </span>   { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitIU</span></span></span>  :: ic
+<span class="lineno">   58 </span>   , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">unitRAM</span></span></span> :: ram
+<span class="lineno">   59 </span>   }
+<span class="lineno">   60 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+
+</pre>
+</body>
+</html>

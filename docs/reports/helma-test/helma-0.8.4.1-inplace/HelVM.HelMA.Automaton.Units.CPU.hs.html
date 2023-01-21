@@ -1,0 +1,126 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Units.CPU where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automaton.Units.ALU
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">    6 </span>import           HelVM.HelMA.Automaton.Instruction.CFInstruction
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>import           HelVM.HelIO.Containers.LLIndexSafe
+<span class="lineno">    9 </span>import           HelVM.HelIO.Control.Safe
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import           Control.Type.Operator
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>import           Data.ListLike                                   hiding (show)
+<span class="lineno">   14 </span>import qualified Data.Vector                                     as Vector
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>controlInstruction :: (ALU m ll element , Show element) =&gt; CFInstruction -&gt; CentralProcessingUnit ll -&gt; m $ CentralProcessingUnit ll
+<span class="lineno">   17 </span><span class="decl"><span class="istickedoff">controlInstruction (DMark    _          ) = pure</span>
+<span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">controlInstruction (SMark    _          ) = pure</span>
+<span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">controlInstruction  Return                = popAddress</span>
+<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">controlInstruction (CDynamic   Call     ) = <span class="nottickedoff">dynamicCall</span></span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">controlInstruction (CDynamic   Jump     ) = dynamicJump</span>
+<span class="lineno">   22 </span><span class="spaces"></span><span class="istickedoff">controlInstruction (CDynamic  (Branch t)) = <span class="nottickedoff">dynamicBranch  t</span></span>
+<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">controlInstruction (CStatic l  Call     ) = staticCall   l</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">controlInstruction (CStatic l  Jump     ) = staticJump   l</span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">controlInstruction (CStatic l (Branch t)) = staticBranch l t</span></span>
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>popAddress :: ALU m ll element  =&gt; CentralProcessingUnit ll -&gt; m $ CentralProcessingUnit ll
+<span class="lineno">   28 </span><span class="decl"><span class="istickedoff">popAddress (CPU (CU il _ (IS (a : is))) s) = pure $ CPU (CU il a $ IS is) s</span>
+<span class="lineno">   29 </span><span class="spaces"></span><span class="istickedoff">popAddress (CPU (CU il _ (IS      [] )) _) = <span class="nottickedoff">liftErrorWithTupleList &quot;Empty Return Stack&quot; [(&quot;il&quot; , show il)]</span></span></span>
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>dynamicCall :: (ALU m ll element , Show element) =&gt; CentralProcessingUnit ll -&gt; m $ CentralProcessingUnit ll
+<span class="lineno">   32 </span><span class="decl"><span class="nottickedoff">dynamicCall (CPU (CU il ic (IS is)) s) = appendError &quot;CPU.dynamicCall&quot; $ call1 =&lt;&lt; pop1 s where</span>
+<span class="lineno">   33 </span><span class="spaces">  </span><span class="nottickedoff">call1 (n , s') = call2 &lt;$&gt; findAddressForDynamicLabel n il where</span>
+<span class="lineno">   34 </span><span class="spaces">    </span><span class="nottickedoff">call2 a = CPU (CU il a (IS (ic : is))) s'</span></span>
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>dynamicJump :: (ALU m ll element , Show element) =&gt; CentralProcessingUnit ll -&gt; m $ CentralProcessingUnit ll
+<span class="lineno">   37 </span><span class="decl"><span class="istickedoff">dynamicJump (CPU (CU il _ is) s) = appendError <span class="nottickedoff">&quot;CPU.dynamicJump&quot;</span> $ jump1 =&lt;&lt; pop1 s where</span>
+<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">jump1 (n, s') = jump2 &lt;$&gt; findAddressForDynamicLabel n il where</span>
+<span class="lineno">   39 </span><span class="spaces">    </span><span class="istickedoff">jump2 a = CPU (CU il a is) s'</span></span>
+<span class="lineno">   40 </span>
+<span class="lineno">   41 </span>dynamicBranch :: (ALU m ll element , Show element) =&gt; BranchTest -&gt; CentralProcessingUnit ll -&gt; m $ CentralProcessingUnit ll
+<span class="lineno">   42 </span><span class="decl"><span class="nottickedoff">dynamicBranch t (CPU (CU il ic is) s) = appendError &quot;CPU.dynamicBranch&quot; $ branch =&lt;&lt; pop2 s where</span>
+<span class="lineno">   43 </span><span class="spaces">  </span><span class="nottickedoff">branch (n , e , s')</span>
+<span class="lineno">   44 </span><span class="spaces">    </span><span class="nottickedoff">| isNotJump t e = pure $ CPU (CU il ic is) s'</span>
+<span class="lineno">   45 </span><span class="spaces">    </span><span class="nottickedoff">| otherwise     = jump &lt;$&gt; findAddressForDynamicLabel n il where</span>
+<span class="lineno">   46 </span><span class="spaces">      </span><span class="nottickedoff">jump ic' = CPU (CU il ic' is) s'</span></span>
+<span class="lineno">   47 </span>
+<span class="lineno">   48 </span>findAddressForDynamicLabel :: (MonadSafe m , Integral n , Show n) =&gt; n -&gt; InstructionVector -&gt; m InstructionAddress
+<span class="lineno">   49 </span><span class="decl"><span class="istickedoff">findAddressForDynamicLabel n il</span>
+<span class="lineno">   50 </span><span class="spaces">  </span><span class="istickedoff">| <span class="tickonlyfalse">n &lt; 0</span>     = <span class="nottickedoff">liftError $ show n</span></span>
+<span class="lineno">   51 </span><span class="spaces">  </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span> = liftMaybeOrErrorTuple <span class="nottickedoff">(&quot;Undefined label&quot;, show n)</span> $ findIndex (isMarkNat $ fromIntegral n) il</span></span>
+<span class="lineno">   52 </span>
+<span class="lineno">   53 </span>--
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>staticCall :: ALU m ll element =&gt; Label -&gt; CentralProcessingUnit ll -&gt; m $ CentralProcessingUnit ll
+<span class="lineno">   56 </span><span class="decl"><span class="istickedoff">staticCall l (CPU (CU il ic (IS is)) s) = appendError <span class="nottickedoff">&quot;CPU.staticCall&quot;</span> $ call &lt;$&gt; findAddressForStaticLabel l il where</span>
+<span class="lineno">   57 </span><span class="spaces">  </span><span class="istickedoff">call a = CPU (CU il a (IS (ic : is))) s</span></span>
+<span class="lineno">   58 </span>
+<span class="lineno">   59 </span>staticJump :: ALU m ll element =&gt; Label -&gt; CentralProcessingUnit ll -&gt; m $ CentralProcessingUnit ll
+<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">staticJump l (CPU (CU il _  is) s) = appendError <span class="nottickedoff">&quot;CPU.staticJump&quot;</span> $ jump &lt;$&gt; findAddressForStaticLabel l il where</span>
+<span class="lineno">   61 </span><span class="spaces">  </span><span class="istickedoff">jump a = CPU (CU il a is) s</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>staticBranch :: ALU m ll element =&gt; Label -&gt; BranchTest -&gt; CentralProcessingUnit ll -&gt; m $ CentralProcessingUnit ll
+<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">staticBranch l t (CPU (CU il ic is) s) = appendError <span class="nottickedoff">&quot;CPU.staticBranch&quot;</span> $ branch =&lt;&lt; pop1 s where</span>
+<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">branch (e , s')</span>
+<span class="lineno">   66 </span><span class="spaces">    </span><span class="istickedoff">| isNotJump t e = pure $ CPU (CU il ic is) s'</span>
+<span class="lineno">   67 </span><span class="spaces">    </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span>     = jump &lt;$&gt; findAddressForStaticLabel l il where</span>
+<span class="lineno">   68 </span><span class="spaces">      </span><span class="istickedoff">jump ic' = CPU (CU il ic' is) s'</span></span>
+<span class="lineno">   69 </span>
+<span class="lineno">   70 </span>findAddressForStaticLabel :: MonadSafe m =&gt; Label -&gt; InstructionVector -&gt; m InstructionAddress
+<span class="lineno">   71 </span><span class="decl"><span class="istickedoff">findAddressForStaticLabel l = liftMaybeOrErrorTuple <span class="nottickedoff">(&quot;Undefined label&quot;, show l)</span> . findIndex (isMark l)</span></span>
+<span class="lineno">   72 </span>
+<span class="lineno">   73 </span>-- | ControlUnit methods
+<span class="lineno">   74 </span>
+<span class="lineno">   75 </span>newCU :: InstructionList -&gt; ControlUnit
+<span class="lineno">   76 </span><span class="decl"><span class="istickedoff">newCU il = CU (Vector.fromList il) 0 (IS [])</span></span>
+<span class="lineno">   77 </span>
+<span class="lineno">   78 </span>currentInstruction :: MonadSafe m =&gt; ControlUnit -&gt; m Instruction
+<span class="lineno">   79 </span><span class="decl"><span class="istickedoff">currentInstruction (CU il ic _) = indexSafe il ic</span></span>
+<span class="lineno">   80 </span>
+<span class="lineno">   81 </span>incrementPC :: ControlUnit -&gt; ControlUnit
+<span class="lineno">   82 </span><span class="decl"><span class="istickedoff">incrementPC cu = cu { programCounter = 1 + programCounter cu }</span></span>
+<span class="lineno">   83 </span>
+<span class="lineno">   84 </span>-- | Types
+<span class="lineno">   85 </span>data CentralProcessingUnit al = CPU
+<span class="lineno">   86 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">controlUnit</span></span></span> :: ControlUnit
+<span class="lineno">   87 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">alu</span></span></span>         :: al
+<span class="lineno">   88 </span>  }
+<span class="lineno">   89 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Show</span></span>)
+<span class="lineno">   90 </span>
+<span class="lineno">   91 </span>data ControlUnit = CU
+<span class="lineno">   92 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">program</span></span></span>        :: InstructionVector
+<span class="lineno">   93 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">programCounter</span></span></span> :: InstructionCounter
+<span class="lineno">   94 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">returnStack</span></span></span>    :: InstructionStack
+<span class="lineno">   95 </span>  }
+<span class="lineno">   96 </span>  deriving stock (<span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   97 </span>
+<span class="lineno">   98 </span>newtype InstructionStack = IS [InstructionAddress]
+<span class="lineno">   99 </span>  deriving stock (<span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">  100 </span>
+<span class="lineno">  101 </span>type InstructionCounter = InstructionAddress
+<span class="lineno">  102 </span>
+<span class="lineno">  103 </span>type InstructionAddress = Int
+
+</pre>
+</body>
+</html>
