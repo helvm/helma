@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.1 -- 2023-01-22
+
+* Use loop for BrainFuck
+
 ## 0.8.4.0 -- 2023-01-21
 
 * Faster implementation for ETA
