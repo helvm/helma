@@ -1,0 +1,94 @@
+dump: Automaton
+    { unitUI = IU
+        [ Simple +
+        , While
+            [ Simple -
+            , Simple -
+            , Simple >
+            , Simple -
+            , While
+                [ Simple >
+                , Simple >
+                , Simple +
+                , Simple >
+                , Simple -
+                , Simple -
+                , Simple -
+                , Simple -
+                , Simple -
+                , Simple <
+                , Simple <
+                ]
+            , Simple <
+            , Simple -
+            , Simple -
+            , Simple <
+            , Simple -
+            , Simple -
+            , Simple -
+            ]
+        , Simple >
+        , Simple -
+        , Simple .
+        , Simple >
+        , Simple >
+        , Simple >
+        , Simple +
+        , Simple .
+        , Simple >
+        , Simple >
+        , Simple .
+        , Simple .
+        , Simple +
+        , Simple +
+        , Simple +
+        , While
+            [ Simple .
+            , Simple >
+            ]
+        , Simple <
+        , Simple <
+        , Simple <
+        , Simple <
+        , Simple .
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple .
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple .
+        , Simple <
+        , Simple <
+        , Simple -
+        , Simple .
+        , Simple >
+        , Simple >
+        , Simple >
+        , Simple >
+        , Simple +
+        , Simple .
+        ] 45
+    , unitTape =
+        (
+            [ 87
+            , 0
+            , 0
+            ]
+        ,
+            [ 33
+            , 44
+            , 108
+            , 172
+            , 100
+            , 153
+            , 0
+            , 72
+            , 0
+            ]
+        )
+    }

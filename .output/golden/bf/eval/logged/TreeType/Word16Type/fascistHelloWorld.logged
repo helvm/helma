@@ -1,0 +1,154 @@
+dump: Automaton
+    { unitUI = IU
+        [ Simple >
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple +
+        , While
+            [ Simple -
+            , Simple <
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple +
+            , Simple >
+            ]
+        , Simple <
+        , Simple .
+        , Simple >
+        , Simple >
+        , Simple +
+        , Simple >
+        , Simple -
+        , While [ Simple + ]
+        , Simple +
+        , Simple +
+        , Simple >
+        , Simple +
+        , Simple +
+        , Simple >
+        , Simple +
+        , Simple +
+        , Simple +
+        , While
+            [ Simple >
+            , While
+                [ Simple -
+                , Simple >
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple <
+                , Simple <
+                , Simple +
+                , Simple +
+                , Simple +
+                , Simple >
+                ]
+            , Simple <
+            , Simple <
+            ]
+        , Simple >
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple .
+        , Simple >
+        , Simple -
+        , Simple >
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple .
+        , Simple .
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple .
+        , Simple >
+        , Simple -
+        , Simple .
+        , Simple <
+        , Simple <
+        , Simple +
+        , While
+            [ Simple >
+            , While
+                [ Simple +
+                , Simple >
+                , Simple +
+                ]
+            , Simple >
+            , Simple >
+            ]
+        , Simple <
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple .
+        , Simple >
+        , Simple >
+        , Simple .
+        , Simple +
+        , Simple +
+        , Simple +
+        , Simple .
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple .
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple -
+        , Simple .
+        , Simple >
+        , Simple +
+        , Simple .
+        , Simple >
+        , Simple +
+        , Simple .
+        ] 100
+    , unitTape =
+        ( [ 0 ]
+        ,
+            [ 10
+            , 33
+            , 100
+            , 0
+            , 87
+            , 0
+            , 72
+            ]
+        )
+    }

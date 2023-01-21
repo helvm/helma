@@ -1,0 +1,9 @@
+dump: Automaton
+    { unitTable =
+        ( []
+        , -
+        , <
+        , <
+        , <
+        )
+    }
