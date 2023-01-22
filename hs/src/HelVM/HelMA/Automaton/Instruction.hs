@@ -26,21 +26,22 @@ sMarkI :: Natural -> Instruction
 sMarkI = ICF . SMark . show
 
 sJumpI :: Natural -> Instruction
---sJumpI = ICF . flip SDynamic Jump . show
-sJumpI l = ICF $ CStatic (show l) Jump
-
---transferI :: Instruction
---transferI = ICF Transfer
+sJumpI = ICF . flip CStatic Jump . show
 
 -- | Others
 
-isMarkNat :: Natural -> Instruction -> Bool
-isMarkNat n (ICF (DMark n')) = n == n'
-isMarkNat _               _  = False
+isMark :: Instruction -> Bool
+isMark (ICF (DMark _)) = True
+isMark (ICF (SMark _)) = True
+isMark             _   = False
 
-isMark :: Label -> Instruction -> Bool
-isMark l (ICF (SMark l')) = l == l'
-isMark _            _     = False
+isDMark :: Natural -> Instruction -> Bool
+isDMark n (ICF (DMark n')) = n == n'
+isDMark _               _  = False
+
+isSMark :: Label -> Instruction -> Bool
+isSMark l (ICF (SMark l')) = l == l'
+isSMark _            _     = False
 
 -- | Types
 

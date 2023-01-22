@@ -31,13 +31,13 @@ span.spaces    { background: white }
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>import           Control.Type.Operator
 <span class="lineno">   14 </span>
-<span class="lineno">   15 </span>slInstruction :: (LSU m s r element) =&gt; LSInstruction -&gt; LoadStoreUnit s r -&gt; m $ LoadStoreUnit s r
-<span class="lineno">   16 </span><span class="decl"><span class="istickedoff">slInstruction Load             = load</span>
-<span class="lineno">   17 </span><span class="spaces"></span><span class="istickedoff">slInstruction Store            = store</span>
-<span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">slInstruction (MIO OutputChar) = <span class="nottickedoff">loadOutputChar</span></span>
-<span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">slInstruction (MIO OutputDec)  = <span class="nottickedoff">loadOutputDec</span></span>
-<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">slInstruction (MIO InputChar)  = storeInputChar</span>
-<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">slInstruction (MIO InputDec)   = storeInputDec</span></span>
+<span class="lineno">   15 </span>runSLI :: (LSU m s r element) =&gt; LSInstruction -&gt; LoadStoreUnit s r -&gt; m $ LoadStoreUnit s r
+<span class="lineno">   16 </span><span class="decl"><span class="istickedoff">runSLI Load             = load</span>
+<span class="lineno">   17 </span><span class="spaces"></span><span class="istickedoff">runSLI Store            = store</span>
+<span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">runSLI (MIO OutputChar) = <span class="nottickedoff">loadOutputChar</span></span>
+<span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">runSLI (MIO OutputDec)  = <span class="nottickedoff">loadOutputDec</span></span>
+<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">runSLI (MIO InputChar)  = storeInputChar</span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">runSLI (MIO InputDec)   = storeInputDec</span></span>
 <span class="lineno">   22 </span>
 <span class="lineno">   23 </span>load :: LSU m s r element =&gt; LoadStoreUnit s r -&gt; m $ LoadStoreUnit s r
 <span class="lineno">   24 </span><span class="decl"><span class="istickedoff">load (LSU s r) = appendError <span class="nottickedoff">&quot;LSU.load&quot;</span> $ build &lt;$&gt; pop1 s where</span>

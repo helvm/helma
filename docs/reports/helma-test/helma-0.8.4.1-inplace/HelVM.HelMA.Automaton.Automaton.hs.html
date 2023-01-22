@@ -1,0 +1,162 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Automaton (
+<span class="lineno">    2 </span>  runAndDumpLogs,
+<span class="lineno">    3 </span>  run,
+<span class="lineno">    4 </span>  flippedNewAutomaton,
+<span class="lineno">    5 </span>  newAutomaton,
+<span class="lineno">    6 </span>  Automaton,
+<span class="lineno">    7 </span>) where
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.API.AutoParams
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Loop                      as Loop
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.Symbol
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.IO.AutomatonIO
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Instruction.CFInstruction
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>import           HelVM.HelMA.Automaton.Types.DumpType
+<span class="lineno">   20 </span>
+<span class="lineno">   21 </span>import           HelVM.HelMA.Automaton.Units.ALU                 as Stack
+<span class="lineno">   22 </span>import           HelVM.HelMA.Automaton.Units.CPU                 as CPU
+<span class="lineno">   23 </span>import           HelVM.HelMA.Automaton.Units.LSU                 as LSU
+<span class="lineno">   24 </span>
+<span class="lineno">   25 </span>import           HelVM.HelIO.Containers.LLIndexSafe
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>import           Control.Applicative.Tools
+<span class="lineno">   28 </span>import           Control.Monad.Extra
+<span class="lineno">   29 </span>import           Control.Type.Operator
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>import           Data.Vector                                     as Vector
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>import           Prelude                                         hiding (swap)
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>runAndDumpLogs :: (SRAutomatonIO Symbol s r m) =&gt; AutoParams -&gt; Automaton s r -&gt;  m ()
+<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">runAndDumpLogs p = logDump (dumpType p) &lt;=&lt; run (compile p) (limit p)</span></span>
+<span class="lineno">   37 </span>
+<span class="lineno">   38 </span>run :: (SRAutomatonIO Symbol s r m) =&gt; Bool -&gt; LimitMaybe -&gt; F s r m
+<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">run False = runI</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">run True  = <span class="nottickedoff">runA</span></span></span>
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>----
+<span class="lineno">   43 </span>
+<span class="lineno">   44 </span>runA :: (SRAutomatonIO Symbol s r m) =&gt; LimitMaybe -&gt; F s r m
+<span class="lineno">   45 </span><span class="decl"><span class="nottickedoff">runA l a = loopMWithLimit (nextStateA $ compileA a) l  a</span></span>
+<span class="lineno">   46 </span>
+<span class="lineno">   47 </span>compileA :: (SRAutomatonIO Symbol s r m) =&gt; Automaton s r -&gt; Vector (SF s r m)
+<span class="lineno">   48 </span><span class="decl"><span class="nottickedoff">compileA = runInstruction &lt;.&gt; unitProgram</span></span>
+<span class="lineno">   49 </span>
+<span class="lineno">   50 </span>nextStateA :: (SRAutomatonIO Symbol s r m) =&gt; Vector (SF s r m) -&gt; SF s r m
+<span class="lineno">   51 </span><span class="decl"><span class="nottickedoff">nextStateA fv a = flip id (incrementIC a) =&lt;&lt; indexSafe fv (unitProgramCounter a)</span></span>
+<span class="lineno">   52 </span>
+<span class="lineno">   53 </span>----
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>runI :: (SRAutomatonIO Symbol s r m) =&gt; LimitMaybe -&gt; F s r m
+<span class="lineno">   56 </span><span class="decl"><span class="istickedoff">runI = loopMWithLimit nextStateI</span></span>
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>nextStateI :: (SRAutomatonIO Symbol s r m) =&gt; SF s r m
+<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">nextStateI a = nextStateForInstruction =&lt;&lt; currentInstruction (unitCU a) where</span>
+<span class="lineno">   60 </span><span class="spaces">  </span><span class="istickedoff">nextStateForInstruction i = runInstruction i $ incrementIC a</span></span>
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>----
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>runInstruction :: (SRAutomatonIO Symbol s r m) =&gt; Instruction -&gt; SF s r m
+<span class="lineno">   65 </span><span class="decl"><span class="istickedoff">runInstruction (IAL      i) a = Loop.continue . updateStack   a &lt;$&gt; runALI i (unitStack a)</span>
+<span class="lineno">   66 </span><span class="spaces"></span><span class="istickedoff">runInstruction (ILS      i) a = Loop.continue . updateFromLSU a &lt;$&gt; runSLI i (toLSU a)</span>
+<span class="lineno">   67 </span><span class="spaces"></span><span class="istickedoff">runInstruction (ICF      i) a = Loop.continue . updateFromCPU a &lt;$&gt; runCFI i (toCPU a)</span>
+<span class="lineno">   68 </span><span class="spaces"></span><span class="istickedoff">runInstruction  Transfer    a = transfer a</span>
+<span class="lineno">   69 </span><span class="spaces"></span><span class="istickedoff">runInstruction  End         a = end a</span></span>
+<span class="lineno">   70 </span>
+<span class="lineno">   71 </span>transfer :: (SRAutomatonIO Symbol s r m) =&gt; SF s r m
+<span class="lineno">   72 </span><span class="decl"><span class="istickedoff">transfer = transferBranch &lt;=&lt; pop2ForStack</span></span>
+<span class="lineno">   73 </span>
+<span class="lineno">   74 </span>transferBranch :: (SRAutomatonIO Symbol s r m) =&gt; (Symbol, Symbol, Automaton s r) -&gt; m $ AutomatonSame s r
+<span class="lineno">   75 </span><span class="decl"><span class="istickedoff">transferBranch (_ , 0 , u) = pure $ Loop.continue u</span>
+<span class="lineno">   76 </span><span class="spaces"></span><span class="istickedoff">transferBranch (0 , _ , u) = end u</span>
+<span class="lineno">   77 </span><span class="spaces"></span><span class="istickedoff">transferBranch (a , _ , u) = Loop.continue . updateFromCPU u &lt;$&gt; runCFI dJumpI (toCPU $ push1ForStack a u)</span></span>
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>pop2ForStack :: (SRAutomatonIO Symbol s r m) =&gt; Automaton s r -&gt; m (Symbol , Symbol , Automaton s r)
+<span class="lineno">   80 </span><span class="decl"><span class="istickedoff">pop2ForStack a = build &lt;$&gt; pop2 (unitStack a) where</span>
+<span class="lineno">   81 </span><span class="spaces">  </span><span class="istickedoff">build (s1 , s2 , s') = (s1 , s2 , updateStack a s')</span></span>
+<span class="lineno">   82 </span>
+<span class="lineno">   83 </span>push1ForStack :: Stack s Symbol =&gt; Symbol -&gt; Automaton s r -&gt; Automaton s r
+<span class="lineno">   84 </span><span class="decl"><span class="istickedoff">push1ForStack e a = a { unitStack = push1 e (unitStack a) }</span></span>
+<span class="lineno">   85 </span>
+<span class="lineno">   86 </span>end :: (SRAutomatonIO Symbol s r m) =&gt; SF s r m
+<span class="lineno">   87 </span><span class="decl"><span class="istickedoff">end = pure . Loop.break</span></span>
+<span class="lineno">   88 </span>
+<span class="lineno">   89 </span>-- | Constructors
+<span class="lineno">   90 </span>
+<span class="lineno">   91 </span>flippedNewAutomaton :: (s , r) -&gt; InstructionList -&gt; Automaton s r
+<span class="lineno">   92 </span><span class="decl"><span class="istickedoff">flippedNewAutomaton = flip (uncurry . newAutomaton)</span></span>
+<span class="lineno">   93 </span>
+<span class="lineno">   94 </span>newAutomaton :: InstructionList -&gt; s -&gt; r -&gt; Automaton s r
+<span class="lineno">   95 </span><span class="decl"><span class="istickedoff">newAutomaton il = Automaton (newCU il)</span></span>
+<span class="lineno">   96 </span>
+<span class="lineno">   97 </span>-- | Updaters
+<span class="lineno">   98 </span>
+<span class="lineno">   99 </span>incrementIC :: Automaton s r -&gt; Automaton s r
+<span class="lineno">  100 </span><span class="decl"><span class="istickedoff">incrementIC a = a { unitCU = incrementPC $ unitCU a}</span></span>
+<span class="lineno">  101 </span>
+<span class="lineno">  102 </span>updateStack :: Automaton s r -&gt; s -&gt; Automaton s r
+<span class="lineno">  103 </span><span class="decl"><span class="istickedoff">updateStack a s = a {unitStack = s}</span></span>
+<span class="lineno">  104 </span>
+<span class="lineno">  105 </span>updateFromCPU :: Automaton s r -&gt; CentralProcessingUnit s -&gt; Automaton s r
+<span class="lineno">  106 </span><span class="decl"><span class="istickedoff">updateFromCPU a cpu = a { unitCU = controlUnit cpu, unitStack = alu cpu}</span></span>
+<span class="lineno">  107 </span>
+<span class="lineno">  108 </span>updateFromLSU :: Automaton s r -&gt; LoadStoreUnit s r -&gt; Automaton s r
+<span class="lineno">  109 </span><span class="decl"><span class="istickedoff">updateFromLSU a lsu = a {unitStack = stack lsu , unitRAM = ram lsu}</span></span>
+<span class="lineno">  110 </span>
+<span class="lineno">  111 </span>-- | Accessors
+<span class="lineno">  112 </span>
+<span class="lineno">  113 </span>unitProgram :: Automaton s r -&gt; InstructionVector
+<span class="lineno">  114 </span><span class="decl"><span class="nottickedoff">unitProgram = program . unitCU</span></span>
+<span class="lineno">  115 </span>
+<span class="lineno">  116 </span>unitProgramCounter :: Automaton s r -&gt; InstructionCounter
+<span class="lineno">  117 </span><span class="decl"><span class="nottickedoff">unitProgramCounter = programCounter . unitCU</span></span>
+<span class="lineno">  118 </span>
+<span class="lineno">  119 </span>toCPU :: Automaton s r -&gt; CentralProcessingUnit s
+<span class="lineno">  120 </span><span class="decl"><span class="istickedoff">toCPU a = CPU { controlUnit = unitCU a , alu = unitStack a }</span></span>
+<span class="lineno">  121 </span>
+<span class="lineno">  122 </span>toLSU :: Automaton s r -&gt; LoadStoreUnit s r
+<span class="lineno">  123 </span><span class="decl"><span class="istickedoff">toLSU a = LSU { stack = unitStack a, ram = unitRAM a }</span></span>
+<span class="lineno">  124 </span>
+<span class="lineno">  125 </span>-- | Types
+<span class="lineno">  126 </span>
+<span class="lineno">  127 </span>type SF s r m = Automaton s r -&gt; m $ AutomatonSame s r
+<span class="lineno">  128 </span>
+<span class="lineno">  129 </span>type F s r m = Automaton s r -&gt; m $ Automaton s r
+<span class="lineno">  130 </span>
+<span class="lineno">  131 </span>type AutomatonSame s r = Same (Automaton s r)
+<span class="lineno">  132 </span>
+<span class="lineno">  133 </span>-- | Data types
+<span class="lineno">  134 </span>data Automaton s r = Automaton
+<span class="lineno">  135 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">unitCU</span></span></span>    :: ControlUnit
+<span class="lineno">  136 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">unitStack</span></span></span> :: s
+<span class="lineno">  137 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">unitRAM</span></span></span>   :: r
+<span class="lineno">  138 </span>  }
+<span class="lineno">  139 </span>  deriving stock (<span class="decl"><span class="istickedoff">Show</span></span>)
+
+</pre>
+</body>
+</html>

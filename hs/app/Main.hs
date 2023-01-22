@@ -33,6 +33,7 @@ import qualified HelVM.HelMA.Automata.WhiteSpace.Parser          as WS
 import qualified HelVM.HelMA.Automata.Zot.Automaton              as Zot
 
 import           HelVM.HelMA.Automaton.API.AutoOptions
+import           HelVM.HelMA.Automaton.API.AutoParams
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
@@ -65,8 +66,9 @@ runApp (App.AppOptions emit printLogs lang bfType etaImplType tokenType compile 
   source <- readSourceFile exec file
   run emit printLogs langWithOptions (runParams source) where
     langWithOptions  = LangWithOptions lang bfType etaImplType tokenType
-    runParams source = EvalParams compile formatType source typeOptions
-    typeOptions      = AutoOptions ramType stackType cellType intCellType dumpType
+    runParams source = EvalParams formatType source typeOptions autoParams
+    typeOptions      = AutoOptions ramType stackType cellType intCellType
+    autoParams       = AutoParams compile Nothing dumpType
 
 readSourceFile :: Exec -> String -> IO Source
 readSourceFile True = pure . toText

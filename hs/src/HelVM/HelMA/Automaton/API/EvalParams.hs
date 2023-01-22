@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automaton.API.EvalParams where
 
 import           HelVM.HelMA.Automaton.API.AutoOptions
+import           HelVM.HelMA.Automaton.API.AutoParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Types.CellType
@@ -24,12 +25,12 @@ intCellAutoOptions :: EvalParams -> IntCellType
 intCellAutoOptions = intCell . typeOptions
 
 dumpAutoOptions :: EvalParams -> DumpType
-dumpAutoOptions = dumpType . typeOptions
+dumpAutoOptions = dumpType . autoParams
 
 -- | Type
 data EvalParams = EvalParams
-  { compile     :: !Bool
-  , formatType  :: !FormatType
+  { formatType  :: !FormatType
   , source      :: !Source
   , typeOptions :: !AutoOptions
+  , autoParams  :: !AutoParams
   }

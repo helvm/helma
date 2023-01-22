@@ -26,7 +26,7 @@ span.spaces    { background: white }
 <span class="lineno">    7 </span>  binaryInstruction,
 <span class="lineno">    8 </span>  binaryInstructions,
 <span class="lineno">    9 </span>  halibut,
-<span class="lineno">   10 </span>  alInstruction,
+<span class="lineno">   10 </span>  runALI,
 <span class="lineno">   11 </span>  move,
 <span class="lineno">   12 </span>  discard,
 <span class="lineno">   13 </span>  slide,
@@ -59,22 +59,22 @@ span.spaces    { background: white }
 <span class="lineno">   40 </span>import           Data.ListLike                                   hiding (show)
 <span class="lineno">   41 </span>import           Prelude                                         hiding (divMod, drop, fromList, splitAt, swap)
 <span class="lineno">   42 </span>
-<span class="lineno">   43 </span>
-<span class="lineno">   44 </span>alInstruction :: ALU m ll element =&gt; ALInstruction -&gt; ll -&gt; m ll
-<span class="lineno">   45 </span><span class="decl"><span class="istickedoff">alInstruction (Cons    i   )   = push  i</span>
-<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">alInstruction (Unary     op)   = <span class="nottickedoff">error $ show op</span></span>
-<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">alInstruction (Binary    op)   = binaryInstruction op</span>
-<span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">alInstruction (Binaries  ops)  = binaryInstructions ops</span>
-<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">alInstruction (SDynamic  op)   = <span class="nottickedoff">dynamicManipulation op</span></span>
-<span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">alInstruction (SStatic i op)   = staticManipulation op i</span>
-<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">alInstruction (SIO OutputChar) = doOutputChar2</span>
-<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">alInstruction (SIO OutputDec)  = doOutputDec2</span>
-<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">alInstruction (SIO InputChar)  = doInputChar2</span>
-<span class="lineno">   54 </span><span class="spaces"></span><span class="istickedoff">alInstruction (SIO InputDec)   = <span class="nottickedoff">doInputDec2</span></span>
-<span class="lineno">   55 </span><span class="spaces"></span><span class="istickedoff">alInstruction  Halibut         = halibut</span>
-<span class="lineno">   56 </span><span class="spaces"></span><span class="istickedoff">alInstruction  Pick            = <span class="nottickedoff">pick</span></span>
-<span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff">alInstruction  Discard         = discard</span></span>
-<span class="lineno">   58 </span>
+<span class="lineno">   43 </span>--aotALI ::
+<span class="lineno">   44 </span>
+<span class="lineno">   45 </span>runALI :: ALU m ll element =&gt; ALInstruction -&gt; ll -&gt; m ll
+<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">runALI (Cons    i   )   = push  i</span>
+<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">runALI (Unary     op)   = <span class="nottickedoff">error $ show op</span></span>
+<span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">runALI (Binary    op)   = binaryInstruction op</span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">runALI (Binaries  ops)  = binaryInstructions ops</span>
+<span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">runALI (SDynamic  op)   = <span class="nottickedoff">dynamicManipulation op</span></span>
+<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">runALI (SStatic i op)   = staticManipulation op i</span>
+<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">runALI (SIO OutputChar) = doOutputChar2</span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">runALI (SIO OutputDec)  = doOutputDec2</span>
+<span class="lineno">   54 </span><span class="spaces"></span><span class="istickedoff">runALI (SIO InputChar)  = doInputChar2</span>
+<span class="lineno">   55 </span><span class="spaces"></span><span class="istickedoff">runALI (SIO InputDec)   = <span class="nottickedoff">doInputDec2</span></span>
+<span class="lineno">   56 </span><span class="spaces"></span><span class="istickedoff">runALI  Halibut         = halibut</span>
+<span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff">runALI  Pick            = <span class="nottickedoff">pick</span></span>
+<span class="lineno">   58 </span><span class="spaces"></span><span class="istickedoff">runALI  Discard         = discard</span></span>
 <span class="lineno">   59 </span>
 <span class="lineno">   60 </span>-- | Arithmetic instructions
 <span class="lineno">   61 </span>divMod :: ALU m ll element =&gt; ll -&gt; m ll

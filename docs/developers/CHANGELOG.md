@@ -1,5 +1,10 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.1 -- 2023-01-23
+
+* Compile code for Automaton
+* Rewrite parameters
+
 ## 0.8.4.0 -- 2023-01-21
 
 * Faster implementation for ETA

@@ -1,12 +1,13 @@
 module HelVM.HelMA.Automata.WhiteSpace.SimpleParams where
 
+import           HelVM.HelMA.Automaton.API.AutoParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 import           HelVM.HelMA.Automaton.Types.TokenType
+
 
 -- | Construction for tests
 simpleParamsWithDefaultsAndWhiteTokenType :: FormatType -> Source -> SimpleParams
@@ -32,8 +33,7 @@ simpleParams tt (st , rt) al s = SimpleParams
   , formatType = al
   , stackType = st
   , ramType = rt
-  , limit = Nothing
-  , dumpType = Pretty
+  , autoParams = simpleAutoParams False
   }
 
 -- | Type
@@ -43,8 +43,7 @@ data SimpleParams = SimpleParams
   , formatType :: !FormatType
   , stackType  :: !StackType
   , ramType    :: !RAMType
-  , limit      :: !(Maybe Natural)
-  , dumpType   :: !DumpType
+  , autoParams :: !AutoParams
   }
 
 

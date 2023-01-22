@@ -5,6 +5,8 @@ import           Control.Type.Operator
 
 import           Data.Either.Extra
 
+import           Prelude               hiding (break)
+
 testMaybeLimit :: LimitMaybe
 testMaybeLimit = Just $ fromIntegral (maxBound :: Int)
 
@@ -14,7 +16,7 @@ loopMWithLimit f (Just n) x = loopM (actMWithLimit f) (n , x)
 
 actMWithLimit :: Monad m => (a -> m $ Same a) -> WithLimit a -> m (Either (WithLimit a) a)
 actMWithLimit f (n , x) = checkN n where
-  checkN 0 = pure $ Right x
+  checkN 0 = pure $ break x
   checkN _ = mapLeft (n - 1 , ) <$> f x
 
 break :: b -> Either a b

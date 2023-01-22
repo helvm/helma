@@ -6,7 +6,7 @@ module HelVM.HelMA.Automata.SubLeq.Automaton (
 import           HelVM.HelMA.Automaton.IO.AutomatonIO
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.HelMA.Automaton.Loop
+import           HelVM.HelMA.Automaton.Loop           as Loop
 
 import           HelVM.HelMA.Automaton.Units.RAM      as RAM
 
@@ -27,17 +27,17 @@ nextState a@(Automaton ic ram)
 
 -- | IO instructions
 doOutputChar :: RAutomatonIO e r m => e -> Automaton e r -> m $ AutomatonSame e r
-doOutputChar address (Automaton ic ram) = wPutAsChar (genericLoad ram address) $> Left (next3Automaton ic ram)
+doOutputChar address (Automaton ic ram) = wPutAsChar (genericLoad ram address) $> Loop.continue (next3Automaton ic ram)
 
 doInputChar :: RAutomatonIO e r m => e -> Automaton e r -> m $ AutomatonSame e r
-doInputChar address (Automaton ic ram) = Left . next3Automaton ic . flippedStoreChar address ram <$> wGetChar
+doInputChar address (Automaton ic ram) = Loop.continue . next3Automaton ic . flippedStoreChar address ram <$> wGetChar
 
 -- | Terminate instruction
 doEnd :: RAutomatonIO e r m => Automaton e r -> m $ AutomatonSame e r
-doEnd = pure . Right
+doEnd = pure . Loop.break
 
 doInstruction :: RAutomatonIO e r m => e -> e -> Automaton e r -> m $ AutomatonSame e r
-doInstruction src dst (Automaton ic ram) = pure $ Left $ Automaton ic' $ store dst diff ram where
+doInstruction src dst (Automaton ic ram) = pure $ Loop.continue $ Automaton ic' $ store dst diff ram where
   diff = genericLoad ram dst - genericLoad ram src
   ic'
     | diff <= 0 = genericLoad ram $ ic + 2

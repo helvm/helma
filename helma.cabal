@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.4.0
+version:               0.8.4.1
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -104,13 +104,14 @@ library
   hs-source-dirs:      hs/src
   exposed-modules:
 
-    HelVM.HelMA.Automaton.API.IOTypes
-    HelVM.HelMA.Automaton.API.EvalParams
     HelVM.HelMA.Automaton.API.AutoOptions
+    HelVM.HelMA.Automaton.API.AutoParams
+    HelVM.HelMA.Automaton.API.EvalParams
+    HelVM.HelMA.Automaton.API.IOTypes
 
+    HelVM.HelMA.Automaton.AOT
     HelVM.HelMA.Automaton.Automaton
     HelVM.HelMA.Automaton.Loop
-    HelVM.HelMA.Automaton.Evaluator
 
     HelVM.HelMA.Automaton.IO.BusinessIO
     HelVM.HelMA.Automaton.IO.AutomatonIO

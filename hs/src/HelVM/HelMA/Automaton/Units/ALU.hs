@@ -7,7 +7,7 @@ module HelVM.HelMA.Automaton.Units.ALU (
   binaryInstruction,
   binaryInstructions,
   halibut,
-  alInstruction,
+  runALI,
   move,
   discard,
   slide,
@@ -40,22 +40,22 @@ import           Control.Applicative.Tools
 import           Data.ListLike                                   hiding (show)
 import           Prelude                                         hiding (divMod, drop, fromList, splitAt, swap)
 
+--aotALI ::
 
-alInstruction :: ALU m ll element => ALInstruction -> ll -> m ll
-alInstruction (Cons    i   )   = push  i
-alInstruction (Unary     op)   = error $ show op
-alInstruction (Binary    op)   = binaryInstruction op
-alInstruction (Binaries  ops)  = binaryInstructions ops
-alInstruction (SDynamic  op)   = dynamicManipulation op
-alInstruction (SStatic i op)   = staticManipulation op i
-alInstruction (SIO OutputChar) = doOutputChar2
-alInstruction (SIO OutputDec)  = doOutputDec2
-alInstruction (SIO InputChar)  = doInputChar2
-alInstruction (SIO InputDec)   = doInputDec2
-alInstruction  Halibut         = halibut
-alInstruction  Pick            = pick
-alInstruction  Discard         = discard
-
+runALI :: ALU m ll element => ALInstruction -> ll -> m ll
+runALI (Cons    i   )   = push  i
+runALI (Unary     op)   = error $ show op
+runALI (Binary    op)   = binaryInstruction op
+runALI (Binaries  ops)  = binaryInstructions ops
+runALI (SDynamic  op)   = dynamicManipulation op
+runALI (SStatic i op)   = staticManipulation op i
+runALI (SIO OutputChar) = doOutputChar2
+runALI (SIO OutputDec)  = doOutputDec2
+runALI (SIO InputChar)  = doInputChar2
+runALI (SIO InputDec)   = doInputDec2
+runALI  Halibut         = halibut
+runALI  Pick            = pick
+runALI  Discard         = discard
 
 -- | Arithmetic instructions
 divMod :: ALU m ll element => ll -> m ll

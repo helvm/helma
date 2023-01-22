@@ -12,13 +12,13 @@ import           HelVM.HelIO.Control.Safe
 
 import           Control.Type.Operator
 
-slInstruction :: (LSU m s r element) => LSInstruction -> LoadStoreUnit s r -> m $ LoadStoreUnit s r
-slInstruction Load             = load
-slInstruction Store            = store
-slInstruction (MIO OutputChar) = loadOutputChar
-slInstruction (MIO OutputDec)  = loadOutputDec
-slInstruction (MIO InputChar)  = storeInputChar
-slInstruction (MIO InputDec)   = storeInputDec
+runSLI :: (LSU m s r element) => LSInstruction -> LoadStoreUnit s r -> m $ LoadStoreUnit s r
+runSLI Load             = load
+runSLI Store            = store
+runSLI (MIO OutputChar) = loadOutputChar
+runSLI (MIO OutputDec)  = loadOutputDec
+runSLI (MIO InputChar)  = storeInputChar
+runSLI (MIO InputDec)   = storeInputDec
 
 load :: LSU m s r element => LoadStoreUnit s r -> m $ LoadStoreUnit s r
 load (LSU s r) = appendError "LSU.load" $ build <$> pop1 s where

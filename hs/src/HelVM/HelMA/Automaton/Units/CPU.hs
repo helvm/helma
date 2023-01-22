@@ -13,16 +13,29 @@ import           Control.Type.Operator
 import           Data.ListLike                                   hiding (show)
 import qualified Data.Vector                                     as Vector
 
-controlInstruction :: (ALU m ll element , Show element) => CFInstruction -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
-controlInstruction (DMark    _          ) = pure
-controlInstruction (SMark    _          ) = pure
-controlInstruction  Return                = popAddress
-controlInstruction (CDynamic   Call     ) = dynamicCall
-controlInstruction (CDynamic   Jump     ) = dynamicJump
-controlInstruction (CDynamic  (Branch t)) = dynamicBranch  t
-controlInstruction (CStatic l  Call     ) = staticCall   l
-controlInstruction (CStatic l  Jump     ) = staticJump   l
-controlInstruction (CStatic l (Branch t)) = staticBranch l t
+
+
+--compileCFI :: CFInstruction
+--compileCFI (DMark    _          ) = id
+--compileCFI (SMark    _          ) = id
+--compileCFI  Return                = popAddress
+--compileCFI (CDynamic   Call     ) = dynamicCall
+--compileCFI (CDynamic   Jump     ) = dynamicJump
+--compileCFI (CDynamic  (Branch t)) = dynamicBranch  t
+--compileCFI (CStatic l  Call     ) = staticCall   l
+--compileCFI (CStatic l  Jump     ) = staticJump   l
+--compileCFI (CStatic l (Branch t)) = staticBranch l t
+
+runCFI :: (ALU m ll element , Show element) => CFInstruction -> CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
+runCFI (DMark    _          ) = pure
+runCFI (SMark    _          ) = pure
+runCFI  Return                = popAddress
+runCFI (CDynamic   Call     ) = dynamicCall
+runCFI (CDynamic   Jump     ) = dynamicJump
+runCFI (CDynamic  (Branch t)) = dynamicBranch  t
+runCFI (CStatic l  Call     ) = staticCall   l
+runCFI (CStatic l  Jump     ) = staticJump   l
+runCFI (CStatic l (Branch t)) = staticBranch l t
 
 popAddress :: ALU m ll element  => CentralProcessingUnit ll -> m $ CentralProcessingUnit ll
 popAddress (CPU (CU il _ (IS (a : is))) s) = pure $ CPU (CU il a $ IS is) s
@@ -48,7 +61,7 @@ dynamicBranch t (CPU (CU il ic is) s) = appendError "CPU.dynamicBranch" $ branch
 findAddressForDynamicLabel :: (MonadSafe m , Integral n , Show n) => n -> InstructionVector -> m InstructionAddress
 findAddressForDynamicLabel n il
   | n < 0     = liftError $ show n
-  | otherwise = liftMaybeOrErrorTuple ("Undefined label", show n) $ findIndex (isMarkNat $ fromIntegral n) il
+  | otherwise = liftMaybeOrErrorTuple ("Undefined label", show n) $ findIndex (isDMark $ fromIntegral n) il
 
 --
 
@@ -68,7 +81,7 @@ staticBranch l t (CPU (CU il ic is) s) = appendError "CPU.staticBranch" $ branch
       jump ic' = CPU (CU il ic' is) s'
 
 findAddressForStaticLabel :: MonadSafe m => Label -> InstructionVector -> m InstructionAddress
-findAddressForStaticLabel l = liftMaybeOrErrorTuple ("Undefined label", show l) . findIndex (isMark l)
+findAddressForStaticLabel l = liftMaybeOrErrorTuple ("Undefined label", show l) . findIndex (isSMark l)
 
 -- | ControlUnit methods
 
