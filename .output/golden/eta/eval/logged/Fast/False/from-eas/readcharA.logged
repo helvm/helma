@@ -1,0 +1,16 @@
+dump: Automaton
+    { unitCU = CU
+        { program =
+            [ ICF
+                ( DMark 1 )
+            , IAL ( SIO InputChar )
+            , ICF
+                ( DMark 2 )
+            , End
+            ]
+        , programCounter = 4
+        , returnStack = IS []
+        }
+    , unitStack = fromList [ 65 ]
+    , unitRAM = []
+    }

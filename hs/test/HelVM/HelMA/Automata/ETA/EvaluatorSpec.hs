@@ -2,6 +2,7 @@ module HelVM.HelMA.Automata.ETA.EvaluatorSpec (spec) where
 
 import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.FileExtra
+import           HelVM.HelMA.Automata.ETA.SimpleParams
 
 import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
@@ -22,11 +23,11 @@ spec =
     [ ("hello"    , [""])
     , ("hello2"   , [""])
     , ("crlf"     , [""])
-    ] |><| (["original"] |><| etaImplTypes)
+    ] |><| (["original"] |><< (etaImplTypes |><| [False]))
     ) <> (
     [ ("bottles"  , [""])
     , ("fact"     , ["1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n"])
-    ] |><| (["original"] |><| [defaultETAImplType])
+    ] |><| (["original"] |><< ([defaultETAImplType] |><| [False , True]))
     ) <> (
     [ ("true"     , [""])
     , ("hello"    , [""])
@@ -38,16 +39,17 @@ spec =
     , ("bottles"  , [""])
     , ("divmod"   , [""])
     , ("readchar" , ["A"])
-    ] |><| (["from-eas"] |><| etaImplTypes)
-    )) $ \((fileName , inputs) , (dirName , implType)) -> do
+    ] |><| (["from-eas"] |><< (etaImplTypes |><| [False]))
+    )) $ \((fileName , inputs) , (dirName , implType, compile)) -> do
       let filePath = dirName </> fileName
       let file = readEtaFile filePath
       forM_ inputs $ \ input -> do
-        let params = (implType ,  , defaultStackType) <$> file
+        let params = simpleParams implType defaultStackType compile <$> file
         let mock = ioExecMockIOWithInput (toText input) . simpleEval =<< params
-        let path = show implType </> filePath <> input
+        let path = show implType </> show compile </> filePath <> input
         describe path $ do
           it ("output" </> path) $
             calculateOutput <$> mock `goldenShouldIO` buildAbsoluteEtaOutFileName path
           it ("logged" </> path) $
             calculateLogged <$> mock `goldenShouldIO` buildAbsoluteEtaLogFileName path
+

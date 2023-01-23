@@ -6,6 +6,7 @@ module HelVM.HelMA.Automata.ETA.Evaluator (
 import           HelVM.HelMA.Automata.ETA.Automaton
 import           HelVM.HelMA.Automata.ETA.Lexer
 import           HelVM.HelMA.Automata.ETA.Optimizer
+import qualified HelVM.HelMA.Automata.ETA.SimpleParams    as S
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
@@ -30,8 +31,8 @@ import qualified Data.Sequence                            as Seq
 
 import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
-simpleEval :: BIO m => (ETAImplType , Source , StackType) -> m ()
-simpleEval (c , s , t) = evalSource c s t verySimpleAutoParams
+simpleEval :: BIO m => S.SimpleParams -> m ()
+simpleEval p = evalSource (S.implType p) (S.source p) (S.stackType p) (S.autoParams p)
 
 ----
 

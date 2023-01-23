@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.3 -- 2023-02-13
+
+* Add SimpleParams for ETA
+
 ## 0.8.4.2 -- 2023-02-13
 
 * Compile code for Automaton

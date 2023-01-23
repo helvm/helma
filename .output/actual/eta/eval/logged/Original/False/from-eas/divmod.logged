@@ -1,0 +1,19 @@
+dump: Automaton
+    { unitIU = IU
+        { program =
+            [ N
+            , A
+            , E
+            , N
+            , T
+            , E
+            , E
+            , R
+            ]
+        , programCounter = 8
+        }
+    , unitStack = fromList
+        [ 0
+        , 2
+        ]
+    }

@@ -3,6 +3,7 @@ module HelVM.HelMA.Automata.ETA.EvaluatorBenchMark where
 import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.FileExtra
+import           HelVM.HelMA.Automata.ETA.SimpleParams
 
 import           HelVM.HelMA.Automaton.IO.MockIO
 import           HelVM.HelMA.Automaton.Types.StackType
@@ -14,7 +15,7 @@ import           System.FilePath.Posix
 import           Gauge.Main
 
 benchMark :: Benchmark
-benchMark = bgroup "ETA" (benchMarkByStackType <$> [defaultETAImplType] |><| stackTypes)
+benchMark = bgroup "ETA" (benchMarkByStackType <$> ([defaultETAImplType] |><| stackTypes) >><| options)
 
 benchMarkByStackType :: BenchParams -> Benchmark
 benchMarkByStackType t = bench (show t) $ nfIO $ execAll t
@@ -47,11 +48,11 @@ execOriginal t = forM
   ] $ uncurry (ioExec t "original")
 
 ioExec :: BenchParams -> FilePath -> FilePath -> [Text] -> IO [Text]
-ioExec (compile , stackType) dirName fileName inputs = do
+ioExec (implType , stackType, compile) dirName fileName inputs = do
   let file = readEtaFile (dirName </> fileName)
   forM inputs $ \ input -> do
-    let params = (compile ,  , stackType) <$> file
+    let params = simpleParams implType stackType compile <$> file
     let exec = ioExecMockIOWithInput input . simpleEval =<< params
     calculateOutput <$> exec
 
-type BenchParams = (ETAImplType, StackType)
+type BenchParams = (ETAImplType, StackType, Bool)
