@@ -3,22 +3,32 @@
 , Fetch
 , Inst
     ( IAL
-        ( Cons 2 )
+        ( SAL
+            ( Cons 2 )
+        )
     )
 , Inst
-    ( IAL ( Binary LEQ ) )
-, Inst
-    ( IAL ( Unary BNot ) )
+    ( IAL
+        ( SAL ( Binary LEQ ) )
+    )
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL ( Unary BNot ) )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( SStatic 0 Copy )
+        )
     )
 , Lambda
     [ Str "2 integer arguments expected
     " ]
 , Cond
 , Inst
-    ( IAL ( Unary BNot ) )
+    ( IAL
+        ( SAL ( Unary BNot ) )
+    )
 , Lambda
     [ Ref 1
     , Fetch
@@ -35,7 +45,9 @@
     , Ref 2
     , Fetch
     , Inst
-        ( IAL ( Binary Add ) )
+        ( IAL
+            ( SAL ( Binary Add ) )
+        )
     , Inst
         ( IAL ( SIO OutputDec ) )
     , Str "

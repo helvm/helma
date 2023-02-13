@@ -1,5 +1,5 @@
-dump: Automaton
-    { unitUI = IU
+dump: Memory
+    { memoryIM = IM
         [ Input
         , Output
         , Input
@@ -265,7 +265,7 @@ dump: Automaton
                 ( -1 )
             ]
         ] 25
-    , unitTape =
+    , memoryTape =
         (
             [ 114
             , 94

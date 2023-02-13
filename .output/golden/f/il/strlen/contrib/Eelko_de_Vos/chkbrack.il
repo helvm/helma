@@ -2,19 +2,25 @@
 , Comment "checks brackets"
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
 , Ref 0
 , Store
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
 , Ref 1
 , Store
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
 , Ref 2
 , Store
@@ -23,154 +29,224 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Unary Neg ) )
+        ( IAL
+            ( SAL ( Unary Neg ) )
+        )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda
     [ Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 40 )
+            ( SAL
+                ( Cons 40 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Lambda
         [ Ref 0
         , Fetch
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Add ) )
+            ( IAL
+                ( SAL ( Binary Add ) )
+            )
         , Ref 0
         , Store
         ]
     , Cond
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 41 )
+            ( SAL
+                ( Cons 41 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Lambda
         [ Ref 0
         , Fetch
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Sub ) )
+            ( IAL
+                ( SAL ( Binary Sub ) )
+            )
         , Ref 0
         , Store
         ]
     , Cond
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 91 )
+            ( SAL
+                ( Cons 91 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Lambda
         [ Ref 1
         , Fetch
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Add ) )
+            ( IAL
+                ( SAL ( Binary Add ) )
+            )
         , Ref 1
         , Store
         ]
     , Cond
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 93 )
+            ( SAL
+                ( Cons 93 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Lambda
         [ Ref 1
         , Fetch
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Sub ) )
+            ( IAL
+                ( SAL ( Binary Sub ) )
+            )
         , Ref 1
         , Store
         ]
     , Cond
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 123 )
+            ( SAL
+                ( Cons 123 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Lambda
         [ Ref 2
         , Fetch
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Add ) )
+            ( IAL
+                ( SAL ( Binary Add ) )
+            )
         , Ref 2
         , Store
         ]
     , Cond
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 125 )
+            ( SAL
+                ( Cons 125 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Lambda
         [ Ref 2
         , Fetch
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Sub ) )
+            ( IAL
+                ( SAL ( Binary Sub ) )
+            )
         , Ref 2
         , Store
         ]
@@ -182,18 +258,28 @@
 , Fetch
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
-, Inst
-    ( IAL ( Binary LEQ ) )
-, Inst
-    ( IAL ( Unary BNot ) )
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL ( Binary LEQ ) )
     )
 , Inst
-    ( IAL ( Unary BNot ) )
+    ( IAL
+        ( SAL ( Unary BNot ) )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( SStatic 0 Copy )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL ( Unary BNot ) )
+    )
 , Lambda
     [ Str "is ok.
     " ]
@@ -207,18 +293,28 @@
 , Fetch
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
-, Inst
-    ( IAL ( Binary LEQ ) )
-, Inst
-    ( IAL ( Unary BNot ) )
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL ( Binary LEQ ) )
     )
 , Inst
-    ( IAL ( Unary BNot ) )
+    ( IAL
+        ( SAL ( Unary BNot ) )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( SStatic 0 Copy )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL ( Unary BNot ) )
+    )
 , Lambda
     [ Str "is ok.
     " ]
@@ -232,18 +328,28 @@
 , Fetch
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
-, Inst
-    ( IAL ( Binary LEQ ) )
-, Inst
-    ( IAL ( Unary BNot ) )
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL ( Binary LEQ ) )
     )
 , Inst
-    ( IAL ( Unary BNot ) )
+    ( IAL
+        ( SAL ( Unary BNot ) )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( SStatic 0 Copy )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL ( Unary BNot ) )
+    )
 , Lambda
     [ Str "is ok.
     " ]

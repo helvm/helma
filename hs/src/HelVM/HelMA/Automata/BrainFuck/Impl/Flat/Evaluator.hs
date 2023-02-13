@@ -19,7 +19,7 @@ import           Control.Type.Operator
 evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> DumpType -> m ()
 evalSource source tape dt = logDump dt =<< doInstruction ([] , tokenize source) tape
 
-doInstruction :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
+doInstruction :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Memory e
 doInstruction table@(_ , Simple MoveR  : _) tape = doInstruction (nextInst table) (moveHeadRight tape)
 doInstruction table@(_ , Simple MoveL  : _) tape = doInstruction (nextInst table)  (moveHeadLeft tape)
 doInstruction table@(_ , Simple Inc    : _) tape = doInstruction (nextInst table)    (nextSymbol tape)
@@ -30,29 +30,29 @@ doInstruction table@(_ , JmpPast       : _) tape = doJmpPast               table
 doInstruction table@(_ , JmpBack       : _) tape = doJmpBack               table                 tape
 doInstruction table@(_ , []               ) tape = doEnd                   table                 tape
 
-doJmpPast :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
+doJmpPast :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Memory e
 doJmpPast table tape@(_ , 0 : _) = doInstruction (jumpPast table) tape
 doJmpPast table tape             = doInstruction (nextInst table) tape
 
-doJmpBack :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
+doJmpBack :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Memory e
 doJmpBack table tape@(_ , 0 : _) = doInstruction (nextInst table) tape
 doJmpBack table tape             = doInstruction (jumpBack table) tape
 
 -- | IO instructions
-doOutputChar :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
+doOutputChar :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Memory e
 doOutputChar _          (_ ,    []) = error "Illegal State"
 doOutputChar table tape@(_ , e : _) = wPutChar (toChar e) *> doInstruction (nextInst table) tape
 
-doInputChar :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Automaton e
+doInputChar :: (BIO m , Symbol e) => Table -> FullTape e -> m $ Memory e
 doInputChar table tape = (doInstruction (nextInst table) . flip writeSymbol tape) =<< wGetChar
 
 -- | Terminate instruction
-doEnd :: BIO m => Table -> FullTape e -> m $ Automaton e
-doEnd table tape = pure $ Automaton table tape
+doEnd :: BIO m => Table -> FullTape e -> m $ Memory e
+doEnd table tape = pure $ Memory table tape
 
 -- | Types
-data Automaton e = Automaton
-  { unitTable :: Table
-  , unitTape  :: FullTape e
+data Memory e = Memory
+  { memoryTable :: Table
+  , memoryTape  :: FullTape e
   }
   deriving stock (Eq , Read , Show)

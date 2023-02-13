@@ -8,8 +8,8 @@ import           HelVM.HelMA.Automata.FALSE.Expression
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.ALInstruction
 import           HelVM.HelMA.Automaton.Instruction.IOInstruction
+import           HelVM.HelMA.Automaton.Instruction.SInstruction
 import           HelVM.HelMA.Automaton.ReadPExtra
 
 import           HelVM.HelIO.Control.Safe
@@ -42,7 +42,7 @@ writeStringParser :: ReadP Expression
 writeStringParser = Str <$> stringParser
 
 constParser :: ReadP Expression
-constParser = Inst . IAL . Cons . fromIntegral <$> naturalParser
+constParser = Inst . consI . fromIntegral <$> naturalParser
 
 refParser :: ReadP Expression
 refParser = refFromChar <$> letterAscii
@@ -54,24 +54,24 @@ simpleInstructionChars :: String
 simpleInstructionChars = "$%\\@`+-*/_&|~<=!?#:;^,.ß"
 
 charToSimpleInstruction :: Char -> Maybe Expression
-charToSimpleInstruction '$'  = ial dupI
-charToSimpleInstruction '%'  = ial Discard
-charToSimpleInstruction '\\' = ial swapI
-charToSimpleInstruction '@'  = ial rotI
-charToSimpleInstruction '`'  = ial dCopy
+charToSimpleInstruction '$'  = inst dupI
+charToSimpleInstruction '%'  = inst discardI
+charToSimpleInstruction '\\' = inst swapI
+charToSimpleInstruction '@'  = inst rotI
+charToSimpleInstruction '`'  = inst dCopy
 
-charToSimpleInstruction '+'  = binary Add
-charToSimpleInstruction '-'  = binary Sub
-charToSimpleInstruction '*'  = binary Mul
-charToSimpleInstruction '/'  = binary Div
-charToSimpleInstruction '_'  = unary Neg
+charToSimpleInstruction '+'  = inst addI
+charToSimpleInstruction '-'  = inst subI
+charToSimpleInstruction '*'  = inst mulI
+charToSimpleInstruction '/'  = inst divI
+charToSimpleInstruction '_'  = inst negI
 
-charToSimpleInstruction '&'  = binary BAnd
-charToSimpleInstruction '|'  = binary BOr
-charToSimpleInstruction '~'  = unary BNot
+charToSimpleInstruction '&'  = inst $ binary BAnd
+charToSimpleInstruction '|'  = inst $ binary BOr
+charToSimpleInstruction '~'  = inst $ unary BNot
 
-charToSimpleInstruction '<'  = binary LGT
-charToSimpleInstruction '='  = binary LEQ
+charToSimpleInstruction '<'  = inst $ binary LGT
+charToSimpleInstruction '='  = inst $ binary LEQ
 
 charToSimpleInstruction '!'  = pure Exec
 charToSimpleInstruction '?'  = pure Cond
@@ -80,24 +80,15 @@ charToSimpleInstruction '#'  = pure While
 charToSimpleInstruction ':'  = pure Store
 charToSimpleInstruction ';'  = pure Fetch
 
-charToSimpleInstruction '^'  = sio InputChar
-charToSimpleInstruction ','  = sio OutputChar
-charToSimpleInstruction '.'  = sio OutputDec
+charToSimpleInstruction '^'  = inst $ sio InputChar
+charToSimpleInstruction ','  = inst $ sio OutputChar
+charToSimpleInstruction '.'  = inst $ sio OutputDec
 charToSimpleInstruction 'ß'  = pure Flush
 
 charToSimpleInstruction  _   = Nothing
 
-unary :: UnaryInstruction -> Maybe Expression
-unary = ial . Unary
-
-binary :: BinaryInstruction -> Maybe Expression
-binary = ial . Binary
-
-sio :: IOInstruction -> Maybe Expression
-sio = ial . SIO
-
-ial :: ALInstruction -> Maybe Expression
-ial = pure . Inst . IAL
+inst :: Instruction -> Maybe Expression
+inst = pure . Inst
 
 -- | Extra
 

@@ -1,5 +1,5 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ ICF
                 ( DMark 1 )
@@ -11,6 +11,6 @@ dump: Automaton
         , programCounter = 4
         , returnStack = IS []
         }
-    , unitStack = fromList [ 65 ]
-    , unitRAM = []
+    , memoryStack = fromList [ 65 ]
+    , memoryRAM = []
     }

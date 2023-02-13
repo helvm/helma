@@ -4,18 +4,28 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Unary Neg ) )
+        ( IAL
+            ( SAL ( Unary Neg ) )
+        )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda
     [ Inst

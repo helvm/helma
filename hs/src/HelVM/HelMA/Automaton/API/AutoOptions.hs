@@ -1,14 +1,23 @@
 module HelVM.HelMA.Automaton.API.AutoOptions where
 
-import           HelVM.HelMA.Automaton.Types.CellType
-import           HelVM.HelMA.Automaton.Types.IntCellType
-import           HelVM.HelMA.Automaton.Types.RAMType
-import           HelVM.HelMA.Automaton.Types.StackType
+import           HelVM.HelMA.Automaton.API.OptimizationLevel
+import           HelVM.HelMA.Automaton.Loop
+import           HelVM.HelMA.Automaton.Types.DumpType
 
--- | Types
+verySimpleAutoParams :: AutoOptions
+verySimpleAutoParams = simpleAutoParams False
+
+simpleAutoParams :: Bool -> AutoOptions
+simpleAutoParams c = AutoOptions
+  { optLevel     = BasicOptimizations
+  , compileFlag  = c
+  , limit        = testMaybeLimit
+  , dumpType     = Pretty
+  }
+
 data AutoOptions = AutoOptions
-  { ram     :: !RAMType
-  , stack   :: !StackType
-  , cell    :: !CellType
-  , intCell :: !IntCellType
+  { optLevel    :: OptimizationLevel
+  , compileFlag :: Bool
+  , limit       :: LimitMaybe
+  , dumpType    :: DumpType
   }

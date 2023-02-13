@@ -1,0 +1,506 @@
+[ IAL
+    ( SAL
+        ( Cons 3 )
+    )
+, ICF
+    ( SMark "LOOP" )
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, IAL ( SIO OutputDec )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 44 )
+    )
+, IAL
+    ( SAL
+        ( Cons 108 )
+    )
+, IAL
+    ( SAL
+        ( Cons 108 )
+    )
+, IAL
+    ( SAL
+        ( Cons 97 )
+    )
+, IAL
+    ( SAL
+        ( Cons 119 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 104 )
+    )
+, IAL
+    ( SAL
+        ( Cons 116 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 110 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 114 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 98 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 102 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 115 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 108 )
+    )
+, IAL
+    ( SAL
+        ( Cons 116 )
+    )
+, IAL
+    ( SAL
+        ( Cons 116 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 98 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, ICF
+    ( CStatic "prints" Call )
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, IAL ( SIO OutputDec )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL
+    ( SAL
+        ( Cons 114 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 98 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 102 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 115 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 108 )
+    )
+, IAL
+    ( SAL
+        ( Cons 116 )
+    )
+, IAL
+    ( SAL
+        ( Cons 116 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 98 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, ICF
+    ( CStatic "printsln" Call )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL
+    ( SAL
+        ( Cons 100 )
+    )
+, IAL
+    ( SAL
+        ( Cons 110 )
+    )
+, IAL
+    ( SAL
+        ( Cons 117 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 114 )
+    )
+, IAL
+    ( SAL
+        ( Cons 97 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 116 )
+    )
+, IAL
+    ( SAL
+        ( Cons 105 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 115 )
+    )
+, IAL
+    ( SAL
+        ( Cons 115 )
+    )
+, IAL
+    ( SAL
+        ( Cons 97 )
+    )
+, IAL
+    ( SAL
+        ( Cons 112 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 44 )
+    )
+, IAL
+    ( SAL
+        ( Cons 110 )
+    )
+, IAL
+    ( SAL
+        ( Cons 119 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 100 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 110 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 107 )
+    )
+, IAL
+    ( SAL
+        ( Cons 97 )
+    )
+, IAL
+    ( SAL
+        ( Cons 84 )
+    )
+, ICF
+    ( CStatic "printsln" Call )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL ( Binary Sub ) )
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, IAL ( SIO OutputDec )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL
+    ( SAL
+        ( Cons 108 )
+    )
+, IAL
+    ( SAL
+        ( Cons 108 )
+    )
+, IAL
+    ( SAL
+        ( Cons 97 )
+    )
+, IAL
+    ( SAL
+        ( Cons 119 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 104 )
+    )
+, IAL
+    ( SAL
+        ( Cons 116 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 110 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 114 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 98 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 102 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL
+        ( Cons 115 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, IAL
+    ( SAL
+        ( Cons 108 )
+    )
+, IAL
+    ( SAL
+        ( Cons 116 )
+    )
+, IAL
+    ( SAL
+        ( Cons 116 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 98 )
+    )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, ICF
+    ( CStatic "printsln" Call )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, ICF
+    ( CStatic "printsln" Call )
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, ICF
+    ( CStatic "LOOP:1" ( Branch EZ ) )
+, ICF
+    ( CStatic "LOOP" Jump )
+, ICF
+    ( SMark "LOOP:1" )
+, End
+, ICF
+    ( SMark "prints" )
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, ICF
+    ( CStatic "prints_end" ( Branch EZ ) )
+, IAL ( SIO OutputChar )
+, ICF
+    ( CStatic "prints" Jump )
+, ICF
+    ( SMark "prints_end" )
+, IAL ( SAL Discard )
+, ICF Return
+, ICF
+    ( SMark "printsln" )
+, ICF
+    ( CStatic "prints" Call )
+, IAL
+    ( SAL
+        ( Cons 10 )
+    )
+, IAL ( SIO OutputChar )
+, ICF Return
+]

@@ -1,5 +1,5 @@
-dump: Automaton
-    { unitUI = IU
+dump: Memory
+    { memoryIM = IM
         [ Inc 8
         , While
             [ Move 1
@@ -72,7 +72,7 @@ dump: Automaton
         , Inc 2
         , Output
         ] 32
-    , unitTape =
+    , memoryTape =
         ( [ 0 ]
         ,
             [ 10

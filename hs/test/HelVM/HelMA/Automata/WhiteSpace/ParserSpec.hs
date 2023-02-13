@@ -4,6 +4,8 @@ import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 import           HelVM.HelMA.Automata.WhiteSpace.Parser
 
+import           HelVM.HelMA.Automaton.API.OptimizationLevel
+import           HelVM.HelMA.Automaton.Optimizer
 import           HelVM.HelMA.Automaton.Types.FormatType
 
 import           HelVM.HelIO.Control.Safe
@@ -11,9 +13,11 @@ import           HelVM.HelIO.ZipA
 
 import           HelVM.GoldenExpectations
 
-import           System.FilePath.Posix
+import           Control.Applicative.Tools
 
-import           Test.Hspec                                (Spec, describe, it)
+import           System.FilePath.Posix                       hiding ((<.>))
+
+import           Test.Hspec                                  (Spec, describe, it)
 
 spec :: Spec
 spec =
@@ -41,5 +45,7 @@ spec =
       describe path $ do
         it ("minified" </> path) $
           show . readVisibleTokens <$> readStnFile path `goldenShouldIO` buildAbsoluteStnFileName path
-        it ("parse" </> path) $
-          safeIOToPTextIO (flipParseVisible TextLabel <$> readStnFile path) `goldenShouldIO` buildAbsoluteWsIlFileName path
+        it ("parsed" </> path) $
+          safeIOToPTextIO (flipParseVisible TextLabel <$> readStnFile path) `goldenShouldIO` buildAbsoluteWsIlFileName ("parsed" </> path)
+        it ("optimized" </> path) $
+          safeIOToPTextIO ((optimize AllOptimizations <.> flipParseVisible TextLabel) <$> readStnFile path) `goldenShouldIO` buildAbsoluteWsIlFileName ("optimized" </> path)

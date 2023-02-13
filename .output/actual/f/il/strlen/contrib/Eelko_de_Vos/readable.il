@@ -4,13 +4,17 @@
     ( IAL ( SIO InputChar ) )
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
 , Ref 1
 , Store
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
 , Ref 2
 , Store

@@ -5,42 +5,63 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Unary Neg ) )
+        ( IAL
+            ( SAL ( Unary Neg ) )
+        )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda
     [ Inst
         ( IAL
-            ( Cons 13 )
+            ( SAL
+                ( Cons 13 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     , Lambda
         [ Inst
             ( IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             )
         , Inst
             ( IAL ( SIO OutputChar ) )
         ]
     , Cond
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     ]
 , While
 ]

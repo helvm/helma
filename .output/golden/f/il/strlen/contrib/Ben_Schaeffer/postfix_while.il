@@ -1,7 +1,9 @@
 [ Comment " postfix while loops (##)! "
 , Inst
     ( IAL
-        ( Cons 5 )
+        ( SAL
+            ( Cons 5 )
+        )
     )
 , Ref 13
 , Store
@@ -10,12 +12,18 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 10 )
+            ( SAL
+                ( Cons 10 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda
     [ Str "Still going up
@@ -24,10 +32,14 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary Add ) )
+        ( IAL
+            ( SAL ( Binary Add ) )
+        )
     , Ref 13
     , Store
     ]
@@ -37,12 +49,18 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 0 )
+            ( SAL
+                ( Cons 0 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda
     [ Str "Down...
@@ -51,17 +69,23 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary Sub ) )
+        ( IAL
+            ( SAL ( Binary Sub ) )
+        )
     , Ref 13
     , Store
     ]
 , While
 , Inst
     ( IAL
-        ( Cons 5 )
+        ( SAL
+            ( Cons 5 )
+        )
     )
 , Ref 13
 , Store
@@ -70,12 +94,18 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 10 )
+            ( SAL
+                ( Cons 10 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda
     [ Str "Still going up
@@ -84,10 +114,14 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary Add ) )
+        ( IAL
+            ( SAL ( Binary Add ) )
+        )
     , Ref 13
     , Store
     ]
@@ -96,12 +130,18 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 0 )
+            ( SAL
+                ( Cons 0 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda
     [ Str "Down...
@@ -110,10 +150,14 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary Sub ) )
+        ( IAL
+            ( SAL ( Binary Sub ) )
+        )
     , Ref 13
     , Store
     ]

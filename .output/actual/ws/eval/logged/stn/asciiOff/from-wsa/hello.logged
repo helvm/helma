@@ -1,20 +1,34 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , IAL
-                ( Cons 44 )
+                ( SAL
+                    ( Cons 44 )
+                )
             , IAL
-                ( Cons 111 )
+                ( SAL
+                    ( Cons 111 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , IAL
-                ( Cons 72 )
+                ( SAL
+                    ( Cons 72 )
+                )
             , IAL ( SIO OutputChar )
             , IAL ( SIO OutputChar )
             , IAL ( SIO OutputChar )
@@ -23,19 +37,33 @@ dump: Automaton
             , IAL ( SIO OutputChar )
             , IAL ( SIO OutputChar )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL
-                ( Cons 33 )
+                ( SAL
+                    ( Cons 33 )
+                )
             , IAL
-                ( Cons 100 )
+                ( SAL
+                    ( Cons 100 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , IAL
-                ( Cons 114 )
+                ( SAL
+                    ( Cons 114 )
+                )
             , IAL
-                ( Cons 111 )
+                ( SAL
+                    ( Cons 111 )
+                )
             , IAL
-                ( Cons 119 )
+                ( SAL
+                    ( Cons 119 )
+                )
             , IAL ( SIO OutputChar )
             , IAL ( SIO OutputChar )
             , IAL ( SIO OutputChar )
@@ -48,6 +76,6 @@ dump: Automaton
         , programCounter = 29
         , returnStack = IS []
         }
-    , unitStack = fromList []
-    , unitRAM = []
+    , memoryStack = fromList []
+    , memoryRAM = []
     }

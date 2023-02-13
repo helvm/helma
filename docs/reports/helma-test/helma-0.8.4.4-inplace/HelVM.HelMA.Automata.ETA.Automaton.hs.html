@@ -1,0 +1,108 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.ETA.Automaton (
+<span class="lineno">    2 </span>  run,
+<span class="lineno">    3 </span>  newMemory,
+<span class="lineno">    4 </span>) where
+<span class="lineno">    5 </span>
+<span class="lineno">    6 </span>import           HelVM.HelMA.Automata.ETA.Addressing
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.ETA.OperandParsers
+<span class="lineno">    8 </span>import           HelVM.HelMA.Automata.ETA.Token
+<span class="lineno">    9 </span>
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.Loop
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.IO.AutomatonIO
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.Combiner.ALU      as Stack
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>import           Control.Monad.Extra
+<span class="lineno">   17 </span>import           Control.Type.Operator
+<span class="lineno">   18 </span>import           HelVM.HelMA.Automata.ETA.Symbol
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import qualified Data.Vector                             as Vector
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>import           Prelude                                 hiding (divMod)
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>run :: (SAutomatonIO e s m) =&gt; Maybe Natural -&gt; Memory s -&gt; m $ Memory s
+<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">run = loopMWithLimit nextState</span></span>
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>nextState :: (SAutomatonIO e s m) =&gt; Memory s -&gt; m $ MemorySame s
+<span class="lineno">   28 </span><span class="decl"><span class="istickedoff">nextState (Memory iu s) = build =&lt;&lt; nextIM iu where build (t , iu') = doInstruction t (Memory iu' s)</span></span>
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>doInstruction :: (SAutomatonIO e s m) =&gt; Maybe Token -&gt; Memory s -&gt; m $ MemorySame s
+<span class="lineno">   31 </span>-- | IO instructions
+<span class="lineno">   32 </span><span class="decl"><span class="istickedoff">doInstruction (Just O) u                        = Left . updateStack u &lt;$&gt; doOutputChar2 (memoryStack u)</span>
+<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just I) u                        = Left . updateStack u &lt;$&gt; doInputChar2 (memoryStack u)</span>
+<span class="lineno">   34 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   35 </span><span class="spaces"></span><span class="istickedoff">-- | Stack instructions</span>
+<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just N) (Memory iu s)            = build &lt;$&gt; parseNumber iu where build (symbol , iu') = Left (Memory iu' (push1 symbol s))</span>
+<span class="lineno">   37 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just H) u                        = Left . updateStack u &lt;$&gt; halibut (memoryStack u)</span>
+<span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff">-- | Arithmetic</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just S) u                        = Left . updateStack u &lt;$&gt; sub (memoryStack u)</span>
+<span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just E) u                        = Left . updateStack u &lt;$&gt; divMod (memoryStack u)</span>
+<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">-- | Control</span>
+<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just R) u                        = pure $ Left u</span>
+<span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just A) (Memory iu@(IM il ic) s) = pure $ Left ((Memory iu . flipPush1 s . genericNextLabel il) ic)</span>
+<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doInstruction (Just T) u                        = transfer u</span>
+<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">doInstruction Nothing u                         = end u</span></span>
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>transfer :: (SAutomatonIO e s m) =&gt; Memory s -&gt; m $ MemorySame s
+<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">transfer = branch &lt;=&lt; pop2ForStack where</span>
+<span class="lineno">   51 </span><span class="spaces">  </span><span class="istickedoff">branch (_ , 0 , u) = pure $ Left u</span>
+<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">branch (0 , _ , u) = end u</span>
+<span class="lineno">   53 </span><span class="spaces">  </span><span class="istickedoff">branch (l , _ , u) = Left . updateAddress u &lt;$&gt; genericFindAddress (memoryProgram u) l</span></span>
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>pop2ForStack :: (SAutomatonIO e s m) =&gt; Memory s -&gt; m (e , e , Memory s)
+<span class="lineno">   56 </span><span class="decl"><span class="istickedoff">pop2ForStack u = build &lt;$&gt; pop2 (memoryStack u) where</span>
+<span class="lineno">   57 </span><span class="spaces">  </span><span class="istickedoff">build (s1 , s2 , s') = (s1 , s2 , updateStack u s')</span></span>
+<span class="lineno">   58 </span>
+<span class="lineno">   59 </span>-- | Terminate instruction
+<span class="lineno">   60 </span>end :: (SAutomatonIO e s m) =&gt; Memory s -&gt; m $ MemorySame s
+<span class="lineno">   61 </span><span class="decl"><span class="istickedoff">end = pure . Right</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>-- | Memory methods
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>newMemory :: TokenList -&gt; s -&gt; Memory s
+<span class="lineno">   66 </span><span class="decl"><span class="istickedoff">newMemory tl = Memory (IM (Vector.fromList tl) 0)</span></span>
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>updateStack :: Memory s -&gt; s -&gt; Memory s
+<span class="lineno">   69 </span><span class="decl"><span class="istickedoff">updateStack u s =  u {memoryStack = s}</span></span>
+<span class="lineno">   70 </span>
+<span class="lineno">   71 </span>updateAddress :: Memory s -&gt; InstructionCounter -&gt; Memory s
+<span class="lineno">   72 </span><span class="decl"><span class="istickedoff">updateAddress u a =  u {memoryIM = updatePC (memoryIM u) a}</span></span>
+<span class="lineno">   73 </span>
+<span class="lineno">   74 </span>memoryProgram :: Memory s -&gt; TokenVector
+<span class="lineno">   75 </span><span class="decl"><span class="istickedoff">memoryProgram = program . memoryIM</span></span>
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>-- | Types
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>type MemorySame s = Same (Memory s)
+<span class="lineno">   80 </span>
+<span class="lineno">   81 </span>data Memory s = Memory
+<span class="lineno">   82 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryIM</span></span></span>    :: !InstructionMemory
+<span class="lineno">   83 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryStack</span></span></span> :: s
+<span class="lineno">   84 </span>  }
+<span class="lineno">   85 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+
+</pre>
+</body>
+</html>

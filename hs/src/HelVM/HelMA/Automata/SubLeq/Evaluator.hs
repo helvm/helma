@@ -43,4 +43,4 @@ evalIL' SListRAMType   = start . SList.sListFromList
 evalIL' MapListRAMType = start . MapList.mapListFromList
 
 start :: RAutomatonIO e r m => r -> LimitMaybe -> DumpType -> m ()
-start r limit dt = logDump dt =<< run limit (newAutomaton r)
+start r limit dt = logDump dt =<< run limit (newMemory r)

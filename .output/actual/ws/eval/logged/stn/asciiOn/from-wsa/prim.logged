@@ -1,195 +1,325 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ ICF
                 ( SMark "st" )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 93 )
+                ( SAL
+                    ( Cons 93 )
+                )
             , IAL
-                ( Cons 48 )
+                ( SAL
+                    ( Cons 48 )
+                )
             , IAL
-                ( Cons 48 )
+                ( SAL
+                    ( Cons 48 )
+                )
             , IAL
-                ( Cons 49 )
+                ( SAL
+                    ( Cons 49 )
+                )
             , IAL
-                ( Cons 45 )
+                ( SAL
+                    ( Cons 45 )
+                )
             , IAL
-                ( Cons 50 )
+                ( SAL
+                    ( Cons 50 )
+                )
             , IAL
-                ( Cons 91 )
+                ( SAL
+                    ( Cons 91 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , IAL
-                ( Cons 115 )
+                ( SAL
+                    ( Cons 115 )
+                )
             , IAL
-                ( Cons 114 )
+                ( SAL
+                    ( Cons 114 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , IAL
-                ( Cons 98 )
+                ( SAL
+                    ( Cons 98 )
+                )
             , IAL
-                ( Cons 109 )
+                ( SAL
+                    ( Cons 109 )
+                )
             , IAL
-                ( Cons 117 )
+                ( SAL
+                    ( Cons 117 )
+                )
             , IAL
-                ( Cons 110 )
+                ( SAL
+                    ( Cons 110 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , IAL
-                ( Cons 109 )
+                ( SAL
+                    ( Cons 109 )
+                )
             , IAL
-                ( Cons 105 )
+                ( SAL
+                    ( Cons 105 )
+                )
             , IAL
-                ( Cons 114 )
+                ( SAL
+                    ( Cons 114 )
+                )
             , IAL
-                ( Cons 112 )
+                ( SAL
+                    ( Cons 112 )
+                )
             , ICF
                 ( CStatic "printsln" Call )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , ICF
                 ( SMark "f_start_1" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 100 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "f_finished_1" ( Branch EZ ) )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 100 )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL ( Binary Add ) )
+            , IAL
+                ( SAL
+                    ( Cons 1 )
+                )
             , ILS Store
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "f_start_1" Jump )
             , ICF
                 ( SMark "f_finished_1" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , ICF
                 ( SMark "f_start_2" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 11 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 11 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "f_finished_2" ( Branch EZ ) )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , ICF
                 ( SMark "f_start_3" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 100 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "f_finished_3" ( Branch EZ ) )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             , ILS Store
             , IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             , ILS Store
             , IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , ILS Load
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , ILS Load
-            , IAL ( Binary Mul )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Add )
+                ( SAL ( Binary Mul ) )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 100 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
+            , IAL
+                ( SAL
+                    ( Cons 0 )
+                )
             , ILS Store
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "f_start_3" Jump )
             , ICF
                 ( SMark "f_finished_3" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "f_start_2" Jump )
             , ICF
                 ( SMark "f_finished_2" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , ICF
                 ( SMark "f_start_4" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 100 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "f_finished_4" ( Branch EZ ) )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 100 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ILS Load
             , ICF
                 ( CStatic "nodraw" ( Branch EZ ) )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL ( SIO OutputDec )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , ICF
                 ( CStatic "prints" Call )
             , ICF
                 ( SMark "nodraw" )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "f_start_4" Jump )
             , ICF
                 ( SMark "f_finished_4" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , ICF
                 ( CStatic "printsln" Call )
             , End
             , ICF
                 ( SMark "prints" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , ICF
                 ( CStatic "prints_end" ( Branch EZ ) )
             , IAL ( SIO OutputChar )
@@ -197,22 +327,24 @@ dump: Automaton
                 ( CStatic "prints" Jump )
             , ICF
                 ( SMark "prints_end" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , ICF Return
             , ICF
                 ( SMark "printsln" )
             , ICF
                 ( CStatic "prints" Call )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL ( SIO OutputChar )
             , ICF Return
             ]
         , programCounter = 105
         , returnStack = IS []
         }
-    , unitStack = fromList []
-    , unitRAM =
+    , memoryStack = fromList []
+    , memoryRAM =
         [ 0
         , 99
         , 10

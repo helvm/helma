@@ -1,109 +1,161 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ ICF
                 ( DMark 1 )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 14 )
+                ( SAL
+                    ( Cons 14 )
+                )
             , Transfer
             , ICF
                 ( DMark 2 )
             , IAL
-                ( Cons 3 )
+                ( SAL
+                    ( Cons 3 )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 5 )
+                ( SAL
+                    ( Cons 5 )
+                )
             , Transfer
             , ICF
                 ( DMark 3 )
             , IAL
-                ( Cons 4 )
+                ( SAL
+                    ( Cons 4 )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , Transfer
             , ICF
                 ( DMark 4 )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL ( SIO OutputChar )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , Transfer
             , ICF
                 ( DMark 5 )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 6 )
             , IAL
-                ( Cons 0 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 0 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 7 )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 8 )
+                ( SAL ( Binary Sub ) )
             , IAL
-                ( Cons 0 )
-            , IAL
-                ( Cons 1 )
-            , IAL ( Binary Sub )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 9 )
+                )
             , Transfer
             , ICF
                 ( DMark 8 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 13 )
+                ( SAL
+                    ( Cons 13 )
+                )
             , Transfer
             , ICF
                 ( DMark 9 )
             , IAL
-                ( Cons 0 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 0 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 10 )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( DMark 11 )
             , IAL
-                ( Cons 12 )
+                ( SAL
+                    ( Cons 12 )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 5 )
+                ( SAL
+                    ( Cons 5 )
+                )
             , Transfer
             , ICF
                 ( DMark 12 )
             , IAL
-                ( Cons 13 )
+                ( SAL
+                    ( Cons 13 )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 44 )
+                ( SAL
+                    ( Cons 44 )
+                )
             , Transfer
             , ICF
                 ( DMark 13 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , Transfer
             , ICF
                 ( DMark 14 )
@@ -111,377 +163,513 @@ dump: Automaton
             , ICF
                 ( DMark 15 )
             , IAL
-                ( Cons 0 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 0 )
+                )
+            , IAL ( SAL Halibut )
             , IAL
-                ( Cons 32 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 32 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( DMark 16 )
             , IAL
-                ( Cons 17 )
-            , IAL
-                ( Cons 0 )
-            , IAL
-                ( Cons 1 )
-            , IAL ( Binary Sub )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 18 )
+                )
             , Transfer
             , ICF
                 ( DMark 17 )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , Transfer
             , IAL
-                ( Cons 14 )
+                ( SAL
+                    ( Cons 14 )
+                )
             , Transfer
             , ICF
                 ( DMark 18 )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 19 )
             , IAL
-                ( Cons 48 )
-            , IAL
-                ( Cons 32 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 16 )
+                )
             , ICF
                 ( DMark 20 )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 21 )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL
-                ( Cons 22 )
+                ( SAL
+                    ( Cons 22 )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 44 )
+                ( SAL
+                    ( Cons 44 )
+                )
             , Transfer
             , ICF
                 ( DMark 22 )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 23 )
-            , IAL ( Binary Sub )
-            , IAL ( Binary Sub )
+            , IAL
+                ( SAL ( Binary Sub ) )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( DMark 24 )
             , IAL ( SIO InputChar )
             , ICF
                 ( DMark 25 )
             , IAL
-                ( Cons 0 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 0 )
+                )
+            , IAL ( SAL Halibut )
             , IAL
-                ( Cons 32 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 32 )
+                )
             , IAL
-                ( Cons 27 )
+                ( SAL ( Binary Sub ) )
+            , IAL
+                ( SAL
+                    ( Cons 27 )
+                )
             , Transfer
             , ICF
                 ( DMark 26 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 30 )
+                ( SAL
+                    ( Cons 30 )
+                )
             , Transfer
             , ICF
                 ( DMark 27 )
             , IAL
-                ( Cons 0 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 0 )
+                )
+            , IAL ( SAL Halibut )
             , IAL
-                ( Cons 10 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL
-                ( Cons 29 )
+                ( SAL ( Binary Sub ) )
+            , IAL
+                ( SAL
+                    ( Cons 29 )
+                )
             , Transfer
             , ICF
                 ( DMark 28 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 30 )
+                ( SAL
+                    ( Cons 30 )
+                )
             , Transfer
             , ICF
                 ( DMark 29 )
             , IAL
-                ( Cons 0 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 0 )
+                )
+            , IAL ( SAL Halibut )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons
+                        ( -1 )
+                    )
+                )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Sub )
-            , IAL ( Binary Sub )
+                ( SAL ( Binary Sub ) )
             , IAL
-                ( Cons 19 )
+                ( SAL
+                    ( Cons 19 )
+                )
             , Transfer
             , ICF
                 ( DMark 30 )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , Transfer
             , ICF
                 ( DMark 31 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , Transfer
             , ICF
                 ( DMark 32 )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 33 )
             , IAL
-                ( Cons 0 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 0 )
+                )
+            , IAL ( SAL Halibut )
             , IAL
-                ( Cons 34 )
-            , IAL
-                ( Cons 0 )
-            , IAL
-                ( Cons 1 )
-            , IAL ( Binary Sub )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 35 )
+                )
             , Transfer
             , ICF
                 ( DMark 34 )
             , IAL
-                ( Cons 48 )
+                ( SAL
+                    ( Cons 48 )
+                )
             , IAL ( SIO OutputChar )
             , Transfer
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , Transfer
             , ICF
                 ( DMark 35 )
             , IAL
-                ( Cons 0 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 0 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 36 )
             , IAL
-                ( Cons 37 )
-            , IAL
-                ( Cons 0 )
-            , IAL
-                ( Cons 1 )
-            , IAL ( Binary Sub )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 38 )
+                )
             , Transfer
             , ICF
                 ( DMark 37 )
-            , IAL ( Binary Sub )
             , IAL
-                ( Cons 1 )
+                ( SAL ( Binary Sub ) )
             , IAL
-                ( Cons 42 )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL
+                    ( Cons 42 )
+                )
             , Transfer
             , ICF
                 ( DMark 38 )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL
-                ( Binaries
-                    [ Mod
-                    , Div
-                    ]
+                ( SAL
+                    ( Binaries
+                        [ Mod
+                        , Div
+                        ]
+                    )
                 )
             , ICF
                 ( SMark "38" )
             , ICF
                 ( DMark 39 )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons
+                        ( -48 )
+                    )
+                )
             , IAL
-                ( Cons 48 )
-            , IAL ( Binary Sub )
-            , IAL ( Binary Sub )
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( DMark 40 )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 41 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 35 )
+                ( SAL
+                    ( Cons 35 )
+                )
             , Transfer
             , ICF
                 ( DMark 42 )
             , IAL
-                ( Cons 43 )
+                ( SAL
+                    ( Cons 43 )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 60 )
+                ( SAL
+                    ( Cons 60 )
+                )
             , Transfer
             , ICF
                 ( DMark 43 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , Transfer
             , ICF
                 ( DMark 44 )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 45 )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , ICF
                 ( DMark 46 )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 47 )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 48 )
             , IAL
-                ( Cons 0 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 0 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 49 )
             , IAL
-                ( Cons 50 )
-            , IAL
-                ( Cons 0 )
-            , IAL
-                ( Cons 1 )
-            , IAL ( Binary Sub )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 51 )
+                )
             , Transfer
             , ICF
                 ( DMark 50 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 58 )
+                ( SAL
+                    ( Cons 58 )
+                )
             , Transfer
             , ICF
                 ( DMark 51 )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( DMark 52 )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 53 )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 0 )
-            , IAL
-                ( Cons 3 )
-            , IAL ( Binary Sub )
-            , IAL Halibut
+                ( SAL
+                    ( Cons
+                        ( -3 )
+                    )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 54 )
-            , IAL ( Binary Sub )
-            , IAL ( Binary Sub )
+            , IAL
+                ( SAL ( Binary Sub ) )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( DMark 55 )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 56 )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 57 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 48 )
+                ( SAL
+                    ( Cons 48 )
+                )
             , Transfer
             , ICF
                 ( DMark 58 )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , Transfer
             , ICF
                 ( DMark 59 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 2 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 2 )
+                )
+            , IAL ( SAL Halibut )
             , Transfer
             , ICF
                 ( DMark 60 )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 61 )
             , IAL
-                ( Cons 0 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 0 )
+                )
+            , IAL ( SAL Halibut )
             , ICF
                 ( DMark 62 )
             , IAL
-                ( Cons 63 )
-            , IAL
-                ( Cons 0 )
-            , IAL
-                ( Cons 1 )
-            , IAL ( Binary Sub )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 64 )
+                )
             , Transfer
             , ICF
                 ( DMark 63 )
-            , IAL ( Binary Sub )
             , IAL
-                ( Cons 1 )
+                ( SAL ( Binary Sub ) )
             , IAL
-                ( Cons 1 )
-            , IAL Halibut
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL ( SAL Halibut )
             , Transfer
             , ICF
                 ( DMark 64 )
@@ -489,20 +677,24 @@ dump: Automaton
             , ICF
                 ( DMark 65 )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 60 )
+                ( SAL
+                    ( Cons 60 )
+                )
             , Transfer
             , ICF
                 ( DMark 66 )
             , End
             ]
-        , programCounter = 148
+        , programCounter = 136
         , returnStack = IS []
         }
-    , unitStack = fromList
+    , memoryStack = fromList
         [ 536
         , 2
         ]
-    , unitRAM = []
+    , memoryRAM = []
     }

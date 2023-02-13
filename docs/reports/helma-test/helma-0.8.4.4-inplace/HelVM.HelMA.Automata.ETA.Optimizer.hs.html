@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.ETA.Optimizer (
+<span class="lineno">    2 </span>  optimize,
+<span class="lineno">    3 </span>)
+<span class="lineno">    4 </span>where
+<span class="lineno">    5 </span>
+<span class="lineno">    6 </span>import           HelVM.HelMA.Automata.ETA.OperandParsers
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.ETA.Token
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import           HelVM.HelIO.Control.Safe
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>import           Control.Applicative.Tools
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>import           Data.List.Extra
+<span class="lineno">   16 </span>import qualified Data.List.Index                         as List
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>import qualified Data.ListLike                           as LL
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>optimize :: MonadSafe m =&gt; TokenList -&gt; m InstructionList
+<span class="lineno">   21 </span><span class="decl"><span class="istickedoff">optimize = appendEnd &lt;.&gt; join &lt;.&gt; optimizeLines</span></span>
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>appendEnd :: InstructionList -&gt; InstructionList
+<span class="lineno">   24 </span><span class="decl"><span class="istickedoff">appendEnd l = l &lt;&gt; one End</span></span>
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>optimizeLines :: MonadSafe m =&gt; TokenList -&gt; m [InstructionList]
+<span class="lineno">   27 </span><span class="decl"><span class="istickedoff">optimizeLines = sequence . optimizeLineInit &lt;.&gt; lineFromTuple2 &lt;.&gt; splitOnRAndIndex2</span></span>
+<span class="lineno">   28 </span>
+<span class="lineno">   29 </span>splitOnRAndIndex2 :: TokenList -&gt; [(Natural, [TokenList])]
+<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">splitOnRAndIndex2 = indexedByNaturalWithOffset 1 &lt;.&gt; List.indexed . filterNull . tails . splitOn [R]</span></span>
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>indexedByNaturalWithOffset :: Int -&gt; (Int , a) -&gt; (Natural , a)
+<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">indexedByNaturalWithOffset offset (i , a) = (fromIntegral (i + offset) , a)</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>optimizeLineInit :: MonadSafe m =&gt; Line -&gt; m InstructionList
+<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">optimizeLineInit line = (dMarkI (currentAddress line) : ) &lt;$&gt; optimizeLineTail line</span></span>
+<span class="lineno">   37 </span>
+<span class="lineno">   38 </span>optimizeLineTail:: MonadSafe m =&gt; Line -&gt; m InstructionList
+<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">optimizeLineTail line = check (currentTL line) where</span>
+<span class="lineno">   40 </span><span class="spaces">  </span><span class="istickedoff">check (t : tl) = optimizeLineForToken t $ line { currentTL = tl }</span>
+<span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">check []       = pure []</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>optimizeLineForToken :: MonadSafe m =&gt; Token -&gt; Line -&gt; m InstructionList
+<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">optimizeLineForToken O = (sOutputI  : ) &lt;.&gt; optimizeLineTail</span>
+<span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">optimizeLineForToken I = (sInputI   : ) &lt;.&gt; optimizeLineTail</span>
+<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">optimizeLineForToken S = (subI      : ) &lt;.&gt; optimizeLineTail</span>
+<span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">optimizeLineForToken E = prependDivMod</span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">optimizeLineForToken H = (halibutI  : ) &lt;.&gt; optimizeLineTail</span>
+<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">optimizeLineForToken T = (Transfer  : ) &lt;.&gt; optimizeLineTail</span>
+<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">optimizeLineForToken A = prependAddress</span>
+<span class="lineno">   54 </span><span class="spaces"></span><span class="istickedoff">optimizeLineForToken N = prependNumber</span>
+<span class="lineno">   55 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   56 </span><span class="spaces"></span><span class="istickedoff">optimizeLineForToken R = <span class="nottickedoff">optimizeLineTail</span></span></span>
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>prependDivMod :: MonadSafe m =&gt; Line -&gt; m InstructionList
+<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">prependDivMod line = check $ numberFlag line where</span>
+<span class="lineno">   60 </span><span class="spaces">  </span><span class="istickedoff">check False = prependDivModSimple line</span>
+<span class="lineno">   61 </span><span class="spaces">  </span><span class="istickedoff">check True  = prependStaticMakr line &lt;.&gt; optimizeLineTail $ line {numberFlag = False}</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>prependStaticMakr :: Line -&gt; InstructionList -&gt; InstructionList
+<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">prependStaticMakr line il = divModI : sMarkIN (currentAddress line) : il</span></span>
+<span class="lineno">   65 </span>
+<span class="lineno">   66 </span>prependDivModSimple :: MonadSafe m =&gt; Line -&gt; m InstructionList
+<span class="lineno">   67 </span><span class="decl"><span class="istickedoff">prependDivModSimple = (divModI : ) &lt;.&gt; optimizeLineTail</span></span>
+<span class="lineno">   68 </span>
+<span class="lineno">   69 </span>prependAddress :: MonadSafe m =&gt; Line -&gt; m InstructionList
+<span class="lineno">   70 </span><span class="decl"><span class="istickedoff">prependAddress line = ((consI $ fromIntegral $ nextAddress line) : ) &lt;$&gt; optimizeLineTail line</span></span>
+<span class="lineno">   71 </span>
+<span class="lineno">   72 </span>prependNumber :: MonadSafe m =&gt; Line -&gt; m InstructionList
+<span class="lineno">   73 </span><span class="decl"><span class="istickedoff">prependNumber line = flip buildNumber line =&lt;&lt; parseNumberFromTLL (currentTL line , nextTLL line)</span></span>
+<span class="lineno">   74 </span>
+<span class="lineno">   75 </span>buildNumber :: MonadSafe m =&gt; (Integer , (TokenList , [TokenList])) -&gt; Line -&gt; m InstructionList
+<span class="lineno">   76 </span><span class="decl"><span class="istickedoff">buildNumber (n , (tl , ttl) ) line = build (LL.length (nextTLL line) - LL.length ttl) where</span>
+<span class="lineno">   77 </span><span class="spaces">  </span><span class="istickedoff">build 0      = (consI n :) &lt;$&gt; optimizeLineTail (line {currentTL = tl})</span>
+<span class="lineno">   78 </span><span class="spaces">  </span><span class="istickedoff">build offset = pure [consI n , sJumpIN $ currentAddress line + fromIntegral offset]</span></span>
+<span class="lineno">   79 </span>
+<span class="lineno">   80 </span>-- | Accessors
+<span class="lineno">   81 </span>
+<span class="lineno">   82 </span>nextAddress :: Line -&gt; Natural
+<span class="lineno">   83 </span><span class="decl"><span class="istickedoff">nextAddress line = currentAddress line + 1</span></span>
+<span class="lineno">   84 </span>
+<span class="lineno">   85 </span>-- | Constructors
+<span class="lineno">   86 </span>
+<span class="lineno">   87 </span>lineFromTuple2 :: (Natural, [TokenList]) -&gt; Line
+<span class="lineno">   88 </span><span class="decl"><span class="istickedoff">lineFromTuple2 (a, []) = <span class="nottickedoff">Line</span></span>
+<span class="lineno">   89 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">{ currentAddress = a</span></span>
+<span class="lineno">   90 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">, currentTL = []</span></span>
+<span class="lineno">   91 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">, nextTLL = []</span></span>
+<span class="lineno">   92 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">, numberFlag = True</span></span>
+<span class="lineno">   93 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">}</span></span>
+<span class="lineno">   94 </span><span class="spaces"></span><span class="istickedoff">lineFromTuple2 (a, l : ls) = Line</span>
+<span class="lineno">   95 </span><span class="spaces">  </span><span class="istickedoff">{ currentAddress = a</span>
+<span class="lineno">   96 </span><span class="spaces">  </span><span class="istickedoff">, currentTL = l</span>
+<span class="lineno">   97 </span><span class="spaces">  </span><span class="istickedoff">, nextTLL = ls</span>
+<span class="lineno">   98 </span><span class="spaces">  </span><span class="istickedoff">, numberFlag = True</span>
+<span class="lineno">   99 </span><span class="spaces">  </span><span class="istickedoff">}</span></span>
+<span class="lineno">  100 </span>
+<span class="lineno">  101 </span>data Line = Line
+<span class="lineno">  102 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">currentTL</span></span></span>      :: TokenList
+<span class="lineno">  103 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">currentAddress</span></span></span> :: Natural
+<span class="lineno">  104 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">numberFlag</span></span></span>     :: Bool
+<span class="lineno">  105 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">nextTLL</span></span></span>        :: [TokenList]
+<span class="lineno">  106 </span>  }
+<span class="lineno">  107 </span>
+<span class="lineno">  108 </span>--consM :: Functor f =&gt; a -&gt; f [a] -&gt; f [a]
+<span class="lineno">  109 </span>--consM a l = (a : ) &lt;$&gt; l
+<span class="lineno">  110 </span>
+<span class="lineno">  111 </span>filterNull :: [[a]] -&gt; [[a]]
+<span class="lineno">  112 </span><span class="decl"><span class="istickedoff">filterNull = filter notNull</span></span>
+
+</pre>
+</body>
+</html>

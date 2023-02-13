@@ -2,60 +2,89 @@
 , Lambda
     [ Inst
         ( IAL
-            ( Cons 0 )
-        )
-    , Inst
-        ( IAL
-            ( Cons 1 )
-        )
-    , Inst
-        ( IAL
-            ( SStatic 2 Move )
-        )
-    , Lambda
-        [ Inst
-            ( IAL
+            ( SAL
                 ( Cons 0 )
             )
+        )
+    , Inst
+        ( IAL
+            ( SAL
+                ( Cons 1 )
+            )
+        )
+    , Inst
+        ( IAL
+            ( SAL
+                ( SStatic 2 Move )
+            )
+        )
+    , Lambda
+        [ Inst
+            ( IAL
+                ( SAL
+                    ( Cons 0 )
+                )
+            )
         , Inst
-            ( IAL ( Binary LEQ ) )
+            ( IAL
+                ( SAL ( Binary LEQ ) )
+            )
         , Inst
-            ( IAL ( Unary BNot ) )
+            ( IAL
+                ( SAL ( Unary BNot ) )
+            )
         ]
     , Lambda
         [ Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Ref 14
         , Inst
             ( IAL
-                ( Cons 3 )
+                ( SAL
+                    ( Cons 3 )
+                )
             )
         , Ref 14
         , Inst
-            ( IAL ( Binary Add ) )
-        , Inst
             ( IAL
-                ( SStatic 1 Move )
+                ( SAL ( Binary Add ) )
             )
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             )
         , Inst
-            ( IAL ( Binary Sub ) )
+            ( IAL
+                ( SAL
+                    ( Cons 1 )
+                )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Binary Sub ) )
+            )
         ]
     , While
-    , Inst ( IAL Discard )
-    , Inst ( IAL Discard )
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
+    , Inst
+        ( IAL ( SAL Discard ) )
+    , Inst
+        ( IAL ( SAL Discard ) )
     ]
 , Ref 5
 , Store
 , Inst
     ( IAL
-        ( Cons 300 )
+        ( SAL
+            ( Cons 300 )
+        )
     )
 , Ref 5
 , Fetch

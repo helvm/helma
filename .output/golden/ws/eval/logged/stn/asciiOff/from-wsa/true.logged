@@ -1,9 +1,9 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program = [ End ]
         , programCounter = 1
         , returnStack = IS []
         }
-    , unitStack = fromList []
-    , unitRAM = []
+    , memoryStack = fromList []
+    , memoryRAM = []
     }

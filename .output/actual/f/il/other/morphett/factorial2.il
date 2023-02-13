@@ -2,13 +2,19 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SStatic 2 Move )
+            ( SAL
+                ( SStatic 2 Move )
+            )
         )
     , Inst
-        ( IAL ( Binary Mul ) )
+        ( IAL
+            ( SAL ( Binary Mul ) )
+        )
     , Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
     , Exec
     ]
@@ -22,42 +28,64 @@
     , Lambda
         [ Inst
             ( IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             )
         , Inst
             ( IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             )
         , Inst
             ( IAL
-                ( Cons 1 )
-            )
-        , Inst
-            ( IAL ( Binary Sub ) )
-        , Inst
-            ( IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
             ( IAL
-                ( SStatic 2 Move )
+                ( SAL ( Binary Sub ) )
             )
         , Inst
             ( IAL
-                ( SStatic 2 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             )
         , Inst
             ( IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 2 Move )
+                )
             )
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( SStatic 2 Move )
+                )
             )
         , Inst
-            ( IAL ( Binary LEQ ) )
+            ( IAL
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
+            )
         , Inst
-            ( IAL ( Unary BNot ) )
+            ( IAL
+                ( SAL
+                    ( Cons 1 )
+                )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Binary LEQ ) )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Unary BNot ) )
+            )
         ]
     , Lambda
         [ Ref 0
@@ -72,7 +100,9 @@
 , Store
 , Inst
     ( IAL
-        ( Cons 4 )
+        ( SAL
+            ( Cons 4 )
+        )
     )
 , Ref 5
 , Fetch

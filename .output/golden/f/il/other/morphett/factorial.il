@@ -1,52 +1,77 @@
 [ Lambda
     [ Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Lambda
         [ Inst
             ( IAL
-                ( SStatic 1 Move )
-            )
-        , Inst ( IAL Discard )
-        , Inst
-            ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             )
         , Inst
+            ( IAL ( SAL Discard ) )
+        , Inst
             ( IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( Cons 1 )
+                )
+            )
+        , Inst
+            ( IAL
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             )
         ]
     , Cond
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     , Lambda
         [ Inst
             ( IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             )
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Sub ) )
+            ( IAL
+                ( SAL ( Binary Sub ) )
+            )
         , Ref 5
         , Fetch
         , Exec
         , Inst
-            ( IAL ( Binary Mul ) )
+            ( IAL
+                ( SAL ( Binary Mul ) )
+            )
         ]
     , Cond
     ]
@@ -54,7 +79,9 @@
 , Store
 , Inst
     ( IAL
-        ( Cons 4 )
+        ( SAL
+            ( Cons 4 )
+        )
     )
 , Ref 5
 , Fetch

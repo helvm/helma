@@ -1,10 +1,14 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( Cons 0 )
+                )
             , ILS ( MIO InputDec )
             , ILS Load
             , ICF
@@ -12,20 +16,24 @@ dump: Automaton
             , ICF
                 ( SMark "\x1" )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL ( SIO OutputDec )
             , ICF
                 ( CStatic "\x1" Jump )
             , ICF
                 ( SMark "\x0" )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL ( SIO OutputDec )
             , End
             ]
         , programCounter = 13
         , returnStack = IS []
         }
-    , unitStack = fromList []
-    , unitRAM = [ 0 ]
+    , memoryStack = fromList []
+    , memoryRAM = [ 0 ]
     }

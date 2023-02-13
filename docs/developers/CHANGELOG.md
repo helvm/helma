@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.4 -- 2023-03-14
+
+* Add optimizer for Stack Automaton
+
 ## 0.8.4.3 -- 2023-02-13
 
 * Add SimpleParams for ETA

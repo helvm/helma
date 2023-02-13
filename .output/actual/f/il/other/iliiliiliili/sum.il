@@ -10,7 +10,9 @@
 , Fetch
 , Exec
 , Inst
-    ( IAL ( Binary Add ) )
+    ( IAL
+        ( SAL ( Binary Add ) )
+    )
 , Inst
     ( IAL ( SIO OutputDec ) )
 , Str "

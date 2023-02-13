@@ -32,8 +32,6 @@ import qualified HelVM.HelMA.Automata.WhiteSpace.Parser          as WS
 
 import qualified HelVM.HelMA.Automata.Zot.Automaton              as Zot
 
-import           HelVM.HelMA.Automaton.API.AutoOptions
-import           HelVM.HelMA.Automaton.API.AutoParams
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
@@ -61,14 +59,10 @@ main = runApp =<< execParser opts where
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
 runApp:: App.AppOptions -> IO ()
-runApp (App.AppOptions emit printLogs lang bfType etaImplType tokenType compile formatType ramType stackType cellType intCellType dumpType exec file) = do
+runApp o = do
   hSetBuffering stdout IO.NoBuffering
-  source <- readSourceFile exec file
-  run emit printLogs langWithOptions (runParams source) where
-    langWithOptions  = LangWithOptions lang bfType etaImplType tokenType
-    runParams source = EvalParams formatType source typeOptions autoParams
-    typeOptions      = AutoOptions ramType stackType cellType intCellType
-    autoParams       = AutoParams compile Nothing dumpType
+  source <- readSourceFile (App.exec o) (App.file o)
+  run (App.emit o) (App.printLogs o) (App.langWithOptions o) (App.evalParams o source)
 
 readSourceFile :: Exec -> String -> IO Source
 readSourceFile True = pure . toText

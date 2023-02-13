@@ -1,69 +1,111 @@
 [ ICF
     ( DMark 1 )
 , IAL
-    ( Cons 1 )
+    ( SAL
+        ( Cons 1 )
+    )
 , IAL
-    ( Cons 3 )
+    ( SAL
+        ( Cons 3 )
+    )
 , Transfer
 , ICF
     ( DMark 2 )
 , IAL
-    ( Cons 10 )
+    ( SAL
+        ( Cons 10 )
+    )
 , IAL
-    ( Cons 49 )
+    ( SAL
+        ( Cons 49 )
+    )
 , IAL
-    ( Cons 68 )
+    ( SAL
+        ( Cons 68 )
+    )
 , IAL
-    ( Cons 65 )
+    ( SAL
+        ( Cons 65 )
+    )
 , IAL
-    ( Cons 66 )
+    ( SAL
+        ( Cons 66 )
+    )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL
-    ( Cons 1 )
+    ( SAL
+        ( Cons 1 )
+    )
 , IAL
-    ( Cons 0 )
+    ( SAL
+        ( Cons 0 )
+    )
 , Transfer
 , ICF
     ( DMark 3 )
 , IAL
-    ( Cons 10 )
+    ( SAL
+        ( Cons 10 )
+    )
 , IAL
-    ( Cons 75 )
+    ( SAL
+        ( Cons 75 )
+    )
 , IAL
-    ( Cons 79 )
+    ( SAL
+        ( Cons 79 )
+    )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL
-    ( Cons 1 )
+    ( SAL
+        ( Cons 1 )
+    )
 , IAL
-    ( Cons 0 )
+    ( SAL
+        ( Cons 0 )
+    )
 , Transfer
 , ICF
     ( DMark 4 )
 , IAL
-    ( Cons 10 )
+    ( SAL
+        ( Cons 10 )
+    )
 , IAL
-    ( Cons 50 )
+    ( SAL
+        ( Cons 50 )
+    )
 , IAL
-    ( Cons 68 )
+    ( SAL
+        ( Cons 68 )
+    )
 , IAL
-    ( Cons 65 )
+    ( SAL
+        ( Cons 65 )
+    )
 , IAL
-    ( Cons 66 )
+    ( SAL
+        ( Cons 66 )
+    )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL
-    ( Cons 1 )
+    ( SAL
+        ( Cons 1 )
+    )
 , IAL
-    ( Cons 0 )
+    ( SAL
+        ( Cons 0 )
+    )
 , Transfer
 , ICF
     ( DMark 5 )

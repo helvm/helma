@@ -11,7 +11,9 @@
 , Ref 1
 , Inst
     ( IAL
-        ( Cons 4 )
+        ( SAL
+            ( Cons 4 )
+        )
     )
 , Ref 6
 , Store
@@ -19,20 +21,30 @@
 , Fetch
 , Inst
     ( IAL
-        ( Cons 1 )
+        ( SAL
+            ( Cons 1 )
+        )
     )
 , Inst
-    ( IAL ( Binary Add ) )
+    ( IAL
+        ( SAL ( Binary Add ) )
+    )
 , Lambda
     [ Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary Sub ) )
+        ( IAL
+            ( SAL ( Binary Sub ) )
+        )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     ]
 , Lambda
@@ -40,20 +52,30 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary Add ) )
+        ( IAL
+            ( SAL ( Binary Add ) )
+        )
     , Lambda
         [ Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Sub ) )
+            ( IAL
+                ( SAL ( Binary Sub ) )
+            )
         , Inst
             ( IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             )
         ]
     , Lambda
@@ -61,41 +83,58 @@
             ( IAL ( SIO InputChar ) )
         , Inst
             ( IAL
-                ( Cons 42 )
-            )
-        , Inst
-            ( IAL ( Binary LEQ ) )
-        , Inst
-            ( IAL
-                ( SStatic 2 Move )
+                ( SAL
+                    ( Cons 42 )
+                )
             )
         , Inst
             ( IAL
-                ( SStatic 2 Move )
+                ( SAL ( Binary LEQ ) )
+            )
+        , Inst
+            ( IAL
+                ( SAL
+                    ( SStatic 2 Move )
+                )
+            )
+        , Inst
+            ( IAL
+                ( SAL
+                    ( SStatic 2 Move )
+                )
             )
         ]
     , While
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     , Inst
         ( IAL ( SIO InputChar ) )
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     ]
 , While
-, Inst ( IAL Discard )
+, Inst
+    ( IAL ( SAL Discard ) )
 , Ref 6
 , Fetch
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL
+            ( SStatic 0 Copy )
+        )
     )
 , Ref 25
 , Store
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL
+            ( SStatic 0 Copy )
+        )
     )
 , Inst
-    ( IAL ( Binary Mul ) )
+    ( IAL
+        ( SAL ( Binary Mul ) )
+    )
 , Ref 4
 , Store
 , Lambda
@@ -103,25 +142,39 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary Sub ) )
+        ( IAL
+            ( SAL ( Binary Sub ) )
+        )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Ref 25
     , Store
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Unary Neg ) )
+        ( IAL
+            ( SAL ( Unary Neg ) )
+        )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 ]

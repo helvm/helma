@@ -1,93 +1,136 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , ICF
                 ( SMark "C" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL ( SIO OutputDec )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL ( SIO OutputChar )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL ( Binary Add ) )
             , IAL
-                ( Cons 11 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
+            , IAL
+                ( SAL
+                    ( Cons 11 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "E" ( Branch EZ ) )
             , ICF
                 ( CStatic "C" Jump )
             , ICF
                 ( SMark "E" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , End
             , ICF
                 ( SMark "add" )
-            , IAL ( Binary Add )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF Return
             , ICF
                 ( SMark "write" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , ILS Load
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , ICF
                 ( CStatic "write_end" ( Branch EZ ) )
             , IAL ( SIO OutputChar )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "write" Jump )
             , ICF
                 ( SMark "write_end" )
-            , IAL Discard
-            , IAL Discard
+            , IAL ( SAL Discard )
+            , IAL ( SAL Discard )
             , ICF Return
             , ICF
                 ( SMark "read" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , ILS ( MIO InputChar )
             , ILS Load
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 10 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 10 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "read_end" ( Branch EZ ) )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "read" Jump )
             , ICF
                 ( SMark "read_end" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 0 )
+                ( SAL ( Binary Add ) )
+            , IAL
+                ( SAL
+                    ( Cons 0 )
+                )
             , ILS Store
             , ICF Return
             , ICF
                 ( SMark "newline" )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL
-                ( Cons 13 )
+                ( SAL
+                    ( Cons 13 )
+                )
             , IAL ( SIO OutputChar )
             , IAL ( SIO OutputChar )
             , ICF Return
@@ -95,6 +138,6 @@ dump: Automaton
         , programCounter = 16
         , returnStack = IS []
         }
-    , unitStack = fromList []
-    , unitRAM = []
+    , memoryStack = fromList []
+    , memoryRAM = []
     }

@@ -6,10 +6,14 @@
 , Fetch
 , Inst
     ( IAL
-        ( Cons 3 )
+        ( SAL
+            ( Cons 3 )
+        )
     )
 , Inst
-    ( IAL ( Binary Sub ) )
+    ( IAL
+        ( SAL ( Binary Sub ) )
+    )
 , Ref 0
 , Store
 , Lambda
@@ -17,37 +21,55 @@
     , Fetch
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary Add ) )
+        ( IAL
+            ( SAL ( Binary Add ) )
+        )
     , Ref 0
     , Store
     , Fetch
     , Inst
         ( IAL
-            ( Cons 255 )
+            ( SAL
+                ( Cons 255 )
+            )
         )
     , Inst
-        ( IAL ( Binary BAnd ) )
+        ( IAL
+            ( SAL ( Binary BAnd ) )
+        )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Ref 2
     , Store
     , Inst
         ( IAL
-            ( Cons 10 )
+            ( SAL
+                ( Cons 10 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda
     [ Ref 2

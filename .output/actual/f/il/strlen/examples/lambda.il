@@ -3,15 +3,20 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     ]
 , Ref 0
 , Store
 , Comment " true "
 , Lambda
-    [ Inst ( IAL Discard ) ]
+    [ Inst
+        ( IAL ( SAL Discard ) )
+    ]
 , Ref 1
 , Store
 , Comment " false "
@@ -22,7 +27,9 @@
     , Fetch
     , Inst
         ( IAL
-            ( SStatic 2 Move )
+            ( SAL
+                ( SStatic 2 Move )
+            )
         )
     , Exec
     ]
@@ -34,15 +41,21 @@
     , Fetch
     , Inst
         ( IAL
-            ( SStatic 2 Move )
+            ( SAL
+                ( SStatic 2 Move )
+            )
         )
     , Inst
         ( IAL
-            ( SStatic 2 Move )
+            ( SAL
+                ( SStatic 2 Move )
+            )
         )
     , Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
     , Exec
     ]
@@ -52,13 +65,17 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
     , Ref 0
     , Fetch
     , Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
     , Exec
     ]
@@ -68,18 +85,24 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Ref 3
     , Fetch
     , Exec
     , Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
     , Inst
         ( IAL
-            ( SStatic 2 Move )
+            ( SAL
+                ( SStatic 2 Move )
+            )
         )
     , Exec
     ]
@@ -89,17 +112,23 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Ref 0
     , Fetch
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Lambda
         [ Str "true"
         , Inst
             ( IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             )
         , Inst
             ( IAL ( SIO OutputChar ) )
@@ -108,12 +137,16 @@
     , Ref 1
     , Fetch
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Lambda
         [ Str "false"
         , Inst
             ( IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             )
         , Inst
             ( IAL ( SIO OutputChar ) )

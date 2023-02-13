@@ -1,180 +1,316 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 80 )
+                ( SAL
+                    ( Cons 80 )
+                )
             , ILS Store
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , ILS Store
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , ILS Store
             , IAL
-                ( Cons 3 )
+                ( SAL
+                    ( Cons 3 )
+                )
             , IAL
-                ( Cons 97 )
+                ( SAL
+                    ( Cons 97 )
+                )
             , ILS Store
             , IAL
-                ( Cons 4 )
+                ( SAL
+                    ( Cons 4 )
+                )
             , IAL
-                ( Cons 115 )
+                ( SAL
+                    ( Cons 115 )
+                )
             , ILS Store
             , IAL
-                ( Cons 5 )
+                ( SAL
+                    ( Cons 5 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , ILS Store
             , IAL
-                ( Cons 6 )
+                ( SAL
+                    ( Cons 6 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , ILS Store
             , IAL
-                ( Cons 7 )
+                ( SAL
+                    ( Cons 7 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , ILS Store
             , IAL
-                ( Cons 8 )
+                ( SAL
+                    ( Cons 8 )
+                )
             , IAL
-                ( Cons 110 )
+                ( SAL
+                    ( Cons 110 )
+                )
             , ILS Store
             , IAL
-                ( Cons 9 )
+                ( SAL
+                    ( Cons 9 )
+                )
             , IAL
-                ( Cons 116 )
+                ( SAL
+                    ( Cons 116 )
+                )
             , ILS Store
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , ILS Store
             , IAL
-                ( Cons 11 )
+                ( SAL
+                    ( Cons 11 )
+                )
             , IAL
-                ( Cons 114 )
+                ( SAL
+                    ( Cons 114 )
+                )
             , ILS Store
             , IAL
-                ( Cons 12 )
+                ( SAL
+                    ( Cons 12 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , ILS Store
             , IAL
-                ( Cons 13 )
+                ( SAL
+                    ( Cons 13 )
+                )
             , IAL
-                ( Cons 121 )
+                ( SAL
+                    ( Cons 121 )
+                )
             , ILS Store
             , IAL
-                ( Cons 14 )
+                ( SAL
+                    ( Cons 14 )
+                )
             , IAL
-                ( Cons 111 )
+                ( SAL
+                    ( Cons 111 )
+                )
             , ILS Store
             , IAL
-                ( Cons 15 )
+                ( SAL
+                    ( Cons 15 )
+                )
             , IAL
-                ( Cons 117 )
+                ( SAL
+                    ( Cons 117 )
+                )
             , ILS Store
             , IAL
-                ( Cons 16 )
+                ( SAL
+                    ( Cons 16 )
+                )
             , IAL
-                ( Cons 114 )
+                ( SAL
+                    ( Cons 114 )
+                )
             , ILS Store
             , IAL
-                ( Cons 17 )
+                ( SAL
+                    ( Cons 17 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , ILS Store
             , IAL
-                ( Cons 18 )
+                ( SAL
+                    ( Cons 18 )
+                )
             , IAL
-                ( Cons 110 )
+                ( SAL
+                    ( Cons 110 )
+                )
             , ILS Store
             , IAL
-                ( Cons 19 )
+                ( SAL
+                    ( Cons 19 )
+                )
             , IAL
-                ( Cons 97 )
+                ( SAL
+                    ( Cons 97 )
+                )
             , ILS Store
             , IAL
-                ( Cons 20 )
+                ( SAL
+                    ( Cons 20 )
+                )
             , IAL
-                ( Cons 109 )
+                ( SAL
+                    ( Cons 109 )
+                )
             , ILS Store
             , IAL
-                ( Cons 21 )
+                ( SAL
+                    ( Cons 21 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , ILS Store
             , IAL
-                ( Cons 22 )
+                ( SAL
+                    ( Cons 22 )
+                )
             , IAL
-                ( Cons 58 )
+                ( SAL
+                    ( Cons 58 )
+                )
             , ILS Store
             , IAL
-                ( Cons 23 )
+                ( SAL
+                    ( Cons 23 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , ILS Store
             , IAL
-                ( Cons 24 )
+                ( SAL
+                    ( Cons 24 )
+                )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , ILS Store
             , IAL
-                ( Cons 30 )
+                ( SAL
+                    ( Cons 30 )
+                )
             , IAL
-                ( Cons 72 )
+                ( SAL
+                    ( Cons 72 )
+                )
             , ILS Store
             , IAL
-                ( Cons 31 )
+                ( SAL
+                    ( Cons 31 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , ILS Store
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , ILS Store
             , IAL
-                ( Cons 33 )
+                ( SAL
+                    ( Cons 33 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , ILS Store
             , IAL
-                ( Cons 34 )
+                ( SAL
+                    ( Cons 34 )
+                )
             , IAL
-                ( Cons 111 )
+                ( SAL
+                    ( Cons 111 )
+                )
             , ILS Store
             , IAL
-                ( Cons 35 )
+                ( SAL
+                    ( Cons 35 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , ILS Store
             , IAL
-                ( Cons 36 )
+                ( SAL
+                    ( Cons 36 )
+                )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , ILS Store
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , ICF
                 ( CStatic "write" Call )
             , IAL
-                ( Cons 100 )
+                ( SAL
+                    ( Cons 100 )
+                )
             , ICF
                 ( CStatic "read" Call )
             , IAL
-                ( Cons 30 )
+                ( SAL
+                    ( Cons 30 )
+                )
             , ICF
                 ( CStatic "write" Call )
             , IAL
-                ( Cons 100 )
+                ( SAL
+                    ( Cons 100 )
+                )
             , ICF
                 ( CStatic "write" Call )
             , ICF
@@ -182,65 +318,94 @@ dump: Automaton
             , End
             , ICF
                 ( SMark "add" )
-            , IAL ( Binary Add )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF Return
             , ICF
                 ( SMark "write" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , ILS Load
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , ICF
                 ( CStatic "write_end" ( Branch EZ ) )
             , IAL ( SIO OutputChar )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "write" Jump )
             , ICF
                 ( SMark "write_end" )
-            , IAL Discard
-            , IAL Discard
+            , IAL ( SAL Discard )
+            , IAL ( SAL Discard )
             , ICF Return
             , ICF
                 ( SMark "read" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , ILS ( MIO InputChar )
             , ILS Load
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 10 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 10 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "read_end" ( Branch EZ ) )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "read" Jump )
             , ICF
                 ( SMark "read_end" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( Cons 0 )
+                ( SAL ( Binary Add ) )
+            , IAL
+                ( SAL
+                    ( Cons 0 )
+                )
             , ILS Store
             , ICF Return
             , ICF
                 ( SMark "newline" )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL
-                ( Cons 13 )
+                ( SAL
+                    ( Cons 13 )
+                )
             , IAL ( SIO OutputChar )
             , IAL ( SIO OutputChar )
             , ICF Return
@@ -248,8 +413,8 @@ dump: Automaton
         , programCounter = 106
         , returnStack = IS []
         }
-    , unitStack = fromList []
-    , unitRAM =
+    , memoryStack = fromList []
+    , memoryRAM =
         [ 80
         , 108
         , 101

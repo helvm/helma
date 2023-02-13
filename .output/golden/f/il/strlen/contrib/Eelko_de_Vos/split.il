@@ -8,10 +8,14 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 32 )
+            ( SAL
+                ( Cons 32 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     ]
 , Lambda
     [ Inst
@@ -25,33 +29,51 @@
 , Fetch
 , Inst
     ( IAL
-        ( Cons 102 )
+        ( SAL
+            ( Cons 102 )
+        )
     )
 , Inst
-    ( IAL ( Binary LEQ ) )
+    ( IAL
+        ( SAL ( Binary LEQ ) )
+    )
 , Ref 0
 , Fetch
 , Inst
     ( IAL
-        ( Cons 98 )
+        ( SAL
+            ( Cons 98 )
+        )
     )
 , Inst
-    ( IAL ( Binary LEQ ) )
+    ( IAL
+        ( SAL ( Binary LEQ ) )
+    )
 , Inst
-    ( IAL ( Binary BOr ) )
+    ( IAL
+        ( SAL ( Binary BOr ) )
+    )
 , Inst
     ( IAL ( SIO InputChar ) )
 , Inst
     ( IAL
-        ( Cons 32 )
+        ( SAL
+            ( Cons 32 )
+        )
     )
 , Inst
-    ( IAL ( Binary LEQ ) )
-, Inst
-    ( IAL ( Binary BAnd ) )
+    ( IAL
+        ( SAL ( Binary LEQ ) )
+    )
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL ( Binary BAnd ) )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( SStatic 0 Copy )
+        )
     )
 , Comment " a has to be 'f' of 'b' followed by a space "
 ]

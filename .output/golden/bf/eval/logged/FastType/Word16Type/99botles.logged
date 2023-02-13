@@ -1,5 +1,5 @@
-dump: Automaton
-    { unitUI = IU
+dump: Memory
+    { memoryIM = IM
         [ Move 1
         , Inc 9
         , MulAddClr 11
@@ -942,7 +942,7 @@ dump: Automaton
                 ( -3 )
             ]
         ] 6
-    , unitTape =
+    , memoryTape =
         (
             [ 48
             , 48

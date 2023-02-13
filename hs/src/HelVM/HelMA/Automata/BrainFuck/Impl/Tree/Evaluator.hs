@@ -20,13 +20,13 @@ import           Control.Type.Operator
 evalSource :: (BIO m , Symbol e) => Source -> FullTape e -> DumpType -> m ()
 evalSource source tape dt = logDump dt =<< flip runVector tape =<< parseAsVector source
 
-runVector :: (BIO m , Symbol e) => TreeInstructionVector -> FullTape e -> m $ Automaton e
-runVector iv = nextStep (IU iv 0)
+runVector :: (BIO m , Symbol e) => TreeInstructionVector -> FullTape e -> m $ Memory e
+runVector iv = nextStep (IM iv 0)
 
-nextStep :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
-nextStep (IU iv ic) = doInstruction (iv `indexMaybe` ic) (IU iv $ ic + 1)
+nextStep :: (BIO m , Symbol e) => InstructionMemory -> FullTape e -> m $ Memory e
+nextStep (IM iv ic) = doInstruction (iv `indexMaybe` ic) (IM iv $ ic + 1)
 
-doInstruction :: (BIO m , Symbol e) => Maybe TreeInstruction -> InstructionUnit -> FullTape e -> m $ Automaton e
+doInstruction :: (BIO m , Symbol e) => Maybe TreeInstruction -> InstructionMemory -> FullTape e -> m $ Memory e
 doInstruction (Just (Simple MoveR     )) table tape = nextStep     table (moveHeadRight tape)
 doInstruction (Just (Simple MoveL     )) table tape = nextStep     table  (moveHeadLeft tape)
 doInstruction (Just (Simple Inc       )) table tape = nextStep     table    (nextSymbol tape)
@@ -36,32 +36,32 @@ doInstruction (Just (Simple Input     )) table tape = doInputChar  table        
 doInstruction (Just (While  iv        )) table tape = doWhile iv   table                tape
 doInstruction  Nothing                   table tape = doEnd        table                tape
 
-doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> InstructionUnit -> FullTape e -> m $ Automaton e
+doWhile :: (BIO m , Symbol e) => TreeInstructionVector -> InstructionMemory -> FullTape e -> m $ Memory e
 doWhile _  table tape@(_ , 0:_) = nextStep table tape
 doWhile iv table tape           = doWhileWithTape =<< runVector iv tape where
-  doWhileWithTape :: (BIO m , Symbol e) => Automaton e -> m $ Automaton e
-  doWhileWithTape = doWhile iv table . unitTape
+  doWhileWithTape :: (BIO m , Symbol e) => Memory e -> m $ Memory e
+  doWhileWithTape = doWhile iv table . memoryTape
 
 -- | IO instructions
-doOutputChar :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
+doOutputChar :: (BIO m , Symbol e) => InstructionMemory -> FullTape e -> m $ Memory e
 doOutputChar _          (_ ,  []) = error "Illegal State"
 doOutputChar table tape@(_ , e:_) = wPutChar (toChar e) *> nextStep table tape
 
-doInputChar  :: (BIO m , Symbol e) => InstructionUnit -> FullTape e -> m $ Automaton e
+doInputChar  :: (BIO m , Symbol e) => InstructionMemory -> FullTape e -> m $ Memory e
 doInputChar table tape = (nextStep table . flip writeSymbol tape) =<< wGetChar
 
 -- | Terminate instruction
-doEnd :: BIO m => InstructionUnit -> FullTape e -> m $ Automaton e
-doEnd iu tape = pure $ Automaton iu tape
+doEnd :: BIO m => InstructionMemory -> FullTape e -> m $ Memory e
+doEnd im tape = pure $ Memory im tape
 
 -- | Types
-data Automaton e = Automaton
-  { unitUI   :: InstructionUnit
-  , unitTape :: FullTape e
+data Memory e = Memory
+  { memoryIM   :: InstructionMemory
+  , memoryTape :: FullTape e
   }
   deriving stock (Eq , Show)
 
-data InstructionUnit = IU !TreeInstructionVector !InstructionCounter
+data InstructionMemory = IM !TreeInstructionVector !InstructionCounter
   deriving stock (Eq , Show)
 
 type InstructionCounter = Int

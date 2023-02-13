@@ -1,0 +1,344 @@
+[ ICF
+    ( DMark 1 )
+, IAL ( SIO InputChar )
+, ICF
+    ( DMark 2 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL ( SAL Halibut )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL ( Binary Sub ) )
+, ICF
+    ( DMark 3 )
+, IAL
+    ( SAL
+        ( Cons 5 )
+    )
+, Transfer
+, ICF
+    ( DMark 4 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, Transfer
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, Transfer
+, ICF
+    ( DMark 5 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 6 )
+, IAL
+    ( SAL
+        ( Cons 16 )
+    )
+, ICF
+    ( DMark 7 )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 8 )
+, IAL
+    ( SAL
+        ( Cons 10 )
+    )
+, IAL
+    ( SAL
+        ( Cons 9 )
+    )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL
+        ( Cons 19 )
+    )
+, Transfer
+, ICF
+    ( DMark 9 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 10 )
+, IAL
+    ( SAL ( Binary Sub ) )
+, IAL
+    ( SAL ( Binary Sub ) )
+, ICF
+    ( DMark 11 )
+, IAL ( SIO InputChar )
+, ICF
+    ( DMark 12 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL ( SAL Halibut )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, IAL
+    ( SAL ( Binary Sub ) )
+, IAL
+    ( SAL
+        ( Cons 14 )
+    )
+, Transfer
+, ICF
+    ( DMark 13 )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL
+        ( Cons 17 )
+    )
+, Transfer
+, ICF
+    ( DMark 14 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL ( SAL Halibut )
+, IAL
+    ( SAL
+        ( Cons 10 )
+    )
+, IAL
+    ( SAL ( Binary Sub ) )
+, IAL
+    ( SAL
+        ( Cons 16 )
+    )
+, Transfer
+, ICF
+    ( DMark 15 )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL
+        ( Cons 17 )
+    )
+, Transfer
+, ICF
+    ( DMark 16 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL ( SAL Halibut )
+, IAL
+    ( SAL
+        ( Cons
+            ( -1 )
+        )
+    )
+, IAL
+    ( SAL ( Binary Sub ) )
+, IAL
+    ( SAL
+        ( Cons 6 )
+    )
+, Transfer
+, ICF
+    ( DMark 17 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL ( SAL Halibut )
+, Transfer
+, ICF
+    ( DMark 18 )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
+, Transfer
+, ICF
+    ( DMark 19 )
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 20 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, ICF
+    ( DMark 21 )
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 22 )
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 23 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 24 )
+, IAL
+    ( SAL
+        ( Cons 26 )
+    )
+, Transfer
+, ICF
+    ( DMark 25 )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL
+        ( Cons 33 )
+    )
+, Transfer
+, ICF
+    ( DMark 26 )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL ( Binary Sub ) )
+, ICF
+    ( DMark 27 )
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 28 )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL
+    ( SAL
+        ( Cons
+            ( -3 )
+        )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 29 )
+, IAL
+    ( SAL ( Binary Sub ) )
+, IAL
+    ( SAL ( Binary Sub ) )
+, ICF
+    ( DMark 30 )
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 31 )
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
+, ICF
+    ( DMark 32 )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL
+        ( Cons 23 )
+    )
+, Transfer
+, ICF
+    ( DMark 33 )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL ( SAL Halibut )
+, Transfer
+, ICF
+    ( DMark 34 )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
+, Transfer
+, ICF
+    ( DMark 35 )
+, End
+]

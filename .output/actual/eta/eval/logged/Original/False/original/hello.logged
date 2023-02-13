@@ -1,5 +1,5 @@
-dump: Automaton
-    { unitIU = IU
+dump: Memory
+    { memoryIM = IM
         { program =
             [ N
             , O
@@ -121,5 +121,5 @@ dump: Automaton
             ]
         , programCounter = 117
         }
-    , unitStack = fromList []
+    , memoryStack = fromList []
     }

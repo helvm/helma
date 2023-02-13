@@ -61,7 +61,7 @@ prependDivMod line = check $ numberFlag line where
   check True  = prependStaticMakr line <.> optimizeLineTail $ line {numberFlag = False}
 
 prependStaticMakr :: Line -> InstructionList -> InstructionList
-prependStaticMakr line il = divModI : sMarkI (currentAddress line) : il
+prependStaticMakr line il = divModI : sMarkIN (currentAddress line) : il
 
 prependDivModSimple :: MonadSafe m => Line -> m InstructionList
 prependDivModSimple = (divModI : ) <.> optimizeLineTail
@@ -75,7 +75,7 @@ prependNumber line = flip buildNumber line =<< parseNumberFromTLL (currentTL lin
 buildNumber :: MonadSafe m => (Integer , (TokenList , [TokenList])) -> Line -> m InstructionList
 buildNumber (n , (tl , ttl) ) line = build (LL.length (nextTLL line) - LL.length ttl) where
   build 0      = (consI n :) <$> optimizeLineTail (line {currentTL = tl})
-  build offset = pure [consI n , sJumpI $ currentAddress line + fromIntegral offset]
+  build offset = pure [consI n , sJumpIN $ currentAddress line + fromIntegral offset]
 
 -- | Accessors
 

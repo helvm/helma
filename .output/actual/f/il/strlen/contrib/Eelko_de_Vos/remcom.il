@@ -2,25 +2,33 @@
 , Comment "removes comments like this..."
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
 , Ref 0
 , Store
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
 , Ref 2
 , Store
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
 , Ref 3
 , Store
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 0 )
+        )
     )
 , Ref 4
 , Store
@@ -29,27 +37,39 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 34 )
+            ( SAL
+                ( Cons 34 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Lambda
         [ Ref 4
         , Fetch
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Add ) )
+            ( IAL
+                ( SAL ( Binary Add ) )
+            )
         , Ref 4
         , Store
         ]
@@ -58,13 +78,21 @@
     , Store
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Unary Neg ) )
+        ( IAL
+            ( SAL ( Unary Neg ) )
+        )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 ]

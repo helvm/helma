@@ -1,0 +1,134 @@
+[ IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, ICF
+    ( SMark "C" )
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, IAL ( SIO OutputDec )
+, IAL
+    ( SAL
+        ( Cons 10 )
+    )
+, IAL ( SIO OutputChar )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL ( Binary Add ) )
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, IAL
+    ( SAL
+        ( Cons 11 )
+    )
+, IAL
+    ( SAL ( Binary Sub ) )
+, ICF
+    ( CStatic "E" ( Branch EZ ) )
+, ICF
+    ( CStatic "C" Jump )
+, ICF
+    ( SMark "E" )
+, IAL ( SAL Discard )
+, End
+, ICF
+    ( SMark "add" )
+, IAL
+    ( SAL ( Binary Add ) )
+, ICF Return
+, ICF
+    ( SMark "write" )
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, ILS Load
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, ICF
+    ( CStatic "write_end" ( Branch EZ ) )
+, IAL ( SIO OutputChar )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL ( Binary Add ) )
+, ICF
+    ( CStatic "write" Jump )
+, ICF
+    ( SMark "write_end" )
+, IAL ( SAL Discard )
+, IAL ( SAL Discard )
+, ICF Return
+, ICF
+    ( SMark "read" )
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, ILS ( MIO InputChar )
+, ILS Load
+, IAL
+    ( SAL
+        ( SStatic 0 Copy )
+    )
+, IAL
+    ( SAL
+        ( Cons 10 )
+    )
+, IAL
+    ( SAL ( Binary Sub ) )
+, ICF
+    ( CStatic "read_end" ( Branch EZ ) )
+, IAL ( SAL Discard )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL ( Binary Add ) )
+, ICF
+    ( CStatic "read" Jump )
+, ICF
+    ( SMark "read_end" )
+, IAL ( SAL Discard )
+, IAL
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL ( Binary Add ) )
+, IAL
+    ( SAL
+        ( Cons 0 )
+    )
+, ILS Store
+, ICF Return
+, ICF
+    ( SMark "newline" )
+, IAL
+    ( SAL
+        ( Cons 10 )
+    )
+, IAL
+    ( SAL
+        ( Cons 13 )
+    )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, ICF Return
+]

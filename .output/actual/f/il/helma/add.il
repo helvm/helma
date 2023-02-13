@@ -1,23 +1,35 @@
 [ Inst
     ( IAL
-        ( Cons 1 )
+        ( SAL
+            ( Cons 1 )
+        )
     )
 , Inst
     ( IAL
-        ( Cons 1 )
+        ( SAL
+            ( Cons 1 )
+        )
     )
 , Inst
     ( IAL
-        ( Cons 2 )
+        ( SAL
+            ( Cons 2 )
+        )
     )
 , Inst
     ( IAL
-        ( Cons 1 )
+        ( SAL
+            ( Cons 1 )
+        )
     )
 , Inst
     ( IAL
-        ( Cons 2 )
+        ( SAL
+            ( Cons 2 )
+        )
     )
 , Inst
-    ( IAL ( Binary Add ) )
+    ( IAL
+        ( SAL ( Binary Add ) )
+    )
 ]

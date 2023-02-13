@@ -8,216 +8,333 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 0 )
+            ( SAL
+                ( Cons 0 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Lambda
         [ Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
             ( IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             )
         ]
     , Cond
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     , Lambda
         [ Inst
             ( IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             )
         , Inst
             ( IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             )
         , Ref 14
         , Lambda
             [ Inst
                 ( IAL
-                    ( SStatic 0 Copy )
+                    ( SAL
+                        ( SStatic 0 Copy )
+                    )
                 )
             , Inst
                 ( IAL
-                    ( Cons 0 )
+                    ( SAL
+                        ( Cons 0 )
+                    )
                 )
             , Inst
-                ( IAL ( Binary LEQ ) )
+                ( IAL
+                    ( SAL ( Binary LEQ ) )
+                )
             , Inst
-                ( IAL ( Unary BNot ) )
+                ( IAL
+                    ( SAL ( Unary BNot ) )
+                )
             ]
         , Lambda
             [ Inst
                 ( IAL
-                    ( SStatic 0 Copy )
+                    ( SAL
+                        ( SStatic 0 Copy )
+                    )
                 )
             , Inst
                 ( IAL
-                    ( SStatic 0 Copy )
-                )
-            , Inst
-                ( IAL ( Unary Neg ) )
-            , Inst
-                ( IAL ( Binary BAnd ) )
-            , Inst
-                ( IAL
-                    ( SStatic 0 Copy )
+                    ( SAL
+                        ( SStatic 0 Copy )
+                    )
                 )
             , Inst
                 ( IAL
-                    ( Cons 7 )
+                    ( SAL ( Unary Neg ) )
+                )
+            , Inst
+                ( IAL
+                    ( SAL ( Binary BAnd ) )
+                )
+            , Inst
+                ( IAL
+                    ( SAL
+                        ( SStatic 0 Copy )
+                    )
+                )
+            , Inst
+                ( IAL
+                    ( SAL
+                        ( Cons 7 )
+                    )
                 )
             , Ref 14
             , Inst
                 ( IAL
-                    ( Cons 7 )
+                    ( SAL
+                        ( Cons 7 )
+                    )
                 )
             , Ref 14
             , Inst
-                ( IAL ( Binary BOr ) )
-            , Inst
-                ( IAL ( Unary Neg ) )
-            , Inst
                 ( IAL
-                    ( Cons 1 )
+                    ( SAL ( Binary BOr ) )
                 )
             , Inst
-                ( IAL ( Binary Sub ) )
+                ( IAL
+                    ( SAL ( Unary Neg ) )
+                )
             , Inst
-                ( IAL ( Binary BAnd ) )
+                ( IAL
+                    ( SAL
+                        ( Cons 1 )
+                    )
+                )
+            , Inst
+                ( IAL
+                    ( SAL ( Binary Sub ) )
+                )
+            , Inst
+                ( IAL
+                    ( SAL ( Binary BAnd ) )
+                )
             , Lambda
                 [ Inst
                     ( IAL
-                        ( SStatic 2 Move )
+                        ( SAL
+                            ( SStatic 2 Move )
+                        )
                     )
                 , Inst
                     ( IAL
-                        ( Cons 1 )
+                        ( SAL
+                            ( Cons 1 )
+                        )
                     )
                 , Ref 14
                 , Inst
                     ( IAL
-                        ( Cons 7 )
-                    )
-                , Ref 14
-                , Inst
-                    ( IAL ( Binary BOr ) )
-                , Inst
-                    ( IAL
-                        ( SStatic 0 Copy )
-                    )
-                , Inst
-                    ( IAL ( Binary Add ) )
-                , Inst
-                    ( IAL
-                        ( Cons 2 )
+                        ( SAL
+                            ( Cons 7 )
+                        )
                     )
                 , Ref 14
                 , Inst
                     ( IAL
-                        ( Cons 7 )
-                    )
-                , Ref 14
-                , Inst
-                    ( IAL ( Binary BOr ) )
-                , Inst
-                    ( IAL
-                        ( Cons 2 )
+                        ( SAL ( Binary BOr ) )
                     )
                 , Inst
-                    ( IAL ( Binary Div ) )
-                , Inst
                     ( IAL
-                        ( Cons 3 )
-                    )
-                , Ref 14
-                , Inst
-                    ( IAL ( Unary Neg ) )
-                , Inst
-                    ( IAL
-                        ( Cons 1 )
+                        ( SAL
+                            ( SStatic 0 Copy )
+                        )
                     )
                 , Inst
-                    ( IAL ( Binary Sub ) )
-                , Inst
                     ( IAL
-                        ( Cons 7 )
+                        ( SAL ( Binary Add ) )
                     )
-                , Ref 14
-                , Inst
-                    ( IAL ( Binary BAnd ) )
                 , Inst
                     ( IAL
-                        ( Cons 6 )
+                        ( SAL
+                            ( Cons 2 )
+                        )
                     )
                 , Ref 14
                 , Inst
                     ( IAL
-                        ( Cons 1 )
+                        ( SAL
+                            ( Cons 7 )
+                        )
+                    )
+                , Ref 14
+                , Inst
+                    ( IAL
+                        ( SAL ( Binary BOr ) )
                     )
                 , Inst
-                    ( IAL ( Binary Sub ) )
+                    ( IAL
+                        ( SAL
+                            ( Cons 2 )
+                        )
+                    )
+                , Inst
+                    ( IAL
+                        ( SAL ( Binary Div ) )
+                    )
+                , Inst
+                    ( IAL
+                        ( SAL
+                            ( Cons 3 )
+                        )
+                    )
+                , Ref 14
+                , Inst
+                    ( IAL
+                        ( SAL ( Unary Neg ) )
+                    )
+                , Inst
+                    ( IAL
+                        ( SAL
+                            ( Cons 1 )
+                        )
+                    )
+                , Inst
+                    ( IAL
+                        ( SAL ( Binary Sub ) )
+                    )
+                , Inst
+                    ( IAL
+                        ( SAL
+                            ( Cons 7 )
+                        )
+                    )
+                , Ref 14
+                , Inst
+                    ( IAL
+                        ( SAL ( Binary BAnd ) )
+                    )
+                , Inst
+                    ( IAL
+                        ( SAL
+                            ( Cons 6 )
+                        )
+                    )
+                , Ref 14
+                , Inst
+                    ( IAL
+                        ( SAL
+                            ( Cons 1 )
+                        )
+                    )
+                , Inst
+                    ( IAL
+                        ( SAL ( Binary Sub ) )
+                    )
                 , Ref 16
                 , Fetch
                 , Exec
                 , Inst
-                    ( IAL ( Binary Add ) )
-                , Inst
                     ( IAL
-                        ( SStatic 2 Move )
+                        ( SAL ( Binary Add ) )
                     )
                 , Inst
                     ( IAL
-                        ( SStatic 2 Move )
+                        ( SAL
+                            ( SStatic 2 Move )
+                        )
+                    )
+                , Inst
+                    ( IAL
+                        ( SAL
+                            ( SStatic 2 Move )
+                        )
                     )
                 ]
             , Cond
             , Inst
-                ( IAL ( Unary Neg ) )
-            , Inst
                 ( IAL
-                    ( Cons 1 )
+                    ( SAL ( Unary Neg ) )
                 )
             , Inst
-                ( IAL ( Binary Sub ) )
+                ( IAL
+                    ( SAL
+                        ( Cons 1 )
+                    )
+                )
             , Inst
-                ( IAL ( Binary BAnd ) )
+                ( IAL
+                    ( SAL ( Binary Sub ) )
+                )
+            , Inst
+                ( IAL
+                    ( SAL ( Binary BAnd ) )
+                )
             ]
         , While
-        , Inst ( IAL Discard )
+        , Inst
+            ( IAL ( SAL Discard ) )
         ]
     , Cond
     , Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     , Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     , Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     , Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     ]
 , Ref 16
 , Store
@@ -228,28 +345,42 @@
 , Ref 1
 , Inst
     ( IAL
-        ( Cons 48 )
-    )
-, Inst
-    ( IAL ( Binary Sub ) )
-, Inst
-    ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( Cons 48 )
+        )
     )
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL ( Binary Sub ) )
     )
 , Inst
     ( IAL
-        ( SStatic 2 Move )
+        ( SAL
+            ( Cons 0 )
+        )
     )
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL
+            ( SStatic 0 Copy )
+        )
     )
 , Inst
     ( IAL
-        ( Cons 1 )
+        ( SAL
+            ( SStatic 2 Move )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( SStatic 0 Copy )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( Cons 1 )
+        )
     )
 ]

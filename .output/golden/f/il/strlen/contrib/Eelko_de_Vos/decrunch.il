@@ -4,16 +4,24 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 10 )
+            ( SAL
+                ( Cons 10 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda []
 , While
@@ -24,33 +32,49 @@
 , Lambda
     [ Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Unary Neg ) )
+        ( IAL
+            ( SAL ( Unary Neg ) )
+        )
     , Ref 0
     , Fetch
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Comment "while a<>EOF"
 , Lambda
     [ Inst
         ( IAL
-            ( Cons 169 )
+            ( SAL
+                ( Cons 169 )
+            )
         )
     , Ref 0
     , Fetch
     , Inst
-        ( IAL ( Binary LEQ ) )
-    , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL ( Binary LEQ ) )
         )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL
+                ( SStatic 0 Copy )
+            )
+        )
+    , Inst
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     , Lambda
         [ Comment "if char!=escapecode"
         , Ref 0
@@ -74,14 +98,20 @@
         , Lambda
             [ Inst
                 ( IAL
-                    ( Cons 0 )
+                    ( SAL
+                        ( Cons 0 )
+                    )
                 )
             , Ref 2
             , Fetch
             , Inst
-                ( IAL ( Binary LEQ ) )
+                ( IAL
+                    ( SAL ( Binary LEQ ) )
+                )
             , Inst
-                ( IAL ( Unary BNot ) )
+                ( IAL
+                    ( SAL ( Unary BNot ) )
+                )
             ]
         , Comment "while counter!=0"
         , Lambda
@@ -94,10 +124,14 @@
             , Fetch
             , Inst
                 ( IAL
-                    ( Cons 1 )
+                    ( SAL
+                        ( Cons 1 )
+                    )
                 )
             , Inst
-                ( IAL ( Binary Sub ) )
+                ( IAL
+                    ( SAL ( Binary Sub ) )
+                )
             , Ref 2
             , Store
             , Comment "decrement counter"

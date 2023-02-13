@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.4.3
+version:               0.8.4.4
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -104,12 +104,13 @@ library
   hs-source-dirs:      hs/src
   exposed-modules:
 
+    HelVM.HelMA.Automaton.API.AutomatonOptions
+    HelVM.HelMA.Automaton.API.MemoryOptions
     HelVM.HelMA.Automaton.API.AutoOptions
-    HelVM.HelMA.Automaton.API.AutoParams
     HelVM.HelMA.Automaton.API.EvalParams
     HelVM.HelMA.Automaton.API.IOTypes
+    HelVM.HelMA.Automaton.API.OptimizationLevel
 
-    HelVM.HelMA.Automaton.AOT
     HelVM.HelMA.Automaton.Automaton
     HelVM.HelMA.Automaton.Loop
 
@@ -120,10 +121,12 @@ library
 
     HelVM.HelMA.Automaton.Instruction
 
-    HelVM.HelMA.Automaton.Instruction.ALInstruction
     HelVM.HelMA.Automaton.Instruction.CFInstruction
     HelVM.HelMA.Automaton.Instruction.IOInstruction
     HelVM.HelMA.Automaton.Instruction.LSInstruction
+    HelVM.HelMA.Automaton.Instruction.SInstruction
+
+    HelVM.HelMA.Automaton.Optimizer
 
     HelVM.HelMA.Automaton.ReadPExtra
 
@@ -137,10 +140,11 @@ library
     HelVM.HelMA.Automaton.Types.StackType
     HelVM.HelMA.Automaton.Types.TokenType
 
-    HelVM.HelMA.Automaton.Units.ALU
-    HelVM.HelMA.Automaton.Units.CPU
-    HelVM.HelMA.Automaton.Units.LSU
-    HelVM.HelMA.Automaton.Units.RAM
+    HelVM.HelMA.Automaton.Combiner
+    HelVM.HelMA.Automaton.Combiner.ALU
+    HelVM.HelMA.Automaton.Combiner.CPU
+    HelVM.HelMA.Automaton.Combiner.LSU
+    HelVM.HelMA.Automaton.Combiner.RAM
 
     HelVM.HelMA.Automaton.WrapTokenList
 
@@ -265,6 +269,7 @@ test-suite helma-test
 
     HelVM.HelMA.Automaton.API.AutoOptionsExtra
     HelVM.HelMA.Automaton.FilterIf0Spec
+    HelVM.HelMA.Automaton.OptimizerSpec
 
     HelVM.HelMA.Automata.FileExtra
 
@@ -318,6 +323,7 @@ test-suite helma-test
     , filepath
     , type-operators
     , vector
+    , yjtools
 
   build-tool-depends:  hspec-discover:hspec-discover == 2.*
   ghc-options:

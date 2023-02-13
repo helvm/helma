@@ -17,7 +17,6 @@ parseNumberFromTLL a = loop act ([] , a) where
   act (acc , (R  : tl , tll))      = Left (    acc , (tl , tll))
   act (acc , (t  : tl , tll))      = Left (t : acc , (tl , tll))
   act (acc ,      ([] , tl : tll)) = Left (    acc , (tl , tll))
---  act (acc ,      ([] , []))       = Right $ pure (0, ([] , []))
   act (acc ,      ([] , []))       = Right $ ( , ([] , [])) <$> makeIntegral7FromList acc
 
 parseNumberFromTL :: (MonadSafe m , Integral a) => OperandParser m a
@@ -27,28 +26,28 @@ parseNumberFromTL a = loop act ([] , a) where
   act (acc , t  : tl) = Left (t : acc , tl)
   act (acc ,      []) = Right (liftError $ show acc)
 
-parseNumber :: (MonadSafe m , Integral a) => OperandIUParser m a
-parseNumber iu = loopM act =<< (([] , ) <$> nextIU iu) where
+parseNumber :: (MonadSafe m , Integral a) => OperandIMParser m a
+parseNumber iu = loopM act =<< (([] , ) <$> nextIM iu) where
   act (acc , (Nothing , iu')) = Right . ( , iu') <$> makeIntegral7FromList acc
   act (acc , (Just E  , iu')) = Right . ( , iu') <$> makeIntegral7FromList acc
-  act (acc , (Just R  , iu')) = Left  . (    acc , ) <$> nextIU iu'
-  act (acc , (Just t  , iu')) = Left  . (t : acc , ) <$> nextIU iu'
+  act (acc , (Just R  , iu')) = Left  . (    acc , ) <$> nextIM iu'
+  act (acc , (Just t  , iu')) = Left  . (t : acc , ) <$> nextIM iu'
 
-nextIU :: MonadSafe m => OperandIUParser m (Maybe Token)
-nextIU iu@(IU il ic)
+nextIM :: MonadSafe m => OperandIMParser m (Maybe Token)
+nextIM iu@(IM il ic)
   | ic < Vector.length il = wrap <$> indexSafe il ic
   | otherwise             = pure (Nothing , iu)
-  where wrap i = (Just i, IU il (ic+1))
+  where wrap i = (Just i, IM il (ic+1))
 
-updatePC :: InstructionUnit -> InstructionCounter -> InstructionUnit
+updatePC :: InstructionMemory -> InstructionCounter -> InstructionMemory
 updatePC iu a = iu { programCounter = a }
 
 -- | Types
 type OperandParser m a = TokenList -> m (a , TokenList)
 
-data InstructionUnit = IU
+data InstructionMemory = IM
   { program        :: !TokenVector
   , programCounter :: !InstructionCounter
   } deriving stock (Eq , Read , Show)
 
-type OperandIUParser m a = InstructionUnit -> m (a , InstructionUnit)
+type OperandIMParser m a = InstructionMemory -> m (a , InstructionMemory)

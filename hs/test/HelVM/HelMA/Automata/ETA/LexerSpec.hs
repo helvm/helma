@@ -5,28 +5,34 @@ import           HelVM.HelMA.Automata.ETA.Parser
 
 import           HelVM.HelMA.Automata.ETA.FileExtra
 
+import           HelVM.HelMA.Automaton.API.OptimizationLevel
+import           HelVM.HelMA.Automaton.Optimizer
+
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.ZipA
 
 import           HelVM.GoldenExpectations
 
-import           System.FilePath.Posix
+import           Control.Applicative.Tools
 
-import           Test.Hspec                         (Spec, describe, it)
+import           System.FilePath.Posix                       hiding ((<.>))
+
+import           Test.Hspec                                  (Spec, describe, it)
 
 spec :: Spec
 spec =
-  describe "lexer" $ do
-    describe "minified" $ forM_ (original <> fromEAS) $ \(fileName , dirName) -> do
+  describe "lexer" $ forM_ allFiles $ \(fileName , dirName) -> do
       let path = dirName </> fileName
       let file = readEtaFile path
       it ("minified" </> path) $
         (show . readTokens <$> file) `goldenShouldIO` buildAbsoluteEtaFileName ("minified" </> path)
-    describe "parsed" $ forM_ (original <> fromEAS) $ \(fileName , dirName) -> do
-      let path = dirName </> fileName
-      let file = readEtaFile path
       it ("parsed" </> path) $
         safeIOToPTextIO (parseSafe <$> file) `goldenShouldIO` buildAbsoluteEtaIlFileName ("parsed" </> path)
+      it ("optimized" </> path) $
+        safeIOToPTextIO ((optimize AllOptimizations <.> parseSafe) <$> file) `goldenShouldIO` buildAbsoluteEtaIlFileName ("optimized" </> path)
+
+allFiles :: [(FilePath, FilePath)]
+allFiles = original <> fromEAS
 
 original :: [(FilePath, FilePath)]
 original =

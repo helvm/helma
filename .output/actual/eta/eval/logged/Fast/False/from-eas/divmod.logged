@@ -1,17 +1,15 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ ICF
                 ( DMark 1 )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , IAL
-                ( Cons 1 )
-            , IAL
-                ( Binaries
-                    [ Mod
-                    , Div
-                    ]
+                ( SAL
+                    ( Cons 0 )
                 )
             , ICF
                 ( SMark "1" )
@@ -19,12 +17,12 @@ dump: Automaton
                 ( DMark 2 )
             , End
             ]
-        , programCounter = 7
+        , programCounter = 6
         , returnStack = IS []
         }
-    , unitStack = fromList
+    , memoryStack = fromList
         [ 0
         , 2
         ]
-    , unitRAM = []
+    , memoryRAM = []
     }

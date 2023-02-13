@@ -1,88 +1,118 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ ICF
                 ( DMark 1 )
             , IAL
-                ( Cons 21 )
+                ( SAL
+                    ( Cons 21 )
+                )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , Transfer
-            , IAL Halibut
+            , IAL ( SAL Halibut )
             , IAL
-                ( Binaries
-                    [ Mod
-                    , Div
-                    ]
+                ( SAL
+                    ( Binaries
+                        [ Mod
+                        , Div
+                        ]
+                    )
                 )
             , ICF
                 ( SMark "1" )
             , IAL ( SIO OutputChar )
             , IAL
-                ( Binaries
-                    [ Mod
-                    , Div
-                    ]
+                ( SAL
+                    ( Binaries
+                        [ Mod
+                        , Div
+                        ]
+                    )
                 )
             , Transfer
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , IAL ( SIO InputChar )
             , Transfer
             , Transfer
             , IAL
-                ( Binaries
-                    [ Mod
-                    , Div
-                    ]
+                ( SAL
+                    ( Binaries
+                        [ Mod
+                        , Div
+                        ]
+                    )
                 )
             , IAL
-                ( Cons 4 )
+                ( SAL
+                    ( Cons 4 )
+                )
             , Transfer
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , IAL ( SIO OutputChar )
             , ICF
                 ( DMark 2 )
             , ICF
                 ( DMark 3 )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , ICF
                 ( DMark 4 )
             , IAL
-                ( Cons 44 )
+                ( SAL
+                    ( Cons 44 )
+                )
             , IAL
-                ( Cons 111 )
+                ( SAL
+                    ( Cons 111 )
+                )
             , ICF
                 ( CStatic "5" Jump )
             , ICF
                 ( DMark 5 )
             , Transfer
-            , IAL ( Binary Sub )
             , IAL
-                ( Binaries
-                    [ Mod
-                    , Div
-                    ]
+                ( SAL ( Binary Sub ) )
+            , IAL
+                ( SAL
+                    ( Binaries
+                        [ Mod
+                        , Div
+                        ]
+                    )
                 )
             , ICF
                 ( SMark "5" )
             , ICF
                 ( DMark 6 )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , ICF
                 ( DMark 7 )
             , IAL
-                ( Cons 72 )
-            , IAL
-                ( Cons 0 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 72 )
+                )
             , ICF
                 ( DMark 8 )
             , IAL ( SIO OutputChar )
@@ -95,23 +125,37 @@ dump: Automaton
             , ICF
                 ( DMark 9 )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , ICF
                 ( DMark 10 )
             , IAL
-                ( Cons 33 )
+                ( SAL
+                    ( Cons 33 )
+                )
             , IAL
-                ( Cons 100 )
+                ( SAL
+                    ( Cons 100 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , ICF
                 ( DMark 11 )
             , IAL
-                ( Cons 114 )
+                ( SAL
+                    ( Cons 114 )
+                )
             , IAL
-                ( Cons 111 )
+                ( SAL
+                    ( Cons 111 )
+                )
             , IAL
-                ( Cons 119 )
+                ( SAL
+                    ( Cons 119 )
+                )
             , ICF
                 ( DMark 12 )
             , IAL ( SIO OutputChar )
@@ -125,9 +169,9 @@ dump: Automaton
                 ( DMark 13 )
             , End
             ]
-        , programCounter = 67
+        , programCounter = 65
         , returnStack = IS []
         }
-    , unitStack = fromList []
-    , unitRAM = []
+    , memoryStack = fromList []
+    , memoryRAM = []
     }

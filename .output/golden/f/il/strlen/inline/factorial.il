@@ -2,32 +2,48 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     , Lambda
         [ Inst
             ( IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             )
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Sub ) )
+            ( IAL
+                ( SAL ( Binary Sub ) )
+            )
         , Ref 5
         , Fetch
         , Exec
         , Inst
-            ( IAL ( Binary Mul ) )
+            ( IAL
+                ( SAL ( Binary Mul ) )
+            )
         ]
     , Cond
     ]
@@ -41,20 +57,30 @@
 , Flush
 , Inst
     ( IAL
-        ( Cons 48 )
-    )
-, Inst
-    ( IAL ( Binary Sub ) )
-, Inst
-    ( IAL
-        ( SStatic 0 Copy )
+        ( SAL
+            ( Cons 48 )
+        )
     )
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL ( Binary Sub ) )
     )
 , Inst
     ( IAL
-        ( Cons 0 )
+        ( SAL
+            ( SStatic 0 Copy )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( SStatic 0 Copy )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( Cons 0 )
+        )
     )
 ]

@@ -1,0 +1,168 @@
+[ ICF
+    ( DMark 1 )
+, IAL
+    ( SAL
+        ( Cons 21 )
+    )
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, Transfer
+, IAL ( SAL Halibut )
+, IAL
+    ( SAL
+        ( Binaries
+            [ Mod
+            , Div
+            ]
+        )
+    )
+, ICF
+    ( SMark "1" )
+, IAL ( SIO OutputChar )
+, IAL
+    ( SAL
+        ( Binaries
+            [ Mod
+            , Div
+            ]
+        )
+    )
+, Transfer
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SIO InputChar )
+, Transfer
+, Transfer
+, IAL
+    ( SAL
+        ( Binaries
+            [ Mod
+            , Div
+            ]
+        )
+    )
+, IAL
+    ( SAL
+        ( Cons 4 )
+    )
+, Transfer
+, IAL
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SIO OutputChar )
+, ICF
+    ( DMark 2 )
+, ICF
+    ( DMark 3 )
+, IAL
+    ( SAL
+        ( Cons 32 )
+    )
+, ICF
+    ( DMark 4 )
+, IAL
+    ( SAL
+        ( Cons 44 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, ICF
+    ( CStatic "5" Jump )
+, ICF
+    ( DMark 5 )
+, Transfer
+, IAL
+    ( SAL ( Binary Sub ) )
+, IAL
+    ( SAL
+        ( Binaries
+            [ Mod
+            , Div
+            ]
+        )
+    )
+, ICF
+    ( SMark "5" )
+, ICF
+    ( DMark 6 )
+, IAL
+    ( SAL
+        ( Cons 108 )
+    )
+, IAL
+    ( SAL
+        ( Cons 108 )
+    )
+, IAL
+    ( SAL
+        ( Cons 101 )
+    )
+, ICF
+    ( DMark 7 )
+, IAL
+    ( SAL
+        ( Cons 72 )
+    )
+, ICF
+    ( DMark 8 )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, ICF
+    ( DMark 9 )
+, IAL
+    ( SAL
+        ( Cons 10 )
+    )
+, ICF
+    ( DMark 10 )
+, IAL
+    ( SAL
+        ( Cons 33 )
+    )
+, IAL
+    ( SAL
+        ( Cons 100 )
+    )
+, IAL
+    ( SAL
+        ( Cons 108 )
+    )
+, ICF
+    ( DMark 11 )
+, IAL
+    ( SAL
+        ( Cons 114 )
+    )
+, IAL
+    ( SAL
+        ( Cons 111 )
+    )
+, IAL
+    ( SAL
+        ( Cons 119 )
+    )
+, ICF
+    ( DMark 12 )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, IAL ( SIO OutputChar )
+, ICF
+    ( DMark 13 )
+, End
+]

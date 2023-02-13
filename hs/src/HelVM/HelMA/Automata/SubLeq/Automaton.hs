@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.SubLeq.Automaton (
-  newAutomaton,
+  newMemory,
   run,
 ) where
 
@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automaton.IO.BusinessIO
 
 import           HelVM.HelMA.Automaton.Loop           as Loop
 
-import           HelVM.HelMA.Automaton.Units.RAM      as RAM
+import           HelVM.HelMA.Automaton.Combiner.RAM   as RAM
 
 import           Control.Type.Operator
 
@@ -46,15 +46,15 @@ doInstruction src dst (Automaton ic ram) = pure $ Loop.continue $ Automaton ic' 
 next3Automaton :: Num e => e -> ram -> Automaton e ram
 next3Automaton ic = Automaton (ic + 3)
 
-newAutomaton :: Num e => ram -> Automaton e ram
-newAutomaton = Automaton 0
+newMemory :: Num e => ram -> Automaton e ram
+newMemory = Automaton 0
 
 -- | Types
 
 type AutomatonSame ic ram = Same (Automaton ic ram)
 
 data Automaton ic ram = Automaton
-   { unitIU  :: ic
-   , unitRAM :: ram
+   { memoryIC  :: ic
+   , memoryRAM :: ram
    }
   deriving stock (Eq , Read , Show)

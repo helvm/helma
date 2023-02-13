@@ -1,195 +1,325 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ ICF
                 ( SMark "0111001101110100" )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 93 )
+                ( SAL
+                    ( Cons 93 )
+                )
             , IAL
-                ( Cons 48 )
+                ( SAL
+                    ( Cons 48 )
+                )
             , IAL
-                ( Cons 48 )
+                ( SAL
+                    ( Cons 48 )
+                )
             , IAL
-                ( Cons 49 )
+                ( SAL
+                    ( Cons 49 )
+                )
             , IAL
-                ( Cons 45 )
+                ( SAL
+                    ( Cons 45 )
+                )
             , IAL
-                ( Cons 50 )
+                ( SAL
+                    ( Cons 50 )
+                )
             , IAL
-                ( Cons 91 )
+                ( SAL
+                    ( Cons 91 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , IAL
-                ( Cons 115 )
+                ( SAL
+                    ( Cons 115 )
+                )
             , IAL
-                ( Cons 114 )
+                ( SAL
+                    ( Cons 114 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , IAL
-                ( Cons 98 )
+                ( SAL
+                    ( Cons 98 )
+                )
             , IAL
-                ( Cons 109 )
+                ( SAL
+                    ( Cons 109 )
+                )
             , IAL
-                ( Cons 117 )
+                ( SAL
+                    ( Cons 117 )
+                )
             , IAL
-                ( Cons 110 )
+                ( SAL
+                    ( Cons 110 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , IAL
-                ( Cons 109 )
+                ( SAL
+                    ( Cons 109 )
+                )
             , IAL
-                ( Cons 105 )
+                ( SAL
+                    ( Cons 105 )
+                )
             , IAL
-                ( Cons 114 )
+                ( SAL
+                    ( Cons 114 )
+                )
             , IAL
-                ( Cons 112 )
+                ( SAL
+                    ( Cons 112 )
+                )
             , ICF
                 ( CStatic "0111000001110010011010010110111001110100011100110110110001101110" Call )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , ICF
                 ( SMark "011001100101111101110011011101000110000101110010011101000101111100110001" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 100 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110001" ( Branch EZ ) )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 100 )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL ( Binary Add ) )
+            , IAL
+                ( SAL
+                    ( Cons 1 )
+                )
             , ILS Store
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "011001100101111101110011011101000110000101110010011101000101111100110001" Jump )
             , ICF
                 ( SMark "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110001" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , ICF
                 ( SMark "011001100101111101110011011101000110000101110010011101000101111100110010" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 11 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 11 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110010" ( Branch EZ ) )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , ICF
                 ( SMark "011001100101111101110011011101000110000101110010011101000101111100110011" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 100 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110011" ( Branch EZ ) )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             , ILS Store
             , IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             , ILS Store
             , IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 1 Move )
+                )
             , IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             , ILS Load
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , ILS Load
-            , IAL ( Binary Mul )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Add )
+                ( SAL ( Binary Mul ) )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 100 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
+            , IAL
+                ( SAL
+                    ( Cons 0 )
+                )
             , ILS Store
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "011001100101111101110011011101000110000101110010011101000101111100110011" Jump )
             , ICF
                 ( SMark "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110011" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "011001100101111101110011011101000110000101110010011101000101111100110010" Jump )
             , ICF
                 ( SMark "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110010" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 2 )
+                ( SAL
+                    ( Cons 2 )
+                )
             , ICF
                 ( SMark "011001100101111101110011011101000110000101110010011101000101111100110100" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Sub )
+                ( SAL
+                    ( Cons 100 )
+                )
+            , IAL
+                ( SAL ( Binary Sub ) )
             , ICF
                 ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110100" ( Branch EZ ) )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL
-                ( Cons 100 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 100 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ILS Load
             , ICF
                 ( CStatic "011011100110111101100100011100100110000101110111" ( Branch EZ ) )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , IAL ( SIO OutputDec )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , ICF
                 ( CStatic "011100000111001001101001011011100111010001110011" Call )
             , ICF
                 ( SMark "011011100110111101100100011100100110000101110111" )
             , IAL
-                ( Cons 1 )
-            , IAL ( Binary Add )
+                ( SAL
+                    ( Cons 1 )
+                )
+            , IAL
+                ( SAL ( Binary Add ) )
             , ICF
                 ( CStatic "011001100101111101110011011101000110000101110010011101000101111100110100" Jump )
             , ICF
                 ( SMark "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110100" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , ICF
                 ( CStatic "0111000001110010011010010110111001110100011100110110110001101110" Call )
             , End
             , ICF
                 ( SMark "011100000111001001101001011011100111010001110011" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , ICF
                 ( CStatic "01110000011100100110100101101110011101000111001101011111011001010110111001100100" ( Branch EZ ) )
             , IAL ( SIO OutputChar )
@@ -197,22 +327,24 @@ dump: Automaton
                 ( CStatic "011100000111001001101001011011100111010001110011" Jump )
             , ICF
                 ( SMark "01110000011100100110100101101110011101000111001101011111011001010110111001100100" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , ICF Return
             , ICF
                 ( SMark "0111000001110010011010010110111001110100011100110110110001101110" )
             , ICF
                 ( CStatic "011100000111001001101001011011100111010001110011" Call )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL ( SIO OutputChar )
             , ICF Return
             ]
         , programCounter = 105
         , returnStack = IS []
         }
-    , unitStack = fromList []
-    , unitRAM =
+    , memoryStack = fromList []
+    , memoryRAM =
         [ 0
         , 99
         , 10

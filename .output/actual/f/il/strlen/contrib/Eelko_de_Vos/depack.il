@@ -11,12 +11,18 @@
     , Fetch
     , Inst
         ( IAL
-            ( Cons 10 )
+            ( SAL
+                ( Cons 10 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , While
 , Comment "is first char a packcode?"
@@ -24,12 +30,18 @@
 , Fetch
 , Inst
     ( IAL
-        ( Cons 35 )
+        ( SAL
+            ( Cons 35 )
+        )
     )
 , Inst
-    ( IAL ( Binary LEQ ) )
+    ( IAL
+        ( SAL ( Binary LEQ ) )
+    )
 , Inst
     ( IAL
-        ( SStatic 0 Copy )
+        ( SAL
+            ( SStatic 0 Copy )
+        )
     )
 ]

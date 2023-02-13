@@ -13,36 +13,57 @@
             ( IAL ( SIO InputChar ) )
         , Inst
             ( IAL
-                ( SStatic 0 Copy )
-            )
-        , Inst
-            ( IAL
-                ( Cons 1 )
-            )
-        , Inst
-            ( IAL ( Unary Neg ) )
-        , Inst
-            ( IAL ( Binary LEQ ) )
-        , Inst
-            ( IAL ( Unary BNot ) )
-        , Inst
-            ( IAL
-                ( SStatic 0 Copy )
-            )
-        , Lambda
-            [ Inst ( IAL Discard )
-            , Inst
-                ( IAL
+                ( SAL
                     ( SStatic 0 Copy )
                 )
+            )
+        , Inst
+            ( IAL
+                ( SAL
+                    ( Cons 1 )
+                )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Unary Neg ) )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Binary LEQ ) )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Unary BNot ) )
+            )
+        , Inst
+            ( IAL
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
+            )
+        , Lambda
+            [ Inst
+                ( IAL ( SAL Discard ) )
             , Inst
                 ( IAL
-                    ( Cons 10 )
+                    ( SAL
+                        ( SStatic 0 Copy )
+                    )
                 )
             , Inst
-                ( IAL ( Binary LEQ ) )
+                ( IAL
+                    ( SAL
+                        ( Cons 10 )
+                    )
+                )
             , Inst
-                ( IAL ( Unary BNot ) )
+                ( IAL
+                    ( SAL ( Binary LEQ ) )
+                )
+            , Inst
+                ( IAL
+                    ( SAL ( Unary BNot ) )
+                )
             ]
         , Cond
         ]
@@ -51,7 +72,8 @@
             ( IAL ( SIO OutputChar ) )
         ]
     , While
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     , Str "</td>"
     ]
 , Ref 15
@@ -61,18 +83,28 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Unary Neg ) )
+        ( IAL
+            ( SAL ( Unary Neg ) )
+        )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda
     [ Str "<tr>
@@ -84,36 +116,57 @@
             ( IAL ( SIO InputChar ) )
         , Inst
             ( IAL
-                ( SStatic 0 Copy )
-            )
-        , Inst
-            ( IAL
-                ( Cons 1 )
-            )
-        , Inst
-            ( IAL ( Unary Neg ) )
-        , Inst
-            ( IAL ( Binary LEQ ) )
-        , Inst
-            ( IAL ( Unary BNot ) )
-        , Inst
-            ( IAL
-                ( SStatic 0 Copy )
-            )
-        , Lambda
-            [ Inst ( IAL Discard )
-            , Inst
-                ( IAL
+                ( SAL
                     ( SStatic 0 Copy )
                 )
+            )
+        , Inst
+            ( IAL
+                ( SAL
+                    ( Cons 1 )
+                )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Unary Neg ) )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Binary LEQ ) )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Unary BNot ) )
+            )
+        , Inst
+            ( IAL
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
+            )
+        , Lambda
+            [ Inst
+                ( IAL ( SAL Discard ) )
             , Inst
                 ( IAL
-                    ( Cons 10 )
+                    ( SAL
+                        ( SStatic 0 Copy )
+                    )
                 )
             , Inst
-                ( IAL ( Binary LEQ ) )
+                ( IAL
+                    ( SAL
+                        ( Cons 10 )
+                    )
+                )
             , Inst
-                ( IAL ( Unary BNot ) )
+                ( IAL
+                    ( SAL ( Binary LEQ ) )
+                )
+            , Inst
+                ( IAL
+                    ( SAL ( Unary BNot ) )
+                )
             ]
         , Cond
         ]
@@ -122,7 +175,8 @@
             ( IAL ( SIO OutputChar ) )
         ]
     , While
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     , Str "</td>"
     , Ref 15
     , Fetch
@@ -137,7 +191,8 @@
       "
     ]
 , While
-, Inst ( IAL Discard )
+, Inst
+    ( IAL ( SAL Discard ) )
 , Str "</table>
   "
 ]

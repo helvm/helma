@@ -7,8 +7,8 @@ module HelVM.HelMA.Automaton.IO.AutomatonIO (
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.HelMA.Automaton.Units.ALU
-import           HelVM.HelMA.Automaton.Units.RAM
+import           HelVM.HelMA.Automaton.Combiner.ALU
+import           HelVM.HelMA.Automaton.Combiner.RAM
 
 type SRAutomatonIO e s r m = (Stack s e, RAM r e, AutomatonIO e m)
 type RAutomatonIO  e r m   = (RAM r e, AutomatonIO e m)

@@ -3,7 +3,13 @@ module AppOptions where
 
 import           BoolTypes
 import           Emit
-import           Lang
+import qualified Lang
+
+import qualified HelVM.HelMA.Automaton.API.AutoOptions       as API
+import qualified HelVM.HelMA.Automaton.API.EvalParams        as API
+import           HelVM.HelMA.Automaton.API.IOTypes           as API
+import qualified HelVM.HelMA.Automaton.API.MemoryOptions     as API
+import           HelVM.HelMA.Automaton.API.OptimizationLevel as API
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
@@ -35,8 +41,8 @@ optionParser = AppOptions
   <*> option auto  (  long    "lang"
                    <> short   'l'
                    <> metavar "[LANG]"
-                   <> help   ("Language to interpret " <> show langs)
-                   <> value    defaultLang
+                   <> help   ("Language to interpret " <> show Lang.langs)
+                   <> value    Lang.defaultLang
                    <> showDefault
                    )
   <*> option auto  (  long    "BFType"
@@ -58,9 +64,14 @@ optionParser = AppOptions
                    <> help    "Visible tokens for WS"
                    <> showDefault
                    )
+  <*> switch       (  long    "optimize"
+                   <> short   'O'
+                   <> help    "Optimize instructions"
+                   <> showDefault
+                   )
   <*> switch       (  long    "compile"
                    <> short   'C'
-                   <> help    "Compiler tokens, only for ETA"
+                   <> help    "Compiler instructions"
                    <> showDefault
                    )
   <*> flag BinaryLabel TextLabel
@@ -111,22 +122,39 @@ optionParser = AppOptions
                    )
   <*> argument str (  metavar "FILE")
 
+-- | Methods
+
+langWithOptions :: AppOptions -> Lang.LangWithOptions
+langWithOptions o = Lang.LangWithOptions (lang o) (bfType o) (etaImplType o) (tokenType o)
+
+evalParams :: AppOptions -> Source -> API.EvalParams
+evalParams o source = API.EvalParams (formatType o) source (memoryOptions o) (autoOptions o)
+
+memoryOptions :: AppOptions -> API.MemoryOptions
+memoryOptions o = API.MemoryOptions (ramType o) (stackType o) (cellType o) (intCellType o)
+
+autoOptions :: AppOptions -> API.AutoOptions
+autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) (compileFlag o) Nothing (dumpType o)
+
+-- | Types
+
 data AppOptions = AppOptions
-  { emit        :: !Emit
-  , printLogs   :: !PrintLogs
+  { emit             :: !Emit
+  , printLogs        :: !PrintLogs
 
-  , lang        :: !Lang
-  , bfType      :: !BFType
-  , etaImplType :: !ETAImplType
-  , tokenType   :: !TokenType
+  , lang             :: !Lang.Lang
+  , bfType           :: !BFType
+  , etaImplType      :: !ETAImplType
+  , tokenType        :: !TokenType
 
-  , compile     :: !Compile
-  , formatType  :: !FormatType
-  , ramType     :: !RAMType
-  , stackType   :: !StackType
-  , cellType    :: !CellType
-  , intCellType :: !IntCellType
-  , dumpType    :: !DumpType
-  , exec        :: !Exec
-  , file        :: !String
+  , optimizationFlag :: !Optimization
+  , compileFlag      :: !Compile
+  , formatType       :: !FormatType
+  , ramType          :: !RAMType
+  , stackType        :: !StackType
+  , cellType         :: !CellType
+  , intCellType      :: !IntCellType
+  , dumpType         :: !DumpType
+  , exec             :: !Exec
+  , file             :: !String
   }

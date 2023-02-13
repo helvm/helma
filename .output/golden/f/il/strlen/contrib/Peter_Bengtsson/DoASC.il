@@ -7,37 +7,57 @@
 , Fetch
 , Inst
     ( IAL
-        ( Cons 4 )
-    )
-, Inst
-    ( IAL ( Binary Sub ) )
-, Inst
-    ( IAL
-        ( SStatic 0 Copy )
+        ( SAL
+            ( Cons 4 )
+        )
     )
 , Inst
     ( IAL
-        ( Cons 1 )
+        ( SAL ( Binary Sub ) )
     )
 , Inst
-    ( IAL ( Binary Add ) )
+    ( IAL
+        ( SAL
+            ( SStatic 0 Copy )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( Cons 1 )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL ( Binary Add ) )
+    )
 , Fetch
 , Inst
     ( IAL
-        ( Cons 255 )
-    )
-, Inst
-    ( IAL ( Binary BAnd ) )
-, Inst
-    ( IAL
-        ( SStatic 0 Copy )
+        ( SAL
+            ( Cons 255 )
+        )
     )
 , Inst
     ( IAL
-        ( Cons 10 )
+        ( SAL ( Binary BAnd ) )
     )
 , Inst
-    ( IAL ( Binary LEQ ) )
+    ( IAL
+        ( SAL
+            ( SStatic 0 Copy )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL
+            ( Cons 10 )
+        )
+    )
+, Inst
+    ( IAL
+        ( SAL ( Binary LEQ ) )
+    )
 , Lambda
     [ Str "
     \x1b[32mDoASC v1.21 By Peter Bengtsson\x1b[0m
@@ -50,120 +70,184 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( SStatic 1 Move )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 1 )
-        )
-    , Inst
-        ( IAL ( Binary Add ) )
-    , Inst
-        ( IAL
-            ( SStatic 1 Move )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 10 )
+            ( SAL ( Binary Add ) )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL
+                ( SStatic 1 Move )
+            )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL
+                ( Cons 10 )
+            )
+        )
+    , Inst
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
+    , Inst
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     ]
 , Lambda
     [ Inst
         ( IAL
-            ( Cons 0 )
+            ( SAL
+                ( Cons 0 )
+            )
         )
     , Ref 1
     , Store
     , Lambda
         [ Inst
             ( IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             )
         , Fetch
         , Inst
             ( IAL
-                ( Cons 255 )
-            )
-        , Inst
-            ( IAL ( Binary BAnd ) )
-        , Inst
-            ( IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( Cons 255 )
+                )
             )
         , Inst
             ( IAL
-                ( SStatic 0 Copy )
+                ( SAL ( Binary BAnd ) )
             )
         , Inst
             ( IAL
-                ( Cons 10 )
-            )
-        , Inst
-            ( IAL ( Binary LEQ ) )
-        , Inst
-            ( IAL
-                ( SStatic 1 Move )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             )
         , Inst
             ( IAL
-                ( Cons 32 )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             )
         , Inst
-            ( IAL ( Binary LEQ ) )
+            ( IAL
+                ( SAL
+                    ( Cons 10 )
+                )
+            )
         , Inst
-            ( IAL ( Binary BOr ) )
+            ( IAL
+                ( SAL ( Binary LEQ ) )
+            )
         , Inst
-            ( IAL ( Unary BNot ) )
+            ( IAL
+                ( SAL
+                    ( SStatic 1 Move )
+                )
+            )
+        , Inst
+            ( IAL
+                ( SAL
+                    ( Cons 32 )
+                )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Binary LEQ ) )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Binary BOr ) )
+            )
+        , Inst
+            ( IAL
+                ( SAL ( Unary BNot ) )
+            )
         ]
     , Lambda
         [ Inst
             ( IAL
-                ( Cons 48 )
+                ( SAL
+                    ( Cons 48 )
+                )
             )
         , Inst
-            ( IAL ( Binary Sub ) )
+            ( IAL
+                ( SAL ( Binary Sub ) )
+            )
         , Ref 1
         , Fetch
         , Inst
             ( IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             )
         , Inst
-            ( IAL ( Binary Mul ) )
+            ( IAL
+                ( SAL ( Binary Mul ) )
+            )
         , Inst
-            ( IAL ( Binary Add ) )
+            ( IAL
+                ( SAL ( Binary Add ) )
+            )
         , Ref 1
         , Store
         , Inst
             ( IAL
-                ( Cons 1 )
+                ( SAL
+                    ( Cons 1 )
+                )
             )
         , Inst
-            ( IAL ( Binary Add ) )
+            ( IAL
+                ( SAL ( Binary Add ) )
+            )
         ]
     , While
     , Ref 1
     , Fetch
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 0 )
+            ( SAL
+                ( Cons 0 )
+            )
         )
     , Inst
-        ( IAL ( Binary LEQ ) )
+        ( IAL
+            ( SAL ( Binary LEQ ) )
+        )
     , Inst
-        ( IAL ( Unary BNot ) )
+        ( IAL
+            ( SAL ( Unary BNot ) )
+        )
     , Lambda
         [ Inst
             ( IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             )
         , Inst
             ( IAL ( SIO OutputDec ) )
@@ -171,7 +255,8 @@
         ]
     , Cond
     , Lambda []
-    , Inst ( IAL Discard )
+    , Inst
+        ( IAL ( SAL Discard ) )
     , Inst
         ( IAL ( SIO OutputChar ) )
     , Str "

@@ -5,14 +5,20 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SStatic 0 Copy )
+            ( SAL
+                ( SStatic 0 Copy )
+            )
         )
     , Inst
         ( IAL
-            ( Cons 1 )
+            ( SAL
+                ( Cons 1 )
+            )
         )
     , Inst
-        ( IAL ( Binary Add ) )
+        ( IAL
+            ( SAL ( Binary Add ) )
+        )
     ]
 , Lambda
     [ Inst
@@ -20,6 +26,7 @@
     , Str "`"
     ]
 , While
-, Inst ( IAL Discard )
+, Inst
+    ( IAL ( SAL Discard ) )
 , Str "]"
 ]

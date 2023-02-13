@@ -1,6 +1,6 @@
 dump: Automaton
-    { unitIU = -1
-    , unitRAM =
+    { memoryIC = -1
+    , memoryRAM =
         [ 0
         , -1
         , 3

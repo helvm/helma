@@ -14,10 +14,6 @@ import           HelVM.HelMA.Automata.WhiteSpace.Token
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.ALInstruction
-import           HelVM.HelMA.Automaton.Instruction.CFInstruction
-import           HelVM.HelMA.Automaton.Instruction.IOInstruction
-import           HelVM.HelMA.Automaton.Instruction.LSInstruction
 
 import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.TokenType
@@ -53,42 +49,42 @@ parseInstruction     _ (T : N : tl) = parseInstructionIO                tl
 parseInstruction     _          tl  = unrecognisedTokensIn "parseInstruction" tl
 
 parseInstructionStackManipulation :: MonadSafe m => InstructionParser m
-parseInstructionStackManipulation (S :     tl) = build <$> parseSymbol tl where build (symbol , tl') = (IAL (Cons    symbol     ) , tl')
-parseInstructionStackManipulation (T : S : tl) = build <$> parseIndex  tl where build (index  , tl') = (IAL (SStatic index Copy ) , tl')
-parseInstructionStackManipulation (T : N : tl) = build <$> parseIndex  tl where build (index  , tl') = (IAL (SStatic index Slide) , tl')
-parseInstructionStackManipulation (N : S : tl) = pure (IAL dupI    , tl)
-parseInstructionStackManipulation (N : T : tl) = pure (IAL swapI   , tl)
-parseInstructionStackManipulation (N : N : tl) = pure (IAL Discard , tl)
+parseInstructionStackManipulation (S :     tl) = build <$> parseSymbol tl where build (symbol , tl') = (consI symbol  , tl')
+parseInstructionStackManipulation (T : S : tl) = build <$> parseIndex  tl where build (index  , tl') = (sCopyI  index , tl')
+parseInstructionStackManipulation (T : N : tl) = build <$> parseIndex  tl where build (index  , tl') = (sSlideI index , tl')
+parseInstructionStackManipulation (N : S : tl) = pure (dupI     , tl)
+parseInstructionStackManipulation (N : T : tl) = pure (swapI    , tl)
+parseInstructionStackManipulation (N : N : tl) = pure (discardI , tl)
 parseInstructionStackManipulation          tl  = unrecognisedTokensIn "parseInstructionStackManipulation" tl
 
 parseInstructionArithmetic :: MonadSafe m => InstructionParser m
-parseInstructionArithmetic (S : S : tl) = pure (IAL (Binary Add) , tl)
-parseInstructionArithmetic (S : T : tl) = pure (IAL (Binary Sub) , tl)
-parseInstructionArithmetic (S : N : tl) = pure (IAL (Binary Mul) , tl)
-parseInstructionArithmetic (T : S : tl) = pure (IAL (Binary Div) , tl)
-parseInstructionArithmetic (T : T : tl) = pure (IAL (Binary Mod) , tl)
+parseInstructionArithmetic (S : S : tl) = pure (addI , tl)
+parseInstructionArithmetic (S : T : tl) = pure (subI , tl)
+parseInstructionArithmetic (S : N : tl) = pure (mulI , tl)
+parseInstructionArithmetic (T : S : tl) = pure (divI , tl)
+parseInstructionArithmetic (T : T : tl) = pure (modI , tl)
 parseInstructionArithmetic          tl  = unrecognisedTokensIn "parseInstructionArithmetic" tl
 
 parseInstructionHeadAccess :: MonadSafe m => InstructionParser m
-parseInstructionHeadAccess (S : tl) = pure (ILS Store , tl)
-parseInstructionHeadAccess (T : tl) = pure (ILS Load  , tl)
+parseInstructionHeadAccess (S : tl) = pure (storeI , tl)
+parseInstructionHeadAccess (T : tl) = pure (loadI  , tl)
 parseInstructionHeadAccess      tl  = unrecognisedTokensIn "parseInstructionHeadAccess" tl
 
 parseInstructionFlowControl :: MonadSafe m => FormatType -> InstructionParser m
-parseInstructionFlowControl ascii (S : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (ICF (SMark    label             ) , tl')
-parseInstructionFlowControl ascii (S : T : tl) = build <$> parseLabel ascii tl where build (label , tl') = (ICF (CStatic label  Call       ) , tl')
-parseInstructionFlowControl ascii (S : N : tl) = build <$> parseLabel ascii tl where build (label , tl') = (ICF (CStatic label  Jump       ) , tl')
-parseInstructionFlowControl ascii (T : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (ICF (CStatic label (Branch EZ )) , tl')
-parseInstructionFlowControl ascii (T : T : tl) = build <$> parseLabel ascii tl where build (label , tl') = (ICF (CStatic label (Branch LTZ)) , tl')
-parseInstructionFlowControl     _ (T : N : tl) = pure (ICF Return , tl)
-parseInstructionFlowControl     _ (N : N : tl) = pure (End        , tl)
+parseInstructionFlowControl ascii (S : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (sMarkI  label , tl')
+parseInstructionFlowControl ascii (S : T : tl) = build <$> parseLabel ascii tl where build (label , tl') = (sCallI label  , tl')
+parseInstructionFlowControl ascii (S : N : tl) = build <$> parseLabel ascii tl where build (label , tl') = (sJumpI label  , tl')
+parseInstructionFlowControl ascii (T : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (sEZI   label  , tl')
+parseInstructionFlowControl ascii (T : T : tl) = build <$> parseLabel ascii tl where build (label , tl') = (sLTZI  label  , tl')
+parseInstructionFlowControl     _ (T : N : tl) = pure (returnI , tl)
+parseInstructionFlowControl     _ (N : N : tl) = pure (End     , tl)
 parseInstructionFlowControl     _          tl  = unrecognisedTokensIn "parseInstructionFlowControl" tl
 
 parseInstructionIO :: MonadSafe m => InstructionParser m
-parseInstructionIO (S : S : tl) = pure (IAL (SIO OutputChar) , tl)
-parseInstructionIO (S : T : tl) = pure (IAL (SIO OutputDec ) , tl)
-parseInstructionIO (T : S : tl) = pure (ILS (MIO InputChar ) , tl)
-parseInstructionIO (T : T : tl) = pure (ILS (MIO InputDec  ) , tl)
+parseInstructionIO (S : S : tl) = pure (sOutputI    , tl)
+parseInstructionIO (S : T : tl) = pure (sOutputDecI , tl)
+parseInstructionIO (T : S : tl) = pure (mInputI     , tl)
+parseInstructionIO (T : T : tl) = pure (mInputDecI  , tl)
 parseInstructionIO          tl  = unrecognisedTokensIn "parseInstructionIO" tl
 
 unrecognisedTokensIn :: MonadSafe m => Text -> TokenList -> m a

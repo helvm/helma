@@ -1,41 +1,71 @@
-dump: Automaton
-    { unitCU = CU
+dump: Memory
+    { memoryCM = CM
         { program =
             [ IAL
-                ( Cons 0 )
+                ( SAL
+                    ( Cons 0 )
+                )
             , IAL
-                ( Cons 33 )
+                ( SAL
+                    ( Cons 33 )
+                )
             , IAL
-                ( Cons 100 )
+                ( SAL
+                    ( Cons 100 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , IAL
-                ( Cons 114 )
+                ( SAL
+                    ( Cons 114 )
+                )
             , IAL
-                ( Cons 111 )
+                ( SAL
+                    ( Cons 111 )
+                )
             , IAL
-                ( Cons 119 )
+                ( SAL
+                    ( Cons 119 )
+                )
             , IAL
-                ( Cons 32 )
+                ( SAL
+                    ( Cons 32 )
+                )
             , IAL
-                ( Cons 44 )
+                ( SAL
+                    ( Cons 44 )
+                )
             , IAL
-                ( Cons 111 )
+                ( SAL
+                    ( Cons 111 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , IAL
-                ( Cons 108 )
+                ( SAL
+                    ( Cons 108 )
+                )
             , IAL
-                ( Cons 101 )
+                ( SAL
+                    ( Cons 101 )
+                )
             , IAL
-                ( Cons 72 )
+                ( SAL
+                    ( Cons 72 )
+                )
             , ICF
                 ( CStatic "0111000001110010011010010110111001110100011100110110110001101110" Call )
             , End
             , ICF
                 ( SMark "011100000111001001101001011011100111010001110011" )
             , IAL
-                ( SStatic 0 Copy )
+                ( SAL
+                    ( SStatic 0 Copy )
+                )
             , ICF
                 ( CStatic "01110000011100100110100101101110011101000111001101011111011001010110111001100100" ( Branch EZ ) )
             , IAL ( SIO OutputChar )
@@ -43,20 +73,22 @@ dump: Automaton
                 ( CStatic "011100000111001001101001011011100111010001110011" Jump )
             , ICF
                 ( SMark "01110000011100100110100101101110011101000111001101011111011001010110111001100100" )
-            , IAL Discard
+            , IAL ( SAL Discard )
             , ICF Return
             , ICF
                 ( SMark "0111000001110010011010010110111001110100011100110110110001101110" )
             , ICF
                 ( CStatic "011100000111001001101001011011100111010001110011" Call )
             , IAL
-                ( Cons 10 )
+                ( SAL
+                    ( Cons 10 )
+                )
             , IAL ( SIO OutputChar )
             , ICF Return
             ]
         , programCounter = 16
         , returnStack = IS []
         }
-    , unitStack = fromList []
-    , unitRAM = []
+    , memoryStack = fromList []
+    , memoryRAM = []
     }

@@ -1,84 +1,125 @@
 [ ICF
     ( DMark 1 )
 , IAL
-    ( Cons 2 )
-, IAL Halibut
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
 , IAL
-    ( Cons 2 )
-, IAL Halibut
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
 , ICF
     ( DMark 2 )
 , IAL
-    ( Cons 0 )
-, IAL Halibut
+    ( SAL
+        ( Cons 0 )
+    )
+, IAL ( SAL Halibut )
 , ICF
     ( DMark 3 )
 , IAL
-    ( Cons 4 )
+    ( SAL
+        ( Cons 4 )
+    )
 , IAL
-    ( Cons 0 )
+    ( SAL
+        ( Cons 0 )
+    )
 , IAL
-    ( Cons 1 )
-, IAL ( Binary Sub )
-, IAL ( Binary Sub )
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL ( Binary Sub ) )
+, IAL
+    ( SAL ( Binary Sub ) )
 , Transfer
 , ICF
     ( DMark 4 )
 , IAL
-    ( Cons 1 )
+    ( SAL
+        ( Cons 1 )
+    )
 , IAL
-    ( Cons 10 )
+    ( SAL
+        ( Cons 10 )
+    )
 , Transfer
 , ICF
     ( DMark 5 )
 , IAL
-    ( Cons 0 )
+    ( SAL
+        ( Cons 0 )
+    )
 , IAL
-    ( Cons 1 )
-, IAL ( Binary Sub )
-, IAL Halibut
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL
+    ( SAL ( Binary Sub ) )
+, IAL ( SAL Halibut )
 , ICF
     ( DMark 6 )
 , IAL
-    ( Binaries
-        [ Mod
-        , Div
-        ]
+    ( SAL
+        ( Binaries
+            [ Mod
+            , Div
+            ]
+        )
     )
 , ICF
     ( SMark "6" )
 , ICF
     ( DMark 7 )
 , IAL
-    ( Cons 0 )
+    ( SAL
+        ( Cons 0 )
+    )
 , IAL
-    ( Cons 2 )
-, IAL Halibut
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
 , Transfer
 , ICF
     ( DMark 8 )
 , IAL
-    ( Cons 1 )
-, IAL Halibut
+    ( SAL
+        ( Cons 1 )
+    )
+, IAL ( SAL Halibut )
 , ICF
     ( DMark 9 )
 , IAL
-    ( Cons 1 )
+    ( SAL
+        ( Cons 1 )
+    )
 , IAL
-    ( Cons 2 )
+    ( SAL
+        ( Cons 2 )
+    )
 , Transfer
 , ICF
     ( DMark 10 )
 , IAL
-    ( Cons 0 )
+    ( SAL
+        ( Cons 0 )
+    )
 , Transfer
 , ICF
     ( DMark 11 )
 , IAL
-    ( Cons 1 )
+    ( SAL
+        ( Cons 1 )
+    )
 , IAL
-    ( Cons 2 )
-, IAL Halibut
+    ( SAL
+        ( Cons 2 )
+    )
+, IAL ( SAL Halibut )
 , ICF
     ( DMark 12 )
 , Transfer
