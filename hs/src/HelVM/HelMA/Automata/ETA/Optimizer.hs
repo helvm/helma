@@ -7,15 +7,16 @@ import           HelVM.HelMA.Automata.ETA.OperandParsers
 import           HelVM.HelMA.Automata.ETA.Token
 
 import           HelVM.HelMA.Automaton.Instruction
+import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 
 import           HelVM.HelIO.Control.Safe
 
 import           Control.Applicative.Tools
 
 import           Data.List.Extra
-import qualified Data.List.Index                         as List
+import qualified Data.List.Index                                       as List
 
-import qualified Data.ListLike                           as LL
+import qualified Data.ListLike                                         as LL
 
 optimize :: MonadSafe m => TokenList -> m InstructionList
 optimize = appendEnd <.> join <.> optimizeLines

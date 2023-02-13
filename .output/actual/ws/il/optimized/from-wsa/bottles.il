@@ -1,145 +1,145 @@
-SPure (Cons 3)
+cons 3
 
-Mark (MArtificial "LOOP")
-SPure (Indexed (IImmediate 0) Copy)
-SIO OutputDec
-SPure (Cons 0)
-SPure (Cons 32)
-SPure (Cons 44)
-SPure (Cons 108)
-SPure (Cons 108)
-SPure (Cons 97)
-SPure (Cons 119)
-SPure (Cons 32)
-SPure (Cons 101)
-SPure (Cons 104)
-SPure (Cons 116)
-SPure (Cons 32)
-SPure (Cons 110)
-SPure (Cons 111)
-SPure (Cons 32)
-SPure (Cons 114)
-SPure (Cons 101)
-SPure (Cons 101)
-SPure (Cons 98)
-SPure (Cons 32)
-SPure (Cons 102)
-SPure (Cons 111)
-SPure (Cons 32)
-SPure (Cons 115)
-SPure (Cons 101)
-SPure (Cons 108)
-SPure (Cons 116)
-SPure (Cons 116)
-SPure (Cons 111)
-SPure (Cons 98)
-SPure (Cons 32)
-Labeled (LArtificial "prints") Call
-SPure (Indexed (IImmediate 0) Copy)
-SIO OutputDec
-SPure (Cons 0)
-SPure (Cons 114)
-SPure (Cons 101)
-SPure (Cons 101)
-SPure (Cons 98)
-SPure (Cons 32)
-SPure (Cons 102)
-SPure (Cons 111)
-SPure (Cons 32)
-SPure (Cons 115)
-SPure (Cons 101)
-SPure (Cons 108)
-SPure (Cons 116)
-SPure (Cons 116)
-SPure (Cons 111)
-SPure (Cons 98)
-SPure (Cons 32)
-Labeled (LArtificial "printsln") Call
-SPure (Cons 0)
-SPure (Cons 100)
-SPure (Cons 110)
-SPure (Cons 117)
-SPure (Cons 111)
-SPure (Cons 114)
-SPure (Cons 97)
-SPure (Cons 32)
-SPure (Cons 116)
-SPure (Cons 105)
-SPure (Cons 32)
-SPure (Cons 115)
-SPure (Cons 115)
-SPure (Cons 97)
-SPure (Cons 112)
-SPure (Cons 32)
-SPure (Cons 44)
-SPure (Cons 110)
-SPure (Cons 119)
-SPure (Cons 111)
-SPure (Cons 100)
-SPure (Cons 32)
-SPure (Cons 101)
-SPure (Cons 110)
-SPure (Cons 111)
-SPure (Cons 32)
-SPure (Cons 101)
-SPure (Cons 107)
-SPure (Cons 97)
-SPure (Cons 84)
-Labeled (LArtificial "printsln") Call
-SPure (Unary (UImmediate 1 Sub))
-SPure (Indexed (IImmediate 0) Copy)
-SIO OutputDec
-SPure (Cons 0)
-SPure (Cons 108)
-SPure (Cons 108)
-SPure (Cons 97)
-SPure (Cons 119)
-SPure (Cons 32)
-SPure (Cons 101)
-SPure (Cons 104)
-SPure (Cons 116)
-SPure (Cons 32)
-SPure (Cons 110)
-SPure (Cons 111)
-SPure (Cons 32)
-SPure (Cons 114)
-SPure (Cons 101)
-SPure (Cons 101)
-SPure (Cons 98)
-SPure (Cons 32)
-SPure (Cons 102)
-SPure (Cons 111)
-SPure (Cons 32)
-SPure (Cons 115)
-SPure (Cons 101)
-SPure (Cons 108)
-SPure (Cons 116)
-SPure (Cons 116)
-SPure (Cons 111)
-SPure (Cons 98)
-SPure (Cons 32)
-Labeled (LArtificial "printsln") Call
-SPure (Cons 0)
-Labeled (LArtificial "printsln") Call
-SPure (Indexed (IImmediate 0) Copy)
-Labeled (LArtificial "LOOP:1") (Branch EZ)
-Labeled (LArtificial "LOOP") Jump
+markA "LOOP"
+copyI 0
+outputDS
+cons 0
+cons 32
+cons 44
+cons 108
+cons 108
+cons 97
+cons 119
+cons 32
+cons 101
+cons 104
+cons 116
+cons 32
+cons 110
+cons 111
+cons 32
+cons 114
+cons 101
+cons 101
+cons 98
+cons 32
+cons 102
+cons 111
+cons 32
+cons 115
+cons 101
+cons 108
+cons 116
+cons 116
+cons 111
+cons 98
+cons 32
+callA "prints"
+copyI 0
+outputDS
+cons 0
+cons 114
+cons 101
+cons 101
+cons 98
+cons 32
+cons 102
+cons 111
+cons 32
+cons 115
+cons 101
+cons 108
+cons 116
+cons 116
+cons 111
+cons 98
+cons 32
+callA "printsln"
+cons 0
+cons 100
+cons 110
+cons 117
+cons 111
+cons 114
+cons 97
+cons 32
+cons 116
+cons 105
+cons 32
+cons 115
+cons 115
+cons 97
+cons 112
+cons 32
+cons 44
+cons 110
+cons 119
+cons 111
+cons 100
+cons 32
+cons 101
+cons 110
+cons 111
+cons 32
+cons 101
+cons 107
+cons 97
+cons 84
+callA "printsln"
+subI 1
+copyI 0
+outputDS
+cons 0
+cons 108
+cons 108
+cons 97
+cons 119
+cons 32
+cons 101
+cons 104
+cons 116
+cons 32
+cons 110
+cons 111
+cons 32
+cons 114
+cons 101
+cons 101
+cons 98
+cons 32
+cons 102
+cons 111
+cons 32
+cons 115
+cons 101
+cons 108
+cons 116
+cons 116
+cons 111
+cons 98
+cons 32
+callA "printsln"
+cons 0
+callA "printsln"
+copyI 0
+bEZA "LOOP:1"
+jumpA "LOOP"
 
-Mark (MArtificial "LOOP:1")
-End
+markA "LOOP:1"
+end
 
-Mark (MArtificial "prints")
-SPure (Indexed (IImmediate 0) Copy)
-Labeled (LArtificial "prints_end") (Branch EZ)
-SIO OutputChar
-Labeled (LArtificial "prints") Jump
+markA "prints"
+copyI 0
+bEZA "prints_end"
+outputCS
+jumpA "prints"
 
-Mark (MArtificial "prints_end")
-SPure Discard
-Return
+markA "prints_end"
+discard
+return
 
-Mark (MArtificial "printsln")
-Labeled (LArtificial "prints") Call
-SPure (Cons 10)
-SIO OutputChar
-Return
+markA "printsln"
+callA "prints"
+cons 10
+outputCS
+return

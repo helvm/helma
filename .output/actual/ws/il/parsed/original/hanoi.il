@@ -1,216 +1,216 @@
-SPure (Cons 0)
-SPure (Cons 69)
-Store
-SPure (Cons 1)
-SPure (Cons 110)
-Store
-SPure (Cons 2)
-SPure (Cons 116)
-Store
-SPure (Cons 3)
-SPure (Cons 101)
-Store
-SPure (Cons 4)
-SPure (Cons 114)
-Store
-SPure (Cons 5)
-SPure (Cons 32)
-Store
-SPure (Cons 6)
-SPure (Cons 97)
-Store
-SPure (Cons 7)
-SPure (Cons 32)
-Store
-SPure (Cons 8)
-SPure (Cons 110)
-Store
-SPure (Cons 9)
-SPure (Cons 117)
-Store
-SPure (Cons 10)
-SPure (Cons 109)
-Store
-SPure (Cons 11)
-SPure (Cons 98)
-Store
-SPure (Cons 12)
-SPure (Cons 101)
-Store
-SPure (Cons 13)
-SPure (Cons 114)
-Store
-SPure (Cons 14)
-SPure (Cons 58)
-Store
-SPure (Cons 15)
-SPure (Cons 32)
-Store
-SPure (Cons 16)
-SPure (Cons 0)
-Store
-SPure (Cons 20)
-SPure (Cons 32)
-Store
-SPure (Cons 21)
-SPure (Cons 45)
-Store
-SPure (Cons 22)
-SPure (Cons 62)
-Store
-SPure (Cons 23)
-SPure (Cons 32)
-Store
-SPure (Cons 24)
-SPure (Cons 0)
-Store
-SPure (Cons 0)
-Labeled (LArtificial "write") Call
-SPure (Cons 100)
-MIO InputDec
-SPure (Cons 100)
-Load
-SPure (Cons 1)
-SPure (Cons 3)
-SPure (Cons 2)
-Labeled (LArtificial "hanoi") Call
-End
+cons 0
+cons 69
+store
+cons 1
+cons 110
+store
+cons 2
+cons 116
+store
+cons 3
+cons 101
+store
+cons 4
+cons 114
+store
+cons 5
+cons 32
+store
+cons 6
+cons 97
+store
+cons 7
+cons 32
+store
+cons 8
+cons 110
+store
+cons 9
+cons 117
+store
+cons 10
+cons 109
+store
+cons 11
+cons 98
+store
+cons 12
+cons 101
+store
+cons 13
+cons 114
+store
+cons 14
+cons 58
+store
+cons 15
+cons 32
+store
+cons 16
+cons 0
+store
+cons 20
+cons 32
+store
+cons 21
+cons 45
+store
+cons 22
+cons 62
+store
+cons 23
+cons 32
+store
+cons 24
+cons 0
+store
+cons 0
+callA "write"
+cons 100
+mio inputdec
+cons 100
+load
+cons 1
+cons 3
+cons 2
+callA "hanoi"
+end
 
-Mark (MArtificial "hanoi")
-SPure (Cons 103)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 102)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 101)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 100)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 100)
-Load
-Labeled (LArtificial "endhanoi") (Branch EZ)
-SPure (Cons 100)
-Load
-SPure (Cons 101)
-Load
-SPure (Cons 102)
-Load
-SPure (Cons 103)
-Load
-SPure (Cons 100)
-Load
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Cons 101)
-Load
-SPure (Cons 103)
-Load
-SPure (Cons 102)
-Load
-Labeled (LArtificial "hanoi") Call
-SPure (Cons 103)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 102)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 101)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 100)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 101)
-Load
-SIO OutputDec
-SPure (Cons 20)
-Labeled (LArtificial "write") Call
-SPure (Cons 102)
-Load
-SIO OutputDec
-Labeled (LArtificial "newline") Call
-SPure (Cons 100)
-Load
-SPure (Cons 101)
-Load
-SPure (Cons 102)
-Load
-SPure (Cons 103)
-Load
-SPure (Cons 100)
-Load
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Cons 103)
-Load
-SPure (Cons 102)
-Load
-SPure (Cons 101)
-Load
-Labeled (LArtificial "hanoi") Call
-SPure (Cons 103)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 102)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 101)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Cons 100)
-SPure (Indexed (IImmediate 1) Move)
-Store
+markA "hanoi"
+cons 103
+moveI 1
+store
+cons 102
+moveI 1
+store
+cons 101
+moveI 1
+store
+cons 100
+moveI 1
+store
+cons 100
+load
+bEZA "endhanoi"
+cons 100
+load
+cons 101
+load
+cons 102
+load
+cons 103
+load
+cons 100
+load
+cons 1
+sub
+cons 101
+load
+cons 103
+load
+cons 102
+load
+callA "hanoi"
+cons 103
+moveI 1
+store
+cons 102
+moveI 1
+store
+cons 101
+moveI 1
+store
+cons 100
+moveI 1
+store
+cons 101
+load
+outputDS
+cons 20
+callA "write"
+cons 102
+load
+outputDS
+callA "newline"
+cons 100
+load
+cons 101
+load
+cons 102
+load
+cons 103
+load
+cons 100
+load
+cons 1
+sub
+cons 103
+load
+cons 102
+load
+cons 101
+load
+callA "hanoi"
+cons 103
+moveI 1
+store
+cons 102
+moveI 1
+store
+cons 101
+moveI 1
+store
+cons 100
+moveI 1
+store
 
-Mark (MArtificial "endhanoi")
-Return
+markA "endhanoi"
+return
 
-Mark (MArtificial "add")
-SPure (Binary Add)
-Return
+markA "add"
+add
+return
 
-Mark (MArtificial "write")
-SPure (Indexed (IImmediate 0) Copy)
-Load
-SPure (Indexed (IImmediate 0) Copy)
-Labeled (LArtificial "write_end") (Branch EZ)
-SIO OutputChar
-SPure (Cons 1)
-SPure (Binary Add)
-Labeled (LArtificial "write") Jump
+markA "write"
+copyI 0
+load
+copyI 0
+bEZA "write_end"
+outputCS
+cons 1
+add
+jumpA "write"
 
-Mark (MArtificial "write_end")
-SPure Discard
-SPure Discard
-Return
+markA "write_end"
+discard
+discard
+return
 
-Mark (MArtificial "read")
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Indexed (IImmediate 0) Copy)
-MIO InputChar
-Load
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 10)
-SPure (Binary Sub)
-Labeled (LArtificial "read_end") (Branch EZ)
-SPure Discard
-SPure (Cons 1)
-SPure (Binary Add)
-Labeled (LArtificial "read") Jump
+markA "read"
+copyI 0
+copyI 0
+mio inputchar
+load
+copyI 0
+cons 10
+sub
+bEZA "read_end"
+discard
+cons 1
+add
+jumpA "read"
 
-Mark (MArtificial "read_end")
-SPure Discard
-SPure (Cons 1)
-SPure (Binary Add)
-SPure (Cons 0)
-Store
-Return
+markA "read_end"
+discard
+cons 1
+add
+cons 0
+store
+return
 
-Mark (MArtificial "newline")
-SPure (Cons 10)
-SPure (Cons 13)
-SIO OutputChar
-SIO OutputChar
-Return
+markA "newline"
+cons 10
+cons 13
+outputCS
+outputCS
+return

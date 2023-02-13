@@ -114,8 +114,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "f_finished_1" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "f_finished_1" ) EZ
                 )
             , IAL
                 ( SPure
@@ -170,8 +170,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "f_finished_2" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "f_finished_2" ) EZ
                 )
             , IAL
                 ( SPure
@@ -194,8 +194,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "f_finished_3" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "f_finished_3" ) EZ
                 )
             , IAL
                 ( SPure
@@ -317,8 +317,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "f_finished_4" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "f_finished_4" ) EZ
                 )
             , IAL
                 ( SPure
@@ -334,8 +334,8 @@ dump: Memory
                 )
             , ILS Load
             , ICF
-                ( Labeled
-                    ( LArtificial "nodraw" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "nodraw" ) EZ
                 )
             , IAL
                 ( SPure
@@ -395,8 +395,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "prints_end" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "prints_end" ) EZ
                 )
             , IAL ( SIO OutputChar )
             , ICF

@@ -17,17 +17,12 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Instruction.LSInstruction where
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Instruction.Extras.TextExtra where
 <span class="lineno">    2 </span>
-<span class="lineno">    3 </span>import           HelVM.HelMA.Automaton.Instruction.IOInstruction
+<span class="lineno">    3 </span>import qualified Data.Text as Text
 <span class="lineno">    4 </span>
-<span class="lineno">    5 </span>-- | Types
-<span class="lineno">    6 </span>
-<span class="lineno">    7 </span>data LSInstruction =
-<span class="lineno">    8 </span>    Load  --Restore --Fetch
-<span class="lineno">    9 </span>  | Store --Save
-<span class="lineno">   10 </span>  | MIO   !IOInstruction
-<span class="lineno">   11 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">    5 </span>toLowerShow :: Show i =&gt; i -&gt; Text
+<span class="lineno">    6 </span><span class="decl"><span class="istickedoff">toLowerShow = Text.toLower . show</span></span>
 
 </pre>
 </body>

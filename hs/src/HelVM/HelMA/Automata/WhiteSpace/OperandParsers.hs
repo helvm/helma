@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.WhiteSpace.OperandParsers where
 import           HelVM.HelMA.Automata.WhiteSpace.Token
 import           HelVM.HelMA.Automaton.Symbol
 
-import           HelVM.HelMA.Automaton.Instruction.CFInstruction
+import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 
 import           HelVM.HelMA.Automaton.Types.FormatType
 

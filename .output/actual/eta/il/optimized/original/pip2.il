@@ -1,17 +1,17 @@
 
-Mark (MNatural 1)
-SIO InputChar
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Unary (UImmediate (-1) Sub))
-Labeled (LImmediate 2) (Branch NE)
-SPure Discard
-Labeled (LImmediate 0) Jump
+markM 1
+inputCS
+copyI 0
+subI -1
+bNEI 2
+discard
+jumpI 0
 
-Mark (MNatural 2)
-SIO OutputChar
-Labeled (LImmediate 1) Jump
+markM 2
+outputCS
+jumpI 1
 
-Mark (MNatural 3)
+markM 3
 
-Mark (MNatural 0)
-End
+markM 0
+end

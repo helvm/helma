@@ -14,6 +14,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.Token
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Instruction
+import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 
 import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.TokenType

@@ -110,8 +110,8 @@ dump: Memory
                     ( MNatural 6 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 8 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 8 ) NE
                 )
             , ICF
                 ( Mark

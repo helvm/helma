@@ -1,12 +1,12 @@
 module HelVM.HelMA.Automaton.Combiner.LSU where
 
 import           HelVM.HelMA.Automaton.Combiner.ALU
-import qualified HelVM.HelMA.Automaton.Combiner.RAM              as RAM
+import qualified HelVM.HelMA.Automaton.Combiner.RAM                     as RAM
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.HelMA.Automaton.Instruction.IOInstruction
-import           HelVM.HelMA.Automaton.Instruction.LSInstruction
+import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
+import           HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction
 
 import           HelVM.HelIO.Control.Safe
 

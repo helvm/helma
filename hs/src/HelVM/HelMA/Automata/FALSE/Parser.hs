@@ -8,17 +8,19 @@ import           HelVM.HelMA.Automata.FALSE.Expression
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.IOInstruction
-import           HelVM.HelMA.Automaton.Instruction.SInstruction
+import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
+import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 import           HelVM.HelMA.Automaton.ReadPExtra
 
+import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
+
 import           HelVM.HelIO.Control.Safe
-import           HelVM.HelIO.Extra                               hiding (runParser)
+import           HelVM.HelIO.Extra                                      hiding (runParser)
 import           HelVM.HelIO.ReadText
 
 import           Data.Char
 
-import           Text.ParserCombinators.ReadP                    hiding (many)
+import           Text.ParserCombinators.ReadP                           hiding (many)
 
 parseSafe :: Source -> Safe ExpressionList
 parseSafe = parse

@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Optimizer.PeepholeOptimizer (
+<span class="lineno">    2 </span>  peepholeOptimize1,
+<span class="lineno">    3 </span>  peepholeOptimize2,
+<span class="lineno">    4 </span>  peepholeOptimize3,
+<span class="lineno">    5 </span>) where
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.Instruction.Extras.Patterns
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>peepholeOptimize1 :: InstructionList -&gt; InstructionList
+<span class="lineno">   16 </span><span class="decl"><span class="istickedoff">peepholeOptimize1 = fix optimize where</span>
+<span class="lineno">   17 </span><span class="spaces">  </span><span class="istickedoff">optimize :: (InstructionList -&gt; InstructionList) -&gt; InstructionList -&gt; InstructionList</span>
+<span class="lineno">   18 </span><span class="spaces">  </span><span class="istickedoff">optimize f (ConsP i : BinaryP op           : il) = immediateBinaryI i op    : f il</span>
+<span class="lineno">   19 </span><span class="spaces">  </span><span class="istickedoff">optimize f (ConsP i : HalibutP             : il) = optimizeHalibut i        : f il</span>
+<span class="lineno">   20 </span><span class="spaces">  </span><span class="istickedoff">optimize f (ConsP i : PickP                : il) = <span class="nottickedoff">optimizePick i           : f il</span></span>
+<span class="lineno">   21 </span><span class="spaces">  </span><span class="istickedoff">optimize f (ConsP c : ConsP a : BranchTP t : il) = optimizeBranch t c a    &lt;&gt; f il</span>
+<span class="lineno">   22 </span><span class="spaces">  </span><span class="istickedoff">optimize f (ConsP a : BranchTP t           : il) = optimizeBranchLabel t a &lt;&gt; f il</span>
+<span class="lineno">   23 </span><span class="spaces">  </span><span class="istickedoff">optimize f (i                              : il) = i                        : f il</span>
+<span class="lineno">   24 </span><span class="spaces">  </span><span class="istickedoff">optimize _                                   []  = []</span></span>
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>peepholeOptimize2 :: InstructionList -&gt; InstructionList
+<span class="lineno">   27 </span><span class="decl"><span class="istickedoff">peepholeOptimize2 = fix optimize where</span>
+<span class="lineno">   28 </span><span class="spaces">  </span><span class="istickedoff">optimize :: (InstructionList -&gt; InstructionList) -&gt; InstructionList -&gt; InstructionList</span>
+<span class="lineno">   29 </span><span class="spaces">  </span><span class="istickedoff">optimize f (ConsP c : MoveIP i : BranchTP t : il) = optimizeBranchCondition i t c &lt;&gt; f il</span>
+<span class="lineno">   30 </span><span class="spaces">  </span><span class="istickedoff">optimize f (MoveIP 1 : BranchTP t           : il) = branchSwapI t                  : f il</span>
+<span class="lineno">   31 </span><span class="spaces">  </span><span class="istickedoff">optimize f (i                               : il) = i                              : f il</span>
+<span class="lineno">   32 </span><span class="spaces">  </span><span class="istickedoff">optimize _                                    []  = []</span></span>
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>peepholeOptimize3 :: InstructionList -&gt; InstructionList
+<span class="lineno">   35 </span><span class="decl"><span class="istickedoff">peepholeOptimize3 = fix optimize where</span>
+<span class="lineno">   36 </span><span class="spaces">  </span><span class="istickedoff">optimize :: (InstructionList -&gt; InstructionList) -&gt; InstructionList -&gt; InstructionList</span>
+<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">optimize f (j@(JumpP _) : il) = j : f (dropWhile (not . isMark) il)</span>
+<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">optimize f (i : il)           = i : f il</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">optimize _ []                 = []</span></span>
+<span class="lineno">   40 </span>
+<span class="lineno">   41 </span>optimizeHalibut :: Integer -&gt; Instruction
+<span class="lineno">   42 </span><span class="decl"><span class="istickedoff">optimizeHalibut i</span>
+<span class="lineno">   43 </span><span class="spaces">  </span><span class="istickedoff">| 0 &lt; i     = moveII $ fromIntegral i</span>
+<span class="lineno">   44 </span><span class="spaces">  </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span> = copyII $ fromIntegral $ negate i</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>optimizePick :: Integer -&gt; Instruction
+<span class="lineno">   47 </span><span class="decl"><span class="nottickedoff">optimizePick i</span>
+<span class="lineno">   48 </span><span class="spaces">  </span><span class="nottickedoff">| 0 &lt;= i    = copyII $ fromIntegral i</span>
+<span class="lineno">   49 </span><span class="spaces">  </span><span class="nottickedoff">| otherwise = moveII $ fromIntegral $ negate i</span></span>
+<span class="lineno">   50 </span>
+<span class="lineno">   51 </span>optimizeBranch :: BranchTest -&gt; Integer -&gt; Integer -&gt; InstructionList
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">optimizeBranch t c a = check $ isJump t c where</span>
+<span class="lineno">   53 </span><span class="spaces">  </span><span class="istickedoff">check True = [jumpII $ fromIntegral a]</span>
+<span class="lineno">   54 </span><span class="spaces">  </span><span class="istickedoff">check _    = []</span></span>
+<span class="lineno">   55 </span>
+<span class="lineno">   56 </span>optimizeBranchLabel :: BranchTest -&gt; Integer -&gt; InstructionList
+<span class="lineno">   57 </span><span class="decl"><span class="istickedoff">optimizeBranchLabel t a = [branchI t $ fromIntegral a]</span></span>
+<span class="lineno">   58 </span>
+<span class="lineno">   59 </span>optimizeBranchCondition :: Index -&gt; BranchTest -&gt; Integer -&gt; InstructionList
+<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">optimizeBranchCondition 1 t c = optimizeBranchCondition1 t c</span>
+<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">optimizeBranchCondition i t c = check $ isJump t c where</span>
+<span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">check True = [moveII1 , jumpTI]</span>
+<span class="lineno">   63 </span><span class="spaces">  </span><span class="istickedoff">check _    = [moveII1 , discardI]</span>
+<span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">moveII1 = moveII (i - 1)</span></span>
+<span class="lineno">   65 </span>
+<span class="lineno">   66 </span>optimizeBranchCondition1 :: BranchTest -&gt; Integer -&gt; InstructionList
+<span class="lineno">   67 </span><span class="decl"><span class="istickedoff">optimizeBranchCondition1 t c = check $ isJump t c where</span>
+<span class="lineno">   68 </span><span class="spaces">  </span><span class="istickedoff">check True = [jumpTI]</span>
+<span class="lineno">   69 </span><span class="spaces">  </span><span class="istickedoff">check _    = [discardI]</span></span>
+
+</pre>
+</body>
+</html>

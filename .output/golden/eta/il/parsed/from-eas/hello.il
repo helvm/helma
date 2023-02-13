@@ -1,45 +1,45 @@
 
-Mark (MNatural 1)
-SPure (Cons 32)
+markM 1
+cons 32
 
-Mark (MNatural 2)
-SPure (Cons 44)
-SPure (Cons 111)
-SPure (Cons 108)
-SPure (Cons 108)
-SPure (Cons 101)
-SPure (Cons 72)
+markM 2
+cons 44
+cons 111
+cons 108
+cons 108
+cons 101
+cons 72
 
-Mark (MNatural 3)
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
+markM 3
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
 
-Mark (MNatural 4)
-SPure (Cons 10)
+markM 4
+cons 10
 
-Mark (MNatural 5)
-SPure (Cons 33)
-SPure (Cons 100)
-SPure (Cons 108)
-SPure (Cons 114)
-SPure (Cons 111)
-SPure (Cons 119)
+markM 5
+cons 33
+cons 100
+cons 108
+cons 114
+cons 111
+cons 119
 
-Mark (MNatural 6)
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
+markM 6
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
 
-Mark (MNatural 7)
+markM 7
 
-Mark (MNatural 0)
-End
+markM 0
+end

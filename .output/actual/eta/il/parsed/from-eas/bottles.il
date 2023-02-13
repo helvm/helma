@@ -1,292 +1,292 @@
 
-Mark (MNatural 1)
-SPure (Cons 1)
-SPure (Cons 31)
-Labeled LTop (Branch NE)
+markM 1
+cons 1
+cons 31
+bNE
 
-Mark (MNatural 2)
-SPure (Cons 1)
-SPure Halibut
+markM 2
+cons 1
+halibut
 
-Mark (MNatural 3)
-SPure (Cons 0)
-SPure Halibut
+markM 3
+cons 0
+halibut
 
-Mark (MNatural 4)
-SPure (Cons 5)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Binary Sub)
-Labeled LTop (Branch NE)
+markM 4
+cons 5
+cons 0
+cons 1
+sub
+sub
+bNE
 
-Mark (MNatural 5)
-SPure (Binary Sub)
-SPure (Cons 1)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
+markM 5
+sub
+cons 1
+cons 1
+halibut
+bNE
 
-Mark (MNatural 6)
-SIO OutputChar
+markM 6
+outputCS
 
-Mark (MNatural 7)
-SPure (Cons 1)
-SPure (Cons 2)
-Labeled LTop (Branch NE)
+markM 7
+cons 1
+cons 2
+bNE
 
-Mark (MNatural 8)
-SPure (Cons 0)
-SPure (Cons 2)
-SPure Halibut
+markM 8
+cons 0
+cons 2
+halibut
 
-Mark (MNatural 9)
-SPure (Cons 0)
-SPure Halibut
-SPure (Cons 10)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Binary Sub)
-Labeled LTop (Branch NE)
+markM 9
+cons 0
+halibut
+cons 10
+cons 0
+cons 1
+sub
+sub
+bNE
 
-Mark (MNatural 10)
-SPure (Cons 48)
-SIO OutputChar
-Labeled LTop (Branch NE)
-SPure (Cons 1)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
+markM 10
+cons 48
+outputCS
+bNE
+cons 1
+cons 1
+halibut
+bNE
 
-Mark (MNatural 11)
-SPure (Cons 0)
-SPure Halibut
+markM 11
+cons 0
+halibut
 
-Mark (MNatural 12)
-SPure (Cons 13)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Binary Sub)
-Labeled LTop (Branch NE)
+markM 12
+cons 13
+cons 0
+cons 1
+sub
+sub
+bNE
 
-Mark (MNatural 13)
-SPure (Binary Sub)
-SPure (Cons 1)
-SPure (Cons 18)
-Labeled LTop (Branch NE)
+markM 13
+sub
+cons 1
+cons 18
+bNE
 
-Mark (MNatural 14)
-SPure (Cons 10)
-SPure (Binaries [Mod,Div])
+markM 14
+cons 10
+moddiv
 
-Mark (MArtificial "14")
+markA "14"
 
-Mark (MNatural 15)
-SPure (Cons 0)
-SPure (Cons 48)
-SPure (Binary Sub)
-SPure (Binary Sub)
+markM 15
+cons 0
+cons 48
+sub
+sub
 
-Mark (MNatural 16)
-SPure (Cons 1)
-SPure Halibut
+markM 16
+cons 1
+halibut
 
-Mark (MNatural 17)
-SPure (Cons 1)
-SPure (Cons 11)
-Labeled LTop (Branch NE)
+markM 17
+cons 1
+cons 11
+bNE
 
-Mark (MNatural 18)
-SPure (Cons 19)
-SPure (Cons 1)
-SPure (Cons 2)
-Labeled LTop (Branch NE)
+markM 18
+cons 19
+cons 1
+cons 2
+bNE
 
-Mark (MNatural 19)
-SPure (Cons 1)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
+markM 19
+cons 1
+cons 1
+halibut
+bNE
 
-Mark (MNatural 20)
+markM 20
 
-Mark (MNatural 21)
-SPure (Cons 1)
-SPure Halibut
+markM 21
+cons 1
+halibut
 
-Mark (MNatural 22)
-SPure (Cons 23)
-SPure (Cons 1)
-SPure (Cons 8)
-Labeled LTop (Branch NE)
+markM 22
+cons 23
+cons 1
+cons 8
+bNE
 
-Mark (MNatural 23)
-SPure (Cons 0)
-SPure (Cons 114)
-SPure (Cons 101)
-SPure (Cons 101)
-SPure (Cons 98)
-SPure (Cons 32)
-SPure (Cons 102)
-SPure (Cons 111)
-SPure (Cons 32)
-SPure (Cons 115)
-SPure (Cons 101)
-SPure (Cons 108)
-SPure (Cons 116)
-SPure (Cons 116)
-SPure (Cons 111)
-SPure (Cons 98)
-SPure (Cons 32)
+markM 23
+cons 0
+cons 114
+cons 101
+cons 101
+cons 98
+cons 32
+cons 102
+cons 111
+cons 32
+cons 115
+cons 101
+cons 108
+cons 116
+cons 116
+cons 111
+cons 98
+cons 32
 
-Mark (MNatural 24)
-SPure (Cons 25)
-SPure (Cons 1)
-SPure (Cons 2)
-Labeled LTop (Branch NE)
+markM 24
+cons 25
+cons 1
+cons 2
+bNE
 
-Mark (MNatural 25)
-SPure (Cons 1)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
+markM 25
+cons 1
+cons 1
+halibut
+bNE
 
-Mark (MNatural 26)
-SPure (Cons 1)
-SPure Halibut
+markM 26
+cons 1
+halibut
 
-Mark (MNatural 27)
-SPure (Cons 28)
-SPure (Cons 1)
-SPure (Cons 21)
-Labeled LTop (Branch NE)
+markM 27
+cons 28
+cons 1
+cons 21
+bNE
 
-Mark (MNatural 28)
-SPure (Cons 0)
-SPure (Cons 108)
-SPure (Cons 108)
-SPure (Cons 97)
-SPure (Cons 119)
-SPure (Cons 32)
-SPure (Cons 101)
-SPure (Cons 104)
-SPure (Cons 116)
-SPure (Cons 32)
-SPure (Cons 110)
-SPure (Cons 111)
-SPure (Cons 32)
+markM 28
+cons 0
+cons 108
+cons 108
+cons 97
+cons 119
+cons 32
+cons 101
+cons 104
+cons 116
+cons 32
+cons 110
+cons 111
+cons 32
 
-Mark (MNatural 29)
-SPure (Cons 30)
-SPure (Cons 1)
-SPure (Cons 2)
-Labeled LTop (Branch NE)
+markM 29
+cons 30
+cons 1
+cons 2
+bNE
 
-Mark (MNatural 30)
-SPure (Cons 1)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
+markM 30
+cons 1
+cons 1
+halibut
+bNE
 
-Mark (MNatural 31)
-SPure (Cons 3)
+markM 31
+cons 3
 
-Mark (MNatural 32)
-SPure (Cons 0)
-SPure Halibut
-SPure (Cons 33)
-SPure (Cons 1)
-SPure (Cons 26)
-Labeled LTop (Branch NE)
+markM 32
+cons 0
+halibut
+cons 33
+cons 1
+cons 26
+bNE
 
-Mark (MNatural 33)
-SPure (Cons 44)
-SIO OutputChar
-SPure (Cons 32)
-SIO OutputChar
+markM 33
+cons 44
+outputCS
+cons 32
+outputCS
 
-Mark (MNatural 34)
-SPure (Cons 0)
-SPure Halibut
-SPure (Cons 35)
-SPure (Cons 1)
-SPure (Cons 21)
-Labeled LTop (Branch NE)
+markM 34
+cons 0
+halibut
+cons 35
+cons 1
+cons 21
+bNE
 
-Mark (MNatural 35)
-SPure (Cons 10)
-SIO OutputChar
+markM 35
+cons 10
+outputCS
 
-Mark (MNatural 36)
-SPure (Cons 0)
-SPure (Cons 10)
-SPure (Cons 100)
-SPure (Cons 110)
-SPure (Cons 117)
-SPure (Cons 111)
-SPure (Cons 114)
-SPure (Cons 97)
-SPure (Cons 32)
-SPure (Cons 116)
-SPure (Cons 105)
-SPure (Cons 32)
-SPure (Cons 115)
-SPure (Cons 115)
-SPure (Cons 97)
-SPure (Cons 112)
-SPure (Cons 32)
-SPure (Cons 44)
-SPure (Cons 110)
-SPure (Cons 119)
-SPure (Cons 111)
-SPure (Cons 100)
-SPure (Cons 32)
-SPure (Cons 101)
-SPure (Cons 110)
-SPure (Cons 111)
-SPure (Cons 32)
-SPure (Cons 101)
-SPure (Cons 107)
-SPure (Cons 97)
-SPure (Cons 84)
+markM 36
+cons 0
+cons 10
+cons 100
+cons 110
+cons 117
+cons 111
+cons 114
+cons 97
+cons 32
+cons 116
+cons 105
+cons 32
+cons 115
+cons 115
+cons 97
+cons 112
+cons 32
+cons 44
+cons 110
+cons 119
+cons 111
+cons 100
+cons 32
+cons 101
+cons 110
+cons 111
+cons 32
+cons 101
+cons 107
+cons 97
+cons 84
 
-Mark (MNatural 37)
-SPure (Cons 38)
-SPure (Cons 1)
-SPure (Cons 2)
-Labeled LTop (Branch NE)
+markM 37
+cons 38
+cons 1
+cons 2
+bNE
 
-Mark (MNatural 38)
-SPure (Cons 1)
-SPure (Binary Sub)
+markM 38
+cons 1
+sub
 
-Mark (MNatural 39)
-SPure (Cons 0)
-SPure Halibut
-SPure (Cons 40)
-SPure (Cons 1)
-SPure (Cons 26)
-Labeled LTop (Branch NE)
+markM 39
+cons 0
+halibut
+cons 40
+cons 1
+cons 26
+bNE
 
-Mark (MNatural 40)
-SPure (Cons 10)
-SPure (Cons 10)
-SIO OutputChar
-SIO OutputChar
+markM 40
+cons 10
+cons 10
+outputCS
+outputCS
 
-Mark (MNatural 41)
-SPure (Cons 0)
-SPure Halibut
-SPure (Cons 32)
-Labeled LTop (Branch NE)
+markM 41
+cons 0
+halibut
+cons 32
+bNE
 
-Mark (MNatural 42)
-SPure (Cons 0)
-Labeled LTop (Branch NE)
+markM 42
+cons 0
+bNE
 
-Mark (MNatural 43)
+markM 43
 
-Mark (MNatural 0)
-End
+markM 0
+end

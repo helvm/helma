@@ -13,17 +13,14 @@ dump: Memory
                 ( Mark
                     ( MArtificial "1" )
                 )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
+            , ICF ( Branch BTop NE )
             , IAL
                 ( SPure
                     ( Cons 2 )
                 )
             , IAL ( SIO InputChar )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
+            , ICF ( Branch BTop NE )
+            , ICF ( Branch BTop NE )
             , IAL
                 ( SPure
                     ( Binaries
@@ -33,8 +30,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 4 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 4 ) NE
                 )
             , IAL
                 ( SPure
@@ -70,8 +67,7 @@ dump: Memory
                     )
                 )
             , IAL ( SIO InputChar )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
+            , ICF ( Branch BTop NE )
             , IAL
                 ( SPure ( Binary Sub ) )
             , IAL ( SPure Halibut )
@@ -99,13 +95,11 @@ dump: Memory
                 )
             , IAL
                 ( SPure ( Binary Sub ) )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
+            , ICF ( Branch BTop NE )
             , IAL
                 ( SPure ( Binary Sub ) )
             , IAL ( SIO InputChar )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
+            , ICF ( Branch BTop NE )
             , IAL
                 ( SPure ( Binary Sub ) )
             , IAL
@@ -121,8 +115,8 @@ dump: Memory
                     ( MNatural 4 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 6 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 6 ) NE
                 )
             , ICF
                 ( Mark
@@ -169,8 +163,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 11 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 11 ) NE
                 )
             , ICF
                 ( Mark
@@ -181,8 +175,7 @@ dump: Memory
                     ( Cons 48 )
                 )
             , IAL ( SIO OutputChar )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
+            , ICF ( Branch BTop NE )
             , ICF ( Labeled LTop Jump )
             , ICF
                 ( Mark
@@ -199,8 +192,8 @@ dump: Memory
                     ( MNatural 12 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 14 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 14 ) NE
                 )
             , ICF
                 ( Mark
@@ -516,8 +509,8 @@ dump: Memory
             , IAL
                 ( SPure ( Binary Sub ) )
             , ICF
-                ( Labeled
-                    ( LImmediate 32 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 32 ) NE
                 )
             , IAL
                 ( SPure
@@ -825,16 +818,16 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 33 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 33 ) NE
                 )
             , ICF
                 ( Mark
                     ( MNatural 47 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 0 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 0 ) NE
                 )
             , ICF
                 ( Mark

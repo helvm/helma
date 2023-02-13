@@ -1,58 +1,58 @@
 
-Mark (MNatural 1)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
+markM 1
+cons 0
+cons 1
+sub
 
-Mark (MNatural 2)
-SIO InputChar
+markM 2
+inputCS
 
-Mark (MNatural 3)
-SPure (Cons 0)
-SPure Halibut
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Binary Sub)
-SPure (Cons 2)
-Labeled LTop (Branch NE)
+markM 3
+cons 0
+halibut
+cons 0
+cons 1
+sub
+sub
+cons 2
+bNE
 
-Mark (MNatural 4)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
+markM 4
+cons 0
+cons 1
+halibut
+bNE
 
-Mark (MNatural 5)
-SPure (Cons 0)
-SPure Halibut
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Binary Sub)
-SPure (Cons 6)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Binary Sub)
-Labeled LTop (Branch NE)
+markM 5
+cons 0
+halibut
+cons 0
+cons 1
+sub
+sub
+cons 6
+cons 0
+cons 1
+sub
+sub
+bNE
 
-Mark (MNatural 6)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
-SPure (Cons 1)
-SPure (Cons 0)
-Labeled LTop (Branch NE)
+markM 6
+cons 0
+cons 1
+halibut
+bNE
+cons 1
+cons 0
+bNE
 
-Mark (MNatural 7)
-SIO OutputChar
-SPure (Cons 1)
-SPure (Cons 5)
-Labeled LTop (Branch NE)
+markM 7
+outputCS
+cons 1
+cons 5
+bNE
 
-Mark (MNatural 8)
+markM 8
 
-Mark (MNatural 0)
-End
+markM 0
+end

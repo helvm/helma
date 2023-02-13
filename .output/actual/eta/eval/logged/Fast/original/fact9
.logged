@@ -81,8 +81,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 9 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 9 ) NE
                 )
             , ICF
                 ( Mark
@@ -173,16 +173,16 @@ dump: Memory
                     ( MNatural 16 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 18 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 18 ) NE
                 )
             , ICF
                 ( Mark
                     ( MNatural 17 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 14 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 14 ) NE
                 )
             , ICF
                 ( Mark
@@ -250,11 +250,9 @@ dump: Memory
                         ]
                     )
                 )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
+            , ICF ( Branch BTop NE )
             , IAL ( SIO InputChar )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
+            , ICF ( Branch BTop NE )
             , IAL
                 ( SPure
                     ( Binaries
@@ -307,8 +305,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 27 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 27 ) NE
                 )
             , ICF
                 ( Mark
@@ -335,8 +333,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 29 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 29 ) NE
                 )
             , ICF
                 ( Mark
@@ -365,8 +363,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 19 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 19 ) NE
                 )
             , ICF
                 ( Mark
@@ -413,8 +411,8 @@ dump: Memory
                     ( MNatural 34 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 36 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 36 ) NE
                 )
             , ICF
                 ( Mark
@@ -552,8 +550,8 @@ dump: Memory
                     ( MNatural 47 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 49 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 49 ) NE
                 )
             , ICF
                 ( Mark
@@ -637,14 +635,7 @@ dump: Memory
                 ( Mark
                     ( MNatural 56 )
                 )
-            , IAL
-                ( SPure
-                    ( Indexed
-                        ( IImmediate 1 ) Move
-                    )
-                )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
+            , ICF ( Branch BSwapped NE )
             , ICF
                 ( Mark
                     ( MNatural 57 )
@@ -681,8 +672,8 @@ dump: Memory
                     ( MNatural 60 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 62 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 62 ) NE
                 )
             , ICF
                 ( Mark
@@ -714,7 +705,7 @@ dump: Memory
                 )
             , End
             ]
-        , programCounter = 169
+        , programCounter = 168
         , returnStack = IS []
         }
     , memoryStack = fromList []

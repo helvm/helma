@@ -246,8 +246,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" ) EZ
                 )
             , IAL ( SIO OutputChar )
             , IAL
@@ -298,8 +298,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "0111001001100101011000010110010001011111011001010110111001100100" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "0111001001100101011000010110010001011111011001010110111001100100" ) EZ
                 )
             , IAL ( SPure Discard )
             , IAL

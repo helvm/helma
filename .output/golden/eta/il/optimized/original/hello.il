@@ -1,77 +1,77 @@
 
-Mark (MNatural 1)
-Labeled (LImmediate 2) Jump
+markM 1
+jumpI 2
 
-Mark (MArtificial "1")
-SIO OutputChar
-SPure (Binaries [Mod,Div])
-Labeled LTop (Branch NE)
-SPure (Cons 2)
-SIO InputChar
-Labeled LTop (Branch NE)
-Labeled LTop (Branch NE)
-SPure (Binaries [Mod,Div])
-Labeled (LImmediate 4) (Branch NE)
-SPure (Cons 2)
-SIO OutputChar
+markA "1"
+outputCS
+moddiv
+bNE
+cons 2
+inputCS
+bNE
+bNE
+moddiv
+bNEI 4
+cons 2
+outputCS
 
-Mark (MNatural 2)
+markM 2
 
-Mark (MNatural 3)
-SPure (Cons 32)
+markM 3
+cons 32
 
-Mark (MNatural 4)
-SPure (Cons 44)
-SPure (Cons 111)
-Labeled (LArtificial "5") Jump
+markM 4
+cons 44
+cons 111
+jumpA "5"
 
-Mark (MNatural 5)
-Labeled LTop (Branch NE)
-SPure (Binary Sub)
-SPure (Binaries [Mod,Div])
+markM 5
+bNE
+sub
+moddiv
 
-Mark (MArtificial "5")
+markA "5"
 
-Mark (MNatural 6)
-SPure (Cons 108)
-SPure (Cons 108)
-SPure (Cons 101)
+markM 6
+cons 108
+cons 108
+cons 101
 
-Mark (MNatural 7)
-SPure (Cons 72)
+markM 7
+cons 72
 
-Mark (MNatural 8)
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
+markM 8
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
 
-Mark (MNatural 9)
-SPure (Cons 10)
+markM 9
+cons 10
 
-Mark (MNatural 10)
-SPure (Cons 33)
-SPure (Cons 100)
-SPure (Cons 108)
+markM 10
+cons 33
+cons 100
+cons 108
 
-Mark (MNatural 11)
-SPure (Cons 114)
-SPure (Cons 111)
-SPure (Cons 119)
+markM 11
+cons 114
+cons 111
+cons 119
 
-Mark (MNatural 12)
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
+markM 12
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
 
-Mark (MNatural 13)
+markM 13
 
-Mark (MNatural 0)
-End
+markM 0
+end

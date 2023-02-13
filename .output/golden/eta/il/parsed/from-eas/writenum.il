@@ -1,111 +1,111 @@
 
-Mark (MNatural 1)
-SPure (Cons 0)
-SPure (Cons 2)
-SPure Halibut
+markM 1
+cons 0
+cons 2
+halibut
 
-Mark (MNatural 2)
-SPure (Cons 0)
-SPure Halibut
-SPure (Cons 3)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Binary Sub)
-Labeled LTop (Branch NE)
+markM 2
+cons 0
+halibut
+cons 3
+cons 0
+cons 1
+sub
+sub
+bNE
 
-Mark (MNatural 3)
-SPure (Cons 48)
-SIO OutputChar
-Labeled LTop (Branch NE)
-SPure (Cons 1)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
+markM 3
+cons 48
+outputCS
+bNE
+cons 1
+cons 1
+halibut
+bNE
 
-Mark (MNatural 4)
-SPure (Cons 0)
-SPure Halibut
+markM 4
+cons 0
+halibut
 
-Mark (MNatural 5)
-SPure (Cons 6)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Binary Sub)
-Labeled LTop (Branch NE)
+markM 5
+cons 6
+cons 0
+cons 1
+sub
+sub
+bNE
 
-Mark (MNatural 6)
-SPure (Binary Sub)
-SPure (Cons 1)
-SPure (Cons 11)
-Labeled LTop (Branch NE)
+markM 6
+sub
+cons 1
+cons 11
+bNE
 
-Mark (MNatural 7)
-SPure (Cons 10)
-SPure (Binaries [Mod,Div])
+markM 7
+cons 10
+moddiv
 
-Mark (MArtificial "7")
+markA "7"
 
-Mark (MNatural 8)
-SPure (Cons 0)
-SPure (Cons 48)
-SPure (Binary Sub)
-SPure (Binary Sub)
+markM 8
+cons 0
+cons 48
+sub
+sub
 
-Mark (MNatural 9)
-SPure (Cons 1)
-SPure Halibut
+markM 9
+cons 1
+halibut
 
-Mark (MNatural 10)
-SPure (Cons 1)
-SPure (Cons 4)
-Labeled LTop (Branch NE)
+markM 10
+cons 1
+cons 4
+bNE
 
-Mark (MNatural 11)
-SPure (Cons 12)
-SPure (Cons 1)
-SPure (Cons 13)
-Labeled LTop (Branch NE)
+markM 11
+cons 12
+cons 1
+cons 13
+bNE
 
-Mark (MNatural 12)
-SPure (Cons 1)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
+markM 12
+cons 1
+cons 1
+halibut
+bNE
 
-Mark (MNatural 13)
-SPure (Cons 1)
-SPure Halibut
+markM 13
+cons 1
+halibut
 
-Mark (MNatural 14)
-SPure (Cons 0)
-SPure Halibut
+markM 14
+cons 0
+halibut
 
-Mark (MNatural 15)
-SPure (Cons 16)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Binary Sub)
-Labeled LTop (Branch NE)
+markM 15
+cons 16
+cons 0
+cons 1
+sub
+sub
+bNE
 
-Mark (MNatural 16)
-SPure (Binary Sub)
-SPure (Cons 1)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
+markM 16
+sub
+cons 1
+cons 1
+halibut
+bNE
 
-Mark (MNatural 17)
-SIO OutputChar
+markM 17
+outputCS
 
-Mark (MNatural 18)
-SPure (Cons 1)
-SPure (Cons 13)
-Labeled LTop (Branch NE)
+markM 18
+cons 1
+cons 13
+bNE
 
-Mark (MNatural 19)
+markM 19
 
-Mark (MNatural 0)
-End
+markM 0
+end

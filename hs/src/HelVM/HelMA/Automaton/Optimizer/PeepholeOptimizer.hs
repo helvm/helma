@@ -5,32 +5,38 @@ module HelVM.HelMA.Automaton.Optimizer.PeepholeOptimizer (
 ) where
 
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.CFInstruction
-import           HelVM.HelMA.Automaton.Instruction.SInstruction
+
+import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
+import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
+
+import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
+import           HelVM.HelMA.Automaton.Instruction.Extras.Patterns
 
 peepholeOptimize1 :: InstructionList -> InstructionList
-peepholeOptimize1 (IAL (SPure (Cons i)) : IAL (SPure (Binary op)) : il)                              = immediateBinaryI i op : peepholeOptimize1 il
-peepholeOptimize1 (IAL (SPure (Cons i)) : IAL (SPure Halibut) : il)                                  = optimizeHalibut i : peepholeOptimize1 il
-peepholeOptimize1 (IAL (SPure (Cons i)) : IAL (SPure Pick) : il)                                     = optimizePick i : peepholeOptimize1 il
-peepholeOptimize1 (IAL (SPure (Cons c)) : IAL (SPure (Cons a)) : ICF (Labeled LTop (Branch t)) : il) = optimizeBranch t c a <> peepholeOptimize1 il
-peepholeOptimize1 (IAL (SPure (Cons a)) : ICF (Labeled LTop (Branch t)) : il)                        = optimizeBranchLabel t a <> peepholeOptimize1 il
-peepholeOptimize1 (i : il)                                                                           = i : peepholeOptimize1 il
-peepholeOptimize1 []                                                                                 = []
+peepholeOptimize1 = fix optimize where
+  optimize :: (InstructionList -> InstructionList) -> InstructionList -> InstructionList
+  optimize f (ConsP i : BinaryP op           : il) = immediateBinaryI i op    : f il
+  optimize f (ConsP i : HalibutP             : il) = optimizeHalibut i        : f il
+  optimize f (ConsP i : PickP                : il) = optimizePick i           : f il
+  optimize f (ConsP c : ConsP a : BranchTP t : il) = optimizeBranch t c a    <> f il
+  optimize f (ConsP a : BranchTP t           : il) = optimizeBranchLabel t a <> f il
+  optimize f (i                              : il) = i                        : f il
+  optimize _                                   []  = []
 
 peepholeOptimize2 :: InstructionList -> InstructionList
-peepholeOptimize2 (IAL (SPure (Cons c)) : IAL (SPure (Indexed (IImmediate i) Move)) : ICF (Labeled LTop (Branch t)) : il) = optimizeBranchCondition i t c <> peepholeOptimize2 il
-peepholeOptimize2 (i : il)                                                                                                = i : peepholeOptimize2 il
-peepholeOptimize2 []                                                                                                      = []
+peepholeOptimize2 = fix optimize where
+  optimize :: (InstructionList -> InstructionList) -> InstructionList -> InstructionList
+  optimize f (ConsP c : MoveIP i : BranchTP t : il) = optimizeBranchCondition i t c <> f il
+  optimize f (MoveIP 1 : BranchTP t           : il) = branchSwapI t                  : f il
+  optimize f (i                               : il) = i                              : f il
+  optimize _                                    []  = []
 
 peepholeOptimize3 :: InstructionList -> InstructionList
-peepholeOptimize3 (j@(ICF (Labeled _ Jump)) : il) = optimizeDeadCode j il
-peepholeOptimize3 (i : il)                        = i : peepholeOptimize3 il
-peepholeOptimize3 []                              = []
-
-optimizeDeadCode :: Instruction -> InstructionList -> InstructionList
-optimizeDeadCode j (i@(ICF (Mark _)) : il) = j : i : peepholeOptimize3 il
-optimizeDeadCode j ( _ : il)               = peepholeOptimize3 (j : il)
-optimizeDeadCode j []                      = [j]
+peepholeOptimize3 = fix optimize where
+  optimize :: (InstructionList -> InstructionList) -> InstructionList -> InstructionList
+  optimize f (j@(JumpP _) : il) = j : f (dropWhile (not . isMark) il)
+  optimize f (i : il)           = i : f il
+  optimize _ []                 = []
 
 optimizeHalibut :: Integer -> Instruction
 optimizeHalibut i
@@ -48,7 +54,7 @@ optimizeBranch t c a = check $ isJump t c where
   check _    = []
 
 optimizeBranchLabel :: BranchTest -> Integer -> InstructionList
-optimizeBranchLabel t a = [bII t $ fromIntegral a]
+optimizeBranchLabel t a = [branchI t $ fromIntegral a]
 
 optimizeBranchCondition :: Index -> BranchTest -> Integer -> InstructionList
 optimizeBranchCondition 1 t c = optimizeBranchCondition1 t c

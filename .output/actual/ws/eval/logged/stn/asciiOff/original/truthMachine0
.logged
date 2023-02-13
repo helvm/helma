@@ -12,8 +12,8 @@ dump: Memory
             , ILS ( MIO InputDec )
             , ILS Load
             , ICF
-                ( Labeled
-                    ( LArtificial "0" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "0" ) EZ
                 )
             , ICF
                 ( Mark

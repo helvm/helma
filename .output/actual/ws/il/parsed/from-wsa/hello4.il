@@ -1,32 +1,32 @@
-SPure (Cons 0)
-SPure (Cons 33)
-SPure (Cons 100)
-SPure (Cons 108)
-SPure (Cons 114)
-SPure (Cons 111)
-SPure (Cons 119)
-SPure (Cons 32)
-SPure (Cons 44)
-SPure (Cons 111)
-SPure (Cons 108)
-SPure (Cons 108)
-SPure (Cons 101)
-SPure (Cons 72)
-Labeled (LArtificial "printsln") Call
-End
+cons 0
+cons 33
+cons 100
+cons 108
+cons 114
+cons 111
+cons 119
+cons 32
+cons 44
+cons 111
+cons 108
+cons 108
+cons 101
+cons 72
+callA "printsln"
+end
 
-Mark (MArtificial "prints")
-SPure (Indexed (IImmediate 0) Copy)
-Labeled (LArtificial "prints_end") (Branch EZ)
-SIO OutputChar
-Labeled (LArtificial "prints") Jump
+markA "prints"
+copyI 0
+bEZA "prints_end"
+outputCS
+jumpA "prints"
 
-Mark (MArtificial "prints_end")
-SPure Discard
-Return
+markA "prints_end"
+discard
+return
 
-Mark (MArtificial "printsln")
-Labeled (LArtificial "prints") Call
-SPure (Cons 10)
-SIO OutputChar
-Return
+markA "printsln"
+callA "prints"
+cons 10
+outputCS
+return

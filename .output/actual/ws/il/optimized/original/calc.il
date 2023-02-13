@@ -1,246 +1,246 @@
-SPure (Cons 0)
-SPure (Cons 69)
-Store
-SPure (Cons 1)
-SPure (Cons 110)
-Store
-SPure (Cons 2)
-SPure (Cons 116)
-Store
-SPure (Cons 3)
-SPure (Cons 101)
-Store
-SPure (Cons 4)
-SPure (Cons 114)
-Store
-SPure (Cons 5)
-SPure (Cons 32)
-Store
-SPure (Cons 6)
-SPure (Cons 115)
-Store
-SPure (Cons 7)
-SPure (Cons 111)
-Store
-SPure (Cons 8)
-SPure (Cons 109)
-Store
-SPure (Cons 9)
-SPure (Cons 101)
-Store
-SPure (Cons 10)
-SPure (Cons 32)
-Store
-SPure (Cons 11)
-SPure (Cons 110)
-Store
-SPure (Cons 12)
-SPure (Cons 117)
-Store
-SPure (Cons 13)
-SPure (Cons 109)
-Store
-SPure (Cons 14)
-SPure (Cons 98)
-Store
-SPure (Cons 15)
-SPure (Cons 101)
-Store
-SPure (Cons 16)
-SPure (Cons 114)
-Store
-SPure (Cons 17)
-SPure (Cons 115)
-Store
-SPure (Cons 18)
-SPure (Cons 44)
-Store
-SPure (Cons 19)
-SPure (Cons 32)
-Store
-SPure (Cons 20)
-SPure (Cons 116)
-Store
-SPure (Cons 21)
-SPure (Cons 104)
-Store
-SPure (Cons 22)
-SPure (Cons 101)
-Store
-SPure (Cons 23)
-SPure (Cons 110)
-Store
-SPure (Cons 24)
-SPure (Cons 32)
-Store
-SPure (Cons 25)
-SPure (Cons 45)
-Store
-SPure (Cons 26)
-SPure (Cons 49)
-Store
-SPure (Cons 27)
-SPure (Cons 32)
-Store
-SPure (Cons 28)
-SPure (Cons 116)
-Store
-SPure (Cons 29)
-SPure (Cons 111)
-Store
-SPure (Cons 30)
-SPure (Cons 32)
-Store
-SPure (Cons 31)
-SPure (Cons 102)
-Store
-SPure (Cons 32)
-SPure (Cons 105)
-Store
-SPure (Cons 33)
-SPure (Cons 110)
-Store
-SPure (Cons 34)
-SPure (Cons 105)
-Store
-SPure (Cons 35)
-SPure (Cons 115)
-Store
-SPure (Cons 36)
-SPure (Cons 104)
-Store
-SPure (Cons 37)
-SPure (Cons 0)
-Store
-SPure (Cons 42)
-SPure (Cons 78)
-Store
-SPure (Cons 43)
-SPure (Cons 117)
-Store
-SPure (Cons 44)
-SPure (Cons 109)
-Store
-SPure (Cons 45)
-SPure (Cons 98)
-Store
-SPure (Cons 46)
-SPure (Cons 101)
-Store
-SPure (Cons 47)
-SPure (Cons 114)
-Store
-SPure (Cons 48)
-SPure (Cons 58)
-Store
-SPure (Cons 49)
-SPure (Cons 0)
-Store
-SPure (Cons 60)
-SPure (Cons 84)
-Store
-SPure (Cons 61)
-SPure (Cons 111)
-Store
-SPure (Cons 62)
-SPure (Cons 116)
-Store
-SPure (Cons 63)
-SPure (Cons 97)
-Store
-SPure (Cons 64)
-SPure (Cons 108)
-Store
-SPure (Cons 65)
-SPure (Cons 32)
-Store
-SPure (Cons 66)
-SPure (Cons 105)
-Store
-SPure (Cons 67)
-SPure (Cons 115)
-Store
-SPure (Cons 68)
-SPure (Cons 32)
-Store
-SPure (Cons 69)
-SPure (Cons 0)
-Store
-SPure (Cons 0)
-Labeled (LArtificial "write") Call
-Labeled (LArtificial "newline") Call
-SPure (Cons 100)
-SPure (Cons 0)
-Store
+cons 0
+cons 69
+store
+cons 1
+cons 110
+store
+cons 2
+cons 116
+store
+cons 3
+cons 101
+store
+cons 4
+cons 114
+store
+cons 5
+cons 32
+store
+cons 6
+cons 115
+store
+cons 7
+cons 111
+store
+cons 8
+cons 109
+store
+cons 9
+cons 101
+store
+cons 10
+cons 32
+store
+cons 11
+cons 110
+store
+cons 12
+cons 117
+store
+cons 13
+cons 109
+store
+cons 14
+cons 98
+store
+cons 15
+cons 101
+store
+cons 16
+cons 114
+store
+cons 17
+cons 115
+store
+cons 18
+cons 44
+store
+cons 19
+cons 32
+store
+cons 20
+cons 116
+store
+cons 21
+cons 104
+store
+cons 22
+cons 101
+store
+cons 23
+cons 110
+store
+cons 24
+cons 32
+store
+cons 25
+cons 45
+store
+cons 26
+cons 49
+store
+cons 27
+cons 32
+store
+cons 28
+cons 116
+store
+cons 29
+cons 111
+store
+cons 30
+cons 32
+store
+cons 31
+cons 102
+store
+cons 32
+cons 105
+store
+cons 33
+cons 110
+store
+cons 34
+cons 105
+store
+cons 35
+cons 115
+store
+cons 36
+cons 104
+store
+cons 37
+cons 0
+store
+cons 42
+cons 78
+store
+cons 43
+cons 117
+store
+cons 44
+cons 109
+store
+cons 45
+cons 98
+store
+cons 46
+cons 101
+store
+cons 47
+cons 114
+store
+cons 48
+cons 58
+store
+cons 49
+cons 0
+store
+cons 60
+cons 84
+store
+cons 61
+cons 111
+store
+cons 62
+cons 116
+store
+cons 63
+cons 97
+store
+cons 64
+cons 108
+store
+cons 65
+cons 32
+store
+cons 66
+cons 105
+store
+cons 67
+cons 115
+store
+cons 68
+cons 32
+store
+cons 69
+cons 0
+store
+cons 0
+callA "write"
+callA "newline"
+cons 100
+cons 0
+store
 
-Mark (MArtificial "loop")
-SPure (Cons 42)
-Labeled (LArtificial "write") Call
-SPure (Cons 101)
-MIO InputDec
-SPure (Cons 101)
-Load
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Unary (UImmediate (-1) Sub))
-Labeled (LArtificial "progend") (Branch EZ)
-SPure (Cons 100)
-Load
-SPure (Binary Add)
-SPure (Cons 100)
-SPure (Indexed (IImmediate 1) Move)
-Store
-Labeled (LArtificial "loop") Jump
+markA "loop"
+cons 42
+callA "write"
+cons 101
+mio inputdec
+cons 101
+load
+copyI 0
+subI -1
+bEZA "progend"
+cons 100
+load
+add
+cons 100
+moveI 1
+store
+jumpA "loop"
 
-Mark (MArtificial "progend")
-SPure Discard
-SPure (Cons 60)
-Labeled (LArtificial "write") Call
-SPure (Cons 100)
-Load
-SIO OutputDec
-Labeled (LArtificial "newline") Call
-End
+markA "progend"
+discard
+cons 60
+callA "write"
+cons 100
+load
+outputDS
+callA "newline"
+end
 
-Mark (MArtificial "add")
-SPure (Binary Add)
-Return
+markA "add"
+add
+return
 
-Mark (MArtificial "write")
-SPure (Indexed (IImmediate 0) Copy)
-Load
-SPure (Indexed (IImmediate 0) Copy)
-Labeled (LArtificial "write_end") (Branch EZ)
-SIO OutputChar
-SPure (Unary (UImmediate 1 Add))
-Labeled (LArtificial "write") Jump
+markA "write"
+copyI 0
+load
+copyI 0
+bEZA "write_end"
+outputCS
+addI 1
+jumpA "write"
 
-Mark (MArtificial "write_end")
-SPure Discard
-SPure Discard
-Return
+markA "write_end"
+discard
+discard
+return
 
-Mark (MArtificial "read")
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Indexed (IImmediate 0) Copy)
-MIO InputChar
-Load
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Unary (UImmediate 10 Sub))
-Labeled (LArtificial "read_end") (Branch EZ)
-SPure Discard
-SPure (Unary (UImmediate 1 Add))
-Labeled (LArtificial "read") Jump
+markA "read"
+copyI 0
+copyI 0
+mio inputchar
+load
+copyI 0
+subI 10
+bEZA "read_end"
+discard
+addI 1
+jumpA "read"
 
-Mark (MArtificial "read_end")
-SPure Discard
-SPure (Unary (UImmediate 1 Add))
-SPure (Cons 0)
-Store
-Return
+markA "read_end"
+discard
+addI 1
+cons 0
+store
+return
 
-Mark (MArtificial "newline")
-SPure (Cons 10)
-SPure (Cons 13)
-SIO OutputChar
-SIO OutputChar
-Return
+markA "newline"
+cons 10
+cons 13
+outputCS
+outputCS
+return

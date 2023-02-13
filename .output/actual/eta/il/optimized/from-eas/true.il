@@ -1,5 +1,5 @@
 
-Mark (MNatural 1)
+markM 1
 
-Mark (MNatural 0)
-End
+markM 0
+end

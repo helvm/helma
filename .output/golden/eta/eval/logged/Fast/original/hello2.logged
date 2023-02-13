@@ -90,8 +90,8 @@ dump: Memory
                     ( MArtificial "3" )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 4 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 4 ) NE
                 )
             , IAL ( SIO InputChar )
             , IAL
@@ -117,8 +117,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 6 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 6 ) NE
                 )
             , ICF
                 ( Mark

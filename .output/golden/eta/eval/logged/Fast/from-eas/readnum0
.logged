@@ -28,16 +28,16 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                     ( MNatural 3 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 5 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 5 ) NE
                 )
             , ICF
                 ( Mark
                     ( MNatural 4 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 1 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 1 ) NE
                 )
             , ICF
                 ( Mark
@@ -133,8 +133,8 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 14 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 14 ) NE
                 )
             , ICF
                 ( Mark
@@ -161,8 +161,8 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 16 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 16 ) NE
                 )
             , ICF
                 ( Mark
@@ -191,8 +191,8 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 6 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 6 ) NE
                 )
             , ICF
                 ( Mark
@@ -269,8 +269,8 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                     ( MNatural 24 )
                 )
             , ICF
-                ( Labeled
-                    ( LImmediate 26 ) ( Branch NE )
+                ( Branch
+                    ( BImmediate 26 ) NE
                 )
             , ICF
                 ( Mark
@@ -354,14 +354,7 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 33 )
                 )
-            , IAL
-                ( SPure
-                    ( Indexed
-                        ( IImmediate 1 ) Move
-                    )
-                )
-            , ICF
-                ( Labeled LTop ( Branch NE ) )
+            , ICF ( Branch BSwapped NE )
             , ICF
                 ( Mark
                     ( MNatural 34 )

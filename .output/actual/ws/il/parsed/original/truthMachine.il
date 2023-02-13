@@ -1,15 +1,15 @@
-SPure (Cons 0)
-SPure (Indexed (IImmediate 0) Copy)
-MIO InputDec
-Load
-Labeled (LArtificial "\NUL") (Branch EZ)
+cons 0
+copyI 0
+mio inputdec
+load
+bEZA "\NUL"
 
-Mark (MArtificial "\SOH")
-SPure (Cons 1)
-SIO OutputDec
-Labeled (LArtificial "\SOH") Jump
+markA "\SOH"
+cons 1
+outputDS
+jumpA "\SOH"
 
-Mark (MArtificial "\NUL")
-SPure (Cons 0)
-SIO OutputDec
-End
+markA "\NUL"
+cons 0
+outputDS
+end

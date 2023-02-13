@@ -1,24 +1,24 @@
 
-Mark (MNatural 1)
-SPure (Indexed (IImmediate 1) Move)
+markM 1
+moveI 1
 
-Mark (MNatural 2)
-SPure (Indexed (IImmediate 0) Copy)
+markM 2
+copyI 0
 
-Mark (MNatural 3)
-Labeled (LImmediate 5) (Branch NE)
+markM 3
+bNEI 5
 
-Mark (MNatural 4)
-SPure (Binary Sub)
-Labeled LTop Jump
+markM 4
+sub
+jump
 
-Mark (MNatural 5)
-SIO OutputChar
+markM 5
+outputCS
 
-Mark (MNatural 6)
-Labeled (LImmediate 1) Jump
+markM 6
+jumpI 1
 
-Mark (MNatural 7)
+markM 7
 
-Mark (MNatural 0)
-End
+markM 0
+end

@@ -1,70 +1,70 @@
 
-Mark (MNatural 1)
-SPure (Cons 0)
-SPure (Indexed (IImmediate 2) Move)
+markM 1
+cons 0
+moveI 2
 
-Mark (MNatural 2)
-SPure (Indexed (IImmediate 0) Copy)
-Labeled (LImmediate 4) (Branch NE)
+markM 2
+copyI 0
+bNEI 4
 
-Mark (MNatural 3)
-SPure (Cons 48)
-SIO OutputChar
-Labeled LTop (Branch NE)
-Labeled LTop Jump
+markM 3
+cons 48
+outputCS
+bNE
+jump
 
-Mark (MNatural 4)
-SPure (Indexed (IImmediate 0) Copy)
+markM 4
+copyI 0
 
-Mark (MNatural 5)
-Labeled (LImmediate 7) (Branch NE)
+markM 5
+bNEI 7
 
-Mark (MNatural 6)
-SPure (Binary Sub)
-Labeled (LImmediate 11) Jump
+markM 6
+sub
+jumpI 11
 
-Mark (MNatural 7)
-SPure (Cons 10)
-SPure (Binaries [Mod,Div])
+markM 7
+cons 10
+moddiv
 
-Mark (MArtificial "7")
+markA "7"
 
-Mark (MNatural 8)
-SPure (Unary (UImmediate (-48) Sub))
+markM 8
+subI -48
 
-Mark (MNatural 9)
-SPure (Indexed (IImmediate 1) Move)
+markM 9
+moveI 1
 
-Mark (MNatural 10)
-Labeled (LImmediate 4) Jump
+markM 10
+jumpI 4
 
-Mark (MNatural 11)
-SPure (Cons 12)
-Labeled (LImmediate 13) Jump
+markM 11
+cons 12
+jumpI 13
 
-Mark (MNatural 12)
-Labeled LTop Jump
+markM 12
+jump
 
-Mark (MNatural 13)
-SPure (Indexed (IImmediate 1) Move)
+markM 13
+moveI 1
 
-Mark (MNatural 14)
-SPure (Indexed (IImmediate 0) Copy)
+markM 14
+copyI 0
 
-Mark (MNatural 15)
-Labeled (LImmediate 17) (Branch NE)
+markM 15
+bNEI 17
 
-Mark (MNatural 16)
-SPure (Binary Sub)
-Labeled LTop Jump
+markM 16
+sub
+jump
 
-Mark (MNatural 17)
-SIO OutputChar
+markM 17
+outputCS
 
-Mark (MNatural 18)
-Labeled (LImmediate 13) Jump
+markM 18
+jumpI 13
 
-Mark (MNatural 19)
+markM 19
 
-Mark (MNatural 0)
-End
+markM 0
+end

@@ -5,13 +5,14 @@ import           HelVM.HelMA.Automata.ETA.Optimizer
 import           HelVM.HelMA.Automata.ETA.Token
 
 import           HelVM.HelMA.Automaton.Instruction
+import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 
 import           HelVM.Expectations
 import           HelVM.HelIO.Control.Safe
 
-import qualified Data.Vector                             as Vector
+import qualified Data.Vector                                           as Vector
 
-import           Test.Hspec                              (Spec, describe, it)
+import           Test.Hspec                                            (Spec, describe, it)
 
 spec :: Spec
 spec = describe "parse" $ do

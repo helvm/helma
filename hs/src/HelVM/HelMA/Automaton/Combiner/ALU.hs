@@ -28,8 +28,8 @@ module HelVM.HelMA.Automaton.Combiner.ALU (
   Stack,
 ) where
 
-import           HelVM.HelMA.Automaton.Instruction.IOInstruction
-import           HelVM.HelMA.Automaton.Instruction.SInstruction
+import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
+import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
@@ -40,13 +40,13 @@ import           HelVM.HelIO.Containers.LLIndexSafe
 import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Applicative.Tools
-import           Data.ListLike                                   hiding (show)
-import           Prelude                                         hiding (divMod, drop, fromList, length, splitAt, swap)
+import           Data.ListLike                                          hiding (show)
+import           Prelude                                                hiding (divMod, drop, fromList, length, splitAt, swap)
 
 
-runALI :: ALU m ll element => SInstruction -> ll -> m ll
+runALI :: ALU m ll element => SMInstruction -> ll -> m ll
 runALI (SPure ali) = runSAL ali
-runALI (SIO ioi)   = runSIO ioi
+runALI (SIO   ioi) = runSIO ioi
 
 runSIO :: ALU m ll element => IOInstruction -> ll -> m ll
 runSIO OutputChar = doOutputChar2

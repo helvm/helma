@@ -47,8 +47,8 @@ span.spaces    { background: white }
 <span class="lineno">   28 </span>  Stack,
 <span class="lineno">   29 </span>) where
 <span class="lineno">   30 </span>
-<span class="lineno">   31 </span>import           HelVM.HelMA.Automaton.Instruction.IOInstruction
-<span class="lineno">   32 </span>import           HelVM.HelMA.Automaton.Instruction.SInstruction
+<span class="lineno">   31 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
+<span class="lineno">   32 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 <span class="lineno">   33 </span>
 <span class="lineno">   34 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
 <span class="lineno">   35 </span>
@@ -59,13 +59,13 @@ span.spaces    { background: white }
 <span class="lineno">   40 </span>import           HelVM.HelIO.ListLikeExtra
 <span class="lineno">   41 </span>
 <span class="lineno">   42 </span>import           Control.Applicative.Tools
-<span class="lineno">   43 </span>import           Data.ListLike                                   hiding (show)
-<span class="lineno">   44 </span>import           Prelude                                         hiding (divMod, drop, fromList, length, splitAt, swap)
+<span class="lineno">   43 </span>import           Data.ListLike                                          hiding (show)
+<span class="lineno">   44 </span>import           Prelude                                                hiding (divMod, drop, fromList, length, splitAt, swap)
 <span class="lineno">   45 </span>
 <span class="lineno">   46 </span>
-<span class="lineno">   47 </span>runALI :: ALU m ll element =&gt; SInstruction -&gt; ll -&gt; m ll
+<span class="lineno">   47 </span>runALI :: ALU m ll element =&gt; SMInstruction -&gt; ll -&gt; m ll
 <span class="lineno">   48 </span><span class="decl"><span class="istickedoff">runALI (SPure ali) = runSAL ali</span>
-<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">runALI (SIO ioi)   = runSIO ioi</span></span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">runALI (SIO   ioi) = runSIO ioi</span></span>
 <span class="lineno">   50 </span>
 <span class="lineno">   51 </span>runSIO :: ALU m ll element =&gt; IOInstruction -&gt; ll -&gt; m ll
 <span class="lineno">   52 </span><span class="decl"><span class="istickedoff">runSIO OutputChar = doOutputChar2</span>

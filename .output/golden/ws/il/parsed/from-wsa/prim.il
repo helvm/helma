@@ -1,131 +1,131 @@
 
-Mark (MArtificial "st")
-SPure (Cons 0)
-SPure (Cons 93)
-SPure (Cons 48)
-SPure (Cons 48)
-SPure (Cons 49)
-SPure (Cons 45)
-SPure (Cons 50)
-SPure (Cons 91)
-SPure (Cons 32)
-SPure (Cons 115)
-SPure (Cons 114)
-SPure (Cons 101)
-SPure (Cons 98)
-SPure (Cons 109)
-SPure (Cons 117)
-SPure (Cons 110)
-SPure (Cons 32)
-SPure (Cons 109)
-SPure (Cons 105)
-SPure (Cons 114)
-SPure (Cons 112)
-Labeled (LArtificial "printsln") Call
-SPure (Cons 0)
+markA "st"
+cons 0
+cons 93
+cons 48
+cons 48
+cons 49
+cons 45
+cons 50
+cons 91
+cons 32
+cons 115
+cons 114
+cons 101
+cons 98
+cons 109
+cons 117
+cons 110
+cons 32
+cons 109
+cons 105
+cons 114
+cons 112
+callA "printsln"
+cons 0
 
-Mark (MArtificial "f_start_1")
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 100)
-SPure (Binary Sub)
-Labeled (LArtificial "f_finished_1") (Branch EZ)
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 100)
-SPure (Binary Add)
-SPure (Cons 1)
-Store
-SPure (Cons 1)
-SPure (Binary Add)
-Labeled (LArtificial "f_start_1") Jump
+markA "f_start_1"
+copyI 0
+cons 100
+sub
+bEZA "f_finished_1"
+copyI 0
+cons 100
+add
+cons 1
+store
+cons 1
+add
+jumpA "f_start_1"
 
-Mark (MArtificial "f_finished_1")
-SPure Discard
-SPure (Cons 2)
+markA "f_finished_1"
+discard
+cons 2
 
-Mark (MArtificial "f_start_2")
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 11)
-SPure (Binary Sub)
-Labeled (LArtificial "f_finished_2") (Branch EZ)
-SPure (Cons 2)
+markA "f_start_2"
+copyI 0
+cons 11
+sub
+bEZA "f_finished_2"
+cons 2
 
-Mark (MArtificial "f_start_3")
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 100)
-SPure (Binary Sub)
-Labeled (LArtificial "f_finished_3") (Branch EZ)
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 1)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Indexed (IImmediate 1) Move)
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 2)
-SPure (Indexed (IImmediate 1) Move)
-Store
-SPure (Indexed (IImmediate 1) Move)
-SPure (Cons 1)
-Load
-SPure (Cons 2)
-Load
-SPure (Binary Mul)
-SPure (Cons 100)
-SPure (Binary Add)
-SPure (Cons 0)
-Store
-SPure (Cons 1)
-SPure (Binary Add)
-Labeled (LArtificial "f_start_3") Jump
+markA "f_start_3"
+copyI 0
+cons 100
+sub
+bEZA "f_finished_3"
+copyI 0
+cons 1
+moveI 1
+store
+moveI 1
+copyI 0
+cons 2
+moveI 1
+store
+moveI 1
+cons 1
+load
+cons 2
+load
+mul
+cons 100
+add
+cons 0
+store
+cons 1
+add
+jumpA "f_start_3"
 
-Mark (MArtificial "f_finished_3")
-SPure Discard
-SPure (Cons 1)
-SPure (Binary Add)
-Labeled (LArtificial "f_start_2") Jump
+markA "f_finished_3"
+discard
+cons 1
+add
+jumpA "f_start_2"
 
-Mark (MArtificial "f_finished_2")
-SPure Discard
-SPure (Cons 2)
+markA "f_finished_2"
+discard
+cons 2
 
-Mark (MArtificial "f_start_4")
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 100)
-SPure (Binary Sub)
-Labeled (LArtificial "f_finished_4") (Branch EZ)
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 100)
-SPure (Binary Add)
-Load
-Labeled (LArtificial "nodraw") (Branch EZ)
-SPure (Indexed (IImmediate 0) Copy)
-SIO OutputDec
-SPure (Cons 0)
-SPure (Cons 32)
-Labeled (LArtificial "prints") Call
+markA "f_start_4"
+copyI 0
+cons 100
+sub
+bEZA "f_finished_4"
+copyI 0
+cons 100
+add
+load
+bEZA "nodraw"
+copyI 0
+outputDS
+cons 0
+cons 32
+callA "prints"
 
-Mark (MArtificial "nodraw")
-SPure (Cons 1)
-SPure (Binary Add)
-Labeled (LArtificial "f_start_4") Jump
+markA "nodraw"
+cons 1
+add
+jumpA "f_start_4"
 
-Mark (MArtificial "f_finished_4")
-SPure Discard
-SPure (Cons 0)
-Labeled (LArtificial "printsln") Call
-End
+markA "f_finished_4"
+discard
+cons 0
+callA "printsln"
+end
 
-Mark (MArtificial "prints")
-SPure (Indexed (IImmediate 0) Copy)
-Labeled (LArtificial "prints_end") (Branch EZ)
-SIO OutputChar
-Labeled (LArtificial "prints") Jump
+markA "prints"
+copyI 0
+bEZA "prints_end"
+outputCS
+jumpA "prints"
 
-Mark (MArtificial "prints_end")
-SPure Discard
-Return
+markA "prints_end"
+discard
+return
 
-Mark (MArtificial "printsln")
-Labeled (LArtificial "prints") Call
-SPure (Cons 10)
-SIO OutputChar
-Return
+markA "printsln"
+callA "prints"
+cons 10
+outputCS
+return

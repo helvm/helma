@@ -6,9 +6,10 @@ import           HelVM.HelMA.Automaton.Combiner.ALU
 
 import           HelVM.HelMA.Automaton.Instruction
 
-import           HelVM.HelMA.Automaton.Instruction.SInstruction
+import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
+import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
-import qualified Data.ListLike                                  as LL
+import qualified Data.ListLike                                          as LL
 
 constantFolding :: InstructionList -> InstructionList
 constantFolding = constantFoldingWithAcc []

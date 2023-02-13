@@ -1,47 +1,47 @@
 
-Mark (MNatural 1)
-SPure (Cons 0)
-SPure (Cons 10)
-SPure (Cons 33)
-SPure (Cons 100)
-SPure (Cons 108)
-SPure (Cons 114)
-SPure (Cons 111)
-SPure (Cons 119)
-SPure (Cons 32)
+markM 1
+cons 0
+cons 10
+cons 33
+cons 100
+cons 108
+cons 114
+cons 111
+cons 119
+cons 32
 
-Mark (MNatural 2)
-SPure (Cons 44)
-SPure (Cons 111)
-SPure (Cons 108)
-SPure (Cons 108)
-SPure (Cons 101)
-SPure (Cons 72)
-SPure (Cons 3)
-Labeled (LImmediate 4) Jump
+markM 2
+cons 44
+cons 111
+cons 108
+cons 108
+cons 101
+cons 72
+cons 3
+jumpI 4
 
-Mark (MNatural 3)
-Labeled (LImmediate 0) Jump
+markM 3
+jumpI 0
 
-Mark (MArtificial "3")
-Labeled (LImmediate 4) (Branch NE)
-SIO InputChar
-SPure (Unary (UImmediate 337 Sub))
+markA "3"
+bNEI 4
+inputCS
+subI 337
 
-Mark (MNatural 4)
-SPure (Indexed (IImmediate 1) Move)
-SPure (Indexed (IImmediate 0) Copy)
-Labeled (LImmediate 6) (Branch NE)
+markM 4
+moveI 1
+copyI 0
+bNEI 6
 
-Mark (MNatural 5)
-SPure (Binary Sub)
-Labeled LTop Jump
+markM 5
+sub
+jump
 
-Mark (MNatural 6)
-SIO OutputChar
-Labeled (LImmediate 4) Jump
+markM 6
+outputCS
+jumpI 4
 
-Mark (MNatural 7)
+markM 7
 
-Mark (MNatural 0)
-End
+markM 0
+end

@@ -1,80 +1,80 @@
 
-Mark (MNatural 1)
-SPure (Cons 0)
-SPure (Cons 10)
-SPure (Cons 33)
-SPure (Cons 100)
-SPure (Cons 108)
-SPure (Cons 114)
-SPure (Cons 111)
-SPure (Cons 119)
-SPure (Cons 32)
+markM 1
+cons 0
+cons 10
+cons 33
+cons 100
+cons 108
+cons 114
+cons 111
+cons 119
+cons 32
 
-Mark (MNatural 2)
-SPure (Cons 44)
-SPure (Cons 111)
-SPure (Cons 108)
-SPure (Cons 108)
-SPure (Cons 101)
-SPure (Cons 72)
-SPure (Cons 3)
-SPure (Cons 1)
-SPure (Cons 4)
-Labeled LTop (Branch NE)
+markM 2
+cons 44
+cons 111
+cons 108
+cons 108
+cons 101
+cons 72
+cons 3
+cons 1
+cons 4
+bNE
 
-Mark (MNatural 3)
-SPure (Cons 1)
-SPure (Cons 0)
-Labeled LTop (Branch NE)
-SPure (Cons 4)
-SPure (Cons 22)
-Labeled LTop (Branch NE)
-SIO InputChar
-SPure (Binary Sub)
-Labeled LTop (Branch NE)
-SIO OutputChar
-SIO OutputChar
-SPure (Binaries [Mod,Div])
+markM 3
+cons 1
+cons 0
+bNE
+cons 4
+cons 22
+bNE
+inputCS
+sub
+bNE
+outputCS
+outputCS
+moddiv
 
-Mark (MArtificial "3")
-SPure (Cons 4)
-Labeled LTop (Branch NE)
-SIO InputChar
-SPure (Cons 337)
-SPure (Binary Sub)
+markA "3"
+cons 4
+bNE
+inputCS
+cons 337
+sub
 
-Mark (MNatural 4)
-SPure (Cons 1)
-SPure Halibut
-SPure (Cons 0)
-SPure Halibut
-SPure (Cons 5)
-SPure (Cons 0)
-SPure (Cons 1)
-SPure (Binary Sub)
-SPure (Binary Sub)
-Labeled LTop (Branch NE)
+markM 4
+cons 1
+halibut
+cons 0
+halibut
+cons 5
+cons 0
+cons 1
+sub
+sub
+bNE
 
-Mark (MNatural 5)
-SPure (Binary Sub)
-SPure (Cons 11)
-SPure (Cons 1)
-SPure Halibut
-Labeled LTop (Branch NE)
+markM 5
+sub
+cons 11
+cons 1
+halibut
+bNE
 
-Mark (MNatural 6)
-SIO OutputChar
-SPure (Cons 7)
-SPure (Cons 4)
-Labeled LTop (Branch NE)
-SPure (Binary Sub)
-SPure (Binary Sub)
-SIO InputChar
-SPure (Cons 7)
-SPure (Cons 0)
-Labeled (LArtificial "7") Jump
+markM 6
+outputCS
+cons 7
+cons 4
+bNE
+sub
+sub
+inputCS
+cons 7
+cons 0
+jumpA "7"
 
-Mark (MNatural 7)
+markM 7
 
-Mark (MNatural 0)
-End
+markM 0
+end

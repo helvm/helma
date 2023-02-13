@@ -6,6 +6,7 @@ import           HelVM.HelMA.Automata.ETA.Parser
 import           HelVM.HelMA.Automata.ETA.FileExtra
 
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
+import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Optimizer
 
 import           HelVM.HelIO.Control.Safe
@@ -18,8 +19,6 @@ import           Control.Applicative.Tools
 import           System.FilePath.Posix                       hiding ((<.>))
 
 import           Test.Hspec                                  (Spec, describe, it)
-
-import           HelVM.HelMA.Automaton.PrettyPrinter
 
 spec :: Spec
 spec =

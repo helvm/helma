@@ -495,8 +495,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "LOOP:1" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "LOOP:1" ) EZ
                 )
             , ICF
                 ( Labeled
@@ -518,8 +518,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "prints_end" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "prints_end" ) EZ
                 )
             , IAL ( SIO OutputChar )
             , ICF

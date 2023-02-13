@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Instruction.Extras.PrettyPrinter (
+<span class="lineno">    2 </span>  printIL
+<span class="lineno">    3 </span>) where
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
+<span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.SInstruction
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import           HelVM.HelIO.Containers.Extra
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>import qualified Data.Text                                              as Text
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>printIL :: InstructionList -&gt; Text
+<span class="lineno">   16 </span><span class="decl"><span class="istickedoff">printIL il = unlines $ printI &lt;$&gt; il</span></span>
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>printI :: Instruction -&gt; Text
+<span class="lineno">   19 </span><span class="decl"><span class="istickedoff">printI (IAL i) = printSM i</span>
+<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">printI (ICF i) = printCF i</span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">printI (ILS i) = toLowerShow i</span>
+<span class="lineno">   22 </span><span class="spaces"></span><span class="istickedoff">printI  End    = toLowerShow End</span></span>
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>printSM :: SInstruction -&gt; Text
+<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">printSM (SPure i) = printSPure i</span>
+<span class="lineno">   26 </span><span class="spaces"></span><span class="istickedoff">printSM (SIO   i) = printIO i &lt;&gt; &quot;S&quot;</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>printSPure :: SPureInstruction -&gt; Text
+<span class="lineno">   29 </span><span class="decl"><span class="istickedoff">printSPure (Unary    i  ) = printUnary i</span>
+<span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">printSPure (Indexed  i o) = toLowerShow o &lt;&gt; printIndexOperand i</span>
+<span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">printSPure (Binary   i  ) = toLowerShow i</span>
+<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">printSPure (Binaries i  ) = printBinaries i</span>
+<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">printSPure           i    = toLowerShow i</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>printBinaries :: (Foldable c, Functor c, Show i) =&gt; c i -&gt; Text
+<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">printBinaries il = fmconcat $ toLowerShow &lt;$&gt; il</span></span>
+<span class="lineno">   37 </span>
+<span class="lineno">   38 </span>printUnary :: UnaryOperation -&gt; Text
+<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">printUnary (UImmediate i o) = toLowerShow o &lt;&gt; &quot;I &quot; &lt;&gt; show i</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">printUnary             i    = <span class="nottickedoff">toLowerShow i</span></span></span>
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>printIndexOperand :: IndexOperand -&gt; Text
+<span class="lineno">   43 </span><span class="decl"><span class="istickedoff">printIndexOperand ITop           = <span class="nottickedoff">&quot;&quot;</span></span>
+<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">printIndexOperand (IImmediate i) = &quot;I &quot; &lt;&gt; show i</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>printCF :: CFInstruction -&gt; Text
+<span class="lineno">   47 </span><span class="decl"><span class="istickedoff">printCF (Mark     i  ) = &quot;\nmark&quot; &lt;&gt; printMark i</span>
+<span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">printCF (Labeled  i o) = toLowerShow o &lt;&gt; printLabelOperand i</span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">printCF (Branch i t) = toLowerShow t &lt;&gt; printBranchOperand i</span>
+<span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">printCF           i    = toLowerShow i</span></span>
+<span class="lineno">   51 </span>
+<span class="lineno">   52 </span>printMark :: Mark -&gt; Text
+<span class="lineno">   53 </span><span class="decl"><span class="istickedoff">printMark (MNatural    i) = &quot;M &quot; &lt;&gt; show i</span>
+<span class="lineno">   54 </span><span class="spaces"></span><span class="istickedoff">printMark (MArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>
+<span class="lineno">   55 </span>
+<span class="lineno">   56 </span>printLabelOperand :: LabelOperand -&gt; Text
+<span class="lineno">   57 </span><span class="decl"><span class="istickedoff">printLabelOperand LTop            = &quot;&quot;</span>
+<span class="lineno">   58 </span><span class="spaces"></span><span class="istickedoff">printLabelOperand (LImmediate  i) = &quot;I &quot; &lt;&gt; show i</span>
+<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">printLabelOperand (LArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>
+<span class="lineno">   60 </span>
+<span class="lineno">   61 </span>printBranchOperand :: BranchOperand -&gt; Text
+<span class="lineno">   62 </span><span class="decl"><span class="istickedoff">printBranchOperand BTop            = <span class="nottickedoff">&quot;&quot;</span></span>
+<span class="lineno">   63 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand BSwapped        = &quot;S&quot;</span>
+<span class="lineno">   64 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand (BImmediate  i) = <span class="nottickedoff">&quot;I &quot; &lt;&gt; show i</span></span>
+<span class="lineno">   65 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand (BArtificial i) = <span class="nottickedoff">&quot;A &quot; &lt;&gt; show i</span></span></span>
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>toLowerShow :: Show i =&gt; i -&gt; Text
+<span class="lineno">   68 </span><span class="decl"><span class="istickedoff">toLowerShow = Text.toLower . show</span></span>
+
+</pre>
+</body>
+</html>

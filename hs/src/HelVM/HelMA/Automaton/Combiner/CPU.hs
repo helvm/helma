@@ -1,24 +1,24 @@
 module HelVM.HelMA.Automaton.Combiner.CPU where
 
-import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.CFInstruction
-
 import           HelVM.HelMA.Automaton.Combiner.ALU
+
+import           HelVM.HelMA.Automaton.Instruction
+import           HelVM.HelMA.Automaton.Instruction.Extras.Patterns
+import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 
 import           HelVM.HelIO.Containers.LLIndexSafe
 import           HelVM.HelIO.Control.Safe
 
 import           Control.Type.Operator
 
-import           Data.ListLike                                   hiding (show)
-import qualified Data.Vector                                     as Vector
+import           Data.ListLike                                          hiding (show)
+import qualified Data.Vector                                            as Vector
 
 runCFI :: (ALU m ll element , Show element) => CFInstruction -> CentralProcessingStep ll m
-runCFI (Mark    _                ) = pure
-runCFI (Labeled LTop            i) = topInstruction        i
-runCFI (Labeled (LImmediate  l) i) = immediateInstruction  i l
-runCFI (Labeled (LArtificial l) i) = artificialInstruction i l
-runCFI  Return                     = popAddress
+runCFI (Mark      _) = pure
+runCFI (Branch  o t) = branchInstruction t o
+runCFI (Labeled o i) = labeledInstruction i o
+runCFI  Return       = popAddress
 
 popAddress :: ALU m ll element  => CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
 popAddress (CPM (CM il _ (IS (a : is))) s) = pure $ CPM (CM il a $ IS is) s
@@ -26,14 +26,48 @@ popAddress (CPM (CM il _ (IS      [] )) _) = liftErrorWithTupleList "Empty Retur
 
 --
 
-topInstruction :: (ALU m ll element , Show element) => LabeledOperation -> CentralProcessingStep ll m
-topInstruction i cpm = appendError "CPM.topInstruction" $ uncurry (immediateInstruction i) =<< cpmPop1 cpm
+branchInstruction :: (ALU m ll element , Show element) => BranchTest -> BranchOperand -> CentralProcessingStep ll m
+branchInstruction t  BSwapped       = branchSwappedInstruction    t
+branchInstruction t  BTop           = branchTopInstruction        t
+branchInstruction t (BImmediate  l) = branchImmediateInstruction  t l
+branchInstruction t (BArtificial l) = branchArtificialInstruction t l
 
-immediateInstruction :: (ALU m ll element, DynamicLabel l) => LabeledOperation -> l -> CentralProcessingStep ll m
-immediateInstruction i l cpm = appendError "CPM.immediateInstruction" $ flip (labeled i) cpm =<< findAddressForNaturalLabel l (cpmProgram cpm)
+branchSwappedInstruction :: (ALU m ll element , Show element) => BranchTest -> CentralProcessingStep ll m
+branchSwappedInstruction t cpm = appendError "CPM.branchSwappedInstruction" $ build =<< cpmPop2 cpm where
+  build (e , l , cpm') = branch t e (findAddressForNaturalLabel l (cpmProgram cpm')) cpm'
 
-artificialInstruction :: ALU m ll element => LabeledOperation -> Label -> CentralProcessingStep ll m
-artificialInstruction i l cpm = appendError "CPM.artificialInstruction" $ flip (labeled i) cpm =<< findAddressForArtificialLabel l (cpmProgram cpm)
+branchTopInstruction :: (ALU m ll element , Show element) => BranchTest -> CentralProcessingStep ll m
+branchTopInstruction t cpm = appendError "CPM.branchTopInstruction" $ build =<< cpmPop2 cpm where
+  build (l , e , cpm') = branch t e (findAddressForNaturalLabel l (cpmProgram cpm')) cpm'
+
+branchImmediateInstruction :: (ALU m ll element , DynamicLabel l) => BranchTest -> l -> CentralProcessingStep ll m
+branchImmediateInstruction t l cpm = appendError "CPM.branchImmediateInstruction" $ build =<< cpmPop1 cpm where
+  build (e , cpm') = branch t e (findAddressForNaturalLabel l (cpmProgram cpm')) cpm'
+
+branchArtificialInstruction :: (ALU m ll element) => BranchTest -> Label -> CentralProcessingStep ll m
+branchArtificialInstruction t l cpm = appendError "CPM.branchArtificialInstruction" $ build =<< cpmPop1 cpm where
+  build (e , cpm') = branch t e (findAddressForArtificialLabel l (cpmProgram cpm')) cpm'
+
+branch :: (ALU m ll element) => BranchTest -> element -> m InstructionCounter -> CentralProcessingStep ll m
+branch t e icM cpm
+  | isJump t e = flip jump cpm <$> icM
+  | otherwise  = pure cpm
+
+--
+
+labeledInstruction :: (ALU m ll element , Show element) => LabelOperation -> LabelOperand -> CentralProcessingStep ll m
+labeledInstruction  i LTop            = labeledTopInstruction        i
+labeledInstruction  i (LImmediate  l) = labeledImmediateInstruction  i l
+labeledInstruction  i (LArtificial l) = labeledArtificialInstruction i l
+
+labeledTopInstruction :: (ALU m ll element , Show element) => LabelOperation -> CentralProcessingStep ll m
+labeledTopInstruction i cpm = appendError "CPM.labeledTopInstruction" $ uncurry (labeledImmediateInstruction i) =<< cpmPop1 cpm
+
+labeledImmediateInstruction :: (ALU m ll element, DynamicLabel l) => LabelOperation -> l -> CentralProcessingStep ll m
+labeledImmediateInstruction i l cpm = appendError "CPM.labeledImmediateInstruction" $ flip (labeled i) cpm <$> findAddressForNaturalLabel l (cpmProgram cpm)
+
+labeledArtificialInstruction :: ALU m ll element => LabelOperation -> Label -> CentralProcessingStep ll m
+labeledArtificialInstruction i l cpm = appendError "CPM.labeledArtificialInstruction" $ flip (labeled i) cpm <$> findAddressForArtificialLabel l (cpmProgram cpm)
 
 --
 
@@ -47,25 +81,15 @@ findAddressForArtificialLabel l = liftMaybeOrErrorTuple ("Undefined label", show
 
 --
 
-labeled :: ALU m ll element => LabeledOperation -> InstructionCounter -> CentralProcessingStep ll m
-labeled (Branch t) = branch t
-labeled Jump       = jump
-labeled Call       = call
+labeled :: LabelOperation -> InstructionCounter -> CentralProcessingMemory ll -> CentralProcessingMemory ll
+labeled Jump = jump
+labeled Call = call
 
-branch :: ALU m ll element => BranchTest -> InstructionCounter -> CentralProcessingStep ll m
-branch t ic cpm = build <$> cpmPop1 cpm where
-  build (e , cpm')
-    | isNotJump t e = cpm'
-    | otherwise     = doJump ic cpm'
+jump :: InstructionCounter -> CentralProcessingMemory ll -> CentralProcessingMemory ll
+jump a (CPM (CM il _ is) s) = CPM (CM il a is) s
 
-doJump :: InstructionCounter -> CentralProcessingMemory ll -> CentralProcessingMemory ll
-doJump ic (CPM (CM il _ is) s) = CPM (CM il ic is) s
-
-jump :: (Applicative m) => InstructionCounter -> CentralProcessingStep ll m
-jump a (CPM (CM il _  is) s) = pure $ CPM (CM il a is) s
-
-call :: (Applicative m) => InstructionCounter -> CentralProcessingStep ll m
-call a (CPM (CM il ic (IS is)) s) = pure $ CPM (CM il a (IS (ic : is))) s
+call :: InstructionCounter -> CentralProcessingMemory ll -> CentralProcessingMemory ll
+call a (CPM (CM il ic (IS is)) s) = CPM (CM il a (IS (ic : is))) s
 
 -- | ControlMemory methods
 

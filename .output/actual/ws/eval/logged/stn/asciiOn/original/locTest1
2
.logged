@@ -246,8 +246,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "write_end" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "write_end" ) EZ
                 )
             , IAL ( SIO OutputChar )
             , IAL
@@ -298,8 +298,8 @@ dump: Memory
                     )
                 )
             , ICF
-                ( Labeled
-                    ( LArtificial "read_end" ) ( Branch EZ )
+                ( Branch
+                    ( BArtificial "read_end" ) EZ
                 )
             , IAL ( SPure Discard )
             , IAL

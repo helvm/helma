@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automaton.Instruction.LSInstruction where
+module HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction where
 
-import           HelVM.HelMA.Automaton.Instruction.IOInstruction
+import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 
 -- | Types
 

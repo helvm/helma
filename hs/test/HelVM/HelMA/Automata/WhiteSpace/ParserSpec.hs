@@ -5,8 +5,8 @@ import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 import           HelVM.HelMA.Automata.WhiteSpace.Parser
 
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
+import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Optimizer
-import           HelVM.HelMA.Automaton.PrettyPrinter
 import           HelVM.HelMA.Automaton.Types.FormatType
 
 import           HelVM.HelIO.Control.Safe

@@ -1,32 +1,32 @@
 
-Mark (MNatural 1)
-SPure (Cons (-1))
+markM 1
+cons (-1)
 
-Mark (MNatural 2)
-SIO InputChar
+markM 2
+inputCS
 
-Mark (MNatural 3)
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Unary (UImmediate (-1) Sub))
-Labeled (LImmediate 2) (Branch NE)
+markM 3
+copyI 0
+subI -1
+bNEI 2
 
-Mark (MNatural 4)
-SPure Discard
+markM 4
+discard
 
-Mark (MNatural 5)
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Unary (UImmediate (-1) Sub))
-Labeled (LImmediate 7) (Branch NE)
+markM 5
+copyI 0
+subI -1
+bNEI 7
 
-Mark (MNatural 6)
-SPure Discard
-Labeled (LImmediate 0) Jump
+markM 6
+discard
+jumpI 0
 
-Mark (MNatural 7)
-SIO OutputChar
-Labeled (LImmediate 5) Jump
+markM 7
+outputCS
+jumpI 5
 
-Mark (MNatural 8)
+markM 8
 
-Mark (MNatural 0)
-End
+markM 0
+end

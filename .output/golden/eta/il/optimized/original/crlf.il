@@ -1,43 +1,43 @@
 
-Mark (MNatural 1)
-Labeled (LImmediate 3) Jump
+markM 1
+jumpI 3
 
-Mark (MNatural 2)
-SPure (Cons 10)
-SPure (Cons 49)
-SPure (Cons 68)
-SPure (Cons 65)
-SPure (Cons 66)
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-Labeled (LImmediate 0) Jump
+markM 2
+cons 10
+cons 49
+cons 68
+cons 65
+cons 66
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
+jumpI 0
 
-Mark (MNatural 3)
-SPure (Cons 10)
-SPure (Cons 75)
-SPure (Cons 79)
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-Labeled (LImmediate 0) Jump
+markM 3
+cons 10
+cons 75
+cons 79
+outputCS
+outputCS
+outputCS
+jumpI 0
 
-Mark (MNatural 4)
-SPure (Cons 10)
-SPure (Cons 50)
-SPure (Cons 68)
-SPure (Cons 65)
-SPure (Cons 66)
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-SIO OutputChar
-Labeled (LImmediate 0) Jump
+markM 4
+cons 10
+cons 50
+cons 68
+cons 65
+cons 66
+outputCS
+outputCS
+outputCS
+outputCS
+outputCS
+jumpI 0
 
-Mark (MNatural 5)
+markM 5
 
-Mark (MNatural 0)
-End
+markM 0
+end

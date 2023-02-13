@@ -1,66 +1,66 @@
-SPure (Cons 1)
+cons 1
 
-Mark (MArtificial "C")
-SPure (Indexed (IImmediate 0) Copy)
-SIO OutputDec
-SPure (Cons 10)
-SIO OutputChar
-SPure (Cons 1)
-SPure (Binary Add)
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 11)
-SPure (Binary Sub)
-Labeled (LArtificial "E") (Branch EZ)
-Labeled (LArtificial "C") Jump
+markA "C"
+copyI 0
+outputDS
+cons 10
+outputCS
+cons 1
+add
+copyI 0
+cons 11
+sub
+bEZA "E"
+jumpA "C"
 
-Mark (MArtificial "E")
-SPure Discard
-End
+markA "E"
+discard
+end
 
-Mark (MArtificial "add")
-SPure (Binary Add)
-Return
+markA "add"
+add
+return
 
-Mark (MArtificial "write")
-SPure (Indexed (IImmediate 0) Copy)
-Load
-SPure (Indexed (IImmediate 0) Copy)
-Labeled (LArtificial "write_end") (Branch EZ)
-SIO OutputChar
-SPure (Cons 1)
-SPure (Binary Add)
-Labeled (LArtificial "write") Jump
+markA "write"
+copyI 0
+load
+copyI 0
+bEZA "write_end"
+outputCS
+cons 1
+add
+jumpA "write"
 
-Mark (MArtificial "write_end")
-SPure Discard
-SPure Discard
-Return
+markA "write_end"
+discard
+discard
+return
 
-Mark (MArtificial "read")
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Indexed (IImmediate 0) Copy)
-MIO InputChar
-Load
-SPure (Indexed (IImmediate 0) Copy)
-SPure (Cons 10)
-SPure (Binary Sub)
-Labeled (LArtificial "read_end") (Branch EZ)
-SPure Discard
-SPure (Cons 1)
-SPure (Binary Add)
-Labeled (LArtificial "read") Jump
+markA "read"
+copyI 0
+copyI 0
+mio inputchar
+load
+copyI 0
+cons 10
+sub
+bEZA "read_end"
+discard
+cons 1
+add
+jumpA "read"
 
-Mark (MArtificial "read_end")
-SPure Discard
-SPure (Cons 1)
-SPure (Binary Add)
-SPure (Cons 0)
-Store
-Return
+markA "read_end"
+discard
+cons 1
+add
+cons 0
+store
+return
 
-Mark (MArtificial "newline")
-SPure (Cons 10)
-SPure (Cons 13)
-SIO OutputChar
-SIO OutputChar
-Return
+markA "newline"
+cons 10
+cons 13
+outputCS
+outputCS
+return
