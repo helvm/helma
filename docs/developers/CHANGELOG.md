@@ -1,6 +1,6 @@
 # 📅 Revision history for HelMA
 
-## 0.8.4.1 -- 2023-01-23
+## 0.8.4.2 -- 2023-02-13
 
 * Compile code for Automaton
 * Rewrite parameters
