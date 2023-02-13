@@ -11,7 +11,7 @@
 , Exec
 , Inst
     ( IAL
-        ( SAL ( Binary Add ) )
+        ( SPure ( Binary Add ) )
     )
 , Inst
     ( IAL ( SIO OutputDec ) )

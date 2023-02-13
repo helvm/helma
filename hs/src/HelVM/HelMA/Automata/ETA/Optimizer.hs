@@ -21,7 +21,7 @@ optimize :: MonadSafe m => TokenList -> m InstructionList
 optimize = appendEnd <.> join <.> optimizeLines
 
 appendEnd :: InstructionList -> InstructionList
-appendEnd l = l <> one End
+appendEnd l = l <> [markNI 0 , End]
 
 optimizeLines :: MonadSafe m => TokenList -> m [InstructionList]
 optimizeLines = sequence . optimizeLineInit <.> lineFromTuple2 <.> splitOnRAndIndex2
@@ -33,7 +33,7 @@ indexedByNaturalWithOffset :: Int -> (Int , a) -> (Natural , a)
 indexedByNaturalWithOffset offset (i , a) = (fromIntegral (i + offset) , a)
 
 optimizeLineInit :: MonadSafe m => Line -> m InstructionList
-optimizeLineInit line = (dMarkI (currentAddress line) : ) <$> optimizeLineTail line
+optimizeLineInit line = (markNI (currentAddress line) : ) <$> optimizeLineTail line
 
 optimizeLineTail:: MonadSafe m => Line -> m InstructionList
 optimizeLineTail line = check (currentTL line) where
@@ -48,7 +48,7 @@ optimizeLineForToken S = (subI      : ) <.> optimizeLineTail
 optimizeLineForToken E = prependDivMod
 
 optimizeLineForToken H = (halibutI  : ) <.> optimizeLineTail
-optimizeLineForToken T = (Transfer  : ) <.> optimizeLineTail
+optimizeLineForToken T = (bNeTI     : ) <.> optimizeLineTail
 
 optimizeLineForToken A = prependAddress
 optimizeLineForToken N = prependNumber
@@ -61,7 +61,7 @@ prependDivMod line = check $ numberFlag line where
   check True  = prependStaticMakr line <.> optimizeLineTail $ line {numberFlag = False}
 
 prependStaticMakr :: Line -> InstructionList -> InstructionList
-prependStaticMakr line il = divModI : sMarkIN (currentAddress line) : il
+prependStaticMakr line il = divModI : markSI (show $ currentAddress line) : il
 
 prependDivModSimple :: MonadSafe m => Line -> m InstructionList
 prependDivModSimple = (divModI : ) <.> optimizeLineTail
@@ -75,7 +75,7 @@ prependNumber line = flip buildNumber line =<< parseNumberFromTLL (currentTL lin
 buildNumber :: MonadSafe m => (Integer , (TokenList , [TokenList])) -> Line -> m InstructionList
 buildNumber (n , (tl , ttl) ) line = build (LL.length (nextTLL line) - LL.length ttl) where
   build 0      = (consI n :) <$> optimizeLineTail (line {currentTL = tl})
-  build offset = pure [consI n , sJumpIN $ currentAddress line + fromIntegral offset]
+  build offset = pure [consI n , jumpSI $ show $ currentAddress line + fromIntegral offset]
 
 -- | Accessors
 

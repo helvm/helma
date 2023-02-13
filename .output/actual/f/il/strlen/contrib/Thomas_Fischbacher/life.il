@@ -11,7 +11,7 @@
 , Ref 1
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 4 )
         )
     )
@@ -21,29 +21,31 @@
 , Fetch
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 1 )
         )
     )
 , Inst
     ( IAL
-        ( SAL ( Binary Add ) )
+        ( SPure ( Binary Add ) )
     )
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Sub ) )
+            ( SPure ( Binary Sub ) )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     ]
@@ -52,29 +54,31 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Add ) )
+            ( SPure ( Binary Add ) )
         )
     , Lambda
         [ Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
             ( IAL
-                ( SAL ( Binary Sub ) )
+                ( SPure ( Binary Sub ) )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             )
         ]
@@ -83,57 +87,65 @@
             ( IAL ( SIO InputChar ) )
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 42 )
                 )
             )
         , Inst
             ( IAL
-                ( SAL ( Binary LEQ ) )
+                ( SPure ( Binary LEQ ) )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 2 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 2 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 2 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 2 )
+                    )
                 )
             )
         ]
     , While
     , Inst
-        ( IAL ( SAL Discard ) )
+        ( IAL ( SPure Discard ) )
     , Inst
         ( IAL ( SIO InputChar ) )
     , Inst
-        ( IAL ( SAL Discard ) )
+        ( IAL ( SPure Discard ) )
     ]
 , While
 , Inst
-    ( IAL ( SAL Discard ) )
+    ( IAL ( SPure Discard ) )
 , Ref 6
 , Fetch
 , Inst
     ( IAL
-        ( SAL
-            ( SStatic 0 Copy )
+        ( SPure
+            ( Indexed Copy
+                ( ImmediateO 0 )
+            )
         )
     )
 , Ref 25
 , Store
 , Inst
     ( IAL
-        ( SAL
-            ( SStatic 0 Copy )
+        ( SPure
+            ( Indexed Copy
+                ( ImmediateO 0 )
+            )
         )
     )
 , Inst
     ( IAL
-        ( SAL ( Binary Mul ) )
+        ( SPure ( Binary Mul ) )
     )
 , Ref 4
 , Store
@@ -142,39 +154,41 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Sub ) )
+            ( SPure ( Binary Sub ) )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Ref 25
     , Store
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary Neg ) )
+            ( SPure ( Unary Neg ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     ]
 ]

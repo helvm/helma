@@ -58,7 +58,7 @@ charToSimpleInstruction '$'  = inst dupI
 charToSimpleInstruction '%'  = inst discardI
 charToSimpleInstruction '\\' = inst swapI
 charToSimpleInstruction '@'  = inst rotI
-charToSimpleInstruction '`'  = inst dCopy
+charToSimpleInstruction '`'  = inst copyTI
 
 charToSimpleInstruction '+'  = inst addI
 charToSimpleInstruction '-'  = inst subI

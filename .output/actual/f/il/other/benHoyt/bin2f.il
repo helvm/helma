@@ -5,19 +5,21 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Add ) )
+            ( SPure ( Binary Add ) )
         )
     ]
 , Lambda
@@ -27,6 +29,6 @@
     ]
 , While
 , Inst
-    ( IAL ( SAL Discard ) )
+    ( IAL ( SPure Discard ) )
 , Str "]"
 ]

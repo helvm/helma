@@ -9,7 +9,7 @@ verySimpleAutoParams = simpleAutoParams False
 
 simpleAutoParams :: Bool -> AutoOptions
 simpleAutoParams c = AutoOptions
-  { optLevel     = BasicOptimizations
+  { optLevel     = AllOptimizations
   , compileFlag  = c
   , limit        = testMaybeLimit
   , dumpType     = Pretty

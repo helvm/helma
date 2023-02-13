@@ -2,318 +2,352 @@ dump: Memory
     { memoryCM = CM
         { program =
             [ IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 72 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 101 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 2 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 108 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 3 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 108 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 4 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 111 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 5 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 44 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 6 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 32 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 7 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 119 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 8 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 111 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 9 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 114 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 10 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 108 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 11 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 100 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 12 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 32 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 13 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 111 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 14 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 102 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 15 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 32 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 16 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 115 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 17 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 112 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 18 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 97 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 19 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 99 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 20 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 101 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 21 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 115 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 22 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 33 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 23 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , ICF
-                ( CStatic "0111011101110010011010010111010001100101" Call )
+                ( Labeled Call
+                    ( LArtificial "0111011101110010011010010111010001100101" )
+                )
             , ICF
-                ( CStatic "01101110011001010111011101101100011010010110111001100101" Call )
+                ( Labeled Call
+                    ( LArtificial "01101110011001010111011101101100011010010110111001100101" )
+                )
             , End
             , ICF
-                ( SMark "011000010110010001100100" )
+                ( Mark
+                    ( MArtificial "011000010110010001100100" )
+                )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , ICF Return
             , ICF
-                ( SMark "0111011101110010011010010111010001100101" )
+                ( Mark
+                    ( MArtificial "0111011101110010011010010111010001100101" )
+                )
             , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             , ILS Load
             , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             , ICF
-                ( CStatic "011101110111001001101001011101000110010101011111011001010110111001100100" ( Branch EZ ) )
+                ( Labeled ( Branch EZ )
+                    ( LArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" )
+                )
             , IAL ( SIO OutputChar )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , ICF
-                ( CStatic "0111011101110010011010010111010001100101" Jump )
+                ( Labeled Jump
+                    ( LArtificial "0111011101110010011010010111010001100101" )
+                )
             , ICF
-                ( SMark "011101110111001001101001011101000110010101011111011001010110111001100100" )
-            , IAL ( SAL Discard )
-            , IAL ( SAL Discard )
+                ( Mark
+                    ( MArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" )
+                )
+            , IAL ( SPure Discard )
+            , IAL ( SPure Discard )
             , ICF Return
             , ICF
-                ( SMark "01110010011001010110000101100100" )
-            , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( Mark
+                    ( MArtificial "01110010011001010110000101100100" )
                 )
             , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
+                )
+            , IAL
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             , ILS ( MIO InputChar )
             , ILS Load
             , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 10 )
                 )
             , IAL
-                ( SAL ( Binary Sub ) )
+                ( SPure ( Binary Sub ) )
             , ICF
-                ( CStatic "0111001001100101011000010110010001011111011001010110111001100100" ( Branch EZ ) )
-            , IAL ( SAL Discard )
+                ( Labeled ( Branch EZ )
+                    ( LArtificial "0111001001100101011000010110010001011111011001010110111001100100" )
+                )
+            , IAL ( SPure Discard )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , ICF
-                ( CStatic "01110010011001010110000101100100" Jump )
+                ( Labeled Jump
+                    ( LArtificial "01110010011001010110000101100100" )
+                )
             , ICF
-                ( SMark "0111001001100101011000010110010001011111011001010110111001100100" )
-            , IAL ( SAL Discard )
+                ( Mark
+                    ( MArtificial "0111001001100101011000010110010001011111011001010110111001100100" )
+                )
+            , IAL ( SPure Discard )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , ILS Store
             , ICF Return
             , ICF
-                ( SMark "01101110011001010111011101101100011010010110111001100101" )
+                ( Mark
+                    ( MArtificial "01101110011001010111011101101100011010010110111001100101" )
+                )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 10 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 13 )
                 )
             , IAL ( SIO OutputChar )

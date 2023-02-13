@@ -1,53 +1,58 @@
 [ ICF
-    ( DMark 1 )
-, IAL
-    ( SAL
-        ( Cons 1 )
+    ( Mark
+        ( MNatural 1 )
     )
-, IAL ( SAL Halibut )
+, IAL
+    ( SPure
+        ( Indexed Move
+            ( ImmediateO 1 )
+        )
+    )
 , ICF
-    ( DMark 2 )
-, IAL
-    ( SAL
-        ( Cons 0 )
+    ( Mark
+        ( MNatural 2 )
     )
-, IAL ( SAL Halibut )
+, IAL
+    ( SPure
+        ( Indexed Copy
+            ( ImmediateO 0 )
+        )
+    )
 , ICF
-    ( DMark 3 )
-, IAL
-    ( SAL
-        ( Cons 5 )
+    ( Mark
+        ( MNatural 3 )
     )
-, Transfer
 , ICF
-    ( DMark 4 )
-, IAL
-    ( SAL ( Binary Sub ) )
-, IAL
-    ( SAL
-        ( Cons 1 )
+    ( Labeled ( Branch NE )
+        ( LImmediate 5 )
     )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL ( SAL Halibut )
-, Transfer
 , ICF
-    ( DMark 5 )
+    ( Mark
+        ( MNatural 4 )
+    )
+, IAL
+    ( SPure ( Binary Sub ) )
+, ICF ( Labeled Jump LTop )
+, ICF
+    ( Mark
+        ( MNatural 5 )
+    )
 , IAL ( SIO OutputChar )
 , ICF
-    ( DMark 6 )
-, IAL
-    ( SAL
-        ( Cons 1 )
+    ( Mark
+        ( MNatural 6 )
     )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, Transfer
 , ICF
-    ( DMark 7 )
+    ( Labeled Jump
+        ( LImmediate 1 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 7 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 0 )
+    )
 , End
 ]

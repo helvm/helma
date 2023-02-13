@@ -2,339 +2,423 @@ dump: Memory
     { memoryCM = CM
         { program =
             [ ICF
-                ( SMark "0111001101110100" )
+                ( Mark
+                    ( MArtificial "0111001101110100" )
+                )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 93 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 48 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 48 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 49 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 45 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 50 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 91 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 32 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 115 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 114 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 101 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 98 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 109 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 117 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 110 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 32 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 109 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 105 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 114 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 112 )
                 )
             , ICF
-                ( CStatic "0111000001110010011010010110111001110100011100110110110001101110" Call )
+                ( Labeled Call
+                    ( LArtificial "0111000001110010011010010110111001110100011100110110110001101110" )
+                )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , ICF
-                ( SMark "011001100101111101110011011101000110000101110010011101000101111100110001" )
-            , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( Mark
+                    ( MArtificial "011001100101111101110011011101000110000101110010011101000101111100110001" )
                 )
             , IAL
-                ( SAL
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
+                )
+            , IAL
+                ( SPure
                     ( Cons 100 )
                 )
             , IAL
-                ( SAL ( Binary Sub ) )
+                ( SPure ( Binary Sub ) )
             , ICF
-                ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110001" ( Branch EZ ) )
-            , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( Labeled ( Branch EZ )
+                    ( LArtificial "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110001" )
                 )
             , IAL
-                ( SAL
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
+                )
+            , IAL
+                ( SPure
                     ( Cons 100 )
                 )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , ICF
-                ( CStatic "011001100101111101110011011101000110000101110010011101000101111100110001" Jump )
+                ( Labeled Jump
+                    ( LArtificial "011001100101111101110011011101000110000101110010011101000101111100110001" )
+                )
             , ICF
-                ( SMark "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110001" )
-            , IAL ( SAL Discard )
+                ( Mark
+                    ( MArtificial "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110001" )
+                )
+            , IAL ( SPure Discard )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 2 )
                 )
             , ICF
-                ( SMark "011001100101111101110011011101000110000101110010011101000101111100110010" )
-            , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( Mark
+                    ( MArtificial "011001100101111101110011011101000110000101110010011101000101111100110010" )
                 )
             , IAL
-                ( SAL
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
+                )
+            , IAL
+                ( SPure
                     ( Cons 11 )
                 )
             , IAL
-                ( SAL ( Binary Sub ) )
+                ( SPure ( Binary Sub ) )
             , ICF
-                ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110010" ( Branch EZ ) )
+                ( Labeled ( Branch EZ )
+                    ( LArtificial "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110010" )
+                )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 2 )
                 )
             , ICF
-                ( SMark "011001100101111101110011011101000110000101110010011101000101111100110011" )
-            , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( Mark
+                    ( MArtificial "011001100101111101110011011101000110000101110010011101000101111100110011" )
                 )
             , IAL
-                ( SAL
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
+                )
+            , IAL
+                ( SPure
                     ( Cons 100 )
                 )
             , IAL
-                ( SAL ( Binary Sub ) )
+                ( SPure ( Binary Sub ) )
             , ICF
-                ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110011" ( Branch EZ ) )
-            , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( Labeled ( Branch EZ )
+                    ( LArtificial "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110011" )
                 )
             , IAL
-                ( SAL
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
+                )
+            , IAL
+                ( SPure
                     ( Cons 1 )
                 )
             , IAL
-                ( SAL
-                    ( SStatic 1 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 1 )
+                    )
                 )
             , ILS Store
             , IAL
-                ( SAL
-                    ( SStatic 1 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 1 )
+                    )
                 )
             , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 2 )
                 )
             , IAL
-                ( SAL
-                    ( SStatic 1 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 1 )
+                    )
                 )
             , ILS Store
             , IAL
-                ( SAL
-                    ( SStatic 1 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 1 )
+                    )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , ILS Load
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 2 )
                 )
             , ILS Load
             , IAL
-                ( SAL ( Binary Mul ) )
+                ( SPure ( Binary Mul ) )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 100 )
                 )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , ILS Store
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , ICF
-                ( CStatic "011001100101111101110011011101000110000101110010011101000101111100110011" Jump )
+                ( Labeled Jump
+                    ( LArtificial "011001100101111101110011011101000110000101110010011101000101111100110011" )
+                )
             , ICF
-                ( SMark "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110011" )
-            , IAL ( SAL Discard )
+                ( Mark
+                    ( MArtificial "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110011" )
+                )
+            , IAL ( SPure Discard )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , ICF
-                ( CStatic "011001100101111101110011011101000110000101110010011101000101111100110010" Jump )
+                ( Labeled Jump
+                    ( LArtificial "011001100101111101110011011101000110000101110010011101000101111100110010" )
+                )
             , ICF
-                ( SMark "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110010" )
-            , IAL ( SAL Discard )
+                ( Mark
+                    ( MArtificial "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110010" )
+                )
+            , IAL ( SPure Discard )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 2 )
                 )
             , ICF
-                ( SMark "011001100101111101110011011101000110000101110010011101000101111100110100" )
-            , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( Mark
+                    ( MArtificial "011001100101111101110011011101000110000101110010011101000101111100110100" )
                 )
             , IAL
-                ( SAL
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
+                )
+            , IAL
+                ( SPure
                     ( Cons 100 )
                 )
             , IAL
-                ( SAL ( Binary Sub ) )
+                ( SPure ( Binary Sub ) )
             , ICF
-                ( CStatic "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110100" ( Branch EZ ) )
-            , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( Labeled ( Branch EZ )
+                    ( LArtificial "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110100" )
                 )
             , IAL
-                ( SAL
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
+                )
+            , IAL
+                ( SPure
                     ( Cons 100 )
                 )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , ILS Load
             , ICF
-                ( CStatic "011011100110111101100100011100100110000101110111" ( Branch EZ ) )
+                ( Labeled ( Branch EZ )
+                    ( LArtificial "011011100110111101100100011100100110000101110111" )
+                )
             , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             , IAL ( SIO OutputDec )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 32 )
                 )
             , ICF
-                ( CStatic "011100000111001001101001011011100111010001110011" Call )
+                ( Labeled Call
+                    ( LArtificial "011100000111001001101001011011100111010001110011" )
+                )
             , ICF
-                ( SMark "011011100110111101100100011100100110000101110111" )
+                ( Mark
+                    ( MArtificial "011011100110111101100100011100100110000101110111" )
+                )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             , ICF
-                ( CStatic "011001100101111101110011011101000110000101110010011101000101111100110100" Jump )
+                ( Labeled Jump
+                    ( LArtificial "011001100101111101110011011101000110000101110010011101000101111100110100" )
+                )
             , ICF
-                ( SMark "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110100" )
-            , IAL ( SAL Discard )
+                ( Mark
+                    ( MArtificial "011001100101111101100110011010010110111001101001011100110110100001100101011001000101111100110100" )
+                )
+            , IAL ( SPure Discard )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , ICF
-                ( CStatic "0111000001110010011010010110111001110100011100110110110001101110" Call )
+                ( Labeled Call
+                    ( LArtificial "0111000001110010011010010110111001110100011100110110110001101110" )
+                )
             , End
             , ICF
-                ( SMark "011100000111001001101001011011100111010001110011" )
+                ( Mark
+                    ( MArtificial "011100000111001001101001011011100111010001110011" )
+                )
             , IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             , ICF
-                ( CStatic "01110000011100100110100101101110011101000111001101011111011001010110111001100100" ( Branch EZ ) )
+                ( Labeled ( Branch EZ )
+                    ( LArtificial "01110000011100100110100101101110011101000111001101011111011001010110111001100100" )
+                )
             , IAL ( SIO OutputChar )
             , ICF
-                ( CStatic "011100000111001001101001011011100111010001110011" Jump )
+                ( Labeled Jump
+                    ( LArtificial "011100000111001001101001011011100111010001110011" )
+                )
             , ICF
-                ( SMark "01110000011100100110100101101110011101000111001101011111011001010110111001100100" )
-            , IAL ( SAL Discard )
+                ( Mark
+                    ( MArtificial "01110000011100100110100101101110011101000111001101011111011001010110111001100100" )
+                )
+            , IAL ( SPure Discard )
             , ICF Return
             , ICF
-                ( SMark "0111000001110010011010010110111001110100011100110110110001101110" )
+                ( Mark
+                    ( MArtificial "0111000001110010011010010110111001110100011100110110110001101110" )
+                )
             , ICF
-                ( CStatic "011100000111001001101001011011100111010001110011" Call )
+                ( Labeled Call
+                    ( LArtificial "011100000111001001101001011011100111010001110011" )
+                )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 10 )
                 )
             , IAL ( SIO OutputChar )

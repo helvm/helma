@@ -24,74 +24,89 @@ divModI  = binaries [Mod, Div]
 negI     = unary Neg
 halibutI = sal Halibut
 
-dupI , swapI , rotI , dCopy , discardI :: Instruction
-dupI     = sCopyI 0
-swapI    = sMoveI 1
-rotI     = sMoveI 2
-dCopy    = sal $ SDynamic Copy
+dupI , swapI , rotI , copyTI , discardI :: Instruction
+dupI     = copyII 0
+swapI    = moveII 1
+rotI     = moveII 2
+copyTI   = sal $ Indexed Copy TopO
 discardI = sal Discard
 
-sCopyI :: StackIndex -> Instruction
-sCopyI = sStatic Copy
+copyII :: Index -> Instruction
+copyII = manipulationII Copy
 
-sMoveI :: StackIndex -> Instruction
-sMoveI = sStatic Move
+moveII :: Index -> Instruction
+moveII = manipulationII Move
 
-sSlideI :: StackIndex -> Instruction
-sSlideI = sStatic Slide
+slideII :: Index -> Instruction
+slideII = manipulationII Slide
 
-sStatic :: ManipulationInstruction -> StackIndex -> Instruction
-sStatic i = sal . flip SStatic i
+manipulationII :: IndexedOperation -> Index -> Instruction
+manipulationII i = sal . Indexed i . ImmediateO
 
 sInputI , sOutputI , sOutputDecI :: Instruction
 sInputI     = sio InputChar
 sOutputI    = sio OutputChar
 sOutputDecI = sio OutputDec
 
-binaries :: [BinaryInstruction] -> Instruction
+binaries :: [BinaryOperation] -> Instruction
 binaries = sal . Binaries
 
-binary :: BinaryInstruction -> Instruction
+binary :: BinaryOperation -> Instruction
 binary = sal . Binary
 
-unary :: UnaryInstruction -> Instruction
+unary :: UnaryOperation -> Instruction
 unary = sal . Unary
 
-sal :: ALInstruction -> Instruction
-sal = IAL . SAL
+sal :: SPureInstruction -> Instruction
+sal = IAL . SPure
 
 sio :: IOInstruction -> Instruction
 sio = IAL . SIO
 
-dMarkI :: Natural -> Instruction
-dMarkI = ICF . DMark
+markNI :: Natural -> Instruction
+markNI = ICF . Mark . MNatural
 
-sMarkIN :: Natural -> Instruction
-sMarkIN = sMarkI . show
+markSI :: Label -> Instruction
+markSI = ICF . Mark . MArtificial
 
-sMarkI :: Label -> Instruction
-sMarkI = ICF . SMark
+jumpTI :: Instruction
+jumpTI = cft Jump
 
-sJumpIN :: Natural -> Instruction
-sJumpIN = cStaticI Jump . show
+jumpII :: Natural -> Instruction
+jumpII = cfi Jump
 
-sCallI , sJumpI :: Label -> Instruction
-sCallI = cStaticI Call
-sJumpI = cStaticI Jump
+callSI , jumpSI :: Label -> Instruction
+callSI = cfs Call
+jumpSI = cfs Jump
 
-sEZI , sLTZI :: Label -> Instruction
-sEZI  = cStaticI (Branch EZ )
-sLTZI = cStaticI (Branch LTZ)
+bNeTI :: Instruction
+bNeTI = cft (Branch NE)
 
-cStaticI :: LabelInstruction -> Label -> Instruction
-cStaticI i label = ICF $ CStatic label i
+bNeII :: Natural -> Instruction
+bNeII = bII NE
+
+bII :: BranchTest ->  Natural -> Instruction
+bII t = cfi (Branch t)
+
+bEzSI , bLtzSI :: Label -> Instruction
+bEzSI  = cfs (Branch EZ )
+bLtzSI = cfs (Branch LTZ)
+
+cft :: LabeledOperation -> Instruction
+cft i = ICF $ Labeled i LTop
+
+cfi :: LabeledOperation -> Natural -> Instruction
+cfi i = ICF . Labeled i . LImmediate
+
+cfs :: LabeledOperation -> Label -> Instruction
+cfs i = ICF . Labeled i . LArtificial
 
 returnI :: Instruction
 returnI = ICF Return
 
 storeI , loadI :: Instruction
 storeI = ILS Store
-loadI = ILS Load
+loadI  = ILS Load
 
 mInputI , mInputDecI :: Instruction
 mInputI    = ILS (MIO InputChar)
@@ -99,31 +114,17 @@ mInputDecI = ILS (MIO InputDec )
 
 -- | Others
 
-extractPureIAL :: Instruction -> Maybe ALInstruction
-extractPureIAL (IAL (SAL i)) = Just i
-extractPureIAL           _   = Nothing
-
-isPureIAL :: Instruction -> Bool
-isPureIAL (IAL (SIO _)) = False
-isPureIAL (IAL      _ ) = True
-isPureIAL           _   = False
-
 isICF :: Instruction -> Bool
 isICF (ICF _) = True
 isICF      _  = False
 
-isMark :: Instruction -> Bool
-isMark (ICF (DMark _)) = True
-isMark (ICF (SMark _)) = True
-isMark             _   = False
+checkNaturalMark :: Natural -> Instruction -> Bool
+checkNaturalMark n (ICF (Mark (MNatural n'))) = n == n'
+checkNaturalMark _               _            = False
 
-isDMark :: Natural -> Instruction -> Bool
-isDMark n (ICF (DMark n')) = n == n'
-isDMark _               _  = False
-
-isSMark :: Label -> Instruction -> Bool
-isSMark l (ICF (SMark l')) = l == l'
-isSMark _            _     = False
+checkArtificialMark :: Label -> Instruction -> Bool
+checkArtificialMark l (ICF (Mark (MArtificial l'))) = l == l'
+checkArtificialMark _            _                  = False
 
 -- | Types
 
@@ -132,7 +133,6 @@ data Instruction =
   | ILS !LSInstruction
   | ICF !CFInstruction
   | End
-  | Transfer
   deriving stock (Eq , Read , Show)
 
 type InstructionList   = [Instruction]

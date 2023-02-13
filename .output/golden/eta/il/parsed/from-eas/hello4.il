@@ -1,153 +1,182 @@
 [ ICF
-    ( DMark 1 )
+    ( Mark
+        ( MNatural 1 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 0 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 10 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 33 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 100 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 108 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 114 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 111 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 119 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 32 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 44 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 111 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 108 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 108 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 101 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 72 )
     )
 , ICF
-    ( DMark 2 )
+    ( Mark
+        ( MNatural 2 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 3 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 1 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 4 )
     )
-, Transfer
 , ICF
-    ( DMark 3 )
+    ( Labeled ( Branch NE ) LTop )
+, ICF
+    ( Mark
+        ( MNatural 3 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 1 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 0 )
     )
-, Transfer
 , ICF
-    ( DMark 4 )
+    ( Labeled ( Branch NE ) LTop )
+, ICF
+    ( Mark
+        ( MNatural 4 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 1 )
     )
-, IAL ( SAL Halibut )
+, IAL ( SPure Halibut )
 , ICF
-    ( DMark 5 )
+    ( Mark
+        ( MNatural 5 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 0 )
     )
-, IAL ( SAL Halibut )
+, IAL ( SPure Halibut )
 , ICF
-    ( DMark 6 )
+    ( Mark
+        ( MNatural 6 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 7 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 0 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 1 )
     )
 , IAL
-    ( SAL ( Binary Sub ) )
+    ( SPure ( Binary Sub ) )
 , IAL
-    ( SAL ( Binary Sub ) )
-, Transfer
+    ( SPure ( Binary Sub ) )
 , ICF
-    ( DMark 7 )
-, IAL
-    ( SAL ( Binary Sub ) )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL ( SAL Halibut )
-, Transfer
+    ( Labeled ( Branch NE ) LTop )
 , ICF
-    ( DMark 8 )
+    ( Mark
+        ( MNatural 7 )
+    )
+, IAL
+    ( SPure ( Binary Sub ) )
+, IAL
+    ( SPure
+        ( Cons 1 )
+    )
+, IAL
+    ( SPure
+        ( Cons 1 )
+    )
+, IAL ( SPure Halibut )
+, ICF
+    ( Labeled ( Branch NE ) LTop )
+, ICF
+    ( Mark
+        ( MNatural 8 )
+    )
 , IAL ( SIO OutputChar )
 , ICF
-    ( DMark 9 )
+    ( Mark
+        ( MNatural 9 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 1 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 4 )
     )
-, Transfer
 , ICF
-    ( DMark 10 )
+    ( Labeled ( Branch NE ) LTop )
+, ICF
+    ( Mark
+        ( MNatural 10 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 0 )
+    )
 , End
 ]

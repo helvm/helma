@@ -8,13 +8,13 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 32 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     ]
 , Lambda
@@ -29,50 +29,52 @@
 , Fetch
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 102 )
         )
     )
 , Inst
     ( IAL
-        ( SAL ( Binary LEQ ) )
+        ( SPure ( Binary LEQ ) )
     )
 , Ref 0
 , Fetch
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 98 )
         )
     )
 , Inst
     ( IAL
-        ( SAL ( Binary LEQ ) )
+        ( SPure ( Binary LEQ ) )
     )
 , Inst
     ( IAL
-        ( SAL ( Binary BOr ) )
+        ( SPure ( Binary BOr ) )
     )
 , Inst
     ( IAL ( SIO InputChar ) )
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 32 )
         )
     )
 , Inst
     ( IAL
-        ( SAL ( Binary LEQ ) )
+        ( SPure ( Binary LEQ ) )
     )
 , Inst
     ( IAL
-        ( SAL ( Binary BAnd ) )
+        ( SPure ( Binary BAnd ) )
     )
 , Inst
     ( IAL
-        ( SAL
-            ( SStatic 0 Copy )
+        ( SPure
+            ( Indexed Copy
+                ( ImmediateO 0 )
+            )
         )
     )
 , Comment " a has to be 'f' of 'b' followed by a space "

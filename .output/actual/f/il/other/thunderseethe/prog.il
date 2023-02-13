@@ -2,87 +2,91 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 0 )
             )
         )
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 2 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 2 )
+                )
             )
         )
     , Lambda
         [ Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             )
         , Inst
             ( IAL
-                ( SAL ( Binary LEQ ) )
+                ( SPure ( Binary LEQ ) )
             )
         , Inst
             ( IAL
-                ( SAL ( Unary BNot ) )
+                ( SPure ( Unary BNot ) )
             )
         ]
     , Lambda
         [ Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             )
         , Ref 14
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 3 )
                 )
             )
         , Ref 14
         , Inst
             ( IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 1 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 1 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
             ( IAL
-                ( SAL ( Binary Sub ) )
+                ( SPure ( Binary Sub ) )
             )
         ]
     , While
     , Inst
-        ( IAL ( SAL Discard ) )
+        ( IAL ( SPure Discard ) )
     , Inst
-        ( IAL ( SAL Discard ) )
+        ( IAL ( SPure Discard ) )
     , Inst
-        ( IAL ( SAL Discard ) )
+        ( IAL ( SPure Discard ) )
     ]
 , Ref 5
 , Store
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 300 )
         )
     )

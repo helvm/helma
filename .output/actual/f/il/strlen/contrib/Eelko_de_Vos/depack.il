@@ -11,17 +11,17 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     ]
 , While
@@ -30,18 +30,20 @@
 , Fetch
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 35 )
         )
     )
 , Inst
     ( IAL
-        ( SAL ( Binary LEQ ) )
+        ( SPure ( Binary LEQ ) )
     )
 , Inst
     ( IAL
-        ( SAL
-            ( SStatic 0 Copy )
+        ( SPure
+            ( Indexed Copy
+                ( ImmediateO 0 )
+            )
         )
     )
 ]

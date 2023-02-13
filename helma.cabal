@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.4.4
+version:               0.8.4.5
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -120,17 +120,20 @@ library
     HelVM.HelMA.Automaton.IO.MockIO
 
     HelVM.HelMA.Automaton.Instruction
-
     HelVM.HelMA.Automaton.Instruction.CFInstruction
     HelVM.HelMA.Automaton.Instruction.IOInstruction
     HelVM.HelMA.Automaton.Instruction.LSInstruction
     HelVM.HelMA.Automaton.Instruction.SInstruction
 
     HelVM.HelMA.Automaton.Optimizer
+    HelVM.HelMA.Automaton.Optimizer.ConstantFoldingOptimizer
+    HelVM.HelMA.Automaton.Optimizer.PeepholeOptimizer
 
     HelVM.HelMA.Automaton.ReadPExtra
 
     HelVM.HelMA.Automaton.Symbol
+
+    HelVM.HelMA.Automaton.Trampoline
 
     HelVM.HelMA.Automaton.Types.CellType
     HelVM.HelMA.Automaton.Types.DumpType

@@ -4,7 +4,7 @@
     ( IAL ( SIO InputChar ) )
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 0 )
         )
     )
@@ -12,7 +12,7 @@
 , Store
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 0 )
         )
     )

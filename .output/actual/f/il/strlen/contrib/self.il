@@ -2,7 +2,7 @@
     [ Str "'[,34,$!34,'],!" ]
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 91 )
         )
     )
@@ -10,7 +10,7 @@
     ( IAL ( SIO OutputChar ) )
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 34 )
         )
     )
@@ -18,14 +18,16 @@
     ( IAL ( SIO OutputChar ) )
 , Inst
     ( IAL
-        ( SAL
-            ( SStatic 0 Copy )
+        ( SPure
+            ( Indexed Copy
+                ( ImmediateO 0 )
+            )
         )
     )
 , Exec
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 34 )
         )
     )
@@ -33,7 +35,7 @@
     ( IAL ( SIO OutputChar ) )
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 93 )
         )
     )

@@ -50,8 +50,8 @@ parseInstruction     _          tl  = unrecognisedTokensIn "parseInstruction" tl
 
 parseInstructionStackManipulation :: MonadSafe m => InstructionParser m
 parseInstructionStackManipulation (S :     tl) = build <$> parseSymbol tl where build (symbol , tl') = (consI symbol  , tl')
-parseInstructionStackManipulation (T : S : tl) = build <$> parseIndex  tl where build (index  , tl') = (sCopyI  index , tl')
-parseInstructionStackManipulation (T : N : tl) = build <$> parseIndex  tl where build (index  , tl') = (sSlideI index , tl')
+parseInstructionStackManipulation (T : S : tl) = build <$> parseIndex  tl where build (index  , tl') = (copyII  index , tl')
+parseInstructionStackManipulation (T : N : tl) = build <$> parseIndex  tl where build (index  , tl') = (slideII index , tl')
 parseInstructionStackManipulation (N : S : tl) = pure (dupI     , tl)
 parseInstructionStackManipulation (N : T : tl) = pure (swapI    , tl)
 parseInstructionStackManipulation (N : N : tl) = pure (discardI , tl)
@@ -71,11 +71,11 @@ parseInstructionHeadAccess (T : tl) = pure (loadI  , tl)
 parseInstructionHeadAccess      tl  = unrecognisedTokensIn "parseInstructionHeadAccess" tl
 
 parseInstructionFlowControl :: MonadSafe m => FormatType -> InstructionParser m
-parseInstructionFlowControl ascii (S : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (sMarkI  label , tl')
-parseInstructionFlowControl ascii (S : T : tl) = build <$> parseLabel ascii tl where build (label , tl') = (sCallI label  , tl')
-parseInstructionFlowControl ascii (S : N : tl) = build <$> parseLabel ascii tl where build (label , tl') = (sJumpI label  , tl')
-parseInstructionFlowControl ascii (T : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (sEZI   label  , tl')
-parseInstructionFlowControl ascii (T : T : tl) = build <$> parseLabel ascii tl where build (label , tl') = (sLTZI  label  , tl')
+parseInstructionFlowControl ascii (S : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (markSI  label , tl')
+parseInstructionFlowControl ascii (S : T : tl) = build <$> parseLabel ascii tl where build (label , tl') = (callSI label  , tl')
+parseInstructionFlowControl ascii (S : N : tl) = build <$> parseLabel ascii tl where build (label , tl') = (jumpSI label  , tl')
+parseInstructionFlowControl ascii (T : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (bEzSI   label  , tl')
+parseInstructionFlowControl ascii (T : T : tl) = build <$> parseLabel ascii tl where build (label , tl') = (bLtzSI  label  , tl')
 parseInstructionFlowControl     _ (T : N : tl) = pure (returnI , tl)
 parseInstructionFlowControl     _ (N : N : tl) = pure (End     , tl)
 parseInstructionFlowControl     _          tl  = unrecognisedTokensIn "parseInstructionFlowControl" tl

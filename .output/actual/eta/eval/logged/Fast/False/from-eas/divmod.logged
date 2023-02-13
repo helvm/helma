@@ -2,22 +2,32 @@ dump: Memory
     { memoryCM = CM
         { program =
             [ ICF
-                ( DMark 1 )
+                ( Mark
+                    ( MNatural 1 )
+                )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 2 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , ICF
-                ( SMark "1" )
+                ( Mark
+                    ( MArtificial "1" )
+                )
             , ICF
-                ( DMark 2 )
+                ( Mark
+                    ( MNatural 2 )
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 0 )
+                )
             , End
             ]
-        , programCounter = 6
+        , programCounter = 7
         , returnStack = IS []
         }
     , memoryStack = fromList

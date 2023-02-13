@@ -4,23 +4,25 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     ]
 , Lambda []
@@ -32,30 +34,30 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary Neg ) )
+            ( SPure ( Unary Neg ) )
         )
     , Ref 0
     , Fetch
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     ]
 , Comment "while a<>EOF"
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 169 )
             )
         )
@@ -63,17 +65,19 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     , Lambda
         [ Comment "if char!=escapecode"
@@ -98,7 +102,7 @@
         , Lambda
             [ Inst
                 ( IAL
-                    ( SAL
+                    ( SPure
                         ( Cons 0 )
                     )
                 )
@@ -106,11 +110,11 @@
             , Fetch
             , Inst
                 ( IAL
-                    ( SAL ( Binary LEQ ) )
+                    ( SPure ( Binary LEQ ) )
                 )
             , Inst
                 ( IAL
-                    ( SAL ( Unary BNot ) )
+                    ( SPure ( Unary BNot ) )
                 )
             ]
         , Comment "while counter!=0"
@@ -124,13 +128,13 @@
             , Fetch
             , Inst
                 ( IAL
-                    ( SAL
+                    ( SPure
                         ( Cons 1 )
                     )
                 )
             , Inst
                 ( IAL
-                    ( SAL ( Binary Sub ) )
+                    ( SPure ( Binary Sub ) )
                 )
             , Ref 2
             , Store

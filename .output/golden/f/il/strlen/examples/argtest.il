@@ -3,22 +3,24 @@
 , Fetch
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 2 )
         )
     )
 , Inst
     ( IAL
-        ( SAL ( Binary LEQ ) )
+        ( SPure ( Binary LEQ ) )
     )
 , Inst
     ( IAL
-        ( SAL ( Unary BNot ) )
+        ( SPure ( Unary BNot ) )
     )
 , Inst
     ( IAL
-        ( SAL
-            ( SStatic 0 Copy )
+        ( SPure
+            ( Indexed Copy
+                ( ImmediateO 0 )
+            )
         )
     )
 , Lambda
@@ -27,7 +29,7 @@
 , Cond
 , Inst
     ( IAL
-        ( SAL ( Unary BNot ) )
+        ( SPure ( Unary BNot ) )
     )
 , Lambda
     [ Ref 1
@@ -46,7 +48,7 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL ( Binary Add ) )
+            ( SPure ( Binary Add ) )
         )
     , Inst
         ( IAL ( SIO OutputDec ) )

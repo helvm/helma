@@ -4,35 +4,35 @@ import           HelVM.HelMA.Automaton.Instruction.IOInstruction
 
 -- | Constructors
 
-blAnd :: OperatorType -> BinaryInstruction
+blAnd :: OperatorType -> BinaryOperation
 blAnd Bitwise = BAnd
 blAnd Logical = LAnd
 
-blOr :: OperatorType -> BinaryInstruction
+blOr :: OperatorType -> BinaryOperation
 blOr Bitwise = BOr
 blOr Logical = LOr
 
-blXor :: OperatorType -> BinaryInstruction
+blXor :: OperatorType -> BinaryOperation
 blXor Bitwise = BXor
 blXor Logical = LXor
 
-blEQ :: OperatorType -> BinaryInstruction
+blEQ :: OperatorType -> BinaryOperation
 blEQ Bitwise = BEQ
 blEQ Logical = LEQ
 
-blGT :: OperatorType -> BinaryInstruction
+blGT :: OperatorType -> BinaryOperation
 blGT Bitwise = BGT
 blGT Logical = LGT
 
 -- | Other functions
 
-calculateOps :: Integral a => a -> a -> [BinaryInstruction] -> [a]
+calculateOps :: Integral a => a -> a -> [BinaryOperation] -> [a]
 calculateOps operand operand' = map (calculateOp operand operand')
 
-calculateOp :: Integral a => a -> a -> BinaryInstruction -> a
+calculateOp :: Integral a => a -> a -> BinaryOperation -> a
 calculateOp operand operand' operation = doBinary operation operand' operand
 
-doBinary :: Integral a => BinaryInstruction -> a -> a -> a
+doBinary :: Integral a => BinaryOperation -> a -> a -> a
 doBinary Add = (+)
 doBinary Sub = (-)
 doBinary Mul = (*)
@@ -42,34 +42,36 @@ doBinary o   = error $ show o
 
 -- | Types
 data SInstruction =
-    SAL      !ALInstruction
+    SPure    !SPureInstruction
   | SIO      !IOInstruction
   deriving stock (Eq , Read , Show)
 
-data ALInstruction =
-    Cons      Integer
-  | Unary    !UnaryInstruction
-  | Binary   !BinaryInstruction
-  | Binaries [BinaryInstruction]
-  | SStatic  !StackIndex !ManipulationInstruction
-  | SDynamic             !ManipulationInstruction
+data SPureInstruction =
+    Cons     !Integer
+  | Unary    !UnaryOperation
+  | Binary   !BinaryOperation
+  | Binaries [BinaryOperation]
+  | Indexed  !IndexedOperation !IndexOperand
   | Halibut
   | Pick
   | Discard
   deriving stock (Eq , Read , Show)
 
-data UnaryInstruction = Neg | BNot | LNot
+data IndexOperand = TopO | ImmediateO !Index
   deriving stock (Eq , Read , Show)
 
-data BinaryInstruction =
+data UnaryOperation = Neg | BNot | LNot
+  deriving stock (Eq , Read , Show)
+
+data BinaryOperation =
      Add | Sub | Mul | Div | Mod
   | BAnd | BOr | BXor | BEQ | BGT
   | LAnd | LOr | LXor | LEQ | LGT
   deriving stock (Eq , Read , Show)
 
-data ManipulationInstruction = Copy | Move | Slide
+data IndexedOperation = Copy | Move | Slide
   deriving stock (Eq , Read , Show)
 
-type StackIndex = Int
+type Index = Int
 
 data OperatorType = Bitwise | Logical

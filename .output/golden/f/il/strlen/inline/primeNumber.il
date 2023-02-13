@@ -1,163 +1,191 @@
 [ Comment " writes all prime numbers between 0 and 100 "
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 99 )
         )
     )
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 9 )
         )
     )
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Sub ) )
+            ( SPure ( Binary Sub ) )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     ]
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 2 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 2 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 2 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 2 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 2 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 2 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 2 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 2 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Div ) )
+            ( SPure ( Binary Div ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Mul ) )
+            ( SPure ( Binary Mul ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Lambda
         [ Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
             ( IAL
-                ( SAL ( Binary Sub ) )
+                ( SPure ( Binary Sub ) )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             )
         , Lambda
             [ Inst
-                ( IAL ( SAL Discard ) )
+                ( IAL ( SPure Discard ) )
             , Inst
                 ( IAL
-                    ( SAL
+                    ( SPure
                         ( Cons 1 )
                     )
                 )
             , Inst
                 ( IAL
-                    ( SAL ( Binary Sub ) )
+                    ( SPure ( Binary Sub ) )
                 )
             , Inst
                 ( IAL
-                    ( SAL
-                        ( SStatic 0 Copy )
+                    ( SPure
+                        ( Indexed Copy
+                            ( ImmediateO 0 )
+                        )
                     )
                 )
             , Inst
                 ( IAL
-                    ( SAL
-                        ( SStatic 2 Move )
+                    ( SPure
+                        ( Indexed Move
+                            ( ImmediateO 2 )
+                        )
                     )
                 )
             ]
         , Cond
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             )
         , Lambda
             [ Inst
                 ( IAL
-                    ( SAL
-                        ( SStatic 0 Copy )
+                    ( SPure
+                        ( Indexed Copy
+                            ( ImmediateO 0 )
+                        )
                     )
                 )
             , Inst
                 ( IAL ( SIO OutputDec ) )
             , Inst
                 ( IAL
-                    ( SAL
+                    ( SPure
                         ( Cons 32 )
                     )
                 )

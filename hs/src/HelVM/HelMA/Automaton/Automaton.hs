@@ -58,7 +58,7 @@ runAndDumpLogs p = logDump (dumpType p) <=< run (compileFlag p) (limit p)
 
 run :: (SRAutomatonIO Symbol s r m) => Bool -> LimitMaybe -> F s r m
 run False = runI
-run True  = runA
+run True  = runA --FIXME Remove it because it does not work
 
 ----
 

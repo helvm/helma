@@ -1,7 +1,7 @@
 [ Comment " postfix while loops (##)! "
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 5 )
         )
     )
@@ -12,17 +12,17 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     ]
 , Lambda
@@ -32,13 +32,13 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Add ) )
+            ( SPure ( Binary Add ) )
         )
     , Ref 13
     , Store
@@ -49,17 +49,17 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 0 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     ]
 , Lambda
@@ -69,13 +69,13 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Sub ) )
+            ( SPure ( Binary Sub ) )
         )
     , Ref 13
     , Store
@@ -83,7 +83,7 @@
 , While
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 5 )
         )
     )
@@ -94,17 +94,17 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     ]
 , Lambda
@@ -114,13 +114,13 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Add ) )
+            ( SPure ( Binary Add ) )
         )
     , Ref 13
     , Store
@@ -130,17 +130,17 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 0 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     ]
 , Lambda
@@ -150,13 +150,13 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Sub ) )
+            ( SPure ( Binary Sub ) )
         )
     , Ref 13
     , Store

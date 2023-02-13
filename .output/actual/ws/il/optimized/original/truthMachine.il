@@ -1,28 +1,36 @@
 [ IAL
-    ( SAL
+    ( SPure
         ( Cons 0 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 0 )
     )
 , ILS ( MIO InputDec )
 , ILS Load
 , ICF
-    ( CStatic "\x0" ( Branch EZ ) )
+    ( Labeled ( Branch EZ )
+        ( LArtificial "\x0" )
+    )
 , ICF
-    ( SMark "\x1" )
+    ( Mark
+        ( MArtificial "\x1" )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 1 )
     )
 , IAL ( SIO OutputDec )
 , ICF
-    ( CStatic "\x1" Jump )
+    ( Labeled Jump
+        ( LArtificial "\x1" )
+    )
 , ICF
-    ( SMark "\x0" )
+    ( Mark
+        ( MArtificial "\x0" )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 0 )
     )
 , IAL ( SIO OutputDec )

@@ -1,29 +1,29 @@
 [ IAL
-    ( SAL
+    ( SPure
         ( Cons 32 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 44 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 111 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 108 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 108 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 101 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 72 )
     )
 , IAL ( SIO OutputChar )
@@ -34,31 +34,31 @@
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 10 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 33 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 100 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 108 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 114 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 111 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 119 )
     )
 , IAL ( SIO OutputChar )

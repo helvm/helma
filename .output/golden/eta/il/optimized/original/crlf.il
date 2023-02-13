@@ -1,34 +1,33 @@
 [ ICF
-    ( DMark 1 )
-, IAL
-    ( SAL
-        ( Cons 1 )
+    ( Mark
+        ( MNatural 1 )
     )
-, IAL
-    ( SAL
-        ( Cons 3 )
-    )
-, Transfer
 , ICF
-    ( DMark 2 )
+    ( Labeled Jump
+        ( LImmediate 3 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 2 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 10 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 49 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 68 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 65 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 66 )
     )
 , IAL ( SIO OutputChar )
@@ -36,61 +35,55 @@
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL
-    ( SAL
-        ( Cons 0 )
-    )
-, Transfer
 , ICF
-    ( DMark 3 )
+    ( Labeled Jump
+        ( LImmediate 0 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 3 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 10 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 75 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 79 )
     )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL
-    ( SAL
-        ( Cons 0 )
-    )
-, Transfer
 , ICF
-    ( DMark 4 )
+    ( Labeled Jump
+        ( LImmediate 0 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 4 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 10 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 50 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 68 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 65 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 66 )
     )
 , IAL ( SIO OutputChar )
@@ -98,16 +91,17 @@
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL
-    ( SAL
-        ( Cons 0 )
-    )
-, Transfer
 , ICF
-    ( DMark 5 )
+    ( Labeled Jump
+        ( LImmediate 0 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 5 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 0 )
+    )
 , End
 ]

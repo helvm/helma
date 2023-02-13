@@ -2,10 +2,16 @@ dump: Memory
     { memoryCM = CM
         { program =
             [ ICF
-                ( DMark 1 )
+                ( Mark
+                    ( MNatural 1 )
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 0 )
+                )
             , End
             ]
-        , programCounter = 2
+        , programCounter = 3
         , returnStack = IS []
         }
     , memoryStack = fromList []

@@ -5,4 +5,4 @@ import           Test.Hspec      (hspec)
 import           Test.Hspec.Slow
 
 main :: IO ()
-main = (hspec . flip timeThese Spec.spec) =<< configure 4
+main = (hspec . flip timeThese Spec.spec) =<< configure 2

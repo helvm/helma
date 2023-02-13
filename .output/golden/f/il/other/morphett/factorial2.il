@@ -2,18 +2,22 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
-                ( SStatic 2 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 2 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary Mul ) )
+            ( SPure ( Binary Mul ) )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 1 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 1 )
+                )
             )
         )
     , Exec
@@ -28,63 +32,75 @@
     , Lambda
         [ Inst
             ( IAL
-                ( SAL
-                    ( SStatic 1 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 1 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
             ( IAL
-                ( SAL ( Binary Sub ) )
+                ( SPure ( Binary Sub ) )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 1 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 1 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 2 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 2 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 2 Move )
+                ( SPure
+                    ( Indexed Move
+                        ( ImmediateO 2 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
             ( IAL
-                ( SAL ( Binary LEQ ) )
+                ( SPure ( Binary LEQ ) )
             )
         , Inst
             ( IAL
-                ( SAL ( Unary BNot ) )
+                ( SPure ( Unary BNot ) )
             )
         ]
     , Lambda
@@ -100,7 +116,7 @@
 , Store
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 4 )
         )
     )

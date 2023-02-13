@@ -2,7 +2,7 @@
 , Comment "removes comments like this..."
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 0 )
         )
     )
@@ -10,7 +10,7 @@
 , Store
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 0 )
         )
     )
@@ -18,7 +18,7 @@
 , Store
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 0 )
         )
     )
@@ -26,7 +26,7 @@
 , Store
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 0 )
         )
     )
@@ -37,38 +37,42 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 34 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Lambda
         [ Ref 4
         , Fetch
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
             ( IAL
-                ( SAL ( Binary Add ) )
+                ( SPure ( Binary Add ) )
             )
         , Ref 4
         , Store
@@ -78,21 +82,21 @@
     , Store
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary Neg ) )
+            ( SPure ( Unary Neg ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     ]
 ]

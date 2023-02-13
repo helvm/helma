@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.API.OptimizationLevel where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           HelVM.HelIO.SwitchEnum
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           HelVM.HelIO.Containers.LLIndexSafe
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>-- | Constructors
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>implementedOptimizationLevels :: [OptimizationLevel]
+<span class="lineno">   10 </span><span class="decl"><span class="nottickedoff">implementedOptimizationLevels = [NoOptimizations , BasicOptimizations]</span></span>
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>fromBool :: Bool -&gt; OptimizationLevel
+<span class="lineno">   13 </span><span class="decl"><span class="nottickedoff">fromBool = enumFromBool</span></span>
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>fromNatural :: Natural -&gt; OptimizationLevel
+<span class="lineno">   16 </span><span class="decl"><span class="nottickedoff">fromNatural = fromMaybe AllOptimizations . indexMaybe optimizationLevels . fromIntegral</span></span>
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>defaultOptimizationLevel :: OptimizationLevel
+<span class="lineno">   19 </span><span class="decl"><span class="nottickedoff">defaultOptimizationLevel = defaultEnum</span></span>
+<span class="lineno">   20 </span>
+<span class="lineno">   21 </span>optimizationLevels :: [OptimizationLevel]
+<span class="lineno">   22 </span><span class="decl"><span class="nottickedoff">optimizationLevels = generateEnums 4</span></span>
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>-- | Types
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>data OptimizationLevel =
+<span class="lineno">   27 </span>    NoOptimizations
+<span class="lineno">   28 </span>  | BasicOptimizations
+<span class="lineno">   29 </span>  | SomeOptimizations
+<span class="lineno">   30 </span>  | AllOptimizations
+<span class="lineno">   31 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Bounded</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff">Show</span></span>)
+
+</pre>
+</body>
+</html>

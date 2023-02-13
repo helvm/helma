@@ -2,30 +2,38 @@ dump: Memory
     { memoryCM = CM
         { program =
             [ IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , ILS ( MIO InputDec )
             , ILS Load
             , ICF
-                ( CStatic "0" ( Branch EZ ) )
+                ( Labeled ( Branch EZ )
+                    ( LArtificial "0" )
+                )
             , ICF
-                ( SMark "1" )
+                ( Mark
+                    ( MArtificial "1" )
+                )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             , IAL ( SIO OutputDec )
             , ICF
-                ( CStatic "1" Jump )
+                ( Labeled Jump
+                    ( LArtificial "1" )
+                )
             , ICF
-                ( SMark "0" )
+                ( Mark
+                    ( MArtificial "0" )
+                )
             , IAL
-                ( SAL
+                ( SPure
                     ( Cons 0 )
                 )
             , IAL ( SIO OutputDec )

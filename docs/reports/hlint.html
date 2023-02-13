@@ -161,12 +161,15 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Suggestion: Reduce duplication (1)</a></li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Eta reduce (1)</a></li>
+<li><a id="hint1" href="javascript:show('hint1')">Warning: Use id (1)</a></li>
+<li><a id="hint2" href="javascript:show('hint2')">Suggestion: Reduce duplication (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
 <li><a id="file0" href="javascript:show('file0')">./dist-newstyle/src/helio-157a2fc26d319c83/hs/test/HelVM/HelIO/Collections/MapListSpec.hs (1)</a></li>
+<li><a id="file1" href="javascript:show('file1')">./hs/src/HelVM/HelMA/Automaton/Optimizer/PeepholeOptimizer.hs (2)</a></li>
 </ul>
 
 </div>
@@ -177,7 +180,7 @@ v3.1.6
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-<div class="hint0 file0">
+<div class="hint2 file0">
 dist-newstyle/src/helio-157a2fc26d319c83/hs/test/HelVM/HelIO/Collections/MapListSpec.hs:50:11-112: Suggestion: Reduce duplication<br/>
 Found<br/>
 <pre><span class='hs-definition'>it</span> <span class='hs-str'>"mapListToList . fromIntIndexedList"</span>
@@ -189,6 +192,24 @@ Found<br/>
 </pre>
 Perhaps<br/>
 <pre><span class='hs-conid'>Combine</span> <span class='hs-varid'>with</span> <span class='hs-varid'>dist</span><span class='hs-comment'>-</span><span class='hs-varid'>newstyle</span><span class='hs-varop'>/</span><span class='hs-varid'>src</span><span class='hs-varop'>/</span><span class='hs-varid'>helio</span><span class='hs-comment'>-</span><span class='hs-num'>157</span><span class='hs-varid'>a2fc26d319c83</span><span class='hs-varop'>/</span><span class='hs-varid'>hs</span><span class='hs-varop'>/</span><span class='hs-varid'>test</span><span class='hs-varop'>/</span><span class='hs-conid'>HelVM</span><span class='hs-varop'>/</span><span class='hs-conid'>HelIO</span><span class='hs-varop'>/</span><span class='hs-conid'>Collections</span><span class='hs-varop'>/</span><span class='hs-conid'>MapListSpec.hs</span><span class='hs-conop'>:</span><span class='hs-num'>59</span><span class='hs-conop'>:</span><span class='hs-num'>11</span><span class='hs-comment'>-</span><span class='hs-num'>112</span></pre>
+
+</div>
+
+<div class="hint0 file1">
+hs/src/HelVM/HelMA/Automaton/Optimizer/PeepholeOptimizer.hs:25:1-40: Warning: Eta reduce<br/>
+Found<br/>
+<pre><span class='hs-definition'>peepholeOptimize3</span> <span class='hs-varid'>il</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>map</span> <span class='hs-layout'>(</span><span class='hs-keyglyph'>\</span> <span class='hs-varid'>i</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>i</span><span class='hs-layout'>)</span> <span class='hs-varid'>il</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>peepholeOptimize3</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>map</span> <span class='hs-layout'>(</span><span class='hs-keyglyph'>\</span> <span class='hs-varid'>i</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>i</span><span class='hs-layout'>)</span></pre>
+
+</div>
+
+<div class="hint1 file1">
+hs/src/HelVM/HelMA/Automaton/Optimizer/PeepholeOptimizer.hs:25:29-36: Warning: Use id<br/>
+Found<br/>
+<pre><span class='hs-keyglyph'>\</span> <span class='hs-varid'>i</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-varid'>i</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>id</span></pre>
 
 </div>
 

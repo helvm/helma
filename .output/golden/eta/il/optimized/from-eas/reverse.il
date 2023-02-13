@@ -1,100 +1,92 @@
 [ ICF
-    ( DMark 1 )
+    ( Mark
+        ( MNatural 1 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons
             ( -1 )
         )
     )
 , ICF
-    ( DMark 2 )
+    ( Mark
+        ( MNatural 2 )
+    )
 , IAL ( SIO InputChar )
 , ICF
-    ( DMark 3 )
-, IAL
-    ( SAL
-        ( Cons 0 )
+    ( Mark
+        ( MNatural 3 )
     )
-, IAL ( SAL Halibut )
 , IAL
-    ( SAL
+    ( SPure
+        ( Indexed Copy
+            ( ImmediateO 0 )
+        )
+    )
+, IAL
+    ( SPure
         ( Cons
             ( -1 )
         )
     )
 , IAL
-    ( SAL ( Binary Sub ) )
-, IAL
-    ( SAL
-        ( Cons 2 )
-    )
-, Transfer
+    ( SPure ( Binary Sub ) )
 , ICF
-    ( DMark 4 )
-, IAL
-    ( SAL
-        ( Cons 0 )
+    ( Labeled ( Branch NE )
+        ( LImmediate 2 )
     )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL ( SAL Halibut )
-, Transfer
 , ICF
-    ( DMark 5 )
-, IAL
-    ( SAL
-        ( Cons 0 )
+    ( Mark
+        ( MNatural 4 )
     )
-, IAL ( SAL Halibut )
+, IAL ( SPure Discard )
+, ICF
+    ( Mark
+        ( MNatural 5 )
+    )
 , IAL
-    ( SAL
+    ( SPure
+        ( Indexed Copy
+            ( ImmediateO 0 )
+        )
+    )
+, IAL
+    ( SPure
         ( Cons
             ( -1 )
         )
     )
 , IAL
-    ( SAL ( Binary Sub ) )
-, IAL
-    ( SAL
-        ( Cons 7 )
-    )
-, Transfer
+    ( SPure ( Binary Sub ) )
 , ICF
-    ( DMark 6 )
-, IAL
-    ( SAL
-        ( Cons 0 )
+    ( Labeled ( Branch NE )
+        ( LImmediate 7 )
     )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL ( SAL Halibut )
-, Transfer
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL
-    ( SAL
-        ( Cons 0 )
-    )
-, Transfer
 , ICF
-    ( DMark 7 )
+    ( Mark
+        ( MNatural 6 )
+    )
+, IAL ( SPure Discard )
+, ICF
+    ( Labeled Jump
+        ( LImmediate 0 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 7 )
+    )
 , IAL ( SIO OutputChar )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL
-    ( SAL
-        ( Cons 5 )
-    )
-, Transfer
 , ICF
-    ( DMark 8 )
+    ( Labeled Jump
+        ( LImmediate 5 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 8 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 0 )
+    )
 , End
 ]

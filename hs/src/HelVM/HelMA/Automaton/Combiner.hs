@@ -3,20 +3,18 @@ module HelVM.HelMA.Automaton.Combiner where
 import           HelVM.HelMA.Automaton.IO.AutomatonIO
 
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.CFInstruction
 
-import           HelVM.HelMA.Automaton.Loop                      as Loop
+import           HelVM.HelMA.Automaton.Loop           as Loop
 
 import           HelVM.HelMA.Automaton.Symbol
 
-import           HelVM.HelMA.Automaton.Combiner.ALU              as ALU
-import           HelVM.HelMA.Automaton.Combiner.CPU              as CPU
-import           HelVM.HelMA.Automaton.Combiner.LSU              as LSU
+import           HelVM.HelMA.Automaton.Combiner.ALU   as ALU
+import           HelVM.HelMA.Automaton.Combiner.CPU   as CPU
+import           HelVM.HelMA.Automaton.Combiner.LSU   as LSU
 
-import           Control.Monad.Extra
 import           Control.Type.Operator
 
-import           Prelude                                         hiding (swap)
+import           Prelude                              hiding (swap)
 
 -- | Core of Combiner
 
@@ -24,16 +22,7 @@ runInstruction :: (SRAutomatonIO Symbol s r m) => Instruction -> SF s r m
 runInstruction (IAL      i) a = Loop.continue . updateStack   a <$> runALI i (memoryStack a)
 runInstruction (ILS      i) a = Loop.continue . updateFromLSM a <$> runSLI i (toLSM a)
 runInstruction (ICF      i) a = Loop.continue . updateFromCPM a <$> runCFI i (toCPM a)
-runInstruction  Transfer    a = transfer a
 runInstruction  End         a = end a
-
-transfer :: (SRAutomatonIO Symbol s r m) => SF s r m
-transfer = transferBranch <=< pop2ForStack
-
-transferBranch :: (SRAutomatonIO Symbol s r m) => (Symbol, Symbol, Memory s r) -> m $ MemorySame s r
-transferBranch (_ , 0 , u) = pure $ Loop.continue u
-transferBranch (0 , _ , u) = end u
-transferBranch (a , _ , u) = Loop.continue . updateFromCPM u <$> runCFI dJumpI (toCPM $ push1ForStack a u)
 
 pop2ForStack :: (SRAutomatonIO Symbol s r m) => Memory s r -> m (Symbol , Symbol , Memory s r)
 pop2ForStack a = build <$> pop2 (memoryStack a) where

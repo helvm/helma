@@ -1,5 +1,7 @@
 module HelVM.HelMA.Automaton.Instruction.IOInstruction where
 
+-- | Types
+
 data IOInstruction =
     OutputChar
   | OutputDec

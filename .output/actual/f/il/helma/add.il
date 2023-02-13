@@ -1,35 +1,35 @@
 [ Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 1 )
         )
     )
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 1 )
         )
     )
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 2 )
         )
     )
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 1 )
         )
     )
 , Inst
     ( IAL
-        ( SAL
+        ( SPure
             ( Cons 2 )
         )
     )
 , Inst
     ( IAL
-        ( SAL ( Binary Add ) )
+        ( SPure ( Binary Add ) )
     )
 ]

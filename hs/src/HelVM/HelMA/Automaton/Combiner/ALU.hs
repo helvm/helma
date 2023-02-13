@@ -45,8 +45,8 @@ import           Prelude                                         hiding (divMod,
 
 
 runALI :: ALU m ll element => SInstruction -> ll -> m ll
-runALI (SAL ali) = runSAL ali
-runALI (SIO ioi) = runSIO ioi
+runALI (SPure ali) = runSAL ali
+runALI (SIO ioi)   = runSIO ioi
 
 runSIO :: ALU m ll element => IOInstruction -> ll -> m ll
 runSIO OutputChar = doOutputChar2
@@ -54,19 +54,15 @@ runSIO OutputDec  = doOutputDec2
 runSIO InputChar  = doInputChar2
 runSIO InputDec   = doInputDec2
 
---runSALSafe :: IntegralStack ll element => ALInstruction -> ll -> Stack ll
---runSALSafe = runSAL
-
-runSAL :: SafeStack m ll element => ALInstruction -> ll -> m ll
-runSAL (Cons    i    ) = push  i
-runSAL (Unary     op ) = error $ show op
-runSAL (Binary    op ) = binaryInstruction op
-runSAL (Binaries  ops) = binaryInstructions ops
-runSAL (SDynamic  op ) = dynamicManipulation op
-runSAL (SStatic i op ) = staticManipulation op i
-runSAL  Halibut        = halibut
-runSAL  Pick           = pick
-runSAL  Discard        = discard
+runSAL :: SafeStack m ll element => SPureInstruction -> ll -> m ll
+runSAL (Cons         i   ) = push  i
+runSAL (Unary        op  ) = error $ show op
+runSAL (Binary       op  ) = binaryInstruction op
+runSAL (Binaries     ops ) = binaryInstructions ops
+runSAL (Indexed op t)      = indexedInstruction op t
+runSAL  Halibut            = halibut
+runSAL  Pick               = pick
+runSAL  Discard            = discard
 
 -- | Arithmetic instructions
 divMod :: SafeStack m ll element => ll -> m ll
@@ -75,10 +71,10 @@ divMod = binaryInstructions [Mod , Div]
 sub :: SafeStack m ll element => ll -> m ll
 sub = binaryInstruction Sub
 
-binaryInstruction :: SafeStack m ll element => BinaryInstruction -> ll -> m ll
+binaryInstruction :: SafeStack m ll element => BinaryOperation -> ll -> m ll
 binaryInstruction i = binaryInstructions [i]
 
-binaryInstructions :: SafeStack m ll element => [BinaryInstruction] -> ll -> m ll
+binaryInstructions :: SafeStack m ll element => [BinaryOperation] -> ll -> m ll
 binaryInstructions il = build <.> pop2 where
   build (e , e', l) = pushList (calculateOps e e' il) l
 
@@ -99,15 +95,19 @@ doInputDec2 :: ALU m ll element => ll -> m ll
 doInputDec2 l = build <$> wGetCharAs where
   build e = push1 e l
 
--- | Manipulation instructions
-dynamicManipulation :: SafeStack m ll element => ManipulationInstruction -> ll -> m ll
-dynamicManipulation op = appendError "ALU.dynamicManipulation" . build <=< unconsSafe where
-  build (e , l) = staticManipulation op (fromIntegral e) l
+indexedInstruction :: SafeStack m ll element => IndexedOperation -> IndexOperand -> ll -> m ll
+indexedInstruction i TopO           = indexedInstructionTop i
+indexedInstruction i (ImmediateO n) = indexedInstructionImmediate i n
 
-staticManipulation :: SafeStack m ll element => ManipulationInstruction -> Index -> ll -> m ll
-staticManipulation Copy  = copy
-staticManipulation Move  = move
-staticManipulation Slide = slide
+-- | Indexed instructions
+indexedInstructionTop :: SafeStack m ll element => IndexedOperation -> ll -> m ll
+indexedInstructionTop op = appendError "ALU.indexedInstructionTop" . build <=< unconsSafe where
+  build (e , l) = indexedInstructionImmediate op (fromIntegral e) l
+
+indexedInstructionImmediate :: SafeStack m ll element => IndexedOperation -> Index -> ll -> m ll
+indexedInstructionImmediate Copy  = copy
+indexedInstructionImmediate Move  = move
+indexedInstructionImmediate Slide = slide
 
 -- | Halibut and Pick instructions
 halibut :: SafeStack m ll element => ll -> m ll
@@ -182,5 +182,3 @@ type SafeStack m ll element  = (MonadSafe m , IntegralStack ll element)
 type IntegralStack ll element = (Stack ll element , Integral element)
 
 type Stack ll element = (Show ll , ListLike ll element , IndexSafe ll element)
-
-type Index = Int

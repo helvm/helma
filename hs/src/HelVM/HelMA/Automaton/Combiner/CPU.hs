@@ -13,62 +13,59 @@ import           Control.Type.Operator
 import           Data.ListLike                                   hiding (show)
 import qualified Data.Vector                                     as Vector
 
-runCFI :: (ALU m ll element , Show element) => CFInstruction -> CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
-runCFI (DMark    _          ) = pure
-runCFI (SMark    _          ) = pure
-runCFI  Return                = popAddress
-runCFI (CDynamic   Call     ) = dynamicCall
-runCFI (CDynamic   Jump     ) = dynamicJump
-runCFI (CDynamic  (Branch t)) = dynamicBranch  t
-runCFI (CStatic l  Call     ) = staticCall   l
-runCFI (CStatic l  Jump     ) = staticJump   l
-runCFI (CStatic l (Branch t)) = staticBranch l t
+runCFI :: (ALU m ll element , Show element) => CFInstruction -> CentralProcessingStep ll m
+runCFI (Mark    _                ) = pure
+runCFI (Labeled i LTop           ) = topInstruction        i
+runCFI (Labeled i (LImmediate  l)) = immediateInstruction  i l
+runCFI (Labeled i (LArtificial l)) = artificialInstruction i l
+runCFI  Return                     = popAddress
 
 popAddress :: ALU m ll element  => CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
 popAddress (CPM (CM il _ (IS (a : is))) s) = pure $ CPM (CM il a $ IS is) s
 popAddress (CPM (CM il _ (IS      [] )) _) = liftErrorWithTupleList "Empty Return Stack" [("il" , show il)]
 
-dynamicCall :: (ALU m ll element , Show element) => CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
-dynamicCall (CPM (CM il ic (IS is)) s) = appendError "CPM.dynamicCall" $ call1 =<< pop1 s where
-  call1 (n , s') = call2 <$> findAddressForDynamicLabel n il where
-    call2 a = CPM (CM il a (IS (ic : is))) s'
+--
 
-dynamicJump :: (ALU m ll element , Show element) => CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
-dynamicJump (CPM (CM il _ is) s) = appendError "CPM.dynamicJump" $ jump1 =<< pop1 s where
-  jump1 (n, s') = jump2 <$> findAddressForDynamicLabel n il where
-    jump2 a = CPM (CM il a is) s'
+topInstruction :: (ALU m ll element , Show element) => LabeledOperation -> CentralProcessingStep ll m
+topInstruction i cpm = appendError "CPM.topInstruction" $ uncurry (immediateInstruction i) =<< cpmPop1 cpm
 
-dynamicBranch :: (ALU m ll element , Show element) => BranchTest -> CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
-dynamicBranch t (CPM (CM il ic is) s) = appendError "CPM.dynamicBranch" $ branch =<< pop2 s where
-  branch (n , e , s')
-    | isNotJump t e = pure $ CPM (CM il ic is) s'
-    | otherwise     = jump <$> findAddressForDynamicLabel n il where
-      jump ic' = CPM (CM il ic' is) s'
+immediateInstruction :: (ALU m ll element, DynamicLabel l) => LabeledOperation -> l -> CentralProcessingStep ll m
+immediateInstruction i l cpm = appendError "CPM.immediateInstruction" $ flip (labeled i) cpm =<< findAddressForNaturalLabel l (cpmProgram cpm)
 
-findAddressForDynamicLabel :: (MonadSafe m , Integral n , Show n) => n -> InstructionVector -> m InstructionAddress
-findAddressForDynamicLabel n il
-  | n < 0     = liftError $ show n
-  | otherwise = liftMaybeOrErrorTuple ("Undefined label", show n) $ findIndex (isDMark $ fromIntegral n) il
+artificialInstruction :: ALU m ll element => LabeledOperation -> Label -> CentralProcessingStep ll m
+artificialInstruction i l cpm = appendError "CPM.artificialInstruction" $ flip (labeled i) cpm =<< findAddressForArtificialLabel l (cpmProgram cpm)
 
 --
 
-staticCall :: ALU m ll element => Label -> CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
-staticCall l (CPM (CM il ic (IS is)) s) = appendError "CPM.staticCall" $ call <$> findAddressForStaticLabel l il where
-  call a = CPM (CM il a (IS (ic : is))) s
+findAddressForNaturalLabel :: (MonadSafe m , DynamicLabel n) => n -> InstructionVector -> m InstructionAddress --FIXME
+findAddressForNaturalLabel n il
+  | n < 0     = liftError $ show n
+  | otherwise = liftMaybeOrErrorTuple ("Undefined label", show n) $ findIndex (checkNaturalMark $ fromIntegral n) il
 
-staticJump :: ALU m ll element => Label -> CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
-staticJump l (CPM (CM il _  is) s) = appendError "CPM.staticJump" $ jump <$> findAddressForStaticLabel l il where
-  jump a = CPM (CM il a is) s
+findAddressForArtificialLabel :: MonadSafe m => Label -> InstructionVector -> m InstructionAddress
+findAddressForArtificialLabel l = liftMaybeOrErrorTuple ("Undefined label", show l) . findIndex (checkArtificialMark l)
 
-staticBranch :: ALU m ll element => Label -> BranchTest -> CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
-staticBranch l t (CPM (CM il ic is) s) = appendError "CPM.staticBranch" $ branch =<< pop1 s where
-  branch (e , s')
-    | isNotJump t e = pure $ CPM (CM il ic is) s'
-    | otherwise     = jump <$> findAddressForStaticLabel l il where
-      jump ic' = CPM (CM il ic' is) s'
+--
 
-findAddressForStaticLabel :: MonadSafe m => Label -> InstructionVector -> m InstructionAddress
-findAddressForStaticLabel l = liftMaybeOrErrorTuple ("Undefined label", show l) . findIndex (isSMark l)
+labeled :: ALU m ll element => LabeledOperation -> InstructionCounter -> CentralProcessingStep ll m
+labeled (Branch t) = branch t
+labeled Jump       = jump
+labeled Call       = call
+
+branch :: ALU m ll element => BranchTest -> InstructionCounter -> CentralProcessingStep ll m
+branch t ic cpm = build <$> cpmPop1 cpm where
+  build (e , cpm')
+    | isNotJump t e = cpm'
+    | otherwise     = doJump ic cpm'
+
+doJump :: InstructionCounter -> CentralProcessingMemory ll -> CentralProcessingMemory ll
+doJump ic (CPM (CM il _ is) s) = CPM (CM il ic is) s
+
+jump :: (Applicative m) => InstructionCounter -> CentralProcessingStep ll m
+jump a (CPM (CM il _  is) s) = pure $ CPM (CM il a is) s
+
+call :: (Applicative m) => InstructionCounter -> CentralProcessingStep ll m
+call a (CPM (CM il ic (IS is)) s) = pure $ CPM (CM il a (IS (ic : is))) s
 
 -- | ControlMemory methods
 
@@ -81,10 +78,21 @@ currentInstruction (CM il ic _) = indexSafe il ic
 incrementPC :: ControlMemory -> ControlMemory
 incrementPC cu = cu { programCounter = 1 + programCounter cu }
 
+cpmProgram :: CentralProcessingMemory al -> InstructionVector
+cpmProgram = program . controlMemory
+
+cpmPop1 :: ALU m ll element => CentralProcessingMemory ll -> m (element , CentralProcessingMemory ll)
+cpmPop1 (CPM cm s) = build <$> pop1 s where
+   build (l , s') = (l , CPM cm s')
+
 -- | Types
-data CentralProcessingMemory al = CPM
+type DynamicLabel l = (Integral l , Show l)
+
+type CentralProcessingStep ll m = CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
+
+data CentralProcessingMemory ll = CPM
   { controlMemory :: ControlMemory
-  , alm           :: al
+  , alm           :: ll
   }
   deriving stock (Show)
 

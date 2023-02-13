@@ -1,0 +1,100 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Instruction.SInstruction where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automaton.Instruction.IOInstruction
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>-- | Constructors
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>blAnd :: OperatorType -&gt; BinaryOperation
+<span class="lineno">    8 </span><span class="decl"><span class="nottickedoff">blAnd Bitwise = BAnd</span>
+<span class="lineno">    9 </span><span class="spaces"></span><span class="nottickedoff">blAnd Logical = LAnd</span></span>
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>blOr :: OperatorType -&gt; BinaryOperation
+<span class="lineno">   12 </span><span class="decl"><span class="nottickedoff">blOr Bitwise = BOr</span>
+<span class="lineno">   13 </span><span class="spaces"></span><span class="nottickedoff">blOr Logical = LOr</span></span>
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>blXor :: OperatorType -&gt; BinaryOperation
+<span class="lineno">   16 </span><span class="decl"><span class="nottickedoff">blXor Bitwise = BXor</span>
+<span class="lineno">   17 </span><span class="spaces"></span><span class="nottickedoff">blXor Logical = LXor</span></span>
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>blEQ :: OperatorType -&gt; BinaryOperation
+<span class="lineno">   20 </span><span class="decl"><span class="nottickedoff">blEQ Bitwise = BEQ</span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="nottickedoff">blEQ Logical = LEQ</span></span>
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>blGT :: OperatorType -&gt; BinaryOperation
+<span class="lineno">   24 </span><span class="decl"><span class="nottickedoff">blGT Bitwise = BGT</span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="nottickedoff">blGT Logical = LGT</span></span>
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>-- | Other functions
+<span class="lineno">   28 </span>
+<span class="lineno">   29 </span>calculateOps :: Integral a =&gt; a -&gt; a -&gt; [BinaryOperation] -&gt; [a]
+<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">calculateOps operand operand' = map (calculateOp operand operand')</span></span>
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>calculateOp :: Integral a =&gt; a -&gt; a -&gt; BinaryOperation -&gt; a
+<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">calculateOp operand operand' operation = doBinary operation operand' operand</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>doBinary :: Integral a =&gt; BinaryOperation -&gt; a -&gt; a -&gt; a
+<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">doBinary Add = (+)</span>
+<span class="lineno">   37 </span><span class="spaces"></span><span class="istickedoff">doBinary Sub = (-)</span>
+<span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff">doBinary Mul = (*)</span>
+<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff">doBinary Div = div</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">doBinary Mod = mod</span>
+<span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff">doBinary o   = <span class="nottickedoff">error $ show o</span></span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>-- | Types
+<span class="lineno">   44 </span>data SInstruction =
+<span class="lineno">   45 </span>    SPure    !SPureInstruction
+<span class="lineno">   46 </span>  | SIO      !IOInstruction
+<span class="lineno">   47 </span>  deriving stock (<span class="decl"><span class="istickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>data SPureInstruction =
+<span class="lineno">   50 </span>    Cons     !Integer
+<span class="lineno">   51 </span>  | Unary    !UnaryOperation
+<span class="lineno">   52 </span>  | Binary   !BinaryOperation
+<span class="lineno">   53 </span>  | Binaries [BinaryOperation]
+<span class="lineno">   54 </span>  | Indexed  !IndexedOperation !IndexOperand
+<span class="lineno">   55 </span>  | Halibut
+<span class="lineno">   56 </span>  | Pick
+<span class="lineno">   57 </span>  | Discard
+<span class="lineno">   58 </span>  deriving stock (<span class="decl"><span class="istickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   59 </span>
+<span class="lineno">   60 </span>data IndexOperand = TopO | ImmediateO !Index
+<span class="lineno">   61 </span>  deriving stock (<span class="decl"><span class="istickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>data UnaryOperation = Neg | BNot | LNot
+<span class="lineno">   64 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   65 </span>
+<span class="lineno">   66 </span>data BinaryOperation =
+<span class="lineno">   67 </span>     Add | Sub | Mul | Div | Mod
+<span class="lineno">   68 </span>  | BAnd | BOr | BXor | BEQ | BGT
+<span class="lineno">   69 </span>  | LAnd | LOr | LXor | LEQ | LGT
+<span class="lineno">   70 </span>  deriving stock (<span class="decl"><span class="istickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   71 </span>
+<span class="lineno">   72 </span>data IndexedOperation = Copy | Move | Slide
+<span class="lineno">   73 </span>  deriving stock (<span class="decl"><span class="istickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   74 </span>
+<span class="lineno">   75 </span>type Index = Int
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>data OperatorType = Bitwise | Logical
+
+</pre>
+</body>
+</html>

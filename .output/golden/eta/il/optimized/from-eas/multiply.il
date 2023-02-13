@@ -1,140 +1,178 @@
 [ ICF
-    ( DMark 1 )
-, IAL
-    ( SAL
-        ( Cons 2 )
-    )
-, IAL ( SAL Halibut )
-, IAL
-    ( SAL
-        ( Cons 2 )
-    )
-, IAL ( SAL Halibut )
-, ICF
-    ( DMark 2 )
-, IAL
-    ( SAL
-        ( Cons 0 )
-    )
-, ICF
-    ( DMark 3 )
-, IAL
-    ( SAL
-        ( Cons 2 )
-    )
-, IAL ( SAL Halibut )
-, ICF
-    ( DMark 4 )
-, IAL
-    ( SAL
-        ( Cons 2 )
-    )
-, IAL ( SAL Halibut )
-, ICF
-    ( DMark 5 )
-, IAL
-    ( SAL
-        ( Cons 0 )
-    )
-, IAL ( SAL Halibut )
-, ICF
-    ( DMark 6 )
-, IAL
-    ( SAL
-        ( Cons 8 )
-    )
-, Transfer
-, ICF
-    ( DMark 7 )
-, IAL
-    ( SAL
-        ( Cons 1 )
+    ( Mark
+        ( MNatural 1 )
     )
 , IAL
-    ( SAL
-        ( Cons 15 )
-    )
-, Transfer
-, ICF
-    ( DMark 8 )
-, IAL
-    ( SAL
-        ( Cons 1 )
-    )
-, IAL
-    ( SAL ( Binary Sub ) )
-, ICF
-    ( DMark 9 )
-, IAL
-    ( SAL
-        ( Cons 2 )
-    )
-, IAL ( SAL Halibut )
-, ICF
-    ( DMark 10 )
-, IAL
-    ( SAL
-        ( Cons 0 )
-    )
-, IAL
-    ( SAL
-        ( Cons
-            ( -3 )
+    ( SPure
+        ( Indexed Move
+            ( ImmediateO 2 )
         )
     )
-, IAL ( SAL Halibut )
-, ICF
-    ( DMark 11 )
 , IAL
-    ( SAL ( Binary Sub ) )
-, IAL
-    ( SAL ( Binary Sub ) )
-, ICF
-    ( DMark 12 )
-, IAL
-    ( SAL
-        ( Cons 2 )
+    ( SPure
+        ( Indexed Move
+            ( ImmediateO 2 )
+        )
     )
-, IAL ( SAL Halibut )
 , ICF
-    ( DMark 13 )
-, IAL
-    ( SAL
-        ( Cons 2 )
+    ( Mark
+        ( MNatural 2 )
     )
-, IAL ( SAL Halibut )
-, ICF
-    ( DMark 14 )
 , IAL
-    ( SAL
+    ( SPure
+        ( Cons 0 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 3 )
+    )
+, IAL
+    ( SPure
+        ( Indexed Move
+            ( ImmediateO 2 )
+        )
+    )
+, ICF
+    ( Mark
+        ( MNatural 4 )
+    )
+, IAL
+    ( SPure
+        ( Indexed Move
+            ( ImmediateO 2 )
+        )
+    )
+, ICF
+    ( Mark
+        ( MNatural 5 )
+    )
+, IAL
+    ( SPure
+        ( Indexed Copy
+            ( ImmediateO 0 )
+        )
+    )
+, ICF
+    ( Mark
+        ( MNatural 6 )
+    )
+, ICF
+    ( Labeled ( Branch NE )
+        ( LImmediate 8 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 7 )
+    )
+, ICF
+    ( Labeled Jump
+        ( LImmediate 15 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 8 )
+    )
+, IAL
+    ( SPure
         ( Cons 1 )
     )
 , IAL
-    ( SAL
-        ( Cons 5 )
-    )
-, Transfer
+    ( SPure ( Binary Sub ) )
 , ICF
-    ( DMark 15 )
+    ( Mark
+        ( MNatural 9 )
+    )
 , IAL
-    ( SAL
+    ( SPure
+        ( Indexed Move
+            ( ImmediateO 2 )
+        )
+    )
+, ICF
+    ( Mark
+        ( MNatural 10 )
+    )
+, IAL
+    ( SPure
+        ( Cons 0 )
+    )
+, IAL
+    ( SPure
+        ( Indexed Copy
+            ( ImmediateO 3 )
+        )
+    )
+, ICF
+    ( Mark
+        ( MNatural 11 )
+    )
+, IAL
+    ( SPure ( Binary Sub ) )
+, IAL
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Mark
+        ( MNatural 12 )
+    )
+, IAL
+    ( SPure
+        ( Indexed Move
+            ( ImmediateO 2 )
+        )
+    )
+, ICF
+    ( Mark
+        ( MNatural 13 )
+    )
+, IAL
+    ( SPure
+        ( Indexed Move
+            ( ImmediateO 2 )
+        )
+    )
+, ICF
+    ( Mark
+        ( MNatural 14 )
+    )
+, ICF
+    ( Labeled Jump
+        ( LImmediate 5 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 15 )
+    )
+, IAL
+    ( SPure
+        ( Indexed Move
+            ( ImmediateO 1 )
+        )
+    )
+, ICF
+    ( Labeled ( Branch NE ) LTop )
+, ICF
+    ( Mark
+        ( MNatural 16 )
+    )
+, IAL
+    ( SPure
         ( Cons 1 )
     )
-, IAL ( SAL Halibut )
-, Transfer
-, ICF
-    ( DMark 16 )
 , IAL
-    ( SAL
-        ( Cons 1 )
+    ( SPure
+        ( Indexed Move
+            ( ImmediateO 2 )
+        )
     )
-, IAL
-    ( SAL
-        ( Cons 2 )
-    )
-, IAL ( SAL Halibut )
-, Transfer
 , ICF
-    ( DMark 17 )
+    ( Labeled ( Branch NE ) LTop )
+, ICF
+    ( Mark
+        ( MNatural 17 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 0 )
+    )
 , End
 ]

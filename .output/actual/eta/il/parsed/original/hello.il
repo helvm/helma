@@ -1,17 +1,20 @@
 [ ICF
-    ( DMark 1 )
+    ( Mark
+        ( MNatural 1 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 21 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 2 )
     )
-, Transfer
-, IAL ( SAL Halibut )
+, ICF
+    ( Labeled ( Branch NE ) LTop )
+, IAL ( SPure Halibut )
 , IAL
-    ( SAL
+    ( SPure
         ( Binaries
             [ Mod
             , Div
@@ -19,26 +22,31 @@
         )
     )
 , ICF
-    ( SMark "1" )
+    ( Mark
+        ( MArtificial "1" )
+    )
 , IAL ( SIO OutputChar )
 , IAL
-    ( SAL
+    ( SPure
         ( Binaries
             [ Mod
             , Div
             ]
         )
     )
-, Transfer
+, ICF
+    ( Labeled ( Branch NE ) LTop )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 2 )
     )
 , IAL ( SIO InputChar )
-, Transfer
-, Transfer
+, ICF
+    ( Labeled ( Branch NE ) LTop )
+, ICF
+    ( Labeled ( Branch NE ) LTop )
 , IAL
-    ( SAL
+    ( SPure
         ( Binaries
             [ Mod
             , Div
@@ -46,42 +54,54 @@
         )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 4 )
     )
-, Transfer
+, ICF
+    ( Labeled ( Branch NE ) LTop )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 2 )
     )
 , IAL ( SIO OutputChar )
 , ICF
-    ( DMark 2 )
+    ( Mark
+        ( MNatural 2 )
+    )
 , ICF
-    ( DMark 3 )
+    ( Mark
+        ( MNatural 3 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 32 )
     )
 , ICF
-    ( DMark 4 )
+    ( Mark
+        ( MNatural 4 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 44 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 111 )
     )
 , ICF
-    ( CStatic "5" Jump )
+    ( Labeled Jump
+        ( LArtificial "5" )
+    )
 , ICF
-    ( DMark 5 )
-, Transfer
+    ( Mark
+        ( MNatural 5 )
+    )
+, ICF
+    ( Labeled ( Branch NE ) LTop )
 , IAL
-    ( SAL ( Binary Sub ) )
+    ( SPure ( Binary Sub ) )
 , IAL
-    ( SAL
+    ( SPure
         ( Binaries
             [ Mod
             , Div
@@ -89,35 +109,43 @@
         )
     )
 , ICF
-    ( SMark "5" )
+    ( Mark
+        ( MArtificial "5" )
+    )
 , ICF
-    ( DMark 6 )
+    ( Mark
+        ( MNatural 6 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 108 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 108 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 101 )
     )
 , ICF
-    ( DMark 7 )
+    ( Mark
+        ( MNatural 7 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 72 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 0 )
     )
 , IAL
-    ( SAL ( Binary Sub ) )
+    ( SPure ( Binary Sub ) )
 , ICF
-    ( DMark 8 )
+    ( Mark
+        ( MNatural 8 )
+    )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
@@ -126,41 +154,49 @@
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , ICF
-    ( DMark 9 )
+    ( Mark
+        ( MNatural 9 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 10 )
     )
 , ICF
-    ( DMark 10 )
+    ( Mark
+        ( MNatural 10 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 33 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 100 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 108 )
     )
 , ICF
-    ( DMark 11 )
+    ( Mark
+        ( MNatural 11 )
+    )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 114 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 111 )
     )
 , IAL
-    ( SAL
+    ( SPure
         ( Cons 119 )
     )
 , ICF
-    ( DMark 12 )
+    ( Mark
+        ( MNatural 12 )
+    )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
@@ -169,6 +205,12 @@
 , IAL ( SIO OutputChar )
 , IAL ( SIO OutputChar )
 , ICF
-    ( DMark 13 )
+    ( Mark
+        ( MNatural 13 )
+    )
+, ICF
+    ( Mark
+        ( MNatural 0 )
+    )
 , End
 ]

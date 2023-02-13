@@ -13,56 +13,62 @@
             ( IAL ( SIO InputChar ) )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
             ( IAL
-                ( SAL ( Unary Neg ) )
+                ( SPure ( Unary Neg ) )
             )
         , Inst
             ( IAL
-                ( SAL ( Binary LEQ ) )
+                ( SPure ( Binary LEQ ) )
             )
         , Inst
             ( IAL
-                ( SAL ( Unary BNot ) )
+                ( SPure ( Unary BNot ) )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             )
         , Lambda
             [ Inst
-                ( IAL ( SAL Discard ) )
+                ( IAL ( SPure Discard ) )
             , Inst
                 ( IAL
-                    ( SAL
-                        ( SStatic 0 Copy )
+                    ( SPure
+                        ( Indexed Copy
+                            ( ImmediateO 0 )
+                        )
                     )
                 )
             , Inst
                 ( IAL
-                    ( SAL
+                    ( SPure
                         ( Cons 10 )
                     )
                 )
             , Inst
                 ( IAL
-                    ( SAL ( Binary LEQ ) )
+                    ( SPure ( Binary LEQ ) )
                 )
             , Inst
                 ( IAL
-                    ( SAL ( Unary BNot ) )
+                    ( SPure ( Unary BNot ) )
                 )
             ]
         , Cond
@@ -73,7 +79,7 @@
         ]
     , While
     , Inst
-        ( IAL ( SAL Discard ) )
+        ( IAL ( SPure Discard ) )
     , Str "</td>"
     ]
 , Ref 15
@@ -83,27 +89,29 @@
         ( IAL ( SIO InputChar ) )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
+            ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary Neg ) )
+            ( SPure ( Unary Neg ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Inst
         ( IAL
-            ( SAL ( Unary BNot ) )
+            ( SPure ( Unary BNot ) )
         )
     ]
 , Lambda
@@ -116,56 +124,62 @@
             ( IAL ( SIO InputChar ) )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             )
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
             ( IAL
-                ( SAL ( Unary Neg ) )
+                ( SPure ( Unary Neg ) )
             )
         , Inst
             ( IAL
-                ( SAL ( Binary LEQ ) )
+                ( SPure ( Binary LEQ ) )
             )
         , Inst
             ( IAL
-                ( SAL ( Unary BNot ) )
+                ( SPure ( Unary BNot ) )
             )
         , Inst
             ( IAL
-                ( SAL
-                    ( SStatic 0 Copy )
+                ( SPure
+                    ( Indexed Copy
+                        ( ImmediateO 0 )
+                    )
                 )
             )
         , Lambda
             [ Inst
-                ( IAL ( SAL Discard ) )
+                ( IAL ( SPure Discard ) )
             , Inst
                 ( IAL
-                    ( SAL
-                        ( SStatic 0 Copy )
+                    ( SPure
+                        ( Indexed Copy
+                            ( ImmediateO 0 )
+                        )
                     )
                 )
             , Inst
                 ( IAL
-                    ( SAL
+                    ( SPure
                         ( Cons 10 )
                     )
                 )
             , Inst
                 ( IAL
-                    ( SAL ( Binary LEQ ) )
+                    ( SPure ( Binary LEQ ) )
                 )
             , Inst
                 ( IAL
-                    ( SAL ( Unary BNot ) )
+                    ( SPure ( Unary BNot ) )
                 )
             ]
         , Cond
@@ -176,7 +190,7 @@
         ]
     , While
     , Inst
-        ( IAL ( SAL Discard ) )
+        ( IAL ( SPure Discard ) )
     , Str "</td>"
     , Ref 15
     , Fetch
@@ -192,7 +206,7 @@
     ]
 , While
 , Inst
-    ( IAL ( SAL Discard ) )
+    ( IAL ( SPure Discard ) )
 , Str "</table>
   "
 ]

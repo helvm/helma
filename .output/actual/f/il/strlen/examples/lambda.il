@@ -3,19 +3,21 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
-                ( SStatic 1 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 1 )
+                )
             )
         )
     , Inst
-        ( IAL ( SAL Discard ) )
+        ( IAL ( SPure Discard ) )
     ]
 , Ref 0
 , Store
 , Comment " true "
 , Lambda
     [ Inst
-        ( IAL ( SAL Discard ) )
+        ( IAL ( SPure Discard ) )
     ]
 , Ref 1
 , Store
@@ -27,8 +29,10 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 2 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 2 )
+                )
             )
         )
     , Exec
@@ -41,20 +45,26 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 2 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 2 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 2 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 2 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 1 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 1 )
+                )
             )
         )
     , Exec
@@ -65,16 +75,20 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
-                ( SStatic 1 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 1 )
+                )
             )
         )
     , Ref 0
     , Fetch
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 1 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 1 )
+                )
             )
         )
     , Exec
@@ -85,8 +99,10 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Ref 3
@@ -94,14 +110,18 @@
     , Exec
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 1 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 1 )
+                )
             )
         )
     , Inst
         ( IAL
-            ( SAL
-                ( SStatic 2 Move )
+            ( SPure
+                ( Indexed Move
+                    ( ImmediateO 2 )
+                )
             )
         )
     , Exec
@@ -112,21 +132,23 @@
 , Lambda
     [ Inst
         ( IAL
-            ( SAL
-                ( SStatic 0 Copy )
+            ( SPure
+                ( Indexed Copy
+                    ( ImmediateO 0 )
+                )
             )
         )
     , Ref 0
     , Fetch
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Lambda
         [ Str "true"
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 10 )
                 )
             )
@@ -138,13 +160,13 @@
     , Fetch
     , Inst
         ( IAL
-            ( SAL ( Binary LEQ ) )
+            ( SPure ( Binary LEQ ) )
         )
     , Lambda
         [ Str "false"
         , Inst
             ( IAL
-                ( SAL
+                ( SPure
                     ( Cons 10 )
                 )
             )
