@@ -1,47 +1,17 @@
-[ ICF
-    ( Mark
-        ( MNatural 1 )
-    )
-, IAL ( SIO InputChar )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, IAL
-    ( SPure
-        ( Cons
-            ( -1 )
-        )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 2 )
-    )
-, IAL ( SPure Discard )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 0 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 2 )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 1 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 3 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 0 )
-    )
-, End
-]
+
+Mark (MNatural 1)
+SIO InputChar
+SPure (Indexed (IImmediate 0) Copy)
+SPure (Unary (UImmediate (-1) Sub))
+Labeled (LImmediate 2) (Branch NE)
+SPure Discard
+Labeled (LImmediate 0) Jump
+
+Mark (MNatural 2)
+SIO OutputChar
+Labeled (LImmediate 1) Jump
+
+Mark (MNatural 3)
+
+Mark (MNatural 0)
+End

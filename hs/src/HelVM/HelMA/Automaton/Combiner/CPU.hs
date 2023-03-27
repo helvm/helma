@@ -15,9 +15,9 @@ import qualified Data.Vector                                     as Vector
 
 runCFI :: (ALU m ll element , Show element) => CFInstruction -> CentralProcessingStep ll m
 runCFI (Mark    _                ) = pure
-runCFI (Labeled i LTop           ) = topInstruction        i
-runCFI (Labeled i (LImmediate  l)) = immediateInstruction  i l
-runCFI (Labeled i (LArtificial l)) = artificialInstruction i l
+runCFI (Labeled LTop            i) = topInstruction        i
+runCFI (Labeled (LImmediate  l) i) = immediateInstruction  i l
+runCFI (Labeled (LArtificial l) i) = artificialInstruction i l
 runCFI  Return                     = popAddress
 
 popAddress :: ALU m ll element  => CentralProcessingMemory ll -> m $ CentralProcessingMemory ll
@@ -84,6 +84,10 @@ cpmProgram = program . controlMemory
 cpmPop1 :: ALU m ll element => CentralProcessingMemory ll -> m (element , CentralProcessingMemory ll)
 cpmPop1 (CPM cm s) = build <$> pop1 s where
    build (l , s') = (l , CPM cm s')
+
+cpmPop2 :: ALU m ll element => CentralProcessingMemory ll -> m (element , element , CentralProcessingMemory ll)
+cpmPop2 (CPM cm s) = build <$> pop2 s where
+   build (l1 , l2 , s') = (l1 , l2 , CPM cm s')
 
 -- | Types
 type DynamicLabel l = (Integral l , Show l)

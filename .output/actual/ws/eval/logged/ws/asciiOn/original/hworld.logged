@@ -222,12 +222,12 @@ dump: Memory
                     ( Cons 0 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "write" )
+                ( Labeled
+                    ( LArtificial "write" ) Call
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "newline" )
+                ( Labeled
+                    ( LArtificial "newline" ) Call
                 )
             , End
             , ICF
@@ -243,31 +243,31 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ILS Load
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "write_end" )
+                ( Labeled
+                    ( LArtificial "write_end" ) ( Branch EZ )
                 )
             , IAL ( SIO OutputChar )
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Add ) )
             , ICF
-                ( Labeled Jump
-                    ( LArtificial "write" )
+                ( Labeled
+                    ( LArtificial "write" ) Jump
                 )
             , ICF
                 ( Mark
@@ -282,44 +282,44 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ILS ( MIO InputChar )
             , ILS Load
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , IAL
                 ( SPure
-                    ( Cons 10 )
+                    ( Unary
+                        ( UImmediate 10 Sub )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Sub ) )
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "read_end" )
+                ( Labeled
+                    ( LArtificial "read_end" ) ( Branch EZ )
                 )
             , IAL ( SPure Discard )
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Add ) )
             , ICF
-                ( Labeled Jump
-                    ( LArtificial "read" )
+                ( Labeled
+                    ( LArtificial "read" ) Jump
                 )
             , ICF
                 ( Mark
@@ -328,10 +328,10 @@ dump: Memory
             , IAL ( SPure Discard )
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Add ) )
             , IAL
                 ( SPure
                     ( Cons 0 )

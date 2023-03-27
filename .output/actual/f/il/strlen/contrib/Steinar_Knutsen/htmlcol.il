@@ -14,8 +14,8 @@
         , Inst
             ( IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             )
@@ -40,8 +40,8 @@
         , Inst
             ( IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             )
@@ -51,8 +51,8 @@
             , Inst
                 ( IAL
                     ( SPure
-                        ( Indexed Copy
-                            ( ImmediateO 0 )
+                        ( Indexed
+                            ( IImmediate 0 ) Copy
                         )
                     )
                 )
@@ -90,8 +90,8 @@
     , Inst
         ( IAL
             ( SPure
-                ( Indexed Copy
-                    ( ImmediateO 0 )
+                ( Indexed
+                    ( IImmediate 0 ) Copy
                 )
             )
         )
@@ -125,8 +125,8 @@
         , Inst
             ( IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             )
@@ -151,8 +151,8 @@
         , Inst
             ( IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             )
@@ -162,8 +162,8 @@
             , Inst
                 ( IAL
                     ( SPure
-                        ( Indexed Copy
-                            ( ImmediateO 0 )
+                        ( Indexed
+                            ( IImmediate 0 ) Copy
                         )
                     )
                 )

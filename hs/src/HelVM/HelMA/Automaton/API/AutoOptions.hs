@@ -4,20 +4,15 @@ import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.Loop
 import           HelVM.HelMA.Automaton.Types.DumpType
 
-verySimpleAutoParams :: AutoOptions
-verySimpleAutoParams = simpleAutoParams False
-
-simpleAutoParams :: Bool -> AutoOptions
-simpleAutoParams c = AutoOptions
+simpleAutoParams :: AutoOptions
+simpleAutoParams = AutoOptions
   { optLevel     = AllOptimizations
-  , compileFlag  = c
   , limit        = testMaybeLimit
   , dumpType     = Pretty
   }
 
 data AutoOptions = AutoOptions
-  { optLevel    :: OptimizationLevel
-  , compileFlag :: Bool
-  , limit       :: LimitMaybe
-  , dumpType    :: DumpType
+  { optLevel :: OptimizationLevel
+  , limit    :: LimitMaybe
+  , dumpType :: DumpType
   }

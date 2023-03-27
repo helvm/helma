@@ -62,8 +62,8 @@ dump: Memory
                     ( Cons 72 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "prints" )
+                ( Labeled
+                    ( LArtificial "prints" ) Call
                 )
             , End
             , ICF
@@ -72,18 +72,18 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "prints_end" )
+                ( Labeled
+                    ( LArtificial "prints_end" ) ( Branch EZ )
                 )
             , IAL ( SIO OutputChar )
             , ICF
-                ( Labeled Jump
-                    ( LArtificial "prints" )
+                ( Labeled
+                    ( LArtificial "prints" ) Jump
                 )
             , ICF
                 ( Mark
@@ -96,8 +96,8 @@ dump: Memory
                     ( MArtificial "printsln" )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "prints" )
+                ( Labeled
+                    ( LArtificial "prints" ) Call
                 )
             , IAL
                 ( SPure

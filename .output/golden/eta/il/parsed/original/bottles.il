@@ -1,1184 +1,402 @@
-[ ICF
-    ( Mark
-        ( MNatural 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 141 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL ( SIO OutputChar )
-, IAL
-    ( SPure
-        ( Cons 155 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "1" )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, IAL ( SIO InputChar )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, IAL
-    ( SPure
-        ( Cons 4 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Mark
-        ( MNatural 2 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 3 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure
-        ( Cons 3 )
-    )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "2" )
-    )
-, IAL ( SIO InputChar )
-, IAL ( SIO OutputChar )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, IAL ( SIO InputChar )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure
-        ( Cons 3 )
-    )
-, IAL
-    ( SPure
-        ( Cons 3 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, IAL ( SIO InputChar )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL ( SIO InputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Mark
-        ( MNatural 3 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 4 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "3" )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL ( SIO InputChar )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure
-        ( Cons 18828800 )
-    )
-, IAL
-    ( SPure
-        ( Cons 4 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 4 )
-    )
-, IAL
-    ( SPure
-        ( Cons 5 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 5 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL ( SPure Halibut )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 6 )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Mark
-        ( MNatural 7 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 8 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, IAL ( SPure Halibut )
-, ICF
-    ( Mark
-        ( MNatural 9 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 48 )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL ( SPure Halibut )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 11 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL ( SPure Halibut )
-, ICF
-    ( Mark
-        ( MNatural 12 )
-    )
-, IAL
-    ( SPure
-        ( Cons 13 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 13 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 18 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 14 )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "14" )
-    )
-, ICF
-    ( Mark
-        ( MNatural 15 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 48 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 16 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL ( SPure Halibut )
-, ICF
-    ( Mark
-        ( MNatural 17 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 11 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Cons 18 )
-    )
-, IAL
-    ( SPure
-        ( Cons 11 )
-    )
-, IAL
-    ( SPure
-        ( Cons 18 )
-    )
-, IAL
-    ( SPure
-        ( Cons 13128773 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 18 )
-    )
-, IAL
-    ( SPure
-        ( Cons 19 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 19 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL ( SPure Halibut )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 20 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL ( SPure Halibut )
-, ICF
-    ( Mark
-        ( MNatural 21 )
-    )
-, IAL
-    ( SPure
-        ( Cons 22 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 8 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 22 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 114 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 98 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 102 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 23 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Cons 2348471754576 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "23" )
-    )
-, ICF
-    ( Mark
-        ( MNatural 23 )
-    )
-, IAL
-    ( SPure
-        ( Cons 115 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 98 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 24 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Cons 335495964812 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "24" )
-    )
-, ICF
-    ( Mark
-        ( MNatural 24 )
-    )
-, IAL
-    ( SPure
-        ( Cons 25 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 25 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL ( SPure Halibut )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 26 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL ( SPure Halibut )
-, ICF
-    ( Mark
-        ( MNatural 27 )
-    )
-, IAL
-    ( SPure
-        ( Cons 28 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 20 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 28 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 97 )
-    )
-, IAL
-    ( SPure
-        ( Cons 119 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 29 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Cons 2348471754565 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "29" )
-    )
-, ICF
-    ( Mark
-        ( MNatural 29 )
-    )
-, IAL
-    ( SPure
-        ( Cons 104 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 110 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 30 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Cons 335495964812 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "30" )
-    )
-, ICF
-    ( Mark
-        ( MNatural 30 )
-    )
-, IAL
-    ( SPure
-        ( Cons 31 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 31 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL ( SPure Halibut )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL ( SIO InputChar )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "31" )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, IAL ( SIO InputChar )
-, IAL
-    ( SPure
-        ( Cons 402523 )
-    )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, IAL ( SIO InputChar )
-, IAL
-    ( SPure
-        ( Cons 1814 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "32" )
-    )
-, ICF
-    ( Mark
-        ( MNatural 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 99 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 33 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure
-        ( Cons 34 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 26 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 34 )
-    )
-, IAL
-    ( SPure
-        ( Cons 44 )
-    )
-, IAL ( SIO OutputChar )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Mark
-        ( MNatural 35 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure
-        ( Cons 36 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 20 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 36 )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Mark
-        ( MNatural 37 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 100 )
-    )
-, IAL
-    ( SPure
-        ( Cons 110 )
-    )
-, IAL
-    ( SPure
-        ( Cons 117 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 38 )
-    )
-, IAL
-    ( SPure
-        ( Cons 114 )
-    )
-, IAL
-    ( SPure
-        ( Cons 97 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 105 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 39 )
-    )
-, IAL
-    ( SPure
-        ( Cons 115 )
-    )
-, IAL
-    ( SPure
-        ( Cons 115 )
-    )
-, IAL
-    ( SPure
-        ( Cons 97 )
-    )
-, IAL
-    ( SPure
-        ( Cons 112 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 44 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 40 )
-    )
-, IAL
-    ( SPure
-        ( Cons 110 )
-    )
-, IAL
-    ( SPure
-        ( Cons 119 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 100 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 41 )
-    )
-, IAL
-    ( SPure
-        ( Cons 110 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 107 )
-    )
-, IAL
-    ( SPure
-        ( Cons 97 )
-    )
-, IAL
-    ( SPure
-        ( Cons 84 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 42 )
-    )
-, IAL
-    ( SPure
-        ( Cons 43 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 43 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 44 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure
-        ( Cons 45 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 26 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 45 )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Mark
-        ( MNatural 46 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure
-        ( Cons 33 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 47 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 48 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 0 )
-    )
-, End
-]
+
+Mark (MNatural 1)
+SPure (Cons 141)
+SPure (Cons 32)
+Labeled LTop (Branch NE)
+SIO OutputChar
+SPure (Cons 155)
+SPure (Binary Sub)
+SPure (Binaries [Mod,Div])
+
+Mark (MArtificial "1")
+Labeled LTop (Branch NE)
+SPure (Cons 2)
+SIO InputChar
+Labeled LTop (Branch NE)
+Labeled LTop (Branch NE)
+SPure (Binaries [Mod,Div])
+SPure (Cons 4)
+Labeled LTop (Branch NE)
+SPure (Cons 2)
+SIO OutputChar
+
+Mark (MNatural 2)
+SPure (Cons 1)
+SPure Halibut
+SPure (Cons 1)
+SPure (Cons 3)
+Labeled LTop (Branch NE)
+SPure (Binary Sub)
+SPure (Cons 3)
+SPure (Binaries [Mod,Div])
+
+Mark (MArtificial "2")
+SIO InputChar
+SIO OutputChar
+SPure (Binaries [Mod,Div])
+SIO InputChar
+Labeled LTop (Branch NE)
+SPure (Binary Sub)
+SPure Halibut
+SPure (Cons 3)
+SPure (Cons 3)
+Labeled LTop (Branch NE)
+SPure (Binaries [Mod,Div])
+SIO InputChar
+SPure (Binary Sub)
+Labeled LTop (Branch NE)
+SIO InputChar
+SIO OutputChar
+SIO OutputChar
+
+Mark (MNatural 3)
+SPure (Cons 0)
+SPure Halibut
+SPure (Cons 1)
+SPure (Cons 4)
+Labeled LTop (Branch NE)
+SPure (Binary Sub)
+SPure (Binaries [Mod,Div])
+
+Mark (MArtificial "3")
+SPure (Binary Sub)
+Labeled LTop (Branch NE)
+SPure (Binary Sub)
+SIO InputChar
+Labeled LTop (Branch NE)
+SPure (Binary Sub)
+SPure (Cons 18828800)
+SPure (Cons 4)
+
+Mark (MNatural 4)
+SPure (Cons 5)
+SPure (Cons 0)
+SPure (Cons 1)
+SPure (Binary Sub)
+SPure (Binary Sub)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 5)
+SPure (Binary Sub)
+SPure (Cons 1)
+SPure (Cons 1)
+SPure Halibut
+Labeled LTop (Branch NE)
+
+Mark (MNatural 6)
+SIO OutputChar
+
+Mark (MNatural 7)
+SPure (Cons 1)
+SPure (Cons 2)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 8)
+SPure (Cons 0)
+SPure (Cons 2)
+SPure Halibut
+
+Mark (MNatural 9)
+SPure (Cons 0)
+SPure Halibut
+SPure (Cons 10)
+SPure (Cons 0)
+SPure (Cons 1)
+SPure (Binary Sub)
+SPure (Binary Sub)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 10)
+SPure (Cons 48)
+SIO OutputChar
+Labeled LTop (Branch NE)
+SPure (Cons 1)
+SPure (Cons 1)
+SPure Halibut
+Labeled LTop (Branch NE)
+
+Mark (MNatural 11)
+SPure (Cons 0)
+SPure Halibut
+
+Mark (MNatural 12)
+SPure (Cons 13)
+SPure (Cons 0)
+SPure (Cons 1)
+SPure (Binary Sub)
+SPure (Binary Sub)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 13)
+SPure (Binary Sub)
+SPure (Cons 1)
+SPure (Cons 18)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 14)
+SPure (Cons 10)
+SPure (Binaries [Mod,Div])
+
+Mark (MArtificial "14")
+
+Mark (MNatural 15)
+SPure (Cons 0)
+SPure (Cons 48)
+SPure (Binary Sub)
+SPure (Binary Sub)
+
+Mark (MNatural 16)
+SPure (Cons 1)
+SPure Halibut
+
+Mark (MNatural 17)
+SPure (Cons 1)
+SPure (Cons 11)
+Labeled LTop (Branch NE)
+SPure (Cons 18)
+SPure (Cons 11)
+SPure (Cons 18)
+SPure (Cons 13128773)
+SPure (Cons 1)
+SPure Halibut
+SPure (Binary Sub)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 18)
+SPure (Cons 19)
+SPure (Cons 1)
+SPure (Cons 2)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 19)
+SPure (Cons 1)
+SPure (Cons 1)
+SPure Halibut
+Labeled LTop (Branch NE)
+
+Mark (MNatural 20)
+SPure (Cons 1)
+SPure Halibut
+
+Mark (MNatural 21)
+SPure (Cons 22)
+SPure (Cons 1)
+SPure (Cons 8)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 22)
+SPure (Cons 0)
+SPure (Cons 114)
+SPure (Cons 101)
+SPure (Cons 101)
+SPure (Cons 98)
+SPure (Cons 32)
+SPure (Cons 102)
+SPure (Cons 111)
+SPure (Cons 32)
+SPure (Cons 1)
+SPure (Cons 23)
+Labeled LTop (Branch NE)
+SPure (Cons 2348471754576)
+Labeled (LArtificial "23") Jump
+
+Mark (MNatural 23)
+SPure (Cons 115)
+SPure (Cons 101)
+SPure (Cons 108)
+SPure (Cons 116)
+SPure (Cons 116)
+SPure (Cons 111)
+SPure (Cons 98)
+SPure (Cons 32)
+SPure (Cons 1)
+SPure (Cons 24)
+Labeled LTop (Branch NE)
+SPure (Cons 335495964812)
+Labeled (LArtificial "24") Jump
+
+Mark (MNatural 24)
+SPure (Cons 25)
+SPure (Cons 1)
+SPure (Cons 2)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 25)
+SPure (Cons 1)
+SPure (Cons 1)
+SPure Halibut
+Labeled LTop (Branch NE)
+
+Mark (MNatural 26)
+SPure (Cons 1)
+SPure Halibut
+
+Mark (MNatural 27)
+SPure (Cons 28)
+SPure (Cons 1)
+SPure (Cons 20)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 28)
+SPure (Cons 0)
+SPure (Cons 108)
+SPure (Cons 108)
+SPure (Cons 97)
+SPure (Cons 119)
+SPure (Cons 32)
+SPure (Cons 101)
+SPure (Cons 1)
+SPure (Cons 29)
+Labeled LTop (Branch NE)
+SPure (Cons 2348471754565)
+Labeled (LArtificial "29") Jump
+
+Mark (MNatural 29)
+SPure (Cons 104)
+SPure (Cons 116)
+SPure (Cons 32)
+SPure (Cons 110)
+SPure (Cons 111)
+SPure (Cons 32)
+SPure (Cons 1)
+SPure (Cons 30)
+Labeled LTop (Branch NE)
+SPure (Cons 335495964812)
+Labeled (LArtificial "30") Jump
+
+Mark (MNatural 30)
+SPure (Cons 31)
+SPure (Cons 1)
+SPure (Cons 2)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 31)
+SPure (Cons 1)
+SPure (Cons 1)
+SPure Halibut
+Labeled LTop (Branch NE)
+SIO InputChar
+Labeled LTop (Branch NE)
+SPure (Cons 0)
+SPure (Binaries [Mod,Div])
+
+Mark (MArtificial "31")
+SPure (Binary Sub)
+SPure (Cons 32)
+Labeled LTop (Branch NE)
+SPure (Binaries [Mod,Div])
+SIO InputChar
+SPure (Cons 402523)
+SPure (Binaries [Mod,Div])
+SIO InputChar
+SPure (Cons 1814)
+Labeled (LArtificial "32") Jump
+
+Mark (MNatural 32)
+SPure (Cons 99)
+
+Mark (MNatural 33)
+SPure (Cons 0)
+SPure Halibut
+SPure (Cons 34)
+SPure (Cons 1)
+SPure (Cons 26)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 34)
+SPure (Cons 44)
+SIO OutputChar
+SPure (Cons 32)
+SIO OutputChar
+
+Mark (MNatural 35)
+SPure (Cons 0)
+SPure Halibut
+SPure (Cons 36)
+SPure (Cons 1)
+SPure (Cons 20)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 36)
+SPure (Cons 10)
+SIO OutputChar
+
+Mark (MNatural 37)
+SPure (Cons 0)
+SPure (Cons 10)
+SPure (Cons 100)
+SPure (Cons 110)
+SPure (Cons 117)
+SPure (Cons 111)
+
+Mark (MNatural 38)
+SPure (Cons 114)
+SPure (Cons 97)
+SPure (Cons 32)
+SPure (Cons 116)
+SPure (Cons 105)
+SPure (Cons 32)
+
+Mark (MNatural 39)
+SPure (Cons 115)
+SPure (Cons 115)
+SPure (Cons 97)
+SPure (Cons 112)
+SPure (Cons 32)
+SPure (Cons 44)
+
+Mark (MNatural 40)
+SPure (Cons 110)
+SPure (Cons 119)
+SPure (Cons 111)
+SPure (Cons 100)
+SPure (Cons 32)
+SPure (Cons 101)
+
+Mark (MNatural 41)
+SPure (Cons 110)
+SPure (Cons 111)
+SPure (Cons 32)
+SPure (Cons 101)
+SPure (Cons 107)
+SPure (Cons 97)
+SPure (Cons 84)
+
+Mark (MNatural 42)
+SPure (Cons 43)
+SPure (Cons 1)
+SPure (Cons 2)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 43)
+SPure (Cons 1)
+SPure (Binary Sub)
+
+Mark (MNatural 44)
+SPure (Cons 0)
+SPure Halibut
+SPure (Cons 45)
+SPure (Cons 1)
+SPure (Cons 26)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 45)
+SPure (Cons 10)
+SPure (Cons 10)
+SIO OutputChar
+SIO OutputChar
+
+Mark (MNatural 46)
+SPure (Cons 0)
+SPure Halibut
+SPure (Cons 33)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 47)
+SPure (Cons 0)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 48)
+
+Mark (MNatural 0)
+End

@@ -6,6 +6,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.Parser
 
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.Optimizer
+import           HelVM.HelMA.Automaton.PrettyPrinter
 import           HelVM.HelMA.Automaton.Types.FormatType
 
 import           HelVM.HelIO.Control.Safe
@@ -46,6 +47,6 @@ spec =
         it ("minified" </> path) $
           show . readVisibleTokens <$> readStnFile path `goldenShouldIO` buildAbsoluteStnFileName path
         it ("parsed" </> path) $
-          safeIOToPTextIO (flipParseVisible TextLabel <$> readStnFile path) `goldenShouldIO` buildAbsoluteWsIlFileName ("parsed" </> path)
+          safeIOToIO ((printIL <.> flipParseVisible TextLabel) <$> readStnFile path) `goldenShouldIO` buildAbsoluteWsIlFileName ("parsed" </> path)
         it ("optimized" </> path) $
-          safeIOToPTextIO ((optimize AllOptimizations <.> flipParseVisible TextLabel) <$> readStnFile path) `goldenShouldIO` buildAbsoluteWsIlFileName ("optimized" </> path)
+          safeIOToIO ((printIL <.> optimize AllOptimizations <.> flipParseVisible TextLabel) <$> readStnFile path) `goldenShouldIO` buildAbsoluteWsIlFileName ("optimized" </> path)

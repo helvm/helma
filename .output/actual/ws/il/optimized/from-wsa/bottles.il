@@ -1,546 +1,145 @@
-[ IAL
-    ( SPure
-        ( Cons 3 )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "LOOP" )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, IAL ( SIO OutputDec )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 44 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 97 )
-    )
-, IAL
-    ( SPure
-        ( Cons 119 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 104 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 110 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 114 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 98 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 102 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 115 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 98 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, ICF
-    ( Labeled Call
-        ( LArtificial "prints" )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, IAL ( SIO OutputDec )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 114 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 98 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 102 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 115 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 98 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, ICF
-    ( Labeled Call
-        ( LArtificial "printsln" )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 100 )
-    )
-, IAL
-    ( SPure
-        ( Cons 110 )
-    )
-, IAL
-    ( SPure
-        ( Cons 117 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 114 )
-    )
-, IAL
-    ( SPure
-        ( Cons 97 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 105 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 115 )
-    )
-, IAL
-    ( SPure
-        ( Cons 115 )
-    )
-, IAL
-    ( SPure
-        ( Cons 97 )
-    )
-, IAL
-    ( SPure
-        ( Cons 112 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 44 )
-    )
-, IAL
-    ( SPure
-        ( Cons 110 )
-    )
-, IAL
-    ( SPure
-        ( Cons 119 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 100 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 110 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 107 )
-    )
-, IAL
-    ( SPure
-        ( Cons 97 )
-    )
-, IAL
-    ( SPure
-        ( Cons 84 )
-    )
-, ICF
-    ( Labeled Call
-        ( LArtificial "printsln" )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, IAL ( SIO OutputDec )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 97 )
-    )
-, IAL
-    ( SPure
-        ( Cons 119 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 104 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 110 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 114 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 98 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 102 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 115 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 116 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 98 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, ICF
-    ( Labeled Call
-        ( LArtificial "printsln" )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, ICF
-    ( Labeled Call
-        ( LArtificial "printsln" )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ICF
-    ( Labeled ( Branch EZ )
-        ( LArtificial "LOOP:1" )
-    )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "LOOP" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "LOOP:1" )
-    )
-, End
-, ICF
-    ( Mark
-        ( MArtificial "prints" )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ICF
-    ( Labeled ( Branch EZ )
-        ( LArtificial "prints_end" )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "prints" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "prints_end" )
-    )
-, IAL ( SPure Discard )
-, ICF Return
-, ICF
-    ( Mark
-        ( MArtificial "printsln" )
-    )
-, ICF
-    ( Labeled Call
-        ( LArtificial "prints" )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL ( SIO OutputChar )
-, ICF Return
-]
+SPure (Cons 3)
+
+Mark (MArtificial "LOOP")
+SPure (Indexed (IImmediate 0) Copy)
+SIO OutputDec
+SPure (Cons 0)
+SPure (Cons 32)
+SPure (Cons 44)
+SPure (Cons 108)
+SPure (Cons 108)
+SPure (Cons 97)
+SPure (Cons 119)
+SPure (Cons 32)
+SPure (Cons 101)
+SPure (Cons 104)
+SPure (Cons 116)
+SPure (Cons 32)
+SPure (Cons 110)
+SPure (Cons 111)
+SPure (Cons 32)
+SPure (Cons 114)
+SPure (Cons 101)
+SPure (Cons 101)
+SPure (Cons 98)
+SPure (Cons 32)
+SPure (Cons 102)
+SPure (Cons 111)
+SPure (Cons 32)
+SPure (Cons 115)
+SPure (Cons 101)
+SPure (Cons 108)
+SPure (Cons 116)
+SPure (Cons 116)
+SPure (Cons 111)
+SPure (Cons 98)
+SPure (Cons 32)
+Labeled (LArtificial "prints") Call
+SPure (Indexed (IImmediate 0) Copy)
+SIO OutputDec
+SPure (Cons 0)
+SPure (Cons 114)
+SPure (Cons 101)
+SPure (Cons 101)
+SPure (Cons 98)
+SPure (Cons 32)
+SPure (Cons 102)
+SPure (Cons 111)
+SPure (Cons 32)
+SPure (Cons 115)
+SPure (Cons 101)
+SPure (Cons 108)
+SPure (Cons 116)
+SPure (Cons 116)
+SPure (Cons 111)
+SPure (Cons 98)
+SPure (Cons 32)
+Labeled (LArtificial "printsln") Call
+SPure (Cons 0)
+SPure (Cons 100)
+SPure (Cons 110)
+SPure (Cons 117)
+SPure (Cons 111)
+SPure (Cons 114)
+SPure (Cons 97)
+SPure (Cons 32)
+SPure (Cons 116)
+SPure (Cons 105)
+SPure (Cons 32)
+SPure (Cons 115)
+SPure (Cons 115)
+SPure (Cons 97)
+SPure (Cons 112)
+SPure (Cons 32)
+SPure (Cons 44)
+SPure (Cons 110)
+SPure (Cons 119)
+SPure (Cons 111)
+SPure (Cons 100)
+SPure (Cons 32)
+SPure (Cons 101)
+SPure (Cons 110)
+SPure (Cons 111)
+SPure (Cons 32)
+SPure (Cons 101)
+SPure (Cons 107)
+SPure (Cons 97)
+SPure (Cons 84)
+Labeled (LArtificial "printsln") Call
+SPure (Unary (UImmediate 1 Sub))
+SPure (Indexed (IImmediate 0) Copy)
+SIO OutputDec
+SPure (Cons 0)
+SPure (Cons 108)
+SPure (Cons 108)
+SPure (Cons 97)
+SPure (Cons 119)
+SPure (Cons 32)
+SPure (Cons 101)
+SPure (Cons 104)
+SPure (Cons 116)
+SPure (Cons 32)
+SPure (Cons 110)
+SPure (Cons 111)
+SPure (Cons 32)
+SPure (Cons 114)
+SPure (Cons 101)
+SPure (Cons 101)
+SPure (Cons 98)
+SPure (Cons 32)
+SPure (Cons 102)
+SPure (Cons 111)
+SPure (Cons 32)
+SPure (Cons 115)
+SPure (Cons 101)
+SPure (Cons 108)
+SPure (Cons 116)
+SPure (Cons 116)
+SPure (Cons 111)
+SPure (Cons 98)
+SPure (Cons 32)
+Labeled (LArtificial "printsln") Call
+SPure (Cons 0)
+Labeled (LArtificial "printsln") Call
+SPure (Indexed (IImmediate 0) Copy)
+Labeled (LArtificial "LOOP:1") (Branch EZ)
+Labeled (LArtificial "LOOP") Jump
+
+Mark (MArtificial "LOOP:1")
+End
+
+Mark (MArtificial "prints")
+SPure (Indexed (IImmediate 0) Copy)
+Labeled (LArtificial "prints_end") (Branch EZ)
+SIO OutputChar
+Labeled (LArtificial "prints") Jump
+
+Mark (MArtificial "prints_end")
+SPure Discard
+Return
+
+Mark (MArtificial "printsln")
+Labeled (LArtificial "prints") Call
+SPure (Cons 10)
+SIO OutputChar
+Return

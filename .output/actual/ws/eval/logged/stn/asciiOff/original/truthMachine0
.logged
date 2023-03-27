@@ -12,8 +12,8 @@ dump: Memory
             , ILS ( MIO InputDec )
             , ILS Load
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "0" )
+                ( Labeled
+                    ( LArtificial "0" ) ( Branch EZ )
                 )
             , ICF
                 ( Mark
@@ -25,8 +25,8 @@ dump: Memory
                 )
             , IAL ( SIO OutputDec )
             , ICF
-                ( Labeled Jump
-                    ( LArtificial "1" )
+                ( Labeled
+                    ( LArtificial "1" ) Jump
                 )
             , ICF
                 ( Mark

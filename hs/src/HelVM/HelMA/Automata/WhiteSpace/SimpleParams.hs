@@ -36,7 +36,7 @@ simpleParams tt (st , rt) al s = SimpleParams
   , formatType = al
   , stackType = st
   , ramType = rt
-  , autoOptions = simpleAutoParams False
+  , autoOptions = simpleAutoParams
   }
 
 -- | Type

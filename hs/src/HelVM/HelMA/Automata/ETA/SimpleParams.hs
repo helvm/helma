@@ -7,12 +7,12 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Types.StackType
 
-simpleParams :: ETAImplType -> StackType -> Bool -> Source -> SimpleParams
-simpleParams it st c s = SimpleParams
+simpleParams :: ETAImplType -> StackType-> Source -> SimpleParams
+simpleParams it st s = SimpleParams
   { implType   = it
   , source     = s
   , stackType  = st
-  , autoOptions = simpleAutoParams c
+  , autoOptions = simpleAutoParams
   }
 
 -- | Type

@@ -19,6 +19,8 @@ import           System.FilePath.Posix                       hiding ((<.>))
 
 import           Test.Hspec                                  (Spec, describe, it)
 
+import           HelVM.HelMA.Automaton.PrettyPrinter
+
 spec :: Spec
 spec =
   describe "lexer" $ forM_ allFiles $ \(fileName , dirName) -> do
@@ -27,9 +29,9 @@ spec =
       it ("minified" </> path) $
         (show . readTokens <$> file) `goldenShouldIO` buildAbsoluteEtaFileName ("minified" </> path)
       it ("parsed" </> path) $
-        safeIOToPTextIO (parseSafe <$> file) `goldenShouldIO` buildAbsoluteEtaIlFileName ("parsed" </> path)
+        safeIOToIO ((printIL <.> parseSafe) <$> file) `goldenShouldIO` buildAbsoluteEtaIlFileName ("parsed" </> path)
       it ("optimized" </> path) $
-        safeIOToPTextIO ((optimize AllOptimizations <.> parseSafe) <$> file) `goldenShouldIO` buildAbsoluteEtaIlFileName ("optimized" </> path)
+        safeIOToIO ((printIL <.> optimize AllOptimizations <.> parseSafe) <$> file) `goldenShouldIO` buildAbsoluteEtaIlFileName ("optimized" </> path)
 
 allFiles :: [(FilePath, FilePath)]
 allFiles = original <> fromEAS

@@ -69,11 +69,6 @@ optionParser = AppOptions
                    <> help    "Optimize instructions"
                    <> showDefault
                    )
-  <*> switch       (  long    "compile"
-                   <> short   'C'
-                   <> help    "Compiler instructions"
-                   <> showDefault
-                   )
   <*> flag BinaryLabel TextLabel
                    (  long    "ascii-labels"
                    <> short   'A'
@@ -134,7 +129,7 @@ memoryOptions :: AppOptions -> API.MemoryOptions
 memoryOptions o = API.MemoryOptions (ramType o) (stackType o) (cellType o) (intCellType o)
 
 autoOptions :: AppOptions -> API.AutoOptions
-autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) (compileFlag o) Nothing (dumpType o)
+autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) Nothing (dumpType o)
 
 -- | Types
 
@@ -148,7 +143,6 @@ data AppOptions = AppOptions
   , tokenType        :: !TokenType
 
   , optimizationFlag :: !Optimization
-  , compileFlag      :: !Compile
   , formatType       :: !FormatType
   , ramType          :: !RAMType
   , stackType        :: !StackType

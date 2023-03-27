@@ -2,8 +2,8 @@
     [ Inst
         ( IAL
             ( SPure
-                ( Indexed Copy
-                    ( ImmediateO 0 )
+                ( Indexed
+                    ( IImmediate 0 ) Copy
                 )
             )
         )
@@ -20,8 +20,8 @@
     , Inst
         ( IAL
             ( SPure
-                ( Indexed Copy
-                    ( ImmediateO 0 )
+                ( Indexed
+                    ( IImmediate 0 ) Copy
                 )
             )
         )
@@ -29,8 +29,8 @@
         [ Inst
             ( IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             )
@@ -45,8 +45,8 @@
         , Inst
             ( IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             )
@@ -60,8 +60,8 @@
         [ Inst
             ( IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             )

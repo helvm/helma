@@ -204,8 +204,8 @@ dump: Memory
                     ( Cons 0 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "write" )
+                ( Labeled
+                    ( LArtificial "write" ) Call
                 )
             , IAL
                 ( SPure
@@ -230,8 +230,8 @@ dump: Memory
                     ( Cons 2 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "hanoi" )
+                ( Labeled
+                    ( LArtificial "hanoi" ) Call
                 )
             , End
             , ICF
@@ -244,8 +244,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -255,8 +255,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -266,8 +266,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -277,8 +277,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -288,8 +288,8 @@ dump: Memory
                 )
             , ILS Load
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "endhanoi" )
+                ( Labeled
+                    ( LArtificial "endhanoi" ) ( Branch EZ )
                 )
             , IAL
                 ( SPure
@@ -318,10 +318,10 @@ dump: Memory
             , ILS Load
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Sub ) )
             , IAL
                 ( SPure
                     ( Cons 101 )
@@ -338,8 +338,8 @@ dump: Memory
                 )
             , ILS Load
             , ICF
-                ( Labeled Call
-                    ( LArtificial "hanoi" )
+                ( Labeled
+                    ( LArtificial "hanoi" ) Call
                 )
             , IAL
                 ( SPure
@@ -347,8 +347,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -358,8 +358,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -369,8 +369,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -380,8 +380,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -396,8 +396,8 @@ dump: Memory
                     ( Cons 20 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "write" )
+                ( Labeled
+                    ( LArtificial "write" ) Call
                 )
             , IAL
                 ( SPure
@@ -406,8 +406,8 @@ dump: Memory
             , ILS Load
             , IAL ( SIO OutputDec )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "newline" )
+                ( Labeled
+                    ( LArtificial "newline" ) Call
                 )
             , IAL
                 ( SPure
@@ -436,10 +436,10 @@ dump: Memory
             , ILS Load
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Sub ) )
             , IAL
                 ( SPure
                     ( Cons 103 )
@@ -456,8 +456,8 @@ dump: Memory
                 )
             , ILS Load
             , ICF
-                ( Labeled Call
-                    ( LArtificial "hanoi" )
+                ( Labeled
+                    ( LArtificial "hanoi" ) Call
                 )
             , IAL
                 ( SPure
@@ -465,8 +465,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -476,8 +476,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -487,8 +487,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -498,8 +498,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             , ILS Store
@@ -521,31 +521,31 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ILS Load
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "write_end" )
+                ( Labeled
+                    ( LArtificial "write_end" ) ( Branch EZ )
                 )
             , IAL ( SIO OutputChar )
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Add ) )
             , ICF
-                ( Labeled Jump
-                    ( LArtificial "write" )
+                ( Labeled
+                    ( LArtificial "write" ) Jump
                 )
             , ICF
                 ( Mark
@@ -560,44 +560,44 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ILS ( MIO InputChar )
             , ILS Load
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , IAL
                 ( SPure
-                    ( Cons 10 )
+                    ( Unary
+                        ( UImmediate 10 Sub )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Sub ) )
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "read_end" )
+                ( Labeled
+                    ( LArtificial "read_end" ) ( Branch EZ )
                 )
             , IAL ( SPure Discard )
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Add ) )
             , ICF
-                ( Labeled Jump
-                    ( LArtificial "read" )
+                ( Labeled
+                    ( LArtificial "read" ) Jump
                 )
             , ICF
                 ( Mark
@@ -606,10 +606,10 @@ dump: Memory
             , IAL ( SPure Discard )
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Add ) )
             , IAL
                 ( SPure
                     ( Cons 0 )

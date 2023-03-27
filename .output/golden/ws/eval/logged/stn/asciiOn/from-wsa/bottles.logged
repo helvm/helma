@@ -11,8 +11,8 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , IAL ( SIO OutputDec )
@@ -141,13 +141,13 @@ dump: Memory
                     ( Cons 32 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "prints" )
+                ( Labeled
+                    ( LArtificial "prints" ) Call
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , IAL ( SIO OutputDec )
@@ -220,8 +220,8 @@ dump: Memory
                     ( Cons 32 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "printsln" )
+                ( Labeled
+                    ( LArtificial "printsln" ) Call
                 )
             , IAL
                 ( SPure
@@ -344,19 +344,19 @@ dump: Memory
                     ( Cons 84 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "printsln" )
+                ( Labeled
+                    ( LArtificial "printsln" ) Call
                 )
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
             , IAL
-                ( SPure ( Binary Sub ) )
-            , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , IAL ( SIO OutputDec )
@@ -477,30 +477,30 @@ dump: Memory
                     ( Cons 32 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "printsln" )
+                ( Labeled
+                    ( LArtificial "printsln" ) Call
                 )
             , IAL
                 ( SPure
                     ( Cons 0 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "printsln" )
+                ( Labeled
+                    ( LArtificial "printsln" ) Call
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "LOOP:1" )
+                ( Labeled
+                    ( LArtificial "LOOP:1" ) ( Branch EZ )
                 )
             , ICF
-                ( Labeled Jump
-                    ( LArtificial "LOOP" )
+                ( Labeled
+                    ( LArtificial "LOOP" ) Jump
                 )
             , ICF
                 ( Mark
@@ -513,18 +513,18 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "prints_end" )
+                ( Labeled
+                    ( LArtificial "prints_end" ) ( Branch EZ )
                 )
             , IAL ( SIO OutputChar )
             , ICF
-                ( Labeled Jump
-                    ( LArtificial "prints" )
+                ( Labeled
+                    ( LArtificial "prints" ) Jump
                 )
             , ICF
                 ( Mark
@@ -537,8 +537,8 @@ dump: Memory
                     ( MArtificial "printsln" )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "prints" )
+                ( Labeled
+                    ( LArtificial "prints" ) Call
                 )
             , IAL
                 ( SPure
@@ -547,7 +547,7 @@ dump: Memory
             , IAL ( SIO OutputChar )
             , ICF Return
             ]
-        , programCounter = 128
+        , programCounter = 127
         , returnStack = IS []
         }
     , memoryStack = fromList [ 0 ]

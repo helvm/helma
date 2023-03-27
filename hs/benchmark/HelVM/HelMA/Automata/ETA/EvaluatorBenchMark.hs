@@ -15,7 +15,7 @@ import           System.FilePath.Posix
 import           Gauge.Main
 
 benchMark :: Benchmark
-benchMark = bgroup "ETA" (benchMarkByStackType <$> ([defaultETAImplType] |><| stackTypes) >><| options)
+benchMark = bgroup "ETA" (benchMarkByStackType <$> ([defaultETAImplType] |><| stackTypes))
 
 benchMarkByStackType :: BenchParams -> Benchmark
 benchMarkByStackType t = bench (show t) $ nfIO $ execAll t
@@ -42,17 +42,17 @@ execOriginal :: BenchParams -> IO [[Text]]
 execOriginal t = forM
   [ ("hello"   , [""])
   , ("hello2"  , [""])
-  , ("fact"    , ["1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n"])
+  , ("fact"    , ["1\n" , "2\n" , "3\n" , "4\n" , "5\n" , "6\n" , "7\n" , "8\n" , "9\n"])
   , ("bottles" , [""])
   , ("crlf"    , [""])
   ] $ uncurry (ioExec t "original")
 
 ioExec :: BenchParams -> FilePath -> FilePath -> [Text] -> IO [Text]
-ioExec (implType , stackType, compile) dirName fileName inputs = do
+ioExec (implType , stackType) dirName fileName inputs = do
   let file = readEtaFile (dirName </> fileName)
   forM inputs $ \ input -> do
-    let params = simpleParams implType stackType compile <$> file
+    let params = simpleParams implType stackType <$> file
     let exec = ioExecMockIOWithInput input . simpleEval =<< params
     calculateOutput <$> exec
 
-type BenchParams = (ETAImplType, StackType, Bool)
+type BenchParams = (ETAImplType, StackType)

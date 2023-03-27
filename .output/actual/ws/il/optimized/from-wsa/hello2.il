@@ -1,105 +1,33 @@
-[ IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 33 )
-    )
-, IAL
-    ( SPure
-        ( Cons 100 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 114 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 119 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 44 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 72 )
-    )
-, ICF
-    ( Labeled Call
-        ( LArtificial "prints" )
-    )
-, End
-, ICF
-    ( Mark
-        ( MArtificial "prints" )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ICF
-    ( Labeled ( Branch EZ )
-        ( LArtificial "prints_end" )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "prints" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "prints_end" )
-    )
-, IAL ( SPure Discard )
-, ICF Return
-, ICF
-    ( Mark
-        ( MArtificial "printsln" )
-    )
-, ICF
-    ( Labeled Call
-        ( LArtificial "prints" )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL ( SIO OutputChar )
-, ICF Return
-]
+SPure (Cons 0)
+SPure (Cons 10)
+SPure (Cons 33)
+SPure (Cons 100)
+SPure (Cons 108)
+SPure (Cons 114)
+SPure (Cons 111)
+SPure (Cons 119)
+SPure (Cons 32)
+SPure (Cons 44)
+SPure (Cons 111)
+SPure (Cons 108)
+SPure (Cons 108)
+SPure (Cons 101)
+SPure (Cons 72)
+Labeled (LArtificial "prints") Call
+End
+
+Mark (MArtificial "prints")
+SPure (Indexed (IImmediate 0) Copy)
+Labeled (LArtificial "prints_end") (Branch EZ)
+SIO OutputChar
+Labeled (LArtificial "prints") Jump
+
+Mark (MArtificial "prints_end")
+SPure Discard
+Return
+
+Mark (MArtificial "printsln")
+Labeled (LArtificial "prints") Call
+SPure (Cons 10)
+SIO OutputChar
+Return

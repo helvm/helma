@@ -1,72 +1,29 @@
-[ IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 44 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, IAL
-    ( SPure
-        ( Cons 72 )
-    )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 33 )
-    )
-, IAL
-    ( SPure
-        ( Cons 100 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 114 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 119 )
-    )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, End
-]
+SPure (Cons 32)
+SPure (Cons 44)
+SPure (Cons 111)
+SPure (Cons 108)
+SPure (Cons 108)
+SPure (Cons 101)
+SPure (Cons 72)
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SPure (Cons 10)
+SPure (Cons 33)
+SPure (Cons 100)
+SPure (Cons 108)
+SPure (Cons 114)
+SPure (Cons 111)
+SPure (Cons 119)
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+End

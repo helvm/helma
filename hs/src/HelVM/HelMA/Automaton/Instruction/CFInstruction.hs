@@ -2,11 +2,6 @@ module HelVM.HelMA.Automaton.Instruction.CFInstruction where
 
 import           HelVM.HelIO.Collections.SList
 
--- | Constructors
-
-cfJumpI :: CFInstruction
-cfJumpI = Labeled Jump LTop
-
 -- | Others
 
 isNotJump :: Integral e => BranchTest -> e -> Bool
@@ -21,7 +16,7 @@ isJump GTZ e = e >  0
 -- | Types
 data CFInstruction =
     Mark     !Mark
-  | Labeled      !LabeledOperation !LabelOperand
+  | Labeled  !LabelOperand !LabeledOperation
   | Return
   deriving stock (Eq , Read , Show)
 

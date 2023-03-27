@@ -1,202 +1,77 @@
-[ ICF
-    ( Mark
-        ( MNatural 1 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 2 )
-    )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "1" )
-    )
-, IAL ( SIO OutputChar )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, IAL ( SIO InputChar )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 4 )
-    )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Mark
-        ( MNatural 2 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 3 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 4 )
-    )
-, IAL
-    ( SPure
-        ( Cons 44 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "5" )
-    )
-, ICF
-    ( Mark
-        ( MNatural 5 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "5" )
-    )
-, ICF
-    ( Mark
-        ( MNatural 6 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 7 )
-    )
-, IAL
-    ( SPure
-        ( Cons 72 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 8 )
-    )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Mark
-        ( MNatural 9 )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 33 )
-    )
-, IAL
-    ( SPure
-        ( Cons 100 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 11 )
-    )
-, IAL
-    ( SPure
-        ( Cons 114 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, IAL
-    ( SPure
-        ( Cons 119 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 12 )
-    )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Mark
-        ( MNatural 13 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 0 )
-    )
-, End
-]
+
+Mark (MNatural 1)
+Labeled (LImmediate 2) Jump
+
+Mark (MArtificial "1")
+SIO OutputChar
+SPure (Binaries [Mod,Div])
+Labeled LTop (Branch NE)
+SPure (Cons 2)
+SIO InputChar
+Labeled LTop (Branch NE)
+Labeled LTop (Branch NE)
+SPure (Binaries [Mod,Div])
+Labeled (LImmediate 4) (Branch NE)
+SPure (Cons 2)
+SIO OutputChar
+
+Mark (MNatural 2)
+
+Mark (MNatural 3)
+SPure (Cons 32)
+
+Mark (MNatural 4)
+SPure (Cons 44)
+SPure (Cons 111)
+Labeled (LArtificial "5") Jump
+
+Mark (MNatural 5)
+Labeled LTop (Branch NE)
+SPure (Binary Sub)
+SPure (Binaries [Mod,Div])
+
+Mark (MArtificial "5")
+
+Mark (MNatural 6)
+SPure (Cons 108)
+SPure (Cons 108)
+SPure (Cons 101)
+
+Mark (MNatural 7)
+SPure (Cons 72)
+
+Mark (MNatural 8)
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+
+Mark (MNatural 9)
+SPure (Cons 10)
+
+Mark (MNatural 10)
+SPure (Cons 33)
+SPure (Cons 100)
+SPure (Cons 108)
+
+Mark (MNatural 11)
+SPure (Cons 114)
+SPure (Cons 111)
+SPure (Cons 119)
+
+Mark (MNatural 12)
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+SIO OutputChar
+
+Mark (MNatural 13)
+
+Mark (MNatural 0)
+End

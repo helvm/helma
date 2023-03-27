@@ -1,741 +1,236 @@
-[ ICF
-    ( Mark
-        ( MNatural 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 14 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 2 )
-    )
-, IAL
-    ( SPure
-        ( Cons 3 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 5 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 3 )
-    )
-, IAL
-    ( SPure
-        ( Cons 4 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 32 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 4 )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 0 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 5 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 1 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 6 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 7 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 9 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 8 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 13 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 9 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 11 )
-    )
-, IAL
-    ( SPure
-        ( Cons 12 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 5 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 12 )
-    )
-, IAL
-    ( SPure
-        ( Cons 13 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 42 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 13 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 14 )
-    )
-, IAL ( SIO InputChar )
-, ICF
-    ( Mark
-        ( MNatural 15 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 16 )
-    )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 18 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 17 )
-    )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 14 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 18 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 1 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 19 )
-    )
-, IAL
-    ( SPure
-        ( Cons 48 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 20 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 1 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 21 )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 22 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 42 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL ( SPure Halibut )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "21" )
-    )
-, IAL
-    ( SPure
-        ( Cons 22 )
-    )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL ( SIO InputChar )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 22 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 1 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 23 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 24 )
-    )
-, IAL ( SIO InputChar )
-, ICF
-    ( Mark
-        ( MNatural 25 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 27 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 26 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 30 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 27 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 29 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 28 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 30 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 29 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, IAL
-    ( SPure
-        ( Cons
-            ( -1 )
-        )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 19 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 30 )
-    )
-, IAL ( SPure Discard )
-, ICF
-    ( Mark
-        ( MNatural 31 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 32 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 33 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 34 )
-    )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 36 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 35 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 40 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 36 )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "36" )
-    )
-, ICF
-    ( Mark
-        ( MNatural 37 )
-    )
-, IAL
-    ( SPure
-        ( Cons
-            ( -48 )
-        )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 38 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 1 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 39 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 33 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 40 )
-    )
-, IAL
-    ( SPure
-        ( Cons 41 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 58 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 41 )
-    )
-, ICF ( Labeled Jump LTop )
-, ICF
-    ( Mark
-        ( MNatural 42 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 43 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 44 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 45 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 46 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 47 )
-    )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 49 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 48 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 56 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 49 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 50 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 51 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 3 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 52 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 53 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 54 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 55 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 46 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 56 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 1 )
-        )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 57 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 58 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 1 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 59 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 60 )
-    )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 62 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 61 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF ( Labeled Jump LTop )
-, ICF
-    ( Mark
-        ( MNatural 62 )
-    )
-, IAL ( SIO OutputChar )
-, ICF
-    ( Mark
-        ( MNatural 63 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 58 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 64 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 0 )
-    )
-, End
-]
+
+Mark (MNatural 1)
+SPure (Cons 2)
+Labeled (LImmediate 14) Jump
+
+Mark (MNatural 2)
+SPure (Cons 3)
+Labeled (LImmediate 5) Jump
+
+Mark (MNatural 3)
+SPure (Cons 4)
+Labeled (LImmediate 32) Jump
+
+Mark (MNatural 4)
+SPure (Cons 10)
+SIO OutputChar
+Labeled (LImmediate 0) Jump
+
+Mark (MNatural 5)
+SPure (Indexed (IImmediate 1) Move)
+
+Mark (MNatural 6)
+SPure (Indexed (IImmediate 0) Copy)
+
+Mark (MNatural 7)
+SPure (Unary (UImmediate 1 Sub))
+Labeled (LImmediate 9) (Branch NE)
+
+Mark (MNatural 8)
+Labeled (LImmediate 13) Jump
+
+Mark (MNatural 9)
+SPure (Indexed (IImmediate 0) Copy)
+
+Mark (MNatural 10)
+SPure (Unary (UImmediate 1 Sub))
+
+Mark (MNatural 11)
+SPure (Cons 12)
+Labeled (LImmediate 5) Jump
+
+Mark (MNatural 12)
+SPure (Cons 13)
+Labeled (LImmediate 42) Jump
+
+Mark (MNatural 13)
+SPure (Indexed (IImmediate 1) Move)
+Labeled LTop Jump
+
+Mark (MNatural 14)
+SIO InputChar
+
+Mark (MNatural 15)
+SPure (Indexed (IImmediate 0) Copy)
+SPure (Unary (UImmediate 32 Sub))
+
+Mark (MNatural 16)
+Labeled (LImmediate 18) (Branch NE)
+
+Mark (MNatural 17)
+Labeled (LImmediate 14) (Branch NE)
+
+Mark (MNatural 18)
+SPure (Cons 0)
+SPure (Indexed (IImmediate 1) Move)
+
+Mark (MNatural 19)
+SPure (Unary (UImmediate 48 Sub))
+
+Mark (MNatural 20)
+SPure (Indexed (IImmediate 1) Move)
+
+Mark (MNatural 21)
+SPure (Cons 10)
+SPure (Cons 22)
+Labeled (LImmediate 42) Jump
+
+Mark (MArtificial "21")
+SPure (Cons 22)
+SPure (Binaries [Mod,Div])
+Labeled LTop (Branch NE)
+SIO InputChar
+Labeled LTop (Branch NE)
+SPure (Binaries [Mod,Div])
+
+Mark (MNatural 22)
+SPure (Cons 0)
+SPure (Indexed (IImmediate 1) Move)
+
+Mark (MNatural 23)
+SPure (Binary Sub)
+SPure (Binary Sub)
+
+Mark (MNatural 24)
+SIO InputChar
+
+Mark (MNatural 25)
+SPure (Indexed (IImmediate 0) Copy)
+SPure (Unary (UImmediate 32 Sub))
+Labeled (LImmediate 27) (Branch NE)
+
+Mark (MNatural 26)
+Labeled (LImmediate 30) Jump
+
+Mark (MNatural 27)
+SPure (Indexed (IImmediate 0) Copy)
+SPure (Unary (UImmediate 10 Sub))
+Labeled (LImmediate 29) (Branch NE)
+
+Mark (MNatural 28)
+Labeled (LImmediate 30) Jump
+
+Mark (MNatural 29)
+SPure (Indexed (IImmediate 0) Copy)
+SPure (Unary (UImmediate (-1) Sub))
+Labeled (LImmediate 19) (Branch NE)
+
+Mark (MNatural 30)
+SPure Discard
+
+Mark (MNatural 31)
+SPure (Indexed (IImmediate 1) Move)
+Labeled LTop Jump
+
+Mark (MNatural 32)
+SPure (Cons 0)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 33)
+SPure (Indexed (IImmediate 0) Copy)
+
+Mark (MNatural 34)
+Labeled (LImmediate 36) (Branch NE)
+
+Mark (MNatural 35)
+SPure (Binary Sub)
+Labeled (LImmediate 40) Jump
+
+Mark (MNatural 36)
+SPure (Cons 10)
+SPure (Binaries [Mod,Div])
+
+Mark (MArtificial "36")
+
+Mark (MNatural 37)
+SPure (Unary (UImmediate (-48) Sub))
+
+Mark (MNatural 38)
+SPure (Indexed (IImmediate 1) Move)
+
+Mark (MNatural 39)
+Labeled (LImmediate 33) Jump
+
+Mark (MNatural 40)
+SPure (Cons 41)
+Labeled (LImmediate 58) Jump
+
+Mark (MNatural 41)
+Labeled LTop Jump
+
+Mark (MNatural 42)
+SPure (Indexed (IImmediate 2) Move)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 43)
+SPure (Cons 0)
+
+Mark (MNatural 44)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 45)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 46)
+SPure (Indexed (IImmediate 0) Copy)
+
+Mark (MNatural 47)
+Labeled (LImmediate 49) (Branch NE)
+
+Mark (MNatural 48)
+Labeled (LImmediate 56) Jump
+
+Mark (MNatural 49)
+SPure (Unary (UImmediate 1 Sub))
+
+Mark (MNatural 50)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 51)
+SPure (Cons 0)
+SPure (Indexed (IImmediate 3) Copy)
+
+Mark (MNatural 52)
+SPure (Binary Sub)
+SPure (Binary Sub)
+
+Mark (MNatural 53)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 54)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 55)
+Labeled (LImmediate 46) Jump
+
+Mark (MNatural 56)
+SPure (Indexed (IImmediate 1) Move)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 57)
+SPure (Indexed (IImmediate 1) Move)
+Labeled LTop Jump
+
+Mark (MNatural 58)
+SPure (Indexed (IImmediate 1) Move)
+
+Mark (MNatural 59)
+SPure (Indexed (IImmediate 0) Copy)
+
+Mark (MNatural 60)
+Labeled (LImmediate 62) (Branch NE)
+
+Mark (MNatural 61)
+SPure (Binary Sub)
+Labeled LTop Jump
+
+Mark (MNatural 62)
+SIO OutputChar
+
+Mark (MNatural 63)
+Labeled (LImmediate 58) Jump
+
+Mark (MNatural 64)
+
+Mark (MNatural 0)
+End

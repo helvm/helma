@@ -1,140 +1,46 @@
-[ ICF
-    ( Mark
-        ( MNatural 1 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 2 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 3 )
-    )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 5 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 4 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 10 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 5 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 1 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 6 )
-    )
-, IAL
-    ( SPure
-        ( Binaries
-            [ Mod
-            , Div
-            ]
-        )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "6" )
-    )
-, ICF
-    ( Mark
-        ( MNatural 7 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 8 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 1 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 9 )
-    )
-, ICF
-    ( Labeled Jump
-        ( LImmediate 2 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 10 )
-    )
-, ICF
-    ( Labeled ( Branch NE )
-        ( LImmediate 0 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 11 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 12 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 13 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 0 )
-    )
-, End
-]
+
+Mark (MNatural 1)
+SPure (Indexed (IImmediate 2) Move)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 2)
+SPure (Indexed (IImmediate 0) Copy)
+
+Mark (MNatural 3)
+Labeled (LImmediate 5) (Branch NE)
+
+Mark (MNatural 4)
+Labeled (LImmediate 10) Jump
+
+Mark (MNatural 5)
+SPure (Indexed (IImmediate 1) Copy)
+
+Mark (MNatural 6)
+SPure (Binaries [Mod,Div])
+
+Mark (MArtificial "6")
+
+Mark (MNatural 7)
+SPure (Indexed (IImmediate 1) Move)
+SPure Discard
+
+Mark (MNatural 8)
+SPure (Indexed (IImmediate 1) Move)
+
+Mark (MNatural 9)
+Labeled (LImmediate 2) Jump
+
+Mark (MNatural 10)
+Labeled (LImmediate 0) (Branch NE)
+
+Mark (MNatural 11)
+SPure (Cons 1)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 12)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 13)
+
+Mark (MNatural 0)
+End

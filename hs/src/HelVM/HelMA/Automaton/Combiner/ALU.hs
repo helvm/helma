@@ -55,16 +55,21 @@ runSIO InputChar  = doInputChar2
 runSIO InputDec   = doInputDec2
 
 runSAL :: SafeStack m ll element => SPureInstruction -> ll -> m ll
-runSAL (Cons         i   ) = push  i
-runSAL (Unary        op  ) = error $ show op
-runSAL (Binary       op  ) = binaryInstruction op
-runSAL (Binaries     ops ) = binaryInstructions ops
-runSAL (Indexed op t)      = indexedInstruction op t
-runSAL  Halibut            = halibut
-runSAL  Pick               = pick
-runSAL  Discard            = discard
+runSAL (Cons      i   ) = push  i
+runSAL (Unary     op  ) = unaryInstruction op
+runSAL (Binary    op  ) = binaryInstruction op
+runSAL (Binaries  ops ) = binaryInstructions ops
+runSAL (Indexed t op)   = indexedInstruction op t
+runSAL  Halibut         = halibut
+runSAL  Pick            = pick
+runSAL  Discard         = discard
 
 -- | Arithmetic instructions
+unaryInstruction :: SafeStack m ll element => UnaryOperation -> ll -> m ll
+unaryInstruction (UImmediate i op) = build <.> pop1 where
+  build (e , l) = push1 (calculateOp (fromInteger i) e op) l
+unaryInstruction               op  = error $ show op
+
 divMod :: SafeStack m ll element => ll -> m ll
 divMod = binaryInstructions [Mod , Div]
 
@@ -96,8 +101,8 @@ doInputDec2 l = build <$> wGetCharAs where
   build e = push1 e l
 
 indexedInstruction :: SafeStack m ll element => IndexedOperation -> IndexOperand -> ll -> m ll
-indexedInstruction i TopO           = indexedInstructionTop i
-indexedInstruction i (ImmediateO n) = indexedInstructionImmediate i n
+indexedInstruction i ITop           = indexedInstructionTop i
+indexedInstruction i (IImmediate n) = indexedInstructionImmediate i n
 
 -- | Indexed instructions
 indexedInstructionTop :: SafeStack m ll element => IndexedOperation -> ll -> m ll

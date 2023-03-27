@@ -9,6 +9,9 @@ import           Data.Vector                                     as Vector
 
 -- | Constructors
 
+immediateBinaryI :: Integer -> BinaryOperation -> Instruction
+immediateBinaryI i = IAL . SPure . Unary . UImmediate i
+
 consI :: Integer -> Instruction
 consI = sal . Cons
 
@@ -28,7 +31,7 @@ dupI , swapI , rotI , copyTI , discardI :: Instruction
 dupI     = copyII 0
 swapI    = moveII 1
 rotI     = moveII 2
-copyTI   = sal $ Indexed Copy TopO
+copyTI   = sal $ Indexed ITop Copy
 discardI = sal Discard
 
 copyII :: Index -> Instruction
@@ -41,7 +44,7 @@ slideII :: Index -> Instruction
 slideII = manipulationII Slide
 
 manipulationII :: IndexedOperation -> Index -> Instruction
-manipulationII i = sal . Indexed i . ImmediateO
+manipulationII op i = sal $ Indexed (IImmediate i) op
 
 sInputI , sOutputI , sOutputDecI :: Instruction
 sInputI     = sio InputChar
@@ -93,13 +96,13 @@ bEzSI  = cfs (Branch EZ )
 bLtzSI = cfs (Branch LTZ)
 
 cft :: LabeledOperation -> Instruction
-cft i = ICF $ Labeled i LTop
+cft = ICF . Labeled LTop
 
 cfi :: LabeledOperation -> Natural -> Instruction
-cfi i = ICF . Labeled i . LImmediate
+cfi op n = ICF $ Labeled (LImmediate n) op
 
 cfs :: LabeledOperation -> Label -> Instruction
-cfs i = ICF . Labeled i . LArtificial
+cfs op l = ICF $ Labeled (LArtificial l) op
 
 returnI :: Instruction
 returnI = ICF Return

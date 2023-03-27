@@ -51,16 +51,16 @@ data SPureInstruction =
   | Unary    !UnaryOperation
   | Binary   !BinaryOperation
   | Binaries [BinaryOperation]
-  | Indexed  !IndexedOperation !IndexOperand
+  | Indexed  !IndexOperand !IndexedOperation
   | Halibut
   | Pick
   | Discard
   deriving stock (Eq , Read , Show)
 
-data IndexOperand = TopO | ImmediateO !Index
+data IndexOperand = ITop | IImmediate !Index
   deriving stock (Eq , Read , Show)
 
-data UnaryOperation = Neg | BNot | LNot
+data UnaryOperation = Neg | BNot | LNot | UImmediate Integer BinaryOperation
   deriving stock (Eq , Read , Show)
 
 data BinaryOperation =

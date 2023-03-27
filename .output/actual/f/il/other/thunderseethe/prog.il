@@ -15,8 +15,8 @@
     , Inst
         ( IAL
             ( SPure
-                ( Indexed Move
-                    ( ImmediateO 2 )
+                ( Indexed
+                    ( IImmediate 2 ) Move
                 )
             )
         )
@@ -58,8 +58,8 @@
         , Inst
             ( IAL
                 ( SPure
-                    ( Indexed Move
-                        ( ImmediateO 1 )
+                    ( Indexed
+                        ( IImmediate 1 ) Move
                     )
                 )
             )

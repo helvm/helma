@@ -159,8 +159,8 @@ dump: Memory
                     ( Cons 0 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "0111011101110010011010010111010001100101" )
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Call
                 )
             , IAL
                 ( SPure
@@ -172,8 +172,8 @@ dump: Memory
                     ( Cons 0 )
                 )
             , ICF
-                ( Labeled Call
-                    ( LArtificial "0111011101110010011010010111010001100101" )
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Call
                 )
             , IAL
                 ( SPure
@@ -191,8 +191,8 @@ dump: Memory
                 )
             , ILS Load
             , ICF
-                ( Labeled Call
-                    ( LArtificial "01101100011011110110001101110100011001010111001101110100" )
+                ( Labeled
+                    ( LArtificial "01101100011011110110001101110100011001010111001101110100" ) Call
                 )
             , IAL ( SIO OutputDec )
             , End
@@ -202,22 +202,22 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 2 )
+                    ( Indexed
+                        ( IImmediate 2 ) Copy
                     )
                 )
             , IAL
                 ( SPure ( Binary Add ) )
             , IAL
                 ( SPure
-                    ( Indexed Slide
-                        ( ImmediateO 2 )
+                    ( Indexed
+                        ( IImmediate 2 ) Slide
                     )
                 )
             , ICF Return
@@ -234,31 +234,31 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ILS Load
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" )
+                ( Labeled
+                    ( LArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" ) ( Branch EZ )
                 )
             , IAL ( SIO OutputChar )
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Add ) )
             , ICF
-                ( Labeled Jump
-                    ( LArtificial "0111011101110010011010010111010001100101" )
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Jump
                 )
             , ICF
                 ( Mark
@@ -273,44 +273,44 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , ILS ( MIO InputChar )
             , ILS Load
             , IAL
                 ( SPure
-                    ( Indexed Copy
-                        ( ImmediateO 0 )
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
                     )
                 )
             , IAL
                 ( SPure
-                    ( Cons 10 )
+                    ( Unary
+                        ( UImmediate 10 Sub )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Sub ) )
             , ICF
-                ( Labeled ( Branch EZ )
-                    ( LArtificial "0111001001100101011000010110010001011111011001010110111001100100" )
+                ( Labeled
+                    ( LArtificial "0111001001100101011000010110010001011111011001010110111001100100" ) ( Branch EZ )
                 )
             , IAL ( SPure Discard )
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Add ) )
             , ICF
-                ( Labeled Jump
-                    ( LArtificial "01110010011001010110000101100100" )
+                ( Labeled
+                    ( LArtificial "01110010011001010110000101100100" ) Jump
                 )
             , ICF
                 ( Mark
@@ -319,10 +319,10 @@ dump: Memory
             , IAL ( SPure Discard )
             , IAL
                 ( SPure
-                    ( Cons 1 )
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
                 )
-            , IAL
-                ( SPure ( Binary Add ) )
             , IAL
                 ( SPure
                     ( Cons 0 )

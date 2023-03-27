@@ -1,353 +1,120 @@
-[ IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, IAL
-    ( SPure
-        ( Cons 72 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 2 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 3 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 4 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 5 )
-    )
-, IAL
-    ( SPure
-        ( Cons 44 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 6 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 7 )
-    )
-, IAL
-    ( SPure
-        ( Cons 119 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 8 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 9 )
-    )
-, IAL
-    ( SPure
-        ( Cons 114 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 108 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 11 )
-    )
-, IAL
-    ( SPure
-        ( Cons 100 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 12 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 13 )
-    )
-, IAL
-    ( SPure
-        ( Cons 111 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 14 )
-    )
-, IAL
-    ( SPure
-        ( Cons 102 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 15 )
-    )
-, IAL
-    ( SPure
-        ( Cons 32 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 16 )
-    )
-, IAL
-    ( SPure
-        ( Cons 115 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 17 )
-    )
-, IAL
-    ( SPure
-        ( Cons 112 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 18 )
-    )
-, IAL
-    ( SPure
-        ( Cons 97 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 19 )
-    )
-, IAL
-    ( SPure
-        ( Cons 99 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 20 )
-    )
-, IAL
-    ( SPure
-        ( Cons 101 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 21 )
-    )
-, IAL
-    ( SPure
-        ( Cons 115 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 22 )
-    )
-, IAL
-    ( SPure
-        ( Cons 33 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 23 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Store
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, ICF
-    ( Labeled Call
-        ( LArtificial "write" )
-    )
-, ICF
-    ( Labeled Call
-        ( LArtificial "newline" )
-    )
-, End
-, ICF
-    ( Mark
-        ( MArtificial "add" )
-    )
-, IAL
-    ( SPure ( Binary Add ) )
-, ICF Return
-, ICF
-    ( Mark
-        ( MArtificial "write" )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ILS Load
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ICF
-    ( Labeled ( Branch EZ )
-        ( LArtificial "write_end" )
-    )
-, IAL ( SIO OutputChar )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Add ) )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "write" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "write_end" )
-    )
-, IAL ( SPure Discard )
-, IAL ( SPure Discard )
-, ICF Return
-, ICF
-    ( Mark
-        ( MArtificial "read" )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, ILS ( MIO InputChar )
-, ILS Load
-, IAL
-    ( SPure
-        ( Indexed Copy
-            ( ImmediateO 0 )
-        )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Labeled ( Branch EZ )
-        ( LArtificial "read_end" )
-    )
-, IAL ( SPure Discard )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Add ) )
-, ICF
-    ( Labeled Jump
-        ( LArtificial "read" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "read_end" )
-    )
-, IAL ( SPure Discard )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, IAL
-    ( SPure ( Binary Add ) )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Store
-, ICF Return
-, ICF
-    ( Mark
-        ( MArtificial "newline" )
-    )
-, IAL
-    ( SPure
-        ( Cons 10 )
-    )
-, IAL
-    ( SPure
-        ( Cons 13 )
-    )
-, IAL ( SIO OutputChar )
-, IAL ( SIO OutputChar )
-, ICF Return
-]
+SPure (Cons 0)
+SPure (Cons 72)
+Store
+SPure (Cons 1)
+SPure (Cons 101)
+Store
+SPure (Cons 2)
+SPure (Cons 108)
+Store
+SPure (Cons 3)
+SPure (Cons 108)
+Store
+SPure (Cons 4)
+SPure (Cons 111)
+Store
+SPure (Cons 5)
+SPure (Cons 44)
+Store
+SPure (Cons 6)
+SPure (Cons 32)
+Store
+SPure (Cons 7)
+SPure (Cons 119)
+Store
+SPure (Cons 8)
+SPure (Cons 111)
+Store
+SPure (Cons 9)
+SPure (Cons 114)
+Store
+SPure (Cons 10)
+SPure (Cons 108)
+Store
+SPure (Cons 11)
+SPure (Cons 100)
+Store
+SPure (Cons 12)
+SPure (Cons 32)
+Store
+SPure (Cons 13)
+SPure (Cons 111)
+Store
+SPure (Cons 14)
+SPure (Cons 102)
+Store
+SPure (Cons 15)
+SPure (Cons 32)
+Store
+SPure (Cons 16)
+SPure (Cons 115)
+Store
+SPure (Cons 17)
+SPure (Cons 112)
+Store
+SPure (Cons 18)
+SPure (Cons 97)
+Store
+SPure (Cons 19)
+SPure (Cons 99)
+Store
+SPure (Cons 20)
+SPure (Cons 101)
+Store
+SPure (Cons 21)
+SPure (Cons 115)
+Store
+SPure (Cons 22)
+SPure (Cons 33)
+Store
+SPure (Cons 23)
+SPure (Cons 0)
+Store
+SPure (Cons 0)
+Labeled (LArtificial "write") Call
+Labeled (LArtificial "newline") Call
+End
+
+Mark (MArtificial "add")
+SPure (Binary Add)
+Return
+
+Mark (MArtificial "write")
+SPure (Indexed (IImmediate 0) Copy)
+Load
+SPure (Indexed (IImmediate 0) Copy)
+Labeled (LArtificial "write_end") (Branch EZ)
+SIO OutputChar
+SPure (Unary (UImmediate 1 Add))
+Labeled (LArtificial "write") Jump
+
+Mark (MArtificial "write_end")
+SPure Discard
+SPure Discard
+Return
+
+Mark (MArtificial "read")
+SPure (Indexed (IImmediate 0) Copy)
+SPure (Indexed (IImmediate 0) Copy)
+MIO InputChar
+Load
+SPure (Indexed (IImmediate 0) Copy)
+SPure (Unary (UImmediate 10 Sub))
+Labeled (LArtificial "read_end") (Branch EZ)
+SPure Discard
+SPure (Unary (UImmediate 1 Add))
+Labeled (LArtificial "read") Jump
+
+Mark (MArtificial "read_end")
+SPure Discard
+SPure (Unary (UImmediate 1 Add))
+SPure (Cons 0)
+Store
+Return
+
+Mark (MArtificial "newline")
+SPure (Cons 10)
+SPure (Cons 13)
+SIO OutputChar
+SIO OutputChar
+Return

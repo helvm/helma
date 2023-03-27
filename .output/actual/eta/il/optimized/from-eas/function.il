@@ -1,84 +1,32 @@
-[ ICF
-    ( Mark
-        ( MNatural 1 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 2 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 3 )
-    )
-, IAL
-    ( SPure
-        ( Cons 0 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 4 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 1 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 5 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 6 )
-    )
-, IAL
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Mark
-        ( MNatural 7 )
-    )
-, IAL
-    ( SPure
-        ( Cons 1 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 8 )
-    )
-, IAL
-    ( SPure
-        ( Indexed Move
-            ( ImmediateO 2 )
-        )
-    )
-, ICF
-    ( Mark
-        ( MNatural 9 )
-    )
-, ICF
-    ( Labeled ( Branch NE ) LTop )
-, ICF
-    ( Mark
-        ( MNatural 10 )
-    )
-, ICF
-    ( Mark
-        ( MNatural 0 )
-    )
-, End
-]
+
+Mark (MNatural 1)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 2)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 3)
+SPure (Cons 0)
+
+Mark (MNatural 4)
+SPure (Indexed (IImmediate 1) Move)
+
+Mark (MNatural 5)
+SPure (Binary Sub)
+
+Mark (MNatural 6)
+SPure (Binary Sub)
+
+Mark (MNatural 7)
+SPure (Cons 1)
+
+Mark (MNatural 8)
+SPure (Indexed (IImmediate 2) Move)
+
+Mark (MNatural 9)
+Labeled LTop (Branch NE)
+
+Mark (MNatural 10)
+
+Mark (MNatural 0)
+End

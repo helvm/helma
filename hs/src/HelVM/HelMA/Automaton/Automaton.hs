@@ -23,16 +23,16 @@ import           HelVM.HelMA.Automaton.Types.StackType
 import           HelVM.HelMA.Automaton.Combiner
 import           HelVM.HelMA.Automaton.Combiner.CPU         as CPU
 
-import           HelVM.HelIO.Containers.LLIndexSafe
-
 import qualified HelVM.HelIO.Collections.MapList            as MapList
 import qualified HelVM.HelIO.Collections.SList              as SList
 
-import           Control.Applicative.Tools
+import           HelVM.HelIO.Control.Safe
+
+import           HelVM.HelIO.Extra
+
 import           Control.Monad.Extra
 
 import qualified Data.Sequence                              as Seq
-import           Data.Vector                                as Vector
 
 import           Prelude                                    hiding (swap)
 
@@ -54,28 +54,11 @@ start''' :: (SRAutomatonIO Symbol s r m) => InstructionList -> s -> r -> AutoOpt
 start''' il s r p = runAndDumpLogs p (newMemory il s r)
 
 runAndDumpLogs :: (SRAutomatonIO Symbol s r m) => AutoOptions -> Memory s r ->  m ()
-runAndDumpLogs p = logDump (dumpType p) <=< run (compileFlag p) (limit p)
+runAndDumpLogs p = logDump (dumpType p) <=< run (limit p)
 
-run :: (SRAutomatonIO Symbol s r m) => Bool -> LimitMaybe -> F s r m
-run False = runI
-run True  = runA --FIXME Remove it because it does not work
+run :: (SRAutomatonIO Symbol s r m) => LimitMaybe -> F s r m
+run = loopMWithLimit nextState
 
-----
-
-runA :: (SRAutomatonIO Symbol s r m) => LimitMaybe -> F s r m
-runA l a = loopMWithLimit (nextStateA $ compileA a) l  a
-
-compileA :: (SRAutomatonIO Symbol s r m) => Memory s r -> Vector (SF s r m)
-compileA = runInstruction <.> memoryProgram
-
-nextStateA :: (SRAutomatonIO Symbol s r m) => Vector (SF s r m) -> SF s r m
-nextStateA fv a = flip id (incrementIC a) =<< indexSafe fv (memoryProgramCounter a)
-
-----
-
-runI :: (SRAutomatonIO Symbol s r m) => LimitMaybe -> F s r m
-runI = loopMWithLimit nextStateI
-
-nextStateI :: (SRAutomatonIO Symbol s r m) => SF s r m
-nextStateI a = nextStateForInstruction =<< currentInstruction (memoryCM a) where
-  nextStateForInstruction i = runInstruction i $ incrementIC a
+nextState :: (SRAutomatonIO Symbol s r m) => SF s r m
+nextState a = nextStateForInstruction =<< currentInstruction (memoryCM a) where
+  nextStateForInstruction i = appendErrorTupleList [("i" , show i ) , ("Automaton.nextState" , showP a)] $  runInstruction i $ incrementIC a

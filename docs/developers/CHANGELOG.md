@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.6 -- 2023-04-10
+
+* Add optimize
+
 ## 0.8.4.5 -- 2023-03-27
 
 * Add optimize
