@@ -1,0 +1,1518 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ICF
+                ( Mark
+                    ( MArtificial "st" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 93 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 48 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 48 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 49 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 45 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 50 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 91 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 115 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 114 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 98 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 109 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 117 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 110 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 109 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 105 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 114 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 112 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "printsln" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "f_start_1" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 100 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "f_finished_1" ) EZ
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 100 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "f_start_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "f_finished_1" )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "f_start_2" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 11 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "f_finished_2" ) EZ
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "f_start_3" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 100 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "f_finished_3" ) EZ
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ILS
+                ( LoadD 2 )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 100 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "f_start_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "f_finished_3" )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "f_start_2" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "f_finished_2" )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "f_start_4" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 100 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "f_finished_4" ) EZ
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 100 Add )
+                    )
+                )
+            , ILS Load
+            , ICF
+                ( Branch
+                    ( BArtificial "nodraw" ) EZ
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM ( SIO OutputDec )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "prints" ) Call
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "nodraw" )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "f_start_4" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "f_finished_4" )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "printsln" ) Call
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "prints" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "prints_end" ) EZ
+                )
+            , ISM ( SIO OutputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "prints" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "prints_end" )
+                )
+            , ISM ( SPure Discard )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "printsln" )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "prints" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM ( SIO OutputChar )
+            , ICF Return
+            ]
+        , programCounter = 92
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM =
+        [ 0
+        , 99
+        , 10
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 1
+        , 1
+        , 1
+        , 1
+        , 0
+        , 1
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 1
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        ]
+    }

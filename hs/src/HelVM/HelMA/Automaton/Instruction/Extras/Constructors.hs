@@ -1,5 +1,7 @@
 module HelVM.HelMA.Automaton.Instruction.Extras.Constructors where
 
+import           HelVM.HelMA.Automaton.Instruction.Extras.Common
+
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction
@@ -7,8 +9,12 @@ import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
 import           HelVM.HelMA.Automaton.Instruction
 
+-- | Constructors
+
+-- | ISM
+
 immediateBinaryI :: Integer -> BinaryOperation -> Instruction
-immediateBinaryI i = IAL . SPure . Unary . UImmediate i
+immediateBinaryI i = ISM . SPure . Unary . UImmediate i
 
 consI :: Integer -> Instruction
 consI = sal . Cons
@@ -59,10 +65,12 @@ unary :: UnaryOperation -> Instruction
 unary = sal . Unary
 
 sal :: SPureInstruction -> Instruction
-sal = IAL . SPure
+sal = ISM . SPure
 
 sio :: IOInstruction -> Instruction
-sio = IAL . SIO
+sio = ISM . SIO
+
+-- | ICF
 
 markNI :: Natural -> Instruction
 markNI = ICF . Mark . MNatural
@@ -114,6 +122,8 @@ labeledA op l = ICF $ Labeled (LArtificial l) op
 returnI :: Instruction
 returnI = ICF Return
 
+-- | ILS
+
 storeI , loadI :: Instruction
 storeI = ILS Store
 loadI  = ILS Load
@@ -124,3 +134,12 @@ mInputDecI = mio InputDec
 
 mio :: IOInstruction -> Instruction
 mio = ILS . MIO
+
+storeIDI :: Integer -> Index -> Instruction
+storeIDI v = ILS . StoreID v
+
+loadDI :: Index -> Instruction
+loadDI = ILS . LoadD
+
+moveDI :: Index -> Index -> Instruction
+moveDI a = ILS . MoveD a

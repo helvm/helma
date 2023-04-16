@@ -16,7 +16,7 @@ import           System.FilePath.Posix
 import           Gauge.Main
 
 benchMark :: Benchmark
-benchMark = bgroup "WS" (benchMarkByStackType <$> (stackTypes |><| ramTypes))
+benchMark = bgroup "WS" (benchMarkByStackType <$> (stackTypes >*< ramTypes))
 
 benchMarkByStackType :: BenchParams -> Benchmark
 benchMarkByStackType t = bench (show t) $ nfIO $ exec t

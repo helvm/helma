@@ -2,10 +2,6 @@ dump: Memory
     { memoryCM = CM
         { program =
             [ ICF
-                ( Mark
-                    ( MNatural 1 )
-                )
-            , ICF
                 ( Labeled
                     ( LImmediate 2 ) Jump
                 )
@@ -13,8 +9,8 @@ dump: Memory
                 ( Mark
                     ( MArtificial "1" )
                 )
-            , IAL ( SIO OutputChar )
-            , IAL
+            , ISM ( SIO OutputChar )
+            , ISM
                 ( SPure
                     ( Binaries
                         [ Mod
@@ -23,14 +19,14 @@ dump: Memory
                     )
                 )
             , ICF ( Branch BTop NE )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 2 )
                 )
-            , IAL ( SIO InputChar )
+            , ISM ( SIO InputChar )
             , ICF ( Branch BTop NE )
             , ICF ( Branch BTop NE )
-            , IAL
+            , ISM
                 ( SPure
                     ( Binaries
                         [ Mod
@@ -42,20 +38,16 @@ dump: Memory
                 ( Branch
                     ( BImmediate 4 ) NE
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 2 )
                 )
-            , IAL ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
             , ICF
                 ( Mark
                     ( MNatural 2 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 3 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 32 )
                 )
@@ -63,11 +55,11 @@ dump: Memory
                 ( Mark
                     ( MNatural 4 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 44 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 111 )
                 )
@@ -77,63 +69,32 @@ dump: Memory
                 )
             , ICF
                 ( Mark
-                    ( MNatural 5 )
-                )
-            , ICF ( Branch BTop NE )
-            , IAL
-                ( SPure ( Binary Sub ) )
-            , IAL
-                ( SPure
-                    ( Binaries
-                        [ Mod
-                        , Div
-                        ]
-                    )
-                )
-            , ICF
-                ( Mark
                     ( MArtificial "5" )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 6 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 108 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 108 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 101 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 7 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 72 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 8 )
-                )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , ICF
-                ( Mark
-                    ( MNatural 9 )
-                )
-            , IAL
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM
                 ( SPure
                     ( Cons 10 )
                 )
@@ -141,56 +102,40 @@ dump: Memory
                 ( Mark
                     ( MNatural 10 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 33 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 100 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 108 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 11 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 114 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 111 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 119 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 12 )
-                )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , ICF
-                ( Mark
-                    ( MNatural 13 )
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 0 )
-                )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
             , End
             ]
-        , programCounter = 61
+        , programCounter = 47
         , returnStack = IS []
         }
     , memoryStack = fromList []

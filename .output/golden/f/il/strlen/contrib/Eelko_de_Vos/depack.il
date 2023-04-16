@@ -2,7 +2,7 @@
 , Comment "remove first until carriage return (redirection gives this shit) "
 , Lambda
     [ Inst
-        ( IAL ( SIO InputChar ) )
+        ( ISM ( SIO InputChar ) )
     , Ref 11
     , Store
     ]
@@ -10,17 +10,17 @@
     [ Ref 11
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
@@ -29,17 +29,17 @@
 , Ref 11
 , Fetch
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 35 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary LEQ ) )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Indexed
                 ( IImmediate 0 ) Copy

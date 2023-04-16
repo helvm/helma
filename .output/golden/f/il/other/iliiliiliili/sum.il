@@ -10,11 +10,11 @@
 , Fetch
 , Exec
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary Add ) )
     )
 , Inst
-    ( IAL ( SIO OutputDec ) )
+    ( ISM ( SIO OutputDec ) )
 , Str "
   "
 ]

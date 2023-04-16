@@ -27,14 +27,14 @@ spec =
     , ("99botles"              , ""     )
     , ("triangle"              , ""     )
     , ("fibonacci"             , "0\r\n")
-    ] >><| [Int8Type , Word8Type] <>
+    ] >>*< [Int8Type , Word8Type] <>
     [ ("helloWorld"            , ""     )
     , ("fascistHelloWorld"     , ""     )
 --    , ("theShortestHelloWorld" , ""     )
     , ("99botles"              , ""     )
     , ("triangle"              , ""     )
-    ] >><| [Int16Type , Word16Type]
-    ) |><| testedBfTypes) $ \((fileName , input , cellType) , bfType) -> do
+    ] >>*< [Int16Type , Word16Type]
+    ) >*< testedBfTypes) $ \((fileName , input , cellType) , bfType) -> do
       let file = readBfFile fileName
       let params = (bfType , , cellType) <$> file
       let exec = ioExecMockIOWithInput input . simpleEval =<< params

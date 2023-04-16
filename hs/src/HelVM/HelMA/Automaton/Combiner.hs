@@ -19,7 +19,7 @@ import           Prelude                              hiding (swap)
 -- | Core of Combiner
 
 runInstruction :: (SRAutomatonIO Symbol s r m) => Instruction -> SF s r m
-runInstruction (IAL      i) a = Loop.continue . updateStack   a <$> runALI i (memoryStack a)
+runInstruction (ISM      i) a = Loop.continue . updateStack   a <$> runALI i (memoryStack a)
 runInstruction (ILS      i) a = Loop.continue . updateFromLSM a <$> runSLI i (toLSM a)
 runInstruction (ICF      i) a = Loop.continue . updateFromCPM a <$> runCFI i (toCPM a)
 runInstruction  End         a = end a

@@ -1,39 +1,113 @@
 ALU.move index must be less then lenght [i 1] [ll 1]
- [i IAL (SPure (Indexed (IImmediate 1) Move))] [Automaton.nextState Memory
+ [i: ISM (SPure (Indexed (IImmediate 1) Move))]
+ [program: 
+markM 1 # 0
+inputCS # 1
+
+markM 2 # 2
+copyI 0 # 3
+subI 32 # 4
+bNEI 5 # 5
+bNEI 1 # 6
+
+markM 5 # 7
+cons 0 # 8
+moveI 1 # 9
+
+markM 6 # 10
+subI 48 # 11
+moveI 1 # 12
+cons 10 # 13
+cons 9 # 14
+jumpI 19 # 15
+
+markM 9 # 16
+cons 0 # 17
+moveI 1 # 18
+
+markM 10 # 19
+sub # 20
+sub # 21
+inputCS # 22
+copyI 0 # 23
+subI 32 # 24
+bNEI 14 # 25
+jumpI 17 # 26
+
+markM 14 # 27
+copyI 0 # 28
+subI 10 # 29
+bNEI 16 # 30
+jumpI 17 # 31
+
+markM 16 # 32
+copyI 0 # 33
+subI -1 # 34
+bNEI 6 # 35
+
+markM 17 # 36
+discard # 37
+moveI 1 # 38
+jump # 39
+
+markM 19 # 40
+moveI 2 # 41
+moveI 2 # 42
+cons 0 # 43
+moveI 2 # 44
+moveI 2 # 45
+
+markM 23 # 46
+copyI 0 # 47
+bNEI 26 # 48
+jumpI 33 # 49
+
+markM 26 # 50
+subI 1 # 51
+moveI 2 # 52
+copyI 2 # 53
+add # 54
+moveI 2 # 55
+moveI 2 # 56
+
+markM 32 # 57
+jumpI 23 # 58
+
+markM 33 # 59
+bNES # 60
+moveI 1 # 61
+jump # 62
+
+markM 0 # 63
+end # 64
+]
+ [Automaton.nextState Memory
     { memoryCM = CM
         { program =
             [ ICF
                 ( Mark
                     ( MNatural 1 )
                 )
-            , IAL ( SIO InputChar )
+            , ISM ( SIO InputChar )
             , ICF
                 ( Mark
                     ( MNatural 2 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 32 Sub )
                     )
                 )
             , ICF
-                ( Mark
-                    ( MNatural 3 )
-                )
-            , ICF
                 ( Branch
                     ( BImmediate 5 ) NE
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 4 )
                 )
             , ICF
                 ( Branch
@@ -43,11 +117,11 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 5 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 0 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -57,31 +131,23 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 6 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 48 Sub )
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 7 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 8 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 10 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 9 )
                 )
@@ -93,11 +159,11 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 9 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 0 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -107,26 +173,18 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 10 )
                 )
-            , IAL
+            , ISM
                 ( SPure ( Binary Sub ) )
-            , IAL
+            , ISM
                 ( SPure ( Binary Sub ) )
-            , ICF
-                ( Mark
-                    ( MNatural 11 )
-                )
-            , IAL ( SIO InputChar )
-            , ICF
-                ( Mark
-                    ( MNatural 12 )
-                )
-            , IAL
+            , ISM ( SIO InputChar )
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 32 Sub )
@@ -137,10 +195,6 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                     ( BImmediate 14 ) NE
                 )
             , ICF
-                ( Mark
-                    ( MNatural 13 )
-                )
-            , ICF
                 ( Labeled
                     ( LImmediate 17 ) Jump
                 )
@@ -148,13 +202,13 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 14 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 10 Sub )
@@ -165,10 +219,6 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                     ( BImmediate 16 ) NE
                 )
             , ICF
-                ( Mark
-                    ( MNatural 15 )
-                )
-            , ICF
                 ( Labeled
                     ( LImmediate 17 ) Jump
                 )
@@ -176,13 +226,13 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 16 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate
@@ -198,12 +248,8 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 17 )
                 )
-            , IAL ( SPure Discard )
-            , ICF
-                ( Mark
-                    ( MNatural 18 )
-                )
-            , IAL
+            , ISM ( SPure Discard )
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -214,41 +260,29 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 19 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 20 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 0 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 21 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 22 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
@@ -258,23 +292,15 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 23 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
             , ICF
-                ( Mark
-                    ( MNatural 24 )
-                )
-            , ICF
                 ( Branch
                     ( BImmediate 26 ) NE
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 25 )
                 )
             , ICF
                 ( Labeled
@@ -284,59 +310,33 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 ( Mark
                     ( MNatural 26 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 1 Sub )
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 27 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 28 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 0 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
-                        ( IImmediate 3 ) Copy
+                        ( IImmediate 2 ) Copy
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 29 )
-                )
-            , IAL
-                ( SPure ( Binary Sub ) )
-            , IAL
-                ( SPure ( Binary Sub ) )
-            , ICF
-                ( Mark
-                    ( MNatural 30 )
-                )
-            , IAL
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 31 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
@@ -355,11 +355,7 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                     ( MNatural 33 )
                 )
             , ICF ( Branch BSwapped NE )
-            , ICF
-                ( Mark
-                    ( MNatural 34 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -372,7 +368,7 @@ ALU.move index must be less then lenght [i 1] [ll 1]
                 )
             , End
             ]
-        , programCounter = 47
+        , programCounter = 38
         , returnStack = IS []
         }
     , memoryStack = fromList [ 1 ]

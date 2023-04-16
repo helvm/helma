@@ -32,6 +32,10 @@ data LabelOperand = LTop | LImmediate !Natural | LArtificial Label
 data BranchOperand = BSwapped | BTop | BImmediate !Natural | BArtificial Label
   deriving stock (Eq , Read , Show)
 
+--FIXME
+--data Artificial = Integer | Label
+--
+
 type Label = SString --FIXME Artificial
 
 data LabelOperation = Call | Jump

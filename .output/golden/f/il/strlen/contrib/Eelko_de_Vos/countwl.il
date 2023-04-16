@@ -1,7 +1,7 @@
 [ Comment "countwl.f"
 , Comment "count lines and words "
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )
@@ -9,7 +9,7 @@
 , Ref 0
 , Store
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )
@@ -17,7 +17,7 @@
 , Ref 1
 , Store
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )
@@ -26,9 +26,9 @@
 , Store
 , Lambda
     [ Inst
-        ( IAL ( SIO InputChar ) )
+        ( ISM ( SIO InputChar ) )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -36,27 +36,27 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary Neg ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -64,32 +64,32 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Lambda
         [ Ref 0
         , Fetch
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary Add ) )
             )
         , Ref 0
         , Store
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 0 )
                 )
@@ -99,7 +99,7 @@
         ]
     , Cond
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -107,7 +107,7 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -117,49 +117,49 @@
     , Ref 3
     , Store
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 32 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Ref 3
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 32 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary BOr ) )
         )
     , Ref 3
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary BOr ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -170,32 +170,32 @@
         [ Ref 2
         , Fetch
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Unary BNot ) )
             )
         , Lambda
             [ Ref 1
             , Fetch
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Cons 1 )
                     )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Binary Add ) )
                 )
             , Ref 1
             , Store
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Cons 1 )
                     )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Unary Neg ) )
                 )
             , Ref 2
@@ -205,12 +205,12 @@
         ]
     , Cond
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     , Lambda
         [ Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 0 )
                 )
@@ -220,20 +220,20 @@
         ]
     , Cond
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary BOr ) )
         )
     ]
 , Ref 0
 , Fetch
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 1 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary Sub ) )
     )
 , Ref 0
@@ -241,13 +241,13 @@
 , Ref 1
 , Fetch
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 1 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary Sub ) )
     )
 , Ref 1
@@ -257,13 +257,13 @@
 , Ref 1
 , Fetch
 , Inst
-    ( IAL ( SIO OutputDec ) )
+    ( ISM ( SIO OutputDec ) )
 , Str "
   Number of lines: "
 , Ref 0
 , Fetch
 , Inst
-    ( IAL ( SIO OutputDec ) )
+    ( ISM ( SIO OutputDec ) )
 , Str "
   "
 ]

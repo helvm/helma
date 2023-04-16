@@ -1,0 +1,531 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ILS
+                ( StoreID 69 0 )
+            , ILS
+                ( StoreID 110 1 )
+            , ILS
+                ( StoreID 116 2 )
+            , ILS
+                ( StoreID 101 3 )
+            , ILS
+                ( StoreID 114 4 )
+            , ILS
+                ( StoreID 32 5 )
+            , ILS
+                ( StoreID 97 6 )
+            , ILS
+                ( StoreID 32 7 )
+            , ILS
+                ( StoreID 110 8 )
+            , ILS
+                ( StoreID 117 9 )
+            , ILS
+                ( StoreID 109 10 )
+            , ILS
+                ( StoreID 98 11 )
+            , ILS
+                ( StoreID 101 12 )
+            , ILS
+                ( StoreID 114 13 )
+            , ILS
+                ( StoreID 58 14 )
+            , ILS
+                ( StoreID 32 15 )
+            , ILS
+                ( StoreID 0 16 )
+            , ILS
+                ( StoreID 32 20 )
+            , ILS
+                ( StoreID 45 21 )
+            , ILS
+                ( StoreID 62 22 )
+            , ILS
+                ( StoreID 32 23 )
+            , ILS
+                ( StoreID 0 24 )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "write" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 100 )
+                )
+            , ILS ( MIO InputDec )
+            , ILS
+                ( LoadD 100 )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "hanoi" ) Call
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "hanoi" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 103 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 102 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 100 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ILS
+                ( LoadD 100 )
+            , ICF
+                ( Branch
+                    ( BArtificial "endhanoi" ) EZ
+                )
+            , ILS
+                ( LoadD 100 )
+            , ILS
+                ( LoadD 101 )
+            , ILS
+                ( LoadD 102 )
+            , ILS
+                ( LoadD 103 )
+            , ILS
+                ( LoadD 100 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ILS
+                ( LoadD 101 )
+            , ILS
+                ( LoadD 103 )
+            , ILS
+                ( LoadD 102 )
+            , ICF
+                ( Labeled
+                    ( LArtificial "hanoi" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 103 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 102 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 100 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ILS
+                ( LoadD 101 )
+            , ISM ( SIO OutputDec )
+            , ISM
+                ( SPure
+                    ( Cons 20 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "write" ) Call
+                )
+            , ILS
+                ( LoadD 102 )
+            , ISM ( SIO OutputDec )
+            , ICF
+                ( Labeled
+                    ( LArtificial "newline" ) Call
+                )
+            , ILS
+                ( LoadD 100 )
+            , ILS
+                ( LoadD 101 )
+            , ILS
+                ( LoadD 102 )
+            , ILS
+                ( LoadD 103 )
+            , ILS
+                ( LoadD 100 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ILS
+                ( LoadD 103 )
+            , ILS
+                ( LoadD 102 )
+            , ILS
+                ( LoadD 101 )
+            , ICF
+                ( Labeled
+                    ( LArtificial "hanoi" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 103 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 102 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 100 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ICF
+                ( Mark
+                    ( MArtificial "endhanoi" )
+                )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "add" )
+                )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "write" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "write_end" ) EZ
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "write" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "write_end" )
+                )
+            , ISM ( SPure Discard )
+            , ISM ( SPure Discard )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "read" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ILS ( MIO InputChar )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 10 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "read_end" ) EZ
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "read" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "read_end" )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Store
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "newline" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 13 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ICF Return
+            ]
+        , programCounter = 32
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM =
+        [ 69
+        , 110
+        , 116
+        , 101
+        , 114
+        , 32
+        , 97
+        , 32
+        , 110
+        , 117
+        , 109
+        , 98
+        , 101
+        , 114
+        , 58
+        , 32
+        , 0
+        , 0
+        , 0
+        , 0
+        , 32
+        , 45
+        , 62
+        , 32
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 1
+        , 1
+        , 3
+        , 2
+        ]
+    }

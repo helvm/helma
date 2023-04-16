@@ -1,35 +1,35 @@
 [ Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 1 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 1 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 2 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 1 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 2 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary Add ) )
     )
 ]

@@ -1,7 +1,7 @@
 [ Comment " Factorial version 2 "
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 2 ) Move
@@ -9,11 +9,11 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary Mul ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 1 ) Move
@@ -27,11 +27,11 @@
 , Lambda
     [ Lambda
         [ Inst
-            ( IAL ( SIO OutputDec ) )
+            ( ISM ( SIO OutputDec ) )
         ]
     , Lambda
         [ Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -39,7 +39,7 @@
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
@@ -47,17 +47,17 @@
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary Sub ) )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -65,7 +65,7 @@
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
@@ -73,7 +73,7 @@
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
@@ -81,7 +81,7 @@
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
@@ -89,17 +89,17 @@
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary LEQ ) )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Unary BNot ) )
             )
         ]
@@ -115,7 +115,7 @@
 , Ref 5
 , Store
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 4 )
         )

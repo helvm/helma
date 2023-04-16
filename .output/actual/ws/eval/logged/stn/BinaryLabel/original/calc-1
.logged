@@ -1,0 +1,439 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ILS
+                ( StoreID 69 0 )
+            , ILS
+                ( StoreID 110 1 )
+            , ILS
+                ( StoreID 116 2 )
+            , ILS
+                ( StoreID 101 3 )
+            , ILS
+                ( StoreID 114 4 )
+            , ILS
+                ( StoreID 32 5 )
+            , ILS
+                ( StoreID 115 6 )
+            , ILS
+                ( StoreID 111 7 )
+            , ILS
+                ( StoreID 109 8 )
+            , ILS
+                ( StoreID 101 9 )
+            , ILS
+                ( StoreID 32 10 )
+            , ILS
+                ( StoreID 110 11 )
+            , ILS
+                ( StoreID 117 12 )
+            , ILS
+                ( StoreID 109 13 )
+            , ILS
+                ( StoreID 98 14 )
+            , ILS
+                ( StoreID 101 15 )
+            , ILS
+                ( StoreID 114 16 )
+            , ILS
+                ( StoreID 115 17 )
+            , ILS
+                ( StoreID 44 18 )
+            , ILS
+                ( StoreID 32 19 )
+            , ILS
+                ( StoreID 116 20 )
+            , ILS
+                ( StoreID 104 21 )
+            , ILS
+                ( StoreID 101 22 )
+            , ILS
+                ( StoreID 110 23 )
+            , ILS
+                ( StoreID 32 24 )
+            , ILS
+                ( StoreID 45 25 )
+            , ILS
+                ( StoreID 49 26 )
+            , ILS
+                ( StoreID 32 27 )
+            , ILS
+                ( StoreID 116 28 )
+            , ILS
+                ( StoreID 111 29 )
+            , ILS
+                ( StoreID 32 30 )
+            , ILS
+                ( StoreID 102 31 )
+            , ILS
+                ( StoreID 105 32 )
+            , ILS
+                ( StoreID 110 33 )
+            , ILS
+                ( StoreID 105 34 )
+            , ILS
+                ( StoreID 115 35 )
+            , ILS
+                ( StoreID 104 36 )
+            , ILS
+                ( StoreID 0 37 )
+            , ILS
+                ( StoreID 78 42 )
+            , ILS
+                ( StoreID 117 43 )
+            , ILS
+                ( StoreID 109 44 )
+            , ILS
+                ( StoreID 98 45 )
+            , ILS
+                ( StoreID 101 46 )
+            , ILS
+                ( StoreID 114 47 )
+            , ILS
+                ( StoreID 58 48 )
+            , ILS
+                ( StoreID 0 49 )
+            , ILS
+                ( StoreID 84 60 )
+            , ILS
+                ( StoreID 111 61 )
+            , ILS
+                ( StoreID 116 62 )
+            , ILS
+                ( StoreID 97 63 )
+            , ILS
+                ( StoreID 108 64 )
+            , ILS
+                ( StoreID 32 65 )
+            , ILS
+                ( StoreID 105 66 )
+            , ILS
+                ( StoreID 115 67 )
+            , ILS
+                ( StoreID 32 68 )
+            , ILS
+                ( StoreID 0 69 )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Call
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "01101110011001010111011101101100011010010110111001100101" ) Call
+                )
+            , ILS
+                ( StoreID 0 100 )
+            , ICF
+                ( Mark
+                    ( MArtificial "01101100011011110110111101110000" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 42 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ILS ( MIO InputDec )
+            , ILS
+                ( LoadD 101 )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate
+                            ( -1 ) Sub
+                        )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "01110000011100100110111101100111011001010110111001100100" ) EZ
+                )
+            , ILS
+                ( LoadD 100 )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ISM
+                ( SPure
+                    ( Cons 100 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ILS Store
+            , ICF
+                ( Labeled
+                    ( LArtificial "01101100011011110110111101110000" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "01110000011100100110111101100111011001010110111001100100" )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Cons 60 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Call
+                )
+            , ILS
+                ( LoadD 100 )
+            , ISM ( SIO OutputDec )
+            , ICF
+                ( Labeled
+                    ( LArtificial "01101110011001010111011101101100011010010110111001100101" ) Call
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "011000010110010001100100" )
+                )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "0111011101110010011010010111010001100101" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" ) EZ
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" )
+                )
+            , ISM ( SPure Discard )
+            , ISM ( SPure Discard )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "01110010011001010110000101100100" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ILS ( MIO InputChar )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 10 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "0111001001100101011000010110010001011111011001010110111001100100" ) EZ
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "01110010011001010110000101100100" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "0111001001100101011000010110010001011111011001010110111001100100" )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Store
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "01101110011001010111011101101100011010010110111001100101" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 13 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ICF Return
+            ]
+        , programCounter = 83
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM =
+        [ 69
+        , 110
+        , 116
+        , 101
+        , 114
+        , 32
+        , 115
+        , 111
+        , 109
+        , 101
+        , 32
+        , 110
+        , 117
+        , 109
+        , 98
+        , 101
+        , 114
+        , 115
+        , 44
+        , 32
+        , 116
+        , 104
+        , 101
+        , 110
+        , 32
+        , 45
+        , 49
+        , 32
+        , 116
+        , 111
+        , 32
+        , 102
+        , 105
+        , 110
+        , 105
+        , 115
+        , 104
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 78
+        , 117
+        , 109
+        , 98
+        , 101
+        , 114
+        , 58
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 84
+        , 111
+        , 116
+        , 97
+        , 108
+        , 32
+        , 105
+        , 115
+        , 32
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , -1
+        ]
+    }

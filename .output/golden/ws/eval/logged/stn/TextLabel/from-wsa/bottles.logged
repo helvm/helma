@@ -1,0 +1,555 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "LOOP" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM ( SIO OutputDec )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 44 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 97 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 119 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 104 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 116 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 110 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 114 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 98 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 102 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 115 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 116 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 116 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 98 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "prints" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM ( SIO OutputDec )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 114 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 98 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 102 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 115 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 116 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 116 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 98 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "printsln" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 100 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 110 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 117 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 114 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 97 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 116 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 105 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 115 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 115 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 97 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 112 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 44 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 110 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 119 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 100 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 110 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 107 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 97 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 84 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "printsln" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM ( SIO OutputDec )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 97 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 119 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 104 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 116 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 110 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 114 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 98 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 102 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 115 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 116 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 116 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 98 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "printsln" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "printsln" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "LOOP:1" ) EZ
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "LOOP" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "LOOP:1" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "prints" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "prints_end" ) EZ
+                )
+            , ISM ( SIO OutputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "prints" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "prints_end" )
+                )
+            , ISM ( SPure Discard )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "printsln" )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "prints" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM ( SIO OutputChar )
+            , ICF Return
+            ]
+        , programCounter = 127
+        , returnStack = IS []
+        }
+    , memoryStack = fromList [ 0 ]
+    , memoryRAM = []
+    }

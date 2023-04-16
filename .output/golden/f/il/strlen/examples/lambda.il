@@ -2,7 +2,7 @@
     [] blocks are lambda functions already, so it isn't all that hard... "
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 1 ) Move
@@ -10,14 +10,14 @@
             )
         )
     , Inst
-        ( IAL ( SPure Discard ) )
+        ( ISM ( SPure Discard ) )
     ]
 , Ref 0
 , Store
 , Comment " true "
 , Lambda
     [ Inst
-        ( IAL ( SPure Discard ) )
+        ( ISM ( SPure Discard ) )
     ]
 , Ref 1
 , Store
@@ -28,7 +28,7 @@
     , Ref 1
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 2 ) Move
@@ -44,7 +44,7 @@
     [ Ref 1
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 2 ) Move
@@ -52,7 +52,7 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 2 ) Move
@@ -60,7 +60,7 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 1 ) Move
@@ -74,7 +74,7 @@
 , Comment " and "
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 1 ) Move
@@ -84,7 +84,7 @@
     , Ref 0
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 1 ) Move
@@ -98,7 +98,7 @@
 , Comment " or "
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -109,7 +109,7 @@
     , Fetch
     , Exec
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 1 ) Move
@@ -117,7 +117,7 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 2 ) Move
@@ -131,7 +131,7 @@
 , Comment " xnor "
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -141,37 +141,37 @@
     , Ref 0
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Lambda
         [ Str "true"
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 10 )
                 )
             )
         , Inst
-            ( IAL ( SIO OutputChar ) )
+            ( ISM ( SIO OutputChar ) )
         ]
     , Cond
     , Ref 1
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Lambda
         [ Str "false"
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 10 )
                 )
             )
         , Inst
-            ( IAL ( SIO OutputChar ) )
+            ( ISM ( SIO OutputChar ) )
         ]
     , Cond
     ]

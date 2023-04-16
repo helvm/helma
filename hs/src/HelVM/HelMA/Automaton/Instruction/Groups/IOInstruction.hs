@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction where
 
-import           HelVM.HelMA.Automaton.Instruction.Extras.PrintAsm
+import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 -- | Types
 
 -- TODO convert to (Output/Input) (Char/Dec)

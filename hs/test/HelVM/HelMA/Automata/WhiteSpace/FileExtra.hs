@@ -1,14 +1,15 @@
 module HelVM.HelMA.Automata.WhiteSpace.FileExtra (
+  readFileByTokenType,
   readWsFile,
   readStnFile,
   readExtFile,
+  buildAbsoluteTokenFileName,
   buildAbsoluteWsFileName,
   buildAbsoluteStnFileName,
   buildAbsoluteWsIlFileName,
   buildAbsoluteWsOutFileName,
   buildAbsoluteWsLogFileName,
   tokenTypeToExt,
-  showAscii,
   options,
 ) where
 
@@ -16,6 +17,9 @@ import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Types.TokenType
+
+readFileByTokenType :: TokenType -> FilePath -> IO Source
+readFileByTokenType tokenType = readSourceFile . buildAbsoluteTokenFileName tokenType
 
 readWsFile :: FilePath -> IO Source
 readWsFile = readSourceFile . buildAbsoluteWsFileName
@@ -25,6 +29,9 @@ readStnFile = readSourceFile . buildAbsoluteStnFileName
 
 readExtFile :: FilePath -> FilePath -> IO Source
 readExtFile ext = readSourceFile . buildAbsoluteExtFileName ext lang
+
+buildAbsoluteTokenFileName :: TokenType -> FilePath -> FilePath
+buildAbsoluteTokenFileName = flip buildAbsoluteExtFileName lang . tokenTypeToExt
 
 buildAbsoluteWsFileName :: FilePath -> FilePath
 buildAbsoluteWsFileName = buildAbsoluteExtFileName lang lang

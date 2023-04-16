@@ -1,111 +1,79 @@
 dump: Memory
     { memoryCM = CM
         { program =
-            [ ICF
-                ( Mark
-                    ( MNatural 1 )
-                )
-            , IAL
+            [ ISM
                 ( SPure
                     ( Cons 32 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 2 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 44 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 111 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 108 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 108 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 101 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 72 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 3 )
-                )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , ICF
-                ( Mark
-                    ( MNatural 4 )
-                )
-            , IAL
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM
                 ( SPure
                     ( Cons 10 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 5 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 33 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 100 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 108 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 114 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 111 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 119 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 6 )
-                )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , ICF
-                ( Mark
-                    ( MNatural 7 )
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 0 )
-                )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
             , End
             ]
-        , programCounter = 37
+        , programCounter = 29
         , returnStack = IS []
         }
     , memoryStack = fromList []

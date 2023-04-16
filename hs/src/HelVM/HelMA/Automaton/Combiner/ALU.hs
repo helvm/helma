@@ -28,6 +28,8 @@ module HelVM.HelMA.Automaton.Combiner.ALU (
   Stack,
 ) where
 
+import           HelVM.HelMA.Automaton.Instruction.Extras.Common
+
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 

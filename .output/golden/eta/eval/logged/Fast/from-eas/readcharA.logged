@@ -1,22 +1,10 @@
 dump: Memory
     { memoryCM = CM
         { program =
-            [ ICF
-                ( Mark
-                    ( MNatural 1 )
-                )
-            , IAL ( SIO InputChar )
-            , ICF
-                ( Mark
-                    ( MNatural 2 )
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 0 )
-                )
+            [ ISM ( SIO InputChar )
             , End
             ]
-        , programCounter = 5
+        , programCounter = 2
         , returnStack = IS []
         }
     , memoryStack = fromList [ 65 ]

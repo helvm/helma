@@ -2,9 +2,9 @@
 , Str "["
 , Lambda
     [ Inst
-        ( IAL ( SIO InputChar ) )
+        ( ISM ( SIO InputChar ) )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -12,23 +12,23 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary Add ) )
         )
     ]
 , Lambda
     [ Inst
-        ( IAL ( SIO OutputDec ) )
+        ( ISM ( SIO OutputDec ) )
     , Str "`"
     ]
 , While
 , Inst
-    ( IAL ( SPure Discard ) )
+    ( ISM ( SPure Discard ) )
 , Str "]"
 ]

@@ -7,7 +7,7 @@
 , Comment " June 1994 "
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -15,17 +15,17 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 0 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -34,13 +34,13 @@
         )
     , Lambda
         [ Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -50,18 +50,18 @@
         ]
     , Cond
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     , Lambda
         [ Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 0 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 2 )
                 )
@@ -69,7 +69,7 @@
         , Ref 14
         , Lambda
             [ Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Indexed
                             ( IImmediate 0 ) Copy
@@ -77,23 +77,23 @@
                     )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Cons 0 )
                     )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Binary LEQ ) )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Unary BNot ) )
                 )
             ]
         , Lambda
             [ Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Indexed
                             ( IImmediate 0 ) Copy
@@ -101,7 +101,7 @@
                     )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Indexed
                             ( IImmediate 0 ) Copy
@@ -109,15 +109,15 @@
                     )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Unary Neg ) )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Binary BAnd ) )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Indexed
                             ( IImmediate 0 ) Copy
@@ -125,44 +125,44 @@
                     )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Cons 7 )
                     )
                 )
             , Ref 14
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Cons 7 )
                     )
                 )
             , Ref 14
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Binary BOr ) )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Unary Neg ) )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Cons 1 )
                     )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Binary Sub ) )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Binary BAnd ) )
                 )
             , Lambda
                 [ Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Indexed
                                 ( IImmediate 2 ) Move
@@ -170,25 +170,25 @@
                         )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Cons 1 )
                         )
                     )
                 , Ref 14
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Cons 7 )
                         )
                     )
                 , Ref 14
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure ( Binary BOr ) )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Indexed
                                 ( IImmediate 0 ) Copy
@@ -196,95 +196,95 @@
                         )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure ( Binary Add ) )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Cons 2 )
                         )
                     )
                 , Ref 14
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Cons 7 )
                         )
                     )
                 , Ref 14
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure ( Binary BOr ) )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Cons 2 )
                         )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure ( Binary Div ) )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Cons 3 )
                         )
                     )
                 , Ref 14
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure ( Unary Neg ) )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Cons 1 )
                         )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure ( Binary Sub ) )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Cons 7 )
                         )
                     )
                 , Ref 14
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure ( Binary BAnd ) )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Cons 6 )
                         )
                     )
                 , Ref 14
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Cons 1 )
                         )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure ( Binary Sub ) )
                     )
                 , Ref 16
                 , Fetch
                 , Exec
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure ( Binary Add ) )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Indexed
                                 ( IImmediate 2 ) Move
@@ -292,7 +292,7 @@
                         )
                     )
                 , Inst
-                    ( IAL
+                    ( ISM
                         ( SPure
                             ( Indexed
                                 ( IImmediate 2 ) Move
@@ -302,31 +302,31 @@
                 ]
             , Cond
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Unary Neg ) )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Cons 1 )
                     )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Binary Sub ) )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Binary BAnd ) )
                 )
             ]
         , While
         , Inst
-            ( IAL ( SPure Discard ) )
+            ( ISM ( SPure Discard ) )
         ]
     , Cond
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 1 ) Move
@@ -334,9 +334,9 @@
             )
         )
     , Inst
-        ( IAL ( SPure Discard ) )
+        ( ISM ( SPure Discard ) )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 1 ) Move
@@ -344,9 +344,9 @@
             )
         )
     , Inst
-        ( IAL ( SPure Discard ) )
+        ( ISM ( SPure Discard ) )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 1 ) Move
@@ -354,9 +354,9 @@
             )
         )
     , Inst
-        ( IAL ( SPure Discard ) )
+        ( ISM ( SPure Discard ) )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 1 ) Move
@@ -364,33 +364,33 @@
             )
         )
     , Inst
-        ( IAL ( SPure Discard ) )
+        ( ISM ( SPure Discard ) )
     ]
 , Ref 16
 , Store
 , Str "enter number of queens [0..9] "
 , Ref 1
 , Inst
-    ( IAL ( SIO InputChar ) )
+    ( ISM ( SIO InputChar ) )
 , Ref 1
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 48 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary Sub ) )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Indexed
                 ( IImmediate 0 ) Copy
@@ -398,7 +398,7 @@
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Indexed
                 ( IImmediate 2 ) Move
@@ -406,7 +406,7 @@
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Indexed
                 ( IImmediate 0 ) Copy
@@ -414,7 +414,7 @@
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 1 )
         )

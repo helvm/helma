@@ -23,11 +23,11 @@ spec =
     [ ("hello"    , [""])
     , ("hello2"   , [""])
     , ("crlf"     , [""])
-    ] |><| (["original"] |><| etaImplTypes)
+    ] >*< (["original"] >*< etaImplTypes)
     ) <> (
     [ ("bottles"  , [""])
-    , ("fact"     , ["1\n" , "9\n"])
-    ] |><| (["original"] |><| [defaultETAImplType])
+    , ("fact"     , ["1\n" , "7\n"])
+    ] >*< (["original"] >*< [defaultETAImplType])
     ) <> (
     [ ("true"     , [""])
     , ("hello"    , [""])
@@ -35,11 +35,11 @@ spec =
     , ("hello3"   , [""])
     , ("hello4"   , [""])
     , ("readnum"  , ["0\n" , "1\n"])
-    , ("fact"     , ["1\n" , "9\n"])
+    , ("fact"     , ["1\n" , "7\n"])
     , ("bottles"  , [""])
     , ("divmod"   , [""])
     , ("readchar" , ["A"])
-    ] |><| (["from-eas"] |><| [defaultETAImplType])
+    ] >*< (["from-eas"] >*< [defaultETAImplType])
     )) $ \((fileName , inputs) , (dirName , implType)) -> do
       let filePath = dirName </> fileName
       let file = readEtaFile filePath

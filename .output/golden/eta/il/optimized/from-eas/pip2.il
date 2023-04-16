@@ -11,7 +11,5 @@ markM 2
 outputCS
 jumpI 1
 
-markM 3
-
 markM 0
 end

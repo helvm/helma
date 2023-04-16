@@ -19,7 +19,7 @@ constantFoldingWithAcc acc (i : il) = constantFoldingForI acc il i
 constantFoldingWithAcc acc []       = generateIL acc
 
 constantFoldingForI :: [Integer] -> InstructionList -> Instruction -> InstructionList
-constantFoldingForI acc il i@(IAL (SPure i')) = constantFoldingForResult il i acc $ runSAL i' acc
+constantFoldingForI acc il i@(ISM (SPure i')) = constantFoldingForResult il i acc $ runSAL i' acc
 constantFoldingForI acc il i                  = generateIL acc <> (i : constantFolding il)
 
 constantFoldingForResult :: InstructionList -> Instruction -> [Integer] -> Either a [Integer] -> InstructionList

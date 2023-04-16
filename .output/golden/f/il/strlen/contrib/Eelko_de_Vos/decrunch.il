@@ -1,9 +1,9 @@
 [ Comment "Depacker, by E. de Vos"
 , Lambda
     [ Inst
-        ( IAL ( SIO InputChar ) )
+        ( ISM ( SIO InputChar ) )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -11,52 +11,52 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
 , Lambda []
 , While
 , Inst
-    ( IAL ( SIO InputChar ) )
+    ( ISM ( SIO InputChar ) )
 , Ref 0
 , Store
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary Neg ) )
         )
     , Ref 0
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
 , Comment "while a<>EOF"
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 169 )
             )
@@ -64,11 +64,11 @@
     , Ref 0
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -76,7 +76,7 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     , Lambda
@@ -84,24 +84,24 @@
         , Ref 0
         , Fetch
         , Inst
-            ( IAL ( SIO OutputChar ) )
+            ( ISM ( SIO OutputChar ) )
         ]
     , Cond
     , Lambda
         [ Comment "if char=escapecode"
         , Inst
-            ( IAL ( SIO InputChar ) )
+            ( ISM ( SIO InputChar ) )
         , Ref 2
         , Store
         , Comment "read counter"
         , Inst
-            ( IAL ( SIO InputChar ) )
+            ( ISM ( SIO InputChar ) )
         , Ref 0
         , Store
         , Comment "read char"
         , Lambda
             [ Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Cons 0 )
                     )
@@ -109,11 +109,11 @@
             , Ref 2
             , Fetch
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Binary LEQ ) )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Unary BNot ) )
                 )
             ]
@@ -122,18 +122,18 @@
             [ Ref 0
             , Fetch
             , Inst
-                ( IAL ( SIO OutputChar ) )
+                ( ISM ( SIO OutputChar ) )
             , Comment "write the character"
             , Ref 2
             , Fetch
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure
                         ( Cons 1 )
                     )
                 )
             , Inst
-                ( IAL
+                ( ISM
                     ( SPure ( Binary Sub ) )
                 )
             , Ref 2
@@ -144,7 +144,7 @@
         ]
     , Cond
     , Inst
-        ( IAL ( SIO InputChar ) )
+        ( ISM ( SIO InputChar ) )
     , Ref 0
     , Store
     , Comment " a is read "

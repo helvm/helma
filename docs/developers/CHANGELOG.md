@@ -1,156 +1,129 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.9 -- 2023-05-01
+* Add optimize
+* Add files to examples
+
 ## 0.8.4.8 -- 2023-04-24
 * HotFix for ETA
 
 ## 0.8.4.7 -- 2023-04-16
-
 * Add optimize
 * Add pattern synonyms
 * Add pretty printer to ASM
 
 ## 0.8.4.6 -- 2023-04-10
-
 * Add optimize
 
 ## 0.8.4.5 -- 2023-03-27
-
 * Add optimize
 
 ## 0.8.4.4 -- 2023-03-14
-
 * Add optimizer for Stack Automaton
 
 ## 0.8.4.3 -- 2023-02-13
-
 * Add SimpleParams for ETA
 
 ## 0.8.4.2 -- 2023-02-13
-
 * Compile code for Automaton
 * Rewrite parameters
 
 ## 0.8.4.0 -- 2023-01-21
-
 * Faster implementation for ETA
 
 ## 0.8.3.10 -- 2023-01-08
-
 * Refactor Automaton and Evaluator
 
 ## 0.8.3.9 -- 2022-12-28
-
 * Use loopM for ETA
 
 ## 0.8.3.8 -- 2022-12-16
-
 * Fix `divmod` for ETA
 
 ## 0.8.3.7 -- 2022-12-13
-
 * Add breaking the loop for tests
 
 ## 0.8.3.6 -- 2022-12-10
-
 * Add fast parser for ETA
 
 ## 0.8.3.5 -- 2022-11-13
-
 * Optimize BrainFuck interpreter, add new instruction - `MulDupClr`
 
 ## 0.8.3.4 -- 2022-11-12
-
 * Optimize BrainFuck interpreter, add new instructions, `AddClr`, `SubCrl`, `DupClr` and `TriClr`
 
 ## 0.8.3.3 -- 2022-11-11
-
 * Optimize BrainFuck interpreter
 
 ## 0.8.3.2 -- 2022-11-01
-
 * Add SpecHook for parallel tests
 
 ## 0.8.3.1 -- 2022-11-01
-
 * Use optparse-applicative for CLI better - Add Emit option for CLI
 
 ## 0.8.3.0 -- 2022-11-01
-
 * Implement BrainFuck fast interpreter
 
 ## 0.8.2.0 -- 2022-10-05
-
 *  Faster FALSE parser
 
 ## 0.8.1.2 -- 2022-09-26
-
 Use optparse-applicative for CLI better
 
 ## 0.8.1.1 -- 2022-09-23
-
 * FIX Remove Dup Rot Swap. Use (Copy | Move | Slide)
 
 ## 0.8.1.0 -- 2022-09-22
-
 * Add `FALSE` Parser
 
 ## 0.8.0.0 -- 2022-09-11
-
 * Add `Lazy K` Calculator
 
 ## 0.7.2.1 -- 2022-09-09
-
 * Extract HelIO
 * Upgrade documentations
 
 ## 0.7.2.0 -- 2022-02-22
-
 * Extract `Automaton` from `Evaluator`
-
 ## 0.7.1.0 -- 2022-02-21
-
 * Add `Zot` to `Main`
 
 ## 0.7.0.0 -- 2022-02-19
+<<<<<<< HEAD
 
+* Implement `Automaton` of `Zot`
+=======
 * Implement `Automaton` of `Zot` 
+>>>>>>> d97c4798 (WIP)
 
 ## 0.6.16.0 -- 2022-02-10
-
 * Remove `MonoTraversable`
 * Add `Free` Monad
 * Add `DumpType` switch
 * Remove `error` from `MockIO`
 
 ## 0.6.15.0 -- 2022-01-30
-
 * Add Common Instruction List
 
 ## 0.6.14.0 -- 2022-01-20
-
 * Add `print-logs` flag
 
 ## 0.6.13.0 -- 2022-01-19
-
 * Use `forM_` in tests
 
 ## 0.6.12.0 -- 2022-01-07
-
 * Add `Logger` based on Writer
 * Refactor `Safe`
 * Replace `CartesianProduct` to `ZipA`
 * Use local `hlint`
 
 ## 0.6.11.2 -- 2021-12-14
-
 * Fix version in cabal
 
 ## 0.6.11.0 -- 2021-12-13
-
 * Add examples for SubLeq
 
 ## 0.6.10.0 -- 2021-09-07
-
 * Use `Vector`
 * Use `Slist`
 * Use `LinkedList`
@@ -161,7 +134,6 @@ Use optparse-applicative for CLI better
 * Add `Makefile`
 
 ## 0.6.9.0  -- 2021-07-22
-
 * Use `MonadError`
 * Use `Stan`
 * Use `pretty-simple` for golden tests
@@ -170,21 +142,17 @@ Use optparse-applicative for CLI better
 * Remove repeated tests
 
 ## 0.6.8.0  -- 2021-07-06
-
 * Use `Safe`, remove `error` calls
 * Replace `String` by `Text`
 * Extract `HelVM.HelIO` and `HelVM.HelIO.Digit` packages
 
 ## 0.6.7.0  -- 2021-06-11
-
 * Remove Interact implementation
 
 ## 0.6.6.0  -- 2021-06-11
-
 * Use Functional Dependency in Units and Collections
 
 ## 0.6.5.0  -- 2021-06-06
-
 * Change name to HelMA
 * Use `HSpec`
 * Remove `HUnit`
@@ -195,42 +163,33 @@ Use optparse-applicative for CLI better
 * Add golden tests
 
 ## 0.6.4.0  -- 2021-03-17
-
 * `Stack` abstraction
 
 ## 0.6.3.0  -- 2021-03-10
-
 * `RAM` abstraction
 
 ## 0.6.2.0  -- 2021-02-23
-
 * `RAM` encapsulation
 
 ## 0.6.1.0  -- 2021-02-08
-
 * Use `relude` library
 
 ## 0.6.0.0  -- 2020-08-07
-
 * Add `Automaton` of ETA and SubLeq
 
 ## 0.5.0.0  -- 2020-06-30
-
 * Add CLI Options Parser
 
 ## 0.4.0.0  -- 2020-06-22
-
 * Add `Automaton` of BrainFuck and WhiteSpace
 * Add `WrapperIO`, `FilterIf0`, `MockIO` and tests for `FilterIf0`
 
 ## 0.3.0.0  -- 2020-05-30
 
 * Add WhiteSpace Parser
-
 ## 0.2.0.0  -- 2020-05-16
 
 * Add BrainFuck Lexer
-
 ## 0.1.0.0  -- 2020-05-09
 
 * First version. Released on an unsuspecting world.

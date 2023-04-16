@@ -1,0 +1,114 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 33 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 100 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 114 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 119 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 44 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 72 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "prints" ) Call
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "prints" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "prints_end" ) EZ
+                )
+            , ISM ( SIO OutputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "prints" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "prints_end" )
+                )
+            , ISM ( SPure Discard )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "printsln" )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "prints" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM ( SIO OutputChar )
+            , ICF Return
+            ]
+        , programCounter = 17
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM = []
+    }

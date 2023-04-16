@@ -1,9 +1,9 @@
 [ Comment "Packer, by E. de Vos"
 , Lambda
     [ Inst
-        ( IAL ( SIO InputChar ) )
+        ( ISM ( SIO InputChar ) )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -11,29 +11,29 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
 , Lambda []
 , While
 , Inst
-    ( IAL ( SIO InputChar ) )
+    ( ISM ( SIO InputChar ) )
 , Ref 0
 , Store
 , Comment " a is char-read "
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 1 )
         )
@@ -43,23 +43,23 @@
 , Comment " counter:=1"
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary Neg ) )
         )
     , Ref 0
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]

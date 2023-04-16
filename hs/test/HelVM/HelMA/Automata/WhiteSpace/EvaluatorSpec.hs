@@ -26,7 +26,7 @@ spec =
     , ("hanoi"        , "1\n"        )
     , ("loctest"      , "1\n2\n"     )
     , ("name"         , "WriteOnly\n")
-    ] |><| ["original"]) |><| [WhiteTokenType]
+    ] >*< ["original"]) >*< [WhiteTokenType]
     ) <> ((
     [ ("count"        , ""           )
     , ("helloWorld"   , ""           )
@@ -37,7 +37,7 @@ spec =
     , ("locTest"      , "1\n2\n"     )
     , ("name"         , "WriteOnly\n")
     , ("truthMachine" , "0\n"        )
-    ] |><| ["original"]) |><| [VisibleTokenType]
+    ] >*< ["original"]) >*< [VisibleTokenType]
     ) <> (((
     [ "true"
     , "hello"
@@ -45,7 +45,11 @@ spec =
     , "hello4"
     , "bottles"
     , "prim"
-    ] |><| [""]) |><| ["from-wsa"]) |><| [VisibleTokenType]
+    ] >*< [""]) >*< ["from-wsa"]) >*< [VisibleTokenType]
+--    ) <> (((
+--    [ "hello"
+--    , "fizzbuzz"
+--    ] >*< [""]) >*< ["from-elvm"]) >*< [WhiteTokenType]
     )) $ \ (((fileName , input) , dirName) , tokenType) -> do
       let ext = tokenTypeToExt tokenType
       let filePath = dirName </> fileName
@@ -53,7 +57,7 @@ spec =
       forM_ formatTypes $ \ ascii -> do
         let paramsF = simpleParamsWithDefaults tokenType ascii
         let paramsIO = paramsF <$> file
-        let path = ext </> showAscii ascii </> filePath <> toString input
+        let path = ext </> show ascii </> filePath <> toString input
         let mock = ioExecMockIOWithInput input . simpleEval =<< paramsIO
         describe path $ do
           it ("output" </> path) $

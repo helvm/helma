@@ -1,0 +1,47 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS ( MIO InputDec )
+            , ILS Load
+            , ICF
+                ( Branch
+                    ( BArtificial "0" ) EZ
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "1" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM ( SIO OutputDec )
+            , ICF
+                ( Labeled
+                    ( LArtificial "1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "0" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM ( SIO OutputDec )
+            , End
+            ]
+        , programCounter = 13
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM = [ 0 ]
+    }

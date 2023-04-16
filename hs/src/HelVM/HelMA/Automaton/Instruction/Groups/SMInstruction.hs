@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction where
 
+import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 import           HelVM.HelMA.Automaton.Instruction.Extras.TextExtra
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 
@@ -74,8 +75,6 @@ data BinaryOperation =
 
 data IndexedOperation = Copy | Move | Slide
   deriving stock (Eq , Read , Show)
-
-type Index = Int
 
 data OperatorType = Bitwise | Logical
 

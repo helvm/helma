@@ -1,6 +1,6 @@
 [ Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -8,17 +8,17 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -27,7 +27,7 @@
         )
     , Lambda
         [ Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -35,15 +35,15 @@
                 )
             )
         , Inst
-            ( IAL ( SPure Discard ) )
+            ( ISM ( SPure Discard ) )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -53,12 +53,12 @@
         ]
     , Cond
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     , Lambda
         [ Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
@@ -66,20 +66,20 @@
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary Sub ) )
             )
         , Ref 5
         , Fetch
         , Exec
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary Mul ) )
             )
         ]
@@ -88,7 +88,7 @@
 , Ref 5
 , Store
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 4 )
         )
@@ -97,5 +97,5 @@
 , Fetch
 , Exec
 , Inst
-    ( IAL ( SIO OutputDec ) )
+    ( ISM ( SIO OutputDec ) )
 ]

@@ -1,0 +1,219 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ILS
+                ( StoreID 72 0 )
+            , ILS
+                ( StoreID 101 1 )
+            , ILS
+                ( StoreID 108 2 )
+            , ILS
+                ( StoreID 108 3 )
+            , ILS
+                ( StoreID 111 4 )
+            , ILS
+                ( StoreID 44 5 )
+            , ILS
+                ( StoreID 32 6 )
+            , ILS
+                ( StoreID 119 7 )
+            , ILS
+                ( StoreID 111 8 )
+            , ILS
+                ( StoreID 114 9 )
+            , ILS
+                ( StoreID 108 10 )
+            , ILS
+                ( StoreID 100 11 )
+            , ILS
+                ( StoreID 32 12 )
+            , ILS
+                ( StoreID 111 13 )
+            , ILS
+                ( StoreID 102 14 )
+            , ILS
+                ( StoreID 32 15 )
+            , ILS
+                ( StoreID 115 16 )
+            , ILS
+                ( StoreID 112 17 )
+            , ILS
+                ( StoreID 97 18 )
+            , ILS
+                ( StoreID 99 19 )
+            , ILS
+                ( StoreID 101 20 )
+            , ILS
+                ( StoreID 115 21 )
+            , ILS
+                ( StoreID 33 22 )
+            , ILS
+                ( StoreID 0 23 )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Call
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "01101110011001010111011101101100011010010110111001100101" ) Call
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "011000010110010001100100" )
+                )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "0111011101110010011010010111010001100101" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" ) EZ
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" )
+                )
+            , ISM ( SPure Discard )
+            , ISM ( SPure Discard )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "01110010011001010110000101100100" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ILS ( MIO InputChar )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 10 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "0111001001100101011000010110010001011111011001010110111001100100" ) EZ
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "01110010011001010110000101100100" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "0111001001100101011000010110010001011111011001010110111001100100" )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Store
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "01101110011001010111011101101100011010010110111001100101" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 13 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ICF Return
+            ]
+        , programCounter = 28
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM =
+        [ 72
+        , 101
+        , 108
+        , 108
+        , 111
+        , 44
+        , 32
+        , 119
+        , 111
+        , 114
+        , 108
+        , 100
+        , 32
+        , 111
+        , 102
+        , 32
+        , 115
+        , 112
+        , 97
+        , 99
+        , 101
+        , 115
+        , 33
+        , 0
+        ]
+    }

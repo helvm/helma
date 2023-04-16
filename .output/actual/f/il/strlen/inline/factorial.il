@@ -1,7 +1,7 @@
 [ Comment " factorial program in false! "
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -9,22 +9,22 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     , Lambda
         [ Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
@@ -32,20 +32,20 @@
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary Sub ) )
             )
         , Ref 5
         , Fetch
         , Exec
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary Mul ) )
             )
         ]
@@ -57,20 +57,20 @@
 , Str "calculate the factorial of [1..8]: "
 , Flush
 , Inst
-    ( IAL ( SIO InputChar ) )
+    ( ISM ( SIO InputChar ) )
 , Flush
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 48 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary Sub ) )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Indexed
                 ( IImmediate 0 ) Copy
@@ -78,7 +78,7 @@
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Indexed
                 ( IImmediate 0 ) Copy
@@ -86,7 +86,7 @@
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )

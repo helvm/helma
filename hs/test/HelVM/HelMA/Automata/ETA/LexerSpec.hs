@@ -44,7 +44,7 @@ original =
   , "fact"
   , "bottles"
   , "crlf"
-  ] |><| ["original"]
+  ] >*< ["original"]
 
 fromEAS :: [(FilePath, FilePath)]
 fromEAS =
@@ -64,4 +64,4 @@ fromEAS =
   , "fact"
   , "bottles"
   , "euclid"
-  ] |><| [ "from-eas" ]
+  ] >*< [ "from-eas" ]

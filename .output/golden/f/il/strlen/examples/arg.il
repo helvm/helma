@@ -5,13 +5,13 @@
 , Ref 0
 , Fetch
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 3 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary Sub ) )
     )
 , Ref 0
@@ -20,7 +20,7 @@
     [ Ref 0
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -28,30 +28,30 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary Add ) )
         )
     , Ref 0
     , Store
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 255 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary BAnd ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -61,17 +61,17 @@
     , Ref 2
     , Store
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
@@ -79,7 +79,7 @@
     [ Ref 2
     , Fetch
     , Inst
-        ( IAL ( SIO OutputChar ) )
+        ( ISM ( SIO OutputChar ) )
     ]
 , While
 , Str "

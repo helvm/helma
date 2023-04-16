@@ -22,7 +22,7 @@ spec =
 --      [
       [ "echo"
 --      , "hello"
-      ] |><| ["irori"]
+      ] >*< ["irori"]
       <>
 --      [ "delete_blank_lines"
 --      , "even_lines"
@@ -36,7 +36,7 @@ spec =
 --      , "sort_characters"
       , "ultimate_problem"
       , "v"
-      ] |><| ["rst76"]
+      ] >*< ["rst76"]
       <>
       [
 --      [ "ab"
@@ -52,7 +52,7 @@ spec =
 --      , "rot13"
 --      , "sort"
 --      , "unlambda"
-      ] |><| ["tromp"]
+      ] >*< ["tromp"]
       ) $ \(fileName , dirName) -> do
         let filePath = "original" </> dirName </> fileName
         let file = readLazyKFile filePath

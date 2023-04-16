@@ -2,21 +2,21 @@
 , Ref 0
 , Fetch
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 2 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary LEQ ) )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Unary BNot ) )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Indexed
                 ( IImmediate 0 ) Copy
@@ -28,30 +28,30 @@
     " ]
 , Cond
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Unary BNot ) )
     )
 , Lambda
     [ Ref 1
     , Fetch
     , Inst
-        ( IAL ( SIO OutputDec ) )
+        ( ISM ( SIO OutputDec ) )
     , Str " + "
     , Ref 2
     , Fetch
     , Inst
-        ( IAL ( SIO OutputDec ) )
+        ( ISM ( SIO OutputDec ) )
     , Str " = "
     , Ref 1
     , Fetch
     , Ref 2
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary Add ) )
         )
     , Inst
-        ( IAL ( SIO OutputDec ) )
+        ( ISM ( SIO OutputDec ) )
     , Str "
       "
     ]

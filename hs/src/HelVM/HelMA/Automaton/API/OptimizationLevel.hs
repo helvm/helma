@@ -6,9 +6,6 @@ import           HelVM.HelIO.Containers.LLIndexSafe
 
 -- | Constructors
 
-implementedOptimizationLevels :: [OptimizationLevel]
-implementedOptimizationLevels = [NoOptimizations , BasicOptimizations]
-
 fromBool :: Bool -> OptimizationLevel
 fromBool = enumFromBool
 

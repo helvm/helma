@@ -1,6 +1,6 @@
 [ Comment " postfix while loops (##)! "
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 5 )
         )
@@ -11,17 +11,17 @@
     [ Ref 13
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
@@ -31,13 +31,13 @@
     , Ref 13
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary Add ) )
         )
     , Ref 13
@@ -48,17 +48,17 @@
     [ Ref 13
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 0 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
@@ -68,13 +68,13 @@
     , Ref 13
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary Sub ) )
         )
     , Ref 13
@@ -82,7 +82,7 @@
     ]
 , While
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 5 )
         )
@@ -93,17 +93,17 @@
     [ Ref 13
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
@@ -113,13 +113,13 @@
     , Ref 13
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary Add ) )
         )
     , Ref 13
@@ -129,17 +129,17 @@
     [ Ref 13
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 0 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
@@ -149,13 +149,13 @@
     , Ref 13
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary Sub ) )
         )
     , Ref 13

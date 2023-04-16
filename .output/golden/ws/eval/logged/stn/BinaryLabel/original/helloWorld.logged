@@ -1,0 +1,71 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ISM
+                ( SPure
+                    ( Cons 72 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 101 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 44 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 32 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 119 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 111 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 114 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 108 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 100 )
+                )
+            , ISM ( SIO OutputChar )
+            , End
+            ]
+        , programCounter = 25
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM = []
+    }

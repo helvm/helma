@@ -1,0 +1,219 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ILS
+                ( StoreID 72 0 )
+            , ILS
+                ( StoreID 101 1 )
+            , ILS
+                ( StoreID 108 2 )
+            , ILS
+                ( StoreID 108 3 )
+            , ILS
+                ( StoreID 111 4 )
+            , ILS
+                ( StoreID 44 5 )
+            , ILS
+                ( StoreID 32 6 )
+            , ILS
+                ( StoreID 119 7 )
+            , ILS
+                ( StoreID 111 8 )
+            , ILS
+                ( StoreID 114 9 )
+            , ILS
+                ( StoreID 108 10 )
+            , ILS
+                ( StoreID 100 11 )
+            , ILS
+                ( StoreID 32 12 )
+            , ILS
+                ( StoreID 111 13 )
+            , ILS
+                ( StoreID 102 14 )
+            , ILS
+                ( StoreID 32 15 )
+            , ILS
+                ( StoreID 115 16 )
+            , ILS
+                ( StoreID 112 17 )
+            , ILS
+                ( StoreID 97 18 )
+            , ILS
+                ( StoreID 99 19 )
+            , ILS
+                ( StoreID 101 20 )
+            , ILS
+                ( StoreID 115 21 )
+            , ILS
+                ( StoreID 33 22 )
+            , ILS
+                ( StoreID 0 23 )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "write" ) Call
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "newline" ) Call
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "add" )
+                )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "write" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "write_end" ) EZ
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "write" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "write_end" )
+                )
+            , ISM ( SPure Discard )
+            , ISM ( SPure Discard )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "read" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ILS ( MIO InputChar )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 10 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "read_end" ) EZ
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "read" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "read_end" )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Store
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "newline" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 13 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ICF Return
+            ]
+        , programCounter = 28
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM =
+        [ 72
+        , 101
+        , 108
+        , 108
+        , 111
+        , 44
+        , 32
+        , 119
+        , 111
+        , 114
+        , 108
+        , 100
+        , 32
+        , 111
+        , 102
+        , 32
+        , 115
+        , 112
+        , 97
+        , 99
+        , 101
+        , 115
+        , 33
+        , 0
+        ]
+    }

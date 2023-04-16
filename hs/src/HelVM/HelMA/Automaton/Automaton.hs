@@ -61,4 +61,5 @@ run = loopMWithLimit nextState
 
 nextState :: (SRAutomatonIO Symbol s r m) => SF s r m
 nextState a = nextStateForInstruction =<< currentInstruction (memoryCM a) where
-  nextStateForInstruction i = appendErrorTupleList [("i" , show i ) , ("Automaton.nextState" , showP a)] $ runInstruction i $ incrementIC a
+  nextStateForInstruction i = appendErrorTuple ("Automaton.nextState" , showP a) $ appendErrorTuple ("program:" , printIndexedIL $ toList program) $ appendErrorTuple ("i:" , show i) $ runInstruction i $ incrementIC a where
+    program = memoryProgram a

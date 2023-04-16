@@ -9,8 +9,6 @@ cons 114
 cons 111
 cons 119
 cons 32
-
-markM 2
 cons 44
 cons 111
 cons 108
@@ -32,9 +30,7 @@ markM 4
 moveI 1
 copyI 0
 bNEI 6
-
-markM 5
-sub
+discard
 jump
 
 markM 6

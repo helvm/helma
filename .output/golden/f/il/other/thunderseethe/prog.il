@@ -1,19 +1,19 @@
 [ Comment "[n: 0 1 [n;0=~][$2o+n;1-n:]# %%]f: 300f;!"
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 0 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 2 ) Move
@@ -22,41 +22,41 @@
         )
     , Lambda
         [ Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 0 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary LEQ ) )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Unary BNot ) )
             )
         ]
     , Lambda
         [ Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 1 )
                 )
             )
         , Ref 14
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 3 )
                 )
             )
         , Ref 14
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary Add ) )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -64,28 +64,28 @@
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary Sub ) )
             )
         ]
     , While
     , Inst
-        ( IAL ( SPure Discard ) )
+        ( ISM ( SPure Discard ) )
     , Inst
-        ( IAL ( SPure Discard ) )
+        ( ISM ( SPure Discard ) )
     , Inst
-        ( IAL ( SPure Discard ) )
+        ( ISM ( SPure Discard ) )
     ]
 , Ref 5
 , Store
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 300 )
         )

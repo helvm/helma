@@ -1,18 +1,18 @@
 [ Comment "Fibonacci.f  Prints the Fibonacci numbers "
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 1 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )

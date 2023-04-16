@@ -5,7 +5,7 @@ dump: Memory
                 ( Mark
                     ( MNatural 1 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 2 )
                 )
@@ -17,7 +17,7 @@ dump: Memory
                 ( Mark
                     ( MNatural 2 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 3 )
                 )
@@ -29,7 +29,7 @@ dump: Memory
                 ( Mark
                     ( MNatural 3 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 4 )
                 )
@@ -41,11 +41,11 @@ dump: Memory
                 ( Mark
                     ( MNatural 4 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 10 )
                 )
-            , IAL ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
             , ICF
                 ( Labeled
                     ( LImmediate 0 ) Jump
@@ -54,27 +54,19 @@ dump: Memory
                 ( Mark
                     ( MNatural 5 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 6 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 7 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 1 Sub )
@@ -85,10 +77,6 @@ dump: Memory
                     ( BImmediate 9 ) NE
                 )
             , ICF
-                ( Mark
-                    ( MNatural 8 )
-                )
-            , ICF
                 ( Labeled
                     ( LImmediate 13 ) Jump
                 )
@@ -96,7 +84,7 @@ dump: Memory
                 ( Mark
                     ( MNatural 9 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
@@ -106,17 +94,13 @@ dump: Memory
                 ( Mark
                     ( MNatural 10 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 1 Sub )
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 11 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 12 )
                 )
@@ -128,7 +112,7 @@ dump: Memory
                 ( Mark
                     ( MNatural 12 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 13 )
                 )
@@ -140,7 +124,7 @@ dump: Memory
                 ( Mark
                     ( MNatural 13 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -151,34 +135,22 @@ dump: Memory
                 ( Mark
                     ( MNatural 14 )
                 )
-            , IAL ( SIO InputChar )
-            , ICF
-                ( Mark
-                    ( MNatural 15 )
-                )
-            , IAL
+            , ISM ( SIO InputChar )
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 32 Sub )
                     )
                 )
             , ICF
-                ( Mark
-                    ( MNatural 16 )
-                )
-            , ICF
                 ( Branch
                     ( BImmediate 18 ) NE
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 17 )
                 )
             , ICF
                 ( Branch
@@ -188,11 +160,11 @@ dump: Memory
                 ( Mark
                     ( MNatural 18 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 0 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -202,31 +174,23 @@ dump: Memory
                 ( Mark
                     ( MNatural 19 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 48 Sub )
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 20 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 21 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 10 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 22 )
                 )
@@ -238,11 +202,11 @@ dump: Memory
                 ( Mark
                     ( MArtificial "21" )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 22 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Binaries
                         [ Mod
@@ -251,9 +215,9 @@ dump: Memory
                     )
                 )
             , ICF ( Branch BTop NE )
-            , IAL ( SIO InputChar )
+            , ISM ( SIO InputChar )
             , ICF ( Branch BTop NE )
-            , IAL
+            , ISM
                 ( SPure
                     ( Binaries
                         [ Mod
@@ -265,40 +229,16 @@ dump: Memory
                 ( Mark
                     ( MNatural 22 )
                 )
-            , IAL
-                ( SPure
-                    ( Cons 0 )
-                )
-            , IAL
-                ( SPure
-                    ( Indexed
-                        ( IImmediate 1 ) Move
-                    )
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 23 )
-                )
-            , IAL
-                ( SPure ( Binary Sub ) )
-            , IAL
-                ( SPure ( Binary Sub ) )
-            , ICF
-                ( Mark
-                    ( MNatural 24 )
-                )
-            , IAL ( SIO InputChar )
-            , ICF
-                ( Mark
-                    ( MNatural 25 )
-                )
-            , IAL
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ISM ( SIO InputChar )
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 32 Sub )
@@ -309,10 +249,6 @@ dump: Memory
                     ( BImmediate 27 ) NE
                 )
             , ICF
-                ( Mark
-                    ( MNatural 26 )
-                )
-            , ICF
                 ( Labeled
                     ( LImmediate 30 ) Jump
                 )
@@ -320,13 +256,13 @@ dump: Memory
                 ( Mark
                     ( MNatural 27 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 10 Sub )
@@ -337,10 +273,6 @@ dump: Memory
                     ( BImmediate 29 ) NE
                 )
             , ICF
-                ( Mark
-                    ( MNatural 28 )
-                )
-            , ICF
                 ( Labeled
                     ( LImmediate 30 ) Jump
                 )
@@ -348,13 +280,13 @@ dump: Memory
                 ( Mark
                     ( MNatural 29 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate
@@ -370,12 +302,8 @@ dump: Memory
                 ( Mark
                     ( MNatural 30 )
                 )
-            , IAL ( SPure Discard )
-            , ICF
-                ( Mark
-                    ( MNatural 31 )
-                )
-            , IAL
+            , ISM ( SPure Discard )
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -386,11 +314,11 @@ dump: Memory
                 ( Mark
                     ( MNatural 32 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 0 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
@@ -400,26 +328,17 @@ dump: Memory
                 ( Mark
                     ( MNatural 33 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
             , ICF
-                ( Mark
-                    ( MNatural 34 )
-                )
-            , ICF
                 ( Branch
                     ( BImmediate 36 ) NE
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 35 )
-                )
-            , IAL
-                ( SPure ( Binary Sub ) )
+            , ISM ( SPure Discard )
             , ICF
                 ( Labeled
                     ( LImmediate 40 ) Jump
@@ -428,11 +347,11 @@ dump: Memory
                 ( Mark
                     ( MNatural 36 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 10 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Binaries
                         [ Mod
@@ -444,11 +363,7 @@ dump: Memory
                 ( Mark
                     ( MArtificial "36" )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 37 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate
@@ -456,19 +371,11 @@ dump: Memory
                         )
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 38 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
                     )
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 39 )
                 )
             , ICF
                 ( Labeled
@@ -478,7 +385,7 @@ dump: Memory
                 ( Mark
                     ( MNatural 40 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 41 )
                 )
@@ -495,41 +402,29 @@ dump: Memory
                 ( Mark
                     ( MNatural 42 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 43 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 0 )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 44 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 45 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
@@ -539,15 +434,11 @@ dump: Memory
                 ( Mark
                     ( MNatural 46 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 47 )
                 )
             , ICF
                 ( Branch
@@ -565,67 +456,37 @@ dump: Memory
                 ( Mark
                     ( MNatural 49 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Unary
                         ( UImmediate 1 Sub )
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 50 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 51 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 0 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
-                        ( IImmediate 3 ) Copy
+                        ( IImmediate 2 ) Copy
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 52 )
-                )
-            , IAL
-                ( SPure ( Binary Sub ) )
-            , IAL
-                ( SPure ( Binary Sub ) )
-            , ICF
-                ( Mark
-                    ( MNatural 53 )
-                )
-            , IAL
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 54 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 2 ) Move
                     )
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 55 )
                 )
             , ICF
                 ( Labeled
@@ -636,11 +497,7 @@ dump: Memory
                     ( MNatural 56 )
                 )
             , ICF ( Branch BSwapped NE )
-            , ICF
-                ( Mark
-                    ( MNatural 57 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
@@ -651,53 +508,32 @@ dump: Memory
                 ( Mark
                     ( MNatural 58 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 1 ) Move
                     )
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 59 )
-                )
-            , IAL
+            , ISM
                 ( SPure
                     ( Indexed
                         ( IImmediate 0 ) Copy
                     )
                 )
             , ICF
-                ( Mark
-                    ( MNatural 60 )
-                )
-            , ICF
                 ( Branch
                     ( BImmediate 62 ) NE
                 )
-            , ICF
-                ( Mark
-                    ( MNatural 61 )
-                )
-            , IAL
-                ( SPure ( Binary Sub ) )
+            , ISM ( SPure Discard )
             , ICF ( Labeled LTop Jump )
             , ICF
                 ( Mark
                     ( MNatural 62 )
                 )
-            , IAL ( SIO OutputChar )
-            , ICF
-                ( Mark
-                    ( MNatural 63 )
-                )
+            , ISM ( SIO OutputChar )
             , ICF
                 ( Labeled
                     ( LImmediate 58 ) Jump
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 64 )
                 )
             , ICF
                 ( Mark
@@ -705,7 +541,7 @@ dump: Memory
                 )
             , End
             ]
-        , programCounter = 168
+        , programCounter = 127
         , returnStack = IS []
         }
     , memoryStack = fromList []

@@ -1,7 +1,9 @@
 {-# LANGUAGE PatternSynonyms #-}
 module HelVM.HelMA.Automaton.Instruction.Extras.Patterns where
 
+import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
+import           HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
 import           HelVM.HelMA.Automaton.Instruction
@@ -25,35 +27,60 @@ checkArtificialMark l (MArtificialP l') = l == l'
 checkArtificialMark _               _   = False
 
 -- | Patterns
+
+-- | ISM
+
+pattern SubP :: Instruction
+pattern SubP = ISM (SPure (Binary Sub))
+
+pattern HalibutP :: Instruction
+pattern HalibutP = ISM (SPure Halibut)
+
+pattern PickP :: Instruction
+pattern PickP = ISM (SPure Pick)
+
+pattern ConsP :: Integer -> Instruction
+pattern ConsP c = ISM (SPure (Cons c))
+
+pattern CopyIP :: Index -> Instruction
+pattern CopyIP i = ISM (SPure (Indexed (IImmediate i) Copy))
+
+pattern MoveIP :: Index -> Instruction
+pattern MoveIP i = ISM (SPure (Indexed (IImmediate i) Move))
+
+pattern BinaryP :: BinaryOperation -> Instruction
+pattern BinaryP op = ISM (SPure (Binary op))
+
+pattern SPureP :: SPureInstruction -> Instruction
+pattern SPureP i = ISM (SPure i)
+
+-- | ICF
+
+pattern BNeIP :: Natural -> Instruction
+pattern BNeIP i = ICF (Branch (BImmediate i) NE)
+
 pattern JumpP :: LabelOperand -> Instruction
 pattern JumpP o = ICF (Labeled o Jump)
 
 pattern MarkP :: Mark -> Instruction
-pattern MarkP m = (ICF (Mark m))
-
-pattern HalibutP :: Instruction
-pattern HalibutP = IAL (SPure Halibut)
-
-pattern PickP :: Instruction
-pattern PickP = IAL (SPure Pick)
+pattern MarkP m = ICF (Mark m)
 
 pattern MNaturalP :: Natural -> Instruction
-pattern MNaturalP n = (ICF (Mark (MNatural n)))
+pattern MNaturalP n = ICF (Mark (MNatural n))
 
 pattern MArtificialP :: Label -> Instruction
-pattern MArtificialP l = (ICF (Mark (MArtificial l)))
-
-pattern ConsP :: Integer -> Instruction
-pattern ConsP c = IAL (SPure (Cons c))
-
-pattern MoveIP :: Index -> Instruction
-pattern MoveIP i = IAL (SPure (Indexed (IImmediate i) Move))
+pattern MArtificialP l = ICF (Mark (MArtificial l))
 
 pattern BranchTP :: BranchTest -> Instruction
 pattern BranchTP t = ICF (Branch BTop t)
 
-pattern BinaryP :: BinaryOperation -> Instruction
-pattern BinaryP op = IAL (SPure (Binary op))
+-- | ILS
 
-pattern SPureP :: SPureInstruction -> Instruction
-pattern SPureP i = IAL (SPure i)
+pattern StoreP :: Instruction
+pattern StoreP = ILS Store
+
+pattern LoadP :: Instruction
+pattern LoadP = ILS Load
+
+pattern LoadDP :: Index -> Instruction
+pattern LoadDP a  = ILS (LoadD a)

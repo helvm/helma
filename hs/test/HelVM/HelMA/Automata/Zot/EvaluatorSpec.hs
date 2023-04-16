@@ -19,14 +19,14 @@ spec = describe "eval" $ forM_ ((
   [ ("hello"             , ""         , formatTypes)
   , ("reverse"           , "10101010" , binaryOnly)
   , ("reverse"           , "01010101" , binaryOnly)
-  ] |><| ["original"]
+  ] >*< ["original"]
   ) <> (
   [ ("flipPrint" , "10101010" , binaryOnly)
   , ("id"        , "10101010" , binaryOnly)
   , ("print3"    , "10101010" , binaryOnly)
 --  , ("rev"       , "10101010" , binaryOnly)
   , ("reverse"   , "10101010" , binaryOnly)
-  ] |><| ["calculus"]
+  ] >*< ["calculus"]
   )) $ \((fileName , input , asciis) , dirName) -> do
   let filePath = dirName </> fileName
   let file = readZotFile filePath

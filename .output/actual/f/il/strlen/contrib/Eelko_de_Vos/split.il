@@ -1,25 +1,25 @@
 [ Comment "split.f"
 , Inst
-    ( IAL ( SIO InputChar ) )
+    ( ISM ( SIO InputChar ) )
 , Ref 0
 , Store
 , Lambda
     [ Ref 0
     , Fetch
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 32 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     ]
 , Lambda
     [ Inst
-        ( IAL ( SIO InputChar ) )
+        ( ISM ( SIO InputChar ) )
     , Ref 0
     , Store
     ]
@@ -28,49 +28,49 @@
 , Ref 0
 , Fetch
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 102 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary LEQ ) )
     )
 , Ref 0
 , Fetch
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 98 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary LEQ ) )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary BOr ) )
     )
 , Inst
-    ( IAL ( SIO InputChar ) )
+    ( ISM ( SIO InputChar ) )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 32 )
         )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary LEQ ) )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure ( Binary BAnd ) )
     )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Indexed
                 ( IImmediate 0 ) Copy

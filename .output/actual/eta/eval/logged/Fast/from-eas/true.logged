@@ -1,17 +1,7 @@
 dump: Memory
     { memoryCM = CM
-        { program =
-            [ ICF
-                ( Mark
-                    ( MNatural 1 )
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 0 )
-                )
-            , End
-            ]
-        , programCounter = 3
+        { program = [ End ]
+        , programCounter = 1
         , returnStack = IS []
         }
     , memoryStack = fromList []

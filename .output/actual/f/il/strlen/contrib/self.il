@@ -1,23 +1,23 @@
 [ Lambda
     [ Str "'[,34,$!34,'],!" ]
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 91 )
         )
     )
 , Inst
-    ( IAL ( SIO OutputChar ) )
+    ( ISM ( SIO OutputChar ) )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 34 )
         )
     )
 , Inst
-    ( IAL ( SIO OutputChar ) )
+    ( ISM ( SIO OutputChar ) )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Indexed
                 ( IImmediate 0 ) Copy
@@ -26,20 +26,20 @@
     )
 , Exec
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 34 )
         )
     )
 , Inst
-    ( IAL ( SIO OutputChar ) )
+    ( ISM ( SIO OutputChar ) )
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 93 )
         )
     )
 , Inst
-    ( IAL ( SIO OutputChar ) )
+    ( ISM ( SIO OutputChar ) )
 , Exec
 ]

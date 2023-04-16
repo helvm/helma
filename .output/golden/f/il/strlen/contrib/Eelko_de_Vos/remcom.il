@@ -1,7 +1,7 @@
 [ Comment "remcom.f"
 , Comment "removes comments like this..."
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )
@@ -9,7 +9,7 @@
 , Ref 0
 , Store
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )
@@ -17,7 +17,7 @@
 , Ref 2
 , Store
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )
@@ -25,7 +25,7 @@
 , Ref 3
 , Store
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 0 )
         )
@@ -34,9 +34,9 @@
 , Store
 , Lambda
     [ Inst
-        ( IAL ( SIO InputChar ) )
+        ( ISM ( SIO InputChar ) )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -44,7 +44,7 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -52,26 +52,26 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 34 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Lambda
         [ Ref 4
         , Fetch
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 1 )
                 )
             )
         , Inst
-            ( IAL
+            ( ISM
                 ( SPure ( Binary Add ) )
             )
         , Ref 4
@@ -81,21 +81,21 @@
     , Ref 1
     , Store
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary Neg ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]

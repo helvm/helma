@@ -1,0 +1,110 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Combiner where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automaton.IO.AutomatonIO
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.Loop           as Loop
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Symbol
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Combiner.ALU   as ALU
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.Combiner.CPU   as CPU
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.Combiner.LSU   as LSU
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>import           Control.Type.Operator
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>import           Prelude                              hiding (swap)
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>-- | Core of Combiner
+<span class="lineno">   20 </span>
+<span class="lineno">   21 </span>runInstruction :: (SRAutomatonIO Symbol s r m) =&gt; Instruction -&gt; SF s r m
+<span class="lineno">   22 </span><span class="decl"><span class="istickedoff">runInstruction (ISM      i) a = Loop.continue . updateStack   a &lt;$&gt; runALI i (memoryStack a)</span>
+<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">runInstruction (ILS      i) a = Loop.continue . updateFromLSM a &lt;$&gt; runSLI i (toLSM a)</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">runInstruction (ICF      i) a = Loop.continue . updateFromCPM a &lt;$&gt; runCFI i (toCPM a)</span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">runInstruction  End         a = end a</span></span>
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>pop2ForStack :: (SRAutomatonIO Symbol s r m) =&gt; Memory s r -&gt; m (Symbol , Symbol , Memory s r)
+<span class="lineno">   28 </span><span class="decl"><span class="nottickedoff">pop2ForStack a = build &lt;$&gt; pop2 (memoryStack a) where</span>
+<span class="lineno">   29 </span><span class="spaces">  </span><span class="nottickedoff">build (s1 , s2 , s') = (s1 , s2 , updateStack a s')</span></span>
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>push1ForStack :: Stack s Symbol =&gt; Symbol -&gt; Memory s r -&gt; Memory s r
+<span class="lineno">   32 </span><span class="decl"><span class="nottickedoff">push1ForStack e a = a { memoryStack = push1 e (memoryStack a) }</span></span>
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>end :: (SRAutomatonIO Symbol s r m) =&gt; SF s r m
+<span class="lineno">   35 </span><span class="decl"><span class="istickedoff">end = pure . Loop.break</span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>-- | Constructors
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>flippedNewMemory :: (s , r) -&gt; InstructionList -&gt; Memory s r
+<span class="lineno">   40 </span><span class="decl"><span class="nottickedoff">flippedNewMemory = flip (uncurry . newMemory)</span></span>
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>newMemory :: InstructionList -&gt; s -&gt; r -&gt; Memory s r
+<span class="lineno">   43 </span><span class="decl"><span class="istickedoff">newMemory il = Memory (newCM il)</span></span>
+<span class="lineno">   44 </span>
+<span class="lineno">   45 </span>-- | Updaters
+<span class="lineno">   46 </span>
+<span class="lineno">   47 </span>incrementIC :: Memory s r -&gt; Memory s r
+<span class="lineno">   48 </span><span class="decl"><span class="istickedoff">incrementIC m = m { memoryCM = incrementPC $ memoryCM m}</span></span>
+<span class="lineno">   49 </span>
+<span class="lineno">   50 </span>updateStack :: Memory s r -&gt; s -&gt; Memory s r
+<span class="lineno">   51 </span><span class="decl"><span class="istickedoff">updateStack m s = m {memoryStack = s}</span></span>
+<span class="lineno">   52 </span>
+<span class="lineno">   53 </span>updateFromCPM :: Memory s r -&gt; CentralProcessingMemory s -&gt; Memory s r
+<span class="lineno">   54 </span><span class="decl"><span class="istickedoff">updateFromCPM m cpm = m { memoryCM = controlMemory cpm, memoryStack = alm cpm}</span></span>
+<span class="lineno">   55 </span>
+<span class="lineno">   56 </span>updateFromLSM :: Memory s r -&gt; LoadStoreMemory s r -&gt; Memory s r
+<span class="lineno">   57 </span><span class="decl"><span class="istickedoff">updateFromLSM m lsu = m {memoryStack = stack lsu , memoryRAM = ram lsu}</span></span>
+<span class="lineno">   58 </span>
+<span class="lineno">   59 </span>-- | Accessors
+<span class="lineno">   60 </span>
+<span class="lineno">   61 </span>memoryProgram :: Memory s r -&gt; InstructionVector
+<span class="lineno">   62 </span><span class="decl"><span class="istickedoff">memoryProgram = program . memoryCM</span></span>
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>memoryProgramCounter :: Memory s r -&gt; InstructionCounter
+<span class="lineno">   65 </span><span class="decl"><span class="nottickedoff">memoryProgramCounter = programCounter . memoryCM</span></span>
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>toCPM :: Memory s r -&gt; CentralProcessingMemory s
+<span class="lineno">   68 </span><span class="decl"><span class="istickedoff">toCPM a = CPM { controlMemory = memoryCM a , alm = memoryStack a }</span></span>
+<span class="lineno">   69 </span>
+<span class="lineno">   70 </span>toLSM :: Memory s r -&gt; LoadStoreMemory s r
+<span class="lineno">   71 </span><span class="decl"><span class="istickedoff">toLSM a = LSM { stack = memoryStack a, ram = memoryRAM a }</span></span>
+<span class="lineno">   72 </span>
+<span class="lineno">   73 </span>-- | Types
+<span class="lineno">   74 </span>
+<span class="lineno">   75 </span>type SF s r m = Memory s r -&gt; m $ MemorySame s r
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>type F s r m = Memory s r -&gt; m $ Memory s r
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>type MemorySame s r = Same (Memory s r)
+<span class="lineno">   80 </span>
+<span class="lineno">   81 </span>-- | Data types
+<span class="lineno">   82 </span>data Memory s r = Memory
+<span class="lineno">   83 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryCM</span></span></span>    :: ControlMemory
+<span class="lineno">   84 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryStack</span></span></span> :: s
+<span class="lineno">   85 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryRAM</span></span></span>   :: r
+<span class="lineno">   86 </span>  }
+<span class="lineno">   87 </span>  deriving stock (<span class="decl"><span class="istickedoff">Show</span></span>)
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,359 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ILS
+                ( StoreID 69 0 )
+            , ILS
+                ( StoreID 110 1 )
+            , ILS
+                ( StoreID 116 2 )
+            , ILS
+                ( StoreID 101 3 )
+            , ILS
+                ( StoreID 114 4 )
+            , ILS
+                ( StoreID 32 5 )
+            , ILS
+                ( StoreID 97 6 )
+            , ILS
+                ( StoreID 32 7 )
+            , ILS
+                ( StoreID 110 8 )
+            , ILS
+                ( StoreID 117 9 )
+            , ILS
+                ( StoreID 109 10 )
+            , ILS
+                ( StoreID 98 11 )
+            , ILS
+                ( StoreID 101 12 )
+            , ILS
+                ( StoreID 114 13 )
+            , ILS
+                ( StoreID 58 14 )
+            , ILS
+                ( StoreID 32 15 )
+            , ILS
+                ( StoreID 0 16 )
+            , ILS
+                ( StoreID 33 20 )
+            , ILS
+                ( StoreID 32 21 )
+            , ILS
+                ( StoreID 61 22 )
+            , ILS
+                ( StoreID 32 23 )
+            , ILS
+                ( StoreID 0 24 )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Call
+                )
+            , ISM
+                ( SPure
+                    ( Cons 100 )
+                )
+            , ILS ( MIO InputDec )
+            , ILS
+                ( LoadD 100 )
+            , ICF
+                ( Labeled
+                    ( LArtificial "01100110011000010110001101110100" ) Call
+                )
+            , ILS
+                ( LoadD 100 )
+            , ISM ( SIO OutputDec )
+            , ISM
+                ( SPure
+                    ( Cons 20 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Call
+                )
+            , ISM ( SIO OutputDec )
+            , ICF
+                ( Labeled
+                    ( LArtificial "01101110011001010111011101101100011010010110111001100101" ) Call
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "01100110011000010110001101110100" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "0110011001100001011000110111010001100010011000010111001101100101" ) EZ
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "01100110011000010110001101110100" ) Call
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "0110011001100001011000110111010001100010011000010111001101100101" )
+                )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "011000010110010001100100" )
+                )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "0111011101110010011010010111010001100101" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" ) EZ
+                )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "0111011101110010011010010111010001100101" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "011101110111001001101001011101000110010101011111011001010110111001100100" )
+                )
+            , ISM ( SPure Discard )
+            , ISM ( SPure Discard )
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "01110010011001010110000101100100" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ILS ( MIO InputChar )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 10 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "0111001001100101011000010110010001011111011001010110111001100100" ) EZ
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "01110010011001010110000101100100" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "0111001001100101011000010110010001011111011001010110111001100100" )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Store
+            , ICF Return
+            , ICF
+                ( Mark
+                    ( MArtificial "01101110011001010111011101101100011010010110111001100101" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 13 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ICF Return
+            ]
+        , programCounter = 35
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM =
+        [ 69
+        , 110
+        , 116
+        , 101
+        , 114
+        , 32
+        , 97
+        , 32
+        , 110
+        , 117
+        , 109
+        , 98
+        , 101
+        , 114
+        , 58
+        , 32
+        , 0
+        , 0
+        , 0
+        , 0
+        , 33
+        , 32
+        , 61
+        , 32
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 0
+        , 10
+        ]
+    }

@@ -11,96 +11,26 @@ dump: Memory
                 )
             , ICF
                 ( Mark
-                    ( MNatural 2 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 10 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 49 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 68 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 65 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 66 )
-                )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , ICF
-                ( Labeled
-                    ( LImmediate 0 ) Jump
-                )
-            , ICF
-                ( Mark
                     ( MNatural 3 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 10 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 75 )
                 )
-            , IAL
+            , ISM
                 ( SPure
                     ( Cons 79 )
                 )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
             , ICF
                 ( Labeled
                     ( LImmediate 0 ) Jump
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 4 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 10 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 50 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 68 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 65 )
-                )
-            , IAL
-                ( SPure
-                    ( Cons 66 )
-                )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , IAL ( SIO OutputChar )
-            , ICF
-                ( Labeled
-                    ( LImmediate 0 ) Jump
-                )
-            , ICF
-                ( Mark
-                    ( MNatural 5 )
                 )
             , ICF
                 ( Mark
@@ -108,7 +38,7 @@ dump: Memory
                 )
             , End
             ]
-        , programCounter = 37
+        , programCounter = 12
         , returnStack = IS []
         }
     , memoryStack = fromList []

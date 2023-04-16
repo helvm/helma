@@ -3,9 +3,9 @@
 , Flush
 , Lambda
     [ Inst
-        ( IAL ( SIO InputChar ) )
+        ( ISM ( SIO InputChar ) )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -13,7 +13,7 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Indexed
                     ( IImmediate 0 ) Copy
@@ -21,56 +21,56 @@
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 1 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary Neg ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Unary BNot ) )
         )
     ]
 , Lambda
     [ Inst
-        ( IAL
+        ( ISM
             ( SPure
                 ( Cons 10 )
             )
         )
     , Inst
-        ( IAL
+        ( ISM
             ( SPure ( Binary LEQ ) )
         )
     , Lambda
         [ Inst
-            ( IAL
+            ( ISM
                 ( SPure
                     ( Cons 13 )
                 )
             )
         , Inst
-            ( IAL ( SIO OutputChar ) )
+            ( ISM ( SIO OutputChar ) )
         ]
     , Cond
     , Inst
-        ( IAL ( SIO OutputChar ) )
+        ( ISM ( SIO OutputChar ) )
     ]
 , While
 , Inst
-    ( IAL
+    ( ISM
         ( SPure
             ( Cons 26 )
         )
     )
 , Inst
-    ( IAL ( SIO OutputChar ) )
+    ( ISM ( SIO OutputChar ) )
 ]
