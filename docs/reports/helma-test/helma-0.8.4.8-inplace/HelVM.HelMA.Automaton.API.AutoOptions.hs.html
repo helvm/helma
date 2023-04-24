@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.API.AutoOptions where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automaton.API.OptimizationLevel
+<span class="lineno">    4 </span>import           HelVM.HelMA.Automaton.Loop
+<span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.Types.DumpType
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>simpleAutoParams :: AutoOptions
+<span class="lineno">    8 </span><span class="decl"><span class="istickedoff">simpleAutoParams = AutoOptions</span>
+<span class="lineno">    9 </span><span class="spaces">  </span><span class="istickedoff">{ optLevel     = AllOptimizations</span>
+<span class="lineno">   10 </span><span class="spaces">  </span><span class="istickedoff">, limit        = testMaybeLimit</span>
+<span class="lineno">   11 </span><span class="spaces">  </span><span class="istickedoff">, dumpType     = Pretty</span>
+<span class="lineno">   12 </span><span class="spaces">  </span><span class="istickedoff">}</span></span>
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>data AutoOptions = AutoOptions
+<span class="lineno">   15 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">optLevel</span></span></span> :: OptimizationLevel
+<span class="lineno">   16 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">limit</span></span></span>    :: LimitMaybe
+<span class="lineno">   17 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">dumpType</span></span></span> :: DumpType
+<span class="lineno">   18 </span>  }
+
+</pre>
+</body>
+</html>

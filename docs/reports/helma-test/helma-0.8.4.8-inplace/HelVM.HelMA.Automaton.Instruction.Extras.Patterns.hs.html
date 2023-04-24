@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>{-# LANGUAGE PatternSynonyms #-}
+<span class="lineno">    2 </span>module HelVM.HelMA.Automaton.Instruction.Extras.Patterns where
+<span class="lineno">    3 </span>
+<span class="lineno">    4 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
+<span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>-- | Getters
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>isICF :: Instruction -&gt; Bool
+<span class="lineno">   12 </span><span class="decl"><span class="nottickedoff">isICF (ICF _) = True</span>
+<span class="lineno">   13 </span><span class="spaces"></span><span class="nottickedoff">isICF      _  = False</span></span>
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>isMark :: Instruction -&gt; Bool
+<span class="lineno">   16 </span><span class="decl"><span class="istickedoff">isMark (MarkP _) = True</span>
+<span class="lineno">   17 </span><span class="spaces"></span><span class="istickedoff">isMark        _  = False</span></span>
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>checkNaturalMark :: Natural -&gt; Instruction -&gt; Bool
+<span class="lineno">   20 </span><span class="decl"><span class="istickedoff">checkNaturalMark n (MNaturalP n') = n == n'</span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">checkNaturalMark _            _   = False</span></span>
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>checkArtificialMark :: Label -&gt; Instruction -&gt; Bool
+<span class="lineno">   24 </span><span class="decl"><span class="istickedoff">checkArtificialMark l (MArtificialP l') = l == l'</span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">checkArtificialMark _               _   = False</span></span>
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>-- | Patterns
+<span class="lineno">   28 </span>pattern JumpP :: LabelOperand -&gt; Instruction
+<span class="lineno">   29 </span>pattern JumpP o = <span class="istickedoff"><span class="nottickedoff">ICF (Labeled o Jump)</span></span>
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>pattern MarkP :: Mark -&gt; Instruction
+<span class="lineno">   32 </span>pattern MarkP m = <span class="istickedoff"><span class="nottickedoff">(ICF (Mark m))</span></span>
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>pattern HalibutP :: Instruction
+<span class="lineno">   35 </span>pattern HalibutP = <span class="istickedoff"><span class="nottickedoff">IAL (SPure Halibut)</span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>pattern PickP :: Instruction
+<span class="lineno">   38 </span>pattern PickP = <span class="istickedoff"><span class="nottickedoff">IAL (SPure Pick)</span></span>
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>pattern MNaturalP :: Natural -&gt; Instruction
+<span class="lineno">   41 </span>pattern MNaturalP n = <span class="istickedoff"><span class="nottickedoff">(ICF (Mark (MNatural n)))</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>pattern MArtificialP :: Label -&gt; Instruction
+<span class="lineno">   44 </span>pattern MArtificialP l = <span class="istickedoff"><span class="nottickedoff">(ICF (Mark (MArtificial l)))</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>pattern ConsP :: Integer -&gt; Instruction
+<span class="lineno">   47 </span>pattern ConsP c = <span class="istickedoff"><span class="nottickedoff">IAL (SPure (Cons c))</span></span>
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>pattern MoveIP :: Index -&gt; Instruction
+<span class="lineno">   50 </span>pattern MoveIP i = <span class="istickedoff"><span class="nottickedoff">IAL (SPure (Indexed (IImmediate i) Move))</span></span>
+<span class="lineno">   51 </span>
+<span class="lineno">   52 </span>pattern BranchTP :: BranchTest -&gt; Instruction
+<span class="lineno">   53 </span>pattern BranchTP t = <span class="istickedoff"><span class="nottickedoff">ICF (Branch BTop t)</span></span>
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>pattern BinaryP :: BinaryOperation -&gt; Instruction
+<span class="lineno">   56 </span>pattern BinaryP op = <span class="istickedoff"><span class="nottickedoff">IAL (SPure (Binary op))</span></span>
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>pattern SPureP :: SPureInstruction -&gt; Instruction
+<span class="lineno">   59 </span>pattern SPureP i = <span class="nottickedoff">IAL (SPure i)</span>
+
+</pre>
+</body>
+</html>

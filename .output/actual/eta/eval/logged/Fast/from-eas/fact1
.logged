@@ -204,7 +204,9 @@ dump: Memory
                 )
             , IAL
                 ( SPure
-                    ( Cons 16 )
+                    ( Unary
+                        ( UImmediate 48 Sub )
+                    )
                 )
             , ICF
                 ( Mark
@@ -704,9 +706,6 @@ dump: Memory
         , programCounter = 169
         , returnStack = IS []
         }
-    , memoryStack = fromList
-        [ 506
-        , 2
-        ]
+    , memoryStack = fromList []
     , memoryRAM = []
     }

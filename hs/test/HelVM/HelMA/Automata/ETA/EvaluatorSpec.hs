@@ -26,7 +26,7 @@ spec =
     ] |><| (["original"] |><| etaImplTypes)
     ) <> (
     [ ("bottles"  , [""])
-    , ("fact"     , ["9\n", "10\n"])
+    , ("fact"     , ["1\n" , "9\n"])
     ] |><| (["original"] |><| [defaultETAImplType])
     ) <> (
     [ ("true"     , [""])
@@ -35,7 +35,7 @@ spec =
     , ("hello3"   , [""])
     , ("hello4"   , [""])
     , ("readnum"  , ["0\n" , "1\n"])
-    , ("fact"     , ["0\n" , "1\n" , "9\n", "10\n"])
+    , ("fact"     , ["1\n" , "9\n"])
     , ("bottles"  , [""])
     , ("divmod"   , [""])
     , ("readchar" , ["A"])

@@ -104,7 +104,6 @@ halibut
 
 markM 19
 cons 48
-cons 32
 sub
 
 markM 20
