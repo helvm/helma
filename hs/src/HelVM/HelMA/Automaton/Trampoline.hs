@@ -52,9 +52,6 @@ continue = Right
 break :: b -> Either b a
 break = Left
 
---type StepM m a = a -> m a
---type Step a = a -> a
-
 type SameWithLimit a = Same (WithLimit a)
 
 type WithLimitMaybe a = (LimitMaybe , a)
@@ -64,5 +61,10 @@ type LimitMaybe = Maybe Natural
 type EitherWithLimit a = Either a $ WithLimit a
 
 type WithLimit a = (Natural , a)
+
+type StepSameM m a = a -> m $ Same a
+type StepSame a = a -> Same a
+type StepM m a = a -> m a
+type Step a = a -> a
 
 type Same a = Either a a
