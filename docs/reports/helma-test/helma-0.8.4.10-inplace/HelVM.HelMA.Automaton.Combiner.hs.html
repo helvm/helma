@@ -23,7 +23,7 @@ span.spaces    { background: white }
 <span class="lineno">    4 </span>
 <span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.Instruction
 <span class="lineno">    6 </span>
-<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.Loop           as Loop
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.Trampoline     as Trampoline
 <span class="lineno">    8 </span>
 <span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Symbol
 <span class="lineno">   10 </span>
@@ -38,9 +38,9 @@ span.spaces    { background: white }
 <span class="lineno">   19 </span>-- | Core of Combiner
 <span class="lineno">   20 </span>
 <span class="lineno">   21 </span>runInstruction :: (SRAutomatonIO Symbol s r m) =&gt; Instruction -&gt; SF s r m
-<span class="lineno">   22 </span><span class="decl"><span class="istickedoff">runInstruction (ISM      i) a = Loop.continue . updateStack   a &lt;$&gt; runALI i (memoryStack a)</span>
-<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">runInstruction (ILS      i) a = Loop.continue . updateFromLSM a &lt;$&gt; runSLI i (toLSM a)</span>
-<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">runInstruction (ICF      i) a = Loop.continue . updateFromCPM a &lt;$&gt; runCFI i (toCPM a)</span>
+<span class="lineno">   22 </span><span class="decl"><span class="istickedoff">runInstruction (ISM      i) a = Trampoline.continue . updateStack   a &lt;$&gt; runALI i (memoryStack a)</span>
+<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">runInstruction (ILS      i) a = Trampoline.continue . updateFromLSM a &lt;$&gt; runSLI i (toLSM a)</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">runInstruction (ICF      i) a = Trampoline.continue . updateFromCPM a &lt;$&gt; runCFI i (toCPM a)</span>
 <span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">runInstruction  End         a = end a</span></span>
 <span class="lineno">   26 </span>
 <span class="lineno">   27 </span>pop2ForStack :: (SRAutomatonIO Symbol s r m) =&gt; Memory s r -&gt; m (Symbol , Symbol , Memory s r)
@@ -51,7 +51,7 @@ span.spaces    { background: white }
 <span class="lineno">   32 </span><span class="decl"><span class="nottickedoff">push1ForStack e a = a { memoryStack = push1 e (memoryStack a) }</span></span>
 <span class="lineno">   33 </span>
 <span class="lineno">   34 </span>end :: (SRAutomatonIO Symbol s r m) =&gt; SF s r m
-<span class="lineno">   35 </span><span class="decl"><span class="istickedoff">end = pure . Loop.break</span></span>
+<span class="lineno">   35 </span><span class="decl"><span class="istickedoff">end = pure . Trampoline.break</span></span>
 <span class="lineno">   36 </span>
 <span class="lineno">   37 </span>-- | Constructors
 <span class="lineno">   38 </span>

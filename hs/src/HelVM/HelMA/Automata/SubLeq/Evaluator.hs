@@ -12,7 +12,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.IO.AutomatonIO
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.HelMA.Automaton.Loop
+import           HelVM.HelMA.Automaton.Trampoline
 
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.RAMType

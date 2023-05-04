@@ -1,5 +1,8 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.10 -- 2023-05-01
+* Remove Loop
+
 ## 0.8.4.9 -- 2023-05-01
 * Add optimize
 * Add files to examples

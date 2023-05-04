@@ -12,9 +12,9 @@ import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.IO.AutomatonIO
 import           HelVM.HelMA.Automaton.IO.BusinessIO
 
-import           HelVM.HelMA.Automaton.Loop                 as Loop
 import           HelVM.HelMA.Automaton.Optimizer
 import           HelVM.HelMA.Automaton.Symbol
+import           HelVM.HelMA.Automaton.Trampoline           as Trampoline
 
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.RAMType
@@ -57,7 +57,7 @@ runAndDumpLogs :: (SRAutomatonIO Symbol s r m) => AutoOptions -> Memory s r ->  
 runAndDumpLogs p = logDump (dumpType p) <=< run (limit p)
 
 run :: (SRAutomatonIO Symbol s r m) => LimitMaybe -> F s r m
-run = loopMWithLimit nextState
+run = trampolineMWithLimit nextState
 
 nextState :: (SRAutomatonIO Symbol s r m) => SF s r m
 nextState a = nextStateForInstruction =<< currentInstruction (memoryCM a) where

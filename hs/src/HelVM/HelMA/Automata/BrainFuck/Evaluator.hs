@@ -18,7 +18,7 @@ import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
 
 simpleEval :: BIO m => (BFType , Source , CellType) -> m ()
-simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Loop
+simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Trampoline
 
 ----
 

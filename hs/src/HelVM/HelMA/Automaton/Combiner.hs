@@ -4,7 +4,7 @@ import           HelVM.HelMA.Automaton.IO.AutomatonIO
 
 import           HelVM.HelMA.Automaton.Instruction
 
-import           HelVM.HelMA.Automaton.Loop           as Loop
+import           HelVM.HelMA.Automaton.Trampoline     as Trampoline
 
 import           HelVM.HelMA.Automaton.Symbol
 
@@ -19,9 +19,9 @@ import           Prelude                              hiding (swap)
 -- | Core of Combiner
 
 runInstruction :: (SRAutomatonIO Symbol s r m) => Instruction -> SF s r m
-runInstruction (ISM      i) a = Loop.continue . updateStack   a <$> runALI i (memoryStack a)
-runInstruction (ILS      i) a = Loop.continue . updateFromLSM a <$> runSLI i (toLSM a)
-runInstruction (ICF      i) a = Loop.continue . updateFromCPM a <$> runCFI i (toCPM a)
+runInstruction (ISM      i) a = Trampoline.continue . updateStack   a <$> runALI i (memoryStack a)
+runInstruction (ILS      i) a = Trampoline.continue . updateFromLSM a <$> runSLI i (toLSM a)
+runInstruction (ICF      i) a = Trampoline.continue . updateFromCPM a <$> runCFI i (toCPM a)
 runInstruction  End         a = end a
 
 pop2ForStack :: (SRAutomatonIO Symbol s r m) => Memory s r -> m (Symbol , Symbol , Memory s r)
@@ -32,7 +32,7 @@ push1ForStack :: Stack s Symbol => Symbol -> Memory s r -> Memory s r
 push1ForStack e a = a { memoryStack = push1 e (memoryStack a) }
 
 end :: (SRAutomatonIO Symbol s r m) => SF s r m
-end = pure . Loop.break
+end = pure . Trampoline.break
 
 -- | Constructors
 
