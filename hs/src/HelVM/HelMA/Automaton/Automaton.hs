@@ -56,7 +56,7 @@ start''' :: (SRAutomatonIO Symbol s r m) => InstructionList -> s -> r -> AutoOpt
 start''' il s r p = runAndDumpLogs p (newMemory il s r)
 
 runAndDumpLogs :: (SRAutomatonIO Symbol s r m) => AutoOptions -> Memory s r ->  m ()
-runAndDumpLogs p = logDump (dumpType p) <=< run (limit p)
+runAndDumpLogs p m = logDump (dumpType p) =<< runWithLimit (limit p , m)
 
 run :: (SRAutomatonIO Symbol s r m) => LimitMaybe -> F s r m
 --run = trampolineMWithLimit nextState

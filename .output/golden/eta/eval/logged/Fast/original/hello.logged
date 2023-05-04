@@ -1,4 +1,5 @@
-dump: Memory
+dump: ( Just 35
+, Memory
     { memoryCM = CM
         { program =
             [ ICF
@@ -141,3 +142,4 @@ dump: Memory
     , memoryStack = fromList []
     , memoryRAM = []
     }
+)

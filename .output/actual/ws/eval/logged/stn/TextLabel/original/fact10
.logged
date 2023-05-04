@@ -1,4 +1,5 @@
-dump: Memory
+dump: ( Just 306
+, Memory
     { memoryCM = CM
         { program =
             [ ILS
@@ -357,3 +358,4 @@ dump: Memory
         , 10
         ]
     }
+)

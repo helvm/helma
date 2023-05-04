@@ -1,4 +1,5 @@
-dump: Memory
+dump: ( Just 6
+, Memory
     { memoryCM = CM
         { program =
             [ ISM
@@ -32,3 +33,4 @@ dump: Memory
         ]
     , memoryRAM = []
     }
+)

@@ -1,4 +1,5 @@
-dump: Memory
+dump: ( Just 1
+, Memory
     { memoryCM = CM
         { program = [ End ]
         , programCounter = 1
@@ -7,3 +8,4 @@ dump: Memory
     , memoryStack = fromList []
     , memoryRAM = []
     }
+)

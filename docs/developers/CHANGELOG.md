@@ -1,7 +1,7 @@
 # 📅 Revision history for HelMA
 
 ## 0.8.4.11 -- 2023-05-04
-* FIX
+* FIX tests for ELVM
 
 ## 0.8.4.10 -- 2023-05-04
 * Remove Loop

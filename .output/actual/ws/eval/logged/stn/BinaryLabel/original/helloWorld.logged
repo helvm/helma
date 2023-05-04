@@ -1,4 +1,5 @@
-dump: Memory
+dump: ( Just 25
+, Memory
     { memoryCM = CM
         { program =
             [ ISM
@@ -69,3 +70,4 @@ dump: Memory
     , memoryStack = fromList []
     , memoryRAM = []
     }
+)
