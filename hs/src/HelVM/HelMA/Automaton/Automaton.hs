@@ -2,6 +2,7 @@ module HelVM.HelMA.Automaton.Automaton (
   start,
   runAndDumpLogs,
   run,
+  runWithLimit,
 ) where
 
 import           HelVM.HelMA.Automaton.API.AutoOptions
@@ -31,6 +32,7 @@ import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Extra
 
 import           Control.Monad.Extra
+import           Control.Type.Operator
 
 import qualified Data.Sequence                              as Seq
 
@@ -57,7 +59,11 @@ runAndDumpLogs :: (SRAutomatonIO Symbol s r m) => AutoOptions -> Memory s r ->  
 runAndDumpLogs p = logDump (dumpType p) <=< run (limit p)
 
 run :: (SRAutomatonIO Symbol s r m) => LimitMaybe -> F s r m
-run = trampolineMWithLimit nextState
+--run = trampolineMWithLimit nextState
+run l m = snd <$> runWithLimit (l , m)
+
+runWithLimit :: (SRAutomatonIO Symbol s r m) => (WithLimitMaybe (Memory s r)) -> m $ WithLimitMaybe (Memory s r)
+runWithLimit = trampolineMWithLimit2 nextState
 
 nextState :: (SRAutomatonIO Symbol s r m) => SF s r m
 nextState a = nextStateForInstruction =<< currentInstruction (memoryCM a) where

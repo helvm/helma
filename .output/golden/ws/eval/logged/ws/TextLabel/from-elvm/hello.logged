@@ -1,0 +1,810 @@
+dump: Memory
+    { memoryCM = CM
+        { program =
+            [ ILS
+                ( StoreID 0 0 )
+            , ILS
+                ( StoreID 0 1 )
+            , ILS
+                ( StoreID 0 2 )
+            , ILS
+                ( StoreID 0 3 )
+            , ILS
+                ( StoreID 0 4 )
+            , ILS
+                ( StoreID 0 5 )
+            , ILS
+                ( StoreID 0 6 )
+            , ILS
+                ( StoreID 72 8 )
+            , ILS
+                ( StoreID 101 9 )
+            , ILS
+                ( StoreID 108 10 )
+            , ILS
+                ( StoreID 108 11 )
+            , ILS
+                ( StoreID 111 12 )
+            , ILS
+                ( StoreID 44 13 )
+            , ILS
+                ( StoreID 32 14 )
+            , ILS
+                ( StoreID 119 15 )
+            , ILS
+                ( StoreID 111 16 )
+            , ILS
+                ( StoreID 114 17 )
+            , ILS
+                ( StoreID 108 18 )
+            , ILS
+                ( StoreID 100 19 )
+            , ILS
+                ( StoreID 33 20 )
+            , ILS
+                ( StoreID 10 21 )
+            , ILS
+                ( StoreID 0 22 )
+            , ILS
+                ( StoreID 16 23 )
+            , ICF
+                ( Mark
+                    ( MArtificial "\x0" )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\x1" )
+                )
+            , ILS
+                ( MoveD 5 3 )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ILS
+                ( LoadD 3 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777215 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ILS
+                ( LoadD 3 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS
+                ( LoadD 4 )
+            , ILS Store
+            , ILS
+                ( MoveD 3 5 )
+            , ILS
+                ( MoveD 5 4 )
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ILS
+                ( LoadD 5 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ILS
+                ( StoreID 0 0 )
+            , ILS
+                ( MoveD 5 1 )
+            , ILS
+                ( StoreID 0 0 )
+            , ILS
+                ( MoveD 4 1 )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777215 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ILS Store
+            , ICF
+                ( Mark
+                    ( MArtificial "\x2" )
+                )
+            , ILS
+                ( MoveD 4 1 )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777215 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS Load
+            , ILS Store
+            , ILS
+                ( MoveD 0 1 )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS Load
+            , ILS Store
+            , ILS
+                ( LoadD 0 )
+            , ICF
+                ( Branch
+                    ( BArtificial "\x9" ) EZ
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "
+                    " ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "
+                    " )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\xb" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\x9" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\xb" )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "\x4" ) EZ
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\x3" )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x5" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\x4" )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x7" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\x5" )
+                )
+            , ILS
+                ( MoveD 4 1 )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777215 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS Load
+            , ILS Store
+            , ILS
+                ( MoveD 0 1 )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS Load
+            , ILS Store
+            , ILS
+                ( MoveD 5 3 )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ILS
+                ( LoadD 3 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777215 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ILS
+                ( LoadD 3 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ILS Store
+            , ILS
+                ( MoveD 3 5 )
+            , ILS
+                ( LoadD 0 )
+            , ISM ( SIO OutputChar )
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ILS
+                ( LoadD 5 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ICF
+                ( Mark
+                    ( MArtificial "\x6" )
+                )
+            , ILS
+                ( MoveD 4 1 )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777215 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS Load
+            , ILS Store
+            , ILS
+                ( MoveD 5 3 )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ILS
+                ( LoadD 3 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777215 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ILS
+                ( LoadD 3 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ILS Store
+            , ILS
+                ( MoveD 3 5 )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ILS
+                ( MoveD 4 1 )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777215 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ILS
+                ( LoadD 1 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS
+                ( LoadD 5 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 8 Add )
+                    )
+                )
+            , ILS Load
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ILS
+                ( LoadD 5 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Add )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 16777216 Mod )
+                    )
+                )
+            , ILS Store
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x2" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\x7" )
+                )
+            , ILS
+                ( StoreID 0 0 )
+            , ILS
+                ( MoveD 0 1 )
+            , End
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "\x8" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "\xf" ) LTZ
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "\x11" ) LTZ
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "\x12" ) LTZ
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x7" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\x12" )
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x6" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\x11" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "\x10" ) LTZ
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x5" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\x10" )
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x4" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\xf" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "\xd" ) LTZ
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "\xe" ) LTZ
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\xe" )
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x2" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\xd" )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "\xc" ) LTZ
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "\xc" )
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "\x0" ) Jump
+                )
+            ]
+        , programCounter = 1
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM = [ 0 ]
+    }

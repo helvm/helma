@@ -1,0 +1,94 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Automaton (
+<span class="lineno">    2 </span>  start,
+<span class="lineno">    3 </span>  runAndDumpLogs,
+<span class="lineno">    4 </span>  run,
+<span class="lineno">    5 </span>  runWithLimit,
+<span class="lineno">    6 </span>) where
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.API.AutoOptions
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.API.AutomatonOptions
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Instruction
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.IO.AutomatonIO
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.Optimizer
+<span class="lineno">   17 </span>import           HelVM.HelMA.Automaton.Symbol
+<span class="lineno">   18 </span>import           HelVM.HelMA.Automaton.Trampoline           as Trampoline
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import           HelVM.HelMA.Automaton.Types.DumpType
+<span class="lineno">   21 </span>import           HelVM.HelMA.Automaton.Types.RAMType
+<span class="lineno">   22 </span>import           HelVM.HelMA.Automaton.Types.StackType
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>import           HelVM.HelMA.Automaton.Combiner
+<span class="lineno">   25 </span>import           HelVM.HelMA.Automaton.Combiner.CPU         as CPU
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>import qualified HelVM.HelIO.Collections.MapList            as MapList
+<span class="lineno">   28 </span>import qualified HelVM.HelIO.Collections.SList              as SList
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>import           HelVM.HelIO.Control.Safe
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>import           HelVM.HelIO.Extra
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>import           Control.Monad.Extra
+<span class="lineno">   35 </span>import           Control.Type.Operator
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>import qualified Data.Sequence                              as Seq
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>import           Prelude                                    hiding (swap)
+<span class="lineno">   40 </span>
+<span class="lineno">   41 </span>start :: BIO m =&gt; InstructionList -&gt; AutomatonOptions -&gt; m ()
+<span class="lineno">   42 </span><span class="decl"><span class="istickedoff">start il ao = start' (flip optimize il $ optLevelAutoOptions ao) (stackType ao) (ramType ao) (autoOptions ao)</span></span>
+<span class="lineno">   43 </span>
+<span class="lineno">   44 </span>start' :: BIO m =&gt; InstructionList -&gt; StackType -&gt; RAMType -&gt; AutoOptions -&gt; m ()
+<span class="lineno">   45 </span><span class="decl"><span class="istickedoff">start' il s ListRAMType    = <span class="nottickedoff">start'' il s []</span></span>
+<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">start' il s SeqRAMType     = <span class="nottickedoff">start'' il s Seq.empty</span></span>
+<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">start' il s SListRAMType   = <span class="nottickedoff">start'' il s SList.sListEmpty</span></span>
+<span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">start' il s MapListRAMType = start'' il s MapList.mapListEmpty</span></span>
+<span class="lineno">   49 </span>
+<span class="lineno">   50 </span>start'' :: (RAutomatonIO Symbol r m) =&gt; InstructionList -&gt; StackType -&gt; r -&gt; AutoOptions -&gt; m ()
+<span class="lineno">   51 </span><span class="decl"><span class="istickedoff">start'' il ListStackType  = <span class="nottickedoff">start''' il []</span></span>
+<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">start'' il SeqStackType   = start''' il Seq.empty</span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">start'' il SListStackType = <span class="nottickedoff">start''' il SList.sListEmpty</span></span></span>
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>start''' :: (SRAutomatonIO Symbol s r m) =&gt; InstructionList -&gt; s -&gt; r -&gt; AutoOptions -&gt; m ()
+<span class="lineno">   56 </span><span class="decl"><span class="istickedoff">start''' il s r p = runAndDumpLogs p (newMemory il s r)</span></span>
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>runAndDumpLogs :: (SRAutomatonIO Symbol s r m) =&gt; AutoOptions -&gt; Memory s r -&gt;  m ()
+<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">runAndDumpLogs p = logDump (dumpType p) &lt;=&lt; run (limit p)</span></span>
+<span class="lineno">   60 </span>
+<span class="lineno">   61 </span>run :: (SRAutomatonIO Symbol s r m) =&gt; LimitMaybe -&gt; F s r m
+<span class="lineno">   62 </span>--run = trampolineMWithLimit nextState
+<span class="lineno">   63 </span><span class="decl"><span class="istickedoff">run l m = snd &lt;$&gt; runWithLimit (l , m)</span></span>
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>runWithLimit :: (SRAutomatonIO Symbol s r m) =&gt; (WithLimitMaybe (Memory s r)) -&gt; m $ WithLimitMaybe (Memory s r)
+<span class="lineno">   66 </span><span class="decl"><span class="istickedoff">runWithLimit = trampolineMWithLimit2 nextState</span></span>
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>nextState :: (SRAutomatonIO Symbol s r m) =&gt; SF s r m
+<span class="lineno">   69 </span><span class="decl"><span class="istickedoff">nextState a = nextStateForInstruction =&lt;&lt; currentInstruction (memoryCM a) where</span>
+<span class="lineno">   70 </span><span class="spaces">  </span><span class="istickedoff">nextStateForInstruction i = appendErrorTuple (&quot;Automaton.nextState&quot; , showP a) $ appendErrorTuple (&quot;program:&quot; , printIndexedIL $ toList program) $ appendErrorTuple (&quot;i:&quot; , show i) $ runInstruction i $ incrementIC a where</span>
+<span class="lineno">   71 </span><span class="spaces">    </span><span class="istickedoff">program = memoryProgram a</span></span>
+
+</pre>
+</body>
+</html>

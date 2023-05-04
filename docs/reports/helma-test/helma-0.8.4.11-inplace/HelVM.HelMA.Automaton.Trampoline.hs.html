@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Trampoline where
+<span class="lineno">    2 </span>
+<span class="lineno">    3 </span>import           Control.Monad.Extra   hiding (loop)
+<span class="lineno">    4 </span>import           Control.Type.Operator
+<span class="lineno">    5 </span>
+<span class="lineno">    6 </span>import           Data.Either.Extra
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>import           Prelude               hiding (break)
+<span class="lineno">    9 </span>
+<span class="lineno">   10 </span>testMaybeLimit :: LimitMaybe
+<span class="lineno">   11 </span>--testMaybeLimit = Just $ fromIntegral (maxBound :: Int)
+<span class="lineno">   12 </span><span class="decl"><span class="istickedoff">testMaybeLimit = Just $ fromIntegral (maxBound :: Int32)</span></span>
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>trampolineMWithLimit :: Monad m =&gt; (a -&gt; m $ Same a) -&gt; LimitMaybe -&gt; a -&gt; m a
+<span class="lineno">   15 </span><span class="decl"><span class="istickedoff">trampolineMWithLimit f Nothing  x = <span class="nottickedoff">trampolineM f x</span></span>
+<span class="lineno">   16 </span><span class="spaces"></span><span class="istickedoff">trampolineMWithLimit f (Just n) x = trampolineM (actMWithLimit f) (n , x)</span></span>
+<span class="lineno">   17 </span>--trampolineMWithLimit f n x = convert &lt;$&gt; trampolineMWithLimit2 f (n , x) where convert (_ , a) = a
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>actMWithLimit :: Monad m =&gt; (a -&gt; m $ Same a) -&gt; WithLimit a -&gt; m $ EitherWithLimit a
+<span class="lineno">   20 </span><span class="decl"><span class="istickedoff">actMWithLimit f (n , x) = checkN n where</span>
+<span class="lineno">   21 </span><span class="spaces">  </span><span class="istickedoff">checkN 0 = <span class="nottickedoff">pure $ break x</span></span>
+<span class="lineno">   22 </span><span class="spaces">  </span><span class="istickedoff">checkN _ = next n &lt;$&gt; f x</span></span>
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>trampolineMWithLimit2 :: Monad m =&gt; (a -&gt; m $ Same a) -&gt; WithLimitMaybe a -&gt; m $ WithLimitMaybe a
+<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">trampolineMWithLimit2 f (Nothing, x) = <span class="nottickedoff">prod &lt;$&gt; trampolineM f x</span> where <span class="nottickedoff">prod a = (Nothing , a)</span></span>
+<span class="lineno">   26 </span><span class="spaces"></span><span class="istickedoff">trampolineMWithLimit2 f (Just n , x) = test &lt;$&gt; trampolineM (actMWithLimit2 f) (n , x) where test (n' , a) = (<span class="nottickedoff">Just (n - n')</span> , a)</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>actMWithLimit2 :: Monad m =&gt; (a -&gt; m $ Same a) -&gt; WithLimit a -&gt; m $ SameWithLimit a
+<span class="lineno">   29 </span><span class="decl"><span class="istickedoff">actMWithLimit2 f (n , x) = checkN n where</span>
+<span class="lineno">   30 </span><span class="spaces">  </span><span class="istickedoff">checkN 0 = <span class="nottickedoff">pure $ break (0 , x)</span></span>
+<span class="lineno">   31 </span><span class="spaces">  </span><span class="istickedoff">checkN _ = addContext (n - 1) &lt;$&gt; f x</span></span>
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>addContext :: c -&gt; Either a b -&gt; Either (c , a) (c , b)
+<span class="lineno">   34 </span><span class="decl"><span class="istickedoff">addContext ctx (Left  a) = Left  (<span class="nottickedoff">ctx</span> , a)</span>
+<span class="lineno">   35 </span><span class="spaces"></span><span class="istickedoff">addContext ctx (Right b) = Right (ctx , b)</span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>next :: Natural -&gt; Same a -&gt; EitherWithLimit a
+<span class="lineno">   38 </span><span class="decl"><span class="istickedoff">next n a = withLimit n &lt;$&gt; a</span></span>
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>withLimit :: Natural -&gt; a -&gt; WithLimit a
+<span class="lineno">   41 </span><span class="decl"><span class="istickedoff">withLimit n a = (n - 1 , a)</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>trampolineM :: Monad m =&gt; (a -&gt; m (Either b a)) -&gt; a -&gt; m b
+<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">trampolineM f = loop where loop = either return loop &lt;=&lt; f</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>trampoline :: (a -&gt; Either b a) -&gt; a -&gt; b
+<span class="lineno">   47 </span><span class="decl"><span class="nottickedoff">trampoline f = loop where loop = either id loop . f</span></span>
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>continue :: a -&gt; Either b a
+<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">continue = Right</span></span>
+<span class="lineno">   51 </span>
+<span class="lineno">   52 </span>break :: b -&gt; Either b a
+<span class="lineno">   53 </span><span class="decl"><span class="istickedoff">break = Left</span></span>
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>--type StepM m a = a -&gt; m a
+<span class="lineno">   56 </span>--type Step a = a -&gt; a
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>type SameWithLimit a = Same (WithLimit a)
+<span class="lineno">   59 </span>
+<span class="lineno">   60 </span>type WithLimitMaybe a = (LimitMaybe , a)
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>type LimitMaybe = Maybe Natural
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>type EitherWithLimit a = Either a $ WithLimit a
+<span class="lineno">   65 </span>
+<span class="lineno">   66 </span>type WithLimit a = (Natural , a)
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>type Same a = Either a a
+
+</pre>
+</body>
+</html>

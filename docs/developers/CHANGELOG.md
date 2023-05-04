@@ -1,6 +1,9 @@
 # 📅 Revision history for HelMA
 
-## 0.8.4.10 -- 2023-05-01
+## 0.8.4.11 -- 2023-05-04
+* FIX
+
+## 0.8.4.10 -- 2023-05-04
 * Remove Loop
 
 ## 0.8.4.9 -- 2023-05-01
@@ -88,16 +91,12 @@ Use optparse-applicative for CLI better
 
 ## 0.7.2.0 -- 2022-02-22
 * Extract `Automaton` from `Evaluator`
+
 ## 0.7.1.0 -- 2022-02-21
 * Add `Zot` to `Main`
 
 ## 0.7.0.0 -- 2022-02-19
-<<<<<<< HEAD
-
 * Implement `Automaton` of `Zot`
-=======
-* Implement `Automaton` of `Zot` 
->>>>>>> d97c4798 (WIP)
 
 ## 0.6.16.0 -- 2022-02-10
 * Remove `MonoTraversable`
