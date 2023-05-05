@@ -71,20 +71,22 @@ span.spaces    { background: white }
 <span class="lineno">   52 </span>break :: b -&gt; Either b a
 <span class="lineno">   53 </span><span class="decl"><span class="istickedoff">break = Left</span></span>
 <span class="lineno">   54 </span>
-<span class="lineno">   55 </span>--type StepM m a = a -&gt; m a
-<span class="lineno">   56 </span>--type Step a = a -&gt; a
-<span class="lineno">   57 </span>
-<span class="lineno">   58 </span>type SameWithLimit a = Same (WithLimit a)
-<span class="lineno">   59 </span>
-<span class="lineno">   60 </span>type WithLimitMaybe a = (LimitMaybe , a)
-<span class="lineno">   61 </span>
-<span class="lineno">   62 </span>type LimitMaybe = Maybe Natural
-<span class="lineno">   63 </span>
-<span class="lineno">   64 </span>type EitherWithLimit a = Either a $ WithLimit a
-<span class="lineno">   65 </span>
-<span class="lineno">   66 </span>type WithLimit a = (Natural , a)
-<span class="lineno">   67 </span>
-<span class="lineno">   68 </span>type Same a = Either a a
+<span class="lineno">   55 </span>type SameWithLimit a = Same (WithLimit a)
+<span class="lineno">   56 </span>
+<span class="lineno">   57 </span>type WithLimitMaybe a = (LimitMaybe , a)
+<span class="lineno">   58 </span>
+<span class="lineno">   59 </span>type LimitMaybe = Maybe Natural
+<span class="lineno">   60 </span>
+<span class="lineno">   61 </span>type EitherWithLimit a = Either a $ WithLimit a
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>type WithLimit a = (Natural , a)
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>type StepSameM m a = a -&gt; m $ Same a
+<span class="lineno">   66 </span>type StepSame a = a -&gt; Same a
+<span class="lineno">   67 </span>type StepM m a = a -&gt; m a
+<span class="lineno">   68 </span>type Step a = a -&gt; a
+<span class="lineno">   69 </span>
+<span class="lineno">   70 </span>type Same a = Either a a
 
 </pre>
 </body>
