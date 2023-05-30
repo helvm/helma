@@ -1,13 +1,11 @@
 module HelVM.HelMA.Automaton.Types.TokenType where
 
-import           HelVM.HelIO.SwitchEnum
-
 -- | Constructors
 defaultTokenType :: TokenType
-defaultTokenType = defaultEnum
+defaultTokenType = minBound
 
-tokenTypes :: [TokenType]
-tokenTypes = bothEnums
+tokenTypes :: NonEmpty TokenType
+tokenTypes = universeNonEmpty
 
 -- | Types
 data TokenType = WhiteTokenType | VisibleTokenType

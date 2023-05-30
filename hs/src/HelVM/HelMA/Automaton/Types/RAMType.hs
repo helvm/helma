@@ -1,13 +1,11 @@
 module HelVM.HelMA.Automaton.Types.RAMType where
 
-import           HelVM.HelIO.SwitchEnum
-
 -- | Constructors
 defaultRAMType :: RAMType
-defaultRAMType = defaultEnum
+defaultRAMType = minBound
 
-ramTypes :: [RAMType]
-ramTypes = generateEnums 4
+ramTypes :: NonEmpty RAMType
+ramTypes = universeNonEmpty
 
 -- | Types
 data RAMType = MapListRAMType | SListRAMType | SeqRAMType | ListRAMType

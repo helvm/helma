@@ -1,5 +1,9 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.11 -- 2023-05-30
+* Add types for Piet
+* Use universeNonEmpty
+
 ## 0.8.4.10 -- 2023-05-01
 * Remove Loop
 

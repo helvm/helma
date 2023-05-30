@@ -1,13 +1,11 @@
 module HelVM.HelMA.Automaton.Types.IntCellType where
 
-import           HelVM.HelIO.SwitchEnum
-
 -- | Constructors
 defaultIntCellType :: IntCellType
-defaultIntCellType = defaultEnum
+defaultIntCellType = minBound
 
-intCellTypes :: [IntCellType]
-intCellTypes = generateEnums 5
+intCellTypes :: NonEmpty IntCellType
+intCellTypes = universeNonEmpty
 
 -- | Types
 data IntCellType = IntegerType | Int8Type | Int16Type | Int32Type  | Int64Type

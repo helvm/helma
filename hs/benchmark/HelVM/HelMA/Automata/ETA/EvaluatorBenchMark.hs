@@ -15,7 +15,7 @@ import           System.FilePath.Posix
 import           Gauge.Main
 
 benchMark :: Benchmark
-benchMark = bgroup "ETA" (benchMarkByStackType <$> ([defaultETAImplType] >*< stackTypes))
+benchMark = bgroup "ETA" (benchMarkByStackType <$> ([defaultETAImplType] >*< toList stackTypes))
 
 benchMarkByStackType :: BenchParams -> Benchmark
 benchMarkByStackType t = bench (show t) $ nfIO $ execAll t

@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.4.10
+version:               0.8.4.11
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -206,6 +206,9 @@ library
     HelVM.HelMA.Automata.LazyK.Lexer
     HelVM.HelMA.Automata.LazyK.Parser
     HelVM.HelMA.Automata.LazyK.Reducer
+
+    HelVM.HelMA.Automata.Piet.Color
+    HelVM.HelMA.Automata.Piet.Coordinates
 
     HelVM.HelMA.Automata.Rev.Evaluator
 

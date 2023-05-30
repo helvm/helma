@@ -1,13 +1,11 @@
 module HelVM.HelMA.Automata.BrainFuck.API.BFType where
 
-import           HelVM.HelIO.SwitchEnum
-
 -- | Constructors
 defaultBFType :: BFType
-defaultBFType = defaultEnum
+defaultBFType = minBound
 
-bfTypes :: [BFType]
-bfTypes = generateEnums 3
+bfTypes :: NonEmpty BFType
+bfTypes = universeNonEmpty
 
 -- | Type
 data BFType = FastType | TreeType | FlatType

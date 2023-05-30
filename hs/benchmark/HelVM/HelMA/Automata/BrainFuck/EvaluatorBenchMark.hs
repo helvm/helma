@@ -15,13 +15,13 @@ import qualified Data.ListLike                             as LL
 import           Gauge.Main
 
 cellTypes8 :: [CellType]
-cellTypes8 = LL.reverse $ take 2 cellTypes
+cellTypes8 = LL.reverse $ take 2 $ toList cellTypes
 
 cellTypes16 :: [CellType]
-cellTypes16 = LL.reverse $ take 4 cellTypes
+cellTypes16 = LL.reverse $ take 4 $ toList cellTypes
 
 cellTypes32 :: [CellType]
-cellTypes32 = LL.reverse $ take 6 cellTypes
+cellTypes32 = LL.reverse $ take 6 $ toList cellTypes
 
 benchMark :: Benchmark
 benchMark = bgroup "BF"
@@ -32,47 +32,47 @@ benchMark = bgroup "BF"
 
 -- | 8 bits
 benchMark8 :: Benchmark
-benchMark8 = bgroup "BF8" (benchMarkByCellType8 <$> cellTypes8 >*< bfTypes)
+benchMark8 = bgroup "BF8" (benchMarkByCellType8 <$> cellTypes8 >*< toList bfTypes)
 
 benchMarkByCellType8 :: BenchParams -> Benchmark
 benchMarkByCellType8 benchParams = bench (show benchParams) $ nfIO $ exec8 benchParams
 
 exec8 :: BenchParams -> IO [Text]
 exec8 t = forM
-  [ ("helloWorld"            , ""     )
-  , ("fascistHelloWorld"     , ""     )
-  , ("theShortestHelloWorld" , ""     )
-  , ("99botles"              , ""     )
-  , ("triangle"              , ""     )
+  [ ("helloWorld"            , "")
+  , ("fascistHelloWorld"     , "")
+  , ("theShortestHelloWorld" , "")
+  , ("99botles"              , "")
+  , ("triangle"              , "")
   ] $ exec t
 
 -- | 16 bits
 benchMark16 :: Benchmark
-benchMark16 = bgroup "BF16" (benchMarkByCellType16 <$> cellTypes16 >*< bfTypes)
+benchMark16 = bgroup "BF16" (benchMarkByCellType16 <$> cellTypes16 >*< toList bfTypes)
 
 benchMarkByCellType16 :: BenchParams -> Benchmark
 benchMarkByCellType16 benchParams = bench (show benchParams) $ nfIO $ exec16 benchParams
 
 exec16 :: BenchParams -> IO [Text]
 exec16 t= forM
-  [ ("helloWorld"            , ""     )
-  , ("fascistHelloWorld"     , ""     )
---  , ("theShortestHelloWorld" , ""     )
---  , ("99botles"              , ""     )
-  , ("triangle"              , ""     )
+  [ ("helloWorld"            , "")
+  , ("fascistHelloWorld"     , "")
+--  , ("theShortestHelloWorld" , "")
+--  , ("99botles"              , "")
+  , ("triangle"              , "")
   ] $ exec t
 
 -- | 32 bits
 benchMark32 :: Benchmark
-benchMark32 = bgroup "BF32" (benchMarkByCellType32 <$> cellTypes32 >*< bfTypes)
+benchMark32 = bgroup "BF32" (benchMarkByCellType32 <$> cellTypes32 >*< toList bfTypes)
 
 benchMarkByCellType32 :: BenchParams -> Benchmark
 benchMarkByCellType32 benchParams = bench (show benchParams) $ nfIO $ exec32 benchParams
 
 exec32 :: BenchParams -> IO [Text]
 exec32 t = forM
-  [ ("helloWorld"            , ""     )
-  , ("fascistHelloWorld"     , ""     )
+  [ ("helloWorld"            , "")
+  , ("fascistHelloWorld"     , "")
   ] $ exec t
 
 exec :: BenchParams -> (FilePath , Text) -> IO Text
@@ -81,8 +81,6 @@ exec (cellType , bfType) (fileName , input) = do
   let params = (bfType ,  , cellType) <$> file
   let ioExec = ioExecMockIOWithInput input . simpleEval =<< params
   calculateOutput <$> ioExec
-
-
 
 -- | Types
 type BenchParams = (CellType , BFType)

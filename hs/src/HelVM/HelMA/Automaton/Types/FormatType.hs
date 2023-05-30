@@ -1,13 +1,11 @@
 module HelVM.HelMA.Automaton.Types.FormatType where
 
-import           HelVM.HelIO.SwitchEnum
-
 -- | Constructors
 defaultFormatType :: FormatType
-defaultFormatType = defaultEnum
+defaultFormatType = minBound
 
-formatTypes :: [FormatType]
-formatTypes = bothEnums
+formatTypes :: NonEmpty FormatType
+formatTypes = universeNonEmpty
 
 -- | Types
 data FormatType = BinaryLabel | TextLabel

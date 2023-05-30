@@ -1,13 +1,11 @@
 module HelVM.HelMA.Automaton.Types.StackType where
 
-import           HelVM.HelIO.SwitchEnum
-
 -- | Constructors
 defaultStackType :: StackType
-defaultStackType = defaultEnum
+defaultStackType = minBound
 
-stackTypes :: [StackType]
-stackTypes = generateEnums 3
+stackTypes :: NonEmpty StackType
+stackTypes = universeNonEmpty
 
 -- | Types
 data StackType = SeqStackType | SListStackType | ListStackType

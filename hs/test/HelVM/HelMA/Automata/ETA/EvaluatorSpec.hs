@@ -23,7 +23,7 @@ spec =
     [ ("hello"    , [""])
     , ("hello2"   , [""])
     , ("crlf"     , [""])
-    ] >*< (["original"] >*< etaImplTypes)
+    ] >*< (["original"] >*< toList etaImplTypes)
     ) <> (
     [ ("bottles"  , [""])
     , ("fact"     , ["1\n" , "7\n"])

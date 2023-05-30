@@ -6,17 +6,18 @@ import           HelVM.HelIO.Containers.LLIndexSafe
 
 -- | Constructors
 
+--TODO to remove
 fromBool :: Bool -> OptimizationLevel
 fromBool = enumFromBool
 
 fromNatural :: Natural -> OptimizationLevel
-fromNatural = fromMaybe AllOptimizations . indexMaybe optimizationLevels . fromIntegral
+fromNatural = fromMaybe AllOptimizations . indexMaybe (toList optimizationLevels) . fromIntegral
 
 defaultOptimizationLevel :: OptimizationLevel
-defaultOptimizationLevel = defaultEnum
+defaultOptimizationLevel = minBound
 
-optimizationLevels :: [OptimizationLevel]
-optimizationLevels = generateEnums 4
+optimizationLevels :: NonEmpty OptimizationLevel
+optimizationLevels = universeNonEmpty
 
 -- | Types
 

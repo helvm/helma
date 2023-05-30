@@ -1,13 +1,11 @@
 module HelVM.HelMA.Automata.ETA.API.ETAImplType where
 
-import           HelVM.HelIO.SwitchEnum
-
 -- | Constructors
 defaultETAImplType :: ETAImplType
-defaultETAImplType = defaultEnum
+defaultETAImplType = minBound
 
-etaImplTypes:: [ETAImplType]
-etaImplTypes = generateEnums 2
+etaImplTypes:: NonEmpty ETAImplType
+etaImplTypes = universeNonEmpty
 
 -- | Type
 data ETAImplType = Fast | Original

@@ -1,12 +1,10 @@
 module Emit where
 
-import           HelVM.HelIO.SwitchEnum
-
 defaultEmit :: Emit
-defaultEmit = defaultEnum
+defaultEmit = minBound
 
-emits :: [Emit]
-emits = generateEnums 4
+emits :: NonEmpty Emit
+emits = universeNonEmpty
 
 data Emit = No | IL | TL | Code
   deriving stock (Bounded , Enum , Eq , Read , Show)

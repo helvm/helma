@@ -16,7 +16,7 @@ import           System.FilePath.Posix
 import           Gauge.Main
 
 benchMark :: Benchmark
-benchMark = bgroup "WS" (benchMarkByStackType <$> (stackTypes >*< ramTypes))
+benchMark = bgroup "WS" (benchMarkByStackType <$> (toList stackTypes >*< toList ramTypes))
 
 benchMarkByStackType :: BenchParams -> Benchmark
 benchMarkByStackType t = bench (show t) $ nfIO $ exec t
@@ -35,7 +35,7 @@ simpleEvalWS t = forM
   , ("name"         , "WriteOnly\n")
   ] $ \(fileName , input) -> do
     let file = readWsFile ("original" </> fileName)
-    forM formatTypes $ \ ascii -> do
+    forM (toList formatTypes) $ \ ascii -> do
       let paramsIO = simpleParamsWithWhiteTokenType t ascii <$> file
       calculateOutput <$> (ioExecMockIOWithInput input . simpleEval =<< paramsIO)
 

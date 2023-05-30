@@ -5,7 +5,6 @@ import           HelVM.HelMA.Automaton.IO.BusinessIO
 import           HelVM.HelIO.Control.Logger
 
 import           HelVM.HelIO.Extra
-import           HelVM.HelIO.SwitchEnum
 
 logDump :: (BIO m , Show d) => DumpType -> d -> m ()
 logDump dt d = logDump' $ dump dt d where
@@ -19,10 +18,10 @@ dump Pretty a = Just $ showP a
 
 -- | Constructors
 defaultDumpType :: DumpType
-defaultDumpType = defaultEnum
+defaultDumpType = minBound
 
-dumpTypes :: [DumpType]
-dumpTypes = generateEnums 3
+dumpTypes :: NonEmpty DumpType
+dumpTypes = universeNonEmpty
 
 -- | Types
 data DumpType = No | Ugly | Pretty
