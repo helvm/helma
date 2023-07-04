@@ -40,13 +40,10 @@ THAT is an Automaton and an Interpreter for Esoteric Languages (EsoAutomata)
 ```
 
 ## Features
-Currently, **🔧 🎨 HelMA** can:
-* calculate:
-  * 🦄 [Lazy K](https://helvm.org/lazy-k/lazy-k.html)
-  * 🦄 [Zot](https://github.com/helvm/zot_haskell)
-* interpret structured:
+Currently, **🔧 🎨 HelMA** can interpret:
+* structured:
   * 🌈 BrainFuck
-* interpret goto:
+* goto:
   * ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/)
   * 💙 [SubLeq](http://mazonka.com/subleq/)
   * 🤍 [WhiteSpace](https://helvm.github.io/wspace/tutorial.html)

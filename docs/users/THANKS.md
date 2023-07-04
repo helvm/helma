@@ -4,11 +4,11 @@
 * For functional calculators:
   * 🦄 Lazy K:
     * [Documentation](https://tromp.github.io/cl/lazy-k.html)
-    * [Lazy K interpreter from Irori](https://github.com/helvm/lazyk-irori)
-    * [Lazy K interpreter from Rst76](https://github.com/helvm/Lazy-K-rst76)
+    * [Lazy K interpreter from Irori](https://github.com/irori/lazyk)
+    * [Lazy K interpreter from Rst76](https://github.com/rst76/Lazy-K)
     * [Lambda Calculus from Blynn](https://crypto.stanford.edu/~blynn/lambda/)
   * 🦄 Zot:
-    * [Zot in Haskell](https://github.com/helvm/zot_haskell)
+    * [Zot in Haskell](https://github.com/YoshikuniJujo/zot_haskell)
 * For imperative interpreters:
   * 🌈 BrainFuck:
     * [Yet Another Brainfuck Interpreter](https://github.com/helvm/yabi)
