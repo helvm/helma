@@ -34,14 +34,17 @@ span.spaces    { background: white }
 <span class="lineno">   15 </span><span class="decl"><span class="nottickedoff">imgSetPixel c pixel img = img // [(c, pixel)]</span></span>
 <span class="lineno">   16 </span>
 <span class="lineno">   17 </span>-- | Getters
-<span class="lineno">   18 </span>unsafeLoopUp :: Coordinates -&gt; Image a -&gt; a
-<span class="lineno">   19 </span><span class="decl"><span class="nottickedoff">unsafeLoopUp = flip (!)</span></span>
+<span class="lineno">   18 </span>indexWithCoordinates :: Image a -&gt; Coordinates -&gt; (Coordinates , a)
+<span class="lineno">   19 </span><span class="decl"><span class="nottickedoff">indexWithCoordinates img c = (c , img ! c)</span></span>
 <span class="lineno">   20 </span>
-<span class="lineno">   21 </span>border :: Image a -&gt; Coordinates
-<span class="lineno">   22 </span><span class="decl"><span class="nottickedoff">border = snd . bounds</span></span>
+<span class="lineno">   21 </span>unsafeLoopUp :: Coordinates -&gt; Image a -&gt; a
+<span class="lineno">   22 </span><span class="decl"><span class="nottickedoff">unsafeLoopUp = flip (!)</span></span>
 <span class="lineno">   23 </span>
-<span class="lineno">   24 </span>-- | Type
-<span class="lineno">   25 </span>type Image a = Array Coordinates a
+<span class="lineno">   24 </span>border :: Image a -&gt; Coordinates
+<span class="lineno">   25 </span><span class="decl"><span class="nottickedoff">border = snd . bounds</span></span>
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>-- | Type
+<span class="lineno">   28 </span>type Image a = Array Coordinates a
 
 </pre>
 </body>

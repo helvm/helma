@@ -15,6 +15,9 @@ imgSetPixel :: Coordinates -> a -> Image a -> Image a
 imgSetPixel c pixel img = img // [(c, pixel)]
 
 -- | Getters
+indexWithCoordinates :: Image a -> Coordinates -> (Coordinates , a)
+indexWithCoordinates img c = (c , img ! c)
+
 unsafeLoopUp :: Coordinates -> Image a -> a
 unsafeLoopUp = flip (!)
 

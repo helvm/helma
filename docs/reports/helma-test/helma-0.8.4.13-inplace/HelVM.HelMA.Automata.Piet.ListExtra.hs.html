@@ -19,10 +19,17 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.ListExtra where
 <span class="lineno">    2 </span>
+<<<<<<< HEAD
 <span class="lineno">    3 </span>lastUntil :: (a -&gt; Bool) -&gt; [a] -&gt; a
 <span class="lineno">    4 </span><span class="decl"><span class="istickedoff">lastUntil _ []     = <span class="nottickedoff">error &quot;empty list in lastUntil helper (ListExtra)&quot;</span></span>
 <span class="lineno">    5 </span><span class="spaces"></span><span class="istickedoff">lastUntil _ [x]    = <span class="nottickedoff">x</span></span>
 <span class="lineno">    6 </span><span class="spaces"></span><span class="istickedoff">lastUntil p (x:xs) = if <span class="tickonlytrue">p x</span> then x else <span class="nottickedoff">lastUntil p xs</span></span></span>
+=======
+<span class="lineno">    3 </span>lastUntil :: Ord a =&gt; (a -&gt; Bool) -&gt; [a] -&gt; a
+<span class="lineno">    4 </span><span class="decl"><span class="istickedoff">lastUntil _ [x]    = <span class="nottickedoff">x</span></span>
+<span class="lineno">    5 </span><span class="spaces"></span><span class="istickedoff">lastUntil p (x:xs) = if <span class="tickonlytrue">p x</span> then x else <span class="nottickedoff">lastUntil p xs</span></span>
+<span class="lineno">    6 </span><span class="spaces"></span><span class="istickedoff">lastUntil _ _      = <span class="nottickedoff">error &quot;empty list in lastUntil helper (imageGuessCodelLength)&quot;</span></span></span>
+>>>>>>> 7a4f391a (Add parser for Piet)
 
 </pre>
 </body>

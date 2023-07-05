@@ -15,6 +15,9 @@ change :: (Bounded e, Enum e) => Int -> e -> e -> e
 change i e1 e2 = unsafeEnum $ (fromEnum e2 - fromEnum e1) `mod` i
 
 -- | Constructors
+rgba2Color :: (Num w , Eq w) => w -> w -> w -> w -> Color
+rgba2Color r g b _ = rgb2Color $ RGBColor r g b
+
 rgb2Color :: (Num a , Eq a) => RGBColor a -> Color
 rgb2Color (RGBColor 0xff 0xc0 0xc0) = OtherColor $ MixedColor Light  Red
 rgb2Color (RGBColor 0xff 0x00 0x00) = OtherColor $ MixedColor Normal Red
