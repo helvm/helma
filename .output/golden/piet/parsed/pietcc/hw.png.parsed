@@ -1,0 +1,6101 @@
+array
+    (
+        ( 0
+        , 0
+        )
+    ,
+        ( 29
+        , 28
+        )
+    )
+    [
+        (
+            ( 0
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 0
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 0
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 0
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 0
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 0
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 0
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 0
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 0
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 0
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 0
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 0
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 0
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 0
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 0
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 0
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 0
+            , 16
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 17
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 18
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 19
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 20
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 21
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 22
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 23
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 24
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 25
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 26
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 27
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 0
+            , 28
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 1
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 1
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 1
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 1
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 1
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 1
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 1
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 1
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 1
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 1
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 1
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 1
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 1
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 1
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 1
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 1
+            , 16
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 17
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 18
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 19
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 20
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 21
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 22
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 23
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 24
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 25
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 26
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 27
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 1
+            , 28
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 2
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 2
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 2
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 2
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 2
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 2
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 2
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 2
+            , 8
+            )
+        , Black
+        )
+    ,
+        (
+            ( 2
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 2
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 2
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 2
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 2
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 2
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 2
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 2
+            , 16
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 17
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 18
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 19
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 20
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 21
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 22
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 23
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 24
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 25
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 26
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 27
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 2
+            , 28
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 3
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 3
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 3
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 3
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 3
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 3
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 3
+            , 7
+            )
+        , Black
+        )
+    ,
+        (
+            ( 3
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 3
+            , 9
+            )
+        , Black
+        )
+    ,
+        (
+            ( 3
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 3
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 3
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 3
+            , 13
+            )
+        , OtherColor ( MixedColor Dark Green )
+        )
+    ,
+        (
+            ( 3
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 3
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 3
+            , 16
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 17
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 18
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 19
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 20
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 21
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 22
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 23
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 24
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 25
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 26
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 27
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 3
+            , 28
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 4
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 4
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 4
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 4
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 4
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 4
+            , 6
+            )
+        , Black
+        )
+    ,
+        (
+            ( 4
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 4
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 4
+            , 9
+            )
+        , OtherColor ( MixedColor Dark Yellow )
+        )
+    ,
+        (
+            ( 4
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 4
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 4
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 4
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 4
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 4
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 4
+            , 16
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 17
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 18
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 19
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 20
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 21
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 22
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 23
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 24
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 25
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 26
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 27
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 4
+            , 28
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 5
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 5
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 5
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 5
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 5
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 5
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 5
+            , 7
+            )
+        , Black
+        )
+    ,
+        (
+            ( 5
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 5
+            , 9
+            )
+        , Black
+        )
+    ,
+        (
+            ( 5
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 5
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 5
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 5
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 5
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 5
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 5
+            , 16
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 17
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 18
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 19
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 20
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 21
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 22
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 23
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 24
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 25
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 26
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 27
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 5
+            , 28
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 6
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 6
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 6
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 6
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 6
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 6
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 6
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 6
+            , 8
+            )
+        , Black
+        )
+    ,
+        (
+            ( 6
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 6
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 6
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 6
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 6
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 6
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 6
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 6
+            , 16
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 17
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 18
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 19
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 20
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 21
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 22
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 23
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 24
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 25
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 26
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 27
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 6
+            , 28
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 7
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 7
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 7
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Cyan )
+        )
+    ,
+        (
+            ( 7
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Cyan )
+        )
+    ,
+        (
+            ( 7
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 7
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 7
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 7
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 7
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 7
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 7
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 7
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 7
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 7
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 7
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 7
+            , 16
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 17
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 18
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 19
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 20
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 21
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 22
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 23
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 24
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 25
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 26
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 27
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 7
+            , 28
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 8
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Cyan )
+        )
+    ,
+        (
+            ( 8
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Cyan )
+        )
+    ,
+        (
+            ( 8
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Cyan )
+        )
+    ,
+        (
+            ( 8
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Cyan )
+        )
+    ,
+        (
+            ( 8
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 8
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 8
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 8
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 8
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 8
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 8
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 8
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 8
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 8
+            , 14
+            )
+        , Black
+        )
+    ,
+        (
+            ( 8
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 8
+            , 16
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 17
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 18
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 19
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 20
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 21
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 22
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 23
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 24
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 25
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 8
+            , 26
+            )
+        , OtherColor ( MixedColor Light Magenta )
+        )
+    ,
+        (
+            ( 8
+            , 27
+            )
+        , OtherColor ( MixedColor Light Magenta )
+        )
+    ,
+        (
+            ( 8
+            , 28
+            )
+        , OtherColor ( MixedColor Light Magenta )
+        )
+    ,
+        (
+            ( 9
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Cyan )
+        )
+    ,
+        (
+            ( 9
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Cyan )
+        )
+    ,
+        (
+            ( 9
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 9
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 9
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 9
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 9
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 9
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 9
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 9
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 9
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 9
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 9
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 9
+            , 15
+            )
+        , OtherColor ( MixedColor Dark Cyan )
+        )
+    ,
+        (
+            ( 9
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 9
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 9
+            , 18
+            )
+        , Black
+        )
+    ,
+        (
+            ( 9
+            , 19
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 20
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 21
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 22
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 23
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 24
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 25
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 26
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 27
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 9
+            , 28
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 10
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Red )
+        )
+    ,
+        (
+            ( 10
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Cyan )
+        )
+    ,
+        (
+            ( 10
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 10
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 10
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 10
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 10
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 10
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 10
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 10
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 10
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 10
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 10
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 10
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 10
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 10
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 10
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 10
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 10
+            , 18
+            )
+        , Black
+        )
+    ,
+        (
+            ( 10
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 10
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 10
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 10
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 10
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 10
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 10
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 10
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 10
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 10
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 0
+            )
+        , OtherColor ( MixedColor Dark Red )
+        )
+    ,
+        (
+            ( 11
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 11
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 11
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 11
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 11
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 11
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 11
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 11
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 11
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 11
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 11
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 11
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 11
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 11
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 11
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 11
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 11
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 11
+            , 18
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 11
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 12
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 12
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 12
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 12
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 12
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 12
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 12
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 12
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 12
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 12
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 12
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 12
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 12
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 12
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 12
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 12
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 12
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 12
+            , 18
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 12
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 13
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 13
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 13
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 13
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 13
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 13
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 13
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 13
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 13
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 13
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 13
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 13
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 13
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 13
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 13
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 13
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 13
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 13
+            , 18
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 13
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 14
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 14
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 14
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 14
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 14
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 14
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 14
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 14
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 14
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 14
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 14
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 14
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 14
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 14
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 14
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 14
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 14
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 14
+            , 18
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 14
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 15
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 15
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 15
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 15
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 15
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 15
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 15
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 15
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 15
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 15
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 15
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 15
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 15
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 15
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 15
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 15
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 15
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 15
+            , 18
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 15
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 16
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 16
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 16
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 16
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 16
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 16
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 16
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 16
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 16
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 16
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 16
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 16
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 16
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 16
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 16
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 16
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 16
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 16
+            , 18
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 16
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 17
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 17
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 17
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 17
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 17
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 17
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 17
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 17
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 17
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 17
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 17
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 17
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 17
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 17
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 17
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 17
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 17
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 17
+            , 18
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 17
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 18
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 18
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 18
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 18
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 18
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 18
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 18
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 18
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 18
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 18
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 18
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 18
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 18
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 18
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 18
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 18
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 18
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 18
+            , 18
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 18
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 19
+            , 0
+            )
+        , OtherColor ( MixedColor Dark Magenta )
+        )
+    ,
+        (
+            ( 19
+            , 1
+            )
+        , OtherColor ( MixedColor Dark Magenta )
+        )
+    ,
+        (
+            ( 19
+            , 2
+            )
+        , OtherColor ( MixedColor Dark Magenta )
+        )
+    ,
+        (
+            ( 19
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 19
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 19
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 19
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 19
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 19
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 19
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 19
+            , 10
+            )
+        , Black
+        )
+    ,
+        (
+            ( 19
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 19
+            , 12
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 19
+            , 13
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 19
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 19
+            , 15
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 19
+            , 16
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 19
+            , 17
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 19
+            , 18
+            )
+        , Black
+        )
+    ,
+        (
+            ( 19
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 19
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 19
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 19
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 19
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 19
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 19
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 19
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 19
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 19
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 20
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 20
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 20
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 20
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 20
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 20
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 20
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 20
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 20
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 20
+            , 10
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 20
+            , 11
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 20
+            , 12
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 20
+            , 13
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 20
+            , 14
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 20
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 20
+            , 16
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 20
+            , 17
+            )
+        , Black
+        )
+    ,
+        (
+            ( 20
+            , 18
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 19
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 20
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 21
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 22
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 23
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 24
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 25
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 26
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 27
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 20
+            , 28
+            )
+        , OtherColor ( MixedColor Light Red )
+        )
+    ,
+        (
+            ( 21
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 21
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 21
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 21
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 21
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 21
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 21
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 21
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 21
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 21
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 21
+            , 10
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 11
+            )
+        , Black
+        )
+    ,
+        (
+            ( 21
+            , 12
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 13
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 14
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 16
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 17
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 18
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 19
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 20
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 21
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 21
+            , 22
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 21
+            , 23
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 21
+            , 24
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 21
+            , 25
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 21
+            , 26
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 21
+            , 27
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 21
+            , 28
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 22
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 22
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 22
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 22
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 22
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 22
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 22
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 22
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 22
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 22
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 22
+            , 10
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 11
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 12
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 13
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 14
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 16
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 17
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 18
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 19
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 20
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 21
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 22
+            , 22
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 22
+            , 23
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 22
+            , 24
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 22
+            , 25
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 22
+            , 26
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 22
+            , 27
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 22
+            , 28
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 23
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 23
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 23
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 23
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 23
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 23
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 23
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 23
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 23
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 23
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 23
+            , 10
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 11
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 12
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 13
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 14
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 16
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 17
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 18
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 19
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 20
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 21
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 23
+            , 22
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 23
+            , 23
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 23
+            , 24
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 23
+            , 25
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 23
+            , 26
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 23
+            , 27
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 23
+            , 28
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 24
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 24
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 24
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 24
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 24
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 24
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 24
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 24
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 24
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 24
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 24
+            , 10
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 11
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 12
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 13
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 14
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 16
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 17
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 18
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 19
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 20
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 21
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 24
+            , 22
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 24
+            , 23
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 24
+            , 24
+            )
+        , OtherColor ( MixedColor Normal Yellow )
+        )
+    ,
+        (
+            ( 24
+            , 25
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 24
+            , 26
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 24
+            , 27
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 24
+            , 28
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 25
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 10
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 11
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 12
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 13
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 14
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 16
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 17
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 18
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 19
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 20
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 21
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 22
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 25
+            , 23
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 25
+            , 24
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 25
+            , 25
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 25
+            , 26
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 25
+            , 27
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 25
+            , 28
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 26
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 10
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 11
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 12
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 13
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 14
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 16
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 17
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 18
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 19
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 20
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 21
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 22
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 26
+            , 23
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 26
+            , 24
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 26
+            , 25
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 26
+            , 26
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 26
+            , 27
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 26
+            , 28
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 27
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 10
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 11
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 12
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 13
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 14
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 16
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 17
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 18
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 19
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 20
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 21
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 22
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 27
+            , 23
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 27
+            , 24
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 27
+            , 25
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 27
+            , 26
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 27
+            , 27
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 27
+            , 28
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 28
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 10
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 28
+            , 11
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 28
+            , 12
+            )
+        , OtherColor ( MixedColor Dark Green )
+        )
+    ,
+        (
+            ( 28
+            , 13
+            )
+        , OtherColor ( MixedColor Dark Red )
+        )
+    ,
+        (
+            ( 28
+            , 14
+            )
+        , OtherColor ( MixedColor Normal Magenta )
+        )
+    ,
+        (
+            ( 28
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 28
+            , 16
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 28
+            , 17
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 28
+            , 18
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 28
+            , 19
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 28
+            , 20
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 28
+            , 21
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 28
+            , 22
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 28
+            , 23
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 28
+            , 24
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 28
+            , 25
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 28
+            , 26
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 28
+            , 27
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 28
+            , 28
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 29
+            , 0
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 1
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 2
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 3
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 4
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 5
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 6
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 7
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 8
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 9
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 10
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 11
+            )
+        , OtherColor ( MixedColor Dark Blue )
+        )
+    ,
+        (
+            ( 29
+            , 12
+            )
+        , OtherColor ( MixedColor Dark Green )
+        )
+    ,
+        (
+            ( 29
+            , 13
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 29
+            , 14
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 29
+            , 15
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 29
+            , 16
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 29
+            , 17
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 29
+            , 18
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 29
+            , 19
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 29
+            , 20
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 29
+            , 21
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 29
+            , 22
+            )
+        , OtherColor ( MixedColor Light Blue )
+        )
+    ,
+        (
+            ( 29
+            , 23
+            )
+        , OtherColor ( MixedColor Normal Blue )
+        )
+    ,
+        (
+            ( 29
+            , 24
+            )
+        , OtherColor ( MixedColor Normal Green )
+        )
+    ,
+        (
+            ( 29
+            , 25
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 29
+            , 26
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 29
+            , 27
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ,
+        (
+            ( 29
+            , 28
+            )
+        , OtherColor ( MixedColor Light Yellow )
+        )
+    ]

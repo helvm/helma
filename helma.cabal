@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.4.12
+version:               0.8.4.13
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -19,7 +19,7 @@ extra-source-files:
   docs/developers/CHANGELOG.md
   docs/README.md
 
-tested-with:           GHC == 9.6.1
+tested-with:           GHC == 9.6.2
 
 source-repository head
   type:                git
@@ -209,6 +209,9 @@ library
 
     HelVM.HelMA.Automata.Piet.Color
     HelVM.HelMA.Automata.Piet.Coordinates
+    HelVM.HelMA.Automata.Piet.Image
+    HelVM.HelMA.Automata.Piet.MonadFailExtra
+    HelVM.HelMA.Automata.Piet.Parser
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
@@ -231,6 +234,7 @@ library
 
   build-depends:
       helio
+    , array
     , containers           <  0.7
     , bytestring
     , data-default
@@ -238,9 +242,11 @@ library
     , extra
     , free
     , ilist
+    , Imlib >= 0.1
     , ListLike
     , natural-transformation
     , mtl
+    , safe
     , text
     , type-operators
     , vector
@@ -306,6 +312,9 @@ test-suite helma-test
     HelVM.HelMA.Automata.LazyK.FileExtra
     HelVM.HelMA.Automata.LazyK.NumberSpec
     HelVM.HelMA.Automata.LazyK.ParserSpec
+
+    HelVM.HelMA.Automata.Piet.FileExtra
+    HelVM.HelMA.Automata.Piet.ParserSpec
 
     HelVM.HelMA.Automata.Rev.EvaluatorSpec
 

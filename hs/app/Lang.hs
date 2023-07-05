@@ -20,5 +20,5 @@ defaultLang = minBound
 langs :: NonEmpty Lang
 langs = universeNonEmpty
 
-data Lang = Cat | Rev | BF | ETA | F | Lazy | SQ | WS | Zot
+data Lang = Cat | Rev | BF | ETA | F | Lazy | Piet | SQ | WS | Zot
   deriving stock (Bounded , Enum , Eq , Read , Show)

@@ -1,0 +1,112 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Parser (
+<span class="lineno">    2 </span>  parseToRightTextIO,
+<span class="lineno">    3 </span>  parseRightIO,
+<span class="lineno">    4 </span>) where
+<span class="lineno">    5 </span>
+<span class="lineno">    6 </span>import           HelVM.HelMA.Automata.Piet.Color
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.Piet.Coordinates
+<span class="lineno">    8 </span>import           HelVM.HelMA.Automata.Piet.Image
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.Piet.MonadFailExtra
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import           HelVM.HelIO.Extra
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>import           Control.Applicative.Tools
+<span class="lineno">   14 </span>import           Control.Exception
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>import           Data.ListLike                            (length)
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>import           Graphics.Imlib
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import           Safe                                     (findJust)
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>import           Prelude                                  hiding (length)
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span>parseToRightTextIO :: FilePath -&gt; IO Text
+<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">parseToRightTextIO = showP &lt;.&gt; parseRightIO</span></span>
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>parseRightIO :: FilePath -&gt; IO ColorImage
+<span class="lineno">   28 </span><span class="decl"><span class="istickedoff">parseRightIO = eitherToMonadFail &lt;=&lt; parseIO</span></span>
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>parseIO :: FilePath -&gt; ColorImageEitherIO
+<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">parseIO = imageFromFilePath Nothing</span></span>
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>imageFromFilePath ::  Maybe Int -&gt; FilePath -&gt; ColorImageEitherIO
+<span class="lineno">   34 </span><span class="decl"><span class="istickedoff">imageFromFilePath codelInfo = flip (uncurry buildColorImageEitherIO) codelInfo . swap &lt;=&lt; loadImageWithErrorReturn</span></span>
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>buildColorImageEitherIO :: ImlibLoadError -&gt; ImlibImage -&gt; Maybe Int -&gt; ColorImageEitherIO
+<span class="lineno">   37 </span><span class="decl"><span class="istickedoff">buildColorImageEitherIO ImlibLoadErrorNone img codelInfo = Right &lt;$&gt; imageFromImlib img codelInfo</span>
+<span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff">buildColorImageEitherIO err                _   _         = <span class="nottickedoff">pure $ Left err</span></span></span>
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>imageFromImlib :: ImlibImage -&gt; Maybe Int -&gt; IO ColorImage
+<span class="lineno">   41 </span><span class="decl"><span class="istickedoff">imageFromImlib img = setImlibImage img . buildColorImageIO</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>setImlibImage :: ImlibImage -&gt; IO a -&gt; IO a
+<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">setImlibImage img = bracket_ (contextSetImage img) freeImageAndDecache</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>buildColorImageIO :: Maybe Int -&gt; IO ColorImage
+<span class="lineno">   47 </span><span class="decl"><span class="istickedoff">buildColorImageIO = imageFromContext &lt;=&lt; imageGuessCodelLength</span></span>
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>imageGuessCodelLength :: Maybe Int -&gt; IO Int
+<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">imageGuessCodelLength = maybe imageGuessCodelLengthDefault <span class="nottickedoff">pure</span></span></span>
+<span class="lineno">   51 </span>
+<span class="lineno">   52 </span>imageGuessCodelLengthDefault :: IO Int
+<span class="lineno">   53 </span><span class="decl"><span class="istickedoff">imageGuessCodelLengthDefault = do</span>
+<span class="lineno">   54 </span><span class="spaces">  </span><span class="istickedoff">width  &lt;- imageGetWidth</span>
+<span class="lineno">   55 </span><span class="spaces">  </span><span class="istickedoff">height &lt;- imageGetHeight</span>
+<span class="lineno">   56 </span><span class="spaces">  </span><span class="istickedoff">rows   &lt;- mapM (\y -&gt; mapM (`imageQueryPixel` y) [0 .. width -1]) [0 .. height-1]</span>
+<span class="lineno">   57 </span><span class="spaces">  </span><span class="istickedoff">cols   &lt;- mapM (\x -&gt; mapM ( imageQueryPixel  x) [0 .. height-1]) [0 .. width -1]</span>
+<span class="lineno">   58 </span><span class="spaces">  </span><span class="istickedoff">pure $ imageGuessCodelLengthDefault' <span class="nottickedoff">rows</span> <span class="nottickedoff">cols</span> width height</span></span>
+<span class="lineno">   59 </span>
+<span class="lineno">   60 </span>imageGuessCodelLengthDefault' :: (Eq a1, Eq a2) =&gt; [a1] -&gt; [a2] -&gt; Int -&gt; Int -&gt; Int
+<span class="lineno">   61 </span><span class="decl"><span class="istickedoff">imageGuessCodelLengthDefault' rows cols width height = findJust (== 1) $ scanl <span class="nottickedoff">gcd</span> (gcd width height) <span class="nottickedoff">list</span></span>
+<span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">where <span class="nottickedoff">list = groupAndLength rows &lt;&gt; groupAndLength cols</span></span></span>
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>groupAndLength :: Eq a =&gt; [a] -&gt; [Int]
+<span class="lineno">   65 </span><span class="decl"><span class="nottickedoff">groupAndLength = length &lt;.&gt; group</span></span>
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>imageFromContext :: Int -&gt; IO ColorImage
+<span class="lineno">   68 </span><span class="decl"><span class="istickedoff">imageFromContext = imageFromContextWithMax . max 1</span></span>
+<span class="lineno">   69 </span>
+<span class="lineno">   70 </span>imageFromContextWithMax :: Int -&gt; IO ColorImage
+<span class="lineno">   71 </span><span class="decl"><span class="istickedoff">imageFromContextWithMax codelLength = do</span>
+<span class="lineno">   72 </span><span class="spaces">  </span><span class="istickedoff">width  &lt;- (`div` codelLength) &lt;$&gt; imageGetWidth</span>
+<span class="lineno">   73 </span><span class="spaces">  </span><span class="istickedoff">height &lt;- (`div` codelLength) &lt;$&gt; imageGetHeight</span>
+<span class="lineno">   74 </span><span class="spaces">  </span><span class="istickedoff">pixels &lt;- mapM (toColors codelLength) [ (x, y) | x &lt;- [ 0 .. width-1 ], y &lt;- [ 0 .. height-1 ] ]</span>
+<span class="lineno">   75 </span><span class="spaces">  </span><span class="istickedoff">pure $ newImage pixels (width-1 , height-1)</span></span>
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>toColors :: Int -&gt; Coordinates -&gt; IO (Coordinates , Color)
+<span class="lineno">   78 </span><span class="decl"><span class="istickedoff">toColors codelLength xy = (xy , ) . toColor &lt;$&gt; toImlibColorIO codelLength xy</span></span>
+<span class="lineno">   79 </span>
+<span class="lineno">   80 </span>toImlibColorIO :: Int -&gt; (Int, Int) -&gt; IO ImlibColor
+<span class="lineno">   81 </span><span class="decl"><span class="istickedoff">toImlibColorIO codelLength (x , y) = imageQueryPixel (x * codelLength) (y * codelLength)</span></span>
+<span class="lineno">   82 </span>
+<span class="lineno">   83 </span>toColor :: ImlibColor -&gt; Color
+<span class="lineno">   84 </span><span class="decl"><span class="istickedoff">toColor (ImlibColor _ r g b) = rgb2Color $ RGBColor r g b</span></span>
+<span class="lineno">   85 </span>
+<span class="lineno">   86 </span>-- | Types
+<span class="lineno">   87 </span>
+<span class="lineno">   88 </span>type ColorImageEitherIO = IO (Either ImlibLoadError ColorImage)
+<span class="lineno">   89 </span>type ColorImage = Image Color
+
+</pre>
+</body>
+</html>

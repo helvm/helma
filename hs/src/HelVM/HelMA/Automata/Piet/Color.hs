@@ -36,7 +36,7 @@ rgb2Color (RGBColor 0xff 0x00 0xff) = OtherColor $ MixedColor Normal Magenta
 rgb2Color (RGBColor 0xc0 0x00 0xc0) = OtherColor $ MixedColor Dark   Magenta
 rgb2Color (RGBColor 0x00 0x00 0x00) = Black
 rgb2Color (RGBColor 0xff 0xff 0xff) = White
-rgb2Color (RGBColor {})             = White
+rgb2Color  _                        = White
 
 -- | Types
 data RGBColor a = RGBColor a a a

@@ -8,6 +8,7 @@ module HelVM.HelMA.Automata.FileExtra (
   buildAbsoluteOutFileName,
   buildAbsoluteLogFileName,
   buildAbsoluteEvalFileName,
+  examplesDir,
   showAscii,
   options,
 ) where
@@ -19,7 +20,7 @@ import           HelVM.HelIO.Extra
 import           System.FilePath.Posix
 
 readSourceFile :: MonadIO m => FilePath -> m Text
-readSourceFile filePath = readFileTextUtf8 $ "examples" </> filePath
+readSourceFile filePath = readFileTextUtf8 $ examplesDir </> filePath
 
 buildAbsoluteLangFileName :: FilePath -> FilePath -> FilePath
 buildAbsoluteLangFileName lang fileName = lang </> fileName <.> lang
@@ -44,6 +45,9 @@ buildAbsoluteLogFileName = buildAbsoluteEvalFileName "logged"
 
 buildAbsoluteEvalFileName :: FilePath -> FilePath -> FilePath -> FilePath
 buildAbsoluteEvalFileName mode lang fileName = lang </> "eval" </> mode </> fileName <.> mode
+
+examplesDir :: FilePath
+examplesDir = "examples"
 
 --FIXME
 showAscii:: FormatType -> FilePath

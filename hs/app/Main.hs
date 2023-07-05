@@ -23,6 +23,8 @@ import qualified HelVM.HelMA.Automata.FALSE.Parser               as F
 
 import qualified HelVM.HelMA.Automata.LazyK.Evaluator            as Lazy
 
+import qualified HelVM.HelMA.Automata.Piet.Parser                as Piet
+
 import qualified HelVM.HelMA.Automata.SubLeq.Evaluator           as SQ
 import qualified HelVM.HelMA.Automata.SubLeq.Lexer               as SQ
 
@@ -58,9 +60,23 @@ main = runApp =<< execParser opts where
      <> header "HelMA: The Interpreter of BrainFuck , ETA , LazyK , SubLeq , WhiteSpace, Zot"
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )
 
-runApp:: App.AppOptions -> IO ()
+runApp :: App.AppOptions -> IO ()
 runApp o = do
-  hSetBuffering stdout IO.NoBuffering
+  setNoBuffering
+  (runNoBuffering =<< App.isImage) o
+
+setNoBuffering :: IO ()
+setNoBuffering = hSetBuffering stdout IO.NoBuffering
+
+runNoBuffering :: Bool -> App.AppOptions -> IO ()
+runNoBuffering False = runImage
+runNoBuffering True  = runText
+
+runImage :: App.AppOptions -> IO ()
+runImage = pPrintNoColor <=< (Piet.parseRightIO . App.file)
+
+runText :: App.AppOptions -> IO ()
+runText o = do
   source <- readSourceFile (App.exec o) (App.file o)
   run (App.emit o) (App.printLogs o) (App.langWithOptions o) (App.evalParams o source)
 
@@ -84,6 +100,7 @@ evalParams (LangWithOptions Rev  _ _ _) = Rev.evalParams
 evalParams (LangWithOptions SQ   _ _ _) = SQ.evalParams
 evalParams (LangWithOptions WS   _ _ t) = WS.evalParams t
 evalParams (LangWithOptions Zot  _ _ _) = Zot.evalParams
+evalParams (LangWithOptions Piet _ _ _) = error "Piet is not supported"
 
 parse :: LangWithOptions -> FormatType -> Source -> IO ()
 parse (LangWithOptions WS   _        _ VisibleTokenType) f = pPrintNoColor . WS.flipParseVisible f

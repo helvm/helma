@@ -115,6 +115,11 @@ optionParser = AppOptions
                    <> help    "Exec"
                    <> showDefault
                    )
+  <*> switch       (  long    "piet"
+                   <> short   'p'
+                   <> help    "Piet"
+                   <> showDefault
+                   )
   <*> argument str (  metavar "FILE")
 
 -- | Methods
@@ -130,6 +135,9 @@ memoryOptions o = API.MemoryOptions (ramType o) (stackType o) (cellType o) (intC
 
 autoOptions :: AppOptions -> API.AutoOptions
 autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) Nothing (dumpType o)
+
+isImage :: AppOptions -> Bool
+isImage = piet
 
 -- | Types
 
@@ -150,5 +158,6 @@ data AppOptions = AppOptions
   , intCellType      :: !IntCellType
   , dumpType         :: !DumpType
   , exec             :: !Exec
+  , piet             :: !Piet
   , file             :: !String
   }

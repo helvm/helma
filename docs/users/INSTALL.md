@@ -24,6 +24,11 @@ You can run Helpa by `cabal` or directly:
 cabal run helma file_to_interpret
 ```
 
+For example:
+```bash
+cabal run helma -p examples/piet/pietcc/hi.png
+```
+
 or after build:
 ```bash
 dist-newstyle/build/x86_64-linux/ghc-8.10.5/helma-0.6.10.0/x/helma/build/helma/helma file_to_interpret
