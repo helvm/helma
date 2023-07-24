@@ -1,5 +1,8 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.12 -- 2023-07-24
+* Add examples for Piet
+
 ## 0.8.4.11 -- 2023-05-30
 * Add types for Piet
 * Use universeNonEmpty
@@ -96,12 +99,7 @@ Use optparse-applicative for CLI better
 * Add `Zot` to `Main`
 
 ## 0.7.0.0 -- 2022-02-19
-<<<<<<< HEAD
-
 * Implement `Automaton` of `Zot`
-=======
-* Implement `Automaton` of `Zot` 
->>>>>>> d97c4798 (WIP)
 
 ## 0.6.16.0 -- 2022-02-10
 * Remove `MonoTraversable`
