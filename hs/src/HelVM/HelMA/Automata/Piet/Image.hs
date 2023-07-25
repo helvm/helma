@@ -7,7 +7,6 @@ import           Data.Array.IArray                     hiding (index)
 import qualified Relude.Extra                          as Extra
 
 -- | Constructors
-
 copyEmptyImage :: Image a1 -> Image a2
 copyEmptyImage = newEmptyImage . border
 
