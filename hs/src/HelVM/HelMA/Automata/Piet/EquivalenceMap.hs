@@ -4,17 +4,20 @@ import           Data.IntMap hiding (filter)
 import           Data.List   (minimum)
 
 equivInsert :: LabelKey -> LabelKey -> EquivalenceMap -> EquivalenceMap
-equivInsert x y mp = let
-    class1        = equivClass x mp
-    class2        = equivClass y mp
-    classes        = [x, y, class1, class2]
-    newClass    = minimum classes
-    in
-    if x /= y
-        then fmap (\eqClass -> if or (fmap (== eqClass) classes) then newClass else eqClass)
-            $ insert x newClass
-            $ insert y newClass mp
-        else mp
+equivInsert x y = equivInsert' (x /= y) x y
+
+equivInsert' :: Bool -> LabelKey -> LabelKey -> EquivalenceMap -> EquivalenceMap
+equivInsert' False _ _ mp = mp
+equivInsert' True  x y mp = fmap (bbb classes newClass) $ insert x newClass $ insert y newClass mp where
+  newClass    = minimum classes
+  classes        = [x, y, classX, classY]
+  classX        = equivClass x mp
+  classY        = equivClass y mp
+
+bbb :: (Foldable f, Functor f, Eq a) => f a -> a -> a -> a
+bbb classes newClass eqClass = r $ or (fmap (== eqClass) classes) where
+  r True  = newClass
+  r False = eqClass
 
 equivClass :: LabelKey -> EquivalenceMap -> LabelKey
 equivClass e = findWithDefault e e
