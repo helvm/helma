@@ -221,14 +221,12 @@ library
     HelVM.HelMA.Automata.Piet.InterpreterStatus
     HelVM.HelMA.Automata.Piet.LabelBorder
     HelVM.HelMA.Automata.Piet.LabellingStatus
-    HelVM.HelMA.Automata.Piet.ListExtra
     HelVM.HelMA.Automata.Piet.LogLevel
     HelVM.HelMA.Automata.Piet.MonadFailExtra
     HelVM.HelMA.Automata.Piet.Pair
     HelVM.HelMA.Automata.Piet.Parser
     HelVM.HelMA.Automata.Piet.PietRequest
     HelVM.HelMA.Automata.Piet.Program
-
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
