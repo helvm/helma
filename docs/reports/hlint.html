@@ -173,7 +173,8 @@ document.body.className = "script";
 <li><a id="file1" href="javascript:show('file1')">./hs/src/HelVM/HelMA/Automata/Piet/CodelChooser.hs (1)</a></li>
 <li><a id="file2" href="javascript:show('file2')">./hs/src/HelVM/HelMA/Automata/Piet/Coordinates.hs (1)</a></li>
 <li><a id="file3" href="javascript:show('file3')">./hs/src/HelVM/HelMA/Automata/Piet/DirectionPointer.hs (1)</a></li>
-<li><a id="file4" href="javascript:show('file4')">./hs/src/HelVM/HelMA/Automata/Piet/Program.hs (3)</a></li>
+<li><a id="file4" href="javascript:show('file4')">./hs/src/HelVM/HelMA/Automata/Piet/LabellingStatus.hs (1)</a></li>
+<li><a id="file5" href="javascript:show('file5')">./hs/src/HelVM/HelMA/Automata/Piet/Program.hs (2)</a></li>
 </ul>
 
 </div>
@@ -227,31 +228,31 @@ Perhaps<br/>
 </div>
 
 <div class="hint2 file4">
-hs/src/HelVM/HelMA/Automata/Piet/Program.hs:25:11-67: Suggestion: Use &lt;$&gt;<br/>
+hs/src/HelVM/HelMA/Automata/Piet/LabellingStatus.hs:(17,5)-(18,50): Suggestion: Use &lt;$&gt;<br/>
 Found<br/>
-<pre><span class='hs-definition'>fmap</span> <span class='hs-layout'>(</span><span class='hs-varop'>`equivClass`</span> <span class='hs-layout'>(</span><span class='hs-sel'>_equivalences</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span> <span class='hs-sel'>_mask</span> <span class='hs-varid'>status</span></pre>
+<pre><span class='hs-definition'>fmap</span> <span class='hs-layout'>(</span><span class='hs-varid'>indexWithCoordinates</span> <span class='hs-varid'>img</span><span class='hs-layout'>)</span>
+  <span class='hs-varop'>$</span> <span class='hs-varid'>previousNeighbours</span> <span class='hs-layout'>(</span><span class='hs-varid'>currentCoordinates</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span></pre>
 Perhaps<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-varop'>`equivClass`</span> <span class='hs-layout'>(</span><span class='hs-sel'>_equivalences</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-sel'>_mask</span> <span class='hs-varid'>status</span></pre>
+<pre><span class='hs-layout'>(</span><span class='hs-varid'>indexWithCoordinates</span> <span class='hs-varid'>img</span>
+   <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>previousNeighbours</span> <span class='hs-layout'>(</span><span class='hs-varid'>currentCoordinates</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
 
 </div>
 
-<div class="hint1 file4">
-hs/src/HelVM/HelMA/Automata/Piet/Program.hs:25:30-51: Suggestion: Redundant bracket<br/>
+<div class="hint2 file5">
+hs/src/HelVM/HelMA/Automata/Piet/Program.hs:25:11-71: Suggestion: Use &lt;$&gt;<br/>
 Found<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-varop'>`equivClass`</span> <span class='hs-layout'>(</span><span class='hs-sel'>_equivalences</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
+<pre><span class='hs-definition'>fmap</span> <span class='hs-layout'>(</span><span class='hs-varop'>`equivClass`</span> <span class='hs-layout'>(</span><span class='hs-conid'>LS.equivalences</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span> <span class='hs-conid'>LS.mask</span> <span class='hs-varid'>status</span></pre>
 Perhaps<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-varop'>`equivClass`</span> <span class='hs-sel'>_equivalences</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span></pre>
+<pre><span class='hs-layout'>(</span><span class='hs-varop'>`equivClass`</span> <span class='hs-layout'>(</span><span class='hs-conid'>LS.equivalences</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-conid'>LS.mask</span> <span class='hs-varid'>status</span></pre>
 
 </div>
 
-<div class="hint2 file4">
-hs/src/HelVM/HelMA/Automata/Piet/Program.hs:(51,5)-(52,46): Suggestion: Use &lt;$&gt;<br/>
+<div class="hint1 file5">
+hs/src/HelVM/HelMA/Automata/Piet/Program.hs:25:30-53: Suggestion: Redundant bracket<br/>
 Found<br/>
-<pre><span class='hs-definition'>fmap</span> <span class='hs-layout'>(</span><span class='hs-keyglyph'>\</span> <span class='hs-varid'>xy'</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>xy'</span><span class='hs-layout'>,</span> <span class='hs-varid'>unsafeLoopUp</span> <span class='hs-varid'>xy'</span> <span class='hs-varid'>img</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
-  <span class='hs-varop'>$</span> <span class='hs-varid'>previousNeighbours</span> <span class='hs-layout'>(</span><span class='hs-sel'>_currentCoords</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span></pre>
+<pre><span class='hs-layout'>(</span><span class='hs-varop'>`equivClass`</span> <span class='hs-layout'>(</span><span class='hs-conid'>LS.equivalences</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
 Perhaps<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-keyglyph'>\</span> <span class='hs-varid'>xy'</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>xy'</span><span class='hs-layout'>,</span> <span class='hs-varid'>unsafeLoopUp</span> <span class='hs-varid'>xy'</span> <span class='hs-varid'>img</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span>
-   <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>previousNeighbours</span> <span class='hs-layout'>(</span><span class='hs-sel'>_currentCoords</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
+<pre><span class='hs-layout'>(</span><span class='hs-varop'>`equivClass`</span> <span class='hs-conid'>LS.equivalences</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span></pre>
 
 </div>
 

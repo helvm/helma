@@ -10,6 +10,15 @@ import           Data.IntMap                              (adjust, insert)
 
 import qualified Relude.Extra                             as Extra
 
+buildLabelKeys :: (c -> a -> Bool) -> Image a -> LabellingStatus -> c -> [LabelKey]
+buildLabelKeys neighbours img status pixel
+  = fmap (index (mask status) . fst)
+  $ filter (neighbours pixel . snd)
+  $ fmap (indexWithCoordinates img)
+  $ previousNeighbours (currentCoordinates status)
+
+-- | Constructors
+
 updateStatus :: [LabelKey]  -> Coordinates -> LabellingStatus -> LabellingStatus
 updateStatus []       = updateStatus0
 updateStatus [label]  = updateStatus1 label
@@ -46,6 +55,8 @@ newLabellingStatus img = LabellingStatus
   , infoMap       = mempty
   , equivalences  = mempty
   }
+
+-- | Types
 
 data LabellingStatus = LabellingStatus
   { currentCoordinates :: Coordinates

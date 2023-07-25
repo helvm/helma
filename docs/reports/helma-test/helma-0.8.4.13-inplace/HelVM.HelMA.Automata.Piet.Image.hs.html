@@ -19,32 +19,40 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Image where
 <span class="lineno">    2 </span>
-<span class="lineno">    3 </span>import           Data.Array.IArray
-<span class="lineno">    4 </span>import           HelVM.HelMA.Automata.Piet.Coordinates
-<span class="lineno">    5 </span>
-<span class="lineno">    6 </span>-- | Constructors
-<span class="lineno">    7 </span>
-<span class="lineno">    8 </span>newEmptyImage :: Coordinates -&gt; Image a
-<span class="lineno">    9 </span><span class="decl"><span class="nottickedoff">newEmptyImage = newImage []</span></span>
-<span class="lineno">   10 </span>
-<span class="lineno">   11 </span>newImage :: [(Coordinates, a)] -&gt; Coordinates -&gt; Image a
-<span class="lineno">   12 </span><span class="decl"><span class="istickedoff">newImage entries c = array ((0 , 0) , c) entries</span></span>
-<span class="lineno">   13 </span>
-<span class="lineno">   14 </span>imgSetPixel :: Coordinates -&gt; a -&gt; Image a -&gt; Image a
-<span class="lineno">   15 </span><span class="decl"><span class="nottickedoff">imgSetPixel c pixel img = img // [(c, pixel)]</span></span>
-<span class="lineno">   16 </span>
-<span class="lineno">   17 </span>-- | Getters
-<span class="lineno">   18 </span>indexWithCoordinates :: Image a -&gt; Coordinates -&gt; (Coordinates , a)
-<span class="lineno">   19 </span><span class="decl"><span class="nottickedoff">indexWithCoordinates img c = (c , img ! c)</span></span>
-<span class="lineno">   20 </span>
-<span class="lineno">   21 </span>unsafeLoopUp :: Coordinates -&gt; Image a -&gt; a
-<span class="lineno">   22 </span><span class="decl"><span class="nottickedoff">unsafeLoopUp = flip (!)</span></span>
-<span class="lineno">   23 </span>
-<span class="lineno">   24 </span>border :: Image a -&gt; Coordinates
-<span class="lineno">   25 </span><span class="decl"><span class="nottickedoff">border = snd . bounds</span></span>
-<span class="lineno">   26 </span>
-<span class="lineno">   27 </span>-- | Type
-<span class="lineno">   28 </span>type Image a = Array Coordinates a
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automata.Piet.Coordinates
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           Data.Array.IArray                     hiding (index)
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import qualified Relude.Extra                          as Extra
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>-- | Constructors
+<span class="lineno">   10 </span>copyEmptyImage :: Image a1 -&gt; Image a2
+<span class="lineno">   11 </span><span class="decl"><span class="nottickedoff">copyEmptyImage = newEmptyImage . border</span></span>
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>newEmptyImage :: Coordinates -&gt; Image a
+<span class="lineno">   14 </span><span class="decl"><span class="nottickedoff">newEmptyImage = newImage []</span></span>
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>newImage :: [(Coordinates, a)] -&gt; Coordinates -&gt; Image a
+<span class="lineno">   17 </span><span class="decl"><span class="istickedoff">newImage entries c = array ((0 , 0) , c) entries</span></span>
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>imgSetPixel :: Coordinates -&gt; a -&gt; Image a -&gt; Image a
+<span class="lineno">   20 </span><span class="decl"><span class="nottickedoff">imgSetPixel c pixel img = img // [(c, pixel)]</span></span>
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>-- | Getters
+<span class="lineno">   23 </span>indexWithCoordinates :: Image a -&gt; Coordinates -&gt; (Coordinates , a)
+<span class="lineno">   24 </span><span class="decl"><span class="nottickedoff">indexWithCoordinates img = Extra.toSnd (index img)</span></span>
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>index :: Image a -&gt; Coordinates -&gt; a
+<span class="lineno">   27 </span><span class="decl"><span class="nottickedoff">index = (!)</span></span>
+<span class="lineno">   28 </span>
+<span class="lineno">   29 </span>unsafeLoopUp :: Coordinates -&gt; Image a -&gt; a
+<span class="lineno">   30 </span><span class="decl"><span class="nottickedoff">unsafeLoopUp = flip (!)</span></span>
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>border :: Image a -&gt; Coordinates
+<span class="lineno">   33 </span><span class="decl"><span class="nottickedoff">border = snd . bounds</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>-- | Type
+<span class="lineno">   36 </span>type Image a = Array Coordinates a
 
 </pre>
 </body>

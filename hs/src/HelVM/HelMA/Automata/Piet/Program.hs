@@ -34,7 +34,7 @@ label4With' :: (a -> a -> Bool) -> Image a -> LS.LabellingStatus -> LS.Labelling
 label4With' neighbours img status = let
   xy          = LS.currentCoordinates status
   pixel       = unsafeLoopUp xy img
-  mergeLabels = buildLabelKeys neighbours img status pixel
+  mergeLabels = LS.buildLabelKeys neighbours img status pixel
   status'     = LS.updateStatus mergeLabels xy status
   in case nextCoords xy of
     Just xy' -> label4With' neighbours img $ status' { LS.currentCoordinates = xy' }
@@ -43,16 +43,6 @@ label4With' neighbours img status = let
   where
   nextCoords :: Coordinates -> Maybe Coordinates
   nextCoords = nextCoordinates $ border img
-
-buildLabelKeys :: (t -> b -> Bool) -> Image b -> LS.LabellingStatus -> t -> [LabelKey]
-buildLabelKeys neighbours img status pixel
-  = fmap (index (LS.mask status) . fst)
-  $ filter (neighbours pixel . snd)
-  $ fmap (indexWithCoordinates img)
-  $ previousNeighbours (LS.currentCoordinates status)
-
---aaa (Just xy') = label4With' neighbours img $ status' { currentCoordinates = xy' }
---aaa (Nothing)  = status'
 
 data Program = Program
   { image :: Image Color

@@ -17,7 +17,7 @@ import           Relude.Extra
 
 --FIXME move to LabelInfo
 addPixel :: Coordinates -> LabelInfo -> LabelInfo
-addPixel = ((<>) . (Just . toFullInfo))
+addPixel = (<>) . (Just . toFullInfo)
 
 toFullInfo :: Coordinates -> FullInfo
 toFullInfo (x , y) = FullInfo
@@ -49,13 +49,13 @@ addCoordinates DPLeft  (x , y) = (x - 1, y)
 addCoordinates DPUp    (x , y) = (x, y - 1)
 
 previousNeighbours :: Coordinates -> [Coordinates]
-previousNeighbours (x , y) = filter (\(x' , y') -> 0 <=  x' && 0 <= y') [ (x-1 , y) , (x , y-1) ]
+previousNeighbours (x , y) = filter (\(x' , y') -> 0 <= x' && 0 <= y') [ (x-1 , y) , (x , y-1) ]
 
 nextCoordinates :: Coordinates -> Coordinates -> Maybe Coordinates
 nextCoordinates (x0 , y0) (x , y)
   | x < x0 - 1  = Just (x + 1 , y)
   | y < y0 - 1  = Just (0 , y + 1)
-  | otherwise    = Nothing
+  | otherwise   = Nothing
 
 type Coordinates = (Int , Int)
 
