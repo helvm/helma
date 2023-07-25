@@ -22,7 +22,7 @@ label4 = label4With (==)
 
 label4With :: (a -> a -> Bool) -> Image a -> (Image LabelKey, IntMap LabelInfo)
 label4With neighbours img = (img', inf) where
-  img'  = fmap (`equivClass` (_equivalences status)) $ _mask status
+  img'  = fmap (`equivClass` (_equivalences status)) $ mask_ status
   inf  = foldrWithKey (updateMask status) mempty $ _infoMap status
   status  = label4With' neighbours img $ newLabellingStatus img
 
@@ -46,9 +46,9 @@ label4With' neighbours img status = let
 
 buildLabelKeys :: (t -> b -> Bool) -> Image b -> LabellingStatus -> t -> [LabelKey]
 buildLabelKeys neighbours img status pixel
-  = fmap (\(xy' , _) -> unsafeLoopUp xy' (_mask status))
-  $ filter (\(_, e) -> neighbours pixel e)
-  $ fmap (\xy' -> (xy' , unsafeLoopUp xy' img))
+  = fmap (index (mask_ status) . fst)
+  $ filter (neighbours pixel . snd)
+  $ fmap (indexWithCoordinates img)
   $ previousNeighbours (_currentCoords status)
 
 --aaa (Just xy') = label4With' neighbours img $ status' { _currentCoords = xy' }

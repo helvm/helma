@@ -12,16 +12,16 @@ import           Data.IntMap                              (adjust, insert)
 updateStatus :: [LabelKey]  -> Coordinates -> LabellingStatus -> LabellingStatus
 updateStatus [] (x , y) status = status
   { _nextKey  = Extra.next label
-  , _mask    = imgSetPixel (x , y) label (_mask status)
+  , mask_    = imgSetPixel (x , y) label (mask_ status)
   , _infoMap  = insert label (addPixel (x , y) mempty) (_infoMap status)
   } where
     label = _nextKey status
 updateStatus [label] (x , y) status = status
-  { _mask    = imgSetPixel (x , y) label (_mask status)
+  { mask_    = imgSetPixel (x , y) label (mask_ status)
   , _infoMap  = adjust (addPixel (x , y)) label (_infoMap status)
   }
 updateStatus [l1, l2] (x , y) status = status
-  { _mask    = imgSetPixel (x , y) label (_mask status)
+  { mask_    = imgSetPixel (x , y) label (mask_ status)
   , _infoMap  = adjust (addPixel (x, y)) label (_infoMap status)
   , _equivalences  = equivInsert l1 l2 (_equivalences status)
   } where
@@ -32,7 +32,7 @@ newLabellingStatus :: Image a -> LabellingStatus
 newLabellingStatus img = LabellingStatus
   { _currentCoords = (0, 0)
   , _nextKey       = 0
-  , _mask          = newEmptyImage $ border img
+  , mask_          = copyEmptyImage img
   , _infoMap       = mempty
   , _equivalences  = mempty
   }
@@ -40,7 +40,7 @@ newLabellingStatus img = LabellingStatus
 data LabellingStatus = LabellingStatus
   { _currentCoords :: Coordinates
   , _nextKey       :: LabelKey
-  , _mask          :: Image LabelKey
+  , mask_          :: Image LabelKey
   , _infoMap       :: IntMap LabelInfo
   , _equivalences  :: EquivalenceMap
   } deriving stock (Show, Eq, Ord)
