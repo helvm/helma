@@ -162,7 +162,7 @@ document.body.className = "script";
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
 <li><a id="hint0" href="javascript:show('hint0')">Suggestion: Reduce duplication (1)</a></li>
-<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Redundant bracket (2)</a></li>
+<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Redundant bracket (1)</a></li>
 <li><a id="hint2" href="javascript:show('hint2')">Suggestion: Use &lt;$&gt; (2)</a></li>
 <li><a id="hint3" href="javascript:show('hint3')">Suggestion: Use safeToEnum (2)</a></li>
 </ul>
@@ -171,10 +171,9 @@ document.body.className = "script";
 <ul>
 <li><a id="file0" href="javascript:show('file0')">./dist-newstyle/src/helio-157a2fc26d319c83/hs/test/HelVM/HelIO/Collections/MapListSpec.hs (1)</a></li>
 <li><a id="file1" href="javascript:show('file1')">./hs/src/HelVM/HelMA/Automata/Piet/CodelChooser.hs (1)</a></li>
-<li><a id="file2" href="javascript:show('file2')">./hs/src/HelVM/HelMA/Automata/Piet/Coordinates.hs (1)</a></li>
-<li><a id="file3" href="javascript:show('file3')">./hs/src/HelVM/HelMA/Automata/Piet/DirectionPointer.hs (1)</a></li>
-<li><a id="file4" href="javascript:show('file4')">./hs/src/HelVM/HelMA/Automata/Piet/LabellingStatus.hs (1)</a></li>
-<li><a id="file5" href="javascript:show('file5')">./hs/src/HelVM/HelMA/Automata/Piet/Program.hs (2)</a></li>
+<li><a id="file2" href="javascript:show('file2')">./hs/src/HelVM/HelMA/Automata/Piet/DirectionPointer.hs (1)</a></li>
+<li><a id="file3" href="javascript:show('file3')">./hs/src/HelVM/HelMA/Automata/Piet/LabellingStatus.hs (1)</a></li>
+<li><a id="file4" href="javascript:show('file4')">./hs/src/HelVM/HelMA/Automata/Piet/Program.hs (2)</a></li>
 </ul>
 
 </div>
@@ -209,16 +208,7 @@ Perhaps<br/>
 <span class='note'>Note: <tt>toEnum</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>safeToEnum</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
 </div>
 
-<div class="hint1 file2">
-hs/src/HelVM/HelMA/Automata/Piet/Coordinates.hs:20:12-39: Suggestion: Redundant bracket<br/>
-Found<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-varop'>&lt;&gt;</span><span class='hs-layout'>)</span> <span class='hs-varop'>.</span> <span class='hs-layout'>(</span><span class='hs-conid'>Just</span> <span class='hs-varop'>.</span> <span class='hs-varid'>toFullInfo</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
-Perhaps<br/>
-<pre><span class='hs-layout'>(</span><span class='hs-varop'>&lt;&gt;</span><span class='hs-layout'>)</span> <span class='hs-varop'>.</span> <span class='hs-layout'>(</span><span class='hs-conid'>Just</span> <span class='hs-varop'>.</span> <span class='hs-varid'>toFullInfo</span><span class='hs-layout'>)</span></pre>
-
-</div>
-
-<div class="hint3 file3">
+<div class="hint3 file2">
 hs/src/HelVM/HelMA/Automata/Piet/DirectionPointer.hs:4:14-19: Suggestion: Use safeToEnum<br/>
 Found<br/>
 <pre><span class='hs-definition'>toEnum</span></pre>
@@ -227,7 +217,7 @@ Perhaps<br/>
 <span class='note'>Note: <tt>toEnum</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>safeToEnum</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
 </div>
 
-<div class="hint2 file4">
+<div class="hint2 file3">
 hs/src/HelVM/HelMA/Automata/Piet/LabellingStatus.hs:(17,5)-(18,50): Suggestion: Use &lt;$&gt;<br/>
 Found<br/>
 <pre><span class='hs-definition'>fmap</span> <span class='hs-layout'>(</span><span class='hs-varid'>indexWithCoordinates</span> <span class='hs-varid'>img</span><span class='hs-layout'>)</span>
@@ -238,7 +228,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint2 file5">
+<div class="hint2 file4">
 hs/src/HelVM/HelMA/Automata/Piet/Program.hs:25:11-71: Suggestion: Use &lt;$&gt;<br/>
 Found<br/>
 <pre><span class='hs-definition'>fmap</span> <span class='hs-layout'>(</span><span class='hs-varop'>`equivClass`</span> <span class='hs-layout'>(</span><span class='hs-conid'>LS.equivalences</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span> <span class='hs-varop'>$</span> <span class='hs-conid'>LS.mask</span> <span class='hs-varid'>status</span></pre>
@@ -247,7 +237,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint1 file5">
+<div class="hint1 file4">
 hs/src/HelVM/HelMA/Automata/Piet/Program.hs:25:30-53: Suggestion: Redundant bracket<br/>
 Found<br/>
 <pre><span class='hs-layout'>(</span><span class='hs-varop'>`equivClass`</span> <span class='hs-layout'>(</span><span class='hs-conid'>LS.equivalences</span> <span class='hs-varid'>status</span><span class='hs-layout'>)</span><span class='hs-layout'>)</span></pre>
