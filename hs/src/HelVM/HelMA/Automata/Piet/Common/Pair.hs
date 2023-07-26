@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.Pair where
+module HelVM.HelMA.Automata.Piet.Common.Pair where
 
 import           Data.Tuple.Extra
 

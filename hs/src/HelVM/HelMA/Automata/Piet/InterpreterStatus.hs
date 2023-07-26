@@ -1,8 +1,7 @@
 module HelVM.HelMA.Automata.Piet.InterpreterStatus where
 
-import           HelVM.HelMA.Automata.Piet.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Coordinates
-import           HelVM.HelMA.Automata.Piet.DirectionPointer
+import           HelVM.HelMA.Automata.Piet.MovePointer
 
 data InterpreterStatus = InterpreterStatus
     { dp       :: DirectionPointer

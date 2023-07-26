@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.Piet.PietRequest where
 
-import           HelVM.HelMA.Automata.Piet.LogLevel
+import           HelVM.HelMA.Automata.Piet.Common.LogLevel
 
 data PietRequest
   = Read  PietType

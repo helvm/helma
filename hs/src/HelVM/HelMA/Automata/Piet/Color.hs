@@ -1,23 +1,8 @@
 module HelVM.HelMA.Automata.Piet.Color where
 
-import           HelVM.HelIO.SwitchEnum
-
-mixedColor :: MixedColor -> MixedColor -> MixedColor
-mixedColor (MixedColor b1 h1) (MixedColor b2 h2) = MixedColor (brightnessChange b1 b2) (hueChange h1 h2)
-
-brightnessChange :: Brightness -> Brightness -> Brightness
-brightnessChange = change 3
-
-hueChange :: Hue -> Hue -> Hue
-hueChange = change 6
-
-change :: (Bounded e, Enum e) => Int -> e -> e -> e
-change i e1 e2 = unsafeEnum $ (fromEnum e2 - fromEnum e1) `mod` i
+import           HelVM.HelMA.Automata.Piet.MixedColor
 
 -- | Constructors
-rgba2Color :: (Num w , Eq w) => w -> w -> w -> w -> Color
-rgba2Color r g b _ = rgb2Color $ RGBColor r g b
-
 rgb2Color :: (Num a , Eq a) => RGBColor a -> Color
 rgb2Color (RGBColor 0xff 0xc0 0xc0) = OtherColor $ MixedColor Light  Red
 rgb2Color (RGBColor 0xff 0x00 0x00) = OtherColor $ MixedColor Normal Red
@@ -46,12 +31,3 @@ data RGBColor a = RGBColor a a a
 
 data Color = Black | White | OtherColor !MixedColor
   deriving stock (Show , Read , Eq , Ord)
-
-data MixedColor = MixedColor !Brightness !Hue
-  deriving stock (Show , Read , Eq , Ord)
-
-data Brightness = Light | Normal | Dark
-  deriving stock (Bounded , Show , Read, Eq , Ord , Enum)
-
-data Hue = Red | Yellow | Green | Cyan | Blue | Magenta
-  deriving stock (Bounded , Show , Read, Eq , Ord , Enum)

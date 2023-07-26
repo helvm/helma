@@ -6,20 +6,21 @@ module HelVM.HelMA.Automata.Piet.Parser (
 import           HelVM.HelMA.Automata.Piet.Color
 import           HelVM.HelMA.Automata.Piet.Coordinates
 import           HelVM.HelMA.Automata.Piet.Image
-import           HelVM.HelMA.Automata.Piet.MonadFailExtra
+
+import           HelVM.HelMA.Automata.Piet.Common.MonadFailExtra
 
 import           HelVM.HelIO.Extra
 
 import           Control.Applicative.Tools
 import           Control.Exception
 
-import           Data.ListLike                            (length)
+import           Data.ListLike                                   (length)
 
 import           Graphics.Imlib
 
-import           Safe                                     (findJust)
+import           Safe                                            (findJust)
 
-import           Prelude                                  hiding (length)
+import           Prelude                                         hiding (length)
 
 parseToRightTextIO :: FilePath -> IO Text
 parseToRightTextIO = showP <.> parseRightIO

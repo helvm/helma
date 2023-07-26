@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.Piet.Instruction where
 
-import           HelVM.HelMA.Automata.Piet.Color
+import           HelVM.HelMA.Automata.Piet.MixedColor
 
 --import           HelVM.HelMA.Automata.Piet.Pair
 

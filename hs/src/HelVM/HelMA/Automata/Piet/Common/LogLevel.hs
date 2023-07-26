@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LogLevel where
+module HelVM.HelMA.Automata.Piet.Common.LogLevel where
 
 import qualified Text.Show
 

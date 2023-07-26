@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.Piet.LabelBorder where
 
-import           HelVM.HelMA.Automata.Piet.Extra
+import           HelVM.HelMA.Automata.Piet.Common.Extra
 
 mergeMin :: LabelBorder2 -> LabelBorder
 mergeMin = merge (uncurryComparing borderCoord)

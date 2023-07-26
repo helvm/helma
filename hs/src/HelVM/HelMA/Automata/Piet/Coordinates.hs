@@ -6,10 +6,9 @@ module HelVM.HelMA.Automata.Piet.Coordinates (
   Coordinates,
 ) where
 
-import           HelVM.HelMA.Automata.Piet.CodelChooser
-import           HelVM.HelMA.Automata.Piet.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.FullInfo
 import           HelVM.HelMA.Automata.Piet.LabelBorder
+import           HelVM.HelMA.Automata.Piet.MovePointer
 
 import           Data.Tuple.HT
 import           Relude.Extra
@@ -28,19 +27,19 @@ toFullInfo (x , y) = FullInfo
   , labelRight  = LabelBorder x y y
   }
 
-succCoordinates :: DirectionPointer -> CodelChooser -> FullInfo -> Coordinates
-succCoordinates dp cc label = addCoordinates dp $ mapPair ff $ dup label where
-  ff = calculateCoordinates dp cc
+succCoordinates :: MovePointer -> FullInfo -> Coordinates
+succCoordinates (dp , cc) label = addCoordinates dp $ mapPair ff $ dup label where
+  ff = calculateCoordinates (dp , cc)
 
-calculateCoordinates :: DirectionPointer -> CodelChooser -> (FullInfo -> Int, FullInfo -> Int)
-calculateCoordinates DPRight CCLeft  = (borderCoord . labelRight  , borderMin   . labelRight )
-calculateCoordinates DPRight CCRight = (borderCoord . labelRight  , borderMax   . labelRight )
-calculateCoordinates DPDown  CCLeft  = (borderMax   . labelBottom , borderCoord . labelBottom)
-calculateCoordinates DPDown  CCRight = (borderMin   . labelBottom , borderCoord . labelBottom)
-calculateCoordinates DPLeft  CCLeft  = (borderCoord . labelLeft   , borderMax   . labelLeft  )
-calculateCoordinates DPLeft  CCRight = (borderCoord . labelLeft   , borderMin   . labelLeft  )
-calculateCoordinates DPUp    CCLeft  = (borderMin   . labelTop    , borderCoord . labelTop   )
-calculateCoordinates DPUp    CCRight = (borderMax   . labelTop    , borderCoord . labelTop   )
+calculateCoordinates :: MovePointer -> (FullInfo -> Int, FullInfo -> Int)
+calculateCoordinates (DPRight , CCLeft  ) = (borderCoord . labelRight  , borderMin   . labelRight )
+calculateCoordinates (DPRight , CCRight ) = (borderCoord . labelRight  , borderMax   . labelRight )
+calculateCoordinates (DPDown  , CCLeft  ) = (borderMax   . labelBottom , borderCoord . labelBottom)
+calculateCoordinates (DPDown  , CCRight ) = (borderMin   . labelBottom , borderCoord . labelBottom)
+calculateCoordinates (DPLeft  ,  CCLeft ) = (borderCoord . labelLeft   , borderMax   . labelLeft  )
+calculateCoordinates (DPLeft  , CCRight ) = (borderCoord . labelLeft   , borderMin   . labelLeft  )
+calculateCoordinates (DPUp    , CCLeft  ) = (borderMin   . labelTop    , borderCoord . labelTop   )
+calculateCoordinates (DPUp    , CCRight ) = (borderMax   . labelTop    , borderCoord . labelTop   )
 
 addCoordinates :: DirectionPointer -> Coordinates -> Coordinates
 addCoordinates DPRight (x , y) = (x + 1, y)

@@ -208,25 +208,27 @@ library
     HelVM.HelMA.Automata.LazyK.Reducer
 
     HelVM.HelMA.Automata.Piet.Automaton
-    HelVM.HelMA.Automata.Piet.CodelChooser
     HelVM.HelMA.Automata.Piet.Color
     HelVM.HelMA.Automata.Piet.Coordinates
-    HelVM.HelMA.Automata.Piet.DirectionPointer
     HelVM.HelMA.Automata.Piet.EquivalenceMap
     HelVM.HelMA.Automata.Piet.Evaluator
-    HelVM.HelMA.Automata.Piet.Extra
     HelVM.HelMA.Automata.Piet.FullInfo
     HelVM.HelMA.Automata.Piet.Image
     HelVM.HelMA.Automata.Piet.Instruction
     HelVM.HelMA.Automata.Piet.InterpreterStatus
     HelVM.HelMA.Automata.Piet.LabelBorder
     HelVM.HelMA.Automata.Piet.LabellingStatus
-    HelVM.HelMA.Automata.Piet.LogLevel
-    HelVM.HelMA.Automata.Piet.MonadFailExtra
-    HelVM.HelMA.Automata.Piet.Pair
+    HelVM.HelMA.Automata.Piet.MixedColor
+    HelVM.HelMA.Automata.Piet.MovePointer
     HelVM.HelMA.Automata.Piet.Parser
     HelVM.HelMA.Automata.Piet.PietRequest
     HelVM.HelMA.Automata.Piet.Program
+
+    HelVM.HelMA.Automata.Piet.Common.EnumExtra
+    HelVM.HelMA.Automata.Piet.Common.Extra
+    HelVM.HelMA.Automata.Piet.Common.LogLevel
+    HelVM.HelMA.Automata.Piet.Common.MonadFailExtra
+    HelVM.HelMA.Automata.Piet.Common.Pair
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
