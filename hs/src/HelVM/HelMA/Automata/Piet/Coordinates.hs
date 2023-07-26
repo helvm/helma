@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.Piet.Coordinates (
+  emptyCoordinates,
   addPixel,
   succCoordinates,
   previousNeighbours,
@@ -36,7 +37,7 @@ calculateCoordinates (DPRight , CCLeft  ) = (borderCoord . labelRight  , borderM
 calculateCoordinates (DPRight , CCRight ) = (borderCoord . labelRight  , borderMax   . labelRight )
 calculateCoordinates (DPDown  , CCLeft  ) = (borderMax   . labelBottom , borderCoord . labelBottom)
 calculateCoordinates (DPDown  , CCRight ) = (borderMin   . labelBottom , borderCoord . labelBottom)
-calculateCoordinates (DPLeft  ,  CCLeft ) = (borderCoord . labelLeft   , borderMax   . labelLeft  )
+calculateCoordinates (DPLeft  , CCLeft )  = (borderCoord . labelLeft   , borderMax   . labelLeft  )
 calculateCoordinates (DPLeft  , CCRight ) = (borderCoord . labelLeft   , borderMin   . labelLeft  )
 calculateCoordinates (DPUp    , CCLeft  ) = (borderMin   . labelTop    , borderCoord . labelTop   )
 calculateCoordinates (DPUp    , CCRight ) = (borderMax   . labelTop    , borderCoord . labelTop   )
@@ -56,6 +57,7 @@ nextCoordinates (x0 , y0) (x , y)
   | y < y0 - 1  = Just (0 , y + 1)
   | otherwise   = Nothing
 
+emptyCoordinates :: Coordinates
+emptyCoordinates = (0 , 0)
+
 type Coordinates = (Int , Int)
-
-

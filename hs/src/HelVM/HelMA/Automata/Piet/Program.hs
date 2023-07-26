@@ -9,6 +9,9 @@ import qualified HelVM.HelMA.Automata.Piet.LabellingStatus as LS
 
 import           Data.IntMap                               (alter, foldrWithKey)
 
+--isBlocked :: Coordinate -> Program -> Bool
+--isBlocked xy program = (not (imgInRange xy (image program))) || (Black == imgPixel xy (image program))
+
 compile :: Image Color -> Program
 compile image_ = Program
   { image = image_

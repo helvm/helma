@@ -19,61 +19,37 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Color where
 <span class="lineno">    2 </span>
-<span class="lineno">    3 </span>import           HelVM.HelIO.SwitchEnum
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automata.Piet.MixedColor
 <span class="lineno">    4 </span>
-<span class="lineno">    5 </span>mixedColor :: MixedColor -&gt; MixedColor -&gt; MixedColor
-<span class="lineno">    6 </span><span class="decl"><span class="nottickedoff">mixedColor (MixedColor b1 h1) (MixedColor b2 h2) = MixedColor (brightnessChange b1 b2) (hueChange h1 h2)</span></span>
-<span class="lineno">    7 </span>
-<span class="lineno">    8 </span>brightnessChange :: Brightness -&gt; Brightness -&gt; Brightness
-<span class="lineno">    9 </span><span class="decl"><span class="nottickedoff">brightnessChange = change 3</span></span>
-<span class="lineno">   10 </span>
-<span class="lineno">   11 </span>hueChange :: Hue -&gt; Hue -&gt; Hue
-<span class="lineno">   12 </span><span class="decl"><span class="nottickedoff">hueChange = change 6</span></span>
-<span class="lineno">   13 </span>
-<span class="lineno">   14 </span>change :: (Bounded e, Enum e) =&gt; Int -&gt; e -&gt; e -&gt; e
-<span class="lineno">   15 </span><span class="decl"><span class="nottickedoff">change i e1 e2 = unsafeEnum $ (fromEnum e2 - fromEnum e1) `mod` i</span></span>
-<span class="lineno">   16 </span>
-<span class="lineno">   17 </span>-- | Constructors
-<span class="lineno">   18 </span>rgba2Color :: (Num w , Eq w) =&gt; w -&gt; w -&gt; w -&gt; w -&gt; Color
-<span class="lineno">   19 </span><span class="decl"><span class="nottickedoff">rgba2Color r g b _ = rgb2Color $ RGBColor r g b</span></span>
-<span class="lineno">   20 </span>
-<span class="lineno">   21 </span>rgb2Color :: (Num a , Eq a) =&gt; RGBColor a -&gt; Color
-<span class="lineno">   22 </span><span class="decl"><span class="istickedoff">rgb2Color (RGBColor 0xff 0xc0 0xc0) = OtherColor $ MixedColor Light  Red</span>
-<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0x00 0x00) = OtherColor $ MixedColor Normal Red</span>
-<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0x00 0x00) = OtherColor $ MixedColor Dark   Red</span>
-<span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0xff 0xc0) = OtherColor $ MixedColor Light  Yellow</span>
-<span class="lineno">   26 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0xff 0x00) = OtherColor $ MixedColor Normal Yellow</span>
-<span class="lineno">   27 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0xc0 0x00) = OtherColor $ MixedColor Dark   Yellow</span>
-<span class="lineno">   28 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0xff 0xc0) = <span class="nottickedoff">OtherColor $ MixedColor Light  Green</span></span>
-<span class="lineno">   29 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0xff 0x00) = OtherColor $ MixedColor Normal Green</span>
-<span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0xc0 0x00) = OtherColor $ MixedColor Dark   Green</span>
-<span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0xff 0xff) = <span class="nottickedoff">OtherColor $ MixedColor Light  Cyan</span></span>
-<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0xff 0xff) = OtherColor $ MixedColor Normal Cyan</span>
-<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0xc0 0xc0) = OtherColor $ MixedColor Dark   Cyan</span>
-<span class="lineno">   34 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0xc0 0xff) = OtherColor $ MixedColor Light  Blue</span>
-<span class="lineno">   35 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0x00 0xff) = OtherColor $ MixedColor Normal Blue</span>
-<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0x00 0xc0) = OtherColor $ MixedColor Dark   Blue</span>
-<span class="lineno">   37 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0xc0 0xff) = OtherColor $ MixedColor Light  Magenta</span>
-<span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0x00 0xff) = OtherColor $ MixedColor Normal Magenta</span>
-<span class="lineno">   39 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0x00 0xc0) = OtherColor $ MixedColor Dark   Magenta</span>
-<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0x00 0x00) = Black</span>
-<span class="lineno">   41 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0xff 0xff) = <span class="nottickedoff">White</span></span>
-<span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">rgb2Color  _                        = <span class="nottickedoff">White</span></span></span>
-<span class="lineno">   43 </span>
-<span class="lineno">   44 </span>-- | Types
-<span class="lineno">   45 </span>data RGBColor a = RGBColor a a a
-<span class="lineno">   46 </span>
-<span class="lineno">   47 </span>data Color = Black | White | OtherColor !MixedColor
-<span class="lineno">   48 </span>  deriving stock (<span class="decl"><span class="istickedoff">Show</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span>)
-<span class="lineno">   49 </span>
-<span class="lineno">   50 </span>data MixedColor = MixedColor !Brightness !Hue
-<span class="lineno">   51 </span>  deriving stock (<span class="decl"><span class="istickedoff">Show</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span>)
-<span class="lineno">   52 </span>
-<span class="lineno">   53 </span>data Brightness = Light | Normal | Dark
-<span class="lineno">   54 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Bounded</span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span>)
-<span class="lineno">   55 </span>
-<span class="lineno">   56 </span>data Hue = Red | Yellow | Green | Cyan | Blue | Magenta
-<span class="lineno">   57 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Bounded</span></span></span></span> , <span class="decl"><span class="istickedoff">Show</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span>)
+<span class="lineno">    5 </span>-- | Constructors
+<span class="lineno">    6 </span>rgb2Color :: (Num a , Eq a) =&gt; RGBColor a -&gt; Color
+<span class="lineno">    7 </span><span class="decl"><span class="istickedoff">rgb2Color (RGBColor 0xff 0xc0 0xc0) = OtherColor $ MixedColor Light  Red</span>
+<span class="lineno">    8 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0x00 0x00) = OtherColor $ MixedColor Normal Red</span>
+<span class="lineno">    9 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0x00 0x00) = OtherColor $ MixedColor Dark   Red</span>
+<span class="lineno">   10 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0xff 0xc0) = OtherColor $ MixedColor Light  Yellow</span>
+<span class="lineno">   11 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0xff 0x00) = OtherColor $ MixedColor Normal Yellow</span>
+<span class="lineno">   12 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0xc0 0x00) = OtherColor $ MixedColor Dark   Yellow</span>
+<span class="lineno">   13 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0xff 0xc0) = <span class="nottickedoff">OtherColor $ MixedColor Light  Green</span></span>
+<span class="lineno">   14 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0xff 0x00) = OtherColor $ MixedColor Normal Green</span>
+<span class="lineno">   15 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0xc0 0x00) = OtherColor $ MixedColor Dark   Green</span>
+<span class="lineno">   16 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0xff 0xff) = <span class="nottickedoff">OtherColor $ MixedColor Light  Cyan</span></span>
+<span class="lineno">   17 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0xff 0xff) = OtherColor $ MixedColor Normal Cyan</span>
+<span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0xc0 0xc0) = OtherColor $ MixedColor Dark   Cyan</span>
+<span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0xc0 0xff) = OtherColor $ MixedColor Light  Blue</span>
+<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0x00 0xff) = OtherColor $ MixedColor Normal Blue</span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0x00 0xc0) = OtherColor $ MixedColor Dark   Blue</span>
+<span class="lineno">   22 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0xc0 0xff) = OtherColor $ MixedColor Light  Magenta</span>
+<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0x00 0xff) = OtherColor $ MixedColor Normal Magenta</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xc0 0x00 0xc0) = OtherColor $ MixedColor Dark   Magenta</span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0x00 0x00 0x00) = Black</span>
+<span class="lineno">   26 </span><span class="spaces"></span><span class="istickedoff">rgb2Color (RGBColor 0xff 0xff 0xff) = <span class="nottickedoff">White</span></span>
+<span class="lineno">   27 </span><span class="spaces"></span><span class="istickedoff">rgb2Color  _                        = <span class="nottickedoff">White</span></span></span>
+<span class="lineno">   28 </span>
+<span class="lineno">   29 </span>-- | Types
+<span class="lineno">   30 </span>data RGBColor a = RGBColor a a a
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>data Color = Black | White | OtherColor !MixedColor
+<span class="lineno">   33 </span>  deriving stock (<span class="decl"><span class="istickedoff">Show</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff">Eq</span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span>)
 
 </pre>
 </body>

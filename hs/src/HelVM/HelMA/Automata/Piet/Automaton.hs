@@ -1,2 +1,43 @@
 module HelVM.HelMA.Automata.Piet.Automaton where
 
+--runPietMonad :: (PietType -> IO Int)
+--  -> (PietType -> Int -> IO ())
+--  -> (LogLevel -> String -> IO ())
+--  -> PietMonad a
+--  -> IO (Either String a)
+--runPietMonad readCallback printCallback logCallback program = do
+--  requestChannel  <- newChan
+--  responseChannel  <- newChan
+--  lock    <- newEmptyMVar
+--
+--  forkIO $ do
+--    let PietMonad piet = do
+--      x <- program
+--      terminate
+--
+--      pure x
+--
+--    x <- piet emptyInterpreterStatus
+--      requestChannel
+--      responseChannel
+--
+--    putMVar lock x
+--
+--  let serviceRoutine = do
+--    request <- readChan requestChannel
+--    case request of
+--      Read pType  -> do
+--        n <- readCallback pType
+--        writeChan responseChannel n
+--        serviceRoutine
+--      Print pType n  -> do
+--        printCallback pType n
+--        serviceRoutine
+--      Log level msg  -> do
+--        logCallback level msg
+--        serviceRoutine
+--      Terminate  -> return ()
+--
+--  serviceRoutine
+--
+--  (liftM fst) `liftM` takeMVar lock
