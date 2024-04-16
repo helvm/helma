@@ -4,6 +4,7 @@ module HelVM.HelMA.Automata.Piet.Coordinates (
   succCoordinates,
   previousNeighbours,
   nextCoordinates,
+  addCoordinates,
   Coordinates,
 ) where
 
