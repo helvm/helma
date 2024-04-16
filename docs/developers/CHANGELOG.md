@@ -1,5 +1,8 @@
 # 📅 Revision history for HelMA
 
+## 0.8.4.14 -- 2024-04-16
+* Fix "This binding for ‘golden’ shadows the existing binding"
+
 ## 0.8.4.13 -- 2023-07-25
 * Implement parser for Piet
 
