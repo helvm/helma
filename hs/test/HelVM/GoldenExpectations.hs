@@ -63,4 +63,4 @@ type GoldenIO a = IO $ Golden a
 instance Eq str => Example (GoldenExpectations str) where
   type Arg (GoldenExpectations str) = ()
   evaluateExample wrapped params action callback = evaluateExample' =<< unGoldenExpectations wrapped where
-    evaluateExample' golden = evaluateExample golden params action callback
+    evaluateExample' unwrapped = evaluateExample unwrapped params action callback

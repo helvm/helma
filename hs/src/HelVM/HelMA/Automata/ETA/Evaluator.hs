@@ -12,8 +12,8 @@ import qualified HelVM.HelMA.Automata.ETA.SimpleParams      as S
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
-import           HelVM.HelMA.Automaton.API.AutoOptions
 import qualified HelVM.HelMA.Automaton.API.AutomatonOptions as Automaton
+import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 

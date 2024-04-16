@@ -4,8 +4,8 @@ module HelVM.HelMA.Automaton.Automaton (
   run,
 ) where
 
-import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.AutomatonOptions
+import           HelVM.HelMA.Automaton.API.AutoOptions
 
 import           HelVM.HelMA.Automaton.Instruction
 

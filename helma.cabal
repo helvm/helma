@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.4.13
+version:               0.8.4.14
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -11,7 +11,7 @@ license:               Apache-2.0
 license-file:          docs/license/LICENSE-APACHE
 author:                Kamil Adam
 maintainer:            kamil.adam.zabinski@gmail.com
-copyright:             2020-2023 WriteOnly Developers
+copyright:             2020-2024 WriteOnly Developers
 
 category:              Language
 build-type:            Simple
