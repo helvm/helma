@@ -111,7 +111,7 @@ mockGetContents = mockGetContents' =<< get where
 mockGetChar :: MonadMockIO m => m Char
 mockGetChar = mockGetChar' =<< get where
   mockGetChar' :: MonadMockIO m => MockIOData -> m Char
-  mockGetChar' mockIO = orErrorTuple ("mockGetChar" , show mockIO) (top (input mockIO)) <$ put mockIO { input = orErrorTuple ("mockGetChar" , show mockIO) $ discard $ input mockIO }
+  mockGetChar' mockIO = orErrorTuple ("mockGetChar" , Text.show mockIO) (top (input mockIO)) <$ put mockIO { input = orErrorTuple ("mockGetChar" , Text.show mockIO) $ discard $ input mockIO }
 
 mockGetLine :: MonadMockIO m => m Text
 mockGetLine = mockGetLine' =<< get where
@@ -121,7 +121,7 @@ mockGetLine = mockGetLine' =<< get where
 mockGetCharSafe :: MonadControlMockIO m => m Char
 mockGetCharSafe = mockGetChar' =<< get where
   mockGetChar' :: MonadControlMockIO m => MockIOData -> m Char
-  mockGetChar' mockIO = appendErrorTuple ("mockGetCharSafe" , show mockIO) $ mockGetChar'' =<< unconsSafe (input mockIO) where
+  mockGetChar' mockIO = appendErrorTuple ("mockGetCharSafe" , Text.show mockIO) $ mockGetChar'' =<< unconsSafe (input mockIO) where
     mockGetChar'' (c, input') = put mockIO { input = input' } $> c
 
 mockGetLineSafe :: MonadControlMockIO m => m Text

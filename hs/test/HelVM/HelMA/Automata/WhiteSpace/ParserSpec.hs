@@ -13,7 +13,7 @@ import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.HelIO.Control.Safe
 
-import           HelVM.HelIO.ZipA
+import           HelVM.HelIO.CartesianProduct
 
 import           HelVM.GoldenExpectations
 

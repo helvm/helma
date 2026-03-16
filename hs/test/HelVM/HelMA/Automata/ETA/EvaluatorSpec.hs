@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 import           HelVM.HelMA.Automaton.IO.MockIO
 import           HelVM.HelMA.Automaton.Types.StackType
 
-import           HelVM.HelIO.ZipA
+import           HelVM.HelIO.CartesianProduct
 
 import           HelVM.GoldenExpectations
 

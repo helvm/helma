@@ -23,8 +23,6 @@ import qualified HelVM.HelMA.Automata.FALSE.Parser               as F
 
 import qualified HelVM.HelMA.Automata.LazyK.Evaluator            as Lazy
 
-import qualified HelVM.HelMA.Automata.Piet.Parser                as Piet
-
 import qualified HelVM.HelMA.Automata.SubLeq.Evaluator           as SQ
 import qualified HelVM.HelMA.Automata.SubLeq.Lexer               as SQ
 
@@ -69,11 +67,8 @@ setNoBuffering :: IO ()
 setNoBuffering = hSetBuffering stdout IO.NoBuffering
 
 runNoBuffering :: Bool -> App.AppOptions -> IO ()
-runNoBuffering False = runImage
+runNoBuffering False = runText
 runNoBuffering True  = runText
-
-runImage :: App.AppOptions -> IO ()
-runImage = pPrintNoColor <=< (Piet.parseRightIO . App.file)
 
 runText :: App.AppOptions -> IO ()
 runText o = do

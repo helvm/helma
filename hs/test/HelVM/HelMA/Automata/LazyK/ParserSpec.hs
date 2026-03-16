@@ -5,7 +5,7 @@ import           HelVM.HelMA.Automata.LazyK.Parser
 
 import           HelVM.HelIO.Control.Safe
 
-import           HelVM.HelIO.ZipA
+import           HelVM.HelIO.CartesianProduct
 
 import           HelVM.GoldenExpectations
 

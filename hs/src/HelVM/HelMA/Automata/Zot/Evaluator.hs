@@ -13,7 +13,7 @@ runExpressionList :: ExpressionList -> Out Expression
 runExpressionList el = foldExpression el >><< outputExpression >>< printExpression
 
 foldExpression :: ExpressionList -> Out Expression
-foldExpression = foldM (><) emptyExpression
+foldExpression = foldlM (><) emptyExpression
 
 emptyExpression :: Expression
 emptyExpression = contExpression iExpression

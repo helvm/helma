@@ -5,8 +5,8 @@ import           HelVM.HelMA.Automata.Zot.FileExtra
 
 import           HelVM.HelMA.Automaton.Types.FormatType
 
+import           HelVM.HelIO.CartesianProduct
 import           HelVM.HelIO.Control.Safe
-import           HelVM.HelIO.ZipA
 
 import           HelVM.GoldenExpectations
 

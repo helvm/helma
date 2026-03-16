@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 import           HelVM.HelMA.Automaton.IO.MockIO
 import           HelVM.HelMA.Automaton.Types.CellType
 
-import           HelVM.HelIO.ZipA
+import           HelVM.HelIO.CartesianProduct
 
 import qualified Data.ListLike                             as LL
 
