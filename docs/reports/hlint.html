@@ -161,14 +161,12 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Warning: Use mapMaybe (2)</a></li>
-<li><a id="hint1" href="javascript:show('hint1')">Suggestion: Redundant &lt;$&gt; (1)</a></li>
+<li>No hints</li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
-<li><a id="file0" href="javascript:show('file0')">./hs/src/HelVM/HelMA/Automata/ETA/OperandParsers.hs (1)</a></li>
-<li><a id="file1" href="javascript:show('file1')">./hs/src/HelVM/HelMA/Automaton/Optimizer/MarkRemovingOptimizer.hs (2)</a></li>
+<li>No files</li>
 </ul>
 
 </div>
@@ -179,33 +177,7 @@ v3.10
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-<div class="hint1 file0">
-hs/src/HelVM/HelMA/Automata/ETA/OperandParsers.hs:30:18-54: Suggestion: Redundant &lt;$&gt;<br/>
-Found<br/>
-<pre><span class='hs-definition'>loopM</span> <span class='hs-varid'>act</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-layout'>(</span><span class='hs-layout'>(</span><span class='hs-conid'>[]</span><span class='hs-layout'>,</span><span class='hs-layout'>)</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>nextIM</span> <span class='hs-varid'>iu</span><span class='hs-layout'>)</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>loopM</span> <span class='hs-varid'>act</span> <span class='hs-varop'>.</span> <span class='hs-layout'>(</span><span class='hs-conid'>[]</span><span class='hs-layout'>,</span><span class='hs-layout'>)</span> <span class='hs-varop'>=&lt;&lt;</span> <span class='hs-varid'>nextIM</span> <span class='hs-varid'>iu</span></pre>
-
-</div>
-
-<div class="hint0 file1">
-hs/src/HelVM/HelMA/Automaton/Optimizer/MarkRemovingOptimizer.hs:13:19-60: Warning: Use mapMaybe<br/>
-Found<br/>
-<pre><span class='hs-definition'>catMaybes</span> <span class='hs-varop'>$</span> <span class='hs-varid'>makrRemovingWithSet</span> <span class='hs-varid'>set</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>il</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>mapMaybe</span> <span class='hs-layout'>(</span><span class='hs-varid'>makrRemovingWithSet</span> <span class='hs-varid'>set</span><span class='hs-layout'>)</span> <span class='hs-varid'>il</span></pre>
-
-</div>
-
-<div class="hint0 file1">
-hs/src/HelVM/HelMA/Automaton/Optimizer/MarkRemovingOptimizer.hs:25:30-60: Warning: Use mapMaybe<br/>
-Found<br/>
-<pre><span class='hs-definition'>catMaybes</span> <span class='hs-varop'>$</span> <span class='hs-varid'>consValueOpt</span> <span class='hs-varop'>&lt;$&gt;</span> <span class='hs-varid'>il</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>mapMaybe</span> <span class='hs-varid'>consValueOpt</span> <span class='hs-varid'>il</span></pre>
-
-</div>
-
+No hints
 </div>
 <script type='text/javascript'>
 show(window.location.hash.slice(1), true);
