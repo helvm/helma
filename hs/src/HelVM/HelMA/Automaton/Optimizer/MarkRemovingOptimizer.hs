@@ -10,7 +10,7 @@ import           HelVM.HelMA.Automaton.Instruction.Extras.Patterns
 import qualified Data.Set                                              as Set
 
 makrRemoving :: InstructionList -> InstructionList
-makrRemoving il = catMaybes $ makrRemovingWithSet set <$> il where set = consValueSet il
+makrRemoving il = mapMaybe (makrRemovingWithSet set) il where set = consValueSet il
 
 makrRemovingWithSet :: Set Integer -> Instruction -> Maybe Instruction
 makrRemovingWithSet set (MNaturalP i) = mark set i
@@ -22,7 +22,7 @@ mark set i = build $ Set.member (fromIntegral i) set where
   build False = Nothing
 
 consValueSet :: InstructionList -> Set.Set Integer
-consValueSet il = fromList $ catMaybes $ consValueOpt <$> il
+consValueSet il = fromList $ mapMaybe consValueOpt il
 
 consValueOpt :: Instruction -> Maybe Integer
 consValueOpt (ConsP i) = Just i

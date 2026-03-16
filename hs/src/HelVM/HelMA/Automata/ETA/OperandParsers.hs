@@ -27,7 +27,7 @@ parseNumberFromTL a = loop act ([] , a) where
   act (acc ,      []) = Right (liftError $ show acc)
 
 parseNumber :: (MonadSafe m , Integral a) => OperandIMParser m a
-parseNumber iu = loopM act =<< (([] , ) <$> nextIM iu) where
+parseNumber iu = loopM act . ([] , ) =<< nextIM iu where
   act (acc , (Nothing , iu')) = Right . ( , iu') <$> makeIntegral7FromList acc
   act (acc , (Just E  , iu')) = Right . ( , iu') <$> makeIntegral7FromList acc
   act (acc , (Just R  , iu')) = Left  . (    acc , ) <$> nextIM iu'
