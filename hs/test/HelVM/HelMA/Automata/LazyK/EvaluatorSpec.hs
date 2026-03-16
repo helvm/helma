@@ -5,7 +5,7 @@ import           HelVM.HelMA.Automata.LazyK.FileExtra
 
 import           HelVM.HelMA.Automaton.IO.MockIO
 
-import           HelVM.HelIO.ZipA
+import           HelVM.HelIO.CartesianProduct
 
 import           HelVM.GoldenExpectations
 

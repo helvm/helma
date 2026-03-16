@@ -10,7 +10,7 @@ import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.GoldenExpectations
-import           HelVM.HelIO.ZipA
+import           HelVM.HelIO.CartesianProduct
 
 import           System.FilePath.Posix
 

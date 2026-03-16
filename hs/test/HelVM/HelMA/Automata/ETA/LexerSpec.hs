@@ -9,8 +9,8 @@ import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Optimizer
 
+import           HelVM.HelIO.CartesianProduct
 import           HelVM.HelIO.Control.Safe
-import           HelVM.HelIO.ZipA
 
 import           HelVM.GoldenExpectations
 

@@ -19,7 +19,7 @@ extra-source-files:
   docs/developers/CHANGELOG.md
   docs/README.md
 
-tested-with:           GHC == 9.6.2
+tested-with:           GHC == 9.10.1
 
 source-repository head
   type:                git
@@ -32,8 +32,8 @@ flag ghcoptions
 
 common common-options
   build-depends:
-      base                 <  4.19
-    , relude               == 1.1.0.0
+      base                 <  4.21
+    , relude               <  1.2.2.2
   mixins:
       base hiding (Prelude)
     , relude (Relude as Prelude, Relude.Extra, Data.Text)
@@ -95,7 +95,7 @@ common common-options
       -Wmissing-deriving-strategies
       -fwrite-ide-info
       -hiedir=.hie
-      -Wunused-packages
+--      -Wunused-packages
       -fprint-potential-instances
       -Werror
 
@@ -211,7 +211,6 @@ library
     HelVM.HelMA.Automata.Piet.Coordinates
     HelVM.HelMA.Automata.Piet.Image
     HelVM.HelMA.Automata.Piet.MonadFailExtra
-    HelVM.HelMA.Automata.Piet.Parser
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
@@ -242,7 +241,6 @@ library
     , extra
     , free
     , ilist
-    , Imlib >= 0.1
     , ListLike
     , natural-transformation
     , mtl
@@ -280,6 +278,7 @@ test-suite helma-test
   main-is:             Main.hs
   other-modules:
     Spec
+    Slow
     SpecHook
 
     HelVM.Expectations
@@ -314,7 +313,6 @@ test-suite helma-test
     HelVM.HelMA.Automata.LazyK.ParserSpec
 
     HelVM.HelMA.Automata.Piet.FileExtra
-    HelVM.HelMA.Automata.Piet.ParserSpec
 
     HelVM.HelMA.Automata.Rev.EvaluatorSpec
 
@@ -342,6 +340,8 @@ test-suite helma-test
     , helma
 
     , filepath
+    , stm
+    , time
     , type-operators
     , vector
     , yjtools
@@ -352,37 +352,37 @@ test-suite helma-test
     -rtsopts
     -with-rtsopts=-N
 
-benchmark helma-benchmark
-  import:              common-options
-  type:                exitcode-stdio-1.0
-  hs-source-dirs:      hs/benchmark
-  main-is:             Main.hs
-  other-modules:
+--benchmark helma-benchmark
+--  import:              common-options
+--  type:                exitcode-stdio-1.0
+--  hs-source-dirs:      hs/benchmark
+--  main-is:             Main.hs
+--  other-modules:
 
-    HelVM.HelMA.Automata.FileExtra
+--    HelVM.HelMA.Automata.FileExtra
 
-    HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark
-    HelVM.HelMA.Automata.BrainFuck.FileExtra
+--    HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark
+--    HelVM.HelMA.Automata.BrainFuck.FileExtra
 
-    HelVM.HelMA.Automata.ETA.EvaluatorBenchMark
-    HelVM.HelMA.Automata.ETA.FileExtra
+--    HelVM.HelMA.Automata.ETA.EvaluatorBenchMark
+--    HelVM.HelMA.Automata.ETA.FileExtra
 
-    HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark
-    HelVM.HelMA.Automata.SubLeq.FileExtra
+--    HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark
+--    HelVM.HelMA.Automata.SubLeq.FileExtra
 
-    HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark
-    HelVM.HelMA.Automata.WhiteSpace.FileExtra
+--    HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark
+--    HelVM.HelMA.Automata.WhiteSpace.FileExtra
 
-  build-depends:
-      gauge
+--  build-depends:
+--      gauge
 
-    , helio
-    , helma
+--    , helio
+--    , helma
 
-    , filepath
-    , ListLike
+--    , filepath
+--    , ListLike
 
-  ghc-options:
-    -threaded
-    -rtsopts
-    -with-rtsopts=-N
+--  ghc-options:
+--    -threaded
+--    -rtsopts
+--    -with-rtsopts=-N

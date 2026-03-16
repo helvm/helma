@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
-import           HelVM.HelIO.ZipA
+import           HelVM.HelIO.CartesianProduct
 
 import           System.FilePath.Posix
 
