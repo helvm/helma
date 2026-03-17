@@ -36,43 +36,51 @@ parsePPM = parsePPMBinary . BSC.pack
 parsePPMBinary :: BS.ByteString -> Either String PPMImage
 parsePPMBinary bs = do
   (magic, rest1) <- parseMagicBinary bs
-  case magic of
-    "P6" -> parseHeaderAndPixelsBinary rest1
-    "P3" -> parseHeaderAndPixelsASCII (BSC.unpack rest1)
-    fmt  -> Left $ "Unsupported PPM format: " ++ fmt
+  parsePPMByMagic magic rest1
+  where
+    parsePPMByMagic "P6" = parseHeaderAndPixelsBinary
+    parsePPMByMagic "P3" = parseHeaderAndPixelsASCII . BSC.unpack
+    parsePPMByMagic fmt  = const $ Left $ "Unsupported PPM format: " ++ fmt
 
 -- | Parse magic number from ByteString
 parseMagicBinary :: BS.ByteString -> Either String (String, BS.ByteString)
 parseMagicBinary BS.Empty = Left "Empty file"
-parseMagicBinary bs =
-  case (BS.take 1 bs == BSC.pack "P", BS.length bs >= 2) of
-    (True, True) -> Right (BSC.unpack (BS.take 2 bs), BS.drop 1 bs)
-    (True, _)    -> Left "Incomplete magic number"
-    _            -> Left $ "Invalid magic number: " ++ BSC.unpack (BS.take 2 bs)
+parseMagicBinary bs
+  | BS.take 1 bs == BSC.pack "P" && BS.length bs >= 2 =
+      Right (BSC.unpack (BS.take 2 bs), BS.drop 1 bs)
+  | BS.take 1 bs == BSC.pack "P" =
+      Left "Incomplete magic number"
+  | otherwise =
+      Left $ "Invalid magic number: " ++ BSC.unpack (BS.take 2 bs)
 
 -- | Parse P6 (binary) format header and pixels
 parseHeaderAndPixelsBinary :: BS.ByteString -> Either String PPMImage
 parseHeaderAndPixelsBinary bs = do
   (w, h, maxVal, pixelData) <- parseHeaderBinary bs
-  case maxVal > 0 of
-    False -> Left "Invalid max value"
-    True  -> do
-      let pixelCount = w * h
-      let bytesPerPixel = if maxVal <= 255 then 3 else 6
-      let expectedBytes = pixelCount * bytesPerPixel
+  validateMaxValue maxVal
+  let pixelCount = w * h
+  let bytesPerPixel = if maxVal <= 255 then 3 else 6
+  let expectedBytes = pixelCount * bytesPerPixel
+  validatePixelDataLength pixelData expectedBytes
+  let pixelBytes = BS.take expectedBytes pixelData
+  pixelList <- parsePixelDataBinary maxVal bytesPerPixel pixelBytes
+  let pixelMatrix = chunksOf w pixelList
+  validateRowCount h pixelMatrix
+  Right $ PPMImage w h maxVal pixelMatrix
+  where
+    validateMaxValue v
+      | v > 0 = Right ()
+      | otherwise = Left "Invalid max value"
 
-      case BS.length pixelData >= expectedBytes of
-        False -> Left $ "Not enough pixel data: expected " ++ show expectedBytes ++
-                        " bytes, got " ++ show (BS.length pixelData)
-        True  -> do
-          let pixelBytes = BS.take expectedBytes pixelData
-          pixelList <- parsePixelDataBinary maxVal bytesPerPixel pixelBytes
-          let pixelMatrix = chunksOf w pixelList
+    validatePixelDataLength pd eb
+      | BS.length pd >= eb = Right ()
+      | otherwise = Left $ "Not enough pixel data: expected " ++ show eb ++
+                           " bytes, got " ++ show (BS.length pd)
 
-          case length pixelMatrix == h of
-            False -> Left $ "Wrong number of rows: expected " ++ show h ++
-                            ", got " ++ show (length pixelMatrix)
-            True  -> Right $ PPMImage w h maxVal pixelMatrix
+    validateRowCount expectedH matrix
+      | length matrix == expectedH = Right ()
+      | otherwise = Left $ "Wrong number of rows: expected " ++ show expectedH ++
+                           ", got " ++ show (length matrix)
 
 -- | Parse header for P6 format (binary)
 parseHeaderBinary :: BS.ByteString -> Either String (Int, Int, Int, BS.ByteString)
@@ -93,35 +101,36 @@ getNextToken = skipWhitespaceAndComments . skipWhitespaceAndComments
     skipWhitespaceAndComments input
       | BSC.head input == '#' =
           let (_, rest) = BSC.breakSubstring "\n" input
-          in skipWhitespaceAndComments (case rest of
-               "" -> ""
-               _  -> BS.tail rest)
+          in skipWhitespaceAndComments (skipNewline rest)
       | isSpace (BSC.head input) =
           skipWhitespaceAndComments (BS.dropWhile isSpace input)
       | otherwise = BS.break (\c -> isSpace c || c == '\n') input
 
+    skipNewline "" = ""
+    skipNewline bs = BS.tail bs
+
 -- | Parse integer from ByteString
 parseIntFromBS :: BS.ByteString -> Either String Int
 parseIntFromBS BS.Empty = Left "Missing integer value"
-parseIntFromBS bs =
-  let str = BSC.unpack bs
-  in case all isDigit str of
-    True  -> Right (read str)
-    False -> Left $ "Not an integer: " ++ str
+parseIntFromBS bs
+  | all isDigit str = Right (read str)
+  | otherwise = Left $ "Not an integer: " ++ str
+  where str = BSC.unpack bs
 
 -- | Parse pixel data (binary format, 3 or 6 bytes per pixel)
 parsePixelDataBinary :: Int -> Int -> BS.ByteString -> Either String [Pixel]
 parsePixelDataBinary _ _ BS.Empty = Right []
-parsePixelDataBinary maxVal bytesPerPixel bs
+parsePixelDataBinary _ bytesPerPixel bs
   | BS.length bs < bytesPerPixel =
       Left $ "Incomplete pixel data: expected " ++ show bytesPerPixel ++
              " bytes, got " ++ show (BS.length bs)
 parsePixelDataBinary maxVal bytesPerPixel bs =
   let (pixelBytes, rest) = BS.splitAt bytesPerPixel bs
-      pixel = case bytesPerPixel of
-        3 -> parsePixel3Bytes pixelBytes
-        _ -> parsePixel6Bytes pixelBytes
+      pixel = parsePixelBySize bytesPerPixel pixelBytes
   in (pixel :) <$> parsePixelDataBinary maxVal bytesPerPixel rest
+  where
+    parsePixelBySize 3 = parsePixel3Bytes
+    parsePixelBySize _ = parsePixel6Bytes
 
 -- | Parse 3-byte pixel (8-bit R, G, B)
 parsePixel3Bytes :: BS.ByteString -> Pixel
@@ -149,21 +158,29 @@ parseHeaderAndPixelsASCII content = do
 parseHeaderASCII :: [String] -> Either String (Int, Int, Int, [String])
 parseHeaderASCII ls =
   let cleanLines = skipCommentsASCII ls
-  in case cleanLines of
-    [] -> Left "Incomplete header"
-    (wLine:rest1) -> do
+  in parseHeaderASCII' cleanLines
+  where
+    parseHeaderASCII' [] = Left "Incomplete header"
+    parseHeaderASCII' (wLine:rest1) = do
       w <- parseIntegerASCII (words wLine)
-      case skipCommentsASCII rest1 of
-        [] -> Left "Incomplete header"
-        (hLine:rest2) -> do
-          h <- parseIntegerASCII (words hLine)
-          case skipCommentsASCII rest2 of
-            [] -> Left "Incomplete header"
-            (mLine:rest3) -> do
-              maxVal <- parseIntegerASCII (words mLine)
-              case maxVal > 0 of
-                False -> Left "Invalid max value"
-                True  -> Right (w, h, maxVal, rest3)
+      let cleanRest1 = skipCommentsASCII rest1
+      parseHeaderASCII'' w cleanRest1
+
+    parseHeaderASCII'' _ [] = Left "Incomplete header"
+    parseHeaderASCII'' w (hLine:rest2) = do
+      h <- parseIntegerASCII (words hLine)
+      let cleanRest2 = skipCommentsASCII rest2
+      parseHeaderASCII''' w h cleanRest2
+
+    parseHeaderASCII''' _ _ [] = Left "Incomplete header"
+    parseHeaderASCII''' w h (mLine:rest3) = do
+      maxVal <- parseIntegerASCII (words mLine)
+      validateMaxValueASCII maxVal
+      Right (w, h, maxVal, rest3)
+
+    validateMaxValueASCII v
+      | v > 0 = Right ()
+      | otherwise = Left "Invalid max value"
 
 -- | Skip comment lines for ASCII format
 skipCommentsASCII :: [String] -> [String]
@@ -175,10 +192,9 @@ skipCommentsASCII = filter (not . isCommentASCII)
 -- | Parse integer for ASCII format
 parseIntegerASCII :: [String] -> Either String Int
 parseIntegerASCII [] = Left "Missing integer value"
-parseIntegerASCII (w:_) =
-  case all isDigit w of
-    True  -> Right (read w)
-    False -> Left $ "Not an integer: " ++ w
+parseIntegerASCII (w:_)
+  | all isDigit w = Right (read w)
+  | otherwise = Left $ "Not an integer: " ++ w
 
 -- | Parse all pixels from ASCII format
 parsePixelsASCII :: Int -> Int -> Int -> [String] -> Either String PPMImage
@@ -186,30 +202,33 @@ parsePixelsASCII w h maxVal pixelLines = do
   let pixelStr = unwords pixelLines
   let pixelWords = words pixelStr
   let pixelCount = w * h * 3
-  case length pixelWords >= pixelCount of
-    False -> Left $ "Not enough pixel data: expected " ++ show pixelCount ++
-                    " values, got " ++ show (length pixelWords)
-    True  -> do
-      let (pixelValues, _) = splitAt pixelCount pixelWords
-      intValues <- mapM (parsePixelValueASCII maxVal) pixelValues
-      let pixelList = map word8ify $ chunksOf 3 intValues
-      let pixelMatrix = chunksOf w pixelList
-      case length pixelMatrix == h of
-        False -> Left $ "Wrong number of rows: expected " ++ show h ++
-                        ", got " ++ show (length pixelMatrix)
-        True  -> Right $ PPMImage w h maxVal pixelMatrix
+  validatePixelCountASCII pixelWords pixelCount
+  let (pixelValues, _) = splitAt pixelCount pixelWords
+  intValues <- mapM (parsePixelValueASCII maxVal) pixelValues
+  let pixelList = map word8ify $ chunksOf 3 intValues
+  let pixelMatrix = chunksOf w pixelList
+  validateRowCountASCII h pixelMatrix
+  Right $ PPMImage w h maxVal pixelMatrix
+  where
+    validatePixelCountASCII ps pc
+      | length ps >= pc = Right ()
+      | otherwise = Left $ "Not enough pixel data: expected " ++ show pc ++
+                           " values, got " ++ show (length ps)
+
+    validateRowCountASCII expectedH matrix
+      | length matrix == expectedH = Right ()
+      | otherwise = Left $ "Wrong number of rows: expected " ++ show expectedH ++
+                           ", got " ++ show (length matrix)
 
 -- | Parse individual pixel value for ASCII format
 parsePixelValueASCII :: Int -> String -> Either String Int
-parsePixelValueASCII maxVal str =
-  case all isDigit str of
-    False -> Left $ "Invalid pixel value: " ++ str
-    True  ->
-      let val = read str
-      in case val >= 0 && val <= maxVal of
-        False -> Left $ "Pixel value out of range: " ++ str ++
-                        " (max: " ++ show maxVal ++ ")"
-        True  -> Right val
+parsePixelValueASCII maxVal str
+  | not (all isDigit str) = Left $ "Invalid pixel value: " ++ str
+  | val < 0 || val > maxVal =
+      Left $ "Pixel value out of range: " ++ str ++
+             " (max: " ++ show maxVal ++ ")"
+  | otherwise = Right val
+  where val = read str
 
 -- | Convert Int to Word8 for pixel
 word8ify :: [Int] -> Pixel
