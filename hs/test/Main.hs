@@ -5,4 +5,4 @@ import qualified Spec
 import           Test.Hspec (hspec)
 
 main :: IO ()
-main = (hspec . flip timeThese Spec.spec) =<< configure 4
+main = (hspec . flip timeThese Spec.spec) =<< configure 1
