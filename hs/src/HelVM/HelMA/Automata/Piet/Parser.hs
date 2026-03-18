@@ -6,12 +6,12 @@ module HelVM.HelMA.Automata.Piet.Parser (
   Pixel(..),
 ) where
 
-import qualified Data.ByteString as BS
+import           Control.Monad         (unless)
+import qualified Data.ByteString       as BS
 import qualified Data.ByteString.Char8 as BSC
-import Data.Word (Word8)
-import Data.Char (isSpace, isDigit)
-import Control.Monad (unless)
-import Data.List (stripPrefix)
+import           Data.Char             (isDigit, isSpace)
+import           Data.List             (stripPrefix)
+import           Data.Word             (Word8)
 
 -- | Piet pixel representation (RGB)
 data Pixel = Pixel
@@ -187,7 +187,7 @@ skipCommentsASCII :: [String] -> [String]
 skipCommentsASCII = filter (not . isCommentASCII)
   where
     isCommentASCII "" = False
-    isCommentASCII s = head (dropWhile isSpace s) == '#'
+    isCommentASCII s  = head (dropWhile isSpace s) == '#'
 
 -- | Parse integer for ASCII format
 parseIntegerASCII :: [String] -> Either String Int
@@ -233,7 +233,7 @@ parsePixelValueASCII maxVal str
 -- | Convert Int to Word8 for pixel
 word8ify :: [Int] -> Pixel
 word8ify [r, g, b] = Pixel (fromIntegral r) (fromIntegral g) (fromIntegral b)
-word8ify _ = error "Invalid pixel data"
+word8ify _         = error "Invalid pixel data"
 
 -- | Split list into chunks of n elements
 chunksOf :: Int -> [a] -> [[a]]

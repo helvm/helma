@@ -211,6 +211,7 @@ library
     HelVM.HelMA.Automata.Piet.Coordinates
     HelVM.HelMA.Automata.Piet.Image
     HelVM.HelMA.Automata.Piet.MonadFailExtra
+    HelVM.HelMA.Automata.Piet.ImageLoader
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
@@ -241,6 +242,7 @@ library
     , extra
     , free
     , ilist
+    , JuicyPixels
     , ListLike
     , natural-transformation
     , mtl
