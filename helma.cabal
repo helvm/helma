@@ -210,8 +210,9 @@ library
     HelVM.HelMA.Automata.Piet.Color
     HelVM.HelMA.Automata.Piet.Coordinates
     HelVM.HelMA.Automata.Piet.Image
-    HelVM.HelMA.Automata.Piet.MonadFailExtra
     HelVM.HelMA.Automata.Piet.ImageLoader
+    HelVM.HelMA.Automata.Piet.MonadFailExtra
+    HelVM.HelMA.Automata.Piet.Parser
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
