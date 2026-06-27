@@ -1,4 +1,4 @@
-module BoolTypes where
+module HelVM.HelMA.Automaton.Options.BoolTypes where
 
 type PrintLogs     = Bool
 type Optimization  = Bool

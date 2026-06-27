@@ -257,10 +257,10 @@ executable helma
   hs-source-dirs:      hs/app
   main-is:             Main.hs
   other-modules:
-    AppOptions
-    BoolTypes
-    Emit
-    Lang
+    HelVM.HelMA.Automaton.Options.AppOptions
+    HelVM.HelMA.Automaton.Options.BoolTypes
+    HelVM.HelMA.Automaton.Options.Emit
+    HelVM.HelMA.Automaton.Options.Lang
   build-depends:
       helio
     , helma

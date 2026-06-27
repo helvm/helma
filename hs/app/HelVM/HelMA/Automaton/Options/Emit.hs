@@ -1,4 +1,4 @@
-module Emit where
+module HelVM.HelMA.Automaton.Options.Emit where
 
 defaultEmit :: Emit
 defaultEmit = minBound

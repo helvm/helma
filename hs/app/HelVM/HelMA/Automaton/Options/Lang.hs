@@ -1,4 +1,4 @@
-module Lang where
+module HelVM.HelMA.Automaton.Options.Lang where
 
 import           HelVM.HelMA.Automaton.Types.TokenType
 

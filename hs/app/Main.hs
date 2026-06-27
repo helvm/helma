@@ -1,9 +1,9 @@
 module Main where
 
-import qualified AppOptions                                      as App
-import           BoolTypes
-import           Emit
-import           Lang
+import qualified HelVM.HelMA.Automaton.Options.AppOptions        as App
+import           HelVM.HelMA.Automaton.Options.BoolTypes
+import           HelVM.HelMA.Automaton.Options.Emit
+import           HelVM.HelMA.Automaton.Options.Lang
 
 import qualified HelVM.HelMA.Automata.Cat.Evaluator              as Cat
 

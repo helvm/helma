@@ -1,9 +1,9 @@
 {-# LANGUAGE StrictData #-}
-module AppOptions where
+module HelVM.HelMA.Automaton.Options.AppOptions where
 
-import           BoolTypes
-import           Emit
-import qualified Lang
+import           HelVM.HelMA.Automaton.Options.BoolTypes     as Options
+import           HelVM.HelMA.Automaton.Options.Emit          as Options
+import qualified HelVM.HelMA.Automaton.Options.Lang          as Options
 
 import qualified HelVM.HelMA.Automaton.API.AutoOptions       as API
 import qualified HelVM.HelMA.Automaton.API.EvalParams        as API
@@ -41,8 +41,8 @@ optionParser = AppOptions
   <*> option auto  (  long    "lang"
                    <> short   'l'
                    <> metavar "[LANG]"
-                   <> help   ("Language to interpret " <> show Lang.langs)
-                   <> value    Lang.defaultLang
+                   <> help   ("Language to interpret " <> show Options.langs)
+                   <> value    Options.defaultLang
                    <> showDefault
                    )
   <*> option auto  (  long    "BFType"
@@ -124,8 +124,8 @@ optionParser = AppOptions
 
 -- | Methods
 
-langWithOptions :: AppOptions -> Lang.LangWithOptions
-langWithOptions o = Lang.LangWithOptions (lang o) (bfType o) (etaImplType o) (tokenType o)
+langWithOptions :: AppOptions -> Options.LangWithOptions
+langWithOptions o = Options.LangWithOptions (lang o) (bfType o) (etaImplType o) (tokenType o)
 
 evalParams :: AppOptions -> Source -> API.EvalParams
 evalParams o source = API.EvalParams (formatType o) source (memoryOptions o) (autoOptions o)
@@ -142,10 +142,10 @@ isImage = piet
 -- | Types
 
 data AppOptions = AppOptions
-  { emit             :: !Emit
-  , printLogs        :: !PrintLogs
+  { emit             :: !Options.Emit
+  , printLogs        :: !Options.PrintLogs
 
-  , lang             :: !Lang.Lang
+  , lang             :: !Options.Lang
   , bfType           :: !BFType
   , etaImplType      :: !ETAImplType
   , tokenType        :: !TokenType
