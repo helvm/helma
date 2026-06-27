@@ -1,9 +1,18 @@
 module Main where
 
-import qualified HelVM.HelMA.Automaton.Options.AppOptions        as App
-import           HelVM.HelMA.Automaton.Options.BoolTypes
-import           HelVM.HelMA.Automaton.Options.Emit
-import           HelVM.HelMA.Automaton.Options.Lang
+import           Options
+
+import qualified HelVM.HelMA.Automaton.API.AppOptions            as App
+import           HelVM.HelMA.Automaton.API.BoolTypes
+import           HelVM.HelMA.Automaton.API.Emit
+import           HelVM.HelMA.Automaton.API.EvalParams
+import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.Lang
+
+import           HelVM.HelMA.Automaton.IO.BusinessIO
+
+import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.TokenType
 
 import qualified HelVM.HelMA.Automata.Cat.Evaluator              as Cat
 
@@ -32,14 +41,6 @@ import qualified HelVM.HelMA.Automata.WhiteSpace.Parser          as WS
 
 import qualified HelVM.HelMA.Automata.Zot.Automaton              as Zot
 
-import           HelVM.HelMA.Automaton.API.EvalParams
-import           HelVM.HelMA.Automaton.API.IOTypes
-
-import           HelVM.HelMA.Automaton.IO.BusinessIO
-
-import           HelVM.HelMA.Automaton.Types.FormatType
-import           HelVM.HelMA.Automaton.Types.TokenType
-
 import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 
 import           HelVM.HelIO.Control.Control
@@ -53,7 +54,7 @@ import qualified System.IO                                       as IO
 
 main :: IO ()
 main = runApp =<< execParser opts where
-  opts = info (App.optionParser <**> helper)
+  opts = info (optionsParser <**> helper)
       ( fullDesc
      <> header "HelMA: The Interpreter of BrainFuck , ETA , LazyK , SubLeq , WhiteSpace, Zot"
      <> progDesc "Runs esoteric programs - complete with pretty bad error messages" )

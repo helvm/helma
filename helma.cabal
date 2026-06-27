@@ -104,13 +104,17 @@ library
   hs-source-dirs:      hs/src
   exposed-modules:
 
+    HelVM.HelMA.Automaton.API.AppOptions
     HelVM.HelMA.Automaton.API.AutomatonOptions
+    HelVM.HelMA.Automaton.API.BoolTypes
     HelVM.HelMA.Automaton.API.MemoryOptions
     HelVM.HelMA.Automaton.API.AutoOptions
+    HelVM.HelMA.Automaton.API.Emit
     HelVM.HelMA.Automaton.API.EvalParams
     HelVM.HelMA.Automaton.API.IOTypes
+    HelVM.HelMA.Automaton.API.Lang
     HelVM.HelMA.Automaton.API.OptimizationLevel
-
+    
     HelVM.HelMA.Automaton.Automaton
 
     HelVM.HelMA.Automaton.IO.BusinessIO
@@ -257,10 +261,8 @@ executable helma
   hs-source-dirs:      hs/app
   main-is:             Main.hs
   other-modules:
-    HelVM.HelMA.Automaton.Options.AppOptions
-    HelVM.HelMA.Automaton.Options.BoolTypes
-    HelVM.HelMA.Automaton.Options.Emit
-    HelVM.HelMA.Automaton.Options.Lang
+    Options
+
   build-depends:
       helio
     , helma

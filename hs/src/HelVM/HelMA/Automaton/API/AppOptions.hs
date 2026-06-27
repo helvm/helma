@@ -1,0 +1,61 @@
+module HelVM.HelMA.Automaton.API.AppOptions where
+
+import qualified HelVM.HelMA.Automaton.API.AutoOptions       as API
+import           HelVM.HelMA.Automaton.API.BoolTypes         as API
+import           HelVM.HelMA.Automaton.API.Emit              as API
+import qualified HelVM.HelMA.Automaton.API.EvalParams        as API
+import           HelVM.HelMA.Automaton.API.IOTypes           as API
+import qualified HelVM.HelMA.Automaton.API.Lang              as API
+import qualified HelVM.HelMA.Automaton.API.MemoryOptions     as API
+import           HelVM.HelMA.Automaton.API.OptimizationLevel as API
+
+import           HelVM.HelMA.Automaton.Types.CellType
+import           HelVM.HelMA.Automaton.Types.DumpType
+import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.IntCellType
+import           HelVM.HelMA.Automaton.Types.RAMType
+import           HelVM.HelMA.Automaton.Types.StackType
+import           HelVM.HelMA.Automaton.Types.TokenType
+
+import           HelVM.HelMA.Automata.BrainFuck.API.BFType
+import           HelVM.HelMA.Automata.ETA.API.ETAImplType
+
+-- | Methods
+
+langWithOptions :: AppOptions -> API.LangWithOptions
+langWithOptions o = API.LangWithOptions (lang o) (bfType o) (etaImplType o) (tokenType o)
+
+evalParams :: AppOptions -> Source -> API.EvalParams
+evalParams o source = API.EvalParams (formatType o) source (memoryOptions o) (autoOptions o)
+
+memoryOptions :: AppOptions -> API.MemoryOptions
+memoryOptions o = API.MemoryOptions (ramType o) (stackType o) (cellType o) (intCellType o)
+
+autoOptions :: AppOptions -> API.AutoOptions
+autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) Nothing (dumpType o)
+
+isImage :: AppOptions -> Bool
+isImage = piet
+
+-- | Types
+
+data AppOptions = AppOptions
+  { emit             :: !Emit
+  , printLogs        :: !PrintLogs
+
+  , lang             :: !API.Lang
+  , bfType           :: !BFType
+  , etaImplType      :: !ETAImplType
+  , tokenType        :: !TokenType
+
+  , optimizationFlag :: !Optimization
+  , formatType       :: !FormatType
+  , ramType          :: !RAMType
+  , stackType        :: !StackType
+  , cellType         :: !CellType
+  , intCellType      :: !IntCellType
+  , dumpType         :: !DumpType
+  , exec             :: !Exec
+  , piet             :: !Piet
+  , file             :: !String
+  }

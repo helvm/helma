@@ -1,15 +1,9 @@
 {-# LANGUAGE StrictData #-}
-module HelVM.HelMA.Automaton.Options.AppOptions where
+module Options where
 
-import           HelVM.HelMA.Automaton.Options.BoolTypes     as Options
-import           HelVM.HelMA.Automaton.Options.Emit          as Options
-import qualified HelVM.HelMA.Automaton.Options.Lang          as Options
-
-import qualified HelVM.HelMA.Automaton.API.AutoOptions       as API
-import qualified HelVM.HelMA.Automaton.API.EvalParams        as API
-import           HelVM.HelMA.Automaton.API.IOTypes           as API
-import qualified HelVM.HelMA.Automaton.API.MemoryOptions     as API
-import           HelVM.HelMA.Automaton.API.OptimizationLevel as API
+import           HelVM.HelMA.Automaton.API.AppOptions
+import           HelVM.HelMA.Automaton.API.Emit
+import           HelVM.HelMA.Automaton.API.Lang
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
@@ -24,8 +18,8 @@ import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
 import           Options.Applicative
 
-optionParser :: Parser AppOptions
-optionParser = AppOptions
+optionsParser :: Parser AppOptions
+optionsParser = AppOptions
   <$> option auto  (  long    "Emit"
                    <> short   'E'
                    <> metavar "[Emit]"
@@ -41,8 +35,8 @@ optionParser = AppOptions
   <*> option auto  (  long    "lang"
                    <> short   'l'
                    <> metavar "[LANG]"
-                   <> help   ("Language to interpret " <> show Options.langs)
-                   <> value    Options.defaultLang
+                   <> help   ("Language to interpret " <> show langs)
+                   <> value    defaultLang
                    <> showDefault
                    )
   <*> option auto  (  long    "BFType"
@@ -121,43 +115,3 @@ optionParser = AppOptions
                    <> showDefault
                    )
   <*> argument str (  metavar "FILE")
-
--- | Methods
-
-langWithOptions :: AppOptions -> Options.LangWithOptions
-langWithOptions o = Options.LangWithOptions (lang o) (bfType o) (etaImplType o) (tokenType o)
-
-evalParams :: AppOptions -> Source -> API.EvalParams
-evalParams o source = API.EvalParams (formatType o) source (memoryOptions o) (autoOptions o)
-
-memoryOptions :: AppOptions -> API.MemoryOptions
-memoryOptions o = API.MemoryOptions (ramType o) (stackType o) (cellType o) (intCellType o)
-
-autoOptions :: AppOptions -> API.AutoOptions
-autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) Nothing (dumpType o)
-
-isImage :: AppOptions -> Bool
-isImage = piet
-
--- | Types
-
-data AppOptions = AppOptions
-  { emit             :: !Options.Emit
-  , printLogs        :: !Options.PrintLogs
-
-  , lang             :: !Options.Lang
-  , bfType           :: !BFType
-  , etaImplType      :: !ETAImplType
-  , tokenType        :: !TokenType
-
-  , optimizationFlag :: !Optimization
-  , formatType       :: !FormatType
-  , ramType          :: !RAMType
-  , stackType        :: !StackType
-  , cellType         :: !CellType
-  , intCellType      :: !IntCellType
-  , dumpType         :: !DumpType
-  , exec             :: !Exec
-  , piet             :: !Piet
-  , file             :: !String
-  }
