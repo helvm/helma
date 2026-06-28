@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.Lang
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 
@@ -73,7 +73,7 @@ tokenize (LangWithOptions WS  _ _ WhiteTokenType  ) = show . WS.tokenizeWhite
 tokenize (LangWithOptions SQ  _ _ _               ) = show . SQ.tokenize
 tokenize  _                                         = show
 
-parse :: LangWithOptions -> FormatType -> Source -> LText
+parse :: LangWithOptions -> LabelType -> Source -> LText
 parse (LangWithOptions BF   FastType _ _               ) _ = pShowNoColor . BF_Fast.parseAsListSafe
 parse (LangWithOptions BF   TreeType _ _               ) _ = pShowNoColor . BF_Tree.parseAsVectorSafe
 parse (LangWithOptions ETA  _        _ _               ) _ = pShowNoColor . ETA.parseSafe

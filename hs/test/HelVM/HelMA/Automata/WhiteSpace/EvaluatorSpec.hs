@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 
 import           HelVM.HelMA.Automaton.Eff.MockEff
 
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.GoldenExpectations

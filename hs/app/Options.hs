@@ -4,11 +4,13 @@ module Options where
 import           HelVM.HelMA.Automaton.API.AppOptions
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Lang
+import           HelVM.HelMA.Automaton.API.LogLevel
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.FileType
 import           HelVM.HelMA.Automaton.Types.IntCellType
+import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 import           HelVM.HelMA.Automaton.Types.TokenType
@@ -32,11 +34,25 @@ optionsParser = AppOptions
                    <> help    "Pring logs to strerr"
                    <> showDefault
                    )
+  <*> option auto  (  long    "verbosity"
+                   <> short   'v'
+                   <> metavar "[LogLevel]"
+                   <> help   ("Verbosity level " <> show logLevels)
+                   <> value    defaultLogLevel
+                   <> showDefault
+                   )
   <*> option auto  (  long    "lang"
                    <> short   'l'
                    <> metavar "[LANG]"
                    <> help   ("Language to interpret " <> show langs)
                    <> value    defaultLang
+                   <> showDefault
+                   )
+  <*> option auto  (  long    "fileType"
+                   <> short   'f'
+                   <> metavar "[FILEFORMAT]"
+                   <> help   ("Format to use " <> show fileFormats)
+                   <> value    defaultFileFormat
                    <> showDefault
                    )
   <*> option auto  (  long    "BFType"
@@ -104,14 +120,14 @@ optionsParser = AppOptions
                    <> value    defaultDumpType
                    <> showDefault
                    )
+  <*> optional (option auto
+      (  long "codels"
+      <> short 'c'
+      <> metavar "LENGTH"
+      <> help "codel length (the codel size will be LENGTH^2)" ))
   <*> switch       (  long    "eval"
                    <> short   'e'
                    <> help    "Exec"
-                   <> showDefault
-                   )
-  <*> switch       (  long    "piet"
-                   <> short   'p'
-                   <> help    "Piet"
                    <> showDefault
                    )
   <*> argument str (  metavar "FILE")

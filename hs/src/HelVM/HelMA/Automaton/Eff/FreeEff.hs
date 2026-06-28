@@ -8,9 +8,6 @@ module HelVM.HelMA.Automaton.Eff.FreeEff (
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           HelVM.HelIO.Control.Control
-import           HelVM.HelIO.Control.Safe
-
 import           Control.Monad.Free
 import           Control.Natural
 
@@ -34,10 +31,10 @@ interpretFreeEffFToMonadEff (GetLine          cd) = cd <$> eGetLine
 interpretFreeEffFToMonadEff (PutChar        c v ) = ePutChar   c $> v
 interpretFreeEffFToMonadEff (PutText        s v ) = ePutText   s $> v
 interpretFreeEffFToMonadEff (PutTextLn      s v ) = ePutTextLn s $> v
-interpretFreeEffFToMonadEff (LogText        s v ) = eLogText   s $> v
-interpretFreeEffFToMonadEff (LogTextLn      s v ) = eLogTextLn s $> v
 interpretFreeEffFToMonadEff (Flush            v ) = eFlush       $> v
 interpretFreeEffFToMonadEff (ReadFileText   s cd) = cd <$> eReadFileText s
+interpretFreeEffFToMonadEff (LogText        s v ) = eLogText   s $> v
+interpretFreeEffFToMonadEff (LogTextLn      s v ) = eLogTextLn s $> v
 
 ----
 
@@ -61,38 +58,10 @@ instance MonadEff FreeEff where
   ePutChar         = freePutChar
   ePutText         = freePutText
   ePutTextLn       = freePutTextLn
-  eLogText         = freeLogText
-  eLogTextLn       = freeLogTextLn
   eFlush           = freeFlush
   eReadFileText    = freeReadFileText
-
-instance MonadEff (SafeT FreeEff) where
-  eGetContentsBS   = safeT   freeGetContentsBS
-  eGetContentsText = safeT   freeGetContentsText
-  eGetContents     = safeT   freeGetContents
-  eGetChar         = safeT   freeGetChar
-  eGetLine         = safeT   freeGetLine
-  ePutChar         = safeT . freePutChar
-  ePutText         = safeT . freePutText
-  ePutTextLn       = safeT . freePutTextLn
-  eLogText         = safeT . freeLogText
-  eLogTextLn       = safeT . freeLogTextLn
-  eFlush           = safeT   freeFlush
-  eReadFileText    = safeT . freeReadFileText
-
-instance MonadEff (ControlT FreeEff) where
-  eGetContentsBS    = controlT   freeGetContentsBS
-  eGetContentsText  = controlT   freeGetContentsText
-  eGetContents      = controlT   freeGetContents
-  eGetChar          = controlT   freeGetChar
-  eGetLine          = controlT   freeGetLine
-  ePutChar          = controlT . freePutChar
-  ePutText          = controlT . freePutText
-  ePutTextLn        = controlT . freePutTextLn
-  eLogText          = controlT . freeLogText
-  eLogTextLn        = controlT . freeLogTextLn
-  eFlush            = controlT   freeFlush
-  eReadFileText     = controlT . freeReadFileText
+  eLogText         = freeLogText
+  eLogTextLn       = freeLogTextLn
 
 -- | Low level functions
 freeGetContentsBS :: FreeEff LByteString
@@ -119,17 +88,17 @@ freePutText = liftF . flip PutText ()
 freePutTextLn :: Text -> FreeEff ()
 freePutTextLn = liftF . flip PutTextLn ()
 
-freeLogText :: Text -> FreeEff ()
-freeLogText = liftF . flip LogText ()
-
-freeLogTextLn :: Text -> FreeEff ()
-freeLogTextLn = liftF . flip LogTextLn ()
-
 freeFlush :: FreeEff ()
 freeFlush = liftF $ Flush ()
 
 freeReadFileText :: FilePath -> FreeEff Text
 freeReadFileText s = liftF $ ReadFileText s id
+
+freeLogText :: Text -> FreeEff ()
+freeLogText = liftF . flip LogText ()
+
+freeLogTextLn :: Text -> FreeEff ()
+freeLogTextLn = liftF . flip LogTextLn ()
 
 -- | Types
 type FreeEff = Free FreeEffF
@@ -143,8 +112,8 @@ data FreeEffF a
  | PutChar          Char                     a
  | PutText          Text                     a
  | PutTextLn        Text                     a
- | LogText          Text                     a
- | LogTextLn        Text                     a
  | Flush                                     a
  | ReadFileText     FilePath (Text        -> a)
+ | LogText          Text                     a
+ | LogTextLn        Text                     a
  deriving stock (Functor)

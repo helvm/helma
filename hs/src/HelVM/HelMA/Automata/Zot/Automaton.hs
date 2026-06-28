@@ -12,7 +12,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.LabelType
 
 import           HelVM.HelIO.Containers.Extra
 import           HelVM.HelIO.Control.Safe
@@ -27,7 +27,7 @@ import           Control.Monad.Writer.Lazy
 evalParams :: AppEff m => EvalParams -> m ()
 evalParams p = ePutText =<< evalWithFormat (formatType p) (source p) =<< eGetContentsText
 
-evalWithFormat :: MonadSafe m => FormatType -> Source -> LText -> m Output
+evalWithFormat :: MonadSafe m => LabelType -> Source -> LText -> m Output
 evalWithFormat BinaryLabel source input = pure $ showFoldable $ evalInternal source input
 evalWithFormat TextLabel   source input = (makeAsciiText28 . convert . evalInternal source) . showExpressionList =<< stringToDL (toString input)
 

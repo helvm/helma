@@ -7,8 +7,8 @@ import           HelVM.HelMA.Automaton.API.MemoryOptions
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
-import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.IntCellType
+import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
@@ -33,7 +33,7 @@ automatonOptions p = Automaton.AutomatonOptions (stackAutoOptions p) (ramAutoOpt
 
 -- | Type
 data EvalParams = EvalParams
-  { formatType    :: !FormatType
+  { formatType    :: !LabelType
   , source        :: !Source
   , memoryOptions :: !MemoryOptions
   , autoOptions   :: !AutoOptions

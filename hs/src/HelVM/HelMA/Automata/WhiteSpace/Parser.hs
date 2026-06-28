@@ -17,34 +17,34 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Extra
 
-parseForTest :: FormatType -> TokenType -> Source -> Safe InstructionList
+parseForTest :: LabelType -> TokenType -> Source -> Safe InstructionList
 parseForTest formatType tokenType s = parse tokenType s formatType
 
-flipParseVisible :: FormatType -> Source -> Safe InstructionList
+flipParseVisible :: LabelType -> Source -> Safe InstructionList
 flipParseVisible = flip parseVisible
 
-flipParseWhite :: FormatType -> Source -> Safe InstructionList
+flipParseWhite :: LabelType -> Source -> Safe InstructionList
 flipParseWhite = flip parseWhite
 
-parseVisible :: Source -> FormatType -> Safe InstructionList
+parseVisible :: Source -> LabelType -> Safe InstructionList
 parseVisible = parse VisibleTokenType
 
-parseWhite :: Source -> FormatType -> Safe InstructionList
+parseWhite :: Source -> LabelType -> Safe InstructionList
 parseWhite = parse WhiteTokenType
 
-parse :: MonadSafe m => TokenType -> Source -> FormatType -> m InstructionList
+parse :: MonadSafe m => TokenType -> Source -> LabelType -> m InstructionList
 parse tokenType = flip parseFromTL . tokenize tokenType
 
-parseFromTL :: MonadSafe m => FormatType -> TokenList -> m InstructionList
+parseFromTL :: MonadSafe m => LabelType -> TokenList -> m InstructionList
 parseFromTL ascii = repeatedlyM (parseInstruction ascii)
 
-parseInstruction :: MonadSafe m => FormatType -> InstructionParser m
+parseInstruction :: MonadSafe m => LabelType -> InstructionParser m
 parseInstruction     _ (S :     tl) = parseInstructionStackManipulation tl
 parseInstruction     _ (T : S : tl) = parseInstructionArithmetic        tl
 parseInstruction     _ (T : T : tl) = parseInstructionHeadAccess        tl
@@ -74,7 +74,7 @@ parseInstructionHeadAccess (S : tl) = pure (storeI , tl)
 parseInstructionHeadAccess (T : tl) = pure (loadI  , tl)
 parseInstructionHeadAccess      tl  = unrecognisedTokensIn "parseInstructionHeadAccess" tl
 
-parseInstructionFlowControl :: MonadSafe m => FormatType -> InstructionParser m
+parseInstructionFlowControl :: MonadSafe m => LabelType -> InstructionParser m
 parseInstructionFlowControl ascii (S : S : tl) = build <$> parseLabel ascii tl where build (label , tl') = (markSI  label , tl')
 parseInstructionFlowControl ascii (S : T : tl) = build <$> parseLabel ascii tl where build (label , tl') = (callSI label  , tl')
 parseInstructionFlowControl ascii (S : N : tl) = build <$> parseLabel ascii tl where build (label , tl') = (jumpSI label  , tl')

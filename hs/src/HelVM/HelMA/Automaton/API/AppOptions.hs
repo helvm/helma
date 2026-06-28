@@ -6,13 +6,15 @@ import           HelVM.HelMA.Automaton.API.Emit              as API
 import qualified HelVM.HelMA.Automaton.API.EvalParams        as API
 import           HelVM.HelMA.Automaton.API.IOTypes           as API
 import qualified HelVM.HelMA.Automaton.API.Lang              as API
+import           HelVM.HelMA.Automaton.API.LogLevel          as API
 import qualified HelVM.HelMA.Automaton.API.MemoryOptions     as API
 import           HelVM.HelMA.Automaton.API.OptimizationLevel as API
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.FileType
 import           HelVM.HelMA.Automaton.Types.IntCellType
+import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 import           HelVM.HelMA.Automaton.Types.TokenType
@@ -34,28 +36,27 @@ memoryOptions o = API.MemoryOptions (ramType o) (stackType o) (cellType o) (intC
 autoOptions :: AppOptions -> API.AutoOptions
 autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) Nothing (dumpType o)
 
-isImage :: AppOptions -> Bool
-isImage = piet
-
 -- | Types
 
 data AppOptions = AppOptions
   { emit             :: !Emit
   , printLogs        :: !PrintLogs
+  , verbosity        :: !LogLevel
 
   , lang             :: !API.Lang
+  , fileType         :: !FileType
   , bfType           :: !BFType
   , etaImplType      :: !ETAImplType
   , tokenType        :: !TokenType
 
   , optimizationFlag :: !Optimization
-  , formatType       :: !FormatType
+  , formatType       :: !LabelType
   , ramType          :: !RAMType
   , stackType        :: !StackType
   , cellType         :: !CellType
   , intCellType      :: !IntCellType
   , dumpType         :: !DumpType
+  , codelSize        :: !(Maybe Int)
   , exec             :: !Exec
-  , piet             :: !Piet
   , file             :: !String
   }

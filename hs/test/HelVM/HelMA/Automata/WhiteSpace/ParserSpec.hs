@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Optimizer
 
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.HelIO.Control.Safe
@@ -36,10 +36,10 @@ spec =
         it ("optimized" </> outputPath) $
           optimizeFile AllOptimizations formatLabel tokenType path `goldenShouldIO` buildAbsoluteWsIlFileName ("optimized" </> outputPath)
 
-allFiles :: [((FormatType , TokenType , FilePath) , FilePath)]
+allFiles :: [((LabelType , TokenType , FilePath) , FilePath)]
 allFiles = originalW <> originalV <> fromWsa <> binaryLabel
 
-originalW :: [((FormatType , TokenType , FilePath) , FilePath)]
+originalW :: [((LabelType , TokenType , FilePath) , FilePath)]
 originalW = [(TextLabel , WhiteTokenType , "original")] >*<
   [ "count"
   , "calc"
@@ -48,7 +48,7 @@ originalW = [(TextLabel , WhiteTokenType , "original")] >*<
   , "name"
   ]
 
-originalV :: [((FormatType , TokenType , FilePath) , FilePath)]
+originalV :: [((LabelType , TokenType , FilePath) , FilePath)]
 originalV = [(TextLabel , VisibleTokenType , "original")] >*<
   [ "count"
   , "helloWorld"
@@ -61,7 +61,7 @@ originalV = [(TextLabel , VisibleTokenType , "original")] >*<
   , "truthMachine"
   ]
 
-fromWsa :: [((FormatType, TokenType, FilePath) , FilePath)]
+fromWsa :: [((LabelType, TokenType, FilePath) , FilePath)]
 fromWsa = [(TextLabel , VisibleTokenType , "from-wsa")] >*<
   [ "true"
   , "hello"
@@ -71,7 +71,7 @@ fromWsa = [(TextLabel , VisibleTokenType , "from-wsa")] >*<
   , "prim"
   ]
 
-binaryLabel :: [((FormatType, TokenType, FilePath) , FilePath)]
+binaryLabel :: [((LabelType, TokenType, FilePath) , FilePath)]
 binaryLabel = [(BinaryLabel , WhiteTokenType , "from-elvm")] >*<
   [ "hello"
   , "fizzbuzz"
@@ -81,7 +81,7 @@ binaryLabel = [(BinaryLabel , WhiteTokenType , "from-elvm")] >*<
 minifyFile :: TokenType -> String -> IO Text
 minifyFile tokenType = readTokensByTokenType tokenType <.> readFileByTokenType tokenType
 
-optimizeFile :: OptimizationLevel -> FormatType -> TokenType -> String -> IO Text
+optimizeFile :: OptimizationLevel -> LabelType -> TokenType -> String -> IO Text
 optimizeFile optLevel labelType tokenType path = safeIOToIO ((printIL <.> optimize optLevel <.> parseForTest labelType tokenType) <$> readFileByTokenType tokenType path)
 
 readTokensByTokenType:: TokenType -> Text -> Text

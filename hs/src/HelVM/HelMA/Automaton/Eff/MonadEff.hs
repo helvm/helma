@@ -1,3 +1,4 @@
+{-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.MonadEff (
 
   Element,
@@ -24,17 +25,14 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   ePutTextLn,
   ePutLTextLn,
   eFlush,
+  eReadFileText,
+
   eLogText,
   eLogTextLn,
   eLogShow,
-
-  logText,
-  flush,
-  eReadFileText,
 ) where
 
 import           HelVM.HelIO.Control.Control
-import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.Extra
 import           HelVM.HelIO.ReadText
@@ -43,6 +41,8 @@ import qualified Data.ByteString.Lazy        as LByteString
 import           Data.Default                as Default
 import qualified Data.Text.IO                as Text
 import qualified Data.Text.Lazy.IO           as LText
+
+import qualified RIO
 
 import           System.IO                   hiding (getLine, hFlush, stderr, stdout)
 
@@ -71,11 +71,12 @@ class Monad m => MonadEff m where
   ePutText         :: Text -> m ()
   ePutTextLn       :: Text -> m ()
   ePutLTextLn      :: LText -> m ()
+  eFlush           :: m ()
+  eReadFileText    :: FilePath -> m Text
+
   eLogText         :: Text -> m ()
   eLogTextLn       :: Text -> m ()
   eLogShow         :: Show s => s -> m ()
-  eFlush           :: m ()
-  eReadFileText    :: FilePath -> m Text
 
   ePutAsChar    = ePutIntAsChar . fromIntegral
   ePutAsDec     = ePutIntAsDec  . fromIntegral
@@ -89,9 +90,10 @@ class Monad m => MonadEff m where
 
   ePutTextLn s  = ePutText $ s <> "\n"
   ePutLTextLn   = ePutTextLn . toText
+  eFlush        = pass
+
   eLogTextLn s  = eLogText $ s <> "\n"
   eLogShow      = eLogTextLn . show
-  eFlush        = pass
 
 logText :: Text -> IO ()
 logText = Text.hPutStrLn stderr
@@ -109,53 +111,34 @@ instance MonadEff IO where
   ePutText         = putText
   ePutTextLn       = putTextLn
   ePutLTextLn      = putLTextLn
-  eLogText         = logText
   eFlush           = flush
   eReadFileText    = readFileTextUtf8
+  eLogText         = logText
 
-type ExceptTLegacy = ExceptT String
+instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
+  eGetContentsBS   = liftIO LByteString.getContents
+  eGetContentsText = liftIO LText.getContents
+  eGetContents     = liftIO getContents
+  eGetChar         = liftIO getChar
+  eGetLine         = liftIO getLine
+  ePutChar         = liftIO . putChar
+  ePutText         = liftIO . putText
+  ePutTextLn       = liftIO . putTextLn
+  ePutLTextLn      = liftIO . putLTextLn
+  eFlush           = liftIO flush
+  eReadFileText    = liftIO . readFileTextUtf8
+  eLogText         = RIO.logInfo . RIO.display
 
-exceptTLegacy :: Monad m => m a -> ExceptTLegacy m a
-exceptTLegacy a = ExceptT $ pure <$> a
-
-instance MonadEff (ExceptT String IO) where --FIXXME
-  eGetContentsBS   = exceptTLegacy   LByteString.getContents
-  eGetContentsText = exceptTLegacy   LText.getContents
-  eGetContents     = exceptTLegacy   getContents
-  eGetChar         = exceptTLegacy   getChar
-  eGetLine         = exceptTLegacy   getLine
-  ePutChar         = exceptTLegacy . putChar
-  ePutText         = exceptTLegacy . putText
-  ePutTextLn       = exceptTLegacy . putTextLn
-  ePutLTextLn      = exceptTLegacy . putLTextLn
-  eLogText         = exceptTLegacy . logText
-  eFlush           = exceptTLegacy   flush
-  eReadFileText    = exceptTLegacy . readFileTextUtf8
-
-instance MonadEff (SafeT IO) where
-  eGetContentsBS   = safeT   LByteString.getContents
-  eGetContentsText = safeT   LText.getContents
-  eGetContents     = safeT   getContents
-  eGetChar         = safeT   getChar
-  eGetLine         = safeT   getLine
-  ePutChar         = safeT . putChar
-  ePutText         = safeT . putText
-  ePutTextLn       = safeT . putTextLn
-  ePutLTextLn      = safeT . putLTextLn
-  eLogText         = safeT . logText
-  eFlush           = safeT   flush
-  eReadFileText    = safeT . readFileTextUtf8
-
-instance MonadEff (ControlT IO) where
-  eGetContentsBS   = controlT   LByteString.getContents
-  eGetContentsText = controlT   LText.getContents
-  eGetContents     = controlT   getContents
-  eGetChar         = controlT   getChar
-  eGetLine         = controlT   getLine
-  ePutChar         = controlT . putChar
-  ePutText         = controlT . putText
-  ePutTextLn       = controlT . putTextLn
-  ePutLTextLn      = controlT . putLTextLn
-  eLogText         = controlT . logText
-  eFlush           = controlT   flush
-  eReadFileText    = controlT . readFileTextUtf8
+instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
+  eGetContentsBS   = lift eGetContentsBS
+  eGetContentsText = lift eGetContentsText
+  eGetContents     = lift eGetContents
+  eGetChar         = lift eGetChar
+  eGetLine         = lift eGetLine
+  ePutChar         = lift . ePutChar
+  ePutText         = lift . ePutText
+  ePutTextLn       = lift . ePutTextLn
+  ePutLTextLn      = lift . ePutLTextLn
+  eFlush           = lift eFlush
+  eReadFileText    = lift . eReadFileText
+  eLogText         = lift . eLogText

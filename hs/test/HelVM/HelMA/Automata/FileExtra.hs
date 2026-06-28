@@ -13,7 +13,7 @@ module HelVM.HelMA.Automata.FileExtra (
   options,
 ) where
 
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.LabelType
 
 import           HelVM.HelIO.Extra
 
@@ -50,7 +50,7 @@ examplesDir :: FilePath
 examplesDir = "examples"
 
 --FIXME
-showAscii:: FormatType -> FilePath
+showAscii:: LabelType -> FilePath
 showAscii BinaryLabel = "asciiOff"
 showAscii TextLabel   = "asciiOn"
 

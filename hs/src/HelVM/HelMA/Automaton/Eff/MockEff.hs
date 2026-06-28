@@ -1,3 +1,4 @@
+{-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.MockEff (
   ioExecMockEffBatch,
   ioExecMockEffWithInput,
@@ -70,30 +71,19 @@ instance MonadEff MockEff where
   eGetLine         = mockGetLine
   ePutChar         = mockPutChar
   ePutText         = mockPutText
-  eLogText         = mockLogText
   eReadFileText    = mockReadFileText
+  eLogText         = mockLogText
 
 instance MonadEff (SafeT MockEff) where
-  eGetContentsBS   = safeT   mockGetContentsBS
-  eGetContentsText = safeT   mockGetContentsText
-  eGetContents     = safeT   mockGetContents
-  eGetChar         = safeT   mockGetChar
-  eGetLine         = safeT   mockGetLine
-  ePutChar         = safeT . mockPutChar
-  ePutText         = safeT . mockPutText
-  eLogText         = safeT . mockLogText
-  eReadFileText    = safeT . mockReadFileText
-
-instance MonadEff (ControlT MockEff) where
-  eGetContentsBS   = controlT   mockGetContentsBS
-  eGetContentsText = controlT   mockGetContentsText
-  eGetContents     = controlT   mockGetContents
-  eGetChar         =            mockGetCharSafe
-  eGetLine         =            mockGetLineSafe
-  ePutChar         = controlT . mockPutChar
-  ePutText         = controlT . mockPutText
-  eLogText         = controlT . mockLogText
-  eReadFileText    = controlT . mockReadFileText
+  eGetContentsBS   = mockGetContentsBS
+  eGetContentsText = mockGetContentsText
+  eGetContents     = mockGetContents
+  eGetChar         = mockGetCharSafe
+  eGetLine         = mockGetLineSafe
+  ePutChar         = mockPutChar
+  ePutText         = mockPutText
+  eReadFileText    = mockReadFileText
+  eLogText         = mockLogText
 
 ----
 
@@ -118,29 +108,29 @@ mockGetLine = mockGetLine' =<< get where
   mockGetLine' :: MonadMockEff m => MockEffData -> m Text
   mockGetLine' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
 
-mockGetCharSafe :: MonadControlMockEff m => m Char
+mockGetCharSafe :: MonadSafeMockEff m => m Char
 mockGetCharSafe = mockGetChar' =<< get where
-  mockGetChar' :: MonadControlMockEff m => MockEffData -> m Char
+  mockGetChar' :: MonadSafeMockEff m => MockEffData -> m Char
   mockGetChar' mockIO = appendErrorTuple ("mockGetCharSafe" , Text.show mockIO) $ mockGetChar'' =<< unconsSafe (input mockIO) where
     mockGetChar'' (c, input') = put mockIO { input = input' } $> c
 
-mockGetLineSafe :: MonadControlMockEff m => m Text
+mockGetLineSafe :: MonadSafeMockEff m => m Text
 mockGetLineSafe = mockGetLine' =<< get where
-  mockGetLine' :: MonadControlMockEff m => MockEffData -> m Text
+  mockGetLine' :: MonadSafeMockEff m => MockEffData -> m Text
   mockGetLine' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
 
 
-mockPutChar :: Char -> MockEff ()
+mockPutChar :: MonadMockEff m => Char -> m ()
 mockPutChar = modify . mockDataPutChar
 
-mockPutText :: Text -> MockEff ()
+mockPutText :: MonadMockEff m => Text -> m ()
 mockPutText = modify . mockDataPutText
 
-mockLogText :: Text -> MockEff ()
-mockLogText = modify . mockDataLogText
-
-mockReadFileText :: FilePath -> MockEff Text
+mockReadFileText :: MonadMockEff m => FilePath -> m Text
 mockReadFileText _ = toText . code <$> get
+
+mockLogText :: MonadMockEff m => Text -> m ()
+mockLogText = modify . mockDataLogText
 
 ----
 
@@ -155,9 +145,9 @@ mockDataLogText text mockIO = mockIO { logged = calculateString text <> logged m
 
 ----
 
-type MonadControlMockEff m = (MonadMockEff m , MonadControl m)--FIXME
+-- type MonadControlMockEff m = (MonadMockEff m , MonadControl m)--FIXME
 
---type MonadSafeMockEff m = (MonadMockEff m , MonadSafe m) --FIXME
+type MonadSafeMockEff m = (MonadMockEff m , MonadSafe m) --FIXME
 
 type MonadMockEff m = MonadState MockEffData m
 

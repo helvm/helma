@@ -5,7 +5,7 @@ import           HelVM.HelMA.Automaton.Symbol
 
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.LabelType
 
 import           HelVM.HelIO.Collections.SList
 import           HelVM.HelIO.Control.Safe
@@ -19,7 +19,7 @@ parseIndex = parseInt
 parseSymbol :: MonadSafe m => ParserFromTokenList m Symbol
 parseSymbol = parseInteger
 
-parseLabel :: MonadSafe m => FormatType -> ParserFromTokenList m Label
+parseLabel :: MonadSafe m => LabelType -> ParserFromTokenList m Label
 parseLabel BinaryLabel = parseDigitString
 parseLabel TextLabel   = parseAsciiString
 

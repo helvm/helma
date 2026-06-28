@@ -4,32 +4,32 @@ import qualified HelVM.HelMA.Automaton.API.AutomatonOptions as Automaton
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 import           HelVM.HelMA.Automaton.Types.TokenType
 
 -- | Construction for tests
-simpleParamsWithDefaultsAndWhiteTokenType :: FormatType -> Source -> SimpleParams
+simpleParamsWithDefaultsAndWhiteTokenType :: LabelType -> Source -> SimpleParams
 simpleParamsWithDefaultsAndWhiteTokenType = simpleParamsWithDefaults WhiteTokenType
 
-simpleParamsWithDefaultsAndVisibleTokenType :: FormatType -> Source -> SimpleParams
+simpleParamsWithDefaultsAndVisibleTokenType :: LabelType -> Source -> SimpleParams
 simpleParamsWithDefaultsAndVisibleTokenType = simpleParamsWithDefaults VisibleTokenType
 
-simpleParamsWithDefaults :: TokenType -> FormatType -> Source -> SimpleParams
+simpleParamsWithDefaults :: TokenType -> LabelType -> Source -> SimpleParams
 simpleParamsWithDefaults tt = simpleParams tt (defaultStackType , defaultRAMType)
 
 -- | Construction for benchmark
-simpleParamsWithWhiteTokenType :: (StackType, RAMType) -> FormatType -> Source -> SimpleParams
+simpleParamsWithWhiteTokenType :: (StackType, RAMType) -> LabelType -> Source -> SimpleParams
 simpleParamsWithWhiteTokenType = simpleParams WhiteTokenType
 
-simpleParamsWithVisibleTokenType :: (StackType, RAMType) -> FormatType -> Source -> SimpleParams
+simpleParamsWithVisibleTokenType :: (StackType, RAMType) -> LabelType -> Source -> SimpleParams
 simpleParamsWithVisibleTokenType = simpleParams VisibleTokenType
 
 automatonOptions :: SimpleParams -> Automaton.AutomatonOptions
 automatonOptions p = Automaton.AutomatonOptions (stackType p) (ramType p) (autoOptions p)
 
-simpleParams :: TokenType -> (StackType, RAMType) -> FormatType -> Source -> SimpleParams
+simpleParams :: TokenType -> (StackType, RAMType) -> LabelType -> Source -> SimpleParams
 simpleParams tt (st , rt) al s = SimpleParams
   { tokenType = tt
   , source = s
@@ -43,7 +43,7 @@ simpleParams tt (st , rt) al s = SimpleParams
 data SimpleParams = SimpleParams
   { tokenType   :: !TokenType
   , source      :: !Source
-  , formatType  :: !FormatType
+  , formatType  :: !LabelType
   , stackType   :: !StackType
   , ramType     :: !RAMType
   , autoOptions :: !AutoOptions

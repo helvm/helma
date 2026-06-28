@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.Zot.EvaluatorSpec where
 import           HelVM.HelMA.Automata.Zot.Automaton
 import           HelVM.HelMA.Automata.Zot.FileExtra
 
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.LabelType
 
 import           HelVM.HelIO.CartesianProduct
 import           HelVM.HelIO.Control.Safe
@@ -12,7 +12,7 @@ import           HelVM.GoldenExpectations
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                             (Spec, describe, it)
+import           Test.Hspec                            (Spec, describe, it)
 
 spec :: Spec
 spec = describe "eval" $ forM_ ((

@@ -12,7 +12,7 @@ import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelMA.Automaton.Types.FormatType
+import           HelVM.HelMA.Automaton.Types.LabelType
 
 readZotFile :: FilePath -> IO Source
 readZotFile = readSourceFile . buildAbsoluteZotFileName
@@ -29,5 +29,5 @@ buildAbsoluteZotLogFileName = buildAbsoluteLogFileName lang
 lang :: FilePath
 lang = "zot"
 
-binaryOnly :: [FormatType]
+binaryOnly :: [LabelType]
 binaryOnly = [BinaryLabel]
