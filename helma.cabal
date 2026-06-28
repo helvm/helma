@@ -104,6 +104,8 @@ library
   hs-source-dirs:      hs/src
   exposed-modules:
 
+    HelVM.HelMA
+
     HelVM.HelMA.Automaton.API.AppOptions
     HelVM.HelMA.Automaton.API.AutomatonOptions
     HelVM.HelMA.Automaton.API.BoolTypes
@@ -246,8 +248,9 @@ library
     , free
     , ilist
     , ListLike
-    , natural-transformation
     , mtl
+    , natural-transformation
+    , pretty-simple
     , safe
     , text
     , type-operators
@@ -267,7 +270,6 @@ executable helma
       helio
     , helma
     , optparse-applicative >= 0.14.3.0
-    , pretty-simple
   ghc-options:
     -threaded
     -rtsopts
