@@ -7,7 +7,7 @@ import           HelVM.HelMA.Automaton.Types.RAMType
 
 import           HelVM.GoldenExpectations
 
-import           HelVM.HelMA.Automaton.IO.MockIO
+import           HelVM.HelMA.Automaton.Eff.MockEff
 
 import           System.FilePath.Posix
 
@@ -25,7 +25,7 @@ spec = describe "eval" $ forM_
 --  , ("eForth"    , "" )
   ] $ \(fileName , input)  -> do
   let file = readSqFile fileName
-  let mock = (ioExecMockIOWithInput input . simpleEval defaultRAMType) =<< file
+  let mock = (ioExecMockEffWithInput input . simpleEval defaultRAMType) =<< file
   describe fileName $ do
     it ("output" </> fileName) $
       (calculateOutput <$> mock) `goldenShouldIO` buildAbsoluteSqOutFileName fileName

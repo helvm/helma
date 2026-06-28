@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark where
 import           HelVM.HelMA.Automata.SubLeq.Evaluator
 import           HelVM.HelMA.Automata.SubLeq.FileExtra
 
-import           HelVM.HelMA.Automaton.IO.MockIO
+import           HelVM.HelMA.Automaton.Eff.MockEff
 import           HelVM.HelMA.Automaton.Types.RAMType
 
 import           Gauge.Main
@@ -20,4 +20,4 @@ exec t = forM
   , ("longHello" , "")
   ] $ \(fileName , input) -> do
     let file = readSqFile fileName
-    calculateOutput <$> ((ioExecMockIOWithInput input . simpleEval t) =<< file)
+    calculateOutput <$> ((ioExecMockEffWithInput input . simpleEval t) =<< file)

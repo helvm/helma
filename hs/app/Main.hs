@@ -6,10 +6,7 @@ import           HelVM.HelMA
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions as App
 import           HelVM.HelMA.Automaton.API.BoolTypes
-import           HelVM.HelMA.Automaton.API.Emit
-import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.API.Lang
 
 import           HelVM.HelIO.Control.Control
 
@@ -41,14 +38,8 @@ runNoBuffering True  = runText
 runText :: App.AppOptions -> IO ()
 runText o = do
   source <- readSourceFile (App.exec o) (App.file o)
-  run (App.emit o) (App.printLogs o) (App.langWithOptions o) (App.evalParams o source)
+  controlTToIO (App.printLogs o) $ run (App.emit o) (App.langWithOptions o) (App.evalParams o source)
 
 readSourceFile :: Exec -> String -> IO Source
 readSourceFile True = pure . toText
 readSourceFile _    = readFileTextUtf8
-
-run :: Emit -> PrintLogs -> LangWithOptions -> EvalParams -> IO ()
-run No   p l r = (controlTToIO p . evalParams l) r
-run IL   _ l r = putLTextLn $ parse          l (formatType r) (source r)
-run TL   _ l r = putTextLn  $ tokenize       l (source r)
-run Code _ l r = putTextLn  $ minification   l (source r)

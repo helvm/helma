@@ -3,19 +3,19 @@ module HelVM.HelMA.Automata.SubLeq.Automaton (
   run,
 ) where
 
-import           HelVM.HelMA.Automaton.IO.AutomatonIO
-import           HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.Eff.AutomatonEff
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           HelVM.HelMA.Automaton.Trampoline     as Trampoline
+import           HelVM.HelMA.Automaton.Trampoline       as Trampoline
 
-import           HelVM.HelMA.Automaton.Combiner.RAM   as RAM
+import           HelVM.HelMA.Automaton.Combiner.RAM     as RAM
 
 import           Control.Type.Operator
 
-run :: (RAutomatonIO e r m) => Maybe Natural -> Automaton e r -> m $ Automaton e r
+run :: (RAutomatonEff e r m) => Maybe Natural -> Automaton e r -> m $ Automaton e r
 run = trampolineMWithLimit nextState
 
-nextState :: RAutomatonIO e r m => Automaton e r -> m $ AutomatonSame e r
+nextState :: RAutomatonEff e r m => Automaton e r -> m $ AutomatonSame e r
 nextState a@(Automaton ic ram)
   | ic  < 0   = doEnd a
   | src < 0   = doInputChar   dst a
@@ -26,17 +26,17 @@ nextState a@(Automaton ic ram)
       dst  = genericLoad ram $ ic + 1
 
 -- | IO instructions
-doOutputChar :: RAutomatonIO e r m => e -> Automaton e r -> m $ AutomatonSame e r
-doOutputChar address (Automaton ic ram) = wPutAsChar (genericLoad ram address) $> Trampoline.continue (next3Automaton ic ram)
+doOutputChar :: RAutomatonEff e r m => e -> Automaton e r -> m $ AutomatonSame e r
+doOutputChar address (Automaton ic ram) = ePutAsChar (genericLoad ram address) $> Trampoline.continue (next3Automaton ic ram)
 
-doInputChar :: RAutomatonIO e r m => e -> Automaton e r -> m $ AutomatonSame e r
-doInputChar address (Automaton ic ram) = Trampoline.continue . next3Automaton ic . flippedStoreChar address ram <$> wGetChar
+doInputChar :: RAutomatonEff e r m => e -> Automaton e r -> m $ AutomatonSame e r
+doInputChar address (Automaton ic ram) = Trampoline.continue . next3Automaton ic . flippedStoreChar address ram <$> eGetChar
 
 -- | Terminate instruction
-doEnd :: RAutomatonIO e r m => Automaton e r -> m $ AutomatonSame e r
+doEnd :: RAutomatonEff e r m => Automaton e r -> m $ AutomatonSame e r
 doEnd = pure . Trampoline.break
 
-doInstruction :: RAutomatonIO e r m => e -> e -> Automaton e r -> m $ AutomatonSame e r
+doInstruction :: RAutomatonEff e r m => e -> e -> Automaton e r -> m $ AutomatonSame e r
 doInstruction src dst (Automaton ic ram) = pure $ Trampoline.continue $ Automaton ic' $ store dst diff ram where
   diff = genericLoad ram dst - genericLoad ram src
   ic'

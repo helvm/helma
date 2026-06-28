@@ -1,12 +1,12 @@
 module HelVM.HelMA.Automaton.Types.DumpType where
 
-import           HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Control.Logger
 
 import           HelVM.HelIO.Extra
 
-logDump :: (BIO m , Show d) => DumpType -> d -> m ()
+logDump :: (AppEff m , Show d) => DumpType -> d -> m ()
 logDump dt d = logDump' $ dump dt d where
   logDump' Nothing  = pass
   logDump' (Just t) = logMessageTuple ("dump" , t)

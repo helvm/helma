@@ -33,7 +33,7 @@ import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
-import           HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Control.Safe
 
@@ -88,18 +88,18 @@ binaryInstructions il = build <.> pop2 where
 -- | IO instructions
 doOutputChar2 :: ALU m ll element => ll -> m ll
 doOutputChar2 = appendError "ALU.doOutputChar2" . build <=< pop1 where
-  build (e , l) = wPutAsChar e $> l
+  build (e , l) = ePutAsChar e $> l
 
 doOutputDec2 :: ALU m ll element => ll -> m ll
 doOutputDec2 = appendError "ALU.doOutputDec2" . build <=< pop1 where
-  build (e , l) = wPutAsDec e $> l
+  build (e , l) = ePutAsDec e $> l
 
 doInputChar2 :: ALU m ll element => ll -> m ll
-doInputChar2 l = appendError "ALU.doOutputDec2" $ build <$> wGetCharAs where
+doInputChar2 l = appendError "ALU.doOutputDec2" $ build <$> eGetCharAs where
   build e = push1 e l
 
 doInputDec2 :: ALU m ll element => ll -> m ll
-doInputDec2 l = build <$> wGetCharAs where
+doInputDec2 l = build <$> eGetCharAs where
   build e = push1 e l
 
 indexedInstruction :: SafeStack m ll element => IndexedOperation -> IndexOperand -> ll -> m ll
@@ -182,7 +182,7 @@ teeMap :: Functor f => (t -> a -> b) -> (t -> f a) -> t -> f b
 teeMap f2 f1 x = f2 x <$> f1 x
 
 -- | Types
-type ALU m ll element = (BIO m , SafeStack m ll element)
+type ALU m ll element = (AppEff m , SafeStack m ll element)
 
 type SafeStack m ll element  = (MonadSafe m , IntegralStack ll element)
 

@@ -5,10 +5,10 @@ module HelVM.HelMA.Automata.Cat.Evaluator (
 
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-evalParams :: BIO m => EvalParams -> m ()
+evalParams :: AppEff m => EvalParams -> m ()
 evalParams = eval . source
 
-eval :: BusinessIO m => Source -> m ()
-eval = wPutStr
+eval :: MonadEff m => Source -> m ()
+eval = ePutText

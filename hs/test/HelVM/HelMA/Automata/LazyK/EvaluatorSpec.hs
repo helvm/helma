@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.LazyK.EvaluatorSpec where
 import           HelVM.HelMA.Automata.LazyK.Evaluator
 import           HelVM.HelMA.Automata.LazyK.FileExtra
 
-import           HelVM.HelMA.Automaton.IO.MockIO
+import           HelVM.HelMA.Automaton.Eff.MockEff
 
 import           HelVM.HelIO.CartesianProduct
 
@@ -58,7 +58,7 @@ spec =
         let file = readLazyKFile filePath
         let input = ""
         let path = filePath <> toString input
-        let mock = ioExecMockIOWithInput input . evalSource =<< file
+        let mock = ioExecMockEffWithInput input . evalSource =<< file
         describe path $ do
           it ("output" </> path) $
             calculateOutput <$> mock `goldenShouldIO` buildAbsoluteLazyKOutFileName path

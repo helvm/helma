@@ -1,10 +1,11 @@
 module HelVM.HelMA where
 
+import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.Lang
 
-import           HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.TokenType
@@ -40,6 +41,12 @@ import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 
 import           Text.Pretty.Simple
 
+run :: AppEff m => Emit -> LangWithOptions -> EvalParams -> m ()
+run No   l r = evalParams                   l r
+run IL   l r = ePutLTextLn $ parse          l (formatType r) (source r)
+run TL   l r = ePutTextLn   $ tokenize       l (source r)
+run Code l r = ePutTextLn   $ minification   l (source r)
+
 minification :: LangWithOptions -> Source -> Text
 minification (LangWithOptions BF  _ _ _               ) = show . BF.readTokens
 minification (LangWithOptions ETA _ _ _               ) = show . ETA.readTokens
@@ -64,7 +71,7 @@ parse (LangWithOptions WS   _        _ VisibleTokenType) f = pShowNoColor . WS.f
 parse (LangWithOptions WS   _        _ WhiteTokenType  ) f = pShowNoColor . WS.flipParseWhite   f
 parse  l                                                 _ = toLazy . tokenize l
 
-evalParams :: BIO m => LangWithOptions -> EvalParams -> m ()
+evalParams :: AppEff m => LangWithOptions -> EvalParams -> m ()
 evalParams (LangWithOptions BF   i _ _) = BF.evalParams i
 evalParams (LangWithOptions Cat  _ _ _) = Cat.evalParams
 evalParams (LangWithOptions ETA  _ i _) = ETA.evalParams i

@@ -10,7 +10,7 @@ import           HelVM.HelMA.Automata.Zot.Parser
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Types.FormatType
 
@@ -26,8 +26,8 @@ import           Control.Monad.Writer.Lazy
 
 import qualified Data.Text.Lazy                         as LT
 
-evalParams :: BIO m => EvalParams -> m ()
-evalParams p = wPutStr =<< evalWithFormat (formatType p) (source p) =<< wGetContentsText
+evalParams :: AppEff m => EvalParams -> m ()
+evalParams p = ePutText =<< evalWithFormat (formatType p) (source p) =<< eGetContentsText
 
 evalWithFormat :: MonadSafe m => FormatType -> Source -> LT.Text -> m Output
 evalWithFormat BinaryLabel source input = pure $ showFoldable $ evalInternal source input

@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automata.ETA.SimpleParams
 
 import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
-import           HelVM.HelMA.Automaton.IO.MockIO
+import           HelVM.HelMA.Automaton.Eff.MockEff
 import           HelVM.HelMA.Automaton.Types.StackType
 
 import           HelVM.HelIO.CartesianProduct
@@ -45,7 +45,7 @@ spec =
       let file = readEtaFile filePath
       forM_ inputs $ \ input -> do
         let params = simpleParams implType defaultStackType <$> file
-        let mock = ioExecMockIOWithInput (toText input) . simpleEval =<< params
+        let mock = ioExecMockEffWithInput (toText input) . simpleEval =<< params
         let path = show implType </> filePath <> input
         describe path $ do
           it ("output" </> path) $

@@ -1,37 +1,37 @@
 module HelVM.HelMA.Automaton.Combiner where
 
-import           HelVM.HelMA.Automaton.IO.AutomatonIO
+import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 
 import           HelVM.HelMA.Automaton.Instruction
 
-import           HelVM.HelMA.Automaton.Trampoline     as Trampoline
+import           HelVM.HelMA.Automaton.Trampoline       as Trampoline
 
 import           HelVM.HelMA.Automaton.Symbol
 
-import           HelVM.HelMA.Automaton.Combiner.ALU   as ALU
-import           HelVM.HelMA.Automaton.Combiner.CPU   as CPU
-import           HelVM.HelMA.Automaton.Combiner.LSU   as LSU
+import           HelVM.HelMA.Automaton.Combiner.ALU     as ALU
+import           HelVM.HelMA.Automaton.Combiner.CPU     as CPU
+import           HelVM.HelMA.Automaton.Combiner.LSU     as LSU
 
 import           Control.Type.Operator
 
-import           Prelude                              hiding (swap)
+import           Prelude                                hiding (swap)
 
 -- | Core of Combiner
 
-runInstruction :: (SRAutomatonIO Symbol s r m) => Instruction -> SF s r m
+runInstruction :: (SRAutomatonEff Symbol s r m) => Instruction -> SF s r m
 runInstruction (ISM      i) a = Trampoline.continue . updateStack   a <$> runALI i (memoryStack a)
 runInstruction (ILS      i) a = Trampoline.continue . updateFromLSM a <$> runSLI i (toLSM a)
 runInstruction (ICF      i) a = Trampoline.continue . updateFromCPM a <$> runCFI i (toCPM a)
 runInstruction  End         a = end a
 
-pop2ForStack :: (SRAutomatonIO Symbol s r m) => Memory s r -> m (Symbol , Symbol , Memory s r)
+pop2ForStack :: (SRAutomatonEff Symbol s r m) => Memory s r -> m (Symbol , Symbol , Memory s r)
 pop2ForStack a = build <$> pop2 (memoryStack a) where
   build (s1 , s2 , s') = (s1 , s2 , updateStack a s')
 
 push1ForStack :: Stack s Symbol => Symbol -> Memory s r -> Memory s r
 push1ForStack e a = a { memoryStack = push1 e (memoryStack a) }
 
-end :: (SRAutomatonIO Symbol s r m) => SF s r m
+end :: (SRAutomatonEff Symbol s r m) => SF s r m
 end = pure . Trampoline.break
 
 -- | Constructors

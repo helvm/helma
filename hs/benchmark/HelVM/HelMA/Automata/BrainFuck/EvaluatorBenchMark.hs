@@ -5,7 +5,7 @@ import           HelVM.HelMA.Automata.BrainFuck.FileExtra
 
 import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 
-import           HelVM.HelMA.Automaton.IO.MockIO
+import           HelVM.HelMA.Automaton.Eff.MockEff
 import           HelVM.HelMA.Automaton.Types.CellType
 
 import           HelVM.HelIO.CartesianProduct
@@ -79,7 +79,7 @@ exec :: BenchParams -> (FilePath , Text) -> IO Text
 exec (cellType , bfType) (fileName , input) = do
   let file   = readBfFile fileName
   let params = (bfType ,  , cellType) <$> file
-  let ioExec = ioExecMockIOWithInput input . simpleEval =<< params
+  let ioExec = ioExecMockEffWithInput input . simpleEval =<< params
   calculateOutput <$> ioExec
 
 -- | Types

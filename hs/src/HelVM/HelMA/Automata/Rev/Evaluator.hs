@@ -5,18 +5,18 @@ module HelVM.HelMA.Automata.Rev.Evaluator (
 
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import qualified Data.Text                            as Text
 
-evalParams :: BIO m => EvalParams -> m ()
+evalParams :: AppEff m => EvalParams -> m ()
 evalParams = eval . source
 
-eval :: BusinessIO m => Source -> m ()
+eval :: MonadEff m => Source -> m ()
 eval = evalLines . lines
 
-evalLines :: BusinessIO m => [Source] -> m ()
+evalLines :: MonadEff m => [Source] -> m ()
 evalLines ll = doOutput $ unlines $ Text.reverse <$> ll
 
-doOutput :: BusinessIO m => Source -> m ()
-doOutput = wPutStr
+doOutput :: MonadEff m => Source -> m ()
+doOutput = ePutText

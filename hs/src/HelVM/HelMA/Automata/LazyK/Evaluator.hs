@@ -14,16 +14,16 @@ import           HelVM.HelMA.Automata.LazyK.Reducer
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelMA.Automaton.IO.BusinessIO
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-evalParams :: BIO m => EvalParams -> m ()
+evalParams :: AppEff m => EvalParams -> m ()
 evalParams = evalSource . source
 
-evalSource :: BIO m => Source -> m ()
+evalSource :: AppEff m => Source -> m ()
 evalSource = evalLambda <=< parse
 
-evalLambda :: BIO m => Lambda -> m ()
-evalLambda lambda = (run . reduce . App lambda . readInput) =<< wGetContentsBS
+evalLambda :: AppEff m => Lambda -> m ()
+evalLambda lambda = (run . reduce . App lambda . readInput) =<< eGetContentsBS
 
-reduceSource :: BIO m => Source -> m Source
+reduceSource :: AppEff m => Source -> m Source
 reduceSource s = show . reduce <$> parse s

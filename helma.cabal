@@ -119,10 +119,10 @@ library
     
     HelVM.HelMA.Automaton.Automaton
 
-    HelVM.HelMA.Automaton.IO.BusinessIO
-    HelVM.HelMA.Automaton.IO.AutomatonIO
-    HelVM.HelMA.Automaton.IO.FreeIO
-    HelVM.HelMA.Automaton.IO.MockIO
+    HelVM.HelMA.Automaton.Eff.AutomatonEff
+    HelVM.HelMA.Automaton.Eff.FreeEff
+    HelVM.HelMA.Automaton.Eff.MockEff
+    HelVM.HelMA.Automaton.Eff.MonadEff
 
     HelVM.HelMA.Automaton.Instruction
     HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction

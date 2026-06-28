@@ -5,7 +5,7 @@ import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.FileExtra
 import           HelVM.HelMA.Automata.ETA.SimpleParams
 
-import           HelVM.HelMA.Automaton.IO.MockIO
+import           HelVM.HelMA.Automaton.Eff.MockEff
 import           HelVM.HelMA.Automaton.Types.StackType
 
 import           HelVM.HelIO.CartesianProduct
@@ -52,7 +52,7 @@ ioExec (implType , stackType) dirName fileName inputs = do
   let file = readEtaFile (dirName </> fileName)
   forM inputs $ \ input -> do
     let params = simpleParams implType stackType <$> file
-    let exec = ioExecMockIOWithInput input . simpleEval =<< params
+    let exec = ioExecMockEffWithInput input . simpleEval =<< params
     calculateOutput <$> exec
 
 type BenchParams = (ETAImplType, StackType)

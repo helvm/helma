@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automata.ETA.Token
 
 import           HelVM.HelMA.Automaton.Trampoline        as Trampoline
 
-import           HelVM.HelMA.Automaton.IO.AutomatonIO
+import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 
 import           HelVM.HelMA.Automaton.Combiner.ALU      as Stack
 
@@ -21,13 +21,13 @@ import qualified Data.Vector                             as Vector
 
 import           Prelude                                 hiding (divMod)
 
-run :: (SAutomatonIO e s m) => Maybe Natural -> Memory s -> m $ Memory s
+run :: (SAutomatonEff e s m) => Maybe Natural -> Memory s -> m $ Memory s
 run = trampolineMWithLimit nextState
 
-nextState :: (SAutomatonIO e s m) => Memory s -> m $ MemorySame s
+nextState :: (SAutomatonEff e s m) => Memory s -> m $ MemorySame s
 nextState (Memory iu s) = build =<< nextIM iu where build (t , iu') = doInstruction t (Memory iu' s)
 
-doInstruction :: (SAutomatonIO e s m) => Maybe Token -> Memory s -> m $ MemorySame s
+doInstruction :: (SAutomatonEff e s m) => Maybe Token -> Memory s -> m $ MemorySame s
 -- | IO instructions
 doInstruction (Just O) u                        = Trampoline.continue . updateStack u <$> doOutputChar2 (memoryStack u)
 doInstruction (Just I) u                        = Trampoline.continue . updateStack u <$> doInputChar2 (memoryStack u)
@@ -46,18 +46,18 @@ doInstruction (Just A) (Memory iu@(IM il ic) s) = pure $ Trampoline.continue  ((
 doInstruction (Just T) u                        = transfer u
 doInstruction Nothing u                         = end u
 
-transfer :: (SAutomatonIO e s m) => Memory s -> m $ MemorySame s
+transfer :: (SAutomatonEff e s m) => Memory s -> m $ MemorySame s
 transfer = branch <=< pop2ForStack where
   branch (_ , 0 , u) = pure $ Trampoline.continue  u
   branch (0 , _ , u) = end u
   branch (l , _ , u) = Trampoline.continue  . updateAddress u <$> genericFindAddress (memoryProgram u) l
 
-pop2ForStack :: (SAutomatonIO e s m) => Memory s -> m (e , e , Memory s)
+pop2ForStack :: (SAutomatonEff e s m) => Memory s -> m (e , e , Memory s)
 pop2ForStack u = build <$> pop2 (memoryStack u) where
   build (s1 , s2 , s') = (s1 , s2 , updateStack u s')
 
 -- | Terminate instruction
-end :: (SAutomatonIO e s m) => Memory s -> m $ MemorySame s
+end :: (SAutomatonEff e s m) => Memory s -> m $ MemorySame s
 end = pure . Trampoline.break
 
 -- | Memory methods
