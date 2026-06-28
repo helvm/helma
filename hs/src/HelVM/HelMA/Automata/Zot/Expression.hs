@@ -9,14 +9,13 @@ import           HelVM.HelIO.Digit.ToDigit
 import           Control.Monad.Writer.Lazy
 
 import qualified Data.DList                   as D
-import qualified Data.Text.Lazy               as LT
 import           Text.Read
 import qualified Text.Show
 
-showExpressionList :: ExpressionList -> LT.Text
+showExpressionList :: ExpressionList -> LText
 showExpressionList f = fmconcat $ show <$> f
 
-readExpressionList :: LT.Text -> ExpressionList
+readExpressionList :: LText -> ExpressionList
 readExpressionList = stringToExpressionList . toString
 
 stringToExpressionList :: String -> ExpressionList

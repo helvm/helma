@@ -25,10 +25,7 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.ListLikeExtra
 
-import qualified Data.ByteString.Lazy               as LBS
-
 import           Data.Text                          as Text
-import qualified Data.Text.Lazy                     as LT
 
 ioExecMockEffBatch :: ControlT MockEff () -> IO MockEffData
 ioExecMockEffBatch = ioExecMockEffWithInput ""
@@ -51,11 +48,11 @@ execMockEffWithInput i a = runMockEff i $ safeWithMessages <$> a
 ----
 
 runMockEff :: Input -> MockEff UnitSafeWithMessages -> MockEffData
-runMockEff i mockIO = flip mockDataLogStr mockIOData $ safeWithMessagesToText s
+runMockEff i mockIO = flip mockDataLogText mockIOData $ safeWithMessagesToText s
   where (s , mockIOData) = runState mockIO $ createMockEff i
 
 createMockEff :: Input -> MockEffData
-createMockEff i = MockEffData (toString i) "" ""
+createMockEff i = MockEffData "" (toString i) "" ""
 
 calculateOutput :: MockEffData -> Output
 calculateOutput = calculateText . output
@@ -72,8 +69,9 @@ instance MonadEff MockEff where
   eGetChar         = mockGetChar
   eGetLine         = mockGetLine
   ePutChar         = mockPutChar
-  ePutText          = mockPutStr
-  eLogText          = mockLogStr
+  ePutText         = mockPutText
+  eLogText         = mockLogText
+  eReadFileText    = mockReadFileText
 
 instance MonadEff (SafeT MockEff) where
   eGetContentsBS   = safeT   mockGetContentsBS
@@ -82,8 +80,9 @@ instance MonadEff (SafeT MockEff) where
   eGetChar         = safeT   mockGetChar
   eGetLine         = safeT   mockGetLine
   ePutChar         = safeT . mockPutChar
-  ePutText         = safeT . mockPutStr
-  eLogText         = safeT . mockLogStr
+  ePutText         = safeT . mockPutText
+  eLogText         = safeT . mockLogText
+  eReadFileText    = safeT . mockReadFileText
 
 instance MonadEff (ControlT MockEff) where
   eGetContentsBS   = controlT   mockGetContentsBS
@@ -92,15 +91,16 @@ instance MonadEff (ControlT MockEff) where
   eGetChar         =            mockGetCharSafe
   eGetLine         =            mockGetLineSafe
   ePutChar         = controlT . mockPutChar
-  ePutText         = controlT . mockPutStr
-  eLogText         = controlT . mockLogStr
+  ePutText         = controlT . mockPutText
+  eLogText         = controlT . mockLogText
+  eReadFileText    = controlT . mockReadFileText
 
 ----
 
-mockGetContentsBS :: MonadMockEff m => m LBS.ByteString
+mockGetContentsBS :: MonadMockEff m => m LByteString
 mockGetContentsBS =  fromStrict . encodeUtf8 <$> mockGetContentsText
 
-mockGetContentsText :: MonadMockEff m => m LT.Text
+mockGetContentsText :: MonadMockEff m => m LText
 mockGetContentsText = fromStrict . toText <$> mockGetContents
 
 mockGetContents :: MonadMockEff m => m String
@@ -133,22 +133,25 @@ mockGetLineSafe = mockGetLine' =<< get where
 mockPutChar :: Char -> MockEff ()
 mockPutChar = modify . mockDataPutChar
 
-mockPutStr :: Text -> MockEff ()
-mockPutStr = modify . mockDataPutStr
+mockPutText :: Text -> MockEff ()
+mockPutText = modify . mockDataPutText
 
-mockLogStr :: Text -> MockEff ()
-mockLogStr = modify . mockDataLogStr
+mockLogText :: Text -> MockEff ()
+mockLogText = modify . mockDataLogText
+
+mockReadFileText :: FilePath -> MockEff Text
+mockReadFileText _ = toText . code <$> get
 
 ----
 
 mockDataPutChar :: Char -> MockEffData -> MockEffData
 mockDataPutChar char mockIO = mockIO { output = char : output mockIO }
 
-mockDataPutStr :: Text -> MockEffData -> MockEffData
-mockDataPutStr text mockIO = mockIO { output = calculateString text <> output mockIO }
+mockDataPutText :: Text -> MockEffData -> MockEffData
+mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
 
-mockDataLogStr :: Text -> MockEffData -> MockEffData
-mockDataLogStr text mockIO = mockIO { logged = calculateString text <> logged mockIO }
+mockDataLogText :: Text -> MockEffData -> MockEffData
+mockDataLogText text mockIO = mockIO { logged = calculateString text <> logged mockIO }
 
 ----
 
@@ -167,7 +170,8 @@ calculateString :: Output -> String
 calculateString =  toString . Text.reverse
 
 data MockEffData = MockEffData
-  { input  :: !String
+  { code   :: !String
+  , input  :: !String
   , output :: !String
   , logged :: !String
   }

@@ -1,14 +1,16 @@
 module HelVM.HelMA where
 
+import qualified HelVM.HelMA.Automaton.API.AppOptions            as App
+import           HelVM.HelMA.Automaton.API.BoolTypes
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.Lang
-
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Types.FormatType
 import           HelVM.HelMA.Automaton.Types.TokenType
+
 
 import qualified HelVM.HelMA.Automata.Cat.Evaluator              as Cat
 
@@ -41,11 +43,20 @@ import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 
 import           Text.Pretty.Simple
 
+runText :: AppEff m => App.AppOptions -> m ()
+runText o = do
+  source <- readSourceFile (App.exec o) (App.file o)
+  run (App.emit o) (App.langWithOptions o) (App.evalParams o source)
+
+readSourceFile :: AppEff m => Exec -> String -> m Source
+readSourceFile True = pure . toText
+readSourceFile _    = eReadFileText
+
 run :: AppEff m => Emit -> LangWithOptions -> EvalParams -> m ()
-run No   l r = evalParams                   l r
-run IL   l r = ePutLTextLn $ parse          l (formatType r) (source r)
-run TL   l r = ePutTextLn   $ tokenize       l (source r)
-run Code l r = ePutTextLn   $ minification   l (source r)
+run No   l r = evalParams                 l r
+run IL   l r = ePutLTextLn $ parse        l (formatType r) (source r)
+run TL   l r = ePutTextLn  $ tokenize     l (source r)
+run Code l r = ePutTextLn  $ minification l (source r)
 
 minification :: LangWithOptions -> Source -> Text
 minification (LangWithOptions BF  _ _ _               ) = show . BF.readTokens

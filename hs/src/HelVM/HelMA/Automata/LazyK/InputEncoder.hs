@@ -3,11 +3,11 @@ module HelVM.HelMA.Automata.LazyK.InputEncoder where
 import           HelVM.HelMA.Automata.LazyK.Constants
 import           HelVM.HelMA.Automata.LazyK.Lambda
 
-import qualified Data.ByteString.Lazy                 as LBS
+import qualified Data.ByteString.Lazy                 as LByteString
 
 -- | Constructors
-readInput :: LBS.ByteString -> Lambda
-readInput = encodeInput . fmap fromIntegral . LBS.unpack
+readInput :: LByteString -> Lambda
+readInput = encodeInput . fmap fromIntegral . LByteString.unpack
 
 encodeInput :: [Natural] -> Lambda
 encodeInput = foldr (cons . church) end

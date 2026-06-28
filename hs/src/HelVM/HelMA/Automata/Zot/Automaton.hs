@@ -24,17 +24,15 @@ import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Monad.Writer.Lazy
 
-import qualified Data.Text.Lazy                         as LT
-
 evalParams :: AppEff m => EvalParams -> m ()
 evalParams p = ePutText =<< evalWithFormat (formatType p) (source p) =<< eGetContentsText
 
-evalWithFormat :: MonadSafe m => FormatType -> Source -> LT.Text -> m Output
+evalWithFormat :: MonadSafe m => FormatType -> Source -> LText -> m Output
 evalWithFormat BinaryLabel source input = pure $ showFoldable $ evalInternal source input
 evalWithFormat TextLabel   source input = (makeAsciiText28 . convert . evalInternal source) . showExpressionList =<< stringToDL (toString input)
 
-evalInternal :: Source -> LT.Text -> ExpressionDList
+evalInternal :: Source -> LText -> ExpressionDList
 evalInternal source input = eval $ fromStrict source <> input
 
-eval :: LT.Text  -> ExpressionDList
+eval :: LText  -> ExpressionDList
 eval = execWriter . runExpressionList . parse

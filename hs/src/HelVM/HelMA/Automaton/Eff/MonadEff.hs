@@ -28,19 +28,21 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   eLogTextLn,
   eLogShow,
 
-  logStr,
+  logText,
   flush,
+  eReadFileText,
 ) where
 
 import           HelVM.HelIO.Control.Control
 import           HelVM.HelIO.Control.Safe
 
+import           HelVM.HelIO.Extra
 import           HelVM.HelIO.ReadText
 
-import qualified Data.ByteString.Lazy        as LBS
+import qualified Data.ByteString.Lazy        as LByteString
 import           Data.Default                as Default
-import qualified Data.Text.Lazy              as LT
-import qualified Data.Text.Lazy.IO           as LT
+import qualified Data.Text.IO                as Text
+import qualified Data.Text.Lazy.IO           as LText
 
 import           System.IO                   hiding (getLine, hFlush, stderr, stdout)
 
@@ -60,8 +62,8 @@ class Monad m => MonadEff m where
   eGetCharAsInt    :: m Int
   eGetDecAsInt     :: m Int
 
-  eGetContentsBS   :: m LBS.ByteString
-  eGetContentsText :: m LT.Text
+  eGetContentsBS   :: m LByteString
+  eGetContentsText :: m LText
   eGetContents     :: m String
   eGetChar         :: m Char
   eGetLine         :: m Text
@@ -73,6 +75,7 @@ class Monad m => MonadEff m where
   eLogTextLn       :: Text -> m ()
   eLogShow         :: Show s => s -> m ()
   eFlush           :: m ()
+  eReadFileText    :: FilePath -> m Text
 
   ePutAsChar    = ePutIntAsChar . fromIntegral
   ePutAsDec     = ePutIntAsDec  . fromIntegral
@@ -90,15 +93,15 @@ class Monad m => MonadEff m where
   eLogShow      = eLogTextLn . show
   eFlush        = pass
 
-logStr :: Text -> IO ()
-logStr = hPutStrLn stderr . toString
+logText :: Text -> IO ()
+logText = Text.hPutStrLn stderr
 
 flush :: IO ()
 flush = hFlush stdout
 
 instance MonadEff IO where
-  eGetContentsBS   = LBS.getContents
-  eGetContentsText = LT.getContents
+  eGetContentsBS   = LByteString.getContents
+  eGetContentsText = LText.getContents
   eGetContents     = getContents
   eGetChar         = getChar
   eGetLine         = getLine
@@ -106,8 +109,9 @@ instance MonadEff IO where
   ePutText         = putText
   ePutTextLn       = putTextLn
   ePutLTextLn      = putLTextLn
-  eLogText         = logStr
+  eLogText         = logText
   eFlush           = flush
+  eReadFileText    = readFileTextUtf8
 
 type ExceptTLegacy = ExceptT String
 
@@ -115,8 +119,8 @@ exceptTLegacy :: Monad m => m a -> ExceptTLegacy m a
 exceptTLegacy a = ExceptT $ pure <$> a
 
 instance MonadEff (ExceptT String IO) where --FIXXME
-  eGetContentsBS   = exceptTLegacy   LBS.getContents
-  eGetContentsText = exceptTLegacy   LT.getContents
+  eGetContentsBS   = exceptTLegacy   LByteString.getContents
+  eGetContentsText = exceptTLegacy   LText.getContents
   eGetContents     = exceptTLegacy   getContents
   eGetChar         = exceptTLegacy   getChar
   eGetLine         = exceptTLegacy   getLine
@@ -124,12 +128,13 @@ instance MonadEff (ExceptT String IO) where --FIXXME
   ePutText         = exceptTLegacy . putText
   ePutTextLn       = exceptTLegacy . putTextLn
   ePutLTextLn      = exceptTLegacy . putLTextLn
-  eLogText         = exceptTLegacy . logStr
+  eLogText         = exceptTLegacy . logText
   eFlush           = exceptTLegacy   flush
+  eReadFileText    = exceptTLegacy . readFileTextUtf8
 
 instance MonadEff (SafeT IO) where
-  eGetContentsBS   = safeT   LBS.getContents
-  eGetContentsText = safeT   LT.getContents
+  eGetContentsBS   = safeT   LByteString.getContents
+  eGetContentsText = safeT   LText.getContents
   eGetContents     = safeT   getContents
   eGetChar         = safeT   getChar
   eGetLine         = safeT   getLine
@@ -137,12 +142,13 @@ instance MonadEff (SafeT IO) where
   ePutText         = safeT . putText
   ePutTextLn       = safeT . putTextLn
   ePutLTextLn      = safeT . putLTextLn
-  eLogText         = safeT . logStr
+  eLogText         = safeT . logText
   eFlush           = safeT   flush
+  eReadFileText    = safeT . readFileTextUtf8
 
 instance MonadEff (ControlT IO) where
-  eGetContentsBS   = controlT   LBS.getContents
-  eGetContentsText = controlT   LT.getContents
+  eGetContentsBS   = controlT   LByteString.getContents
+  eGetContentsText = controlT   LText.getContents
   eGetContents     = controlT   getContents
   eGetChar         = controlT   getChar
   eGetLine         = controlT   getLine
@@ -150,5 +156,6 @@ instance MonadEff (ControlT IO) where
   ePutText         = controlT . putText
   ePutTextLn       = controlT . putTextLn
   ePutLTextLn      = controlT . putLTextLn
-  eLogText         = controlT . logStr
+  eLogText         = controlT . logText
   eFlush           = controlT   flush
+  eReadFileText    = controlT . readFileTextUtf8

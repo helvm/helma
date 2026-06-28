@@ -4,16 +4,16 @@ module HelVM.HelMA.Automata.Zot.Parser (
 
 import           HelVM.HelMA.Automata.Zot.Expression
 
-import qualified Data.Text.Lazy                      as LT
+import qualified Data.Text.Lazy                      as LText
 
-parse :: LT.Text -> ExpressionList
-parse = concatMap parseLine . LT.lines
+parse :: LText -> ExpressionList
+parse = concatMap parseLine . LText.lines
 
-parseLine :: LT.Text -> ExpressionList
-parseLine = readExpressionList . filter01 . LT.takeWhile (/= '#')
+parseLine :: LText -> ExpressionList
+parseLine = readExpressionList . filter01 . LText.takeWhile (/= '#')
 
-filter01 :: LT.Text -> LT.Text
-filter01 = LT.filter is01
+filter01 :: LText -> LText
+filter01 = LText.filter is01
 
 is01 :: Char -> Bool
 is01 c = c == '0' || c == '1'
