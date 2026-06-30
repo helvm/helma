@@ -44,7 +44,7 @@ import qualified Data.Text.Lazy.IO           as LText
 
 import qualified RIO
 
-import           System.IO                   hiding (getLine, hFlush, stderr, stdout)
+import qualified System.IO                   as IO
 
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)
@@ -104,10 +104,10 @@ flush = hFlush stdout
 instance MonadEff IO where
   eGetContentsBS   = LByteString.getContents
   eGetContentsText = LText.getContents
-  eGetContents     = getContents
-  eGetChar         = getChar
+  eGetContents     = IO.getContents
+  eGetChar         = IO.getChar
   eGetLine         = getLine
-  ePutChar         = putChar
+  ePutChar         = IO.putChar
   ePutText         = putText
   ePutTextLn       = putTextLn
   ePutLTextLn      = putLTextLn
@@ -115,19 +115,6 @@ instance MonadEff IO where
   eReadFileText    = readFileTextUtf8
   eLogText         = logText
 
-instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
-  eGetContentsBS   = liftIO LByteString.getContents
-  eGetContentsText = liftIO LText.getContents
-  eGetContents     = liftIO getContents
-  eGetChar         = liftIO getChar
-  eGetLine         = liftIO getLine
-  ePutChar         = liftIO . putChar
-  ePutText         = liftIO . putText
-  ePutTextLn       = liftIO . putTextLn
-  ePutLTextLn      = liftIO . putLTextLn
-  eFlush           = liftIO flush
-  eReadFileText    = liftIO . readFileTextUtf8
-  eLogText         = RIO.logInfo . RIO.display
 
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
   eGetContentsBS   = lift eGetContentsBS
@@ -142,3 +129,17 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   eFlush           = lift eFlush
   eReadFileText    = lift . eReadFileText
   eLogText         = lift . eLogText
+
+instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
+  eGetContentsBS   = liftIO LByteString.getContents
+  eGetContentsText = liftIO LText.getContents
+  eGetContents     = liftIO IO.getContents
+  eGetChar         = liftIO IO.getChar
+  eGetLine         = liftIO getLine
+  ePutChar         = liftIO . IO.putChar
+  ePutText         = liftIO . putText
+  ePutTextLn       = liftIO . putTextLn
+  ePutLTextLn      = liftIO . putLTextLn
+  eFlush           = liftIO flush
+  eReadFileText    = liftIO . readFileTextUtf8
+  eLogText         = RIO.logInfo . RIO.display

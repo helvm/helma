@@ -1,16 +1,22 @@
 module Main where
 
+import           Env
 import           Options
 
 import           HelVM.HelMA
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions as App
 
-import           HelVM.HelMA.Automaton.Types.FileType
-
 import           HelVM.HelIO.Control.Control
 
+import           Control.Monad.Writer.Lazy            (runWriterT)
+
+import           HelVM.HelIO.Control.Message
+
+import qualified Data.DList                           as D
 import           Options.Applicative
+import qualified RIO
+import           RIO                                  (logOptionsHandle, runRIO, withLogFunc)
 
 import           System.Environment                   (getProgName)
 import qualified System.IO                            as IO
@@ -19,8 +25,9 @@ main :: IO ()
 main = do
   progName <- getProgName
   opts     <- execParser (optsInfo progName)
-  setNoBuffering
-  actualMain opts
+  hSetBuffering stdout IO.NoBuffering
+  logOptions <- logOptionsHandle stderr True
+  withLogFunc logOptions (`runApp` opts)
   exitSuccess
 
 optsInfo :: String -> ParserInfo App.AppOptions
@@ -35,16 +42,11 @@ versionInfo _ = infoOption "1.0.0"
   (  long "version"
   <> help "print version information and exit")
 
-setNoBuffering :: IO ()
-setNoBuffering = hSetBuffering stdout IO.NoBuffering
+runApp :: MonadIO m => RIO.LogFunc -> App.AppOptions -> m ()
+runApp logFunc = runRIO (Env logFunc) . runAsRIO . actualMain
 
-actualMain :: App.AppOptions -> IO ()
-actualMain = runNoBuffering =<< App.fileType
-
-runNoBuffering :: FileType -> App.AppOptions -> IO ()
-runNoBuffering BinaryFile o = runBinary o
-runNoBuffering TextFile   o = controlTToIO (App.printLogs o) $ runText o
-
-runBinary :: App.AppOptions -> IO ()
--- runBinary o = Piet.actualMain $ Piet.PietOptions { program = Just $ App.file o, codelSize = App.codelSize o, verbosity = App.verbosity o }
-runBinary o = controlTToIO (App.printLogs o) $ runText o
+runAsRIO :: (MonadIO m, MonadReader env m, RIO.HasLogFunc env) => ControlT m a -> m a
+runAsRIO rio = do
+  (result, logs) <- runWriterT $ runExceptT rio
+  forM_ (D.toList logs) (RIO.logInfo . RIO.display)
+  either (\err -> RIO.logError (RIO.display $ errorsToText err) >> RIO.exitFailure) pure result

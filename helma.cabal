@@ -267,11 +267,14 @@ executable helma
   hs-source-dirs:      hs/app
   main-is:             Main.hs
   other-modules:
+    Env
     Options
 
   build-depends:
       helio
     , helma
+    , dlist
+    , mtl
     , optparse-applicative >= 0.14.3.0
   ghc-options:
     -threaded

@@ -8,9 +8,9 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.Lang
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
+import           HelVM.HelMA.Automaton.Types.FileType
 import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.TokenType
-
 
 import qualified HelVM.HelMA.Automata.Cat.Evaluator              as Cat
 
@@ -42,6 +42,17 @@ import qualified HelVM.HelMA.Automata.Zot.Automaton              as Zot
 import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 
 import           Text.Pretty.Simple
+
+actualMain :: AppEff m => App.AppOptions -> m ()
+actualMain = runNoBuffering =<< App.fileType
+
+runNoBuffering :: FileType -> AppEff m => App.AppOptions -> m ()
+runNoBuffering BinaryFile o = runBinary o
+runNoBuffering TextFile   o = runText o
+
+runBinary :: AppEff m => App.AppOptions -> m ()
+-- runBinary o = Piet.actualMain $ Piet.PietOptions { program = Just $ App.file o, codelSize = App.codelSize o, verbosity = App.verbosity o }
+runBinary = runText
 
 runText :: AppEff m => App.AppOptions -> m ()
 runText o = do
