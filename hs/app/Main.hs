@@ -1,20 +1,15 @@
 module Main where
 
-import           Env
 import           Options
 
 import           HelVM.HelMA
 
+import           HelVM.HelIO.Extra                    (readFileTextUtf8)
 import qualified HelVM.HelMA.Automaton.API.AppOptions as App
+import           HelVM.HelMA.Automaton.API.Env
 
-import           HelVM.HelIO.Control.Control
-
-import           Control.Monad.Writer.Lazy            (runWriterT)
-
-import           HelVM.HelIO.Control.Message
-
-import qualified Data.DList                           as D
 import           Options.Applicative
+
 import qualified RIO
 import           RIO                                  (logOptionsHandle, runRIO, withLogFunc)
 
@@ -43,10 +38,12 @@ versionInfo _ = infoOption "1.0.0"
   <> help "print version information and exit")
 
 runApp :: MonadIO m => RIO.LogFunc -> App.AppOptions -> m ()
-runApp logFunc = runRIO (Env logFunc) . runAsRIO . actualMain
+runApp logFunc = runRIO (productionEnv logFunc) . actualMain
 
-runAsRIO :: (MonadIO m, MonadReader env m, RIO.HasLogFunc env) => ControlT m a -> m a
-runAsRIO rio = do
-  (result, logs) <- runWriterT $ runExceptT rio
-  forM_ (D.toList logs) (RIO.logInfo . RIO.display)
-  either (\err -> RIO.logError (RIO.display $ errorsToText err) >> RIO.exitFailure) pure result
+productionEnv :: RIO.LogFunc -> Env
+productionEnv logFunc = Env logFunc productionFileIO
+
+productionFileIO :: FileIO
+productionFileIO = FileIO
+  { readTextFile = readFileTextUtf8
+  }

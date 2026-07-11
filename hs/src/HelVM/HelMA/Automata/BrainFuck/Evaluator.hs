@@ -1,13 +1,18 @@
 module HelVM.HelMA.Automata.BrainFuck.Evaluator where
 
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Evaluator  as Fast
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser     as Fast
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Evaluator  as Flat
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser     as Flat
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Evaluator  as Tree
+import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser     as Tree
 
 import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
 import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
+
+import qualified HelVM.HelMA.Automaton.API.Emit                      as Emit
 
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
@@ -16,6 +21,14 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
+
+import           Text.Pretty.Simple
+
+run :: AppEff m => Emit.Emit -> BFType -> EvalParams -> m ()
+run Emit.No   i        = evalParams i
+run Emit.IL   FastType = ePutLTextLn . pShowNoColor . Fast.parseAsListSafe   . source
+run Emit.IL   TreeType = ePutLTextLn . pShowNoColor . Tree.parseAsVectorSafe . source
+run _ _                = ePutTextLn . show . Flat.readTokens . source
 
 simpleEval :: AppEff m => (BFType , Source , CellType) -> m ()
 simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Trampoline

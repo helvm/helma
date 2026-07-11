@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.Zot.Automaton (
+  run,
   evalParams,
   evalWithFormat,
 ) where
@@ -7,10 +8,13 @@ import           HelVM.HelMA.Automata.Zot.Evaluator
 import           HelVM.HelMA.Automata.Zot.Expression
 import           HelVM.HelMA.Automata.Zot.Parser
 
+import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
+
+import           HelVM.HelMA.Automaton.Extra
 
 import           HelVM.HelMA.Automaton.Types.LabelType
 
@@ -23,6 +27,10 @@ import           HelVM.HelIO.Digit.ToDigit
 import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Monad.Writer.Lazy
+
+run :: AppEff m => Emit -> EvalParams -> m ()
+run No = evalParams
+run _  = fallback
 
 evalParams :: AppEff m => EvalParams -> m ()
 evalParams p = ePutText =<< evalWithFormat (formatType p) (source p) =<< eGetContentsText

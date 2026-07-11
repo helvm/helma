@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.LazyK.Automaton (
-  run,
+  runAutomat,
   runWithTerminator,
   realize,
   realizeWithTrue,
@@ -13,8 +13,8 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Control.Safe
 
-run :: AppEff m => Lambda -> m ()
-run = runWithTerminator false
+runAutomat :: AppEff m => Lambda -> m ()
+runAutomat = runWithTerminator false
 
 runWithTerminator :: AppEff m => Lambda -> Lambda -> m ()
 runWithTerminator terminator lambda = output terminator lambda =<< realizeWithTrue lambda

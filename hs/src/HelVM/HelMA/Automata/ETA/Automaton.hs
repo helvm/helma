@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.ETA.Automaton (
-  run,
+  runAutomat,
   newMemory,
 ) where
 
@@ -21,8 +21,8 @@ import qualified Data.Vector                             as Vector
 
 import           Prelude                                 hiding (divMod)
 
-run :: (SAutomatonEff e s m) => Maybe Natural -> Memory s -> m $ Memory s
-run = trampolineMWithLimit nextState
+runAutomat :: (SAutomatonEff e s m) => Maybe Natural -> Memory s -> m $ Memory s
+runAutomat = trampolineMWithLimit nextState
 
 nextState :: (SAutomatonEff e s m) => Memory s -> m $ MemorySame s
 nextState (Memory iu s) = build =<< nextIM iu where build (t , iu') = doInstruction t (Memory iu' s)

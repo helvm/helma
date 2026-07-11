@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.ETA.Evaluator (
+  run,
   simpleEval,
   evalParams,
 ) where
@@ -8,12 +9,15 @@ import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 import           HelVM.HelMA.Automata.ETA.Automaton
 import           HelVM.HelMA.Automata.ETA.Lexer
 import           HelVM.HelMA.Automata.ETA.Optimizer
+import           HelVM.HelMA.Automata.ETA.Parser
 import qualified HelVM.HelMA.Automata.ETA.SimpleParams      as S
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
+
 import qualified HelVM.HelMA.Automaton.API.AutomatonOptions as Automaton
 import           HelVM.HelMA.Automaton.API.AutoOptions
+import qualified HelVM.HelMA.Automaton.API.Emit             as Emit
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
@@ -21,6 +25,7 @@ import qualified HelVM.HelMA.Automaton.Automaton            as Automaton
 
 import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 import           HelVM.HelMA.Automaton.Eff.MonadEff
+
 
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.StackType
@@ -30,6 +35,14 @@ import           HelVM.HelIO.Collections.SList              as SList
 import qualified Data.Sequence                              as Seq
 
 import           Prelude                                    hiding (divMod)
+
+import           Text.Pretty.Simple
+
+run :: AppEff m => Emit.Emit -> ETAImplType -> EvalParams -> m ()
+run Emit.No   i = evalParams i
+run Emit.IL   _ = ePutLTextLn . pShowNoColor . parseSafe . source
+run Emit.TL   _ = ePutTextLn . show . tokenize . source
+run Emit.Code _ = ePutTextLn . show . readTokens . source
 
 simpleEval :: AppEff m => S.SimpleParams -> m ()
 simpleEval p = evalSource (S.implType p) (S.source p) (S.stackType p) (S.autoOptions p)
@@ -55,4 +68,4 @@ originalEval tl SeqStackType   = eval tl Seq.empty
 originalEval tl SListStackType = eval tl SList.sListEmpty
 
 eval :: (SAutomatonEff Symbol s m) => TokenList -> s -> AutoOptions -> m ()
-eval tl s (AutoOptions _ limit dt) = logDump dt =<< run limit (newMemory tl s)
+eval tl s (AutoOptions _ limit dt) = logDump dt =<< runAutomat limit (newMemory tl s)

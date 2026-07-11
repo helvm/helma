@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automaton.Automaton (
   start,
   runAndDumpLogs,
-  run,
+  runAutomat,
 ) where
 
 import           HelVM.HelMA.Automaton.API.AutomatonOptions
@@ -54,10 +54,10 @@ start''' :: (SRAutomatonEff Symbol s r m) => InstructionList -> s -> r -> AutoOp
 start''' il s r p = runAndDumpLogs p (newMemory il s r)
 
 runAndDumpLogs :: (SRAutomatonEff Symbol s r m) => AutoOptions -> Memory s r ->  m ()
-runAndDumpLogs p = logDump (dumpType p) <=< run (limit p)
+runAndDumpLogs p = logDump (dumpType p) <=< runAutomat (limit p)
 
-run :: (SRAutomatonEff Symbol s r m) => LimitMaybe -> F s r m
-run = trampolineMWithLimit nextState
+runAutomat :: (SRAutomatonEff Symbol s r m) => LimitMaybe -> F s r m
+runAutomat = trampolineMWithLimit nextState
 
 nextState :: (SRAutomatonEff Symbol s r m) => SF s r m
 nextState a = nextStateForInstruction =<< currentInstruction (memoryCM a) where

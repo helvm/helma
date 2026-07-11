@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.SubLeq.Evaluator (
+  run,
   simpleEval,
   evalParams,
 ) where
@@ -6,6 +7,7 @@ module HelVM.HelMA.Automata.SubLeq.Evaluator (
 import           HelVM.HelMA.Automata.SubLeq.Automaton
 import           HelVM.HelMA.Automata.SubLeq.Lexer
 
+import qualified HelVM.HelMA.Automaton.API.Emit         as Emit
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
@@ -21,6 +23,12 @@ import qualified HelVM.HelIO.Collections.MapList        as MapList
 import qualified HelVM.HelIO.Collections.SList          as SList
 
 import qualified Data.Sequence                          as Seq
+
+run :: AppEff m => Emit.Emit -> EvalParams -> m ()
+run Emit.No   = evalParams
+run Emit.IL   = ePutTextLn . show . tokenize . source
+run Emit.TL   = ePutTextLn . show . tokenize . source
+run Emit.Code = ePutTextLn . show . readSymbols . source
 
 simpleEval :: AppEff m => RAMType -> Source -> m ()
 simpleEval rt s = evalSource s rt testMaybeLimit Pretty
@@ -43,4 +51,4 @@ evalIL' SListRAMType   = start . SList.sListFromList
 evalIL' MapListRAMType = start . MapList.mapListFromList
 
 start :: RAutomatonEff e r m => r -> LimitMaybe -> DumpType -> m ()
-start r limit dt = logDump dt =<< run limit (newMemory r)
+start r limit dt = logDump dt =<< runAutomat limit (newMemory r)

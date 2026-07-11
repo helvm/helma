@@ -113,6 +113,7 @@ library
     HelVM.HelMA.Automaton.API.MemoryOptions
     HelVM.HelMA.Automaton.API.AutoOptions
     HelVM.HelMA.Automaton.API.Emit
+    HelVM.HelMA.Automaton.API.Env
     HelVM.HelMA.Automaton.API.EvalParams
     HelVM.HelMA.Automaton.API.LogLevel
     HelVM.HelMA.Automaton.API.IOTypes
@@ -125,6 +126,8 @@ library
     HelVM.HelMA.Automaton.Eff.FreeEff
     HelVM.HelMA.Automaton.Eff.MockEff
     HelVM.HelMA.Automaton.Eff.MonadEff
+
+    HelVM.HelMA.Automaton.Extra 
 
     HelVM.HelMA.Automaton.Instruction
     HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
@@ -204,6 +207,7 @@ library
     HelVM.HelMA.Automata.ETA.Symbol
     HelVM.HelMA.Automata.ETA.Token
 
+    HelVM.HelMA.Automata.FALSE.Evaluator
     HelVM.HelMA.Automata.FALSE.Expression
     HelVM.HelMA.Automata.FALSE.Parser
 
@@ -219,6 +223,7 @@ library
     HelVM.HelMA.Automata.Piet.Color
     HelVM.HelMA.Automata.Piet.Coordinates
     HelVM.HelMA.Automata.Piet.Image
+    HelVM.HelMA.Automata.Piet.Evaluator
     HelVM.HelMA.Automata.Piet.MonadFailExtra
 
     HelVM.HelMA.Automata.Rev.Evaluator
@@ -267,7 +272,6 @@ executable helma
   hs-source-dirs:      hs/app
   main-is:             Main.hs
   other-modules:
-    Env
     Options
 
   build-depends:

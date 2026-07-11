@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.SubLeq.Automaton (
   newMemory,
-  run,
+  runAutomat,
 ) where
 
 import           HelVM.HelMA.Automaton.Eff.AutomatonEff
@@ -12,8 +12,8 @@ import           HelVM.HelMA.Automaton.Combiner.RAM     as RAM
 
 import           Control.Type.Operator
 
-run :: (RAutomatonEff e r m) => Maybe Natural -> Automaton e r -> m $ Automaton e r
-run = trampolineMWithLimit nextState
+runAutomat :: (RAutomatonEff e r m) => Maybe Natural -> Automaton e r -> m $ Automaton e r
+runAutomat = trampolineMWithLimit nextState
 
 nextState :: RAutomatonEff e r m => Automaton e r -> m $ AutomatonSame e r
 nextState a@(Automaton ic ram)

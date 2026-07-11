@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.WhiteSpace.Evaluator (
+  run,
   simpleEval,
   evalParams,
 ) where
@@ -9,6 +10,7 @@ import qualified HelVM.HelMA.Automata.WhiteSpace.SimpleParams as S
 import           HelVM.HelMA.Automata.WhiteSpace.Token
 
 import qualified HelVM.HelMA.Automaton.API.AutomatonOptions   as Automaton
+import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
@@ -23,6 +25,16 @@ import           HelVM.HelIO.Control.Safe
 
 import           Prelude                                      hiding (swap)
 
+import           Text.Pretty.Simple
+
+run :: AppEff m => Emit -> TokenType -> EvalParams -> m ()
+run No   t                = evalParams t
+run IL   VisibleTokenType = ePutLTextLn . pShowNoColor . (flipParseVisible <$> formatType <*> source)
+run IL   WhiteTokenType   = ePutLTextLn . pShowNoColor . (flipParseWhite   <$> formatType <*> source)
+run TL   VisibleTokenType = ePutTextLn . show . tokenizeVisible . source
+run TL   WhiteTokenType   = ePutTextLn . show . tokenizeWhite   . source
+run Code VisibleTokenType = ePutTextLn . show . readVisibleTokens . source
+run Code WhiteTokenType   = ePutTextLn . show . readWhiteTokens   . source
 
 simpleEval :: AppEff m => S.SimpleParams -> m ()
 simpleEval p = eval (S.tokenType p) (S.source p) (S.formatType p) $ S.automatonOptions p
