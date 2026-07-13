@@ -105,7 +105,7 @@ library
   hs-source-dirs:      hs/src
   exposed-modules:
 
-    HelVM.HelMA
+    HelVM.HelMA.Evaluator
 
     HelVM.HelMA.Automaton.API.AppOptions
     HelVM.HelMA.Automaton.API.AutomatonOptions

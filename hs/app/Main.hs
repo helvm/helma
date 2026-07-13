@@ -2,7 +2,7 @@ module Main where
 
 import           Options
 
-import           HelVM.HelMA
+import           HelVM.HelMA.Evaluator
 
 import           HelVM.HelIO.Extra                    (readFileTextUtf8)
 import qualified HelVM.HelMA.Automaton.API.AppOptions as App

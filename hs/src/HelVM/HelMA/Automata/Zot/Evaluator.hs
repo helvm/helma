@@ -1,73 +1,54 @@
 module HelVM.HelMA.Automata.Zot.Evaluator (
-  runExpressionList,
-)  where
+  runWithOptions,
+  run,
+  evalParams,
+  evalWithFormat,
+) where
 
+import           HelVM.HelMA.Automata.Zot.Automaton
 import           HelVM.HelMA.Automata.Zot.Expression
+import           HelVM.HelMA.Automata.Zot.Parser
+
+import qualified HelVM.HelMA.Automaton.API.AppOptions  as App
+import           HelVM.HelMA.Automaton.API.Emit
+import           HelVM.HelMA.Automaton.API.Env
+import           HelVM.HelMA.Automaton.API.EvalParams
+import           HelVM.HelMA.Automaton.API.IOTypes
+
+import           HelVM.HelMA.Automaton.Eff.MonadEff
+
+import           HelVM.HelMA.Automaton.Extra
+
+import           HelVM.HelMA.Automaton.Types.LabelType
+
+import           HelVM.HelIO.Containers.Extra
+import           HelVM.HelIO.Control.Safe
+
+import           HelVM.HelIO.Digit.Digitable
+import           HelVM.HelIO.Digit.ToDigit
+
+import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Monad.Writer.Lazy
 
-import qualified Data.ListLike                       as LL
+import qualified RIO
 
--- | High-level Expressions
-runExpressionList :: ExpressionList -> Out Expression
-runExpressionList el = foldExpression el >><< outputExpression >>< printExpression
+runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
+runWithOptions o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
 
-foldExpression :: ExpressionList -> Out Expression
-foldExpression = foldlM (><) emptyExpression
+run :: AppEff m => Emit -> EvalParams -> m ()
+run No = evalParams
+run _  = fallback
 
-emptyExpression :: Expression
-emptyExpression = contExpression iExpression
+evalParams :: AppEff m => EvalParams -> m ()
+evalParams p = ePutText =<< evalWithFormat (formatType p) (source p) =<< eGetContentsText
 
-outputExpression :: Out Expression
-outputExpression = kExpression ><< kExpression ><< kExpression ><< kExpression ><< kExpression ><< kExpression >< iExpression
+evalWithFormat :: MonadSafe m => LabelType -> Source -> LText -> m Output
+evalWithFormat BinaryLabel source input = pure $ showFoldable $ evalInternal source input
+evalWithFormat TextLabel   source input = (makeAsciiText28 . convert . evalInternal source) . showExpressionList =<< stringToDL (toString input)
 
-printExpression :: Expression
-printExpression = Expression innerPrintExpression
+evalInternal :: Source -> LText -> ExpressionDList
+evalInternal source input = eval $ fromStrict source <> input
 
-innerPrintExpression :: Expression -> Out Expression
-innerPrintExpression f = interrogateExpression f >>< Zero >>< One >>= tell . LL.singleton >> pure printExpression
-
-interrogateExpression :: Expression -> Out Expression
-interrogateExpression f = f >< iExpression >>< iExpression >>< iExpression >>< kExpression
-
--- | Operators
-infixl 9 ><
-(><) :: Expression -> Expression -> Out Expression
-(><) Zero           = (zeroExpression ><)
-(><) One            = (oneExpression ><)
-(><) (Expression f) = f
-
-infixl 6 >><
-(>><) :: Out Expression -> Expression -> Out Expression
-f >>< a = f >>= (>< a)
-
-infixr 8 ><<
-(><<) :: Expression -> Out Expression -> Out Expression
-f ><< a = (f ><) =<< a
-
-infixl 7 >><<
-(>><<) :: Out Expression -> Out Expression -> Out Expression
-f >><< a = f >>= (><< a)
-
-
--- | Low-level Expressions
-zeroExpression :: Expression
-zeroExpression = contExpression $ Expression $ \ f -> f >< sExpression >>< kExpression
-
-oneExpression :: Expression
-oneExpression = makeExpression $ \c -> contExpression $ makeExpression $ \l -> contExpression $ Expression $ \r -> c ><< l >< r
-
-contExpression :: Expression -> Expression
-contExpression = Expression . flip (><)
-
-sExpression :: Expression
-sExpression = makeExpression $ \x -> makeExpression $ \y -> Expression $ \z -> x >< z >><< y >< z
-
-kExpression :: Expression
-kExpression = makeExpression $ makeExpression . const
-
-iExpression :: Expression
-iExpression = makeExpression id
-
-makeExpression :: (Expression -> Expression) -> Expression
-makeExpression f =  Expression $ pure . f
+eval :: LText  -> ExpressionDList
+eval = execWriter . runExpressionList . parse

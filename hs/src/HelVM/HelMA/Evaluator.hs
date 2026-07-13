@@ -1,4 +1,4 @@
-module HelVM.HelMA where
+module HelVM.HelMA.Evaluator where
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions      as App
 import           HelVM.HelMA.Automaton.API.Env
@@ -13,7 +13,7 @@ import qualified HelVM.HelMA.Automata.Piet.Evaluator       as Piet
 import qualified HelVM.HelMA.Automata.Rev.Evaluator        as Rev
 import qualified HelVM.HelMA.Automata.SubLeq.Evaluator     as SQ
 import qualified HelVM.HelMA.Automata.WhiteSpace.Evaluator as WS
-import qualified HelVM.HelMA.Automata.Zot.Automaton        as Zot
+import qualified HelVM.HelMA.Automata.Zot.Evaluator        as Zot
 
 import qualified RIO
 

@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.Zot.EvaluatorSpec where
 
-import           HelVM.HelMA.Automata.Zot.Automaton
+import           HelVM.HelMA.Automata.Zot.Evaluator
 import           HelVM.HelMA.Automata.Zot.FileExtra
 
 import           HelVM.HelMA.Automaton.Types.LabelType
