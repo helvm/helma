@@ -1,14 +1,8 @@
 module HelVM.HelMA where
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions      as App
-import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
-import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.Lang
-
-import           HelVM.HelMA.Automaton.Eff.MonadEff
-
-import           HelVM.HelMA.Automaton.Extra
 
 import qualified HelVM.HelMA.Automata.BrainFuck.Evaluator  as BF
 import qualified HelVM.HelMA.Automata.Cat.Evaluator        as Cat
@@ -24,18 +18,18 @@ import qualified HelVM.HelMA.Automata.Zot.Automaton        as Zot
 import qualified RIO
 
 runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
-runWithOptions o = runAsRIO . run (App.emit o) (App.langWithOptions o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
+runWithOptions = runLang . App.lang <*> id
 
-run :: AppEff m => Emit -> LangWithOptions -> EvalParams -> m ()
+runLang :: Has env => Lang -> App.AppOptions -> RIO.RIO env ()
 -- Implerative
-run emit (LangWithOptions BF   i _ _) = BF.run   emit i
-run emit (LangWithOptions ETA  _ i _) = ETA.run  emit i
-run emit (LangWithOptions Piet _ _ _) = Piet.run emit
-run emit (LangWithOptions F    _ _ _) = F.run    emit
-run emit (LangWithOptions SQ   _ _ _) = SQ.run   emit
-run emit (LangWithOptions WS   _ _ t) = WS.run   emit t
+runLang BF   = BF.runWithOptions
+runLang ETA  = ETA.runWithOptions
+runLang Piet = Piet.runWithOptions
+runLang F    = F.runWithOptions
+runLang SQ   = SQ.runWithOptions
+runLang WS   = WS.runWithOptions
 -- Functional
-run emit (LangWithOptions Lazy _ _ _) = Lazy.run emit
-run emit (LangWithOptions Zot  _ _ _) = Zot.run  emit
-run emit (LangWithOptions Rev  _ _ _) = Rev.run  emit
-run emit (LangWithOptions Cat  _ _ _) = Cat.run  emit
+runLang Lazy = Lazy.runWithOptions
+runLang Zot  = Zot.runWithOptions
+runLang Rev  = Rev.runWithOptions
+runLang Cat  = Cat.runWithOptions
