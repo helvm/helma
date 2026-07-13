@@ -12,20 +12,15 @@ import           HelVM.HelMA.Automaton.API.OptimizationLevel as API
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
-import           HelVM.HelMA.Automaton.Types.FileType
 import           HelVM.HelMA.Automaton.Types.IntCellType
 import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
-import           HelVM.HelMA.Automaton.Types.TokenType
-
-import           HelVM.HelMA.Automata.BrainFuck.API.BFType
-import           HelVM.HelMA.Automata.ETA.API.ETAImplType
 
 -- | Methods
 
-langWithOptions :: AppOptions -> API.LangWithOptions
-langWithOptions o = API.LangWithOptions (lang o) (bfType o) (etaImplType o) (tokenType o)
+-- langWithOptions :: AppOptions -> API.LangWithOptions
+-- langWithOptions o = API.LangWithOptions (lang o) (bfType o) (etaImplType o) (tokenType o)
 
 evalParams :: AppOptions -> Source -> API.EvalParams
 evalParams o source = API.EvalParams (formatType o) source (memoryOptions o) (autoOptions o)
@@ -43,12 +38,6 @@ data AppOptions = AppOptions
   , printLogs        :: !PrintLogs
   , verbosity        :: !LogLevel
 
-  , lang             :: !API.Lang
-  , fileType         :: !FileType
-  , bfType           :: !BFType
-  , etaImplType      :: !ETAImplType
-  , tokenType        :: !TokenType
-
   , optimizationFlag :: !Optimization
   , formatType       :: !LabelType
   , ramType          :: !RAMType
@@ -58,5 +47,7 @@ data AppOptions = AppOptions
   , dumpType         :: !DumpType
   , codelSize        :: !(Maybe Int)
   , exec             :: !Exec
+  , langCommand      :: !API.LangCommand
   , file             :: !String
   }
+

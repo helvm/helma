@@ -8,7 +8,6 @@ import           HelVM.HelMA.Automaton.API.LogLevel
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
-import           HelVM.HelMA.Automaton.Types.FileType
 import           HelVM.HelMA.Automaton.Types.IntCellType
 import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
@@ -39,39 +38,6 @@ optionsParser = AppOptions
                    <> metavar "[LogLevel]"
                    <> help   ("Verbosity level " <> show logLevels)
                    <> value    defaultLogLevel
-                   <> showDefault
-                   )
-  <*> option auto  (  long    "lang"
-                   <> short   'l'
-                   <> metavar "[LANG]"
-                   <> help   ("Language to interpret " <> show langs)
-                   <> value    defaultLang
-                   <> showDefault
-                   )
-  <*> option auto  (  long    "fileType"
-                   <> short   'f'
-                   <> metavar "[FILEFORMAT]"
-                   <> help   ("Format to use " <> show fileFormats)
-                   <> value    defaultFileFormat
-                   <> showDefault
-                   )
-  <*> option auto  (  long    "BFType"
-                   <> short   'b'
-                   <> metavar "[BFType]"
-                   <> help   ("Type of BF implementation " <> show bfTypes)
-                   <> value    defaultBFType
-                   <> showDefault
-                   )
-  <*> option auto  (  long    "ETAImplType"
-                   <> metavar "[ETAImplType]"
-                   <> help   ("Type of ETA implementation " <> show etaImplTypes)
-                   <> value    defaultETAImplType
-                   <> showDefault
-                   )
-  <*> flag WhiteTokenType VisibleTokenType
-                   (  long    "tokenType"
-                   <> short   't'
-                   <> help    "Visible tokens for WS"
                    <> showDefault
                    )
   <*> switch       (  long    "optimize"
@@ -130,4 +96,27 @@ optionsParser = AppOptions
                    <> help    "Exec"
                    <> showDefault
                    )
+  <*> langCommandParser
   <*> argument str (  metavar "FILE")
+
+langCommandParser :: Parser LangCommand
+langCommandParser = subparser
+  (  command "bf"   (info bfParser   (progDesc "BrainFuck interpreter"))
+  <> command "eta"  (info etaParser  (progDesc "ETA interpreter"))
+  <> command "f"    (info (pure FCommand) (progDesc "F_ interpreter"))
+  <> command "piet" (info (pure PietCommand) (progDesc "Piet interpreter"))
+  <> command "sq"   (info (pure SQCommand) (progDesc "SQ interpreter"))
+  <> command "ws"   (info wsParser   (progDesc "WhiteSpace interpreter"))
+  <> command "cat"  (info (pure CatCommand) (progDesc "Cat interpreter"))
+  <> command "rev"  (info (pure RevCommand) (progDesc "Rev interpreter"))
+  <> command "lazy" (info (pure LazyCommand) (progDesc "Lazy interpreter"))
+  <> command "zot"  (info (pure ZotCommand) (progDesc "Zot interpreter"))
+  ) where
+    bfParser = BFCommand
+      <$> option auto (long "BFType" <> short 'b' <> metavar "[BFType]" <> value defaultBFType <> showDefault)
+
+    etaParser = ETACommand
+      <$> option auto (long "ETAImplType" <> metavar "[ETAImplType]" <> value defaultETAImplType <> showDefault)
+
+    wsParser = WSCommand
+      <$> flag WhiteTokenType VisibleTokenType (long "tokenType" <> short 't' <> help "Visible tokens for WS")

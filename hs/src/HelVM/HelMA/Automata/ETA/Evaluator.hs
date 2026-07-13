@@ -44,8 +44,8 @@ import qualified RIO
 
 import           Text.Pretty.Simple
 
-runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
-runWithOptions o = runAsRIO . run (App.emit o) (App.etaImplType o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
+runWithOptions :: Has env => ETAImplType -> App.AppOptions -> RIO.RIO env ()
+runWithOptions i o = runAsRIO . run (App.emit o) i . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
 
 run :: AppEff m => Emit.Emit -> ETAImplType -> EvalParams -> m ()
 run Emit.No   i = evalParams i
