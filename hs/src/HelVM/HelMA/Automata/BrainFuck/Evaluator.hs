@@ -7,22 +7,32 @@ import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser     as Flat
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Evaluator  as Tree
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser     as Tree
 
+
 import           HelVM.HelMA.Automata.BrainFuck.API.BFType
 
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
 import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
 
+import qualified HelVM.HelMA.Automaton.API.AppOptions                as App
 import qualified HelVM.HelMA.Automaton.API.Emit                      as Emit
+import           HelVM.HelMA.Automaton.API.Env
 
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
+import           HelVM.HelMA.Automaton.Extra
+
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
 
+import qualified RIO
+
 import           Text.Pretty.Simple
+
+runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
+runWithOptions o = runAsRIO . run (App.emit o) (App.bfType o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
 
 run :: AppEff m => Emit.Emit -> BFType -> EvalParams -> m ()
 run Emit.No   i        = evalParams i

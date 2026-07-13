@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.Zot.Automaton (
+  runWithOptions,
   run,
   evalParams,
   evalWithFormat,
@@ -8,7 +9,9 @@ import           HelVM.HelMA.Automata.Zot.Evaluator
 import           HelVM.HelMA.Automata.Zot.Expression
 import           HelVM.HelMA.Automata.Zot.Parser
 
+import qualified HelVM.HelMA.Automaton.API.AppOptions  as App
 import           HelVM.HelMA.Automaton.API.Emit
+import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
@@ -27,6 +30,11 @@ import           HelVM.HelIO.Digit.ToDigit
 import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Monad.Writer.Lazy
+
+import qualified RIO
+
+runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
+runWithOptions o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
 
 run :: AppEff m => Emit -> EvalParams -> m ()
 run No = evalParams

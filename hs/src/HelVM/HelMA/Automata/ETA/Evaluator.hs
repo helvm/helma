@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.ETA.Evaluator (
+  runWithOptions,
   run,
   simpleEval,
   evalParams,
@@ -15,9 +16,11 @@ import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
 
+import qualified HelVM.HelMA.Automaton.API.AppOptions       as App
 import qualified HelVM.HelMA.Automaton.API.AutomatonOptions as Automaton
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import qualified HelVM.HelMA.Automaton.API.Emit             as Emit
+import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
@@ -26,6 +29,7 @@ import qualified HelVM.HelMA.Automaton.Automaton            as Automaton
 import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
+import           HelVM.HelMA.Automaton.Extra
 
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.StackType
@@ -36,7 +40,12 @@ import qualified Data.Sequence                              as Seq
 
 import           Prelude                                    hiding (divMod)
 
+import qualified RIO
+
 import           Text.Pretty.Simple
+
+runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
+runWithOptions o = runAsRIO . run (App.emit o) (App.etaImplType o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
 
 run :: AppEff m => Emit.Emit -> ETAImplType -> EvalParams -> m ()
 run Emit.No   i = evalParams i

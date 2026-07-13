@@ -1,4 +1,5 @@
 module HelVM.HelMA.Automata.SubLeq.Evaluator (
+  runWithOptions,
   run,
   simpleEval,
   evalParams,
@@ -7,12 +8,16 @@ module HelVM.HelMA.Automata.SubLeq.Evaluator (
 import           HelVM.HelMA.Automata.SubLeq.Automaton
 import           HelVM.HelMA.Automata.SubLeq.Lexer
 
+import qualified HelVM.HelMA.Automaton.API.AppOptions   as App
 import qualified HelVM.HelMA.Automaton.API.Emit         as Emit
+import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 import           HelVM.HelMA.Automaton.Eff.MonadEff
+
+import           HelVM.HelMA.Automaton.Extra
 
 import           HelVM.HelMA.Automaton.Trampoline
 
@@ -23,6 +28,11 @@ import qualified HelVM.HelIO.Collections.MapList        as MapList
 import qualified HelVM.HelIO.Collections.SList          as SList
 
 import qualified Data.Sequence                          as Seq
+
+import qualified RIO
+
+runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
+runWithOptions o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
 
 run :: AppEff m => Emit.Emit -> EvalParams -> m ()
 run Emit.No   = evalParams
