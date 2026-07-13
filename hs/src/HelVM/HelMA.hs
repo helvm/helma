@@ -23,8 +23,8 @@ import qualified HelVM.HelMA.Automata.Zot.Automaton        as Zot
 
 import qualified RIO
 
-actualMain :: Has env => App.AppOptions -> RIO.RIO env ()
-actualMain o = runAsRIO . run (App.emit o) (App.langWithOptions o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
+runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
+runWithOptions o = runAsRIO . run (App.emit o) (App.langWithOptions o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
 
 run :: AppEff m => Emit -> LangWithOptions -> EvalParams -> m ()
 -- Implerative

@@ -38,7 +38,7 @@ versionInfo _ = infoOption "1.0.0"
   <> help "print version information and exit")
 
 runApp :: MonadIO m => RIO.LogFunc -> App.AppOptions -> m ()
-runApp logFunc = runRIO (productionEnv logFunc) . actualMain
+runApp logFunc = runRIO (productionEnv logFunc) . runWithOptions
 
 productionEnv :: RIO.LogFunc -> Env
 productionEnv logFunc = Env logFunc productionFileIO
