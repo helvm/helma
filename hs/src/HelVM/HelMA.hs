@@ -10,8 +10,6 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
 
-import           HelVM.HelMA.Automaton.Types.FileType
-
 import qualified HelVM.HelMA.Automata.BrainFuck.Evaluator  as BF
 import qualified HelVM.HelMA.Automata.Cat.Evaluator        as Cat
 import qualified HelVM.HelMA.Automata.ETA.Evaluator        as ETA
@@ -26,14 +24,7 @@ import qualified HelVM.HelMA.Automata.Zot.Automaton        as Zot
 import qualified RIO
 
 actualMain :: Has env => App.AppOptions -> RIO.RIO env ()
-actualMain  = runNoBuffering =<< App.fileType
-
-runNoBuffering :: Has env => FileType -> App.AppOptions -> RIO.RIO env ()
-runNoBuffering BinaryFile = runText
-runNoBuffering TextFile   = runText
-
-runText :: Has env => App.AppOptions -> RIO.RIO env ()
-runText o = runAsRIO . run (App.emit o) (App.langWithOptions o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
+actualMain o = runAsRIO . run (App.emit o) (App.langWithOptions o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
 
 run :: AppEff m => Emit -> LangWithOptions -> EvalParams -> m ()
 -- Implerative
