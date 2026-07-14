@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-partial-fields #-}
 module HelVM.HelMA.Automata.Piet.Evaluator (
-  runWithOptions,
+  runRio,
   run,
 ) where
 
@@ -16,8 +16,9 @@ import           HelVM.HelMA.Automaton.Extra
 
 import qualified RIO
 
-runWithOptions :: Has env => Maybe Natural -> Maybe LexerType -> App.AppOptions -> RIO.RIO env ()
-runWithOptions _ _ o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
+runRio :: Has env => Maybe Natural -> Maybe LexerType -> RIO.RIO env ()
+runRio _ _ = runWithOptions =<< optionsRio where
+  runWithOptions o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
 run :: AppEff m => Emit -> EvalParams -> m ()
 run No = const $ error "Piet is not supported"

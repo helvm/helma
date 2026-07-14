@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.Cat.Evaluator (
-  runWithOptions,
+  runRio,
   run,
   evalParams,
   eval
@@ -15,8 +15,9 @@ import           HelVM.HelMA.Automaton.Extra
 
 import qualified RIO
 
-runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
-runWithOptions o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
+runRio :: Has env => RIO.RIO env ()
+runRio = runWithOptions =<< optionsRio where
+  runWithOptions o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
 run :: AppEff m => Emit -> EvalParams -> m ()
 run No = evalParams

@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.SubLeq.Evaluator (
-  runWithOptions,
+  runRio,
   run,
   simpleEval,
   evalParams,
@@ -31,8 +31,9 @@ import qualified Data.Sequence                          as Seq
 
 import qualified RIO
 
-runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
-runWithOptions o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
+runRio :: Has env => RIO.RIO env ()
+runRio = runWithOptions =<< optionsRio where
+  runWithOptions o =  runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
 run :: AppEff m => Emit.Emit -> EvalParams -> m ()
 run Emit.No   = evalParams

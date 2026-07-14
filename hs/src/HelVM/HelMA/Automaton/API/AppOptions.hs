@@ -45,6 +45,6 @@ data AppOptions = AppOptions
   , codelSize        :: !(Maybe Int)
   , exec             :: !Exec
   , langCommand      :: !API.LangCommand
-  , file             :: !String
+  , file             :: !FilePath
   }
 

@@ -15,8 +15,9 @@ import qualified RIO
 
 import           Text.Pretty.Simple
 
-runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
-runWithOptions o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
+runRio :: Has env => RIO.RIO env ()
+runRio = runWIthOptions =<< optionsRio where
+  runWIthOptions o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
 run :: AppEff m => Emit -> EvalParams -> m ()
 run No = const $ error "FALSE is not supported now"

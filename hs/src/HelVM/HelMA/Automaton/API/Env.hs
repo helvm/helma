@@ -7,6 +7,12 @@ import           RIO
 
 type Has env = (RIO.HasLogFunc env, HasFileIO env, HasAppOptions env)
 
+readSourceFileRio :: Has env => RIO.RIO env Source
+readSourceFileRio = readSourceFileWithOptions =<< optionsRio where
+  readSourceFileWithOptions = readSourceFile <$> exec <*> file
+  readSourceFile True = pure . toText
+  readSourceFile _    = readTextFileRio
+
 readTextFileRio :: Has env => FilePath -> RIO.RIO env Source
 readTextFileRio = (RIO.view fileIOL >>=) . flip readTextFile
 

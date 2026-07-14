@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.WhiteSpace.Evaluator (
-  runWithOptions,
+  runRio,
   run,
   simpleEval,
   evalParams,
@@ -34,8 +34,9 @@ import qualified RIO
 
 import           Text.Pretty.Simple
 
-runWithOptions :: Has env => TokenType -> App.AppOptions -> RIO.RIO env ()
-runWithOptions t o = runAsRIO . run (App.emit o) t . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
+runRio :: Has env => TokenType -> RIO.RIO env ()
+runRio t = runWithOptions =<< optionsRio where
+  runWithOptions o = runAsRIO . run (App.emit o) t . App.evalParams o =<< readSourceFileRio
 
 run :: AppEff m => Emit -> TokenType -> EvalParams -> m ()
 run No   t                = evalParams t

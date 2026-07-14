@@ -17,20 +17,20 @@ import qualified HelVM.HelMA.Automata.Zot.Evaluator        as Zot
 
 import qualified RIO
 
-runWithOptions :: Has env => RIO.RIO env ()
-runWithOptions = runWithOpt =<< optionsRio where
-  runWithOpt opt = runLang (App.langCommand opt) opt
+runRio :: Has env => RIO.RIO env ()
+runRio = runWithOpt =<< optionsRio where
+  runWithOpt = runLang . App.langCommand
 
-runLang :: Has env => LangCommand -> App.AppOptions -> RIO.RIO env ()
+runLang :: Has env => LangCommand -> RIO.RIO env ()
 -- Implerative
-runLang (BFCommand     t) = BF.runWithOptions t
-runLang (ETACommand    i) = ETA.runWithOptions i
-runLang (PietCommand c l) = Piet.runWithOptions c l
-runLang FCommand          = F.runWithOptions
-runLang SQCommand         = SQ.runWithOptions
-runLang (WSCommand     t) = WS.runWithOptions t
+runLang (BFCommand     t) = BF.runRio t
+runLang (ETACommand    i) = ETA.runRio i
+runLang (PietCommand c l) = Piet.runRio c l
+runLang FCommand          = F.runRio
+runLang SQCommand         = SQ.runRio
+runLang (WSCommand     t) = WS.runRio t
 -- Functional
-runLang LazyCommand       = Lazy.runWithOptions
-runLang ZotCommand        = Zot.runWithOptions
-runLang RevCommand        = Rev.runWithOptions
-runLang CatCommand        = Cat.runWithOptions
+runLang LazyCommand       = Lazy.runRio
+runLang ZotCommand        = Zot.runRio
+runLang RevCommand        = Rev.runRio
+runLang CatCommand        = Cat.runRio

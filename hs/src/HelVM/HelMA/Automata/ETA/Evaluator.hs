@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.ETA.Evaluator (
-  runWithOptions,
+  runRio,
   run,
   simpleEval,
   evalParams,
@@ -44,8 +44,9 @@ import qualified RIO
 
 import           Text.Pretty.Simple
 
-runWithOptions :: Has env => AutomatonType -> App.AppOptions -> RIO.RIO env ()
-runWithOptions i o = runAsRIO . run (App.emit o) i . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
+runRio :: Has env => AutomatonType -> RIO.RIO env ()
+runRio i = runWIthOptions =<< optionsRio where
+  runWIthOptions o = runAsRIO . run (App.emit o) i . App.evalParams o =<< readSourceFileRio
 
 run :: AppEff m => Emit.Emit -> AutomatonType -> EvalParams -> m ()
 run Emit.No   i = evalParams i
