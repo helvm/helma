@@ -17,8 +17,9 @@ import qualified HelVM.HelMA.Automata.Zot.Evaluator        as Zot
 
 import qualified RIO
 
-runWithOptions :: Has env => App.AppOptions -> RIO.RIO env ()
-runWithOptions = runLang . App.langCommand <*> id
+runWithOptions :: Has env => RIO.RIO env ()
+runWithOptions = runWithOpt =<< optionsRio where
+  runWithOpt opt = runLang (App.langCommand opt) opt
 
 runLang :: Has env => LangCommand -> App.AppOptions -> RIO.RIO env ()
 -- Implerative

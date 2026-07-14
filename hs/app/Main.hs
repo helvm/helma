@@ -22,7 +22,7 @@ main = do
   opts     <- execParser (optsInfo progName)
   hSetBuffering stdout IO.NoBuffering
   logOptions <- logOptionsHandle stderr True
-  withLogFunc logOptions (`runApp` opts)
+  withLogFunc logOptions (runApp opts)
   exitSuccess
 
 optsInfo :: String -> ParserInfo App.AppOptions
@@ -37,10 +37,10 @@ versionInfo _ = infoOption "1.0.0"
   (  long "version"
   <> help "print version information and exit")
 
-runApp :: MonadIO m => RIO.LogFunc -> App.AppOptions -> m ()
-runApp logFunc options = runRIO (productionEnv logFunc options) $ runWithOptions options
+runApp :: MonadIO m => App.AppOptions -> RIO.LogFunc ->  m ()
+runApp = (liftIO .) . fmap (`runRIO` runWithOptions) . productionEnv
 
-productionEnv :: RIO.LogFunc -> App.AppOptions-> Env
+productionEnv :: App.AppOptions -> RIO.LogFunc -> Env
 productionEnv = Env productionFileIO
 
 productionFileIO :: FileIO

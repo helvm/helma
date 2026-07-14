@@ -5,29 +5,36 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           RIO
 
-type Has env = (RIO.HasLogFunc env, HasFileIO env)
+type Has env = (RIO.HasLogFunc env, HasFileIO env, HasAppOptions env)
 
 readTextFileRio :: Has env => FilePath -> RIO.RIO env Source
 readTextFileRio = (RIO.view fileIOL >>=) . flip readTextFile
 
--- rioOptions :: Has env => RIO.RIO env AppOptions
--- rioOptions = asks envOptimize
+optionsRio :: Has env => RIO.RIO env AppOptions
+optionsRio = RIO.view appOptionsL
 
 data Env = Env
   { envFileIO  :: FileIO
-  , envLogFunc :: LogFunc
   , envOptions :: AppOptions
+  , envLogFunc :: LogFunc
   }
 
 newtype FileIO = FileIO
   { readTextFile :: forall env. (HasLogFunc env) => FilePath -> RIO env Source
   }
 
-instance HasLogFunc Env where
-  logFuncL = lens envLogFunc (\x y -> x { envLogFunc = y })
-
 class HasFileIO env where
   fileIOL :: Lens' env FileIO
 
 instance HasFileIO Env where
   fileIOL = lens envFileIO (\x y -> x { envFileIO = y })
+
+class HasAppOptions env where
+  appOptionsL :: Lens' env AppOptions
+
+instance HasAppOptions Env where
+  appOptionsL = lens envOptions (\x y -> x { envOptions = y })
+
+instance HasLogFunc Env where
+  logFuncL = lens envLogFunc (\x y -> x { envLogFunc = y })
+
