@@ -14,7 +14,7 @@ wFilterIf0 = do
   char <- eGetChar
   if char == '0'
     then do
-      eLogTextLn ""
+      logInfo "\n"
       ePutChar '\n'
     else do
       ePutChar char

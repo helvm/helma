@@ -18,7 +18,10 @@ module HelVM.HelMA.Automaton.Eff.MockEff (
   MockEffData,
 ) where
 
+
 import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.LogLevel
+
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Control.Control
@@ -26,6 +29,7 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.ListLikeExtra
 
+import qualified Data.DList                         as DList
 import           Data.Text                          as Text
 
 ioExecMockEffBatch :: ControlT MockEff () -> IO MockEffData
@@ -49,17 +53,17 @@ execMockEffWithInput i a = runMockEff i $ safeWithMessages <$> a
 ----
 
 runMockEff :: Input -> MockEff UnitSafeWithMessages -> MockEffData
-runMockEff i mockIO = flip mockDataLogText mockIOData $ safeWithMessagesToText s
+runMockEff i mockIO = flip mockDataLogInfo mockIOData $ safeWithMessagesToText s
   where (s , mockIOData) = runState mockIO $ createMockEff i
 
 createMockEff :: Input -> MockEffData
-createMockEff i = MockEffData "" (toString i) "" ""
+createMockEff i = MockEffData "" (toString i) "" DList.empty
 
 calculateOutput :: MockEffData -> Output
 calculateOutput = calculateText . output
 
 calculateLogged :: MockEffData -> Output
-calculateLogged = calculateText . logged
+calculateLogged d = Text.concat $ DList.toList $ snd <$> logged d
 
 ----
 
@@ -72,7 +76,7 @@ instance MonadEff MockEff where
   ePutChar         = mockPutChar
   ePutText         = mockPutText
   eReadFileText    = mockReadFileText
-  eLogText         = mockLogText
+  log              = mockLog
 
 instance MonadEff (SafeT MockEff) where
   eGetContentsBS   = mockGetContentsBS
@@ -83,7 +87,7 @@ instance MonadEff (SafeT MockEff) where
   ePutChar         = mockPutChar
   ePutText         = mockPutText
   eReadFileText    = mockReadFileText
-  eLogText         = mockLogText
+  log              = mockLog
 
 ----
 
@@ -129,8 +133,8 @@ mockPutText = modify . mockDataPutText
 mockReadFileText :: MonadMockEff m => FilePath -> m Text
 mockReadFileText _ = toText . code <$> get
 
-mockLogText :: MonadMockEff m => Text -> m ()
-mockLogText = modify . mockDataLogText
+mockLog :: MonadMockEff m => LogLevel -> Text -> m ()
+mockLog l m = modify $ mockDataLog l m
 
 ----
 
@@ -140,8 +144,11 @@ mockDataPutChar char mockIO = mockIO { output = char : output mockIO }
 mockDataPutText :: Text -> MockEffData -> MockEffData
 mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
 
-mockDataLogText :: Text -> MockEffData -> MockEffData
-mockDataLogText text mockIO = mockIO { logged = calculateString text <> logged mockIO }
+mockDataLogInfo :: Text -> MockEffData -> MockEffData
+mockDataLogInfo = mockDataLog Info
+
+mockDataLog :: LogLevel -> Text -> MockEffData -> MockEffData
+mockDataLog l m mockIO = mockIO { logged = logged mockIO <> DList.singleton (l , m) }
 
 ----
 
@@ -163,11 +170,13 @@ data MockEffData = MockEffData
   { code   :: !String
   , input  :: !String
   , output :: !String
-  , logged :: !String
+  , logged :: !Logs
   }
   deriving stock (Eq , Read , Show)
 
 ----
+
+type Logs = DList.DList(LogLevel, Text)
 
 splitStringByLn :: String -> (String , String)
 splitStringByLn = splitBy '\n'

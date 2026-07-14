@@ -27,24 +27,27 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   eFlush,
   eReadFileText,
 
-  eLogText,
-  eLogTextLn,
-  eLogShow,
+  log,
+  logError,
+  logWarn,
+  logInfo,
+  logDebug,
 ) where
 
 import           HelVM.HelIO.Control.Control
+import           HelVM.HelMA.Automaton.API.LogLevel
 
 import           HelVM.HelIO.Extra
 import           HelVM.HelIO.ReadText
 
-import qualified Data.ByteString.Lazy        as LByteString
-import           Data.Default                as Default
-import qualified Data.Text.IO                as Text
-import qualified Data.Text.Lazy.IO           as LText
+import qualified Data.ByteString.Lazy               as LByteString
+import           Data.Default                       as Default
+import qualified Data.Text.IO                       as Text
+import qualified Data.Text.Lazy.IO                  as LText
 
 import qualified RIO
 
-import qualified System.IO                   as IO
+import qualified System.IO                          as IO
 
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)
@@ -74,9 +77,7 @@ class Monad m => MonadEff m where
   eFlush           :: m ()
   eReadFileText    :: FilePath -> m Text
 
-  eLogText         :: Text -> m ()
-  eLogTextLn       :: Text -> m ()
-  eLogShow         :: Show s => s -> m ()
+  log              :: LogLevel -> Text -> m ()
 
   ePutAsChar    = ePutIntAsChar . fromIntegral
   ePutAsDec     = ePutIntAsDec  . fromIntegral
@@ -92,11 +93,20 @@ class Monad m => MonadEff m where
   ePutLTextLn   = ePutTextLn . toText
   eFlush        = pass
 
-  eLogTextLn s  = eLogText $ s <> "\n"
-  eLogShow      = eLogTextLn . show
+logError :: MonadEff m => Text -> m ()
+logError = log Error
 
-logText :: Text -> IO ()
-logText = Text.hPutStrLn stderr
+logWarn :: MonadEff m => Text -> m ()
+logWarn = log Warn
+
+logInfo :: MonadEff m => Text -> m ()
+logInfo = log Info
+
+logDebug :: MonadEff m => Text -> m ()
+logDebug = log Debug
+
+logIO :: LogLevel -> Text -> IO ()
+logIO l m = Text.hPutStrLn stderr $ logToTextLn (l , m)
 
 flush :: IO ()
 flush = hFlush stdout
@@ -113,7 +123,7 @@ instance MonadEff IO where
   ePutLTextLn      = putLTextLn
   eFlush           = flush
   eReadFileText    = readFileTextUtf8
-  eLogText         = logText
+  log              = logIO
 
 
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
@@ -128,7 +138,7 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   ePutLTextLn      = lift . ePutLTextLn
   eFlush           = lift eFlush
   eReadFileText    = lift . eReadFileText
-  eLogText         = lift . eLogText
+  log              = (lift .) . log
 
 instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   eGetContentsBS   = liftIO LByteString.getContents
@@ -142,4 +152,10 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   ePutLTextLn      = liftIO . putLTextLn
   eFlush           = liftIO flush
   eReadFileText    = liftIO . readFileTextUtf8
-  eLogText         = RIO.logInfo . RIO.display
+  log l            = RIO.logGeneric "" (toRioLevel l) . RIO.display
+
+toRioLevel :: LogLevel -> RIO.LogLevel
+toRioLevel Error = RIO.LevelError
+toRioLevel Warn  = RIO.LevelWarn
+toRioLevel Info  = RIO.LevelInfo
+toRioLevel Debug = RIO.LevelDebug

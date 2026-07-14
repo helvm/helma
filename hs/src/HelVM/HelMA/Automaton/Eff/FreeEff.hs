@@ -6,6 +6,7 @@ module HelVM.HelMA.Automaton.Eff.FreeEff (
   FreeEff,
 ) where
 
+import           HelVM.HelMA.Automaton.API.LogLevel
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           Control.Monad.Free
@@ -33,20 +34,19 @@ interpretFreeEffFToMonadEff (PutText        s v ) = ePutText   s $> v
 interpretFreeEffFToMonadEff (PutTextLn      s v ) = ePutTextLn s $> v
 interpretFreeEffFToMonadEff (Flush            v ) = eFlush       $> v
 interpretFreeEffFToMonadEff (ReadFileText   s cd) = cd <$> eReadFileText s
-interpretFreeEffFToMonadEff (LogText        s v ) = eLogText   s $> v
-interpretFreeEffFToMonadEff (LogTextLn      s v ) = eLogTextLn s $> v
+interpretFreeEffFToMonadEff (Log           l m v) = log      l m $> v
 
 ----
 
 logInputF :: FreeEffF a -> FreeEff a
-logInputF (GetChar     cd) = freeGetChar     >>= (\c -> liftF $ LogText (one      c) (cd c))
-logInputF (GetLine     cd) = freeGetLine     >>= (\l -> liftF $ LogText           l  (cd l))
+logInputF (GetChar     cd) = freeGetChar     >>= (\c -> liftF $ Log Info (one      c) (cd c))
+logInputF (GetLine     cd) = freeGetLine     >>= (\l -> liftF $ Log Info           l  (cd l))
 logInputF               f  =                            liftF f
 
 logOutputF :: FreeEffF a -> FreeEff a
-logOutputF f@(PutChar c v)  = liftF (LogText (one c) v) *> liftF f
-logOutputF f@(PutText  s v) = liftF (LogText       s v) *> liftF f
-logOutputF f                =                              liftF f
+logOutputF f@(PutChar c v)  = liftF (Log Info (one c) v) *> liftF f
+logOutputF f@(PutText  s v) = liftF (Log Info       s v) *> liftF f
+logOutputF f                =                                liftF f
 
 -- | Instances
 instance MonadEff FreeEff where
@@ -60,8 +60,7 @@ instance MonadEff FreeEff where
   ePutTextLn       = freePutTextLn
   eFlush           = freeFlush
   eReadFileText    = freeReadFileText
-  eLogText         = freeLogText
-  eLogTextLn       = freeLogTextLn
+  log              = freelog
 
 -- | Low level functions
 freeGetContentsBS :: FreeEff LByteString
@@ -94,11 +93,8 @@ freeFlush = liftF $ Flush ()
 freeReadFileText :: FilePath -> FreeEff Text
 freeReadFileText s = liftF $ ReadFileText s id
 
-freeLogText :: Text -> FreeEff ()
-freeLogText = liftF . flip LogText ()
-
-freeLogTextLn :: Text -> FreeEff ()
-freeLogTextLn = liftF . flip LogTextLn ()
+freelog :: LogLevel -> Text -> FreeEff ()
+freelog = (liftF .) . flip flip () . Log
 
 -- | Types
 type FreeEff = Free FreeEffF
@@ -114,6 +110,5 @@ data FreeEffF a
  | PutTextLn        Text                     a
  | Flush                                     a
  | ReadFileText     FilePath (Text        -> a)
- | LogText          Text                     a
- | LogTextLn        Text                     a
+ | Log              LogLevel Text            a
  deriving stock (Functor)
