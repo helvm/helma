@@ -1,23 +1,15 @@
 module HelVM.HelMA.Automaton.API.Lang where
 
-import           HelVM.HelMA.Automaton.Types.TokenType
-
-import           HelVM.HelMA.Automata.BrainFuck.API.BFType
-import           HelVM.HelMA.Automata.ETA.API.ETAImplType
-
-
-data LangWithOptions = LangWithOptions
-  { lang        :: !Lang
-  , bfType      :: !BFType
-  , etaImplType :: !ETAImplType
-  , tokenType   :: !TokenType
-  }
+import           HelVM.HelMA.Automata.BrainFuck.API.ImplType
+import           HelVM.HelMA.Automata.ETA.API.AutomatonType
+import           HelVM.HelMA.Automata.Piet.API.LexerType
+import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 
 data LangCommand
-  = BFCommand !BFType
-  | ETACommand !ETAImplType
+  = BFCommand !ImplType
+  | ETACommand !AutomatonType
   | FCommand
-  | PietCommand
+  | PietCommand !(Maybe Natural) !(Maybe LexerType)
   | SQCommand
   | WSCommand !TokenType
   | CatCommand

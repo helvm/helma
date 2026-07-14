@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automaton.Types.TokenType where
+module HelVM.HelMA.Automata.WhiteSpace.API.TokenType where
 
 -- | Constructors
 defaultTokenType :: TokenType

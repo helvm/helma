@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automata.WhiteSpace.Lexer where
 
+import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.Token
 
 import           HelVM.HelIO.ReadText
 import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.Types.TokenType
 import           HelVM.HelMA.Automaton.WrapTokenList
 
 -- | Lexer

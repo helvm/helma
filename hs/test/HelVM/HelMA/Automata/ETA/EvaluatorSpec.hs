@@ -4,7 +4,7 @@ import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.FileExtra
 import           HelVM.HelMA.Automata.ETA.SimpleParams
 
-import           HelVM.HelMA.Automata.ETA.API.ETAImplType
+import           HelVM.HelMA.Automata.ETA.API.AutomatonType
 
 import           HelVM.HelMA.Automaton.Eff.MockEff
 import           HelVM.HelMA.Automaton.Types.StackType
@@ -15,7 +15,7 @@ import           HelVM.GoldenExpectations
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                               (Spec, describe, it)
+import           Test.Hspec                                 (Spec, describe, it)
 
 spec :: Spec
 spec =
@@ -23,11 +23,11 @@ spec =
     [ ("hello"    , [""])
     , ("hello2"   , [""])
     , ("crlf"     , [""])
-    ] >*< (["original"] >*< toList etaImplTypes)
+    ] >*< (["original"] >*< toList automatonTypes)
     ) <> (
     [ ("bottles"  , [""])
     , ("fact"     , ["1\n" , "7\n"])
-    ] >*< (["original"] >*< [defaultETAImplType])
+    ] >*< (["original"] >*< [defaultAutomatonType])
     ) <> (
     [ ("true"     , [""])
     , ("hello"    , [""])
@@ -39,7 +39,7 @@ spec =
     , ("bottles"  , [""])
     , ("divmod"   , [""])
     , ("readchar" , ["A"])
-    ] >*< (["from-eas"] >*< [defaultETAImplType])
+    ] >*< (["from-eas"] >*< [defaultAutomatonType])
     )) $ \((fileName , inputs) , (dirName , implType)) -> do
       let filePath = dirName </> fileName
       let file = readEtaFile filePath

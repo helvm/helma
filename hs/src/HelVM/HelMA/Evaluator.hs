@@ -22,14 +22,14 @@ runWithOptions = runLang . App.langCommand <*> id
 
 runLang :: Has env => LangCommand -> App.AppOptions -> RIO.RIO env ()
 -- Implerative
-runLang (BFCommand  t) = BF.runWithOptions  t
-runLang (ETACommand i) = ETA.runWithOptions i
-runLang PietCommand    = Piet.runWithOptions
-runLang FCommand       = F.runWithOptions
-runLang SQCommand      = SQ.runWithOptions
-runLang (WSCommand  t) = WS.runWithOptions  t
+runLang (BFCommand     t) = BF.runWithOptions  t
+runLang (ETACommand    i) = ETA.runWithOptions i
+runLang (PietCommand c l) = Piet.runWithOptions c l
+runLang FCommand          = F.runWithOptions
+runLang SQCommand         = SQ.runWithOptions
+runLang (WSCommand     t) = WS.runWithOptions  t
 -- Functional
-runLang LazyCommand    = Lazy.runWithOptions
-runLang ZotCommand     = Zot.runWithOptions
-runLang RevCommand     = Rev.runWithOptions
-runLang CatCommand     = Cat.runWithOptions
+runLang LazyCommand       = Lazy.runWithOptions
+runLang ZotCommand        = Zot.runWithOptions
+runLang RevCommand        = Rev.runWithOptions
+runLang CatCommand        = Cat.runWithOptions

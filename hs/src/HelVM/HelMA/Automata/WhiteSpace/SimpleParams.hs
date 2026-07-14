@@ -1,13 +1,14 @@
 module HelVM.HelMA.Automata.WhiteSpace.SimpleParams where
 
-import qualified HelVM.HelMA.Automaton.API.AutomatonOptions as Automaton
+import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
+
+import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
-import           HelVM.HelMA.Automaton.Types.TokenType
 
 -- | Construction for tests
 simpleParamsWithDefaultsAndWhiteTokenType :: LabelType -> Source -> SimpleParams

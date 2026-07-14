@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec (spec) where
 
+import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
 import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
 import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
@@ -7,14 +8,13 @@ import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 import           HelVM.HelMA.Automaton.Eff.MockEff
 
 import           HelVM.HelMA.Automaton.Types.LabelType
-import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.GoldenExpectations
 import           HelVM.HelIO.CartesianProduct
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                                   (Spec, describe, it)
+import           Test.Hspec                                    (Spec, describe, it)
 
 spec :: Spec
 spec =

@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automata.WhiteSpace.ParserSpec (spec) where
 
+import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 import           HelVM.HelMA.Automata.WhiteSpace.Parser
@@ -9,7 +10,6 @@ import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Optimizer
 
 import           HelVM.HelMA.Automaton.Types.LabelType
-import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.HelIO.Control.Safe
 
@@ -19,9 +19,9 @@ import           HelVM.GoldenExpectations
 
 import           Control.Applicative.Tools
 
-import           System.FilePath.Posix                       hiding ((<.>))
+import           System.FilePath.Posix                         hiding ((<.>))
 
-import           Test.Hspec                                  (Spec, describe, it)
+import           Test.Hspec                                    (Spec, describe, it)
 
 spec :: Spec
 spec =

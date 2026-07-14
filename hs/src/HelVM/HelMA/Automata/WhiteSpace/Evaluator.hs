@@ -5,13 +5,14 @@ module HelVM.HelMA.Automata.WhiteSpace.Evaluator (
   evalParams,
 ) where
 
+import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 import           HelVM.HelMA.Automata.WhiteSpace.Parser
-import qualified HelVM.HelMA.Automata.WhiteSpace.SimpleParams as S
+import qualified HelVM.HelMA.Automata.WhiteSpace.SimpleParams  as S
 import           HelVM.HelMA.Automata.WhiteSpace.Token
 
-import qualified HelVM.HelMA.Automaton.API.AppOptions         as App
-import qualified HelVM.HelMA.Automaton.API.AutomatonOptions   as Automaton
+import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
+import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
@@ -24,11 +25,10 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           HelVM.HelMA.Automaton.Extra
 
 import           HelVM.HelMA.Automaton.Types.LabelType
-import           HelVM.HelMA.Automaton.Types.TokenType
 
 import           HelVM.HelIO.Control.Safe
 
-import           Prelude                                      hiding (swap)
+import           Prelude                                       hiding (swap)
 
 import qualified RIO
 

@@ -154,12 +154,10 @@ library
 
     HelVM.HelMA.Automaton.Types.CellType
     HelVM.HelMA.Automaton.Types.DumpType
-    HelVM.HelMA.Automaton.Types.FileType
     HelVM.HelMA.Automaton.Types.IntCellType
     HelVM.HelMA.Automaton.Types.LabelType
     HelVM.HelMA.Automaton.Types.RAMType
     HelVM.HelMA.Automaton.Types.StackType
-    HelVM.HelMA.Automaton.Types.TokenType
 
     HelVM.HelMA.Automaton.Combiner
     HelVM.HelMA.Automaton.Combiner.ALU
@@ -171,7 +169,7 @@ library
 
     HelVM.HelMA.Automata.BrainFuck.Evaluator
 
-    HelVM.HelMA.Automata.BrainFuck.API.BFType
+    HelVM.HelMA.Automata.BrainFuck.API.ImplType
 
     HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction
     HelVM.HelMA.Automata.BrainFuck.Common.Symbol
@@ -194,7 +192,7 @@ library
 
     HelVM.HelMA.Automata.Cat.Evaluator
 
-    HelVM.HelMA.Automata.ETA.API.ETAImplType
+    HelVM.HelMA.Automata.ETA.API.AutomatonType
 
     HelVM.HelMA.Automata.ETA.Addressing
     HelVM.HelMA.Automata.ETA.Automaton
@@ -220,6 +218,7 @@ library
     HelVM.HelMA.Automata.LazyK.Parser
     HelVM.HelMA.Automata.LazyK.Reducer
 
+    HelVM.HelMA.Automata.Piet.API.LexerType
     HelVM.HelMA.Automata.Piet.Color
     HelVM.HelMA.Automata.Piet.Coordinates
     HelVM.HelMA.Automata.Piet.Image
@@ -233,6 +232,7 @@ library
     HelVM.HelMA.Automata.SubLeq.Lexer
     HelVM.HelMA.Automata.SubLeq.Symbol
 
+    HelVM.HelMA.Automata.WhiteSpace.API.TokenType
     HelVM.HelMA.Automata.WhiteSpace.Evaluator
     HelVM.HelMA.Automata.WhiteSpace.Lexer
     HelVM.HelMA.Automata.WhiteSpace.OperandParsers

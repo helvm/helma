@@ -5,7 +5,7 @@ module HelVM.HelMA.Automata.ETA.Evaluator (
   evalParams,
 ) where
 
-import           HelVM.HelMA.Automata.ETA.API.ETAImplType
+import           HelVM.HelMA.Automata.ETA.API.AutomatonType
 
 import           HelVM.HelMA.Automata.ETA.Automaton
 import           HelVM.HelMA.Automata.ETA.Lexer
@@ -44,10 +44,10 @@ import qualified RIO
 
 import           Text.Pretty.Simple
 
-runWithOptions :: Has env => ETAImplType -> App.AppOptions -> RIO.RIO env ()
+runWithOptions :: Has env => AutomatonType -> App.AppOptions -> RIO.RIO env ()
 runWithOptions i o = runAsRIO . run (App.emit o) i . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
 
-run :: AppEff m => Emit.Emit -> ETAImplType -> EvalParams -> m ()
+run :: AppEff m => Emit.Emit -> AutomatonType -> EvalParams -> m ()
 run Emit.No   i = evalParams i
 run Emit.IL   _ = ePutLTextLn . pShowNoColor . parseSafe . source
 run Emit.TL   _ = ePutTextLn . show . tokenize . source
@@ -58,13 +58,13 @@ simpleEval p = evalSource (S.implType p) (S.source p) (S.stackType p) (S.autoOpt
 
 ----
 
-evalParams :: AppEff m => ETAImplType -> EvalParams -> m ()
+evalParams :: AppEff m => AutomatonType -> EvalParams -> m ()
 evalParams e p = evalSource e (source p) (stackAutoOptions p) (autoOptions p)
 
-evalSource :: (AutomatonEff Symbol m) => ETAImplType -> Source -> StackType -> AutoOptions -> m ()
-evalSource etaImplType source = evalTL etaImplType (tokenize source)
+evalSource :: (AutomatonEff Symbol m) => AutomatonType -> Source -> StackType -> AutoOptions -> m ()
+evalSource automatonType source = evalTL automatonType (tokenize source)
 
-evalTL :: (AutomatonEff Symbol m) => ETAImplType -> TokenList -> StackType -> AutoOptions -> m ()
+evalTL :: (AutomatonEff Symbol m) => AutomatonType -> TokenList -> StackType -> AutoOptions -> m ()
 evalTL Fast     = fastEval
 evalTL Original = originalEval
 

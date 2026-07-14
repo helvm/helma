@@ -8,7 +8,7 @@ import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Evaluator  as Tree
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser     as Tree
 
 
-import           HelVM.HelMA.Automata.BrainFuck.API.BFType
+import           HelVM.HelMA.Automata.BrainFuck.API.ImplType
 
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
 import           HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
@@ -31,24 +31,24 @@ import qualified RIO
 
 import           Text.Pretty.Simple
 
-runWithOptions :: Has env => BFType -> App.AppOptions -> RIO.RIO env ()
+runWithOptions :: Has env => ImplType -> App.AppOptions -> RIO.RIO env ()
 runWithOptions t o = runAsRIO . run (App.emit o) t . App.evalParams o =<< readSourceFile (App.exec o) (App.file o)
 
-run :: AppEff m => Emit.Emit -> BFType -> EvalParams -> m ()
+run :: AppEff m => Emit.Emit -> ImplType -> EvalParams -> m ()
 run Emit.No   i        = evalParams i
 run Emit.IL   FastType = ePutLTextLn . pShowNoColor . Fast.parseAsListSafe   . source
 run Emit.IL   TreeType = ePutLTextLn . pShowNoColor . Tree.parseAsVectorSafe . source
 run _ _                = ePutTextLn . show . Flat.readTokens . source
 
-simpleEval :: AppEff m => (BFType , Source , CellType) -> m ()
+simpleEval :: AppEff m => (ImplType , Source , CellType) -> m ()
 simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Trampoline
 
 ----
 
-evalParams :: AppEff m => BFType -> EvalParams -> m ()
+evalParams :: AppEff m => ImplType -> EvalParams -> m ()
 evalParams b p = eval b (source p) (cellAutoOptions p) (dumpAutoOptions p)
 
-eval :: AppEff m => BFType -> Source -> CellType -> DumpType -> m ()
+eval :: AppEff m => ImplType -> Source -> CellType -> DumpType -> m ()
 eval c s Int8Type   = evalSource c s (newTape :: FullTape Int8)
 eval c s Word8Type  = evalSource c s (newTape :: FullTape Word8)
 eval c s Int16Type  = evalSource c s (newTape :: FullTape Int16)
@@ -58,7 +58,7 @@ eval c s Word32Type = evalSource c s (newTape :: FullTape Word32)
 eval c s Int64Type  = evalSource c s (newTape :: FullTape Int64)
 eval c s Word64Type = evalSource c s (newTape :: FullTape Word64)
 
-evalSource :: (AppEff m , Symbol e) => BFType -> Source -> FullTape e -> DumpType -> m ()
+evalSource :: (AppEff m , Symbol e) => ImplType -> Source -> FullTape e -> DumpType -> m ()
 evalSource FastType = Fast.evalSource
 evalSource TreeType = Tree.evalSource
 evalSource FlatType = Flat.evalSource

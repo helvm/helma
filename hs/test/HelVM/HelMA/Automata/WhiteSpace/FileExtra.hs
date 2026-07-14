@@ -13,10 +13,11 @@ module HelVM.HelMA.Automata.WhiteSpace.FileExtra (
   options,
 ) where
 
+import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
+
 import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.Types.TokenType
 
 readFileByTokenType :: TokenType -> FilePath -> IO Source
 readFileByTokenType tokenType = readSourceFile . buildAbsoluteTokenFileName tokenType

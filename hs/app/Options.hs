@@ -12,10 +12,11 @@ import           HelVM.HelMA.Automaton.Types.IntCellType
 import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
-import           HelVM.HelMA.Automaton.Types.TokenType
 
-import           HelVM.HelMA.Automata.BrainFuck.API.BFType
-import           HelVM.HelMA.Automata.ETA.API.ETAImplType
+import           HelVM.HelMA.Automata.BrainFuck.API.ImplType
+import           HelVM.HelMA.Automata.ETA.API.AutomatonType
+import           HelVM.HelMA.Automata.Piet.API.LexerType
+import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 
 import           Options.Applicative
 
@@ -104,7 +105,7 @@ langCommandParser = subparser
   (  command "bf"   (info bfParser   (progDesc "BrainFuck interpreter"))
   <> command "eta"  (info etaParser  (progDesc "ETA interpreter"))
   <> command "f"    (info (pure FCommand) (progDesc "F_ interpreter"))
-  <> command "piet" (info (pure PietCommand) (progDesc "Piet interpreter"))
+  <> command "piet" (info pietParser  (progDesc "Piet interpreter"))
   <> command "sq"   (info (pure SQCommand) (progDesc "SQ interpreter"))
   <> command "ws"   (info wsParser   (progDesc "WhiteSpace interpreter"))
   <> command "cat"  (info (pure CatCommand) (progDesc "Cat interpreter"))
@@ -113,10 +114,14 @@ langCommandParser = subparser
   <> command "zot"  (info (pure ZotCommand) (progDesc "Zot interpreter"))
   ) where
     bfParser = BFCommand
-      <$> option auto (long "BFType" <> short 'b' <> metavar "[BFType]" <> value defaultBFType <> showDefault)
+      <$> option auto (long "ImplType" <> short 'b' <> metavar "[ImplType]" <> value defaultImplType <> showDefault)
 
     etaParser = ETACommand
-      <$> option auto (long "ETAImplType" <> metavar "[ETAImplType]" <> value defaultETAImplType <> showDefault)
+      <$> option auto (long "AutomatonType" <> short 'i' <> metavar "[AutomatonType]" <> value defaultAutomatonType <> showDefault)
+
+    pietParser = PietCommand
+      <$> optional (option auto (long "codels" <> short 'c' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)" ))
+      <*> optional (option auto (long "LexerType" <> short 'l' <> metavar "[LexerType]" <> value defaultLexerType <> showDefault))
 
     wsParser = WSCommand
-      <$> flag WhiteTokenType VisibleTokenType (long "tokenType" <> short 't' <> help "Visible tokens for WS")
+      <$> flag WhiteTokenType VisibleTokenType (long "tokenType" <> short 't' <> showDefault)

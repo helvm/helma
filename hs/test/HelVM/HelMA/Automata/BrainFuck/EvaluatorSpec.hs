@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec (spec) where
 import           HelVM.HelMA.Automata.BrainFuck.Evaluator
 import           HelVM.HelMA.Automata.BrainFuck.FileExtra
 
-import           HelVM.HelMA.Automata.BrainFuck.API.BFType
+import           HelVM.HelMA.Automata.BrainFuck.API.ImplType
 
 import           HelVM.HelMA.Automaton.Eff.MockEff
 import           HelVM.HelMA.Automaton.Types.CellType
@@ -14,7 +14,7 @@ import           HelVM.GoldenExpectations
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                                (Spec, describe, it)
+import           Test.Hspec                                  (Spec, describe, it)
 
 spec :: Spec
 spec =
@@ -34,17 +34,17 @@ spec =
     , ("99botles"              , ""     )
     , ("triangle"              , ""     )
     ] >>*< [Int16Type , Word16Type]
-    ) >*< testedBfTypes) $ \((fileName , input , cellType) , bfType) -> do
+    ) >*< testedBfTypes) $ \((fileName , input , cellType) , implType) -> do
       let file = readBfFile fileName
-      let params = (bfType , , cellType) <$> file
+      let params = (implType , , cellType) <$> file
       let exec = ioExecMockEffWithInput input . simpleEval =<< params
-      let path = show bfType </> show cellType </> fileName
+      let path = show implType </> show cellType </> fileName
       describe path $ do
         it ("output" </> path) $
           calculateOutput <$> exec `goldenShouldIO` buildAbsoluteBfOutFileName path
         it ("logged" </> path) $
           calculateLogged <$> exec `goldenShouldIO` buildAbsoluteBfLogFileName path
 
-testedBfTypes :: [BFType]
-testedBfTypes = [defaultBFType]
---testedBfTypes = bfTypes
+testedBfTypes :: [ImplType]
+testedBfTypes = [defaultImplType]
+--testedBfTypes = implTypes
