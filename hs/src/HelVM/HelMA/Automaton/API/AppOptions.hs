@@ -19,9 +19,6 @@ import           HelVM.HelMA.Automaton.Types.StackType
 
 -- | Methods
 
--- langWithOptions :: AppOptions -> API.LangWithOptions
--- langWithOptions o = API.LangWithOptions (lang o) (bfType o) (etaImplType o) (tokenType o)
-
 evalParams :: AppOptions -> Source -> API.EvalParams
 evalParams o source = API.EvalParams (formatType o) source (memoryOptions o) (autoOptions o)
 
