@@ -24,9 +24,9 @@ logOutput = foldFree logOutputF
 ----
 
 interpretFreeEffFToMonadEff :: MonadEff m => FreeEffF a -> m a
-interpretFreeEffFToMonadEff (GetContentsBS    cd) = cd <$> eGetContentsBS
-interpretFreeEffFToMonadEff (GetContentsText  cd) = cd <$> eGetContentsText
-interpretFreeEffFToMonadEff (GetContents      cd) = cd <$> eGetContents
+interpretFreeEffFToMonadEff (GetContentsBS    cd) = cd <$> getContentsBS
+interpretFreeEffFToMonadEff (GetContentsText  cd) = cd <$> getContentsText
+interpretFreeEffFToMonadEff (GetContents      cd) = cd <$> getContents
 interpretFreeEffFToMonadEff (GetChar          cd) = cd <$> eGetChar
 interpretFreeEffFToMonadEff (GetLine          cd) = cd <$> eGetLine
 interpretFreeEffFToMonadEff (PutChar        c v ) = ePutChar   c $> v
@@ -50,9 +50,9 @@ logOutputF f                =                                liftF f
 
 -- | Instances
 instance MonadEff FreeEff where
-  eGetContentsBS   = freeGetContentsBS
-  eGetContentsText = freeGetContentsText
-  eGetContents     = freeGetContents
+  getContentsBS   = freeGetContentsBS
+  getContentsText = freeGetContentsText
+  getContents     = freeGetContents
   eGetChar         = freeGetChar
   eGetLine         = freeGetLine
   ePutChar         = freePutChar

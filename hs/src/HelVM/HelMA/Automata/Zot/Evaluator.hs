@@ -42,7 +42,7 @@ run No = evalParams
 run _  = fallback
 
 evalParams :: AppEff m => EvalParams -> m ()
-evalParams p = ePutText =<< evalWithFormat (formatType p) (source p) =<< eGetContentsText
+evalParams p = ePutText =<< evalWithFormat (formatType p) (source p) =<< getContentsText
 
 evalWithFormat :: MonadSafe m => LabelType -> Source -> LText -> m Output
 evalWithFormat BinaryLabel source input = pure $ showFoldable $ evalInternal source input

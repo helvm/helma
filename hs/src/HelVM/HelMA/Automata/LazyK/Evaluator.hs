@@ -40,7 +40,7 @@ evalSource :: AppEff m => Source -> m ()
 evalSource = evalLambda <=< parse
 
 evalLambda :: AppEff m => Lambda -> m ()
-evalLambda lambda = (runAutomat . reduce . App lambda . readInput) =<< eGetContentsBS
+evalLambda lambda = (runAutomat . reduce . App lambda . readInput) =<< getContentsBS
 
 reduceSource :: AppEff m => Source -> m Source
 reduceSource s = show . reduce <$> parse s

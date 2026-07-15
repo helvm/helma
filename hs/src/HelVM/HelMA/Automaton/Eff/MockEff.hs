@@ -68,9 +68,9 @@ calculateLogged d = Text.concat $ DList.toList $ snd <$> logged d
 ----
 
 instance MonadEff MockEff where
-  eGetContentsBS   = mockGetContentsBS
-  eGetContentsText = mockGetContentsText
-  eGetContents     = mockGetContents
+  getContentsBS   = mockGetContentsBS
+  getContentsText = mockGetContentsText
+  getContents     = mockGetContents
   eGetChar         = mockGetChar
   eGetLine         = mockGetLine
   ePutChar         = mockPutChar
@@ -79,9 +79,9 @@ instance MonadEff MockEff where
   log              = mockLog
 
 instance MonadEff (SafeT MockEff) where
-  eGetContentsBS   = mockGetContentsBS
-  eGetContentsText = mockGetContentsText
-  eGetContents     = mockGetContents
+  getContentsBS   = mockGetContentsBS
+  getContentsText = mockGetContentsText
+  getContents     = mockGetContents
   eGetChar         = mockGetCharSafe
   eGetLine         = mockGetLineSafe
   ePutChar         = mockPutChar

@@ -15,9 +15,9 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
 --  getCharAsInt,
 --  getDecAsInt,
 
-  eGetContentsBS,
-  eGetContentsText,
-  eGetContents,
+  getContentsBS,
+  getContentsText,
+  getContents,
   eGetChar,
   ePutChar,
   eGetLine,
@@ -65,9 +65,9 @@ class Monad m => MonadEff m where
   getCharAsInt    :: m Int
   getDecAsInt     :: m Int
 
-  eGetContentsBS   :: m LByteString
-  eGetContentsText :: m LText
-  eGetContents     :: m String
+  getContentsBS   :: m LByteString
+  getContentsText :: m LText
+  getContents     :: m String
   eGetChar         :: m Char
   eGetLine         :: m Text
   ePutChar         :: Char -> m ()
@@ -112,9 +112,9 @@ flush :: IO ()
 flush = hFlush stdout
 
 instance MonadEff IO where
-  eGetContentsBS   = LByteString.getContents
-  eGetContentsText = LText.getContents
-  eGetContents     = IO.getContents
+  getContentsBS   = LByteString.getContents
+  getContentsText = LText.getContents
+  getContents     = IO.getContents
   eGetChar         = IO.getChar
   eGetLine         = getLine
   ePutChar         = IO.putChar
@@ -127,9 +127,9 @@ instance MonadEff IO where
 
 
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
-  eGetContentsBS   = lift eGetContentsBS
-  eGetContentsText = lift eGetContentsText
-  eGetContents     = lift eGetContents
+  getContentsBS   = lift getContentsBS
+  getContentsText = lift getContentsText
+  getContents     = lift getContents
   eGetChar         = lift eGetChar
   eGetLine         = lift eGetLine
   ePutChar         = lift . ePutChar
@@ -141,9 +141,9 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   log              = (lift .) . log
 
 instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
-  eGetContentsBS   = liftIO LByteString.getContents
-  eGetContentsText = liftIO LText.getContents
-  eGetContents     = liftIO IO.getContents
+  getContentsBS   = liftIO LByteString.getContents
+  getContentsText = liftIO LText.getContents
+  getContents     = liftIO IO.getContents
   eGetChar         = liftIO IO.getChar
   eGetLine         = liftIO getLine
   ePutChar         = liftIO . IO.putChar
