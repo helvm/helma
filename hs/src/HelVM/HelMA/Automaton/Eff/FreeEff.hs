@@ -34,7 +34,7 @@ interpretFreeEffFToMonadEff (GetLine          cd) = cd <$> getLine
 interpretFreeEffFToMonadEff (PutChar        c v ) = putChar   c $> v
 interpretFreeEffFToMonadEff (PutText        s v ) = ePutText   s $> v
 interpretFreeEffFToMonadEff (PutTextLn      s v ) = ePutTextLn s $> v
-interpretFreeEffFToMonadEff (Flush            v ) = eFlush       $> v
+interpretFreeEffFToMonadEff (Flush            v ) = flush       $> v
 interpretFreeEffFToMonadEff (Log           l m v) = log      l m $> v
 
 ----
@@ -59,7 +59,7 @@ instance MonadEff FreeEff where
   putChar         = freePutChar
   ePutText         = freePutText
   ePutTextLn       = freePutTextLn
-  eFlush           = freeFlush
+  flush           = freeFlush
   log              = freelog
 
 -- | Low level functions

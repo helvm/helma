@@ -24,7 +24,7 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   ePutText,
   ePutTextLn,
   ePutLTextLn,
-  eFlush,
+  flush,
 
   log,
   logError,
@@ -75,9 +75,9 @@ class Monad m => MonadEff m where
   ePutText         :: Text -> m ()
   ePutTextLn       :: Text -> m ()
   ePutLTextLn      :: LText -> m ()
-  eFlush           :: m ()
+  flush           :: m ()
 
-  log              :: LogLevel -> Text -> m ()
+  log             :: LogLevel -> Text -> m ()
 
   putAsChar    = putIntAsChar . fromIntegral
   putAsDec     = putIntAsDec  . fromIntegral
@@ -91,7 +91,7 @@ class Monad m => MonadEff m where
 
   ePutTextLn s  = ePutText $ s <> "\n"
   ePutLTextLn   = ePutTextLn . toText
-  eFlush        = pass
+  flush        = pass
 
 logError :: MonadEff m => Text -> m ()
 logError = log Error
@@ -115,7 +115,7 @@ instance MonadEff IO where
   ePutText         = Prelude.putText
   ePutTextLn       = Prelude.putTextLn
   ePutLTextLn      = Prelude.putLTextLn
-  eFlush           = flushIO
+  flush           = flushIO
   log              = logIO
 
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
@@ -128,8 +128,8 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   ePutText         = lift . ePutText
   ePutTextLn       = lift . ePutTextLn
   ePutLTextLn      = lift . ePutLTextLn
-  eFlush           = lift eFlush
-  log              = (lift .) . log
+  flush           = lift flush
+  log             = (lift .) . log
 
 instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   getContentsBS   = liftIO LByteString.getContents
@@ -141,7 +141,7 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   ePutText         = liftIO . Prelude.putText
   ePutTextLn       = liftIO . Prelude.putTextLn
   ePutLTextLn      = liftIO . Prelude.putLTextLn
-  eFlush           = liftIO flushIO
+  flush           = liftIO flushIO
   log l            = RIO.logGeneric "" (toRioLevel l) . RIO.display
 
 ---- Internal
