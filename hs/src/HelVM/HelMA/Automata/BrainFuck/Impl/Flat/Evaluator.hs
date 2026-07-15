@@ -41,7 +41,7 @@ doJmpBack table tape             = doInstruction (jumpBack table) tape
 -- | IO instructions
 doOutputChar :: (AppEff m , Symbol e) => Table -> FullTape e -> m $ Memory e
 doOutputChar _          (_ ,    []) = error "Illegal State"
-doOutputChar table tape@(_ , e : _) = ePutChar (toChar e) *> doInstruction (nextInst table) tape
+doOutputChar table tape@(_ , e : _) = putChar (toChar e) *> doInstruction (nextInst table) tape
 
 doInputChar :: (AppEff m , Symbol e) => Table -> FullTape e -> m $ Memory e
 doInputChar table tape = (doInstruction (nextInst table) . flip writeSymbol tape) =<< getChar

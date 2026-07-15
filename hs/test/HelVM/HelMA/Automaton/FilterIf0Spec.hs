@@ -15,9 +15,9 @@ wFilterIf0 = do
   if char == '0'
     then do
       logInfo "\n"
-      ePutChar '\n'
+      putChar '\n'
     else do
-      ePutChar char
+      putChar char
       wFilterIf0
 
 spec :: Spec
