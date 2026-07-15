@@ -1,8 +1,8 @@
 {-# LANGUAGE DeriveFunctor #-}
 module HelVM.HelMA.Automaton.Eff.FreeEff (
   interpretFreeEffToMonadEff,
-  logInput,
-  logOutput,
+  logInputFree,
+  logOutputFree,
   FreeEff,
 ) where
 
@@ -17,11 +17,11 @@ import           Prelude                            hiding (getLine, putLTextLn,
 interpretFreeEffToMonadEff :: MonadEff m => FreeEff a -> m a
 interpretFreeEffToMonadEff = foldFree interpretFreeEffFToMonadEff
 
-logInput :: FreeEff ~> FreeEff
-logInput = foldFree logInputF
+logInputFree :: FreeEff ~> FreeEff
+logInputFree = foldFree logInputF
 
-logOutput :: FreeEff ~> FreeEff
-logOutput = foldFree logOutputF
+logOutputFree :: FreeEff ~> FreeEff
+logOutputFree = foldFree logOutputF
 
 ----
 
@@ -45,9 +45,9 @@ logInputF (GetLine     cd) = freeGetLine     >>= (\l -> liftF $ toLog           
 logInputF               f  =                            liftF f
 
 logOutputF :: FreeEffF a -> FreeEff a
-logOutputF f@(PutChar c v)  = liftF (toLog (one c) v) *> liftF f
-logOutputF f@(PutText  s v) = liftF (toLog       s v) *> liftF f
-logOutputF f                =                            liftF f
+logOutputF f@(PutChar c v) = liftF (toLog (one c) v) *> liftF f
+logOutputF f@(PutText s v) = liftF (toLog       s v) *> liftF f
+logOutputF f               =                            liftF f
 
 toLog :: Text -> a -> FreeEffF a
 toLog l = Log (toLogInfo l)

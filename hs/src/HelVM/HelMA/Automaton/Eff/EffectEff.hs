@@ -5,7 +5,6 @@
 {-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.EffectEff (
   EffectEff(..),
-
 ) where
 
 import           Effectful

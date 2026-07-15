@@ -256,6 +256,7 @@ library
     , effectful-core
     , extra
     , free
+    , IfElse
     , ilist
     , ListLike
     , mtl
@@ -301,7 +302,7 @@ test-suite helma-test
     HelVM.GoldenExpectations
 
     HelVM.HelMA.Automaton.API.AutoOptionsExtra
-    HelVM.HelMA.Automaton.FilterIf0Spec
+    HelVM.HelMA.Automaton.Eff.FreeEffSpec
     HelVM.HelMA.Automaton.OptimizerSpec
 
     HelVM.HelMA.Automata.FileExtra

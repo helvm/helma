@@ -1,14 +1,13 @@
+{-# LANGUAGE DataKinds            #-}
 {-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.MonadEff (
-  runEffIOToMonadEff,
-  Element,
-  AppEff,
-  MonadEff(..),
-
   logError,
   logWarn,
   logInfo,
   logDebug,
+  Element,
+  AppEff,
+  MonadEff(..),
 ) where
 
 import           HelVM.HelMA.Automaton.Eff.EffectEff
@@ -32,18 +31,6 @@ import qualified Prelude
 import qualified RIO
 
 import qualified System.IO                           as IO
-
-runEffIOToMonadEff :: (MonadEff (Eff es)) => Eff (EffectEff : es) a -> Eff es a
-runEffIOToMonadEff = interpret $ \_ -> \case
-  GetContentsBS   -> getContentsBS
-  GetContentsText -> getContentsText
-  GetContents     -> getContents
-  GetChar         -> getChar
-  GetLine         -> getLine
-  PutChar c       -> putChar c
-  PutTextEff t    -> putTextEff t
-  Flush           -> flush
-  Log l           -> log l
 
 logError :: MonadEff m => Text -> m ()
 logError = logCurry Error
