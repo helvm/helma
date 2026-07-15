@@ -57,7 +57,7 @@ runMockEff i mockIO = flip mockDataLogInfo mockIOData $ safeWithMessagesToText s
   where (s , mockIOData) = runState mockIO $ createMockEff i
 
 createMockEff :: Input -> MockEffData
-createMockEff i = MockEffData "" (toString i) "" DList.empty
+createMockEff i = MockEffData  (toString i) "" DList.empty
 
 calculateOutput :: MockEffData -> Output
 calculateOutput = calculateText . output
@@ -75,7 +75,6 @@ instance MonadEff MockEff where
   eGetLine         = mockGetLine
   ePutChar         = mockPutChar
   ePutText         = mockPutText
-  eReadFileText    = mockReadFileText
   log              = mockLog
 
 instance MonadEff (SafeT MockEff) where
@@ -86,7 +85,6 @@ instance MonadEff (SafeT MockEff) where
   eGetLine         = mockGetLineSafe
   ePutChar         = mockPutChar
   ePutText         = mockPutText
-  eReadFileText    = mockReadFileText
   log              = mockLog
 
 ----
@@ -130,9 +128,6 @@ mockPutChar = modify . mockDataPutChar
 mockPutText :: MonadMockEff m => Text -> m ()
 mockPutText = modify . mockDataPutText
 
-mockReadFileText :: MonadMockEff m => FilePath -> m Text
-mockReadFileText _ = toText . code <$> get
-
 mockLog :: MonadMockEff m => LogLevel -> Text -> m ()
 mockLog l m = modify $ mockDataLog l m
 
@@ -167,8 +162,7 @@ calculateString :: Output -> String
 calculateString =  toString . Text.reverse
 
 data MockEffData = MockEffData
-  { code   :: !String
-  , input  :: !String
+  { input  :: !String
   , output :: !String
   , logged :: !Logs
   }

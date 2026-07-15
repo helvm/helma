@@ -25,7 +25,6 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   ePutTextLn,
   ePutLTextLn,
   eFlush,
-  eReadFileText,
 
   log,
   logError,
@@ -37,7 +36,6 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
 import           HelVM.HelIO.Control.Control
 import           HelVM.HelMA.Automaton.API.LogLevel
 
-import           HelVM.HelIO.Extra
 import           HelVM.HelIO.ReadText
 
 import qualified Data.ByteString.Lazy               as LByteString
@@ -75,7 +73,6 @@ class Monad m => MonadEff m where
   ePutTextLn       :: Text -> m ()
   ePutLTextLn      :: LText -> m ()
   eFlush           :: m ()
-  eReadFileText    :: FilePath -> m Text
 
   log              :: LogLevel -> Text -> m ()
 
@@ -122,9 +119,7 @@ instance MonadEff IO where
   ePutTextLn       = putTextLn
   ePutLTextLn      = putLTextLn
   eFlush           = flush
-  eReadFileText    = readFileTextUtf8
   log              = logIO
-
 
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
   getContentsBS   = lift getContentsBS
@@ -137,7 +132,6 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   ePutTextLn       = lift . ePutTextLn
   ePutLTextLn      = lift . ePutLTextLn
   eFlush           = lift eFlush
-  eReadFileText    = lift . eReadFileText
   log              = (lift .) . log
 
 instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
@@ -151,7 +145,6 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   ePutTextLn       = liftIO . putTextLn
   ePutLTextLn      = liftIO . putLTextLn
   eFlush           = liftIO flush
-  eReadFileText    = liftIO . readFileTextUtf8
   log l            = RIO.logGeneric "" (toRioLevel l) . RIO.display
 
 toRioLevel :: LogLevel -> RIO.LogLevel

@@ -33,7 +33,6 @@ interpretFreeEffFToMonadEff (PutChar        c v ) = ePutChar   c $> v
 interpretFreeEffFToMonadEff (PutText        s v ) = ePutText   s $> v
 interpretFreeEffFToMonadEff (PutTextLn      s v ) = ePutTextLn s $> v
 interpretFreeEffFToMonadEff (Flush            v ) = eFlush       $> v
-interpretFreeEffFToMonadEff (ReadFileText   s cd) = cd <$> eReadFileText s
 interpretFreeEffFToMonadEff (Log           l m v) = log      l m $> v
 
 ----
@@ -59,7 +58,6 @@ instance MonadEff FreeEff where
   ePutText         = freePutText
   ePutTextLn       = freePutTextLn
   eFlush           = freeFlush
-  eReadFileText    = freeReadFileText
   log              = freelog
 
 -- | Low level functions
@@ -90,9 +88,6 @@ freePutTextLn = liftF . flip PutTextLn ()
 freeFlush :: FreeEff ()
 freeFlush = liftF $ Flush ()
 
-freeReadFileText :: FilePath -> FreeEff Text
-freeReadFileText s = liftF $ ReadFileText s id
-
 freelog :: LogLevel -> Text -> FreeEff ()
 freelog = (liftF .) . flip flip () . Log
 
@@ -109,6 +104,5 @@ data FreeEffF a
  | PutText          Text                     a
  | PutTextLn        Text                     a
  | Flush                                     a
- | ReadFileText     FilePath (Text        -> a)
  | Log              LogLevel Text            a
  deriving stock (Functor)
