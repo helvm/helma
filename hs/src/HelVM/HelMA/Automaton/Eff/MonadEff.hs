@@ -1,5 +1,6 @@
 {-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.MonadEff (
+  runEffIOToMonadEff,
   Element,
   AppEff,
   MonadEff(..),
@@ -31,6 +32,33 @@ import qualified Prelude
 import qualified RIO
 
 import qualified System.IO                           as IO
+
+runEffIOToMonadEff :: (MonadEff (Eff es)) => Eff (EffectEff : es) a -> Eff es a
+runEffIOToMonadEff = interpret $ \_ -> \case
+  GetContentsBS   -> getContentsBS
+  GetContentsText -> getContentsText
+  GetContents     -> getContents
+  GetChar         -> getChar
+  GetLine         -> getLine
+  PutChar c       -> putChar c
+  PutTextEff t    -> putTextEff t
+  Flush           -> flush
+  Log l           -> log l
+
+logError :: MonadEff m => Text -> m ()
+logError = logCurry Error
+
+logWarn :: MonadEff m => Text -> m ()
+logWarn = logCurry Warn
+
+logInfo :: MonadEff m => Text -> m ()
+logInfo = logCurry Info
+
+logDebug :: MonadEff m => Text -> m ()
+logDebug = logCurry Debug
+
+logCurry :: MonadEff m => LogLevel -> Text -> m ()
+logCurry = curry log
 
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)
@@ -75,20 +103,6 @@ class Monad m => MonadEff m where
   putLTextLnEff  = putTextLnEff . toText
   flush          = pass
 
-logError :: MonadEff m => Text -> m ()
-logError = logCurry Error
-
-logWarn :: MonadEff m => Text -> m ()
-logWarn = logCurry Warn
-
-logInfo :: MonadEff m => Text -> m ()
-logInfo = logCurry Info
-
-logDebug :: MonadEff m => Text -> m ()
-logDebug = logCurry Debug
-
-logCurry :: MonadEff m => LogLevel -> Text -> m ()
-logCurry = curry log
 
 instance MonadEff IO where
   getContentsBS   = LByteString.getContents
