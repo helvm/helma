@@ -1,32 +1,9 @@
 {-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.MonadEff (
-
   Element,
   AppEff,
-  MonadEff,
+  MonadEff(..),
 
-  putAsChar,
-  putAsDec,
-  getCharAs,
-  getDecAs,
-
---  putIntAsChar,
---  putIntAsDec,
---  getCharAsInt,
---  getDecAsInt,
-
-  getContentsBS,
-  getContentsText,
-  getContents,
-  getChar,
-  putChar,
-  getLine,
-  putTextEff,
-  putTextLnEff,
-  putLTextLnEff,
-  flush,
-
-  log,
   logError,
   logWarn,
   logInfo,
