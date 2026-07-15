@@ -43,6 +43,8 @@ import           Data.Default                       as Default
 import qualified Data.Text.IO                       as Text
 import qualified Data.Text.Lazy.IO                  as LText
 
+import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
+import qualified Prelude
 import qualified RIO
 
 import qualified System.IO                          as IO
@@ -107,11 +109,11 @@ instance MonadEff IO where
   getContentsText = LText.getContents
   getContents     = IO.getContents
   getChar         = IO.getChar
-  eGetLine         = getLine
+  eGetLine         = Prelude.getLine
   putChar         = IO.putChar
-  ePutText         = putText
-  ePutTextLn       = putTextLn
-  ePutLTextLn      = putLTextLn
+  ePutText         = Prelude.putText
+  ePutTextLn       = Prelude.putTextLn
+  ePutLTextLn      = Prelude.putLTextLn
   eFlush           = flushIO
   log              = logIO
 
@@ -133,11 +135,11 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   getContentsText = liftIO LText.getContents
   getContents     = liftIO IO.getContents
   getChar         = liftIO IO.getChar
-  eGetLine         = liftIO getLine
+  eGetLine         = liftIO Prelude.getLine
   putChar         = liftIO . IO.putChar
-  ePutText         = liftIO . putText
-  ePutTextLn       = liftIO . putTextLn
-  ePutLTextLn      = liftIO . putLTextLn
+  ePutText         = liftIO . Prelude.putText
+  ePutTextLn       = liftIO . Prelude.putTextLn
+  ePutLTextLn      = liftIO . Prelude.putLTextLn
   eFlush           = liftIO flushIO
   log l            = RIO.logGeneric "" (toRioLevel l) . RIO.display
 
