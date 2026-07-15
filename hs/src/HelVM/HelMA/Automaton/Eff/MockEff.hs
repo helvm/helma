@@ -71,7 +71,7 @@ instance MonadEff MockEff where
   getContentsBS   = mockGetContentsBS
   getContentsText = mockGetContentsText
   getContents     = mockGetContents
-  eGetChar         = mockGetChar
+  getChar         = mockGetChar
   eGetLine         = mockGetLine
   ePutChar         = mockPutChar
   ePutText         = mockPutText
@@ -81,7 +81,7 @@ instance MonadEff (SafeT MockEff) where
   getContentsBS   = mockGetContentsBS
   getContentsText = mockGetContentsText
   getContents     = mockGetContents
-  eGetChar         = mockGetCharSafe
+  getChar         = mockGetCharSafe
   eGetLine         = mockGetLineSafe
   ePutChar         = mockPutChar
   ePutText         = mockPutText

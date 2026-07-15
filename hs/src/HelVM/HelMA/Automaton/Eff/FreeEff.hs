@@ -27,7 +27,7 @@ interpretFreeEffFToMonadEff :: MonadEff m => FreeEffF a -> m a
 interpretFreeEffFToMonadEff (GetContentsBS    cd) = cd <$> getContentsBS
 interpretFreeEffFToMonadEff (GetContentsText  cd) = cd <$> getContentsText
 interpretFreeEffFToMonadEff (GetContents      cd) = cd <$> getContents
-interpretFreeEffFToMonadEff (GetChar          cd) = cd <$> eGetChar
+interpretFreeEffFToMonadEff (GetChar          cd) = cd <$> getChar
 interpretFreeEffFToMonadEff (GetLine          cd) = cd <$> eGetLine
 interpretFreeEffFToMonadEff (PutChar        c v ) = ePutChar   c $> v
 interpretFreeEffFToMonadEff (PutText        s v ) = ePutText   s $> v
@@ -52,7 +52,7 @@ instance MonadEff FreeEff where
   getContentsBS   = freeGetContentsBS
   getContentsText = freeGetContentsText
   getContents     = freeGetContents
-  eGetChar         = freeGetChar
+  getChar         = freeGetChar
   eGetLine         = freeGetLine
   ePutChar         = freePutChar
   ePutText         = freePutText

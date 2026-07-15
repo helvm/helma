@@ -11,7 +11,7 @@ import           Test.Hspec.Expectations.Pretty
 
 wFilterIf0 :: MonadEff m => m ()
 wFilterIf0 = do
-  char <- eGetChar
+  char <- getChar
   if char == '0'
     then do
       logInfo "\n"

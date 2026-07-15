@@ -56,7 +56,7 @@ doOutputChar _          (_ ,  []) = error "Illegal State"
 doOutputChar table tape@(_ , e:_) = ePutChar (toChar e) *> nextStep table tape
 
 doInputChar  :: (AppEff m , Symbol e) => InstructionMemory -> FullTape e -> m $ Memory e
-doInputChar table tape = (nextStep table . flip writeSymbol tape) =<< eGetChar
+doInputChar table tape = (nextStep table . flip writeSymbol tape) =<< getChar
 
 -- | Terminate instruction
 doEnd :: AppEff m => InstructionMemory -> FullTape e -> m $ Memory e

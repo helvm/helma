@@ -18,7 +18,7 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   getContentsBS,
   getContentsText,
   getContents,
-  eGetChar,
+  getChar,
   ePutChar,
   eGetLine,
   ePutText,
@@ -66,7 +66,7 @@ class Monad m => MonadEff m where
   getContentsBS   :: m LByteString
   getContentsText :: m LText
   getContents     :: m String
-  eGetChar         :: m Char
+  getChar         :: m Char
   eGetLine         :: m Text
   ePutChar         :: Char -> m ()
   ePutText         :: Text -> m ()
@@ -83,7 +83,7 @@ class Monad m => MonadEff m where
 
   putIntAsChar = ePutChar . chr
   putIntAsDec  = ePutText . show
-  getCharAsInt = ord <$> eGetChar
+  getCharAsInt = ord <$> getChar
   getDecAsInt  = readTextUnsafe <$> eGetLine
 
   ePutTextLn s  = ePutText $ s <> "\n"
@@ -112,7 +112,7 @@ instance MonadEff IO where
   getContentsBS   = LByteString.getContents
   getContentsText = LText.getContents
   getContents     = IO.getContents
-  eGetChar         = IO.getChar
+  getChar         = IO.getChar
   eGetLine         = getLine
   ePutChar         = IO.putChar
   ePutText         = putText
@@ -125,7 +125,7 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   getContentsBS   = lift getContentsBS
   getContentsText = lift getContentsText
   getContents     = lift getContents
-  eGetChar         = lift eGetChar
+  getChar         = lift getChar
   eGetLine         = lift eGetLine
   ePutChar         = lift . ePutChar
   ePutText         = lift . ePutText
@@ -138,7 +138,7 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   getContentsBS   = liftIO LByteString.getContents
   getContentsText = liftIO LText.getContents
   getContents     = liftIO IO.getContents
-  eGetChar         = liftIO IO.getChar
+  getChar         = liftIO IO.getChar
   eGetLine         = liftIO getLine
   ePutChar         = liftIO . IO.putChar
   ePutText         = liftIO . putText
