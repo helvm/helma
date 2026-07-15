@@ -23,4 +23,4 @@ data EffectEff :: Effect where
   PutChar         :: Char -> EffectEff m ()
   PutTextEff      :: Text -> EffectEff m ()
   Flush           :: EffectEff m ()
-  Log          :: Log -> EffectEff m ()
+  Log             :: Log -> EffectEff m ()
