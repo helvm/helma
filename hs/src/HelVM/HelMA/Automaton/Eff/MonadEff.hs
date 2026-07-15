@@ -102,12 +102,6 @@ logInfo = log Info
 logDebug :: MonadEff m => Text -> m ()
 logDebug = log Debug
 
-logIO :: LogLevel -> Text -> IO ()
-logIO l m = Text.hPutStrLn stderr $ logToTextLn (l , m)
-
-flush :: IO ()
-flush = hFlush stdout
-
 instance MonadEff IO where
   getContentsBS   = LByteString.getContents
   getContentsText = LText.getContents
@@ -118,7 +112,7 @@ instance MonadEff IO where
   ePutText         = putText
   ePutTextLn       = putTextLn
   ePutLTextLn      = putLTextLn
-  eFlush           = flush
+  eFlush           = flushIO
   log              = logIO
 
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
@@ -144,8 +138,16 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   ePutText         = liftIO . putText
   ePutTextLn       = liftIO . putTextLn
   ePutLTextLn      = liftIO . putLTextLn
-  eFlush           = liftIO flush
+  eFlush           = liftIO flushIO
   log l            = RIO.logGeneric "" (toRioLevel l) . RIO.display
+
+---- Internal
+
+flushIO :: IO ()
+flushIO = hFlush stdout
+
+logIO :: LogLevel -> Text -> IO ()
+logIO l m = Text.hPutStrLn stderr $ logToTextLn (l , m)
 
 toRioLevel :: LogLevel -> RIO.LogLevel
 toRioLevel Error = RIO.LevelError
