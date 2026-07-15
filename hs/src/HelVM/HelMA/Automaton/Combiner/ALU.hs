@@ -88,18 +88,18 @@ binaryInstructions il = build <.> pop2 where
 -- | IO instructions
 doOutputChar2 :: ALU m ll element => ll -> m ll
 doOutputChar2 = appendError "ALU.doOutputChar2" . build <=< pop1 where
-  build (e , l) = ePutAsChar e $> l
+  build (e , l) = putAsChar e $> l
 
 doOutputDec2 :: ALU m ll element => ll -> m ll
 doOutputDec2 = appendError "ALU.doOutputDec2" . build <=< pop1 where
-  build (e , l) = ePutAsDec e $> l
+  build (e , l) = putAsDec e $> l
 
 doInputChar2 :: ALU m ll element => ll -> m ll
-doInputChar2 l = appendError "ALU.doOutputDec2" $ build <$> eGetCharAs where
+doInputChar2 l = appendError "ALU.doOutputDec2" $ build <$> getCharAs where
   build e = push1 e l
 
 doInputDec2 :: ALU m ll element => ll -> m ll
-doInputDec2 l = build <$> eGetCharAs where
+doInputDec2 l = build <$> getCharAs where
   build e = push1 e l
 
 indexedInstruction :: SafeStack m ll element => IndexedOperation -> IndexOperand -> ll -> m ll

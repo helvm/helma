@@ -51,19 +51,19 @@ moveD src dst lsm@(LSM _ r) = storePure (RAM.genericLoad r src) (fromIntegral ds
 
 loadOutputChar :: LSU m s r element => LoadStoreMemory s r -> m $ LoadStoreMemory s r
 loadOutputChar (LSM s r) = appendError "LSM.loadOutputChar" $ build =<< pop1 s where
-  build (address , s') = LSM s' r <$ ePutAsChar (RAM.genericLoad r address)
+  build (address , s') = LSM s' r <$ putAsChar (RAM.genericLoad r address)
 
 loadOutputDec :: LSU m s r element => LoadStoreMemory s r -> m $ LoadStoreMemory s r
 loadOutputDec (LSM s r) = appendError "LSM.loadOutputDec" $ build =<< pop1 s where
-  build (address , s') = LSM s' r <$ ePutAsDec (RAM.genericLoad r address)
+  build (address , s') = LSM s' r <$ putAsDec (RAM.genericLoad r address)
 
 storeInputChar :: LSU m s r element => LoadStoreMemory s r -> m $ LoadStoreMemory s r
 storeInputChar (LSM s r) = appendError "LSM.storeInputChar" $ build =<< pop1 s where
-  build (address , s') = LSM s' . flip (RAM.store address) r <$> eGetCharAs
+  build (address , s') = LSM s' . flip (RAM.store address) r <$> getCharAs
 
 storeInputDec :: LSU m s r element => LoadStoreMemory s r -> m $ LoadStoreMemory s r
 storeInputDec (LSM s r) = appendError "LSM.storeInputDec" $ build =<< pop1 s where
-  build (address , s') = LSM s' . flip (RAM.store address) r <$> eGetDecAs
+  build (address , s') = LSM s' . flip (RAM.store address) r <$> getDecAs
 
 -- | Types
 type LSU m s r element = (ALU m s element , RAM.RAM r element)

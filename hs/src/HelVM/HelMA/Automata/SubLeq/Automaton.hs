@@ -27,7 +27,7 @@ nextState a@(Automaton ic ram)
 
 -- | IO instructions
 doOutputChar :: RAutomatonEff e r m => e -> Automaton e r -> m $ AutomatonSame e r
-doOutputChar address (Automaton ic ram) = ePutAsChar (genericLoad ram address) $> Trampoline.continue (next3Automaton ic ram)
+doOutputChar address (Automaton ic ram) = putAsChar (genericLoad ram address) $> Trampoline.continue (next3Automaton ic ram)
 
 doInputChar :: RAutomatonEff e r m => e -> Automaton e r -> m $ AutomatonSame e r
 doInputChar address (Automaton ic ram) = Trampoline.continue . next3Automaton ic . flippedStoreChar address ram <$> eGetChar

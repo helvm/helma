@@ -34,6 +34,6 @@ naturalSafe x          = liftErrorWithPrefix "Invalid output format. Output shou
 
 output :: AppEff m => Lambda -> Lambda -> Natural -> m ()
 output terminator lambda number = check $ compare 256 number where
-  check GT = ePutAsChar number *> runWithTerminator terminator (apply lambda terminator)
+  check GT = putAsChar number *> runWithTerminator terminator (apply lambda terminator)
   check EQ = pass
   check LT = logInfo (show number) *> logInfo (show lambda)

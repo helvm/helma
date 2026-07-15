@@ -5,15 +5,15 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   AppEff,
   MonadEff,
 
-  ePutAsChar,
-  ePutAsDec,
-  eGetCharAs,
-  eGetDecAs,
+  putAsChar,
+  putAsDec,
+  getCharAs,
+  getDecAs,
 
---  ePutIntAsChar,
---  ePutIntAsDec,
---  eGetCharAsInt,
---  eGetDecAsInt,
+--  putIntAsChar,
+--  putIntAsDec,
+--  getCharAsInt,
+--  getDecAsInt,
 
   eGetContentsBS,
   eGetContentsText,
@@ -55,15 +55,15 @@ type AppEff m = (MonadControl m , MonadEff m)
 
 class Monad m => MonadEff m where
 
-  ePutAsChar       :: Integral v => v -> m ()
-  ePutAsDec        :: Integral v => v -> m ()
-  eGetCharAs       :: Integral v => m v
-  eGetDecAs        :: Integral v => m v
+  putAsChar       :: Integral v => v -> m ()
+  putAsDec        :: Integral v => v -> m ()
+  getCharAs       :: Integral v => m v
+  getDecAs        :: Integral v => m v
 
-  ePutIntAsChar    :: Int -> m ()
-  ePutIntAsDec     :: Int -> m ()
-  eGetCharAsInt    :: m Int
-  eGetDecAsInt     :: m Int
+  putIntAsChar    :: Int -> m ()
+  putIntAsDec     :: Int -> m ()
+  getCharAsInt    :: m Int
+  getDecAsInt     :: m Int
 
   eGetContentsBS   :: m LByteString
   eGetContentsText :: m LText
@@ -79,15 +79,15 @@ class Monad m => MonadEff m where
 
   log              :: LogLevel -> Text -> m ()
 
-  ePutAsChar    = ePutIntAsChar . fromIntegral
-  ePutAsDec     = ePutIntAsDec  . fromIntegral
-  eGetCharAs    = fromIntegral <$> eGetCharAsInt
-  eGetDecAs     = fromIntegral <$> eGetDecAsInt
+  putAsChar    = putIntAsChar . fromIntegral
+  putAsDec     = putIntAsDec  . fromIntegral
+  getCharAs    = fromIntegral <$> getCharAsInt
+  getDecAs     = fromIntegral <$> getDecAsInt
 
-  ePutIntAsChar = ePutChar . chr
-  ePutIntAsDec  = ePutText . show
-  eGetCharAsInt = ord <$> eGetChar
-  eGetDecAsInt  = readTextUnsafe <$> eGetLine
+  putIntAsChar = ePutChar . chr
+  putIntAsDec  = ePutText . show
+  getCharAsInt = ord <$> eGetChar
+  getDecAsInt  = readTextUnsafe <$> eGetLine
 
   ePutTextLn s  = ePutText $ s <> "\n"
   ePutLTextLn   = ePutTextLn . toText
