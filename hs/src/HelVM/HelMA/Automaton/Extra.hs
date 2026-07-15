@@ -28,7 +28,7 @@ readSourceFile True = pure . toText
 readSourceFile _    = readTextFileRio
 
 fallback :: AppEff m => EvalParams -> m ()
-fallback = ePutTextLn . show . source
+fallback = putTextLnEff . show . source
 
 (...) :: (c -> d) -> (a -> b -> c) -> a -> b -> d
 (...) = (.) . (.)

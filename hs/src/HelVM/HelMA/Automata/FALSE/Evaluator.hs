@@ -21,5 +21,5 @@ runRio = runWIthOptions =<< optionsRio where
 
 run :: AppEff m => Emit -> EvalParams -> m ()
 run No = const $ error "FALSE is not supported now"
-run IL = ePutLTextLn . pShowNoColor . parseSafe . source
+run IL = putLTextLnEff . pShowNoColor . parseSafe . source
 run _  = fallback

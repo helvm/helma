@@ -21,9 +21,9 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   getChar,
   putChar,
   getLine,
-  ePutText,
-  ePutTextLn,
-  ePutLTextLn,
+  putTextEff,
+  putTextLnEff,
+  putLTextLnEff,
   flush,
 
   log,
@@ -72,26 +72,26 @@ class Monad m => MonadEff m where
   getChar         :: m Char
   getLine         :: m Text
   putChar         :: Char -> m ()
-  ePutText         :: Text -> m ()
-  ePutTextLn       :: Text -> m ()
-  ePutLTextLn      :: LText -> m ()
+  putTextEff      :: Text -> m ()
+  putTextLnEff    :: Text -> m ()
+  putLTextLnEff   :: LText -> m ()
   flush           :: m ()
 
   log             :: LogLevel -> Text -> m ()
 
-  putAsChar    = putIntAsChar . fromIntegral
-  putAsDec     = putIntAsDec  . fromIntegral
-  getCharAs    = fromIntegral <$> getCharAsInt
-  getDecAs     = fromIntegral <$> getDecAsInt
+  putAsChar      = putIntAsChar . fromIntegral
+  putAsDec       = putIntAsDec  . fromIntegral
+  getCharAs      = fromIntegral <$> getCharAsInt
+  getDecAs       = fromIntegral <$> getDecAsInt
 
-  putIntAsChar = putChar . chr
-  putIntAsDec  = ePutText . show
-  getCharAsInt = ord <$> getChar
-  getDecAsInt  = readTextUnsafe <$> getLine
+  putIntAsChar   = putChar . chr
+  putIntAsDec    = putTextEff . show
+  getCharAsInt   = ord <$> getChar
+  getDecAsInt    = readTextUnsafe <$> getLine
 
-  ePutTextLn s  = ePutText $ s <> "\n"
-  ePutLTextLn   = ePutTextLn . toText
-  flush        = pass
+  putTextLnEff s = putTextEff $ s <> "\n"
+  putLTextLnEff  = putTextLnEff . toText
+  flush          = pass
 
 logError :: MonadEff m => Text -> m ()
 logError = log Error
@@ -112,11 +112,11 @@ instance MonadEff IO where
   getChar         = IO.getChar
   getLine         = Prelude.getLine
   putChar         = IO.putChar
-  ePutText         = Prelude.putText
-  ePutTextLn       = Prelude.putTextLn
-  ePutLTextLn      = Prelude.putLTextLn
+  putTextEff      = Prelude.putText
+  putTextLnEff    = Prelude.putTextLn
+  putLTextLnEff   = Prelude.putLTextLn
   flush           = flushIO
-  log              = logIO
+  log             = logIO
 
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
   getContentsBS   = lift getContentsBS
@@ -125,9 +125,9 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   getChar         = lift getChar
   getLine         = lift getLine
   putChar         = lift . putChar
-  ePutText         = lift . ePutText
-  ePutTextLn       = lift . ePutTextLn
-  ePutLTextLn      = lift . ePutLTextLn
+  putTextEff      = lift . putTextEff
+  putTextLnEff    = lift . putTextLnEff
+  putLTextLnEff   = lift . putLTextLnEff
   flush           = lift flush
   log             = (lift .) . log
 
@@ -138,11 +138,11 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   getChar         = liftIO IO.getChar
   getLine         = liftIO Prelude.getLine
   putChar         = liftIO . IO.putChar
-  ePutText         = liftIO . Prelude.putText
-  ePutTextLn       = liftIO . Prelude.putTextLn
-  ePutLTextLn      = liftIO . Prelude.putLTextLn
+  putTextEff      = liftIO . Prelude.putText
+  putTextLnEff    = liftIO . Prelude.putTextLn
+  putLTextLnEff   = liftIO . Prelude.putLTextLn
   flush           = liftIO flushIO
-  log l            = RIO.logGeneric "" (toRioLevel l) . RIO.display
+  log             = logRIO
 
 ---- Internal
 
@@ -151,6 +151,9 @@ flushIO = hFlush stdout
 
 logIO :: LogLevel -> Text -> IO ()
 logIO l m = Text.hPutStrLn stderr $ logToTextLn (l , m)
+
+logRIO :: RIO.HasLogFunc env => LogLevel -> Text -> RIO.RIO env ()
+logRIO l = RIO.logGeneric "" (toRioLevel l) . RIO.display
 
 toRioLevel :: LogLevel -> RIO.LogLevel
 toRioLevel Error = RIO.LevelError

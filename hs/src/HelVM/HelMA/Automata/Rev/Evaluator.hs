@@ -37,4 +37,4 @@ evalLines :: MonadEff m => [Source] -> m ()
 evalLines ll = doOutput $ unlines $ Text.reverse <$> ll
 
 doOutput :: MonadEff m => Source -> m ()
-doOutput = ePutText
+doOutput = putTextEff

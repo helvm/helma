@@ -37,9 +37,9 @@ runRio = runWithOptions =<< optionsRio where
 
 run :: AppEff m => Emit.Emit -> EvalParams -> m ()
 run Emit.No   = evalParams
-run Emit.IL   = ePutTextLn . show . tokenize . source
-run Emit.TL   = ePutTextLn . show . tokenize . source
-run Emit.Code = ePutTextLn . show . readSymbols . source
+run Emit.IL   = putTextLnEff . show . tokenize . source
+run Emit.TL   = putTextLnEff . show . tokenize . source
+run Emit.Code = putTextLnEff . show . readSymbols . source
 
 simpleEval :: AppEff m => RAMType -> Source -> m ()
 simpleEval rt s = evalSource s rt testMaybeLimit Pretty

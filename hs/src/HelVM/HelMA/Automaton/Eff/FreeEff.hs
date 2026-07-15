@@ -32,8 +32,8 @@ interpretFreeEffFToMonadEff (GetContents      cd) = cd <$> getContents
 interpretFreeEffFToMonadEff (GetChar          cd) = cd <$> getChar
 interpretFreeEffFToMonadEff (GetLine          cd) = cd <$> getLine
 interpretFreeEffFToMonadEff (PutChar        c v ) = putChar   c $> v
-interpretFreeEffFToMonadEff (PutText        s v ) = ePutText   s $> v
-interpretFreeEffFToMonadEff (PutTextLn      s v ) = ePutTextLn s $> v
+interpretFreeEffFToMonadEff (PutText        s v ) = putTextEff   s $> v
+interpretFreeEffFToMonadEff (PutTextLn      s v ) = putTextLnEff s $> v
 interpretFreeEffFToMonadEff (Flush            v ) = flush       $> v
 interpretFreeEffFToMonadEff (Log           l m v) = log      l m $> v
 
@@ -57,8 +57,8 @@ instance MonadEff FreeEff where
   getChar         = freeGetChar
   getLine         = freeGetLine
   putChar         = freePutChar
-  ePutText         = freePutText
-  ePutTextLn       = freePutTextLn
+  putTextEff         = freputTextEff
+  putTextLnEff       = freputTextLnEff
   flush           = freeFlush
   log              = freelog
 
@@ -81,11 +81,11 @@ freeGetLine = liftF $ GetLine id
 freePutChar :: Char -> FreeEff ()
 freePutChar = liftF . flip PutChar ()
 
-freePutText :: Text -> FreeEff ()
-freePutText = liftF . flip PutText ()
+freputTextEff :: Text -> FreeEff ()
+freputTextEff = liftF . flip PutText ()
 
-freePutTextLn :: Text -> FreeEff ()
-freePutTextLn = liftF . flip PutTextLn ()
+freputTextLnEff :: Text -> FreeEff ()
+freputTextLnEff = liftF . flip PutTextLn ()
 
 freeFlush :: FreeEff ()
 freeFlush = liftF $ Flush ()

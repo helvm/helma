@@ -40,12 +40,12 @@ runRio t = runWithOptions =<< optionsRio where
 
 run :: AppEff m => Emit -> TokenType -> EvalParams -> m ()
 run No   t                = evalParams t
-run IL   VisibleTokenType = ePutLTextLn . pShowNoColor . (flipParseVisible <$> formatType <*> source)
-run IL   WhiteTokenType   = ePutLTextLn . pShowNoColor . (flipParseWhite   <$> formatType <*> source)
-run TL   VisibleTokenType = ePutTextLn . show . tokenizeVisible . source
-run TL   WhiteTokenType   = ePutTextLn . show . tokenizeWhite   . source
-run Code VisibleTokenType = ePutTextLn . show . readVisibleTokens . source
-run Code WhiteTokenType   = ePutTextLn . show . readWhiteTokens   . source
+run IL   VisibleTokenType = putLTextLnEff . pShowNoColor . (flipParseVisible <$> formatType <*> source)
+run IL   WhiteTokenType   = putLTextLnEff . pShowNoColor . (flipParseWhite   <$> formatType <*> source)
+run TL   VisibleTokenType = putTextLnEff . show . tokenizeVisible . source
+run TL   WhiteTokenType   = putTextLnEff . show . tokenizeWhite   . source
+run Code VisibleTokenType = putTextLnEff . show . readVisibleTokens . source
+run Code WhiteTokenType   = putTextLnEff . show . readWhiteTokens   . source
 
 
 simpleEval :: AppEff m => S.SimpleParams -> m ()
