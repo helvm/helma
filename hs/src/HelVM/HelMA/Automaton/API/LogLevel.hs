@@ -1,12 +1,17 @@
 module HelVM.HelMA.Automaton.API.LogLevel where
 
 import           Data.Default
+import qualified Data.DList   as DList
 
-logToTextLn :: (LogLevel , Text) -> Text
+logToTextLn :: Log -> Text
 logToTextLn m = logToText m <> "\n"
 
-logToText :: (LogLevel , Text) -> Text
+logToText :: Log -> Text
 logToText (l , m) = show l <> " " <> m
+
+type Logs = DList.DList Log
+
+type Log = (LogLevel , Text)
 
 defaultLogLevel :: LogLevel
 defaultLogLevel = def

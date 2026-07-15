@@ -10,22 +10,27 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   logDebug,
 ) where
 
+import           HelVM.HelMA.Automaton.Eff.EffectEff
+
 import           HelVM.HelIO.Control.Control
 import           HelVM.HelMA.Automaton.API.LogLevel
 
 import           HelVM.HelIO.ReadText
 
-import qualified Data.ByteString.Lazy               as LByteString
-import           Data.Default                       as Default
-import qualified Data.Text.IO                       as Text
-import qualified Data.Text.Lazy.IO                  as LText
+import qualified Data.ByteString.Lazy                as LByteString
+import           Data.Default                        as Default
+import qualified Data.Text.IO                        as Text
+import qualified Data.Text.Lazy.IO                   as LText
 
-import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
+import           Effectful
+import           Effectful.Dispatch.Dynamic
+
+import           Prelude                             hiding (getLine, putLTextLn, putText, putTextLn)
 import qualified Prelude
 
 import qualified RIO
 
-import qualified System.IO                          as IO
+import qualified System.IO                           as IO
 
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)
@@ -54,7 +59,7 @@ class Monad m => MonadEff m where
   putLTextLnEff   :: LText -> m ()
   flush           :: m ()
 
-  log             :: LogLevel -> Text -> m ()
+  log             :: Log -> m ()
 
   putAsChar      = putIntAsChar . fromIntegral
   putAsDec       = putIntAsDec  . fromIntegral
@@ -71,16 +76,19 @@ class Monad m => MonadEff m where
   flush          = pass
 
 logError :: MonadEff m => Text -> m ()
-logError = log Error
+logError = logCurry Error
 
 logWarn :: MonadEff m => Text -> m ()
-logWarn = log Warn
+logWarn = logCurry Warn
 
 logInfo :: MonadEff m => Text -> m ()
-logInfo = log Info
+logInfo = logCurry Info
 
 logDebug :: MonadEff m => Text -> m ()
-logDebug = log Debug
+logDebug = logCurry Debug
+
+logCurry :: MonadEff m => LogLevel -> Text -> m ()
+logCurry = curry log
 
 instance MonadEff IO where
   getContentsBS   = LByteString.getContents
@@ -106,7 +114,7 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   putTextLnEff    = lift . putTextLnEff
   putLTextLnEff   = lift . putLTextLnEff
   flush           = lift flush
-  log             = (lift .) . log
+  log             = lift . log
 
 instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   getContentsBS   = liftIO LByteString.getContents
@@ -121,16 +129,27 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   flush           = liftIO flushIO
   log             = logRIO
 
+instance EffectEff :> es => MonadEff (Eff es) where
+  getContentsBS   = send GetContentsBS
+  getContentsText = send GetContentsText
+  getContents     = send GetContents
+  getChar         = send GetChar
+  getLine         = send GetLine
+  putChar         = send . PutChar
+  putTextEff      = send . PutTextEff
+  flush           = send Flush
+  log             = send . Log
+
 ---- Internal
 
 flushIO :: IO ()
 flushIO = hFlush stdout
 
-logIO :: LogLevel -> Text -> IO ()
-logIO l m = Text.hPutStrLn stderr $ logToTextLn (l , m)
+logIO :: Log -> IO ()
+logIO = Text.hPutStrLn stderr . logToTextLn
 
-logRIO :: RIO.HasLogFunc env => LogLevel -> Text -> RIO.RIO env ()
-logRIO l = RIO.logGeneric "" (toRioLevel l) . RIO.display
+logRIO :: RIO.HasLogFunc env => Log -> RIO.RIO env ()
+logRIO (l , m) = RIO.logGeneric "" (toRioLevel l) $ RIO.display m
 
 toRioLevel :: LogLevel -> RIO.LogLevel
 toRioLevel Error = RIO.LevelError

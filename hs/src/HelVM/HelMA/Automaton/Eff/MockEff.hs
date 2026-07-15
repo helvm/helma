@@ -128,8 +128,8 @@ mockPutChar = modify . mockDataPutChar
 mockPutText :: MonadMockEff m => Text -> m ()
 mockPutText = modify . mockDataPutText
 
-mockLog :: MonadMockEff m => LogLevel -> Text -> m ()
-mockLog l m = modify $ mockDataLog l m
+mockLog :: MonadMockEff m => Log -> m ()
+mockLog = modify . mockDataLog
 
 ----
 
@@ -140,10 +140,10 @@ mockDataPutText :: Text -> MockEffData -> MockEffData
 mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
 
 mockDataLogInfo :: Text -> MockEffData -> MockEffData
-mockDataLogInfo = mockDataLog Info
+mockDataLogInfo = mockDataLog . (Info , )
 
-mockDataLog :: LogLevel -> Text -> MockEffData -> MockEffData
-mockDataLog l m mockIO = mockIO { logged = logged mockIO <> DList.singleton (l , m) }
+mockDataLog :: Log -> MockEffData -> MockEffData
+mockDataLog l mockIO = mockIO { logged = logged mockIO <> DList.singleton l }
 
 ----
 
@@ -169,8 +169,6 @@ data MockEffData = MockEffData
   deriving stock (Eq , Read , Show)
 
 ----
-
-type Logs = DList.DList(LogLevel, Text)
 
 splitStringByLn :: String -> (String , String)
 splitStringByLn = splitBy '\n'

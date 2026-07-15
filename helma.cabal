@@ -123,6 +123,7 @@ library
     HelVM.HelMA.Automaton.Automaton
 
     HelVM.HelMA.Automaton.Eff.AutomatonEff
+    HelVM.HelMA.Automaton.Eff.EffectEff
     HelVM.HelMA.Automaton.Eff.FreeEff
     HelVM.HelMA.Automaton.Eff.MockEff
     HelVM.HelMA.Automaton.Eff.MonadEff
@@ -252,6 +253,7 @@ library
     , bytestring
     , data-default
     , dlist
+    , effectful-core
     , extra
     , free
     , ilist
