@@ -20,7 +20,7 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   getContents,
   getChar,
   putChar,
-  eGetLine,
+  getLine,
   ePutText,
   ePutTextLn,
   ePutLTextLn,
@@ -45,6 +45,7 @@ import qualified Data.Text.Lazy.IO                  as LText
 
 import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
 import qualified Prelude
+
 import qualified RIO
 
 import qualified System.IO                          as IO
@@ -69,7 +70,7 @@ class Monad m => MonadEff m where
   getContentsText :: m LText
   getContents     :: m String
   getChar         :: m Char
-  eGetLine         :: m Text
+  getLine         :: m Text
   putChar         :: Char -> m ()
   ePutText         :: Text -> m ()
   ePutTextLn       :: Text -> m ()
@@ -86,7 +87,7 @@ class Monad m => MonadEff m where
   putIntAsChar = putChar . chr
   putIntAsDec  = ePutText . show
   getCharAsInt = ord <$> getChar
-  getDecAsInt  = readTextUnsafe <$> eGetLine
+  getDecAsInt  = readTextUnsafe <$> getLine
 
   ePutTextLn s  = ePutText $ s <> "\n"
   ePutLTextLn   = ePutTextLn . toText
@@ -109,7 +110,7 @@ instance MonadEff IO where
   getContentsText = LText.getContents
   getContents     = IO.getContents
   getChar         = IO.getChar
-  eGetLine         = Prelude.getLine
+  getLine         = Prelude.getLine
   putChar         = IO.putChar
   ePutText         = Prelude.putText
   ePutTextLn       = Prelude.putTextLn
@@ -122,7 +123,7 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   getContentsText = lift getContentsText
   getContents     = lift getContents
   getChar         = lift getChar
-  eGetLine         = lift eGetLine
+  getLine         = lift getLine
   putChar         = lift . putChar
   ePutText         = lift . ePutText
   ePutTextLn       = lift . ePutTextLn
@@ -135,7 +136,7 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   getContentsText = liftIO LText.getContents
   getContents     = liftIO IO.getContents
   getChar         = liftIO IO.getChar
-  eGetLine         = liftIO Prelude.getLine
+  getLine         = liftIO Prelude.getLine
   putChar         = liftIO . IO.putChar
   ePutText         = liftIO . Prelude.putText
   ePutTextLn       = liftIO . Prelude.putTextLn

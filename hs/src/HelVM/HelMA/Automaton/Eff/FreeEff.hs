@@ -12,6 +12,8 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           Control.Monad.Free
 import           Control.Natural
 
+import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
+
 interpretFreeEffToMonadEff :: MonadEff m => FreeEff a -> m a
 interpretFreeEffToMonadEff = foldFree interpretFreeEffFToMonadEff
 
@@ -28,7 +30,7 @@ interpretFreeEffFToMonadEff (GetContentsBS    cd) = cd <$> getContentsBS
 interpretFreeEffFToMonadEff (GetContentsText  cd) = cd <$> getContentsText
 interpretFreeEffFToMonadEff (GetContents      cd) = cd <$> getContents
 interpretFreeEffFToMonadEff (GetChar          cd) = cd <$> getChar
-interpretFreeEffFToMonadEff (GetLine          cd) = cd <$> eGetLine
+interpretFreeEffFToMonadEff (GetLine          cd) = cd <$> getLine
 interpretFreeEffFToMonadEff (PutChar        c v ) = putChar   c $> v
 interpretFreeEffFToMonadEff (PutText        s v ) = ePutText   s $> v
 interpretFreeEffFToMonadEff (PutTextLn      s v ) = ePutTextLn s $> v
@@ -53,7 +55,7 @@ instance MonadEff FreeEff where
   getContentsText = freeGetContentsText
   getContents     = freeGetContents
   getChar         = freeGetChar
-  eGetLine         = freeGetLine
+  getLine         = freeGetLine
   putChar         = freePutChar
   ePutText         = freePutText
   ePutTextLn       = freePutTextLn
