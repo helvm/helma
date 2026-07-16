@@ -35,6 +35,8 @@ common common-options
       base                 <  4.22
     , relude               <  1.3
     , rio
+    , text
+    , bytestring
   mixins:
       base hiding (Prelude)
     , relude (Relude as Prelude, Relude.Extra, Data.Text)
@@ -251,7 +253,6 @@ library
       helio
     , array
     , containers           <  0.7
-    , bytestring
     , data-default
     , dlist
     , effectful-core
@@ -266,7 +267,6 @@ library
     , natural-transformation
     , pretty-simple
     , safe
-    , text
     , type-operators
     , vector
     , yjtools

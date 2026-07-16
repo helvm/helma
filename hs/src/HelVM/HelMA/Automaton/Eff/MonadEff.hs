@@ -25,7 +25,7 @@ import qualified Data.Text.Lazy.IO                   as LText
 import           Effectful
 import           Effectful.Dispatch.Dynamic
 
-import           Prelude                             hiding (getLine, putLTextLn, putText, putTextLn)
+import           Prelude                             hiding (getLine, putText)
 import qualified Prelude
 
 import qualified RIO
@@ -88,7 +88,6 @@ class Monad m => MonadEff m where
 
   putLTextLnEff s= putTextEff $ toText s <> "\n"
   flush          = pass
-
 
 instance MonadEff IO where
   getContentsBS   = LByteString.getContents

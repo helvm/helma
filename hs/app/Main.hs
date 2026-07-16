@@ -10,8 +10,13 @@ import           HelVM.HelMA.Automaton.API.Env
 
 import           Options.Applicative
 
+
+import qualified Data.ByteString.Lazy                 as LByteString
+import qualified Data.Text.Lazy.IO                    as LText
+
+import           Prelude
+
 import qualified RIO
-import           RIO                                  (logOptionsHandle, runRIO, withLogFunc)
 
 import           System.Environment                   (getProgName)
 import qualified System.IO                            as IO
@@ -21,8 +26,8 @@ main = do
   progName <- getProgName
   opts     <- execParser (optsInfo progName)
   hSetBuffering stdout IO.NoBuffering
-  logOptions <- logOptionsHandle stderr True
-  withLogFunc logOptions (runApp opts)
+  logOptions <- RIO.logOptionsHandle stderr True
+  RIO.withLogFunc logOptions (runApp opts)
   exitSuccess
 
 optsInfo :: String -> ParserInfo App.AppOptions
@@ -38,12 +43,20 @@ versionInfo _ = infoOption "1.0.0"
   <> help "print version information and exit")
 
 runApp :: MonadIO m => App.AppOptions -> RIO.LogFunc ->  m ()
-runApp = (liftIO .) . fmap (`runRIO` runRio) . productionEnv
+runApp = (liftIO .) . fmap (`RIO.runRIO` runRio) . productionEnv
 
 productionEnv :: App.AppOptions -> RIO.LogFunc -> Env
-productionEnv = Env productionFileIO
+productionEnv = Env productionFileIO defaultStdIO
 
 productionFileIO :: FileIO
 productionFileIO = FileIO
   { readTextFile = readFileTextUtf8
+  }
+
+defaultStdIO :: StdIO
+defaultStdIO = StdIO
+  { stdPutLTextLn      = putLTextLn
+  , stdGetContentsText = liftIO LText.getContents
+  , stdPutLBSLn        = putLBSLn
+  , stdGetContentsBS   = liftIO LByteString.getContents
   }
