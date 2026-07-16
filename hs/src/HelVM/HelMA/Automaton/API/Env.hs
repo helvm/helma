@@ -5,7 +5,8 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import qualified RIO
 
-type Has env = (HasFileIO env, HasStdIO env, HasAppOptions env, RIO.HasLogFunc env)
+type Has env = (HasIO env, HasAppOptions env, RIO.HasLogFunc env)
+type HasIO env = (HasFileIO env, HasStdIO env)
 
 readSourceFileRio :: Has env => RIO.RIO env Source
 readSourceFileRio = readSourceFileWithOptions =<< optionsRio where

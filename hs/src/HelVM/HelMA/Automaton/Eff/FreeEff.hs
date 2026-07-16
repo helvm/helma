@@ -28,7 +28,6 @@ logOutputFree = foldFree logOutputF
 interpretFreeEffFToMonadEff :: MonadEff m => FreeEffF a -> m a
 interpretFreeEffFToMonadEff (GetContentsBS    cd) = cd <$> getContentsBS
 interpretFreeEffFToMonadEff (GetContentsText  cd) = cd <$> getContentsText
-interpretFreeEffFToMonadEff (GetContents      cd) = cd <$> getContents
 interpretFreeEffFToMonadEff (GetChar          cd) = cd <$> getChar
 interpretFreeEffFToMonadEff (GetLine          cd) = cd <$> getLine
 interpretFreeEffFToMonadEff (PutChar        c v ) = putChar      c $> v
@@ -58,7 +57,6 @@ toLogInfo = (Info, )
 instance MonadEff FreeEff where
   getContentsBS   = freeGetContentsBS
   getContentsText = freeGetContentsText
-  getContents     = freeGetContents
   getChar         = freeGetChar
   getLine         = freeGetLine
   putChar         = freePutChar
@@ -72,9 +70,6 @@ freeGetContentsBS = liftF $ GetContentsBS id
 
 freeGetContentsText :: FreeEff LText
 freeGetContentsText = liftF $ GetContentsText id
-
-freeGetContents :: FreeEff String
-freeGetContents = liftF $ GetContents id
 
 freeGetChar :: FreeEff Char
 freeGetChar = liftF $ GetChar id
@@ -100,7 +95,6 @@ type FreeEff = Free FreeEffF
 data FreeEffF a
  = GetContentsBS             (LByteString -> a)
  | GetContentsText           (LText       -> a)
- | GetContents               (String      -> a)
  | GetChar                   (Char        -> a)
  | GetLine                   (Text        -> a)
  | PutChar          Char                     a

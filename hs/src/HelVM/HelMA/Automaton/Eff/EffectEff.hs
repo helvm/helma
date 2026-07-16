@@ -16,7 +16,6 @@ type instance DispatchOf EffectEff = 'Dynamic
 data EffectEff :: Effect where
   GetContentsBS   :: EffectEff m LByteString
   GetContentsText :: EffectEff m LText
-  GetContents     :: EffectEff m String
   GetChar         :: EffectEff m Char
   GetLine         :: EffectEff m Text
   PutChar         :: Char -> EffectEff m ()

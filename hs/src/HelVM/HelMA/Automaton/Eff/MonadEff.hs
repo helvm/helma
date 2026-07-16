@@ -65,7 +65,6 @@ class Monad m => MonadEff m where
 
   getContentsBS   :: m LByteString
   getContentsText :: m LText
-  getContents     :: m String
   getChar         :: m Char
   getLine         :: m Text
   putChar         :: Char -> m ()
@@ -90,7 +89,6 @@ class Monad m => MonadEff m where
 instance MonadEff IO where
   getContentsBS   = LByteString.getContents
   getContentsText = LText.getContents
-  getContents     = IO.getContents
   getChar         = IO.getChar
   getLine         = Prelude.getLine
   putChar         = IO.putChar
@@ -101,7 +99,6 @@ instance MonadEff IO where
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
   getContentsBS   = lift getContentsBS
   getContentsText = lift getContentsText
-  getContents     = lift getContents
   getChar         = lift getChar
   getLine         = lift getLine
   putChar         = lift . putChar
@@ -112,7 +109,6 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
 instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   getContentsBS   = liftIO LByteString.getContents
   getContentsText = liftIO LText.getContents
-  getContents     = liftIO IO.getContents
   getChar         = liftIO IO.getChar
   getLine         = liftIO Prelude.getLine
   putChar         = liftIO . IO.putChar
@@ -123,7 +119,6 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
 instance EffectEff :> es => MonadEff (Eff es) where
   getContentsBS   = send GetContentsBS
   getContentsText = send GetContentsText
-  getContents     = send GetContents
   getChar         = send GetChar
   getLine         = send GetLine
   putChar         = send . PutChar
