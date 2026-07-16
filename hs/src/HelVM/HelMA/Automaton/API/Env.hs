@@ -3,6 +3,8 @@ module HelVM.HelMA.Automaton.API.Env where
 import           HelVM.HelMA.Automaton.API.AppOptions
 import           HelVM.HelMA.Automaton.API.IOTypes
 
+import qualified Codec.Picture                        as Picture
+
 import qualified RIO
 
 type Has env = (HasIO env, HasAppOptions env, RIO.HasLogFunc env)
@@ -39,8 +41,9 @@ data Env = Env
   , envLogFunc :: RIO.LogFunc
   }
 
-newtype FileIO = FileIO
-  { readTextFile :: forall env. (RIO.HasLogFunc env) => FilePath -> RIO.RIO env Source
+data FileIO = FileIO
+  { readTextFile :: forall env. FilePath -> RIO.RIO env Source
+  , readImage    :: forall env. FilePath -> RIO.RIO env Picture.DynamicImage
   }
 
 class HasFileIO env where

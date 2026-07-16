@@ -10,6 +10,7 @@ import           HelVM.HelMA.Automaton.API.Env
 
 import           Options.Applicative
 
+import qualified Codec.Picture                        as Picture
 
 import qualified Data.ByteString.Lazy                 as LByteString
 import qualified Data.Text.Lazy.IO                    as LText
@@ -51,6 +52,7 @@ productionEnv = Env productionFileIO defaultStdIO
 productionFileIO :: FileIO
 productionFileIO = FileIO
   { readTextFile = readFileTextUtf8
+  , readImage = readDynamicImage
   }
 
 defaultStdIO :: StdIO
@@ -60,3 +62,6 @@ defaultStdIO = StdIO
   , stdPutLBSLn        = putLBSLn
   , stdGetContentsBS   = liftIO LByteString.getContents
   }
+
+readDynamicImage :: MonadIO m => FilePath -> m Picture.DynamicImage
+readDynamicImage = liftIO . (Picture.readImage >=> either RIO.throwString pure)
