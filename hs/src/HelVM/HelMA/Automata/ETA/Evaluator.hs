@@ -46,13 +46,13 @@ import           Text.Pretty.Simple
 
 runRio :: Has env => AutomatonType -> RIO.RIO env ()
 runRio i = runWIthOptions =<< optionsRio where
-  runWIthOptions o = runAsRIO . run (App.emit o) i . App.evalParams o =<< readSourceFileRio
+  runWIthOptions o = run (App.emit o) i . App.evalParams o =<< readSourceFileRio
 
-run :: AppEff m => Emit.Emit -> AutomatonType -> EvalParams -> m ()
-run Emit.No   i = evalParams i
-run Emit.IL   _ = putLTextLnEff . pShowNoColor . parseSafe . source
-run Emit.TL   _ = putLTextLnEff . show . tokenize . source
-run Emit.Code _ = putLTextLnEff . show . readTokens . source
+run :: Has env => Emit.Emit -> AutomatonType -> EvalParams -> RIO.RIO env ()
+run Emit.No   i = runAsRIO . evalParams i
+run Emit.IL   _ = putLTextLnRio . pShowNoColor . parseSafe . source
+run Emit.TL   _ = putLTextLnRio . show . tokenize . source
+run Emit.Code _ = putLTextLnRio . show . readTokens . source
 
 simpleEval :: AppEff m => S.SimpleParams -> m ()
 simpleEval p = evalSource (S.implType p) (S.source p) (S.stackType p) (S.autoOptions p)

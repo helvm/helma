@@ -5,9 +5,6 @@ import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-
-import           HelVM.HelMA.Automaton.Eff.MonadEff
-
 import           HelVM.HelIO.Control.Control
 import           HelVM.HelIO.Control.Message
 
@@ -27,8 +24,5 @@ readSourceFile :: Has env => Exec -> String -> RIO.RIO env Source
 readSourceFile True = pure . toText
 readSourceFile _    = readTextFileRio
 
-fallback :: AppEff m => EvalParams -> m ()
-fallback = putLTextLnEff . show . source
-
-(...) :: (c -> d) -> (a -> b -> c) -> a -> b -> d
-(...) = (.) . (.)
+fallback :: Has env => EvalParams -> RIO.RIO env ()
+fallback = putLTextLnRio . show . source

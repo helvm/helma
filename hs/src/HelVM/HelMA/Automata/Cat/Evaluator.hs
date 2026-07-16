@@ -17,10 +17,10 @@ import qualified RIO
 
 runRio :: Has env => RIO.RIO env ()
 runRio = runWithOptions =<< optionsRio where
-  runWithOptions o = runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFileRio
+  runWithOptions o =  run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
-run :: AppEff m => Emit -> EvalParams -> m ()
-run No = evalParams
+run :: Has env => Emit -> EvalParams -> RIO.RIO env ()
+run No = runAsRIO . evalParams
 run _  = fallback
 
 evalParams :: AppEff m => EvalParams -> m ()

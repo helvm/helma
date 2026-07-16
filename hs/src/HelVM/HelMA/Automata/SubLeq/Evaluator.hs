@@ -33,13 +33,13 @@ import qualified RIO
 
 runRio :: Has env => RIO.RIO env ()
 runRio = runWithOptions =<< optionsRio where
-  runWithOptions o =  runAsRIO . run (App.emit o) . App.evalParams o =<< readSourceFileRio
+  runWithOptions o =  run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
-run :: AppEff m => Emit.Emit -> EvalParams -> m ()
-run Emit.No   = evalParams
-run Emit.IL   = putLTextLnEff . show . tokenize . source
-run Emit.TL   = putLTextLnEff . show . tokenize . source
-run Emit.Code = putLTextLnEff . show . readSymbols . source
+run :: Has env => Emit.Emit -> EvalParams -> RIO.RIO env ()
+run Emit.No   = runAsRIO . evalParams
+run Emit.IL   = putLTextLnRio . show . tokenize . source
+run Emit.TL   = putLTextLnRio . show . tokenize . source
+run Emit.Code = putLTextLnRio . show . readSymbols . source
 
 simpleEval :: AppEff m => RAMType -> Source -> m ()
 simpleEval rt s = evalSource s rt testMaybeLimit Pretty

@@ -36,16 +36,16 @@ import           Text.Pretty.Simple
 
 runRio :: Has env => TokenType -> RIO.RIO env ()
 runRio t = runWithOptions =<< optionsRio where
-  runWithOptions o = runAsRIO . run (App.emit o) t . App.evalParams o =<< readSourceFileRio
+  runWithOptions o = run (App.emit o) t . App.evalParams o =<< readSourceFileRio
 
-run :: AppEff m => Emit -> TokenType -> EvalParams -> m ()
-run No   t                = evalParams t
-run IL   VisibleTokenType = putLTextLnEff . pShowNoColor . (flipParseVisible <$> formatType <*> source)
-run IL   WhiteTokenType   = putLTextLnEff . pShowNoColor . (flipParseWhite   <$> formatType <*> source)
-run TL   VisibleTokenType = putLTextLnEff . show . tokenizeVisible . source
-run TL   WhiteTokenType   = putLTextLnEff . show . tokenizeWhite   . source
-run Code VisibleTokenType = putLTextLnEff . show . readVisibleTokens . source
-run Code WhiteTokenType   = putLTextLnEff . show . readWhiteTokens   . source
+run :: Has env => Emit -> TokenType -> EvalParams -> RIO.RIO env ()
+run No   t                = runAsRIO . evalParams t
+run IL   VisibleTokenType = putLTextLnRio . pShowNoColor . (flipParseVisible <$> formatType <*> source)
+run IL   WhiteTokenType   = putLTextLnRio . pShowNoColor . (flipParseWhite   <$> formatType <*> source)
+run TL   VisibleTokenType = putLTextLnRio . show . tokenizeVisible . source
+run TL   WhiteTokenType   = putLTextLnRio . show . tokenizeWhite   . source
+run Code VisibleTokenType = putLTextLnRio . show . readVisibleTokens . source
+run Code WhiteTokenType   = putLTextLnRio . show . readWhiteTokens   . source
 
 
 simpleEval :: AppEff m => S.SimpleParams -> m ()

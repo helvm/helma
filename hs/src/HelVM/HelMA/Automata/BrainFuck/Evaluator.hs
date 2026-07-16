@@ -33,13 +33,13 @@ import           Text.Pretty.Simple
 
 runRio :: Has env => ImplType -> RIO.RIO env ()
 runRio t = runWithOptions =<< optionsRio where
-  runWithOptions o = runAsRIO . run (App.emit o) t . App.evalParams o =<< readSourceFileRio
+  runWithOptions o = run (App.emit o) t . App.evalParams o =<< readSourceFileRio
 
-run :: AppEff m => Emit.Emit -> ImplType -> EvalParams -> m ()
-run Emit.No   i        = evalParams i
-run Emit.IL   FastType = putLTextLnEff . pShowNoColor . Fast.parseAsListSafe   . source
-run Emit.IL   TreeType = putLTextLnEff . pShowNoColor . Tree.parseAsVectorSafe . source
-run _ _                = putLTextLnEff . show . Flat.readTokens . source
+run :: Has env => Emit.Emit -> ImplType -> EvalParams -> RIO.RIO env ()
+run Emit.No   i        = runAsRIO . evalParams i
+run Emit.IL   FastType = putLTextLnRio . pShowNoColor . Fast.parseAsListSafe   . source
+run Emit.IL   TreeType = putLTextLnRio . pShowNoColor . Tree.parseAsVectorSafe . source
+run _ _                = putLTextLnRio . show . Flat.readTokens . source
 
 simpleEval :: AppEff m => (ImplType , Source , CellType) -> m ()
 simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Trampoline
