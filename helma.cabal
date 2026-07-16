@@ -37,6 +37,7 @@ common common-options
     , rio
     , text
     , bytestring
+    , JuicyPixels
   mixins:
       base hiding (Prelude)
     , relude (Relude as Prelude, Relude.Extra, Data.Text)
@@ -228,6 +229,7 @@ library
     HelVM.HelMA.Automata.Piet.Image
     HelVM.HelMA.Automata.Piet.Evaluator
     HelVM.HelMA.Automata.Piet.MonadFailExtra
+    HelVM.HelMA.Automata.Piet.Parser
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
