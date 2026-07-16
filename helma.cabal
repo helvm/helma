@@ -125,6 +125,7 @@ library
     HelVM.HelMA.Automaton.Eff.AutomatonEff
     HelVM.HelMA.Automaton.Eff.EffectEff
     HelVM.HelMA.Automaton.Eff.FreeEff
+    HelVM.HelMA.Automaton.Eff.FusedEff
     HelVM.HelMA.Automaton.Eff.MockEff
     HelVM.HelMA.Automaton.Eff.MonadEff
 
@@ -256,6 +257,8 @@ library
     , effectful-core
     , extra
     , free
+    , fused-effects
+    , fused-effects-th
     , IfElse
     , ilist
     , ListLike
