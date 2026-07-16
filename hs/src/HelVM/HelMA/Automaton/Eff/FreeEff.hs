@@ -33,7 +33,6 @@ interpretFreeEffFToMonadEff (GetChar          cd) = cd <$> getChar
 interpretFreeEffFToMonadEff (GetLine          cd) = cd <$> getLine
 interpretFreeEffFToMonadEff (PutChar        c v ) = putChar      c $> v
 interpretFreeEffFToMonadEff (PutText        s v ) = putTextEff   s $> v
-interpretFreeEffFToMonadEff (PutTextLn      s v ) = putTextLnEff s $> v
 interpretFreeEffFToMonadEff (Flush            v ) = flush          $> v
 interpretFreeEffFToMonadEff (Log            l v ) = log          l $> v
 
@@ -63,8 +62,7 @@ instance MonadEff FreeEff where
   getChar         = freeGetChar
   getLine         = freeGetLine
   putChar         = freePutChar
-  putTextEff      = freputTextEff
-  putTextLnEff    = freputTextLnEff
+  putTextEff      = freePutTextEff
   flush           = freeFlush
   log             = freelog
 
@@ -87,11 +85,8 @@ freeGetLine = liftF $ GetLine id
 freePutChar :: Char -> FreeEff ()
 freePutChar = liftF . flip PutChar ()
 
-freputTextEff :: Text -> FreeEff ()
-freputTextEff = liftF . flip PutText ()
-
-freputTextLnEff :: Text -> FreeEff ()
-freputTextLnEff = liftF . flip PutTextLn ()
+freePutTextEff :: Text -> FreeEff ()
+freePutTextEff = liftF . flip PutText ()
 
 freeFlush :: FreeEff ()
 freeFlush = liftF $ Flush ()
@@ -110,7 +105,6 @@ data FreeEffF a
  | GetLine                   (Text        -> a)
  | PutChar          Char                     a
  | PutText          Text                     a
- | PutTextLn        Text                     a
  | Flush                                     a
  | Log              Log                      a
  deriving stock (Functor)

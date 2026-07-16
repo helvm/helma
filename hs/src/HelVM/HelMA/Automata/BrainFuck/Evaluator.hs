@@ -39,7 +39,7 @@ run :: AppEff m => Emit.Emit -> ImplType -> EvalParams -> m ()
 run Emit.No   i        = evalParams i
 run Emit.IL   FastType = putLTextLnEff . pShowNoColor . Fast.parseAsListSafe   . source
 run Emit.IL   TreeType = putLTextLnEff . pShowNoColor . Tree.parseAsVectorSafe . source
-run _ _                = putTextLnEff . show . Flat.readTokens . source
+run _ _                = putLTextLnEff . show . Flat.readTokens . source
 
 simpleEval :: AppEff m => (ImplType , Source , CellType) -> m ()
 simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Trampoline

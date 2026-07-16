@@ -51,8 +51,8 @@ runRio i = runWIthOptions =<< optionsRio where
 run :: AppEff m => Emit.Emit -> AutomatonType -> EvalParams -> m ()
 run Emit.No   i = evalParams i
 run Emit.IL   _ = putLTextLnEff . pShowNoColor . parseSafe . source
-run Emit.TL   _ = putTextLnEff . show . tokenize . source
-run Emit.Code _ = putTextLnEff . show . readTokens . source
+run Emit.TL   _ = putLTextLnEff . show . tokenize . source
+run Emit.Code _ = putLTextLnEff . show . readTokens . source
 
 simpleEval :: AppEff m => S.SimpleParams -> m ()
 simpleEval p = evalSource (S.implType p) (S.source p) (S.stackType p) (S.autoOptions p)

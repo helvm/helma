@@ -42,10 +42,10 @@ run :: AppEff m => Emit -> TokenType -> EvalParams -> m ()
 run No   t                = evalParams t
 run IL   VisibleTokenType = putLTextLnEff . pShowNoColor . (flipParseVisible <$> formatType <*> source)
 run IL   WhiteTokenType   = putLTextLnEff . pShowNoColor . (flipParseWhite   <$> formatType <*> source)
-run TL   VisibleTokenType = putTextLnEff . show . tokenizeVisible . source
-run TL   WhiteTokenType   = putTextLnEff . show . tokenizeWhite   . source
-run Code VisibleTokenType = putTextLnEff . show . readVisibleTokens . source
-run Code WhiteTokenType   = putTextLnEff . show . readWhiteTokens   . source
+run TL   VisibleTokenType = putLTextLnEff . show . tokenizeVisible . source
+run TL   WhiteTokenType   = putLTextLnEff . show . tokenizeWhite   . source
+run Code VisibleTokenType = putLTextLnEff . show . readVisibleTokens . source
+run Code WhiteTokenType   = putLTextLnEff . show . readWhiteTokens   . source
 
 
 simpleEval :: AppEff m => S.SimpleParams -> m ()

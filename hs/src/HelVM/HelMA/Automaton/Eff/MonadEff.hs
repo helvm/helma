@@ -70,7 +70,7 @@ class Monad m => MonadEff m where
   getLine         :: m Text
   putChar         :: Char -> m ()
   putTextEff      :: Text -> m ()
-  putTextLnEff    :: Text -> m ()
+
   putLTextLnEff   :: LText -> m ()
   flush           :: m ()
 
@@ -86,8 +86,7 @@ class Monad m => MonadEff m where
   getCharAsInt   = ord <$> getChar
   getDecAsInt    = readTextUnsafe <$> getLine
 
-  putTextLnEff s = putTextEff $ s <> "\n"
-  putLTextLnEff  = putTextLnEff . toText
+  putLTextLnEff s= putTextEff $ toText s <> "\n"
   flush          = pass
 
 
@@ -99,7 +98,6 @@ instance MonadEff IO where
   getLine         = Prelude.getLine
   putChar         = IO.putChar
   putTextEff      = Prelude.putText
-  putTextLnEff    = Prelude.putTextLn
   putLTextLnEff   = Prelude.putLTextLn
   flush           = flushIO
   log             = logIO
@@ -112,7 +110,6 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   getLine         = lift getLine
   putChar         = lift . putChar
   putTextEff      = lift . putTextEff
-  putTextLnEff    = lift . putTextLnEff
   putLTextLnEff   = lift . putLTextLnEff
   flush           = lift flush
   log             = lift . log
@@ -125,7 +122,6 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   getLine         = liftIO Prelude.getLine
   putChar         = liftIO . IO.putChar
   putTextEff      = liftIO . Prelude.putText
-  putTextLnEff    = liftIO . Prelude.putTextLn
   putLTextLnEff   = liftIO . Prelude.putLTextLn
   flush           = liftIO flushIO
   log             = logRIO
