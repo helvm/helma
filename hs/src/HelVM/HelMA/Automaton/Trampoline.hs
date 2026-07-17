@@ -26,7 +26,7 @@ withLimit :: Natural -> a -> WithLimit a
 withLimit n a = (n - 1 , a)
 
 trampolineM :: Monad m => (a -> m (Either b a)) -> a -> m b
-trampolineM f = loop where loop = either return loop <=< f
+trampolineM f = loop where loop = either pure loop <=< f
 
 trampoline :: (a -> Either b a) -> a -> b
 trampoline f = loop where loop = either id loop . f

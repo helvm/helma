@@ -24,14 +24,14 @@ data SlowConfiguration = SlowConfiguration {
 configure :: Int -> IO SlowConfiguration
 configure x =
   newTVarIO [] >>= \t ->
-    return (SlowConfiguration x t)
+    pure (SlowConfiguration x t)
 
 stopwatch :: MonadIO m => m a -> m (a, NominalDiffTime)
 stopwatch x = do
   start <- liftIO getCurrentTime
   !a <- x
   end <- liftIO getCurrentTime
-  return (a, end `diffUTCTime` start)
+  pure (a, end `diffUTCTime` start)
 
 trackedAction :: MonadIO m => String -> m a -> ReaderT SlowConfiguration m a
 trackedAction s m = do
@@ -40,8 +40,8 @@ trackedAction s m = do
   if d > (realToFrac . duration $ conf)
     then do
       liftIO $ atomically $ modifyTVar (tracker conf) (++ [(s, d)])
-      return result
-    else return result
+      pure result
+    else pure result
 
 type Timer = forall m a. (MonadIO m, Example (m a)) => String -> m a -> SpecWith (Arg (m a))
 
