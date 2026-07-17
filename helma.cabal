@@ -256,6 +256,7 @@ library
     , array
     , containers           <  0.7
     , data-default
+    , diffarray
     , dlist
     , effectful-core
     , extra

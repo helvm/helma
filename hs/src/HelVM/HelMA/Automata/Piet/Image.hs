@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.Piet.Image where
 
-import           Data.Array.IArray
+import           Data.Array.Diff
 import           HelVM.HelMA.Automata.Piet.Coordinates
 
 -- | Constructors
@@ -22,4 +22,4 @@ border :: Image a -> Coordinates
 border = snd . bounds
 
 -- | Type
-type Image a = Array Coordinates a
+type Image a = DiffArray Coordinates a
