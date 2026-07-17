@@ -226,8 +226,9 @@ library
     HelVM.HelMA.Automata.Piet.API.LexerType
     HelVM.HelMA.Automata.Piet.Color
     HelVM.HelMA.Automata.Piet.Coordinates
-    HelVM.HelMA.Automata.Piet.Image
     HelVM.HelMA.Automata.Piet.Evaluator
+    HelVM.HelMA.Automata.Piet.Image
+    HelVM.HelMA.Automata.Piet.Label
     HelVM.HelMA.Automata.Piet.MonadFailExtra
     HelVM.HelMA.Automata.Piet.Parser
 
