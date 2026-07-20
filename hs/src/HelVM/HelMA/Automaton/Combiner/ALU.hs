@@ -11,6 +11,7 @@ module HelVM.HelMA.Automaton.Combiner.ALU (
   binaryInstructions,
   halibut,
   move,
+  roll,
   discard,
   slide,
   copy,
@@ -136,14 +137,20 @@ slide :: SafeStack m ll element => Index -> ll -> m ll
 slide i = appendError "ALU.pop2" . build <.> pop1 where
   build (e , l) = push1 e $ drop i l
 
--- | Move instructions
 move :: SafeStack m ll element => Index -> ll -> m ll
-move i l = build $ length l where
+move i = roll i (i + 1)
+
+roll :: SafeStack m ll element => Index -> Index -> ll -> m ll
+roll rolls i l = build $ length l where
   build ll
-    | ll <= i = liftErrorWithTupleList "ALU.move index must be less then lenght" [("i" , show i) , ("ll" , show ll)]
-    | otherwise = pure $ l1 <> l2 <> l3 where
-      (l1 , l3) = splitAt 1 l'
-      (l2 , l') = splitAt i l
+    | i == 0    = pure l
+    | r == 0    = pure l
+    | ll < i    = liftErrorWithTupleList "ALU.role index must be less then lenght" [("i" , show i) , ("ll" , show ll)]
+    | otherwise = pure $ l1 <> l2 <> l3
+    where
+      r = rolls `mod` i
+      (l2, l1) = splitAt r l'
+      (l', l3) = splitAt i l
 
 -- | Copy instructions
 copy :: SafeStack m ll element => Index -> ll -> m ll
