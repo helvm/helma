@@ -10,27 +10,22 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   MonadEff(..),
 ) where
 
-import           HelVM.HelMA.Automaton.Eff.EffectEff
-
 import           HelVM.HelIO.Control.Control
 import           HelVM.HelMA.Automaton.API.LogLevel
 
 import           HelVM.HelIO.ReadText
 
-import qualified Data.ByteString.Lazy                as LByteString
-import           Data.Default                        as Default
-import qualified Data.Text.IO                        as Text
-import qualified Data.Text.Lazy.IO                   as LText
+import qualified Data.ByteString.Lazy               as LByteString
+import           Data.Default                       as Default
+import qualified Data.Text.IO                       as Text
+import qualified Data.Text.Lazy.IO                  as LText
 
-import           Effectful
-import           Effectful.Dispatch.Dynamic
-
-import           Prelude                             hiding (getLine, putText)
+import           Prelude                            hiding (getLine, putText)
 import qualified Prelude
 
 import qualified RIO
 
-import qualified System.IO                           as IO
+import qualified System.IO                          as IO
 
 logError :: MonadEff m => Text -> m ()
 logError = logCurry Error
@@ -115,16 +110,6 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   putTextEff      = liftIO . Prelude.putText
   flush           = liftIO flushIO
   log             = logRIO
-
-instance EffectEff :> es => MonadEff (Eff es) where
-  getContentsBS   = send GetContentsBS
-  getContentsText = send GetContentsText
-  getChar         = send GetChar
-  getLine         = send GetLine
-  putChar         = send . PutChar
-  putTextEff      = send . PutTextEff
-  flush           = send Flush
-  log             = send . Log
 
 ---- Internal
 

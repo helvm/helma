@@ -11,7 +11,7 @@ license:               Apache-2.0
 license-file:          docs/license/LICENSE-APACHE
 author:                Kamil Adam
 maintainer:            kamil.adam.zabinski@gmail.com
-copyright:             2020-2024 WriteOnly Developers
+copyright:             2020-2026 WriteOnly Developers
 
 category:              Language
 build-type:            Simple
@@ -126,9 +126,7 @@ library
     HelVM.HelMA.Automaton.Automaton
 
     HelVM.HelMA.Automaton.Eff.AutomatonEff
-    HelVM.HelMA.Automaton.Eff.EffectEff
     HelVM.HelMA.Automaton.Eff.FreeEff
-    HelVM.HelMA.Automaton.Eff.FusedEff
     HelVM.HelMA.Automaton.Eff.MockEff
     HelVM.HelMA.Automaton.Eff.MonadEff
 
@@ -259,11 +257,8 @@ library
     , data-default
     , diffarray
     , dlist
-    , effectful-core
     , extra
     , free
-    , fused-effects
-    , fused-effects-th
     , IfElse
     , ilist
     , ListLike
@@ -289,7 +284,7 @@ executable helma
     , helma
     , dlist
     , mtl
-    , optparse-applicative >= 0.14.3.0
+    , optparse-applicative >= 0.16 && < 0.19
   ghc-options:
     -threaded
     -rtsopts
