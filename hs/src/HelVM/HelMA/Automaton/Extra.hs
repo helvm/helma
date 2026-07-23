@@ -5,16 +5,14 @@ import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Control.Message
-
-import qualified Data.DList                           as D
+import           HelVM.HelIO.Control.Safe
 
 import qualified RIO
 
 runAsRIO :: (MonadIO m, MonadReader env m, Has env) => SafeT m a -> m a
-runAsRIO rio = do
-  result <- runExceptT rio
+runAsRIO action = do
+  result <- runExceptT action
   either ((*> RIO.exitFailure) . RIO.logError . RIO.display . errorsToText) pure result
 
 readSourceFile :: Has env => Exec -> String -> RIO.RIO env Source
