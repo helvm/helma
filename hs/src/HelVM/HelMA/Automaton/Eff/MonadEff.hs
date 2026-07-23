@@ -10,7 +10,7 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
   MonadEff(..),
 ) where
 
-import           HelVM.HelIO.Control.Control
+import           HelVM.HelIO.Control.Safe
 import           HelVM.HelMA.Automaton.API.LogLevel
 
 import           HelVM.HelIO.ReadText
@@ -44,7 +44,7 @@ logCurry = curry log
 
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)
-type AppEff m = (MonadControl m , MonadEff m)
+type AppEff m = (MonadSafe m , MonadEff m)
 
 class Monad m => MonadEff m where
 
