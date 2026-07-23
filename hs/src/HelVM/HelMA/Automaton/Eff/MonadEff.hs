@@ -1,19 +1,21 @@
 {-# LANGUAGE DataKinds            #-}
 {-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.MonadEff (
-  logError,
-  logWarn,
-  logInfo,
-  logDebug,
+  logErrorLegacy,
+  logWarnLegacy,
+  logInfoLegacy,
+  logDebugLegacy,
   Element,
   AppEff,
   MonadEff(..),
 ) where
 
 import           HelVM.HelIO.Control.Safe
-import           HelVM.HelMA.Automaton.API.LogLevel
+import qualified HelVM.HelMA.Automaton.API.LogLevel as Legacy
 
 import           HelVM.HelIO.ReadText
+
+import           Control.Monad.Logger
 
 import qualified Data.ByteString.Lazy               as LByteString
 import           Data.Default                       as Default
@@ -27,24 +29,24 @@ import qualified RIO
 
 import qualified System.IO                          as IO
 
-logError :: MonadEff m => Text -> m ()
-logError = logCurry Error
+logErrorLegacy :: MonadEff m => Text -> m ()
+logErrorLegacy = logCurry Legacy.Error
 
-logWarn :: MonadEff m => Text -> m ()
-logWarn = logCurry Warn
+logWarnLegacy :: MonadEff m => Text -> m ()
+logWarnLegacy = logCurry Legacy.Warn
 
-logInfo :: MonadEff m => Text -> m ()
-logInfo = logCurry Info
+logInfoLegacy :: MonadEff m => Text -> m ()
+logInfoLegacy = logCurry Legacy.Info
 
-logDebug :: MonadEff m => Text -> m ()
-logDebug = logCurry Debug
+logDebugLegacy :: MonadEff m => Text -> m ()
+logDebugLegacy = logCurry Legacy.Debug
 
-logCurry :: MonadEff m => LogLevel -> Text -> m ()
+logCurry :: MonadEff m => Legacy.LogLevel -> Text -> m ()
 logCurry = curry log
 
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)
-type AppEff m = (MonadSafe m , MonadEff m)
+type AppEff m = (MonadLogger m, MonadSafe m , MonadEff m)
 
 class Monad m => MonadEff m where
 
@@ -67,7 +69,7 @@ class Monad m => MonadEff m where
 
   flush           :: m ()
 
-  log             :: Log -> m ()
+  log             :: Legacy.Log -> m ()
 
   putAsChar      = putIntAsChar . fromIntegral
   putAsDec       = putIntAsDec  . fromIntegral
@@ -116,14 +118,14 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
 flushIO :: IO ()
 flushIO = hFlush stdout
 
-logIO :: Log -> IO ()
-logIO = Text.hPutStrLn stderr . logToTextLn
+logIO :: Legacy.Log -> IO ()
+logIO = Text.hPutStrLn stderr . Legacy.logToTextLn
 
-logRIO :: RIO.HasLogFunc env => Log -> RIO.RIO env ()
+logRIO :: RIO.HasLogFunc env => Legacy.Log -> RIO.RIO env ()
 logRIO (l , m) = RIO.logGeneric "" (toRioLevel l) $ RIO.display m
 
-toRioLevel :: LogLevel -> RIO.LogLevel
-toRioLevel Error = RIO.LevelError
-toRioLevel Warn  = RIO.LevelWarn
-toRioLevel Info  = RIO.LevelInfo
-toRioLevel Debug = RIO.LevelDebug
+toRioLevel :: Legacy.LogLevel -> RIO.LogLevel
+toRioLevel Legacy.Error = RIO.LevelError
+toRioLevel Legacy.Warn  = RIO.LevelWarn
+toRioLevel Legacy.Info  = RIO.LevelInfo
+toRioLevel Legacy.Debug = RIO.LevelDebug

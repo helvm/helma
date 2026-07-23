@@ -14,7 +14,7 @@ wFilterIf0 = do
   char <- getChar
   if char == '0'
     then do
-      logInfo "\n"
+      logInfoLegacy "\n"
       putChar '\n'
     else do
       putChar char

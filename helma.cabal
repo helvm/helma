@@ -262,6 +262,7 @@ library
     , IfElse
     , ilist
     , ListLike
+    , monad-logger
     , mtl
     , natural-transformation
     , pretty-simple

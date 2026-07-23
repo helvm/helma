@@ -7,7 +7,7 @@ import           HelVM.HelIO.Extra
 logDump :: (AppEff m , Show d) => DumpType -> d -> m ()
 logDump dt d = logDump' $ dump dt d where
   logDump' Nothing  = pass
-  logDump' (Just t) = logInfo $ logTupleToMessage ("dump" , t)
+  logDump' (Just t) = logInfoLegacy $ logTupleToMessage ("dump" , t)
   logTupleToMessage (k , v) = k <> ": " <> v
 
 dump :: Show a => DumpType -> a -> Maybe Text

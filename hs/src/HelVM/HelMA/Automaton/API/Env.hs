@@ -34,6 +34,9 @@ getContentsBSRio = RIO.view stdIOL >>= stdGetContentsBS
 optionsRio :: Has env => RIO.RIO env AppOptions
 optionsRio = RIO.view appOptionsL
 
+logFuncRio :: Has env => RIO.RIO env RIO.LogFunc
+logFuncRio = RIO.view RIO.logFuncL
+
 data Env = Env
   { envFileIO  :: FileIO
   , envStdIO   :: StdIO

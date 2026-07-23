@@ -36,4 +36,4 @@ output :: AppEff m => Lambda -> Lambda -> Natural -> m ()
 output terminator lambda number = check $ compare 256 number where
   check GT = putAsChar number *> runWithTerminator terminator (apply lambda terminator)
   check EQ = pass
-  check LT = logInfo (show number) *> logInfo (show lambda)
+  check LT = logInfoLegacy (show number) *> logInfoLegacy (show lambda)
