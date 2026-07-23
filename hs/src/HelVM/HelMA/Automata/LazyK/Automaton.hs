@@ -13,6 +13,8 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Control.Safe
 
+import           Control.Monad.Logger
+
 runAutomat :: AppEff m => Lambda -> m ()
 runAutomat = runWithTerminator false
 
@@ -36,4 +38,4 @@ output :: AppEff m => Lambda -> Lambda -> Natural -> m ()
 output terminator lambda number = check $ compare 256 number where
   check GT = putAsChar number *> runWithTerminator terminator (apply lambda terminator)
   check EQ = pass
-  check LT = logInfoLegacy (show number) *> logInfoLegacy (show lambda)
+  check LT = logInfoN (show number) *> logInfoN (show lambda)

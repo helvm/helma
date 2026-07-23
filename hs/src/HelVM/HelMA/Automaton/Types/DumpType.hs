@@ -4,10 +4,12 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Extra
 
+import           Control.Monad.Logger
+
 logDump :: (AppEff m , Show d) => DumpType -> d -> m ()
 logDump dt d = logDump' $ dump dt d where
   logDump' Nothing  = pass
-  logDump' (Just t) = logInfoLegacy $ logTupleToMessage ("dump" , t)
+  logDump' (Just t) = logInfoN $ logTupleToMessage ("dump" , t)
   logTupleToMessage (k , v) = k <> ": " <> v
 
 dump :: Show a => DumpType -> a -> Maybe Text
