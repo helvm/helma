@@ -19,7 +19,6 @@ module HelVM.HelMA.Automaton.Eff.MockEff (
 ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
-import qualified HelVM.HelMA.Automaton.API.LogLevel as Legacy
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
@@ -30,8 +29,11 @@ import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Monad.Logger
 
+import           Data.DList                         (DList)
 import qualified Data.DList                         as DList
 import           Data.Text                          as Text
+
+
 
 ioExecMockEffBatch :: SafeT (WriterLoggingT MockEff) () -> IO MockEffData
 ioExecMockEffBatch = ioExecMockEffWithInput ""
@@ -49,7 +51,7 @@ safeExecMockEffWithInput i action = pure $ runMockEff i $ do
   modify $ \st -> st { logged = logged st <> formattedLogs }
   pure (safeRes, mempty)
   where
-    convertLog (_loc, _source, level, msg) = (fromRioLevel level, decodeUtf8 $ fromLogStr msg)
+    convertLog (_loc, _source, level, msg) = (level, decodeUtf8 $ fromLogStr msg)
 
 execMockEffBatch :: MockEff () -> MockEffData
 execMockEffBatch = execMockEffWithInput ""
@@ -64,7 +66,7 @@ runMockEff i mockIO = flip mockDataLogInfo mockIOData $ safeWithMessagesToText s
   where (s , mockIOData) = runState mockIO $ createMockEff i
 
 createMockEff :: Input -> MockEffData
-createMockEff i = MockEffData  (toString i) "" DList.empty
+createMockEff i = MockEffData (toString i) "" DList.empty
 
 calculateOutput :: MockEffData -> Output
 calculateOutput = calculateText . output
@@ -91,12 +93,12 @@ instance MonadEff (SafeT MockEff) where
   putTextEff      = mockPutText
 
 instance {-# OVERLAPPING #-} MonadLogger MockEff where
-  monadLoggerLog _loc _source level msg = mockLog (fromRioLevel level, decodeUtf8 $ fromLogStr $ toLogStr msg)
+  monadLoggerLog _loc _source level msg = mockLog (level, decodeUtf8 $ fromLogStr $ toLogStr msg)
 
 ----
 
 mockGetContentsBS :: MonadMockEff m => m LByteString
-mockGetContentsBS =  fromStrict . encodeUtf8 <$> mockGetContentsText
+mockGetContentsBS = fromStrict . encodeUtf8 <$> mockGetContentsText
 
 mockGetContentsText :: MonadMockEff m => m LText
 mockGetContentsText = fromStrict . toText <$> mockGetContents
@@ -127,14 +129,13 @@ mockGetLineSafe = mockGetLine' =<< get where
   mockGetLine' :: MonadSafeMockEff m => MockEffData -> m Text
   mockGetLine' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
 
-
 mockPutChar :: MonadMockEff m => Char -> m ()
 mockPutChar = modify . mockDataPutChar
 
 mockPutText :: MonadMockEff m => Text -> m ()
 mockPutText = modify . mockDataPutText
 
-mockLog :: MonadMockEff m => Legacy.Log -> m ()
+mockLog :: MonadMockEff m => Log -> m ()
 mockLog = modify . mockDataLog
 
 ----
@@ -146,19 +147,10 @@ mockDataPutText :: Text -> MockEffData -> MockEffData
 mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
 
 mockDataLogInfo :: Text -> MockEffData -> MockEffData
-mockDataLogInfo = mockDataLog . (Legacy.Info , )
+mockDataLogInfo = mockDataLog . (LevelInfo , )
 
-mockDataLog :: Legacy.Log -> MockEffData -> MockEffData
+mockDataLog :: Log -> MockEffData -> MockEffData
 mockDataLog l mockIO = mockIO { logged = logged mockIO <> DList.singleton l }
-
-----
-
-fromRioLevel :: LogLevel -> Legacy.LogLevel
-fromRioLevel LevelDebug     = Legacy.Debug
-fromRioLevel LevelInfo      = Legacy.Info
-fromRioLevel LevelWarn      = Legacy.Warn
-fromRioLevel LevelError     = Legacy.Error
-fromRioLevel (LevelOther _) = Legacy.Info
 
 ----
 
@@ -172,14 +164,17 @@ calculateText :: String -> Output
 calculateText = Text.reverse . toText
 
 calculateString :: Output -> String
-calculateString =  toString . Text.reverse
+calculateString = toString . Text.reverse
 
 data MockEffData = MockEffData
   { input  :: !String
   , output :: !String
-  , logged :: !Legacy.Logs
+  , logged :: !Logs
   }
   deriving stock (Eq , Read , Show)
+
+type Logs = DList Log
+type Log = (LogLevel, Text)
 
 ----
 
