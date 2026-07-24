@@ -54,11 +54,9 @@ execMockEffWithInput i action = runMockEff i $ Right <$> action
 ----
 
 runMockEff :: Input -> MockEff (Safe ()) -> MockEffData
-runMockEff i mockIO = safeToMockData s mockIOData where
-  (s , mockIOData) = runState mockIO $ createMockEff i
-
-  safeToMockData (Left msgs) d = mockDataLogInfo (errorsToText msgs) d
-  safeToMockData (Right _)  d  = d
+runMockEff i mockIO = uncurry safeToMockData $ runState mockIO $ createMockEff i where
+  safeToMockData (Left msgs) = mockDataLog (defaultLoc, "", LevelError, toLogStr (errorsToText msgs))
+  safeToMockData (Right _  ) = id
 
 createMockEff :: Input -> MockEffData
 createMockEff i = MockEffData (toString i) "" []
@@ -141,9 +139,6 @@ mockDataPutChar char mockIO = mockIO { output = char : output mockIO }
 
 mockDataPutText :: Text -> MockEffData -> MockEffData
 mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
-
-mockDataLogInfo :: Text -> MockEffData -> MockEffData
-mockDataLogInfo msg = mockDataLog (defaultLoc, "", LevelInfo, toLogStr msg)
 
 mockDataLog :: MockLog -> MockEffData -> MockEffData
 mockDataLog l mockIO = mockIO { logged = l : logged mockIO }
