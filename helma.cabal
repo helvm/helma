@@ -220,15 +220,11 @@ library
     HelVM.HelMA.Automata.LazyK.Lexer
     HelVM.HelMA.Automata.LazyK.Parser
     HelVM.HelMA.Automata.LazyK.Reducer
+    
+    HelVM.HelMA.Automata.Piet.Evaluator
+    HelVM.HelMA.Automata.Piet.Parser
 
     HelVM.HelMA.Automata.Piet.API.LexerType
-    HelVM.HelMA.Automata.Piet.Color
-    HelVM.HelMA.Automata.Piet.Coordinates
-    HelVM.HelMA.Automata.Piet.Evaluator
-    HelVM.HelMA.Automata.Piet.Image
-    HelVM.HelMA.Automata.Piet.Label
-    HelVM.HelMA.Automata.Piet.MonadFailExtra
-    HelVM.HelMA.Automata.Piet.Parser
 
     HelVM.HelMA.Automata.Piet.Types.Brightness
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor

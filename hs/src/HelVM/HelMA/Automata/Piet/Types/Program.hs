@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Label
 
 isBlocked :: Coordinates -> Program -> Bool
-isBlocked pos p = not (imgInRange pos $ image p) || (Black == imgPixel pos (image p))
+isBlocked pos p = not (inRangeImage pos $ image p) || (Black == pixelImage pos (image p))
 
 data Program = Program
   { image :: Image Color

@@ -1,34 +1,42 @@
 module HelVM.HelMA.Automata.Piet.Types.Image (
-  Image,
-  imgWidth,
-  imgHeight,
-  imgInRange,
-  imgNew,
-  imgPixel,
-  imgSetPixel,
+  witdthImage,
+  heightImage,
+  inRangeImage,
+  pixelImage,
+  setPixelImage,
+  newImage,
+  Image(..),
 ) where
 
-import           Data.Array.Diff
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
-imgInRange :: Coordinates -> Image a -> Bool
-imgInRange (x, y) img = 0 <= x && x < imgWidth img && 0 <= y && y < imgHeight img
+import           Data.Array.Diff
 
-imgPixel :: Coordinates -> Image a -> a
-imgPixel (x, y) img = imgPixels img ! (x, y)
+witdthImage :: Image a -> Int
+witdthImage = fst . dimensionsImage
 
-imgSetPixel :: Coordinates -> a -> Image a -> Image a
-imgSetPixel (x, y) pixel img = img { imgPixels = imgPixels img // [((x, y), pixel)] }
+heightImage :: Image a -> Int
+heightImage = snd . dimensionsImage
 
-imgNew :: Coordinates -> [(Coordinates, a)] -> Image a
-imgNew (width, height) entries = Image width height $ array ((0, 0), (width - 1, height - 1)) entries
+dimensionsImage :: Image a -> Coordinates
+dimensionsImage (Image pixels) = (maxX - minX + 1, maxY - minY + 1) where ((minX, minY), (maxX, maxY)) = bounds pixels
+
+inRangeImage :: Coordinates -> Image a -> Bool
+inRangeImage (x, y) img = 0 <= x && x < witdthImage img && 0 <= y && y < heightImage img
+
+pixelImage :: Coordinates -> Image a -> a
+pixelImage (x, y) img = pixels img ! (x, y)
+
+setPixelImage :: Coordinates -> a -> Image a -> Image a
+setPixelImage (x, y) pixel img = img { pixels = pixels img // [((x, y), pixel)] }
+
+newImage :: Coordinates -> [(Coordinates, a)] -> Image a
+newImage (width, height) = Image . array ((0, 0), (width - 1, height - 1))
 
 instance Functor Image where
-  fmap f img = img { imgPixels = amap f (imgPixels img) }
+  fmap f img = img { pixels = amap f (pixels img) }
 
-data Image a = Image
-  { imgWidth  :: !Int
-  , imgHeight :: !Int
-  , imgPixels :: !(DiffArray Coordinates a)
+newtype Image a = Image
+  { pixels :: DiffArray Coordinates a
   }
   deriving stock (Show)
