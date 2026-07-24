@@ -29,8 +29,7 @@ import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Monad.Logger
 
-import           Data.DList                         (DList)
-import qualified Data.DList                         as DList
+import qualified Data.ListLike                      as LL
 import           Data.Text                          as Text
 
 ioExecMockEffBatch :: SafeT (WriterLoggingT MockEff) () -> IO MockEffData
@@ -45,7 +44,7 @@ safeExecMockEffBatch = safeExecMockEffWithInput ""
 safeExecMockEffWithInput :: Input -> SafeT (WriterLoggingT MockEff) () -> Safe MockEffData
 safeExecMockEffWithInput i action = pure $ runMockEff i $ do
   (safeRes, rawLogs) <- runWriterLoggingT $ runSafeT action
-  modify $ \st -> st { logged = logged st <> DList.fromList rawLogs }
+  modify $ \st -> st { logged = LL.reverse rawLogs <> logged st }
   pure (safeRes, mempty)
 
 execMockEffBatch :: MockEff () -> MockEffData
@@ -57,17 +56,17 @@ execMockEffWithInput i a = runMockEff i $ safeWithMessages <$> a
 ----
 
 runMockEff :: Input -> MockEff UnitSafeWithMessages -> MockEffData
-runMockEff i mockIO = flip mockDataLogInfo mockIOData $ safeWithMessagesToText s where 
+runMockEff i mockIO = flip mockDataLogInfo mockIOData $ safeWithMessagesToText s where
   (s , mockIOData) = runState mockIO $ createMockEff i
 
 createMockEff :: Input -> MockEffData
-createMockEff i = MockEffData (toString i) "" DList.empty
+createMockEff i = MockEffData (toString i) "" []
 
 calculateOutput :: MockEffData -> Output
 calculateOutput = calculateText . output
 
 calculateLogged :: MockEffData -> Output
-calculateLogged d = Text.concat $ DList.toList $ extractMsg <$> logged d where
+calculateLogged d = Text.concat $ extractMsg <$> LL.reverse (logged d) where
   extractMsg (_loc, _src, _lvl, msg) = decodeUtf8 $ fromLogStr msg
 
 ----
@@ -146,7 +145,7 @@ mockDataLogInfo :: Text -> MockEffData -> MockEffData
 mockDataLogInfo msg = mockDataLog (defaultLoc, "", LevelInfo, toLogStr msg)
 
 mockDataLog :: MockLog -> MockEffData -> MockEffData
-mockDataLog l mockIO = mockIO { logged = logged mockIO <> DList.singleton l }
+mockDataLog l mockIO = mockIO { logged = l : logged mockIO }
 
 ----
 
@@ -169,7 +168,7 @@ data MockEffData = MockEffData
   }
   deriving stock (Eq , Show)
 
-type MockLogs = DList MockLog
+type MockLogs = [MockLog]
 type MockLog = (Loc, LogSource, LogLevel, LogStr)
 
 ----
