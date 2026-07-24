@@ -230,6 +230,19 @@ library
     HelVM.HelMA.Automata.Piet.MonadFailExtra
     HelVM.HelMA.Automata.Piet.Parser
 
+    HelVM.HelMA.Automata.Piet.Types.Brightness
+    HelVM.HelMA.Automata.Piet.Types.ChromaticColor
+    HelVM.HelMA.Automata.Piet.Types.CodelChooser
+    HelVM.HelMA.Automata.Piet.Types.Color
+    HelVM.HelMA.Automata.Piet.Types.Coordinates
+    HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+    HelVM.HelMA.Automata.Piet.Types.Extra
+    HelVM.HelMA.Automata.Piet.Types.Hue
+    HelVM.HelMA.Automata.Piet.Types.Image
+    HelVM.HelMA.Automata.Piet.Types.Label
+    HelVM.HelMA.Automata.Piet.Types.Orientation
+    HelVM.HelMA.Automata.Piet.Types.Program
+
     HelVM.HelMA.Automata.Rev.Evaluator
 
     HelVM.HelMA.Automata.SubLeq.Automaton
