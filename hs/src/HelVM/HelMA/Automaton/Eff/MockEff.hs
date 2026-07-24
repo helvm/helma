@@ -92,17 +92,8 @@ instance MonadEff (SafeT MockEff) where
   putTextEff      = mockPutText
   log             = mockLog
 
-instance {-# OVERLAPPING #-} MonadLogger (StateT MockEffData Identity) where
-  monadLoggerLog _loc _source level msg = do
-    let legacyLevel = fromRioLevel level
-    let txtMsg      = decodeUtf8 $ fromLogStr $ toLogStr msg
-    modify $ mockDataLog (legacyLevel, txtMsg)
-
-instance {-# OVERLAPPING #-} MonadLogger (SafeT MockEff) where
-  monadLoggerLog _loc _source level msg = do
-    let legacyLevel = fromRioLevel level
-    let txtMsg      = decodeUtf8 $ fromLogStr $ toLogStr msg
-    modify $ mockDataLog (legacyLevel, txtMsg)
+instance {-# OVERLAPPING #-} MonadLogger MockEff where
+  monadLoggerLog _loc _source level msg = log (fromRioLevel level, decodeUtf8 $ fromLogStr $ toLogStr msg)
 
 ----
 
