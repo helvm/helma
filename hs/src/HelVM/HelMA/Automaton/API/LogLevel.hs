@@ -1,17 +1,22 @@
 module HelVM.HelMA.Automaton.API.LogLevel where
 
+import qualified Control.Monad.Logger as Logger
+
+import qualified RIO
+
 import           Data.Default
-import qualified Data.DList   as DList
 
-logToTextLn :: Log -> Text
-logToTextLn m = logToText m <> "\n"
+toLogger :: LogLevel -> Logger.LogLevel
+toLogger Debug = Logger.LevelDebug
+toLogger Info  = Logger.LevelInfo
+toLogger Warn  = Logger.LevelWarn
+toLogger Error = Logger.LevelError
 
-logToText :: Log -> Text
-logToText (l , m) = show l <> " " <> m
-
-type Logs = DList.DList Log
-
-type Log = (LogLevel , Text)
+toRio :: LogLevel -> RIO.LogLevel
+toRio Debug = RIO.LevelDebug
+toRio Info  = RIO.LevelInfo
+toRio Warn  = RIO.LevelWarn
+toRio Error = RIO.LevelError
 
 defaultLogLevel :: LogLevel
 defaultLogLevel = def

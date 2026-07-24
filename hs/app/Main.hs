@@ -7,6 +7,7 @@ import           HelVM.HelMA.Evaluator
 import           HelVM.HelIO.Extra                    (readFileTextUtf8)
 import qualified HelVM.HelMA.Automaton.API.AppOptions as App
 import           HelVM.HelMA.Automaton.API.Env
+import           HelVM.HelMA.Automaton.API.LogLevel
 
 import           Options.Applicative
 
@@ -30,6 +31,9 @@ main = do
   logOptions <- RIO.logOptionsHandle stderr True
   RIO.withLogFunc logOptions (runApp opts)
   exitSuccess
+
+setLogMinLevel :: App.AppOptions -> RIO.LogOptions -> RIO.LogOptions
+setLogMinLevel = RIO.setLogMinLevel . toRio . App.verbosity
 
 optsInfo :: String -> ParserInfo App.AppOptions
 optsInfo progName = info (optionsParser <**> helper <**> versionInfo progName)
