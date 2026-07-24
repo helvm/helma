@@ -33,8 +33,6 @@ import           Data.DList                         (DList)
 import qualified Data.DList                         as DList
 import           Data.Text                          as Text
 
-
-
 ioExecMockEffBatch :: SafeT (WriterLoggingT MockEff) () -> IO MockEffData
 ioExecMockEffBatch = ioExecMockEffWithInput ""
 
@@ -47,11 +45,8 @@ safeExecMockEffBatch = safeExecMockEffWithInput ""
 safeExecMockEffWithInput :: Input -> SafeT (WriterLoggingT MockEff) () -> Safe MockEffData
 safeExecMockEffWithInput i action = pure $ runMockEff i $ do
   (safeRes, rawLogs) <- runWriterLoggingT $ runSafeT action
-  let formattedLogs = DList.fromList $ fmap convertLog rawLogs
-  modify $ \st -> st { logged = logged st <> formattedLogs }
+  modify $ \st -> st { logged = logged st <> DList.fromList rawLogs }
   pure (safeRes, mempty)
-  where
-    convertLog (_loc, _source, level, msg) = (level, decodeUtf8 $ fromLogStr msg)
 
 execMockEffBatch :: MockEff () -> MockEffData
 execMockEffBatch = execMockEffWithInput ""
@@ -62,8 +57,8 @@ execMockEffWithInput i a = runMockEff i $ safeWithMessages <$> a
 ----
 
 runMockEff :: Input -> MockEff UnitSafeWithMessages -> MockEffData
-runMockEff i mockIO = flip mockDataLogInfo mockIOData $ safeWithMessagesToText s
-  where (s , mockIOData) = runState mockIO $ createMockEff i
+runMockEff i mockIO = flip mockDataLogInfo mockIOData $ safeWithMessagesToText s where 
+  (s , mockIOData) = runState mockIO $ createMockEff i
 
 createMockEff :: Input -> MockEffData
 createMockEff i = MockEffData (toString i) "" DList.empty
@@ -72,7 +67,8 @@ calculateOutput :: MockEffData -> Output
 calculateOutput = calculateText . output
 
 calculateLogged :: MockEffData -> Output
-calculateLogged d = Text.concat $ DList.toList $ snd <$> logged d
+calculateLogged d = Text.concat $ DList.toList $ extractMsg <$> logged d where
+  extractMsg (_loc, _src, _lvl, msg) = decodeUtf8 $ fromLogStr msg
 
 ----
 
@@ -93,7 +89,7 @@ instance MonadEff (SafeT MockEff) where
   putTextEff      = mockPutText
 
 instance {-# OVERLAPPING #-} MonadLogger MockEff where
-  monadLoggerLog _loc _source level msg = mockLog (level, decodeUtf8 $ fromLogStr $ toLogStr msg)
+  monadLoggerLog loc src level msg = mockLog (loc, src, level, toLogStr msg)
 
 ----
 
@@ -125,9 +121,9 @@ mockGetCharSafe = mockGetChar' =<< get where
     mockGetChar'' (c, input') = put mockIO { input = input' } $> c
 
 mockGetLineSafe :: MonadSafeMockEff m => m Text
-mockGetLineSafe = mockGetLine' =<< get where
-  mockGetLine' :: MonadSafeMockEff m => MockEffData -> m Text
-  mockGetLine' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
+mockGetLineSafe = mockGetLineSafe' =<< get where
+  mockGetLineSafe' :: MonadSafeMockEff m => MockEffData -> m Text
+  mockGetLineSafe' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
 
 mockPutChar :: MonadMockEff m => Char -> m ()
 mockPutChar = modify . mockDataPutChar
@@ -135,7 +131,7 @@ mockPutChar = modify . mockDataPutChar
 mockPutText :: MonadMockEff m => Text -> m ()
 mockPutText = modify . mockDataPutText
 
-mockLog :: MonadMockEff m => Log -> m ()
+mockLog :: MonadMockEff m => MockLog -> m ()
 mockLog = modify . mockDataLog
 
 ----
@@ -147,9 +143,9 @@ mockDataPutText :: Text -> MockEffData -> MockEffData
 mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
 
 mockDataLogInfo :: Text -> MockEffData -> MockEffData
-mockDataLogInfo = mockDataLog . (LevelInfo , )
+mockDataLogInfo msg = mockDataLog (defaultLoc, "", LevelInfo, toLogStr msg)
 
-mockDataLog :: Log -> MockEffData -> MockEffData
+mockDataLog :: MockLog -> MockEffData -> MockEffData
 mockDataLog l mockIO = mockIO { logged = logged mockIO <> DList.singleton l }
 
 ----
@@ -169,12 +165,12 @@ calculateString = toString . Text.reverse
 data MockEffData = MockEffData
   { input  :: !String
   , output :: !String
-  , logged :: !Logs
+  , logged :: !MockLogs
   }
-  deriving stock (Eq , Read , Show)
+  deriving stock (Eq , Show)
 
-type Logs = DList Log
-type Log = (LogLevel, Text)
+type MockLogs = DList MockLog
+type MockLog = (Loc, LogSource, LogLevel, LogStr)
 
 ----
 
