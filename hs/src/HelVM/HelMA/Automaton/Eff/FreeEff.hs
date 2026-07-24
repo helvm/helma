@@ -1,21 +1,27 @@
 {-# LANGUAGE DeriveFunctor #-}
 module HelVM.HelMA.Automaton.Eff.FreeEff (
-  interpretFreeEffToMonadEff,
+  interpretFreeEffDebug,
+  interpretFreeEff,
   logInputFree,
   logOutputFree,
   FreeEff,
+  FreeEffF(..),
 ) where
 
-import           HelVM.HelMA.Automaton.API.LogLevel
+import qualified HelVM.HelMA.Automaton.API.LogLevel as Legacy
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           Control.Monad.Free
+import           Control.Monad.Logger
 import           Control.Natural
 
 import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
 
-interpretFreeEffToMonadEff :: MonadEff m => FreeEff a -> m a
-interpretFreeEffToMonadEff = foldFree interpretFreeEffFToMonadEff
+interpretFreeEffDebug :: (MonadLogger m , MonadEff m)  => FreeEff a -> m a
+interpretFreeEffDebug = foldFree interpretFreeEffFDebug
+
+interpretFreeEff :: MonadEff m => FreeEff a -> m a
+interpretFreeEff = foldFree interpretFreeEffF
 
 logInputFree :: FreeEff ~> FreeEff
 logInputFree = foldFree logInputF
@@ -25,15 +31,18 @@ logOutputFree = foldFree logOutputF
 
 ----
 
-interpretFreeEffFToMonadEff :: MonadEff m => FreeEffF a -> m a
-interpretFreeEffFToMonadEff (GetContentsBS    cd) = cd <$> getContentsBS
-interpretFreeEffFToMonadEff (GetContentsText  cd) = cd <$> getContentsText
-interpretFreeEffFToMonadEff (GetChar          cd) = cd <$> getChar
-interpretFreeEffFToMonadEff (GetLine          cd) = cd <$> getLine
-interpretFreeEffFToMonadEff (PutChar        c v ) = putChar      c $> v
-interpretFreeEffFToMonadEff (PutText        s v ) = putTextEff   s $> v
-interpretFreeEffFToMonadEff (Flush            v ) = flush          $> v
-interpretFreeEffFToMonadEff (Log            l v ) = log          l $> v
+interpretFreeEffFDebug :: (MonadLogger m , MonadEff m) => FreeEffF a -> m a
+interpretFreeEffFDebug a = logDebugN (name a) *> interpretFreeEffF a
+
+interpretFreeEffF :: MonadEff m => FreeEffF a -> m a
+interpretFreeEffF (GetContentsBS    cd) = cd <$> getContentsBS
+interpretFreeEffF (GetContentsText  cd) = cd <$> getContentsText
+interpretFreeEffF (GetChar          cd) = cd <$> getChar
+interpretFreeEffF (GetLine          cd) = cd <$> getLine
+interpretFreeEffF (PutChar        c v ) = putChar      c $> v
+interpretFreeEffF (PutText        s v ) = putTextEff   s $> v
+interpretFreeEffF (Flush            v ) = flush          $> v
+interpretFreeEffF (Log            l v ) = log          l $> v
 
 ----
 
@@ -50,8 +59,8 @@ logOutputF f               =                            liftF f
 toLog :: Text -> a -> FreeEffF a
 toLog l = Log (toLogInfo l)
 
-toLogInfo :: Text -> Log
-toLogInfo = (Info, )
+toLogInfo :: Text -> Legacy.Log
+toLogInfo = (Legacy.Info, )
 
 -- | Instances
 instance MonadEff FreeEff where
@@ -86,8 +95,18 @@ freePutTextEff = liftF . flip PutText ()
 freeFlush :: FreeEff ()
 freeFlush = liftF $ Flush ()
 
-freelog :: (LogLevel , Text) -> FreeEff ()
+freelog :: (Legacy.LogLevel , Text) -> FreeEff ()
 freelog = liftF . flip Log ()
+
+name :: FreeEffF a -> Text
+name (GetContentsBS   _) = "GetContentsBS"
+name (GetContentsText _) = "GetContentsText"
+name (GetChar         _) = "GetChar"
+name (GetLine         _) = "GetLine"
+name (PutChar       _ _) = "PutChar"
+name (PutText       _ _) = "PutText"
+name (Flush           _) = "Flush"
+name (Log           _ _) = "Log"
 
 -- | Types
 type FreeEff = Free FreeEffF
@@ -100,5 +119,5 @@ data FreeEffF a
  | PutChar          Char                     a
  | PutText          Text                     a
  | Flush                                     a
- | Log              Log                      a
+ | Log              Legacy.Log               a
  deriving stock (Functor)
