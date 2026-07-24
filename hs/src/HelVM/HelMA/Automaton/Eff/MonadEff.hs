@@ -1,10 +1,6 @@
 {-# LANGUAGE DataKinds            #-}
 {-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.MonadEff (
-  logErrorLegacy,
-  logWarnLegacy,
-  logInfoLegacy,
-  logDebugLegacy,
   Element,
   AppEff,
   MonadEff(..),
@@ -28,21 +24,6 @@ import qualified Prelude
 import qualified RIO
 
 import qualified System.IO                          as IO
-
-logErrorLegacy :: MonadEff m => Text -> m ()
-logErrorLegacy = logCurry Legacy.Error
-
-logWarnLegacy :: MonadEff m => Text -> m ()
-logWarnLegacy = logCurry Legacy.Warn
-
-logInfoLegacy :: MonadEff m => Text -> m ()
-logInfoLegacy = logCurry Legacy.Info
-
-logDebugLegacy :: MonadEff m => Text -> m ()
-logDebugLegacy = logCurry Legacy.Debug
-
-logCurry :: MonadEff m => Legacy.LogLevel -> Text -> m ()
-logCurry = curry log
 
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)
