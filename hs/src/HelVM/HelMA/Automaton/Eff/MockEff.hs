@@ -55,7 +55,7 @@ execMockEffWithInput i action = runMockEff i $ Right <$> action
 
 runMockEff :: Input -> MockEff (Safe ()) -> MockEffData
 runMockEff i mockIO = uncurry safeToMockData $ runState mockIO $ createMockEff i where
-  safeToMockData (Left msgs) = mockDataLog (defaultLoc, "", LevelError, toLogStr (errorsToText msgs))
+  safeToMockData (Left msgs) = mockDataLog $ MockLog defaultLoc  ""  LevelError  $ toLogStr $ errorsToText msgs
   safeToMockData (Right _  ) = id
 
 createMockEff :: Input -> MockEffData
@@ -65,8 +65,7 @@ calculateOutput :: MockEffData -> Output
 calculateOutput = calculateText . output
 
 calculateLogged :: MockEffData -> Output
-calculateLogged d = Text.concat $ extractMsg <$> LL.reverse (logged d) where
-  extractMsg (_loc, _src, _lvl, msg) = decodeUtf8 $ fromLogStr msg
+calculateLogged d = Text.concat $ LL.reverse (decodeUtf8 . fromLogStr . logStr <$> logged d)
 
 ----
 
@@ -87,7 +86,7 @@ instance MonadEff (SafeT MockEff) where
   putTextEff      = mockPutText
 
 instance {-# OVERLAPPING #-} MonadLogger MockEff where
-  monadLoggerLog loc src level msg = mockLog (loc, src, level, toLogStr msg)
+  monadLoggerLog loc src level msg = mockLog $ MockLog loc src level $ toLogStr msg
 
 ----
 
@@ -165,7 +164,14 @@ data MockEffData = MockEffData
   deriving stock (Eq , Show)
 
 type MockLogs = [MockLog]
-type MockLog = (Loc, LogSource, LogLevel, LogStr)
+
+data MockLog = MockLog
+  { logLoc    :: !Loc
+  , logSource :: !LogSource
+  , logLevel  :: !LogLevel
+  , logStr    :: !LogStr
+  }
+  deriving stock (Eq, Show)
 
 ----
 

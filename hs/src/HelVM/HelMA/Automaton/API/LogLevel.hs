@@ -25,10 +25,10 @@ logLevels :: NonEmpty LogLevel
 logLevels = universeNonEmpty
 
 data LogLevel =
-    Error
-  | Warn
+    Debug
   | Info
-  | Debug
+  | Warn
+  | Error
   deriving stock (Bounded , Enum , Eq , Ord, Read , Show)
 
 instance Default LogLevel where
