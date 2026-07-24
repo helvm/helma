@@ -22,7 +22,8 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           HelVM.HelIO.Control.Control
+import           HelVM.HelIO.Control.Message
+
 import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.ListLikeExtra
@@ -32,32 +33,32 @@ import           Control.Monad.Logger
 import qualified Data.ListLike                      as LL
 import           Data.Text                          as Text
 
-ioExecMockEffBatch :: SafeT (WriterLoggingT MockEff) () -> IO MockEffData
+ioExecMockEffBatch :: SafeT MockEff () -> IO MockEffData
 ioExecMockEffBatch = ioExecMockEffWithInput ""
 
-ioExecMockEffWithInput :: Input -> SafeT (WriterLoggingT MockEff) () -> IO MockEffData
+ioExecMockEffWithInput :: Input -> SafeT MockEff () -> IO MockEffData
 ioExecMockEffWithInput i = safeToIO . safeExecMockEffWithInput i
 
-safeExecMockEffBatch :: SafeT (WriterLoggingT MockEff) () -> Safe MockEffData
+safeExecMockEffBatch :: SafeT MockEff () -> Safe MockEffData
 safeExecMockEffBatch = safeExecMockEffWithInput ""
 
-safeExecMockEffWithInput :: Input -> SafeT (WriterLoggingT MockEff) () -> Safe MockEffData
-safeExecMockEffWithInput i action = pure $ runMockEff i $ do
-  (safeRes, rawLogs) <- runWriterLoggingT $ runSafeT action
-  modify $ \st -> st { logged = LL.reverse rawLogs <> logged st }
-  pure (safeRes, mempty)
+safeExecMockEffWithInput :: Input -> SafeT MockEff () -> Safe MockEffData
+safeExecMockEffWithInput i action = pure $ runMockEff i $ runSafeT action
 
 execMockEffBatch :: MockEff () -> MockEffData
 execMockEffBatch = execMockEffWithInput ""
 
 execMockEffWithInput :: Input -> MockEff () -> MockEffData
-execMockEffWithInput i a = runMockEff i $ safeWithMessages <$> a
+execMockEffWithInput i action = runMockEff i $ Right <$> action
 
 ----
 
-runMockEff :: Input -> MockEff UnitSafeWithMessages -> MockEffData
-runMockEff i mockIO = flip mockDataLogInfo mockIOData $ safeWithMessagesToText s where
+runMockEff :: Input -> MockEff (Safe ()) -> MockEffData
+runMockEff i mockIO = safeToMockData s mockIOData where
   (s , mockIOData) = runState mockIO $ createMockEff i
+
+  safeToMockData (Left msgs) d = mockDataLogInfo (errorsToText msgs) d
+  safeToMockData (Right _)  d  = d
 
 createMockEff :: Input -> MockEffData
 createMockEff i = MockEffData (toString i) "" []
