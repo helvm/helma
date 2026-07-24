@@ -30,9 +30,11 @@ spec = do
       ] $ \(name , action , output) ->
       it name $ action mockIO `shouldBe` output
   describe "Test Free WFilter0" $ do
-    let mockIO = runMockEff "qwerty0uiop" $ safeWithMessages <$> interpretFreeEff (logOutputFree $ logInputFree wFilterIf0)
+    let freeExpr :: FreeEff ()
+        freeExpr = wFilterIf0
+    let mockIO = runMockEff "qwerty0uiop" $ safeWithMessages <$> interpretFreeEffDebug freeExpr
     forM_
       [ ("Test Free WFilterIf0 with calculateOutput" , calculateOutput , "qwerty\n"       )
-      , ("Test Free WFilterIf0 with calculateLogged" , calculateLogged , "qqwweerrttyy0\n\n")
+      , ("Test Free WFilterIf0 with calculateLogged" , calculateLogged , "GetCharPutCharGetCharPutCharGetCharPutCharGetCharPutCharGetCharPutCharGetCharPutCharGetCharLog\nPutChar")
       ] $ \(name , action , output) ->
       it name $ action mockIO `shouldBe` output

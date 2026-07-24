@@ -39,7 +39,6 @@ ioExecMockEffBatch = ioExecMockEffWithInput ""
 ioExecMockEffWithInput :: Input -> SafeT (WriterLoggingT MockEff) () -> IO MockEffData
 ioExecMockEffWithInput i = safeToIO . safeExecMockEffWithInput i
 
-
 safeExecMockEffBatch :: SafeT (WriterLoggingT MockEff) () -> Safe MockEffData
 safeExecMockEffBatch = safeExecMockEffWithInput ""
 
@@ -92,6 +91,18 @@ instance MonadEff (SafeT MockEff) where
   putChar         = mockPutChar
   putTextEff      = mockPutText
   log             = mockLog
+
+instance {-# OVERLAPPING #-} MonadLogger (StateT MockEffData Identity) where
+  monadLoggerLog _loc _source level msg = do
+    let legacyLevel = fromRioLevel level
+    let txtMsg      = decodeUtf8 $ fromLogStr $ toLogStr msg
+    modify $ mockDataLog (legacyLevel, txtMsg)
+
+instance {-# OVERLAPPING #-} MonadLogger (SafeT MockEff) where
+  monadLoggerLog _loc _source level msg = do
+    let legacyLevel = fromRioLevel level
+    let txtMsg      = decodeUtf8 $ fromLogStr $ toLogStr msg
+    modify $ mockDataLog (legacyLevel, txtMsg)
 
 ----
 
