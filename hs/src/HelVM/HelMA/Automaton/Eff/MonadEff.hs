@@ -7,23 +7,21 @@ module HelVM.HelMA.Automaton.Eff.MonadEff (
 ) where
 
 import           HelVM.HelIO.Control.Safe
-import qualified HelVM.HelMA.Automaton.API.LogLevel as Legacy
 
 import           HelVM.HelIO.ReadText
 
 import           Control.Monad.Logger
 
-import qualified Data.ByteString.Lazy               as LByteString
-import           Data.Default                       as Default
-import qualified Data.Text.IO                       as Text
-import qualified Data.Text.Lazy.IO                  as LText
+import qualified Data.ByteString.Lazy     as LByteString
+import           Data.Default             as Default
+import qualified Data.Text.Lazy.IO        as LText
 
-import           Prelude                            hiding (getLine, putText)
+import           Prelude                  hiding (getLine, putText)
 import qualified Prelude
 
 import qualified RIO
 
-import qualified System.IO                          as IO
+import qualified System.IO                as IO
 
 type Element e  = (ReadShow e , Integral e , Default e)
 type ReadShow e = (Read e , Show e)
@@ -50,8 +48,6 @@ class Monad m => MonadEff m where
 
   flush           :: m ()
 
-  log             :: Legacy.Log -> m ()
-
   putAsChar      = putIntAsChar . fromIntegral
   putAsDec       = putIntAsDec  . fromIntegral
   getCharAs      = fromIntegral <$> getCharAsInt
@@ -72,7 +68,6 @@ instance MonadEff IO where
   putChar         = IO.putChar
   putTextEff      = Prelude.putText
   flush           = flushIO
-  log             = logIO
 
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
   getContentsBS   = lift getContentsBS
@@ -82,7 +77,6 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   putChar         = lift . putChar
   putTextEff      = lift . putTextEff
   flush           = lift flush
-  log             = lift . log
 
 instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   getContentsBS   = liftIO LByteString.getContents
@@ -92,21 +86,8 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
   putChar         = liftIO . IO.putChar
   putTextEff      = liftIO . Prelude.putText
   flush           = liftIO flushIO
-  log             = logRIO
 
 ---- Internal
 
 flushIO :: IO ()
 flushIO = hFlush stdout
-
-logIO :: Legacy.Log -> IO ()
-logIO = Text.hPutStrLn stderr . Legacy.logToTextLn
-
-logRIO :: RIO.HasLogFunc env => Legacy.Log -> RIO.RIO env ()
-logRIO (l , m) = RIO.logGeneric "" (toRioLevel l) $ RIO.display m
-
-toRioLevel :: Legacy.LogLevel -> RIO.LogLevel
-toRioLevel Legacy.Error = RIO.LevelError
-toRioLevel Legacy.Warn  = RIO.LevelWarn
-toRioLevel Legacy.Info  = RIO.LevelInfo
-toRioLevel Legacy.Debug = RIO.LevelDebug

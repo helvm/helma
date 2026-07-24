@@ -81,7 +81,6 @@ instance MonadEff MockEff where
   getLine         = mockGetLine
   putChar         = mockPutChar
   putTextEff      = mockPutText
-  log             = mockLog
 
 instance MonadEff (SafeT MockEff) where
   getContentsBS   = mockGetContentsBS
@@ -90,10 +89,9 @@ instance MonadEff (SafeT MockEff) where
   getLine         = mockGetLineSafe
   putChar         = mockPutChar
   putTextEff      = mockPutText
-  log             = mockLog
 
 instance {-# OVERLAPPING #-} MonadLogger MockEff where
-  monadLoggerLog _loc _source level msg = log (fromRioLevel level, decodeUtf8 $ fromLogStr $ toLogStr msg)
+  monadLoggerLog _loc _source level msg = mockLog (fromRioLevel level, decodeUtf8 $ fromLogStr $ toLogStr msg)
 
 ----
 
