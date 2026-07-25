@@ -1,4 +1,6 @@
 module HelVM.HelMA.Automata.Piet.Types.Orientation (
+  rotateDirectionPointer,
+  toggleCodelChooser,
   rotateToggle,
   initialOrientation,
   Orientation(..),
@@ -7,6 +9,12 @@ module HelVM.HelMA.Automata.Piet.Types.Orientation (
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+
+rotateDirectionPointer :: Int -> Orientation -> Orientation
+rotateDirectionPointer n o = o { directionPointer = rotate n (directionPointer o)}
+
+toggleCodelChooser :: Int -> Orientation -> Orientation
+toggleCodelChooser n o = o { codelChooser = toggle n (codelChooser o)}
 
 rotateToggle :: Coordinates -> Orientation -> Orientation
 rotateToggle (r, t) (Orientation dp cc) = Orientation (rotate r dp) (toggle t cc)

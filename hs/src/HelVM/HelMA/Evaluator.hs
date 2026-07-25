@@ -25,7 +25,7 @@ runLang :: Has env => LangCommand -> RIO.RIO env ()
 -- Implerative
 runLang (BFCommand     t) = BF.runRio t
 runLang (ETACommand    i) = ETA.runRio i
-runLang (PietCommand c l) = Piet.runRio c l
+runLang (PietCommand l c) = Piet.runRio l c
 runLang FCommand          = F.runRio
 runLang SQCommand         = SQ.runRio
 runLang (WSCommand     t) = WS.runRio t

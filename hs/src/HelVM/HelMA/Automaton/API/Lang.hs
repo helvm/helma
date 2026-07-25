@@ -9,7 +9,7 @@ data LangCommand
   = BFCommand !ImplType
   | ETACommand !AutomatonType
   | FCommand
-  | PietCommand !(Maybe Natural) !(Maybe LexerType)
+  | PietCommand !(Maybe LexerType) !(Maybe Natural)
   | SQCommand
   | WSCommand !TokenType
   | CatCommand

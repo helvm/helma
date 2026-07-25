@@ -1,5 +1,3 @@
-{-# LANGUAGE DataKinds            #-}
-{-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.MonadEff (
   AppEff,
   MonadEff(..),

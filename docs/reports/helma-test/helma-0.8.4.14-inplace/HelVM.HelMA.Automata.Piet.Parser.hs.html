@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Parser (
+<span class="lineno">    2 </span>  processImage,
+<span class="lineno">    3 </span>) where
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           HelVM.HelMA.Automata.Piet.Types.Color
+<span class="lineno">    6 </span>import           HelVM.HelMA.Automata.Piet.Types.Image
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>import qualified Codec.Picture                         as Picture
+<span class="lineno">    9 </span>
+<span class="lineno">   10 </span>import           Data.MonoTraversable
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>processImage ::  Maybe Natural -&gt; Picture.DynamicImage -&gt; Image Color
+<span class="lineno">   13 </span><span class="decl"><span class="istickedoff">processImage codelInfo dynamicImage = imageFromJuicy actualCodelLength img where</span>
+<span class="lineno">   14 </span><span class="spaces">  </span><span class="istickedoff">actualCodelLength = max 1 $ maybe defaultCodelInfo <span class="nottickedoff">fromIntegral</span> codelInfo</span>
+<span class="lineno">   15 </span><span class="spaces">  </span><span class="istickedoff">defaultCodelInfo = imageGuessCodelLength img</span>
+<span class="lineno">   16 </span><span class="spaces">  </span><span class="istickedoff">img = Picture.convertRGBA8 dynamicImage</span></span>
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>imageFromJuicy :: Int -&gt; Picture.Image Picture.PixelRGBA8 -&gt; Image Color
+<span class="lineno">   19 </span><span class="decl"><span class="istickedoff">imageFromJuicy codelLength img = newImage (width, height) pixels where</span>
+<span class="lineno">   20 </span><span class="spaces">  </span><span class="istickedoff">width  = Picture.imageWidth img `div` codelLength</span>
+<span class="lineno">   21 </span><span class="spaces">  </span><span class="istickedoff">height = Picture.imageHeight img `div` codelLength</span>
+<span class="lineno">   22 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   23 </span><span class="spaces">  </span><span class="istickedoff">pixels = [ ((x, y), extractColor x y) | x &lt;- [0 .. width-1], y &lt;- [0 .. height-1] ]</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   25 </span><span class="spaces">  </span><span class="istickedoff">extractColor x y = checkAlpha (Picture.pixelAt img (x * codelLength) (y * codelLength))</span>
+<span class="lineno">   26 </span><span class="spaces">  </span><span class="istickedoff">checkAlpha (Picture.PixelRGBA8 r g b _) = rgb2Color r g b</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>imageGuessCodelLength :: Picture.Image Picture.PixelRGBA8 -&gt; Int
+<span class="lineno">   29 </span><span class="decl"><span class="istickedoff">imageGuessCodelLength img = lastUntil isOne $ scanl gcd (gcd width height) $ fmap olength (group rows) &lt;&gt; fmap olength (group cols) where</span>
+<span class="lineno">   30 </span><span class="spaces">  </span><span class="istickedoff">width  = Picture.imageWidth img</span>
+<span class="lineno">   31 </span><span class="spaces">  </span><span class="istickedoff">height = Picture.imageHeight img</span>
+<span class="lineno">   32 </span><span class="spaces">  </span><span class="istickedoff">isOne  = (== 1)</span>
+<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   34 </span><span class="spaces">  </span><span class="istickedoff">rows = [ [ Picture.pixelAt img x y | x &lt;- [0 .. width-1] ]  | y &lt;- [0 .. height-1] ]</span>
+<span class="lineno">   35 </span><span class="spaces">  </span><span class="istickedoff">cols = [ [ Picture.pixelAt img x y | y &lt;- [0 .. height-1] ] | x &lt;- [0 .. width-1] ]</span>
+<span class="lineno">   36 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">lastUntil _ [x]    = x</span>
+<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">lastUntil p (x:xs) = guardPred (p x) p x xs</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">lastUntil _ _      = <span class="nottickedoff">error &quot;empty list in lastUntil helper (imageGuessCodelLength)&quot;</span></span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">guardPred True  _  x _  = x</span>
+<span class="lineno">   42 </span><span class="spaces">  </span><span class="istickedoff">guardPred False p' _ xs = lastUntil p' xs</span></span>
+
+</pre>
+</body>
+</html>

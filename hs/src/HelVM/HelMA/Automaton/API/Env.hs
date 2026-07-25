@@ -19,6 +19,9 @@ readSourceFileRio = readSourceFileWithOptions =<< optionsRio where
 readTextFileRio :: Has env => FilePath -> RIO.RIO env Source
 readTextFileRio = (RIO.view fileIOL >>=) . flip readTextFile
 
+readImageRio :: Has env => FilePath -> RIO.RIO env Picture.DynamicImage
+readImageRio = (RIO.view fileIOL >>=) . flip readImage
+
 putLTextLnRio :: Has env => LText -> RIO.RIO env ()
 putLTextLnRio = (RIO.view stdIOL >>=) . flip stdPutLTextLn
 

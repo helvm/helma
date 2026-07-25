@@ -61,15 +61,15 @@ span.spaces    { background: white }
 <span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff">doBinary Mul = (*)</span>
 <span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">doBinary Div = div</span>
 <span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">doBinary Mod = mod</span>
-<span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">doBinary LGT = <span class="nottickedoff">lGT</span></span>
+<span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">doBinary LGT = lGT</span>
 <span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">doBinary o   = <span class="nottickedoff">error $ show o</span></span></span>
 <span class="lineno">   47 </span>
 <span class="lineno">   48 </span>lGT :: (Integral a1) =&gt; a1 -&gt; a1 -&gt; a1
-<span class="lineno">   49 </span><span class="decl"><span class="nottickedoff">lGT a b = fromBool $ a &gt; b</span></span>
+<span class="lineno">   49 </span><span class="decl"><span class="istickedoff">lGT a b = fromBool $ a &gt; b</span></span>
 <span class="lineno">   50 </span>
 <span class="lineno">   51 </span>fromBool :: Integral a =&gt; Bool -&gt; a
-<span class="lineno">   52 </span><span class="decl"><span class="nottickedoff">fromBool False = 0</span>
-<span class="lineno">   53 </span><span class="spaces"></span><span class="nottickedoff">fromBool True  = 1</span></span>
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">fromBool False = 0</span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">fromBool True  = 1</span></span>
 <span class="lineno">   54 </span>
 <span class="lineno">   55 </span>toBool :: Integral a =&gt; a -&gt; Bool
 <span class="lineno">   56 </span><span class="decl"><span class="nottickedoff">toBool a = a /= 0</span></span>

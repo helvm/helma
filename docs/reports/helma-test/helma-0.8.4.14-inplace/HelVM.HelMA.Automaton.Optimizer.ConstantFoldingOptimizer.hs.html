@@ -28,7 +28,7 @@ span.spaces    { background: white }
 <span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 <span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 <span class="lineno">   11 </span>
-<span class="lineno">   12 </span>import qualified Data.ListLike                                          as LL
+<span class="lineno">   12 </span>import qualified Data.Sequences                                         as S
 <span class="lineno">   13 </span>
 <span class="lineno">   14 </span>constantFolding :: InstructionList -&gt; InstructionList
 <span class="lineno">   15 </span><span class="decl"><span class="istickedoff">constantFolding = constantFoldingWithAcc []</span></span>
@@ -46,7 +46,7 @@ span.spaces    { background: white }
 <span class="lineno">   27 </span><span class="spaces"></span><span class="istickedoff">constantFoldingForResult il i acc (Left  _  ) = generateIL acc &lt;&gt; (i : constantFolding il)</span></span>
 <span class="lineno">   28 </span>
 <span class="lineno">   29 </span>generateIL :: [Integer] -&gt; InstructionList
-<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">generateIL acc = consI &lt;$&gt; LL.reverse acc</span></span>
+<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">generateIL acc = consI &lt;$&gt; S.reverse acc</span></span>
 
 </pre>
 </body>

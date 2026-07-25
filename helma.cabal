@@ -1,7 +1,7 @@
 cabal-version:         2.4
 
 name:                  helma
-version:               0.8.4.14
+version:               0.9.0.0
 synopsis:              HELMA - Haskellish Esoteric Limited Minimal Automaton
 description:           Please see the README on GitHub at <https://github.com/helvm/helma#readme>
 homepage:              http://helvm.org/helma/
@@ -224,10 +224,15 @@ library
     HelVM.HelMA.Automata.LazyK.Parser
     HelVM.HelMA.Automata.LazyK.Reducer
     
+    HelVM.HelMA.Automata.Piet.Automaton
+    HelVM.HelMA.Automata.Piet.Compiler
     HelVM.HelMA.Automata.Piet.Evaluator
     HelVM.HelMA.Automata.Piet.Parser
 
     HelVM.HelMA.Automata.Piet.API.LexerType
+
+    HelVM.HelMA.Automata.Piet.Combiner.ALU
+    HelVM.HelMA.Automata.Piet.Combiner.CPU
 
     HelVM.HelMA.Automata.Piet.Types.Brightness
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
@@ -238,7 +243,10 @@ library
     HelVM.HelMA.Automata.Piet.Types.Extra
     HelVM.HelMA.Automata.Piet.Types.Hue
     HelVM.HelMA.Automata.Piet.Types.Image
+    HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+    HelVM.HelMA.Automata.Piet.Types.InstructionMemory
     HelVM.HelMA.Automata.Piet.Types.Label
+    HelVM.HelMA.Automata.Piet.Types.Memory
     HelVM.HelMA.Automata.Piet.Types.Orientation
     HelVM.HelMA.Automata.Piet.Types.Program
 
@@ -345,6 +353,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.LazyK.NumberSpec
     HelVM.HelMA.Automata.LazyK.ParserSpec
 
+    HelVM.HelMA.Automata.Piet.EvaluatorSpec
     HelVM.HelMA.Automata.Piet.FileExtra
 
     HelVM.HelMA.Automata.Rev.EvaluatorSpec

@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Types.InstructionMemory (
+<span class="lineno">    2 </span>  logWithPosition,
+<span class="lineno">    3 </span>  codelChooserIM,
+<span class="lineno">    4 </span>  directionPointerIM,
+<span class="lineno">    5 </span>  toggleCodelChooserIM,
+<span class="lineno">    6 </span>  rotateDirectionPointerIM,
+<span class="lineno">    7 </span>  initialInstructionMemory,
+<span class="lineno">    8 </span>  InstructionMemory(..),
+<span class="lineno">    9 </span>) where
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automata.Piet.Types.Program
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.Eff.MonadEff
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>import           Control.Monad.Logger
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>logWithPosition :: AppEff m =&gt; Text -&gt; InstructionMemory -&gt; m ()
+<span class="lineno">   21 </span><span class="decl"><span class="istickedoff">logWithPosition msg im = logDebugN $ show (position $ instructionCounter im) &lt;&gt; &quot; &quot; &lt;&gt; msg</span></span>
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>codelChooserIM :: InstructionMemory -&gt; DirectionPointer
+<span class="lineno">   24 </span><span class="decl"><span class="istickedoff">codelChooserIM = directionPointerIC .  instructionCounter</span></span>
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>directionPointerIM :: InstructionMemory -&gt; DirectionPointer
+<span class="lineno">   27 </span><span class="decl"><span class="istickedoff">directionPointerIM = directionPointerIC .  instructionCounter</span></span>
+<span class="lineno">   28 </span>
+<span class="lineno">   29 </span>toggleCodelChooserIM :: Int -&gt; InstructionMemory -&gt; InstructionMemory
+<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">toggleCodelChooserIM n im = im { instructionCounter = toggleCodelChooserIC n (instructionCounter im)}</span></span>
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>rotateDirectionPointerIM :: Int -&gt; InstructionMemory -&gt; InstructionMemory
+<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">rotateDirectionPointerIM n im = im { instructionCounter = rotateDirectionPointerIC n (instructionCounter im)}</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>initialInstructionMemory :: Program -&gt; InstructionMemory
+<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">initialInstructionMemory prog = InstructionMemory</span>
+<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">{ instructionCounter = initialInstructionCounter</span>
+<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">, program            = prog</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">}</span></span>
+<span class="lineno">   40 </span>
+<span class="lineno">   41 </span>data InstructionMemory = InstructionMemory
+<span class="lineno">   42 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">instructionCounter</span></span></span> :: !InstructionCounter
+<span class="lineno">   43 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">program</span></span></span>            :: !Program
+<span class="lineno">   44 </span>  }
+
+</pre>
+</body>
+</html>

@@ -1,4 +1,3 @@
-{-# LANGUAGE StrictData #-}
 module Options where
 
 import           HelVM.HelMA.Automaton.API.AppOptions
@@ -120,8 +119,8 @@ langCommandParser = subparser
       <$> option auto (long "AutomatonType" <> short 'i' <> metavar "[AutomatonType]" <> value defaultAutomatonType <> showDefault)
 
     pietParser = PietCommand
-      <$> optional (option auto (long "codels" <> short 'c' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)" ))
-      <*> optional (option auto (long "LexerType" <> short 'l' <> metavar "[LexerType]" <> value defaultLexerType <> showDefault))
+      <$> optional (option auto (long "LexerType" <> short 'l' <> metavar "[LexerType]" <> value defaultLexerType <> showDefault))
+      <*> optional (option auto (long "codels" <> short 'c' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)" ))
 
     wsParser = WSCommand
       <$> flag WhiteTokenType VisibleTokenType (long "tokenType" <> short 't' <> showDefault)
