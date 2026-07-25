@@ -5,13 +5,15 @@ module HelVM.HelMA.Automaton.Combiner.ALU (
   doOutputChar2,
   doInputChar2,
   doInputDec2,
+  lNot,
   divMod,
   sub,
   binaryInstruction,
   binaryInstructions,
+  roll,
   halibut,
   move,
-  roll,
+  rollStatic,
   discard,
   slide,
   copy,
@@ -71,7 +73,14 @@ runSAL  Discard         = discard
 unaryInstruction :: SafeStack m ll element => UnaryOperation -> ll -> m ll
 unaryInstruction (UImmediate i op) = build <.> pop1 where
   build (e , l) = push1 (calculateOp (fromInteger i) e op) l
+unaryInstruction  LNot             = lNot
 unaryInstruction               op  = error $ show op
+
+lNot :: SafeStack m ll element => ll -> m ll
+lNot = build <.> pop1 where
+  build (e , l) = push1 (go e) l
+  go 0 = 1
+  go _ = 0
 
 divMod :: SafeStack m ll element => ll -> m ll
 divMod = binaryInstructions [Mod , Div]
@@ -118,6 +127,11 @@ indexedInstructionImmediate Move  = move
 indexedInstructionImmediate Slide = slide
 
 -- | Halibut and Pick instructions
+
+roll :: SafeStack m ll element => ll -> m ll
+roll = build <=< pop2 where
+  build (rolls, depth, l) = rollStatic (fromIntegral rolls) (fromIntegral depth) l
+
 halibut :: SafeStack m ll element => ll -> m ll
 halibut = appendError "ALU.halibut" . build <=< pop1 where
   build (e , l)
@@ -138,12 +152,12 @@ slide i = appendError "ALU.pop2" . build <.> pop1 where
   build (e , l) = push1 e $ drop i l
 
 move :: SafeStack m ll element => Index -> ll -> m ll
-move i = roll i (i + 1)
+move i = rollStatic i (i + 1)
 
-roll :: SafeStack m ll element => Index -> Index -> ll -> m ll
-roll rolls i l = build $ length l where
+rollStatic :: SafeStack m ll element => Index -> Index -> ll -> m ll
+rollStatic rolls i l = build $ length l where
   build ll
-    | i == 0    = pure l
+    | i < 0     = pure l
     | r == 0    = pure l
     | ll < i    = liftErrorWithTupleList "ALU.role index must be less then lenght" [("i" , show i) , ("ll" , show ll)]
     | otherwise = pure $ l1 <> l2 <> l3

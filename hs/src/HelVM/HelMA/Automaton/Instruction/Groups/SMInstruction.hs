@@ -42,7 +42,18 @@ doBinary Sub = (-)
 doBinary Mul = (*)
 doBinary Div = div
 doBinary Mod = mod
+doBinary LGT = lGT
 doBinary o   = error $ show o
+
+lGT :: (Integral a1) => a1 -> a1 -> a1
+lGT a b = fromBool $ a > b
+
+fromBool :: Integral a => Bool -> a
+fromBool False = 0
+fromBool True  = 1
+
+toBool :: Integral a => a -> Bool
+toBool a = a /= 0
 
 -- | Types
 data SMInstruction =

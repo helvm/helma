@@ -102,6 +102,9 @@ common common-options
 --      -Wunused-packages
       -fprint-potential-instances
       -Werror
+      -O2
+      -fexpose-all-unfoldings
+      -fspecialise-aggressively
 
 library
   import:              common-options
