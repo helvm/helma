@@ -105,11 +105,11 @@ outputDec = appendError "ALU.outputDec" . build <=< pop1 where
   build (e , l) = putAsDec e $> l
 
 inputChar :: ALU m ll element => ll -> m ll
-inputChar l = appendError "ALU.outputDec" $ build <$> getCharAs where
+inputChar l = appendError "ALU.inputChar" $ build <$> getCharAs where
   build e = push1 e l
 
 inputDec :: ALU m ll element => ll -> m ll
-inputDec l = build <$> getCharAs where
+inputDec l = appendError "ALU.inputDec" $ build <$> getDecAs where
   build e = push1 e l
 
 indexedInstruction :: SafeStack m ll element => IndexedOperation -> IndexOperand -> ll -> m ll
