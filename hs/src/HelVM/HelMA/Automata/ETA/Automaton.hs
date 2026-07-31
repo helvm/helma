@@ -29,8 +29,8 @@ nextState (Memory iu s) = build =<< nextIM iu where build (t , iu') = doInstruct
 
 doInstruction :: (SAutomatonEff e s m) => Maybe Token -> Memory s -> m $ MemorySame s
 -- | IO instructions
-doInstruction (Just O) u                        = Trampoline.continue . updateStack u <$> doOutputChar2 (memoryStack u)
-doInstruction (Just I) u                        = Trampoline.continue . updateStack u <$> doInputChar2 (memoryStack u)
+doInstruction (Just O) u                        = Trampoline.continue . updateStack u <$> outputChar (memoryStack u)
+doInstruction (Just I) u                        = Trampoline.continue . updateStack u <$> inputChar (memoryStack u)
 
 -- | Stack instructions
 doInstruction (Just N) (Memory iu s)            = build <$> parseNumber iu where build (symbol , iu') = Trampoline.continue (Memory iu' (push1 symbol s))

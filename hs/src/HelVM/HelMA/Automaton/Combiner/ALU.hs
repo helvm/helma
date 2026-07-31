@@ -2,9 +2,9 @@ module HelVM.HelMA.Automaton.Combiner.ALU (
   runALI,
   runSAL,
 
-  doOutputChar2,
-  doInputChar2,
-  doInputDec2,
+  outputChar,
+  inputChar,
+  inputDec,
   lNot,
   divMod,
   sub,
@@ -54,10 +54,10 @@ runALI (SPure ali) = runSAL ali
 runALI (SIO   ioi) = runSIO ioi
 
 runSIO :: ALU m ll element => IOInstruction -> ll -> m ll
-runSIO OutputChar = doOutputChar2
-runSIO OutputDec  = doOutputDec2
-runSIO InputChar  = doInputChar2
-runSIO InputDec   = doInputDec2
+runSIO OutputChar = outputChar
+runSIO OutputDec  = outputDec
+runSIO InputChar  = inputChar
+runSIO InputDec   = inputDec
 
 runSAL :: SafeStack m ll element => SPureInstruction -> ll -> m ll
 runSAL (Cons      i   ) = push  i
@@ -96,20 +96,20 @@ binaryInstructions il = build <.> pop2 where
   build (e , e', l) = pushList (calculateOps e e' il) l
 
 -- | IO instructions
-doOutputChar2 :: ALU m ll element => ll -> m ll
-doOutputChar2 = appendError "ALU.doOutputChar2" . build <=< pop1 where
+outputChar :: ALU m ll element => ll -> m ll
+outputChar = appendError "ALU.outputChar" . build <=< pop1 where
   build (e , l) = putAsChar e $> l
 
-doOutputDec2 :: ALU m ll element => ll -> m ll
-doOutputDec2 = appendError "ALU.doOutputDec2" . build <=< pop1 where
+outputDec :: ALU m ll element => ll -> m ll
+outputDec = appendError "ALU.outputDec" . build <=< pop1 where
   build (e , l) = putAsDec e $> l
 
-doInputChar2 :: ALU m ll element => ll -> m ll
-doInputChar2 l = appendError "ALU.doOutputDec2" $ build <$> getCharAs where
+inputChar :: ALU m ll element => ll -> m ll
+inputChar l = appendError "ALU.outputDec" $ build <$> getCharAs where
   build e = push1 e l
 
-doInputDec2 :: ALU m ll element => ll -> m ll
-doInputDec2 l = build <$> getCharAs where
+inputDec :: ALU m ll element => ll -> m ll
+inputDec l = build <$> getCharAs where
   build e = push1 e l
 
 indexedInstruction :: SafeStack m ll element => IndexedOperation -> IndexOperand -> ll -> m ll
