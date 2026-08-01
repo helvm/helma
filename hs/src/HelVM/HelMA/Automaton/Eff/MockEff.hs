@@ -1,4 +1,3 @@
-{-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.MockEff (
   ioExecMockEffBatch,
   ioExecMockEffWithInput,
@@ -12,18 +11,20 @@ module HelVM.HelMA.Automaton.Eff.MockEff (
   runMockEff,
   createMockEff,
   calculateOutput,
-  calculateLogged,
+  calculateLogsWithLevelInfo,
+  calculateLogsWithLevelDebug,
+  calculateLogsWithLevel,
 
   MockEff,
   MockEffData,
 ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
+import qualified HelVM.HelMA.Automaton.API.LogLevel as LogLevel
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Control.Message
-
 import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.ListLikeExtra
@@ -31,7 +32,7 @@ import           HelVM.HelIO.ListLikeExtra
 import           Control.Monad.Logger
 
 import qualified Data.ListLike                      as LL
-import           Data.Text                          as Text
+import qualified Data.Text                          as Text
 
 ioExecMockEffBatch :: SafeT MockEff () -> IO MockEffData
 ioExecMockEffBatch = ioExecMockEffWithInput ""
@@ -59,13 +60,21 @@ runMockEff i mockIO = uncurry safeToMockData $ runState mockIO $ createMockEff i
   safeToMockData (Right _  ) = id
 
 createMockEff :: Input -> MockEffData
-createMockEff i = MockEffData (toString i) "" []
+createMockEff = MockEffData [] "" . toString
 
 calculateOutput :: MockEffData -> Output
 calculateOutput = calculateText . output
 
-calculateLogged :: MockEffData -> Output
-calculateLogged d = Text.concat $ LL.reverse (decodeUtf8 . fromLogStr . logStr <$> logged d)
+calculateLogsWithLevelInfo :: MockEffData -> Output
+calculateLogsWithLevelInfo = calculateLogsWithLevel LevelInfo
+
+calculateLogsWithLevelDebug :: MockEffData -> Output
+calculateLogsWithLevelDebug = calculateLogsWithLevel LevelDebug
+
+calculateLogsWithLevel :: LogLevel -> MockEffData -> Output
+calculateLogsWithLevel t d = Text.concat $ LL.reverse (line <$> filter condition (logs d)) where
+  condition l = t <= logLevel l
+  line l = (LogLevel.showEitherTextLogLevel . LogLevel.fromLogger . logLevel) l <> " " <> (decodeUtf8 . fromLogStr . logStr) l <> "\n"
 
 ----
 
@@ -140,7 +149,7 @@ mockDataPutText :: Text -> MockEffData -> MockEffData
 mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
 
 mockDataLog :: MockLog -> MockEffData -> MockEffData
-mockDataLog l mockIO = mockIO { logged = l : logged mockIO }
+mockDataLog l mockIO = mockIO { logs = l : logs mockIO }
 
 ----
 
@@ -157,9 +166,9 @@ calculateString :: Output -> String
 calculateString = toString . Text.reverse
 
 data MockEffData = MockEffData
-  { input  :: !String
+  { logs   :: !MockLogs
   , output :: !String
-  , logged :: !MockLogs
+  , input  :: !String
   }
   deriving stock (Eq , Show)
 

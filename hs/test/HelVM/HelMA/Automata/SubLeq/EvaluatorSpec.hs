@@ -30,4 +30,4 @@ spec = describe "eval" $ forM_
     it ("output" </> fileName) $
       (calculateOutput <$> mock) `goldenShouldIO` buildAbsoluteSqOutFileName fileName
     it ("logged" </> fileName) $
-      (calculateLogged <$> mock) `goldenShouldIO` buildAbsoluteSqLogFileName fileName
+      (calculateLogsWithLevelInfo <$> mock) `goldenShouldIO` buildAbsoluteSqLogFileName fileName

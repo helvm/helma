@@ -6,6 +6,24 @@ import qualified RIO
 
 import           Data.Default
 
+showEitherTextLogLevel :: Either Text LogLevel -> Text
+showEitherTextLogLevel (Right l) = show l
+showEitherTextLogLevel (Left t)  = show t
+
+fromLogger :: Logger.LogLevel -> Either Text LogLevel
+fromLogger Logger.LevelDebug     = Right Debug
+fromLogger Logger.LevelInfo      = Right Info
+fromLogger Logger.LevelWarn      = Right Warn
+fromLogger Logger.LevelError     = Right Error
+fromLogger (Logger.LevelOther t) = Left t
+
+fromRio :: RIO.LogLevel -> Either Text LogLevel
+fromRio RIO.LevelDebug     = Right Debug
+fromRio RIO.LevelInfo      = Right Info
+fromRio RIO.LevelWarn      = Right Warn
+fromRio RIO.LevelError     = Right Error
+fromRio (RIO.LevelOther t) = Left t
+
 toLogger :: LogLevel -> Logger.LogLevel
 toLogger Debug = Logger.LevelDebug
 toLogger Info  = Logger.LevelInfo

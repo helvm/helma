@@ -23,13 +23,16 @@ spec = do
     let mockIO = execMockEffWithInput "qwerty0uiop" wFilterIf0
     forM_
       [ ("Test WFilterIf0 with calculateOutput" , calculateOutput , "qwerty\n")
-      , ("Test WFilterIf0 with calculateLogged" , calculateLogged , ""      )
+      , ("Test WFilterIf0 with calculateLogsWithLevelDebug" , calculateLogsWithLevelDebug , ""      )
       ] $ \(name , action , output) ->
       it name $ action mockIO `shouldBe` output
   describe "Test Free WFilter0" $ do
     let mockIO = execMockEffWithInput "qwerty0uiop" $ interpretFreeEffDebug wFilterIf0
     forM_
       [ ("Test Free WFilterIf0 with calculateOutput" , calculateOutput , "qwerty\n"       )
-      , ("Test Free WFilterIf0 with calculateLogged" , calculateLogged , "GetCharPutCharGetCharPutCharGetCharPutCharGetCharPutCharGetCharPutCharGetCharPutCharGetCharPutChar")
+      , ("Test Free WFilterIf0 with calculateLogsWithLevelDebug" , calculateLogsWithLevelDebug , logs)
       ] $ \(name , action , output) ->
       it name $ action mockIO `shouldBe` output
+
+logs :: Text
+logs = "Debug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\n"

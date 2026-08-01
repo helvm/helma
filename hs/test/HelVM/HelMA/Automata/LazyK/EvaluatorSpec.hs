@@ -63,4 +63,4 @@ spec =
           it ("output" </> path) $
             calculateOutput <$> mock `goldenShouldIO` buildAbsoluteLazyKOutFileName path
           it ("logged" </> path) $
-            calculateLogged <$> mock `goldenShouldIO` buildAbsoluteLazyKLogFileName path
+            calculateLogsWithLevelInfo <$> mock `goldenShouldIO` buildAbsoluteLazyKLogFileName path

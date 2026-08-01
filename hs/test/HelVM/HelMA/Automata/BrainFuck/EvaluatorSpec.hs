@@ -43,7 +43,7 @@ spec =
         it ("output" </> path) $
           calculateOutput <$> exec `goldenShouldIO` buildAbsoluteBfOutFileName path
         it ("logged" </> path) $
-          calculateLogged <$> exec `goldenShouldIO` buildAbsoluteBfLogFileName path
+          calculateLogsWithLevelInfo <$> exec `goldenShouldIO` buildAbsoluteBfLogFileName path
 
 testedBfTypes :: [ImplType]
 testedBfTypes = [defaultImplType]

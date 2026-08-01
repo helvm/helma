@@ -1,4 +1,4 @@
-ALU.role index must be less then lenght [i 2] [ll 1]
+Error ALU.role index must be less then lenght [i 2] [ll 1]
  [i: ISM (SPure (Indexed (IImmediate 1) Move))]
  [program: 
 markM 1 # 0
@@ -374,3 +374,4 @@ end # 64
     , memoryStack = fromList [ 0 ]
     , memoryRAM = []
     }]
+

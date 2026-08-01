@@ -51,4 +51,4 @@ spec =
           it ("output" </> path) $
             calculateOutput <$> mock `goldenShouldIO` buildAbsoluteEtaOutFileName path
           it ("logged" </> path) $
-            calculateLogged <$> mock `goldenShouldIO` buildAbsoluteEtaLogFileName path
+            calculateLogsWithLevelInfo <$> mock `goldenShouldIO` buildAbsoluteEtaLogFileName path
