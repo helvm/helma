@@ -7,9 +7,9 @@ import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 
 data LSInstruction =
     Load    --Restore --Fetch
-  | LoadD   !Index
+  | LoadD   !ImmediateIndex
   | Store   --Save
-  | StoreID !Integer !Index
-  | MoveD   !Index !Index
+  | StoreID !Integer !ImmediateIndex
+  | MoveD   !ImmediateIndex !ImmediateIndex
   | MIO     !IOInstruction
   deriving stock (Eq , Read , Show)

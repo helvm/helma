@@ -63,7 +63,7 @@ optimizeBranch t c a = check $ isJump t c where
 optimizeBranchLabel :: BranchTest -> Integer -> InstructionList
 optimizeBranchLabel t a = [branchI t $ fromIntegral a]
 
-optimizeBranchCondition :: Index -> BranchTest -> Integer -> InstructionList
+optimizeBranchCondition :: ImmediateIndex -> BranchTest -> Integer -> InstructionList
 optimizeBranchCondition 1 t c = optimizeBranchCondition1 t c
 optimizeBranchCondition i t c = check $ isJump t c where
   check True = [moveII1 , jumpTI]
@@ -75,11 +75,11 @@ optimizeBranchCondition1 t c = check $ isJump t c where
   check True = [jumpTI]
   check _    = [discardI]
 
-copyAdd :: Index -> [Instruction]
+copyAdd :: ImmediateIndex -> [Instruction]
 copyAdd 0 = []
 copyAdd i = [copyII (i - 1) , addI]
 
-moveAdd :: Index -> [Instruction]
+moveAdd :: ImmediateIndex -> [Instruction]
 moveAdd 0 = []
 moveAdd 1 = [addI]
 moveAdd i = [moveII (i - 1) , addI]
@@ -90,5 +90,5 @@ optimizeStoreID v = storeIDI v . fromIntegral
 optimizeLoadD :: Integer -> Instruction
 optimizeLoadD = loadDI . fromIntegral
 
-optimizeMoveD :: Index -> Integer -> Instruction
+optimizeMoveD :: ImmediateIndex -> Integer -> Instruction
 optimizeMoveD s d = moveDI s (fromIntegral d)

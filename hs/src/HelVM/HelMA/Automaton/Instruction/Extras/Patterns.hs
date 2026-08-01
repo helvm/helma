@@ -42,10 +42,10 @@ pattern PickP = ISM (SPure Pick)
 pattern ConsP :: Integer -> Instruction
 pattern ConsP c = ISM (SPure (Cons c))
 
-pattern CopyIP :: Index -> Instruction
+pattern CopyIP :: ImmediateIndex -> Instruction
 pattern CopyIP i = ISM (SPure (Indexed (IImmediate i) Copy))
 
-pattern MoveIP :: Index -> Instruction
+pattern MoveIP :: ImmediateIndex -> Instruction
 pattern MoveIP i = ISM (SPure (Indexed (IImmediate i) Move))
 
 pattern BinaryP :: BinaryOperation -> Instruction
@@ -82,5 +82,5 @@ pattern StoreP = ILS Store
 pattern LoadP :: Instruction
 pattern LoadP = ILS Load
 
-pattern LoadDP :: Index -> Instruction
+pattern LoadDP :: ImmediateIndex -> Instruction
 pattern LoadDP a  = ILS (LoadD a)

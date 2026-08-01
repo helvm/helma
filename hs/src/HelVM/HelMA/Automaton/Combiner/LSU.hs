@@ -28,7 +28,7 @@ load :: LSU m s r element => LoadStoreMemory s r -> m $ LoadStoreMemory s r
 load (LSM s r) = appendError "LSM.load" $ build =<< pop1 s where
   build (address , s') = loadPure address $ LSM s' r
 
-loadD :: LSU m s r element => Index -> LoadStoreMemory s r -> m $ LoadStoreMemory s r
+loadD :: LSU m s r element => ImmediateIndex -> LoadStoreMemory s r -> m $ LoadStoreMemory s r
 loadD address = loadPure (fromIntegral address)
 
 loadPure :: LSU m s r element => element -> LoadStoreMemory s r -> m $ LoadStoreMemory s r
@@ -38,13 +38,13 @@ store :: LSU m s r element => LoadStoreMemory s r -> m $ LoadStoreMemory s r
 store (LSM s r) = appendError "LSM.store" $ build =<< pop2 s where
   build (value , address , s') = storePure value address $ LSM s' r
 
-storeID :: LSU m s r element => Integer -> Index -> LoadStoreMemory s r -> m $ LoadStoreMemory s r
+storeID :: LSU m s r element => Integer -> ImmediateIndex -> LoadStoreMemory s r -> m $ LoadStoreMemory s r
 storeID value address = storePure (fromIntegral value) (fromIntegral address)
 
 storePure :: LSU m s r element => element -> element -> LoadStoreMemory s r -> m $ LoadStoreMemory s r
 storePure value address (LSM s r) = pure $ LSM s $ RAM.store address value r
 
-moveD :: LSU m s r element => Index -> Index -> LoadStoreMemory s r -> m $ LoadStoreMemory s r
+moveD :: LSU m s r element => ImmediateIndex -> ImmediateIndex -> LoadStoreMemory s r -> m $ LoadStoreMemory s r
 moveD src dst lsm@(LSM _ r) = storePure (RAM.genericLoad r src) (fromIntegral dst) lsm
 
 -- | IO

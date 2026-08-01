@@ -38,16 +38,16 @@ rotI     = moveII 2
 copyTI   = sal $ Indexed ITop Copy
 discardI = sal Discard
 
-copyII :: Index -> Instruction
+copyII :: ImmediateIndex -> Instruction
 copyII = manipulationII Copy
 
-moveII :: Index -> Instruction
+moveII :: ImmediateIndex -> Instruction
 moveII = manipulationII Move
 
-slideII :: Index -> Instruction
+slideII :: ImmediateIndex -> Instruction
 slideII = manipulationII Slide
 
-manipulationII :: IndexedOperation -> Index -> Instruction
+manipulationII :: IndexedOperation -> ImmediateIndex -> Instruction
 manipulationII op i = sal $ Indexed (IImmediate i) op
 
 sInputI , sOutputI , sOutputDecI :: Instruction
@@ -135,11 +135,11 @@ mInputDecI = mio InputDec
 mio :: IOInstruction -> Instruction
 mio = ILS . MIO
 
-storeIDI :: Integer -> Index -> Instruction
+storeIDI :: Integer -> ImmediateIndex -> Instruction
 storeIDI v = ILS . StoreID v
 
-loadDI :: Index -> Instruction
+loadDI :: ImmediateIndex -> Instruction
 loadDI = ILS . LoadD
 
-moveDI :: Index -> Index -> Instruction
+moveDI :: ImmediateIndex -> ImmediateIndex -> Instruction
 moveDI a = ILS . MoveD a

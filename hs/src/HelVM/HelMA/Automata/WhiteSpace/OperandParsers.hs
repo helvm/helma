@@ -13,7 +13,7 @@ import           HelVM.HelIO.Digit.ToDigit
 
 import           Control.Monad.Extra
 
-parseIndex :: MonadSafe m => ParserFromTokenList m Index
+parseIndex :: MonadSafe m => ParserFromTokenList m ImmediateIndex
 parseIndex = parseInt
 
 parseSymbol :: MonadSafe m => ParserFromTokenList m Symbol

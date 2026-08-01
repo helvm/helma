@@ -134,7 +134,7 @@ indexedInstructionTop :: SafeStack m ll element => IndexedOperation -> ll -> m l
 indexedInstructionTop op = appendError "ALU.indexedInstructionTop" . build <=< unconsSafe where
   build (e , l) = indexedInstructionImmediate op (fromIntegral e) l
 
-indexedInstructionImmediate :: SafeStack m ll element => IndexedOperation -> Index -> ll -> m ll
+indexedInstructionImmediate :: SafeStack m ll element => IndexedOperation -> ImmediateIndex -> ll -> m ll
 indexedInstructionImmediate Copy  = copy
 indexedInstructionImmediate Move  = move
 indexedInstructionImmediate Slide = slide
@@ -160,14 +160,14 @@ pick = appendError "ALU.pick" . build <=< pop1 where
       where i = fromIntegral e
 
 -- | Slide instructions
-slide :: SafeStack m ll element => Index -> ll -> m ll
+slide :: SafeStack m ll element => ImmediateIndex -> ll -> m ll
 slide i = appendError "ALU.pop2" . build <.> pop1 where
   build (e , l) = push1 e $ drop i l
 
-move :: SafeStack m ll element => Index -> ll -> m ll
+move :: SafeStack m ll element => ImmediateIndex -> ll -> m ll
 move i = rollStatic i (i + 1)
 
-rollStatic :: SafeStack m ll element => Index -> Index -> ll -> m ll
+rollStatic :: SafeStack m ll element => ImmediateIndex -> ImmediateIndex -> ll -> m ll
 rollStatic rolls i l = build $ length l where
   build ll
     | i < 0     = pure l
@@ -180,7 +180,7 @@ rollStatic rolls i l = build $ length l where
       (l', l3) = splitAt i l
 
 -- | Copy instructions
-copy :: SafeStack m ll element => Index -> ll -> m ll
+copy :: SafeStack m ll element => ImmediateIndex -> ll -> m ll
 copy i = teeMap flipPush1 (findSafe i)
 
 -- | Pop instructions

@@ -72,7 +72,7 @@ data SPureInstruction =
   | Discard
   deriving stock (Eq , Read , Show)
 
-data IndexOperand = ITop | IImmediate !Index
+data IndexOperand = ITop | IImmediate !ImmediateIndex
   deriving stock (Eq , Read , Show)
 
 data UnaryOperation = Neg | BNot | LNot | UImmediate Integer BinaryOperation
