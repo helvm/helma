@@ -29,7 +29,7 @@ span.spaces    { background: white }
 <span class="lineno">   10 </span>import qualified Data.Set                                              as Set
 <span class="lineno">   11 </span>
 <span class="lineno">   12 </span>makrRemoving :: InstructionList -&gt; InstructionList
-<span class="lineno">   13 </span><span class="decl"><span class="istickedoff">makrRemoving il = catMaybes $ makrRemovingWithSet set &lt;$&gt; il where set = consValueSet il</span></span>
+<span class="lineno">   13 </span><span class="decl"><span class="istickedoff">makrRemoving il = mapMaybe (makrRemovingWithSet set) il where set = consValueSet il</span></span>
 <span class="lineno">   14 </span>
 <span class="lineno">   15 </span>makrRemovingWithSet :: Set Integer -&gt; Instruction -&gt; Maybe Instruction
 <span class="lineno">   16 </span><span class="decl"><span class="istickedoff">makrRemovingWithSet set (MNaturalP i) = mark set i</span>
@@ -41,7 +41,7 @@ span.spaces    { background: white }
 <span class="lineno">   22 </span><span class="spaces">  </span><span class="istickedoff">build False = Nothing</span></span>
 <span class="lineno">   23 </span>
 <span class="lineno">   24 </span>consValueSet :: InstructionList -&gt; Set.Set Integer
-<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">consValueSet il = fromList $ catMaybes $ consValueOpt &lt;$&gt; il</span></span>
+<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">consValueSet il = fromList $ mapMaybe consValueOpt il</span></span>
 <span class="lineno">   26 </span>
 <span class="lineno">   27 </span>consValueOpt :: Instruction -&gt; Maybe Integer
 <span class="lineno">   28 </span><span class="decl"><span class="istickedoff">consValueOpt (ConsP i) = Just i</span>

@@ -19,38 +19,38 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automaton.Combiner where
 <span class="lineno">    2 </span>
-<span class="lineno">    3 </span>import           HelVM.HelMA.Automaton.IO.AutomatonIO
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 <span class="lineno">    4 </span>
 <span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.Instruction
 <span class="lineno">    6 </span>
-<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.Trampoline     as Trampoline
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.Trampoline       as Trampoline
 <span class="lineno">    8 </span>
 <span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Symbol
 <span class="lineno">   10 </span>
-<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Combiner.ALU   as ALU
-<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.Combiner.CPU   as CPU
-<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.Combiner.LSU   as LSU
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Combiner.ALU     as ALU
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.Combiner.CPU     as CPU
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.Combiner.LSU     as LSU
 <span class="lineno">   14 </span>
 <span class="lineno">   15 </span>import           Control.Type.Operator
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>import           Prelude                              hiding (swap)
+<span class="lineno">   17 </span>import           Prelude                                hiding (swap)
 <span class="lineno">   18 </span>
 <span class="lineno">   19 </span>-- | Core of Combiner
 <span class="lineno">   20 </span>
-<span class="lineno">   21 </span>runInstruction :: (SRAutomatonIO Symbol s r m) =&gt; Instruction -&gt; SF s r m
+<span class="lineno">   21 </span>runInstruction :: (SRAutomatonEff Symbol s r m) =&gt; Instruction -&gt; SF s r m
 <span class="lineno">   22 </span><span class="decl"><span class="istickedoff">runInstruction (ISM      i) a = Trampoline.continue . updateStack   a &lt;$&gt; runALI i (memoryStack a)</span>
 <span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">runInstruction (ILS      i) a = Trampoline.continue . updateFromLSM a &lt;$&gt; runSLI i (toLSM a)</span>
 <span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">runInstruction (ICF      i) a = Trampoline.continue . updateFromCPM a &lt;$&gt; runCFI i (toCPM a)</span>
 <span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">runInstruction  End         a = end a</span></span>
 <span class="lineno">   26 </span>
-<span class="lineno">   27 </span>pop2ForStack :: (SRAutomatonIO Symbol s r m) =&gt; Memory s r -&gt; m (Symbol , Symbol , Memory s r)
+<span class="lineno">   27 </span>pop2ForStack :: (SRAutomatonEff Symbol s r m) =&gt; Memory s r -&gt; m (Symbol , Symbol , Memory s r)
 <span class="lineno">   28 </span><span class="decl"><span class="nottickedoff">pop2ForStack a = build &lt;$&gt; pop2 (memoryStack a) where</span>
 <span class="lineno">   29 </span><span class="spaces">  </span><span class="nottickedoff">build (s1 , s2 , s') = (s1 , s2 , updateStack a s')</span></span>
 <span class="lineno">   30 </span>
 <span class="lineno">   31 </span>push1ForStack :: Stack s Symbol =&gt; Symbol -&gt; Memory s r -&gt; Memory s r
 <span class="lineno">   32 </span><span class="decl"><span class="nottickedoff">push1ForStack e a = a { memoryStack = push1 e (memoryStack a) }</span></span>
 <span class="lineno">   33 </span>
-<span class="lineno">   34 </span>end :: (SRAutomatonIO Symbol s r m) =&gt; SF s r m
+<span class="lineno">   34 </span>end :: (SRAutomatonEff Symbol s r m) =&gt; SF s r m
 <span class="lineno">   35 </span><span class="decl"><span class="istickedoff">end = pure . Trampoline.break</span></span>
 <span class="lineno">   36 </span>
 <span class="lineno">   37 </span>-- | Constructors
@@ -103,7 +103,7 @@ span.spaces    { background: white }
 <span class="lineno">   84 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryStack</span></span></span> :: s
 <span class="lineno">   85 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryRAM</span></span></span>   :: r
 <span class="lineno">   86 </span>  }
-<span class="lineno">   87 </span>  deriving stock (<span class="decl"><span class="istickedoff">Show</span></span>)
+<span class="lineno">   87 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

@@ -24,7 +24,7 @@ span.spaces    { background: white }
 <span class="lineno">    5 </span>
 <span class="lineno">    6 </span>import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 <span class="lineno">    7 </span>
-<span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.Types.FormatType
+<span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.Types.LabelType
 <span class="lineno">    9 </span>
 <span class="lineno">   10 </span>import           HelVM.HelIO.Collections.SList
 <span class="lineno">   11 </span>import           HelVM.HelIO.Control.Safe
@@ -32,13 +32,13 @@ span.spaces    { background: white }
 <span class="lineno">   13 </span>
 <span class="lineno">   14 </span>import           Control.Monad.Extra
 <span class="lineno">   15 </span>
-<span class="lineno">   16 </span>parseIndex :: MonadSafe m =&gt; ParserFromTokenList m Index
+<span class="lineno">   16 </span>parseIndex :: MonadSafe m =&gt; ParserFromTokenList m ImmediateIndex
 <span class="lineno">   17 </span><span class="decl"><span class="istickedoff">parseIndex = parseInt</span></span>
 <span class="lineno">   18 </span>
 <span class="lineno">   19 </span>parseSymbol :: MonadSafe m =&gt; ParserFromTokenList m Symbol
 <span class="lineno">   20 </span><span class="decl"><span class="istickedoff">parseSymbol = parseInteger</span></span>
 <span class="lineno">   21 </span>
-<span class="lineno">   22 </span>parseLabel :: MonadSafe m =&gt; FormatType -&gt; ParserFromTokenList m Label
+<span class="lineno">   22 </span>parseLabel :: MonadSafe m =&gt; LabelType -&gt; ParserFromTokenList m Label
 <span class="lineno">   23 </span><span class="decl"><span class="istickedoff">parseLabel BinaryLabel = parseDigitString</span>
 <span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">parseLabel TextLabel   = parseAsciiString</span></span>
 <span class="lineno">   25 </span>

@@ -18,19 +18,35 @@ span.spaces    { background: white }
 </pre>
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automata.Cat.Evaluator (
-<span class="lineno">    2 </span>  evalParams,
-<span class="lineno">    3 </span>  eval
-<span class="lineno">    4 </span>) where
-<span class="lineno">    5 </span>
-<span class="lineno">    6 </span>import           HelVM.HelMA.Automaton.API.EvalParams
-<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
-<span class="lineno">    9 </span>
-<span class="lineno">   10 </span>evalParams :: BIO m =&gt; EvalParams -&gt; m ()
-<span class="lineno">   11 </span><span class="decl"><span class="nottickedoff">evalParams = eval . source</span></span>
-<span class="lineno">   12 </span>
-<span class="lineno">   13 </span>eval :: BusinessIO m =&gt; Source -&gt; m ()
-<span class="lineno">   14 </span><span class="decl"><span class="istickedoff">eval = wPutStr</span></span>
+<span class="lineno">    2 </span>  runRio,
+<span class="lineno">    3 </span>  run,
+<span class="lineno">    4 </span>  evalParams,
+<span class="lineno">    5 </span>  eval
+<span class="lineno">    6 </span>) where
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>import qualified HelVM.HelMA.Automaton.API.AppOptions as App
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.API.Emit
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.API.Env
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.API.EvalParams
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.API.IOTypes
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.Eff.MonadEff
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.Extra
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>import qualified RIO
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>runRio :: Has env =&gt; RIO.RIO env ()
+<span class="lineno">   19 </span><span class="decl"><span class="nottickedoff">runRio = runWithOptions =&lt;&lt; optionsRio where</span>
+<span class="lineno">   20 </span><span class="spaces">  </span><span class="nottickedoff">runWithOptions o =  run (App.emit o) . App.evalParams o =&lt;&lt; readSourceFileRio</span></span>
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>run :: Has env =&gt; Emit -&gt; EvalParams -&gt; RIO.RIO env ()
+<span class="lineno">   23 </span><span class="decl"><span class="nottickedoff">run No = runAsRIO . evalParams</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="nottickedoff">run _  = fallback</span></span>
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>evalParams :: AppEff m =&gt; EvalParams -&gt; m ()
+<span class="lineno">   27 </span><span class="decl"><span class="nottickedoff">evalParams = eval . source</span></span>
+<span class="lineno">   28 </span>
+<span class="lineno">   29 </span>eval :: MonadEff m =&gt; Source -&gt; m ()
+<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">eval = putTextEff</span></span>
 
 </pre>
 </body>

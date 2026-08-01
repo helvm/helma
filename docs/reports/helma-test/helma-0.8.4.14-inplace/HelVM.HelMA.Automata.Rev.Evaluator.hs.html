@@ -18,27 +18,45 @@ span.spaces    { background: white }
 </pre>
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automata.Rev.Evaluator (
-<span class="lineno">    2 </span>  evalParams,
-<span class="lineno">    3 </span>  eval,
-<span class="lineno">    4 </span>) where
-<span class="lineno">    5 </span>
-<span class="lineno">    6 </span>import           HelVM.HelMA.Automaton.API.EvalParams
-<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.IO.BusinessIO
-<span class="lineno">    9 </span>
-<span class="lineno">   10 </span>import qualified Data.Text                            as Text
-<span class="lineno">   11 </span>
-<span class="lineno">   12 </span>evalParams :: BIO m =&gt; EvalParams -&gt; m ()
-<span class="lineno">   13 </span><span class="decl"><span class="nottickedoff">evalParams = eval . source</span></span>
-<span class="lineno">   14 </span>
-<span class="lineno">   15 </span>eval :: BusinessIO m =&gt; Source -&gt; m ()
-<span class="lineno">   16 </span><span class="decl"><span class="istickedoff">eval = evalLines . lines</span></span>
+<span class="lineno">    2 </span>  runRio,
+<span class="lineno">    3 </span>  run,
+<span class="lineno">    4 </span>  evalParams,
+<span class="lineno">    5 </span>  eval,
+<span class="lineno">    6 </span>) where
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>import qualified HelVM.HelMA.Automaton.API.AppOptions as App
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.API.Emit
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.API.Env
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.API.EvalParams
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.API.IOTypes
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automaton.Eff.MonadEff
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>import           HelVM.HelMA.Automaton.Extra
 <span class="lineno">   17 </span>
-<span class="lineno">   18 </span>evalLines :: BusinessIO m =&gt; [Source] -&gt; m ()
-<span class="lineno">   19 </span><span class="decl"><span class="istickedoff">evalLines ll = doOutput $ unlines $ Text.reverse &lt;$&gt; ll</span></span>
-<span class="lineno">   20 </span>
-<span class="lineno">   21 </span>doOutput :: BusinessIO m =&gt; Source -&gt; m ()
-<span class="lineno">   22 </span><span class="decl"><span class="istickedoff">doOutput = wPutStr</span></span>
+<span class="lineno">   18 </span>import qualified Data.Text                            as Text
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import qualified RIO
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>runRio :: Has env =&gt; RIO.RIO env ()
+<span class="lineno">   23 </span><span class="decl"><span class="nottickedoff">runRio = runWithOptions =&lt;&lt; optionsRio where</span>
+<span class="lineno">   24 </span><span class="spaces">  </span><span class="nottickedoff">runWithOptions o =  run (App.emit o) . App.evalParams o =&lt;&lt; readSourceFileRio</span></span>
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>run :: Has env =&gt; Emit -&gt; EvalParams -&gt; RIO.RIO env ()
+<span class="lineno">   27 </span><span class="decl"><span class="nottickedoff">run No = runAsRIO . evalParams</span>
+<span class="lineno">   28 </span><span class="spaces"></span><span class="nottickedoff">run _  = fallback</span></span>
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>evalParams :: AppEff m =&gt; EvalParams -&gt; m ()
+<span class="lineno">   31 </span><span class="decl"><span class="nottickedoff">evalParams = eval . source</span></span>
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>eval :: MonadEff m =&gt; Source -&gt; m ()
+<span class="lineno">   34 </span><span class="decl"><span class="istickedoff">eval = evalLines . lines</span></span>
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>evalLines :: MonadEff m =&gt; [Source] -&gt; m ()
+<span class="lineno">   37 </span><span class="decl"><span class="istickedoff">evalLines ll = doOutput $ unlines $ Text.reverse &lt;$&gt; ll</span></span>
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>doOutput :: MonadEff m =&gt; Source -&gt; m ()
+<span class="lineno">   40 </span><span class="decl"><span class="istickedoff">doOutput = putTextEff</span></span>
 
 </pre>
 </body>

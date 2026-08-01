@@ -17,7 +17,7 @@ module HelVM.HelMA.Automaton.Combiner.ALU (
   roll,
   halibut,
   move,
-  rollStatic,
+  rollImediate,
   discard,
   slide,
   copy,
@@ -143,7 +143,7 @@ indexedInstructionImmediate Slide = slide
 
 roll :: SafeStack m ll element => ll -> m ll
 roll = build <=< pop2 where
-  build (rolls, depth, l) = rollStatic (fromIntegral rolls) (fromIntegral depth) l
+  build (rolls, depth, l) = rollImediate (fromIntegral rolls) (fromIntegral depth) l
 
 halibut :: SafeStack m ll element => ll -> m ll
 halibut = appendError "ALU.halibut" . build <=< pop1 where
@@ -165,10 +165,10 @@ slide i = appendError "ALU.pop2" . build <.> pop1 where
   build (e , l) = push1 e $ drop i l
 
 move :: SafeStack m ll element => ImmediateIndex -> ll -> m ll
-move i = rollStatic i (i + 1)
+move i = rollImediate i (i + 1)
 
-rollStatic :: SafeStack m ll element => ImmediateIndex -> ImmediateIndex -> ll -> m ll
-rollStatic rolls i l = build $ length l where
+rollImediate :: SafeStack m ll element => ImmediateIndex -> ImmediateIndex -> ll -> m ll
+rollImediate rolls i l = build $ length l where
   build ll
     | i < 0     = pure l
     | r == 0    = pure l

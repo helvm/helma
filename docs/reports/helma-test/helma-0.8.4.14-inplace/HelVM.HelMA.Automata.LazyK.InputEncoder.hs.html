@@ -22,11 +22,11 @@ span.spaces    { background: white }
 <span class="lineno">    3 </span>import           HelVM.HelMA.Automata.LazyK.Constants
 <span class="lineno">    4 </span>import           HelVM.HelMA.Automata.LazyK.Lambda
 <span class="lineno">    5 </span>
-<span class="lineno">    6 </span>import qualified Data.ByteString.Lazy                 as LBS
+<span class="lineno">    6 </span>import qualified Data.ByteString.Lazy                 as LByteString
 <span class="lineno">    7 </span>
 <span class="lineno">    8 </span>-- | Constructors
-<span class="lineno">    9 </span>readInput :: LBS.ByteString -&gt; Lambda
-<span class="lineno">   10 </span><span class="decl"><span class="istickedoff">readInput = encodeInput . fmap <span class="nottickedoff">fromIntegral</span> . LBS.unpack</span></span>
+<span class="lineno">    9 </span>readInput :: LByteString -&gt; Lambda
+<span class="lineno">   10 </span><span class="decl"><span class="istickedoff">readInput = encodeInput . fmap <span class="nottickedoff">fromIntegral</span> . LByteString.unpack</span></span>
 <span class="lineno">   11 </span>
 <span class="lineno">   12 </span>encodeInput :: [Natural] -&gt; Lambda
 <span class="lineno">   13 </span><span class="decl"><span class="istickedoff">encodeInput = foldr <span class="nottickedoff">(cons . church)</span> end</span></span>

@@ -29,16 +29,16 @@ span.spaces    { background: white }
 <span class="lineno">   10 </span>    Simple SimpleInstruction
 <span class="lineno">   11 </span>  | JmpPast
 <span class="lineno">   12 </span>  | JmpBack
-<span class="lineno">   13 </span>  deriving stock (<span class="decl"><span class="nottickedoff">Eq</span></span>)
+<span class="lineno">   13 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>)
 <span class="lineno">   14 </span>
 <span class="lineno">   15 </span>type FlatTreeInstructionList = [FlatInstruction]
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>instance Show FlatInstruction where
+<span class="lineno">   17 </span>instance <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Show FlatInstruction</span></span></span></span> where
 <span class="lineno">   18 </span>  <span class="decl"><span class="istickedoff">show (Simple i) = show i</span>
 <span class="lineno">   19 </span><span class="spaces">  </span><span class="istickedoff">show JmpPast    = &quot;[&quot;</span>
 <span class="lineno">   20 </span><span class="spaces">  </span><span class="istickedoff">show JmpBack    = &quot;]&quot;</span></span>
 <span class="lineno">   21 </span>
-<span class="lineno">   22 </span>instance Read FlatInstruction where
+<span class="lineno">   22 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Read FlatInstruction</span></span></span></span></span></span> where
 <span class="lineno">   23 </span>  <span class="decl"><span class="istickedoff">readsPrec _ &quot;&gt;&quot; = [( Simple MoveR  , &quot;&quot;)]</span>
 <span class="lineno">   24 </span><span class="spaces">  </span><span class="istickedoff">readsPrec _ &quot;&lt;&quot; = [( Simple MoveL  , &quot;&quot;)]</span>
 <span class="lineno">   25 </span><span class="spaces">  </span><span class="istickedoff">readsPrec _ &quot;+&quot; = [( Simple Inc    , &quot;&quot;)]</span>

@@ -19,54 +19,55 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automata.WhiteSpace.SimpleParams where
 <span class="lineno">    2 </span>
-<span class="lineno">    3 </span>import qualified HelVM.HelMA.Automaton.API.AutomatonOptions as Automaton
-<span class="lineno">    4 </span>import           HelVM.HelMA.Automaton.API.AutoOptions
-<span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.API.IOTypes
-<span class="lineno">    6 </span>
-<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.Types.FormatType
-<span class="lineno">    8 </span>import           HelVM.HelMA.Automaton.Types.RAMType
-<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Types.StackType
-<span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.Types.TokenType
-<span class="lineno">   11 </span>
-<span class="lineno">   12 </span>-- | Construction for tests
-<span class="lineno">   13 </span>simpleParamsWithDefaultsAndWhiteTokenType :: FormatType -&gt; Source -&gt; SimpleParams
-<span class="lineno">   14 </span><span class="decl"><span class="nottickedoff">simpleParamsWithDefaultsAndWhiteTokenType = simpleParamsWithDefaults WhiteTokenType</span></span>
-<span class="lineno">   15 </span>
-<span class="lineno">   16 </span>simpleParamsWithDefaultsAndVisibleTokenType :: FormatType -&gt; Source -&gt; SimpleParams
-<span class="lineno">   17 </span><span class="decl"><span class="nottickedoff">simpleParamsWithDefaultsAndVisibleTokenType = simpleParamsWithDefaults VisibleTokenType</span></span>
-<span class="lineno">   18 </span>
-<span class="lineno">   19 </span>simpleParamsWithDefaults :: TokenType -&gt; FormatType -&gt; Source -&gt; SimpleParams
-<span class="lineno">   20 </span><span class="decl"><span class="istickedoff">simpleParamsWithDefaults tt = simpleParams tt (defaultStackType , defaultRAMType)</span></span>
-<span class="lineno">   21 </span>
-<span class="lineno">   22 </span>-- | Construction for benchmark
-<span class="lineno">   23 </span>simpleParamsWithWhiteTokenType :: (StackType, RAMType) -&gt; FormatType -&gt; Source -&gt; SimpleParams
-<span class="lineno">   24 </span><span class="decl"><span class="nottickedoff">simpleParamsWithWhiteTokenType = simpleParams WhiteTokenType</span></span>
-<span class="lineno">   25 </span>
-<span class="lineno">   26 </span>simpleParamsWithVisibleTokenType :: (StackType, RAMType) -&gt; FormatType -&gt; Source -&gt; SimpleParams
-<span class="lineno">   27 </span><span class="decl"><span class="nottickedoff">simpleParamsWithVisibleTokenType = simpleParams VisibleTokenType</span></span>
-<span class="lineno">   28 </span>
-<span class="lineno">   29 </span>automatonOptions :: SimpleParams -&gt; Automaton.AutomatonOptions
-<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">automatonOptions p = Automaton.AutomatonOptions (stackType p) (ramType p) (autoOptions p)</span></span>
-<span class="lineno">   31 </span>
-<span class="lineno">   32 </span>simpleParams :: TokenType -&gt; (StackType, RAMType) -&gt; FormatType -&gt; Source -&gt; SimpleParams
-<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">simpleParams tt (st , rt) al s = SimpleParams</span>
-<span class="lineno">   34 </span><span class="spaces">  </span><span class="istickedoff">{ tokenType = tt</span>
-<span class="lineno">   35 </span><span class="spaces">  </span><span class="istickedoff">, source = s</span>
-<span class="lineno">   36 </span><span class="spaces">  </span><span class="istickedoff">, formatType = al</span>
-<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">, stackType = st</span>
-<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">, ramType = rt</span>
-<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">, autoOptions = simpleAutoParams</span>
-<span class="lineno">   40 </span><span class="spaces">  </span><span class="istickedoff">}</span></span>
-<span class="lineno">   41 </span>
-<span class="lineno">   42 </span>-- | Type
-<span class="lineno">   43 </span>data SimpleParams = SimpleParams
-<span class="lineno">   44 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">tokenType</span></span></span>   :: !TokenType
-<span class="lineno">   45 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">source</span></span></span>      :: !Source
-<span class="lineno">   46 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">formatType</span></span></span>  :: !FormatType
-<span class="lineno">   47 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">stackType</span></span></span>   :: !StackType
-<span class="lineno">   48 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">ramType</span></span></span>     :: !RAMType
-<span class="lineno">   49 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">autoOptions</span></span></span> :: !AutoOptions
-<span class="lineno">   50 </span>  }
+<span class="lineno">    3 </span>import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
+<span class="lineno">    6 </span>import           HelVM.HelMA.Automaton.API.AutoOptions
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automaton.API.IOTypes
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automaton.Types.LabelType
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.Types.RAMType
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Types.StackType
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>-- | Construction for tests
+<span class="lineno">   14 </span>simpleParamsWithDefaultsAndWhiteTokenType :: LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   15 </span><span class="decl"><span class="nottickedoff">simpleParamsWithDefaultsAndWhiteTokenType = simpleParamsWithDefaults WhiteTokenType</span></span>
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>simpleParamsWithDefaultsAndVisibleTokenType :: LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   18 </span><span class="decl"><span class="nottickedoff">simpleParamsWithDefaultsAndVisibleTokenType = simpleParamsWithDefaults VisibleTokenType</span></span>
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>simpleParamsWithDefaults :: TokenType -&gt; LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   21 </span><span class="decl"><span class="istickedoff">simpleParamsWithDefaults tt = simpleParams tt (defaultStackType , defaultRAMType)</span></span>
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>-- | Construction for benchmark
+<span class="lineno">   24 </span>simpleParamsWithWhiteTokenType :: (StackType, RAMType) -&gt; LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   25 </span><span class="decl"><span class="nottickedoff">simpleParamsWithWhiteTokenType = simpleParams WhiteTokenType</span></span>
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>simpleParamsWithVisibleTokenType :: (StackType, RAMType) -&gt; LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   28 </span><span class="decl"><span class="nottickedoff">simpleParamsWithVisibleTokenType = simpleParams VisibleTokenType</span></span>
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>automatonOptions :: SimpleParams -&gt; Automaton.AutomatonOptions
+<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">automatonOptions p = Automaton.AutomatonOptions (stackType p) (ramType p) (autoOptions p)</span></span>
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>simpleParams :: TokenType -&gt; (StackType, RAMType) -&gt; LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   34 </span><span class="decl"><span class="istickedoff">simpleParams tt (st , rt) al s = SimpleParams</span>
+<span class="lineno">   35 </span><span class="spaces">  </span><span class="istickedoff">{ tokenType = tt</span>
+<span class="lineno">   36 </span><span class="spaces">  </span><span class="istickedoff">, source = s</span>
+<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">, formatType = al</span>
+<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">, stackType = st</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">, ramType = rt</span>
+<span class="lineno">   40 </span><span class="spaces">  </span><span class="istickedoff">, autoOptions = simpleAutoParams</span>
+<span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">}</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>-- | Type
+<span class="lineno">   44 </span>data SimpleParams = SimpleParams
+<span class="lineno">   45 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">tokenType</span></span></span>   :: !TokenType
+<span class="lineno">   46 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">source</span></span></span>      :: !Source
+<span class="lineno">   47 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">formatType</span></span></span>  :: !LabelType
+<span class="lineno">   48 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">stackType</span></span></span>   :: !StackType
+<span class="lineno">   49 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">ramType</span></span></span>     :: !RAMType
+<span class="lineno">   50 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">autoOptions</span></span></span> :: !AutoOptions
+<span class="lineno">   51 </span>  }
 
 </pre>
 </body>

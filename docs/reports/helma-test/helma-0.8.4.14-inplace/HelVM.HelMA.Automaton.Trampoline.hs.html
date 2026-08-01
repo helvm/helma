@@ -45,7 +45,7 @@ span.spaces    { background: white }
 <span class="lineno">   26 </span><span class="decl"><span class="istickedoff">withLimit n a = (n - 1 , a)</span></span>
 <span class="lineno">   27 </span>
 <span class="lineno">   28 </span>trampolineM :: Monad m =&gt; (a -&gt; m (Either b a)) -&gt; a -&gt; m b
-<span class="lineno">   29 </span><span class="decl"><span class="istickedoff">trampolineM f = loop where loop = either return loop &lt;=&lt; f</span></span>
+<span class="lineno">   29 </span><span class="decl"><span class="istickedoff">trampolineM f = loop where loop = either pure loop &lt;=&lt; f</span></span>
 <span class="lineno">   30 </span>
 <span class="lineno">   31 </span>trampoline :: (a -&gt; Either b a) -&gt; a -&gt; b
 <span class="lineno">   32 </span><span class="decl"><span class="nottickedoff">trampoline f = loop where loop = either id loop . f</span></span>

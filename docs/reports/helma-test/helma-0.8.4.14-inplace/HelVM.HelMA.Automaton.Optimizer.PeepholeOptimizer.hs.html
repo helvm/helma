@@ -82,7 +82,7 @@ span.spaces    { background: white }
 <span class="lineno">   63 </span>optimizeBranchLabel :: BranchTest -&gt; Integer -&gt; InstructionList
 <span class="lineno">   64 </span><span class="decl"><span class="istickedoff">optimizeBranchLabel t a = [branchI t $ fromIntegral a]</span></span>
 <span class="lineno">   65 </span>
-<span class="lineno">   66 </span>optimizeBranchCondition :: Index -&gt; BranchTest -&gt; Integer -&gt; InstructionList
+<span class="lineno">   66 </span>optimizeBranchCondition :: ImmediateIndex -&gt; BranchTest -&gt; Integer -&gt; InstructionList
 <span class="lineno">   67 </span><span class="decl"><span class="istickedoff">optimizeBranchCondition 1 t c = optimizeBranchCondition1 t c</span>
 <span class="lineno">   68 </span><span class="spaces"></span><span class="istickedoff">optimizeBranchCondition i t c = check $ isJump t c where</span>
 <span class="lineno">   69 </span><span class="spaces">  </span><span class="istickedoff">check True = [moveII1 , jumpTI]</span>
@@ -94,11 +94,11 @@ span.spaces    { background: white }
 <span class="lineno">   75 </span><span class="spaces">  </span><span class="istickedoff">check True = [jumpTI]</span>
 <span class="lineno">   76 </span><span class="spaces">  </span><span class="istickedoff">check _    = [discardI]</span></span>
 <span class="lineno">   77 </span>
-<span class="lineno">   78 </span>copyAdd :: Index -&gt; [Instruction]
+<span class="lineno">   78 </span>copyAdd :: ImmediateIndex -&gt; [Instruction]
 <span class="lineno">   79 </span><span class="decl"><span class="istickedoff">copyAdd 0 = <span class="nottickedoff">[]</span></span>
 <span class="lineno">   80 </span><span class="spaces"></span><span class="istickedoff">copyAdd i = [copyII (i - 1) , addI]</span></span>
 <span class="lineno">   81 </span>
-<span class="lineno">   82 </span>moveAdd :: Index -&gt; [Instruction]
+<span class="lineno">   82 </span>moveAdd :: ImmediateIndex -&gt; [Instruction]
 <span class="lineno">   83 </span><span class="decl"><span class="istickedoff">moveAdd 0 = <span class="nottickedoff">[]</span></span>
 <span class="lineno">   84 </span><span class="spaces"></span><span class="istickedoff">moveAdd 1 = [addI]</span>
 <span class="lineno">   85 </span><span class="spaces"></span><span class="istickedoff">moveAdd i = <span class="nottickedoff">[moveII (i - 1) , addI]</span></span></span>
@@ -109,7 +109,7 @@ span.spaces    { background: white }
 <span class="lineno">   90 </span>optimizeLoadD :: Integer -&gt; Instruction
 <span class="lineno">   91 </span><span class="decl"><span class="istickedoff">optimizeLoadD = loadDI . fromIntegral</span></span>
 <span class="lineno">   92 </span>
-<span class="lineno">   93 </span>optimizeMoveD :: Index -&gt; Integer -&gt; Instruction
+<span class="lineno">   93 </span>optimizeMoveD :: ImmediateIndex -&gt; Integer -&gt; Instruction
 <span class="lineno">   94 </span><span class="decl"><span class="istickedoff">optimizeMoveD s d = moveDI s (fromIntegral d)</span></span>
 
 </pre>

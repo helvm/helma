@@ -57,16 +57,16 @@ span.spaces    { background: white }
 <span class="lineno">   38 </span><span class="decl"><span class="nottickedoff">copyTI   = sal $ Indexed ITop Copy</span></span>
 <span class="lineno">   39 </span><span class="decl"><span class="istickedoff">discardI = sal Discard</span></span>
 <span class="lineno">   40 </span>
-<span class="lineno">   41 </span>copyII :: Index -&gt; Instruction
+<span class="lineno">   41 </span>copyII :: ImmediateIndex -&gt; Instruction
 <span class="lineno">   42 </span><span class="decl"><span class="istickedoff">copyII = manipulationII Copy</span></span>
 <span class="lineno">   43 </span>
-<span class="lineno">   44 </span>moveII :: Index -&gt; Instruction
+<span class="lineno">   44 </span>moveII :: ImmediateIndex -&gt; Instruction
 <span class="lineno">   45 </span><span class="decl"><span class="istickedoff">moveII = manipulationII Move</span></span>
 <span class="lineno">   46 </span>
-<span class="lineno">   47 </span>slideII :: Index -&gt; Instruction
+<span class="lineno">   47 </span>slideII :: ImmediateIndex -&gt; Instruction
 <span class="lineno">   48 </span><span class="decl"><span class="istickedoff">slideII = manipulationII Slide</span></span>
 <span class="lineno">   49 </span>
-<span class="lineno">   50 </span>manipulationII :: IndexedOperation -&gt; Index -&gt; Instruction
+<span class="lineno">   50 </span>manipulationII :: IndexedOperation -&gt; ImmediateIndex -&gt; Instruction
 <span class="lineno">   51 </span><span class="decl"><span class="istickedoff">manipulationII op i = sal $ Indexed (IImmediate i) op</span></span>
 <span class="lineno">   52 </span>
 <span class="lineno">   53 </span>sInputI , sOutputI , sOutputDecI :: Instruction
@@ -154,13 +154,13 @@ span.spaces    { background: white }
 <span class="lineno">  135 </span>mio :: IOInstruction -&gt; Instruction
 <span class="lineno">  136 </span><span class="decl"><span class="istickedoff">mio = ILS . MIO</span></span>
 <span class="lineno">  137 </span>
-<span class="lineno">  138 </span>storeIDI :: Integer -&gt; Index -&gt; Instruction
+<span class="lineno">  138 </span>storeIDI :: Integer -&gt; ImmediateIndex -&gt; Instruction
 <span class="lineno">  139 </span><span class="decl"><span class="istickedoff">storeIDI v = ILS . StoreID v</span></span>
 <span class="lineno">  140 </span>
-<span class="lineno">  141 </span>loadDI :: Index -&gt; Instruction
+<span class="lineno">  141 </span>loadDI :: ImmediateIndex -&gt; Instruction
 <span class="lineno">  142 </span><span class="decl"><span class="istickedoff">loadDI = ILS . LoadD</span></span>
 <span class="lineno">  143 </span>
-<span class="lineno">  144 </span>moveDI :: Index -&gt; Index -&gt; Instruction
+<span class="lineno">  144 </span>moveDI :: ImmediateIndex -&gt; ImmediateIndex -&gt; Instruction
 <span class="lineno">  145 </span><span class="decl"><span class="istickedoff">moveDI a = ILS . MoveD a</span></span>
 
 </pre>

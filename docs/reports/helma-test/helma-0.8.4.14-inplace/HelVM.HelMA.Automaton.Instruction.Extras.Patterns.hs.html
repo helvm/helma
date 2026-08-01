@@ -61,10 +61,10 @@ span.spaces    { background: white }
 <span class="lineno">   42 </span>pattern ConsP :: Integer -&gt; Instruction
 <span class="lineno">   43 </span>pattern ConsP c = <span class="istickedoff"><span class="nottickedoff">ISM (SPure (Cons c))</span></span>
 <span class="lineno">   44 </span>
-<span class="lineno">   45 </span>pattern CopyIP :: Index -&gt; Instruction
+<span class="lineno">   45 </span>pattern CopyIP :: ImmediateIndex -&gt; Instruction
 <span class="lineno">   46 </span>pattern CopyIP i = <span class="istickedoff"><span class="nottickedoff">ISM (SPure (Indexed (IImmediate i) Copy))</span></span>
 <span class="lineno">   47 </span>
-<span class="lineno">   48 </span>pattern MoveIP :: Index -&gt; Instruction
+<span class="lineno">   48 </span>pattern MoveIP :: ImmediateIndex -&gt; Instruction
 <span class="lineno">   49 </span>pattern MoveIP i = <span class="istickedoff"><span class="nottickedoff">ISM (SPure (Indexed (IImmediate i) Move))</span></span>
 <span class="lineno">   50 </span>
 <span class="lineno">   51 </span>pattern BinaryP :: BinaryOperation -&gt; Instruction
@@ -101,7 +101,7 @@ span.spaces    { background: white }
 <span class="lineno">   82 </span>pattern LoadP :: Instruction
 <span class="lineno">   83 </span>pattern LoadP = <span class="istickedoff"><span class="nottickedoff">ILS Load</span></span>
 <span class="lineno">   84 </span>
-<span class="lineno">   85 </span>pattern LoadDP :: Index -&gt; Instruction
+<span class="lineno">   85 </span>pattern LoadDP :: ImmediateIndex -&gt; Instruction
 <span class="lineno">   86 </span>pattern LoadDP a  = <span class="istickedoff"><span class="nottickedoff">ILS (LoadD a)</span></span>
 
 </pre>

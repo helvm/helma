@@ -14,9 +14,9 @@ mkdir_and_cp() {
 }
 
 for doc in dist-newstyle/build/*/*/*/doc/html/helma/; do
-    mkdir_and_cp "$doc" docs/reports
+    mkdir_and_cp "$doc" docs/reports/helma
 done
 
-for hpc in dist-newstyle/build/*/*/*/hpc/vanilla/html/helma-test/; do
-    mkdir_and_cp "$hpc" docs/reports
+for hpc in dist-newstyle/build/*/*/*/t/helma-test/hpc/vanilla/html/; do
+    mkdir_and_cp "$hpc" docs/reports/helma-test
 done
