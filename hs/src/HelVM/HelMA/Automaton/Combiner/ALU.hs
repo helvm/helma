@@ -2,7 +2,11 @@ module HelVM.HelMA.Automaton.Combiner.ALU (
   runALI,
   runSAL,
 
+  outputCharMaybe,
+  outputDecMaybe,
+
   outputChar,
+  outputDec,
   inputChar,
   inputDec,
   lNot,
@@ -46,7 +50,7 @@ import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Applicative.Tools
 import           Data.ListLike                                          hiding (show)
-import           Prelude                                                hiding (divMod, drop, fromList, length, splitAt, swap)
+import           Prelude                                                hiding (divMod, drop, fromList, length, splitAt, swap, uncons)
 
 
 runALI :: ALU m ll element => SMInstruction -> ll -> m ll
@@ -96,6 +100,15 @@ binaryInstructions il = build <.> pop2 where
   build (e , e', l) = pushList (calculateOps e e' il) l
 
 -- | IO instructions
+outputCharMaybe :: ALU m ll element => ll -> m ll
+outputCharMaybe = appendError "ALU.outputCharMaybe" . outputMaybe putAsChar
+
+outputDecMaybe :: ALU m ll element => ll -> m ll
+outputDecMaybe = appendError "ALU.outputDecMaybe" .outputMaybe putAsDec
+
+outputMaybe :: ALU m ll element => (element -> m ()) -> ll -> m ll
+outputMaybe putAs l = maybe (pure l) f (uncons l) where f = uncurry $ flip (<$) . putAs
+
 outputChar :: ALU m ll element => ll -> m ll
 outputChar = appendError "ALU.outputChar" . build <=< pop1 where
   build (e , l) = putAsChar e $> l
