@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts #-}
 module HelVM.HelMA.Automata.SubLeq.Automaton (
   newMemory,
   runAutomat,
@@ -12,10 +13,12 @@ import           HelVM.HelMA.Automaton.Combiner.RAM     as RAM
 
 import           Control.Type.Operator
 
-runAutomat :: (RAutomatonEff e r m) => Maybe Natural -> Automaton e r -> m $ Automaton e r
+import           Data.MonoTraversable                   (Element)
+
+runAutomat :: RAutomatonEff r m => Maybe Natural -> Automaton r -> m $ Automaton r
 runAutomat = trampolineMWithLimit nextState
 
-nextState :: RAutomatonEff e r m => Automaton e r -> m $ AutomatonSame e r
+nextState :: RAutomatonEff r m => Automaton r -> m $ AutomatonSame r
 nextState a@(Automaton ic ram)
   | ic  < 0   = doEnd a
   | src < 0   = doInputChar   dst a
@@ -26,35 +29,32 @@ nextState a@(Automaton ic ram)
       dst  = genericLoad ram $ ic + 1
 
 -- | IO instructions
-doOutputChar :: RAutomatonEff e r m => e -> Automaton e r -> m $ AutomatonSame e r
+doOutputChar :: RAutomatonEff r m => Element r -> Automaton r -> m $ AutomatonSame r
 doOutputChar address (Automaton ic ram) = putAsChar (genericLoad ram address) $> Trampoline.continue (next3Automaton ic ram)
 
-doInputChar :: RAutomatonEff e r m => e -> Automaton e r -> m $ AutomatonSame e r
+doInputChar :: RAutomatonEff r m => Element r -> Automaton r -> m $ AutomatonSame r
 doInputChar address (Automaton ic ram) = Trampoline.continue . next3Automaton ic . flippedStoreChar address ram <$> getChar
 
 -- | Terminate instruction
-doEnd :: RAutomatonEff e r m => Automaton e r -> m $ AutomatonSame e r
+doEnd :: RAutomatonEff r m => Automaton r -> m $ AutomatonSame r
 doEnd = pure . Trampoline.break
 
-doInstruction :: RAutomatonEff e r m => e -> e -> Automaton e r -> m $ AutomatonSame e r
+doInstruction :: RAutomatonEff r m => Element r -> Element r -> Automaton r -> m $ AutomatonSame r
 doInstruction src dst (Automaton ic ram) = pure $ Trampoline.continue $ Automaton ic' $ store dst diff ram where
   diff = genericLoad ram dst - genericLoad ram src
   ic'
     | diff <= 0 = genericLoad ram $ ic + 2
     | otherwise = ic + 3
 
-next3Automaton :: Num e => e -> ram -> Automaton e ram
+next3Automaton :: Num (Element r) => Element r -> r -> Automaton r
 next3Automaton ic = Automaton (ic + 3)
 
-newMemory :: Num e => ram -> Automaton e ram
+newMemory :: Num (Element r) => r -> Automaton r
 newMemory = Automaton 0
 
 -- | Types
 
-type AutomatonSame ic ram = Same (Automaton ic ram)
+type AutomatonSame r = Same (Automaton r)
 
-data Automaton ic ram = Automaton
-   { memoryIC  :: ic
-   , memoryRAM :: ram
-   }
-  deriving stock (Eq , Read , Show)
+data Automaton r = Automaton !(Element r) !r
+

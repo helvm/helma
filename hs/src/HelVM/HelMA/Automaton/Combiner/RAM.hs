@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts #-}
 module HelVM.HelMA.Automaton.Combiner.RAM (
   genericLoad,
   load,
@@ -5,37 +6,38 @@ module HelVM.HelMA.Automaton.Combiner.RAM (
   storeChar,
   genericStore,
   store,
-  fromList,
   RAM,
 ) where
 
-import           HelVM.HelIO.Containers.LLIndexSafe
-import           HelVM.HelIO.Containers.LLInsertDef
+import           HelVM.HelIO.Containers.MTIndexSafe
+import           HelVM.HelIO.Containers.MTInsertDef
 
 import           Data.Default
+import           Data.MonoTraversable               (Element)
+import           Data.Sequences                     (Index)
 import           Prelude                            hiding (divMod, drop, splitAt, swap)
 
-genericLoad :: (Integral i , RAM ll element) => ll -> i -> element
+genericLoad :: (Integral i , RAM ll) => ll -> i -> Element ll
 genericLoad l = load l . fromIntegral
 
-load :: (RAM ll element) => ll -> Address -> element
-load l i = indexMaybe l i ?: def
+load :: RAM ll => ll -> Address -> Element ll
+load l i = indexMaybe l (fromIntegral i) ?: def
 
-flippedStoreChar :: (Num element , Integral address , RAM ll element) => address -> ll -> Char -> ll
+flippedStoreChar :: (Integral address , RAM ll , Num (Element ll)) => address -> ll -> Char -> ll
 flippedStoreChar a = flip (storeChar a)
 
-storeChar :: (Num element , Integral address , RAM ll element) => address -> Char -> ll -> ll
+storeChar :: (Integral address , RAM ll , Num (Element ll)) => address -> Char -> ll -> ll
 storeChar a char = genericStore a $ ord char
 
-genericStore :: (Integral value , Num element , Integral address , RAM ll element) => address -> value -> ll -> ll
+genericStore :: (Integral value , Integral address , RAM ll , Num (Element ll)) => address -> value -> ll -> ll
 genericStore a v = store a $ fromIntegral v
 
-store :: (Integral a , RAM ll element) => a -> element -> ll -> ll
+store :: (Integral a , RAM ll) => a -> Element ll -> ll -> ll
 store = insertDef . fromIntegral
 
 -- | Types
-type RAM ll element = (Show ll , Default element , II ll element)
+type RAM ll = (Show ll , Default (Element ll) , II ll)
 
-type II ll element = (InsertDef ll element , IndexSafe ll element)
+type II ll = (InsertDef ll , IndexSafe ll , Integral (Index ll))
 
 type Address = Int

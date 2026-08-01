@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts #-}
 module HelVM.HelMA.Automaton.Automaton (
   start,
   runAndDumpLogs,
@@ -45,21 +46,21 @@ start' il s SeqRAMType     = start'' il s Seq.empty
 start' il s SListRAMType   = start'' il s SList.sListEmpty
 start' il s MapListRAMType = start'' il s MapList.mapListEmpty
 
-start'' :: (RAutomatonEff Symbol r m) => InstructionList -> StackType -> r -> AutoOptions -> m ()
+start'' :: RAutomatonEff r m => InstructionList -> StackType -> r -> AutoOptions -> m ()
 start'' il ListStackType  = start''' il []
 start'' il SeqStackType   = start''' il Seq.empty
 start'' il SListStackType = start''' il SList.sListEmpty
 
-start''' :: (SRAutomatonEff Symbol s r m) => InstructionList -> s -> r -> AutoOptions -> m ()
+start''' :: SRAutomatonEff s r m => InstructionList -> s -> r -> AutoOptions -> m ()
 start''' il s r p = runAndDumpLogs p (newMemory il s r)
 
-runAndDumpLogs :: (SRAutomatonEff Symbol s r m) => AutoOptions -> Memory s r ->  m ()
+runAndDumpLogs :: SRAutomatonEff s r m => AutoOptions -> Memory s r -> m ()
 runAndDumpLogs p = logDump (dumpType p) <=< runAutomat (limit p)
 
-runAutomat :: (SRAutomatonEff Symbol s r m) => LimitMaybe -> F s r m
+runAutomat :: SRAutomatonEff s r m => LimitMaybe -> F s r m
 runAutomat = trampolineMWithLimit nextState
 
-nextState :: (SRAutomatonEff Symbol s r m) => SF s r m
+nextState :: SRAutomatonEff s r m => SF s r m
 nextState a = nextStateForInstruction =<< currentInstruction (memoryCM a) where
   nextStateForInstruction i = appendErrorTuple ("Automaton.nextState" , showP a) $ appendErrorTuple ("program:" , printIndexedIL $ toList program) $ appendErrorTuple ("i:" , show i) $ runInstruction i $ incrementIC a where
     program = memoryProgram a

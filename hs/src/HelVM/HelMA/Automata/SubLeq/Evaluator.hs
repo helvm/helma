@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts #-}
 module HelVM.HelMA.Automata.SubLeq.Evaluator (
   runRio,
   run,
@@ -29,6 +30,8 @@ import qualified HelVM.HelIO.Collections.SList          as SList
 
 import qualified Data.Sequence                          as Seq
 
+import           Data.MonoTraversable                   (Element)
+
 import qualified RIO
 
 runRio :: Has env => RIO.RIO env ()
@@ -52,14 +55,14 @@ evalParams p = evalSource (source p) (ramAutoOptions p) Nothing (dumpAutoOptions
 evalSource :: AppEff m => Source -> RAMType -> LimitMaybe -> DumpType -> m ()
 evalSource source = evalIL $ tokenize source
 
-evalIL :: AutomatonEff e m => [e] -> RAMType -> LimitMaybe -> DumpType -> m ()
+evalIL :: AutomatonEff Int m => [Int] -> RAMType -> LimitMaybe -> DumpType -> m ()
 evalIL = flip evalIL'
 
-evalIL' :: AutomatonEff e m => RAMType -> [e] -> LimitMaybe -> DumpType -> m ()
+evalIL' :: AutomatonEff Int m => RAMType -> [Int] -> LimitMaybe -> DumpType -> m ()
 evalIL' ListRAMType    = start
 evalIL' SeqRAMType     = start . Seq.fromList
 evalIL' SListRAMType   = start . SList.sListFromList
 evalIL' MapListRAMType = start . MapList.mapListFromList
 
-start :: RAutomatonEff e r m => r -> LimitMaybe -> DumpType -> m ()
+start :: RAutomatonEff r m => r -> LimitMaybe -> DumpType -> m ()
 start r limit dt = logDump dt =<< runAutomat limit (newMemory r)
