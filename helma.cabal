@@ -275,6 +275,7 @@ library
     , ilist
     , ListLike
     , monad-logger
+    , mono-traversable
     , mtl
     , natural-transformation
     , pretty-simple
