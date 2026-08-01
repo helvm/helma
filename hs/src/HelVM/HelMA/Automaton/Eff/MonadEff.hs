@@ -1,7 +1,6 @@
 {-# LANGUAGE DataKinds            #-}
 {-# LANGUAGE UndecidableInstances #-}
 module HelVM.HelMA.Automaton.Eff.MonadEff (
-  Element,
   AppEff,
   MonadEff(..),
 ) where
@@ -13,7 +12,6 @@ import           HelVM.HelIO.ReadText
 import           Control.Monad.Logger
 
 import qualified Data.ByteString.Lazy     as LByteString
-import           Data.Default             as Default
 import qualified Data.Text.Lazy.IO        as LText
 
 import           Prelude                  hiding (getLine, putText)
@@ -23,8 +21,6 @@ import qualified RIO
 
 import qualified System.IO                as IO
 
-type Element e  = (ReadShow e , Integral e , Default e)
-type ReadShow e = (Read e , Show e)
 type AppEff m = (MonadLogger m, MonadSafe m , MonadEff m)
 
 class Monad m => MonadEff m where
