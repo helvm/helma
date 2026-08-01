@@ -31,7 +31,8 @@ import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Monad.Logger
 
-import qualified Data.ListLike                      as LL
+import           Data.MonoTraversable
+import qualified Data.Sequences                     as S
 import qualified Data.Text                          as Text
 
 ioExecMockEffBatch :: SafeT MockEff () -> IO MockEffData
@@ -72,7 +73,7 @@ calculateLogsWithLevelDebug :: MockEffData -> Output
 calculateLogsWithLevelDebug = calculateLogsWithLevel LevelDebug
 
 calculateLogsWithLevel :: LogLevel -> MockEffData -> Output
-calculateLogsWithLevel t d = Text.concat $ LL.reverse (line <$> filter condition (logs d)) where
+calculateLogsWithLevel t d = oconcat $ S.reverse (line <$> filter condition (logs d)) where
   condition l = t <= logLevel l
   line l = (LogLevel.showEitherTextLogLevel . LogLevel.fromLogger . logLevel) l <> " " <> (decodeUtf8 . fromLogStr . logStr) l <> "\n"
 
@@ -160,10 +161,10 @@ type MonadMockEff m = MonadState MockEffData m
 type MockEff = State MockEffData
 
 calculateText :: String -> Output
-calculateText = Text.reverse . toText
+calculateText = S.reverse . toText
 
 calculateString :: Output -> String
-calculateString = toString . Text.reverse
+calculateString = toString . S.reverse
 
 data MockEffData = MockEffData
   { logs   :: !MockLogs

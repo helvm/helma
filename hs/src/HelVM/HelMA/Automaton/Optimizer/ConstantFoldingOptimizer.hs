@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
-import qualified Data.ListLike                                          as LL
+import qualified Data.Sequences                                         as S
 
 constantFolding :: InstructionList -> InstructionList
 constantFolding = constantFoldingWithAcc []
@@ -27,4 +27,4 @@ constantFoldingForResult il _ _   (Right acc) = constantFoldingWithAcc acc il
 constantFoldingForResult il i acc (Left  _  ) = generateIL acc <> (i : constantFolding il)
 
 generateIL :: [Integer] -> InstructionList
-generateIL acc = consI <$> LL.reverse acc
+generateIL acc = consI <$> S.reverse acc

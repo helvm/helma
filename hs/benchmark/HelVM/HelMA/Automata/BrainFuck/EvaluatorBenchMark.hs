@@ -10,18 +10,18 @@ import           HelVM.HelMA.Automaton.Types.CellType
 
 import           HelVM.HelIO.CartesianProduct
 
-import qualified Data.ListLike                               as LL
+import qualified Data.Sequences                              as S
 
 import           Gauge.Main
 
 cellTypes8 :: [CellType]
-cellTypes8 = LL.reverse $ take 2 $ toList cellTypes
+cellTypes8 = S.reverse $ take 2 $ toList cellTypes
 
 cellTypes16 :: [CellType]
-cellTypes16 = LL.reverse $ take 4 $ toList cellTypes
+cellTypes16 = S.reverse $ take 4 $ toList cellTypes
 
 cellTypes32 :: [CellType]
-cellTypes32 = LL.reverse $ take 6 $ toList cellTypes
+cellTypes32 = S.reverse $ take 6 $ toList cellTypes
 
 benchMark :: Benchmark
 benchMark = bgroup "BF"

@@ -1,24 +1,19 @@
-module HelVM.HelMA.Automata.Piet.Parser
-  ( processImage
-  ) where
+module HelVM.HelMA.Automata.Piet.Parser (
+  processImage,
+) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Image
 
-import           HelVM.HelMA.Automaton.Eff.MonadEff
-
 import qualified Codec.Picture                         as Picture
 
-import qualified Data.ListLike                         as LL
+import           Data.MonoTraversable
 
-processImage :: AppEff m => Maybe Int -> Picture.DynamicImage -> m (Image Color)
-processImage codelInfo dynamicImage = buildImage =<< determineCodelLength codelInfo img where
+processImage ::  Maybe Int -> Picture.DynamicImage -> Image Color
+processImage codelInfo dynamicImage = imageFromJuicy actualCodelLength img where
+  actualCodelLength = max 1 $ fromMaybe defaultCodelInfo codelInfo
+  defaultCodelInfo = imageGuessCodelLength img
   img = Picture.convertRGBA8 dynamicImage
-  buildImage actualCodelLength = pure $ imageFromJuicy actualCodelLength img
-
-determineCodelLength :: AppEff m => Maybe Int -> Picture.Image Picture.PixelRGBA8 -> m Int
-determineCodelLength codelInfo img = limitCodel =<< maybe (imageGuessCodelLength img) pure codelInfo where
-  limitCodel = pure . max 1
 
 imageFromJuicy :: Int -> Picture.Image Picture.PixelRGBA8 -> Image Color
 imageFromJuicy codelLength img = newImage (width, height) pixels where
@@ -30,8 +25,8 @@ imageFromJuicy codelLength img = newImage (width, height) pixels where
   extractColor x y = checkAlpha (Picture.pixelAt img (x * codelLength) (y * codelLength))
   checkAlpha (Picture.PixelRGBA8 r g b _) = rgb2Color r g b
 
-imageGuessCodelLength :: AppEff m => Picture.Image Picture.PixelRGBA8 -> m Int
-imageGuessCodelLength img = pure $ lastUntil isOne $ scanl gcd (gcd width height) $ fmap LL.length (group rows) ++ fmap LL.length (group cols) where
+imageGuessCodelLength :: Picture.Image Picture.PixelRGBA8 -> Int
+imageGuessCodelLength img = lastUntil isOne $ scanl gcd (gcd width height) $ fmap olength (group rows) <> fmap olength (group cols) where
   width  = Picture.imageWidth img
   height = Picture.imageHeight img
   isOne  = (== 1)

@@ -16,7 +16,7 @@ import           Control.Applicative.Tools
 import           Data.List.Extra
 import qualified Data.List.Index                                       as List
 
-import qualified Data.ListLike                                         as LL
+import           Data.MonoTraversable
 
 optimize :: MonadSafe m => TokenList -> m InstructionList
 optimize = appendEnd <.> join <.> optimizeLines
@@ -74,7 +74,7 @@ prependNumber :: MonadSafe m => Line -> m InstructionList
 prependNumber line = flip buildNumber line =<< parseNumberFromTLL (currentTL line , nextTLL line)
 
 buildNumber :: MonadSafe m => (Integer , (TokenList , [TokenList])) -> Line -> m InstructionList
-buildNumber (n , (tl , ttl) ) line = build (LL.length (nextTLL line) - LL.length ttl) where
+buildNumber (n , (tl , ttl) ) line = build (olength (nextTLL line) - olength ttl) where
   build 0      = (consI n :) <$> optimizeLineTail (line {currentTL = tl})
   build offset = pure [consI n , jumpSI $ show $ currentAddress line + fromIntegral offset]
 
