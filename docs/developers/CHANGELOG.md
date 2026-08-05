@@ -1,5 +1,8 @@
 # 📅 Revision history for HelMA
 
+## 0.9.0.0 -- 2026-08-05
+* Add Piet
+
 ## 0.8.4.14 -- 2024-04-16
 * Fix "This binding for ‘golden’ shadows the existing binding"
 
