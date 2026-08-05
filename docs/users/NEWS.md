@@ -9,6 +9,7 @@ Currently, **🔧 🎨 HelMA** can:
 * interpret:
   * 🌈 BrainFuck
   * ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/)
+  * 💚 [Piet](https://www.dangermouse.net/esoteric/piet.html)
   * 💙 [SubLeq](http://mazonka.com/subleq/)
   * 🤍 [WhiteSpace](https://helvm.github.io/wspace/tutorial.html)
 
@@ -16,7 +17,6 @@ Currently, **🔧 🎨 HelMA** can:
 [comment]: <> (* 🦄 Crazy L)
 [comment]: <> (* 🦄 DBLC)
 [comment]: <> (* 💛 Malbolge)
-[comment]: <> (* 💚 Piet)
 
 For more see:
 * [CHANGELOG](../developers/CHANGELOG.md) 
