@@ -18,6 +18,7 @@
   * ❤️ETA:
     * [Manual](https://helvm.online/eta/manual.html)
     * [Original interpreter](https://github.com/helvm/eta)
+  * 💚 [Piet](https://www.dangermouse.net/esoteric/piet.html)
   * 💙 [SubLeq](http://mazonka.com/subleq/):
     * [Forth in SubLeq](https://github.com/helvm/subleq)
   * 🤍 WhiteSpace:

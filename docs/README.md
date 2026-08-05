@@ -45,6 +45,7 @@ Currently, **🔧 🎨 HelMA** can interpret:
   * 🌈 BrainFuck
 * goto:
   * ❤️ [ETA](http://www.miketaylor.org.uk/tech/eta/doc/)
+  * 💚 [Piet](https://www.dangermouse.net/esoteric/piet.html)
   * 💙 [SubLeq](http://mazonka.com/subleq/)
   * 🤍 [WhiteSpace](https://helvm.github.io/wspace/tutorial.html)
 
@@ -54,7 +55,6 @@ Currently, **🔧 🎨 HelMA** can interpret:
 [comment]: <> (* 🌈 FAKE)
 [comment]: <> (* 🌈 FALSE)
 [comment]: <> (* 💛 Malbolge)
-[comment]: <> (* 💚 Piet)
 
 ## For Users
 * [INSTALL](users/INSTALL.md) - How to download and run
