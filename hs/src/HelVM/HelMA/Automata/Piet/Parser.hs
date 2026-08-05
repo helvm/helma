@@ -9,9 +9,9 @@ import qualified Codec.Picture                         as Picture
 
 import           Data.MonoTraversable
 
-processImage ::  Maybe Int -> Picture.DynamicImage -> Image Color
+processImage ::  Maybe Natural -> Picture.DynamicImage -> Image Color
 processImage codelInfo dynamicImage = imageFromJuicy actualCodelLength img where
-  actualCodelLength = max 1 $ fromMaybe defaultCodelInfo codelInfo
+  actualCodelLength = max 1 $ maybe defaultCodelInfo fromIntegral codelInfo
   defaultCodelInfo = imageGuessCodelLength img
   img = Picture.convertRGBA8 dynamicImage
 
