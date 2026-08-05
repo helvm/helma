@@ -1,9 +1,7 @@
 module HelVM.HelMA.Automaton.Trampoline where
 
-import           Control.Monad.Extra   hiding (loop)
+import           Control.Monad.Loops
 import           Control.Type.Operator
-
-import           Data.Either.Extra
 
 import           Prelude               hiding (break)
 
@@ -26,10 +24,10 @@ withLimit :: Natural -> a -> WithLimit a
 withLimit n a = (n - 1 , a)
 
 trampolineM :: Monad m => (a -> m (Either b a)) -> a -> m b
-trampolineM f = loop where loop = either pure loop <=< f
+trampolineM f = fmap (fromLeft $ error "unreachable") . iterateUntilM isLeft (either (pure . Left) f) . Right
 
 trampoline :: (a -> Either b a) -> a -> b
-trampoline f = loop where loop = either id loop . f
+trampoline f = fromLeft (error "unreachable") . iterateUntil isLeft (either Left f) . Right
 
 continue :: a -> Either b a
 continue = Right

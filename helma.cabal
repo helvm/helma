@@ -283,6 +283,7 @@ library
     , ilist
     , ListLike
     , monad-logger
+    , monad-loops
     , mono-traversable
     , mtl
     , natural-transformation
