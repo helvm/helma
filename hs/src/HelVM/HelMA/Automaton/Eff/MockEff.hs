@@ -25,8 +25,12 @@ module HelVM.HelMA.Automaton.Eff.MockEff (
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
+import           HelVM.HelMA.Automaton.Eff.MockIO   (MockIOData (..), createMockIOData, mockDataPutChar, mockDataPutText, splitStringByLn)
+import qualified HelVM.HelMA.Automaton.Eff.MockIO   as MockIO
+
 import           HelVM.HelMA.Automaton.Eff.MockLog  (MockLog (..), MockLogs)
 import qualified HelVM.HelMA.Automaton.Eff.MockLog  as MockLog
+
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Control.Message
@@ -39,7 +43,6 @@ import           Control.Monad.Trans.Writer.CPS     (Writer, runWriter)
 import           Control.Monad.Writer.Class         (MonadWriter, tell)
 
 import qualified Data.Sequence                      as Seq
-import qualified Data.Sequences                     as S
 import qualified Data.Text                          as Text
 
 ioExecMockEffBatch :: SafeT MockEff () -> IO MockEffData
@@ -63,18 +66,13 @@ execMockEffWithInput i action = runMockEff i $ Right <$> action
 ----
 
 runMockEff :: Input -> MockEff (Safe ()) -> MockEffData
-runMockEff i mockIO = safeToMockData $ runWriter $ runStateT mockIO $ createMockIOData i where
-  safeToMockData ((Left msgs, ioData), logs) =
-    let errLog = MockLog defaultLoc "" LevelError $ toLogStr $ errorsToText msgs
-    in MockEffData ioData (logs Seq.|> errLog)
-  safeToMockData ((Right _, ioData), logs) =
-    MockEffData ioData logs
-
-createMockIOData :: Input -> MockIOData
-createMockIOData = MockIOData "" . toString
+runMockEff i mockIO = safeToMockData $ runWriter $ runStateT (unMockEff mockIO) $ createMockIOData i where
+  safeToMockData ((Right _, io), logs) = MockEffData io logs
+  safeToMockData ((Left msgs, io), logs) = MockEffData io (logs Seq.|> errLog) where
+    errLog = MockLog defaultLoc "" LevelError $ toLogStr $ errorsToText msgs
 
 calculateOutput :: MockEffData -> Output
-calculateOutput = calculateText . output . ioData
+calculateOutput = MockIO.calculateOutput . ioData
 
 calculateLogsWithLevelInfo :: MockEffData -> Output
 calculateLogsWithLevelInfo = MockLog.calculateLogsWithLevelInfo . logs
@@ -151,41 +149,25 @@ mockLog = tell . one
 
 ----
 
-mockDataPutChar :: Char -> MockIOData -> MockIOData
-mockDataPutChar char mockIO = mockIO { output = char : output mockIO }
-
-mockDataPutText :: Text -> MockIOData -> MockIOData
-mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
-
-----
-
 type MonadSafeMockEff m = (MonadMockEff m , MonadSafe m)
 
 type MonadMockEff m = MonadState MockIOData m
 
 type MonadMockLogs m = MonadWriter MockLogs m
 
-type MockEff = StateT MockIOData (Writer MockLogs)
-
-calculateText :: String -> Output
-calculateText = S.reverse . toText
-
-calculateString :: Output -> String
-calculateString = toString . S.reverse
+newtype MockEff a = MockEff
+  { unMockEff :: StateT MockIOData (Writer MockLogs) a
+  }
+  deriving newtype
+    ( Functor
+    , Applicative
+    , Monad
+    , MonadState MockIOData
+    , MonadWriter MockLogs
+    )
 
 data MockEffData = MockEffData
   { ioData :: !MockIOData
   , logs   :: !MockLogs
   }
   deriving stock (Eq , Show)
-
-data MockIOData = MockIOData
-  { output :: !String
-  , input  :: !String
-  }
-  deriving stock (Eq , Show)
-
-----
-
-splitStringByLn :: String -> (String , String)
-splitStringByLn = splitBy '\n'
