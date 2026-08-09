@@ -9,7 +9,7 @@ module HelVM.HelMA.Automaton.Eff.MockEff (
   execMockEffWithInput,
 
   runMockEff,
-  createMockEff,
+  createMockIOData,
   calculateOutput,
 
   calculateLogsWithLevelInfo,
@@ -18,13 +18,14 @@ module HelVM.HelMA.Automaton.Eff.MockEff (
 
   MockEff,
   MockEffData (..),
+  MockIOData (..),
   MockLogs,
   MockLog (..),
 ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelMA.Automaton.Eff.MockLog  (MockLog (..), MockLogSeq, MockLogs)
+import           HelVM.HelMA.Automaton.Eff.MockLog  (MockLog (..), MockLogs)
 import qualified HelVM.HelMA.Automaton.Eff.MockLog  as MockLog
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
@@ -62,18 +63,18 @@ execMockEffWithInput i action = runMockEff i $ Right <$> action
 ----
 
 runMockEff :: Input -> MockEff (Safe ()) -> MockEffData
-runMockEff i mockIO = safeToMockData $ runWriter $ runStateT mockIO $ createMockEff i where
-  safeToMockData ((Left msgs, mockData), wLogs) =
+runMockEff i mockIO = safeToMockData $ runWriter $ runStateT mockIO $ createMockIOData i where
+  safeToMockData ((Left msgs, ioData), logs) =
     let errLog = MockLog defaultLoc "" LevelError $ toLogStr $ errorsToText msgs
-    in mockData { logs = toList $ wLogs Seq.|> errLog }
-  safeToMockData ((Right _, mockData), wLogs) =
-    mockData { logs = toList wLogs }
+    in MockEffData ioData (logs Seq.|> errLog)
+  safeToMockData ((Right _, ioData), logs) =
+    MockEffData ioData logs
 
-createMockEff :: Input -> MockEffData
-createMockEff = MockEffData [] "" . toString
+createMockIOData :: Input -> MockIOData
+createMockIOData = MockIOData "" . toString
 
 calculateOutput :: MockEffData -> Output
-calculateOutput = calculateText . output
+calculateOutput = calculateText . output . ioData
 
 calculateLogsWithLevelInfo :: MockEffData -> Output
 calculateLogsWithLevelInfo = MockLog.calculateLogsWithLevelInfo . logs
@@ -115,28 +116,28 @@ mockGetContentsText = fromStrict . toText <$> mockGetContents
 
 mockGetContents :: MonadMockEff m => m String
 mockGetContents = mockGetContents' =<< get where
-  mockGetContents' :: MonadMockEff m => MockEffData -> m String
+  mockGetContents' :: MonadMockEff m => MockIOData -> m String
   mockGetContents' mockIO = content <$ put mockIO { input = "" } where content = input mockIO
 
 mockGetChar :: MonadMockEff m => m Char
 mockGetChar = mockGetChar' =<< get where
-  mockGetChar' :: MonadMockEff m => MockEffData -> m Char
+  mockGetChar' :: MonadMockEff m => MockIOData -> m Char
   mockGetChar' mockIO = orErrorTuple ("mockGetChar" , Text.show mockIO) (top (input mockIO)) <$ put mockIO { input = orErrorTuple ("mockGetChar" , Text.show mockIO) $ discard $ input mockIO }
 
 mockGetLine :: MonadMockEff m => m Text
 mockGetLine = mockGetLine' =<< get where
-  mockGetLine' :: MonadMockEff m => MockEffData -> m Text
+  mockGetLine' :: MonadMockEff m => MockIOData -> m Text
   mockGetLine' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
 
 mockGetCharSafe :: MonadSafeMockEff m => m Char
 mockGetCharSafe = mockGetChar' =<< get where
-  mockGetChar' :: MonadSafeMockEff m => MockEffData -> m Char
+  mockGetChar' :: MonadSafeMockEff m => MockIOData -> m Char
   mockGetChar' mockIO = appendErrorTuple ("mockGetCharSafe" , Text.show mockIO) $ mockGetChar'' =<< unconsSafe (input mockIO) where
     mockGetChar'' (c, input') = put mockIO { input = input' } $> c
 
 mockGetLineSafe :: MonadSafeMockEff m => m Text
 mockGetLineSafe = mockGetLineSafe' =<< get where
-  mockGetLineSafe' :: MonadSafeMockEff m => MockEffData -> m Text
+  mockGetLineSafe' :: MonadSafeMockEff m => MockIOData -> m Text
   mockGetLineSafe' mockIO = toText line <$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO
 
 mockPutChar :: MonadMockEff m => Char -> m ()
@@ -150,21 +151,21 @@ mockLog = tell . one
 
 ----
 
-mockDataPutChar :: Char -> MockEffData -> MockEffData
+mockDataPutChar :: Char -> MockIOData -> MockIOData
 mockDataPutChar char mockIO = mockIO { output = char : output mockIO }
 
-mockDataPutText :: Text -> MockEffData -> MockEffData
+mockDataPutText :: Text -> MockIOData -> MockIOData
 mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
 
 ----
 
 type MonadSafeMockEff m = (MonadMockEff m , MonadSafe m)
 
-type MonadMockEff m = MonadState MockEffData m
+type MonadMockEff m = MonadState MockIOData m
 
-type MonadMockLogs m = MonadWriter MockLogSeq m
+type MonadMockLogs m = MonadWriter MockLogs m
 
-type MockEff = StateT MockEffData (Writer MockLogSeq)
+type MockEff = StateT MockIOData (Writer MockLogs)
 
 calculateText :: String -> Output
 calculateText = S.reverse . toText
@@ -173,8 +174,13 @@ calculateString :: Output -> String
 calculateString = toString . S.reverse
 
 data MockEffData = MockEffData
-  { logs   :: !MockLogs
-  , output :: !String
+  { ioData :: !MockIOData
+  , logs   :: !MockLogs
+  }
+  deriving stock (Eq , Show)
+
+data MockIOData = MockIOData
+  { output :: !String
   , input  :: !String
   }
   deriving stock (Eq , Show)

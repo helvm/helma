@@ -65,48 +65,48 @@ span.spaces    { background: white }
 <span class="lineno">   46 </span>  flush           :: m ()
 <span class="lineno">   47 </span>
 <span class="lineno">   48 </span>  <span class="decl"><span class="istickedoff">putAsChar      = putIntAsChar . fromIntegral</span></span>
-<span class="lineno">   49 </span>  <span class="decl"><span class="istickedoff">putAsDec       = putIntAsDec  . fromIntegral </span>
-<span class="lineno">   50 </span><span class="spaces">  </span><span class="istickedoff"></span></span><span class="decl"><span class="istickedoff">getCharAs      = fromIntegral &lt;$&gt; getCharAsIn</span></span>t
-<span class="lineno">   51 </span>  getDecAs       = fromIntegral &lt;$&gt; getDecAsInt
+<span class="lineno">   49 </span>  <span class="decl"><span class="istickedoff">putAsDec       = putIntAsDec  . fromIntegral</span></span>
+<span class="lineno">   50 </span>  <span class="decl"><span class="istickedoff">getCharAs      = fromIntegral &lt;$&gt; getCharAsInt</span></span>
+<span class="lineno">   51 </span>  <span class="decl"><span class="istickedoff">getDecAs       = fromIntegral &lt;$&gt; getDecAsInt</span></span>
 <span class="lineno">   52 </span>
-<span class="lineno">   53 </span>  <span class="decl"><span class="istickedoff">putIntAsChar   = putChar . chr   </span>
-<span class="lineno">   54 </span><span class="spaces">  </span><span class="istickedoff"></span></span><span class="decl"><span class="istickedoff">putIntAsDec    = putTextEff . sh</span></span>ow
-<span class="lineno">   55 </span>  <span class="decl"><span class="istickedoff">getCharAsInt   = ord &lt;$&gt; getChar          </span>
-<span class="lineno">   56 </span><span class="spaces">  </span><span class="istickedoff"></span></span>getDecAsInt    = readTextUnsafe &lt;$&gt; getLine
+<span class="lineno">   53 </span>  <span class="decl"><span class="istickedoff">putIntAsChar   = putChar . chr</span></span>
+<span class="lineno">   54 </span>  <span class="decl"><span class="istickedoff">putIntAsDec    = putTextEff . show</span></span>
+<span class="lineno">   55 </span>  <span class="decl"><span class="istickedoff">getCharAsInt   = ord &lt;$&gt; getChar</span></span>
+<span class="lineno">   56 </span>  <span class="decl"><span class="istickedoff">getDecAsInt    = readTextUnsafe &lt;$&gt; getLine</span></span>
 <span class="lineno">   57 </span>
-<span class="lineno">   58 </span>  flush          = pass
+<span class="lineno">   58 </span>  <span class="decl"><span class="nottickedoff">flush          = pass</span></span>
 <span class="lineno">   59 </span>
-<span class="lineno">   60 </span>in<span class="decl"><span class="nottickedoff">stance MonadEff IO where                </span>
-<span class="lineno">   61 </span><span class="spaces">  </span><span class="nottickedoff"></span></span><span class="decl"><span class="nottickedoff">getContentsBS   = LByteString.getCo</span></span>ntents
-<span class="lineno">   62 </span>  <span class="decl"><span class="nottickedoff">getContentsText = LText.getC</span></span>ontents
-<span class="lineno">   63 </span>  <span class="decl"><span class="nottickedoff">getChar         = IO.getChar    </span>
-<span class="lineno">   64 </span><span class="spaces">  </span><span class="nottickedoff"></span></span><span class="decl"><span class="nottickedoff">getLine         = Prelude.ge</span></span>tLine
-<span class="lineno">   65 </span>  <span class="decl"><span class="nottickedoff">putChar         = IO.putChar    </span>
-<span class="lineno">   66 </span><span class="spaces">  </span><span class="nottickedoff"></span></span><span class="decl"><span class="nottickedoff">putTextEff      = Prelude</span></span>.putText
-<span class="lineno">   67 </span>  flush           = flushIO
+<span class="lineno">   60 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadEff IO</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
+<span class="lineno">   61 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = LByteString.getContents</span></span>
+<span class="lineno">   62 </span>  <span class="decl"><span class="nottickedoff">getContentsText = LText.getContents</span></span>
+<span class="lineno">   63 </span>  <span class="decl"><span class="nottickedoff">getChar         = IO.getChar</span></span>
+<span class="lineno">   64 </span>  <span class="decl"><span class="nottickedoff">getLine         = Prelude.getLine</span></span>
+<span class="lineno">   65 </span>  <span class="decl"><span class="nottickedoff">putChar         = IO.putChar</span></span>
+<span class="lineno">   66 </span>  <span class="decl"><span class="nottickedoff">putTextEff      = Prelude.putText</span></span>
+<span class="lineno">   67 </span>  <span class="decl"><span class="nottickedoff">flush           = flushIO</span></span>
 <span class="lineno">   68 </span>
-<span class="lineno">   69 </span>in<span class="decl"><span class="nottickedoff">stance {-# OVERLAPPABLE #-} (MonadTr</span></span>ans t, Monad m, MonadEff m) =&gt; MonadEff (t m) where
-<span class="lineno">   70 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = lift getContentsBS </span>
-<span class="lineno">   71 </span><span class="spaces">  </span><span class="nottickedoff"></span></span><span class="decl"><span class="nottickedoff">getContentsText = lift getCont</span></span>entsText
+<span class="lineno">   69 </span>instance {-# OVERLAPPABLE #-} <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">(MonadTrans t, Monad m, MonadEff m) =&gt; MonadEff (t m)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
+<span class="lineno">   70 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = lift getContentsBS</span></span>
+<span class="lineno">   71 </span>  <span class="decl"><span class="nottickedoff">getContentsText = lift getContentsText</span></span>
 <span class="lineno">   72 </span>  <span class="decl"><span class="nottickedoff">getChar         = lift getChar</span></span>
-<span class="lineno">   73 </span>  <span class="decl"><span class="nottickedoff">getLine         = lift getLine </span>
-<span class="lineno">   74 </span><span class="spaces">  </span><span class="nottickedoff"></span></span><span class="decl"><span class="nottickedoff">putChar         = lift . putChar  </span>
-<span class="lineno">   75 </span><span class="spaces">  </span><span class="nottickedoff"></span></span><span class="decl"><span class="nottickedoff">putTextEff      = lift . put</span></span>TextEff
-<span class="lineno">   76 </span>  flush           = lift flush
+<span class="lineno">   73 </span>  <span class="decl"><span class="nottickedoff">getLine         = lift getLine</span></span>
+<span class="lineno">   74 </span>  <span class="decl"><span class="nottickedoff">putChar         = lift . putChar</span></span>
+<span class="lineno">   75 </span>  <span class="decl"><span class="nottickedoff">putTextEff      = lift . putTextEff</span></span>
+<span class="lineno">   76 </span>  <span class="decl"><span class="nottickedoff">flush           = lift flush</span></span>
 <span class="lineno">   77 </span>
-<span class="lineno">   78 </span>in<span class="decl"><span class="nottickedoff">stance RIO.HasLogFunc env =&gt; MonadEff (RIO.RIO e</span></span>nv) where
-<span class="lineno">   79 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = liftIO LByteString.getCo</span></span>ntents
-<span class="lineno">   80 </span>  <span class="decl"><span class="nottickedoff">getContentsText = liftIO LText.getC</span></span>ontents
-<span class="lineno">   81 </span>  <span class="decl"><span class="nottickedoff">getChar         = liftIO IO.getChar    </span>
-<span class="lineno">   82 </span><span class="spaces">  </span><span class="nottickedoff"></span></span><span class="decl"><span class="nottickedoff">getLine         = liftIO Prelude.getL</span></span>ine
-<span class="lineno">   83 </span>  <span class="decl"><span class="nottickedoff">putChar         = liftIO . IO.putChar    </span>
-<span class="lineno">   84 </span><span class="spaces">  </span><span class="nottickedoff"></span></span><span class="decl"><span class="nottickedoff">putTextEff      = liftIO . Prelu</span></span>de.putText
-<span class="lineno">   85 </span>  flush           = liftIO flushIO
+<span class="lineno">   78 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">RIO.HasLogFunc env =&gt; MonadEff (RIO.RIO env)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
+<span class="lineno">   79 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = liftIO LByteString.getContents</span></span>
+<span class="lineno">   80 </span>  <span class="decl"><span class="nottickedoff">getContentsText = liftIO LText.getContents</span></span>
+<span class="lineno">   81 </span>  <span class="decl"><span class="nottickedoff">getChar         = liftIO IO.getChar</span></span>
+<span class="lineno">   82 </span>  <span class="decl"><span class="nottickedoff">getLine         = liftIO Prelude.getLine</span></span>
+<span class="lineno">   83 </span>  <span class="decl"><span class="nottickedoff">putChar         = liftIO . IO.putChar</span></span>
+<span class="lineno">   84 </span>  <span class="decl"><span class="nottickedoff">putTextEff      = liftIO . Prelude.putText</span></span>
+<span class="lineno">   85 </span>  <span class="decl"><span class="nottickedoff">flush           = liftIO flushIO</span></span>
 <span class="lineno">   86 </span>
 <span class="lineno">   87 </span>---- Internal
 <span class="lineno">   88 </span>
-<span class="lineno">   89 </span><span class="decl"><span class="nottickedoff">flushIO :: IO ()      </span>
-<span class="lineno">   90 </span><span class="spaces"></span><span class="nottickedoff"></span></span>flushIO = hFlush stdout
+<span class="lineno">   89 </span>flushIO :: IO ()
+<span class="lineno">   90 </span><span class="decl"><span class="nottickedoff">flushIO = hFlush stdout</span></span>
 
 </pre>
 </body>

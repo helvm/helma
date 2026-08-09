@@ -30,81 +30,79 @@ span.spaces    { background: white }
 <span class="lineno">   11 </span>import           Control.Monad.Free
 <span class="lineno">   12 </span>import           Control.Monad.Logger
 <span class="lineno">   13 </span>
-<span class="lineno">   14 </span>import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
-<span class="lineno">   15 </span>
-<span class="lineno">   16 </span>interpretFreeEffDebug :: MonadLoggerEff m  =&gt; FreeEff a -&gt; m a
-<span class="lineno">   17 </span><span class="decl"><span class="istickedoff">interpretFreeEffDebug = foldFree interpretFreeEffFDebug</span></span>
-<span class="lineno">   18 </span>
-<span class="lineno">   19 </span>interpretFreeEff :: MonadEff m =&gt; FreeEff a -&gt; m a
-<span class="lineno">   20 </span><span class="decl"><span class="nottickedoff">interpretFreeEff = foldFree interpretFreeEffF</span></span>
-<span class="lineno">   21 </span>
-<span class="lineno">   22 </span>----
-<span class="lineno">   23 </span>
-<span class="lineno">   24 </span>interpretFreeEffFDebug :: MonadLoggerEff m =&gt; FreeEffF a -&gt; m a
-<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">interpretFreeEffFDebug a = logDebugN (name a) *&gt; interpretFreeEffF a</span></span>
-<span class="lineno">   26 </span>
-<span class="lineno">   27 </span>interpretFreeEffF :: MonadEff m =&gt; FreeEffF a -&gt; m a
-<span class="lineno">   28 </span><span class="decl"><span class="istickedoff">interpretFreeEffF (GetContentsBS    cd) = <span class="nottickedoff">cd &lt;$&gt; getContentsBS</span></span>
-<span class="lineno">   29 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffF (GetContentsText  cd) = <span class="nottickedoff">cd &lt;$&gt; getContentsText</span></span>
-<span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffF (GetChar          cd) = cd &lt;$&gt; getChar</span>
-<span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffF (GetLine          cd) = <span class="nottickedoff">cd &lt;$&gt; getLine</span></span>
-<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffF (PutChar        c v ) = putChar      c $&gt; v</span>
-<span class="lineno">   33 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffF (PutText        s v ) = <span class="nottickedoff">putTextEff   s $&gt; v</span></span>
-<span class="lineno">   34 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffF (Flush            v ) = <span class="nottickedoff">flush          $&gt; v</span></span></span>
-<span class="lineno">   35 </span>
-<span class="lineno">   36 </span>-- | Instances
-<span class="lineno">   37 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadEff FreeEff</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
-<span class="lineno">   38 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = freeGetContentsBS</span></span>
-<span class="lineno">   39 </span>  <span class="decl"><span class="nottickedoff">getContentsText = freeGetContentsText</span></span>
-<span class="lineno">   40 </span>  <span class="decl"><span class="istickedoff">getChar         = freeGetChar</span></span>
-<span class="lineno">   41 </span>  <span class="decl"><span class="nottickedoff">getLine         = freeGetLine</span></span>
-<span class="lineno">   42 </span>  <span class="decl"><span class="istickedoff">putChar         = freePutChar</span></span>
-<span class="lineno">   43 </span>  <span class="decl"><span class="nottickedoff">putTextEff      = freePutTextEff</span></span>
-<span class="lineno">   44 </span>  <span class="decl"><span class="nottickedoff">flush           = freeFlush</span></span>
-<span class="lineno">   45 </span>
-<span class="lineno">   46 </span>-- | Low level functions
-<span class="lineno">   47 </span>freeGetContentsBS :: FreeEff LByteString
-<span class="lineno">   48 </span><span class="decl"><span class="nottickedoff">freeGetContentsBS = liftF $ GetContentsBS id</span></span>
-<span class="lineno">   49 </span>
-<span class="lineno">   50 </span>freeGetContentsText :: FreeEff LText
-<span class="lineno">   51 </span><span class="decl"><span class="nottickedoff">freeGetContentsText = liftF $ GetContentsText id</span></span>
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>interpretFreeEffDebug :: MonadLoggerEff m  =&gt; FreeEff a -&gt; m a
+<span class="lineno">   18 </span><span class="decl"><span class="istickedoff">interpretFreeEffDebug = foldFree interpretFreeEffFDebug</span></span>
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>interpretFreeEff :: MonadEff m =&gt; FreeEff a -&gt; m a
+<span class="lineno">   21 </span><span class="decl"><span class="nottickedoff">interpretFreeEff = foldFree interpretFreeEffF</span></span>
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>----
+<span class="lineno">   24 </span>
+<span class="lineno">   25 </span>interpretFreeEffFDebug :: MonadLoggerEff m =&gt; FreeEffF a -&gt; m a
+<span class="lineno">   26 </span><span class="decl"><span class="istickedoff">interpretFreeEffFDebug (GetContentsBS    cd) = <span class="nottickedoff">cd &lt;$&gt; (logDebugN &quot;GetContentsBS&quot;   *&gt; getContentsBS)</span></span>
+<span class="lineno">   27 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (GetContentsText  cd) = <span class="nottickedoff">cd &lt;$&gt; (logDebugN &quot;GetContentsText&quot; *&gt; getContentsText)</span></span>
+<span class="lineno">   28 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (GetChar          cd) = logAndCont =&lt;&lt; getChar where logAndCont c = logDebugN (&quot;GetChar: &quot; &lt;&gt; one c) $&gt; cd c</span>
+<span class="lineno">   29 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (GetLine          cd) = <span class="nottickedoff">logAndCont =&lt;&lt; getLine</span> where <span class="nottickedoff">logAndCont l = logDebugN (&quot;GetLine: &quot; &lt;&gt;     l) $&gt; cd l</span></span>
+<span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (PutChar        c v ) = logDebugN (&quot;PutChar: &quot; &lt;&gt; one c) *&gt; putChar    c $&gt; v</span>
+<span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (PutText        s v ) = <span class="nottickedoff">logDebugN (&quot;PutText: &quot; &lt;&gt;     s) *&gt; putTextEff s $&gt; v</span></span>
+<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (Flush            v ) = <span class="nottickedoff">logDebugN &quot;Flush&quot;                *&gt; flush        $&gt; v</span></span></span>
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>interpretFreeEffF :: MonadEff m =&gt; FreeEffF a -&gt; m a
+<span class="lineno">   35 </span><span class="decl"><span class="nottickedoff">interpretFreeEffF (GetContentsBS    cd) = cd &lt;$&gt; getContentsBS</span>
+<span class="lineno">   36 </span><span class="spaces"></span><span class="nottickedoff">interpretFreeEffF (GetContentsText  cd) = cd &lt;$&gt; getContentsText</span>
+<span class="lineno">   37 </span><span class="spaces"></span><span class="nottickedoff">interpretFreeEffF (GetChar          cd) = cd &lt;$&gt; getChar</span>
+<span class="lineno">   38 </span><span class="spaces"></span><span class="nottickedoff">interpretFreeEffF (GetLine          cd) = cd &lt;$&gt; getLine</span>
+<span class="lineno">   39 </span><span class="spaces"></span><span class="nottickedoff">interpretFreeEffF (PutChar        c v ) = putChar      c $&gt; v</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="nottickedoff">interpretFreeEffF (PutText        s v ) = putTextEff   s $&gt; v</span>
+<span class="lineno">   41 </span><span class="spaces"></span><span class="nottickedoff">interpretFreeEffF (Flush            v ) = flush          $&gt; v</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>-- | Instances
+<span class="lineno">   44 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadEff FreeEff</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
+<span class="lineno">   45 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = freeGetContentsBS</span></span>
+<span class="lineno">   46 </span>  <span class="decl"><span class="nottickedoff">getContentsText = freeGetContentsText</span></span>
+<span class="lineno">   47 </span>  <span class="decl"><span class="istickedoff">getChar         = freeGetChar</span></span>
+<span class="lineno">   48 </span>  <span class="decl"><span class="nottickedoff">getLine         = freeGetLine</span></span>
+<span class="lineno">   49 </span>  <span class="decl"><span class="istickedoff">putChar         = freePutChar</span></span>
+<span class="lineno">   50 </span>  <span class="decl"><span class="nottickedoff">putTextEff      = freePutTextEff</span></span>
+<span class="lineno">   51 </span>  <span class="decl"><span class="nottickedoff">flush           = freeFlush</span></span>
 <span class="lineno">   52 </span>
-<span class="lineno">   53 </span>freeGetChar :: FreeEff Char
-<span class="lineno">   54 </span><span class="decl"><span class="istickedoff">freeGetChar = liftF $ GetChar id</span></span>
-<span class="lineno">   55 </span>
-<span class="lineno">   56 </span>freeGetLine :: FreeEff Text
-<span class="lineno">   57 </span><span class="decl"><span class="nottickedoff">freeGetLine = liftF $ GetLine id</span></span>
-<span class="lineno">   58 </span>
-<span class="lineno">   59 </span>freePutChar :: Char -&gt; FreeEff ()
-<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">freePutChar = liftF . flip PutChar ()</span></span>
-<span class="lineno">   61 </span>
-<span class="lineno">   62 </span>freePutTextEff :: Text -&gt; FreeEff ()
-<span class="lineno">   63 </span><span class="decl"><span class="nottickedoff">freePutTextEff = liftF . flip PutText ()</span></span>
-<span class="lineno">   64 </span>
-<span class="lineno">   65 </span>freeFlush :: FreeEff ()
-<span class="lineno">   66 </span><span class="decl"><span class="nottickedoff">freeFlush = liftF $ Flush ()</span></span>
-<span class="lineno">   67 </span>
-<span class="lineno">   68 </span>name :: FreeEffF a -&gt; Text
-<span class="lineno">   69 </span><span class="decl"><span class="istickedoff">name (GetContentsBS   _) = <span class="nottickedoff">&quot;GetContentsBS&quot;</span></span>
-<span class="lineno">   70 </span><span class="spaces"></span><span class="istickedoff">name (GetContentsText _) = <span class="nottickedoff">&quot;GetContentsText&quot;</span></span>
-<span class="lineno">   71 </span><span class="spaces"></span><span class="istickedoff">name (GetChar         _) = &quot;GetChar&quot;</span>
-<span class="lineno">   72 </span><span class="spaces"></span><span class="istickedoff">name (GetLine         _) = <span class="nottickedoff">&quot;GetLine&quot;</span></span>
-<span class="lineno">   73 </span><span class="spaces"></span><span class="istickedoff">name (PutChar       _ _) = &quot;PutChar&quot;</span>
-<span class="lineno">   74 </span><span class="spaces"></span><span class="istickedoff">name (PutText       _ _) = <span class="nottickedoff">&quot;PutText&quot;</span></span>
-<span class="lineno">   75 </span><span class="spaces"></span><span class="istickedoff">name (Flush           _) = <span class="nottickedoff">&quot;Flush&quot;</span></span></span>
-<span class="lineno">   76 </span>
-<span class="lineno">   77 </span>-- | Types
-<span class="lineno">   78 </span>type FreeEff = Free FreeEffF
-<span class="lineno">   79 </span>
-<span class="lineno">   80 </span>data FreeEffF a
-<span class="lineno">   81 </span> = GetContentsBS             (LByteString -&gt; a)
-<span class="lineno">   82 </span> | GetContentsText           (LText       -&gt; a)
-<span class="lineno">   83 </span> | GetChar                   (Char        -&gt; a)
-<span class="lineno">   84 </span> | GetLine                   (Text        -&gt; a)
-<span class="lineno">   85 </span> | PutChar          Char                     a
-<span class="lineno">   86 </span> | PutText          Text                     a
-<span class="lineno">   87 </span> | Flush                                     a
-<span class="lineno">   88 </span> deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Functor</span></span></span></span>)
+<span class="lineno">   53 </span>-- | Low level functions
+<span class="lineno">   54 </span>freeGetContentsBS :: FreeEff LByteString
+<span class="lineno">   55 </span><span class="decl"><span class="nottickedoff">freeGetContentsBS = liftF $ GetContentsBS id</span></span>
+<span class="lineno">   56 </span>
+<span class="lineno">   57 </span>freeGetContentsText :: FreeEff LText
+<span class="lineno">   58 </span><span class="decl"><span class="nottickedoff">freeGetContentsText = liftF $ GetContentsText id</span></span>
+<span class="lineno">   59 </span>
+<span class="lineno">   60 </span>freeGetChar :: FreeEff Char
+<span class="lineno">   61 </span><span class="decl"><span class="istickedoff">freeGetChar = liftF $ GetChar id</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>freeGetLine :: FreeEff Text
+<span class="lineno">   64 </span><span class="decl"><span class="nottickedoff">freeGetLine = liftF $ GetLine id</span></span>
+<span class="lineno">   65 </span>
+<span class="lineno">   66 </span>freePutChar :: Char -&gt; FreeEff ()
+<span class="lineno">   67 </span><span class="decl"><span class="istickedoff">freePutChar = liftF . flip PutChar ()</span></span>
+<span class="lineno">   68 </span>
+<span class="lineno">   69 </span>freePutTextEff :: Text -&gt; FreeEff ()
+<span class="lineno">   70 </span><span class="decl"><span class="nottickedoff">freePutTextEff = liftF . flip PutText ()</span></span>
+<span class="lineno">   71 </span>
+<span class="lineno">   72 </span>freeFlush :: FreeEff ()
+<span class="lineno">   73 </span><span class="decl"><span class="nottickedoff">freeFlush = liftF $ Flush ()</span></span>
+<span class="lineno">   74 </span>
+<span class="lineno">   75 </span>-- | Types
+<span class="lineno">   76 </span>type FreeEff = Free FreeEffF
+<span class="lineno">   77 </span>
+<span class="lineno">   78 </span>data FreeEffF a
+<span class="lineno">   79 </span> = GetContentsBS             (LByteString -&gt; a)
+<span class="lineno">   80 </span> | GetContentsText           (LText       -&gt; a)
+<span class="lineno">   81 </span> | GetChar                   (Char        -&gt; a)
+<span class="lineno">   82 </span> | GetLine                   (Text        -&gt; a)
+<span class="lineno">   83 </span> | PutChar          Char                     a
+<span class="lineno">   84 </span> | PutText          Text                     a
+<span class="lineno">   85 </span> | Flush                                     a
+<span class="lineno">   86 </span> deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Functor</span></span></span></span>)
 
 </pre>
 </body>
