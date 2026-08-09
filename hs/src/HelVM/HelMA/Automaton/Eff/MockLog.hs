@@ -2,6 +2,7 @@ module HelVM.HelMA.Automaton.Eff.MockLog (
   filterLogsWithLevelInfo,
   filterLogsWithLevelDebug,
   filterLogsWithLevel,
+  mockLog,
 
   MonadMockLogs,
   MockLogs,
@@ -12,7 +13,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import qualified HelVM.HelMA.Automaton.API.LogLevel as LogLevel
 
 import           Control.Monad.Logger
-import           Control.Monad.Writer.Class         (MonadWriter)
+import           Control.Monad.Writer.Class         (MonadWriter, tell)
 
 import           Data.MonoTraversable
 
@@ -28,6 +29,11 @@ filterLogsWithLevel :: LogLevel -> MockLogs -> Output
 filterLogsWithLevel t logsSeq = oconcat (line <$> Seq.filter condition logsSeq) where
   condition l = t <= logLevel l
   line l = (LogLevel.showEitherTextLogLevel . LogLevel.fromLogger . logLevel) l <> " " <> (decodeUtf8 . fromLogStr . logStr) l <> "\n"
+
+mockLog :: MonadMockLogs m => MockLog -> m ()
+mockLog = tell . one
+
+----
 
 type MonadMockLogs m = MonadWriter MockLogs m
 
