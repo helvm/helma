@@ -19,7 +19,9 @@ import qualified RIO
 
 import qualified System.IO                as IO
 
-type AppEff m = (MonadLogger m, MonadSafe m , MonadEff m)
+type AppEff m = (MonadSafe m , MonadLoggerEff m)
+
+type MonadLoggerEff m = (MonadLogger m, MonadEff m)
 
 class Monad m => MonadEff m where
 
