@@ -131,6 +131,7 @@ library
     HelVM.HelMA.Automaton.Eff.AutomatonEff
     HelVM.HelMA.Automaton.Eff.FreeEff
     HelVM.HelMA.Automaton.Eff.MockEff
+    HelVM.HelMA.Automaton.Eff.MockLog
     HelVM.HelMA.Automaton.Eff.MonadEff
 
     HelVM.HelMA.Automaton.Extra 
@@ -289,6 +290,7 @@ library
     , natural-transformation
     , pretty-simple
     , safe
+    , transformers
     , type-operators
     , vector
     , yjtools

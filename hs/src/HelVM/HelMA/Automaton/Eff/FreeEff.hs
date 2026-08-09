@@ -11,9 +11,10 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           Control.Monad.Free
 import           Control.Monad.Logger
 
+
 import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
 
-interpretFreeEffDebug :: (MonadLogger m , MonadEff m)  => FreeEff a -> m a
+interpretFreeEffDebug :: MonadLoggerEff m  => FreeEff a -> m a
 interpretFreeEffDebug = foldFree interpretFreeEffFDebug
 
 interpretFreeEff :: MonadEff m => FreeEff a -> m a
@@ -21,8 +22,14 @@ interpretFreeEff = foldFree interpretFreeEffF
 
 ----
 
-interpretFreeEffFDebug :: (MonadLogger m , MonadEff m) => FreeEffF a -> m a
-interpretFreeEffFDebug a = logDebugN (name a) *> interpretFreeEffF a
+interpretFreeEffFDebug :: MonadLoggerEff m => FreeEffF a -> m a
+interpretFreeEffFDebug (GetContentsBS    cd) = cd <$> (logDebugN "GetContentsBS"   *> getContentsBS)
+interpretFreeEffFDebug (GetContentsText  cd) = cd <$> (logDebugN "GetContentsText" *> getContentsText)
+interpretFreeEffFDebug (GetChar          cd) = logAndCont =<< getChar where logAndCont c = logDebugN ("GetChar: " <> one c) $> cd c
+interpretFreeEffFDebug (GetLine          cd) = logAndCont =<< getLine where logAndCont l = logDebugN ("GetLine: " <>     l) $> cd l
+interpretFreeEffFDebug (PutChar        c v ) = logDebugN ("PutChar: " <> one c) *> putChar    c $> v
+interpretFreeEffFDebug (PutText        s v ) = logDebugN ("PutText: " <>     s) *> putTextEff s $> v
+interpretFreeEffFDebug (Flush            v ) = logDebugN "Flush"                *> flush        $> v
 
 interpretFreeEffF :: MonadEff m => FreeEffF a -> m a
 interpretFreeEffF (GetContentsBS    cd) = cd <$> getContentsBS
@@ -64,15 +71,6 @@ freePutTextEff = liftF . flip PutText ()
 
 freeFlush :: FreeEff ()
 freeFlush = liftF $ Flush ()
-
-name :: FreeEffF a -> Text
-name (GetContentsBS   _) = "GetContentsBS"
-name (GetContentsText _) = "GetContentsText"
-name (GetChar         _) = "GetChar"
-name (GetLine         _) = "GetLine"
-name (PutChar       _ _) = "PutChar"
-name (PutText       _ _) = "PutText"
-name (Flush           _) = "Flush"
 
 -- | Types
 type FreeEff = Free FreeEffF

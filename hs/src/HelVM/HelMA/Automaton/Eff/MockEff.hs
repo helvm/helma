@@ -11,17 +11,21 @@ module HelVM.HelMA.Automaton.Eff.MockEff (
   runMockEff,
   createMockEff,
   calculateOutput,
+
   calculateLogsWithLevelInfo,
   calculateLogsWithLevelDebug,
   calculateLogsWithLevel,
 
   MockEff,
-  MockEffData,
+  MockEffData (..),
+  MockLogs,
+  MockLog (..),
 ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
-import qualified HelVM.HelMA.Automaton.API.LogLevel as LogLevel
 
+import           HelVM.HelMA.Automaton.Eff.MockLog  (MockLog (..), MockLogSeq, MockLogs)
+import qualified HelVM.HelMA.Automaton.Eff.MockLog  as MockLog
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Control.Message
@@ -30,8 +34,10 @@ import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Monad.Logger
+import           Control.Monad.Trans.Writer.CPS     (Writer, runWriter)
+import           Control.Monad.Writer.Class         (MonadWriter, tell)
 
-import           Data.MonoTraversable
+import qualified Data.Sequence                      as Seq
 import qualified Data.Sequences                     as S
 import qualified Data.Text                          as Text
 
@@ -56,9 +62,12 @@ execMockEffWithInput i action = runMockEff i $ Right <$> action
 ----
 
 runMockEff :: Input -> MockEff (Safe ()) -> MockEffData
-runMockEff i mockIO = uncurry safeToMockData $ runState mockIO $ createMockEff i where
-  safeToMockData (Left msgs) = mockDataLog $ MockLog defaultLoc  ""  LevelError  $ toLogStr $ errorsToText msgs
-  safeToMockData (Right _  ) = id
+runMockEff i mockIO = safeToMockData $ runWriter $ runStateT mockIO $ createMockEff i where
+  safeToMockData ((Left msgs, mockData), wLogs) =
+    let errLog = MockLog defaultLoc "" LevelError $ toLogStr $ errorsToText msgs
+    in mockData { logs = toList $ wLogs Seq.|> errLog }
+  safeToMockData ((Right _, mockData), wLogs) =
+    mockData { logs = toList wLogs }
 
 createMockEff :: Input -> MockEffData
 createMockEff = MockEffData [] "" . toString
@@ -67,15 +76,13 @@ calculateOutput :: MockEffData -> Output
 calculateOutput = calculateText . output
 
 calculateLogsWithLevelInfo :: MockEffData -> Output
-calculateLogsWithLevelInfo = calculateLogsWithLevel LevelInfo
+calculateLogsWithLevelInfo = MockLog.calculateLogsWithLevelInfo . logs
 
 calculateLogsWithLevelDebug :: MockEffData -> Output
-calculateLogsWithLevelDebug = calculateLogsWithLevel LevelDebug
+calculateLogsWithLevelDebug = MockLog.calculateLogsWithLevelDebug . logs
 
 calculateLogsWithLevel :: LogLevel -> MockEffData -> Output
-calculateLogsWithLevel t d = oconcat $ S.reverse (line <$> filter condition (logs d)) where
-  condition l = t <= logLevel l
-  line l = (LogLevel.showEitherTextLogLevel . LogLevel.fromLogger . logLevel) l <> " " <> (decodeUtf8 . fromLogStr . logStr) l <> "\n"
+calculateLogsWithLevel t = MockLog.calculateLogsWithLevel t . logs
 
 ----
 
@@ -138,8 +145,8 @@ mockPutChar = modify . mockDataPutChar
 mockPutText :: MonadMockEff m => Text -> m ()
 mockPutText = modify . mockDataPutText
 
-mockLog :: MonadMockEff m => MockLog -> m ()
-mockLog = modify . mockDataLog
+mockLog :: MonadMockLogs m => MockLog -> m ()
+mockLog = tell . one
 
 ----
 
@@ -149,16 +156,15 @@ mockDataPutChar char mockIO = mockIO { output = char : output mockIO }
 mockDataPutText :: Text -> MockEffData -> MockEffData
 mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
 
-mockDataLog :: MockLog -> MockEffData -> MockEffData
-mockDataLog l mockIO = mockIO { logs = l : logs mockIO }
-
 ----
 
 type MonadSafeMockEff m = (MonadMockEff m , MonadSafe m)
 
 type MonadMockEff m = MonadState MockEffData m
 
-type MockEff = State MockEffData
+type MonadMockLogs m = MonadWriter MockLogSeq m
+
+type MockEff = StateT MockEffData (Writer MockLogSeq)
 
 calculateText :: String -> Output
 calculateText = S.reverse . toText
@@ -172,16 +178,6 @@ data MockEffData = MockEffData
   , input  :: !String
   }
   deriving stock (Eq , Show)
-
-type MockLogs = [MockLog]
-
-data MockLog = MockLog
-  { logLoc    :: !Loc
-  , logSource :: !LogSource
-  , logLevel  :: !LogLevel
-  , logStr    :: !LogStr
-  }
-  deriving stock (Eq, Show)
 
 ----
 

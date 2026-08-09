@@ -30,9 +30,25 @@ spec = do
     let mockIO = execMockEffWithInput "qwerty0uiop" $ interpretFreeEffDebug wFilterIf0
     forM_
       [ ("Test Free WFilterIf0 with calculateOutput" , calculateOutput , "qwerty\n"       )
-      , ("Test Free WFilterIf0 with calculateLogsWithLevelDebug" , calculateLogsWithLevelDebug , logs)
+      , ("Test Free WFilterIf0 with calculateLogsWithLevelDebug" , calculateLogsWithLevelDebug , debugLogs)
       ] $ \(name , action , output) ->
       it name $ action mockIO `shouldBe` output
 
-logs :: Text
-logs = "Debug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\nDebug GetChar\nDebug PutChar\n"
+debugLogs :: Text
+debugLogs =
+  "Debug GetChar: q\n\
+  \Debug PutChar: q\n\
+  \Debug GetChar: w\n\
+  \Debug PutChar: w\n\
+  \Debug GetChar: e\n\
+  \Debug PutChar: e\n\
+  \Debug GetChar: r\n\
+  \Debug PutChar: r\n\
+  \Debug GetChar: t\n\
+  \Debug PutChar: t\n\
+  \Debug GetChar: y\n\
+  \Debug PutChar: y\n\
+  \Debug GetChar: 0\n\
+  \Debug PutChar: \n\
+  \\n"
+

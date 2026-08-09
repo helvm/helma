@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automaton.Eff.MonadEff (
   AppEff,
+  MonadLoggerEff,
   MonadEff(..),
 ) where
 
