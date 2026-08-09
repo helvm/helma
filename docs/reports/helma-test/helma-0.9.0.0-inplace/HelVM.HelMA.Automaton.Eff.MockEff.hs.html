@@ -46,134 +46,88 @@ span.spaces    { background: white }
 <span class="lineno">   27 </span>import           HelVM.HelMA.Automaton.API.IOTypes
 <span class="lineno">   28 </span>
 <span class="lineno">   29 </span>import           HelVM.HelMA.Automaton.Eff.MockIO
-<span class="lineno">   30 </span>import           HelVM.HelMA.Automaton.Eff.MockLog
+<span class="lineno">   30 </span>import           HelVM.HelMA.Automaton.Eff.MockLogger
 <span class="lineno">   31 </span>import           HelVM.HelMA.Automaton.Eff.MonadEff
 <span class="lineno">   32 </span>
 <span class="lineno">   33 </span>import           HelVM.HelIO.Control.Message
 <span class="lineno">   34 </span>import           HelVM.HelIO.Control.Safe
 <span class="lineno">   35 </span>
-<span class="lineno">   36 </span>import           HelVM.HelIO.ListLikeExtra
-<span class="lineno">   37 </span>
-<span class="lineno">   38 </span>import           Control.Monad.Logger
-<span class="lineno">   39 </span>import           Control.Monad.Trans.Writer.CPS     (Writer, runWriter)
-<span class="lineno">   40 </span>import           Control.Monad.Writer.Class         (MonadWriter, tell)
+<span class="lineno">   36 </span>import           Control.Monad.Logger
+<span class="lineno">   37 </span>import           Control.Monad.Trans.Writer.CPS     (Writer, runWriter)
+<span class="lineno">   38 </span>import           Control.Monad.Writer.Class         (MonadWriter)
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>import qualified Data.Sequence                      as Seq
 <span class="lineno">   41 </span>
-<span class="lineno">   42 </span>import qualified Data.Sequence                      as Seq
-<span class="lineno">   43 </span>import qualified Data.Text                          as Text
+<span class="lineno">   42 </span>ioExecMockEffBatch :: SafeT MockEff () -&gt; IO MockEffData
+<span class="lineno">   43 </span><span class="decl"><span class="nottickedoff">ioExecMockEffBatch = ioExecMockEffWithInput &quot;&quot;</span></span>
 <span class="lineno">   44 </span>
-<span class="lineno">   45 </span>ioExecMockEffBatch :: SafeT MockEff () -&gt; IO MockEffData
-<span class="lineno">   46 </span><span class="decl"><span class="nottickedoff">ioExecMockEffBatch = ioExecMockEffWithInput &quot;&quot;</span></span>
+<span class="lineno">   45 </span>ioExecMockEffWithInput :: Input -&gt; SafeT MockEff () -&gt; IO MockEffData
+<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">ioExecMockEffWithInput i = safeToIO . safeExecMockEffWithInput i</span></span>
 <span class="lineno">   47 </span>
-<span class="lineno">   48 </span>ioExecMockEffWithInput :: Input -&gt; SafeT MockEff () -&gt; IO MockEffData
-<span class="lineno">   49 </span><span class="decl"><span class="istickedoff">ioExecMockEffWithInput i = safeToIO . safeExecMockEffWithInput i</span></span>
+<span class="lineno">   48 </span>safeExecMockEffBatch :: SafeT MockEff () -&gt; Safe MockEffData
+<span class="lineno">   49 </span><span class="decl"><span class="nottickedoff">safeExecMockEffBatch = safeExecMockEffWithInput &quot;&quot;</span></span>
 <span class="lineno">   50 </span>
-<span class="lineno">   51 </span>safeExecMockEffBatch :: SafeT MockEff () -&gt; Safe MockEffData
-<span class="lineno">   52 </span><span class="decl"><span class="nottickedoff">safeExecMockEffBatch = safeExecMockEffWithInput &quot;&quot;</span></span>
+<span class="lineno">   51 </span>safeExecMockEffWithInput :: Input -&gt; SafeT MockEff () -&gt; Safe MockEffData
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">safeExecMockEffWithInput i action = pure $ runMockEff i $ runSafeT action</span></span>
 <span class="lineno">   53 </span>
-<span class="lineno">   54 </span>safeExecMockEffWithInput :: Input -&gt; SafeT MockEff () -&gt; Safe MockEffData
-<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">safeExecMockEffWithInput i action = pure $ runMockEff i $ runSafeT action</span></span>
+<span class="lineno">   54 </span>execMockEffBatch :: MockEff () -&gt; MockEffData
+<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">execMockEffBatch = execMockEffWithInput &quot;&quot;</span></span>
 <span class="lineno">   56 </span>
-<span class="lineno">   57 </span>execMockEffBatch :: MockEff () -&gt; MockEffData
-<span class="lineno">   58 </span><span class="decl"><span class="istickedoff">execMockEffBatch = execMockEffWithInput &quot;&quot;</span></span>
+<span class="lineno">   57 </span>execMockEffWithInput :: Input -&gt; MockEff () -&gt; MockEffData
+<span class="lineno">   58 </span><span class="decl"><span class="istickedoff">execMockEffWithInput i action = runMockEff i $ Right &lt;$&gt; action</span></span>
 <span class="lineno">   59 </span>
-<span class="lineno">   60 </span>execMockEffWithInput :: Input -&gt; MockEff () -&gt; MockEffData
-<span class="lineno">   61 </span><span class="decl"><span class="istickedoff">execMockEffWithInput i action = runMockEff i $ Right &lt;$&gt; action</span></span>
-<span class="lineno">   62 </span>
-<span class="lineno">   63 </span>----
-<span class="lineno">   64 </span>
-<span class="lineno">   65 </span>runMockEff :: Input -&gt; MockEff (Safe ()) -&gt; MockEffData
-<span class="lineno">   66 </span><span class="decl"><span class="istickedoff">runMockEff i mockIO = safeToMockData $ runWriter $ runStateT (unMockEff mockIO) $ createMockIOData i where</span>
-<span class="lineno">   67 </span><span class="spaces">  </span><span class="istickedoff">safeToMockData ((Right _, io), logs) = (io, logs)</span>
-<span class="lineno">   68 </span><span class="spaces">  </span><span class="istickedoff">safeToMockData ((Left msgs, io), logs) = (io, logs Seq.|&gt; errLog) where</span>
-<span class="lineno">   69 </span><span class="spaces">    </span><span class="istickedoff">errLog = MockLog defaultLoc &quot;&quot; LevelError $ toLogStr $ errorsToText msgs</span></span>
+<span class="lineno">   60 </span>----
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>runMockEff :: Input -&gt; MockEff (Safe ()) -&gt; MockEffData
+<span class="lineno">   63 </span><span class="decl"><span class="istickedoff">runMockEff i mockIO = safeToMockData $ runWriter $ runStateT (unMockEff mockIO) $ createMockIOData i where</span>
+<span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">safeToMockData ((Right _, io), logs) = (io, logs)</span>
+<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">safeToMockData ((Left msgs, io), logs) = (io, logs Seq.|&gt; errLog) where</span>
+<span class="lineno">   66 </span><span class="spaces">    </span><span class="istickedoff">errLog = MockLog defaultLoc &quot;&quot; LevelError $ toLogStr $ errorsToText msgs</span></span>
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>calculateOutput :: MockEffData -&gt; Output
+<span class="lineno">   69 </span><span class="decl"><span class="istickedoff">calculateOutput = reverseOutput . fst</span></span>
 <span class="lineno">   70 </span>
-<span class="lineno">   71 </span>calculateOutput :: MockEffData -&gt; Output
-<span class="lineno">   72 </span><span class="decl"><span class="istickedoff">calculateOutput = reverseOutput . fst</span></span>
+<span class="lineno">   71 </span>calculateLogsWithLevelInfo :: MockEffData -&gt; Output
+<span class="lineno">   72 </span><span class="decl"><span class="istickedoff">calculateLogsWithLevelInfo = filterLogsWithLevelInfo . snd</span></span>
 <span class="lineno">   73 </span>
-<span class="lineno">   74 </span>calculateLogsWithLevelInfo :: MockEffData -&gt; Output
-<span class="lineno">   75 </span><span class="decl"><span class="istickedoff">calculateLogsWithLevelInfo = filterLogsWithLevelInfo . snd</span></span>
+<span class="lineno">   74 </span>calculateLogsWithLevelDebug :: MockEffData -&gt; Output
+<span class="lineno">   75 </span><span class="decl"><span class="istickedoff">calculateLogsWithLevelDebug = filterLogsWithLevelDebug . snd</span></span>
 <span class="lineno">   76 </span>
-<span class="lineno">   77 </span>calculateLogsWithLevelDebug :: MockEffData -&gt; Output
-<span class="lineno">   78 </span><span class="decl"><span class="istickedoff">calculateLogsWithLevelDebug = filterLogsWithLevelDebug . snd</span></span>
-<span class="lineno">   79 </span>
-<span class="lineno">   80 </span>----
-<span class="lineno">   81 </span>
-<span class="lineno">   82 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadEff MockEff</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
-<span class="lineno">   83 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = mockGetContentsBS</span></span>
-<span class="lineno">   84 </span>  <span class="decl"><span class="nottickedoff">getContentsText = mockGetContentsText</span></span>
-<span class="lineno">   85 </span>  <span class="decl"><span class="istickedoff">getChar         = mockGetChar</span></span>
-<span class="lineno">   86 </span>  <span class="decl"><span class="nottickedoff">getLine         = mockGetLine</span></span>
-<span class="lineno">   87 </span>  <span class="decl"><span class="istickedoff">putChar         = mockPutChar</span></span>
-<span class="lineno">   88 </span>  <span class="decl"><span class="istickedoff">putTextEff      = mockPutText</span></span>
-<span class="lineno">   89 </span>
-<span class="lineno">   90 </span>instance <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">MonadEff (SafeT MockEff)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
-<span class="lineno">   91 </span>  <span class="decl"><span class="istickedoff">getContentsBS   = mockGetContentsBS</span></span>
-<span class="lineno">   92 </span>  <span class="decl"><span class="nottickedoff">getContentsText = mockGetContentsText</span></span>
-<span class="lineno">   93 </span>  <span class="decl"><span class="istickedoff">getChar         = mockGetCharSafe</span></span>
-<span class="lineno">   94 </span>  <span class="decl"><span class="istickedoff">getLine         = mockGetLineSafe</span></span>
-<span class="lineno">   95 </span>  <span class="decl"><span class="istickedoff">putChar         = mockPutChar</span></span>
-<span class="lineno">   96 </span>  <span class="decl"><span class="istickedoff">putTextEff      = mockPutText</span></span>
+<span class="lineno">   77 </span>----
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadEff MockEff</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
+<span class="lineno">   80 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = mockGetContentsBS</span></span>
+<span class="lineno">   81 </span>  <span class="decl"><span class="nottickedoff">getContentsText = mockGetContentsText</span></span>
+<span class="lineno">   82 </span>  <span class="decl"><span class="istickedoff">getChar         = mockGetChar</span></span>
+<span class="lineno">   83 </span>  <span class="decl"><span class="nottickedoff">getLine         = mockGetLine</span></span>
+<span class="lineno">   84 </span>  <span class="decl"><span class="istickedoff">putChar         = mockPutChar</span></span>
+<span class="lineno">   85 </span>  <span class="decl"><span class="istickedoff">putTextEff      = mockPutText</span></span>
+<span class="lineno">   86 </span>
+<span class="lineno">   87 </span>instance <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">MonadEff (SafeT MockEff)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
+<span class="lineno">   88 </span>  <span class="decl"><span class="istickedoff">getContentsBS   = mockGetContentsBS</span></span>
+<span class="lineno">   89 </span>  <span class="decl"><span class="nottickedoff">getContentsText = mockGetContentsText</span></span>
+<span class="lineno">   90 </span>  <span class="decl"><span class="istickedoff">getChar         = mockGetCharSafe</span></span>
+<span class="lineno">   91 </span>  <span class="decl"><span class="istickedoff">getLine         = mockGetLineSafe</span></span>
+<span class="lineno">   92 </span>  <span class="decl"><span class="istickedoff">putChar         = mockPutChar</span></span>
+<span class="lineno">   93 </span>  <span class="decl"><span class="istickedoff">putTextEff      = mockPutText</span></span>
+<span class="lineno">   94 </span>
+<span class="lineno">   95 </span>instance {-# OVERLAPPING #-} MonadLogger MockEff where
+<span class="lineno">   96 </span>  <span class="decl"><span class="istickedoff">monadLoggerLog loc src level msg = mockLog $ MockLog loc src level $ toLogStr msg</span></span>
 <span class="lineno">   97 </span>
-<span class="lineno">   98 </span>instance {-# OVERLAPPING #-} MonadLogger MockEff where
-<span class="lineno">   99 </span>  <span class="decl"><span class="istickedoff">monadLoggerLog loc src level msg = mockLog $ MockLog loc src level $ toLogStr msg</span></span>
-<span class="lineno">  100 </span>
-<span class="lineno">  101 </span>----
-<span class="lineno">  102 </span>
-<span class="lineno">  103 </span>mockGetContentsBS :: MonadMockEff m =&gt; m LByteString
-<span class="lineno">  104 </span><span class="decl"><span class="istickedoff">mockGetContentsBS = fromStrict . encodeUtf8 &lt;$&gt; mockGetContentsText</span></span>
-<span class="lineno">  105 </span>
-<span class="lineno">  106 </span>mockGetContentsText :: MonadMockEff m =&gt; m LText
-<span class="lineno">  107 </span><span class="decl"><span class="istickedoff">mockGetContentsText = fromStrict . toText &lt;$&gt; mockGetContents</span></span>
-<span class="lineno">  108 </span>
-<span class="lineno">  109 </span>mockGetContents :: MonadMockEff m =&gt; m String
-<span class="lineno">  110 </span><span class="decl"><span class="istickedoff">mockGetContents = mockGetContents' =&lt;&lt; get where</span>
-<span class="lineno">  111 </span><span class="spaces">  </span><span class="istickedoff">mockGetContents' :: MonadMockEff m =&gt; MockIOData -&gt; m String</span>
-<span class="lineno">  112 </span><span class="spaces">  </span><span class="istickedoff">mockGetContents' mockIO = content &lt;$ put mockIO { input = &quot;&quot; } where content = input mockIO</span></span>
-<span class="lineno">  113 </span>
-<span class="lineno">  114 </span>mockGetChar :: MonadMockEff m =&gt; m Char
-<span class="lineno">  115 </span><span class="decl"><span class="istickedoff">mockGetChar = mockGetChar' =&lt;&lt; get where</span>
-<span class="lineno">  116 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' :: MonadMockEff m =&gt; MockIOData -&gt; m Char</span>
-<span class="lineno">  117 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' mockIO = orErrorTuple <span class="nottickedoff">(&quot;mockGetChar&quot; , Text.show mockIO)</span> (top (input mockIO)) &lt;$ put mockIO { input = orErrorTuple <span class="nottickedoff">(&quot;mockGetChar&quot; , Text.show mockIO)</span> $ discard $ input mockIO }</span></span>
-<span class="lineno">  118 </span>
-<span class="lineno">  119 </span>mockGetLine :: MonadMockEff m =&gt; m Text
-<span class="lineno">  120 </span><span class="decl"><span class="nottickedoff">mockGetLine = mockGetLine' =&lt;&lt; get where</span>
-<span class="lineno">  121 </span><span class="spaces">  </span><span class="nottickedoff">mockGetLine' :: MonadMockEff m =&gt; MockIOData -&gt; m Text</span>
-<span class="lineno">  122 </span><span class="spaces">  </span><span class="nottickedoff">mockGetLine' mockIO = toText line &lt;$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO</span></span>
-<span class="lineno">  123 </span>
-<span class="lineno">  124 </span>mockGetCharSafe :: MonadSafeMockEff m =&gt; m Char
-<span class="lineno">  125 </span><span class="decl"><span class="istickedoff">mockGetCharSafe = mockGetChar' =&lt;&lt; get where</span>
-<span class="lineno">  126 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' :: MonadSafeMockEff m =&gt; MockIOData -&gt; m Char</span>
-<span class="lineno">  127 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' mockIO = appendErrorTuple <span class="nottickedoff">(&quot;mockGetCharSafe&quot; , Text.show mockIO)</span> $ mockGetChar'' =&lt;&lt; unconsSafe (input mockIO) where</span>
-<span class="lineno">  128 </span><span class="spaces">    </span><span class="istickedoff">mockGetChar'' (c, input') = put mockIO { input = input' } $&gt; c</span></span>
-<span class="lineno">  129 </span>
-<span class="lineno">  130 </span>mockGetLineSafe :: MonadSafeMockEff m =&gt; m Text
-<span class="lineno">  131 </span><span class="decl"><span class="istickedoff">mockGetLineSafe = mockGetLineSafe' =&lt;&lt; get where</span>
-<span class="lineno">  132 </span><span class="spaces">  </span><span class="istickedoff">mockGetLineSafe' :: MonadSafeMockEff m =&gt; MockIOData -&gt; m Text</span>
-<span class="lineno">  133 </span><span class="spaces">  </span><span class="istickedoff">mockGetLineSafe' mockIO = toText line &lt;$ put mockIO { input = input' } where (line , input') = splitStringByLn $ input mockIO</span></span>
-<span class="lineno">  134 </span>
-<span class="lineno">  135 </span>mockPutChar :: MonadMockEff m =&gt; Char -&gt; m ()
-<span class="lineno">  136 </span><span class="decl"><span class="istickedoff">mockPutChar = modify . mockDataPutChar</span></span>
-<span class="lineno">  137 </span>
-<span class="lineno">  138 </span>mockPutText :: MonadMockEff m =&gt; Text -&gt; m ()
-<span class="lineno">  139 </span><span class="decl"><span class="istickedoff">mockPutText = modify . mockDataPutText</span></span>
-<span class="lineno">  140 </span>
-<span class="lineno">  141 </span>mockLog :: MonadMockLogs m =&gt; MockLog -&gt; m ()
-<span class="lineno">  142 </span><span class="decl"><span class="istickedoff">mockLog = tell . one</span></span>
-<span class="lineno">  143 </span>
-<span class="lineno">  144 </span>----
-<span class="lineno">  145 </span>
-<span class="lineno">  146 </span>newtype MockEff a = MockEff
-<span class="lineno">  147 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">unMockEff</span></span></span> :: StateT MockIOData (Writer MockLogs) a
-<span class="lineno">  148 </span>  }
-<span class="lineno">  149 </span>  deriving newtype
-<span class="lineno">  150 </span>    ( <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Functor</span></span></span></span>
-<span class="lineno">  151 </span>    , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Applicative</span></span></span></span></span></span></span></span></span></span>
-<span class="lineno">  152 </span>    , <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Monad</span></span></span></span></span></span>
-<span class="lineno">  153 </span>    , <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">MonadState MockIOData</span></span></span></span></span></span>
-<span class="lineno">  154 </span>    , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadWriter MockLogs</span></span></span></span></span></span></span></span>
-<span class="lineno">  155 </span>    )
-<span class="lineno">  156 </span>
-<span class="lineno">  157 </span>type MockEffData = (MockIOData , MockLogs)
+<span class="lineno">   98 </span>----
+<span class="lineno">   99 </span>
+<span class="lineno">  100 </span>newtype MockEff a = MockEff
+<span class="lineno">  101 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">unMockEff</span></span></span> :: StateT MockIOData (Writer MockLogs) a
+<span class="lineno">  102 </span>  }
+<span class="lineno">  103 </span>  deriving newtype
+<span class="lineno">  104 </span>    ( <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Functor</span></span></span></span>
+<span class="lineno">  105 </span>    , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Applicative</span></span></span></span></span></span></span></span></span></span>
+<span class="lineno">  106 </span>    , <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Monad</span></span></span></span></span></span>
+<span class="lineno">  107 </span>    , <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">MonadState MockIOData</span></span></span></span></span></span>
+<span class="lineno">  108 </span>    , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadWriter MockLogs</span></span></span></span></span></span></span></span>
+<span class="lineno">  109 </span>    )
+<span class="lineno">  110 </span>
+<span class="lineno">  111 </span>type MockEffData = (MockIOData , MockLogs)
 
 </pre>
 </body>
