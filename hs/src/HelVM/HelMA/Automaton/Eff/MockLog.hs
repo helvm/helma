@@ -1,8 +1,9 @@
 module HelVM.HelMA.Automaton.Eff.MockLog (
-  calculateLogsWithLevelInfo,
-  calculateLogsWithLevelDebug,
-  calculateLogsWithLevel,
+  filterLogsWithLevelInfo,
+  filterLogsWithLevelDebug,
+  filterLogsWithLevel,
 
+  MonadMockLogs,
   MockLogs,
   MockLog (..),
 ) where
@@ -11,21 +12,24 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import qualified HelVM.HelMA.Automaton.API.LogLevel as LogLevel
 
 import           Control.Monad.Logger
+import           Control.Monad.Writer.Class         (MonadWriter)
 
 import           Data.MonoTraversable
 
 import qualified Data.Sequence                      as Seq
 
-calculateLogsWithLevelInfo :: MockLogs -> Output
-calculateLogsWithLevelInfo = calculateLogsWithLevel LevelInfo
+filterLogsWithLevelInfo :: MockLogs -> Output
+filterLogsWithLevelInfo = filterLogsWithLevel LevelInfo
 
-calculateLogsWithLevelDebug :: MockLogs -> Output
-calculateLogsWithLevelDebug = calculateLogsWithLevel LevelDebug
+filterLogsWithLevelDebug :: MockLogs -> Output
+filterLogsWithLevelDebug = filterLogsWithLevel LevelDebug
 
-calculateLogsWithLevel :: LogLevel -> MockLogs -> Output
-calculateLogsWithLevel t logsSeq = oconcat (line <$> Seq.filter condition logsSeq) where
+filterLogsWithLevel :: LogLevel -> MockLogs -> Output
+filterLogsWithLevel t logsSeq = oconcat (line <$> Seq.filter condition logsSeq) where
   condition l = t <= logLevel l
   line l = (LogLevel.showEitherTextLogLevel . LogLevel.fromLogger . logLevel) l <> " " <> (decodeUtf8 . fromLogStr . logStr) l <> "\n"
+
+type MonadMockLogs m = MonadWriter MockLogs m
 
 type MockLogs = Seq MockLog
 

@@ -2,13 +2,17 @@ module HelVM.HelMA.Automaton.Eff.MockIO (
   createMockIOData,
   mockDataPutChar,
   mockDataPutText,
-  calculateOutput,
+  reverseOutput,
   splitStringByLn,
 
+  MonadSafeMockEff,
+  MonadMockEff,
   MockIOData (..),
 ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
+
+import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.ListLikeExtra
 
@@ -23,17 +27,20 @@ mockDataPutChar char mockIO = mockIO { output = char : output mockIO }
 mockDataPutText :: Text -> MockIOData -> MockIOData
 mockDataPutText text mockIO = mockIO { output = calculateString text <> output mockIO }
 
-calculateOutput :: MockIOData -> Output
-calculateOutput = calculateText . output
+reverseOutput :: MockIOData -> Output
+reverseOutput = reverseText . output
 
-calculateText :: String -> Output
-calculateText = S.reverse . toText
+reverseText :: String -> Output
+reverseText = S.reverse . toText
 
 calculateString :: Output -> String
 calculateString = toString . S.reverse
 
 splitStringByLn :: String -> (String , String)
 splitStringByLn = splitBy '\n'
+
+type MonadSafeMockEff m = (MonadMockEff m , MonadSafe m)
+type MonadMockEff m = MonadState MockIOData m
 
 data MockIOData = MockIOData
   { output :: !String

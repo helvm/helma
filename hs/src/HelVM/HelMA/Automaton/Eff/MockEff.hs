@@ -1,3 +1,5 @@
+{-# LANGUAGE GeneralisedNewtypeDeriving #-}
+
 module HelVM.HelMA.Automaton.Eff.MockEff (
   ioExecMockEffBatch,
   ioExecMockEffWithInput,
@@ -14,10 +16,9 @@ module HelVM.HelMA.Automaton.Eff.MockEff (
 
   calculateLogsWithLevelInfo,
   calculateLogsWithLevelDebug,
-  calculateLogsWithLevel,
 
-  MockEff,
-  MockEffData (..),
+  MockEff (..),
+  MockEffData,
   MockIOData (..),
   MockLogs,
   MockLog (..),
@@ -25,12 +26,8 @@ module HelVM.HelMA.Automaton.Eff.MockEff (
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelMA.Automaton.Eff.MockIO   (MockIOData (..), createMockIOData, mockDataPutChar, mockDataPutText, splitStringByLn)
-import qualified HelVM.HelMA.Automaton.Eff.MockIO   as MockIO
-
-import           HelVM.HelMA.Automaton.Eff.MockLog  (MockLog (..), MockLogs)
-import qualified HelVM.HelMA.Automaton.Eff.MockLog  as MockLog
-
+import           HelVM.HelMA.Automaton.Eff.MockIO
+import           HelVM.HelMA.Automaton.Eff.MockLog
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Control.Message
@@ -67,21 +64,18 @@ execMockEffWithInput i action = runMockEff i $ Right <$> action
 
 runMockEff :: Input -> MockEff (Safe ()) -> MockEffData
 runMockEff i mockIO = safeToMockData $ runWriter $ runStateT (unMockEff mockIO) $ createMockIOData i where
-  safeToMockData ((Right _, io), logs) = MockEffData io logs
-  safeToMockData ((Left msgs, io), logs) = MockEffData io (logs Seq.|> errLog) where
+  safeToMockData ((Right _, io), logs) = (io, logs)
+  safeToMockData ((Left msgs, io), logs) = (io, logs Seq.|> errLog) where
     errLog = MockLog defaultLoc "" LevelError $ toLogStr $ errorsToText msgs
 
 calculateOutput :: MockEffData -> Output
-calculateOutput = MockIO.calculateOutput . ioData
+calculateOutput = reverseOutput . fst
 
 calculateLogsWithLevelInfo :: MockEffData -> Output
-calculateLogsWithLevelInfo = MockLog.calculateLogsWithLevelInfo . logs
+calculateLogsWithLevelInfo = filterLogsWithLevelInfo . snd
 
 calculateLogsWithLevelDebug :: MockEffData -> Output
-calculateLogsWithLevelDebug = MockLog.calculateLogsWithLevelDebug . logs
-
-calculateLogsWithLevel :: LogLevel -> MockEffData -> Output
-calculateLogsWithLevel t = MockLog.calculateLogsWithLevel t . logs
+calculateLogsWithLevelDebug = filterLogsWithLevelDebug . snd
 
 ----
 
@@ -149,12 +143,6 @@ mockLog = tell . one
 
 ----
 
-type MonadSafeMockEff m = (MonadMockEff m , MonadSafe m)
-
-type MonadMockEff m = MonadState MockIOData m
-
-type MonadMockLogs m = MonadWriter MockLogs m
-
 newtype MockEff a = MockEff
   { unMockEff :: StateT MockIOData (Writer MockLogs) a
   }
@@ -166,8 +154,4 @@ newtype MockEff a = MockEff
     , MonadWriter MockLogs
     )
 
-data MockEffData = MockEffData
-  { ioData :: !MockIOData
-  , logs   :: !MockLogs
-  }
-  deriving stock (Eq , Show)
+type MockEffData = (MockIOData , MockLogs)
