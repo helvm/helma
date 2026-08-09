@@ -7,7 +7,7 @@ import           HelVM.HelMA.Automaton.Types.RAMType
 
 import           HelVM.GoldenExpectations
 
-import           HelVM.HelMA.Automaton.Eff.MockEff
+import           HelVM.HelMA.Automaton.Eff.Mock
 
 import           System.FilePath.Posix
 

@@ -1,111 +1,99 @@
-{-# LANGUAGE GeneralisedNewtypeDeriving #-}
-
 module HelVM.HelMA.Automaton.Eff.MockEff (
-  ioExecMockEffBatch,
-  ioExecMockEffWithInput,
+  mockGetContentsBS,
+  mockGetContentsText,
+  mockGetContents,
+  mockGetChar,
+  mockGetLine,
+  mockGetCharSafe,
+  mockGetLineSafe,
+  mockPutChar,
+  mockPutText,
 
-  safeExecMockEffBatch,
-  safeExecMockEffWithInput,
+  createMockEffData,
+  reverseOutput,
 
-  execMockEffBatch,
-  execMockEffWithInput,
-
-  runMockEff,
-  createMockIOData,
-  calculateOutput,
-
-  calculateLogsWithLevelInfo,
-  calculateLogsWithLevelDebug,
-
-  MockEff (..),
-  MockEffData,
-  MockIOData (..),
-  MockLogs,
-  MockLog (..),
+  MonadMockEff,
+  MonadSafeMockEff,
+  MockEffData (..),
 ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelMA.Automaton.Eff.MockIO
-import           HelVM.HelMA.Automaton.Eff.MockLogger
-import           HelVM.HelMA.Automaton.Eff.MonadEff
-
-import           HelVM.HelIO.Control.Message
 import           HelVM.HelIO.Control.Safe
 
-import           Control.Monad.Logger
-import           Control.Monad.Trans.Writer.CPS       (Writer, runWriter)
-import           Control.Monad.Writer.Class           (MonadWriter)
+import           HelVM.HelIO.ListLikeExtra
 
-import qualified Data.Sequence                        as Seq
+import qualified Data.Sequences                    as S
+import qualified Data.Text                         as Text
 
-ioExecMockEffBatch :: SafeT MockEff () -> IO MockEffData
-ioExecMockEffBatch = ioExecMockEffWithInput ""
+mockGetContentsBS :: MonadMockEff m => m LByteString
+mockGetContentsBS = fromStrict . encodeUtf8 <$> mockGetContentsText
 
-ioExecMockEffWithInput :: Input -> SafeT MockEff () -> IO MockEffData
-ioExecMockEffWithInput i = safeToIO . safeExecMockEffWithInput i
+mockGetContentsText :: MonadMockEff m => m LText
+mockGetContentsText = fromStrict . toText <$> mockGetContents
 
-safeExecMockEffBatch :: SafeT MockEff () -> Safe MockEffData
-safeExecMockEffBatch = safeExecMockEffWithInput ""
+mockGetContents :: MonadMockEff m => m String
+mockGetContents = mockGetContents' =<< get where
+  mockGetContents' :: MonadMockEff m => MockEffData -> m String
+  mockGetContents' mockEff = content <$ put mockEff { input = "" } where content = input mockEff
 
-safeExecMockEffWithInput :: Input -> SafeT MockEff () -> Safe MockEffData
-safeExecMockEffWithInput i action = pure $ runMockEff i $ runSafeT action
+mockGetChar :: MonadMockEff m => m Char
+mockGetChar = mockGetChar' =<< get where
+  mockGetChar' :: MonadMockEff m => MockEffData -> m Char
+  mockGetChar' mockEff = orErrorTuple ("mockGetChar" , Text.show mockEff) (top (input mockEff)) <$ put mockEff { input = orErrorTuple ("mockGetChar" , Text.show mockEff) $ discard $ input mockEff }
 
-execMockEffBatch :: MockEff () -> MockEffData
-execMockEffBatch = execMockEffWithInput ""
+mockGetLine :: MonadMockEff m => m Text
+mockGetLine = mockGetLine' =<< get where
+  mockGetLine' :: MonadMockEff m => MockEffData -> m Text
+  mockGetLine' mockEff = toText line <$ put mockEff { input = input' } where (line , input') = splitStringByLn $ input mockEff
 
-execMockEffWithInput :: Input -> MockEff () -> MockEffData
-execMockEffWithInput i action = runMockEff i $ Right <$> action
+mockGetCharSafe :: MonadSafeMockEff m => m Char
+mockGetCharSafe = mockGetChar' =<< get where
+  mockGetChar' :: MonadSafeMockEff m => MockEffData -> m Char
+  mockGetChar' mockEff = appendErrorTuple ("mockGetCharSafe" , Text.show mockEff) $ mockGetChar'' =<< unconsSafe (input mockEff) where
+    mockGetChar'' (c, input') = put mockEff { input = input' } $> c
 
-----
+mockGetLineSafe :: MonadSafeMockEff m => m Text
+mockGetLineSafe = mockGetLineSafe' =<< get where
+  mockGetLineSafe' :: MonadSafeMockEff m => MockEffData -> m Text
+  mockGetLineSafe' mockEff = toText line <$ put mockEff { input = input' } where (line , input') = splitStringByLn $ input mockEff
 
-runMockEff :: Input -> MockEff (Safe ()) -> MockEffData
-runMockEff i mockIO = safeToMockData $ runWriter $ runStateT (unMockEff mockIO) $ createMockIOData i where
-  safeToMockData ((Right _, io), logs) = (io, logs)
-  safeToMockData ((Left msgs, io), logs) = (io, logs Seq.|> errLog) where
-    errLog = MockLog defaultLoc "" LevelError $ toLogStr $ errorsToText msgs
+mockPutChar :: MonadMockEff m => Char -> m ()
+mockPutChar = modify . mockDataPutChar
 
-calculateOutput :: MockEffData -> Output
-calculateOutput = reverseOutput . fst
-
-calculateLogsWithLevelInfo :: MockEffData -> Output
-calculateLogsWithLevelInfo = filterLogsWithLevelInfo . snd
-
-calculateLogsWithLevelDebug :: MockEffData -> Output
-calculateLogsWithLevelDebug = filterLogsWithLevelDebug . snd
-
-----
-
-instance MonadEff MockEff where
-  getContentsBS   = mockGetContentsBS
-  getContentsText = mockGetContentsText
-  getChar         = mockGetChar
-  getLine         = mockGetLine
-  putChar         = mockPutChar
-  putTextEff      = mockPutText
-
-instance MonadEff (SafeT MockEff) where
-  getContentsBS   = mockGetContentsBS
-  getContentsText = mockGetContentsText
-  getChar         = mockGetCharSafe
-  getLine         = mockGetLineSafe
-  putChar         = mockPutChar
-  putTextEff      = mockPutText
-
-instance {-# OVERLAPPING #-} MonadLogger MockEff where
-  monadLoggerLog loc src level msg = mockLog $ MockLog loc src level $ toLogStr msg
+mockPutText :: MonadMockEff m => Text -> m ()
+mockPutText = modify . mockDataPutText
 
 ----
 
-newtype MockEff a = MockEff
-  { unMockEff :: StateT MockIOData (Writer MockLogs) a
+createMockEffData :: Input -> MockEffData
+createMockEffData = MockEffData "" . toString
+
+reverseOutput :: MockEffData -> Output
+reverseOutput = reverseText . output
+
+reverseText :: String -> Output
+reverseText = S.reverse . toText
+
+reverseString :: Output -> String
+reverseString = toString . S.reverse
+
+mockDataPutChar :: Char -> MockEffData -> MockEffData
+mockDataPutChar char mockEff = mockEff { output = char : output mockEff }
+
+mockDataPutText :: Text -> MockEffData -> MockEffData
+mockDataPutText text mockEff = mockEff { output = reverseString text <> output mockEff }
+
+splitStringByLn :: String -> (String , String)
+splitStringByLn = splitBy '\n'
+
+----
+
+type MonadSafeMockEff m = (MonadSafe m , MonadMockEff m)
+type MonadMockEff m = MonadState MockEffData m
+
+data MockEffData = MockEffData
+  { output :: !String
+  , input  :: !String
   }
-  deriving newtype
-    ( Functor
-    , Applicative
-    , Monad
-    , MonadState MockIOData
-    , MonadWriter MockLogs
-    )
-
-type MockEffData = (MockIOData , MockLogs)
+  deriving stock (Eq , Show)

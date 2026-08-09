@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automata.ETA.SimpleParams
 
 import           HelVM.HelMA.Automata.ETA.API.AutomatonType
 
-import           HelVM.HelMA.Automaton.Eff.MockEff
+import           HelVM.HelMA.Automaton.Eff.Mock
 import           HelVM.HelMA.Automaton.Types.StackType
 
 import           HelVM.HelIO.CartesianProduct

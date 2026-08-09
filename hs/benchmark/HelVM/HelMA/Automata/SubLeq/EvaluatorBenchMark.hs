@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark where
 import           HelVM.HelMA.Automata.SubLeq.Evaluator
 import           HelVM.HelMA.Automata.SubLeq.FileExtra
 
-import           HelVM.HelMA.Automaton.Eff.MockEff
+import           HelVM.HelMA.Automaton.Eff.Mock
 import           HelVM.HelMA.Automaton.Types.RAMType
 
 import           Gauge.Main

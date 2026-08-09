@@ -5,7 +5,7 @@ import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.FileExtra
 import           HelVM.HelMA.Automata.ETA.SimpleParams
 
-import           HelVM.HelMA.Automaton.Eff.MockEff
+import           HelVM.HelMA.Automaton.Eff.Mock
 import           HelVM.HelMA.Automaton.Types.StackType
 
 import           HelVM.HelIO.CartesianProduct

@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automaton.Eff.FreeEffSpec (spec) where
 
 import           HelVM.HelMA.Automaton.Eff.FreeEff
-import           HelVM.HelMA.Automaton.Eff.MockEff
+import           HelVM.HelMA.Automaton.Eff.Mock
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           Test.Hspec                         (Spec, describe, it)
@@ -20,19 +20,19 @@ wFilterIf0 = do
 spec :: Spec
 spec = do
   describe "Test WFilter0" $ do
-    let mockIO = execMockEffWithInput "qwerty0uiop" wFilterIf0
+    let mockEff = execMockEffWithInput "qwerty0uiop" wFilterIf0
     forM_
       [ ("Test WFilterIf0 with calculateOutput" , calculateOutput , "qwerty\n")
       , ("Test WFilterIf0 with calculateLogsWithLevelDebug" , calculateLogsWithLevelDebug , ""      )
       ] $ \(name , action , output) ->
-      it name $ action mockIO `shouldBe` output
+      it name $ action mockEff `shouldBe` output
   describe "Test Free WFilter0" $ do
-    let mockIO = execMockEffWithInput "qwerty0uiop" $ interpretFreeEffDebug wFilterIf0
+    let mockEff = execMockEffWithInput "qwerty0uiop" $ interpretFreeEffDebug wFilterIf0
     forM_
       [ ("Test Free WFilterIf0 with calculateOutput" , calculateOutput , "qwerty\n"       )
       , ("Test Free WFilterIf0 with calculateLogsWithLevelDebug" , calculateLogsWithLevelDebug , debugLogs)
       ] $ \(name , action , output) ->
-      it name $ action mockIO `shouldBe` output
+      it name $ action mockEff `shouldBe` output
 
 debugLogs :: Text
 debugLogs =

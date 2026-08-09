@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.Rev.EvaluatorSpec (spec) where
 import           HelVM.HelMA.Automata.Rev.Evaluator
 
 import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.Eff.MockEff
+import           HelVM.HelMA.Automaton.Eff.Mock
 
 import           Test.Hspec                         (Spec, describe, it)
 import           Test.Hspec.Expectations.Pretty

@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.LazyK.EvaluatorSpec where
 import           HelVM.HelMA.Automata.LazyK.Evaluator
 import           HelVM.HelMA.Automata.LazyK.FileExtra
 
-import           HelVM.HelMA.Automaton.Eff.MockEff
+import           HelVM.HelMA.Automaton.Eff.Mock
 
 import           HelVM.HelIO.CartesianProduct
 

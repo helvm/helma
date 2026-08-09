@@ -5,7 +5,7 @@ import           HelVM.HelMA.Automata.BrainFuck.FileExtra
 
 import           HelVM.HelMA.Automata.BrainFuck.API.ImplType
 
-import           HelVM.HelMA.Automaton.Eff.MockEff
+import           HelVM.HelMA.Automaton.Eff.Mock
 import           HelVM.HelMA.Automaton.Types.CellType
 
 import           HelVM.HelIO.CartesianProduct

@@ -114,7 +114,7 @@ Use optparse-applicative for CLI better
 * Remove `MonoTraversable`
 * Add `Free` Monad
 * Add `DumpType` switch
-* Remove `error` from `MockIO`
+* Remove `error` from `MockEff`
 
 ## 0.6.15.0 -- 2022-01-30
 * Add Common Instruction List
@@ -196,7 +196,7 @@ Use optparse-applicative for CLI better
 
 ## 0.4.0.0  -- 2020-06-22
 * Add `Automaton` of BrainFuck and WhiteSpace
-* Add `WrapperIO`, `FilterIf0`, `MockIO` and tests for `FilterIf0`
+* Add `WrapperIO`, `FilterIf0`, `MockEff` and tests for `FilterIf0`
 
 ## 0.3.0.0  -- 2020-05-30
 

@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.Piet.EvaluatorSpec (spec) where
 import           HelVM.HelMA.Automata.Piet.Evaluator
 import           HelVM.HelMA.Automata.Piet.FileExtra
 
-import           HelVM.HelMA.Automaton.Eff.MockEff
+import           HelVM.HelMA.Automaton.Eff.Mock
 
 import           HelVM.HelIO.CartesianProduct
 
