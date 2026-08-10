@@ -130,6 +130,7 @@ library
 
     HelVM.HelMA.Automaton.Eff.AutomatonEff
     HelVM.HelMA.Automaton.Eff.FreeEff
+    HelVM.HelMA.Automaton.Eff.GADTEff
     HelVM.HelMA.Automaton.Eff.Mock
     HelVM.HelMA.Automaton.Eff.MockEff
     HelVM.HelMA.Automaton.Eff.MockLogger
@@ -331,6 +332,7 @@ test-suite helma-test
 
     HelVM.HelMA.Automaton.API.AutoOptionsExtra
     HelVM.HelMA.Automaton.Eff.FreeEffSpec
+    HelVM.HelMA.Automaton.Eff.GADTEffSpec
     HelVM.HelMA.Automaton.OptimizerSpec
 
     HelVM.HelMA.Automata.FileExtra
