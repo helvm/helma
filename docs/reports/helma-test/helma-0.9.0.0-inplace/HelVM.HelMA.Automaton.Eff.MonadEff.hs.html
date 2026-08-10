@@ -60,7 +60,7 @@ span.spaces    { background: white }
 <span class="lineno">   41 </span>  getChar         :: m Char
 <span class="lineno">   42 </span>  getLine         :: m Text
 <span class="lineno">   43 </span>  putChar         :: Char -&gt; m ()
-<span class="lineno">   44 </span>  putTextEff      :: Text -&gt; m ()
+<span class="lineno">   44 </span>  putLine         :: Text -&gt; m ()
 <span class="lineno">   45 </span>
 <span class="lineno">   46 </span>  flush           :: m ()
 <span class="lineno">   47 </span>
@@ -70,7 +70,7 @@ span.spaces    { background: white }
 <span class="lineno">   51 </span>  <span class="decl"><span class="istickedoff">getDecAs       = fromIntegral &lt;$&gt; getDecAsInt</span></span>
 <span class="lineno">   52 </span>
 <span class="lineno">   53 </span>  <span class="decl"><span class="istickedoff">putIntAsChar   = putChar . chr</span></span>
-<span class="lineno">   54 </span>  <span class="decl"><span class="istickedoff">putIntAsDec    = putTextEff . show</span></span>
+<span class="lineno">   54 </span>  <span class="decl"><span class="istickedoff">putIntAsDec    = putLine . show</span></span>
 <span class="lineno">   55 </span>  <span class="decl"><span class="istickedoff">getCharAsInt   = ord &lt;$&gt; getChar</span></span>
 <span class="lineno">   56 </span>  <span class="decl"><span class="istickedoff">getDecAsInt    = readTextUnsafe &lt;$&gt; getLine</span></span>
 <span class="lineno">   57 </span>
@@ -82,7 +82,7 @@ span.spaces    { background: white }
 <span class="lineno">   63 </span>  <span class="decl"><span class="nottickedoff">getChar         = IO.getChar</span></span>
 <span class="lineno">   64 </span>  <span class="decl"><span class="nottickedoff">getLine         = Prelude.getLine</span></span>
 <span class="lineno">   65 </span>  <span class="decl"><span class="nottickedoff">putChar         = IO.putChar</span></span>
-<span class="lineno">   66 </span>  <span class="decl"><span class="nottickedoff">putTextEff      = Prelude.putText</span></span>
+<span class="lineno">   66 </span>  <span class="decl"><span class="nottickedoff">putLine         = Prelude.putText</span></span>
 <span class="lineno">   67 </span>  <span class="decl"><span class="nottickedoff">flush           = flushIO</span></span>
 <span class="lineno">   68 </span>
 <span class="lineno">   69 </span>instance {-# OVERLAPPABLE #-} <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">(MonadTrans t, Monad m, MonadEff m) =&gt; MonadEff (t m)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
@@ -91,7 +91,7 @@ span.spaces    { background: white }
 <span class="lineno">   72 </span>  <span class="decl"><span class="nottickedoff">getChar         = lift getChar</span></span>
 <span class="lineno">   73 </span>  <span class="decl"><span class="nottickedoff">getLine         = lift getLine</span></span>
 <span class="lineno">   74 </span>  <span class="decl"><span class="nottickedoff">putChar         = lift . putChar</span></span>
-<span class="lineno">   75 </span>  <span class="decl"><span class="nottickedoff">putTextEff      = lift . putTextEff</span></span>
+<span class="lineno">   75 </span>  <span class="decl"><span class="nottickedoff">putLine         = lift . putLine</span></span>
 <span class="lineno">   76 </span>  <span class="decl"><span class="nottickedoff">flush           = lift flush</span></span>
 <span class="lineno">   77 </span>
 <span class="lineno">   78 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">RIO.HasLogFunc env =&gt; MonadEff (RIO.RIO env)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
@@ -100,7 +100,7 @@ span.spaces    { background: white }
 <span class="lineno">   81 </span>  <span class="decl"><span class="nottickedoff">getChar         = liftIO IO.getChar</span></span>
 <span class="lineno">   82 </span>  <span class="decl"><span class="nottickedoff">getLine         = liftIO Prelude.getLine</span></span>
 <span class="lineno">   83 </span>  <span class="decl"><span class="nottickedoff">putChar         = liftIO . IO.putChar</span></span>
-<span class="lineno">   84 </span>  <span class="decl"><span class="nottickedoff">putTextEff      = liftIO . Prelude.putText</span></span>
+<span class="lineno">   84 </span>  <span class="decl"><span class="nottickedoff">putLine         = liftIO . Prelude.putText</span></span>
 <span class="lineno">   85 </span>  <span class="decl"><span class="nottickedoff">flush           = liftIO flushIO</span></span>
 <span class="lineno">   86 </span>
 <span class="lineno">   87 </span>---- Internal

@@ -7,7 +7,7 @@ module HelVM.HelMA.Automaton.Eff.MockEff (
   mockGetCharSafe,
   mockGetLineSafe,
   mockPutChar,
-  mockPutText,
+  mockPutLine,
 
   createMockEffData,
   reverseOutput,
@@ -61,8 +61,8 @@ mockGetLineSafe = mockGetLineSafe' =<< get where
 mockPutChar :: MonadMockEff m => Char -> m ()
 mockPutChar = modify . mockDataPutChar
 
-mockPutText :: MonadMockEff m => Text -> m ()
-mockPutText = modify . mockDataPutText
+mockPutLine :: MonadMockEff m => Text -> m ()
+mockPutLine = modify . mockDataPutText
 
 ----
 

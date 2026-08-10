@@ -100,7 +100,7 @@ span.spaces    { background: white }
 <span class="lineno">   81 </span>  <span class="decl"><span class="istickedoff">getChar         = mockGetChar</span></span>
 <span class="lineno">   82 </span>  <span class="decl"><span class="nottickedoff">getLine         = mockGetLine</span></span>
 <span class="lineno">   83 </span>  <span class="decl"><span class="istickedoff">putChar         = mockPutChar</span></span>
-<span class="lineno">   84 </span>  <span class="decl"><span class="istickedoff">putTextEff      = mockPutText</span></span>
+<span class="lineno">   84 </span>  <span class="decl"><span class="istickedoff">putLine         = mockPutLine</span></span>
 <span class="lineno">   85 </span>
 <span class="lineno">   86 </span>instance <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">MonadEff (SafeT Mock)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
 <span class="lineno">   87 </span>  <span class="decl"><span class="istickedoff">getContentsBS   = mockGetContentsBS</span></span>
@@ -108,7 +108,7 @@ span.spaces    { background: white }
 <span class="lineno">   89 </span>  <span class="decl"><span class="istickedoff">getChar         = mockGetCharSafe</span></span>
 <span class="lineno">   90 </span>  <span class="decl"><span class="istickedoff">getLine         = mockGetLineSafe</span></span>
 <span class="lineno">   91 </span>  <span class="decl"><span class="istickedoff">putChar         = mockPutChar</span></span>
-<span class="lineno">   92 </span>  <span class="decl"><span class="istickedoff">putTextEff      = mockPutText</span></span>
+<span class="lineno">   92 </span>  <span class="decl"><span class="istickedoff">putLine         = mockPutLine</span></span>
 <span class="lineno">   93 </span>
 <span class="lineno">   94 </span>instance {-# OVERLAPPING #-} MonadLogger Mock where
 <span class="lineno">   95 </span>  <span class="decl"><span class="istickedoff">monadLoggerLog loc src level msg = mockLog $ MockLog loc src level $ toLogStr msg</span></span>

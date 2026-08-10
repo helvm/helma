@@ -28,7 +28,7 @@ interpretFreeEffFDebug (GetContentsText  cd) = cd <$> (logDebugN "GetContentsTex
 interpretFreeEffFDebug (GetChar          cd) = logAndCont =<< getChar where logAndCont c = logDebugN ("GetChar: " <> one c) $> cd c
 interpretFreeEffFDebug (GetLine          cd) = logAndCont =<< getLine where logAndCont l = logDebugN ("GetLine: " <>     l) $> cd l
 interpretFreeEffFDebug (PutChar        c v ) = logDebugN ("PutChar: " <> one c) *> putChar    c $> v
-interpretFreeEffFDebug (PutText        s v ) = logDebugN ("PutText: " <>     s) *> putTextEff s $> v
+interpretFreeEffFDebug (PutText        s v ) = logDebugN ("PutText: " <>     s) *> putLine s $> v
 interpretFreeEffFDebug (Flush            v ) = logDebugN "Flush"                *> flush        $> v
 
 interpretFreeEffF :: MonadEff m => FreeEffF a -> m a
@@ -37,7 +37,7 @@ interpretFreeEffF (GetContentsText  cd) = cd <$> getContentsText
 interpretFreeEffF (GetChar          cd) = cd <$> getChar
 interpretFreeEffF (GetLine          cd) = cd <$> getLine
 interpretFreeEffF (PutChar        c v ) = putChar      c $> v
-interpretFreeEffF (PutText        s v ) = putTextEff   s $> v
+interpretFreeEffF (PutText        s v ) = putLine   s $> v
 interpretFreeEffF (Flush            v ) = flush          $> v
 
 --------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ instance MonadEff FreeEff where
   getChar         = freeGetChar
   getLine         = freeGetLine
   putChar         = freePutChar
-  putTextEff      = freePutTextEff
+  putLine         = freePutLine
   flush           = freeFlush
 
 freeGetContentsBS :: FreeEff LByteString
@@ -66,8 +66,8 @@ freeGetLine = liftF $ GetLine id
 freePutChar :: Char -> FreeEff ()
 freePutChar = liftF . flip PutChar ()
 
-freePutTextEff :: Text -> FreeEff ()
-freePutTextEff = liftF . flip PutText ()
+freePutLine :: Text -> FreeEff ()
+freePutLine = liftF . flip PutText ()
 
 freeFlush :: FreeEff ()
 freeFlush = liftF $ Flush ()

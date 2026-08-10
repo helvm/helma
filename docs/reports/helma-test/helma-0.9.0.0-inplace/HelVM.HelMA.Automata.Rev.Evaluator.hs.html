@@ -56,7 +56,7 @@ span.spaces    { background: white }
 <span class="lineno">   37 </span><span class="decl"><span class="istickedoff">evalLines ll = doOutput $ unlines $ Text.reverse &lt;$&gt; ll</span></span>
 <span class="lineno">   38 </span>
 <span class="lineno">   39 </span>doOutput :: MonadEff m =&gt; Source -&gt; m ()
-<span class="lineno">   40 </span><span class="decl"><span class="istickedoff">doOutput = putTextEff</span></span>
+<span class="lineno">   40 </span><span class="decl"><span class="istickedoff">doOutput = putLine</span></span>
 
 </pre>
 </body>

@@ -67,7 +67,7 @@ span.spaces    { background: white }
 <span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug GetChar         = logAndCont =&lt;&lt; getChar where logAndCont c = logDebugN (&quot;GetChar: &quot; &lt;&gt; one c) $&gt; c</span>
 <span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug GetLine         = <span class="nottickedoff">logAndCont =&lt;&lt; getLine</span> where <span class="nottickedoff">logAndCont l = logDebugN (&quot;GetLine: &quot; &lt;&gt;     l) $&gt; l</span></span>
 <span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug (PutChar c)     = logDebugN (&quot;PutChar: &quot; &lt;&gt; one c) *&gt; putChar c</span>
-<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug (PutText s)     = <span class="nottickedoff">logDebugN (&quot;PutText: &quot; &lt;&gt;     s) *&gt; putTextEff s</span></span>
+<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug (PutText s)     = <span class="nottickedoff">logDebugN (&quot;PutText: &quot; &lt;&gt;     s) *&gt; putLine s</span></span>
 <span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug Flush           = <span class="nottickedoff">logDebugN &quot;Flush&quot;                *&gt; flush</span></span></span>
 <span class="lineno">   53 </span>
 <span class="lineno">   54 </span>interpretGADTEffF :: MonadEff m =&gt; GADTEffF a -&gt; m a
@@ -76,7 +76,7 @@ span.spaces    { background: white }
 <span class="lineno">   57 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF GetChar         = getChar</span>
 <span class="lineno">   58 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF GetLine         = getLine</span>
 <span class="lineno">   59 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF (PutChar c)     = putChar c</span>
-<span class="lineno">   60 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF (PutText s)     = putTextEff s</span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF (PutText s)     = putLine s</span>
 <span class="lineno">   61 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF Flush           = flush</span></span>
 <span class="lineno">   62 </span>
 <span class="lineno">   63 </span>--------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ span.spaces    { background: white }
 <span class="lineno">   68 </span>  <span class="decl"><span class="istickedoff">getChar         = gadtGetChar</span></span>
 <span class="lineno">   69 </span>  <span class="decl"><span class="nottickedoff">getLine         = gadtGetLine</span></span>
 <span class="lineno">   70 </span>  <span class="decl"><span class="istickedoff">putChar         = gadtPutChar</span></span>
-<span class="lineno">   71 </span>  <span class="decl"><span class="nottickedoff">putTextEff      = gadtPutTextEff</span></span>
+<span class="lineno">   71 </span>  <span class="decl"><span class="nottickedoff">putLine         = gadtPutLine</span></span>
 <span class="lineno">   72 </span>  <span class="decl"><span class="nottickedoff">flush           = gadtFlush</span></span>
 <span class="lineno">   73 </span>
 <span class="lineno">   74 </span>gadtGetContentsBS :: GADTEff LByteString
@@ -105,8 +105,8 @@ span.spaces    { background: white }
 <span class="lineno">   86 </span>gadtPutChar :: Char -&gt; GADTEff ()
 <span class="lineno">   87 </span><span class="decl"><span class="istickedoff">gadtPutChar = liftF . PutChar</span></span>
 <span class="lineno">   88 </span>
-<span class="lineno">   89 </span>gadtPutTextEff :: Text -&gt; GADTEff ()
-<span class="lineno">   90 </span><span class="decl"><span class="nottickedoff">gadtPutTextEff = liftF . PutText</span></span>
+<span class="lineno">   89 </span>gadtPutLine :: Text -&gt; GADTEff ()
+<span class="lineno">   90 </span><span class="decl"><span class="nottickedoff">gadtPutLine = liftF . PutText</span></span>
 <span class="lineno">   91 </span>
 <span class="lineno">   92 </span>gadtFlush :: GADTEff ()
 <span class="lineno">   93 </span><span class="decl"><span class="nottickedoff">gadtFlush = liftF Flush</span></span>

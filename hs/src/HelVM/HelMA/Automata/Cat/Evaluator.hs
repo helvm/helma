@@ -27,4 +27,4 @@ evalParams :: AppEff m => EvalParams -> m ()
 evalParams = eval . source
 
 eval :: MonadEff m => Source -> m ()
-eval = putTextEff
+eval = putLine

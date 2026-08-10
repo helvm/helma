@@ -48,7 +48,7 @@ interpretGADTEffFDebug GetContentsText = logDebugN "GetContentsText" *> getConte
 interpretGADTEffFDebug GetChar         = logAndCont =<< getChar where logAndCont c = logDebugN ("GetChar: " <> one c) $> c
 interpretGADTEffFDebug GetLine         = logAndCont =<< getLine where logAndCont l = logDebugN ("GetLine: " <>     l) $> l
 interpretGADTEffFDebug (PutChar c)     = logDebugN ("PutChar: " <> one c) *> putChar c
-interpretGADTEffFDebug (PutText s)     = logDebugN ("PutText: " <>     s) *> putTextEff s
+interpretGADTEffFDebug (PutText s)     = logDebugN ("PutText: " <>     s) *> putLine s
 interpretGADTEffFDebug Flush           = logDebugN "Flush"                *> flush
 
 interpretGADTEffF :: MonadEff m => GADTEffF a -> m a
@@ -57,7 +57,7 @@ interpretGADTEffF GetContentsText = getContentsText
 interpretGADTEffF GetChar         = getChar
 interpretGADTEffF GetLine         = getLine
 interpretGADTEffF (PutChar c)     = putChar c
-interpretGADTEffF (PutText s)     = putTextEff s
+interpretGADTEffF (PutText s)     = putLine s
 interpretGADTEffF Flush           = flush
 
 --------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ instance MonadEff GADTEff where
   getChar         = gadtGetChar
   getLine         = gadtGetLine
   putChar         = gadtPutChar
-  putTextEff      = gadtPutTextEff
+  putLine         = gadtPutLine
   flush           = gadtFlush
 
 gadtGetContentsBS :: GADTEff LByteString
@@ -86,8 +86,8 @@ gadtGetLine = liftF GetLine
 gadtPutChar :: Char -> GADTEff ()
 gadtPutChar = liftF . PutChar
 
-gadtPutTextEff :: Text -> GADTEff ()
-gadtPutTextEff = liftF . PutText
+gadtPutLine :: Text -> GADTEff ()
+gadtPutLine = liftF . PutText
 
 gadtFlush :: GADTEff ()
 gadtFlush = liftF Flush

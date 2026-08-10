@@ -26,7 +26,7 @@ span.spaces    { background: white }
 <span class="lineno">    7 </span>  mockGetCharSafe,
 <span class="lineno">    8 </span>  mockGetLineSafe,
 <span class="lineno">    9 </span>  mockPutChar,
-<span class="lineno">   10 </span>  mockPutText,
+<span class="lineno">   10 </span>  mockPutLine,
 <span class="lineno">   11 </span>
 <span class="lineno">   12 </span>  createMockEffData,
 <span class="lineno">   13 </span>  reverseOutput,
@@ -80,8 +80,8 @@ span.spaces    { background: white }
 <span class="lineno">   61 </span>mockPutChar :: MonadMockEff m =&gt; Char -&gt; m ()
 <span class="lineno">   62 </span><span class="decl"><span class="istickedoff">mockPutChar = modify . mockDataPutChar</span></span>
 <span class="lineno">   63 </span>
-<span class="lineno">   64 </span>mockPutText :: MonadMockEff m =&gt; Text -&gt; m ()
-<span class="lineno">   65 </span><span class="decl"><span class="istickedoff">mockPutText = modify . mockDataPutText</span></span>
+<span class="lineno">   64 </span>mockPutLine :: MonadMockEff m =&gt; Text -&gt; m ()
+<span class="lineno">   65 </span><span class="decl"><span class="istickedoff">mockPutLine = modify . mockDataPutText</span></span>
 <span class="lineno">   66 </span>
 <span class="lineno">   67 </span>----
 <span class="lineno">   68 </span>
