@@ -1,5 +1,5 @@
 {-# LANGUAGE GeneralisedNewtypeDeriving #-}
- 
+
 module HelVM.HelMA.Automaton.Eff.Mock (
   ioExecMockEffBatch,
   ioExecMockEffWithInput,

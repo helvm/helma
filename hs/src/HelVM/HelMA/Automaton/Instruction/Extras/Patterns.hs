@@ -48,6 +48,9 @@ pattern CopyIP i = ISM (SPure (Indexed (IImmediate i) Copy))
 pattern MoveIP :: ImmediateIndex -> Instruction
 pattern MoveIP i = ISM (SPure (Indexed (IImmediate i) Move))
 
+pattern AddIP :: Integer -> Instruction
+pattern AddIP i = ISM (SPure (Unary (UImmediate i Add)))
+
 pattern BinaryP :: BinaryOperation -> Instruction
 pattern BinaryP op = ISM (SPure (Binary op))
 

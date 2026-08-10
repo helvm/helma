@@ -36,6 +36,7 @@ peepholeOptimize2 = fix optimize where
   optimize f (ConsP 0 : MoveIP i : SubP : SubP : il) = moveAdd i                     <> f il
   optimize f (BNeIP i : SubP                   : il) = [bNeII i , discardI]          <> f il
   optimize f (ConsP d : LoadDP s : StoreP      : il) = optimizeMoveD s d              : f il
+  optimize f (AddIP i1 : AddIP i2              : il) = optimizeAddIP i1 i2            : f il
   optimize f (i                                : il) = i                              : f il
   optimize _                                     []  = []
 
@@ -92,3 +93,6 @@ optimizeLoadD = loadDI . fromIntegral
 
 optimizeMoveD :: ImmediateIndex -> Integer -> Instruction
 optimizeMoveD s d = moveDI s (fromIntegral d)
+
+optimizeAddIP :: Integer -> Integer -> Instruction
+optimizeAddIP i1 i2 = immediateBinaryI (i1 + i2) Add

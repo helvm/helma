@@ -29,8 +29,7 @@ markA "01"
 moved 5 3
 cons 3
 loadd 3
-addI 16777215
-addI 16777216
+addI 33554431
 modI 16777216
 store
 loadd 3
@@ -51,8 +50,7 @@ storeid 0 0
 moved 4 1
 cons 1
 loadd 1
-addI 16777215
-addI 16777216
+addI 33554431
 modI 16777216
 store
 loadd 1
@@ -64,8 +62,7 @@ markA "010"
 moved 4 1
 cons 1
 loadd 1
-addI 16777215
-addI 16777216
+addI 33554431
 modI 16777216
 store
 cons 0
@@ -103,8 +100,7 @@ markA "0101"
 moved 4 1
 cons 1
 loadd 1
-addI 16777215
-addI 16777216
+addI 33554431
 modI 16777216
 store
 cons 0
@@ -121,8 +117,7 @@ store
 moved 5 3
 cons 3
 loadd 3
-addI 16777215
-addI 16777216
+addI 33554431
 modI 16777216
 store
 loadd 3
@@ -134,8 +129,7 @@ loadd 0
 outputCS
 cons 5
 loadd 5
-addI 1
-addI 16777216
+addI 16777217
 modI 16777216
 store
 
@@ -143,8 +137,7 @@ markA "0110"
 moved 4 1
 cons 1
 loadd 1
-addI 16777215
-addI 16777216
+addI 33554431
 modI 16777216
 store
 cons 0
@@ -155,8 +148,7 @@ store
 moved 5 3
 cons 3
 loadd 3
-addI 16777215
-addI 16777216
+addI 33554431
 modI 16777216
 store
 loadd 3
@@ -166,15 +158,13 @@ store
 moved 3 5
 cons 0
 loadd 0
-addI 1
-addI 16777216
+addI 16777217
 modI 16777216
 store
 moved 4 1
 cons 1
 loadd 1
-addI 16777215
-addI 16777216
+addI 33554431
 modI 16777216
 store
 loadd 1
@@ -188,8 +178,7 @@ load
 store
 cons 5
 loadd 5
-addI 1
-addI 16777216
+addI 16777217
 modI 16777216
 store
 jumpA "010"
