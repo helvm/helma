@@ -8,19 +8,19 @@ module HelVM.HelMA.Automaton.Eff.FreeEff (
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           Control.Monad.Free
+import           Control.Monad.Free.Church          (F, foldF, liftF)
 import           Control.Monad.Logger
 
-
 import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
+--------------------------------------------------------------------------------
 
-interpretFreeEffDebug :: MonadLoggerEff m  => FreeEff a -> m a
-interpretFreeEffDebug = foldFree interpretFreeEffFDebug
+interpretFreeEffDebug :: MonadLoggerEff m => FreeEff a -> m a
+interpretFreeEffDebug = foldF interpretFreeEffFDebug
 
 interpretFreeEff :: MonadEff m => FreeEff a -> m a
-interpretFreeEff = foldFree interpretFreeEffF
+interpretFreeEff = foldF interpretFreeEffF
 
-----
+--------------------------------------------------------------------------------
 
 interpretFreeEffFDebug :: MonadLoggerEff m => FreeEffF a -> m a
 interpretFreeEffFDebug (GetContentsBS    cd) = cd <$> (logDebugN "GetContentsBS"   *> getContentsBS)
@@ -40,7 +40,8 @@ interpretFreeEffF (PutChar        c v ) = putChar      c $> v
 interpretFreeEffF (PutText        s v ) = putTextEff   s $> v
 interpretFreeEffF (Flush            v ) = flush          $> v
 
--- | Instances
+--------------------------------------------------------------------------------
+
 instance MonadEff FreeEff where
   getContentsBS   = freeGetContentsBS
   getContentsText = freeGetContentsText
@@ -50,7 +51,6 @@ instance MonadEff FreeEff where
   putTextEff      = freePutTextEff
   flush           = freeFlush
 
--- | Low level functions
 freeGetContentsBS :: FreeEff LByteString
 freeGetContentsBS = liftF $ GetContentsBS id
 
@@ -72,8 +72,9 @@ freePutTextEff = liftF . flip PutText ()
 freeFlush :: FreeEff ()
 freeFlush = liftF $ Flush ()
 
--- | Types
-type FreeEff = Free FreeEffF
+--------------------------------------------------------------------------------
+
+type FreeEff = F FreeEffF
 
 data FreeEffF a
  = GetContentsBS             (LByteString -> a)
