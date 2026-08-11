@@ -11,30 +11,30 @@ showEitherTextLogLevel (Right l) = show l
 showEitherTextLogLevel (Left t)  = show t
 
 fromLogger :: Logger.LogLevel -> Either Text LogLevel
-fromLogger Logger.LevelDebug     = Right Debug
-fromLogger Logger.LevelInfo      = Right Info
-fromLogger Logger.LevelWarn      = Right Warn
 fromLogger Logger.LevelError     = Right Error
+fromLogger Logger.LevelWarn      = Right Warn
+fromLogger Logger.LevelInfo      = Right Info
+fromLogger Logger.LevelDebug     = Right Debug
 fromLogger (Logger.LevelOther t) = Left t
 
 fromRio :: RIO.LogLevel -> Either Text LogLevel
-fromRio RIO.LevelDebug     = Right Debug
-fromRio RIO.LevelInfo      = Right Info
-fromRio RIO.LevelWarn      = Right Warn
 fromRio RIO.LevelError     = Right Error
+fromRio RIO.LevelWarn      = Right Warn
+fromRio RIO.LevelInfo      = Right Info
+fromRio RIO.LevelDebug     = Right Debug
 fromRio (RIO.LevelOther t) = Left t
 
 toLogger :: LogLevel -> Logger.LogLevel
-toLogger Debug = Logger.LevelDebug
-toLogger Info  = Logger.LevelInfo
-toLogger Warn  = Logger.LevelWarn
 toLogger Error = Logger.LevelError
+toLogger Warn  = Logger.LevelWarn
+toLogger Info  = Logger.LevelInfo
+toLogger Debug = Logger.LevelDebug
 
 toRio :: LogLevel -> RIO.LogLevel
-toRio Debug = RIO.LevelDebug
-toRio Info  = RIO.LevelInfo
-toRio Warn  = RIO.LevelWarn
 toRio Error = RIO.LevelError
+toRio Warn  = RIO.LevelWarn
+toRio Info  = RIO.LevelInfo
+toRio Debug = RIO.LevelDebug
 
 defaultLogLevel :: LogLevel
 defaultLogLevel = def
@@ -43,10 +43,10 @@ logLevels :: NonEmpty LogLevel
 logLevels = universeNonEmpty
 
 data LogLevel =
-    Debug
-  | Info
+    Error
   | Warn
-  | Error
+  | Info
+  | Debug
   deriving stock (Bounded , Enum , Eq , Ord, Read , Show)
 
 instance Default LogLevel where

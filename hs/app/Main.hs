@@ -29,7 +29,7 @@ main = do
   opts     <- execParser (optsInfo progName)
   hSetBuffering stdout IO.NoBuffering
   logOptions <- RIO.logOptionsHandle stderr True
-  RIO.withLogFunc logOptions (runApp opts)
+  RIO.withLogFunc (setLogMinLevel opts logOptions) (runApp opts)
   exitSuccess
 
 setLogMinLevel :: App.AppOptions -> RIO.LogOptions -> RIO.LogOptions
