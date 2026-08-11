@@ -8,8 +8,8 @@ import           Data.Default
 
 import           HelVM.HelIO.Containers.MTIndexSafe
 
-logLevelFromCount ∷ Int → LogLevel
-logLevelFromCount = fromMaybe maxBound . indexMaybe (toList logLevels)
+logLevelFromInt ∷ Int → LogLevel
+logLevelFromInt = fromInt logLevels
 
 showEitherTextLogLevel ∷ Either Text LogLevel → Text
 showEitherTextLogLevel (Right l) = show l
@@ -56,3 +56,8 @@ data LogLevel
 
 instance Default LogLevel where
   def = minBound
+
+----
+
+fromInt ∷ (Bounded a, Foldable t) ⇒ t a → Int → a
+fromInt l i = fromMaybe maxBound $ indexMaybe (toList l) i

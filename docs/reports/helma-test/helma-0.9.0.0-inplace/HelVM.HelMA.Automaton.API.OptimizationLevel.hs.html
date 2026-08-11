@@ -23,11 +23,11 @@ span.spaces    { background: white }
 <span class="lineno">    4 </span>
 <span class="lineno">    5 </span>-- | Constructors
 <span class="lineno">    6 </span>
-<span class="lineno">    7 </span>fromNatural ∷ Natural → OptimizationLevel
-<span class="lineno">    8 </span><span class="decl"><span class="nottickedoff">fromNatural = fromInt . fromIntegral</span></span>
+<span class="lineno">    7 </span>optimizationLevelFromNatural ∷ Natural → OptimizationLevel
+<span class="lineno">    8 </span><span class="decl"><span class="nottickedoff">optimizationLevelFromNatural = optimizationLevelFromInt . fromIntegral</span></span>
 <span class="lineno">    9 </span>
-<span class="lineno">   10 </span>fromInt ∷ Int → OptimizationLevel
-<span class="lineno">   11 </span><span class="decl"><span class="nottickedoff">fromInt = fromMaybe maxBound . indexMaybe (toList optimizationLevels)</span></span>
+<span class="lineno">   10 </span>optimizationLevelFromInt ∷ Int → OptimizationLevel
+<span class="lineno">   11 </span><span class="decl"><span class="nottickedoff">optimizationLevelFromInt = fromInt optimizationLevels</span></span>
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>defaultOptimizationLevel ∷ OptimizationLevel
 <span class="lineno">   14 </span><span class="decl"><span class="nottickedoff">defaultOptimizationLevel = minBound</span></span>
@@ -43,6 +43,11 @@ span.spaces    { background: white }
 <span class="lineno">   24 </span>  | SomeOptimizations
 <span class="lineno">   25 </span>  | AllOptimizations
 <span class="lineno">   26 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>----
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>fromInt ∷ (Bounded a, Foldable t) ⇒ t a → Int → a
+<span class="lineno">   31 </span><span class="decl"><span class="nottickedoff">fromInt l i = fromMaybe maxBound $ indexMaybe (toList l) i</span></span>
 
 </pre>
 </body>

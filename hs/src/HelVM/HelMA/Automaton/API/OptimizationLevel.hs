@@ -4,11 +4,11 @@ import           HelVM.HelIO.Containers.MTIndexSafe
 
 -- | Constructors
 
-fromNatural ∷ Natural → OptimizationLevel
-fromNatural = fromInt . fromIntegral
+optimizationLevelFromNatural ∷ Natural → OptimizationLevel
+optimizationLevelFromNatural = optimizationLevelFromInt . fromIntegral
 
-fromInt ∷ Int → OptimizationLevel
-fromInt = fromMaybe maxBound . indexMaybe (toList optimizationLevels)
+optimizationLevelFromInt ∷ Int → OptimizationLevel
+optimizationLevelFromInt = fromInt optimizationLevels
 
 defaultOptimizationLevel ∷ OptimizationLevel
 defaultOptimizationLevel = minBound
@@ -24,3 +24,8 @@ data OptimizationLevel
   | SomeOptimizations
   | AllOptimizations
   deriving stock (Bounded, Enum, Eq, Read, Show)
+
+----
+
+fromInt ∷ (Bounded a, Foldable t) ⇒ t a → Int → a
+fromInt l i = fromMaybe maxBound $ indexMaybe (toList l) i

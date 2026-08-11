@@ -58,7 +58,7 @@ logLevelParser = explicitVerbosity <|> countedVerbosity <|> pure defaultLogLevel
     <> metavar "[LogLevel]"
     <> help   ("Verbosity level " <> show logLevels)
     )
-  countedVerbosity = logLevelFromCount . olength <$> many parseV where
+  countedVerbosity = logLevelFromInt . olength <$> many parseV where
     parseV = flag' ()
       (  short   'v'
       <> help    "Increase verbosity level (can be repeated, e.g. -vvv)"
@@ -110,13 +110,13 @@ autoOptionsParser = AutoOptions
 
 optLevelParser ∷ Parser OptimizationLevel
 optLevelParser = explicitOpt <|> countedOpt <|> pure defaultOptimizationLevel where
-  explicitOpt = fromNatural <$> option auto
+  explicitOpt = optimizationLevelFromNatural <$> option auto
     (  long    "optimize"
     <> short   'O'
     <> metavar "[Natural]"
     <> help   ("Optimization level " <> show optimizationLevels)
     )
-  countedOpt = fromInt . olength <$> many parseO where
+  countedOpt = optimizationLevelFromInt . olength <$> many parseO where
     parseO = flag' ()
       (  short   'O'
       <> help    "Increase optimization level (can be repeated, e.g. -OOOO)"
