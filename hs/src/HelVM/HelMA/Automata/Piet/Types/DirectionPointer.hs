@@ -16,5 +16,9 @@ addCoordinates DPUp    (x, y) = (x, y - 1)
 rotate ∷ Int → DirectionPointer → DirectionPointer
 rotate = change 4
 
-data DirectionPointer = DPRight | DPDown | DPLeft | DPUp
+data DirectionPointer
+  = DPRight
+  | DPDown
+  | DPLeft
+  | DPUp
   deriving stock (Bounded, Enum, Eq, Ord, Read, Show)

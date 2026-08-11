@@ -27,40 +27,43 @@ span.spaces    { background: white }
 <span class="lineno">    8 </span>
 <span class="lineno">    9 </span>import qualified Text.Show
 <span class="lineno">   10 </span>
-<span class="lineno">   11 </span>data Token = S | T | N
-<span class="lineno">   12 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   13 </span>
-<span class="lineno">   14 </span>type TokenList = [Token]
-<span class="lineno">   15 </span>type TokenSList = SList Token
+<span class="lineno">   11 </span>data Token
+<span class="lineno">   12 </span>  = S
+<span class="lineno">   13 </span>  | T
+<span class="lineno">   14 </span>  | N
+<span class="lineno">   15 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Show</span></span></span></span></span></span>)
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>instance ToDigit Token where
-<span class="lineno">   18 </span>  <span class="decl"><span class="istickedoff">toDigit S = pure 0</span>
-<span class="lineno">   19 </span><span class="spaces">  </span><span class="istickedoff">toDigit T = pure 1</span>
-<span class="lineno">   20 </span><span class="spaces">  </span><span class="istickedoff">toDigit t = <span class="nottickedoff">liftErrorWithPrefix &quot;Wrong token&quot; $ show t</span></span></span>
-<span class="lineno">   21 </span>
-<span class="lineno">   22 </span>----
-<span class="lineno">   23 </span>
-<span class="lineno">   24 </span>newtype WhiteToken
-<span class="lineno">   25 </span>  = WhiteToken { <span class="istickedoff"><span class="decl"><span class="istickedoff">unWhiteToken</span></span></span> :: Token }
-<span class="lineno">   26 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>)
-<span class="lineno">   27 </span>
-<span class="lineno">   28 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show WhiteToken</span></span></span></span> where
-<span class="lineno">   29 </span>  <span class="decl"><span class="istickedoff">show (WhiteToken S) = &quot; &quot;</span>
-<span class="lineno">   30 </span><span class="spaces">  </span><span class="istickedoff">show (WhiteToken T) = &quot;\t&quot;</span>
-<span class="lineno">   31 </span><span class="spaces">  </span><span class="istickedoff">show (WhiteToken N) = &quot;\n&quot;</span></span>
-<span class="lineno">   32 </span>
-<span class="lineno">   33 </span>-- | Scanner
-<span class="lineno">   34 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Read WhiteToken</span></span></span></span></span></span> where
-<span class="lineno">   35 </span>  <span class="decl"><span class="istickedoff">readsPrec _ &quot; &quot;  = [( WhiteToken S , &quot;&quot;)]</span>
-<span class="lineno">   36 </span><span class="spaces">  </span><span class="istickedoff">readsPrec _ &quot;\t&quot; = [( WhiteToken T , &quot;&quot;)]</span>
-<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">readsPrec _ &quot;\n&quot; = [( WhiteToken N , &quot;&quot;)]</span>
-<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">readsPrec _ _    = []</span></span>
-<span class="lineno">   39 </span>
-<span class="lineno">   40 </span>type WhiteTokenList = [WhiteToken]
-<span class="lineno">   41 </span>
-<span class="lineno">   42 </span>whiteTokenListToTokenList ∷ WhiteTokenList → TokenList
-<span class="lineno">   43 </span><span class="decl"><span class="istickedoff">whiteTokenListToTokenList = fmap unWhiteToken</span></span>
+<span class="lineno">   17 </span>type TokenList = [Token]
+<span class="lineno">   18 </span>type TokenSList = SList Token
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>instance ToDigit Token where
+<span class="lineno">   21 </span>  <span class="decl"><span class="istickedoff">toDigit S = pure 0</span>
+<span class="lineno">   22 </span><span class="spaces">  </span><span class="istickedoff">toDigit T = pure 1</span>
+<span class="lineno">   23 </span><span class="spaces">  </span><span class="istickedoff">toDigit t = <span class="nottickedoff">liftErrorWithPrefix &quot;Wrong token&quot; $ show t</span></span></span>
+<span class="lineno">   24 </span>
+<span class="lineno">   25 </span>----
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>newtype WhiteToken
+<span class="lineno">   28 </span>  = WhiteToken { <span class="istickedoff"><span class="decl"><span class="istickedoff">unWhiteToken</span></span></span> :: Token }
+<span class="lineno">   29 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>)
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show WhiteToken</span></span></span></span> where
+<span class="lineno">   32 </span>  <span class="decl"><span class="istickedoff">show (WhiteToken S) = &quot; &quot;</span>
+<span class="lineno">   33 </span><span class="spaces">  </span><span class="istickedoff">show (WhiteToken T) = &quot;\t&quot;</span>
+<span class="lineno">   34 </span><span class="spaces">  </span><span class="istickedoff">show (WhiteToken N) = &quot;\n&quot;</span></span>
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>-- | Scanner
+<span class="lineno">   37 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Read WhiteToken</span></span></span></span></span></span> where
+<span class="lineno">   38 </span>  <span class="decl"><span class="istickedoff">readsPrec _ &quot; &quot;  = [( WhiteToken S , &quot;&quot;)]</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">readsPrec _ &quot;\t&quot; = [( WhiteToken T , &quot;&quot;)]</span>
+<span class="lineno">   40 </span><span class="spaces">  </span><span class="istickedoff">readsPrec _ &quot;\n&quot; = [( WhiteToken N , &quot;&quot;)]</span>
+<span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">readsPrec _ _    = []</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>type WhiteTokenList = [WhiteToken]
 <span class="lineno">   44 </span>
+<span class="lineno">   45 </span>whiteTokenListToTokenList ∷ WhiteTokenList → TokenList
+<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">whiteTokenListToTokenList = fmap unWhiteToken</span></span>
+<span class="lineno">   47 </span>
 
 </pre>
 </body>

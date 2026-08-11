@@ -1,6 +1,4 @@
 {-# LANGUAGE GeneralisedNewtypeDeriving #-}
-{-# LANGUAGE UnicodeSyntax              #-}
-
 module HelVM.HelMA.Automaton.Eff.Mock
   ( Mock (..)
   , MockEffData

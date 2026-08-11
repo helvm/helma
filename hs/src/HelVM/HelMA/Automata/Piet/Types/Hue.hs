@@ -8,5 +8,11 @@ import           HelVM.HelMA.Automata.Piet.Types.Extra
 hueChange ∷ Hue → Hue → Hue
 hueChange = changeDiff 6
 
-data Hue = Red | Yellow | Green | Cyan | Blue | Magenta
+data Hue
+  = Red
+  | Yellow
+  | Green
+  | Cyan
+  | Blue
+  | Magenta
   deriving stock (Bounded, Enum, Eq, Ord, Read, Show)

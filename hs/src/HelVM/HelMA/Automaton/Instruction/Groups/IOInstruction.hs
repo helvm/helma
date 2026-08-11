@@ -5,7 +5,11 @@ import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 
 -- TODO convert to (Output/Input) (Char/Dec)
 
-data IOInstruction = OutputChar | OutputDec | InputChar | InputDec
+data IOInstruction
+  = OutputChar
+  | OutputDec
+  | InputChar
+  | InputDec
   deriving stock (Eq, Read, Show)
 
 -- | Type Classes

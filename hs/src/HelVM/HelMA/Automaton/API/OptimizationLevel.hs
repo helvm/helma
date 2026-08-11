@@ -21,5 +21,9 @@ optimizationLevels = universeNonEmpty
 
 -- | Types
 
-data OptimizationLevel = NoOptimizations | BasicOptimizations | SomeOptimizations | AllOptimizations
+data OptimizationLevel
+  = NoOptimizations
+  | BasicOptimizations
+  | SomeOptimizations
+  | AllOptimizations
   deriving stock (Bounded, Enum, Eq, Read, Show)

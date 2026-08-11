@@ -8,7 +8,9 @@ defaultLexerType = def
 fileLexerTypes ∷ NonEmpty LexerType
 fileLexerTypes = universeNonEmpty
 
-data LexerType = JuicyPixels | NetPBM
+data LexerType
+  = JuicyPixels
+  | NetPBM
   deriving stock (Bounded, Enum, Eq, Read, Show)
 
 instance Default LexerType where

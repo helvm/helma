@@ -24,21 +24,25 @@ span.spaces    { background: white }
 <span class="lineno">    5 </span>
 <span class="lineno">    6 </span>-- TODO convert to (Output/Input) (Char/Dec)
 <span class="lineno">    7 </span>
-<span class="lineno">    8 </span>data IOInstruction = OutputChar | OutputDec | InputChar | InputDec
-<span class="lineno">    9 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   10 </span>
-<span class="lineno">   11 </span>-- | Type Classes
-<span class="lineno">   12 </span>
-<span class="lineno">   13 </span>instance PrintAsm IOInstruction where
-<span class="lineno">   14 </span>  <span class="decl"><span class="nottickedoff">printAsm = printIO</span></span>
-<span class="lineno">   15 </span>
-<span class="lineno">   16 </span>-- | Internal
-<span class="lineno">   17 </span>
-<span class="lineno">   18 </span>printIO ∷ IOInstruction → Text
-<span class="lineno">   19 </span><span class="decl"><span class="istickedoff">printIO OutputChar = &quot;outputC&quot;</span>
-<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">printIO OutputDec  = &quot;outputD&quot;</span>
-<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">printIO InputChar  = &quot;inputC&quot;</span>
-<span class="lineno">   22 </span><span class="spaces"></span><span class="istickedoff">printIO InputDec   = <span class="nottickedoff">&quot;inputD&quot;</span></span></span>
+<span class="lineno">    8 </span>data IOInstruction
+<span class="lineno">    9 </span>  = OutputChar
+<span class="lineno">   10 </span>  | OutputDec
+<span class="lineno">   11 </span>  | InputChar
+<span class="lineno">   12 </span>  | InputDec
+<span class="lineno">   13 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>-- | Type Classes
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>instance PrintAsm IOInstruction where
+<span class="lineno">   18 </span>  <span class="decl"><span class="nottickedoff">printAsm = printIO</span></span>
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>-- | Internal
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>printIO ∷ IOInstruction → Text
+<span class="lineno">   23 </span><span class="decl"><span class="istickedoff">printIO OutputChar = &quot;outputC&quot;</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">printIO OutputDec  = &quot;outputD&quot;</span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">printIO InputChar  = &quot;inputC&quot;</span>
+<span class="lineno">   26 </span><span class="spaces"></span><span class="istickedoff">printIO InputDec   = <span class="nottickedoff">&quot;inputD&quot;</span></span></span>
 
 </pre>
 </body>

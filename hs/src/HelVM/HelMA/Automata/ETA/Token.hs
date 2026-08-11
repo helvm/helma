@@ -8,7 +8,16 @@ import           Data.Vector               as Vector
 import qualified Text.Read
 import qualified Text.Show
 
-data Token = E | T | A | O | I | N | S | H | R
+data Token
+  = E
+  | T
+  | A
+  | O
+  | I
+  | N
+  | S
+  | H
+  | R
   deriving stock (Bounded, Enum, Eq, Read, Show)
 
 type TokenList   = [Token]

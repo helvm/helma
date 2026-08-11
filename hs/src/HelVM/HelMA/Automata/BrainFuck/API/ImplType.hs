@@ -8,5 +8,8 @@ implTypes ∷ NonEmpty ImplType
 implTypes = universeNonEmpty
 
 -- | Type
-data ImplType = FastType | TreeType | FlatType
+data ImplType
+  = FastType
+  | TreeType
+  | FlatType
   deriving stock (Bounded, Enum, Eq, Read, Show)

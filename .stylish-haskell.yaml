@@ -73,7 +73,8 @@ steps:
       # Wheter or not to break enums onto several lines
       #
       # Default: false
-      break_enums: false
+    #   break_enums: false
+      break_enums: true
   
       # Whether or not to break single constructor data types before `=` sign
       #
@@ -87,7 +88,8 @@ steps:
       # Instead of @allValues :: (Enum a, Bounded a) => Proxy a -> [a]@
       #
       # Default: false
-      curried_context: false
+    #   curried_context: false
+      curried_context: true
 
   # Align the right hand side of some elements.  This is quite conservative
   # and only applies to statements where each element occupies a single
@@ -159,7 +161,8 @@ steps:
       #   > import qualified Data.List      as List (init, last, length)
       #
       # Default: after_alias
-      list_align: after_alias
+    #   list_align: after_alias
+      list_align: new_line
 
       # Right-pad the module names to align imports in a group:
       #
@@ -201,7 +204,8 @@ steps:
       #   >     )
       #
       # Default: inline
-      long_list_align: inline
+    #   long_list_align: inline
+      long_list_align: multiline
 
       # Align empty list (importing instances)
       #
@@ -225,7 +229,8 @@ steps:
       #   Useful for 'file' and 'group' align settings.
       #
       # Default: 4
-      list_padding: 4
+    #   list_padding: 4
+      list_padding: 2
 
       # Separate lists option affects formatting of import list for type
       # or class. The only difference is single space between type and list

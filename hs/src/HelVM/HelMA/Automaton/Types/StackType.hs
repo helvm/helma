@@ -8,5 +8,8 @@ stackTypes ∷ NonEmpty StackType
 stackTypes = universeNonEmpty
 
 -- | Types
-data StackType = SeqStackType | SListStackType | ListStackType
+data StackType
+  = SeqStackType
+  | SListStackType
+  | ListStackType
   deriving stock (Bounded, Enum, Eq, Read, Show)

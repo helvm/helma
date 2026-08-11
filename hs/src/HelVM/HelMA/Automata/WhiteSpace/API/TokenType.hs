@@ -8,5 +8,7 @@ tokenTypes ∷ NonEmpty TokenType
 tokenTypes = universeNonEmpty
 
 -- | Types
-data TokenType = WhiteTokenType | VisibleTokenType
+data TokenType
+  = WhiteTokenType
+  | VisibleTokenType
   deriving stock (Bounded, Enum, Eq, Read, Show)

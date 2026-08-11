@@ -8,5 +8,10 @@ intCellTypes ∷ NonEmpty IntCellType
 intCellTypes = universeNonEmpty
 
 -- | Types
-data IntCellType = IntegerType | Int8Type | Int16Type | Int32Type | Int64Type
+data IntCellType
+  = IntegerType
+  | Int8Type
+  | Int16Type
+  | Int32Type
+  | Int64Type
   deriving stock (Bounded, Enum, Eq, Read, Show)

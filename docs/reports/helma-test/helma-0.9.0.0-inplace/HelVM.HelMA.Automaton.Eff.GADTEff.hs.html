@@ -19,109 +19,108 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>{-# LANGUAGE GADTs      #-}
 <span class="lineno">    2 </span>{-# LANGUAGE RankNTypes #-}
-<span class="lineno">    3 </span>
-<span class="lineno">    4 </span>module HelVM.HelMA.Automaton.Eff.GADTEff
-<span class="lineno">    5 </span>  ( GADTEff
-<span class="lineno">    6 </span>  , GADTEffF (..)
-<span class="lineno">    7 </span>  , interpretGADTEff
-<span class="lineno">    8 </span>  , interpretGADTEffDebug
-<span class="lineno">    9 </span>  ) where
-<span class="lineno">   10 </span>
-<span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Eff.MonadEff
-<span class="lineno">   12 </span>
-<span class="lineno">   13 </span>import           Control.Monad.Logger
-<span class="lineno">   14 </span>
-<span class="lineno">   15 </span>import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
-<span class="lineno">   16 </span>
-<span class="lineno">   17 </span>newtype GADTEff a
-<span class="lineno">   18 </span>  = GADTEff { <span class="istickedoff"><span class="decl"><span class="istickedoff">runGADTEff</span></span></span> :: forall m. Monad m =&gt; (forall x. GADTEffF x -&gt; m x) -&gt; m a }
-<span class="lineno">   19 </span>
-<span class="lineno">   20 </span>instance <span class="decl"><span class="nottickedoff">Functor GADTEff</span></span> where
-<span class="lineno">   21 </span>  <span class="decl"><span class="nottickedoff">fmap f m = GADTEff $ \k -&gt; fmap f (runGADTEff m k)</span></span>
-<span class="lineno">   22 </span>
-<span class="lineno">   23 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Applicative GADTEff</span></span></span></span></span></span> where
-<span class="lineno">   24 </span>  <span class="decl"><span class="nottickedoff">pure a  = GADTEff $ \_ -&gt; pure a</span></span>
-<span class="lineno">   25 </span>  <span class="decl"><span class="nottickedoff">f &lt;*&gt; a = GADTEff $ \k -&gt; runGADTEff f k &lt;*&gt; runGADTEff a k</span></span>
-<span class="lineno">   26 </span>
-<span class="lineno">   27 </span>instance <span class="decl"><span class="istickedoff">Monad GADTEff</span></span> where
-<span class="lineno">   28 </span>  <span class="decl"><span class="nottickedoff">return = pure</span></span>
-<span class="lineno">   29 </span>  <span class="decl"><span class="istickedoff">m &gt;&gt;= f = GADTEff $ \k -&gt; runGADTEff m k &gt;&gt;= \a -&gt; runGADTEff (f a) k</span></span>
-<span class="lineno">   30 </span>
-<span class="lineno">   31 </span>liftF ∷ GADTEffF a → GADTEff a
-<span class="lineno">   32 </span><span class="decl"><span class="istickedoff">liftF fa = GADTEff $ \k -&gt; k fa</span></span>
-<span class="lineno">   33 </span>
-<span class="lineno">   34 </span>--------------------------------------------------------------------------------
-<span class="lineno">   35 </span>-- Interpretacja
-<span class="lineno">   36 </span>
-<span class="lineno">   37 </span>interpretGADTEffDebug ∷ MonadLoggerEff m ⇒ GADTEff a → m a
-<span class="lineno">   38 </span><span class="decl"><span class="istickedoff">interpretGADTEffDebug eff = runGADTEff eff interpretGADTEffFDebug</span></span>
-<span class="lineno">   39 </span>
-<span class="lineno">   40 </span>interpretGADTEff ∷ MonadEff m ⇒ GADTEff a → m a
-<span class="lineno">   41 </span><span class="decl"><span class="nottickedoff">interpretGADTEff eff = runGADTEff eff interpretGADTEffF</span></span>
-<span class="lineno">   42 </span>
-<span class="lineno">   43 </span>--------------------------------------------------------------------------------
-<span class="lineno">   44 </span>-- Interpreter dla pojedynczych instrukcji (bez fmap/kontynuacji!)
-<span class="lineno">   45 </span>
-<span class="lineno">   46 </span>interpretGADTEffFDebug ∷ MonadLoggerEff m ⇒ GADTEffF a → m a
-<span class="lineno">   47 </span><span class="decl"><span class="istickedoff">interpretGADTEffFDebug GetContentsBS   = <span class="nottickedoff">logDebugN &quot;GetContentsBS&quot;   *&gt; getContentsBS</span></span>
-<span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug GetContentsText = <span class="nottickedoff">logDebugN &quot;GetContentsText&quot; *&gt; getContentsText</span></span>
-<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug GetChar         = logAndCont =&lt;&lt; getChar where logAndCont c = logDebugN (&quot;GetChar: &quot; &lt;&gt; one c) $&gt; c</span>
-<span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug GetLine         = <span class="nottickedoff">logAndCont =&lt;&lt; getLine</span> where <span class="nottickedoff">logAndCont l = logDebugN (&quot;GetLine: &quot; &lt;&gt;     l) $&gt; l</span></span>
-<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug (PutChar c)     = logDebugN (&quot;PutChar: &quot; &lt;&gt; one c) *&gt; putChar c</span>
-<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug (PutText s)     = <span class="nottickedoff">logDebugN (&quot;PutText: &quot; &lt;&gt;     s) *&gt; putLine s</span></span>
-<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug Flush           = <span class="nottickedoff">logDebugN &quot;Flush&quot;                *&gt; flush</span></span></span>
-<span class="lineno">   54 </span>
-<span class="lineno">   55 </span>interpretGADTEffF ∷ MonadEff m ⇒ GADTEffF a → m a
-<span class="lineno">   56 </span><span class="decl"><span class="nottickedoff">interpretGADTEffF GetContentsBS   = getContentsBS</span>
-<span class="lineno">   57 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF GetContentsText = getContentsText</span>
-<span class="lineno">   58 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF GetChar         = getChar</span>
-<span class="lineno">   59 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF GetLine         = getLine</span>
-<span class="lineno">   60 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF (PutChar c)     = putChar c</span>
-<span class="lineno">   61 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF (PutText s)     = putLine s</span>
-<span class="lineno">   62 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF Flush           = flush</span></span>
-<span class="lineno">   63 </span>
-<span class="lineno">   64 </span>--------------------------------------------------------------------------------
-<span class="lineno">   65 </span>
-<span class="lineno">   66 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadEff GADTEff</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
-<span class="lineno">   67 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = gadtGetContentsBS</span></span>
-<span class="lineno">   68 </span>  <span class="decl"><span class="nottickedoff">getContentsText = gadtGetContentsText</span></span>
-<span class="lineno">   69 </span>  <span class="decl"><span class="istickedoff">getChar         = gadtGetChar</span></span>
-<span class="lineno">   70 </span>  <span class="decl"><span class="nottickedoff">getLine         = gadtGetLine</span></span>
-<span class="lineno">   71 </span>  <span class="decl"><span class="istickedoff">putChar         = gadtPutChar</span></span>
-<span class="lineno">   72 </span>  <span class="decl"><span class="nottickedoff">putLine         = gadtPutLine</span></span>
-<span class="lineno">   73 </span>  <span class="decl"><span class="nottickedoff">flush           = gadtFlush</span></span>
-<span class="lineno">   74 </span>
-<span class="lineno">   75 </span>gadtGetContentsBS ∷ GADTEff LByteString
-<span class="lineno">   76 </span><span class="decl"><span class="nottickedoff">gadtGetContentsBS = liftF GetContentsBS</span></span>
-<span class="lineno">   77 </span>
-<span class="lineno">   78 </span>gadtGetContentsText ∷ GADTEff LText
-<span class="lineno">   79 </span><span class="decl"><span class="nottickedoff">gadtGetContentsText = liftF GetContentsText</span></span>
-<span class="lineno">   80 </span>
-<span class="lineno">   81 </span>gadtGetChar ∷ GADTEff Char
-<span class="lineno">   82 </span><span class="decl"><span class="istickedoff">gadtGetChar = liftF GetChar</span></span>
-<span class="lineno">   83 </span>
-<span class="lineno">   84 </span>gadtGetLine ∷ GADTEff Text
-<span class="lineno">   85 </span><span class="decl"><span class="nottickedoff">gadtGetLine = liftF GetLine</span></span>
-<span class="lineno">   86 </span>
-<span class="lineno">   87 </span>gadtPutChar ∷ Char → GADTEff ()
-<span class="lineno">   88 </span><span class="decl"><span class="istickedoff">gadtPutChar = liftF . PutChar</span></span>
-<span class="lineno">   89 </span>
-<span class="lineno">   90 </span>gadtPutLine ∷ Text → GADTEff ()
-<span class="lineno">   91 </span><span class="decl"><span class="nottickedoff">gadtPutLine = liftF . PutText</span></span>
-<span class="lineno">   92 </span>
-<span class="lineno">   93 </span>gadtFlush ∷ GADTEff ()
-<span class="lineno">   94 </span><span class="decl"><span class="nottickedoff">gadtFlush = liftF Flush</span></span>
-<span class="lineno">   95 </span>
-<span class="lineno">   96 </span>--------------------------------------------------------------------------------
-<span class="lineno">   97 </span>
-<span class="lineno">   98 </span>data GADTEffF a where
-<span class="lineno">   99 </span>  GetContentsBS :: GADTEffF LByteString
-<span class="lineno">  100 </span>  GetContentsText :: GADTEffF LText
-<span class="lineno">  101 </span>  GetChar :: GADTEffF Char
-<span class="lineno">  102 </span>  GetLine :: GADTEffF Text
-<span class="lineno">  103 </span>  PutChar :: Char -&gt; GADTEffF ()
-<span class="lineno">  104 </span>  PutText :: Text -&gt; GADTEffF ()
-<span class="lineno">  105 </span>  Flush :: GADTEffF ()
+<span class="lineno">    3 </span>module HelVM.HelMA.Automaton.Eff.GADTEff
+<span class="lineno">    4 </span>  ( GADTEff
+<span class="lineno">    5 </span>  , GADTEffF (..)
+<span class="lineno">    6 </span>  , interpretGADTEff
+<span class="lineno">    7 </span>  , interpretGADTEffDebug
+<span class="lineno">    8 </span>  ) where
+<span class="lineno">    9 </span>
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automaton.Eff.MonadEff
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import           Control.Monad.Logger
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>newtype GADTEff a
+<span class="lineno">   17 </span>  = GADTEff { <span class="istickedoff"><span class="decl"><span class="istickedoff">runGADTEff</span></span></span> :: forall m. Monad m =&gt; (forall x. GADTEffF x -&gt; m x) -&gt; m a }
+<span class="lineno">   18 </span>
+<span class="lineno">   19 </span>instance <span class="decl"><span class="nottickedoff">Functor GADTEff</span></span> where
+<span class="lineno">   20 </span>  <span class="decl"><span class="nottickedoff">fmap f m = GADTEff $ \k -&gt; fmap f (runGADTEff m k)</span></span>
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Applicative GADTEff</span></span></span></span></span></span> where
+<span class="lineno">   23 </span>  <span class="decl"><span class="nottickedoff">pure a  = GADTEff $ \_ -&gt; pure a</span></span>
+<span class="lineno">   24 </span>  <span class="decl"><span class="nottickedoff">f &lt;*&gt; a = GADTEff $ \k -&gt; runGADTEff f k &lt;*&gt; runGADTEff a k</span></span>
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>instance <span class="decl"><span class="istickedoff">Monad GADTEff</span></span> where
+<span class="lineno">   27 </span>  <span class="decl"><span class="nottickedoff">return = pure</span></span>
+<span class="lineno">   28 </span>  <span class="decl"><span class="istickedoff">m &gt;&gt;= f = GADTEff $ \k -&gt; runGADTEff m k &gt;&gt;= \a -&gt; runGADTEff (f a) k</span></span>
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>liftF ∷ GADTEffF a → GADTEff a
+<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">liftF fa = GADTEff $ \k -&gt; k fa</span></span>
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>--------------------------------------------------------------------------------
+<span class="lineno">   34 </span>-- Interpretacja
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>interpretGADTEffDebug ∷ MonadLoggerEff m ⇒ GADTEff a → m a
+<span class="lineno">   37 </span><span class="decl"><span class="istickedoff">interpretGADTEffDebug eff = runGADTEff eff interpretGADTEffFDebug</span></span>
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>interpretGADTEff ∷ MonadEff m ⇒ GADTEff a → m a
+<span class="lineno">   40 </span><span class="decl"><span class="nottickedoff">interpretGADTEff eff = runGADTEff eff interpretGADTEffF</span></span>
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>--------------------------------------------------------------------------------
+<span class="lineno">   43 </span>-- Interpreter dla pojedynczych instrukcji (bez fmap/kontynuacji!)
+<span class="lineno">   44 </span>
+<span class="lineno">   45 </span>interpretGADTEffFDebug ∷ MonadLoggerEff m ⇒ GADTEffF a → m a
+<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">interpretGADTEffFDebug GetContentsBS   = <span class="nottickedoff">logDebugN &quot;GetContentsBS&quot;   *&gt; getContentsBS</span></span>
+<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug GetContentsText = <span class="nottickedoff">logDebugN &quot;GetContentsText&quot; *&gt; getContentsText</span></span>
+<span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug GetChar         = logAndCont =&lt;&lt; getChar where logAndCont c = logDebugN (&quot;GetChar: &quot; &lt;&gt; one c) $&gt; c</span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug GetLine         = <span class="nottickedoff">logAndCont =&lt;&lt; getLine</span> where <span class="nottickedoff">logAndCont l = logDebugN (&quot;GetLine: &quot; &lt;&gt;     l) $&gt; l</span></span>
+<span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug (PutChar c)     = logDebugN (&quot;PutChar: &quot; &lt;&gt; one c) *&gt; putChar c</span>
+<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug (PutText s)     = <span class="nottickedoff">logDebugN (&quot;PutText: &quot; &lt;&gt;     s) *&gt; putLine s</span></span>
+<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">interpretGADTEffFDebug Flush           = <span class="nottickedoff">logDebugN &quot;Flush&quot;                *&gt; flush</span></span></span>
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>interpretGADTEffF ∷ MonadEff m ⇒ GADTEffF a → m a
+<span class="lineno">   55 </span><span class="decl"><span class="nottickedoff">interpretGADTEffF GetContentsBS   = getContentsBS</span>
+<span class="lineno">   56 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF GetContentsText = getContentsText</span>
+<span class="lineno">   57 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF GetChar         = getChar</span>
+<span class="lineno">   58 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF GetLine         = getLine</span>
+<span class="lineno">   59 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF (PutChar c)     = putChar c</span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF (PutText s)     = putLine s</span>
+<span class="lineno">   61 </span><span class="spaces"></span><span class="nottickedoff">interpretGADTEffF Flush           = flush</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>--------------------------------------------------------------------------------
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadEff GADTEff</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
+<span class="lineno">   66 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = gadtGetContentsBS</span></span>
+<span class="lineno">   67 </span>  <span class="decl"><span class="nottickedoff">getContentsText = gadtGetContentsText</span></span>
+<span class="lineno">   68 </span>  <span class="decl"><span class="istickedoff">getChar         = gadtGetChar</span></span>
+<span class="lineno">   69 </span>  <span class="decl"><span class="nottickedoff">getLine         = gadtGetLine</span></span>
+<span class="lineno">   70 </span>  <span class="decl"><span class="istickedoff">putChar         = gadtPutChar</span></span>
+<span class="lineno">   71 </span>  <span class="decl"><span class="nottickedoff">putLine         = gadtPutLine</span></span>
+<span class="lineno">   72 </span>  <span class="decl"><span class="nottickedoff">flush           = gadtFlush</span></span>
+<span class="lineno">   73 </span>
+<span class="lineno">   74 </span>gadtGetContentsBS ∷ GADTEff LByteString
+<span class="lineno">   75 </span><span class="decl"><span class="nottickedoff">gadtGetContentsBS = liftF GetContentsBS</span></span>
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>gadtGetContentsText ∷ GADTEff LText
+<span class="lineno">   78 </span><span class="decl"><span class="nottickedoff">gadtGetContentsText = liftF GetContentsText</span></span>
+<span class="lineno">   79 </span>
+<span class="lineno">   80 </span>gadtGetChar ∷ GADTEff Char
+<span class="lineno">   81 </span><span class="decl"><span class="istickedoff">gadtGetChar = liftF GetChar</span></span>
+<span class="lineno">   82 </span>
+<span class="lineno">   83 </span>gadtGetLine ∷ GADTEff Text
+<span class="lineno">   84 </span><span class="decl"><span class="nottickedoff">gadtGetLine = liftF GetLine</span></span>
+<span class="lineno">   85 </span>
+<span class="lineno">   86 </span>gadtPutChar ∷ Char → GADTEff ()
+<span class="lineno">   87 </span><span class="decl"><span class="istickedoff">gadtPutChar = liftF . PutChar</span></span>
+<span class="lineno">   88 </span>
+<span class="lineno">   89 </span>gadtPutLine ∷ Text → GADTEff ()
+<span class="lineno">   90 </span><span class="decl"><span class="nottickedoff">gadtPutLine = liftF . PutText</span></span>
+<span class="lineno">   91 </span>
+<span class="lineno">   92 </span>gadtFlush ∷ GADTEff ()
+<span class="lineno">   93 </span><span class="decl"><span class="nottickedoff">gadtFlush = liftF Flush</span></span>
+<span class="lineno">   94 </span>
+<span class="lineno">   95 </span>--------------------------------------------------------------------------------
+<span class="lineno">   96 </span>
+<span class="lineno">   97 </span>data GADTEffF a where
+<span class="lineno">   98 </span>  GetContentsBS :: GADTEffF LByteString
+<span class="lineno">   99 </span>  GetContentsText :: GADTEffF LText
+<span class="lineno">  100 </span>  GetChar :: GADTEffF Char
+<span class="lineno">  101 </span>  GetLine :: GADTEffF Text
+<span class="lineno">  102 </span>  PutChar :: Char -&gt; GADTEffF ()
+<span class="lineno">  103 </span>  PutText :: Text -&gt; GADTEffF ()
+<span class="lineno">  104 </span>  Flush :: GADTEffF ()
 
 </pre>
 </body>

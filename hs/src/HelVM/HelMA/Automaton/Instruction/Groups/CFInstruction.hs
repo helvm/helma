@@ -47,10 +47,16 @@ data BranchOperand
 
 type Label = SString --FIXME Artificial
 
-data LabelOperation = Call | Jump
+data LabelOperation
+  = Call
+  | Jump
   deriving stock (Eq, Read, Show)
 
-data BranchTest = EZ | LTZ | GTZ | NE
+data BranchTest
+  = EZ
+  | LTZ
+  | GTZ
+  | NE
   deriving stock (Eq, Read, Show)
 
 -- | Internal

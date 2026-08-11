@@ -84,13 +84,33 @@ data UnaryOperation
   | UImmediate Integer BinaryOperation
   deriving stock (Eq, Read, Show)
 
-data BinaryOperation = Add | Sub | Mul | Div | Mod | BAnd | BOr | BXor | BEQ | BGT | LAnd | LOr | LXor | LEQ | LGT
+data BinaryOperation
+  = Add
+  | Sub
+  | Mul
+  | Div
+  | Mod
+  | BAnd
+  | BOr
+  | BXor
+  | BEQ
+  | BGT
+  | LAnd
+  | LOr
+  | LXor
+  | LEQ
+  | LGT
   deriving stock (Eq, Read, Show)
 
-data IndexedOperation = Copy | Move | Slide
+data IndexedOperation
+  = Copy
+  | Move
+  | Slide
   deriving stock (Eq, Read, Show)
 
-data OperatorType = Bitwise | Logical
+data OperatorType
+  = Bitwise
+  | Logical
 
 -- | Internal
 

@@ -1,5 +1,4 @@
 {-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE UnicodeSyntax   #-}
 module HelVM.HelMA.Automaton.Instruction.Extras.Patterns where
 
 import           HelVM.HelMA.Automaton.Instruction.Extras.Common

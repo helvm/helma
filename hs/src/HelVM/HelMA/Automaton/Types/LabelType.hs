@@ -8,5 +8,7 @@ formatTypes ∷ NonEmpty LabelType
 formatTypes = universeNonEmpty
 
 -- | Types
-data LabelType = BinaryLabel | TextLabel
+data LabelType
+  = BinaryLabel
+  | TextLabel
   deriving stock (Bounded, Enum, Eq, Read, Show)

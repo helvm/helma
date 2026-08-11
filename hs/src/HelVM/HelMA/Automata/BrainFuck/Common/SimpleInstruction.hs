@@ -9,7 +9,13 @@ charToSimpleInstruction = readMaybe . one
 simpleInstructions ∷ [SimpleInstruction]
 simpleInstructions = [MoveR , MoveL , Inc , Dec , Output , Input]
 
-data SimpleInstruction = MoveR | MoveL | Inc | Dec | Output | Input
+data SimpleInstruction
+  = MoveR
+  | MoveL
+  | Inc
+  | Dec
+  | Output
+  | Input
   deriving stock (Bounded, Enum, Eq)
 
 instance Show SimpleInstruction where

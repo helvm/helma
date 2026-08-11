@@ -103,37 +103,57 @@ span.spaces    { background: white }
 <span class="lineno">   84 </span>  | UImmediate Integer BinaryOperation
 <span class="lineno">   85 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 <span class="lineno">   86 </span>
-<span class="lineno">   87 </span>data BinaryOperation = Add | Sub | Mul | Div | Mod | BAnd | BOr | BXor | BEQ | BGT | LAnd | LOr | LXor | LEQ | LGT
-<span class="lineno">   88 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   89 </span>
-<span class="lineno">   90 </span>data IndexedOperation = Copy | Move | Slide
-<span class="lineno">   91 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   92 </span>
-<span class="lineno">   93 </span>data OperatorType = Bitwise | Logical
-<span class="lineno">   94 </span>
-<span class="lineno">   95 </span>-- | Internal
-<span class="lineno">   96 </span>
-<span class="lineno">   97 </span>printSM ∷ SMInstruction → Text
-<span class="lineno">   98 </span><span class="decl"><span class="istickedoff">printSM (SPure i) = printSPure i</span>
-<span class="lineno">   99 </span><span class="spaces"></span><span class="istickedoff">printSM (SIO   i) = printIO i &lt;&gt; &quot;S&quot;</span></span>
-<span class="lineno">  100 </span>
-<span class="lineno">  101 </span>printSPure ∷ SPureInstruction → Text
-<span class="lineno">  102 </span><span class="decl"><span class="istickedoff">printSPure (Unary    i  ) = printUnary i</span>
-<span class="lineno">  103 </span><span class="spaces"></span><span class="istickedoff">printSPure (Indexed  i o) = toLowerShow o &lt;&gt; printIndexOperand i</span>
-<span class="lineno">  104 </span><span class="spaces"></span><span class="istickedoff">printSPure (Binary   i  ) = toLowerShow i</span>
-<span class="lineno">  105 </span><span class="spaces"></span><span class="istickedoff">printSPure (Binaries i  ) = printBinaries i</span>
-<span class="lineno">  106 </span><span class="spaces"></span><span class="istickedoff">printSPure           i    = toLowerShow i</span></span>
-<span class="lineno">  107 </span>
-<span class="lineno">  108 </span>printBinaries ∷ (Foldable c, Functor c, Show i) ⇒ c i → Text
-<span class="lineno">  109 </span><span class="decl"><span class="istickedoff">printBinaries il = fmconcat $ toLowerShow &lt;$&gt; il</span></span>
+<span class="lineno">   87 </span>data BinaryOperation
+<span class="lineno">   88 </span>  = Add
+<span class="lineno">   89 </span>  | Sub
+<span class="lineno">   90 </span>  | Mul
+<span class="lineno">   91 </span>  | Div
+<span class="lineno">   92 </span>  | Mod
+<span class="lineno">   93 </span>  | BAnd
+<span class="lineno">   94 </span>  | BOr
+<span class="lineno">   95 </span>  | BXor
+<span class="lineno">   96 </span>  | BEQ
+<span class="lineno">   97 </span>  | BGT
+<span class="lineno">   98 </span>  | LAnd
+<span class="lineno">   99 </span>  | LOr
+<span class="lineno">  100 </span>  | LXor
+<span class="lineno">  101 </span>  | LEQ
+<span class="lineno">  102 </span>  | LGT
+<span class="lineno">  103 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">  104 </span>
+<span class="lineno">  105 </span>data IndexedOperation
+<span class="lineno">  106 </span>  = Copy
+<span class="lineno">  107 </span>  | Move
+<span class="lineno">  108 </span>  | Slide
+<span class="lineno">  109 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 <span class="lineno">  110 </span>
-<span class="lineno">  111 </span>printUnary ∷ UnaryOperation → Text
-<span class="lineno">  112 </span><span class="decl"><span class="istickedoff">printUnary (UImmediate i o) = toLowerShow o &lt;&gt; &quot;I &quot; &lt;&gt; show i</span>
-<span class="lineno">  113 </span><span class="spaces"></span><span class="istickedoff">printUnary             i    = <span class="nottickedoff">toLowerShow i</span></span></span>
+<span class="lineno">  111 </span>data OperatorType
+<span class="lineno">  112 </span>  = Bitwise
+<span class="lineno">  113 </span>  | Logical
 <span class="lineno">  114 </span>
-<span class="lineno">  115 </span>printIndexOperand ∷ IndexOperand → Text
-<span class="lineno">  116 </span><span class="decl"><span class="istickedoff">printIndexOperand ITop           = <span class="nottickedoff">&quot;&quot;</span></span>
-<span class="lineno">  117 </span><span class="spaces"></span><span class="istickedoff">printIndexOperand (IImmediate i) = &quot;I &quot; &lt;&gt; show i</span></span>
+<span class="lineno">  115 </span>-- | Internal
+<span class="lineno">  116 </span>
+<span class="lineno">  117 </span>printSM ∷ SMInstruction → Text
+<span class="lineno">  118 </span><span class="decl"><span class="istickedoff">printSM (SPure i) = printSPure i</span>
+<span class="lineno">  119 </span><span class="spaces"></span><span class="istickedoff">printSM (SIO   i) = printIO i &lt;&gt; &quot;S&quot;</span></span>
+<span class="lineno">  120 </span>
+<span class="lineno">  121 </span>printSPure ∷ SPureInstruction → Text
+<span class="lineno">  122 </span><span class="decl"><span class="istickedoff">printSPure (Unary    i  ) = printUnary i</span>
+<span class="lineno">  123 </span><span class="spaces"></span><span class="istickedoff">printSPure (Indexed  i o) = toLowerShow o &lt;&gt; printIndexOperand i</span>
+<span class="lineno">  124 </span><span class="spaces"></span><span class="istickedoff">printSPure (Binary   i  ) = toLowerShow i</span>
+<span class="lineno">  125 </span><span class="spaces"></span><span class="istickedoff">printSPure (Binaries i  ) = printBinaries i</span>
+<span class="lineno">  126 </span><span class="spaces"></span><span class="istickedoff">printSPure           i    = toLowerShow i</span></span>
+<span class="lineno">  127 </span>
+<span class="lineno">  128 </span>printBinaries ∷ (Foldable c, Functor c, Show i) ⇒ c i → Text
+<span class="lineno">  129 </span><span class="decl"><span class="istickedoff">printBinaries il = fmconcat $ toLowerShow &lt;$&gt; il</span></span>
+<span class="lineno">  130 </span>
+<span class="lineno">  131 </span>printUnary ∷ UnaryOperation → Text
+<span class="lineno">  132 </span><span class="decl"><span class="istickedoff">printUnary (UImmediate i o) = toLowerShow o &lt;&gt; &quot;I &quot; &lt;&gt; show i</span>
+<span class="lineno">  133 </span><span class="spaces"></span><span class="istickedoff">printUnary             i    = <span class="nottickedoff">toLowerShow i</span></span></span>
+<span class="lineno">  134 </span>
+<span class="lineno">  135 </span>printIndexOperand ∷ IndexOperand → Text
+<span class="lineno">  136 </span><span class="decl"><span class="istickedoff">printIndexOperand ITop           = <span class="nottickedoff">&quot;&quot;</span></span>
+<span class="lineno">  137 </span><span class="spaces"></span><span class="istickedoff">printIndexOperand (IImmediate i) = &quot;I &quot; &lt;&gt; show i</span></span>
 
 </pre>
 </body>

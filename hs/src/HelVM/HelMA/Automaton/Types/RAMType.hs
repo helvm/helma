@@ -8,5 +8,9 @@ ramTypes ∷ NonEmpty RAMType
 ramTypes = universeNonEmpty
 
 -- | Types
-data RAMType = MapListRAMType | SListRAMType | SeqRAMType | ListRAMType
+data RAMType
+  = MapListRAMType
+  | SListRAMType
+  | SeqRAMType
+  | ListRAMType
   deriving stock (Bounded, Enum, Eq, Read, Show)
