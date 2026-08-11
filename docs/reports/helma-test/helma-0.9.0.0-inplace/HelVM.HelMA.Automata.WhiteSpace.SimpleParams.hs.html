@@ -30,26 +30,26 @@ span.spaces    { background: white }
 <span class="lineno">   11 </span>import           HelVM.HelMA.Automaton.Types.StackType
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>-- | Construction for tests
-<span class="lineno">   14 </span>simpleParamsWithDefaultsAndWhiteTokenType :: LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   14 </span>simpleParamsWithDefaultsAndWhiteTokenType ∷ LabelType → Source → SimpleParams
 <span class="lineno">   15 </span><span class="decl"><span class="nottickedoff">simpleParamsWithDefaultsAndWhiteTokenType = simpleParamsWithDefaults WhiteTokenType</span></span>
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>simpleParamsWithDefaultsAndVisibleTokenType :: LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   17 </span>simpleParamsWithDefaultsAndVisibleTokenType ∷ LabelType → Source → SimpleParams
 <span class="lineno">   18 </span><span class="decl"><span class="nottickedoff">simpleParamsWithDefaultsAndVisibleTokenType = simpleParamsWithDefaults VisibleTokenType</span></span>
 <span class="lineno">   19 </span>
-<span class="lineno">   20 </span>simpleParamsWithDefaults :: TokenType -&gt; LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   20 </span>simpleParamsWithDefaults ∷ TokenType → LabelType → Source → SimpleParams
 <span class="lineno">   21 </span><span class="decl"><span class="istickedoff">simpleParamsWithDefaults tt = simpleParams tt (defaultStackType , defaultRAMType)</span></span>
 <span class="lineno">   22 </span>
 <span class="lineno">   23 </span>-- | Construction for benchmark
-<span class="lineno">   24 </span>simpleParamsWithWhiteTokenType :: (StackType, RAMType) -&gt; LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   24 </span>simpleParamsWithWhiteTokenType ∷ (StackType, RAMType) → LabelType → Source → SimpleParams
 <span class="lineno">   25 </span><span class="decl"><span class="nottickedoff">simpleParamsWithWhiteTokenType = simpleParams WhiteTokenType</span></span>
 <span class="lineno">   26 </span>
-<span class="lineno">   27 </span>simpleParamsWithVisibleTokenType :: (StackType, RAMType) -&gt; LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   27 </span>simpleParamsWithVisibleTokenType ∷ (StackType, RAMType) → LabelType → Source → SimpleParams
 <span class="lineno">   28 </span><span class="decl"><span class="nottickedoff">simpleParamsWithVisibleTokenType = simpleParams VisibleTokenType</span></span>
 <span class="lineno">   29 </span>
-<span class="lineno">   30 </span>automatonOptions :: SimpleParams -&gt; Automaton.AutomatonOptions
+<span class="lineno">   30 </span>automatonOptions ∷ SimpleParams → Automaton.AutomatonOptions
 <span class="lineno">   31 </span><span class="decl"><span class="istickedoff">automatonOptions p = Automaton.AutomatonOptions (stackType p) (ramType p) (autoOptions p)</span></span>
 <span class="lineno">   32 </span>
-<span class="lineno">   33 </span>simpleParams :: TokenType -&gt; (StackType, RAMType) -&gt; LabelType -&gt; Source -&gt; SimpleParams
+<span class="lineno">   33 </span>simpleParams ∷ TokenType → (StackType, RAMType) → LabelType → Source → SimpleParams
 <span class="lineno">   34 </span><span class="decl"><span class="istickedoff">simpleParams tt (st , rt) al s = SimpleParams</span>
 <span class="lineno">   35 </span><span class="spaces">  </span><span class="istickedoff">{ tokenType = tt</span>
 <span class="lineno">   36 </span><span class="spaces">  </span><span class="istickedoff">, source = s</span>

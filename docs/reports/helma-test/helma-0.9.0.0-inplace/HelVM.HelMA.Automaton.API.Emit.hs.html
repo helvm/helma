@@ -19,10 +19,10 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automaton.API.Emit where
 <span class="lineno">    2 </span>
-<span class="lineno">    3 </span>defaultEmit :: Emit
+<span class="lineno">    3 </span>defaultEmit ∷ Emit
 <span class="lineno">    4 </span><span class="decl"><span class="nottickedoff">defaultEmit = minBound</span></span>
 <span class="lineno">    5 </span>
-<span class="lineno">    6 </span>emits :: NonEmpty Emit
+<span class="lineno">    6 </span>emits ∷ NonEmpty Emit
 <span class="lineno">    7 </span><span class="decl"><span class="nottickedoff">emits = universeNonEmpty</span></span>
 <span class="lineno">    8 </span>
 <span class="lineno">    9 </span>data Emit = No | IL | TL | Code

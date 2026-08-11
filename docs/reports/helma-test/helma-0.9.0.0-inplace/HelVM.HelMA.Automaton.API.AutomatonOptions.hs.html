@@ -24,10 +24,10 @@ span.spaces    { background: white }
 <span class="lineno">    5 </span>import           HelVM.HelMA.Automaton.Types.RAMType
 <span class="lineno">    6 </span>import           HelVM.HelMA.Automaton.Types.StackType
 <span class="lineno">    7 </span>
-<span class="lineno">    8 </span>optLevelAutoOptions :: AutomatonOptions -&gt; OptimizationLevel
+<span class="lineno">    8 </span>optLevelAutoOptions ∷ AutomatonOptions → OptimizationLevel
 <span class="lineno">    9 </span><span class="decl"><span class="istickedoff">optLevelAutoOptions = optLevel . autoOptions</span></span>
 <span class="lineno">   10 </span>
-<span class="lineno">   11 </span>withDefaultRam :: StackType -&gt; AutoOptions -&gt; AutomatonOptions
+<span class="lineno">   11 </span>withDefaultRam ∷ StackType → AutoOptions → AutomatonOptions
 <span class="lineno">   12 </span><span class="decl"><span class="istickedoff">withDefaultRam s ao = AutomatonOptions</span>
 <span class="lineno">   13 </span><span class="spaces">  </span><span class="istickedoff">{ ramType     = defaultRAMType</span>
 <span class="lineno">   14 </span><span class="spaces">  </span><span class="istickedoff">, stackType   = s</span>

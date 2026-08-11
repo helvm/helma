@@ -2,10 +2,10 @@ module HelVM.HelMA.Automata.Piet.API.LexerType where
 
 import           Data.Default
 
-defaultLexerType :: LexerType
+defaultLexerType ∷ LexerType
 defaultLexerType = def
 
-fileLexerTypes :: NonEmpty LexerType
+fileLexerTypes ∷ NonEmpty LexerType
 fileLexerTypes = universeNonEmpty
 
 data LexerType = JuicyPixels | NetPBM

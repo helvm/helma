@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.WhiteSpace.ParserSpec (spec) where
+module HelVM.HelMA.Automata.WhiteSpace.ParserSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
@@ -23,7 +25,7 @@ import           System.FilePath.Posix                         hiding ((<.>))
 
 import           Test.Hspec                                    (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "parser" $ forM_ allFiles $ \ ((formatLabel , tokenType , dirName) , fileName) -> do
       let path = dirName </> fileName
@@ -36,10 +38,10 @@ spec =
         it ("optimized" </> outputPath) $
           optimizeFile AllOptimizations formatLabel tokenType path `goldenShouldIO` buildAbsoluteWsIlFileName ("optimized" </> outputPath)
 
-allFiles :: [((LabelType , TokenType , FilePath) , FilePath)]
+allFiles ∷ [((LabelType , TokenType , FilePath) , FilePath)]
 allFiles = originalW <> originalV <> fromWsa <> binaryLabel
 
-originalW :: [((LabelType , TokenType , FilePath) , FilePath)]
+originalW ∷ [((LabelType , TokenType , FilePath) , FilePath)]
 originalW = [(TextLabel , WhiteTokenType , "original")] >*<
   [ "count"
   , "calc"
@@ -48,7 +50,7 @@ originalW = [(TextLabel , WhiteTokenType , "original")] >*<
   , "name"
   ]
 
-originalV :: [((LabelType , TokenType , FilePath) , FilePath)]
+originalV ∷ [((LabelType , TokenType , FilePath) , FilePath)]
 originalV = [(TextLabel , VisibleTokenType , "original")] >*<
   [ "count"
   , "helloWorld"
@@ -61,7 +63,7 @@ originalV = [(TextLabel , VisibleTokenType , "original")] >*<
   , "truthMachine"
   ]
 
-fromWsa :: [((LabelType, TokenType, FilePath) , FilePath)]
+fromWsa ∷ [((LabelType, TokenType, FilePath) , FilePath)]
 fromWsa = [(TextLabel , VisibleTokenType , "from-wsa")] >*<
   [ "true"
   , "hello"
@@ -71,19 +73,19 @@ fromWsa = [(TextLabel , VisibleTokenType , "from-wsa")] >*<
   , "prim"
   ]
 
-binaryLabel :: [((LabelType, TokenType, FilePath) , FilePath)]
+binaryLabel ∷ [((LabelType, TokenType, FilePath) , FilePath)]
 binaryLabel = [(BinaryLabel , WhiteTokenType , "from-elvm")] >*<
   [ "hello"
   , "fizzbuzz"
   , "8cc.c.eir"
   ]
 
-minifyFile :: TokenType -> String -> IO Text
+minifyFile ∷ TokenType → String → IO Text
 minifyFile tokenType = readTokensByTokenType tokenType <.> readFileByTokenType tokenType
 
-optimizeFile :: OptimizationLevel -> LabelType -> TokenType -> String -> IO Text
+optimizeFile ∷ OptimizationLevel → LabelType → TokenType → String → IO Text
 optimizeFile optLevel labelType tokenType path = safeIOToIO ((printIL <.> optimize optLevel <.> parseForTest labelType tokenType) <$> readFileByTokenType tokenType path)
 
-readTokensByTokenType:: TokenType -> Text -> Text
+readTokensByTokenType∷ TokenType → Text → Text
 readTokensByTokenType WhiteTokenType   = show . readWhiteTokens
 readTokensByTokenType VisibleTokenType = show . readVisibleTokens

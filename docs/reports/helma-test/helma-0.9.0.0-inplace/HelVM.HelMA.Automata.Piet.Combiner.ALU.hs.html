@@ -47,56 +47,56 @@ span.spaces    { background: white }
 <span class="lineno">   28 </span>import           Prelude                                                hiding (getLine)
 <span class="lineno">   29 </span>
 <span class="lineno">   30 </span>-- | I/O Instructions
-<span class="lineno">   31 </span>pietInNumber :: AppEff m =&gt; Memory -&gt; m Memory
+<span class="lineno">   31 </span>pietInNumber ∷ AppEff m ⇒ Memory → m Memory
 <span class="lineno">   32 </span><span class="decl"><span class="istickedoff">pietInNumber = modifyStack &quot;in_number&quot; inputDec</span></span>
 <span class="lineno">   33 </span>
-<span class="lineno">   34 </span>pietInChar :: AppEff m =&gt; Memory -&gt; m Memory
+<span class="lineno">   34 </span>pietInChar ∷ AppEff m ⇒ Memory → m Memory
 <span class="lineno">   35 </span><span class="decl"><span class="nottickedoff">pietInChar = modifyStack &quot;in_char&quot; inputChar</span></span>
 <span class="lineno">   36 </span>
-<span class="lineno">   37 </span>pietOutNumber :: AppEff m =&gt; Memory -&gt; m Memory
+<span class="lineno">   37 </span>pietOutNumber ∷ AppEff m ⇒ Memory → m Memory
 <span class="lineno">   38 </span><span class="decl"><span class="istickedoff">pietOutNumber = modifyStack &quot;out_number&quot; outputDecMaybe</span></span>
 <span class="lineno">   39 </span>
-<span class="lineno">   40 </span>pietOutChar :: AppEff m =&gt; Memory -&gt; m Memory
+<span class="lineno">   40 </span>pietOutChar ∷ AppEff m ⇒ Memory → m Memory
 <span class="lineno">   41 </span><span class="decl"><span class="istickedoff">pietOutChar = modifyStack &quot;out_char&quot; outputCharMaybe</span></span>
 <span class="lineno">   42 </span>
 <span class="lineno">   43 </span>-- | Push / Pop
-<span class="lineno">   44 </span>pietPush :: AppEff m =&gt; Int -&gt; Memory -&gt; m Memory
+<span class="lineno">   44 </span>pietPush ∷ AppEff m ⇒ Int → Memory → m Memory
 <span class="lineno">   45 </span><span class="decl"><span class="istickedoff">pietPush n = modifyStack (&quot;push &quot; &lt;&gt; show n) (pure . push1 n)</span></span>
 <span class="lineno">   46 </span>
-<span class="lineno">   47 </span>pietPop :: (ALU m Stack Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   47 </span>pietPop ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 <span class="lineno">   48 </span><span class="decl"><span class="istickedoff">pietPop = modifyStack &quot;pop&quot; discard</span></span>
 <span class="lineno">   49 </span>
 <span class="lineno">   50 </span>-- | Binary &amp; Unary Arithmetic Instructions
-<span class="lineno">   51 </span>pietAdd :: (ALU m Stack Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   51 </span>pietAdd ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 <span class="lineno">   52 </span><span class="decl"><span class="istickedoff">pietAdd = modifyStack &quot;add&quot; (binaryInstruction Add)</span></span>
 <span class="lineno">   53 </span>
-<span class="lineno">   54 </span>pietSubtract :: (ALU m Stack Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   54 </span>pietSubtract ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 <span class="lineno">   55 </span><span class="decl"><span class="istickedoff">pietSubtract = modifyStack &quot;subtract&quot; (binaryInstruction Sub)</span></span>
 <span class="lineno">   56 </span>
-<span class="lineno">   57 </span>pietMultiply :: (ALU m Stack Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   57 </span>pietMultiply ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 <span class="lineno">   58 </span><span class="decl"><span class="istickedoff">pietMultiply = modifyStack &quot;multiply&quot; (binaryInstruction Mul)</span></span>
 <span class="lineno">   59 </span>
-<span class="lineno">   60 </span>pietDivide :: (ALU m Stack Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   60 </span>pietDivide ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 <span class="lineno">   61 </span><span class="decl"><span class="istickedoff">pietDivide = modifyStack &quot;divide&quot; (binaryInstruction Div)</span></span>
 <span class="lineno">   62 </span>
-<span class="lineno">   63 </span>pietMod :: (ALU m Stack Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   63 </span>pietMod ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 <span class="lineno">   64 </span><span class="decl"><span class="istickedoff">pietMod = modifyStack &quot;mod&quot; (binaryInstruction Mod)</span></span>
 <span class="lineno">   65 </span>
-<span class="lineno">   66 </span>pietNot :: (ALU m Stack Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   66 </span>pietNot ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 <span class="lineno">   67 </span><span class="decl"><span class="istickedoff">pietNot = modifyStack &quot;not&quot; lNot</span></span>
 <span class="lineno">   68 </span>
-<span class="lineno">   69 </span>pietGreater :: (ALU m Stack Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   69 </span>pietGreater ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 <span class="lineno">   70 </span><span class="decl"><span class="istickedoff">pietGreater = modifyStack &quot;greater&quot; (binaryInstruction LGT)</span></span>
 <span class="lineno">   71 </span>
 <span class="lineno">   72 </span>-- | Stack Manipulation Instructions
-<span class="lineno">   73 </span>pietDuplicate :: (ALU m Stack Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   73 </span>pietDuplicate ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 <span class="lineno">   74 </span><span class="decl"><span class="istickedoff">pietDuplicate = modifyStack &quot;duplicate&quot; (copy 0)</span></span>
 <span class="lineno">   75 </span>
-<span class="lineno">   76 </span>pietRoll :: (ALU m Stack Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   76 </span>pietRoll ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 <span class="lineno">   77 </span><span class="decl"><span class="istickedoff">pietRoll = modifyStack &quot;roll&quot; roll</span></span>
 <span class="lineno">   78 </span>
 <span class="lineno">   79 </span>-- | Utils
-<span class="lineno">   80 </span>modifyStack :: AppEff m =&gt; Text -&gt; (Stack -&gt; m Stack) -&gt; Memory -&gt; m Memory
+<span class="lineno">   80 </span>modifyStack ∷ AppEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
 <span class="lineno">   81 </span><span class="decl"><span class="istickedoff">modifyStack name f (Memory im s) = logWithPosition name im *&gt; (Memory im &lt;$&gt; f s)</span></span>
 
 </pre>

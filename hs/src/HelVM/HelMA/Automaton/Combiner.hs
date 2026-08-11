@@ -18,63 +18,63 @@ import           Prelude                                hiding (swap)
 
 -- | Core of Combiner
 
-runInstruction :: (SRAutomatonEff Symbol s r m) => Instruction -> SF s r m
+runInstruction ∷ (SRAutomatonEff Symbol s r m) ⇒ Instruction → SF s r m
 runInstruction (ISM      i) a = Trampoline.continue . updateStack   a <$> runALI i (memoryStack a)
 runInstruction (ILS      i) a = Trampoline.continue . updateFromLSM a <$> runSLI i (toLSM a)
 runInstruction (ICF      i) a = Trampoline.continue . updateFromCPM a <$> runCFI i (toCPM a)
 runInstruction  End         a = end a
 
-pop2ForStack :: (SRAutomatonEff Symbol s r m) => Memory s r -> m (Symbol , Symbol , Memory s r)
+pop2ForStack ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → m (Symbol , Symbol , Memory s r)
 pop2ForStack a = build <$> pop2 (memoryStack a) where
   build (s1 , s2 , s') = (s1 , s2 , updateStack a s')
 
-push1ForStack :: Stack s Symbol => Symbol -> Memory s r -> Memory s r
+push1ForStack ∷ Stack s Symbol ⇒ Symbol → Memory s r → Memory s r
 push1ForStack e a = a { memoryStack = push1 e (memoryStack a) }
 
-end :: (SRAutomatonEff Symbol s r m) => SF s r m
+end ∷ (SRAutomatonEff Symbol s r m) ⇒ SF s r m
 end = pure . Trampoline.break
 
 -- | Constructors
 
-flippedNewMemory :: (s , r) -> InstructionList -> Memory s r
+flippedNewMemory ∷ (s , r) → InstructionList → Memory s r
 flippedNewMemory = flip (uncurry . newMemory)
 
-newMemory :: InstructionList -> s -> r -> Memory s r
+newMemory ∷ InstructionList → s → r → Memory s r
 newMemory il = Memory (newCM il)
 
 -- | Updaters
 
-incrementIC :: Memory s r -> Memory s r
+incrementIC ∷ Memory s r → Memory s r
 incrementIC m = m { memoryCM = incrementPC $ memoryCM m}
 
-updateStack :: Memory s r -> s -> Memory s r
+updateStack ∷ Memory s r → s → Memory s r
 updateStack m s = m {memoryStack = s}
 
-updateFromCPM :: Memory s r -> CentralProcessingMemory s -> Memory s r
+updateFromCPM ∷ Memory s r → CentralProcessingMemory s → Memory s r
 updateFromCPM m cpm = m { memoryCM = controlMemory cpm, memoryStack = alm cpm}
 
-updateFromLSM :: Memory s r -> LoadStoreMemory s r -> Memory s r
+updateFromLSM ∷ Memory s r → LoadStoreMemory s r → Memory s r
 updateFromLSM m lsu = m {memoryStack = stack lsu , memoryRAM = ram lsu}
 
 -- | Accessors
 
-memoryProgram :: Memory s r -> InstructionVector
+memoryProgram ∷ Memory s r → InstructionVector
 memoryProgram = program . memoryCM
 
-memoryProgramCounter :: Memory s r -> InstructionCounter
+memoryProgramCounter ∷ Memory s r → InstructionCounter
 memoryProgramCounter = programCounter . memoryCM
 
-toCPM :: Memory s r -> CentralProcessingMemory s
+toCPM ∷ Memory s r → CentralProcessingMemory s
 toCPM a = CPM { controlMemory = memoryCM a , alm = memoryStack a }
 
-toLSM :: Memory s r -> LoadStoreMemory s r
+toLSM ∷ Memory s r → LoadStoreMemory s r
 toLSM a = LSM { stack = memoryStack a, ram = memoryRAM a }
 
 -- | Types
 
-type SF s r m = Memory s r -> m $ MemorySame s r
+type SF s r m = Memory s r → m $ MemorySame s r
 
-type F s r m = Memory s r -> m $ Memory s r
+type F s r m = Memory s r → m $ Memory s r
 
 type MemorySame s r = Same (Memory s r)
 

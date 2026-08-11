@@ -11,12 +11,12 @@ import           HelVM.HelMA.Automaton.Instruction.Extras.Patterns
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
-peepholeOptimize :: InstructionList -> InstructionList
+peepholeOptimize ∷ InstructionList → InstructionList
 peepholeOptimize = peepholeOptimize2 . peepholeOptimize1
 
-peepholeOptimize1 :: InstructionList -> InstructionList
+peepholeOptimize1 ∷ InstructionList → InstructionList
 peepholeOptimize1 = fix optimize where
-  optimize :: (InstructionList -> InstructionList) -> InstructionList -> InstructionList
+  optimize ∷ (InstructionList → InstructionList) → InstructionList → InstructionList
   optimize f (ConsP i : BinaryP op           : il) = optimizeImmediateBinary i op <> f il
   optimize f (ConsP i : HalibutP             : il) = optimizeHalibut i             : f il
   optimize f (ConsP i : PickP                : il) = optimizePick i                : f il
@@ -27,9 +27,9 @@ peepholeOptimize1 = fix optimize where
   optimize f (i                              : il) = i                             : f il
   optimize _                                   []  = []
 
-peepholeOptimize2 :: InstructionList -> InstructionList
+peepholeOptimize2 ∷ InstructionList → InstructionList
 peepholeOptimize2 = fix optimize where
-  optimize :: (InstructionList -> InstructionList) -> InstructionList -> InstructionList
+  optimize ∷ (InstructionList → InstructionList) → InstructionList → InstructionList
   optimize f (ConsP c : MoveIP i : BranchTP t  : il) = optimizeBranchCondition i t c <> f il
   optimize f (MoveIP 1 : BranchTP t            : il) = branchSwapI t                  : f il
   optimize f (ConsP 0 : CopyIP i : SubP : SubP : il) = copyAdd i                     <> f il
@@ -40,59 +40,59 @@ peepholeOptimize2 = fix optimize where
   optimize f (i                                : il) = i                              : f il
   optimize _                                     []  = []
 
-optimizeImmediateBinary :: Integer -> BinaryOperation -> InstructionList
+optimizeImmediateBinary ∷ Integer → BinaryOperation → InstructionList
 optimizeImmediateBinary 0 Sub = []
 optimizeImmediateBinary 0 Add = []
 optimizeImmediateBinary 1 Mul = []
 optimizeImmediateBinary i op  = [immediateBinaryI i op]
 
-optimizeHalibut :: Integer -> Instruction
+optimizeHalibut ∷ Integer → Instruction
 optimizeHalibut i
   | 0 < i     = moveII $ fromIntegral i
   | otherwise = copyII $ fromIntegral $ negate i
 
-optimizePick :: Integer -> Instruction
+optimizePick ∷ Integer → Instruction
 optimizePick i
   | 0 <= i    = copyII $ fromIntegral i
   | otherwise = moveII $ fromIntegral $ negate i
 
-optimizeBranch :: BranchTest -> Integer -> Integer -> InstructionList
+optimizeBranch ∷ BranchTest → Integer → Integer → InstructionList
 optimizeBranch t c a = check $ isJump t c where
   check True = [jumpII $ fromIntegral a]
   check _    = []
 
-optimizeBranchLabel :: BranchTest -> Integer -> InstructionList
+optimizeBranchLabel ∷ BranchTest → Integer → InstructionList
 optimizeBranchLabel t a = [branchI t $ fromIntegral a]
 
-optimizeBranchCondition :: ImmediateIndex -> BranchTest -> Integer -> InstructionList
+optimizeBranchCondition ∷ ImmediateIndex → BranchTest → Integer → InstructionList
 optimizeBranchCondition 1 t c = optimizeBranchCondition1 t c
 optimizeBranchCondition i t c = check $ isJump t c where
   check True = [moveII1 , jumpTI]
   check _    = [moveII1 , discardI]
   moveII1 = moveII (i - 1)
 
-optimizeBranchCondition1 :: BranchTest -> Integer -> InstructionList
+optimizeBranchCondition1 ∷ BranchTest → Integer → InstructionList
 optimizeBranchCondition1 t c = check $ isJump t c where
   check True = [jumpTI]
   check _    = [discardI]
 
-copyAdd :: ImmediateIndex -> [Instruction]
+copyAdd ∷ ImmediateIndex → [Instruction]
 copyAdd 0 = []
 copyAdd i = [copyII (i - 1) , addI]
 
-moveAdd :: ImmediateIndex -> [Instruction]
+moveAdd ∷ ImmediateIndex → [Instruction]
 moveAdd 0 = []
 moveAdd 1 = [addI]
 moveAdd i = [moveII (i - 1) , addI]
 
-optimizeStoreID :: Integer -> Integer -> Instruction
+optimizeStoreID ∷ Integer → Integer → Instruction
 optimizeStoreID v = storeIDI v . fromIntegral
 
-optimizeLoadD :: Integer -> Instruction
+optimizeLoadD ∷ Integer → Instruction
 optimizeLoadD = loadDI . fromIntegral
 
-optimizeMoveD :: ImmediateIndex -> Integer -> Instruction
+optimizeMoveD ∷ ImmediateIndex → Integer → Instruction
 optimizeMoveD s d = moveDI s (fromIntegral d)
 
-optimizeAddIP :: Integer -> Integer -> Instruction
+optimizeAddIP ∷ Integer → Integer → Instruction
 optimizeAddIP i1 i2 = immediateBinaryI (i1 + i2) Add

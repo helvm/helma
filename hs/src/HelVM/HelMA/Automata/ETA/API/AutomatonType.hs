@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automata.ETA.API.AutomatonType where
 
 -- | Constructors
-defaultAutomatonType :: AutomatonType
+defaultAutomatonType ∷ AutomatonType
 defaultAutomatonType = minBound
 
-automatonTypes:: NonEmpty AutomatonType
+automatonTypes∷ NonEmpty AutomatonType
 automatonTypes = universeNonEmpty
 
 -- | Type

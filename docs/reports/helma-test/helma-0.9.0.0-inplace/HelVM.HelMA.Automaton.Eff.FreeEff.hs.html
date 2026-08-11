@@ -33,15 +33,15 @@ span.spaces    { background: white }
 <span class="lineno">   14 </span>import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
 <span class="lineno">   15 </span>--------------------------------------------------------------------------------
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>interpretFreeEffDebug :: MonadLoggerEff m =&gt; FreeEff a -&gt; m a
+<span class="lineno">   17 </span>interpretFreeEffDebug ∷ MonadLoggerEff m ⇒ FreeEff a → m a
 <span class="lineno">   18 </span><span class="decl"><span class="istickedoff">interpretFreeEffDebug = foldF interpretFreeEffFDebug</span></span>
 <span class="lineno">   19 </span>
-<span class="lineno">   20 </span>interpretFreeEff :: MonadEff m =&gt; FreeEff a -&gt; m a
+<span class="lineno">   20 </span>interpretFreeEff ∷ MonadEff m ⇒ FreeEff a → m a
 <span class="lineno">   21 </span><span class="decl"><span class="nottickedoff">interpretFreeEff = foldF interpretFreeEffF</span></span>
 <span class="lineno">   22 </span>
 <span class="lineno">   23 </span>--------------------------------------------------------------------------------
 <span class="lineno">   24 </span>
-<span class="lineno">   25 </span>interpretFreeEffFDebug :: MonadLoggerEff m =&gt; FreeEffF a -&gt; m a
+<span class="lineno">   25 </span>interpretFreeEffFDebug ∷ MonadLoggerEff m ⇒ FreeEffF a → m a
 <span class="lineno">   26 </span><span class="decl"><span class="istickedoff">interpretFreeEffFDebug (GetContentsBS    cd) = <span class="nottickedoff">cd &lt;$&gt; (logDebugN &quot;GetContentsBS&quot;   *&gt; getContentsBS)</span></span>
 <span class="lineno">   27 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (GetContentsText  cd) = <span class="nottickedoff">cd &lt;$&gt; (logDebugN &quot;GetContentsText&quot; *&gt; getContentsText)</span></span>
 <span class="lineno">   28 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (GetChar          cd) = logAndCont =&lt;&lt; getChar where logAndCont c = logDebugN (&quot;GetChar: &quot; &lt;&gt; one c) $&gt; cd c</span>
@@ -50,7 +50,7 @@ span.spaces    { background: white }
 <span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (PutText        s v ) = <span class="nottickedoff">logDebugN (&quot;PutText: &quot; &lt;&gt;     s) *&gt; putLine s $&gt; v</span></span>
 <span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (Flush            v ) = <span class="nottickedoff">logDebugN &quot;Flush&quot;                *&gt; flush        $&gt; v</span></span></span>
 <span class="lineno">   33 </span>
-<span class="lineno">   34 </span>interpretFreeEffF :: MonadEff m =&gt; FreeEffF a -&gt; m a
+<span class="lineno">   34 </span>interpretFreeEffF ∷ MonadEff m ⇒ FreeEffF a → m a
 <span class="lineno">   35 </span><span class="decl"><span class="nottickedoff">interpretFreeEffF (GetContentsBS    cd) = cd &lt;$&gt; getContentsBS</span>
 <span class="lineno">   36 </span><span class="spaces"></span><span class="nottickedoff">interpretFreeEffF (GetContentsText  cd) = cd &lt;$&gt; getContentsText</span>
 <span class="lineno">   37 </span><span class="spaces"></span><span class="nottickedoff">interpretFreeEffF (GetChar          cd) = cd &lt;$&gt; getChar</span>
@@ -70,25 +70,25 @@ span.spaces    { background: white }
 <span class="lineno">   51 </span>  <span class="decl"><span class="nottickedoff">putLine         = freePutLine</span></span>
 <span class="lineno">   52 </span>  <span class="decl"><span class="nottickedoff">flush           = freeFlush</span></span>
 <span class="lineno">   53 </span>
-<span class="lineno">   54 </span>freeGetContentsBS :: FreeEff LByteString
+<span class="lineno">   54 </span>freeGetContentsBS ∷ FreeEff LByteString
 <span class="lineno">   55 </span><span class="decl"><span class="nottickedoff">freeGetContentsBS = liftF $ GetContentsBS id</span></span>
 <span class="lineno">   56 </span>
-<span class="lineno">   57 </span>freeGetContentsText :: FreeEff LText
+<span class="lineno">   57 </span>freeGetContentsText ∷ FreeEff LText
 <span class="lineno">   58 </span><span class="decl"><span class="nottickedoff">freeGetContentsText = liftF $ GetContentsText id</span></span>
 <span class="lineno">   59 </span>
-<span class="lineno">   60 </span>freeGetChar :: FreeEff Char
+<span class="lineno">   60 </span>freeGetChar ∷ FreeEff Char
 <span class="lineno">   61 </span><span class="decl"><span class="istickedoff">freeGetChar = liftF $ GetChar id</span></span>
 <span class="lineno">   62 </span>
-<span class="lineno">   63 </span>freeGetLine :: FreeEff Text
+<span class="lineno">   63 </span>freeGetLine ∷ FreeEff Text
 <span class="lineno">   64 </span><span class="decl"><span class="nottickedoff">freeGetLine = liftF $ GetLine id</span></span>
 <span class="lineno">   65 </span>
-<span class="lineno">   66 </span>freePutChar :: Char -&gt; FreeEff ()
+<span class="lineno">   66 </span>freePutChar ∷ Char → FreeEff ()
 <span class="lineno">   67 </span><span class="decl"><span class="istickedoff">freePutChar = liftF . flip PutChar ()</span></span>
 <span class="lineno">   68 </span>
-<span class="lineno">   69 </span>freePutLine :: Text -&gt; FreeEff ()
+<span class="lineno">   69 </span>freePutLine ∷ Text → FreeEff ()
 <span class="lineno">   70 </span><span class="decl"><span class="nottickedoff">freePutLine = liftF . flip PutText ()</span></span>
 <span class="lineno">   71 </span>
-<span class="lineno">   72 </span>freeFlush :: FreeEff ()
+<span class="lineno">   72 </span>freeFlush ∷ FreeEff ()
 <span class="lineno">   73 </span><span class="decl"><span class="nottickedoff">freeFlush = liftF $ Flush ()</span></span>
 <span class="lineno">   74 </span>
 <span class="lineno">   75 </span>--------------------------------------------------------------------------------
@@ -96,10 +96,10 @@ span.spaces    { background: white }
 <span class="lineno">   77 </span>type FreeEff = F FreeEffF
 <span class="lineno">   78 </span>
 <span class="lineno">   79 </span>data FreeEffF a
-<span class="lineno">   80 </span> = GetContentsBS             (LByteString -&gt; a)
-<span class="lineno">   81 </span> | GetContentsText           (LText       -&gt; a)
-<span class="lineno">   82 </span> | GetChar                   (Char        -&gt; a)
-<span class="lineno">   83 </span> | GetLine                   (Text        -&gt; a)
+<span class="lineno">   80 </span> = GetContentsBS             (LByteString → a)
+<span class="lineno">   81 </span> | GetContentsText           (LText       → a)
+<span class="lineno">   82 </span> | GetChar                   (Char        → a)
+<span class="lineno">   83 </span> | GetLine                   (Text        → a)
 <span class="lineno">   84 </span> | PutChar          Char                     a
 <span class="lineno">   85 </span> | PutText          Text                     a
 <span class="lineno">   86 </span> | Flush                                     a

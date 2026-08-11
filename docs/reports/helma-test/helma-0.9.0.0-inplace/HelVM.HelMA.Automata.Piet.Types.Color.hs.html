@@ -26,7 +26,7 @@ span.spaces    { background: white }
 <span class="lineno">    7 </span>import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 <span class="lineno">    8 </span>import           HelVM.HelMA.Automata.Piet.Types.Hue
 <span class="lineno">    9 </span>
-<span class="lineno">   10 </span>rgb2Color :: (Num w, Eq w) =&gt; w -&gt; w -&gt; w -&gt; Color
+<span class="lineno">   10 </span>rgb2Color ∷ (Num w, Eq w) ⇒ w → w → w → Color
 <span class="lineno">   11 </span><span class="decl"><span class="istickedoff">rgb2Color 0x00 0x00 0x00 = Black</span>
 <span class="lineno">   12 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xff 0xff = White</span>
 <span class="lineno">   13 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xc0 0xc0 = Chromatic (ChromaticColor Light  Red)</span>

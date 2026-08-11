@@ -27,7 +27,7 @@ span.spaces    { background: white }
 <span class="lineno">    8 </span>
 <span class="lineno">    9 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 <span class="lineno">   10 </span>
-<span class="lineno">   11 </span>addPixel :: Coordinates -&gt; Maybe LabelInfo -&gt; Maybe LabelInfo
+<span class="lineno">   11 </span>addPixel ∷ Coordinates → Maybe LabelInfo → Maybe LabelInfo
 <span class="lineno">   12 </span><span class="decl"><span class="istickedoff">addPixel (x, y) Nothing = Just $ LabelInfo 1 (LabelBorder y x x) (LabelBorder x y y) (LabelBorder y x x) (LabelBorder x y y)</span>
 <span class="lineno">   13 </span><span class="spaces"></span><span class="istickedoff">addPixel (x, y) (Just stats) = Just $ stats</span>
 <span class="lineno">   14 </span><span class="spaces">  </span><span class="istickedoff">{ _labelSize   = 1 + _labelSize stats</span>
@@ -37,7 +37,7 @@ span.spaces    { background: white }
 <span class="lineno">   18 </span><span class="spaces">  </span><span class="istickedoff">, labelRight  = mergeMax (labelRight stats) (LabelBorder x y y)</span>
 <span class="lineno">   19 </span><span class="spaces">  </span><span class="istickedoff">}</span></span>
 <span class="lineno">   20 </span>
-<span class="lineno">   21 </span>labelSize :: Maybe LabelInfo -&gt; Int
+<span class="lineno">   21 </span>labelSize ∷ Maybe LabelInfo → Int
 <span class="lineno">   22 </span><span class="decl"><span class="istickedoff">labelSize Nothing     = <span class="nottickedoff">0</span></span>
 <span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">labelSize (Just info) = _labelSize info</span></span>
 <span class="lineno">   24 </span>
@@ -51,13 +51,13 @@ span.spaces    { background: white }
 <span class="lineno">   32 </span>
 <span class="lineno">   33 </span>-- Internal
 <span class="lineno">   34 </span>
-<span class="lineno">   35 </span>mergeMin :: LabelBorder -&gt; LabelBorder -&gt; LabelBorder
+<span class="lineno">   35 </span>mergeMin ∷ LabelBorder → LabelBorder → LabelBorder
 <span class="lineno">   36 </span><span class="decl"><span class="istickedoff">mergeMin = merge $ comparing borderCoord</span></span>
 <span class="lineno">   37 </span>
-<span class="lineno">   38 </span>mergeMax :: LabelBorder -&gt; LabelBorder -&gt; LabelBorder
+<span class="lineno">   38 </span>mergeMax ∷ LabelBorder → LabelBorder → LabelBorder
 <span class="lineno">   39 </span><span class="decl"><span class="istickedoff">mergeMax = merge $ comparing (negate . borderCoord)</span></span>
 <span class="lineno">   40 </span>
-<span class="lineno">   41 </span>merge :: (LabelBorder -&gt; LabelBorder -&gt; Ordering) -&gt; LabelBorder -&gt; LabelBorder -&gt; LabelBorder
+<span class="lineno">   41 </span>merge ∷ (LabelBorder → LabelBorder → Ordering) → LabelBorder → LabelBorder → LabelBorder
 <span class="lineno">   42 </span><span class="decl"><span class="istickedoff">merge comp b1 b2 = go $ comp b1 b2 where</span>
 <span class="lineno">   43 </span><span class="spaces">  </span><span class="istickedoff">go EQ = b1 { borderMin = min (borderMin b1) (borderMin b2), borderMax = max (borderMax b1) (borderMax b2) }</span>
 <span class="lineno">   44 </span><span class="spaces">  </span><span class="istickedoff">go LT = b1</span>

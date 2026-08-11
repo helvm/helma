@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.BrainFuck.ParserSpec (spec) where
+module HelVM.HelMA.Automata.BrainFuck.ParserSpec
+    ( spec
+    ) where
 
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser as Fast
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser as Flat
@@ -15,7 +17,7 @@ import           System.FilePath.Posix
 
 import           Test.Hspec                                      (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "parse" $ forM_
     [ "value256"

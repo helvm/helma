@@ -32,21 +32,21 @@ span.spaces    { background: white }
 <span class="lineno">   13 </span>
 <span class="lineno">   14 </span>import qualified RIO
 <span class="lineno">   15 </span>
-<span class="lineno">   16 </span>runAsRIO :: (MonadIO m, MonadReader env m, Has env) =&gt; LoggingT (SafeT m) a -&gt; m a
+<span class="lineno">   16 </span>runAsRIO ∷ (MonadIO m, MonadReader env m, Has env) ⇒ LoggingT (SafeT m) a → m a
 <span class="lineno">   17 </span><span class="decl"><span class="nottickedoff">runAsRIO action = do</span>
 <span class="lineno">   18 </span><span class="spaces">  </span><span class="nottickedoff">logFunc &lt;- RIO.view RIO.logFuncL</span>
 <span class="lineno">   19 </span><span class="spaces">  </span><span class="nottickedoff">let logOutput _ source level msg =  RIO.runRIO logFunc $ RIO.logGeneric source (toRioLevel level) (RIO.displayBytesUtf8 $ fromLogStr msg)</span>
 <span class="lineno">   20 </span><span class="spaces">  </span><span class="nottickedoff">result &lt;- runExceptT $ runLoggingT action logOutput</span>
 <span class="lineno">   21 </span><span class="spaces">  </span><span class="nottickedoff">either ((*&gt; RIO.exitFailure) . RIO.logError . RIO.display . errorsToText) pure result</span></span>
 <span class="lineno">   22 </span>
-<span class="lineno">   23 </span>readSourceFile :: Has env =&gt; Exec -&gt; String -&gt; RIO.RIO env Source
+<span class="lineno">   23 </span>readSourceFile ∷ Has env ⇒ Exec → String → RIO.RIO env Source
 <span class="lineno">   24 </span><span class="decl"><span class="nottickedoff">readSourceFile True = pure . toText</span>
 <span class="lineno">   25 </span><span class="spaces"></span><span class="nottickedoff">readSourceFile _    = readTextFileRio</span></span>
 <span class="lineno">   26 </span>
-<span class="lineno">   27 </span>fallback :: Has env =&gt; EvalParams -&gt; RIO.RIO env ()
+<span class="lineno">   27 </span>fallback ∷ Has env ⇒ EvalParams → RIO.RIO env ()
 <span class="lineno">   28 </span><span class="decl"><span class="nottickedoff">fallback = putLTextLnRio . show . source</span></span>
 <span class="lineno">   29 </span>
-<span class="lineno">   30 </span>toRioLevel :: LogLevel -&gt; RIO.LogLevel
+<span class="lineno">   30 </span>toRioLevel ∷ LogLevel → RIO.LogLevel
 <span class="lineno">   31 </span><span class="decl"><span class="nottickedoff">toRioLevel  LevelError    = RIO.LevelError</span>
 <span class="lineno">   32 </span><span class="spaces"></span><span class="nottickedoff">toRioLevel  LevelWarn     = RIO.LevelWarn</span>
 <span class="lineno">   33 </span><span class="spaces"></span><span class="nottickedoff">toRioLevel  LevelInfo     = RIO.LevelInfo</span>

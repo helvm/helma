@@ -8,35 +8,35 @@ import           HelVM.HelIO.Containers.Extra
 
 -- | Constructors
 
-blAnd :: OperatorType -> BinaryOperation
+blAnd ∷ OperatorType → BinaryOperation
 blAnd Bitwise = BAnd
 blAnd Logical = LAnd
 
-blOr :: OperatorType -> BinaryOperation
+blOr ∷ OperatorType → BinaryOperation
 blOr Bitwise = BOr
 blOr Logical = LOr
 
-blXor :: OperatorType -> BinaryOperation
+blXor ∷ OperatorType → BinaryOperation
 blXor Bitwise = BXor
 blXor Logical = LXor
 
-blEQ :: OperatorType -> BinaryOperation
+blEQ ∷ OperatorType → BinaryOperation
 blEQ Bitwise = BEQ
 blEQ Logical = LEQ
 
-blGT :: OperatorType -> BinaryOperation
+blGT ∷ OperatorType → BinaryOperation
 blGT Bitwise = BGT
 blGT Logical = LGT
 
 -- | Other functions
 
-calculateOps :: Integral a => a -> a -> [BinaryOperation] -> [a]
+calculateOps ∷ Integral a ⇒ a → a → [BinaryOperation] → [a]
 calculateOps operand operand' = map (calculateOp operand operand')
 
-calculateOp :: Integral a => a -> a -> BinaryOperation -> a
+calculateOp ∷ Integral a ⇒ a → a → BinaryOperation → a
 calculateOp operand operand' operation = doBinary operation operand' operand
 
-doBinary :: Integral a => BinaryOperation -> a -> a -> a
+doBinary ∷ Integral a ⇒ BinaryOperation → a → a → a
 doBinary Add = (+)
 doBinary Sub = (-)
 doBinary Mul = (*)
@@ -45,14 +45,14 @@ doBinary Mod = mod
 doBinary LGT = lGT
 doBinary o   = error $ show o
 
-lGT :: (Integral a1) => a1 -> a1 -> a1
+lGT ∷ (Integral a1) ⇒ a1 → a1 → a1
 lGT a b = fromBool $ a > b
 
-fromBool :: Integral a => Bool -> a
+fromBool ∷ Integral a ⇒ Bool → a
 fromBool False = 0
 fromBool True  = 1
 
-toBool :: Integral a => a -> Bool
+toBool ∷ Integral a ⇒ a → Bool
 toBool a = a /= 0
 
 -- | Types
@@ -91,24 +91,24 @@ data OperatorType = Bitwise | Logical
 
 -- | Internal
 
-printSM :: SMInstruction -> Text
+printSM ∷ SMInstruction → Text
 printSM (SPure i) = printSPure i
 printSM (SIO   i) = printIO i <> "S"
 
-printSPure :: SPureInstruction -> Text
+printSPure ∷ SPureInstruction → Text
 printSPure (Unary    i  ) = printUnary i
 printSPure (Indexed  i o) = toLowerShow o <> printIndexOperand i
 printSPure (Binary   i  ) = toLowerShow i
 printSPure (Binaries i  ) = printBinaries i
 printSPure           i    = toLowerShow i
 
-printBinaries :: (Foldable c, Functor c, Show i) => c i -> Text
+printBinaries ∷ (Foldable c, Functor c, Show i) ⇒ c i → Text
 printBinaries il = fmconcat $ toLowerShow <$> il
 
-printUnary :: UnaryOperation -> Text
+printUnary ∷ UnaryOperation → Text
 printUnary (UImmediate i o) = toLowerShow o <> "I " <> show i
 printUnary             i    = toLowerShow i
 
-printIndexOperand :: IndexOperand -> Text
+printIndexOperand ∷ IndexOperand → Text
 printIndexOperand ITop           = ""
 printIndexOperand (IImmediate i) = "I " <> show i

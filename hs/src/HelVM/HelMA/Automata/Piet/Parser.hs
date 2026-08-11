@@ -9,13 +9,13 @@ import qualified Codec.Picture                         as Picture
 
 import           Data.MonoTraversable
 
-processImage ::  Maybe Natural -> Picture.DynamicImage -> Image Color
+processImage ∷  Maybe Natural → Picture.DynamicImage → Image Color
 processImage codelInfo dynamicImage = imageFromJuicy actualCodelLength img where
   actualCodelLength = max 1 $ maybe defaultCodelInfo fromIntegral codelInfo
   defaultCodelInfo = imageGuessCodelLength img
   img = Picture.convertRGBA8 dynamicImage
 
-imageFromJuicy :: Int -> Picture.Image Picture.PixelRGBA8 -> Image Color
+imageFromJuicy ∷ Int → Picture.Image Picture.PixelRGBA8 → Image Color
 imageFromJuicy codelLength img = newImage (width, height) pixels where
   width  = Picture.imageWidth img `div` codelLength
   height = Picture.imageHeight img `div` codelLength
@@ -25,7 +25,7 @@ imageFromJuicy codelLength img = newImage (width, height) pixels where
   extractColor x y = checkAlpha (Picture.pixelAt img (x * codelLength) (y * codelLength))
   checkAlpha (Picture.PixelRGBA8 r g b _) = rgb2Color r g b
 
-imageGuessCodelLength :: Picture.Image Picture.PixelRGBA8 -> Int
+imageGuessCodelLength ∷ Picture.Image Picture.PixelRGBA8 → Int
 imageGuessCodelLength img = lastUntil isOne $ scanl gcd (gcd width height) $ fmap olength (group rows) <> fmap olength (group cols) where
   width  = Picture.imageWidth img
   height = Picture.imageHeight img

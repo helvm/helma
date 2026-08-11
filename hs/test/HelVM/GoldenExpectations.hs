@@ -1,12 +1,11 @@
-module HelVM.GoldenExpectations (
-  (<->),
-
-  goldenShouldControlT,
-  goldenShouldSafeT,
-  goldenShouldSafe,
-  goldenShouldIO,
-  goldenShouldBe,
-) where
+module HelVM.GoldenExpectations
+    ( (<->)
+    , goldenShouldBe
+    , goldenShouldControlT
+    , goldenShouldIO
+    , goldenShouldSafe
+    , goldenShouldSafeT
+    ) where
 
 import           HelVM.HelIO.Control.Control
 import           HelVM.HelIO.Control.Safe
@@ -20,27 +19,27 @@ import           Test.Hspec.Core.Spec
 import           Test.Hspec.Golden
 
 infixl 1 <->
-(<->) :: FilePath -> FilePath -> FilePath
+(<->) ∷ FilePath → FilePath → FilePath
 (<->) major minor = major <> "-" <> minor
 
 infix 1 `goldenShouldControlT`
-goldenShouldControlT :: ControlT IO Text -> FilePath -> GoldenExpectations Text
+goldenShouldControlT ∷ ControlT IO Text → FilePath → GoldenExpectations Text
 goldenShouldControlT actualOutput = goldenShouldIO (controlTToIOWithLogs actualOutput)
 
 infix 1 `goldenShouldSafeT`
-goldenShouldSafeT :: SafeT IO Text -> FilePath -> GoldenExpectations Text
+goldenShouldSafeT ∷ SafeT IO Text → FilePath → GoldenExpectations Text
 goldenShouldSafeT actualOutput = goldenShouldIO (safeTToIO actualOutput)
 
 infix 1 `goldenShouldSafe`
-goldenShouldSafe :: Safe Text -> FilePath -> GoldenExpectations Text
+goldenShouldSafe ∷ Safe Text → FilePath → GoldenExpectations Text
 goldenShouldSafe actualOutputSafe = goldenShouldIO (safeToIO actualOutputSafe)
 
 infix 1 `goldenShouldIO`
-goldenShouldIO :: IO Text -> FilePath -> GoldenExpectations Text
+goldenShouldIO ∷ IO Text → FilePath → GoldenExpectations Text
 goldenShouldIO actualOutputIO fileName = GoldenExpectations $ flip goldenShouldBe fileName <$> actualOutputIO
 
 infix 1 `goldenShouldBe`
-goldenShouldBe :: Text -> FilePath -> Golden Text
+goldenShouldBe ∷ Text → FilePath → Golden Text
 goldenShouldBe actualOutput fileName =
   Golden {
     output = actualOutput,
@@ -54,13 +53,14 @@ goldenShouldBe actualOutput fileName =
 
 ----
 
-newtype GoldenExpectations a = GoldenExpectations { unGoldenExpectations :: GoldenIO a }
+newtype GoldenExpectations a
+  = GoldenExpectations { unGoldenExpectations :: GoldenIO a }
 
 type GoldenIO a = IO $ Golden a
 
 ----
 
-instance Eq str => Example (GoldenExpectations str) where
+instance Eq str ⇒ Example (GoldenExpectations str) where
   type Arg (GoldenExpectations str) = ()
   evaluateExample wrapped params action callback = evaluateExample' =<< unGoldenExpectations wrapped where
     evaluateExample' unwrapped = evaluateExample unwrapped params action callback

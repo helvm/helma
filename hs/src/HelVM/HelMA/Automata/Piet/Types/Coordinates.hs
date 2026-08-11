@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.Piet.Types.Coordinates (
   Coordinates,
 ) where
 
-initialCoordinates :: Coordinates
+initialCoordinates ∷ Coordinates
 initialCoordinates = (0, 0)
 
 type Coordinates = (Int , Int)

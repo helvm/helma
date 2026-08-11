@@ -12,22 +12,22 @@ import qualified Data.DList                   as D
 import           Text.Read
 import qualified Text.Show
 
-showExpressionList :: ExpressionList -> LText
+showExpressionList ∷ ExpressionList → LText
 showExpressionList f = fmconcat $ show <$> f
 
-readExpressionList :: LText -> ExpressionList
+readExpressionList ∷ LText → ExpressionList
 readExpressionList = stringToExpressionList . toString
 
-stringToExpressionList :: String -> ExpressionList
+stringToExpressionList ∷ String → ExpressionList
 stringToExpressionList s = charToExpressionList =<< s
 
-charToExpressionList :: Char -> ExpressionList
+charToExpressionList ∷ Char → ExpressionList
 charToExpressionList = maybeToList . rightToMaybe . charToExpressionSafe
 
-charToExpression :: Char -> Expression
+charToExpression ∷ Char → Expression
 charToExpression = unsafe . charToExpressionSafe
 
-charToExpressionSafe :: MonadSafe m => Char -> m Expression
+charToExpressionSafe ∷ MonadSafe m ⇒ Char → m Expression
 charToExpressionSafe '0' = pure Zero
 charToExpressionSafe '1' = pure One
 charToExpressionSafe  c  = liftErrorWithPrefix "charToExpression" $ one c
@@ -37,7 +37,7 @@ type ExpressionDList = D.DList Expression
 
 type ExpressionList = [Expression]
 
-data Expression = Zero | One | Expression (Expression -> Out Expression)
+data Expression = Zero | One | Expression (Expression → Out Expression)
 
 type Out = Writer ExpressionDList
 

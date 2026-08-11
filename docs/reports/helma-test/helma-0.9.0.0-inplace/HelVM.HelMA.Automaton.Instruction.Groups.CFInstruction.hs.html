@@ -25,10 +25,10 @@ span.spaces    { background: white }
 <span class="lineno">    6 </span>
 <span class="lineno">    7 </span>-- | Others
 <span class="lineno">    8 </span>
-<span class="lineno">    9 </span>isNotJump :: Integral e =&gt; BranchTest -&gt; e -&gt; Bool
+<span class="lineno">    9 </span>isNotJump ∷ Integral e ⇒ BranchTest → e → Bool
 <span class="lineno">   10 </span><span class="decl"><span class="nottickedoff">isNotJump t = not . isJump t</span></span>
 <span class="lineno">   11 </span>
-<span class="lineno">   12 </span>isJump :: Integral e =&gt; BranchTest -&gt; e -&gt; Bool
+<span class="lineno">   12 </span>isJump ∷ Integral e ⇒ BranchTest → e → Bool
 <span class="lineno">   13 </span><span class="decl"><span class="istickedoff">isJump NE  e = e /= 0</span>
 <span class="lineno">   14 </span><span class="spaces"></span><span class="istickedoff">isJump EZ  e = e == 0</span>
 <span class="lineno">   15 </span><span class="spaces"></span><span class="istickedoff">isJump LTZ e = <span class="nottickedoff">e &lt;  0</span></span>
@@ -65,26 +65,26 @@ span.spaces    { background: white }
 <span class="lineno">   46 </span>
 <span class="lineno">   47 </span>-- | Internal
 <span class="lineno">   48 </span>
-<span class="lineno">   49 </span>printCF :: CFInstruction -&gt; Text
+<span class="lineno">   49 </span>printCF ∷ CFInstruction → Text
 <span class="lineno">   50 </span><span class="decl"><span class="istickedoff">printCF (Mark     i  ) = &quot;\nmark&quot; &lt;&gt; printMark i</span>
 <span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">printCF (Branch i t)   = printBranchTest t &lt;&gt; printBranchOperand i</span>
 <span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">printCF (Labeled  i o) = toLowerShow o &lt;&gt; printLabelOperand i</span>
 <span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">printCF           i    = toLowerShow i</span></span>
 <span class="lineno">   54 </span>
-<span class="lineno">   55 </span>printMark :: Mark -&gt; Text
+<span class="lineno">   55 </span>printMark ∷ Mark → Text
 <span class="lineno">   56 </span><span class="decl"><span class="istickedoff">printMark (MNatural    i) = &quot;M &quot; &lt;&gt; show i</span>
 <span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff">printMark (MArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>
 <span class="lineno">   58 </span>
-<span class="lineno">   59 </span>printBranchTest :: BranchTest -&gt; Text
+<span class="lineno">   59 </span>printBranchTest ∷ BranchTest → Text
 <span class="lineno">   60 </span><span class="decl"><span class="istickedoff">printBranchTest t = &quot;b&quot; &lt;&gt; show t</span></span>
 <span class="lineno">   61 </span>
-<span class="lineno">   62 </span>printBranchOperand :: BranchOperand -&gt; Text
+<span class="lineno">   62 </span>printBranchOperand ∷ BranchOperand → Text
 <span class="lineno">   63 </span><span class="decl"><span class="istickedoff">printBranchOperand  BTop           = &quot;&quot;</span>
 <span class="lineno">   64 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand  BSwapped       = &quot;S&quot;</span>
 <span class="lineno">   65 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand (BImmediate  i) = &quot;I &quot; &lt;&gt; show i</span>
 <span class="lineno">   66 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand (BArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>
 <span class="lineno">   67 </span>
-<span class="lineno">   68 </span>printLabelOperand :: LabelOperand -&gt; Text
+<span class="lineno">   68 </span>printLabelOperand ∷ LabelOperand → Text
 <span class="lineno">   69 </span><span class="decl"><span class="istickedoff">printLabelOperand  LTop           = &quot;&quot;</span>
 <span class="lineno">   70 </span><span class="spaces"></span><span class="istickedoff">printLabelOperand (LImmediate  i) = &quot;I &quot; &lt;&gt; show i</span>
 <span class="lineno">   71 </span><span class="spaces"></span><span class="istickedoff">printLabelOperand (LArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>

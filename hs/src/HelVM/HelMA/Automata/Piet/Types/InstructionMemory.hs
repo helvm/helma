@@ -17,22 +17,22 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           Control.Monad.Logger
 
-logWithPosition :: AppEff m => Text -> InstructionMemory -> m ()
+logWithPosition ∷ AppEff m ⇒ Text → InstructionMemory → m ()
 logWithPosition msg im = logDebugN $ show (position $ instructionCounter im) <> " " <> msg
 
-codelChooserIM :: InstructionMemory -> DirectionPointer
+codelChooserIM ∷ InstructionMemory → DirectionPointer
 codelChooserIM = directionPointerIC .  instructionCounter
 
-directionPointerIM :: InstructionMemory -> DirectionPointer
+directionPointerIM ∷ InstructionMemory → DirectionPointer
 directionPointerIM = directionPointerIC .  instructionCounter
 
-toggleCodelChooserIM :: Int -> InstructionMemory -> InstructionMemory
+toggleCodelChooserIM ∷ Int → InstructionMemory → InstructionMemory
 toggleCodelChooserIM n im = im { instructionCounter = toggleCodelChooserIC n (instructionCounter im)}
 
-rotateDirectionPointerIM :: Int -> InstructionMemory -> InstructionMemory
+rotateDirectionPointerIM ∷ Int → InstructionMemory → InstructionMemory
 rotateDirectionPointerIM n im = im { instructionCounter = rotateDirectionPointerIC n (instructionCounter im)}
 
-initialInstructionMemory :: Program -> InstructionMemory
+initialInstructionMemory ∷ Program → InstructionMemory
 initialInstructionMemory prog = InstructionMemory
   { instructionCounter = initialInstructionCounter
   , program            = prog

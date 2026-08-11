@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec (spec) where
+module HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
@@ -16,7 +18,7 @@ import           System.FilePath.Posix
 
 import           Test.Hspec                                    (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "eval" $ forM_ (((
     [ ("count"        , ""           )

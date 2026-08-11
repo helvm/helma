@@ -25,20 +25,20 @@ span.spaces    { background: white }
 <span class="lineno">    6 </span>import qualified Data.ByteString.Lazy                 as LByteString
 <span class="lineno">    7 </span>
 <span class="lineno">    8 </span>-- | Constructors
-<span class="lineno">    9 </span>readInput :: LByteString -&gt; Lambda
+<span class="lineno">    9 </span>readInput ∷ LByteString → Lambda
 <span class="lineno">   10 </span><span class="decl"><span class="istickedoff">readInput = encodeInput . fmap <span class="nottickedoff">fromIntegral</span> . LByteString.unpack</span></span>
 <span class="lineno">   11 </span>
-<span class="lineno">   12 </span>encodeInput :: [Natural] -&gt; Lambda
+<span class="lineno">   12 </span>encodeInput ∷ [Natural] → Lambda
 <span class="lineno">   13 </span><span class="decl"><span class="istickedoff">encodeInput = foldr <span class="nottickedoff">(cons . church)</span> end</span></span>
 <span class="lineno">   14 </span>
 <span class="lineno">   15 </span>-- | Other
-<span class="lineno">   16 </span>end :: Lambda
+<span class="lineno">   16 </span>end ∷ Lambda
 <span class="lineno">   17 </span><span class="decl"><span class="istickedoff">end = cons (church 256) false</span></span>
 <span class="lineno">   18 </span>
-<span class="lineno">   19 </span>cons :: Lambda -&gt; Lambda -&gt; Lambda
+<span class="lineno">   19 </span>cons ∷ Lambda → Lambda → Lambda
 <span class="lineno">   20 </span><span class="decl"><span class="istickedoff">cons a b = app3 S (app3SI (appK a)) (appK b)</span></span>
 <span class="lineno">   21 </span>
-<span class="lineno">   22 </span>church :: Natural -&gt; Lambda
+<span class="lineno">   22 </span>church ∷ Natural → Lambda
 <span class="lineno">   23 </span><span class="decl"><span class="istickedoff">church 0   = false</span>
 <span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">church 1   = I</span>
 <span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">church 4   = appSelfApp $ church 2</span>
@@ -56,10 +56,10 @@ span.spaces    { background: white }
 <span class="lineno">   37 </span><span class="spaces"></span><span class="istickedoff">church 256 = appSelfApp $ church 4</span>
 <span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff">church n   = succChurch $ n - 1</span></span>
 <span class="lineno">   39 </span>
-<span class="lineno">   40 </span>succChurch :: Natural -&gt; Lambda
+<span class="lineno">   40 </span>succChurch ∷ Natural → Lambda
 <span class="lineno">   41 </span><span class="decl"><span class="istickedoff">succChurch = successor . church</span></span>
 <span class="lineno">   42 </span>
-<span class="lineno">   43 </span>successor :: Lambda -&gt; Lambda
+<span class="lineno">   43 </span>successor ∷ Lambda → Lambda
 <span class="lineno">   44 </span><span class="decl"><span class="istickedoff">successor = app3 S bCombinator</span></span>
 
 </pre>

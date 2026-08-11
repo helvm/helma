@@ -15,27 +15,27 @@ import           Data.Default (Default)
 import qualified Data.Default as Default
 import qualified Relude.Extra as Extra
 
-inc :: Symbol e => e -> e -> e
+inc ∷ Symbol e ⇒ e → e → e
 inc = flip (+)
 
-compare0 :: Integer -> Ordering
+compare0 ∷ Integer → Ordering
 compare0 = compare 0
 
 --
 
-def :: Symbol e => e
+def ∷ Symbol e ⇒ e
 def = Default.def
 
-next :: Symbol e => e -> e
+next ∷ Symbol e ⇒ e → e
 next = Extra.next
 
-prev :: Symbol e => e -> e
+prev ∷ Symbol e ⇒ e → e
 prev = Extra.prev
 
 class (Bounded e , Default e , Enum e , Eq e , Integral e , Show e) => Symbol e where
 --  toInteger  :: e -> Integer
-  fromChar   :: Char -> e
-  toChar     :: e -> Char
+  fromChar   :: Char → e
+  toChar     :: e → Char
 
 --
 
@@ -90,11 +90,11 @@ instance Symbol Word64 where
   toChar     = chr . fromIntegral
 --
 
-countSymbols :: (Integral e) => e
+countSymbols ∷ (Integral e) ⇒ e
 countSymbols = 256
 
-modifyMod :: (Integral e) => (e -> e) -> e -> e
+modifyMod ∷ (Integral e) ⇒ (e → e) → e → e
 modifyMod f i = f (i + countSymbols) `mod` countSymbols
 
-normalizeMod :: (Integral e) => e -> e
+normalizeMod ∷ (Integral e) ⇒ e → e
 normalizeMod = modifyMod id

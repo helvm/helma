@@ -32,7 +32,7 @@ span.spaces    { background: white }
 <span class="lineno">   13 </span>
 <span class="lineno">   14 </span>import           Control.Type.Operator
 <span class="lineno">   15 </span>
-<span class="lineno">   16 </span>runSLI :: (LSU m s r element) =&gt; LSInstruction -&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   16 </span>runSLI ∷ (LSU m s r element) ⇒ LSInstruction → LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   17 </span><span class="decl"><span class="istickedoff">runSLI Load             = load</span>
 <span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">runSLI Store            = store</span>
 <span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">runSLI (LoadD     a)    = loadD a</span>
@@ -43,44 +43,44 @@ span.spaces    { background: white }
 <span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">runSLI (MIO InputChar)  = storeInputChar</span>
 <span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">runSLI (MIO InputDec)   = storeInputDec</span></span>
 <span class="lineno">   26 </span>
-<span class="lineno">   27 </span>load :: LSU m s r element =&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   27 </span>load ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   28 </span><span class="decl"><span class="istickedoff">load (LSM s r) = appendError <span class="nottickedoff">&quot;LSM.load&quot;</span> $ build =&lt;&lt; pop1 s where</span>
 <span class="lineno">   29 </span><span class="spaces">  </span><span class="istickedoff">build (address , s') = loadPure address $ LSM s' r</span></span>
 <span class="lineno">   30 </span>
-<span class="lineno">   31 </span>loadD :: LSU m s r element =&gt; ImmediateIndex -&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   31 </span>loadD ∷ LSU m s r element ⇒ ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   32 </span><span class="decl"><span class="istickedoff">loadD address = loadPure (fromIntegral address)</span></span>
 <span class="lineno">   33 </span>
-<span class="lineno">   34 </span>loadPure :: LSU m s r element =&gt; element -&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   34 </span>loadPure ∷ LSU m s r element ⇒ element → LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   35 </span><span class="decl"><span class="istickedoff">loadPure address (LSM s r) = pure $ LSM (push1 (RAM.genericLoad r address) s) r</span></span>
 <span class="lineno">   36 </span>
-<span class="lineno">   37 </span>store :: LSU m s r element =&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   37 </span>store ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   38 </span><span class="decl"><span class="istickedoff">store (LSM s r) = appendError <span class="nottickedoff">&quot;LSM.store&quot;</span> $ build =&lt;&lt; pop2 s where</span>
 <span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">build (value , address , s') = storePure value address $ LSM s' r</span></span>
 <span class="lineno">   40 </span>
-<span class="lineno">   41 </span>storeID :: LSU m s r element =&gt; Integer -&gt; ImmediateIndex -&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   41 </span>storeID ∷ LSU m s r element ⇒ Integer → ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   42 </span><span class="decl"><span class="istickedoff">storeID value address = storePure (fromIntegral value) (fromIntegral address)</span></span>
 <span class="lineno">   43 </span>
-<span class="lineno">   44 </span>storePure :: LSU m s r element =&gt; element -&gt; element -&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   44 </span>storePure ∷ LSU m s r element ⇒ element → element → LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   45 </span><span class="decl"><span class="istickedoff">storePure value address (LSM s r) = pure $ LSM s $ RAM.store address value r</span></span>
 <span class="lineno">   46 </span>
-<span class="lineno">   47 </span>moveD :: LSU m s r element =&gt; ImmediateIndex -&gt; ImmediateIndex -&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   47 </span>moveD ∷ LSU m s r element ⇒ ImmediateIndex → ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   48 </span><span class="decl"><span class="nottickedoff">moveD src dst lsm@(LSM _ r) = storePure (RAM.genericLoad r src) (fromIntegral dst) lsm</span></span>
 <span class="lineno">   49 </span>
 <span class="lineno">   50 </span>-- | IO
 <span class="lineno">   51 </span>
-<span class="lineno">   52 </span>loadOutputChar :: LSU m s r element =&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   52 </span>loadOutputChar ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   53 </span><span class="decl"><span class="nottickedoff">loadOutputChar (LSM s r) = appendError &quot;LSM.loadOutputChar&quot; $ build =&lt;&lt; pop1 s where</span>
 <span class="lineno">   54 </span><span class="spaces">  </span><span class="nottickedoff">build (address , s') = LSM s' r &lt;$ putAsChar (RAM.genericLoad r address)</span></span>
 <span class="lineno">   55 </span>
-<span class="lineno">   56 </span>loadOutputDec :: LSU m s r element =&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   56 </span>loadOutputDec ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   57 </span><span class="decl"><span class="nottickedoff">loadOutputDec (LSM s r) = appendError &quot;LSM.loadOutputDec&quot; $ build =&lt;&lt; pop1 s where</span>
 <span class="lineno">   58 </span><span class="spaces">  </span><span class="nottickedoff">build (address , s') = LSM s' r &lt;$ putAsDec (RAM.genericLoad r address)</span></span>
 <span class="lineno">   59 </span>
-<span class="lineno">   60 </span>storeInputChar :: LSU m s r element =&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   60 </span>storeInputChar ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   61 </span><span class="decl"><span class="istickedoff">storeInputChar (LSM s r) = appendError <span class="nottickedoff">&quot;LSM.storeInputChar&quot;</span> $ build =&lt;&lt; pop1 s where</span>
 <span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">build (address , s') = LSM s' . flip (RAM.store address) r &lt;$&gt; getCharAs</span></span>
 <span class="lineno">   63 </span>
-<span class="lineno">   64 </span>storeInputDec :: LSU m s r element =&gt; LoadStoreMemory s r -&gt; m $ LoadStoreMemory s r
+<span class="lineno">   64 </span>storeInputDec ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 <span class="lineno">   65 </span><span class="decl"><span class="istickedoff">storeInputDec (LSM s r) = appendError <span class="nottickedoff">&quot;LSM.storeInputDec&quot;</span> $ build =&lt;&lt; pop1 s where</span>
 <span class="lineno">   66 </span><span class="spaces">  </span><span class="istickedoff">build (address , s') = LSM s' . flip (RAM.store address) r &lt;$&gt; getDecAs</span></span>
 <span class="lineno">   67 </span>

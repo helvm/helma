@@ -25,16 +25,16 @@ span.spaces    { background: white }
 <span class="lineno">    6 </span>
 <span class="lineno">    7 </span>import qualified Data.Text.Lazy                      as LText
 <span class="lineno">    8 </span>
-<span class="lineno">    9 </span>parse :: LText -&gt; ExpressionList
+<span class="lineno">    9 </span>parse ∷ LText → ExpressionList
 <span class="lineno">   10 </span><span class="decl"><span class="istickedoff">parse = concatMap parseLine . LText.lines</span></span>
 <span class="lineno">   11 </span>
-<span class="lineno">   12 </span>parseLine :: LText -&gt; ExpressionList
+<span class="lineno">   12 </span>parseLine ∷ LText → ExpressionList
 <span class="lineno">   13 </span><span class="decl"><span class="istickedoff">parseLine = readExpressionList . filter01 . LText.takeWhile (/= '#')</span></span>
 <span class="lineno">   14 </span>
-<span class="lineno">   15 </span>filter01 :: LText -&gt; LText
+<span class="lineno">   15 </span>filter01 ∷ LText → LText
 <span class="lineno">   16 </span><span class="decl"><span class="istickedoff">filter01 = LText.filter is01</span></span>
 <span class="lineno">   17 </span>
-<span class="lineno">   18 </span>is01 :: Char -&gt; Bool
+<span class="lineno">   18 </span>is01 ∷ Char → Bool
 <span class="lineno">   19 </span><span class="decl"><span class="istickedoff">is01 c = c == '0' || c == '1'</span></span>
 
 </pre>

@@ -28,20 +28,20 @@ span.spaces    { background: white }
 <span class="lineno">    9 </span>
 <span class="lineno">   10 </span>-- | Lexer
 <span class="lineno">   11 </span>
-<span class="lineno">   12 </span>tokenize :: TokenType -&gt; Source -&gt; TokenList
+<span class="lineno">   12 </span>tokenize ∷ TokenType → Source → TokenList
 <span class="lineno">   13 </span><span class="decl"><span class="istickedoff">tokenize VisibleTokenType = tokenizeVisible</span>
 <span class="lineno">   14 </span><span class="spaces"></span><span class="istickedoff">tokenize _                = tokenizeWhite</span></span>
 <span class="lineno">   15 </span>
-<span class="lineno">   16 </span>tokenizeVisible :: Source -&gt; TokenList
+<span class="lineno">   16 </span>tokenizeVisible ∷ Source → TokenList
 <span class="lineno">   17 </span><span class="decl"><span class="istickedoff">tokenizeVisible = unWrapTokenList . readVisibleTokens</span></span>
 <span class="lineno">   18 </span>
-<span class="lineno">   19 </span>tokenizeWhite :: Source -&gt; TokenList
+<span class="lineno">   19 </span>tokenizeWhite ∷ Source → TokenList
 <span class="lineno">   20 </span><span class="decl"><span class="istickedoff">tokenizeWhite = whiteTokenListToTokenList . unWrapTokenList . readWhiteTokens</span></span>
 <span class="lineno">   21 </span>
-<span class="lineno">   22 </span>readVisibleTokens :: Source -&gt; VisibleTokens
+<span class="lineno">   22 </span>readVisibleTokens ∷ Source → VisibleTokens
 <span class="lineno">   23 </span><span class="decl"><span class="istickedoff">readVisibleTokens source = readTextUnsafe source :: VisibleTokens</span></span>
 <span class="lineno">   24 </span>
-<span class="lineno">   25 </span>readWhiteTokens :: Source -&gt; WhiteTokens
+<span class="lineno">   25 </span>readWhiteTokens ∷ Source → WhiteTokens
 <span class="lineno">   26 </span><span class="decl"><span class="istickedoff">readWhiteTokens source = readTextUnsafe source :: WhiteTokens</span></span>
 <span class="lineno">   27 </span>
 <span class="lineno">   28 </span>type VisibleTokens = WrapTokenList TokenList

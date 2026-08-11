@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.LazyK.ParserSpec (spec) where
+module HelVM.HelMA.Automata.LazyK.ParserSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.LazyK.FileExtra
 import           HelVM.HelMA.Automata.LazyK.Parser
@@ -13,7 +15,7 @@ import           System.FilePath.Posix
 
 import           Test.Hspec                           (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "parse" $
     describe "original" $ forM_ (

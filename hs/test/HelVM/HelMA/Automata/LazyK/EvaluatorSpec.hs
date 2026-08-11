@@ -15,7 +15,7 @@ import           System.FilePath.Posix
 
 import           Test.Hspec                           (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "eval" $
     describe "original" $ forM_ (

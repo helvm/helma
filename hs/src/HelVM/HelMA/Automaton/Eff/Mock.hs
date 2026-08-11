@@ -1,4 +1,5 @@
 {-# LANGUAGE GeneralisedNewtypeDeriving #-}
+{-# LANGUAGE UnicodeSyntax              #-}
 
 module HelVM.HelMA.Automaton.Eff.Mock (
   ioExecMockEffBatch,
@@ -38,39 +39,39 @@ import           Control.Monad.Writer.Class           (MonadWriter)
 
 import qualified Data.Sequence                        as Seq
 
-ioExecMockEffBatch :: SafeT Mock () -> IO MockData
+ioExecMockEffBatch ∷ SafeT Mock () → IO MockData
 ioExecMockEffBatch = ioExecMockEffWithInput ""
 
-ioExecMockEffWithInput :: Input -> SafeT Mock () -> IO MockData
+ioExecMockEffWithInput ∷ Input → SafeT Mock () → IO MockData
 ioExecMockEffWithInput i = safeToIO . safeExecMockEffWithInput i
 
-safeExecMockEffBatch :: SafeT Mock () -> Safe MockData
+safeExecMockEffBatch ∷ SafeT Mock () → Safe MockData
 safeExecMockEffBatch = safeExecMockEffWithInput ""
 
-safeExecMockEffWithInput :: Input -> SafeT Mock () -> Safe MockData
+safeExecMockEffWithInput ∷ Input → SafeT Mock () → Safe MockData
 safeExecMockEffWithInput i action = pure $ runMockEff i $ runSafeT action
 
-execMockEffBatch :: Mock () -> MockData
+execMockEffBatch ∷ Mock () → MockData
 execMockEffBatch = execMockEffWithInput ""
 
-execMockEffWithInput :: Input -> Mock () -> MockData
+execMockEffWithInput ∷ Input → Mock () → MockData
 execMockEffWithInput i action = runMockEff i $ Right <$> action
 
 ----
 
-runMockEff :: Input -> Mock (Safe ()) -> MockData
+runMockEff ∷ Input → Mock (Safe ()) → MockData
 runMockEff i mockEff = safeToMockData $ runWriter $ runStateT (unMock mockEff) $ createMockEffData i where
   safeToMockData ((Right _, io), logs) = (io, logs)
   safeToMockData ((Left msgs, io), logs) = (io, logs Seq.|> errLog) where
     errLog = MockLog defaultLoc "" LevelError $ toLogStr $ errorsToText msgs
 
-calculateOutput :: MockData -> Output
+calculateOutput ∷ MockData → Output
 calculateOutput = reverseOutput . fst
 
-calculateLogsWithLevelInfo :: MockData -> Output
+calculateLogsWithLevelInfo ∷ MockData → Output
 calculateLogsWithLevelInfo = filterLogsWithLevelInfo . snd
 
-calculateLogsWithLevelDebug :: MockData -> Output
+calculateLogsWithLevelDebug ∷ MockData → Output
 calculateLogsWithLevelDebug = filterLogsWithLevelDebug . snd
 
 ----

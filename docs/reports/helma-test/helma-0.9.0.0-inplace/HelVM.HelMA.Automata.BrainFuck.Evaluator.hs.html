@@ -50,25 +50,25 @@ span.spaces    { background: white }
 <span class="lineno">   31 </span>
 <span class="lineno">   32 </span>import           Text.Pretty.Simple
 <span class="lineno">   33 </span>
-<span class="lineno">   34 </span>runRio :: Has env =&gt; ImplType -&gt; RIO.RIO env ()
+<span class="lineno">   34 </span>runRio ∷ Has env ⇒ ImplType → RIO.RIO env ()
 <span class="lineno">   35 </span><span class="decl"><span class="nottickedoff">runRio t = runWithOptions =&lt;&lt; optionsRio where</span>
 <span class="lineno">   36 </span><span class="spaces">  </span><span class="nottickedoff">runWithOptions o = run (App.emit o) t . App.evalParams o =&lt;&lt; readSourceFileRio</span></span>
 <span class="lineno">   37 </span>
-<span class="lineno">   38 </span>run :: Has env =&gt; Emit.Emit -&gt; ImplType -&gt; EvalParams -&gt; RIO.RIO env ()
+<span class="lineno">   38 </span>run ∷ Has env ⇒ Emit.Emit → ImplType → EvalParams → RIO.RIO env ()
 <span class="lineno">   39 </span><span class="decl"><span class="nottickedoff">run Emit.No   i        = runAsRIO . evalParams i</span>
 <span class="lineno">   40 </span><span class="spaces"></span><span class="nottickedoff">run Emit.IL   FastType = putLTextLnRio . pShowNoColor . Fast.parseAsListSafe   . source</span>
 <span class="lineno">   41 </span><span class="spaces"></span><span class="nottickedoff">run Emit.IL   TreeType = putLTextLnRio . pShowNoColor . Tree.parseAsVectorSafe . source</span>
 <span class="lineno">   42 </span><span class="spaces"></span><span class="nottickedoff">run _ _                = putLTextLnRio . show . Flat.readTokens . source</span></span>
 <span class="lineno">   43 </span>
-<span class="lineno">   44 </span>simpleEval :: AppEff m =&gt; (ImplType , Source , CellType) -&gt; m ()
+<span class="lineno">   44 </span>simpleEval ∷ AppEff m ⇒ (ImplType , Source , CellType) → m ()
 <span class="lineno">   45 </span><span class="decl"><span class="istickedoff">simpleEval (c , s , t) = eval c s t Pretty</span></span> --TODO Add MaybeLimit and use Trampoline
 <span class="lineno">   46 </span>
 <span class="lineno">   47 </span>----
 <span class="lineno">   48 </span>
-<span class="lineno">   49 </span>evalParams :: AppEff m =&gt; ImplType -&gt; EvalParams -&gt; m ()
+<span class="lineno">   49 </span>evalParams ∷ AppEff m ⇒ ImplType → EvalParams → m ()
 <span class="lineno">   50 </span><span class="decl"><span class="nottickedoff">evalParams b p = eval b (source p) (cellAutoOptions p) (dumpAutoOptions p)</span></span>
 <span class="lineno">   51 </span>
-<span class="lineno">   52 </span>eval :: AppEff m =&gt; ImplType -&gt; Source -&gt; CellType -&gt; DumpType -&gt; m ()
+<span class="lineno">   52 </span>eval ∷ AppEff m ⇒ ImplType → Source → CellType → DumpType → m ()
 <span class="lineno">   53 </span><span class="decl"><span class="istickedoff">eval c s Int8Type   = evalSource c s (newTape :: FullTape Int8)</span>
 <span class="lineno">   54 </span><span class="spaces"></span><span class="istickedoff">eval c s Word8Type  = evalSource c s (newTape :: FullTape Word8)</span>
 <span class="lineno">   55 </span><span class="spaces"></span><span class="istickedoff">eval c s Int16Type  = evalSource c s (newTape :: FullTape Int16)</span>
@@ -78,7 +78,7 @@ span.spaces    { background: white }
 <span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">eval c s Int64Type  = <span class="nottickedoff">evalSource c s (newTape :: FullTape Int64)</span></span>
 <span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">eval c s Word64Type = <span class="nottickedoff">evalSource c s (newTape :: FullTape Word64)</span></span></span>
 <span class="lineno">   61 </span>
-<span class="lineno">   62 </span>evalSource :: (AppEff m , Symbol e) =&gt; ImplType -&gt; Source -&gt; FullTape e -&gt; DumpType -&gt; m ()
+<span class="lineno">   62 </span>evalSource ∷ (AppEff m , Symbol e) ⇒ ImplType → Source → FullTape e → DumpType → m ()
 <span class="lineno">   63 </span><span class="decl"><span class="istickedoff">evalSource FastType = Fast.evalSource</span>
 <span class="lineno">   64 </span><span class="spaces"></span><span class="istickedoff">evalSource TreeType = <span class="nottickedoff">Tree.evalSource</span></span>
 <span class="lineno">   65 </span><span class="spaces"></span><span class="istickedoff">evalSource FlatType = <span class="nottickedoff">Flat.evalSource</span></span></span>

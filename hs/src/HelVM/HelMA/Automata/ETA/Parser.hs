@@ -11,8 +11,8 @@ import           HelVM.HelMA.Automaton.Instruction
 
 import           HelVM.HelIO.Control.Safe
 
-parseSafe :: Source -> Safe InstructionList
+parseSafe ∷ Source → Safe InstructionList
 parseSafe = parse
 
-parse :: MonadSafe m => Source -> m InstructionList
+parse ∷ MonadSafe m ⇒ Source → m InstructionList
 parse = optimize . tokenize

@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.ETA.LexerSpec (spec) where
+module HelVM.HelMA.Automata.ETA.LexerSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.ETA.Lexer
 import           HelVM.HelMA.Automata.ETA.Parser
@@ -20,7 +22,7 @@ import           System.FilePath.Posix                       hiding ((<.>))
 
 import           Test.Hspec                                  (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "lexer" $ forM_ allFiles $ \(fileName , dirName) -> do
       let path = dirName </> fileName
@@ -32,10 +34,10 @@ spec =
       it ("optimized" </> path) $
         safeIOToIO ((printIL <.> optimize AllOptimizations <.> parseSafe) <$> file) `goldenShouldIO` buildAbsoluteEtaIlFileName ("optimized" </> path)
 
-allFiles :: [(FilePath, FilePath)]
+allFiles ∷ [(FilePath, FilePath)]
 allFiles = original <> fromEAS
 
-original :: [(FilePath, FilePath)]
+original ∷ [(FilePath, FilePath)]
 original =
   [ "hello"
   , "hello2"
@@ -46,7 +48,7 @@ original =
   , "crlf"
   ] >*< ["original"]
 
-fromEAS :: [(FilePath, FilePath)]
+fromEAS ∷ [(FilePath, FilePath)]
 fromEAS =
   [ "true"
   , "hello"

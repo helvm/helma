@@ -21,10 +21,10 @@ span.spaces    { background: white }
 <span class="lineno">    2 </span>
 <span class="lineno">    3 </span>import           HelVM.HelIO.SwitchEnum
 <span class="lineno">    4 </span>
-<span class="lineno">    5 </span>change :: (Bounded e, Enum e, Enum a) =&gt; Int -&gt; Int -&gt; a -&gt; e
+<span class="lineno">    5 </span>change ∷ (Bounded e, Enum e, Enum a) ⇒ Int → Int → a → e
 <span class="lineno">    6 </span><span class="decl"><span class="istickedoff">change i n e = unsafeEnum $ (fromEnum e + n) `mod` i</span></span>
 <span class="lineno">    7 </span>
-<span class="lineno">    8 </span>changeDiff :: (Bounded e, Enum e) =&gt; Int -&gt; e -&gt; e -&gt; e
+<span class="lineno">    8 </span>changeDiff ∷ (Bounded e, Enum e) ⇒ Int → e → e → e
 <span class="lineno">    9 </span><span class="decl"><span class="istickedoff">changeDiff i e1 e2 = unsafeEnum $ (fromEnum e2 - fromEnum e1) `mod` i</span></span>
 
 </pre>

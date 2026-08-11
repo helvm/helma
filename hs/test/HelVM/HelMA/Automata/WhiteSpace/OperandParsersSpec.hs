@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec (spec) where
+module HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.OperandParsers
 import           HelVM.HelMA.Automata.WhiteSpace.Token
@@ -7,7 +9,7 @@ import           HelVM.Expectations
 
 import           Test.Hspec                                     (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "parse" $ forM_
     [ ([N]             , (0 ,  0 , ""   ))

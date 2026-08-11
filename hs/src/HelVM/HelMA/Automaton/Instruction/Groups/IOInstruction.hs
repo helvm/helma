@@ -19,7 +19,7 @@ instance PrintAsm IOInstruction where
 
 -- | Internal
 
-printIO :: IOInstruction -> Text
+printIO ∷ IOInstruction → Text
 printIO OutputChar = "outputC"
 printIO OutputDec  = "outputD"
 printIO InputChar  = "inputC"

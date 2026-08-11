@@ -53,11 +53,11 @@ span.spaces    { background: white }
 <span class="lineno">   34 </span>
 <span class="lineno">   35 </span>import           Text.Pretty.Simple
 <span class="lineno">   36 </span>
-<span class="lineno">   37 </span>runRio :: Has env =&gt; TokenType -&gt; RIO.RIO env ()
+<span class="lineno">   37 </span>runRio ∷ Has env ⇒ TokenType → RIO.RIO env ()
 <span class="lineno">   38 </span><span class="decl"><span class="nottickedoff">runRio t = runWithOptions =&lt;&lt; optionsRio where</span>
 <span class="lineno">   39 </span><span class="spaces">  </span><span class="nottickedoff">runWithOptions o = run (App.emit o) t . App.evalParams o =&lt;&lt; readSourceFileRio</span></span>
 <span class="lineno">   40 </span>
-<span class="lineno">   41 </span>run :: Has env =&gt; Emit -&gt; TokenType -&gt; EvalParams -&gt; RIO.RIO env ()
+<span class="lineno">   41 </span>run ∷ Has env ⇒ Emit → TokenType → EvalParams → RIO.RIO env ()
 <span class="lineno">   42 </span><span class="decl"><span class="nottickedoff">run No   t                = runAsRIO . evalParams t</span>
 <span class="lineno">   43 </span><span class="spaces"></span><span class="nottickedoff">run IL   VisibleTokenType = putLTextLnRio . pShowNoColor . (flipParseVisible &lt;$&gt; formatType &lt;*&gt; source)</span>
 <span class="lineno">   44 </span><span class="spaces"></span><span class="nottickedoff">run IL   WhiteTokenType   = putLTextLnRio . pShowNoColor . (flipParseWhite   &lt;$&gt; formatType &lt;*&gt; source)</span>
@@ -67,18 +67,18 @@ span.spaces    { background: white }
 <span class="lineno">   48 </span><span class="spaces"></span><span class="nottickedoff">run Code WhiteTokenType   = putLTextLnRio . show . readWhiteTokens   . source</span></span>
 <span class="lineno">   49 </span>
 <span class="lineno">   50 </span>
-<span class="lineno">   51 </span>simpleEval :: AppEff m =&gt; S.SimpleParams -&gt; m ()
+<span class="lineno">   51 </span>simpleEval ∷ AppEff m ⇒ S.SimpleParams → m ()
 <span class="lineno">   52 </span><span class="decl"><span class="istickedoff">simpleEval p = eval (S.tokenType p) (S.source p) (S.formatType p) $ S.automatonOptions p</span></span>
 <span class="lineno">   53 </span>
 <span class="lineno">   54 </span>----
 <span class="lineno">   55 </span>
-<span class="lineno">   56 </span>evalParams :: AppEff m =&gt; TokenType -&gt; EvalParams -&gt; m ()
+<span class="lineno">   56 </span>evalParams ∷ AppEff m ⇒ TokenType → EvalParams → m ()
 <span class="lineno">   57 </span><span class="decl"><span class="nottickedoff">evalParams tokenType p = eval tokenType (source p) (formatType p) $ automatonOptions p</span></span>
 <span class="lineno">   58 </span>
-<span class="lineno">   59 </span>eval :: AppEff m =&gt; TokenType -&gt; Source -&gt; LabelType -&gt; Automaton.AutomatonOptions -&gt; m ()
+<span class="lineno">   59 </span>eval ∷ AppEff m ⇒ TokenType → Source → LabelType → Automaton.AutomatonOptions → m ()
 <span class="lineno">   60 </span><span class="decl"><span class="istickedoff">eval tokenType source = evalTL $ tokenize tokenType source</span></span>
 <span class="lineno">   61 </span>
-<span class="lineno">   62 </span>evalTL :: AppEff m =&gt; TokenList -&gt; LabelType -&gt; Automaton.AutomatonOptions -&gt; m ()
+<span class="lineno">   62 </span>evalTL ∷ AppEff m ⇒ TokenList → LabelType → Automaton.AutomatonOptions → m ()
 <span class="lineno">   63 </span><span class="decl"><span class="istickedoff">evalTL tl ascii ao = flip start ao =&lt;&lt; liftSafe (parseFromTL ascii tl)</span></span>
 
 </pre>

@@ -15,16 +15,16 @@ import           System.FilePath.Posix
 
 import           Gauge.Main
 
-benchMark :: Benchmark
+benchMark ∷ Benchmark
 benchMark = bgroup "WS" (benchMarkByStackType <$> (toList stackTypes >*< toList ramTypes))
 
-benchMarkByStackType :: BenchParams -> Benchmark
+benchMarkByStackType ∷ BenchParams → Benchmark
 benchMarkByStackType t = bench (show t) $ nfIO $ exec t
 
-exec :: BenchParams -> IO [[Text]]
+exec ∷ BenchParams → IO [[Text]]
 exec = simpleEvalWS
 
-simpleEvalWS :: BenchParams -> IO [[Text]]
+simpleEvalWS ∷ BenchParams → IO [[Text]]
 simpleEvalWS t = forM
   [ ("count"        , ""           )
   , ("hworld"       , ""           )

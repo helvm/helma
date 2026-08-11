@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.ETA.EvaluatorSpec (spec) where
+module HelVM.HelMA.Automata.ETA.EvaluatorSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.FileExtra
@@ -17,7 +19,7 @@ import           System.FilePath.Posix
 
 import           Test.Hspec                                 (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "eval" $ forM_ ((
     [ ("hello"    , [""])

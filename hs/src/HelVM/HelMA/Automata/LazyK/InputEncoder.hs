@@ -6,20 +6,20 @@ import           HelVM.HelMA.Automata.LazyK.Lambda
 import qualified Data.ByteString.Lazy                 as LByteString
 
 -- | Constructors
-readInput :: LByteString -> Lambda
+readInput ∷ LByteString → Lambda
 readInput = encodeInput . fmap fromIntegral . LByteString.unpack
 
-encodeInput :: [Natural] -> Lambda
+encodeInput ∷ [Natural] → Lambda
 encodeInput = foldr (cons . church) end
 
 -- | Other
-end :: Lambda
+end ∷ Lambda
 end = cons (church 256) false
 
-cons :: Lambda -> Lambda -> Lambda
+cons ∷ Lambda → Lambda → Lambda
 cons a b = app3 S (app3SI (appK a)) (appK b)
 
-church :: Natural -> Lambda
+church ∷ Natural → Lambda
 church 0   = false
 church 1   = I
 church 4   = appSelfApp $ church 2
@@ -37,8 +37,8 @@ church 125 = church 3 `App` church 5
 church 256 = appSelfApp $ church 4
 church n   = succChurch $ n - 1
 
-succChurch :: Natural -> Lambda
+succChurch ∷ Natural → Lambda
 succChurch = successor . church
 
-successor :: Lambda -> Lambda
+successor ∷ Lambda → Lambda
 successor = app3 S bCombinator

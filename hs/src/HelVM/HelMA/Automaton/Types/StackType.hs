@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automaton.Types.StackType where
 
 -- | Constructors
-defaultStackType :: StackType
+defaultStackType ∷ StackType
 defaultStackType = minBound
 
-stackTypes :: NonEmpty StackType
+stackTypes ∷ NonEmpty StackType
 stackTypes = universeNonEmpty
 
 -- | Types

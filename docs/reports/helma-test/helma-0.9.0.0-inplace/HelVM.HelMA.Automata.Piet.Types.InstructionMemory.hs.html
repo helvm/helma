@@ -36,22 +36,22 @@ span.spaces    { background: white }
 <span class="lineno">   17 </span>
 <span class="lineno">   18 </span>import           Control.Monad.Logger
 <span class="lineno">   19 </span>
-<span class="lineno">   20 </span>logWithPosition :: AppEff m =&gt; Text -&gt; InstructionMemory -&gt; m ()
+<span class="lineno">   20 </span>logWithPosition ∷ AppEff m ⇒ Text → InstructionMemory → m ()
 <span class="lineno">   21 </span><span class="decl"><span class="istickedoff">logWithPosition msg im = logDebugN $ show (position $ instructionCounter im) &lt;&gt; &quot; &quot; &lt;&gt; msg</span></span>
 <span class="lineno">   22 </span>
-<span class="lineno">   23 </span>codelChooserIM :: InstructionMemory -&gt; DirectionPointer
+<span class="lineno">   23 </span>codelChooserIM ∷ InstructionMemory → DirectionPointer
 <span class="lineno">   24 </span><span class="decl"><span class="istickedoff">codelChooserIM = directionPointerIC .  instructionCounter</span></span>
 <span class="lineno">   25 </span>
-<span class="lineno">   26 </span>directionPointerIM :: InstructionMemory -&gt; DirectionPointer
+<span class="lineno">   26 </span>directionPointerIM ∷ InstructionMemory → DirectionPointer
 <span class="lineno">   27 </span><span class="decl"><span class="istickedoff">directionPointerIM = directionPointerIC .  instructionCounter</span></span>
 <span class="lineno">   28 </span>
-<span class="lineno">   29 </span>toggleCodelChooserIM :: Int -&gt; InstructionMemory -&gt; InstructionMemory
+<span class="lineno">   29 </span>toggleCodelChooserIM ∷ Int → InstructionMemory → InstructionMemory
 <span class="lineno">   30 </span><span class="decl"><span class="istickedoff">toggleCodelChooserIM n im = im { instructionCounter = toggleCodelChooserIC n (instructionCounter im)}</span></span>
 <span class="lineno">   31 </span>
-<span class="lineno">   32 </span>rotateDirectionPointerIM :: Int -&gt; InstructionMemory -&gt; InstructionMemory
+<span class="lineno">   32 </span>rotateDirectionPointerIM ∷ Int → InstructionMemory → InstructionMemory
 <span class="lineno">   33 </span><span class="decl"><span class="istickedoff">rotateDirectionPointerIM n im = im { instructionCounter = rotateDirectionPointerIC n (instructionCounter im)}</span></span>
 <span class="lineno">   34 </span>
-<span class="lineno">   35 </span>initialInstructionMemory :: Program -&gt; InstructionMemory
+<span class="lineno">   35 </span>initialInstructionMemory ∷ Program → InstructionMemory
 <span class="lineno">   36 </span><span class="decl"><span class="istickedoff">initialInstructionMemory prog = InstructionMemory</span>
 <span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">{ instructionCounter = initialInstructionCounter</span>
 <span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">, program            = prog</span>

@@ -31,35 +31,35 @@ import qualified Data.Sequence                          as Seq
 
 import qualified RIO
 
-runRio :: Has env => RIO.RIO env ()
+runRio ∷ Has env ⇒ RIO.RIO env ()
 runRio = runWithOptions =<< optionsRio where
   runWithOptions o =  run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
-run :: Has env => Emit.Emit -> EvalParams -> RIO.RIO env ()
+run ∷ Has env ⇒ Emit.Emit → EvalParams → RIO.RIO env ()
 run Emit.No   = runAsRIO . evalParams
 run Emit.IL   = putLTextLnRio . show . tokenize . source
 run Emit.TL   = putLTextLnRio . show . tokenize . source
 run Emit.Code = putLTextLnRio . show . readSymbols . source
 
-simpleEval :: AppEff m => RAMType -> Source -> m ()
+simpleEval ∷ AppEff m ⇒ RAMType → Source → m ()
 simpleEval rt s = evalSource s rt testMaybeLimit Pretty
 
 ----
 
-evalParams :: AppEff m => EvalParams -> m ()
+evalParams ∷ AppEff m ⇒ EvalParams → m ()
 evalParams p = evalSource (source p) (ramAutoOptions p) Nothing (dumpAutoOptions p)
 
-evalSource :: AppEff m => Source -> RAMType -> LimitMaybe -> DumpType -> m ()
+evalSource ∷ AppEff m ⇒ Source → RAMType → LimitMaybe → DumpType → m ()
 evalSource source = evalIL $ tokenize source
 
-evalIL :: AutomatonEff e m => [e] -> RAMType -> LimitMaybe -> DumpType -> m ()
+evalIL ∷ AutomatonEff e m ⇒ [e] → RAMType → LimitMaybe → DumpType → m ()
 evalIL = flip evalIL'
 
-evalIL' :: AutomatonEff e m => RAMType -> [e] -> LimitMaybe -> DumpType -> m ()
+evalIL' ∷ AutomatonEff e m ⇒ RAMType → [e] → LimitMaybe → DumpType → m ()
 evalIL' ListRAMType    = start
 evalIL' SeqRAMType     = start . Seq.fromList
 evalIL' SListRAMType   = start . SList.sListFromList
 evalIL' MapListRAMType = start . MapList.mapListFromList
 
-start :: RAutomatonEff e r m => r -> LimitMaybe -> DumpType -> m ()
+start ∷ RAutomatonEff e r m ⇒ r → LimitMaybe → DumpType → m ()
 start r limit dt = logDump dt =<< runAutomat limit (newMemory r)

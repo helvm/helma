@@ -19,18 +19,18 @@ import           Data.MonoTraversable
 
 import qualified Data.Sequence                      as Seq
 
-filterLogsWithLevelInfo :: MockLoggerData -> Output
+filterLogsWithLevelInfo ∷ MockLoggerData → Output
 filterLogsWithLevelInfo = filterLogsWithLevel LevelInfo
 
-filterLogsWithLevelDebug :: MockLoggerData -> Output
+filterLogsWithLevelDebug ∷ MockLoggerData → Output
 filterLogsWithLevelDebug = filterLogsWithLevel LevelDebug
 
-filterLogsWithLevel :: LogLevel -> MockLoggerData -> Output
+filterLogsWithLevel ∷ LogLevel → MockLoggerData → Output
 filterLogsWithLevel t logsSeq = oconcat (line <$> Seq.filter condition logsSeq) where
   condition l = t <= logLevel l
   line l = (LogLevel.showEitherTextLogLevel . LogLevel.fromLogger . logLevel) l <> " " <> (decodeUtf8 . fromLogStr . logStr) l <> "\n"
 
-mockLog :: MonadMockLogger m => MockLog -> m ()
+mockLog ∷ MonadMockLogger m ⇒ MockLog → m ()
 mockLog = tell . one
 
 ----

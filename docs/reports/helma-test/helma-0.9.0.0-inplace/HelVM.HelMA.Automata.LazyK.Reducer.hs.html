@@ -25,14 +25,14 @@ span.spaces    { background: white }
 <span class="lineno">    6 </span>
 <span class="lineno">    7 </span>import           HelVM.HelMA.Automata.LazyK.Lambda
 <span class="lineno">    8 </span>
-<span class="lineno">    9 </span>reduce :: Lambda -&gt; Lambda
+<span class="lineno">    9 </span>reduce ∷ Lambda → Lambda
 <span class="lineno">   10 </span><span class="decl"><span class="istickedoff">reduce (App x y) = reduce x `apply` reduce y</span>
 <span class="lineno">   11 </span><span class="spaces"></span><span class="istickedoff">reduce  x        = x</span></span>
 <span class="lineno">   12 </span>
-<span class="lineno">   13 </span>flippedApply :: Lambda -&gt; Lambda -&gt; Lambda
+<span class="lineno">   13 </span>flippedApply ∷ Lambda → Lambda → Lambda
 <span class="lineno">   14 </span><span class="decl"><span class="istickedoff">flippedApply = flip apply</span></span>
 <span class="lineno">   15 </span>
-<span class="lineno">   16 </span>apply :: Lambda -&gt; Lambda -&gt; Lambda
+<span class="lineno">   16 </span>apply ∷ Lambda → Lambda → Lambda
 <span class="lineno">   17 </span><span class="decl"><span class="istickedoff">apply (S `App` x `App` y) z = apply x z `apply` apply y z</span>
 <span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">apply (App K x) _           = x</span>
 <span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">apply I x                   = x</span>

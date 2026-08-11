@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automaton.Types.LabelType where
 
 -- | Constructors
-defaultFormatType :: LabelType
+defaultFormatType ∷ LabelType
 defaultFormatType = minBound
 
-formatTypes :: NonEmpty LabelType
+formatTypes ∷ NonEmpty LabelType
 formatTypes = universeNonEmpty
 
 -- | Types

@@ -22,10 +22,10 @@ span.spaces    { background: white }
 <span class="lineno">    3 </span>import qualified Text.Read
 <span class="lineno">    4 </span>import qualified Text.Show
 <span class="lineno">    5 </span>
-<span class="lineno">    6 </span>charToSimpleInstruction :: Char -&gt; Maybe SimpleInstruction
+<span class="lineno">    6 </span>charToSimpleInstruction ∷ Char → Maybe SimpleInstruction
 <span class="lineno">    7 </span><span class="decl"><span class="istickedoff">charToSimpleInstruction = readMaybe . one</span></span>
 <span class="lineno">    8 </span>
-<span class="lineno">    9 </span>simpleInstructions :: [SimpleInstruction]
+<span class="lineno">    9 </span>simpleInstructions ∷ [SimpleInstruction]
 <span class="lineno">   10 </span><span class="decl"><span class="istickedoff">simpleInstructions = [MoveR , MoveL , Inc , Dec , Output , Input]</span></span>
 <span class="lineno">   11 </span>
 <span class="lineno">   12 </span>data SimpleInstruction =

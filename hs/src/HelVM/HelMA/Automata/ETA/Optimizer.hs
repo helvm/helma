@@ -18,30 +18,30 @@ import qualified Data.List.Index                                       as List
 
 import           Data.MonoTraversable
 
-optimize :: MonadSafe m => TokenList -> m InstructionList
+optimize ∷ MonadSafe m ⇒ TokenList → m InstructionList
 optimize = appendEnd <.> join <.> optimizeLines
 
-appendEnd :: InstructionList -> InstructionList
+appendEnd ∷ InstructionList → InstructionList
 appendEnd l = l <> [markNI 0 , End]
 
-optimizeLines :: MonadSafe m => TokenList -> m [InstructionList]
+optimizeLines ∷ MonadSafe m ⇒ TokenList → m [InstructionList]
 optimizeLines = sequence . optimizeLineInit <.> lineFromTuple2 <.> splitOnRAndIndex2
 
-splitOnRAndIndex2 :: TokenList -> [(Natural, [TokenList])]
+splitOnRAndIndex2 ∷ TokenList → [(Natural, [TokenList])]
 splitOnRAndIndex2 = indexedByNaturalWithOffset 1 <.> List.indexed . filterNull . tails . splitOn [R]
 
-indexedByNaturalWithOffset :: Int -> (Int , a) -> (Natural , a)
+indexedByNaturalWithOffset ∷ Int → (Int , a) → (Natural , a)
 indexedByNaturalWithOffset offset (i , a) = (fromIntegral (i + offset) , a)
 
-optimizeLineInit :: MonadSafe m => Line -> m InstructionList
+optimizeLineInit ∷ MonadSafe m ⇒ Line → m InstructionList
 optimizeLineInit line = (markNI (currentAddress line) : ) <$> optimizeLineTail line
 
-optimizeLineTail:: MonadSafe m => Line -> m InstructionList
+optimizeLineTail∷ MonadSafe m ⇒ Line → m InstructionList
 optimizeLineTail line = check (currentTL line) where
   check (t : tl) = optimizeLineForToken t $ line { currentTL = tl }
   check []       = pure []
 
-optimizeLineForToken :: MonadSafe m => Token -> Line -> m InstructionList
+optimizeLineForToken ∷ MonadSafe m ⇒ Token → Line → m InstructionList
 optimizeLineForToken O = (sOutputI  : ) <.> optimizeLineTail
 optimizeLineForToken I = (sInputI   : ) <.> optimizeLineTail
 
@@ -56,36 +56,36 @@ optimizeLineForToken N = prependNumber
 
 optimizeLineForToken R = optimizeLineTail
 
-prependDivMod :: MonadSafe m => Line -> m InstructionList
+prependDivMod ∷ MonadSafe m ⇒ Line → m InstructionList
 prependDivMod line = check $ numberFlag line where
   check False = prependDivModSimple line
   check True  = prependStaticMakr line <.> optimizeLineTail $ line {numberFlag = False}
 
-prependStaticMakr :: Line -> InstructionList -> InstructionList
+prependStaticMakr ∷ Line → InstructionList → InstructionList
 prependStaticMakr line il = divModI : markSI (show $ currentAddress line) : il
 
-prependDivModSimple :: MonadSafe m => Line -> m InstructionList
+prependDivModSimple ∷ MonadSafe m ⇒ Line → m InstructionList
 prependDivModSimple = (divModI : ) <.> optimizeLineTail
 
-prependAddress :: MonadSafe m => Line -> m InstructionList
+prependAddress ∷ MonadSafe m ⇒ Line → m InstructionList
 prependAddress line = ((consI $ fromIntegral $ nextAddress line) : ) <$> optimizeLineTail line
 
-prependNumber :: MonadSafe m => Line -> m InstructionList
+prependNumber ∷ MonadSafe m ⇒ Line → m InstructionList
 prependNumber line = flip buildNumber line =<< parseNumberFromTLL (currentTL line , nextTLL line)
 
-buildNumber :: MonadSafe m => (Integer , (TokenList , [TokenList])) -> Line -> m InstructionList
+buildNumber ∷ MonadSafe m ⇒ (Integer , (TokenList , [TokenList])) → Line → m InstructionList
 buildNumber (n , (tl , ttl) ) line = build (olength (nextTLL line) - olength ttl) where
   build 0      = (consI n :) <$> optimizeLineTail (line {currentTL = tl})
   build offset = pure [consI n , jumpSI $ show $ currentAddress line + fromIntegral offset]
 
 -- | Accessors
 
-nextAddress :: Line -> Natural
+nextAddress ∷ Line → Natural
 nextAddress line = currentAddress line + 1
 
 -- | Constructors
 
-lineFromTuple2 :: (Natural, [TokenList]) -> Line
+lineFromTuple2 ∷ (Natural, [TokenList]) → Line
 lineFromTuple2 (a, []) = Line
   { currentAddress = a
   , currentTL = []
@@ -109,5 +109,5 @@ data Line = Line
 --consM :: Functor f => a -> f [a] -> f [a]
 --consM a l = (a : ) <$> l
 
-filterNull :: [[a]] -> [[a]]
+filterNull ∷ [[a]] → [[a]]
 filterNull = filter notNull

@@ -45,65 +45,65 @@ span.spaces    { background: white }
 <span class="lineno">   26 </span>import qualified Data.Sequences                    as S
 <span class="lineno">   27 </span>import qualified Data.Text                         as Text
 <span class="lineno">   28 </span>
-<span class="lineno">   29 </span>mockGetContentsBS :: MonadMockEff m =&gt; m LByteString
+<span class="lineno">   29 </span>mockGetContentsBS ∷ MonadMockEff m ⇒ m LByteString
 <span class="lineno">   30 </span><span class="decl"><span class="istickedoff">mockGetContentsBS = fromStrict . encodeUtf8 &lt;$&gt; mockGetContentsText</span></span>
 <span class="lineno">   31 </span>
-<span class="lineno">   32 </span>mockGetContentsText :: MonadMockEff m =&gt; m LText
+<span class="lineno">   32 </span>mockGetContentsText ∷ MonadMockEff m ⇒ m LText
 <span class="lineno">   33 </span><span class="decl"><span class="istickedoff">mockGetContentsText = fromStrict . toText &lt;$&gt; mockGetContents</span></span>
 <span class="lineno">   34 </span>
-<span class="lineno">   35 </span>mockGetContents :: MonadMockEff m =&gt; m String
+<span class="lineno">   35 </span>mockGetContents ∷ MonadMockEff m ⇒ m String
 <span class="lineno">   36 </span><span class="decl"><span class="istickedoff">mockGetContents = mockGetContents' =&lt;&lt; get where</span>
-<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">mockGetContents' :: MonadMockEff m =&gt; MockEffData -&gt; m String</span>
+<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">mockGetContents' ∷ MonadMockEff m ⇒ MockEffData → m String</span>
 <span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">mockGetContents' mockEff = content &lt;$ put mockEff { input = &quot;&quot; } where content = input mockEff</span></span>
 <span class="lineno">   39 </span>
-<span class="lineno">   40 </span>mockGetChar :: MonadMockEff m =&gt; m Char
+<span class="lineno">   40 </span>mockGetChar ∷ MonadMockEff m ⇒ m Char
 <span class="lineno">   41 </span><span class="decl"><span class="istickedoff">mockGetChar = mockGetChar' =&lt;&lt; get where</span>
-<span class="lineno">   42 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' :: MonadMockEff m =&gt; MockEffData -&gt; m Char</span>
+<span class="lineno">   42 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' ∷ MonadMockEff m ⇒ MockEffData → m Char</span>
 <span class="lineno">   43 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' mockEff = orErrorTuple <span class="nottickedoff">(&quot;mockGetChar&quot; , Text.show mockEff)</span> (top (input mockEff)) &lt;$ put mockEff { input = orErrorTuple <span class="nottickedoff">(&quot;mockGetChar&quot; , Text.show mockEff)</span> $ discard $ input mockEff }</span></span>
 <span class="lineno">   44 </span>
-<span class="lineno">   45 </span>mockGetLine :: MonadMockEff m =&gt; m Text
+<span class="lineno">   45 </span>mockGetLine ∷ MonadMockEff m ⇒ m Text
 <span class="lineno">   46 </span><span class="decl"><span class="nottickedoff">mockGetLine = mockGetLine' =&lt;&lt; get where</span>
-<span class="lineno">   47 </span><span class="spaces">  </span><span class="nottickedoff">mockGetLine' :: MonadMockEff m =&gt; MockEffData -&gt; m Text</span>
+<span class="lineno">   47 </span><span class="spaces">  </span><span class="nottickedoff">mockGetLine' ∷ MonadMockEff m ⇒ MockEffData → m Text</span>
 <span class="lineno">   48 </span><span class="spaces">  </span><span class="nottickedoff">mockGetLine' mockEff = toText line &lt;$ put mockEff { input = input' } where (line , input') = splitStringByLn $ input mockEff</span></span>
 <span class="lineno">   49 </span>
-<span class="lineno">   50 </span>mockGetCharSafe :: MonadSafeMockEff m =&gt; m Char
+<span class="lineno">   50 </span>mockGetCharSafe ∷ MonadSafeMockEff m ⇒ m Char
 <span class="lineno">   51 </span><span class="decl"><span class="istickedoff">mockGetCharSafe = mockGetChar' =&lt;&lt; get where</span>
-<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' :: MonadSafeMockEff m =&gt; MockEffData -&gt; m Char</span>
+<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' ∷ MonadSafeMockEff m ⇒ MockEffData → m Char</span>
 <span class="lineno">   53 </span><span class="spaces">  </span><span class="istickedoff">mockGetChar' mockEff = appendErrorTuple <span class="nottickedoff">(&quot;mockGetCharSafe&quot; , Text.show mockEff)</span> $ mockGetChar'' =&lt;&lt; unconsSafe (input mockEff) where</span>
 <span class="lineno">   54 </span><span class="spaces">    </span><span class="istickedoff">mockGetChar'' (c, input') = put mockEff { input = input' } $&gt; c</span></span>
 <span class="lineno">   55 </span>
-<span class="lineno">   56 </span>mockGetLineSafe :: MonadSafeMockEff m =&gt; m Text
+<span class="lineno">   56 </span>mockGetLineSafe ∷ MonadSafeMockEff m ⇒ m Text
 <span class="lineno">   57 </span><span class="decl"><span class="istickedoff">mockGetLineSafe = mockGetLineSafe' =&lt;&lt; get where</span>
-<span class="lineno">   58 </span><span class="spaces">  </span><span class="istickedoff">mockGetLineSafe' :: MonadSafeMockEff m =&gt; MockEffData -&gt; m Text</span>
+<span class="lineno">   58 </span><span class="spaces">  </span><span class="istickedoff">mockGetLineSafe' ∷ MonadSafeMockEff m ⇒ MockEffData → m Text</span>
 <span class="lineno">   59 </span><span class="spaces">  </span><span class="istickedoff">mockGetLineSafe' mockEff = toText line &lt;$ put mockEff { input = input' } where (line , input') = splitStringByLn $ input mockEff</span></span>
 <span class="lineno">   60 </span>
-<span class="lineno">   61 </span>mockPutChar :: MonadMockEff m =&gt; Char -&gt; m ()
+<span class="lineno">   61 </span>mockPutChar ∷ MonadMockEff m ⇒ Char → m ()
 <span class="lineno">   62 </span><span class="decl"><span class="istickedoff">mockPutChar = modify . mockDataPutChar</span></span>
 <span class="lineno">   63 </span>
-<span class="lineno">   64 </span>mockPutLine :: MonadMockEff m =&gt; Text -&gt; m ()
+<span class="lineno">   64 </span>mockPutLine ∷ MonadMockEff m ⇒ Text → m ()
 <span class="lineno">   65 </span><span class="decl"><span class="istickedoff">mockPutLine = modify . mockDataPutText</span></span>
 <span class="lineno">   66 </span>
 <span class="lineno">   67 </span>----
 <span class="lineno">   68 </span>
-<span class="lineno">   69 </span>createMockEffData :: Input -&gt; MockEffData
+<span class="lineno">   69 </span>createMockEffData ∷ Input → MockEffData
 <span class="lineno">   70 </span><span class="decl"><span class="istickedoff">createMockEffData = MockEffData &quot;&quot; . toString</span></span>
 <span class="lineno">   71 </span>
-<span class="lineno">   72 </span>reverseOutput :: MockEffData -&gt; Output
+<span class="lineno">   72 </span>reverseOutput ∷ MockEffData → Output
 <span class="lineno">   73 </span><span class="decl"><span class="istickedoff">reverseOutput = reverseText . output</span></span>
 <span class="lineno">   74 </span>
-<span class="lineno">   75 </span>reverseText :: String -&gt; Output
+<span class="lineno">   75 </span>reverseText ∷ String → Output
 <span class="lineno">   76 </span><span class="decl"><span class="istickedoff">reverseText = S.reverse . toText</span></span>
 <span class="lineno">   77 </span>
-<span class="lineno">   78 </span>reverseString :: Output -&gt; String
+<span class="lineno">   78 </span>reverseString ∷ Output → String
 <span class="lineno">   79 </span><span class="decl"><span class="istickedoff">reverseString = toString . S.reverse</span></span>
 <span class="lineno">   80 </span>
-<span class="lineno">   81 </span>mockDataPutChar :: Char -&gt; MockEffData -&gt; MockEffData
+<span class="lineno">   81 </span>mockDataPutChar ∷ Char → MockEffData → MockEffData
 <span class="lineno">   82 </span><span class="decl"><span class="istickedoff">mockDataPutChar char mockEff = mockEff { output = char : output mockEff }</span></span>
 <span class="lineno">   83 </span>
-<span class="lineno">   84 </span>mockDataPutText :: Text -&gt; MockEffData -&gt; MockEffData
+<span class="lineno">   84 </span>mockDataPutText ∷ Text → MockEffData → MockEffData
 <span class="lineno">   85 </span><span class="decl"><span class="istickedoff">mockDataPutText text mockEff = mockEff { output = reverseString text &lt;&gt; output mockEff }</span></span>
 <span class="lineno">   86 </span>
-<span class="lineno">   87 </span>splitStringByLn :: String -&gt; (String , String)
+<span class="lineno">   87 </span>splitStringByLn ∷ String → (String , String)
 <span class="lineno">   88 </span><span class="decl"><span class="istickedoff">splitStringByLn = splitBy '\n'</span></span>
 <span class="lineno">   89 </span>
 <span class="lineno">   90 </span>----

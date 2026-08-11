@@ -13,11 +13,11 @@ import qualified RIO
 
 import           Text.Pretty.Simple
 
-runRio :: Has env => RIO.RIO env ()
+runRio ∷ Has env ⇒ RIO.RIO env ()
 runRio = runWIthOptions =<< optionsRio where
   runWIthOptions o = run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
-run :: Has env => Emit -> EvalParams -> RIO.RIO env ()
+run ∷ Has env ⇒ Emit → EvalParams → RIO.RIO env ()
 run No = const $ error "FALSE is not supported now"
 run IL = putLTextLnRio . pShowNoColor . parseSafe . source
 run _  = fallback

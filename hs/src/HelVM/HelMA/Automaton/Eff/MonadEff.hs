@@ -26,13 +26,13 @@ type MonadLoggerEff m = (MonadLogger m, MonadEff m)
 
 class Monad m => MonadEff m where
 
-  putAsChar       :: Integral v => v -> m ()
-  putAsDec        :: Integral v => v -> m ()
-  getCharAs       :: Integral v => m v
-  getDecAs        :: Integral v => m v
+  putAsChar       :: Integral v ⇒ v → m ()
+  putAsDec        :: Integral v ⇒ v → m ()
+  getCharAs       :: Integral v ⇒ m v
+  getDecAs        :: Integral v ⇒ m v
 
-  putIntAsChar    :: Int -> m ()
-  putIntAsDec     :: Int -> m ()
+  putIntAsChar    :: Int → m ()
+  putIntAsDec     :: Int → m ()
   getCharAsInt    :: m Int
   getDecAsInt     :: m Int
 
@@ -40,8 +40,8 @@ class Monad m => MonadEff m where
   getContentsText :: m LText
   getChar         :: m Char
   getLine         :: m Text
-  putChar         :: Char -> m ()
-  putLine         :: Text -> m ()
+  putChar         :: Char → m ()
+  putLine         :: Text → m ()
 
   flush           :: m ()
 
@@ -66,7 +66,7 @@ instance MonadEff IO where
   putLine         = Prelude.putText
   flush           = flushIO
 
-instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t m) where
+instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) ⇒ MonadEff (t m) where
   getContentsBS   = lift getContentsBS
   getContentsText = lift getContentsText
   getChar         = lift getChar
@@ -75,7 +75,7 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) => MonadEff (t
   putLine         = lift . putLine
   flush           = lift flush
 
-instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
+instance RIO.HasLogFunc env ⇒ MonadEff (RIO.RIO env) where
   getContentsBS   = liftIO LByteString.getContents
   getContentsText = liftIO LText.getContents
   getChar         = liftIO IO.getChar
@@ -86,5 +86,5 @@ instance RIO.HasLogFunc env => MonadEff (RIO.RIO env) where
 
 ---- Internal
 
-flushIO :: IO ()
+flushIO ∷ IO ()
 flushIO = hFlush stdout

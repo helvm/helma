@@ -38,6 +38,6 @@ instance Read WhiteToken where
 
 type WhiteTokenList = [WhiteToken]
 
-whiteTokenListToTokenList :: WhiteTokenList -> TokenList
+whiteTokenListToTokenList ∷ WhiteTokenList → TokenList
 whiteTokenListToTokenList = fmap unWhiteToken
 

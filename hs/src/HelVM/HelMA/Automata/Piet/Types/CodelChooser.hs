@@ -5,7 +5,7 @@ module HelVM.HelMA.Automata.Piet.Types.CodelChooser (
 
 import           HelVM.HelMA.Automata.Piet.Types.Extra
 
-toggle :: Int -> CodelChooser -> CodelChooser
+toggle ∷ Int → CodelChooser → CodelChooser
 toggle = change 2
 
 data CodelChooser = CCLeft | CCRight

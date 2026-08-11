@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automata.BrainFuck.API.ImplType where
 
 -- | Constructors
-defaultImplType :: ImplType
+defaultImplType ∷ ImplType
 defaultImplType = minBound
 
-implTypes :: NonEmpty ImplType
+implTypes ∷ NonEmpty ImplType
 implTypes = universeNonEmpty
 
 -- | Type

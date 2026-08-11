@@ -13,22 +13,22 @@ import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
 -- | Accessors
-ramAutoOptions :: EvalParams -> RAMType
+ramAutoOptions ∷ EvalParams → RAMType
 ramAutoOptions = ram . memoryOptions
 
-stackAutoOptions :: EvalParams -> StackType
+stackAutoOptions ∷ EvalParams → StackType
 stackAutoOptions = stack . memoryOptions
 
-cellAutoOptions :: EvalParams -> CellType
+cellAutoOptions ∷ EvalParams → CellType
 cellAutoOptions = cell . memoryOptions
 
-intCellAutoOptions :: EvalParams -> IntCellType
+intCellAutoOptions ∷ EvalParams → IntCellType
 intCellAutoOptions = intCell . memoryOptions
 
-dumpAutoOptions :: EvalParams -> DumpType
+dumpAutoOptions ∷ EvalParams → DumpType
 dumpAutoOptions = dumpType . autoOptions
 
-automatonOptions :: EvalParams -> Automaton.AutomatonOptions
+automatonOptions ∷ EvalParams → Automaton.AutomatonOptions
 automatonOptions p = Automaton.AutomatonOptions (stackAutoOptions p) (ramAutoOptions p) (autoOptions p)
 
 -- | Type

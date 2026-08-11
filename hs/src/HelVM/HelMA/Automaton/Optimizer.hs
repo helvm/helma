@@ -12,7 +12,7 @@ import           HelVM.HelMA.Automaton.Optimizer.DeadCodeOptimizer
 import           HelVM.HelMA.Automaton.Optimizer.MarkRemovingOptimizer
 import           HelVM.HelMA.Automaton.Optimizer.PeepholeOptimizer
 
-optimize :: OptimizationLevel -> InstructionList -> InstructionList
+optimize ∷ OptimizationLevel → InstructionList → InstructionList
 optimize NoOptimizations    = id
 optimize BasicOptimizations = constantFolding
 optimize SomeOptimizations  = deadCodeElimination . peepholeOptimize . constantFolding

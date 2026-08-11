@@ -21,13 +21,13 @@ span.spaces    { background: white }
 <span class="lineno">    2 </span>
 <span class="lineno">    3 </span>import           Relude.Extra
 <span class="lineno">    4 </span>
-<span class="lineno">    5 </span>app4 :: Lambda -&gt; Lambda -&gt; Lambda -&gt; Lambda -&gt; Lambda
+<span class="lineno">    5 </span>app4 ∷ Lambda → Lambda → Lambda → Lambda → Lambda
 <span class="lineno">    6 </span><span class="decl"><span class="istickedoff">app4 l1 l2 l3 l4 = l1 `App` l2 `App` l3 `App` l4</span></span>
 <span class="lineno">    7 </span>
-<span class="lineno">    8 </span>app3 :: Lambda -&gt; Lambda -&gt; Lambda -&gt; Lambda
+<span class="lineno">    8 </span>app3 ∷ Lambda → Lambda → Lambda → Lambda
 <span class="lineno">    9 </span><span class="decl"><span class="istickedoff">app3 l1 l2 l3 = l1 `App` l2 `App` l3</span></span>
 <span class="lineno">   10 </span>
-<span class="lineno">   11 </span>foldlLambda :: NonEmpty Lambda -&gt; Lambda
+<span class="lineno">   11 </span>foldlLambda ∷ NonEmpty Lambda → Lambda
 <span class="lineno">   12 </span><span class="decl"><span class="istickedoff">foldlLambda = foldl1' App</span></span>
 <span class="lineno">   13 </span>
 <span class="lineno">   14 </span>data Lambda =

@@ -31,16 +31,16 @@ span.spaces    { background: white }
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>import           Text.ParserCombinators.ReadP      hiding (many)
 <span class="lineno">   14 </span>
-<span class="lineno">   15 </span>parse :: MonadSafe m =&gt; Source -&gt; m Lambda
+<span class="lineno">   15 </span>parse ∷ MonadSafe m ⇒ Source → m Lambda
 <span class="lineno">   16 </span><span class="decl"><span class="istickedoff">parse = parseCode . filterComments</span></span>
 <span class="lineno">   17 </span>
-<span class="lineno">   18 </span>parseCode :: MonadSafe m =&gt; Source -&gt; m Lambda
+<span class="lineno">   18 </span>parseCode ∷ MonadSafe m ⇒ Source → m Lambda
 <span class="lineno">   19 </span><span class="decl"><span class="istickedoff">parseCode = runParser appParser</span></span>
 <span class="lineno">   20 </span>
-<span class="lineno">   21 </span>appParser :: ReadP Lambda
+<span class="lineno">   21 </span>appParser ∷ ReadP Lambda
 <span class="lineno">   22 </span><span class="decl"><span class="istickedoff">appParser = foldlLambda &lt;$&gt; manyNonEmpty lambdaParser</span></span>
 <span class="lineno">   23 </span>
-<span class="lineno">   24 </span>lambdaParser :: ReadP Lambda
+<span class="lineno">   24 </span>lambdaParser ∷ ReadP Lambda
 <span class="lineno">   25 </span><span class="decl"><span class="istickedoff">lambdaParser =</span>
 <span class="lineno">   26 </span><span class="spaces">       </span><span class="istickedoff">S &lt;$ oneOf &quot;sS&quot;</span>
 <span class="lineno">   27 </span><span class="spaces">  </span><span class="istickedoff">&lt;|&gt;  K &lt;$ oneOf &quot;kK&quot;</span>

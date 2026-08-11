@@ -27,10 +27,10 @@ span.spaces    { background: white }
 <span class="lineno">    8 </span>import           HelVM.HelIO.ReadText
 <span class="lineno">    9 </span>
 <span class="lineno">   10 </span>-- | Parser
-<span class="lineno">   11 </span>tokenize :: Source -&gt; FlatTreeInstructionList
+<span class="lineno">   11 </span>tokenize ∷ Source → FlatTreeInstructionList
 <span class="lineno">   12 </span><span class="decl"><span class="istickedoff">tokenize =  unWrapTokenList . readTokens</span></span>
 <span class="lineno">   13 </span>
-<span class="lineno">   14 </span>readTokens :: Source -&gt; Tokens
+<span class="lineno">   14 </span>readTokens ∷ Source → Tokens
 <span class="lineno">   15 </span><span class="decl"><span class="istickedoff">readTokens source = readTextUnsafe source :: Tokens</span></span>
 <span class="lineno">   16 </span>
 <span class="lineno">   17 </span>type Tokens = WrapTokenList FlatTreeInstructionList

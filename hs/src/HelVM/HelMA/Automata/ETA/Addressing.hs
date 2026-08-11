@@ -20,17 +20,17 @@ import qualified Data.Vector                        as Vector
 
 ----
 
-genericFindAddress :: (MonadSafe m , Integral cell) => Vector.Vector Token -> cell -> m InstructionAddress
+genericFindAddress ∷ (MonadSafe m , Integral cell) ⇒ Vector.Vector Token → cell → m InstructionAddress
 genericFindAddress il = findAddress il . fromIntegral
 
-findAddress :: MonadSafe m => Vector.Vector Token -> Int -> m InstructionAddress
+findAddress ∷ MonadSafe m ⇒ Vector.Vector Token → Int → m InstructionAddress
 findAddress _  1       = pure 0
 findAddress il address = appendErrorTupleList [("il" , show il) , ("address" , show address)] ((+1) <$> indexSafe (Vector.elemIndices R il) (address-2))
 
 ----
 
-genericNextLabel :: Integral cell => Vector.Vector Token -> InstructionAddress -> cell
+genericNextLabel ∷ Integral cell ⇒ Vector.Vector Token → InstructionAddress → cell
 genericNextLabel il = fromIntegral . nextLabel il
 
-nextLabel :: Vector.Vector Token -> InstructionAddress -> Int
+nextLabel ∷ Vector.Vector Token → InstructionAddress → Int
 nextLabel il ic = length (Vector.elemIndices R il') + 2  where (il' , _) = splitAt ic il

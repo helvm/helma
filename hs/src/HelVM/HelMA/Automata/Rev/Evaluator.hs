@@ -19,22 +19,22 @@ import qualified Data.Text                            as Text
 
 import qualified RIO
 
-runRio :: Has env => RIO.RIO env ()
+runRio ∷ Has env ⇒ RIO.RIO env ()
 runRio = runWithOptions =<< optionsRio where
   runWithOptions o =  run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
-run :: Has env => Emit -> EvalParams -> RIO.RIO env ()
+run ∷ Has env ⇒ Emit → EvalParams → RIO.RIO env ()
 run No = runAsRIO . evalParams
 run _  = fallback
 
-evalParams :: AppEff m => EvalParams -> m ()
+evalParams ∷ AppEff m ⇒ EvalParams → m ()
 evalParams = eval . source
 
-eval :: MonadEff m => Source -> m ()
+eval ∷ MonadEff m ⇒ Source → m ()
 eval = evalLines . lines
 
-evalLines :: MonadEff m => [Source] -> m ()
+evalLines ∷ MonadEff m ⇒ [Source] → m ()
 evalLines ll = doOutput $ unlines $ Text.reverse <$> ll
 
-doOutput :: MonadEff m => Source -> m ()
+doOutput ∷ MonadEff m ⇒ Source → m ()
 doOutput = putLine

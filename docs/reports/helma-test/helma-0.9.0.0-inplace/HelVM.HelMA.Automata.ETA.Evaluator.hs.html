@@ -63,40 +63,40 @@ span.spaces    { background: white }
 <span class="lineno">   44 </span>
 <span class="lineno">   45 </span>import           Text.Pretty.Simple
 <span class="lineno">   46 </span>
-<span class="lineno">   47 </span>runRio :: Has env =&gt; AutomatonType -&gt; RIO.RIO env ()
+<span class="lineno">   47 </span>runRio ∷ Has env ⇒ AutomatonType → RIO.RIO env ()
 <span class="lineno">   48 </span><span class="decl"><span class="nottickedoff">runRio i = runWIthOptions =&lt;&lt; optionsRio where</span>
 <span class="lineno">   49 </span><span class="spaces">  </span><span class="nottickedoff">runWIthOptions o = run (App.emit o) i . App.evalParams o =&lt;&lt; readSourceFileRio</span></span>
 <span class="lineno">   50 </span>
-<span class="lineno">   51 </span>run :: Has env =&gt; Emit.Emit -&gt; AutomatonType -&gt; EvalParams -&gt; RIO.RIO env ()
+<span class="lineno">   51 </span>run ∷ Has env ⇒ Emit.Emit → AutomatonType → EvalParams → RIO.RIO env ()
 <span class="lineno">   52 </span><span class="decl"><span class="nottickedoff">run Emit.No   i = runAsRIO . evalParams i</span>
 <span class="lineno">   53 </span><span class="spaces"></span><span class="nottickedoff">run Emit.IL   _ = putLTextLnRio . pShowNoColor . parseSafe . source</span>
 <span class="lineno">   54 </span><span class="spaces"></span><span class="nottickedoff">run Emit.TL   _ = putLTextLnRio . show . tokenize . source</span>
 <span class="lineno">   55 </span><span class="spaces"></span><span class="nottickedoff">run Emit.Code _ = putLTextLnRio . show . readTokens . source</span></span>
 <span class="lineno">   56 </span>
-<span class="lineno">   57 </span>simpleEval :: AppEff m =&gt; S.SimpleParams -&gt; m ()
+<span class="lineno">   57 </span>simpleEval ∷ AppEff m ⇒ S.SimpleParams → m ()
 <span class="lineno">   58 </span><span class="decl"><span class="istickedoff">simpleEval p = evalSource (S.implType p) (S.source p) (S.stackType p) (S.autoOptions p)</span></span>
 <span class="lineno">   59 </span>
 <span class="lineno">   60 </span>----
 <span class="lineno">   61 </span>
-<span class="lineno">   62 </span>evalParams :: AppEff m =&gt; AutomatonType -&gt; EvalParams -&gt; m ()
+<span class="lineno">   62 </span>evalParams ∷ AppEff m ⇒ AutomatonType → EvalParams → m ()
 <span class="lineno">   63 </span><span class="decl"><span class="nottickedoff">evalParams e p = evalSource e (source p) (stackAutoOptions p) (autoOptions p)</span></span>
 <span class="lineno">   64 </span>
-<span class="lineno">   65 </span>evalSource :: (AutomatonEff Symbol m) =&gt; AutomatonType -&gt; Source -&gt; StackType -&gt; AutoOptions -&gt; m ()
+<span class="lineno">   65 </span>evalSource ∷ (AutomatonEff Symbol m) ⇒ AutomatonType → Source → StackType → AutoOptions → m ()
 <span class="lineno">   66 </span><span class="decl"><span class="istickedoff">evalSource automatonType source = evalTL automatonType (tokenize source)</span></span>
 <span class="lineno">   67 </span>
-<span class="lineno">   68 </span>evalTL :: (AutomatonEff Symbol m) =&gt; AutomatonType -&gt; TokenList -&gt; StackType -&gt; AutoOptions -&gt; m ()
+<span class="lineno">   68 </span>evalTL ∷ (AutomatonEff Symbol m) ⇒ AutomatonType → TokenList → StackType → AutoOptions → m ()
 <span class="lineno">   69 </span><span class="decl"><span class="istickedoff">evalTL Fast     = fastEval</span>
 <span class="lineno">   70 </span><span class="spaces"></span><span class="istickedoff">evalTL Original = originalEval</span></span>
 <span class="lineno">   71 </span>
-<span class="lineno">   72 </span>fastEval :: (AutomatonEff Symbol m) =&gt; TokenList -&gt; StackType -&gt; AutoOptions -&gt; m ()
+<span class="lineno">   72 </span>fastEval ∷ (AutomatonEff Symbol m) ⇒ TokenList → StackType → AutoOptions → m ()
 <span class="lineno">   73 </span><span class="decl"><span class="istickedoff">fastEval tl s a = flip Automaton.start (Automaton.withDefaultRam s a) =&lt;&lt; optimize tl</span></span>
 <span class="lineno">   74 </span>
-<span class="lineno">   75 </span>originalEval :: (AutomatonEff Symbol m) =&gt; TokenList -&gt; StackType -&gt; AutoOptions -&gt; m ()
+<span class="lineno">   75 </span>originalEval ∷ (AutomatonEff Symbol m) ⇒ TokenList → StackType → AutoOptions → m ()
 <span class="lineno">   76 </span><span class="decl"><span class="istickedoff">originalEval tl ListStackType  = <span class="nottickedoff">eval tl []</span></span>
 <span class="lineno">   77 </span><span class="spaces"></span><span class="istickedoff">originalEval tl SeqStackType   = eval tl Seq.empty</span>
 <span class="lineno">   78 </span><span class="spaces"></span><span class="istickedoff">originalEval tl SListStackType = <span class="nottickedoff">eval tl SList.sListEmpty</span></span></span>
 <span class="lineno">   79 </span>
-<span class="lineno">   80 </span>eval :: (SAutomatonEff Symbol s m) =&gt; TokenList -&gt; s -&gt; AutoOptions -&gt; m ()
+<span class="lineno">   80 </span>eval ∷ (SAutomatonEff Symbol s m) ⇒ TokenList → s → AutoOptions → m ()
 <span class="lineno">   81 </span><span class="decl"><span class="istickedoff">eval tl s (AutoOptions _ limit dt) = logDump dt =&lt;&lt; runAutomat limit (newMemory tl s)</span></span>
 
 </pre>

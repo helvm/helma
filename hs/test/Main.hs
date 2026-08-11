@@ -4,5 +4,5 @@ import           Slow
 import qualified Spec
 import           Test.Hspec (hspec)
 
-main :: IO ()
+main ∷ IO ()
 main = (hspec . flip timeThese Spec.spec) =<< configure 2

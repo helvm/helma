@@ -53,64 +53,64 @@ span.spaces    { background: white }
 <span class="lineno">   34 </span>
 <span class="lineno">   35 </span>-- Main interpreter entry point
 <span class="lineno">   36 </span>
-<span class="lineno">   37 </span>interpret :: AppEff m =&gt; Program -&gt; m ()
+<span class="lineno">   37 </span>interpret ∷ AppEff m ⇒ Program → m ()
 <span class="lineno">   38 </span><span class="decl"><span class="istickedoff">interpret prog = Trampoline.trampolineM interpretStep initialState where</span>
 <span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">initialState = (NormalStep Nothing, initialMemory prog)</span></span>
 <span class="lineno">   40 </span>
-<span class="lineno">   41 </span>interpretStep :: AppEff m =&gt; (StepState, Memory) -&gt; m (Either () InterpreterMemory)
+<span class="lineno">   41 </span>interpretStep ∷ AppEff m ⇒ (StepState, Memory) → m (Either () InterpreterMemory)
 <span class="lineno">   42 </span><span class="decl"><span class="istickedoff">interpretStep (NormalStep prev, mem) = stepNormal prev mem</span>
 <span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">interpretStep (WhiteStep limit, mem) = pure $ stepWhite limit mem</span></span>
 <span class="lineno">   44 </span>
 <span class="lineno">   45 </span>-- Step handlers
 <span class="lineno">   46 </span>
-<span class="lineno">   47 </span>stepNormal :: AppEff m =&gt; Maybe PreviousColor -&gt; Memory -&gt; m (Either () InterpreterMemory)
+<span class="lineno">   47 </span>stepNormal ∷ AppEff m ⇒ Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
 <span class="lineno">   48 </span><span class="decl"><span class="istickedoff">stepNormal previous memory = evalPixel (currentPixel memory) previous memory</span></span>
 <span class="lineno">   49 </span>
-<span class="lineno">   50 </span>stepWhite :: Int -&gt; Memory -&gt; Either () InterpreterMemory
+<span class="lineno">   50 </span>stepWhite ∷ Int → Memory → Either () InterpreterMemory
 <span class="lineno">   51 </span><span class="decl"><span class="istickedoff">stepWhite limit memory</span>
 <span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">| limit &lt;= 0 = Trampoline.break <span class="nottickedoff">()</span></span>
 <span class="lineno">   53 </span><span class="spaces">  </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span>  = Trampoline.continue $ checkWhitePixel (currentPixel memory) limit memory</span></span>
 <span class="lineno">   54 </span>
 <span class="lineno">   55 </span>-- Pixel handlers
 <span class="lineno">   56 </span>
-<span class="lineno">   57 </span>evalPixel :: AppEff m =&gt; Color -&gt; Maybe PreviousColor -&gt; Memory -&gt; m (Either () InterpreterMemory)
+<span class="lineno">   57 </span>evalPixel ∷ AppEff m ⇒ Color → Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
 <span class="lineno">   58 </span><span class="decl"><span class="istickedoff">evalPixel (Chromatic color) previous mem = evalChromaticPixel previous color mem</span>
 <span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">evalPixel White             _        mem = pure $ Trampoline.continue $ evalWhitePixel mem</span>
 <span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">evalPixel Black             _        _   = <span class="nottickedoff">liftError &quot;Entered black block, terminate&quot;</span></span></span>
 <span class="lineno">   61 </span>
-<span class="lineno">   62 </span>evalChromaticPixel :: AppEff m =&gt; Maybe PreviousColor -&gt; ChromaticColor -&gt; Memory -&gt; m (Either () InterpreterMemory)
+<span class="lineno">   62 </span>evalChromaticPixel ∷ AppEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m (Either () InterpreterMemory)
 <span class="lineno">   63 </span><span class="decl"><span class="istickedoff">evalChromaticPixel previous color mem = makeNext &lt;$&gt; applyPreviousColor previous color mem where</span>
 <span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">makeNext mem1 = handleNext (nonBlackSucc (programMemory mem1) mStats (orientationMemory mem1)) (color, labelSize mStats) mem1</span>
 <span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">mStats   = getMaskInfo (programMemory mem) (positionMemory mem)</span></span>
 <span class="lineno">   66 </span>
-<span class="lineno">   67 </span>evalWhitePixel :: Memory -&gt; InterpreterMemory
+<span class="lineno">   67 </span>evalWhitePixel ∷ Memory → InterpreterMemory
 <span class="lineno">   68 </span><span class="decl"><span class="istickedoff">evalWhitePixel mem = (WhiteStep whiteLimit, mem) where</span>
 <span class="lineno">   69 </span><span class="spaces">  </span><span class="istickedoff">whiteLimit = 8 * labelSize (getMaskInfo (programMemory mem) (positionMemory mem))</span></span>
 <span class="lineno">   70 </span>
-<span class="lineno">   71 </span>checkWhitePixel :: Color -&gt; Int -&gt; Memory -&gt; InterpreterMemory
+<span class="lineno">   71 </span>checkWhitePixel ∷ Color → Int → Memory → InterpreterMemory
 <span class="lineno">   72 </span><span class="decl"><span class="istickedoff">checkWhitePixel White limit = checkWhitePixelStep limit</span>
 <span class="lineno">   73 </span><span class="spaces"></span><span class="istickedoff">checkWhitePixel _     _     = (NormalStep Nothing, )</span></span>
 <span class="lineno">   74 </span>
-<span class="lineno">   75 </span>checkWhitePixelStep :: Int -&gt; Memory -&gt; InterpreterMemory
+<span class="lineno">   75 </span>checkWhitePixelStep ∷ Int → Memory → InterpreterMemory
 <span class="lineno">   76 </span><span class="decl"><span class="istickedoff">checkWhitePixelStep limit mem = (WhiteStep (limit - 1), stepWhitePixel mem)</span></span>
 <span class="lineno">   77 </span>
 <span class="lineno">   78 </span>-- Helper functions
 <span class="lineno">   79 </span>
-<span class="lineno">   80 </span>currentPixel :: Memory -&gt; Color
+<span class="lineno">   80 </span>currentPixel ∷ Memory → Color
 <span class="lineno">   81 </span><span class="decl"><span class="istickedoff">currentPixel mem = pixelImage (positionMemory mem) (image $ programMemory mem)</span></span>
 <span class="lineno">   82 </span>
-<span class="lineno">   83 </span>applyPreviousColor :: AppEff m =&gt; Maybe PreviousColor -&gt; ChromaticColor -&gt; Memory -&gt; m Memory
+<span class="lineno">   83 </span>applyPreviousColor ∷ AppEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m Memory
 <span class="lineno">   84 </span><span class="decl"><span class="istickedoff">applyPreviousColor (Just (oldColor, oldS)) color = colors2Command oldColor color oldS</span>
 <span class="lineno">   85 </span><span class="spaces"></span><span class="istickedoff">applyPreviousColor Nothing                 _     = pure</span></span>
 <span class="lineno">   86 </span>
-<span class="lineno">   87 </span>getMaskInfo :: Program -&gt; Coordinates -&gt; Maybe LabelInfo
+<span class="lineno">   87 </span>getMaskInfo ∷ Program → Coordinates → Maybe LabelInfo
 <span class="lineno">   88 </span><span class="decl"><span class="istickedoff">getMaskInfo program pos = findWithDefault <span class="nottickedoff">Nothing</span> (pixelImage pos (mask program)) (info program)</span></span>
 <span class="lineno">   89 </span>
-<span class="lineno">   90 </span>handleNext :: Maybe InstructionCounter -&gt; PreviousColor -&gt; Memory -&gt; Either () InterpreterMemory
+<span class="lineno">   90 </span>handleNext ∷ Maybe InstructionCounter → PreviousColor → Memory → Either () InterpreterMemory
 <span class="lineno">   91 </span><span class="decl"><span class="istickedoff">handleNext (Just ic) prevColor mem = Trampoline.continue $ handleNextSuccess ic prevColor mem</span>
 <span class="lineno">   92 </span><span class="spaces"></span><span class="istickedoff">handleNext Nothing           _   _ = Trampoline.break <span class="nottickedoff">()</span></span></span>
 <span class="lineno">   93 </span>
-<span class="lineno">   94 </span>handleNextSuccess :: InstructionCounter -&gt; PreviousColor -&gt; Memory -&gt; InterpreterMemory
+<span class="lineno">   94 </span>handleNextSuccess ∷ InstructionCounter → PreviousColor → Memory → InterpreterMemory
 <span class="lineno">   95 </span><span class="decl"><span class="istickedoff">handleNextSuccess ic prevColor mem =</span>
 <span class="lineno">   96 </span><span class="spaces">  </span><span class="istickedoff">( NormalStep (Just prevColor)</span>
 <span class="lineno">   97 </span><span class="spaces">  </span><span class="istickedoff">, setInstructionCounter ic mem</span>
@@ -118,19 +118,19 @@ span.spaces    { background: white }
 <span class="lineno">   99 </span>
 <span class="lineno">  100 </span>-- Utilities
 <span class="lineno">  101 </span>
-<span class="lineno">  102 </span>nonBlackSucc :: Program -&gt; Maybe LabelInfo -&gt; Orientation -&gt; Maybe InstructionCounter
+<span class="lineno">  102 </span>nonBlackSucc ∷ Program → Maybe LabelInfo → Orientation → Maybe InstructionCounter
 <span class="lineno">  103 </span><span class="decl"><span class="istickedoff">nonBlackSucc program mStats reg = uncurry InstructionCounter &lt;$&gt; find isValid (zip (fmap (succCoordinates mStats) directions) directions) where</span>
 <span class="lineno">  104 </span><span class="spaces">  </span><span class="istickedoff">directions       = flip rotateToggle reg &lt;$&gt; zip [ 0, 0, 1, 1, 2, 2, 3, 3 ] (0 : cycle [ 1, 1, 0, 0 ])</span>
 <span class="lineno">  105 </span><span class="spaces">  </span><span class="istickedoff">isValid (pos, _) = not (isBlocked pos program)</span></span>
 <span class="lineno">  106 </span>
-<span class="lineno">  107 </span>succCoordinates :: Maybe LabelInfo -&gt; Orientation -&gt; Coordinates
+<span class="lineno">  107 </span>succCoordinates ∷ Maybe LabelInfo → Orientation → Coordinates
 <span class="lineno">  108 </span><span class="decl"><span class="istickedoff">succCoordinates labelInfo reg = addCoordinates (directionPointer reg) $ toCooCoordinates labelInfo reg</span></span>
 <span class="lineno">  109 </span>
-<span class="lineno">  110 </span>toCooCoordinates :: Maybe LabelInfo -&gt; Orientation -&gt; Coordinates
+<span class="lineno">  110 </span>toCooCoordinates ∷ Maybe LabelInfo → Orientation → Coordinates
 <span class="lineno">  111 </span><span class="decl"><span class="istickedoff">toCooCoordinates (Just labelInfo) reg = (getX reg labelInfo, getY reg labelInfo)</span>
 <span class="lineno">  112 </span><span class="spaces"></span><span class="istickedoff">toCooCoordinates Nothing          _   = <span class="nottickedoff">(0, 0)</span></span></span>
 <span class="lineno">  113 </span>
-<span class="lineno">  114 </span>getX :: Orientation -&gt; LabelInfo -&gt; Int
+<span class="lineno">  114 </span>getX ∷ Orientation → LabelInfo → Int
 <span class="lineno">  115 </span><span class="decl"><span class="istickedoff">getX (Orientation DPRight CCLeft)  = borderCoord . labelRight</span>
 <span class="lineno">  116 </span><span class="spaces"></span><span class="istickedoff">getX (Orientation DPRight CCRight) = borderCoord . labelRight</span>
 <span class="lineno">  117 </span><span class="spaces"></span><span class="istickedoff">getX (Orientation DPDown  CCLeft)  = borderMax . labelBottom</span>
@@ -140,7 +140,7 @@ span.spaces    { background: white }
 <span class="lineno">  121 </span><span class="spaces"></span><span class="istickedoff">getX (Orientation DPUp    CCLeft)  = borderMin . labelTop</span>
 <span class="lineno">  122 </span><span class="spaces"></span><span class="istickedoff">getX (Orientation DPUp    CCRight) = borderMax . labelTop</span></span>
 <span class="lineno">  123 </span>
-<span class="lineno">  124 </span>getY :: Orientation -&gt; LabelInfo -&gt; Int
+<span class="lineno">  124 </span>getY ∷ Orientation → LabelInfo → Int
 <span class="lineno">  125 </span><span class="decl"><span class="istickedoff">getY (Orientation DPRight CCLeft)  = borderMin . labelRight</span>
 <span class="lineno">  126 </span><span class="spaces"></span><span class="istickedoff">getY (Orientation DPRight CCRight) = borderMax . labelRight</span>
 <span class="lineno">  127 </span><span class="spaces"></span><span class="istickedoff">getY (Orientation DPDown  CCLeft)  = borderCoord . labelBottom</span>
@@ -150,10 +150,10 @@ span.spaces    { background: white }
 <span class="lineno">  131 </span><span class="spaces"></span><span class="istickedoff">getY (Orientation DPUp    CCLeft)  = borderCoord . labelTop</span>
 <span class="lineno">  132 </span><span class="spaces"></span><span class="istickedoff">getY (Orientation DPUp    CCRight) = borderCoord . labelTop</span></span>
 <span class="lineno">  133 </span>
-<span class="lineno">  134 </span>colors2Command :: AppEff m =&gt; ChromaticColor -&gt; ChromaticColor -&gt; Int -&gt; Memory -&gt; m Memory
+<span class="lineno">  134 </span>colors2Command ∷ AppEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
 <span class="lineno">  135 </span><span class="decl"><span class="istickedoff">colors2Command from to = colorDiff2Command $ diffColor from to</span></span>
 <span class="lineno">  136 </span>
-<span class="lineno">  137 </span>colorDiff2Command :: AppEff m =&gt; ChromaticColor -&gt; Int -&gt; Memory -&gt; m Memory
+<span class="lineno">  137 </span>colorDiff2Command ∷ AppEff m ⇒ ChromaticColor → Int → Memory → m Memory
 <span class="lineno">  138 </span><span class="decl"><span class="istickedoff">colorDiff2Command (ChromaticColor Light  Red)     _ s = <span class="nottickedoff">pure s</span></span>
 <span class="lineno">  139 </span><span class="spaces"></span><span class="istickedoff">colorDiff2Command (ChromaticColor Normal Red)     n s = pietPush n s</span>
 <span class="lineno">  140 </span><span class="spaces"></span><span class="istickedoff">colorDiff2Command (ChromaticColor Dark   Red)     _ s = pietPop s</span>

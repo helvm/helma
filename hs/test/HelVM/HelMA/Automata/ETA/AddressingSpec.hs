@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.ETA.AddressingSpec (spec) where
+module HelVM.HelMA.Automata.ETA.AddressingSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.ETA.Addressing
 import           HelVM.HelMA.Automata.ETA.Token
@@ -10,7 +12,7 @@ import qualified Data.Vector                         as Vector
 import           Test.Hspec                          (Spec, describe, it)
 import           Test.Hspec.Expectations.Pretty
 
-spec :: Spec
+spec ∷ Spec
 spec = do
   describe "findAddress ertrar" $ forM_
     [ (1 , 0)
@@ -50,8 +52,8 @@ spec = do
     ] $ \(input , output) ->
     it (show input) $ nextLabel etaretaretar input `shouldBe` output
 
-ertrar :: TokenVector
+ertrar ∷ TokenVector
 ertrar = Vector.fromList [E , R , T , R , A , R]
 
-etaretaretar :: TokenVector
+etaretaretar ∷ TokenVector
 etaretaretar = Vector.fromList [E , T , A , R , E , T , A , R , E , T , A , R]

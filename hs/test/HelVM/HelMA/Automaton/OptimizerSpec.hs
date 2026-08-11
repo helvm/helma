@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automaton.OptimizerSpec (spec) where
+module HelVM.HelMA.Automaton.OptimizerSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
@@ -7,7 +9,7 @@ import           HelVM.HelMA.Automaton.Optimizer
 import           Test.Hspec                                            (Spec, describe, it)
 import           Test.Hspec.Expectations.Pretty
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "optimize" $ forM_
     [ ([consI 1 , consI 2 , consI 3] , [consI 1 , consI 2 , consI 3])

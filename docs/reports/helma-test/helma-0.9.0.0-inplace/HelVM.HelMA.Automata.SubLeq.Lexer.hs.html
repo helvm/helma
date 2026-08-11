@@ -28,10 +28,10 @@ span.spaces    { background: white }
 <span class="lineno">    9 </span>import qualified Text.Read                          as Read
 <span class="lineno">   10 </span>import qualified Text.Show                          as Show
 <span class="lineno">   11 </span>
-<span class="lineno">   12 </span>tokenize :: Source -&gt; SymbolList
+<span class="lineno">   12 </span>tokenize ∷ Source → SymbolList
 <span class="lineno">   13 </span><span class="decl"><span class="istickedoff">tokenize source = (maybeToList . readTextMaybe) =&lt;&lt; splitOneOf &quot; \t\n&quot; source</span></span>
 <span class="lineno">   14 </span>
-<span class="lineno">   15 </span>readSymbols :: Source -&gt; Symbols
+<span class="lineno">   15 </span>readSymbols ∷ Source → Symbols
 <span class="lineno">   16 </span><span class="decl"><span class="istickedoff">readSymbols source = readTextUnsafe source :: Symbols</span></span>
 <span class="lineno">   17 </span>
 <span class="lineno">   18 </span>----
@@ -46,7 +46,7 @@ span.spaces    { background: white }
 <span class="lineno">   27 </span>
 <span class="lineno">   28 </span>----
 <span class="lineno">   29 </span>
-<span class="lineno">   30 </span>shows :: SymbolList -&gt; [Text]
+<span class="lineno">   30 </span>shows ∷ SymbolList → [Text]
 <span class="lineno">   31 </span><span class="decl"><span class="istickedoff">shows symbols = show &lt;$&gt; symbols</span></span>
 
 </pre>

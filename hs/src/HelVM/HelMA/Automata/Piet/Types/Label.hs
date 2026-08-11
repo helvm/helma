@@ -8,7 +8,7 @@ module HelVM.HelMA.Automata.Piet.Types.Label (
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
-addPixel :: Coordinates -> Maybe LabelInfo -> Maybe LabelInfo
+addPixel ∷ Coordinates → Maybe LabelInfo → Maybe LabelInfo
 addPixel (x, y) Nothing = Just $ LabelInfo 1 (LabelBorder y x x) (LabelBorder x y y) (LabelBorder y x x) (LabelBorder x y y)
 addPixel (x, y) (Just stats) = Just $ stats
   { _labelSize   = 1 + _labelSize stats
@@ -18,7 +18,7 @@ addPixel (x, y) (Just stats) = Just $ stats
   , labelRight  = mergeMax (labelRight stats) (LabelBorder x y y)
   }
 
-labelSize :: Maybe LabelInfo -> Int
+labelSize ∷ Maybe LabelInfo → Int
 labelSize Nothing     = 0
 labelSize (Just info) = _labelSize info
 
@@ -32,13 +32,13 @@ instance Semigroup LabelInfo where
 
 -- Internal
 
-mergeMin :: LabelBorder -> LabelBorder -> LabelBorder
+mergeMin ∷ LabelBorder → LabelBorder → LabelBorder
 mergeMin = merge $ comparing borderCoord
 
-mergeMax :: LabelBorder -> LabelBorder -> LabelBorder
+mergeMax ∷ LabelBorder → LabelBorder → LabelBorder
 mergeMax = merge $ comparing (negate . borderCoord)
 
-merge :: (LabelBorder -> LabelBorder -> Ordering) -> LabelBorder -> LabelBorder -> LabelBorder
+merge ∷ (LabelBorder → LabelBorder → Ordering) → LabelBorder → LabelBorder → LabelBorder
 merge comp b1 b2 = go $ comp b1 b2 where
   go EQ = b1 { borderMin = min (borderMin b1) (borderMin b2), borderMax = max (borderMax b1) (borderMax b2) }
   go LT = b1

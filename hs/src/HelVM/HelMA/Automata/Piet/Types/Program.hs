@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Label
 
-isBlocked :: Coordinates -> Program -> Bool
+isBlocked ∷ Coordinates → Program → Bool
 isBlocked pos p = not (inRangeImage pos $ image p) || (Black == pixelImage pos (image p))
 
 data Program = Program

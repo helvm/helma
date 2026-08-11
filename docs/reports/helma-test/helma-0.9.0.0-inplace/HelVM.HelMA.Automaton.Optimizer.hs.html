@@ -31,7 +31,7 @@ span.spaces    { background: white }
 <span class="lineno">   12 </span>import           HelVM.HelMA.Automaton.Optimizer.MarkRemovingOptimizer
 <span class="lineno">   13 </span>import           HelVM.HelMA.Automaton.Optimizer.PeepholeOptimizer
 <span class="lineno">   14 </span>
-<span class="lineno">   15 </span>optimize :: OptimizationLevel -&gt; InstructionList -&gt; InstructionList
+<span class="lineno">   15 </span>optimize ∷ OptimizationLevel → InstructionList → InstructionList
 <span class="lineno">   16 </span><span class="decl"><span class="istickedoff">optimize NoOptimizations    = id</span>
 <span class="lineno">   17 </span><span class="spaces"></span><span class="istickedoff">optimize BasicOptimizations = <span class="nottickedoff">constantFolding</span></span>
 <span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">optimize SomeOptimizations  = <span class="nottickedoff">deadCodeElimination . peepholeOptimize . constantFolding</span></span>

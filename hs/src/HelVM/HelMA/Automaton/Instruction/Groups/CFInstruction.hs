@@ -6,10 +6,10 @@ import           HelVM.HelIO.Collections.SList
 
 -- | Others
 
-isNotJump :: Integral e => BranchTest -> e -> Bool
+isNotJump ∷ Integral e ⇒ BranchTest → e → Bool
 isNotJump t = not . isJump t
 
-isJump :: Integral e => BranchTest -> e -> Bool
+isJump ∷ Integral e ⇒ BranchTest → e → Bool
 isJump NE  e = e /= 0
 isJump EZ  e = e == 0
 isJump LTZ e = e <  0
@@ -46,26 +46,26 @@ data BranchTest = EZ | LTZ | GTZ | NE
 
 -- | Internal
 
-printCF :: CFInstruction -> Text
+printCF ∷ CFInstruction → Text
 printCF (Mark     i  ) = "\nmark" <> printMark i
 printCF (Branch i t)   = printBranchTest t <> printBranchOperand i
 printCF (Labeled  i o) = toLowerShow o <> printLabelOperand i
 printCF           i    = toLowerShow i
 
-printMark :: Mark -> Text
+printMark ∷ Mark → Text
 printMark (MNatural    i) = "M " <> show i
 printMark (MArtificial i) = "A " <> show i
 
-printBranchTest :: BranchTest -> Text
+printBranchTest ∷ BranchTest → Text
 printBranchTest t = "b" <> show t
 
-printBranchOperand :: BranchOperand -> Text
+printBranchOperand ∷ BranchOperand → Text
 printBranchOperand  BTop           = ""
 printBranchOperand  BSwapped       = "S"
 printBranchOperand (BImmediate  i) = "I " <> show i
 printBranchOperand (BArtificial i) = "A " <> show i
 
-printLabelOperand :: LabelOperand -> Text
+printLabelOperand ∷ LabelOperand → Text
 printLabelOperand  LTop           = ""
 printLabelOperand (LImmediate  i) = "I " <> show i
 printLabelOperand (LArtificial i) = "A " <> show i

@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automaton.Eff.FreeEffSpec (spec) where
+module HelVM.HelMA.Automaton.Eff.FreeEffSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automaton.Eff.FreeEff
 import           HelVM.HelMA.Automaton.Eff.Mock
@@ -7,7 +9,7 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           Test.Hspec                         (Spec, describe, it)
 import           Test.Hspec.Expectations.Pretty
 
-wFilterIf0 :: MonadEff m => m ()
+wFilterIf0 ∷ MonadEff m ⇒ m ()
 wFilterIf0 = do
   char <- getChar
   if char == '0'
@@ -17,7 +19,7 @@ wFilterIf0 = do
       putChar char
       wFilterIf0
 
-spec :: Spec
+spec ∷ Spec
 spec = do
   describe "Test WFilter0" $ do
     let mockEff = execMockEffWithInput "qwerty0uiop" wFilterIf0
@@ -34,7 +36,7 @@ spec = do
       ] $ \(name , action , output) ->
       it name $ action mockEff `shouldBe` output
 
-debugLogs :: Text
+debugLogs ∷ Text
 debugLogs =
   "Debug GetChar: q\n\
   \Debug PutChar: q\n\

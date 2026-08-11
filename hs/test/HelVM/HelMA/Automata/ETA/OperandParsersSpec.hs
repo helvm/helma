@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.ETA.OperandParsersSpec (spec) where
+module HelVM.HelMA.Automata.ETA.OperandParsersSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.ETA.OperandParsers
 import           HelVM.HelMA.Automata.ETA.Optimizer
@@ -14,7 +16,7 @@ import qualified Data.Vector                                           as Vector
 
 import           Test.Hspec                                            (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec = describe "parse" $ do
   describe "parseInteger" $ forM_
     [ ([E]             , 0)
@@ -49,11 +51,11 @@ spec = describe "parse" $ do
     describe (show input) $
       it "optimalize" $ optimize [input] `shouldSafe` decorateIL output
 
-parseInteger :: TokenList -> Safe Integer
+parseInteger ∷ TokenList → Safe Integer
 parseInteger tl = fst <$> parseNumber (IM (Vector.fromList tl) 0)
 
-decorateInteger :: Integer -> [Instruction]
+decorateInteger ∷ Integer → [Instruction]
 decorateInteger i = decorateIL [consI i]
 
-decorateIL :: [Instruction] -> [Instruction]
+decorateIL ∷ [Instruction] → [Instruction]
 decorateIL il = [markNI 1] <> il <> [markNI 0 , End]

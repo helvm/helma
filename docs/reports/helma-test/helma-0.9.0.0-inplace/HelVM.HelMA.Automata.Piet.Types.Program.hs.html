@@ -27,7 +27,7 @@ span.spaces    { background: white }
 <span class="lineno">    8 </span>import           HelVM.HelMA.Automata.Piet.Types.Image
 <span class="lineno">    9 </span>import           HelVM.HelMA.Automata.Piet.Types.Label
 <span class="lineno">   10 </span>
-<span class="lineno">   11 </span>isBlocked :: Coordinates -&gt; Program -&gt; Bool
+<span class="lineno">   11 </span>isBlocked ∷ Coordinates → Program → Bool
 <span class="lineno">   12 </span><span class="decl"><span class="istickedoff">isBlocked pos p = not (inRangeImage pos $ image p) || (Black == pixelImage pos (image p))</span></span>
 <span class="lineno">   13 </span>
 <span class="lineno">   14 </span>data Program = Program

@@ -15,7 +15,7 @@ import           Data.IntMap                                 hiding (filter)
 
 import qualified Relude.Extra                                as Extra
 
-compile :: Image Color -> Program
+compile ∷ Image Color → Program
 compile image_ = Program image_ mask__ info_ where
   (mask__, info_) = label4 image_
 
@@ -27,10 +27,10 @@ data LabellingStatus = LabellingStatus
   , _equivalences  :: EquivalenceMap
   } deriving stock (Show)
 
-label4 :: Eq a => Image a -> (Image LabelKey, IntMap (Maybe LabelInfo))
+label4 ∷ Eq a ⇒ Image a → (Image LabelKey, IntMap (Maybe LabelInfo))
 label4 = label4With (==)
 
-label4With :: (a -> a -> Bool) -> Image a -> (Image LabelKey, IntMap (Maybe LabelInfo))
+label4With ∷ (a → a → Bool) → Image a → (Image LabelKey, IntMap (Maybe LabelInfo))
 label4With neighbours img = (img', inf) where
   status = label4With' neighbours img (LabellingStatus (0, 0) 0 (newImage (witdthImage img, heightImage img) []) mempty mempty)
   img'   = fmap (applyEquivClass (_equivalences status)) (_mask status)
@@ -46,7 +46,7 @@ label4With neighbours img = (img', inf) where
   updateMap (Just new) (Just (Just oldS)) = Just (Just (new <> oldS))
   updateMap _          _                  = Nothing
 
-label4With' :: (a -> a -> Bool) -> Image a -> LabellingStatus -> LabellingStatus
+label4With' ∷ (a → a → Bool) → Image a → LabellingStatus → LabellingStatus
 label4With' neighbours img status = checkNext (nextCoords xy) (updateStatus mergeLabels) where
   xy@(x, y) = _currentCoords status
   pixel     = pixelImage (x, y) img
@@ -75,10 +75,10 @@ label4With' neighbours img status = checkNext (nextCoords xy) (updateStatus merg
 
 type EquivalenceMap = IntMap LabelKey
 
-equivClass :: LabelKey -> EquivalenceMap -> LabelKey
+equivClass ∷ LabelKey → EquivalenceMap → LabelKey
 equivClass e = findWithDefault e e
 
-equivInsert :: LabelKey -> LabelKey -> EquivalenceMap -> EquivalenceMap
+equivInsert ∷ LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
 equivInsert x y mp = guardInsert (x /= y) where
   guardInsert True  = fmap replaceClass $ insert x newClass $ insert y newClass mp
   guardInsert False = mp

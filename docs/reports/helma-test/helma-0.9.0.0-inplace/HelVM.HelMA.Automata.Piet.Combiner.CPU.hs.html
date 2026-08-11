@@ -30,13 +30,13 @@ span.spaces    { background: white }
 <span class="lineno">   11 </span>
 <span class="lineno">   12 </span>import qualified Data.Sequence                                     as Seq
 <span class="lineno">   13 </span>
-<span class="lineno">   14 </span>pietPointer :: (ALU m (Seq.Seq Int) Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   14 </span>pietPointer ∷ (ALU m (Seq.Seq Int) Int) ⇒ Memory → m Memory
 <span class="lineno">   15 </span><span class="decl"><span class="istickedoff">pietPointer = modifyIM &quot;pointer&quot; directionPointerIM rotateDirectionPointerIM</span></span>
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>pietSwitch :: (ALU m (Seq.Seq Int) Int) =&gt; Memory -&gt; m Memory
+<span class="lineno">   17 </span>pietSwitch ∷ (ALU m (Seq.Seq Int) Int) ⇒ Memory → m Memory
 <span class="lineno">   18 </span><span class="decl"><span class="istickedoff">pietSwitch = modifyIM &quot;switch&quot; codelChooserIM toggleCodelChooserIM</span></span>
 <span class="lineno">   19 </span>
-<span class="lineno">   20 </span>modifyIM :: (ALU m (Seq.Seq Int) Int, Show a) =&gt; Text -&gt; (InstructionMemory -&gt; a) -&gt; (Int -&gt; InstructionMemory -&gt; InstructionMemory) -&gt; Memory -&gt; m Memory
+<span class="lineno">   20 </span>modifyIM ∷ (ALU m (Seq.Seq Int) Int, Show a) ⇒ Text → (InstructionMemory → a) → (Int → InstructionMemory → InstructionMemory) → Memory → m Memory
 <span class="lineno">   21 </span><span class="decl"><span class="istickedoff">modifyIM name getValue f (Memory im s) = logWithPosition (name &lt;&gt; &quot; &quot; &lt;&gt; show (getValue im)) im *&gt; (updateMemory &lt;$&gt; pop1 s) where</span>
 <span class="lineno">   22 </span><span class="spaces">  </span><span class="istickedoff">updateMemory (n, s') = Memory (f n im) s'</span></span>
 

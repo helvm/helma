@@ -1,9 +1,9 @@
 module HelVM.HelMA.Automaton.API.Emit where
 
-defaultEmit :: Emit
+defaultEmit ∷ Emit
 defaultEmit = minBound
 
-emits :: NonEmpty Emit
+emits ∷ NonEmpty Emit
 emits = universeNonEmpty
 
 data Emit = No | IL | TL | Code

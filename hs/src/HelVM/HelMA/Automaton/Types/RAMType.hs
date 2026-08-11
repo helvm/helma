@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automaton.Types.RAMType where
 
 -- | Constructors
-defaultRAMType :: RAMType
+defaultRAMType ∷ RAMType
 defaultRAMType = minBound
 
-ramTypes :: NonEmpty RAMType
+ramTypes ∷ NonEmpty RAMType
 ramTypes = universeNonEmpty
 
 -- | Types

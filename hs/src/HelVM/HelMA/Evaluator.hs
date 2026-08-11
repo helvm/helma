@@ -17,11 +17,11 @@ import qualified HelVM.HelMA.Automata.Zot.Evaluator        as Zot
 
 import qualified RIO
 
-runRio :: Has env => RIO.RIO env ()
+runRio ∷ Has env ⇒ RIO.RIO env ()
 runRio = runWithOpt =<< optionsRio where
   runWithOpt = runLang . App.langCommand
 
-runLang :: Has env => LangCommand -> RIO.RIO env ()
+runLang ∷ Has env ⇒ LangCommand → RIO.RIO env ()
 -- Implerative
 runLang (BFCommand     t) = BF.runRio t
 runLang (ETACommand    i) = ETA.runRio i

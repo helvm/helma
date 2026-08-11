@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark as WS
 import           Gauge.Main
 import           Gauge.Main.Options
 
-main :: IO ()
+main ∷ IO ()
 main = defaultMainWith helConfig
   [ ETA.benchMark
   , WS.benchMark
@@ -16,7 +16,7 @@ main = defaultMainWith helConfig
   , SQ.benchMark
   ]
 
-helConfig :: Config
+helConfig ∷ Config
 helConfig = defaultConfig
   { resamples = 100
   }

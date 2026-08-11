@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automata.WhiteSpace.API.TokenType where
 
 -- | Constructors
-defaultTokenType :: TokenType
+defaultTokenType ∷ TokenType
 defaultTokenType = minBound
 
-tokenTypes :: NonEmpty TokenType
+tokenTypes ∷ NonEmpty TokenType
 tokenTypes = universeNonEmpty
 
 -- | Types

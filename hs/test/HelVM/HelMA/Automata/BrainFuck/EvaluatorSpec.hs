@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec (spec) where
+module HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Evaluator
 import           HelVM.HelMA.Automata.BrainFuck.FileExtra
@@ -16,7 +18,7 @@ import           System.FilePath.Posix
 
 import           Test.Hspec                                  (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "eval" $ forM_ ((
     [ ("value256"              , ""     )
@@ -45,6 +47,6 @@ spec =
         it ("logged" </> path) $
           calculateLogsWithLevelInfo <$> exec `goldenShouldIO` buildAbsoluteBfLogFileName path
 
-testedBfTypes :: [ImplType]
+testedBfTypes ∷ [ImplType]
 testedBfTypes = [defaultImplType]
 --testedBfTypes = implTypes

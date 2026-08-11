@@ -25,7 +25,7 @@ span.spaces    { background: white }
 <span class="lineno">    6 </span>import           HelVM.HelMA.Automata.Piet.Types.Brightness
 <span class="lineno">    7 </span>import           HelVM.HelMA.Automata.Piet.Types.Hue
 <span class="lineno">    8 </span>
-<span class="lineno">    9 </span>diffColor :: ChromaticColor -&gt; ChromaticColor -&gt; ChromaticColor
+<span class="lineno">    9 </span>diffColor ∷ ChromaticColor → ChromaticColor → ChromaticColor
 <span class="lineno">   10 </span><span class="decl"><span class="istickedoff">diffColor (ChromaticColor fromLight fromColor) (ChromaticColor toLight toColor) = ChromaticColor (brightnessChange fromLight toLight) (hueChange fromColor toColor)</span></span>
 <span class="lineno">   11 </span>
 <span class="lineno">   12 </span>data ChromaticColor = ChromaticColor !Brightness !Hue

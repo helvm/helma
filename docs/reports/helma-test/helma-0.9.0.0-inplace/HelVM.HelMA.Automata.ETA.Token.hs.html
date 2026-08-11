@@ -67,10 +67,10 @@ span.spaces    { background: white }
 <span class="lineno">   48 </span><span class="spaces">  </span><span class="istickedoff">readsPrec _ &quot;H&quot;  = [( WhiteToken H , &quot;&quot;)]</span>
 <span class="lineno">   49 </span><span class="spaces">  </span><span class="istickedoff">readsPrec _ _    = []</span></span>
 <span class="lineno">   50 </span>
-<span class="lineno">   51 </span>tokenToWhiteTokenPair :: Token -&gt; (WhiteToken , String)
+<span class="lineno">   51 </span>tokenToWhiteTokenPair ∷ Token → (WhiteToken , String)
 <span class="lineno">   52 </span><span class="decl"><span class="nottickedoff">tokenToWhiteTokenPair t = (WhiteToken t , &quot;&quot;)</span></span>
 <span class="lineno">   53 </span>
-<span class="lineno">   54 </span>whiteTokenListToTokenList :: WhiteTokenList -&gt; TokenList
+<span class="lineno">   54 </span>whiteTokenListToTokenList ∷ WhiteTokenList → TokenList
 <span class="lineno">   55 </span><span class="decl"><span class="istickedoff">whiteTokenListToTokenList = fmap unWhiteToken</span></span>
 
 </pre>

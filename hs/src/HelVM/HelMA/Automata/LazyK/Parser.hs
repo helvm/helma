@@ -12,16 +12,16 @@ import           HelVM.HelIO.Control.Safe
 
 import           Text.ParserCombinators.ReadP      hiding (many)
 
-parse :: MonadSafe m => Source -> m Lambda
+parse ∷ MonadSafe m ⇒ Source → m Lambda
 parse = parseCode . filterComments
 
-parseCode :: MonadSafe m => Source -> m Lambda
+parseCode ∷ MonadSafe m ⇒ Source → m Lambda
 parseCode = runParser appParser
 
-appParser :: ReadP Lambda
+appParser ∷ ReadP Lambda
 appParser = foldlLambda <$> manyNonEmpty lambdaParser
 
-lambdaParser :: ReadP Lambda
+lambdaParser ∷ ReadP Lambda
 lambdaParser =
        S <$ oneOf "sS"
   <|>  K <$ oneOf "kK"

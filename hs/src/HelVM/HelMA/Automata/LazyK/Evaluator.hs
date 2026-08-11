@@ -25,22 +25,22 @@ import           HelVM.HelMA.Automaton.Extra
 
 import qualified RIO
 
-runRio :: Has env => RIO.RIO env ()
+runRio ∷ Has env ⇒ RIO.RIO env ()
 runRio = runWithOptions =<< optionsRio where
   runWithOptions o = run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
-run :: Has env =>  Emit -> EvalParams -> RIO.RIO env ()
+run ∷ Has env ⇒  Emit → EvalParams → RIO.RIO env ()
 run No = runAsRIO . evalParams
 run _  = fallback
 
-evalParams :: AppEff m => EvalParams -> m ()
+evalParams ∷ AppEff m ⇒ EvalParams → m ()
 evalParams = evalSource . source
 
-evalSource :: AppEff m => Source -> m ()
+evalSource ∷ AppEff m ⇒ Source → m ()
 evalSource = evalLambda <=< parse
 
-evalLambda :: AppEff m => Lambda -> m ()
+evalLambda ∷ AppEff m ⇒ Lambda → m ()
 evalLambda lambda = (runAutomat . reduce . App lambda . readInput) =<< getContentsBS
 
-reduceSource :: AppEff m => Source -> m Source
+reduceSource ∷ AppEff m ⇒ Source → m Source
 reduceSource s = show . reduce <$> parse s

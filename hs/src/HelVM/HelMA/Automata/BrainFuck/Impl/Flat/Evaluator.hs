@@ -16,10 +16,10 @@ import           HelVM.HelMA.Automaton.Types.DumpType
 
 import           Control.Type.Operator
 
-evalSource :: (AppEff m , Symbol e) => Source -> FullTape e -> DumpType -> m ()
+evalSource ∷ (AppEff m , Symbol e) ⇒ Source → FullTape e → DumpType → m ()
 evalSource source tape dt = logDump dt =<< doInstruction ([] , tokenize source) tape
 
-doInstruction :: (AppEff m , Symbol e) => Table -> FullTape e -> m $ Memory e
+doInstruction ∷ (AppEff m , Symbol e) ⇒ Table → FullTape e → m $ Memory e
 doInstruction table@(_ , Simple MoveR  : _) tape = doInstruction (nextInst table) (moveHeadRight tape)
 doInstruction table@(_ , Simple MoveL  : _) tape = doInstruction (nextInst table)  (moveHeadLeft tape)
 doInstruction table@(_ , Simple Inc    : _) tape = doInstruction (nextInst table)    (nextSymbol tape)
@@ -30,24 +30,24 @@ doInstruction table@(_ , JmpPast       : _) tape = doJmpPast               table
 doInstruction table@(_ , JmpBack       : _) tape = doJmpBack               table                 tape
 doInstruction table@(_ , []               ) tape = doEnd                   table                 tape
 
-doJmpPast :: (AppEff m , Symbol e) => Table -> FullTape e -> m $ Memory e
+doJmpPast ∷ (AppEff m , Symbol e) ⇒ Table → FullTape e → m $ Memory e
 doJmpPast table tape@(_ , 0 : _) = doInstruction (jumpPast table) tape
 doJmpPast table tape             = doInstruction (nextInst table) tape
 
-doJmpBack :: (AppEff m , Symbol e) => Table -> FullTape e -> m $ Memory e
+doJmpBack ∷ (AppEff m , Symbol e) ⇒ Table → FullTape e → m $ Memory e
 doJmpBack table tape@(_ , 0 : _) = doInstruction (nextInst table) tape
 doJmpBack table tape             = doInstruction (jumpBack table) tape
 
 -- | IO instructions
-doOutputChar :: (AppEff m , Symbol e) => Table -> FullTape e -> m $ Memory e
+doOutputChar ∷ (AppEff m , Symbol e) ⇒ Table → FullTape e → m $ Memory e
 doOutputChar _          (_ ,    []) = error "Illegal State"
 doOutputChar table tape@(_ , e : _) = putChar (toChar e) *> doInstruction (nextInst table) tape
 
-doInputChar :: (AppEff m , Symbol e) => Table -> FullTape e -> m $ Memory e
+doInputChar ∷ (AppEff m , Symbol e) ⇒ Table → FullTape e → m $ Memory e
 doInputChar table tape = (doInstruction (nextInst table) . flip writeSymbol tape) =<< getChar
 
 -- | Terminate instruction
-doEnd :: AppEff m => Table -> FullTape e -> m $ Memory e
+doEnd ∷ AppEff m ⇒ Table → FullTape e → m $ Memory e
 doEnd table tape = pure $ Memory table tape
 
 -- | Types

@@ -3,10 +3,10 @@ module HelVM.HelMA.Automata.BrainFuck.Common.SimpleInstruction where
 import qualified Text.Read
 import qualified Text.Show
 
-charToSimpleInstruction :: Char -> Maybe SimpleInstruction
+charToSimpleInstruction ∷ Char → Maybe SimpleInstruction
 charToSimpleInstruction = readMaybe . one
 
-simpleInstructions :: [SimpleInstruction]
+simpleInstructions ∷ [SimpleInstruction]
 simpleInstructions = [MoveR , MoveL , Inc , Dec , Output , Input]
 
 data SimpleInstruction =

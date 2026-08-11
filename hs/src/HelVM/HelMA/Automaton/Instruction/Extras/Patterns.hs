@@ -1,4 +1,5 @@
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE UnicodeSyntax   #-}
 module HelVM.HelMA.Automaton.Instruction.Extras.Patterns where
 
 import           HelVM.HelMA.Automaton.Instruction.Extras.Common
@@ -10,19 +11,19 @@ import           HelVM.HelMA.Automaton.Instruction
 
 -- | Getters
 
-isICF :: Instruction -> Bool
+isICF ∷ Instruction → Bool
 isICF (ICF _) = True
 isICF      _  = False
 
-isMark :: Instruction -> Bool
+isMark ∷ Instruction → Bool
 isMark (MarkP _) = True
 isMark        _  = False
 
-checkNaturalMark :: Natural -> Instruction -> Bool
+checkNaturalMark ∷ Natural → Instruction → Bool
 checkNaturalMark n (MNaturalP n') = n == n'
 checkNaturalMark _            _   = False
 
-checkArtificialMark :: Label -> Instruction -> Bool
+checkArtificialMark ∷ Label → Instruction → Bool
 checkArtificialMark l (MArtificialP l') = l == l'
 checkArtificialMark _               _   = False
 
@@ -39,42 +40,42 @@ pattern HalibutP = ISM (SPure Halibut)
 pattern PickP :: Instruction
 pattern PickP = ISM (SPure Pick)
 
-pattern ConsP :: Integer -> Instruction
+pattern ConsP :: Integer → Instruction
 pattern ConsP c = ISM (SPure (Cons c))
 
-pattern CopyIP :: ImmediateIndex -> Instruction
+pattern CopyIP :: ImmediateIndex → Instruction
 pattern CopyIP i = ISM (SPure (Indexed (IImmediate i) Copy))
 
-pattern MoveIP :: ImmediateIndex -> Instruction
+pattern MoveIP :: ImmediateIndex → Instruction
 pattern MoveIP i = ISM (SPure (Indexed (IImmediate i) Move))
 
-pattern AddIP :: Integer -> Instruction
+pattern AddIP :: Integer → Instruction
 pattern AddIP i = ISM (SPure (Unary (UImmediate i Add)))
 
-pattern BinaryP :: BinaryOperation -> Instruction
+pattern BinaryP :: BinaryOperation → Instruction
 pattern BinaryP op = ISM (SPure (Binary op))
 
-pattern SPureP :: SPureInstruction -> Instruction
+pattern SPureP :: SPureInstruction → Instruction
 pattern SPureP i = ISM (SPure i)
 
 -- | ICF
 
-pattern BNeIP :: Natural -> Instruction
+pattern BNeIP :: Natural → Instruction
 pattern BNeIP i = ICF (Branch (BImmediate i) NE)
 
-pattern JumpP :: LabelOperand -> Instruction
+pattern JumpP :: LabelOperand → Instruction
 pattern JumpP o = ICF (Labeled o Jump)
 
-pattern MarkP :: Mark -> Instruction
+pattern MarkP :: Mark → Instruction
 pattern MarkP m = ICF (Mark m)
 
-pattern MNaturalP :: Natural -> Instruction
+pattern MNaturalP :: Natural → Instruction
 pattern MNaturalP n = ICF (Mark (MNatural n))
 
-pattern MArtificialP :: Label -> Instruction
+pattern MArtificialP :: Label → Instruction
 pattern MArtificialP l = ICF (Mark (MArtificial l))
 
-pattern BranchTP :: BranchTest -> Instruction
+pattern BranchTP :: BranchTest → Instruction
 pattern BranchTP t = ICF (Branch BTop t)
 
 -- | ILS
@@ -85,5 +86,5 @@ pattern StoreP = ILS Store
 pattern LoadP :: Instruction
 pattern LoadP = ILS Load
 
-pattern LoadDP :: ImmediateIndex -> Instruction
+pattern LoadDP :: ImmediateIndex → Instruction
 pattern LoadDP a  = ILS (LoadD a)

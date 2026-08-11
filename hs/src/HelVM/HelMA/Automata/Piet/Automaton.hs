@@ -34,64 +34,64 @@ import           Data.IntMap                                        hiding (filt
 
 -- Main interpreter entry point
 
-interpret :: AppEff m => Program -> m ()
+interpret ∷ AppEff m ⇒ Program → m ()
 interpret prog = Trampoline.trampolineM interpretStep initialState where
   initialState = (NormalStep Nothing, initialMemory prog)
 
-interpretStep :: AppEff m => (StepState, Memory) -> m (Either () InterpreterMemory)
+interpretStep ∷ AppEff m ⇒ (StepState, Memory) → m (Either () InterpreterMemory)
 interpretStep (NormalStep prev, mem) = stepNormal prev mem
 interpretStep (WhiteStep limit, mem) = pure $ stepWhite limit mem
 
 -- Step handlers
 
-stepNormal :: AppEff m => Maybe PreviousColor -> Memory -> m (Either () InterpreterMemory)
+stepNormal ∷ AppEff m ⇒ Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
 stepNormal previous memory = evalPixel (currentPixel memory) previous memory
 
-stepWhite :: Int -> Memory -> Either () InterpreterMemory
+stepWhite ∷ Int → Memory → Either () InterpreterMemory
 stepWhite limit memory
   | limit <= 0 = Trampoline.break ()
   | otherwise  = Trampoline.continue $ checkWhitePixel (currentPixel memory) limit memory
 
 -- Pixel handlers
 
-evalPixel :: AppEff m => Color -> Maybe PreviousColor -> Memory -> m (Either () InterpreterMemory)
+evalPixel ∷ AppEff m ⇒ Color → Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
 evalPixel (Chromatic color) previous mem = evalChromaticPixel previous color mem
 evalPixel White             _        mem = pure $ Trampoline.continue $ evalWhitePixel mem
 evalPixel Black             _        _   = liftError "Entered black block, terminate"
 
-evalChromaticPixel :: AppEff m => Maybe PreviousColor -> ChromaticColor -> Memory -> m (Either () InterpreterMemory)
+evalChromaticPixel ∷ AppEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m (Either () InterpreterMemory)
 evalChromaticPixel previous color mem = makeNext <$> applyPreviousColor previous color mem where
   makeNext mem1 = handleNext (nonBlackSucc (programMemory mem1) mStats (orientationMemory mem1)) (color, labelSize mStats) mem1
   mStats   = getMaskInfo (programMemory mem) (positionMemory mem)
 
-evalWhitePixel :: Memory -> InterpreterMemory
+evalWhitePixel ∷ Memory → InterpreterMemory
 evalWhitePixel mem = (WhiteStep whiteLimit, mem) where
   whiteLimit = 8 * labelSize (getMaskInfo (programMemory mem) (positionMemory mem))
 
-checkWhitePixel :: Color -> Int -> Memory -> InterpreterMemory
+checkWhitePixel ∷ Color → Int → Memory → InterpreterMemory
 checkWhitePixel White limit = checkWhitePixelStep limit
 checkWhitePixel _     _     = (NormalStep Nothing, )
 
-checkWhitePixelStep :: Int -> Memory -> InterpreterMemory
+checkWhitePixelStep ∷ Int → Memory → InterpreterMemory
 checkWhitePixelStep limit mem = (WhiteStep (limit - 1), stepWhitePixel mem)
 
 -- Helper functions
 
-currentPixel :: Memory -> Color
+currentPixel ∷ Memory → Color
 currentPixel mem = pixelImage (positionMemory mem) (image $ programMemory mem)
 
-applyPreviousColor :: AppEff m => Maybe PreviousColor -> ChromaticColor -> Memory -> m Memory
+applyPreviousColor ∷ AppEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m Memory
 applyPreviousColor (Just (oldColor, oldS)) color = colors2Command oldColor color oldS
 applyPreviousColor Nothing                 _     = pure
 
-getMaskInfo :: Program -> Coordinates -> Maybe LabelInfo
+getMaskInfo ∷ Program → Coordinates → Maybe LabelInfo
 getMaskInfo program pos = findWithDefault Nothing (pixelImage pos (mask program)) (info program)
 
-handleNext :: Maybe InstructionCounter -> PreviousColor -> Memory -> Either () InterpreterMemory
+handleNext ∷ Maybe InstructionCounter → PreviousColor → Memory → Either () InterpreterMemory
 handleNext (Just ic) prevColor mem = Trampoline.continue $ handleNextSuccess ic prevColor mem
 handleNext Nothing           _   _ = Trampoline.break ()
 
-handleNextSuccess :: InstructionCounter -> PreviousColor -> Memory -> InterpreterMemory
+handleNextSuccess ∷ InstructionCounter → PreviousColor → Memory → InterpreterMemory
 handleNextSuccess ic prevColor mem =
   ( NormalStep (Just prevColor)
   , setInstructionCounter ic mem
@@ -99,19 +99,19 @@ handleNextSuccess ic prevColor mem =
 
 -- Utilities
 
-nonBlackSucc :: Program -> Maybe LabelInfo -> Orientation -> Maybe InstructionCounter
+nonBlackSucc ∷ Program → Maybe LabelInfo → Orientation → Maybe InstructionCounter
 nonBlackSucc program mStats reg = uncurry InstructionCounter <$> find isValid (zip (fmap (succCoordinates mStats) directions) directions) where
   directions       = flip rotateToggle reg <$> zip [ 0, 0, 1, 1, 2, 2, 3, 3 ] (0 : cycle [ 1, 1, 0, 0 ])
   isValid (pos, _) = not (isBlocked pos program)
 
-succCoordinates :: Maybe LabelInfo -> Orientation -> Coordinates
+succCoordinates ∷ Maybe LabelInfo → Orientation → Coordinates
 succCoordinates labelInfo reg = addCoordinates (directionPointer reg) $ toCooCoordinates labelInfo reg
 
-toCooCoordinates :: Maybe LabelInfo -> Orientation -> Coordinates
+toCooCoordinates ∷ Maybe LabelInfo → Orientation → Coordinates
 toCooCoordinates (Just labelInfo) reg = (getX reg labelInfo, getY reg labelInfo)
 toCooCoordinates Nothing          _   = (0, 0)
 
-getX :: Orientation -> LabelInfo -> Int
+getX ∷ Orientation → LabelInfo → Int
 getX (Orientation DPRight CCLeft)  = borderCoord . labelRight
 getX (Orientation DPRight CCRight) = borderCoord . labelRight
 getX (Orientation DPDown  CCLeft)  = borderMax . labelBottom
@@ -121,7 +121,7 @@ getX (Orientation DPLeft  CCRight) = borderCoord . labelLeft
 getX (Orientation DPUp    CCLeft)  = borderMin . labelTop
 getX (Orientation DPUp    CCRight) = borderMax . labelTop
 
-getY :: Orientation -> LabelInfo -> Int
+getY ∷ Orientation → LabelInfo → Int
 getY (Orientation DPRight CCLeft)  = borderMin . labelRight
 getY (Orientation DPRight CCRight) = borderMax . labelRight
 getY (Orientation DPDown  CCLeft)  = borderCoord . labelBottom
@@ -131,10 +131,10 @@ getY (Orientation DPLeft  CCRight) = borderMin . labelLeft
 getY (Orientation DPUp    CCLeft)  = borderCoord . labelTop
 getY (Orientation DPUp    CCRight) = borderCoord . labelTop
 
-colors2Command :: AppEff m => ChromaticColor -> ChromaticColor -> Int -> Memory -> m Memory
+colors2Command ∷ AppEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
 colors2Command from to = colorDiff2Command $ diffColor from to
 
-colorDiff2Command :: AppEff m => ChromaticColor -> Int -> Memory -> m Memory
+colorDiff2Command ∷ AppEff m ⇒ ChromaticColor → Int → Memory → m Memory
 colorDiff2Command (ChromaticColor Light  Red)     _ s = pure s
 colorDiff2Command (ChromaticColor Normal Red)     n s = pietPush n s
 colorDiff2Command (ChromaticColor Dark   Red)     _ s = pietPop s

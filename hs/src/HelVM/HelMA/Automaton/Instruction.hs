@@ -24,16 +24,16 @@ type InstructionVector = Vector.Vector Instruction
 
 -- | print
 
-printIndexedIL :: InstructionList -> Text
+printIndexedIL ∷ InstructionList → Text
 printIndexedIL il = unlines $ printIndexedI <$> indexed il
 
-printIndexedI :: (Int , Instruction) -> Text
+printIndexedI ∷ (Int , Instruction) → Text
 printIndexedI (index , i) = printI i <> " # " <> show index
 
-printIL :: InstructionList -> Text
+printIL ∷ InstructionList → Text
 printIL il = unlines $ printI <$> il
 
-printI :: Instruction -> Text
+printI ∷ Instruction → Text
 printI (ISM i) = printSM i
 printI (ICF i) = printCF i
 printI (ILS i) = toLowerShow i

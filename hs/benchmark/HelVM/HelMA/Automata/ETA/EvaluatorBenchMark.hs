@@ -14,19 +14,19 @@ import           System.FilePath.Posix
 
 import           Gauge.Main
 
-benchMark :: Benchmark
+benchMark ∷ Benchmark
 benchMark = bgroup "ETA" (benchMarkByStackType <$> ([defaultAutomatonType] >*< toList stackTypes))
 
-benchMarkByStackType :: BenchParams -> Benchmark
+benchMarkByStackType ∷ BenchParams → Benchmark
 benchMarkByStackType t = bench (show t) $ nfIO $ execAll t
 
-execAll :: BenchParams -> IO [[Text]]
+execAll ∷ BenchParams → IO [[Text]]
 execAll t = do
   fromEas  <- execFromEas t
   original <- execOriginal t
   pure $ fromEas <> original
 
-execFromEas :: BenchParams -> IO [[Text]]
+execFromEas ∷ BenchParams → IO [[Text]]
 execFromEas t = forM
   [ ("true"    , [""])
   , ("hello"   , [""])
@@ -38,7 +38,7 @@ execFromEas t = forM
   , ("bottles" , [""])
   ] $ uncurry (ioExec t "from-eas")
 
-execOriginal :: BenchParams -> IO [[Text]]
+execOriginal ∷ BenchParams → IO [[Text]]
 execOriginal t = forM
   [ ("hello"   , [""])
   , ("hello2"  , [""])
@@ -47,7 +47,7 @@ execOriginal t = forM
   , ("crlf"    , [""])
   ] $ uncurry (ioExec t "original")
 
-ioExec :: BenchParams -> FilePath -> FilePath -> [Text] -> IO [Text]
+ioExec ∷ BenchParams → FilePath → FilePath → [Text] → IO [Text]
 ioExec (implType , stackType) dirName fileName inputs = do
   let file = readEtaFile (dirName </> fileName)
   forM inputs $ \ input -> do

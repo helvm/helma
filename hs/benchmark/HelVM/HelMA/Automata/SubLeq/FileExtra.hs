@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.SubLeq.FileExtra (
-  readSqFile,
-  buildAbsoluteExecFileName,
-) where
+module HelVM.HelMA.Automata.SubLeq.FileExtra
+    ( buildAbsoluteExecFileName
+    , readSqFile
+    ) where
 
 import           HelVM.HelMA.Automata.FileExtra
 
@@ -9,14 +9,14 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           System.FilePath.Posix
 
-readSqFile :: FilePath -> IO Source
+readSqFile ∷ FilePath → IO Source
 readSqFile = readSourceFile . buildAbsoluteSqFileName
 
-buildAbsoluteSqFileName :: FilePath -> FilePath
+buildAbsoluteSqFileName ∷ FilePath → FilePath
 buildAbsoluteSqFileName fileName = sqDir </> fileName <.> "sq"
 
-buildAbsoluteExecFileName :: FilePath -> FilePath
+buildAbsoluteExecFileName ∷ FilePath → FilePath
 buildAbsoluteExecFileName fileName = sqDir </> "eval" </> fileName
 
-sqDir :: FilePath
+sqDir ∷ FilePath
 sqDir = "sq"

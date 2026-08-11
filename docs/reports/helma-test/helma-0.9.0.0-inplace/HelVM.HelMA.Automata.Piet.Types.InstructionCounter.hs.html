@@ -31,19 +31,19 @@ span.spaces    { background: white }
 <span class="lineno">   12 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 <span class="lineno">   13 </span>import           HelVM.HelMA.Automata.Piet.Types.Orientation
 <span class="lineno">   14 </span>
-<span class="lineno">   15 </span>directionPointerIC :: InstructionCounter -&gt; DirectionPointer
+<span class="lineno">   15 </span>directionPointerIC ∷ InstructionCounter → DirectionPointer
 <span class="lineno">   16 </span><span class="decl"><span class="istickedoff">directionPointerIC = directionPointer .  orientation</span></span>
 <span class="lineno">   17 </span>
-<span class="lineno">   18 </span>codelChooserIC :: InstructionCounter -&gt; CodelChooser
+<span class="lineno">   18 </span>codelChooserIC ∷ InstructionCounter → CodelChooser
 <span class="lineno">   19 </span><span class="decl"><span class="nottickedoff">codelChooserIC = codelChooser . orientation</span></span>
 <span class="lineno">   20 </span>
-<span class="lineno">   21 </span>rotateDirectionPointerIC :: Int -&gt; InstructionCounter -&gt; InstructionCounter
+<span class="lineno">   21 </span>rotateDirectionPointerIC ∷ Int → InstructionCounter → InstructionCounter
 <span class="lineno">   22 </span><span class="decl"><span class="istickedoff">rotateDirectionPointerIC n ic = ic { orientation = rotateDirectionPointer n (orientation ic)}</span></span>
 <span class="lineno">   23 </span>
-<span class="lineno">   24 </span>toggleCodelChooserIC :: Int -&gt; InstructionCounter -&gt; InstructionCounter
+<span class="lineno">   24 </span>toggleCodelChooserIC ∷ Int → InstructionCounter → InstructionCounter
 <span class="lineno">   25 </span><span class="decl"><span class="istickedoff">toggleCodelChooserIC n ic = ic { orientation = toggleCodelChooser n (orientation ic)}</span></span>
 <span class="lineno">   26 </span>
-<span class="lineno">   27 </span>initialInstructionCounter :: InstructionCounter
+<span class="lineno">   27 </span>initialInstructionCounter ∷ InstructionCounter
 <span class="lineno">   28 </span><span class="decl"><span class="istickedoff">initialInstructionCounter = InstructionCounter initialCoordinates initialOrientation</span></span>
 <span class="lineno">   29 </span>
 <span class="lineno">   30 </span>data InstructionCounter = InstructionCounter

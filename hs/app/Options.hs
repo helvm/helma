@@ -19,7 +19,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 
 import           Options.Applicative
 
-optionsParser :: Parser AppOptions
+optionsParser ∷ Parser AppOptions
 optionsParser = AppOptions
   <$> option auto  (  long    "Emit"
                    <> short   'E'
@@ -94,7 +94,7 @@ optionsParser = AppOptions
   <*> langCommandParser
   <*> argument str (  metavar "FILE")
 
-langCommandParser :: Parser LangCommand
+langCommandParser ∷ Parser LangCommand
 langCommandParser = subparser
   (  command "bf"   (info bfParser   (progDesc "BrainFuck interpreter"))
   <> command "eta"  (info etaParser  (progDesc "ETA interpreter"))

@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.FALSE.ParserSpec (spec) where
+module HelVM.HelMA.Automata.FALSE.ParserSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.FALSE.FileExtra
 import           HelVM.HelMA.Automata.FALSE.Parser
@@ -9,7 +11,7 @@ import           HelVM.GoldenExpectations
 
 import           Test.Hspec                           (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec = do
   describe "parser" $
     forM_ [

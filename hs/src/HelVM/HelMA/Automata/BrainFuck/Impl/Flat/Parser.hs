@@ -8,10 +8,10 @@ import           HelVM.HelMA.Automaton.WrapTokenList
 import           HelVM.HelIO.ReadText
 
 -- | Parser
-tokenize :: Source -> FlatTreeInstructionList
+tokenize ∷ Source → FlatTreeInstructionList
 tokenize =  unWrapTokenList . readTokens
 
-readTokens :: Source -> Tokens
+readTokens ∷ Source → Tokens
 readTokens source = readTextUnsafe source :: Tokens
 
 type Tokens = WrapTokenList FlatTreeInstructionList

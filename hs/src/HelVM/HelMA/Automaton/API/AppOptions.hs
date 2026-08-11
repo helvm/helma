@@ -19,13 +19,13 @@ import           HelVM.HelMA.Automaton.Types.StackType
 
 -- | Methods
 
-evalParams :: AppOptions -> Source -> API.EvalParams
+evalParams ∷ AppOptions → Source → API.EvalParams
 evalParams o source = API.EvalParams (formatType o) source (memoryOptions o) (autoOptions o)
 
-memoryOptions :: AppOptions -> API.MemoryOptions
+memoryOptions ∷ AppOptions → API.MemoryOptions
 memoryOptions o = API.MemoryOptions (ramType o) (stackType o) (cellType o) (intCellType o)
 
-autoOptions :: AppOptions -> API.AutoOptions
+autoOptions ∷ AppOptions → API.AutoOptions
 autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) Nothing (dumpType o)
 
 -- | Types

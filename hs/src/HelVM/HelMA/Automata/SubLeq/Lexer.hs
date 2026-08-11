@@ -9,10 +9,10 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import qualified Text.Read                          as Read
 import qualified Text.Show                          as Show
 
-tokenize :: Source -> SymbolList
+tokenize ∷ Source → SymbolList
 tokenize source = (maybeToList . readTextMaybe) =<< splitOneOf " \t\n" source
 
-readSymbols :: Source -> Symbols
+readSymbols ∷ Source → Symbols
 readSymbols source = readTextUnsafe source :: Symbols
 
 ----
@@ -27,5 +27,5 @@ instance Read Symbols where
 
 ----
 
-shows :: SymbolList -> [Text]
+shows ∷ SymbolList → [Text]
 shows symbols = show <$> symbols

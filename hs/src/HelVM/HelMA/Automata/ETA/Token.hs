@@ -48,8 +48,8 @@ instance Read WhiteToken where
   readsPrec _ "H"  = [( WhiteToken H , "")]
   readsPrec _ _    = []
 
-tokenToWhiteTokenPair :: Token -> (WhiteToken , String)
+tokenToWhiteTokenPair ∷ Token → (WhiteToken , String)
 tokenToWhiteTokenPair t = (WhiteToken t , "")
 
-whiteTokenListToTokenList :: WhiteTokenList -> TokenList
+whiteTokenListToTokenList ∷ WhiteTokenList → TokenList
 whiteTokenListToTokenList = fmap unWhiteToken

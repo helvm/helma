@@ -1,25 +1,25 @@
-module HelVM.HelMA.Automata.SubLeq.FileExtra (
-  readSqFile,
-  buildAbsoluteSqFileName,
-  buildAbsoluteSqOutFileName,
-  buildAbsoluteSqLogFileName,
-) where
+module HelVM.HelMA.Automata.SubLeq.FileExtra
+    ( buildAbsoluteSqFileName
+    , buildAbsoluteSqLogFileName
+    , buildAbsoluteSqOutFileName
+    , readSqFile
+    ) where
 
 import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-readSqFile :: FilePath -> IO Source
+readSqFile ∷ FilePath → IO Source
 readSqFile = readSourceFile . buildAbsoluteSqFileName
 
-buildAbsoluteSqFileName :: FilePath -> FilePath
+buildAbsoluteSqFileName ∷ FilePath → FilePath
 buildAbsoluteSqFileName = buildAbsoluteLangFileName lang
 
-buildAbsoluteSqOutFileName :: FilePath -> FilePath
+buildAbsoluteSqOutFileName ∷ FilePath → FilePath
 buildAbsoluteSqOutFileName = buildAbsoluteOutFileName lang
 
-buildAbsoluteSqLogFileName :: FilePath -> FilePath
+buildAbsoluteSqLogFileName ∷ FilePath → FilePath
 buildAbsoluteSqLogFileName = buildAbsoluteLogFileName lang
 
-lang :: FilePath
+lang ∷ FilePath
 lang = "sq"

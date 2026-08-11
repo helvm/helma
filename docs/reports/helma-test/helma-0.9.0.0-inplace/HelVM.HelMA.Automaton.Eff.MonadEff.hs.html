@@ -45,13 +45,13 @@ span.spaces    { background: white }
 <span class="lineno">   26 </span>
 <span class="lineno">   27 </span>class Monad m =&gt; MonadEff m where
 <span class="lineno">   28 </span>
-<span class="lineno">   29 </span>  putAsChar       :: Integral v =&gt; v -&gt; m ()
-<span class="lineno">   30 </span>  putAsDec        :: Integral v =&gt; v -&gt; m ()
-<span class="lineno">   31 </span>  getCharAs       :: Integral v =&gt; m v
-<span class="lineno">   32 </span>  getDecAs        :: Integral v =&gt; m v
+<span class="lineno">   29 </span>  putAsChar       :: Integral v ⇒ v → m ()
+<span class="lineno">   30 </span>  putAsDec        :: Integral v ⇒ v → m ()
+<span class="lineno">   31 </span>  getCharAs       :: Integral v ⇒ m v
+<span class="lineno">   32 </span>  getDecAs        :: Integral v ⇒ m v
 <span class="lineno">   33 </span>
-<span class="lineno">   34 </span>  putIntAsChar    :: Int -&gt; m ()
-<span class="lineno">   35 </span>  putIntAsDec     :: Int -&gt; m ()
+<span class="lineno">   34 </span>  putIntAsChar    :: Int → m ()
+<span class="lineno">   35 </span>  putIntAsDec     :: Int → m ()
 <span class="lineno">   36 </span>  getCharAsInt    :: m Int
 <span class="lineno">   37 </span>  getDecAsInt     :: m Int
 <span class="lineno">   38 </span>
@@ -59,8 +59,8 @@ span.spaces    { background: white }
 <span class="lineno">   40 </span>  getContentsText :: m LText
 <span class="lineno">   41 </span>  getChar         :: m Char
 <span class="lineno">   42 </span>  getLine         :: m Text
-<span class="lineno">   43 </span>  putChar         :: Char -&gt; m ()
-<span class="lineno">   44 </span>  putLine         :: Text -&gt; m ()
+<span class="lineno">   43 </span>  putChar         :: Char → m ()
+<span class="lineno">   44 </span>  putLine         :: Text → m ()
 <span class="lineno">   45 </span>
 <span class="lineno">   46 </span>  flush           :: m ()
 <span class="lineno">   47 </span>
@@ -85,7 +85,7 @@ span.spaces    { background: white }
 <span class="lineno">   66 </span>  <span class="decl"><span class="nottickedoff">putLine         = Prelude.putText</span></span>
 <span class="lineno">   67 </span>  <span class="decl"><span class="nottickedoff">flush           = flushIO</span></span>
 <span class="lineno">   68 </span>
-<span class="lineno">   69 </span>instance {-# OVERLAPPABLE #-} <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">(MonadTrans t, Monad m, MonadEff m) =&gt; MonadEff (t m)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
+<span class="lineno">   69 </span>instance {-# OVERLAPPABLE #-} <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">(MonadTrans t, Monad m, MonadEff m) ⇒ MonadEff (t m)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
 <span class="lineno">   70 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = lift getContentsBS</span></span>
 <span class="lineno">   71 </span>  <span class="decl"><span class="nottickedoff">getContentsText = lift getContentsText</span></span>
 <span class="lineno">   72 </span>  <span class="decl"><span class="nottickedoff">getChar         = lift getChar</span></span>
@@ -94,7 +94,7 @@ span.spaces    { background: white }
 <span class="lineno">   75 </span>  <span class="decl"><span class="nottickedoff">putLine         = lift . putLine</span></span>
 <span class="lineno">   76 </span>  <span class="decl"><span class="nottickedoff">flush           = lift flush</span></span>
 <span class="lineno">   77 </span>
-<span class="lineno">   78 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">RIO.HasLogFunc env =&gt; MonadEff (RIO.RIO env)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
+<span class="lineno">   78 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">RIO.HasLogFunc env ⇒ MonadEff (RIO.RIO env)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
 <span class="lineno">   79 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = liftIO LByteString.getContents</span></span>
 <span class="lineno">   80 </span>  <span class="decl"><span class="nottickedoff">getContentsText = liftIO LText.getContents</span></span>
 <span class="lineno">   81 </span>  <span class="decl"><span class="nottickedoff">getChar         = liftIO IO.getChar</span></span>
@@ -105,7 +105,7 @@ span.spaces    { background: white }
 <span class="lineno">   86 </span>
 <span class="lineno">   87 </span>---- Internal
 <span class="lineno">   88 </span>
-<span class="lineno">   89 </span>flushIO :: IO ()
+<span class="lineno">   89 </span>flushIO ∷ IO ()
 <span class="lineno">   90 </span><span class="decl"><span class="nottickedoff">flushIO = hFlush stdout</span></span>
 
 </pre>

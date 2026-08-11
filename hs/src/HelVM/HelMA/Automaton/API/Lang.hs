@@ -19,10 +19,10 @@ data LangCommand
 
 -- Lang
 
-defaultLang :: Lang
+defaultLang ∷ Lang
 defaultLang = minBound
 
-langs :: NonEmpty Lang
+langs ∷ NonEmpty Lang
 langs = universeNonEmpty
 
 data Lang = BF | ETA | F | Piet | SQ | WS | Cat | Rev | Lazy | Zot

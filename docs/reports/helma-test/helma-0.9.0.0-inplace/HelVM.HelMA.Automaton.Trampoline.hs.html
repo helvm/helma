@@ -24,34 +24,34 @@ span.spaces    { background: white }
 <span class="lineno">    5 </span>
 <span class="lineno">    6 </span>import           Prelude               hiding (break)
 <span class="lineno">    7 </span>
-<span class="lineno">    8 </span>testMaybeLimit :: LimitMaybe
+<span class="lineno">    8 </span>testMaybeLimit ∷ LimitMaybe
 <span class="lineno">    9 </span><span class="decl"><span class="istickedoff">testMaybeLimit = Just $ fromIntegral (maxBound :: Int)</span></span>
 <span class="lineno">   10 </span>
-<span class="lineno">   11 </span>trampolineMWithLimit :: Monad m =&gt; (a -&gt; m $ Same a) -&gt; LimitMaybe -&gt; a -&gt; m a
+<span class="lineno">   11 </span>trampolineMWithLimit ∷ Monad m ⇒ (a → m $ Same a) → LimitMaybe → a → m a
 <span class="lineno">   12 </span><span class="decl"><span class="istickedoff">trampolineMWithLimit f Nothing  x = <span class="nottickedoff">trampolineM f x</span></span>
 <span class="lineno">   13 </span><span class="spaces"></span><span class="istickedoff">trampolineMWithLimit f (Just n) x = trampolineM (actMWithLimit f) (n , x)</span></span>
 <span class="lineno">   14 </span>
-<span class="lineno">   15 </span>actMWithLimit :: Monad m =&gt; (a -&gt; m $ Same a) -&gt; WithLimit a -&gt; m $ EitherWithLimit a
+<span class="lineno">   15 </span>actMWithLimit ∷ Monad m ⇒ (a → m $ Same a) → WithLimit a → m $ EitherWithLimit a
 <span class="lineno">   16 </span><span class="decl"><span class="istickedoff">actMWithLimit f (n , x) = checkN n where</span>
 <span class="lineno">   17 </span><span class="spaces">  </span><span class="istickedoff">checkN 0 = <span class="nottickedoff">pure $ break x</span></span>
 <span class="lineno">   18 </span><span class="spaces">  </span><span class="istickedoff">checkN _ = next n &lt;$&gt; f x</span></span>
 <span class="lineno">   19 </span>
-<span class="lineno">   20 </span>next :: Natural -&gt; Same a -&gt; EitherWithLimit a
+<span class="lineno">   20 </span>next ∷ Natural → Same a → EitherWithLimit a
 <span class="lineno">   21 </span><span class="decl"><span class="istickedoff">next n a = withLimit n &lt;$&gt; a</span></span>
 <span class="lineno">   22 </span>
-<span class="lineno">   23 </span>withLimit :: Natural -&gt; a -&gt; WithLimit a
+<span class="lineno">   23 </span>withLimit ∷ Natural → a → WithLimit a
 <span class="lineno">   24 </span><span class="decl"><span class="istickedoff">withLimit n a = (n - 1 , a)</span></span>
 <span class="lineno">   25 </span>
-<span class="lineno">   26 </span>trampolineM :: Monad m =&gt; (a -&gt; m (Either b a)) -&gt; a -&gt; m b
+<span class="lineno">   26 </span>trampolineM ∷ Monad m ⇒ (a → m (Either b a)) → a → m b
 <span class="lineno">   27 </span><span class="decl"><span class="istickedoff">trampolineM f = fmap (fromLeft $ <span class="nottickedoff">error &quot;unreachable&quot;</span>) . iterateUntilM isLeft (either <span class="nottickedoff">(pure . Left)</span> f) . Right</span></span>
 <span class="lineno">   28 </span>
-<span class="lineno">   29 </span>trampoline :: (a -&gt; Either b a) -&gt; a -&gt; b
+<span class="lineno">   29 </span>trampoline ∷ (a → Either b a) → a → b
 <span class="lineno">   30 </span><span class="decl"><span class="nottickedoff">trampoline f = fromLeft (error &quot;unreachable&quot;) . iterateUntil isLeft (either Left f) . Right</span></span>
 <span class="lineno">   31 </span>
-<span class="lineno">   32 </span>continue :: a -&gt; Either b a
+<span class="lineno">   32 </span>continue ∷ a → Either b a
 <span class="lineno">   33 </span><span class="decl"><span class="istickedoff">continue = Right</span></span>
 <span class="lineno">   34 </span>
-<span class="lineno">   35 </span>break :: b -&gt; Either b a
+<span class="lineno">   35 </span>break ∷ b → Either b a
 <span class="lineno">   36 </span><span class="decl"><span class="istickedoff">break = Left</span></span>
 <span class="lineno">   37 </span>
 <span class="lineno">   38 </span>type LimitMaybe = Maybe Natural

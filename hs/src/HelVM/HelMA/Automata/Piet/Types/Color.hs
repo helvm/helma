@@ -7,7 +7,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Brightness
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 
-rgb2Color :: (Num w, Eq w) => w -> w -> w -> Color
+rgb2Color ∷ (Num w, Eq w) ⇒ w → w → w → Color
 rgb2Color 0x00 0x00 0x00 = Black
 rgb2Color 0xff 0xff 0xff = White
 rgb2Color 0xff 0xc0 0xc0 = Chromatic (ChromaticColor Light  Red)

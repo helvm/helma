@@ -38,13 +38,13 @@ span.spaces    { background: white }
 <span class="lineno">   19 </span>
 <span class="lineno">   20 </span>-- | Methods
 <span class="lineno">   21 </span>
-<span class="lineno">   22 </span>evalParams :: AppOptions -&gt; Source -&gt; API.EvalParams
+<span class="lineno">   22 </span>evalParams ∷ AppOptions → Source → API.EvalParams
 <span class="lineno">   23 </span><span class="decl"><span class="nottickedoff">evalParams o source = API.EvalParams (formatType o) source (memoryOptions o) (autoOptions o)</span></span>
 <span class="lineno">   24 </span>
-<span class="lineno">   25 </span>memoryOptions :: AppOptions -&gt; API.MemoryOptions
+<span class="lineno">   25 </span>memoryOptions ∷ AppOptions → API.MemoryOptions
 <span class="lineno">   26 </span><span class="decl"><span class="nottickedoff">memoryOptions o = API.MemoryOptions (ramType o) (stackType o) (cellType o) (intCellType o)</span></span>
 <span class="lineno">   27 </span>
-<span class="lineno">   28 </span>autoOptions :: AppOptions -&gt; API.AutoOptions
+<span class="lineno">   28 </span>autoOptions ∷ AppOptions → API.AutoOptions
 <span class="lineno">   29 </span><span class="decl"><span class="nottickedoff">autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) Nothing (dumpType o)</span></span>
 <span class="lineno">   30 </span>
 <span class="lineno">   31 </span>-- | Types

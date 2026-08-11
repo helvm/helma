@@ -14,7 +14,7 @@ import           Control.Monad.Logger
 
 import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
 
-newtype GADTEff a = GADTEff { runGADTEff :: forall m. Monad m => (forall x. GADTEffF x -> m x) -> m a }
+newtype GADTEff a = GADTEff { runGADTEff :: forall m. Monad m ⇒ (forall x. GADTEffF x → m x) → m a }
 
 instance Functor GADTEff where
   fmap f m = GADTEff $ \k -> fmap f (runGADTEff m k)
@@ -27,22 +27,22 @@ instance Monad GADTEff where
   return = pure
   m >>= f = GADTEff $ \k -> runGADTEff m k >>= \a -> runGADTEff (f a) k
 
-liftF :: GADTEffF a -> GADTEff a
+liftF ∷ GADTEffF a → GADTEff a
 liftF fa = GADTEff $ \k -> k fa
 
 --------------------------------------------------------------------------------
 -- Interpretacja
 
-interpretGADTEffDebug :: MonadLoggerEff m => GADTEff a -> m a
+interpretGADTEffDebug ∷ MonadLoggerEff m ⇒ GADTEff a → m a
 interpretGADTEffDebug eff = runGADTEff eff interpretGADTEffFDebug
 
-interpretGADTEff :: MonadEff m => GADTEff a -> m a
+interpretGADTEff ∷ MonadEff m ⇒ GADTEff a → m a
 interpretGADTEff eff = runGADTEff eff interpretGADTEffF
 
 --------------------------------------------------------------------------------
 -- Interpreter dla pojedynczych instrukcji (bez fmap/kontynuacji!)
 
-interpretGADTEffFDebug :: MonadLoggerEff m => GADTEffF a -> m a
+interpretGADTEffFDebug ∷ MonadLoggerEff m ⇒ GADTEffF a → m a
 interpretGADTEffFDebug GetContentsBS   = logDebugN "GetContentsBS"   *> getContentsBS
 interpretGADTEffFDebug GetContentsText = logDebugN "GetContentsText" *> getContentsText
 interpretGADTEffFDebug GetChar         = logAndCont =<< getChar where logAndCont c = logDebugN ("GetChar: " <> one c) $> c
@@ -51,7 +51,7 @@ interpretGADTEffFDebug (PutChar c)     = logDebugN ("PutChar: " <> one c) *> put
 interpretGADTEffFDebug (PutText s)     = logDebugN ("PutText: " <>     s) *> putLine s
 interpretGADTEffFDebug Flush           = logDebugN "Flush"                *> flush
 
-interpretGADTEffF :: MonadEff m => GADTEffF a -> m a
+interpretGADTEffF ∷ MonadEff m ⇒ GADTEffF a → m a
 interpretGADTEffF GetContentsBS   = getContentsBS
 interpretGADTEffF GetContentsText = getContentsText
 interpretGADTEffF GetChar         = getChar
@@ -71,25 +71,25 @@ instance MonadEff GADTEff where
   putLine         = gadtPutLine
   flush           = gadtFlush
 
-gadtGetContentsBS :: GADTEff LByteString
+gadtGetContentsBS ∷ GADTEff LByteString
 gadtGetContentsBS = liftF GetContentsBS
 
-gadtGetContentsText :: GADTEff LText
+gadtGetContentsText ∷ GADTEff LText
 gadtGetContentsText = liftF GetContentsText
 
-gadtGetChar :: GADTEff Char
+gadtGetChar ∷ GADTEff Char
 gadtGetChar = liftF GetChar
 
-gadtGetLine :: GADTEff Text
+gadtGetLine ∷ GADTEff Text
 gadtGetLine = liftF GetLine
 
-gadtPutChar :: Char -> GADTEff ()
+gadtPutChar ∷ Char → GADTEff ()
 gadtPutChar = liftF . PutChar
 
-gadtPutLine :: Text -> GADTEff ()
+gadtPutLine ∷ Text → GADTEff ()
 gadtPutLine = liftF . PutText
 
-gadtFlush :: GADTEff ()
+gadtFlush ∷ GADTEff ()
 gadtFlush = liftF Flush
 
 --------------------------------------------------------------------------------

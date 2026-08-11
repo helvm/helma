@@ -8,10 +8,10 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.WrapTokenList
 
 -- | Lexer
-tokenize :: Source -> TokenList
+tokenize ∷ Source → TokenList
 tokenize = whiteTokenListToTokenList . unWrapTokenList . readTokens
 
-readTokens :: Source -> WhiteTokens
+readTokens ∷ Source → WhiteTokens
 readTokens source = (readTextUnsafe . toUppers) source :: WhiteTokens
 
 -- | Types

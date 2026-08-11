@@ -84,6 +84,7 @@ common common-options
     DerivingStrategies
     ConstraintKinds
     StrictData
+    UnicodeSyntax
   if flag(ghcoptions)
     ghc-options:
       -Wall

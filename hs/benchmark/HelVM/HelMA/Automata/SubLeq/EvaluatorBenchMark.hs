@@ -8,13 +8,13 @@ import           HelVM.HelMA.Automaton.Types.RAMType
 
 import           Gauge.Main
 
-benchMark :: Benchmark
+benchMark ∷ Benchmark
 benchMark = bgroup "SQ" (benchMarkByRamType <$> toList ramTypes)
 
-benchMarkByRamType :: RAMType -> Benchmark
+benchMarkByRamType ∷ RAMType → Benchmark
 benchMarkByRamType t = bench (show t) $ nfIO $ exec t
 
-exec :: RAMType -> IO [Text]
+exec ∷ RAMType → IO [Text]
 exec t = forM
   [ ("hello"     , "")
   , ("longHello" , "")

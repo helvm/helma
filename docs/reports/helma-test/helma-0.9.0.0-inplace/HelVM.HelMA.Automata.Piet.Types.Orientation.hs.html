@@ -29,16 +29,16 @@ span.spaces    { background: white }
 <span class="lineno">   10 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 <span class="lineno">   11 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 <span class="lineno">   12 </span>
-<span class="lineno">   13 </span>rotateDirectionPointer :: Int -&gt; Orientation -&gt; Orientation
+<span class="lineno">   13 </span>rotateDirectionPointer ∷ Int → Orientation → Orientation
 <span class="lineno">   14 </span><span class="decl"><span class="istickedoff">rotateDirectionPointer n o = o { directionPointer = rotate n (directionPointer o)}</span></span>
 <span class="lineno">   15 </span>
-<span class="lineno">   16 </span>toggleCodelChooser :: Int -&gt; Orientation -&gt; Orientation
+<span class="lineno">   16 </span>toggleCodelChooser ∷ Int → Orientation → Orientation
 <span class="lineno">   17 </span><span class="decl"><span class="istickedoff">toggleCodelChooser n o = o { codelChooser = toggle n (codelChooser o)}</span></span>
 <span class="lineno">   18 </span>
-<span class="lineno">   19 </span>rotateToggle :: Coordinates -&gt; Orientation -&gt; Orientation
+<span class="lineno">   19 </span>rotateToggle ∷ Coordinates → Orientation → Orientation
 <span class="lineno">   20 </span><span class="decl"><span class="istickedoff">rotateToggle (r, t) (Orientation dp cc) = Orientation (rotate r dp) (toggle t cc)</span></span>
 <span class="lineno">   21 </span>
-<span class="lineno">   22 </span>initialOrientation :: Orientation
+<span class="lineno">   22 </span>initialOrientation ∷ Orientation
 <span class="lineno">   23 </span><span class="decl"><span class="istickedoff">initialOrientation = Orientation DPRight CCLeft</span></span>
 <span class="lineno">   24 </span>
 <span class="lineno">   25 </span>data Orientation = Orientation

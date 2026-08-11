@@ -14,15 +14,15 @@ import           Control.Monad.Logger
 import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
 --------------------------------------------------------------------------------
 
-interpretFreeEffDebug :: MonadLoggerEff m => FreeEff a -> m a
+interpretFreeEffDebug ∷ MonadLoggerEff m ⇒ FreeEff a → m a
 interpretFreeEffDebug = foldF interpretFreeEffFDebug
 
-interpretFreeEff :: MonadEff m => FreeEff a -> m a
+interpretFreeEff ∷ MonadEff m ⇒ FreeEff a → m a
 interpretFreeEff = foldF interpretFreeEffF
 
 --------------------------------------------------------------------------------
 
-interpretFreeEffFDebug :: MonadLoggerEff m => FreeEffF a -> m a
+interpretFreeEffFDebug ∷ MonadLoggerEff m ⇒ FreeEffF a → m a
 interpretFreeEffFDebug (GetContentsBS    cd) = cd <$> (logDebugN "GetContentsBS"   *> getContentsBS)
 interpretFreeEffFDebug (GetContentsText  cd) = cd <$> (logDebugN "GetContentsText" *> getContentsText)
 interpretFreeEffFDebug (GetChar          cd) = logAndCont =<< getChar where logAndCont c = logDebugN ("GetChar: " <> one c) $> cd c
@@ -31,7 +31,7 @@ interpretFreeEffFDebug (PutChar        c v ) = logDebugN ("PutChar: " <> one c) 
 interpretFreeEffFDebug (PutText        s v ) = logDebugN ("PutText: " <>     s) *> putLine s $> v
 interpretFreeEffFDebug (Flush            v ) = logDebugN "Flush"                *> flush        $> v
 
-interpretFreeEffF :: MonadEff m => FreeEffF a -> m a
+interpretFreeEffF ∷ MonadEff m ⇒ FreeEffF a → m a
 interpretFreeEffF (GetContentsBS    cd) = cd <$> getContentsBS
 interpretFreeEffF (GetContentsText  cd) = cd <$> getContentsText
 interpretFreeEffF (GetChar          cd) = cd <$> getChar
@@ -51,25 +51,25 @@ instance MonadEff FreeEff where
   putLine         = freePutLine
   flush           = freeFlush
 
-freeGetContentsBS :: FreeEff LByteString
+freeGetContentsBS ∷ FreeEff LByteString
 freeGetContentsBS = liftF $ GetContentsBS id
 
-freeGetContentsText :: FreeEff LText
+freeGetContentsText ∷ FreeEff LText
 freeGetContentsText = liftF $ GetContentsText id
 
-freeGetChar :: FreeEff Char
+freeGetChar ∷ FreeEff Char
 freeGetChar = liftF $ GetChar id
 
-freeGetLine :: FreeEff Text
+freeGetLine ∷ FreeEff Text
 freeGetLine = liftF $ GetLine id
 
-freePutChar :: Char -> FreeEff ()
+freePutChar ∷ Char → FreeEff ()
 freePutChar = liftF . flip PutChar ()
 
-freePutLine :: Text -> FreeEff ()
+freePutLine ∷ Text → FreeEff ()
 freePutLine = liftF . flip PutText ()
 
-freeFlush :: FreeEff ()
+freeFlush ∷ FreeEff ()
 freeFlush = liftF $ Flush ()
 
 --------------------------------------------------------------------------------
@@ -77,10 +77,10 @@ freeFlush = liftF $ Flush ()
 type FreeEff = F FreeEffF
 
 data FreeEffF a
- = GetContentsBS             (LByteString -> a)
- | GetContentsText           (LText       -> a)
- | GetChar                   (Char        -> a)
- | GetLine                   (Text        -> a)
+ = GetContentsBS             (LByteString → a)
+ | GetContentsText           (LText       → a)
+ | GetChar                   (Char        → a)
+ | GetLine                   (Text        → a)
  | PutChar          Char                     a
  | PutText          Text                     a
  | Flush                                     a

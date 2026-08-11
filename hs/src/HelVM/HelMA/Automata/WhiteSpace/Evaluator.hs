@@ -34,11 +34,11 @@ import qualified RIO
 
 import           Text.Pretty.Simple
 
-runRio :: Has env => TokenType -> RIO.RIO env ()
+runRio ∷ Has env ⇒ TokenType → RIO.RIO env ()
 runRio t = runWithOptions =<< optionsRio where
   runWithOptions o = run (App.emit o) t . App.evalParams o =<< readSourceFileRio
 
-run :: Has env => Emit -> TokenType -> EvalParams -> RIO.RIO env ()
+run ∷ Has env ⇒ Emit → TokenType → EvalParams → RIO.RIO env ()
 run No   t                = runAsRIO . evalParams t
 run IL   VisibleTokenType = putLTextLnRio . pShowNoColor . (flipParseVisible <$> formatType <*> source)
 run IL   WhiteTokenType   = putLTextLnRio . pShowNoColor . (flipParseWhite   <$> formatType <*> source)
@@ -48,16 +48,16 @@ run Code VisibleTokenType = putLTextLnRio . show . readVisibleTokens . source
 run Code WhiteTokenType   = putLTextLnRio . show . readWhiteTokens   . source
 
 
-simpleEval :: AppEff m => S.SimpleParams -> m ()
+simpleEval ∷ AppEff m ⇒ S.SimpleParams → m ()
 simpleEval p = eval (S.tokenType p) (S.source p) (S.formatType p) $ S.automatonOptions p
 
 ----
 
-evalParams :: AppEff m => TokenType -> EvalParams -> m ()
+evalParams ∷ AppEff m ⇒ TokenType → EvalParams → m ()
 evalParams tokenType p = eval tokenType (source p) (formatType p) $ automatonOptions p
 
-eval :: AppEff m => TokenType -> Source -> LabelType -> Automaton.AutomatonOptions -> m ()
+eval ∷ AppEff m ⇒ TokenType → Source → LabelType → Automaton.AutomatonOptions → m ()
 eval tokenType source = evalTL $ tokenize tokenType source
 
-evalTL :: AppEff m => TokenList -> LabelType -> Automaton.AutomatonOptions -> m ()
+evalTL ∷ AppEff m ⇒ TokenList → LabelType → Automaton.AutomatonOptions → m ()
 evalTL tl ascii ao = flip start ao =<< liftSafe (parseFromTL ascii tl)

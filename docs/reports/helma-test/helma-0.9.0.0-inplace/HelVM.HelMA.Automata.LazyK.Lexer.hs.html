@@ -23,13 +23,13 @@ span.spaces    { background: white }
 <span class="lineno">    4 </span>
 <span class="lineno">    5 </span>import qualified Data.Text                         as Text
 <span class="lineno">    6 </span>
-<span class="lineno">    7 </span>filterComments :: Source -&gt; Source
+<span class="lineno">    7 </span>filterComments ∷ Source → Source
 <span class="lineno">    8 </span><span class="decl"><span class="istickedoff">filterComments source = mconcat $ removeComment &lt;$&gt; lines source</span></span>
 <span class="lineno">    9 </span>
-<span class="lineno">   10 </span>removeComment :: Source -&gt; Source
+<span class="lineno">   10 </span>removeComment ∷ Source → Source
 <span class="lineno">   11 </span><span class="decl"><span class="istickedoff">removeComment = fst . Text.break isHash</span></span>
 <span class="lineno">   12 </span>
-<span class="lineno">   13 </span>isHash :: Char -&gt; Bool
+<span class="lineno">   13 </span>isHash ∷ Char → Bool
 <span class="lineno">   14 </span><span class="decl"><span class="istickedoff">isHash c = '#' == c</span></span>
 
 </pre>

@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automaton.Types.CellType where
 
 -- | Constructors
-defaultCellType :: CellType
+defaultCellType ∷ CellType
 defaultCellType = minBound
 
-cellTypes :: NonEmpty CellType
+cellTypes ∷ NonEmpty CellType
 cellTypes = universeNonEmpty
 
 -- | Types

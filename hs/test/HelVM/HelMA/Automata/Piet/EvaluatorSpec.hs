@@ -1,4 +1,6 @@
-module HelVM.HelMA.Automata.Piet.EvaluatorSpec (spec) where
+module HelVM.HelMA.Automata.Piet.EvaluatorSpec
+    ( spec
+    ) where
 
 import           HelVM.HelMA.Automata.Piet.Evaluator
 import           HelVM.HelMA.Automata.Piet.FileExtra
@@ -13,7 +15,7 @@ import           System.FilePath.Posix
 
 import           Test.Hspec                          (Spec, describe, it)
 
-spec :: Spec
+spec ∷ Spec
 spec =
   describe "Piet Interpreter Golden Tests" $ forM_ ((
     [ ("99bottles"          , [""])
