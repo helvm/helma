@@ -7,7 +7,7 @@ import           HelVM.HelMA.Automata.SubLeq.Lexer
 
 import           HelVM.Expectations
 
-import           Test.Hspec                            (Spec, describe, it)
+import           Test.Hspec                            ( Spec, describe, it )
 
 spec ∷ Spec
 spec =

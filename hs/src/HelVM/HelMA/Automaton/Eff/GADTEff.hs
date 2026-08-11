@@ -11,7 +11,7 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           Control.Monad.Logger
 
-import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
+import           Prelude                            hiding ( getLine, putLTextLn, putText, putTextLn )
 
 newtype GADTEff a
   = GADTEff { runGADTEff :: forall m. Monad m => (forall x. GADTEffF x -> m x) -> m a }

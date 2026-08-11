@@ -12,7 +12,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import qualified HelVM.HelMA.Automaton.API.LogLevel as LogLevel
 
 import           Control.Monad.Logger
-import           Control.Monad.Writer.Class         (MonadWriter, tell)
+import           Control.Monad.Writer.Class         ( MonadWriter, tell )
 
 import           Data.MonoTraversable
 

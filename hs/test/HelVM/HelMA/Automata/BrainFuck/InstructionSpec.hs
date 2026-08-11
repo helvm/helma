@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automaton.WrapTokenList
 
 import           HelVM.Expectations
 
-import           Test.Hspec                                      (Spec, describe, it)
+import           Test.Hspec                                      ( Spec, describe, it )
 import           Test.Hspec.Expectations.Pretty
 
 spec ∷ Spec

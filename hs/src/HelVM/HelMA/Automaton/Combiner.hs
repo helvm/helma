@@ -14,7 +14,7 @@ import           HelVM.HelMA.Automaton.Combiner.LSU     as LSU
 
 import           Control.Type.Operator
 
-import           Prelude                                hiding (swap)
+import           Prelude                                hiding ( swap )
 
 -- | Core of Combiner
 

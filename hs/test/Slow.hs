@@ -8,7 +8,7 @@ module Slow
   , timedHspecParallel
   ) where
 
-import           Control.Concurrent.STM.TVar hiding (newTVarIO, readTVarIO)
+import           Control.Concurrent.STM.TVar hiding ( newTVarIO, readTVarIO )
 import           Data.Time.Clock
 import           Test.Hspec
 import           Test.Hspec.Core.Spec

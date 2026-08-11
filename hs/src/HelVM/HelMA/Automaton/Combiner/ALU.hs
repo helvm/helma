@@ -47,8 +47,8 @@ import           HelVM.HelIO.Containers.LLIndexSafe
 import           HelVM.HelIO.ListLikeExtra
 
 import           Control.Applicative.Tools
-import           Data.ListLike                                          hiding (show)
-import           Prelude                                                hiding (divMod, drop, fromList, length, splitAt, swap, uncons)
+import           Data.ListLike                                          hiding ( show )
+import           Prelude                                                hiding ( divMod, drop, fromList, length, splitAt, swap, uncons )
 
 
 runALI ∷ ALU m ll element ⇒ SMInstruction → ll → m ll

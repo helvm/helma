@@ -34,7 +34,7 @@ import           Control.Monad.Extra
 
 import qualified Data.Sequence                              as Seq
 
-import           Prelude                                    hiding (swap)
+import           Prelude                                    hiding ( swap )
 
 start ∷ AppEff m ⇒ InstructionList → AutomatonOptions → m ()
 start il ao = start' (flip optimize il $ optLevelAutoOptions ao) (stackType ao) (ramType ao) (autoOptions ao)

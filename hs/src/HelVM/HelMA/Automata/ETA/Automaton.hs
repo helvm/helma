@@ -19,7 +19,7 @@ import           HelVM.HelMA.Automata.ETA.Symbol
 
 import qualified Data.Vector                             as Vector
 
-import           Prelude                                 hiding (divMod)
+import           Prelude                                 hiding ( divMod )
 
 runAutomat ∷ (SAutomatonEff e s m) ⇒ Maybe Natural → Memory s → m $ Memory s
 runAutomat = trampolineMWithLimit nextState

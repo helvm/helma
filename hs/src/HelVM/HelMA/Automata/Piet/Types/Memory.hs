@@ -19,7 +19,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import qualified Data.Sequence                                      as Seq
 
-import           Prelude                                            hiding (empty)
+import           Prelude                                            hiding ( empty )
 
 stepWhitePixel ∷ Memory → Memory
 stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem where

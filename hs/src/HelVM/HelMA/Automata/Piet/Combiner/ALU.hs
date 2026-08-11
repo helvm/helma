@@ -21,11 +21,11 @@ module HelVM.HelMA.Automata.Piet.Combiner.ALU
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 
-import           HelVM.HelMA.Automaton.Combiner.ALU                     hiding (Stack)
+import           HelVM.HelMA.Automaton.Combiner.ALU                     hiding ( Stack )
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
-import           Prelude                                                hiding (getLine)
+import           Prelude                                                hiding ( getLine )
 
 -- | I/O Instructions
 pietInNumber ∷ AppEff m ⇒ Memory → m Memory

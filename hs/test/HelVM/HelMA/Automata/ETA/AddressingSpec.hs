@@ -9,7 +9,7 @@ import           HelVM.Expectations
 
 import qualified Data.Vector                         as Vector
 
-import           Test.Hspec                          (Spec, describe, it)
+import           Test.Hspec                          ( Spec, describe, it )
 import           Test.Hspec.Expectations.Pretty
 
 spec ∷ Spec

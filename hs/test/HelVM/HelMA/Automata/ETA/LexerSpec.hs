@@ -18,9 +18,9 @@ import           HelVM.GoldenExpectations
 
 import           Control.Applicative.Tools
 
-import           System.FilePath.Posix                       hiding ((<.>))
+import           System.FilePath.Posix                       hiding ( (<.>) )
 
-import           Test.Hspec                                  (Spec, describe, it)
+import           Test.Hspec                                  ( Spec, describe, it )
 
 spec ∷ Spec
 spec =

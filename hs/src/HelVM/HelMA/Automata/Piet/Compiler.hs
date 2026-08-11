@@ -11,7 +11,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 
-import           Data.IntMap                                 hiding (filter)
+import           Data.IntMap                                 hiding ( filter )
 
 import qualified Relude.Extra                                as Extra
 

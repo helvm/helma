@@ -27,7 +27,7 @@ span.spaces    { background: white }
 <span class="lineno">    8 </span>
 <span class="lineno">    9 </span>import           Data.Char
 <span class="lineno">   10 </span>
-<span class="lineno">   11 </span>import           Text.ParserCombinators.ReadP      hiding (many)
+<span class="lineno">   11 </span>import           Text.ParserCombinators.ReadP      hiding ( many )
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>runParser ∷ MonadSafe m ⇒ ReadP a → Source → m a
 <span class="lineno">   14 </span><span class="decl"><span class="istickedoff">runParser parser source = fst . last &lt;$&gt; nonEmptyRunParser parser source</span></span>

@@ -11,7 +11,7 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.Expectations
 
-import           Test.Hspec                              (Spec, describe, it)
+import           Test.Hspec                              ( Spec, describe, it )
 
 spec ∷ Spec
 spec =

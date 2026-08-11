@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automaton.Eff.GADTEff
 import           HelVM.HelMA.Automaton.Eff.Mock
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           Test.Hspec                         (Spec, describe, it)
+import           Test.Hspec                         ( Spec, describe, it )
 import           Test.Hspec.Expectations.Pretty
 
 wFilterIf0 ∷ MonadEff m ⇒ m ()

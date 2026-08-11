@@ -8,10 +8,10 @@ module HelVM.HelMA.Automaton.Eff.FreeEff
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           Control.Monad.Free.Church          (F, foldF, liftF)
+import           Control.Monad.Free.Church          ( F, foldF, liftF )
 import           Control.Monad.Logger
 
-import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
+import           Prelude                            hiding ( getLine, putLTextLn, putText, putTextLn )
 --------------------------------------------------------------------------------
 
 interpretFreeEffDebug ∷ MonadLoggerEff m ⇒ FreeEff a → m a

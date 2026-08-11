@@ -263,7 +263,8 @@ steps:
       #   > import Data.Foo (foo)
       #
       # Default: false
-      space_surround: false
+    #   space_surround: false
+      space_surround: true
 
       # Enabling this argument will use the new GHC lib parse to format imports.
       #

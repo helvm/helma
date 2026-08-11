@@ -19,7 +19,7 @@ import           Control.Applicative.Tools
 
 import qualified Data.Text                                               as Text
 
-import           Text.ParserCombinators.ReadP                            hiding (many)
+import           Text.ParserCombinators.ReadP                            hiding ( many )
 
 parseWithOptimizeSafe ∷ Source → Safe FastInstructionList
 parseWithOptimizeSafe = parseWithOptimize

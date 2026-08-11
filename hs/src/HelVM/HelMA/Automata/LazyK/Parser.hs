@@ -10,7 +10,7 @@ import           HelVM.HelMA.Automaton.ReadPExtra
 
 import           HelVM.HelIO.Control.Safe
 
-import           Text.ParserCombinators.ReadP      hiding (many)
+import           Text.ParserCombinators.ReadP      hiding ( many )
 
 parse ∷ MonadSafe m ⇒ Source → m Lambda
 parse = parseCode . filterComments

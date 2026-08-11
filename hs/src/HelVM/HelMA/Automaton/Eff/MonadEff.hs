@@ -13,7 +13,7 @@ import           Control.Monad.Logger
 import qualified Data.ByteString.Lazy     as LByteString
 import qualified Data.Text.Lazy.IO        as LText
 
-import           Prelude                  hiding (getLine, putText)
+import           Prelude                  hiding ( getLine, putText )
 import qualified Prelude
 
 import qualified RIO

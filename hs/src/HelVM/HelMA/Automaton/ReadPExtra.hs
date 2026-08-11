@@ -8,7 +8,7 @@ import           Control.Type.Operator
 
 import           Data.Char
 
-import           Text.ParserCombinators.ReadP      hiding (many)
+import           Text.ParserCombinators.ReadP      hiding ( many )
 
 runParser ∷ MonadSafe m ⇒ ReadP a → Source → m a
 runParser parser source = fst . last <$> nonEmptyRunParser parser source

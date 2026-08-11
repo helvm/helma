@@ -28,7 +28,7 @@ import           HelVM.HelMA.Automaton.Types.LabelType
 
 import           HelVM.HelIO.Control.Safe
 
-import           Prelude                                       hiding (swap)
+import           Prelude                                       hiding ( swap )
 
 import qualified RIO
 

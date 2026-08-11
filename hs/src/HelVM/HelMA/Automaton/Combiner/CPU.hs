@@ -11,7 +11,7 @@ import           HelVM.HelIO.Control.Safe
 
 import           Control.Type.Operator
 
-import           Data.ListLike                                          hiding (show)
+import           Data.ListLike                                          hiding ( show )
 import qualified Data.Vector                                            as Vector
 
 runCFI ∷ (ALU m ll element , Show element) ⇒ CFInstruction → CentralProcessingStep ll m

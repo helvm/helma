@@ -30,7 +30,7 @@ import           HelVM.HelMA.Automaton.Trampoline                   as Trampolin
 
 import           HelVM.HelIO.Control.Safe
 
-import           Data.IntMap                                        hiding (filter)
+import           Data.IntMap                                        hiding ( filter )
 
 -- Main interpreter entry point
 

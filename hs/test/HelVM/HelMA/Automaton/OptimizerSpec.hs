@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 import           HelVM.HelMA.Automaton.Optimizer
 
-import           Test.Hspec                                            (Spec, describe, it)
+import           Test.Hspec                                            ( Spec, describe, it )
 import           Test.Hspec.Expectations.Pretty
 
 spec ∷ Spec

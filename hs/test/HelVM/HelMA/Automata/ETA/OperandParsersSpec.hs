@@ -14,7 +14,7 @@ import           HelVM.HelIO.Control.Safe
 
 import qualified Data.Vector                                           as Vector
 
-import           Test.Hspec                                            (Spec, describe, it)
+import           Test.Hspec                                            ( Spec, describe, it )
 
 spec ∷ Spec
 spec = describe "parse" $ do

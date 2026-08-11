@@ -4,7 +4,7 @@ import           Options
 
 import           HelVM.HelMA.Evaluator
 
-import           HelVM.HelIO.Extra                    (readFileTextUtf8)
+import           HelVM.HelIO.Extra                    ( readFileTextUtf8 )
 import qualified HelVM.HelMA.Automaton.API.AppOptions as App
 import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.LogLevel
@@ -20,7 +20,7 @@ import           Prelude
 
 import qualified RIO
 
-import           System.Environment                   (getProgName)
+import           System.Environment                   ( getProgName )
 import qualified System.IO                            as IO
 
 main ∷ IO ()

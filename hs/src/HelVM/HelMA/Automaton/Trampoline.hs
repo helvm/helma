@@ -3,7 +3,7 @@ module HelVM.HelMA.Automaton.Trampoline where
 import           Control.Monad.Loops
 import           Control.Type.Operator
 
-import           Prelude               hiding (break)
+import           Prelude               hiding ( break )
 
 testMaybeLimit ∷ LimitMaybe
 testMaybeLimit = Just $ fromIntegral (maxBound :: Int)

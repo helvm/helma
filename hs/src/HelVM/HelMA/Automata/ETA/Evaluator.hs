@@ -38,7 +38,7 @@ import           HelVM.HelIO.Collections.SList              as SList
 
 import qualified Data.Sequence                              as Seq
 
-import           Prelude                                    hiding (divMod)
+import           Prelude                                    hiding ( divMod )
 
 import qualified RIO
 

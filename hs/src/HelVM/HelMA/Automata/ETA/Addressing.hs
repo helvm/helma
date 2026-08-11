@@ -12,9 +12,9 @@ import           HelVM.HelIO.Containers.LLIndexSafe
 
 import           HelVM.HelIO.Control.Safe
 
-import           Data.ListLike                      hiding (show)
+import           Data.ListLike                      hiding ( show )
 
-import           Prelude                            hiding (length, splitAt)
+import           Prelude                            hiding ( length, splitAt )
 
 import qualified Data.Vector                        as Vector
 

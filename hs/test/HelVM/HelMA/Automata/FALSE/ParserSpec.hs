@@ -9,7 +9,7 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.GoldenExpectations
 
-import           Test.Hspec                           (Spec, describe, it)
+import           Test.Hspec                           ( Spec, describe, it )
 
 spec ∷ Spec
 spec = do

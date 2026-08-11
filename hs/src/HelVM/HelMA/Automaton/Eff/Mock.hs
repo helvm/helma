@@ -27,8 +27,8 @@ import           HelVM.HelIO.Control.Message
 import           HelVM.HelIO.Control.Safe
 
 import           Control.Monad.Logger
-import           Control.Monad.Trans.Writer.CPS       (Writer, runWriter)
-import           Control.Monad.Writer.Class           (MonadWriter)
+import           Control.Monad.Trans.Writer.CPS       ( Writer, runWriter )
+import           Control.Monad.Writer.Class           ( MonadWriter )
 
 import qualified Data.Sequence                        as Seq
 

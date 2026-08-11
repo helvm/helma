@@ -13,7 +13,7 @@ import           HelVM.HelMA.Automaton.Eff.Mock
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                            (Spec, describe, it)
+import           Test.Hspec                            ( Spec, describe, it )
 
 spec ∷ Spec
 spec = describe "eval" $ forM_
