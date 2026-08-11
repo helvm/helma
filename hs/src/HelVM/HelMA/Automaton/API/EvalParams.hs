@@ -32,9 +32,10 @@ automatonOptions ∷ EvalParams → Automaton.AutomatonOptions
 automatonOptions p = Automaton.AutomatonOptions (stackAutoOptions p) (ramAutoOptions p) (autoOptions p)
 
 -- | Type
-data EvalParams = EvalParams
-  { formatType    :: !LabelType
-  , source        :: !Source
-  , memoryOptions :: !MemoryOptions
-  , autoOptions   :: !AutoOptions
-  }
+data EvalParams
+  = EvalParams
+      { formatType    :: !LabelType
+      , source        :: !Source
+      , memoryOptions :: !MemoryOptions
+      , autoOptions   :: !AutoOptions
+      }

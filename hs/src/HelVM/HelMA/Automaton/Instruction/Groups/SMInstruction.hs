@@ -56,36 +56,39 @@ toBool ∷ Integral a ⇒ a → Bool
 toBool a = a /= 0
 
 -- | Types
-data SMInstruction =
-    SPure    !SPureInstruction
-  | SIO      !IOInstruction
-  deriving stock (Eq , Read , Show)
+data SMInstruction
+  = SPure !SPureInstruction
+  | SIO !IOInstruction
+  deriving stock (Eq, Read, Show)
 
-data SPureInstruction =
-    Cons     !Integer
-  | Unary    !UnaryOperation
-  | Binary   !BinaryOperation
+data SPureInstruction
+  = Cons !Integer
+  | Unary !UnaryOperation
+  | Binary !BinaryOperation
   | Binaries [BinaryOperation]
-  | Indexed  !IndexOperand !IndexedOperation
+  | Indexed !IndexOperand !IndexedOperation
   | Halibut
   | Pick
   | Discard
-  deriving stock (Eq , Read , Show)
+  deriving stock (Eq, Read, Show)
 
-data IndexOperand = ITop | IImmediate !ImmediateIndex
-  deriving stock (Eq , Read , Show)
+data IndexOperand
+  = ITop
+  | IImmediate !ImmediateIndex
+  deriving stock (Eq, Read, Show)
 
-data UnaryOperation = Neg | BNot | LNot | UImmediate Integer BinaryOperation
-  deriving stock (Eq , Read , Show)
+data UnaryOperation
+  = Neg
+  | BNot
+  | LNot
+  | UImmediate Integer BinaryOperation
+  deriving stock (Eq, Read, Show)
 
-data BinaryOperation =
-     Add | Sub | Mul | Div | Mod
-  | BAnd | BOr | BXor | BEQ | BGT
-  | LAnd | LOr | LXor | LEQ | LGT
-  deriving stock (Eq , Read , Show)
+data BinaryOperation = Add | Sub | Mul | Div | Mod | BAnd | BOr | BXor | BEQ | BGT | LAnd | LOr | LXor | LEQ | LGT
+  deriving stock (Eq, Read, Show)
 
 data IndexedOperation = Copy | Move | Slide
-  deriving stock (Eq , Read , Show)
+  deriving stock (Eq, Read, Show)
 
 data OperatorType = Bitwise | Logical
 

@@ -48,16 +48,20 @@ merge comp b1 b2 = go $ comp b1 b2 where
 
 type LabelKey = Int
 
-data LabelInfo = LabelInfo
-  { _labelSize  :: !Int
-  , labelTop    :: !LabelBorder
-  , labelLeft   :: !LabelBorder
-  , labelBottom :: !LabelBorder
-  , labelRight  :: !LabelBorder
-  } deriving stock (Show, Eq, Ord)
+data LabelInfo
+  = LabelInfo
+      { _labelSize  :: !Int
+      , labelTop    :: !LabelBorder
+      , labelLeft   :: !LabelBorder
+      , labelBottom :: !LabelBorder
+      , labelRight  :: !LabelBorder
+      }
+  deriving stock (Eq, Ord, Show)
 
-data LabelBorder = LabelBorder
-  { borderCoord :: !Int
-  , borderMin   :: !Int
-  , borderMax   :: !Int
-  } deriving stock (Show, Eq, Ord)
+data LabelBorder
+  = LabelBorder
+      { borderCoord :: !Int
+      , borderMin   :: !Int
+      , borderMax   :: !Int
+      }
+  deriving stock (Eq, Ord, Show)

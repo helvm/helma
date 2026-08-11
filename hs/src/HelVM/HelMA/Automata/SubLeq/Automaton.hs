@@ -53,8 +53,9 @@ newMemory = Automaton 0
 
 type AutomatonSame ic ram = Same (Automaton ic ram)
 
-data Automaton ic ram = Automaton
-   { memoryIC  :: ic
-   , memoryRAM :: ram
-   }
-  deriving stock (Eq , Read , Show)
+data Automaton ic ram
+  = Automaton
+      { memoryIC  :: ic
+      , memoryRAM :: ram
+      }
+  deriving stock (Eq, Read, Show)

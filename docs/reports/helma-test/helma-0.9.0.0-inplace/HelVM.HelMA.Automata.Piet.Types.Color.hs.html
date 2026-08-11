@@ -49,8 +49,11 @@ span.spaces    { background: white }
 <span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0x00 0xc0 = Chromatic (ChromaticColor Dark   Magenta)</span>
 <span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">rgb2Color _    _    _    = White</span></span>
 <span class="lineno">   32 </span>
-<span class="lineno">   33 </span>data Color = Black | White | Chromatic !ChromaticColor
-<span class="lineno">   34 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>)
+<span class="lineno">   33 </span>data Color
+<span class="lineno">   34 </span>  = Black
+<span class="lineno">   35 </span>  | White
+<span class="lineno">   36 </span>  | Chromatic !ChromaticColor
+<span class="lineno">   37 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

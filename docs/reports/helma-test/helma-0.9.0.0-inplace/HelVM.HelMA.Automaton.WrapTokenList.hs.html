@@ -22,16 +22,17 @@ span.spaces    { background: white }
 <span class="lineno">    3 </span>import qualified Text.Read
 <span class="lineno">    4 </span>import qualified Text.Show
 <span class="lineno">    5 </span>
-<span class="lineno">    6 </span>newtype WrapTokenList a = WrapTokenList { <span class="istickedoff"><span class="decl"><span class="istickedoff">unWrapTokenList</span></span></span> :: a }
-<span class="lineno">    7 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>)
-<span class="lineno">    8 </span>
-<span class="lineno">    9 </span>----
-<span class="lineno">   10 </span>
-<span class="lineno">   11 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show a ⇒ Show (WrapTokenList [a])</span></span></span></span> where
-<span class="lineno">   12 </span>  <span class="decl"><span class="istickedoff">show (WrapTokenList tokens) = show =&lt;&lt; tokens</span></span>
-<span class="lineno">   13 </span>
-<span class="lineno">   14 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Read a ⇒ Read (WrapTokenList [a])</span></span></span></span></span></span> where
-<span class="lineno">   15 </span>  <span class="decl"><span class="istickedoff">readsPrec _ source = [( WrapTokenList $ maybeToList . readMaybe . one =&lt;&lt; source , &quot;&quot;)]</span></span>
+<span class="lineno">    6 </span>newtype WrapTokenList a
+<span class="lineno">    7 </span>  = WrapTokenList { <span class="istickedoff"><span class="decl"><span class="istickedoff">unWrapTokenList</span></span></span> :: a }
+<span class="lineno">    8 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>)
+<span class="lineno">    9 </span>
+<span class="lineno">   10 </span>----
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show a ⇒ Show (WrapTokenList [a])</span></span></span></span> where
+<span class="lineno">   13 </span>  <span class="decl"><span class="istickedoff">show (WrapTokenList tokens) = show =&lt;&lt; tokens</span></span>
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Read a ⇒ Read (WrapTokenList [a])</span></span></span></span></span></span> where
+<span class="lineno">   16 </span>  <span class="decl"><span class="istickedoff">readsPrec _ source = [( WrapTokenList $ maybeToList . readMaybe . one =&lt;&lt; source , &quot;&quot;)]</span></span>
 
 </pre>
 </body>

@@ -9,4 +9,4 @@ automatonTypes = universeNonEmpty
 
 -- | Type
 data AutomatonType = Fast | Original
-  deriving stock (Bounded , Enum , Eq , Read , Show)
+  deriving stock (Bounded, Enum, Eq, Read, Show)

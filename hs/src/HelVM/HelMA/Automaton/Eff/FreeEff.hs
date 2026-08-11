@@ -77,11 +77,11 @@ freeFlush = liftF $ Flush ()
 type FreeEff = F FreeEffF
 
 data FreeEffF a
- = GetContentsBS             (LByteString → a)
- | GetContentsText           (LText       → a)
- | GetChar                   (Char        → a)
- | GetLine                   (Text        → a)
- | PutChar          Char                     a
- | PutText          Text                     a
- | Flush                                     a
- deriving stock (Functor)
+  = GetContentsBS (LByteString -> a)
+  | GetContentsText (LText -> a)
+  | GetChar (Char -> a)
+  | GetLine (Text -> a)
+  | PutChar Char a
+  | PutText Text a
+  | Flush a
+  deriving stock (Functor)

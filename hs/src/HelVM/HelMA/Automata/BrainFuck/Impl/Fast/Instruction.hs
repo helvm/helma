@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Instruction where
 
-data FastInstruction =
-    Move Integer
+data FastInstruction
+  = Move Integer
   | Inc Integer
   | Output
   | Input
@@ -13,6 +13,6 @@ data FastInstruction =
   | DupClr Integer Integer
   | MulDupClr Integer Integer Integer Integer
   | TriClr Integer Integer Integer
-  deriving stock (Eq , Read , Show)
+  deriving stock (Eq, Read, Show)
 
 type FastInstructionList = [FastInstruction]

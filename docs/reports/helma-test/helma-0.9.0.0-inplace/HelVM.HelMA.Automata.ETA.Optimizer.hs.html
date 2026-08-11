@@ -117,18 +117,19 @@ span.spaces    { background: white }
 <span class="lineno">   98 </span><span class="spaces">  </span><span class="istickedoff">, numberFlag = True</span>
 <span class="lineno">   99 </span><span class="spaces">  </span><span class="istickedoff">}</span></span>
 <span class="lineno">  100 </span>
-<span class="lineno">  101 </span>data Line = Line
-<span class="lineno">  102 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">currentTL</span></span></span>      :: TokenList
-<span class="lineno">  103 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">currentAddress</span></span></span> :: Natural
-<span class="lineno">  104 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">numberFlag</span></span></span>     :: Bool
-<span class="lineno">  105 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">nextTLL</span></span></span>        :: [TokenList]
-<span class="lineno">  106 </span>  }
-<span class="lineno">  107 </span>
-<span class="lineno">  108 </span>--consM :: Functor f =&gt; a -&gt; f [a] -&gt; f [a]
-<span class="lineno">  109 </span>--consM a l = (a : ) &lt;$&gt; l
-<span class="lineno">  110 </span>
-<span class="lineno">  111 </span>filterNull ∷ [[a]] → [[a]]
-<span class="lineno">  112 </span><span class="decl"><span class="istickedoff">filterNull = filter notNull</span></span>
+<span class="lineno">  101 </span>data Line
+<span class="lineno">  102 </span>  = Line
+<span class="lineno">  103 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">currentTL</span></span></span>      :: TokenList
+<span class="lineno">  104 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">currentAddress</span></span></span> :: Natural
+<span class="lineno">  105 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">numberFlag</span></span></span>     :: Bool
+<span class="lineno">  106 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">nextTLL</span></span></span>        :: [TokenList]
+<span class="lineno">  107 </span>      }
+<span class="lineno">  108 </span>
+<span class="lineno">  109 </span>--consM :: Functor f =&gt; a -&gt; f [a] -&gt; f [a]
+<span class="lineno">  110 </span>--consM a l = (a : ) &lt;$&gt; l
+<span class="lineno">  111 </span>
+<span class="lineno">  112 </span>filterNull ∷ [[a]] → [[a]]
+<span class="lineno">  113 </span><span class="decl"><span class="istickedoff">filterNull = filter notNull</span></span>
 
 </pre>
 </body>

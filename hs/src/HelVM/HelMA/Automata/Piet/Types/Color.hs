@@ -30,5 +30,8 @@ rgb2Color 0xff 0x00 0xff = Chromatic (ChromaticColor Normal Magenta)
 rgb2Color 0xc0 0x00 0xc0 = Chromatic (ChromaticColor Dark   Magenta)
 rgb2Color _    _    _    = White
 
-data Color = Black | White | Chromatic !ChromaticColor
-  deriving stock (Show, Read, Eq, Ord)
+data Color
+  = Black
+  | White
+  | Chromatic !ChromaticColor
+  deriving stock (Eq, Ord, Read, Show)

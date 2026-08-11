@@ -9,7 +9,7 @@ import qualified Text.Read
 import qualified Text.Show
 
 data Token = E | T | A | O | I | N | S | H | R
-  deriving stock (Bounded , Enum , Eq , Read , Show)
+  deriving stock (Bounded, Enum, Eq, Read, Show)
 
 type TokenList   = [Token]
 type TokenVector = Vector Token
@@ -26,7 +26,8 @@ instance ToDigit Token where
 
 ----
 
-newtype WhiteToken = WhiteToken { unWhiteToken :: Token}
+newtype WhiteToken
+  = WhiteToken { unWhiteToken :: Token }
   deriving stock (Eq)
 
 type WhiteTokenList = [WhiteToken]

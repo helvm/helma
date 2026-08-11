@@ -49,22 +49,22 @@ span.spaces    { background: white }
 <span class="lineno">   30 </span>
 <span class="lineno">   31 </span>-- | Types
 <span class="lineno">   32 </span>
-<span class="lineno">   33 </span>data AppOptions = AppOptions
-<span class="lineno">   34 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">emit</span></span></span>             :: !Emit
-<span class="lineno">   35 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">verbosity</span></span></span>        :: !LogLevel
-<span class="lineno">   36 </span>
-<span class="lineno">   37 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">optimizationFlag</span></span></span> :: !Optimization
-<span class="lineno">   38 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">formatType</span></span></span>       :: !LabelType
-<span class="lineno">   39 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">ramType</span></span></span>          :: !RAMType
-<span class="lineno">   40 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">stackType</span></span></span>        :: !StackType
-<span class="lineno">   41 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">cellType</span></span></span>         :: !CellType
-<span class="lineno">   42 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">intCellType</span></span></span>      :: !IntCellType
-<span class="lineno">   43 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">dumpType</span></span></span>         :: !DumpType
-<span class="lineno">   44 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">codelSize</span></span></span>        :: !(Maybe Int)
-<span class="lineno">   45 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">exec</span></span></span>             :: !Exec
-<span class="lineno">   46 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">langCommand</span></span></span>      :: !API.LangCommand
-<span class="lineno">   47 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">file</span></span></span>             :: !FilePath
-<span class="lineno">   48 </span>  }
+<span class="lineno">   33 </span>data AppOptions
+<span class="lineno">   34 </span>  = AppOptions
+<span class="lineno">   35 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">emit</span></span></span>             :: !Emit
+<span class="lineno">   36 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">verbosity</span></span></span>        :: !LogLevel
+<span class="lineno">   37 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">optimizationFlag</span></span></span> :: !Optimization
+<span class="lineno">   38 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">formatType</span></span></span>       :: !LabelType
+<span class="lineno">   39 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">ramType</span></span></span>          :: !RAMType
+<span class="lineno">   40 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">stackType</span></span></span>        :: !StackType
+<span class="lineno">   41 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">cellType</span></span></span>         :: !CellType
+<span class="lineno">   42 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">intCellType</span></span></span>      :: !IntCellType
+<span class="lineno">   43 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">dumpType</span></span></span>         :: !DumpType
+<span class="lineno">   44 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">codelSize</span></span></span>        :: !(Maybe Int)
+<span class="lineno">   45 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">exec</span></span></span>             :: !Exec
+<span class="lineno">   46 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">langCommand</span></span></span>      :: !API.LangCommand
+<span class="lineno">   47 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">file</span></span></span>             :: !FilePath
+<span class="lineno">   48 </span>      }
 <span class="lineno">   49 </span>
 
 </pre>

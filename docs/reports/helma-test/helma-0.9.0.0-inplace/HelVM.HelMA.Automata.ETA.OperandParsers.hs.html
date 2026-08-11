@@ -64,12 +64,14 @@ span.spaces    { background: white }
 <span class="lineno">   45 </span>-- | Types
 <span class="lineno">   46 </span>type OperandParser m a = TokenList → m (a , TokenList)
 <span class="lineno">   47 </span>
-<span class="lineno">   48 </span>data InstructionMemory = IM
-<span class="lineno">   49 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">program</span></span></span>        :: !TokenVector
-<span class="lineno">   50 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">programCounter</span></span></span> :: !InstructionCounter
-<span class="lineno">   51 </span>  } deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span> , <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   52 </span>
-<span class="lineno">   53 </span>type OperandIMParser m a = InstructionMemory → m (a , InstructionMemory)
+<span class="lineno">   48 </span>data InstructionMemory
+<span class="lineno">   49 </span>  = IM
+<span class="lineno">   50 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">program</span></span></span>        :: !TokenVector
+<span class="lineno">   51 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">programCounter</span></span></span> :: !InstructionCounter
+<span class="lineno">   52 </span>      }
+<span class="lineno">   53 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>type OperandIMParser m a = InstructionMemory → m (a , InstructionMemory)
 
 </pre>
 </body>

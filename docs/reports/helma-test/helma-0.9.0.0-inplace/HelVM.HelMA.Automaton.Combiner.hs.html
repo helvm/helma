@@ -98,12 +98,13 @@ span.spaces    { background: white }
 <span class="lineno">   79 </span>type MemorySame s r = Same (Memory s r)
 <span class="lineno">   80 </span>
 <span class="lineno">   81 </span>-- | Data types
-<span class="lineno">   82 </span>data Memory s r = Memory
-<span class="lineno">   83 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryCM</span></span></span>    :: ControlMemory
-<span class="lineno">   84 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryStack</span></span></span> :: s
-<span class="lineno">   85 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryRAM</span></span></span>   :: r
-<span class="lineno">   86 </span>  }
-<span class="lineno">   87 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   82 </span>data Memory s r
+<span class="lineno">   83 </span>  = Memory
+<span class="lineno">   84 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryCM</span></span></span>    :: ControlMemory
+<span class="lineno">   85 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryStack</span></span></span> :: s
+<span class="lineno">   86 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryRAM</span></span></span>   :: r
+<span class="lineno">   87 </span>      }
+<span class="lineno">   88 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

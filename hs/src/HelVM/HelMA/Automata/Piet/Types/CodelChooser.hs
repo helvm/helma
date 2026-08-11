@@ -9,4 +9,4 @@ toggle ∷ Int → CodelChooser → CodelChooser
 toggle = change 2
 
 data CodelChooser = CCLeft | CCRight
-  deriving stock (Show, Read, Eq, Ord, Enum, Bounded)
+  deriving stock (Bounded, Enum, Eq, Ord, Read, Show)

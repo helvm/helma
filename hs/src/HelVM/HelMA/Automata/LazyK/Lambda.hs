@@ -11,12 +11,12 @@ app3 l1 l2 l3 = l1 `App` l2 `App` l3
 foldlLambda ∷ NonEmpty Lambda → Lambda
 foldlLambda = foldl1' App
 
-data Lambda =
-    S
+data Lambda
+  = S
   | K
   | I
   | App Lambda Lambda
   | Succ
   | Number !Natural
   | Var Text
-  deriving stock (Eq , Read , Show)
+  deriving stock (Eq, Read, Show)

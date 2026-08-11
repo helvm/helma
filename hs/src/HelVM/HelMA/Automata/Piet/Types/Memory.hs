@@ -86,9 +86,10 @@ rotateAndToggle dp mem = setCodelChooser (toggle 1 (codelChooserMemory mem)) $ s
 
 -- DATA TYPES
 
-data Memory = Memory
-  { instructionMemory :: InstructionMemory
-  , stack             :: !Stack
-  }
+data Memory
+  = Memory
+      { instructionMemory :: InstructionMemory
+      , stack             :: !Stack
+      }
 
 type Stack = Seq Int

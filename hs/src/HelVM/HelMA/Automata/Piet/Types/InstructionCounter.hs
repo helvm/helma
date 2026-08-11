@@ -27,7 +27,8 @@ toggleCodelChooserIC n ic = ic { orientation = toggleCodelChooser n (orientation
 initialInstructionCounter ∷ InstructionCounter
 initialInstructionCounter = InstructionCounter initialCoordinates initialOrientation
 
-data InstructionCounter = InstructionCounter
-  { position    :: !Coordinates
-  , orientation :: !Orientation
-  }
+data InstructionCounter
+  = InstructionCounter
+      { position    :: !Coordinates
+      , orientation :: !Orientation
+      }

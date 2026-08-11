@@ -15,8 +15,9 @@ withDefaultRam s ao = AutomatonOptions
   , autoOptions = ao
   }
 
-data AutomatonOptions = AutomatonOptions
-  { stackType   :: StackType
-  , ramType     :: RAMType
-  , autoOptions :: AutoOptions
-  }
+data AutomatonOptions
+  = AutomatonOptions
+      { stackType   :: StackType
+      , ramType     :: RAMType
+      , autoOptions :: AutoOptions
+      }

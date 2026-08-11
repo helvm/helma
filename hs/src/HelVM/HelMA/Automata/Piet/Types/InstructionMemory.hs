@@ -38,7 +38,8 @@ initialInstructionMemory prog = InstructionMemory
   , program            = prog
   }
 
-data InstructionMemory = InstructionMemory
-  { instructionCounter :: !InstructionCounter
-  , program            :: !Program
-  }
+data InstructionMemory
+  = InstructionMemory
+      { instructionCounter :: !InstructionCounter
+      , program            :: !Program
+      }

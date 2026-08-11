@@ -16,21 +16,30 @@ isJump LTZ e = e <  0
 isJump GTZ e = e >  0
 
 -- | Types
-data CFInstruction =
-    Mark     !Mark
-  | Branch  !BranchOperand !BranchTest
+data CFInstruction
+  = Mark !Mark
+  | Branch !BranchOperand !BranchTest
   | Labeled !LabelOperand !LabelOperation
   | Return
-  deriving stock (Eq , Read , Show)
+  deriving stock (Eq, Read, Show)
 
-data Mark  = MNatural Natural | MArtificial Label
-  deriving stock (Eq , Read , Show)
+data Mark
+  = MNatural Natural
+  | MArtificial Label
+  deriving stock (Eq, Read, Show)
 
-data LabelOperand = LTop | LImmediate !Natural | LArtificial Label
-  deriving stock (Eq , Read , Show)
+data LabelOperand
+  = LTop
+  | LImmediate !Natural
+  | LArtificial Label
+  deriving stock (Eq, Read, Show)
 
-data BranchOperand = BSwapped | BTop | BImmediate !Natural | BArtificial Label
-  deriving stock (Eq , Read , Show)
+data BranchOperand
+  = BSwapped
+  | BTop
+  | BImmediate !Natural
+  | BArtificial Label
+  deriving stock (Eq, Read, Show)
 
 --FIXME
 --data Artificial = Integer | Label
@@ -39,10 +48,10 @@ data BranchOperand = BSwapped | BTop | BImmediate !Natural | BArtificial Label
 type Label = SString --FIXME Artificial
 
 data LabelOperation = Call | Jump
-  deriving stock (Eq , Read , Show)
+  deriving stock (Eq, Read, Show)
 
 data BranchTest = EZ | LTZ | GTZ | NE
-  deriving stock (Eq , Read , Show)
+  deriving stock (Eq, Read, Show)
 
 -- | Internal
 

@@ -55,10 +55,9 @@ span.spaces    { background: white }
 <span class="lineno">   36 </span>instance <span class="decl"><span class="nottickedoff">Functor Image</span></span> where
 <span class="lineno">   37 </span>  <span class="decl"><span class="istickedoff">fmap f img = <span class="nottickedoff">img</span> { pixels = amap f (pixels img) }</span></span>
 <span class="lineno">   38 </span>
-<span class="lineno">   39 </span>newtype Image a = Image
-<span class="lineno">   40 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">pixels</span></span></span> :: DiffArray Coordinates a
-<span class="lineno">   41 </span>  }
-<span class="lineno">   42 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   39 </span>newtype Image a
+<span class="lineno">   40 </span>  = Image { <span class="istickedoff"><span class="decl"><span class="istickedoff">pixels</span></span></span> :: DiffArray Coordinates a }
+<span class="lineno">   41 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

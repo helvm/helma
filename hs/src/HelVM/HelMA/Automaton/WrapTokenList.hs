@@ -3,7 +3,8 @@ module HelVM.HelMA.Automaton.WrapTokenList where
 import qualified Text.Read
 import qualified Text.Show
 
-newtype WrapTokenList a = WrapTokenList { unWrapTokenList :: a }
+newtype WrapTokenList a
+  = WrapTokenList { unWrapTokenList :: a }
   deriving stock (Eq)
 
 ----

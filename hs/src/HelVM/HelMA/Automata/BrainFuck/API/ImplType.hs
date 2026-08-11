@@ -9,4 +9,4 @@ implTypes = universeNonEmpty
 
 -- | Type
 data ImplType = FastType | TreeType | FlatType
-  deriving stock (Bounded , Enum , Eq , Read , Show)
+  deriving stock (Bounded, Enum, Eq, Read, Show)

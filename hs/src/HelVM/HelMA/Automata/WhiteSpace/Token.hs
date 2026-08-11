@@ -8,8 +8,8 @@ import           Text.Read
 
 import qualified Text.Show
 
-data Token =  S | T | N
-  deriving stock (Bounded , Enum , Eq , Read , Show)
+data Token = S | T | N
+  deriving stock (Bounded, Enum, Eq, Read, Show)
 
 type TokenList = [Token]
 type TokenSList = SList Token
@@ -21,7 +21,8 @@ instance ToDigit Token where
 
 ----
 
-newtype WhiteToken = WhiteToken { unWhiteToken :: Token}
+newtype WhiteToken
+  = WhiteToken { unWhiteToken :: Token }
   deriving stock (Eq)
 
 instance Show WhiteToken where

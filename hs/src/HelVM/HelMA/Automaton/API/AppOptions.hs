@@ -30,20 +30,20 @@ autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) Nothing (dum
 
 -- | Types
 
-data AppOptions = AppOptions
-  { emit             :: !Emit
-  , verbosity        :: !LogLevel
-
-  , optimizationFlag :: !Optimization
-  , formatType       :: !LabelType
-  , ramType          :: !RAMType
-  , stackType        :: !StackType
-  , cellType         :: !CellType
-  , intCellType      :: !IntCellType
-  , dumpType         :: !DumpType
-  , codelSize        :: !(Maybe Int)
-  , exec             :: !Exec
-  , langCommand      :: !API.LangCommand
-  , file             :: !FilePath
-  }
+data AppOptions
+  = AppOptions
+      { emit             :: !Emit
+      , verbosity        :: !LogLevel
+      , optimizationFlag :: !Optimization
+      , formatType       :: !LabelType
+      , ramType          :: !RAMType
+      , stackType        :: !StackType
+      , cellType         :: !CellType
+      , intCellType      :: !IntCellType
+      , dumpType         :: !DumpType
+      , codelSize        :: !(Maybe Int)
+      , exec             :: !Exec
+      , langCommand      :: !API.LangCommand
+      , file             :: !FilePath
+      }
 

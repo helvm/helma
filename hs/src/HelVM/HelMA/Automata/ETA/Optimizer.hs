@@ -98,12 +98,13 @@ lineFromTuple2 (a, l : ls) = Line
   , numberFlag = True
   }
 
-data Line = Line
-  { currentTL      :: TokenList
-  , currentAddress :: Natural
-  , numberFlag     :: Bool
-  , nextTLL        :: [TokenList]
-  }
+data Line
+  = Line
+      { currentTL      :: TokenList
+      , currentAddress :: Natural
+      , numberFlag     :: Bool
+      , nextTLL        :: [TokenList]
+      }
 
 --consM :: Functor f => a -> f [a] -> f [a]
 --consM a l = (a : ) <$> l

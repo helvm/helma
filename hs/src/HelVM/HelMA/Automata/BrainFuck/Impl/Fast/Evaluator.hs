@@ -63,13 +63,15 @@ doEnd ∷ AppEff m ⇒ InstructionMemory → FullTape e → m $ Memory e
 doEnd iu tape = pure $ Memory iu tape
 
 -- | Types
-data Memory e = Memory
-  { memoryIM   :: InstructionMemory
-  , memoryTape :: FullTape e
-  }
-  deriving stock (Eq , Show)
+data Memory e
+  = Memory
+      { memoryIM   :: InstructionMemory
+      , memoryTape :: FullTape e
+      }
+  deriving stock (Eq, Show)
 
-data InstructionMemory = IM !FastInstructionList !InstructionCounter
-  deriving stock (Eq , Show)
+data InstructionMemory
+  = IM !FastInstructionList !InstructionCounter
+  deriving stock (Eq, Show)
 
 type InstructionCounter = Int

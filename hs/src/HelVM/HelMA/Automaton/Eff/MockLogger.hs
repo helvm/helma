@@ -38,10 +38,11 @@ type MonadMockLogger m = MonadWriter MockLoggerData m
 
 type MockLoggerData = Seq MockLog
 
-data MockLog = MockLog
-  { logLoc    :: !Loc
-  , logSource :: !LogSource
-  , logLevel  :: !LogLevel
-  , logStr    :: !LogStr
-  }
+data MockLog
+  = MockLog
+      { logLoc    :: !Loc
+      , logSource :: !LogSource
+      , logLevel  :: !LogLevel
+      , logStr    :: !LogStr
+      }
   deriving stock (Eq, Show)

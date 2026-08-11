@@ -68,7 +68,8 @@ storeInputDec (LSM s r) = appendError "LSM.storeInputDec" $ build =<< pop1 s whe
 -- | Types
 type LSU m s r element = (ALU m s element , RAM.RAM r element)
 
-data LoadStoreMemory s r = LSM
-  { stack :: s
-  , ram   :: r
-  }
+data LoadStoreMemory s r
+  = LSM
+      { stack :: s
+      , ram   :: r
+      }

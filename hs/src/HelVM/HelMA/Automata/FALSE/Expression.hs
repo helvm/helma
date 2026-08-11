@@ -3,8 +3,8 @@ module HelVM.HelMA.Automata.FALSE.Expression where
 import           HelVM.HelMA.Automaton.Instruction
 
 type ExpressionList = [Expression]
-data Expression =
-    Inst Instruction
+data Expression
+  = Inst Instruction
   | Lambda ExpressionList
   | Exec
   | Cond
@@ -15,4 +15,4 @@ data Expression =
   | Str String
   | Comment String
   | Flush
-  deriving stock (Eq , Show , Read)
+  deriving stock (Eq, Read, Show)

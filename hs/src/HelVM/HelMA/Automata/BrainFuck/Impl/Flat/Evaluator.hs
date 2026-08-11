@@ -51,8 +51,9 @@ doEnd ∷ AppEff m ⇒ Table → FullTape e → m $ Memory e
 doEnd table tape = pure $ Memory table tape
 
 -- | Types
-data Memory e = Memory
-  { memoryTable :: Table
-  , memoryTape  :: FullTape e
-  }
-  deriving stock (Eq , Read , Show)
+data Memory e
+  = Memory
+      { memoryTable :: Table
+      , memoryTape  :: FullTape e
+      }
+  deriving stock (Eq, Read, Show)

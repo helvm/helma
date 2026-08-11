@@ -19,13 +19,15 @@ compile ∷ Image Color → Program
 compile image_ = Program image_ mask__ info_ where
   (mask__, info_) = label4 image_
 
-data LabellingStatus = LabellingStatus
-  { _currentCoords :: Coordinates
-  , _nextKey       :: LabelKey
-  , _mask          :: Image LabelKey
-  , _infoMap       :: IntMap (Maybe LabelInfo)
-  , _equivalences  :: EquivalenceMap
-  } deriving stock (Show)
+data LabellingStatus
+  = LabellingStatus
+      { _currentCoords :: Coordinates
+      , _nextKey       :: LabelKey
+      , _mask          :: Image LabelKey
+      , _infoMap       :: IntMap (Maybe LabelInfo)
+      , _equivalences  :: EquivalenceMap
+      }
+  deriving stock (Show)
 
 label4 ∷ Eq a ⇒ Image a → (Image LabelKey, IntMap (Maybe LabelInfo))
 label4 = label4With (==)

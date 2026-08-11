@@ -26,4 +26,4 @@ langs ∷ NonEmpty Lang
 langs = universeNonEmpty
 
 data Lang = BF | ETA | F | Piet | SQ | WS | Cat | Rev | Lazy | Zot
-  deriving stock (Bounded , Enum , Eq , Read , Show)
+  deriving stock (Bounded, Enum, Eq, Read, Show)

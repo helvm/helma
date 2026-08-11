@@ -17,7 +17,8 @@ readSymbols source = readTextUnsafe source :: Symbols
 
 ----
 
-newtype Symbols = Symbols SymbolList
+newtype Symbols
+  = Symbols SymbolList
 
 instance Show Symbols where
   show (Symbols symbols) = toString $ unwords $ shows symbols

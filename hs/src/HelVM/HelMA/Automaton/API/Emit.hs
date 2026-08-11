@@ -7,4 +7,4 @@ emits ∷ NonEmpty Emit
 emits = universeNonEmpty
 
 data Emit = No | IL | TL | Code
-  deriving stock (Bounded , Enum , Eq , Read , Show)
+  deriving stock (Bounded, Enum, Eq, Read, Show)

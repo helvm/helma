@@ -6,8 +6,8 @@ import           Text.Read
 
 import qualified Text.Show
 
-data FlatInstruction =
-    Simple SimpleInstruction
+data FlatInstruction
+  = Simple SimpleInstruction
   | JmpPast
   | JmpBack
   deriving stock (Eq)

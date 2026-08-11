@@ -38,78 +38,80 @@ span.spaces    { background: white }
 <span class="lineno">   19 </span><span class="decl"><span class="istickedoff">compile image_ = Program image_ mask__ info_ where</span>
 <span class="lineno">   20 </span><span class="spaces">  </span><span class="istickedoff">(mask__, info_) = label4 image_</span></span>
 <span class="lineno">   21 </span>
-<span class="lineno">   22 </span>data LabellingStatus = LabellingStatus
-<span class="lineno">   23 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">_currentCoords</span></span></span> :: Coordinates
-<span class="lineno">   24 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">_nextKey</span></span></span>       :: LabelKey
-<span class="lineno">   25 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">_mask</span></span></span>          :: Image LabelKey
-<span class="lineno">   26 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">_infoMap</span></span></span>       :: IntMap (Maybe LabelInfo)
-<span class="lineno">   27 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">_equivalences</span></span></span>  :: EquivalenceMap
-<span class="lineno">   28 </span>  } deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   29 </span>
-<span class="lineno">   30 </span>label4 ∷ Eq a ⇒ Image a → (Image LabelKey, IntMap (Maybe LabelInfo))
-<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">label4 = label4With (==)</span></span>
-<span class="lineno">   32 </span>
-<span class="lineno">   33 </span>label4With ∷ (a → a → Bool) → Image a → (Image LabelKey, IntMap (Maybe LabelInfo))
-<span class="lineno">   34 </span><span class="decl"><span class="istickedoff">label4With neighbours img = (img', inf) where</span>
-<span class="lineno">   35 </span><span class="spaces">  </span><span class="istickedoff">status = label4With' neighbours img (LabellingStatus (0, 0) 0 (newImage (witdthImage img, heightImage img) []) mempty mempty)</span>
-<span class="lineno">   36 </span><span class="spaces">  </span><span class="istickedoff">img'   = fmap (applyEquivClass (_equivalences status)) (_mask status)</span>
-<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">inf    = foldrWithKey (mergeClass (_equivalences status)) mempty (_infoMap status)</span>
-<span class="lineno">   38 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">applyEquivClass eqMap lbl = equivClass lbl eqMap</span>
+<span class="lineno">   22 </span>data LabellingStatus
+<span class="lineno">   23 </span>  = LabellingStatus
+<span class="lineno">   24 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">_currentCoords</span></span></span> :: Coordinates
+<span class="lineno">   25 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">_nextKey</span></span></span>       :: LabelKey
+<span class="lineno">   26 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">_mask</span></span></span>          :: Image LabelKey
+<span class="lineno">   27 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">_infoMap</span></span></span>       :: IntMap (Maybe LabelInfo)
+<span class="lineno">   28 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">_equivalences</span></span></span>  :: EquivalenceMap
+<span class="lineno">   29 </span>      }
+<span class="lineno">   30 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>label4 ∷ Eq a ⇒ Image a → (Image LabelKey, IntMap (Maybe LabelInfo))
+<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">label4 = label4With (==)</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>label4With ∷ (a → a → Bool) → Image a → (Image LabelKey, IntMap (Maybe LabelInfo))
+<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">label4With neighbours img = (img', inf) where</span>
+<span class="lineno">   37 </span><span class="spaces">  </span><span class="istickedoff">status = label4With' neighbours img (LabellingStatus (0, 0) 0 (newImage (witdthImage img, heightImage img) []) mempty mempty)</span>
+<span class="lineno">   38 </span><span class="spaces">  </span><span class="istickedoff">img'   = fmap (applyEquivClass (_equivalences status)) (_mask status)</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">inf    = foldrWithKey (mergeClass (_equivalences status)) mempty (_infoMap status)</span>
 <span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)</span>
+<span class="lineno">   41 </span><span class="spaces">  </span><span class="istickedoff">applyEquivClass eqMap lbl = equivClass lbl eqMap</span>
 <span class="lineno">   42 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   43 </span><span class="spaces">  </span><span class="istickedoff">updateMap Nothing    Nothing            = <span class="nottickedoff">Nothing</span></span>
-<span class="lineno">   44 </span><span class="spaces">  </span><span class="istickedoff">updateMap (Just new) Nothing            = Just (Just new)</span>
-<span class="lineno">   45 </span><span class="spaces">  </span><span class="istickedoff">updateMap Nothing    (Just old)         = <span class="nottickedoff">Just old</span></span>
-<span class="lineno">   46 </span><span class="spaces">  </span><span class="istickedoff">updateMap (Just new) (Just (Just oldS)) = Just (Just (new &lt;&gt; oldS))</span>
-<span class="lineno">   47 </span><span class="spaces">  </span><span class="istickedoff">updateMap _          _                  = <span class="nottickedoff">Nothing</span></span></span>
-<span class="lineno">   48 </span>
-<span class="lineno">   49 </span>label4With' ∷ (a → a → Bool) → Image a → LabellingStatus → LabellingStatus
-<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">label4With' neighbours img status = checkNext (nextCoords xy) (updateStatus mergeLabels) where</span>
-<span class="lineno">   51 </span><span class="spaces">  </span><span class="istickedoff">xy@(x, y) = _currentCoords status</span>
-<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">pixel     = pixelImage (x, y) img</span>
-<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   54 </span><span class="spaces">  </span><span class="istickedoff">mergeLabels = fmap getMaskLabel $ filter isNeighbour $ addPixelInfo &lt;$&gt; previousNeighbours xy</span>
+<span class="lineno">   43 </span><span class="spaces">  </span><span class="istickedoff">mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)</span>
+<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   45 </span><span class="spaces">  </span><span class="istickedoff">updateMap Nothing    Nothing            = <span class="nottickedoff">Nothing</span></span>
+<span class="lineno">   46 </span><span class="spaces">  </span><span class="istickedoff">updateMap (Just new) Nothing            = Just (Just new)</span>
+<span class="lineno">   47 </span><span class="spaces">  </span><span class="istickedoff">updateMap Nothing    (Just old)         = <span class="nottickedoff">Just old</span></span>
+<span class="lineno">   48 </span><span class="spaces">  </span><span class="istickedoff">updateMap (Just new) (Just (Just oldS)) = Just (Just (new &lt;&gt; oldS))</span>
+<span class="lineno">   49 </span><span class="spaces">  </span><span class="istickedoff">updateMap _          _                  = <span class="nottickedoff">Nothing</span></span></span>
+<span class="lineno">   50 </span>
+<span class="lineno">   51 </span>label4With' ∷ (a → a → Bool) → Image a → LabellingStatus → LabellingStatus
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">label4With' neighbours img status = checkNext (nextCoords xy) (updateStatus mergeLabels) where</span>
+<span class="lineno">   53 </span><span class="spaces">  </span><span class="istickedoff">xy@(x, y) = _currentCoords status</span>
+<span class="lineno">   54 </span><span class="spaces">  </span><span class="istickedoff">pixel     = pixelImage (x, y) img</span>
 <span class="lineno">   55 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   56 </span><span class="spaces">  </span><span class="istickedoff">addPixelInfo (nx, ny) = (nx, ny, pixelImage (nx, ny) img)</span>
-<span class="lineno">   57 </span><span class="spaces">  </span><span class="istickedoff">isNeighbour (_, _, e) = neighbours pixel e</span>
-<span class="lineno">   58 </span><span class="spaces">  </span><span class="istickedoff">getMaskLabel (nx, ny, _) = pixelImage (nx, ny) (_mask status)</span>
-<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   60 </span><span class="spaces">  </span><span class="istickedoff">updateStatus []       = status { _nextKey = Extra.next (_nextKey status), _mask = setPixelImage (x, y) (_nextKey status) (_mask status), _infoMap = insert (_nextKey status) (addPixel (x, y) Nothing) (_infoMap status) }</span>
-<span class="lineno">   61 </span><span class="spaces">  </span><span class="istickedoff">updateStatus [l]      = status { _mask = setPixelImage (x, y) l (_mask status), _infoMap = adjust (addPixel (x, y)) l (_infoMap status) }</span>
-<span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">updateStatus [l1, l2] = status { _mask = setPixelImage (x, y) (max l1 l2) (_mask status), _infoMap = adjust (addPixel (x, y)) (max l1 l2) (_infoMap status), _equivalences = equivInsert l1 l2 (_equivalences status) }</span>
-<span class="lineno">   63 </span><span class="spaces">  </span><span class="istickedoff">updateStatus _        = <span class="nottickedoff">error &quot;too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'&quot;</span></span>
-<span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">checkNext (Just xy') s = label4With' neighbours img (s { _currentCoords = xy' })</span>
-<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">checkNext Nothing    s = s</span>
-<span class="lineno">   66 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   67 </span><span class="spaces">  </span><span class="istickedoff">previousNeighbours (cx, cy) = filter validCoord [ (cx-1, cy), (cx, cy-1) ]</span>
-<span class="lineno">   68 </span><span class="spaces">  </span><span class="istickedoff">validCoord (nx, ny) = nx &gt;= 0 &amp;&amp; ny &gt;= 0</span>
-<span class="lineno">   69 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   70 </span><span class="spaces">  </span><span class="istickedoff">nextCoords (cx, cy) = guardX (cx &lt; witdthImage img - 1) cx cy</span>
-<span class="lineno">   71 </span><span class="spaces">  </span><span class="istickedoff">guardX True  cx cy = Just (cx + 1, cy)</span>
-<span class="lineno">   72 </span><span class="spaces">  </span><span class="istickedoff">guardX False _ cy  = guardY (cy &lt; heightImage img - 1) cy</span>
-<span class="lineno">   73 </span><span class="spaces">  </span><span class="istickedoff">guardY True  cy = Just (0, cy + 1)</span>
-<span class="lineno">   74 </span><span class="spaces">  </span><span class="istickedoff">guardY False _  = Nothing</span></span>
-<span class="lineno">   75 </span>
-<span class="lineno">   76 </span>type EquivalenceMap = IntMap LabelKey
+<span class="lineno">   56 </span><span class="spaces">  </span><span class="istickedoff">mergeLabels = fmap getMaskLabel $ filter isNeighbour $ addPixelInfo &lt;$&gt; previousNeighbours xy</span>
+<span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   58 </span><span class="spaces">  </span><span class="istickedoff">addPixelInfo (nx, ny) = (nx, ny, pixelImage (nx, ny) img)</span>
+<span class="lineno">   59 </span><span class="spaces">  </span><span class="istickedoff">isNeighbour (_, _, e) = neighbours pixel e</span>
+<span class="lineno">   60 </span><span class="spaces">  </span><span class="istickedoff">getMaskLabel (nx, ny, _) = pixelImage (nx, ny) (_mask status)</span>
+<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">updateStatus []       = status { _nextKey = Extra.next (_nextKey status), _mask = setPixelImage (x, y) (_nextKey status) (_mask status), _infoMap = insert (_nextKey status) (addPixel (x, y) Nothing) (_infoMap status) }</span>
+<span class="lineno">   63 </span><span class="spaces">  </span><span class="istickedoff">updateStatus [l]      = status { _mask = setPixelImage (x, y) l (_mask status), _infoMap = adjust (addPixel (x, y)) l (_infoMap status) }</span>
+<span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">updateStatus [l1, l2] = status { _mask = setPixelImage (x, y) (max l1 l2) (_mask status), _infoMap = adjust (addPixel (x, y)) (max l1 l2) (_infoMap status), _equivalences = equivInsert l1 l2 (_equivalences status) }</span>
+<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">updateStatus _        = <span class="nottickedoff">error &quot;too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'&quot;</span></span>
+<span class="lineno">   66 </span><span class="spaces">  </span><span class="istickedoff">checkNext (Just xy') s = label4With' neighbours img (s { _currentCoords = xy' })</span>
+<span class="lineno">   67 </span><span class="spaces">  </span><span class="istickedoff">checkNext Nothing    s = s</span>
+<span class="lineno">   68 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   69 </span><span class="spaces">  </span><span class="istickedoff">previousNeighbours (cx, cy) = filter validCoord [ (cx-1, cy), (cx, cy-1) ]</span>
+<span class="lineno">   70 </span><span class="spaces">  </span><span class="istickedoff">validCoord (nx, ny) = nx &gt;= 0 &amp;&amp; ny &gt;= 0</span>
+<span class="lineno">   71 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   72 </span><span class="spaces">  </span><span class="istickedoff">nextCoords (cx, cy) = guardX (cx &lt; witdthImage img - 1) cx cy</span>
+<span class="lineno">   73 </span><span class="spaces">  </span><span class="istickedoff">guardX True  cx cy = Just (cx + 1, cy)</span>
+<span class="lineno">   74 </span><span class="spaces">  </span><span class="istickedoff">guardX False _ cy  = guardY (cy &lt; heightImage img - 1) cy</span>
+<span class="lineno">   75 </span><span class="spaces">  </span><span class="istickedoff">guardY True  cy = Just (0, cy + 1)</span>
+<span class="lineno">   76 </span><span class="spaces">  </span><span class="istickedoff">guardY False _  = Nothing</span></span>
 <span class="lineno">   77 </span>
-<span class="lineno">   78 </span>equivClass ∷ LabelKey → EquivalenceMap → LabelKey
-<span class="lineno">   79 </span><span class="decl"><span class="istickedoff">equivClass e = findWithDefault e e</span></span>
-<span class="lineno">   80 </span>
-<span class="lineno">   81 </span>equivInsert ∷ LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
-<span class="lineno">   82 </span><span class="decl"><span class="istickedoff">equivInsert x y mp = guardInsert (x /= y) where</span>
-<span class="lineno">   83 </span><span class="spaces">  </span><span class="istickedoff">guardInsert True  = fmap replaceClass $ insert x newClass $ insert y newClass mp</span>
-<span class="lineno">   84 </span><span class="spaces">  </span><span class="istickedoff">guardInsert False = mp</span>
-<span class="lineno">   85 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   86 </span><span class="spaces">  </span><span class="istickedoff">class1   = equivClass x mp</span>
-<span class="lineno">   87 </span><span class="spaces">  </span><span class="istickedoff">class2   = equivClass y mp</span>
-<span class="lineno">   88 </span><span class="spaces">  </span><span class="istickedoff">classes  = x :| [y, class1, class2]</span>
-<span class="lineno">   89 </span><span class="spaces">  </span><span class="istickedoff">newClass = Extra.minimum1 classes</span>
-<span class="lineno">   90 </span><span class="spaces"></span><span class="istickedoff"></span>
-<span class="lineno">   91 </span><span class="spaces">  </span><span class="istickedoff">replaceClass eqClass = checkInClass (eqClass `elem` classes) eqClass</span>
-<span class="lineno">   92 </span><span class="spaces">  </span><span class="istickedoff">checkInClass True  _   = newClass</span>
-<span class="lineno">   93 </span><span class="spaces">  </span><span class="istickedoff">checkInClass False eqc = eqc</span></span>
+<span class="lineno">   78 </span>type EquivalenceMap = IntMap LabelKey
+<span class="lineno">   79 </span>
+<span class="lineno">   80 </span>equivClass ∷ LabelKey → EquivalenceMap → LabelKey
+<span class="lineno">   81 </span><span class="decl"><span class="istickedoff">equivClass e = findWithDefault e e</span></span>
+<span class="lineno">   82 </span>
+<span class="lineno">   83 </span>equivInsert ∷ LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
+<span class="lineno">   84 </span><span class="decl"><span class="istickedoff">equivInsert x y mp = guardInsert (x /= y) where</span>
+<span class="lineno">   85 </span><span class="spaces">  </span><span class="istickedoff">guardInsert True  = fmap replaceClass $ insert x newClass $ insert y newClass mp</span>
+<span class="lineno">   86 </span><span class="spaces">  </span><span class="istickedoff">guardInsert False = mp</span>
+<span class="lineno">   87 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   88 </span><span class="spaces">  </span><span class="istickedoff">class1   = equivClass x mp</span>
+<span class="lineno">   89 </span><span class="spaces">  </span><span class="istickedoff">class2   = equivClass y mp</span>
+<span class="lineno">   90 </span><span class="spaces">  </span><span class="istickedoff">classes  = x :| [y, class1, class2]</span>
+<span class="lineno">   91 </span><span class="spaces">  </span><span class="istickedoff">newClass = Extra.minimum1 classes</span>
+<span class="lineno">   92 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">   93 </span><span class="spaces">  </span><span class="istickedoff">replaceClass eqClass = checkInClass (eqClass `elem` classes) eqClass</span>
+<span class="lineno">   94 </span><span class="spaces">  </span><span class="istickedoff">checkInClass True  _   = newClass</span>
+<span class="lineno">   95 </span><span class="spaces">  </span><span class="istickedoff">checkInClass False eqc = eqc</span></span>
 
 </pre>
 </body>

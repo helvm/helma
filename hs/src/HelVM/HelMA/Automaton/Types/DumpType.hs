@@ -26,4 +26,4 @@ dumpTypes = universeNonEmpty
 
 -- | Types
 data DumpType = No | Ugly | Pretty
-  deriving stock (Bounded , Enum , Eq , Read , Show)
+  deriving stock (Bounded, Enum, Eq, Read, Show)

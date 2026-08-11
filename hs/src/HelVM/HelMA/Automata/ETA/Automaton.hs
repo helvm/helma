@@ -78,8 +78,9 @@ memoryProgram = program . memoryIM
 
 type MemorySame s = Same (Memory s)
 
-data Memory s = Memory
-  { memoryIM    :: !InstructionMemory
-  , memoryStack :: s
-  }
-  deriving stock (Eq , Read , Show)
+data Memory s
+  = Memory
+      { memoryIM    :: !InstructionMemory
+      , memoryStack :: s
+      }
+  deriving stock (Eq, Read, Show)

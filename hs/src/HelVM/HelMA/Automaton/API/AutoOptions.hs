@@ -11,8 +11,9 @@ simpleAutoParams = AutoOptions
   , dumpType     = Pretty
   }
 
-data AutoOptions = AutoOptions
-  { optLevel :: OptimizationLevel
-  , limit    :: LimitMaybe
-  , dumpType :: DumpType
-  }
+data AutoOptions
+  = AutoOptions
+      { optLevel :: OptimizationLevel
+      , limit    :: LimitMaybe
+      , dumpType :: DumpType
+      }

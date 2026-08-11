@@ -40,17 +40,19 @@ optionsRio = RIO.view appOptionsL
 logFuncRio ∷ Has env ⇒ RIO.RIO env RIO.LogFunc
 logFuncRio = RIO.view RIO.logFuncL
 
-data Env = Env
-  { envFileIO  :: FileIO
-  , envStdIO   :: StdIO
-  , envOptions :: AppOptions
-  , envLogFunc :: RIO.LogFunc
-  }
+data Env
+  = Env
+      { envFileIO  :: FileIO
+      , envStdIO   :: StdIO
+      , envOptions :: AppOptions
+      , envLogFunc :: RIO.LogFunc
+      }
 
-data FileIO = FileIO
-  { readTextFile :: forall env. FilePath → RIO.RIO env Source
-  , readImage    :: forall env. FilePath → RIO.RIO env Picture.DynamicImage
-  }
+data FileIO
+  = FileIO
+      { readTextFile :: forall env. FilePath -> RIO.RIO env Source
+      , readImage    :: forall env. FilePath -> RIO.RIO env Picture.DynamicImage
+      }
 
 class HasFileIO env where
   fileIOL :: RIO.Lens' env FileIO
@@ -58,12 +60,13 @@ class HasFileIO env where
 instance HasFileIO Env where
   fileIOL = RIO.lens envFileIO (\x y -> x { envFileIO = y })
 
-data StdIO = StdIO
-  { stdPutLTextLn      :: forall env. LText → RIO.RIO env ()
-  , stdGetContentsText :: forall env. RIO.RIO env LText
-  , stdPutLBSLn        :: forall env. LByteString → RIO.RIO env ()
-  , stdGetContentsBS   :: forall env. RIO.RIO env LByteString
-  }
+data StdIO
+  = StdIO
+      { stdPutLTextLn      :: forall env. LText -> RIO.RIO env ()
+      , stdGetContentsText :: forall env. RIO.RIO env LText
+      , stdPutLBSLn        :: forall env. LByteString -> RIO.RIO env ()
+      , stdGetContentsBS   :: forall env. RIO.RIO env LByteString
+      }
 
 class HasStdIO env where
   stdIOL :: RIO.Lens' env StdIO

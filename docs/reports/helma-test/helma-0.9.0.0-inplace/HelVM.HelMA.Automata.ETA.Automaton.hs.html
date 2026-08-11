@@ -97,11 +97,12 @@ span.spaces    { background: white }
 <span class="lineno">   78 </span>
 <span class="lineno">   79 </span>type MemorySame s = Same (Memory s)
 <span class="lineno">   80 </span>
-<span class="lineno">   81 </span>data Memory s = Memory
-<span class="lineno">   82 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryIM</span></span></span>    :: !InstructionMemory
-<span class="lineno">   83 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryStack</span></span></span> :: s
-<span class="lineno">   84 </span>  }
-<span class="lineno">   85 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span> , <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   81 </span>data Memory s
+<span class="lineno">   82 </span>  = Memory
+<span class="lineno">   83 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryIM</span></span></span>    :: !InstructionMemory
+<span class="lineno">   84 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">memoryStack</span></span></span> :: s
+<span class="lineno">   85 </span>      }
+<span class="lineno">   86 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

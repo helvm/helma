@@ -9,4 +9,4 @@ brightnessChange ∷ Brightness → Brightness → Brightness
 brightnessChange = changeDiff 3
 
 data Brightness = Light | Normal | Dark
-  deriving stock (Bounded , Show , Read, Eq , Ord , Enum)
+  deriving stock (Bounded, Enum, Eq, Ord, Read, Show)

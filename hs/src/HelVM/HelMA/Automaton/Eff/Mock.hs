@@ -92,15 +92,8 @@ instance {-# OVERLAPPING #-} MonadLogger Mock where
 
 ----
 
-newtype Mock a = Mock
-  { unMock :: StateT MockEffData (Writer MockLoggerData) a
-  }
-  deriving newtype
-    ( Functor
-    , Applicative
-    , Monad
-    , MonadState MockEffData
-    , MonadWriter MockLoggerData
-    )
+newtype Mock a
+  = Mock { unMock :: StateT MockEffData (Writer MockLoggerData) a }
+  deriving newtype (Applicative, Functor, Monad, MonadState MockEffData, MonadWriter MockLoggerData)
 
 type MockData = (MockEffData , MockLoggerData)

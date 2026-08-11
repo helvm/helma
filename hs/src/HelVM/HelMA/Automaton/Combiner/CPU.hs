@@ -118,20 +118,23 @@ type DynamicLabel l = (Integral l , Show l)
 
 type CentralProcessingStep ll m = CentralProcessingMemory ll → m $ CentralProcessingMemory ll
 
-data CentralProcessingMemory ll = CPM
-  { controlMemory :: ControlMemory
-  , alm           :: ll
-  }
+data CentralProcessingMemory ll
+  = CPM
+      { controlMemory :: ControlMemory
+      , alm           :: ll
+      }
   deriving stock (Show)
 
-data ControlMemory = CM
-  { program        :: InstructionVector
-  , programCounter :: InstructionCounter
-  , returnStack    :: InstructionStack
-  }
+data ControlMemory
+  = CM
+      { program        :: InstructionVector
+      , programCounter :: InstructionCounter
+      , returnStack    :: InstructionStack
+      }
   deriving stock (Show)
 
-newtype InstructionStack = IS [InstructionAddress]
+newtype InstructionStack
+  = IS [InstructionAddress]
   deriving stock (Show)
 
 type InstructionCounter = InstructionAddress

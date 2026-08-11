@@ -57,13 +57,14 @@ span.spaces    { background: white }
 <span class="lineno">   38 </span>
 <span class="lineno">   39 </span>type MockLoggerData = Seq MockLog
 <span class="lineno">   40 </span>
-<span class="lineno">   41 </span>data MockLog = MockLog
-<span class="lineno">   42 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">logLoc</span></span></span>    :: !Loc
-<span class="lineno">   43 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">logSource</span></span></span> :: !LogSource
-<span class="lineno">   44 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">logLevel</span></span></span>  :: !LogLevel
-<span class="lineno">   45 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">logStr</span></span></span>    :: !LogStr
-<span class="lineno">   46 </span>  }
-<span class="lineno">   47 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   41 </span>data MockLog
+<span class="lineno">   42 </span>  = MockLog
+<span class="lineno">   43 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">logLoc</span></span></span>    :: !Loc
+<span class="lineno">   44 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">logSource</span></span></span> :: !LogSource
+<span class="lineno">   45 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">logLevel</span></span></span>  :: !LogLevel
+<span class="lineno">   46 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">logStr</span></span></span>    :: !LogStr
+<span class="lineno">   47 </span>      }
+<span class="lineno">   48 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

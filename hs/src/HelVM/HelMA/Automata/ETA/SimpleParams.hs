@@ -16,9 +16,10 @@ simpleParams it st s = SimpleParams
   }
 
 -- | Type
-data SimpleParams = SimpleParams
-  { implType    :: !AutomatonType
-  , source      :: !Source
-  , stackType   :: !StackType
-  , autoOptions :: !AutoOptions
-  }
+data SimpleParams
+  = SimpleParams
+      { implType    :: !AutomatonType
+      , source      :: !Source
+      , stackType   :: !StackType
+      , autoOptions :: !AutoOptions
+      }

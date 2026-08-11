@@ -10,7 +10,8 @@ currentInstruction (IM iv ic) = iv `indexMaybe` ic
 nextIC∷ InstructionMemory → InstructionMemory
 nextIC (IM iv ic) = IM iv $ ic + 1
 
-data InstructionMemory = IM !TreeInstructionVector !InstructionCounter
-  deriving stock (Eq , Show)
+data InstructionMemory
+  = IM !TreeInstructionVector !InstructionCounter
+  deriving stock (Eq, Show)
 
 type InstructionCounter = Int

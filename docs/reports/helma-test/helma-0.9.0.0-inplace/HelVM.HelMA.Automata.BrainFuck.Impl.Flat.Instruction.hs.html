@@ -25,8 +25,8 @@ span.spaces    { background: white }
 <span class="lineno">    6 </span>
 <span class="lineno">    7 </span>import qualified Text.Show
 <span class="lineno">    8 </span>
-<span class="lineno">    9 </span>data FlatInstruction =
-<span class="lineno">   10 </span>    Simple SimpleInstruction
+<span class="lineno">    9 </span>data FlatInstruction
+<span class="lineno">   10 </span>  = Simple SimpleInstruction
 <span class="lineno">   11 </span>  | JmpPast
 <span class="lineno">   12 </span>  | JmpBack
 <span class="lineno">   13 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>)

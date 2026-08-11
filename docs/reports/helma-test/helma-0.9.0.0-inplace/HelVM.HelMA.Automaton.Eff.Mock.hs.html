@@ -111,18 +111,11 @@ span.spaces    { background: white }
 <span class="lineno">   92 </span>
 <span class="lineno">   93 </span>----
 <span class="lineno">   94 </span>
-<span class="lineno">   95 </span>newtype Mock a = Mock
-<span class="lineno">   96 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">unMock</span></span></span> :: StateT MockEffData (Writer MockLoggerData) a
-<span class="lineno">   97 </span>  }
-<span class="lineno">   98 </span>  deriving newtype
-<span class="lineno">   99 </span>    ( <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Functor</span></span></span></span>
-<span class="lineno">  100 </span>    , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Applicative</span></span></span></span></span></span></span></span></span></span>
-<span class="lineno">  101 </span>    , <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Monad</span></span></span></span></span></span>
-<span class="lineno">  102 </span>    , <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">MonadState MockEffData</span></span></span></span></span></span>
-<span class="lineno">  103 </span>    , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadWriter MockLoggerData</span></span></span></span></span></span></span></span>
-<span class="lineno">  104 </span>    )
-<span class="lineno">  105 </span>
-<span class="lineno">  106 </span>type MockData = (MockEffData , MockLoggerData)
+<span class="lineno">   95 </span>newtype Mock a
+<span class="lineno">   96 </span>  = Mock { <span class="istickedoff"><span class="decl"><span class="istickedoff">unMock</span></span></span> :: StateT MockEffData (Writer MockLoggerData) a }
+<span class="lineno">   97 </span>  deriving newtype (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Applicative</span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Functor</span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Monad</span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">MonadState MockEffData</span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">MonadWriter MockLoggerData</span></span></span></span></span></span></span></span>)
+<span class="lineno">   98 </span>
+<span class="lineno">   99 </span>type MockData = (MockEffData , MockLoggerData)
 
 </pre>
 </body>

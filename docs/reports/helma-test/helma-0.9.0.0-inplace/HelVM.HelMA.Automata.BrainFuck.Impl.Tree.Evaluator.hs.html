@@ -74,16 +74,18 @@ span.spaces    { background: white }
 <span class="lineno">   55 </span><span class="decl"><span class="nottickedoff">doEnd im tape = pure $ Memory im tape</span></span>
 <span class="lineno">   56 </span>
 <span class="lineno">   57 </span>-- | Types
-<span class="lineno">   58 </span>data Memory e = Memory
-<span class="lineno">   59 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">memoryIM</span></span></span>   :: InstructionMemory
-<span class="lineno">   60 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">memoryTape</span></span></span> :: FullTape e
-<span class="lineno">   61 </span>  }
-<span class="lineno">   62 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   63 </span>
-<span class="lineno">   64 </span>data InstructionMemory = IM !TreeInstructionVector !InstructionCounter
-<span class="lineno">   65 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   66 </span>
-<span class="lineno">   67 </span>type InstructionCounter = Int
+<span class="lineno">   58 </span>data Memory e
+<span class="lineno">   59 </span>  = Memory
+<span class="lineno">   60 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">memoryIM</span></span></span>   :: InstructionMemory
+<span class="lineno">   61 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">memoryTape</span></span></span> :: FullTape e
+<span class="lineno">   62 </span>      }
+<span class="lineno">   63 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   64 </span>
+<span class="lineno">   65 </span>data InstructionMemory
+<span class="lineno">   66 </span>  = IM !TreeInstructionVector !InstructionCounter
+<span class="lineno">   67 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   68 </span>
+<span class="lineno">   69 </span>type InstructionCounter = Int
 
 </pre>
 </body>

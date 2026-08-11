@@ -41,11 +41,12 @@ simpleParams tt (st , rt) al s = SimpleParams
   }
 
 -- | Type
-data SimpleParams = SimpleParams
-  { tokenType   :: !TokenType
-  , source      :: !Source
-  , formatType  :: !LabelType
-  , stackType   :: !StackType
-  , ramType     :: !RAMType
-  , autoOptions :: !AutoOptions
-  }
+data SimpleParams
+  = SimpleParams
+      { tokenType   :: !TokenType
+      , source      :: !Source
+      , formatType  :: !LabelType
+      , stackType   :: !StackType
+      , ramType     :: !RAMType
+      , autoOptions :: !AutoOptions
+      }

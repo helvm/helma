@@ -14,7 +14,8 @@ import           Control.Monad.Logger
 
 import           Prelude                            hiding (getLine, putLTextLn, putText, putTextLn)
 
-newtype GADTEff a = GADTEff { runGADTEff :: forall m. Monad m ⇒ (forall x. GADTEffF x → m x) → m a }
+newtype GADTEff a
+  = GADTEff { runGADTEff :: forall m. Monad m => (forall x. GADTEffF x -> m x) -> m a }
 
 instance Functor GADTEff where
   fmap f m = GADTEff $ \k -> fmap f (runGADTEff m k)
@@ -95,10 +96,10 @@ gadtFlush = liftF Flush
 --------------------------------------------------------------------------------
 
 data GADTEffF a where
-  GetContentsBS   :: GADTEffF LByteString
+  GetContentsBS :: GADTEffF LByteString
   GetContentsText :: GADTEffF LText
-  GetChar         :: GADTEffF Char
-  GetLine         :: GADTEffF Text
-  PutChar         :: Char -> GADTEffF ()
-  PutText         :: Text -> GADTEffF ()
-  Flush           :: GADTEffF ()
+  GetChar :: GADTEffF Char
+  GetLine :: GADTEffF Text
+  PutChar :: Char -> GADTEffF ()
+  PutText :: Text -> GADTEffF ()
+  Flush :: GADTEffF ()

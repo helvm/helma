@@ -56,30 +56,33 @@ span.spaces    { background: white }
 <span class="lineno">   37 </span>
 <span class="lineno">   38 </span>type ExpressionList = [Expression]
 <span class="lineno">   39 </span>
-<span class="lineno">   40 </span>data Expression = Zero | One | Expression (Expression → Out Expression)
-<span class="lineno">   41 </span>
-<span class="lineno">   42 </span>type Out = Writer ExpressionDList
-<span class="lineno">   43 </span>
-<span class="lineno">   44 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read Expression</span></span></span></span> where
-<span class="lineno">   45 </span>  <span class="decl"><span class="nottickedoff">readsPrec _ []      = []</span>
-<span class="lineno">   46 </span><span class="spaces">  </span><span class="nottickedoff">readsPrec _ (c : s) = [(charToExpression c , s)]</span></span>
-<span class="lineno">   47 </span>  <span class="decl"><span class="nottickedoff">readList s = [(stringToExpressionList s , &quot;&quot;)]</span></span>
-<span class="lineno">   48 </span>
-<span class="lineno">   49 </span>instance <span class="decl"><span class="nottickedoff">Show Expression</span></span> where
-<span class="lineno">   50 </span>  <span class="decl"><span class="istickedoff">show  Zero          = &quot;0&quot;</span>
-<span class="lineno">   51 </span><span class="spaces">  </span><span class="istickedoff">show  One           = &quot;1&quot;</span>
-<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">show (Expression _) = <span class="nottickedoff">&quot;function&quot;</span></span></span>
-<span class="lineno">   53 </span>  <span class="decl"><span class="nottickedoff">showList fs  = (concatMap show fs &lt;&gt;)</span></span>
-<span class="lineno">   54 </span>
-<span class="lineno">   55 </span>instance Digitable Expression where
-<span class="lineno">   56 </span>  <span class="decl"><span class="nottickedoff">fromDigit 0 = pure Zero</span>
-<span class="lineno">   57 </span><span class="spaces">  </span><span class="nottickedoff">fromDigit 1 = pure One</span>
-<span class="lineno">   58 </span><span class="spaces">  </span><span class="nottickedoff">fromDigit t = wrongToken t</span></span>
-<span class="lineno">   59 </span>
-<span class="lineno">   60 </span>instance ToDigit Expression where
-<span class="lineno">   61 </span>  <span class="decl"><span class="istickedoff">toDigit Zero = pure 0</span>
-<span class="lineno">   62 </span><span class="spaces">  </span><span class="istickedoff">toDigit One  = pure 1</span>
-<span class="lineno">   63 </span><span class="spaces">  </span><span class="istickedoff">toDigit t    = <span class="nottickedoff">wrongToken t</span></span></span>
+<span class="lineno">   40 </span>data Expression
+<span class="lineno">   41 </span>  = Zero
+<span class="lineno">   42 </span>  | One
+<span class="lineno">   43 </span>  | Expression (Expression -&gt; Out Expression)
+<span class="lineno">   44 </span>
+<span class="lineno">   45 </span>type Out = Writer ExpressionDList
+<span class="lineno">   46 </span>
+<span class="lineno">   47 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read Expression</span></span></span></span> where
+<span class="lineno">   48 </span>  <span class="decl"><span class="nottickedoff">readsPrec _ []      = []</span>
+<span class="lineno">   49 </span><span class="spaces">  </span><span class="nottickedoff">readsPrec _ (c : s) = [(charToExpression c , s)]</span></span>
+<span class="lineno">   50 </span>  <span class="decl"><span class="nottickedoff">readList s = [(stringToExpressionList s , &quot;&quot;)]</span></span>
+<span class="lineno">   51 </span>
+<span class="lineno">   52 </span>instance <span class="decl"><span class="nottickedoff">Show Expression</span></span> where
+<span class="lineno">   53 </span>  <span class="decl"><span class="istickedoff">show  Zero          = &quot;0&quot;</span>
+<span class="lineno">   54 </span><span class="spaces">  </span><span class="istickedoff">show  One           = &quot;1&quot;</span>
+<span class="lineno">   55 </span><span class="spaces">  </span><span class="istickedoff">show (Expression _) = <span class="nottickedoff">&quot;function&quot;</span></span></span>
+<span class="lineno">   56 </span>  <span class="decl"><span class="nottickedoff">showList fs  = (concatMap show fs &lt;&gt;)</span></span>
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>instance Digitable Expression where
+<span class="lineno">   59 </span>  <span class="decl"><span class="nottickedoff">fromDigit 0 = pure Zero</span>
+<span class="lineno">   60 </span><span class="spaces">  </span><span class="nottickedoff">fromDigit 1 = pure One</span>
+<span class="lineno">   61 </span><span class="spaces">  </span><span class="nottickedoff">fromDigit t = wrongToken t</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>instance ToDigit Expression where
+<span class="lineno">   64 </span>  <span class="decl"><span class="istickedoff">toDigit Zero = pure 0</span>
+<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">toDigit One  = pure 1</span>
+<span class="lineno">   66 </span><span class="spaces">  </span><span class="istickedoff">toDigit t    = <span class="nottickedoff">wrongToken t</span></span></span>
 
 </pre>
 </body>

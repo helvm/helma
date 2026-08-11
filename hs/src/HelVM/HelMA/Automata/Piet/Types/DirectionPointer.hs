@@ -17,4 +17,4 @@ rotate ∷ Int → DirectionPointer → DirectionPointer
 rotate = change 4
 
 data DirectionPointer = DPRight | DPDown | DPLeft | DPUp
-  deriving stock (Show, Read, Eq, Ord, Enum, Bounded)
+  deriving stock (Bounded, Enum, Eq, Ord, Read, Show)

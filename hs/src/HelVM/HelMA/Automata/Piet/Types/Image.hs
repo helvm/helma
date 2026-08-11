@@ -36,7 +36,6 @@ newImage (width, height) = Image . array ((0, 0), (width - 1, height - 1))
 instance Functor Image where
   fmap f img = img { pixels = amap f (pixels img) }
 
-newtype Image a = Image
-  { pixels :: DiffArray Coordinates a
-  }
+newtype Image a
+  = Image { pixels :: DiffArray Coordinates a }
   deriving stock (Show)

@@ -67,19 +67,23 @@ span.spaces    { background: white }
 <span class="lineno">   48 </span>
 <span class="lineno">   49 </span>type LabelKey = Int
 <span class="lineno">   50 </span>
-<span class="lineno">   51 </span>data LabelInfo = LabelInfo
-<span class="lineno">   52 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">_labelSize</span></span></span>  :: !Int
-<span class="lineno">   53 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelTop</span></span></span>    :: !LabelBorder
-<span class="lineno">   54 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelLeft</span></span></span>   :: !LabelBorder
-<span class="lineno">   55 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelBottom</span></span></span> :: !LabelBorder
-<span class="lineno">   56 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelRight</span></span></span>  :: !LabelBorder
-<span class="lineno">   57 </span>  } deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>)
-<span class="lineno">   58 </span>
-<span class="lineno">   59 </span>data LabelBorder = LabelBorder
-<span class="lineno">   60 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">borderCoord</span></span></span> :: !Int
-<span class="lineno">   61 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">borderMin</span></span></span>   :: !Int
-<span class="lineno">   62 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">borderMax</span></span></span>   :: !Int
-<span class="lineno">   63 </span>  } deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>)
+<span class="lineno">   51 </span>data LabelInfo
+<span class="lineno">   52 </span>  = LabelInfo
+<span class="lineno">   53 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">_labelSize</span></span></span>  :: !Int
+<span class="lineno">   54 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelTop</span></span></span>    :: !LabelBorder
+<span class="lineno">   55 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelLeft</span></span></span>   :: !LabelBorder
+<span class="lineno">   56 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelBottom</span></span></span> :: !LabelBorder
+<span class="lineno">   57 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelRight</span></span></span>  :: !LabelBorder
+<span class="lineno">   58 </span>      }
+<span class="lineno">   59 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   60 </span>
+<span class="lineno">   61 </span>data LabelBorder
+<span class="lineno">   62 </span>  = LabelBorder
+<span class="lineno">   63 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">borderCoord</span></span></span> :: !Int
+<span class="lineno">   64 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">borderMin</span></span></span>   :: !Int
+<span class="lineno">   65 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">borderMax</span></span></span>   :: !Int
+<span class="lineno">   66 </span>      }
+<span class="lineno">   67 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

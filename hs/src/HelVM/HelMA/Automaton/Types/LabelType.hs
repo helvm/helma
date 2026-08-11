@@ -9,4 +9,4 @@ formatTypes = universeNonEmpty
 
 -- | Types
 data LabelType = BinaryLabel | TextLabel
-  deriving stock (Bounded , Enum , Eq , Read , Show)
+  deriving stock (Bounded, Enum, Eq, Read, Show)

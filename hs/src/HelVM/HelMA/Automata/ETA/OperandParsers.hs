@@ -45,9 +45,11 @@ updatePC iu a = iu { programCounter = a }
 -- | Types
 type OperandParser m a = TokenList → m (a , TokenList)
 
-data InstructionMemory = IM
-  { program        :: !TokenVector
-  , programCounter :: !InstructionCounter
-  } deriving stock (Eq , Read , Show)
+data InstructionMemory
+  = IM
+      { program        :: !TokenVector
+      , programCounter :: !InstructionCounter
+      }
+  deriving stock (Eq, Read, Show)
 
 type OperandIMParser m a = InstructionMemory → m (a , InstructionMemory)

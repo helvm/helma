@@ -9,4 +9,4 @@ ramTypes = universeNonEmpty
 
 -- | Types
 data RAMType = MapListRAMType | SListRAMType | SeqRAMType | ListRAMType
-  deriving stock (Bounded , Enum , Eq , Read , Show)
+  deriving stock (Bounded, Enum, Eq, Read, Show)

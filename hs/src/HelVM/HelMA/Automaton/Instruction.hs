@@ -12,12 +12,12 @@ import qualified Data.Vector                                            as Vecto
 
 -- | Types
 
-data Instruction =
-    ISM !SMInstruction
+data Instruction
+  = ISM !SMInstruction
   | ILS !LSInstruction
   | ICF !CFInstruction
   | End
-  deriving stock (Eq , Read , Show)
+  deriving stock (Eq, Read, Show)
 
 type InstructionList   = [Instruction]
 type InstructionVector = Vector.Vector Instruction

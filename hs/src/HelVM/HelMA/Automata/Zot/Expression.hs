@@ -37,7 +37,10 @@ type ExpressionDList = D.DList Expression
 
 type ExpressionList = [Expression]
 
-data Expression = Zero | One | Expression (Expression → Out Expression)
+data Expression
+  = Zero
+  | One
+  | Expression (Expression -> Out Expression)
 
 type Out = Writer ExpressionDList
 

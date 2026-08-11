@@ -87,10 +87,11 @@ span.spaces    { background: white }
 <span class="lineno">   68 </span>-- | Types
 <span class="lineno">   69 </span>type LSU m s r element = (ALU m s element , RAM.RAM r element)
 <span class="lineno">   70 </span>
-<span class="lineno">   71 </span>data LoadStoreMemory s r = LSM
-<span class="lineno">   72 </span>  { <span class="istickedoff"><span class="decl"><span class="istickedoff">stack</span></span></span> :: s
-<span class="lineno">   73 </span>  , <span class="istickedoff"><span class="decl"><span class="istickedoff">ram</span></span></span>   :: r
-<span class="lineno">   74 </span>  }
+<span class="lineno">   71 </span>data LoadStoreMemory s r
+<span class="lineno">   72 </span>  = LSM
+<span class="lineno">   73 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">stack</span></span></span> :: s
+<span class="lineno">   74 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">ram</span></span></span>   :: r
+<span class="lineno">   75 </span>      }
 
 </pre>
 </body>

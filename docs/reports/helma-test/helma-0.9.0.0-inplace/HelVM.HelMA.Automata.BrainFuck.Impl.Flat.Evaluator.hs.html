@@ -70,11 +70,12 @@ span.spaces    { background: white }
 <span class="lineno">   51 </span><span class="decl"><span class="nottickedoff">doEnd table tape = pure $ Memory table tape</span></span>
 <span class="lineno">   52 </span>
 <span class="lineno">   53 </span>-- | Types
-<span class="lineno">   54 </span>data Memory e = Memory
-<span class="lineno">   55 </span>  { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">memoryTable</span></span></span> :: Table
-<span class="lineno">   56 </span>  , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">memoryTape</span></span></span>  :: FullTape e
-<span class="lineno">   57 </span>  }
-<span class="lineno">   58 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   54 </span>data Memory e
+<span class="lineno">   55 </span>  = Memory
+<span class="lineno">   56 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">memoryTable</span></span></span> :: Table
+<span class="lineno">   57 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">memoryTape</span></span></span>  :: FullTape e
+<span class="lineno">   58 </span>      }
+<span class="lineno">   59 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

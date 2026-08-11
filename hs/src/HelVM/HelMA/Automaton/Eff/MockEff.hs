@@ -90,8 +90,9 @@ splitStringByLn = splitBy '\n'
 type MonadSafeMockEff m = (MonadSafe m , MonadMockEff m)
 type MonadMockEff m = MonadState MockEffData m
 
-data MockEffData = MockEffData
-  { output :: !String
-  , input  :: !String
-  }
-  deriving stock (Eq , Show)
+data MockEffData
+  = MockEffData
+      { output :: !String
+      , input  :: !String
+      }
+  deriving stock (Eq, Show)

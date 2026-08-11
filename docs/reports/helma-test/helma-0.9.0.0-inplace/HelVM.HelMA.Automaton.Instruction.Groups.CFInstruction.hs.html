@@ -35,59 +35,68 @@ span.spaces    { background: white }
 <span class="lineno">   16 </span><span class="spaces"></span><span class="istickedoff">isJump GTZ e = <span class="nottickedoff">e &gt;  0</span></span></span>
 <span class="lineno">   17 </span>
 <span class="lineno">   18 </span>-- | Types
-<span class="lineno">   19 </span>data CFInstruction =
-<span class="lineno">   20 </span>    Mark     !Mark
-<span class="lineno">   21 </span>  | Branch  !BranchOperand !BranchTest
+<span class="lineno">   19 </span>data CFInstruction
+<span class="lineno">   20 </span>  = Mark !Mark
+<span class="lineno">   21 </span>  | Branch !BranchOperand !BranchTest
 <span class="lineno">   22 </span>  | Labeled !LabelOperand !LabelOperation
 <span class="lineno">   23 </span>  | Return
-<span class="lineno">   24 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span> , <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   24 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 <span class="lineno">   25 </span>
-<span class="lineno">   26 </span>data Mark  = MNatural Natural | MArtificial Label
-<span class="lineno">   27 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span> , <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   28 </span>
-<span class="lineno">   29 </span>data LabelOperand = LTop | LImmediate !Natural | LArtificial Label
-<span class="lineno">   30 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span> , <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   31 </span>
-<span class="lineno">   32 </span>data BranchOperand = BSwapped | BTop | BImmediate !Natural | BArtificial Label
-<span class="lineno">   33 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span> , <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   34 </span>
-<span class="lineno">   35 </span>--FIXME
-<span class="lineno">   36 </span>--data Artificial = Integer | Label
-<span class="lineno">   37 </span>--
-<span class="lineno">   38 </span>
-<span class="lineno">   39 </span>type Label = SString --FIXME Artificial
-<span class="lineno">   40 </span>
-<span class="lineno">   41 </span>data LabelOperation = Call | Jump
-<span class="lineno">   42 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span> , <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   26 </span>data Mark
+<span class="lineno">   27 </span>  = MNatural Natural
+<span class="lineno">   28 </span>  | MArtificial Label
+<span class="lineno">   29 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>data LabelOperand
+<span class="lineno">   32 </span>  = LTop
+<span class="lineno">   33 </span>  | LImmediate !Natural
+<span class="lineno">   34 </span>  | LArtificial Label
+<span class="lineno">   35 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>data BranchOperand
+<span class="lineno">   38 </span>  = BSwapped
+<span class="lineno">   39 </span>  | BTop
+<span class="lineno">   40 </span>  | BImmediate !Natural
+<span class="lineno">   41 </span>  | BArtificial Label
+<span class="lineno">   42 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 <span class="lineno">   43 </span>
-<span class="lineno">   44 </span>data BranchTest = EZ | LTZ | GTZ | NE
-<span class="lineno">   45 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span> , <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span> , <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   46 </span>
-<span class="lineno">   47 </span>-- | Internal
-<span class="lineno">   48 </span>
-<span class="lineno">   49 </span>printCF ∷ CFInstruction → Text
-<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">printCF (Mark     i  ) = &quot;\nmark&quot; &lt;&gt; printMark i</span>
-<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">printCF (Branch i t)   = printBranchTest t &lt;&gt; printBranchOperand i</span>
-<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">printCF (Labeled  i o) = toLowerShow o &lt;&gt; printLabelOperand i</span>
-<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">printCF           i    = toLowerShow i</span></span>
-<span class="lineno">   54 </span>
-<span class="lineno">   55 </span>printMark ∷ Mark → Text
-<span class="lineno">   56 </span><span class="decl"><span class="istickedoff">printMark (MNatural    i) = &quot;M &quot; &lt;&gt; show i</span>
-<span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff">printMark (MArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>
-<span class="lineno">   58 </span>
-<span class="lineno">   59 </span>printBranchTest ∷ BranchTest → Text
-<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">printBranchTest t = &quot;b&quot; &lt;&gt; show t</span></span>
-<span class="lineno">   61 </span>
-<span class="lineno">   62 </span>printBranchOperand ∷ BranchOperand → Text
-<span class="lineno">   63 </span><span class="decl"><span class="istickedoff">printBranchOperand  BTop           = &quot;&quot;</span>
-<span class="lineno">   64 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand  BSwapped       = &quot;S&quot;</span>
-<span class="lineno">   65 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand (BImmediate  i) = &quot;I &quot; &lt;&gt; show i</span>
-<span class="lineno">   66 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand (BArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>
+<span class="lineno">   44 </span>--FIXME
+<span class="lineno">   45 </span>--data Artificial = Integer | Label
+<span class="lineno">   46 </span>--
+<span class="lineno">   47 </span>
+<span class="lineno">   48 </span>type Label = SString --FIXME Artificial
+<span class="lineno">   49 </span>
+<span class="lineno">   50 </span>data LabelOperation = Call | Jump
+<span class="lineno">   51 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   52 </span>
+<span class="lineno">   53 </span>data BranchTest = EZ | LTZ | GTZ | NE
+<span class="lineno">   54 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   55 </span>
+<span class="lineno">   56 </span>-- | Internal
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>printCF ∷ CFInstruction → Text
+<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">printCF (Mark     i  ) = &quot;\nmark&quot; &lt;&gt; printMark i</span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">printCF (Branch i t)   = printBranchTest t &lt;&gt; printBranchOperand i</span>
+<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">printCF (Labeled  i o) = toLowerShow o &lt;&gt; printLabelOperand i</span>
+<span class="lineno">   62 </span><span class="spaces"></span><span class="istickedoff">printCF           i    = toLowerShow i</span></span>
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>printMark ∷ Mark → Text
+<span class="lineno">   65 </span><span class="decl"><span class="istickedoff">printMark (MNatural    i) = &quot;M &quot; &lt;&gt; show i</span>
+<span class="lineno">   66 </span><span class="spaces"></span><span class="istickedoff">printMark (MArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>
 <span class="lineno">   67 </span>
-<span class="lineno">   68 </span>printLabelOperand ∷ LabelOperand → Text
-<span class="lineno">   69 </span><span class="decl"><span class="istickedoff">printLabelOperand  LTop           = &quot;&quot;</span>
-<span class="lineno">   70 </span><span class="spaces"></span><span class="istickedoff">printLabelOperand (LImmediate  i) = &quot;I &quot; &lt;&gt; show i</span>
-<span class="lineno">   71 </span><span class="spaces"></span><span class="istickedoff">printLabelOperand (LArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>
+<span class="lineno">   68 </span>printBranchTest ∷ BranchTest → Text
+<span class="lineno">   69 </span><span class="decl"><span class="istickedoff">printBranchTest t = &quot;b&quot; &lt;&gt; show t</span></span>
+<span class="lineno">   70 </span>
+<span class="lineno">   71 </span>printBranchOperand ∷ BranchOperand → Text
+<span class="lineno">   72 </span><span class="decl"><span class="istickedoff">printBranchOperand  BTop           = &quot;&quot;</span>
+<span class="lineno">   73 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand  BSwapped       = &quot;S&quot;</span>
+<span class="lineno">   74 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand (BImmediate  i) = &quot;I &quot; &lt;&gt; show i</span>
+<span class="lineno">   75 </span><span class="spaces"></span><span class="istickedoff">printBranchOperand (BArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>printLabelOperand ∷ LabelOperand → Text
+<span class="lineno">   78 </span><span class="decl"><span class="istickedoff">printLabelOperand  LTop           = &quot;&quot;</span>
+<span class="lineno">   79 </span><span class="spaces"></span><span class="istickedoff">printLabelOperand (LImmediate  i) = &quot;I &quot; &lt;&gt; show i</span>
+<span class="lineno">   80 </span><span class="spaces"></span><span class="istickedoff">printLabelOperand (LArtificial i) = &quot;A &quot; &lt;&gt; show i</span></span>
 
 </pre>
 </body>

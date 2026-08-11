@@ -96,14 +96,14 @@ span.spaces    { background: white }
 <span class="lineno">   77 </span>type FreeEff = F FreeEffF
 <span class="lineno">   78 </span>
 <span class="lineno">   79 </span>data FreeEffF a
-<span class="lineno">   80 </span> = GetContentsBS             (LByteString → a)
-<span class="lineno">   81 </span> | GetContentsText           (LText       → a)
-<span class="lineno">   82 </span> | GetChar                   (Char        → a)
-<span class="lineno">   83 </span> | GetLine                   (Text        → a)
-<span class="lineno">   84 </span> | PutChar          Char                     a
-<span class="lineno">   85 </span> | PutText          Text                     a
-<span class="lineno">   86 </span> | Flush                                     a
-<span class="lineno">   87 </span> deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Functor</span></span></span></span>)
+<span class="lineno">   80 </span>  = GetContentsBS (LByteString -&gt; a)
+<span class="lineno">   81 </span>  | GetContentsText (LText -&gt; a)
+<span class="lineno">   82 </span>  | GetChar (Char -&gt; a)
+<span class="lineno">   83 </span>  | GetLine (Text -&gt; a)
+<span class="lineno">   84 </span>  | PutChar Char a
+<span class="lineno">   85 </span>  | PutText Text a
+<span class="lineno">   86 </span>  | Flush a
+<span class="lineno">   87 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Functor</span></span></span></span>)
 
 </pre>
 </body>
