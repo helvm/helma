@@ -17,6 +17,8 @@ import           HelVM.HelMA.Automata.ETA.API.AutomatonType
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 
+import           Data.MonoTraversable
+
 import           Options.Applicative
 
 optionsParser ∷ Parser AppOptions
@@ -28,13 +30,7 @@ optionsParser = AppOptions
                    <> value    defaultEmit
                    <> showDefault
                    )
-  <*> option auto  (  long    "verbosity"
-                   <> short   'v'
-                   <> metavar "[LogLevel]"
-                   <> help   ("Verbosity level " <> show logLevels)
-                   <> value    defaultLogLevel
-                   <> showDefault
-                   )
+  <*> logLevelParser
   <*> switch       (  long    "optimize"
                    <> short   'O'
                    <> help    "Optimize instructions"
@@ -93,6 +89,20 @@ optionsParser = AppOptions
                    )
   <*> langCommandParser
   <*> argument str (  metavar "FILE")
+
+logLevelParser ∷ Parser LogLevel
+logLevelParser = explicitVerbosity <|> countedVerbosity <|> pure defaultLogLevel where
+  explicitVerbosity = option auto
+    (  long    "verbosity"
+    <> metavar "[LogLevel]"
+    <> help   ("Verbosity level " <> show logLevels)
+    )
+
+  countedVerbosity = logLevelFromCount . olength <$> many parseV where
+    parseV = flag' ()
+      (  short   'v'
+      <> help    "Increase verbosity level (can be repeated, e.g. -vvv)"
+      )
 
 langCommandParser ∷ Parser LangCommand
 langCommandParser = subparser

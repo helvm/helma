@@ -6,6 +6,13 @@ import qualified RIO
 
 import           Data.Default
 
+import qualified Relude.Extra         as Extra
+
+logLevelFromCount ∷ Int → LogLevel
+logLevelFromCount n = fromMaybe maxBound $ Extra.safeToEnum $ min maxL (minL + n) where
+    minL = fromEnum (minBound :: LogLevel)
+    maxL = fromEnum (maxBound :: LogLevel)
+
 showEitherTextLogLevel ∷ Either Text LogLevel → Text
 showEitherTextLogLevel (Right l) = show l
 showEitherTextLogLevel (Left t)  = show t

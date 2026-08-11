@@ -60,6 +60,7 @@ cabal new-exec helma -- sq -e -- '12 12 3 36 37 6 37 12 9 37 37 12 0 -1 15 38 36
 cabal new-exec helma -- lazy examples/lazy/rst76/hello_world.lazy
 cabal new-exec helma -- lazy examples/lazy/rst76/v.lazy
 cabal new-exec helma -- piet examples/piet/pietcc/hi.png
+cabal new-exec helma -- -vvv piet examples/piet/pietcc/hi.png
 
 # Start REPL.
 make repl
