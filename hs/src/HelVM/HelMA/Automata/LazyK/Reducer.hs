@@ -1,8 +1,8 @@
-module HelVM.HelMA.Automata.LazyK.Reducer (
-  reduce,
-  flippedApply,
-  apply,
-) where
+module HelVM.HelMA.Automata.LazyK.Reducer
+  ( apply
+  , flippedApply
+  , reduce
+  ) where
 
 import           HelVM.HelMA.Automata.LazyK.Lambda
 

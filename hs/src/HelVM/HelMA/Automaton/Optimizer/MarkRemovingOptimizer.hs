@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automaton.Optimizer.MarkRemovingOptimizer (
-  makrRemoving,
-) where
+module HelVM.HelMA.Automaton.Optimizer.MarkRemovingOptimizer
+  ( makrRemoving
+  ) where
 
 import           HelVM.HelMA.Automaton.Instruction
 

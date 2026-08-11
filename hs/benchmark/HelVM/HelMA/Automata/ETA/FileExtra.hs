@@ -1,9 +1,9 @@
 module HelVM.HelMA.Automata.ETA.FileExtra
-    ( buildAbsoluteEtaFileName
-    , buildAbsoluteExecFileName
-    , options
-    , readEtaFile
-    ) where
+  ( buildAbsoluteEtaFileName
+  , buildAbsoluteExecFileName
+  , options
+  , readEtaFile
+  ) where
 
 import           HelVM.HelMA.Automata.FileExtra
 

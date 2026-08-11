@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.WhiteSpace.ParserSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.FileExtra

@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.LazyK.ParserSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.LazyK.FileExtra
 import           HelVM.HelMA.Automata.LazyK.Parser

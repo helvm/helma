@@ -1,12 +1,12 @@
-module HelVM.HelMA.Automata.WhiteSpace.Parser (
-  parseForTest,
-  flipParseVisible,
-  flipParseWhite,
-  parseVisible,
-  parseWhite,
-  parse,
-  parseFromTL
-) where
+module HelVM.HelMA.Automata.WhiteSpace.Parser
+  ( flipParseVisible
+  , flipParseWhite
+  , parse
+  , parseForTest
+  , parseFromTL
+  , parseVisible
+  , parseWhite
+  ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer

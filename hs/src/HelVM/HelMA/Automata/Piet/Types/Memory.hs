@@ -1,13 +1,13 @@
-module HelVM.HelMA.Automata.Piet.Types.Memory (
-  stepWhitePixel,
-  programMemory,
-  positionMemory,
-  orientationMemory,
-  initialMemory,
-  setInstructionCounter,
-  Memory (..),
-  Stack,
-) where
+module HelVM.HelMA.Automata.Piet.Types.Memory
+  ( Memory (..)
+  , Stack
+  , initialMemory
+  , orientationMemory
+  , positionMemory
+  , programMemory
+  , setInstructionCounter
+  , stepWhitePixel
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates

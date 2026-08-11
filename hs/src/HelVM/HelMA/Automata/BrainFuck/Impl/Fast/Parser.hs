@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser (
-  parseWithOptimizeSafe,
-  parseAsListSafe,
-  parseWithOptimize,
-  parseAsList,
-) where
+module HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser
+  ( parseAsList
+  , parseAsListSafe
+  , parseWithOptimize
+  , parseWithOptimizeSafe
+  ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Instruction
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Optimizer

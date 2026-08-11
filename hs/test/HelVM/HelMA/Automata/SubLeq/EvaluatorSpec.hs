@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.SubLeq.EvaluatorSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.SubLeq.Evaluator
 import           HelVM.HelMA.Automata.SubLeq.FileExtra

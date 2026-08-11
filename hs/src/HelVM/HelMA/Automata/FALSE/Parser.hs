@@ -1,8 +1,8 @@
-module HelVM.HelMA.Automata.FALSE.Parser (
-  parseSafe,
-  parse,
-  charToSimpleInstruction,
-) where
+module HelVM.HelMA.Automata.FALSE.Parser
+  ( charToSimpleInstruction
+  , parse
+  , parseSafe
+  ) where
 
 import           HelVM.HelMA.Automata.FALSE.Expression
 

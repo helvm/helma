@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automaton.Optimizer (
-  optimize,
-  constantFolding,
-) where
+module HelVM.HelMA.Automaton.Optimizer
+  ( constantFolding
+  , optimize
+  ) where
 
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
 

@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.Piet.Combiner.CPU (
-  pietPointer,
-  pietSwitch,
-) where
+module HelVM.HelMA.Automata.Piet.Combiner.CPU
+  ( pietPointer
+  , pietSwitch
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 

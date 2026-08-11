@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.SubLeq.Evaluator (
-  runRio,
-  run,
-  simpleEval,
-  evalParams,
-) where
+module HelVM.HelMA.Automata.SubLeq.Evaluator
+  ( evalParams
+  , run
+  , runRio
+  , simpleEval
+  ) where
 
 import           HelVM.HelMA.Automata.SubLeq.Automaton
 import           HelVM.HelMA.Automata.SubLeq.Lexer

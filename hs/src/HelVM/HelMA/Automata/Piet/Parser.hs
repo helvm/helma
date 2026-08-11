@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.Piet.Parser (
-  processImage,
-) where
+module HelVM.HelMA.Automata.Piet.Parser
+  ( processImage
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Image

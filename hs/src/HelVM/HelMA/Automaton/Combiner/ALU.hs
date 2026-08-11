@@ -1,39 +1,37 @@
-module HelVM.HelMA.Automaton.Combiner.ALU (
-  runALI,
-  runSAL,
-
-  outputCharMaybe,
-  outputDecMaybe,
-
-  outputChar,
-  outputDec,
-  inputChar,
-  inputDec,
-  lNot,
-  divMod,
-  sub,
-  binaryInstruction,
-  binaryInstructions,
-  roll,
-  halibut,
-  move,
-  rollImediate,
-  discard,
-  slide,
-  copy,
-  flipPush1,
-  charPush1,
-  genericPush1,
-  pop1,
-  pop2,
-  push1,
-  push2,
-  splitAt,
-  drop,
-  ALU,
-  SafeStack,
-  Stack,
-) where
+module HelVM.HelMA.Automaton.Combiner.ALU
+  ( ALU
+  , SafeStack
+  , Stack
+  , binaryInstruction
+  , binaryInstructions
+  , charPush1
+  , copy
+  , discard
+  , divMod
+  , drop
+  , flipPush1
+  , genericPush1
+  , halibut
+  , inputChar
+  , inputDec
+  , lNot
+  , move
+  , outputChar
+  , outputCharMaybe
+  , outputDec
+  , outputDecMaybe
+  , pop1
+  , pop2
+  , push1
+  , push2
+  , roll
+  , rollImediate
+  , runALI
+  , runSAL
+  , slide
+  , splitAt
+  , sub
+  ) where
 
 import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 

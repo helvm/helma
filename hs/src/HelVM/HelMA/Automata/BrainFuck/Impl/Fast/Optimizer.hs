@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Optimizer (
-  optimize,
-) where
+module HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Optimizer
+  ( optimize
+  ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Instruction
 

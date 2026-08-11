@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automaton.Eff.GADTEffSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automaton.Eff.GADTEff
 import           HelVM.HelMA.Automaton.Eff.Mock

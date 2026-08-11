@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automaton.Eff.FreeEffSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automaton.Eff.FreeEff
 import           HelVM.HelMA.Automaton.Eff.Mock

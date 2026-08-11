@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.ETA.LexerSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.ETA.Lexer
 import           HelVM.HelMA.Automata.ETA.Parser

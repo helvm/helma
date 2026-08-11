@@ -1,14 +1,14 @@
-module HelVM.HelMA.Automata.BrainFuck.Common.Symbol (
-  inc,
-  compare0,
-  def,
-  next,
-  prev,
-  toInteger,
-  fromChar,
-  toChar,
-  Symbol,
-) where
+module HelVM.HelMA.Automata.BrainFuck.Common.Symbol
+  ( Symbol
+  , compare0
+  , def
+  , fromChar
+  , inc
+  , next
+  , prev
+  , toChar
+  , toInteger
+  ) where
 
 import           Data.Default (Default)
 

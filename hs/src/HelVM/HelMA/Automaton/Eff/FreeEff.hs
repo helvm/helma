@@ -1,10 +1,10 @@
 {-# LANGUAGE DeriveFunctor #-}
-module HelVM.HelMA.Automaton.Eff.FreeEff (
-  interpretFreeEffDebug,
-  interpretFreeEff,
-  FreeEff,
-  FreeEffF(..),
-) where
+module HelVM.HelMA.Automaton.Eff.FreeEff
+  ( FreeEff
+  , FreeEffF (..)
+  , interpretFreeEff
+  , interpretFreeEffDebug
+  ) where
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 

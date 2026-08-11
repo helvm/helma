@@ -1,12 +1,12 @@
 {-# LANGUAGE GADTs      #-}
 {-# LANGUAGE RankNTypes #-}
 
-module HelVM.HelMA.Automaton.Eff.GADTEff (
-  interpretGADTEffDebug,
-  interpretGADTEff,
-  GADTEff,
-  GADTEffF(..),
-) where
+module HelVM.HelMA.Automaton.Eff.GADTEff
+  ( GADTEff
+  , GADTEffF (..)
+  , interpretGADTEff
+  , interpretGADTEffDebug
+  ) where
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 

@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.Zot.Evaluator (
-  runRio,
-  run,
-  evalParams,
-  evalWithFormat,
-) where
+module HelVM.HelMA.Automata.Zot.Evaluator
+  ( evalParams
+  , evalWithFormat
+  , run
+  , runRio
+  ) where
 
 import           HelVM.HelMA.Automata.Zot.Automaton
 import           HelVM.HelMA.Automata.Zot.Expression

@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Evaluator (
-  evalSource,
-) where
+module HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Evaluator
+  ( evalSource
+  ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Instruction
 

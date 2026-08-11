@@ -1,27 +1,22 @@
-module HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols (
-  triAndClearSymbol,
-
-  mulDupAndClearSymbol,
-  dupAndClearSymbol,
-
-  mulAddAndClearSymbol,
-  addAndClearSymbol,
-  subAndClearSymbol,
-
-  setSymbol,
-  incSymbol,
-  nextSymbol,
-  prevSymbol,
-  clearSymbol,
-  writeSymbol,
-
-  moveHead,
-  moveHeadRight,
-  moveHeadLeft,
-
-  newTape,
-  FullTape,
-) where
+module HelVM.HelMA.Automata.BrainFuck.Common.TapeOfSymbols
+  ( FullTape
+  , addAndClearSymbol
+  , clearSymbol
+  , dupAndClearSymbol
+  , incSymbol
+  , moveHead
+  , moveHeadLeft
+  , moveHeadRight
+  , mulAddAndClearSymbol
+  , mulDupAndClearSymbol
+  , newTape
+  , nextSymbol
+  , prevSymbol
+  , setSymbol
+  , subAndClearSymbol
+  , triAndClearSymbol
+  , writeSymbol
+  ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
 

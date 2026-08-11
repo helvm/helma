@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.BrainFuck.ParserSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser as Fast
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser as Flat

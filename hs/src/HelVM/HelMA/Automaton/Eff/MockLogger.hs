@@ -1,13 +1,12 @@
-module HelVM.HelMA.Automaton.Eff.MockLogger (
-  filterLogsWithLevelInfo,
-  filterLogsWithLevelDebug,
-  filterLogsWithLevel,
-  mockLog,
-
-  MonadMockLogger,
-  MockLoggerData,
-  MockLog (..),
-) where
+module HelVM.HelMA.Automaton.Eff.MockLogger
+  ( MockLog (..)
+  , MockLoggerData
+  , MonadMockLogger
+  , filterLogsWithLevel
+  , filterLogsWithLevelDebug
+  , filterLogsWithLevelInfo
+  , mockLog
+  ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 import qualified HelVM.HelMA.Automaton.API.LogLevel as LogLevel

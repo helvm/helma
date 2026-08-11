@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.Zot.Automaton (
-  runExpressionList,
-)  where
+module HelVM.HelMA.Automata.Zot.Automaton
+  ( runExpressionList
+  ) where
 
 import           HelVM.HelMA.Automata.Zot.Expression
 

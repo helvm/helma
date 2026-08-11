@@ -1,8 +1,8 @@
-module HelVM.HelMA.Automata.Piet.Types.DirectionPointer (
-  addCoordinates,
-  rotate,
-  DirectionPointer(..),
-) where
+module HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+  ( DirectionPointer (..)
+  , addCoordinates
+  , rotate
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Extra

@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.WhiteSpace.Evaluator (
-  runRio,
-  run,
-  simpleEval,
-  evalParams,
-) where
+module HelVM.HelMA.Automata.WhiteSpace.Evaluator
+  ( evalParams
+  , run
+  , runRio
+  , simpleEval
+  ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer

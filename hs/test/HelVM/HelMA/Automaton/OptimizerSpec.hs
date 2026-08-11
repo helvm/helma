@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automaton.OptimizerSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors

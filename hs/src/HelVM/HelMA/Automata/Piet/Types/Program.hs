@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.Piet.Types.Program (
-  isBlocked,
-  Program(..),
-) where
+module HelVM.HelMA.Automata.Piet.Types.Program
+  ( Program (..)
+  , isBlocked
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates

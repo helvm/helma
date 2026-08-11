@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.Cat.EvaluatorSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.Cat.Evaluator
 

@@ -1,12 +1,12 @@
 module HelVM.HelMA.Automata.WhiteSpace.FileExtra
-    ( buildAbsoluteExecFileName
-    , buildAbsoluteIlFileName
-    , buildAbsoluteStnFileName
-    , buildAbsoluteWsFileName
-    , options
-    , readStnFile
-    , readWsFile
-    ) where
+  ( buildAbsoluteExecFileName
+  , buildAbsoluteIlFileName
+  , buildAbsoluteStnFileName
+  , buildAbsoluteWsFileName
+  , options
+  , readStnFile
+  , readWsFile
+  ) where
 
 import           HelVM.HelMA.Automata.FileExtra
 

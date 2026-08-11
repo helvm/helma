@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automaton.Optimizer.PeepholeOptimizer (
-  peepholeOptimize,
-) where
+module HelVM.HelMA.Automaton.Optimizer.PeepholeOptimizer
+  ( peepholeOptimize
+  ) where
 
 import           HelVM.HelMA.Automaton.Instruction
 

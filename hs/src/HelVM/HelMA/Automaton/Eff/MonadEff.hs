@@ -1,8 +1,8 @@
-module HelVM.HelMA.Automaton.Eff.MonadEff (
-  AppEff,
-  MonadLoggerEff,
-  MonadEff(..),
-) where
+module HelVM.HelMA.Automaton.Eff.MonadEff
+  ( AppEff
+  , MonadEff (..)
+  , MonadLoggerEff
+  ) where
 
 import           HelVM.HelIO.Control.Safe
 

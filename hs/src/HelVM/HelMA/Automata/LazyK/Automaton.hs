@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.LazyK.Automaton (
-  runAutomat,
-  runWithTerminator,
-  realize,
-  realizeWithTrue,
-) where
+module HelVM.HelMA.Automata.LazyK.Automaton
+  ( realize
+  , realizeWithTrue
+  , runAutomat
+  , runWithTerminator
+  ) where
 
 import           HelVM.HelMA.Automata.LazyK.Constants
 import           HelVM.HelMA.Automata.LazyK.Lambda

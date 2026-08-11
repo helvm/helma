@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automaton.Eff.AutomatonEff (
-  SRAutomatonEff,
-  RAutomatonEff,
-  SAutomatonEff,
-  AutomatonEff,
-) where
+module HelVM.HelMA.Automaton.Eff.AutomatonEff
+  ( AutomatonEff
+  , RAutomatonEff
+  , SAutomatonEff
+  , SRAutomatonEff
+  ) where
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 

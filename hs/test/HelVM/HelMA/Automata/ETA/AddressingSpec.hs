@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.ETA.AddressingSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.ETA.Addressing
 import           HelVM.HelMA.Automata.ETA.Token

@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.Piet.Types.Coordinates (
-  initialCoordinates,
-  Coordinates,
-) where
+module HelVM.HelMA.Automata.Piet.Types.Coordinates
+  ( Coordinates
+  , initialCoordinates
+  ) where
 
 initialCoordinates ∷ Coordinates
 initialCoordinates = (0, 0)

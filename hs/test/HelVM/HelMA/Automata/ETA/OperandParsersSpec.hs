@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.ETA.OperandParsersSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.ETA.OperandParsers
 import           HelVM.HelMA.Automata.ETA.Optimizer

@@ -1,8 +1,8 @@
-module HelVM.HelMA.Automata.Piet.Compiler (
-  compile,
-  label4,
-  label4With,
-) where
+module HelVM.HelMA.Automata.Piet.Compiler
+  ( compile
+  , label4
+  , label4With
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates

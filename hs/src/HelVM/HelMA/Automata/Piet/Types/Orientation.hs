@@ -1,10 +1,10 @@
-module HelVM.HelMA.Automata.Piet.Types.Orientation (
-  rotateDirectionPointer,
-  toggleCodelChooser,
-  rotateToggle,
-  initialOrientation,
-  Orientation(..),
-) where
+module HelVM.HelMA.Automata.Piet.Types.Orientation
+  ( Orientation (..)
+  , initialOrientation
+  , rotateDirectionPointer
+  , rotateToggle
+  , toggleCodelChooser
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates

@@ -1,28 +1,23 @@
 {-# LANGUAGE GeneralisedNewtypeDeriving #-}
 {-# LANGUAGE UnicodeSyntax              #-}
 
-module HelVM.HelMA.Automaton.Eff.Mock (
-  ioExecMockEffBatch,
-  ioExecMockEffWithInput,
-
-  safeExecMockEffBatch,
-  safeExecMockEffWithInput,
-
-  execMockEffBatch,
-  execMockEffWithInput,
-
-  runMockEff,
-  createMockEffData,
-  calculateOutput,
-
-  calculateLogsWithLevelInfo,
-  calculateLogsWithLevelDebug,
-
-  Mock (..),
-  MockEffData,
-  MockLoggerData,
-  MockLog (..),
-) where
+module HelVM.HelMA.Automaton.Eff.Mock
+  ( Mock (..)
+  , MockEffData
+  , MockLog (..)
+  , MockLoggerData
+  , calculateLogsWithLevelDebug
+  , calculateLogsWithLevelInfo
+  , calculateOutput
+  , createMockEffData
+  , execMockEffBatch
+  , execMockEffWithInput
+  , ioExecMockEffBatch
+  , ioExecMockEffWithInput
+  , runMockEff
+  , safeExecMockEffBatch
+  , safeExecMockEffWithInput
+  ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 

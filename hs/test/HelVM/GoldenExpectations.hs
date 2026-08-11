@@ -1,11 +1,11 @@
 module HelVM.GoldenExpectations
-    ( (<->)
-    , goldenShouldBe
-    , goldenShouldControlT
-    , goldenShouldIO
-    , goldenShouldSafe
-    , goldenShouldSafeT
-    ) where
+  ( goldenShouldBe
+  , goldenShouldControlT
+  , goldenShouldIO
+  , goldenShouldSafe
+  , goldenShouldSafeT
+  , (<->)
+  ) where
 
 import           HelVM.HelIO.Control.Control
 import           HelVM.HelIO.Control.Safe

@@ -1,9 +1,9 @@
 module HelVM.HelMA.Automata.SubLeq.FileExtra
-    ( buildAbsoluteSqFileName
-    , buildAbsoluteSqLogFileName
-    , buildAbsoluteSqOutFileName
-    , readSqFile
-    ) where
+  ( buildAbsoluteSqFileName
+  , buildAbsoluteSqLogFileName
+  , buildAbsoluteSqOutFileName
+  , readSqFile
+  ) where
 
 import           HelVM.HelMA.Automata.FileExtra
 

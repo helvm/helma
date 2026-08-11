@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.LazyK.Parser (
-  parse,
-) where
+module HelVM.HelMA.Automata.LazyK.Parser
+  ( parse
+  ) where
 
 import           HelVM.HelMA.Automata.LazyK.Lambda
 import           HelVM.HelMA.Automata.LazyK.Lexer

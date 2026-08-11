@@ -1,22 +1,22 @@
-module HelVM.HelMA.Automata.Piet.Combiner.ALU (
-  -- | I/O Instructions
-  pietInNumber,
-  pietInChar,
-  pietOutNumber,
-  pietOutChar,
-  -- | Stack & Arithmetic Instructions
-  pietPush,
-  pietPop,
-  pietAdd,
-  pietSubtract,
-  pietMultiply,
-  pietDivide,
-  pietMod,
-  pietNot,
-  pietGreater,
-  pietDuplicate,
-  pietRoll,
-) where
+module HelVM.HelMA.Automata.Piet.Combiner.ALU
+  ( -- | I/O Instructions
+    pietInChar
+  , pietInNumber
+  , pietOutChar
+  , pietOutNumber
+    -- | Stack & Arithmetic Instructions
+  , pietAdd
+  , pietDivide
+  , pietDuplicate
+  , pietGreater
+  , pietMod
+  , pietMultiply
+  , pietNot
+  , pietPop
+  , pietPush
+  , pietRoll
+  , pietSubtract
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Memory

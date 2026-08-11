@@ -1,10 +1,10 @@
-module HelVM.HelMA.Automata.Piet.Types.Label (
-  labelSize,
-  addPixel,
-  LabelKey,
-  LabelInfo(..),
-  LabelBorder(..),
-) where
+module HelVM.HelMA.Automata.Piet.Types.Label
+  ( LabelBorder (..)
+  , LabelInfo (..)
+  , LabelKey
+  , addPixel
+  , labelSize
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 

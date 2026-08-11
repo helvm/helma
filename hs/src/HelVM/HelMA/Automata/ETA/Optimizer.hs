@@ -1,7 +1,6 @@
-module HelVM.HelMA.Automata.ETA.Optimizer (
-  optimize,
-)
-where
+module HelVM.HelMA.Automata.ETA.Optimizer
+  ( optimize
+  ) where
 
 import           HelVM.HelMA.Automata.ETA.OperandParsers
 import           HelVM.HelMA.Automata.ETA.Token

@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.Piet.EvaluatorSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Evaluator
 import           HelVM.HelMA.Automata.Piet.FileExtra

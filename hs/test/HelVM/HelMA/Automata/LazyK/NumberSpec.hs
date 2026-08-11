@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.LazyK.NumberSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.LazyK.InputEncoder
 

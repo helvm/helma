@@ -1,12 +1,12 @@
-module HelVM.HelMA.Automata.Piet.Types.InstructionMemory (
-  logWithPosition,
-  codelChooserIM,
-  directionPointerIM,
-  toggleCodelChooserIM,
-  rotateDirectionPointerIM,
-  initialInstructionMemory,
-  InstructionMemory(..),
-) where
+module HelVM.HelMA.Automata.Piet.Types.InstructionMemory
+  ( InstructionMemory (..)
+  , codelChooserIM
+  , directionPointerIM
+  , initialInstructionMemory
+  , logWithPosition
+  , rotateDirectionPointerIM
+  , toggleCodelChooserIM
+  ) where
 
 
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer

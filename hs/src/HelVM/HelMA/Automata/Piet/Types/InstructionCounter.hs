@@ -1,11 +1,11 @@
-module HelVM.HelMA.Automata.Piet.Types.InstructionCounter (
-  directionPointerIC,
-  codelChooserIC,
-  rotateDirectionPointerIC,
-  toggleCodelChooserIC,
-  initialInstructionCounter,
-  InstructionCounter(..),
-) where
+module HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+  ( InstructionCounter (..)
+  , codelChooserIC
+  , directionPointerIC
+  , initialInstructionCounter
+  , rotateDirectionPointerIC
+  , toggleCodelChooserIC
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates

@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.Zot.Parser (
-  parse,
-) where
+module HelVM.HelMA.Automata.Zot.Parser
+  ( parse
+  ) where
 
 import           HelVM.HelMA.Automata.Zot.Expression
 

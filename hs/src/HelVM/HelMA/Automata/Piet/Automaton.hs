@@ -1,10 +1,10 @@
-module HelVM.HelMA.Automata.Piet.Automaton (
-  interpret,
-  nonBlackSucc,
-  succCoordinates,
-  colors2Command,
-  colorDiff2Command,
-) where
+module HelVM.HelMA.Automata.Piet.Automaton
+  ( colorDiff2Command
+  , colors2Command
+  , interpret
+  , nonBlackSucc
+  , succCoordinates
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 

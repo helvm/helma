@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.ETA.Automaton (
-  runAutomat,
-  newMemory,
-) where
+module HelVM.HelMA.Automata.ETA.Automaton
+  ( newMemory
+  , runAutomat
+  ) where
 
 import           HelVM.HelMA.Automata.ETA.Addressing
 import           HelVM.HelMA.Automata.ETA.OperandParsers

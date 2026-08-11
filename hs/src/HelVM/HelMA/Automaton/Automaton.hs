@@ -1,8 +1,8 @@
-module HelVM.HelMA.Automaton.Automaton (
-  start,
-  runAndDumpLogs,
-  runAutomat,
-) where
+module HelVM.HelMA.Automaton.Automaton
+  ( runAndDumpLogs
+  , runAutomat
+  , start
+  ) where
 
 import           HelVM.HelMA.Automaton.API.AutomatonOptions
 import           HelVM.HelMA.Automaton.API.AutoOptions

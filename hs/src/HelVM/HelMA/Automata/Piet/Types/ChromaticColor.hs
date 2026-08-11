@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.Piet.Types.ChromaticColor (
-    diffColor,
-    ChromaticColor(..),
-) where
+module HelVM.HelMA.Automata.Piet.Types.ChromaticColor
+  ( ChromaticColor (..)
+  , diffColor
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Brightness
 import           HelVM.HelMA.Automata.Piet.Types.Hue

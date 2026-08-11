@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.FileExtra
-    ( options
-    , readSourceFile
-    ) where
+  ( options
+  , readSourceFile
+  ) where
 
 import           HelVM.HelIO.Extra
 

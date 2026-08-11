@@ -1,8 +1,8 @@
 module HelVM.HelMA.Automata.BrainFuck.FileExtra
-    ( readBfFile
-    , buildAbsoluteExecFileName
-    , options
-    ) where
+  ( buildAbsoluteExecFileName
+  , options
+  , readBfFile
+  ) where
 
 import           HelVM.HelMA.Automata.FileExtra
 

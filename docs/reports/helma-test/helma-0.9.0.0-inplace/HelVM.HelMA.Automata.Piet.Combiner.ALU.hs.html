@@ -17,25 +17,25 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Combiner.ALU (
-<span class="lineno">    2 </span>  -- | I/O Instructions
-<span class="lineno">    3 </span>  pietInNumber,
-<span class="lineno">    4 </span>  pietInChar,
-<span class="lineno">    5 </span>  pietOutNumber,
-<span class="lineno">    6 </span>  pietOutChar,
-<span class="lineno">    7 </span>  -- | Stack &amp; Arithmetic Instructions
-<span class="lineno">    8 </span>  pietPush,
-<span class="lineno">    9 </span>  pietPop,
-<span class="lineno">   10 </span>  pietAdd,
-<span class="lineno">   11 </span>  pietSubtract,
-<span class="lineno">   12 </span>  pietMultiply,
-<span class="lineno">   13 </span>  pietDivide,
-<span class="lineno">   14 </span>  pietMod,
-<span class="lineno">   15 </span>  pietNot,
-<span class="lineno">   16 </span>  pietGreater,
-<span class="lineno">   17 </span>  pietDuplicate,
-<span class="lineno">   18 </span>  pietRoll,
-<span class="lineno">   19 </span>) where
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Combiner.ALU
+<span class="lineno">    2 </span>  ( -- | I/O Instructions
+<span class="lineno">    3 </span>    pietInChar
+<span class="lineno">    4 </span>  , pietInNumber
+<span class="lineno">    5 </span>  , pietOutChar
+<span class="lineno">    6 </span>  , pietOutNumber
+<span class="lineno">    7 </span>    -- | Stack &amp; Arithmetic Instructions
+<span class="lineno">    8 </span>  , pietAdd
+<span class="lineno">    9 </span>  , pietDivide
+<span class="lineno">   10 </span>  , pietDuplicate
+<span class="lineno">   11 </span>  , pietGreater
+<span class="lineno">   12 </span>  , pietMod
+<span class="lineno">   13 </span>  , pietMultiply
+<span class="lineno">   14 </span>  , pietNot
+<span class="lineno">   15 </span>  , pietPop
+<span class="lineno">   16 </span>  , pietPush
+<span class="lineno">   17 </span>  , pietRoll
+<span class="lineno">   18 </span>  , pietSubtract
+<span class="lineno">   19 </span>  ) where
 <span class="lineno">   20 </span>
 <span class="lineno">   21 </span>import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 <span class="lineno">   22 </span>import           HelVM.HelMA.Automata.Piet.Types.Memory

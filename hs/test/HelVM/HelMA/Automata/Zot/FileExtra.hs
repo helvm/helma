@@ -1,12 +1,12 @@
 module HelVM.HelMA.Automata.Zot.FileExtra
-    ( binaryOnly
-    , buildAbsoluteZotFileName
-    , buildAbsoluteZotLogFileName
-    , buildAbsoluteZotOutFileName
-    , options
-    , readZotFile
-    , showAscii
-    ) where
+  ( binaryOnly
+  , buildAbsoluteZotFileName
+  , buildAbsoluteZotLogFileName
+  , buildAbsoluteZotOutFileName
+  , options
+  , readZotFile
+  , showAscii
+  ) where
 
 import           HelVM.HelMA.Automata.FileExtra
 

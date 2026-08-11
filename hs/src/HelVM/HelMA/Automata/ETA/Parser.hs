@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.ETA.Parser (
-  parseSafe,
-  parse,
-) where
+module HelVM.HelMA.Automata.ETA.Parser
+  ( parse
+  , parseSafe
+  ) where
 
 import           HelVM.HelMA.Automata.ETA.Lexer
 import           HelVM.HelMA.Automata.ETA.Optimizer

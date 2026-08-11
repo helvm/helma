@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.Piet.Types.Hue (
-  hueChange,
-  Hue(..),
-) where
+module HelVM.HelMA.Automata.Piet.Types.Hue
+  ( Hue (..)
+  , hueChange
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Extra
 

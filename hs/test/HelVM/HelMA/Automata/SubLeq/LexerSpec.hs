@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.SubLeq.LexerSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.SubLeq.FileExtra
 import           HelVM.HelMA.Automata.SubLeq.Lexer

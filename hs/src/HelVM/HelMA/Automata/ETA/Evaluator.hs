@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.ETA.Evaluator (
-  runRio,
-  run,
-  simpleEval,
-  evalParams,
-) where
+module HelVM.HelMA.Automata.ETA.Evaluator
+  ( evalParams
+  , run
+  , runRio
+  , simpleEval
+  ) where
 
 import           HelVM.HelMA.Automata.ETA.API.AutomatonType
 

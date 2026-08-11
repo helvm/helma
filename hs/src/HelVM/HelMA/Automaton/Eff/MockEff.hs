@@ -1,21 +1,19 @@
-module HelVM.HelMA.Automaton.Eff.MockEff (
-  mockGetContentsBS,
-  mockGetContentsText,
-  mockGetContents,
-  mockGetChar,
-  mockGetLine,
-  mockGetCharSafe,
-  mockGetLineSafe,
-  mockPutChar,
-  mockPutLine,
-
-  createMockEffData,
-  reverseOutput,
-
-  MonadMockEff,
-  MonadSafeMockEff,
-  MockEffData (..),
-) where
+module HelVM.HelMA.Automaton.Eff.MockEff
+  ( MockEffData (..)
+  , MonadMockEff
+  , MonadSafeMockEff
+  , createMockEffData
+  , mockGetChar
+  , mockGetCharSafe
+  , mockGetContents
+  , mockGetContentsBS
+  , mockGetContentsText
+  , mockGetLine
+  , mockGetLineSafe
+  , mockPutChar
+  , mockPutLine
+  , reverseOutput
+  ) where
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 

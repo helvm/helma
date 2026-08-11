@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.Evaluator

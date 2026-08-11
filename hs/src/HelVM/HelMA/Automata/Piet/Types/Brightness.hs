@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.Piet.Types.Brightness (
-  brightnessChange,
-  Brightness(..),
-) where
+module HelVM.HelMA.Automata.Piet.Types.Brightness
+  ( Brightness (..)
+  , brightnessChange
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Extra
 

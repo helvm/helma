@@ -2,11 +2,11 @@
 {-# LANGUAGE RankNTypes   #-}
 
 module Slow
-    ( configure
-    , timeThese
-    , timedHspec
-    , timedHspecParallel
-    ) where
+  ( configure
+  , timeThese
+  , timedHspec
+  , timedHspecParallel
+  ) where
 
 import           Control.Concurrent.STM.TVar hiding (newTVarIO, readTVarIO)
 import           Data.Time.Clock

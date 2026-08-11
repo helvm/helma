@@ -1,10 +1,10 @@
-module HelVM.HelMA.Automata.LazyK.Evaluator (
-  runRio,
-  run,
-  evalParams,
-  evalSource,
-  reduceSource,
-) where
+module HelVM.HelMA.Automata.LazyK.Evaluator
+  ( evalParams
+  , evalSource
+  , reduceSource
+  , run
+  , runRio
+  ) where
 
 import           HelVM.HelMA.Automata.LazyK.Automaton
 import           HelVM.HelMA.Automata.LazyK.InputEncoder

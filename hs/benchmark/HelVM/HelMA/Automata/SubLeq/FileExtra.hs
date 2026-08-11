@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.SubLeq.FileExtra
-    ( buildAbsoluteExecFileName
-    , readSqFile
-    ) where
+  ( buildAbsoluteExecFileName
+  , readSqFile
+  ) where
 
 import           HelVM.HelMA.Automata.FileExtra
 

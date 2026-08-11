@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.SubLeq.Automaton (
-  newMemory,
-  runAutomat,
-) where
+module HelVM.HelMA.Automata.SubLeq.Automaton
+  ( newMemory
+  , runAutomat
+  ) where
 
 import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 import           HelVM.HelMA.Automaton.Eff.MonadEff

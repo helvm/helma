@@ -1,17 +1,17 @@
 module HelVM.HelMA.Automata.WhiteSpace.FileExtra
-    ( buildAbsoluteStnFileName
-    , buildAbsoluteTokenFileName
-    , buildAbsoluteWsFileName
-    , buildAbsoluteWsIlFileName
-    , buildAbsoluteWsLogFileName
-    , buildAbsoluteWsOutFileName
-    , options
-    , readExtFile
-    , readFileByTokenType
-    , readStnFile
-    , readWsFile
-    , tokenTypeToExt
-    ) where
+  ( buildAbsoluteStnFileName
+  , buildAbsoluteTokenFileName
+  , buildAbsoluteWsFileName
+  , buildAbsoluteWsIlFileName
+  , buildAbsoluteWsLogFileName
+  , buildAbsoluteWsOutFileName
+  , options
+  , readExtFile
+  , readFileByTokenType
+  , readStnFile
+  , readWsFile
+  , tokenTypeToExt
+  ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 

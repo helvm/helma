@@ -1,12 +1,12 @@
 module HelVM.Expectations
-    ( ioShouldBe
-    , ioShouldSafe
-    , shouldBeDo
-    , shouldControlT
-    , shouldSafe
-    , shouldSafeIO
-    , shouldSafeT
-    ) where
+  ( ioShouldBe
+  , ioShouldSafe
+  , shouldBeDo
+  , shouldControlT
+  , shouldSafe
+  , shouldSafeIO
+  , shouldSafeT
+  ) where
 
 import           HelVM.HelIO.Control.Control
 import           HelVM.HelIO.Control.Safe

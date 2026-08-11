@@ -1,8 +1,8 @@
-module HelVM.HelMA.Automata.Piet.Evaluator (
-  runRio,
-  run,
-  simpleEval,
-) where
+module HelVM.HelMA.Automata.Piet.Evaluator
+  ( run
+  , runRio
+  , simpleEval
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Automaton
 import           HelVM.HelMA.Automata.Piet.Compiler

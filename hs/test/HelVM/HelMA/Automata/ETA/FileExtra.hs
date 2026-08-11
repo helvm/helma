@@ -1,13 +1,13 @@
 module HelVM.HelMA.Automata.ETA.FileExtra
-    ( buildAbsoluteEtaFileName
-    , buildAbsoluteEtaIlFileName
-    , buildAbsoluteEtaLogFileName
-    , buildAbsoluteEtaOutFileName
-    , buildAbsoluteMinifiedEtaFileName
-    , options
-    , readEtaFile
-    , showCompile
-    ) where
+  ( buildAbsoluteEtaFileName
+  , buildAbsoluteEtaIlFileName
+  , buildAbsoluteEtaLogFileName
+  , buildAbsoluteEtaOutFileName
+  , buildAbsoluteMinifiedEtaFileName
+  , options
+  , readEtaFile
+  , showCompile
+  ) where
 
 import           HelVM.HelMA.Automata.FileExtra
 

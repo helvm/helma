@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automaton.Optimizer.ConstantFoldingOptimizer (
-  constantFolding,
-) where
+module HelVM.HelMA.Automaton.Optimizer.ConstantFoldingOptimizer
+  ( constantFolding
+  ) where
 
 import           HelVM.HelMA.Automaton.Combiner.ALU
 

@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automaton.Optimizer.DeadCodeOptimizer (
-  deadCodeElimination,
-) where
+module HelVM.HelMA.Automaton.Optimizer.DeadCodeOptimizer
+  ( deadCodeElimination
+  ) where
 
 import           HelVM.HelMA.Automaton.Instruction
 

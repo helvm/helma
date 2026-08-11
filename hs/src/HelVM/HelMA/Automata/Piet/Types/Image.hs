@@ -1,12 +1,12 @@
-module HelVM.HelMA.Automata.Piet.Types.Image (
-  witdthImage,
-  heightImage,
-  inRangeImage,
-  pixelImage,
-  setPixelImage,
-  newImage,
-  Image(..),
-) where
+module HelVM.HelMA.Automata.Piet.Types.Image
+  ( Image (..)
+  , heightImage
+  , inRangeImage
+  , newImage
+  , pixelImage
+  , setPixelImage
+  , witdthImage
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 

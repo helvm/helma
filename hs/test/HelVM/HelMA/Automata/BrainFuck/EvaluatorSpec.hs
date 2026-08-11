@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Evaluator
 import           HelVM.HelMA.Automata.BrainFuck.FileExtra

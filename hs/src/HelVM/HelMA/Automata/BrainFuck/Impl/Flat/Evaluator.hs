@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Evaluator(
-  evalSource,
-) where
+module HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Evaluator
+  ( evalSource
+  ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Instruction
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser

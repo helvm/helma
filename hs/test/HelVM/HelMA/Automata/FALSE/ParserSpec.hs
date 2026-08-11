@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.FALSE.ParserSpec
-    ( spec
-    ) where
+  ( spec
+  ) where
 
 import           HelVM.HelMA.Automata.FALSE.FileExtra
 import           HelVM.HelMA.Automata.FALSE.Parser

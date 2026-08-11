@@ -1,7 +1,7 @@
-module HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser (
-  parseAsVectorSafe,
-  parseAsVector,
-) where
+module HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser
+  ( parseAsVector
+  , parseAsVectorSafe
+  ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Instruction    as Tree
 

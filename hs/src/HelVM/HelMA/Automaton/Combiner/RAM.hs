@@ -1,13 +1,13 @@
-module HelVM.HelMA.Automaton.Combiner.RAM (
-  genericLoad,
-  load,
-  flippedStoreChar,
-  storeChar,
-  genericStore,
-  store,
-  fromList,
-  RAM,
-) where
+module HelVM.HelMA.Automaton.Combiner.RAM
+  ( RAM
+  , flippedStoreChar
+  , fromList
+  , genericLoad
+  , genericStore
+  , load
+  , store
+  , storeChar
+  ) where
 
 import           HelVM.HelIO.Containers.LLIndexSafe
 import           HelVM.HelIO.Containers.LLInsertDef

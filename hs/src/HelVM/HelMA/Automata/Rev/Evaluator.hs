@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.Rev.Evaluator (
-  runRio,
-  run,
-  evalParams,
-  eval,
-) where
+module HelVM.HelMA.Automata.Rev.Evaluator
+  ( eval
+  , evalParams
+  , run
+  , runRio
+  ) where
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions as App
 import           HelVM.HelMA.Automaton.API.Emit

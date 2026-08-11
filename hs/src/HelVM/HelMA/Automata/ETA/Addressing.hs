@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.ETA.Addressing (
-  genericFindAddress,
-  findAddress,
-  genericNextLabel,
-  nextLabel
-) where
+module HelVM.HelMA.Automata.ETA.Addressing
+  ( findAddress
+  , genericFindAddress
+  , genericNextLabel
+  , nextLabel
+  ) where
 
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token

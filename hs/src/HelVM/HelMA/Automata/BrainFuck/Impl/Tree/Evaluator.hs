@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Evaluator (
-  evalSource,
-) where
+module HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Evaluator
+  ( evalSource
+  ) where
 
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Instruction
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser
