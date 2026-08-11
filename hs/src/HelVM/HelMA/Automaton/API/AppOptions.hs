@@ -41,7 +41,6 @@ data AppOptions
       , cellType         :: !CellType
       , intCellType      :: !IntCellType
       , dumpType         :: !DumpType
-      , codelSize        :: !(Maybe Int)
       , exec             :: !Exec
       , langCommand      :: !API.LangCommand
       , file             :: !FilePath

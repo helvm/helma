@@ -77,11 +77,6 @@ optionsParser = AppOptions
                    <> value    defaultDumpType
                    <> showDefault
                    )
-  <*> optional (option auto
-      (  long "codels"
-      <> short 'c'
-      <> metavar "LENGTH"
-      <> help "codel length (the codel size will be LENGTH^2)" ))
   <*> switch       (  long    "eval"
                    <> short   'e'
                    <> help    "Exec"
