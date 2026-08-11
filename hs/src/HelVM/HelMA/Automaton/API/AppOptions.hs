@@ -32,7 +32,6 @@ autoOptions o = API.AutoOptions (API.fromBool $ optimizationFlag o) Nothing (dum
 
 data AppOptions = AppOptions
   { emit             :: !Emit
-  , printLogs        :: !PrintLogs
   , verbosity        :: !LogLevel
 
   , optimizationFlag :: !Optimization

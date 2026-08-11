@@ -28,11 +28,6 @@ optionsParser = AppOptions
                    <> value    defaultEmit
                    <> showDefault
                    )
-  <*> switch       (  long    "print-logs"
-                   <> short   'L'
-                   <> help    "Pring logs to strerr"
-                   <> showDefault
-                   )
   <*> option auto  (  long    "verbosity"
                    <> short   'v'
                    <> metavar "[LogLevel]"
