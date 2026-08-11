@@ -1,17 +1,14 @@
 module HelVM.HelMA.Automaton.API.OptimizationLevel where
 
-import           HelVM.HelIO.SwitchEnum
-
-import           HelVM.HelIO.Containers.LLIndexSafe
+import           HelVM.HelIO.Containers.MTIndexSafe
 
 -- | Constructors
 
---TODO to remove
-fromBool ∷ Bool → OptimizationLevel
-fromBool = enumFromBool
-
 fromNatural ∷ Natural → OptimizationLevel
-fromNatural = fromMaybe AllOptimizations . indexMaybe (toList optimizationLevels) . fromIntegral
+fromNatural = fromInt . fromIntegral
+
+fromInt ∷ Int → OptimizationLevel
+fromInt = fromMaybe maxBound . indexMaybe (toList optimizationLevels)
 
 defaultOptimizationLevel ∷ OptimizationLevel
 defaultOptimizationLevel = minBound

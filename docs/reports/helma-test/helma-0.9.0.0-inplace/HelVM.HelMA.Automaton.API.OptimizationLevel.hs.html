@@ -19,33 +19,30 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automaton.API.OptimizationLevel where
 <span class="lineno">    2 </span>
-<span class="lineno">    3 </span>import           HelVM.HelIO.SwitchEnum
+<span class="lineno">    3 </span>import           HelVM.HelIO.Containers.MTIndexSafe
 <span class="lineno">    4 </span>
-<span class="lineno">    5 </span>import           HelVM.HelIO.Containers.LLIndexSafe
+<span class="lineno">    5 </span>-- | Constructors
 <span class="lineno">    6 </span>
-<span class="lineno">    7 </span>-- | Constructors
-<span class="lineno">    8 </span>
-<span class="lineno">    9 </span>--TODO to remove
-<span class="lineno">   10 </span>fromBool ∷ Bool → OptimizationLevel
-<span class="lineno">   11 </span><span class="decl"><span class="nottickedoff">fromBool = enumFromBool</span></span>
+<span class="lineno">    7 </span>fromNatural ∷ Natural → OptimizationLevel
+<span class="lineno">    8 </span><span class="decl"><span class="nottickedoff">fromNatural = fromInt . fromIntegral</span></span>
+<span class="lineno">    9 </span>
+<span class="lineno">   10 </span>fromInt ∷ Int → OptimizationLevel
+<span class="lineno">   11 </span><span class="decl"><span class="nottickedoff">fromInt = fromMaybe maxBound . indexMaybe (toList optimizationLevels)</span></span>
 <span class="lineno">   12 </span>
-<span class="lineno">   13 </span>fromNatural ∷ Natural → OptimizationLevel
-<span class="lineno">   14 </span><span class="decl"><span class="nottickedoff">fromNatural = fromMaybe AllOptimizations . indexMaybe (toList optimizationLevels) . fromIntegral</span></span>
+<span class="lineno">   13 </span>defaultOptimizationLevel ∷ OptimizationLevel
+<span class="lineno">   14 </span><span class="decl"><span class="nottickedoff">defaultOptimizationLevel = minBound</span></span>
 <span class="lineno">   15 </span>
-<span class="lineno">   16 </span>defaultOptimizationLevel ∷ OptimizationLevel
-<span class="lineno">   17 </span><span class="decl"><span class="nottickedoff">defaultOptimizationLevel = minBound</span></span>
+<span class="lineno">   16 </span>optimizationLevels ∷ NonEmpty OptimizationLevel
+<span class="lineno">   17 </span><span class="decl"><span class="nottickedoff">optimizationLevels = universeNonEmpty</span></span>
 <span class="lineno">   18 </span>
-<span class="lineno">   19 </span>optimizationLevels ∷ NonEmpty OptimizationLevel
-<span class="lineno">   20 </span><span class="decl"><span class="nottickedoff">optimizationLevels = universeNonEmpty</span></span>
-<span class="lineno">   21 </span>
-<span class="lineno">   22 </span>-- | Types
-<span class="lineno">   23 </span>
-<span class="lineno">   24 </span>data OptimizationLevel
-<span class="lineno">   25 </span>  = NoOptimizations
-<span class="lineno">   26 </span>  | BasicOptimizations
-<span class="lineno">   27 </span>  | SomeOptimizations
-<span class="lineno">   28 </span>  | AllOptimizations
-<span class="lineno">   29 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   19 </span>-- | Types
+<span class="lineno">   20 </span>
+<span class="lineno">   21 </span>data OptimizationLevel
+<span class="lineno">   22 </span>  = NoOptimizations
+<span class="lineno">   23 </span>  | BasicOptimizations
+<span class="lineno">   24 </span>  | SomeOptimizations
+<span class="lineno">   25 </span>  | AllOptimizations
+<span class="lineno">   26 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

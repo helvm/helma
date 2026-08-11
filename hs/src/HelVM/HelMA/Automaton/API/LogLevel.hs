@@ -1,17 +1,15 @@
 module HelVM.HelMA.Automaton.API.LogLevel where
 
-import qualified Control.Monad.Logger as Logger
+import qualified Control.Monad.Logger               as Logger
 
 import qualified RIO
 
 import           Data.Default
 
-import qualified Relude.Extra         as Extra
+import           HelVM.HelIO.Containers.MTIndexSafe
 
 logLevelFromCount ∷ Int → LogLevel
-logLevelFromCount n = fromMaybe maxBound $ Extra.safeToEnum $ min maxL (minL + n) where
-    minL = fromEnum (minBound :: LogLevel)
-    maxL = fromEnum (maxBound :: LogLevel)
+logLevelFromCount = fromMaybe maxBound . indexMaybe (toList logLevels)
 
 showEitherTextLogLevel ∷ Either Text LogLevel → Text
 showEitherTextLogLevel (Right l) = show l
