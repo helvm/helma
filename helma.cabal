@@ -292,8 +292,9 @@ library
     , free
     , IfElse
     , ilist
-    , lens
     , ListLike
+    , microlens
+    , microlens-th
     , monad-logger
     , monad-loops
     , natural-transformation
