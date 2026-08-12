@@ -1,14 +1,14 @@
-module HelVM.HelMA.Automata.Piet.Types.Brightness
-  ( Brightness (..)
+module HelVM.HelMA.Automata.Piet.Types.Lightness
+  ( Lightness (..)
   , brightnessChange
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Extra
 
-brightnessChange ∷ Brightness → Brightness → Brightness
+brightnessChange ∷ Lightness → Lightness → Lightness
 brightnessChange = changeDiff 3
 
-data Brightness
+data Lightness
   = Light
   | Normal
   | Dark

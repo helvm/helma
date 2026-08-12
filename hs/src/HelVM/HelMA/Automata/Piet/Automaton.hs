@@ -12,7 +12,6 @@ import           HelVM.HelMA.Automata.Piet.Combiner.ALU
 import           HelVM.HelMA.Automata.Piet.Combiner.CPU
 
 
-import           HelVM.HelMA.Automata.Piet.Types.Brightness
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -22,6 +21,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
 import           HelVM.HelMA.Automata.Piet.Types.Label
+import           HelVM.HelMA.Automata.Piet.Types.Lightness
 import           HelVM.HelMA.Automata.Piet.Types.Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
 

@@ -3,9 +3,9 @@ module HelVM.HelMA.Automata.Piet.Types.Color
   , rgb2Color
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Types.Brightness
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Hue
+import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 rgb2Color ∷ (Num w, Eq w) ⇒ w → w → w → Color
 rgb2Color 0x00 0x00 0x00 = Black

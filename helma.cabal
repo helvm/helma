@@ -242,8 +242,9 @@ library
     HelVM.HelMA.Automata.Piet.Combiner.CPU
 
     HelVM.HelMA.Automata.Piet.LLVM.Codel
+    HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
-    HelVM.HelMA.Automata.Piet.Types.Brightness
+    HelVM.HelMA.Automata.Piet.Types.Lightness
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
     HelVM.HelMA.Automata.Piet.Types.CodelChooser
     HelVM.HelMA.Automata.Piet.Types.Color

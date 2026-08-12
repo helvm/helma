@@ -3,12 +3,12 @@ module HelVM.HelMA.Automata.Piet.Types.ChromaticColor
   , diffColor
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Types.Brightness
 import           HelVM.HelMA.Automata.Piet.Types.Hue
+import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 diffColor ∷ ChromaticColor → ChromaticColor → ChromaticColor
 diffColor (ChromaticColor fromLight fromColor) (ChromaticColor toLight toColor) = ChromaticColor (brightnessChange fromLight toLight) (hueChange fromColor toColor)
 
 data ChromaticColor
-  = ChromaticColor !Brightness !Hue
+  = ChromaticColor !Lightness !Hue
   deriving stock (Eq, Ord, Read, Show)
