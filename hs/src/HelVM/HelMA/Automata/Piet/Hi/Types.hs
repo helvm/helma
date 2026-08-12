@@ -10,6 +10,7 @@ module HelVM.HelMA.Automata.Piet.Hi.Types
   , Hue (..)
   , Instruction (..)
   , Piet
+  , PietT
   , Position
   , Program
   , ProgramConfig (..)
@@ -45,20 +46,14 @@ module HelVM.HelMA.Automata.Piet.Hi.Types
   , switch
   ) where
 
-
--- import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
--- import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Hue
-
 
 import           Control.Monad.Free
 import qualified Data.Vector                                 as V
 import           Lens.Micro.TH
-import qualified Text.Show
 
 import qualified RIO
-
 
 data DirectionPointer
   = DLeft
@@ -142,7 +137,11 @@ data Instruction r
 
 type Program = Free Instruction ()
 
-type Piet = ReaderT ProgramConfig (StateT ProgramState IO)
+-- Transformer PietT zaimplementowany nad abstrakcyjną monadą m
+type PietT m = ReaderT ProgramConfig (StateT ProgramState m)
+
+-- Alias dla wstecznej kompatybilności z IO
+type Piet = PietT IO
 
 initialState ∷ ProgramState
 initialState = ProgramState {
@@ -153,7 +152,8 @@ initialState = ProgramState {
     _collisionCount = 0
   }
 
-runPiet ∷ ProgramConfig → ProgramState → Piet a → IO (a, ProgramState)
+-- Uogólniony runPiet przyjmujący dowolną monadę m
+runPiet ∷ ProgramConfig → ProgramState → PietT m a → m (a, ProgramState)
 runPiet conf s c = runStateT (runReaderT c conf) s
 
 push ∷ MonadFree Instruction m ⇒ Int → m ()

@@ -4,30 +4,40 @@
 {-# LANGUAGE TemplateHaskell            #-}
 module HelVM.HelMA.Automata.Piet.Hi.Main where
 
-import           HelVM.HelIO.ReadText
 import           HelVM.HelMA.Automata.Piet.Hi.Types
 
-import           Codec.Picture
+import           HelVM.HelMA.Automaton.API.AppOptions as App
+import           HelVM.HelMA.Automaton.API.Env
+import           HelVM.HelMA.Automaton.Eff.MonadEff
+import           HelVM.HelMA.Automaton.Extra
+
+import           HelVM.HelIO.Control.Safe
+import           HelVM.HelIO.ReadText
+
+import qualified Codec.Picture                        as Picture
 import           Control.Monad.Free
+import           Control.Monad.Logger
 import           Control.Monad.Trans.Except
 
-import qualified Data.List                          as L
+import qualified Data.List                            as L
 import           Data.Maybe
-import qualified Data.Set                           as S
-import           Data.Vector                        ( (!) )
-import qualified Data.Vector                        as V
+import qualified Data.Set                             as S
+import           Data.Vector                          ( (!) )
+import qualified Data.Vector                          as V
 
 import           Lens.Micro
 import           Lens.Micro.Mtl
 
-import           System.Directory                   ( doesFileExist )
-import           System.IO                          ( getChar, putChar )
+import           Prelude                              hiding ( getLine )
+import qualified RIO
 
-throw ∷ e → ExceptT e IO a
+import           System.Directory                     ( doesFileExist )
+
+throw ∷ Monad m ⇒ e → ExceptT e m a
 throw = throwE
 
-liftIOExcept ∷ IO a → ExceptT ProgramError IO a
-liftIOExcept = lift
+liftIOExcept ∷ MonadIO m ⇒ IO a → ExceptT ProgramError m a
+liftIOExcept = liftIO
 
 posX ∷ (Int → Identity Int) → Position → Identity Position
 posX = _1
@@ -35,32 +45,35 @@ posX = _1
 posY ∷ (Int → Identity Int) → Position → Identity Position
 posY = _2
 
-interpret ∷ Program → Piet ()
+maxSteps ∷ Int
+maxSteps = 1000
+
+interpret ∷ AppEff m ⇒ Program → PietT m ()
 interpret (Pure _) = pass
 interpret (Free c) = case c of
-  Push n r -> stack %= (n:) >> interpret r
-  Pop r -> stack %= (\s -> (if null s then id else tailUnsafe) s) >> interpret r
-  Add r -> perform r (+)
-  Subtract r -> perform r subtract
-  Multiply r -> perform r (*)
-  Divide r -> perform r (flip div)
-  Mod r -> perform r (flip mod)
-  Not r -> stack %= (\s -> if null s then s else notInstruction (headUnsafe s) : tailUnsafe s) >> interpret r
-  Greater r -> perform r greaterInstruction
-  Pointer r -> flip' 4 rotatePointer >> interpret r
-  Switch r -> flip' 2 toggleChooser >> interpret r
+  Push n r    -> stack %= (n:) >> interpret r
+  Pop r       -> stack %= (\s -> (if null s then id else tailUnsafe) s) >> interpret r
+  Add r       -> perform r (+)
+  Subtract r  -> perform r subtract
+  Multiply r  -> perform r (*)
+  Divide r    -> perform r (flip div)
+  Mod r       -> perform r (flip mod)
+  Not r       -> stack %= (\s -> if null s then s else notInstruction (headUnsafe s) : tailUnsafe s) >> interpret r
+  Greater r   -> perform r greaterInstruction
+  Pointer r   -> flip' 4 rotatePointer >> interpret r
+  Switch r    -> flip' 2 toggleChooser >> interpret r
   Duplicate r -> stack %= (\s -> if null s then s else headUnsafe s : s) >> interpret r
-  Roll r -> liftPiet (putTextLn "roll") >> do
+  Roll r      -> liftEff (putLine "roll") >> do
     s <- use stack
     case s of
       (times:depth:_) -> when (depth >= 0) $ stack %= roll' depth times
       _               -> pass
     interpret r
-  InNum r -> maybe pass pushInt <$> liftPiet readInt' >> interpret r
-  InChar r -> pushChar <$> liftPiet getChar >> interpret r
-  OutNum r -> printTop print' >> interpret r
-  OutChar r -> printTop (putChar . chr) >> interpret r
-  Nop r -> interpret r
+  InNum r     -> liftEff readInt' >>= maybe pass pushInt >> interpret r
+  InChar r    -> liftEff getChar >>= pushChar >> interpret r
+  OutNum r    -> printTop print' >> interpret r
+  OutChar r   -> printTop putIntAsChar >> interpret r
+  Nop r       -> interpret r
   where manip op = stack %= (\s -> case s of
                                 a:b:cs -> a `op` b : cs
                                 a      -> a)
@@ -77,24 +90,24 @@ interpret (Free c) = case c of
           unless (null s) $
             replicateM_ (headUnsafe s `mod` n) f
 
-        readInt' ∷ IO (Maybe Int)
+        readInt' ∷ MonadEff m ⇒ m (Maybe Int)
         readInt' = readTextMaybe <$> getLine
 
-        pushInt ∷ Int → Piet ()
+        pushInt ∷ AppEff m ⇒ Int → PietT m ()
         pushInt = (stack %=) . (:)
 
-        pushChar ∷ Char → Piet ()
+        pushChar ∷ AppEff m ⇒ Char → PietT m ()
         pushChar = pushInt . ord
 
         printTop f = do
           s <- use stack
           unless (null s) $ do
-            liftPiet $ f (headUnsafe s)
+            liftEff $ f (headUnsafe s)
             stack %= tailUnsafe
 
-        print' = putText . show
+        print' = putLine . show
 
-        liftPiet = lift . lift
+        liftEff = lift . lift
 
         roll' depth times st
           | depth < 0 = st
@@ -130,8 +143,8 @@ m &! c@(i, j) =
     then Just $ _matrix m ! j ! i
     else Nothing
 
-pixelToColour ∷ PixelRGB8 → Colour
-pixelToColour (PixelRGB8 r g b) = case (r, g, b) of
+pixelToColour ∷ Picture.PixelRGB8 → Colour
+pixelToColour (Picture.PixelRGB8 r g b) = case (r, g, b) of
   (255, 192, 192) -> Light Red
   (255, 0, 0)     -> Normal Red
   (192, 0, 0)     -> Dark Red
@@ -153,15 +166,15 @@ pixelToColour (PixelRGB8 r g b) = case (r, g, b) of
   (0, 0, 0)       -> Black
   _               -> White
 
-imageToColourMap ∷ Image PixelRGB8 → CodelSize → ColourMap
+imageToColourMap ∷ Picture.Image Picture.PixelRGB8 → CodelSize → ColourMap
 imageToColourMap img cs = ColourMap matrixData w' (V.length matrixData)
   where matrixData = to2D . V.fromList $ map (pixelToColour . pixAt) coords
         coords = [(cx, cy) | cy <- [0..pred h], cx <- [0..pred w], cs |^ cx, cs |^ cy]
-        w = imageWidth img
-        h = imageHeight img
+        w = Picture.imageWidth img
+        h = Picture.imageHeight img
         w' = w `div` cs
         a |^ b = b `mod` a == 0
-        pixAt = uncurry (pixelAt img)
+        pixAt = uncurry (Picture.pixelAt img)
 
         to2D v = let (hChunk, tChunk) = V.splitAt w' v
                  in if V.length tChunk < w'
@@ -239,50 +252,76 @@ coloursToProgram c c' n =
       _      -> nop
     _ -> nop
 
-transition ∷ Piet ()
+transition ∷ AppEff m ⇒ PietT m ()
 transition = do
   cc <- use collisionCount
-  when (cc == 7) $ liftPiet exitSuccess
-  dp <- use directionPointer
-  pos <- use currentPosition
-  m <- asks colourMap
-  let block = discoverBlock m pos
-  p <- selectCodel block
-  let newPos = move dp p
-  colour <- colourAt newPos
-  case colour of
-    Nothing -> doIfCollided cc block
-    Just Black -> doIfCollided cc block
-    Just c' -> do
-      collisionCount .= 0
-      currentPosition .= newPos
-      Just c <- colourAt p
-      let numCodels = length block
-          instr = coloursToProgram c c' numCodels
-      interpret instr
-  where doIfCollided ∷ Int → Block → Piet ()
-        doIfCollided cc block = do
+  if cc >= 8
+    then liftError "Program terminated: max collision count reached"
+    else do
+      dp <- use directionPointer
+      pos <- use currentPosition
+      m <- asks colourMap
+      let block = discoverBlock m pos
+      p <- selectCodel block
+      let newPos = move dp p
+      colour <- colourAt newPos
+
+      liftEff . logDebugN $
+        "Pos: " <> show pos <> " -> " <> show newPos
+        <> " | CC: " <> show cc <> " | Colour: " <> show colour
+
+      case colour of
+        Nothing    -> doIfCollided block
+        Just Black -> doIfCollided block
+        Just White -> slideThroughWhite newPos
+        Just c'    -> do
+          collisionCount .= 0
+          currentPosition .= newPos
+          maybeC <- colourAt p
+          case maybeC of
+            Nothing -> liftError ("Invalid color at position " <> show p)
+            Just White -> pass
+            Just c  -> do
+              let numCodels = length block
+                  instr = coloursToProgram c c' numCodels
+              liftEff . logDebugN $ "Executing instruction for block size " <> show numCodels
+              interpret instr
+  where doIfCollided block = do
+          cc <- use collisionCount
+          liftEff . logDebugN $ "Collision detected, cc=" <> show cc
           if even cc
             then toggleChooser
             else rotatePointer
+          collisionCount += 1
           newPos <- selectCodel block
           currentPosition .= newPos
-          collisionCount += 1
-          transition
 
-        liftPiet = lift . lift
+        slideThroughWhite startPos = do
+          dp <- use directionPointer
+          let nextPos = move dp startPos
+          nextCol <- colourAt nextPos
+          liftEff . logDebugN $ "Sliding white to " <> show nextPos <> " (" <> show nextCol <> ")"
+          case nextCol of
+            Just White -> slideThroughWhite nextPos
+            Just Black -> collisionCount += 1
+            Nothing    -> collisionCount += 1
+            Just _     -> do
+              collisionCount .= 0
+              currentPosition .= nextPos
 
-colourAt ∷ Position → Piet (Maybe Colour)
+        liftEff = lift . lift
+
+colourAt ∷ AppEff m ⇒ Position → PietT m (Maybe Colour)
 colourAt pos = (&! pos) <$> asks colourMap
 
-toggleChooser ∷ Piet ()
+toggleChooser ∷ AppEff m ⇒ PietT m ()
 toggleChooser = do
   cc <- use codelChooser
   codelChooser .= if cc == CLeft
                     then CRight
                     else CLeft
 
-rotatePointer ∷ Piet ()
+rotatePointer ∷ AppEff m ⇒ PietT m ()
 rotatePointer = do
   dp <- use directionPointer
   directionPointer .= case dp of
@@ -291,7 +330,7 @@ rotatePointer = do
     DRight -> DDown
     DDown  -> DLeft
 
-selectCodel ∷ Block → Piet Position
+selectCodel ∷ AppEff m ⇒ Block → PietT m Position
 selectCodel block = do
   dp <- use directionPointer
   cc <- use codelChooser
@@ -308,13 +347,13 @@ selectCodel block = do
             DUp    -> flip (comparing snd) <> comparing fst
             DDown  -> comparing snd <> flip (comparing fst)
 
-execute ∷ CodelSize → Image PixelRGB8 → IO ()
+execute ∷ AppEff m ⇒ CodelSize → Picture.Image Picture.PixelRGB8 → m ()
 execute cs img =
   let conf = ProgramConfig {
           codelSize = cs,
           colourMap = imageToColourMap img cs
         }
-  in void $ runPiet conf initialState (forever transition)
+  in void $ runPiet conf initialState (replicateM_ maxSteps transition)
 
 main ∷ IO ()
 main = do
@@ -325,12 +364,26 @@ main = do
       v <- runExceptT $ something fp (toText n)
       case v of
         Left e          -> print e >> exitFailure
-        Right (img, cs) -> execute cs img
+        Right (img, cs) -> runApp $ execute cs img
     _ -> repl
 
-  where help = putTextLn $ unlines ["", "Help", "----", "..."]
+  where help = putLine $ unlines ["", "Help", "----", "..."]
 
-        repl = putTextLn "repl"
+        repl = putLine "repl"
+
+        runApp action = do
+          logOptions <- RIO.logOptionsHandle stdout False
+          RIO.withLogFunc logOptions $ \logFunc ->
+            let dummyOpts = App.defaultAppOptions
+                env = Env
+                  { envFileIO  = FileIO { readTextFile = \_ -> pure "", readImage = \fp -> liftIO $ Picture.readImage fp >>= either RIO.throwString pure }
+                  , envStdIO   = StdIO { stdPutLTextLn = \_ -> pure (), stdGetContentsText = pure "", stdPutLBSLn = \_ -> pure (), stdGetContentsBS = pure "" }
+                  , envOptions = dummyOpts
+                  , envLogFunc = logFunc
+                  }
+            in RIO.runRIO env $ do
+              _dynamicImg <- readImageRio "example.png"
+              runAsRIO action
 
         something fp n = do
           let n' = readTextMaybe n
@@ -338,18 +391,18 @@ main = do
           let cs = fromJust n'
           fileExists <- liftIOExcept $ doesFileExist fp
           unless fileExists $ throw $ FindFile $ toText fp
-          loadedImg <- liftIOExcept $ readImage fp
+          loadedImg <- liftIOExcept $ Picture.readImage fp
           case loadedImg of
             Left _ -> throw $ LoadFile $ toText fp
             Right dynamicImg -> case dynamicImg of
-              ImageRGB8 parsedImg -> return (parsedImg, cs)
-              ImageY8 _           -> liftIOExcept (putTextLn "Y8") >> throw (NotImplemented "Y8 format")
-              ImageYF _           -> liftIOExcept (putTextLn "YF") >> throw (NotImplemented "YF format")
-              ImageYA8 _          -> liftIOExcept (putTextLn "YA8") >> throw (NotImplemented "YA8 format")
-              ImageRGBA8 _        -> liftIOExcept (putTextLn "RGBA8") >> throw (NotImplemented "RGBA8 format")
-              ImageRGBF _         -> liftIOExcept (putTextLn "RGBF") >> throw (NotImplemented "RGBF format")
-              ImageYCbCr8 _       -> liftIOExcept (putTextLn "YCbCr8") >> throw (NotImplemented "YCbCr8 format")
-              _                   -> throw (NotImplemented "Other image formats")
+              Picture.ImageRGB8 parsedImg -> return (parsedImg, cs)
+              Picture.ImageY8 _           -> liftIOExcept (putLine "Y8") >> throw (NotImplemented "Y8 format")
+              Picture.ImageYF _           -> liftIOExcept (putLine "YF") >> throw (NotImplemented "YF format")
+              Picture.ImageYA8 _          -> liftIOExcept (putLine "YA8") >> throw (NotImplemented "YA8 format")
+              Picture.ImageRGBA8 _        -> liftIOExcept (putLine "RGBA8") >> throw (NotImplemented "RGBA8 format")
+              Picture.ImageRGBF _         -> liftIOExcept (putLine "RGBF") >> throw (NotImplemented "RGBF format")
+              Picture.ImageYCbCr8 _       -> liftIOExcept (putLine "YCbCr8") >> throw (NotImplemented "YCbCr8 format")
+              _                           -> throw (NotImplemented "Other image formats")
 
 --[ tests ]--
 
@@ -379,8 +432,8 @@ testMap = ColourMap {
     _mapHeight = 10
   }
 
-runProgram ∷ Program → IO ()
-runProgram = void . runPiet (error "No config provided for test run") initialState . interpret
+runProgram ∷ AppEff m ⇒ Program → m ()
+runProgram = void . runPiet (ProgramConfig 1 testMap) initialState . interpret
 
 testProgram ∷ Program
 testProgram = do

@@ -4,6 +4,13 @@ import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.Trampoline
 import           HelVM.HelMA.Automaton.Types.DumpType
 
+defaultAutoOptions ∷ AutoOptions
+defaultAutoOptions = AutoOptions
+  { optLevel = defaultOptimizationLevel
+  , limit    = Nothing
+  , dumpType = defaultDumpType
+  }
+
 simpleAutoParams ∷ AutoOptions
 simpleAutoParams = AutoOptions
   { optLevel     = AllOptimizations

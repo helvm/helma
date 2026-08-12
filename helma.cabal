@@ -372,6 +372,8 @@ test-suite helma-test
     HelVM.HelMA.Automata.Piet.EvaluatorSpec
     HelVM.HelMA.Automata.Piet.FileExtra
 
+    HelVM.HelMA.Automata.Piet.Hi.EvaluatorSpec
+
     HelVM.HelMA.Automata.Rev.EvaluatorSpec
 
     HelVM.HelMA.Automata.SubLeq.EvaluatorSpec

@@ -11,6 +11,18 @@ import qualified HelVM.HelMA.Automaton.API.MemoryOptions as API
 
 import           HelVM.HelMA.Automaton.Types.LabelType
 
+defaultAppOptions ∷ AppOptions
+defaultAppOptions = AppOptions
+  { verbosity     = defaultLogLevel
+  , emit          = defaultEmit
+  , exec          = False
+  , formatType    = BinaryLabel
+  , memoryOptions = API.defaultMemoryOptions
+  , autoOptions   = API.defaultAutoOptions
+  , langCommand   = API.CatCommand
+  , file          = ""
+  }
+
 -- | Methods
 
 evalParams ∷ AppOptions → Source → API.EvalParams
@@ -29,4 +41,3 @@ data AppOptions
       , langCommand   :: !API.LangCommand
       , file          :: !FilePath
       }
-
