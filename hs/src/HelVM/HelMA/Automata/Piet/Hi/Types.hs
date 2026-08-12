@@ -45,11 +45,16 @@ module HelVM.HelMA.Automata.Piet.Hi.Types
   , switch
   ) where
 
+
+-- import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+-- import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+import           HelVM.HelMA.Automata.Piet.Types.Hue
+
+
 import           Control.Monad.Free
+import qualified Data.Vector                                 as V
 import           Lens.Micro.TH
-
-import qualified Data.Vector        as V
-
 import qualified Text.Show
 
 data DirectionPointer
@@ -72,15 +77,6 @@ data Colour
   | White
   deriving stock (Eq, Show)
 
-data Hue
-  = Red
-  | Yellow
-  | Green
-  | Cyan
-  | Blue
-  | Magenta
-  deriving stock (Enum, Eq, Show)
-
 data ColourMap
   = ColourMap
       { _matrix    :: V.Vector (V.Vector Colour)
@@ -90,7 +86,7 @@ data ColourMap
   deriving stock (Eq, Show)
 
 type CodelSize = Int
-type Position = (Int, Int) -- (X, Y)
+type Position = Coordinates
 type Block = [Position]
 
 data ProgramState
