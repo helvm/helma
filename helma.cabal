@@ -241,6 +241,7 @@ library
     HelVM.HelMA.Automata.Piet.Combiner.ALU
     HelVM.HelMA.Automata.Piet.Combiner.CPU
 
+    HelVM.HelMA.Automata.Piet.Hi.Main
     HelVM.HelMA.Automata.Piet.Hi.Types
 
     HelVM.HelMA.Automata.Piet.LLVM.Codel
@@ -288,12 +289,14 @@ library
     , containers           <  0.7
     , data-default
     , diffarray
+    , directory
     , extra
     , free
     , IfElse
     , ilist
     , ListLike
     , microlens
+    , microlens-mtl
     , microlens-th
     , monad-logger
     , monad-loops
@@ -302,6 +305,7 @@ library
     , safe
     , transformers
     , type-operators
+    , unix
     , vector
     , yjtools
 

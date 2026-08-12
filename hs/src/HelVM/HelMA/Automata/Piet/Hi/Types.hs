@@ -57,6 +57,9 @@ import qualified Data.Vector                                 as V
 import           Lens.Micro.TH
 import qualified Text.Show
 
+import qualified RIO
+
+
 data DirectionPointer
   = DLeft
   | DRight
@@ -111,10 +114,10 @@ makeLenses ''ProgramState
 makeLenses ''ProgramConfig
 
 data ProgramError
-  = ParseInt String
-  | LoadFile String
-  | FindFile String
-  | NotImplemented String
+  = ParseInt Text
+  | LoadFile Text
+  | FindFile Text
+  | NotImplemented Text
 
 data Instruction r
   = Push Int r
@@ -208,7 +211,10 @@ nop ∷ MonadFree Instruction m ⇒ m ()
 nop = liftF (Nop ())
 
 instance Show ProgramError where
-  show (ParseInt m)       = "Error while parsing: " <> m
-  show (LoadFile m)       = "Error while loading file: " <> m
-  show (FindFile m)       = "Can't find file: " <> m
-  show (NotImplemented m) = m <> " hasn't been implemented yet."
+  show      = toString . RIO.textDisplay
+
+instance RIO.Display ProgramError where
+  textDisplay (ParseInt m)       = "Error while parsing: " <>  m
+  textDisplay (LoadFile m)       = "Error while loading file: " <>  m
+  textDisplay (FindFile m)       = "Can't find file: " <>  m
+  textDisplay (NotImplemented m) =  m <> " hasn't been implemented yet."
