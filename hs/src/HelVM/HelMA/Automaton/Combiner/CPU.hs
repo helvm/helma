@@ -6,12 +6,11 @@ import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.Extras.Patterns
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 
-import           HelVM.HelIO.Containers.LLIndexSafe
+import           HelVM.HelIO.Containers.MTIndexSafe
 import           HelVM.HelIO.Control.Safe
 
 import           Control.Type.Operator
 
-import           Data.ListLike                                          hiding ( show )
 import qualified Data.Vector                                            as Vector
 
 runCFI ∷ (ALU m ll element , Show element) ⇒ CFInstruction → CentralProcessingStep ll m
@@ -74,10 +73,10 @@ labeledArtificialInstruction i l cpm = appendError "CPM.labeledArtificialInstruc
 findAddressForNaturalLabel ∷ (MonadSafe m , DynamicLabel n) ⇒ n → InstructionVector → m InstructionAddress --FIXME
 findAddressForNaturalLabel n il
   | n < 0     = liftError $ show n
-  | otherwise = liftMaybeOrErrorTuple ("Undefined label", show n) $ findIndex (checkNaturalMark $ fromIntegral n) il
+  | otherwise = liftMaybeOrErrorTuple ("Undefined label", show n) $ Vector.findIndex (checkNaturalMark $ fromIntegral n) il
 
 findAddressForArtificialLabel ∷ MonadSafe m ⇒ Label → InstructionVector → m InstructionAddress
-findAddressForArtificialLabel l = liftMaybeOrErrorTuple ("Undefined label", show l) . findIndex (checkArtificialMark l)
+findAddressForArtificialLabel l = liftMaybeOrErrorTuple ("Undefined label", show l) . Vector.findIndex (checkArtificialMark l)
 
 --
 

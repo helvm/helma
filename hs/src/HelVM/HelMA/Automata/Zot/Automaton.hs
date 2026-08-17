@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automata.Zot.Expression
 
 import           Control.Monad.Writer.Lazy
 
-import qualified Data.ListLike                       as LL
+import qualified Data.DList                          as D
 
 -- | High-level Expressions
 runExpressionList ∷ ExpressionList → Out Expression
@@ -25,7 +25,7 @@ printExpression ∷ Expression
 printExpression = Expression innerPrintExpression
 
 innerPrintExpression ∷ Expression → Out Expression
-innerPrintExpression f = interrogateExpression f >>< Zero >>< One >>= tell . LL.singleton >> pure printExpression
+innerPrintExpression f = interrogateExpression f >>< Zero >>< One >>= tell . D.singleton >> pure printExpression
 
 interrogateExpression ∷ Expression → Out Expression
 interrogateExpression f = f >< iExpression >>< iExpression >>< iExpression >>< kExpression

@@ -290,7 +290,6 @@ library
     , free
     , IfElse
     , ilist
-    , ListLike
     , monad-logger
     , monad-loops
     , natural-transformation
@@ -430,7 +429,6 @@ test-suite helma-test
 --    , helma
 
 --    , filepath
---    , ListLike
 
 --  ghc-options:
 --    -threaded

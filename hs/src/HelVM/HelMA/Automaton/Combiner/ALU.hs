@@ -42,12 +42,12 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelIO.Control.Safe
 
-import           HelVM.HelIO.Containers.LLIndexSafe
-
-import           HelVM.HelIO.ListLikeExtra
+import           HelVM.HelIO.Containers.MTIndexSafe
+import           HelVM.HelIO.SequencesExtra
 
 import           Control.Applicative.Tools
-import           Data.ListLike                                          hiding ( show )
+import           Data.MonoTraversable
+import           Data.Sequences
 import           Prelude                                                hiding ( divMod, drop, fromList, length, splitAt, swap, uncons )
 
 
@@ -166,7 +166,7 @@ move ∷ SafeStack m ll element ⇒ ImmediateIndex → ll → m ll
 move i = rollImediate i (i + 1)
 
 rollImediate ∷ SafeStack m ll element ⇒ ImmediateIndex → ImmediateIndex → ll → m ll
-rollImediate rolls i l = build $ length l where
+rollImediate rolls i l = build $ olength l where
   build ll
     | i < 0     = pure l
     | r == 0    = pure l
@@ -220,4 +220,4 @@ type SafeStack m ll element  = (MonadSafe m , IntegralStack ll element)
 
 type IntegralStack ll element = (Stack ll element , Integral element)
 
-type Stack ll element = (Show ll , ListLike ll element , IndexSafe ll element)
+type Stack ll element = (Show ll , IsSequence ll , Element ll ~ element , Index ll ~ Int , IndexSafe ll)

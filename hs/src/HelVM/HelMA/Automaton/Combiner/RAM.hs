@@ -9,11 +9,13 @@ module HelVM.HelMA.Automaton.Combiner.RAM
   , storeChar
   ) where
 
-import           HelVM.HelIO.Containers.LLIndexSafe
-import           HelVM.HelIO.Containers.LLInsertDef
+import           HelVM.HelIO.Containers.MTIndexSafe
+import           HelVM.HelIO.Containers.MTInsertDef
 
 import           Data.Default
-import           Prelude                            hiding ( divMod, drop, splitAt, swap )
+import           Data.MonoTraversable
+import           Data.Sequences
+import           Prelude                            hiding ( divMod, drop, fromList, splitAt, swap )
 
 genericLoad ∷ (Integral i , RAM ll element) ⇒ ll → i → element
 genericLoad l = load l . fromIntegral
@@ -34,8 +36,8 @@ store ∷ (Integral a , RAM ll element) ⇒ a → element → ll → ll
 store = insertDef . fromIntegral
 
 -- | Types
-type RAM ll element = (Show ll , Default element , II ll element)
+type RAM ll element = (Show ll , Default element , IsSequence ll , Element ll ~ element , Index ll ~ Int , II ll)
 
-type II ll element = (InsertDef ll element , IndexSafe ll element)
+type II ll = (InsertDef ll , IndexSafe ll)
 
 type Address = Int

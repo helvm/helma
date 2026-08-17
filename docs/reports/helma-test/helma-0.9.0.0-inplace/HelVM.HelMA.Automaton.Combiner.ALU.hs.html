@@ -61,12 +61,12 @@ span.spaces    { background: white }
 <span class="lineno">   42 </span>
 <span class="lineno">   43 </span>import           HelVM.HelIO.Control.Safe
 <span class="lineno">   44 </span>
-<span class="lineno">   45 </span>import           HelVM.HelIO.Containers.LLIndexSafe
-<span class="lineno">   46 </span>
-<span class="lineno">   47 </span>import           HelVM.HelIO.ListLikeExtra
-<span class="lineno">   48 </span>
-<span class="lineno">   49 </span>import           Control.Applicative.Tools
-<span class="lineno">   50 </span>import           Data.ListLike                                          hiding ( show )
+<span class="lineno">   45 </span>import           HelVM.HelIO.Containers.MTIndexSafe
+<span class="lineno">   46 </span>import           HelVM.HelIO.SequencesExtra
+<span class="lineno">   47 </span>
+<span class="lineno">   48 </span>import           Control.Applicative.Tools
+<span class="lineno">   49 </span>import           Data.MonoTraversable
+<span class="lineno">   50 </span>import           Data.Sequences
 <span class="lineno">   51 </span>import           Prelude                                                hiding ( divMod, drop, fromList, length, splitAt, swap, uncons )
 <span class="lineno">   52 </span>
 <span class="lineno">   53 </span>
@@ -185,7 +185,7 @@ span.spaces    { background: white }
 <span class="lineno">  166 </span><span class="decl"><span class="istickedoff">move i = rollImediate i (i + 1)</span></span>
 <span class="lineno">  167 </span>
 <span class="lineno">  168 </span>rollImediate ∷ SafeStack m ll element ⇒ ImmediateIndex → ImmediateIndex → ll → m ll
-<span class="lineno">  169 </span><span class="decl"><span class="istickedoff">rollImediate rolls i l = build $ length l where</span>
+<span class="lineno">  169 </span><span class="decl"><span class="istickedoff">rollImediate rolls i l = build $ olength l where</span>
 <span class="lineno">  170 </span><span class="spaces">  </span><span class="istickedoff">build ll</span>
 <span class="lineno">  171 </span><span class="spaces">    </span><span class="istickedoff">| <span class="tickonlyfalse">i &lt; 0</span>     = <span class="nottickedoff">pure l</span></span>
 <span class="lineno">  172 </span><span class="spaces">    </span><span class="istickedoff">| <span class="tickonlyfalse">r == 0</span>    = <span class="nottickedoff">pure l</span></span>
@@ -239,7 +239,7 @@ span.spaces    { background: white }
 <span class="lineno">  220 </span>
 <span class="lineno">  221 </span>type IntegralStack ll element = (Stack ll element , Integral element)
 <span class="lineno">  222 </span>
-<span class="lineno">  223 </span>type Stack ll element = (Show ll , ListLike ll element , IndexSafe ll element)
+<span class="lineno">  223 </span>type Stack ll element = (Show ll , IsSequence ll , Element ll ~ element , Index ll ~ Int , IndexSafe ll)
 
 </pre>
 </body>

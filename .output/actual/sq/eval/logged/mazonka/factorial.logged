@@ -1,6 +1,6 @@
 Info dump: Automaton
     { memoryIC = -1
-    , memoryRAM =
+    , memoryRAM = fromList
         [ 0
         , 0
         , 8807

@@ -43,45 +43,44 @@ span.spaces    { background: white }
 <span class="lineno">   24 </span>import           HelVM.HelMA.Automaton.Types.DumpType
 <span class="lineno">   25 </span>import           HelVM.HelMA.Automaton.Types.RAMType
 <span class="lineno">   26 </span>
-<span class="lineno">   27 </span>import qualified HelVM.HelIO.Collections.MapList        as MapList
-<span class="lineno">   28 </span>import qualified HelVM.HelIO.Collections.SList          as SList
-<span class="lineno">   29 </span>
-<span class="lineno">   30 </span>import qualified Data.Sequence                          as Seq
-<span class="lineno">   31 </span>
-<span class="lineno">   32 </span>import qualified RIO
-<span class="lineno">   33 </span>
-<span class="lineno">   34 </span>runRio ∷ Has env ⇒ RIO.RIO env ()
-<span class="lineno">   35 </span><span class="decl"><span class="nottickedoff">runRio = runWithOptions =&lt;&lt; optionsRio where</span>
-<span class="lineno">   36 </span><span class="spaces">  </span><span class="nottickedoff">runWithOptions o =  run (App.emit o) . App.evalParams o =&lt;&lt; readSourceFileRio</span></span>
-<span class="lineno">   37 </span>
-<span class="lineno">   38 </span>run ∷ Has env ⇒ Emit.Emit → EvalParams → RIO.RIO env ()
-<span class="lineno">   39 </span><span class="decl"><span class="nottickedoff">run Emit.No   = runAsRIO . evalParams</span>
-<span class="lineno">   40 </span><span class="spaces"></span><span class="nottickedoff">run Emit.IL   = putLTextLnRio . show . tokenize . source</span>
-<span class="lineno">   41 </span><span class="spaces"></span><span class="nottickedoff">run Emit.TL   = putLTextLnRio . show . tokenize . source</span>
-<span class="lineno">   42 </span><span class="spaces"></span><span class="nottickedoff">run Emit.Code = putLTextLnRio . show . readSymbols . source</span></span>
-<span class="lineno">   43 </span>
-<span class="lineno">   44 </span>simpleEval ∷ AppEff m ⇒ RAMType → Source → m ()
-<span class="lineno">   45 </span><span class="decl"><span class="istickedoff">simpleEval rt s = evalSource s rt testMaybeLimit Pretty</span></span>
-<span class="lineno">   46 </span>
-<span class="lineno">   47 </span>----
-<span class="lineno">   48 </span>
-<span class="lineno">   49 </span>evalParams ∷ AppEff m ⇒ EvalParams → m ()
-<span class="lineno">   50 </span><span class="decl"><span class="nottickedoff">evalParams p = evalSource (source p) (ramAutoOptions p) Nothing (dumpAutoOptions p)</span></span>
-<span class="lineno">   51 </span>
-<span class="lineno">   52 </span>evalSource ∷ AppEff m ⇒ Source → RAMType → LimitMaybe → DumpType → m ()
-<span class="lineno">   53 </span><span class="decl"><span class="istickedoff">evalSource source = evalIL $ tokenize source</span></span>
-<span class="lineno">   54 </span>
-<span class="lineno">   55 </span>evalIL ∷ AutomatonEff e m ⇒ [e] → RAMType → LimitMaybe → DumpType → m ()
-<span class="lineno">   56 </span><span class="decl"><span class="istickedoff">evalIL = flip evalIL'</span></span>
-<span class="lineno">   57 </span>
-<span class="lineno">   58 </span>evalIL' ∷ AutomatonEff e m ⇒ RAMType → [e] → LimitMaybe → DumpType → m ()
-<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">evalIL' ListRAMType    = <span class="nottickedoff">start</span></span>
-<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">evalIL' SeqRAMType     = <span class="nottickedoff">start . Seq.fromList</span></span>
-<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">evalIL' SListRAMType   = <span class="nottickedoff">start . SList.sListFromList</span></span>
-<span class="lineno">   62 </span><span class="spaces"></span><span class="istickedoff">evalIL' MapListRAMType = start . MapList.mapListFromList</span></span>
-<span class="lineno">   63 </span>
-<span class="lineno">   64 </span>start ∷ RAutomatonEff e r m ⇒ r → LimitMaybe → DumpType → m ()
-<span class="lineno">   65 </span><span class="decl"><span class="istickedoff">start r limit dt = logDump dt =&lt;&lt; runAutomat limit (newMemory r)</span></span>
+<span class="lineno">   27 </span>import qualified HelVM.HelIO.Collections.SList          as SList
+<span class="lineno">   28 </span>
+<span class="lineno">   29 </span>import qualified Data.Sequence                          as Seq
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>import qualified RIO
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>runRio ∷ Has env ⇒ RIO.RIO env ()
+<span class="lineno">   34 </span><span class="decl"><span class="nottickedoff">runRio = runWithOptions =&lt;&lt; optionsRio where</span>
+<span class="lineno">   35 </span><span class="spaces">  </span><span class="nottickedoff">runWithOptions o =  run (App.emit o) . App.evalParams o =&lt;&lt; readSourceFileRio</span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>run ∷ Has env ⇒ Emit.Emit → EvalParams → RIO.RIO env ()
+<span class="lineno">   38 </span><span class="decl"><span class="nottickedoff">run Emit.No   = runAsRIO . evalParams</span>
+<span class="lineno">   39 </span><span class="spaces"></span><span class="nottickedoff">run Emit.IL   = putLTextLnRio . show . tokenize . source</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="nottickedoff">run Emit.TL   = putLTextLnRio . show . tokenize . source</span>
+<span class="lineno">   41 </span><span class="spaces"></span><span class="nottickedoff">run Emit.Code = putLTextLnRio . show . readSymbols . source</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>simpleEval ∷ AppEff m ⇒ RAMType → Source → m ()
+<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">simpleEval rt s = evalSource s rt testMaybeLimit Pretty</span></span>
+<span class="lineno">   45 </span>
+<span class="lineno">   46 </span>----
+<span class="lineno">   47 </span>
+<span class="lineno">   48 </span>evalParams ∷ AppEff m ⇒ EvalParams → m ()
+<span class="lineno">   49 </span><span class="decl"><span class="nottickedoff">evalParams p = evalSource (source p) (ramAutoOptions p) Nothing (dumpAutoOptions p)</span></span>
+<span class="lineno">   50 </span>
+<span class="lineno">   51 </span>evalSource ∷ AppEff m ⇒ Source → RAMType → LimitMaybe → DumpType → m ()
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">evalSource source = evalIL $ tokenize source</span></span>
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>evalIL ∷ AutomatonEff e m ⇒ [e] → RAMType → LimitMaybe → DumpType → m ()
+<span class="lineno">   55 </span><span class="decl"><span class="istickedoff">evalIL = flip evalIL'</span></span>
+<span class="lineno">   56 </span>
+<span class="lineno">   57 </span>evalIL' ∷ AutomatonEff e m ⇒ RAMType → [e] → LimitMaybe → DumpType → m ()
+<span class="lineno">   58 </span><span class="decl"><span class="istickedoff">evalIL' ListRAMType    = <span class="nottickedoff">start</span></span>
+<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">evalIL' SeqRAMType     = <span class="nottickedoff">start . Seq.fromList</span></span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">evalIL' SListRAMType   = <span class="nottickedoff">start . SList.sListFromList</span></span>
+<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">evalIL' MapListRAMType = start . Seq.fromList</span></span>
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>start ∷ RAutomatonEff e r m ⇒ r → LimitMaybe → DumpType → m ()
+<span class="lineno">   64 </span><span class="decl"><span class="istickedoff">start r limit dt = logDump dt =&lt;&lt; runAutomat limit (newMemory r)</span></span>
 
 </pre>
 </body>

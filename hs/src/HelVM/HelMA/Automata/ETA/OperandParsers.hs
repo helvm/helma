@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.ETA.OperandParsers where
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
-import           HelVM.HelIO.Containers.LLIndexSafe
+import           HelVM.HelIO.Containers.MTIndexSafe
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Digit.ToDigit
 

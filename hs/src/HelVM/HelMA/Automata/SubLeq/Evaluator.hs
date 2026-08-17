@@ -24,7 +24,6 @@ import           HelVM.HelMA.Automaton.Trampoline
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.RAMType
 
-import qualified HelVM.HelIO.Collections.MapList        as MapList
 import qualified HelVM.HelIO.Collections.SList          as SList
 
 import qualified Data.Sequence                          as Seq
@@ -59,7 +58,7 @@ evalIL' ∷ AutomatonEff e m ⇒ RAMType → [e] → LimitMaybe → DumpType →
 evalIL' ListRAMType    = start
 evalIL' SeqRAMType     = start . Seq.fromList
 evalIL' SListRAMType   = start . SList.sListFromList
-evalIL' MapListRAMType = start . MapList.mapListFromList
+evalIL' MapListRAMType = start . Seq.fromList
 
 start ∷ RAutomatonEff e r m ⇒ r → LimitMaybe → DumpType → m ()
 start r limit dt = logDump dt =<< runAutomat limit (newMemory r)

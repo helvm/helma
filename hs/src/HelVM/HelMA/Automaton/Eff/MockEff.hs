@@ -19,7 +19,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelIO.Control.Safe
 
-import           HelVM.HelIO.ListLikeExtra
+import           HelVM.HelIO.SequencesExtra
 
 import qualified Data.Sequences                    as S
 import qualified Data.Text                         as Text

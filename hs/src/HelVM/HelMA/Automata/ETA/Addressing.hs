@@ -8,11 +8,11 @@ module HelVM.HelMA.Automata.ETA.Addressing
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
-import           HelVM.HelIO.Containers.LLIndexSafe
+import           HelVM.HelIO.Containers.MTIndexSafe
 
 import           HelVM.HelIO.Control.Safe
 
-import           Data.ListLike                      hiding ( show )
+import           Data.Sequences
 
 import           Prelude                            hiding ( length, splitAt )
 
@@ -33,4 +33,4 @@ genericNextLabel ∷ Integral cell ⇒ Vector.Vector Token → InstructionAddres
 genericNextLabel il = fromIntegral . nextLabel il
 
 nextLabel ∷ Vector.Vector Token → InstructionAddress → Int
-nextLabel il ic = length (Vector.elemIndices R il') + 2  where (il' , _) = splitAt ic il
+nextLabel il ic = Vector.length (Vector.elemIndices R il') + 2  where (il' , _) = splitAt ic il

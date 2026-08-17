@@ -13,7 +13,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           HelVM.HelMA.Automaton.Types.DumpType
 
-import           HelVM.HelIO.Containers.LLIndexSafe
+import           HelVM.HelIO.Containers.MTIndexSafe
 
 import           Control.Type.Operator
 

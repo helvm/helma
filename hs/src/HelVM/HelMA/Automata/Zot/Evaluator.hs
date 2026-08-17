@@ -27,10 +27,10 @@ import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Digit.Digitable
 import           HelVM.HelIO.Digit.ToDigit
 
-import           HelVM.HelIO.ListLikeExtra
-
 import           Control.Monad.Writer.Lazy
 
+import qualified Data.DList                            as DList
+import qualified HelVM.HelIO.Collections.SList         as SList
 import qualified RIO
 
 runRio ∷ Has env ⇒ RIO.RIO env ()
@@ -46,7 +46,7 @@ evalParams p = putLine =<< evalWithFormat (formatType p) (source p) =<< getConte
 
 evalWithFormat ∷ MonadSafe m ⇒ LabelType → Source → LText → m Output
 evalWithFormat BinaryLabel source input = pure $ showFoldable $ evalInternal source input
-evalWithFormat TextLabel   source input = (makeAsciiText28 . convert . evalInternal source) . showExpressionList =<< stringToDL (toString input)
+evalWithFormat TextLabel   source input = (makeAsciiText28 . SList.sListFromList . DList.toList . evalInternal source) . showExpressionList =<< stringToDL (toString input)
 
 evalInternal ∷ Source → LText → ExpressionDList
 evalInternal source input = eval $ fromStrict source <> input

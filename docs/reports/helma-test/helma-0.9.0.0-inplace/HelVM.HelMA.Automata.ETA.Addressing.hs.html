@@ -27,11 +27,11 @@ span.spaces    { background: white }
 <span class="lineno">    8 </span>import           HelVM.HelMA.Automata.ETA.Symbol
 <span class="lineno">    9 </span>import           HelVM.HelMA.Automata.ETA.Token
 <span class="lineno">   10 </span>
-<span class="lineno">   11 </span>import           HelVM.HelIO.Containers.LLIndexSafe
+<span class="lineno">   11 </span>import           HelVM.HelIO.Containers.MTIndexSafe
 <span class="lineno">   12 </span>
 <span class="lineno">   13 </span>import           HelVM.HelIO.Control.Safe
 <span class="lineno">   14 </span>
-<span class="lineno">   15 </span>import           Data.ListLike                      hiding ( show )
+<span class="lineno">   15 </span>import           Data.Sequences
 <span class="lineno">   16 </span>
 <span class="lineno">   17 </span>import           Prelude                            hiding ( length, splitAt )
 <span class="lineno">   18 </span>
@@ -52,7 +52,7 @@ span.spaces    { background: white }
 <span class="lineno">   33 </span><span class="decl"><span class="istickedoff">genericNextLabel il = fromIntegral . nextLabel il</span></span>
 <span class="lineno">   34 </span>
 <span class="lineno">   35 </span>nextLabel ∷ Vector.Vector Token → InstructionAddress → Int
-<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">nextLabel il ic = length (Vector.elemIndices R il') + 2  where (il' , _) = splitAt ic il</span></span>
+<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">nextLabel il ic = Vector.length (Vector.elemIndices R il') + 2  where (il' , _) = splitAt ic il</span></span>
 
 </pre>
 </body>

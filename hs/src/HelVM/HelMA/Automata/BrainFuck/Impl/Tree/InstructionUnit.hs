@@ -2,7 +2,7 @@ module HelVM.HelMA.Automata.BrainFuck.Impl.Tree.InstructionUnit where
 
 import           HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Instruction
 
-import           HelVM.HelIO.Containers.LLIndexSafe
+import           HelVM.HelIO.Containers.MTIndexSafe
 
 currentInstruction ∷ InstructionMemory → Maybe TreeInstruction
 currentInstruction (IM iv ic) = iv `indexMaybe` ic
