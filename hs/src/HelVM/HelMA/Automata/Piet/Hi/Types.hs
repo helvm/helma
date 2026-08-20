@@ -1,6 +1,49 @@
 {-# LANGUAGE DeriveFunctor   #-}
 {-# LANGUAGE TemplateHaskell #-}
-module HelVM.HelMA.Automata.Piet.Hi.Types where
+module HelVM.HelMA.Automata.Piet.Hi.Types
+  ( Block
+  , CodelChooser (..)
+  , CodelSize
+  , Colour (..)
+  , ColourMap (..)
+  , DirectionPointer (..)
+  , Hue (..)
+  , Instruction (..)
+  , Piet
+  , Position
+  , Program
+  , ProgramConfig (..)
+  , ProgramError (..)
+  , ProgramState (..)
+  , add
+  , codelChooser
+  , collisionCount
+  , currentPosition
+  , directionPointer
+  , divide
+  , duplicate
+  , greater
+  , inChar
+  , inNum
+  , initialState
+  , mapHeight
+  , mapWidth
+  , matrix
+  , mod'
+  , multiply
+  , nop
+  , not'
+  , outChar
+  , outNum
+  , pointer
+  , pop
+  , push
+  , roll
+  , runPiet
+  , stack
+  , subtract'
+  , switch
+  ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Hue
