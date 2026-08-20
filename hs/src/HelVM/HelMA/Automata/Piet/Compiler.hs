@@ -8,35 +8,43 @@ import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates ( Coordinates )
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Label
-import           HelVM.HelMA.Automata.Piet.Types.Program
-
+import           HelVM.HelMA.Automata.Piet.Types.Labelling
+import           HelVM.HelMA.Automata.Piet.Types.Program     ( Program (Program) )
 
 import           Data.IntMap                                 hiding ( filter )
 
+import           Lens.Micro
+import           Lens.Micro.TH                               ( makeLenses )
+
 import qualified Relude.Extra                                as Extra
 
-compile ∷ Image Color → Program
-compile image_ = Program image_ mask__ info_ where
-  (mask__, info_) = label4 image_
+type EquivalenceMap = IntMap LabelKey
 
 data LabellingStatus
   = LabellingStatus
       { _currentCoords :: Coordinates
       , _nextKey       :: LabelKey
-      , _mask          :: Image LabelKey
-      , _infoMap       :: IntMap (Maybe LabelInfo)
+      , _labelling     :: Labelling
       , _equivalences  :: EquivalenceMap
       }
   deriving stock (Show)
 
-label4 ∷ Eq a ⇒ Image a → (Image LabelKey, IntMap (Maybe LabelInfo))
+makeLenses ''LabellingStatus
+
+compile ∷ Image Color → Program
+compile image_ = Program image_ (label4 image_)
+
+label4 ∷ Eq a ⇒ Image a → Labelling
 label4 = label4With (==)
 
-label4With ∷ (a → a → Bool) → Image a → (Image LabelKey, IntMap (Maybe LabelInfo))
-label4With neighbours img = (img', inf) where
-  status = label4With' neighbours img (LabellingStatus (0, 0) 0 (newImage (witdthImage img, heightImage img) []) mempty mempty)
-  img'   = fmap (applyEquivClass (_equivalences status)) (_mask status)
-  inf    = foldrWithKey (mergeClass (_equivalences status)) mempty (_infoMap status)
+label4With ∷ (a → a → Bool) → Image a → Labelling
+label4With neighbours img = Labelling img' inf where
+  initialLabelling = Labelling (newImage (witdthImage img, heightImage img) []) mempty
+  status           = label4With' neighbours img (LabellingStatus (0, 0) 0 initialLabelling mempty)
+  currentLabelling = status ^. labelling
+
+  img' = fmap (applyEquivClass (status ^. equivalences)) (currentLabelling ^. mask)
+  inf  = foldrWithKey (mergeClass (status ^. equivalences)) mempty (currentLabelling ^. info)
 
   applyEquivClass eqMap lbl = equivClass lbl eqMap
 
@@ -50,20 +58,33 @@ label4With neighbours img = (img', inf) where
 
 label4With' ∷ (a → a → Bool) → Image a → LabellingStatus → LabellingStatus
 label4With' neighbours img status = checkNext (nextCoords xy) (updateStatus mergeLabels) where
-  xy@(x, y) = _currentCoords status
+  xy@(x, y) = status ^. currentCoords
   pixel     = pixelImage (x, y) img
+  lblng     = status ^. labelling
 
   mergeLabels = fmap getMaskLabel $ filter isNeighbour $ addPixelInfo <$> previousNeighbours xy
 
   addPixelInfo (nx, ny) = (nx, ny, pixelImage (nx, ny) img)
   isNeighbour (_, _, e) = neighbours pixel e
-  getMaskLabel (nx, ny, _) = pixelImage (nx, ny) (_mask status)
+  getMaskLabel (nx, ny, _) = pixelImage (nx, ny) (lblng ^. mask)
 
-  updateStatus []       = status { _nextKey = Extra.next (_nextKey status), _mask = setPixelImage (x, y) (_nextKey status) (_mask status), _infoMap = insert (_nextKey status) (addPixel (x, y) Nothing) (_infoMap status) }
-  updateStatus [l]      = status { _mask = setPixelImage (x, y) l (_mask status), _infoMap = adjust (addPixel (x, y)) l (_infoMap status) }
-  updateStatus [l1, l2] = status { _mask = setPixelImage (x, y) (max l1 l2) (_mask status), _infoMap = adjust (addPixel (x, y)) (max l1 l2) (_infoMap status), _equivalences = equivInsert l1 l2 (_equivalences status) }
-  updateStatus _        = error "too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'"
-  checkNext (Just xy') s = label4With' neighbours img (s { _currentCoords = xy' })
+  updateStatus [] = status
+    & (labelling . mask %~ setPixelImage (x, y) (status ^. nextKey))
+    & (labelling . info %~ insert (status ^. nextKey) (addPixel (x, y) Nothing))
+    & (nextKey %~ Extra.next)
+
+  updateStatus [l] = status
+    & (labelling . mask %~ setPixelImage (x, y) l)
+    & (labelling . info %~ adjust (addPixel (x, y)) l)
+
+  updateStatus [l1, l2] = status
+    & (labelling . mask %~ setPixelImage (x, y) (max l1 l2))
+    & (labelling . info %~ adjust (addPixel (x, y)) (max l1 l2))
+    & (equivalences %~ equivInsert l1 l2)
+
+  updateStatus _ = error "too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'"
+
+  checkNext (Just xy') s = label4With' neighbours img (s & currentCoords .~ xy')
   checkNext Nothing    s = s
 
   previousNeighbours (cx, cy) = filter validCoord [ (cx-1, cy), (cx, cy-1) ]
@@ -74,8 +95,6 @@ label4With' neighbours img status = checkNext (nextCoords xy) (updateStatus merg
   guardX False _ cy  = guardY (cy < heightImage img - 1) cy
   guardY True  cy = Just (0, cy + 1)
   guardY False _  = Nothing
-
-type EquivalenceMap = IntMap LabelKey
 
 equivClass ∷ LabelKey → EquivalenceMap → LabelKey
 equivClass e = findWithDefault e e

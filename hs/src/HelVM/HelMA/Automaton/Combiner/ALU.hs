@@ -85,10 +85,10 @@ lNot = build <.> pop1 where
   go _ = 0
 
 divMod ∷ SafeStack m ll element ⇒ ll → m ll
-divMod = binaryInstructions [Mod , Div]
+divMod = appendError "ALU.divMod" . binaryInstructions [Mod , Div]
 
 sub ∷ SafeStack m ll element ⇒ ll → m ll
-sub = binaryInstruction Sub
+sub = appendError "ALU.sub" . binaryInstruction Sub
 
 binaryInstruction ∷ SafeStack m ll element ⇒ BinaryOperation → ll → m ll
 binaryInstruction i = binaryInstructions [i]
@@ -140,7 +140,7 @@ indexedInstructionImmediate Slide = slide
 -- | Halibut and Pick instructions
 
 roll ∷ SafeStack m ll element ⇒ ll → m ll
-roll = build <=< pop2 where
+roll = appendError "ALU.roll" . build <=< pop2 where
   build (rolls, depth, l) = rollImediate (fromIntegral rolls) (fromIntegral depth) l
 
 halibut ∷ SafeStack m ll element ⇒ ll → m ll
@@ -159,14 +159,14 @@ pick = appendError "ALU.pick" . build <=< pop1 where
 
 -- | Slide instructions
 slide ∷ SafeStack m ll element ⇒ ImmediateIndex → ll → m ll
-slide i = appendError "ALU.pop2" . build <.> pop1 where
+slide i = appendError "ALU.slide" . build <.> pop1 where
   build (e , l) = push1 e $ drop i l
 
 move ∷ SafeStack m ll element ⇒ ImmediateIndex → ll → m ll
-move i = rollImediate i (i + 1)
+move i = appendError "ALU.move" . rollImediate i (i + 1)
 
 rollImediate ∷ SafeStack m ll element ⇒ ImmediateIndex → ImmediateIndex → ll → m ll
-rollImediate rolls i l = build $ olength l where
+rollImediate rolls i l = appendError "ALU.rollImediate" . build $ olength l where
   build ll
     | i < 0     = pure l
     | r == 0    = pure l
@@ -179,7 +179,7 @@ rollImediate rolls i l = build $ olength l where
 
 -- | Copy instructions
 copy ∷ SafeStack m ll element ⇒ ImmediateIndex → ll → m ll
-copy i = teeMap flipPush1 (findSafe i)
+copy i = appendError "ALU.copy" . teeMap flipPush1 (findSafe i)
 
 -- | Pop instructions
 pop1 ∷ SafeStack m ll element ⇒ ll →  m (element , ll)
@@ -214,7 +214,7 @@ teeMap ∷ Functor f ⇒ (t → a → b) → (t → f a) → t → f b
 teeMap f2 f1 x = f2 x <$> f1 x
 
 -- | Types
-type ALU m ll element = (AppEff m , SafeStack m ll element)
+type ALU m ll element = (AppSafeEff m , SafeStack m ll element)
 
 type SafeStack m ll element  = (MonadSafe m , IntegralStack ll element)
 

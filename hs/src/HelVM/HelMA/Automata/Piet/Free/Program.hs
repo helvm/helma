@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveFunctor   #-}
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE DeriveFunctor #-}
 module HelVM.HelMA.Automata.Piet.Free.Program
   ( InstructionF (..)
   , Program

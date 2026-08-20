@@ -31,6 +31,7 @@ span.spaces    { background: white }
 <span class="lineno">   12 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 <span class="lineno">   13 </span>
 <span class="lineno">   14 </span>furthest ∷ CodelChooser → DirectionPointer → Coordinates → Coordinates → Ordering
+<<<<<<< HEAD
 <span class="lineno">   15 </span><span class="decl"><span class="nottickedoff">furthest CCLeft DPLeft   = flip (comparing fst) &lt;&gt; comparing snd</span>
 <span class="lineno">   16 </span><span class="spaces"></span><span class="nottickedoff">furthest CCLeft DPRight  = comparing fst &lt;&gt; flip (comparing snd)</span>
 <span class="lineno">   17 </span><span class="spaces"></span><span class="nottickedoff">furthest CCLeft DPUp     = flip (comparing snd &lt;&gt; comparing fst)</span>
@@ -39,6 +40,16 @@ span.spaces    { background: white }
 <span class="lineno">   20 </span><span class="spaces"></span><span class="nottickedoff">furthest CCRight DPRight = comparing fst &lt;&gt; comparing snd</span>
 <span class="lineno">   21 </span><span class="spaces"></span><span class="nottickedoff">furthest CCRight DPUp    = flip (comparing snd) &lt;&gt; comparing fst</span>
 <span class="lineno">   22 </span><span class="spaces"></span><span class="nottickedoff">furthest CCRight DPDown  = comparing snd &lt;&gt; flip (comparing fst)</span></span>
+=======
+<span class="lineno">   15 </span><span class="decl"><span class="istickedoff">furthest CCLeft DPLeft   = flip (comparing fst) &lt;&gt; comparing snd</span>
+<span class="lineno">   16 </span><span class="spaces"></span><span class="istickedoff">furthest CCLeft DPRight  = comparing fst &lt;&gt; flip (comparing snd)</span>
+<span class="lineno">   17 </span><span class="spaces"></span><span class="istickedoff">furthest CCLeft DPUp     = flip (comparing snd &lt;&gt; comparing fst)</span>
+<span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">furthest CCLeft DPDown   = comparing snd &lt;&gt; comparing fst</span>
+<span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">furthest CCRight DPLeft  = flip (comparing fst &lt;&gt; comparing snd)</span>
+<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">furthest CCRight DPRight = comparing fst &lt;&gt; comparing snd</span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">furthest CCRight DPUp    = flip (comparing snd) &lt;&gt; comparing fst</span>
+<span class="lineno">   22 </span><span class="spaces"></span><span class="istickedoff">furthest CCRight DPDown  = comparing snd &lt;&gt; flip (comparing fst)</span></span>
+>>>>>>> e2b43021 (Add piet hi)
 <span class="lineno">   23 </span>
 <span class="lineno">   24 </span>rotateDirectionPointer ∷ Int → Orientation → Orientation
 <span class="lineno">   25 </span><span class="decl"><span class="istickedoff">rotateDirectionPointer n o = o { directionPointer = rotate n (directionPointer o)}</span></span>

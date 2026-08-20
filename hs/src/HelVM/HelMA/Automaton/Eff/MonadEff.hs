@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automaton.Eff.MonadEff
   ( AppEff
+  , AppSafeEff
   , MonadEff (..)
-  , MonadLoggerEff
   ) where
 
 import           HelVM.HelIO.Control.Safe
@@ -20,9 +20,9 @@ import qualified RIO
 
 import qualified System.IO                as IO
 
-type AppEff m = (MonadSafe m , MonadLoggerEff m)
+type AppSafeEff m = (MonadSafe m , AppEff m)
 
-type MonadLoggerEff m = (MonadLogger m, MonadEff m)
+type AppEff m = (MonadLogger m, MonadEff m)
 
 class Monad m => MonadEff m where
 

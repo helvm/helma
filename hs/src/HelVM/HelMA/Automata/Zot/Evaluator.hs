@@ -41,7 +41,7 @@ run ∷ Has env ⇒  Emit → EvalParams → RIO.RIO env ()
 run No = runAsRIO . evalParams
 run _  = fallback
 
-evalParams ∷ AppEff m ⇒ EvalParams → m ()
+evalParams ∷ AppSafeEff m ⇒ EvalParams → m ()
 evalParams p = putLine =<< evalWithFormat (formatType p) (source p) =<< getContentsText
 
 evalWithFormat ∷ MonadSafe m ⇒ LabelType → Source → LText → m Output

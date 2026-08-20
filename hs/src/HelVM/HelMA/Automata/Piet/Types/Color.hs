@@ -4,6 +4,7 @@ module HelVM.HelMA.Automata.Piet.Types.Color
   , lightnessSteps
   , pixelToColor
   , rgb2Color
+  , toRGB8OSafe
   , toRGB8OrError
   ) where
 
@@ -14,6 +15,9 @@ import           HelVM.HelMA.Automata.Piet.Types.Lightness
 import           HelVM.HelIO.Control.Safe
 
 import           Codec.Picture
+
+toRGB8OSafe ∷ MonadSafe m ⇒ DynamicImage → m (Image PixelRGB8)
+toRGB8OSafe = liftEitherError . toRGB8OrError
 
 toRGB8OrError ∷ DynamicImage → EitherError (Image PixelRGB8)
 toRGB8OrError (ImageRGB8 rgb8)   = Right rgb8

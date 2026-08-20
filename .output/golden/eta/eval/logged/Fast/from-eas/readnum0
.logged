@@ -1,4 +1,6 @@
 Error ALU.role index must be less then length [i 2] [ll 1]
+ALU.rollImediate
+ALU.move
  [i: ISM (SPure (Indexed (IImmediate 1) Move))]
  [program: 
 markM 1 # 0

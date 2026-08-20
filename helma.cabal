@@ -73,7 +73,7 @@ common common-options
     TypeSynonymInstances
     ViewPatterns
 --    CPP
---    TemplateHaskell
+   TemplateHaskell
 --    ForeignFunctionInterface
 --    MagicHash
 --    UnliftedFFITypes
@@ -241,15 +241,15 @@ library
     HelVM.HelMA.Automata.Piet.Combiner.ALU
     HelVM.HelMA.Automata.Piet.Combiner.CPU
 
+    HelVM.HelMA.Automata.Piet.Free.Automaton
+    HelVM.HelMA.Automata.Piet.Free.Evaluator
+    HelVM.HelMA.Automata.Piet.ColorMapParser
     HelVM.HelMA.Automata.Piet.Free.Program
-    HelVM.HelMA.Automata.Piet.Free.ProgramError 
-    HelVM.HelMA.Automata.Piet.Free.Piet
 
     HelVM.HelMA.Automata.Piet.LLVM.Codel
     HelVM.HelMA.Automata.Piet.LLVM.Evaluator
     HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
-    HelVM.HelMA.Automata.Piet.Types.Lightness
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
     HelVM.HelMA.Automata.Piet.Types.CodelChooser
     HelVM.HelMA.Automata.Piet.Types.Color
@@ -263,6 +263,8 @@ library
     HelVM.HelMA.Automata.Piet.Types.InstructionCounter
     HelVM.HelMA.Automata.Piet.Types.InstructionMemory
     HelVM.HelMA.Automata.Piet.Types.Label
+    HelVM.HelMA.Automata.Piet.Types.Labelling
+    HelVM.HelMA.Automata.Piet.Types.Lightness
     HelVM.HelMA.Automata.Piet.Types.Memory
     HelVM.HelMA.Automata.Piet.Types.Orientation
     HelVM.HelMA.Automata.Piet.Types.Program
@@ -374,6 +376,8 @@ test-suite helma-test
 
     HelVM.HelMA.Automata.Piet.EvaluatorSpec
     HelVM.HelMA.Automata.Piet.FileExtra
+
+    HelVM.HelMA.Automata.Piet.Free.EvaluatorSpec
 
     HelVM.HelMA.Automata.Rev.EvaluatorSpec
 

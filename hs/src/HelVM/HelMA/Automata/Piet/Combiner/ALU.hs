@@ -28,20 +28,20 @@ import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 import           Prelude                                                hiding ( getLine )
 
 -- | I/O Instructions
-pietInNumber ∷ AppEff m ⇒ Memory → m Memory
+pietInNumber ∷ AppSafeEff m ⇒ Memory → m Memory
 pietInNumber = modifyStack "in_number" inputDec
 
-pietInChar ∷ AppEff m ⇒ Memory → m Memory
+pietInChar ∷ AppSafeEff m ⇒ Memory → m Memory
 pietInChar = modifyStack "in_char" inputChar
 
-pietOutNumber ∷ AppEff m ⇒ Memory → m Memory
+pietOutNumber ∷ AppSafeEff m ⇒ Memory → m Memory
 pietOutNumber = modifyStack "out_number" outputDecMaybe
 
-pietOutChar ∷ AppEff m ⇒ Memory → m Memory
+pietOutChar ∷ AppSafeEff m ⇒ Memory → m Memory
 pietOutChar = modifyStack "out_char" outputCharMaybe
 
 -- | Push / Pop
-pietPush ∷ AppEff m ⇒ Int → Memory → m Memory
+pietPush ∷ AppSafeEff m ⇒ Int → Memory → m Memory
 pietPush n = modifyStack ("push " <> show n) (pure . push1 n)
 
 pietPop ∷ (ALU m Stack Int) ⇒ Memory → m Memory
@@ -77,5 +77,5 @@ pietRoll ∷ (ALU m Stack Int) ⇒ Memory → m Memory
 pietRoll = modifyStack "roll" roll
 
 -- | Utils
-modifyStack ∷ AppEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
+modifyStack ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
 modifyStack name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)

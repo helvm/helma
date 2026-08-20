@@ -14,7 +14,7 @@ import           Control.Monad.Logger
 import           Prelude                            hiding ( getLine, putLTextLn, putText, putTextLn )
 --------------------------------------------------------------------------------
 
-interpretFreeEffDebug ∷ MonadLoggerEff m ⇒ FreeEff a → m a
+interpretFreeEffDebug ∷ AppEff m ⇒ FreeEff a → m a
 interpretFreeEffDebug = foldF interpretFreeEffFDebug
 
 interpretFreeEff ∷ MonadEff m ⇒ FreeEff a → m a
@@ -22,7 +22,7 @@ interpretFreeEff = foldF interpretFreeEffF
 
 --------------------------------------------------------------------------------
 
-interpretFreeEffFDebug ∷ MonadLoggerEff m ⇒ FreeEffF a → m a
+interpretFreeEffFDebug ∷ AppEff m ⇒ FreeEffF a → m a
 interpretFreeEffFDebug (GetContentsBS    cd) = cd <$> (logDebugN "GetContentsBS"   *> getContentsBS)
 interpretFreeEffFDebug (GetContentsText  cd) = cd <$> (logDebugN "GetContentsText" *> getContentsText)
 interpretFreeEffFDebug (GetChar          cd) = logAndCont =<< getChar where logAndCont c = logDebugN ("GetChar: " <> one c) $> cd c

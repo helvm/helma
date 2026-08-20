@@ -40,15 +40,15 @@ run Emit.IL   = putLTextLnRio . show . tokenize . source
 run Emit.TL   = putLTextLnRio . show . tokenize . source
 run Emit.Code = putLTextLnRio . show . readSymbols . source
 
-simpleEval ∷ AppEff m ⇒ RAMType → Source → m ()
+simpleEval ∷ AppSafeEff m ⇒ RAMType → Source → m ()
 simpleEval rt s = evalSource s rt testMaybeLimit Pretty
 
 ----
 
-evalParams ∷ AppEff m ⇒ EvalParams → m ()
+evalParams ∷ AppSafeEff m ⇒ EvalParams → m ()
 evalParams p = evalSource (source p) (ramAutoOptions p) Nothing (dumpAutoOptions p)
 
-evalSource ∷ AppEff m ⇒ Source → RAMType → LimitMaybe → DumpType → m ()
+evalSource ∷ AppSafeEff m ⇒ Source → RAMType → LimitMaybe → DumpType → m ()
 evalSource source = evalIL $ tokenize source
 
 evalIL ∷ AutomatonEff e m ⇒ [e] → RAMType → LimitMaybe → DumpType → m ()

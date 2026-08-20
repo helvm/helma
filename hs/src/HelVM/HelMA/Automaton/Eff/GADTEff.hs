@@ -33,7 +33,7 @@ liftF fa = GADTEff $ \k -> k fa
 --------------------------------------------------------------------------------
 -- Interpretacja
 
-interpretGADTEffDebug ∷ MonadLoggerEff m ⇒ GADTEff a → m a
+interpretGADTEffDebug ∷ AppEff m ⇒ GADTEff a → m a
 interpretGADTEffDebug eff = runGADTEff eff interpretGADTEffFDebug
 
 interpretGADTEff ∷ MonadEff m ⇒ GADTEff a → m a
@@ -42,7 +42,7 @@ interpretGADTEff eff = runGADTEff eff interpretGADTEffF
 --------------------------------------------------------------------------------
 -- Interpreter dla pojedynczych instrukcji (bez fmap/kontynuacji!)
 
-interpretGADTEffFDebug ∷ MonadLoggerEff m ⇒ GADTEffF a → m a
+interpretGADTEffFDebug ∷ AppEff m ⇒ GADTEffF a → m a
 interpretGADTEffFDebug GetContentsBS   = logDebugN "GetContentsBS"   *> getContentsBS
 interpretGADTEffFDebug GetContentsText = logDebugN "GetContentsText" *> getContentsText
 interpretGADTEffFDebug GetChar         = logAndCont =<< getChar where logAndCont c = logDebugN ("GetChar: " <> one c) $> c

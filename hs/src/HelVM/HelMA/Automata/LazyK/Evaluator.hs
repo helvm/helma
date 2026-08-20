@@ -33,14 +33,14 @@ run ∷ Has env ⇒  Emit → EvalParams → RIO.RIO env ()
 run No = runAsRIO . evalParams
 run _  = fallback
 
-evalParams ∷ AppEff m ⇒ EvalParams → m ()
+evalParams ∷ AppSafeEff m ⇒ EvalParams → m ()
 evalParams = evalSource . source
 
-evalSource ∷ AppEff m ⇒ Source → m ()
+evalSource ∷ AppSafeEff m ⇒ Source → m ()
 evalSource = evalLambda <=< parse
 
-evalLambda ∷ AppEff m ⇒ Lambda → m ()
+evalLambda ∷ AppSafeEff m ⇒ Lambda → m ()
 evalLambda lambda = (runAutomat . reduce . App lambda . readInput) =<< getContentsBS
 
-reduceSource ∷ AppEff m ⇒ Source → m Source
+reduceSource ∷ AppSafeEff m ⇒ Source → m Source
 reduceSource s = show . reduce <$> parse s

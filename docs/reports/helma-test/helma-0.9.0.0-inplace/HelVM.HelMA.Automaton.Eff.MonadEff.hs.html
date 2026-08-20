@@ -85,12 +85,12 @@ span.spaces    { background: white }
 <span class="lineno">   66 </span>  <span class="decl"><span class="nottickedoff">putLine         = Prelude.putText</span></span>
 <span class="lineno">   67 </span>  <span class="decl"><span class="nottickedoff">flush           = flushIO</span></span>
 <span class="lineno">   68 </span>
-<span class="lineno">   69 </span>instance {-# OVERLAPPABLE #-} <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">(MonadTrans t, Monad m, MonadEff m) ⇒ MonadEff (t m)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
+<span class="lineno">   69 </span>instance {-# OVERLAPPABLE #-} <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">(MonadTrans t, Monad m, MonadEff m) ⇒ MonadEff (t m)</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span> where
 <span class="lineno">   70 </span>  <span class="decl"><span class="nottickedoff">getContentsBS   = lift getContentsBS</span></span>
 <span class="lineno">   71 </span>  <span class="decl"><span class="nottickedoff">getContentsText = lift getContentsText</span></span>
 <span class="lineno">   72 </span>  <span class="decl"><span class="nottickedoff">getChar         = lift getChar</span></span>
 <span class="lineno">   73 </span>  <span class="decl"><span class="nottickedoff">getLine         = lift getLine</span></span>
-<span class="lineno">   74 </span>  <span class="decl"><span class="nottickedoff">putChar         = lift . putChar</span></span>
+<span class="lineno">   74 </span>  <span class="decl"><span class="istickedoff">putChar         = lift . putChar</span></span>
 <span class="lineno">   75 </span>  <span class="decl"><span class="nottickedoff">putLine         = lift . putLine</span></span>
 <span class="lineno">   76 </span>  <span class="decl"><span class="nottickedoff">flush           = lift flush</span></span>
 <span class="lineno">   77 </span>

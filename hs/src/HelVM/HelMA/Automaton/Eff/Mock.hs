@@ -4,12 +4,15 @@ module HelVM.HelMA.Automaton.Eff.Mock
   , MockEffData
   , MockLog (..)
   , MockLoggerData
+  , calculateDynamicLogs
+  , calculateDynamicOutput
   , calculateLogsWithLevelDebug
   , calculateLogsWithLevelInfo
   , calculateOutput
   , createMockEffData
   , execMockEffBatch
   , execMockEffWithInput
+  , ioExecDynamicMockEffWithInput
   , ioExecMockEffBatch
   , ioExecMockEffWithInput
   , runMockEff
@@ -32,6 +35,12 @@ import           Control.Monad.Writer.Class           ( MonadWriter )
 
 import qualified Data.Sequence                        as Seq
 
+ioExecDynamicMockEffWithInput ∷ Input → SafeT Mock () → IO DynamicMockData
+ioExecDynamicMockEffWithInput i = safeToIO . safeExecDynamicMockEffWithInput i
+
+safeExecDynamicMockEffWithInput ∷ Input → SafeT Mock () → Safe DynamicMockData
+safeExecDynamicMockEffWithInput i = pure . runDynamicMockEff i . runSafeT
+
 ioExecMockEffBatch ∷ SafeT Mock () → IO MockData
 ioExecMockEffBatch = ioExecMockEffWithInput ""
 
@@ -52,11 +61,27 @@ execMockEffWithInput i action = runMockEff i $ Right <$> action
 
 ----
 
+runDynamicMockEff ∷ Input → Mock (Safe ()) → DynamicMockData
+runDynamicMockEff i mockEff = safeToMockData $ runWriter $ runStateT (unMock mockEff) $ createMockEffData i where
+  safeToMockData ((Right _, io), logs)   = (io, (LevelInfo, logs))
+  safeToMockData ((Left msgs, io), logs) = (io, (LevelDebug, addMsgs msgs logs) )
+
 runMockEff ∷ Input → Mock (Safe ()) → MockData
 runMockEff i mockEff = safeToMockData $ runWriter $ runStateT (unMock mockEff) $ createMockEffData i where
-  safeToMockData ((Right _, io), logs) = (io, logs)
-  safeToMockData ((Left msgs, io), logs) = (io, logs Seq.|> errLog) where
-    errLog = MockLog defaultLoc "" LevelError $ toLogStr $ errorsToText msgs
+  safeToMockData ((Right _, io), logs)   = (io, logs)
+  safeToMockData ((Left msgs, io), logs) = (io, addMsgs msgs logs)
+
+addMsgs ∷ Messages → Seq MockLog → Seq MockLog
+addMsgs msgs logs = logs Seq.|> errLog msgs
+
+errLog ∷ Messages → MockLog
+errLog msgs = MockLog defaultLoc "" LevelError $ toLogStr $ errorsToText msgs
+
+calculateDynamicOutput ∷ DynamicMockData → Output
+calculateDynamicOutput = reverseOutput . fst
+
+calculateDynamicLogs ∷ DynamicMockData → Output
+calculateDynamicLogs = uncurry filterLogsWithLevel . snd
 
 calculateOutput ∷ MockData → Output
 calculateOutput = reverseOutput . fst
@@ -93,5 +118,7 @@ instance {-# OVERLAPPING #-} MonadLogger Mock where
 newtype Mock a
   = Mock { unMock :: StateT MockEffData (Writer MockLoggerData) a }
   deriving newtype (Applicative, Functor, Monad, MonadState MockEffData, MonadWriter MockLoggerData)
+
+type DynamicMockData = (MockEffData , (LogLevel , MockLoggerData))
 
 type MockData = (MockEffData , MockLoggerData)

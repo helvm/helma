@@ -3,6 +3,8 @@ module HelVM.HelMA.Automata.Piet.Types.InstructionCounter
   , codelChooserIC
   , directionPointerIC
   , initialInstructionCounter
+  , orientation
+  , position
   , rotateDirectionPointerIC
   , toggleCodelChooserIC
   ) where
@@ -12,23 +14,28 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Orientation
 
-directionPointerIC ∷ InstructionCounter → DirectionPointer
-directionPointerIC = directionPointer .  orientation
-
-codelChooserIC ∷ InstructionCounter → CodelChooser
-codelChooserIC = codelChooser . orientation
-
-rotateDirectionPointerIC ∷ Int → InstructionCounter → InstructionCounter
-rotateDirectionPointerIC n ic = ic { orientation = rotateDirectionPointer n (orientation ic)}
-
-toggleCodelChooserIC ∷ Int → InstructionCounter → InstructionCounter
-toggleCodelChooserIC n ic = ic { orientation = toggleCodelChooser n (orientation ic)}
-
-initialInstructionCounter ∷ InstructionCounter
-initialInstructionCounter = InstructionCounter initialCoordinates initialOrientation
+import           Lens.Micro                                       ( (%~), (^.) )
+import           Lens.Micro.TH                                    ( makeLenses )
 
 data InstructionCounter
   = InstructionCounter
-      { position    :: !Coordinates
-      , orientation :: !Orientation
+      { _position    :: !Coordinates
+      , _orientation :: !Orientation
       }
+
+makeLenses ''InstructionCounter
+
+directionPointerIC ∷ InstructionCounter → DirectionPointer
+directionPointerIC ic = ic ^. (orientation . directionPointer)
+
+codelChooserIC ∷ InstructionCounter → CodelChooser
+codelChooserIC ic = ic ^. (orientation . codelChooser)
+
+rotateDirectionPointerIC ∷ Int → InstructionCounter → InstructionCounter
+rotateDirectionPointerIC n = orientation %~ rotateDirectionPointer n
+
+toggleCodelChooserIC ∷ Int → InstructionCounter → InstructionCounter
+toggleCodelChooserIC n = orientation %~ toggleCodelChooser n
+
+initialInstructionCounter ∷ InstructionCounter
+initialInstructionCounter = InstructionCounter initialCoordinates initialOrientation

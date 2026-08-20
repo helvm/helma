@@ -1,0 +1,304 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Free.Evaluator
+<span class="lineno">    2 </span>  ( execute
+<span class="lineno">    3 </span>  ) where
+<span class="lineno">    4 </span>
+<span class="lineno">    5 </span>import           HelVM.HelMA.Automata.Piet.Free.Piet
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
+<span class="lineno">    8 </span>import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.Piet.Types.Color
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automata.Piet.Types.Instruction
+<span class="lineno">   13 </span>import qualified HelVM.HelMA.Automata.Piet.Types.Orientation      as Orientation
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>import           HelVM.HelMA.Automaton.Eff.MonadEff
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>import           Control.Monad.Free
+<span class="lineno">   18 </span>import           Control.Monad.Logger                             ( logDebugN )
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import           Lens.Micro.Mtl
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>import qualified Data.List                                        as L
+<span class="lineno">   23 </span>import           Data.Maybe
+<span class="lineno">   24 </span>import           Data.MonoTraversable
+<span class="lineno">   25 </span>import qualified Data.Set                                         as S
+<span class="lineno">   26 </span>import           Data.Vector                                      ( (!) )
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>import qualified Relude.Extra                                     as Extra
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>import           Prelude                                          hiding ( getLine )
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>execute ∷ MonadLoggerEff m ⇒ CodelSize → ColorMap → m ()
+<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">execute cs cmap = void $ runPiet conf initialState loop</span>
+<span class="lineno">   34 </span><span class="spaces">  </span><span class="istickedoff">where</span>
+<span class="lineno">   35 </span><span class="spaces">    </span><span class="istickedoff">conf = ProgramConfig { codelSize = cs, colorMap = cmap }</span>
+<span class="lineno">   36 </span><span class="spaces">    </span><span class="istickedoff">loop = transition &gt;&gt;= (`when` loop)</span></span>
+<span class="lineno">   37 </span>
+<span class="lineno">   38 </span>interpret ∷ MonadLoggerEff m ⇒ Program → PietT m ()
+<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">interpret (Pure _)                  = pass</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">interpret (Free (InstructionF i r)) = evalInstruction i r</span></span>
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>evalInstruction ∷ MonadLoggerEff m ⇒ Instruction → Program → PietT m ()
+<span class="lineno">   43 </span><span class="decl"><span class="istickedoff">evalInstruction (Push n)  r = logMsg (&quot;push &quot; &lt;&gt; show n) &gt;&gt; stack %= (n:) &gt;&gt; interpret r</span>
+<span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Pop       r = <span class="nottickedoff">logMsg &quot;pop&quot; &gt;&gt; stack %= popStack &gt;&gt; interpret r</span></span>
+<span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Add       r = logMsg &quot;add&quot; &gt;&gt; perform r (+)</span>
+<span class="lineno">   46 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Subtract  r = <span class="nottickedoff">logMsg &quot;subtract&quot; &gt;&gt; perform r (-)</span></span>
+<span class="lineno">   47 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Multiply  r = logMsg &quot;multiply&quot; &gt;&gt; perform r (*)</span>
+<span class="lineno">   48 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Divide    r = <span class="nottickedoff">logMsg &quot;divide&quot; &gt;&gt; perform r div</span></span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Mod       r = <span class="nottickedoff">logMsg &quot;mod&quot; &gt;&gt; perform r mod</span></span>
+<span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Not       r = <span class="nottickedoff">logMsg &quot;not&quot; &gt;&gt; stack %= stepNot &gt;&gt; interpret r</span></span>
+<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Greater   r = <span class="nottickedoff">logMsg &quot;greater&quot; &gt;&gt; perform r greater'</span></span>
+<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Pointer   r = <span class="nottickedoff">logMsg &quot;pointer&quot; &gt;&gt; flip' 4 rotatePointer &gt;&gt; interpret r</span></span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Switch    r = <span class="nottickedoff">logMsg &quot;switch&quot; &gt;&gt; flip' 2 toggleChooser &gt;&gt; interpret r</span></span>
+<span class="lineno">   54 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Duplicate r = logMsg &quot;duplicate&quot; &gt;&gt; stack %= dupStack &gt;&gt; interpret r</span>
+<span class="lineno">   55 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Roll      r = <span class="nottickedoff">logMsg &quot;roll&quot; &gt;&gt; performRoll &gt;&gt; interpret r</span></span>
+<span class="lineno">   56 </span><span class="spaces"></span><span class="istickedoff">evalInstruction InNum     r = <span class="nottickedoff">logMsg &quot;innum&quot; &gt;&gt; whenJustM readInt' pushInt &gt;&gt; interpret r</span></span>
+<span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff">evalInstruction InChar    r = <span class="nottickedoff">logMsg &quot;inchar&quot; &gt;&gt; (getCharAsInt &gt;&gt;= pushChar) &gt;&gt; interpret r</span></span>
+<span class="lineno">   58 </span><span class="spaces"></span><span class="istickedoff">evalInstruction OutNum    r = <span class="nottickedoff">logMsg &quot;out_num&quot; &gt;&gt; printTop putIntAsDec &gt;&gt; interpret r</span></span>
+<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">evalInstruction OutChar   r = logMsg &quot;out_char&quot; &gt;&gt; printTop putIntAsCharSafe &gt;&gt; interpret r</span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">evalInstruction Nop       r = <span class="nottickedoff">interpret r</span></span></span>
+<span class="lineno">   61 </span>
+<span class="lineno">   62 </span>logMsg ∷ MonadLoggerEff m ⇒ Text → PietT m ()
+<span class="lineno">   63 </span><span class="decl"><span class="istickedoff">logMsg msg = do</span>
+<span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">(x, y) &lt;- use currentPosition</span>
+<span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">logDebugN $ &quot;(&quot; &lt;&gt; show x &lt;&gt; &quot;,&quot; &lt;&gt; show y &lt;&gt; &quot;) &quot; &lt;&gt; msg</span></span>
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>popStack ∷ [a] → [a]
+<span class="lineno">   68 </span><span class="decl"><span class="nottickedoff">popStack [] = []</span>
+<span class="lineno">   69 </span><span class="spaces"></span><span class="nottickedoff">popStack s  = tailUnsafe s</span></span>
+<span class="lineno">   70 </span>
+<span class="lineno">   71 </span>dupStack ∷ [a] → [a]
+<span class="lineno">   72 </span><span class="decl"><span class="istickedoff">dupStack [] = <span class="nottickedoff">[]</span></span>
+<span class="lineno">   73 </span><span class="spaces"></span><span class="istickedoff">dupStack s  = headUnsafe s : s</span></span>
+<span class="lineno">   74 </span>
+<span class="lineno">   75 </span>manip ∷ (a → a → a) → [a] → [a]
+<span class="lineno">   76 </span><span class="decl"><span class="istickedoff">manip op (a : b : cs) = (b `op` a) : cs</span>
+<span class="lineno">   77 </span><span class="spaces"></span><span class="istickedoff">manip _  s            = <span class="nottickedoff">s</span></span></span>
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>perform ∷ MonadLoggerEff m ⇒ Program → (Int → Int → Int) → PietT m ()
+<span class="lineno">   80 </span><span class="decl"><span class="istickedoff">perform r op = stack %= manip op &gt;&gt; interpret r</span></span>
+<span class="lineno">   81 </span>
+<span class="lineno">   82 </span>greater' ∷ Int → Int → Int
+<span class="lineno">   83 </span><span class="decl"><span class="nottickedoff">b `greater'` a</span>
+<span class="lineno">   84 </span><span class="spaces">  </span><span class="nottickedoff">| b &gt; a     = 1</span>
+<span class="lineno">   85 </span><span class="spaces">  </span><span class="nottickedoff">| otherwise = 0</span></span>
+<span class="lineno">   86 </span>
+<span class="lineno">   87 </span>stepNot ∷ [Int] → [Int]
+<span class="lineno">   88 </span><span class="decl"><span class="nottickedoff">stepNot (x : xs) = not'' x : xs</span>
+<span class="lineno">   89 </span><span class="spaces"></span><span class="nottickedoff">stepNot []       = []</span></span>
+<span class="lineno">   90 </span>
+<span class="lineno">   91 </span>not'' ∷ Int → Int
+<span class="lineno">   92 </span><span class="decl"><span class="nottickedoff">not'' 0 = 1</span>
+<span class="lineno">   93 </span><span class="spaces"></span><span class="nottickedoff">not'' _ = 0</span></span>
+<span class="lineno">   94 </span>
+<span class="lineno">   95 </span>flip' ∷ Monad m ⇒ Int → PietT m () → PietT m ()
+<span class="lineno">   96 </span><span class="decl"><span class="nottickedoff">flip' n f = do</span>
+<span class="lineno">   97 </span><span class="spaces">  </span><span class="nottickedoff">s &lt;- use stack</span>
+<span class="lineno">   98 </span><span class="spaces">  </span><span class="nottickedoff">unless (null s) $</span>
+<span class="lineno">   99 </span><span class="spaces">    </span><span class="nottickedoff">replicateM_ (headUnsafe s `mod` n) f</span></span>
+<span class="lineno">  100 </span>
+<span class="lineno">  101 </span>readInt' ∷ MonadEff m ⇒ PietT m (Maybe Int)
+<span class="lineno">  102 </span><span class="decl"><span class="nottickedoff">readInt' = readMaybe . toString &lt;$&gt; getLine</span></span>
+<span class="lineno">  103 </span>
+<span class="lineno">  104 </span>pushInt ∷ Monad m ⇒ Int → PietT m ()
+<span class="lineno">  105 </span><span class="decl"><span class="nottickedoff">pushInt = (stack %=) . (:)</span></span>
+<span class="lineno">  106 </span>
+<span class="lineno">  107 </span>pushChar ∷ Monad m ⇒ Int → PietT m ()
+<span class="lineno">  108 </span><span class="decl"><span class="nottickedoff">pushChar = pushInt</span></span>
+<span class="lineno">  109 </span>
+<span class="lineno">  110 </span>printTop ∷ Monad m ⇒ (Int → PietT m a) → PietT m ()
+<span class="lineno">  111 </span><span class="decl"><span class="istickedoff">printTop f = do</span>
+<span class="lineno">  112 </span><span class="spaces">  </span><span class="istickedoff">s &lt;- use stack</span>
+<span class="lineno">  113 </span><span class="spaces">  </span><span class="istickedoff">unless (null s) $ do</span>
+<span class="lineno">  114 </span><span class="spaces">    </span><span class="istickedoff">_ &lt;- f (headUnsafe s)</span>
+<span class="lineno">  115 </span><span class="spaces">    </span><span class="istickedoff">stack %= tailUnsafe</span></span>
+<span class="lineno">  116 </span>
+<span class="lineno">  117 </span>putIntAsCharSafe ∷ MonadEff m ⇒ Int → PietT m ()
+<span class="lineno">  118 </span><span class="decl"><span class="istickedoff">putIntAsCharSafe n = putIntAsChar (n `mod` 256)</span></span>
+<span class="lineno">  119 </span>
+<span class="lineno">  120 </span>performRoll ∷ Monad m ⇒ PietT m ()
+<span class="lineno">  121 </span><span class="decl"><span class="nottickedoff">performRoll = do</span>
+<span class="lineno">  122 </span><span class="spaces">  </span><span class="nottickedoff">s &lt;- use stack</span>
+<span class="lineno">  123 </span><span class="spaces">  </span><span class="nottickedoff">rollStack s</span></span>
+<span class="lineno">  124 </span>
+<span class="lineno">  125 </span>rollStack ∷ Monad m ⇒ [Int] → PietT m ()
+<span class="lineno">  126 </span><span class="decl"><span class="nottickedoff">rollStack (times : depth : rest)</span>
+<span class="lineno">  127 </span><span class="spaces">  </span><span class="nottickedoff">| depth &gt;= 0 = stack .= roll' depth times rest</span>
+<span class="lineno">  128 </span><span class="spaces"></span><span class="nottickedoff">rollStack _ = pass</span></span>
+<span class="lineno">  129 </span>
+<span class="lineno">  130 </span>roll' ∷ Int → Int → [Int] → [Int]
+<span class="lineno">  131 </span><span class="decl"><span class="nottickedoff">roll' depth times rest</span>
+<span class="lineno">  132 </span><span class="spaces">  </span><span class="nottickedoff">| depth &lt;= 0 = rest</span>
+<span class="lineno">  133 </span><span class="spaces">  </span><span class="nottickedoff">| otherwise  = checkLength (splitAt depth rest)</span>
+<span class="lineno">  134 </span><span class="spaces">  </span><span class="nottickedoff">where</span>
+<span class="lineno">  135 </span><span class="spaces">    </span><span class="nottickedoff">checkLength (h, t)</span>
+<span class="lineno">  136 </span><span class="spaces">      </span><span class="nottickedoff">| olength h &lt; depth = rest</span>
+<span class="lineno">  137 </span><span class="spaces">      </span><span class="nottickedoff">| otherwise        = rotateCycle (times `mod` olength h) h t</span></span>
+<span class="lineno">  138 </span>
+<span class="lineno">  139 </span>rotateCycle ∷ Int → [a] → [a] → [a]
+<span class="lineno">  140 </span><span class="decl"><span class="nottickedoff">rotateCycle n h t</span>
+<span class="lineno">  141 </span><span class="spaces">  </span><span class="nottickedoff">| n &lt; 0     = take (olength h) (drop (n + olength h) (cycle h)) &lt;&gt; t</span>
+<span class="lineno">  142 </span><span class="spaces">  </span><span class="nottickedoff">| otherwise = take (olength h) (drop n (cycle h)) &lt;&gt; t</span></span>
+<span class="lineno">  143 </span>
+<span class="lineno">  144 </span>onMap ∷ ColorMap → Coordinates → Bool
+<span class="lineno">  145 </span><span class="decl"><span class="istickedoff">onMap m (i, j) =</span>
+<span class="lineno">  146 </span><span class="spaces">  </span><span class="istickedoff">let w = _mapWidth m</span>
+<span class="lineno">  147 </span><span class="spaces">      </span><span class="istickedoff">h = _mapHeight m</span>
+<span class="lineno">  148 </span><span class="spaces">  </span><span class="istickedoff">in (0 &lt;= i &amp;&amp; i &lt; w) &amp;&amp; (0 &lt;= j &amp;&amp; j &lt; h)</span></span>
+<span class="lineno">  149 </span>
+<span class="lineno">  150 </span>infixl 9 &amp;!
+<span class="lineno">  151 </span>(&amp;!) ∷ ColorMap → Coordinates → Maybe Color
+<span class="lineno">  152 </span><span class="decl"><span class="istickedoff">m &amp;! c = getPixel m (onMap m c) c</span></span>
+<span class="lineno">  153 </span>
+<span class="lineno">  154 </span>getPixel ∷ ColorMap → Bool → Coordinates → Maybe Color
+<span class="lineno">  155 </span><span class="decl"><span class="istickedoff">getPixel m True  (i, j) = Just $ _matrix m ! j ! i</span>
+<span class="lineno">  156 </span><span class="spaces"></span><span class="istickedoff">getPixel _ False _      = Nothing</span></span>
+<span class="lineno">  157 </span>
+<span class="lineno">  158 </span>discoverBlock ∷ ColorMap → Coordinates → Block
+<span class="lineno">  159 </span><span class="decl"><span class="istickedoff">discoverBlock m startPos = S.toList $ go S.empty startPos</span>
+<span class="lineno">  160 </span><span class="spaces">  </span><span class="istickedoff">where</span>
+<span class="lineno">  161 </span><span class="spaces">    </span><span class="istickedoff">targetColor = m &amp;! startPos</span>
+<span class="lineno">  162 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">  163 </span><span class="spaces">    </span><span class="istickedoff">go visited pos</span>
+<span class="lineno">  164 </span><span class="spaces">      </span><span class="istickedoff">| pos `S.member` visited = visited</span>
+<span class="lineno">  165 </span><span class="spaces">      </span><span class="istickedoff">| m &amp;! pos /= targetColor = visited</span>
+<span class="lineno">  166 </span><span class="spaces">      </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span> = L.foldl' go (S.insert pos visited) (neighbours pos)</span></span>
+<span class="lineno">  167 </span>
+<span class="lineno">  168 </span>neighbours ∷ Coordinates → [Coordinates]
+<span class="lineno">  169 </span><span class="decl"><span class="istickedoff">neighbours (x, y) = [(x, Extra.prev y), (x, Extra.next y), (Extra.prev x, y), (Extra.next x, y)]</span></span>
+<span class="lineno">  170 </span>
+<span class="lineno">  171 </span>lightnessSteps ∷ Color → Color → Maybe Int
+<span class="lineno">  172 </span><span class="decl"><span class="istickedoff">lightnessSteps (Chromatic (ChromaticColor l1 _)) (Chromatic (ChromaticColor l2 _)) =</span>
+<span class="lineno">  173 </span><span class="spaces">  </span><span class="istickedoff">Just $ (fromEnum l2 - fromEnum l1) `mod` 3</span>
+<span class="lineno">  174 </span><span class="spaces"></span><span class="istickedoff">lightnessSteps _ _ = <span class="nottickedoff">Nothing</span></span></span>
+<span class="lineno">  175 </span>
+<span class="lineno">  176 </span>hueSteps ∷ Color → Color → Maybe Int
+<span class="lineno">  177 </span><span class="decl"><span class="istickedoff">hueSteps (Chromatic (ChromaticColor _ h1)) (Chromatic (ChromaticColor _ h2)) =</span>
+<span class="lineno">  178 </span><span class="spaces">  </span><span class="istickedoff">Just $ (fromEnum h2 - fromEnum h1) `mod` 6</span>
+<span class="lineno">  179 </span><span class="spaces"></span><span class="istickedoff">hueSteps _ _ = <span class="nottickedoff">Nothing</span></span></span>
+<span class="lineno">  180 </span>
+<span class="lineno">  181 </span>colorsToInstruction ∷ Color → Color → Int → Instruction
+<span class="lineno">  182 </span><span class="decl"><span class="istickedoff">colorsToInstruction c c' = step (lightnessSteps c c') (hueSteps c c')</span></span>
+<span class="lineno">  183 </span>
+<span class="lineno">  184 </span>step ∷ Maybe Int → Maybe Int → Int → Instruction
+<span class="lineno">  185 </span><span class="decl"><span class="istickedoff">step (Just 0) (Just 0) _ = <span class="nottickedoff">Nop</span></span>
+<span class="lineno">  186 </span><span class="spaces"></span><span class="istickedoff">step (Just 0) (Just 1) _ = Add</span>
+<span class="lineno">  187 </span><span class="spaces"></span><span class="istickedoff">step (Just 0) (Just 2) _ = <span class="nottickedoff">Divide</span></span>
+<span class="lineno">  188 </span><span class="spaces"></span><span class="istickedoff">step (Just 0) (Just 3) _ = <span class="nottickedoff">Greater</span></span>
+<span class="lineno">  189 </span><span class="spaces"></span><span class="istickedoff">step (Just 0) (Just 4) _ = Duplicate</span>
+<span class="lineno">  190 </span><span class="spaces"></span><span class="istickedoff">step (Just 0) (Just 5) _ = <span class="nottickedoff">InChar</span></span>
+<span class="lineno">  191 </span><span class="spaces"></span><span class="istickedoff">step (Just 1) (Just 0) n = Push n</span>
+<span class="lineno">  192 </span><span class="spaces"></span><span class="istickedoff">step (Just 1) (Just 1) _ = <span class="nottickedoff">Subtract</span></span>
+<span class="lineno">  193 </span><span class="spaces"></span><span class="istickedoff">step (Just 1) (Just 2) _ = <span class="nottickedoff">Mod</span></span>
+<span class="lineno">  194 </span><span class="spaces"></span><span class="istickedoff">step (Just 1) (Just 3) _ = <span class="nottickedoff">Pointer</span></span>
+<span class="lineno">  195 </span><span class="spaces"></span><span class="istickedoff">step (Just 1) (Just 4) _ = <span class="nottickedoff">Roll</span></span>
+<span class="lineno">  196 </span><span class="spaces"></span><span class="istickedoff">step (Just 1) (Just 5) _ = <span class="nottickedoff">OutNum</span></span>
+<span class="lineno">  197 </span><span class="spaces"></span><span class="istickedoff">step (Just 2) (Just 0) _ = <span class="nottickedoff">Pop</span></span>
+<span class="lineno">  198 </span><span class="spaces"></span><span class="istickedoff">step (Just 2) (Just 1) _ = Multiply</span>
+<span class="lineno">  199 </span><span class="spaces"></span><span class="istickedoff">step (Just 2) (Just 2) _ = <span class="nottickedoff">Not</span></span>
+<span class="lineno">  200 </span><span class="spaces"></span><span class="istickedoff">step (Just 2) (Just 3) _ = <span class="nottickedoff">Switch</span></span>
+<span class="lineno">  201 </span><span class="spaces"></span><span class="istickedoff">step (Just 2) (Just 4) _ = <span class="nottickedoff">InNum</span></span>
+<span class="lineno">  202 </span><span class="spaces"></span><span class="istickedoff">step (Just 2) (Just 5) _ = OutChar</span>
+<span class="lineno">  203 </span><span class="spaces"></span><span class="istickedoff">step _        _        _ = <span class="nottickedoff">Nop</span></span></span>
+<span class="lineno">  204 </span>
+<span class="lineno">  205 </span>colorsToProgram ∷ Color → Color → Int → Program
+<span class="lineno">  206 </span><span class="decl"><span class="istickedoff">colorsToProgram c c' n = liftF $ InstructionF (colorsToInstruction c c' n) ()</span></span>
+<span class="lineno">  207 </span>
+<span class="lineno">  208 </span>transition ∷ MonadLoggerEff m ⇒ PietT m Bool
+<span class="lineno">  209 </span><span class="decl"><span class="istickedoff">transition = do</span>
+<span class="lineno">  210 </span><span class="spaces">  </span><span class="istickedoff">cc &lt;- use collisionCount</span>
+<span class="lineno">  211 </span><span class="spaces">  </span><span class="istickedoff">transitionStep cc</span></span>
+<span class="lineno">  212 </span>
+<span class="lineno">  213 </span>transitionStep ∷ MonadLoggerEff m ⇒ Int → PietT m Bool
+<span class="lineno">  214 </span><span class="decl"><span class="istickedoff">transitionStep cc</span>
+<span class="lineno">  215 </span><span class="spaces">  </span><span class="istickedoff">| cc &gt;= 8   = logDebugN &quot;Max collisions reached (8). Terminating.&quot; &gt;&gt; pure False</span>
+<span class="lineno">  216 </span><span class="spaces">  </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span> = do</span>
+<span class="lineno">  217 </span><span class="spaces">      </span><span class="istickedoff">dp &lt;- use directionPointer</span>
+<span class="lineno">  218 </span><span class="spaces">      </span><span class="istickedoff">pos &lt;- use currentPosition</span>
+<span class="lineno">  219 </span><span class="spaces">      </span><span class="istickedoff">m &lt;- asks colorMap</span>
+<span class="lineno">  220 </span><span class="spaces">      </span><span class="istickedoff">let block = discoverBlock m pos</span>
+<span class="lineno">  221 </span><span class="spaces">      </span><span class="istickedoff">p &lt;- selectCodel block</span>
+<span class="lineno">  222 </span><span class="spaces">      </span><span class="istickedoff">let newPos = move dp p</span>
+<span class="lineno">  223 </span><span class="spaces">      </span><span class="istickedoff">colour &lt;- colourAt newPos</span>
+<span class="lineno">  224 </span><span class="spaces">      </span><span class="istickedoff">handleNextColour pos newPos block colour</span></span>
+<span class="lineno">  225 </span>
+<span class="lineno">  226 </span>handleNextColour ∷ MonadLoggerEff m ⇒ Coordinates → Coordinates → Block → Maybe Color → PietT m Bool
+<span class="lineno">  227 </span><span class="decl"><span class="istickedoff">handleNextColour _ _ _ Nothing           = doIfCollided &gt;&gt; pure True</span>
+<span class="lineno">  228 </span><span class="spaces"></span><span class="istickedoff">handleNextColour _ _ _ (Just Black)     = doIfCollided &gt;&gt; pure True</span>
+<span class="lineno">  229 </span><span class="spaces"></span><span class="istickedoff">handleNextColour _ newPos _ (Just White) = <span class="nottickedoff">do</span></span>
+<span class="lineno">  230 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">collisionCount .= 0</span></span>
+<span class="lineno">  231 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">currentPosition .= newPos</span></span>
+<span class="lineno">  232 </span><span class="spaces">  </span><span class="istickedoff"><span class="nottickedoff">pure True</span></span>
+<span class="lineno">  233 </span><span class="spaces"></span><span class="istickedoff">handleNextColour pos newPos block (Just c') = do</span>
+<span class="lineno">  234 </span><span class="spaces">  </span><span class="istickedoff">mbC &lt;- colourAt pos</span>
+<span class="lineno">  235 </span><span class="spaces">  </span><span class="istickedoff">collisionCount .= 0</span>
+<span class="lineno">  236 </span><span class="spaces">  </span><span class="istickedoff">currentPosition .= newPos</span>
+<span class="lineno">  237 </span><span class="spaces">  </span><span class="istickedoff">evalTransitionBlock <span class="nottickedoff">pos</span> c' block mbC</span>
+<span class="lineno">  238 </span><span class="spaces">  </span><span class="istickedoff">pure True</span></span>
+<span class="lineno">  239 </span>
+<span class="lineno">  240 </span>evalTransitionBlock ∷ MonadLoggerEff m ⇒ Coordinates → Color → Block → Maybe Color → PietT m ()
+<span class="lineno">  241 </span><span class="decl"><span class="istickedoff">evalTransitionBlock _ c' block (Just c) | <span class="tickonlytrue">c /= White</span> = do</span>
+<span class="lineno">  242 </span><span class="spaces">  </span><span class="istickedoff">cs &lt;- asks codelSize</span>
+<span class="lineno">  243 </span><span class="spaces">  </span><span class="istickedoff">let numCodels = olength block `div` (cs * cs)</span>
+<span class="lineno">  244 </span><span class="spaces">      </span><span class="istickedoff">instr = colorsToProgram c c' numCodels</span>
+<span class="lineno">  245 </span><span class="spaces">  </span><span class="istickedoff">interpret instr</span>
+<span class="lineno">  246 </span><span class="spaces"></span><span class="istickedoff">evalTransitionBlock _ _ _ _ = <span class="nottickedoff">pass</span></span></span>
+<span class="lineno">  247 </span>
+<span class="lineno">  248 </span>doIfCollided ∷ Monad m ⇒ PietT m ()
+<span class="lineno">  249 </span><span class="decl"><span class="istickedoff">doIfCollided = do</span>
+<span class="lineno">  250 </span><span class="spaces">  </span><span class="istickedoff">cc &lt;- use collisionCount</span>
+<span class="lineno">  251 </span><span class="spaces">  </span><span class="istickedoff">handleCollision (even cc)</span>
+<span class="lineno">  252 </span><span class="spaces">  </span><span class="istickedoff">collisionCount += 1</span></span>
+<span class="lineno">  253 </span>
+<span class="lineno">  254 </span>handleCollision ∷ Monad m ⇒ Bool → PietT m ()
+<span class="lineno">  255 </span><span class="decl"><span class="istickedoff">handleCollision True  = toggleChooser</span>
+<span class="lineno">  256 </span><span class="spaces"></span><span class="istickedoff">handleCollision False = rotatePointer</span></span>
+<span class="lineno">  257 </span>
+<span class="lineno">  258 </span>colourAt ∷ Monad m ⇒ Coordinates → PietT m (Maybe Color)
+<span class="lineno">  259 </span><span class="decl"><span class="istickedoff">colourAt pos = (&amp;! pos) &lt;$&gt; asks colorMap</span></span>
+<span class="lineno">  260 </span>
+<span class="lineno">  261 </span>toggleChooser ∷ Monad m ⇒ PietT m ()
+<span class="lineno">  262 </span><span class="decl"><span class="istickedoff">toggleChooser = codelChooser %= nextChooser</span></span>
+<span class="lineno">  263 </span>
+<span class="lineno">  264 </span>rotatePointer ∷ Monad m ⇒ PietT m ()
+<span class="lineno">  265 </span><span class="decl"><span class="istickedoff">rotatePointer = do</span>
+<span class="lineno">  266 </span><span class="spaces">  </span><span class="istickedoff">dp &lt;- use directionPointer</span>
+<span class="lineno">  267 </span><span class="spaces">  </span><span class="istickedoff">directionPointer .= nextPointer dp</span></span>
+<span class="lineno">  268 </span>
+<span class="lineno">  269 </span>selectCodel ∷ Monad m ⇒ Block → PietT m Coordinates
+<span class="lineno">  270 </span><span class="decl"><span class="istickedoff">selectCodel block = do</span>
+<span class="lineno">  271 </span><span class="spaces">  </span><span class="istickedoff">dp &lt;- use directionPointer</span>
+<span class="lineno">  272 </span><span class="spaces">  </span><span class="istickedoff">cc &lt;- use codelChooser</span>
+<span class="lineno">  273 </span><span class="spaces">  </span><span class="istickedoff">return $ L.maximumBy (Orientation.furthest cc dp) block</span></span>
+<span class="lineno">  274 </span>
+<span class="lineno">  275 </span>headUnsafe ∷ [a] → a
+<span class="lineno">  276 </span><span class="decl"><span class="istickedoff">headUnsafe []      = <span class="nottickedoff">error &quot;empty list&quot;</span></span>
+<span class="lineno">  277 </span><span class="spaces"></span><span class="istickedoff">headUnsafe (h : _) = h</span></span>
+<span class="lineno">  278 </span>
+<span class="lineno">  279 </span>tailUnsafe ∷ [a] → [a]
+<span class="lineno">  280 </span><span class="decl"><span class="istickedoff">tailUnsafe []      = <span class="nottickedoff">error &quot;empty list&quot;</span></span>
+<span class="lineno">  281 </span><span class="spaces"></span><span class="istickedoff">tailUnsafe (_ : t) = t</span></span>
+
+</pre>
+</body>
+</html>

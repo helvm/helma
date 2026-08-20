@@ -35,6 +35,7 @@ span.spaces    { background: white }
 <span class="lineno">   16 </span>import           Codec.Picture
 <span class="lineno">   17 </span>
 <span class="lineno">   18 </span>toRGB8OrError ∷ DynamicImage → EitherError (Image PixelRGB8)
+<<<<<<< HEAD
 <span class="lineno">   19 </span><span class="decl"><span class="nottickedoff">toRGB8OrError (ImageRGB8 rgb8)   = Right rgb8</span>
 <span class="lineno">   20 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageRGBA8 rgba8) = Right $ convertRGB8 (ImageRGBA8 rgba8)</span>
 <span class="lineno">   21 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageY8 _)        = Left  &quot;Y8 format&quot;</span>
@@ -62,6 +63,35 @@ span.spaces    { background: white }
 <span class="lineno">   43 </span><span class="decl"><span class="nottickedoff">hueSteps (Chromatic (ChromaticColor _ h1)) (Chromatic (ChromaticColor _ h2)) =</span>
 <span class="lineno">   44 </span><span class="spaces">  </span><span class="nottickedoff">Just $ (fromEnum h2 - fromEnum h1) `mod` 6</span>
 <span class="lineno">   45 </span><span class="spaces"></span><span class="nottickedoff">hueSteps _ _ = Nothing</span></span>
+=======
+<span class="lineno">   19 </span><span class="decl"><span class="istickedoff">toRGB8OrError (ImageRGB8 rgb8)   = Right rgb8</span>
+<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageRGBA8 rgba8) = <span class="nottickedoff">Right $ convertRGB8 (ImageRGBA8 rgba8)</span></span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageY8 _)        = <span class="nottickedoff">Left  &quot;Y8 format&quot;</span></span>
+<span class="lineno">   22 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageY16 _)       = <span class="nottickedoff">Left  &quot;Y16 format&quot;</span></span>
+<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageY32 _)       = <span class="nottickedoff">Left  &quot;Y32 format&quot;</span></span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageYF _)        = <span class="nottickedoff">Left  &quot;YF format&quot;</span></span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageYA8 _)       = <span class="nottickedoff">Left  &quot;YA8 format&quot;</span></span>
+<span class="lineno">   26 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageYA16 _)      = <span class="nottickedoff">Left  &quot;YA16 format&quot;</span></span>
+<span class="lineno">   27 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageRGB16 _)     = <span class="nottickedoff">Left  &quot;RGB16 format&quot;</span></span>
+<span class="lineno">   28 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageRGBF _)      = <span class="nottickedoff">Left  &quot;RGBF format&quot;</span></span>
+<span class="lineno">   29 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageRGBA16 _)    = <span class="nottickedoff">Left  &quot;RGBA16 format&quot;</span></span>
+<span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageYCbCr8 _)    = <span class="nottickedoff">Left  &quot;YCbCr8 format&quot;</span></span>
+<span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageCMYK8 _)     = <span class="nottickedoff">Left  &quot;CMYK8 format&quot;</span></span>
+<span class="lineno">   32 </span><span class="spaces"></span><span class="istickedoff">toRGB8OrError (ImageCMYK16 _)    = <span class="nottickedoff">Left  &quot;CMYK16 format&quot;</span></span></span>
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>pixelToColor ∷ PixelRGB8 → Color
+<span class="lineno">   35 </span><span class="decl"><span class="istickedoff">pixelToColor (PixelRGB8 r g b) = rgb2Color r g b</span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>lightnessSteps ∷ Color → Color → Maybe Int
+<span class="lineno">   38 </span><span class="decl"><span class="istickedoff">lightnessSteps (Chromatic (ChromaticColor l1 _)) (Chromatic (ChromaticColor l2 _)) =</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">Just $ (fromEnum l2 - fromEnum l1) `mod` 3</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="istickedoff">lightnessSteps _ _ = <span class="nottickedoff">Nothing</span></span></span>
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>hueSteps ∷ Color → Color → Maybe Int
+<span class="lineno">   43 </span><span class="decl"><span class="istickedoff">hueSteps (Chromatic (ChromaticColor _ h1)) (Chromatic (ChromaticColor _ h2)) =</span>
+<span class="lineno">   44 </span><span class="spaces">  </span><span class="istickedoff">Just $ (fromEnum h2 - fromEnum h1) `mod` 6</span>
+<span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">hueSteps _ _ = <span class="nottickedoff">Nothing</span></span></span>
+>>>>>>> e2b43021 (Add piet hi)
 <span class="lineno">   46 </span>
 <span class="lineno">   47 </span>rgb2Color ∷ (Num w, Eq w) ⇒ w → w → w → Color
 <span class="lineno">   48 </span><span class="decl"><span class="istickedoff">rgb2Color 0x00 0x00 0x00 = Black</span>
@@ -90,7 +120,11 @@ span.spaces    { background: white }
 <span class="lineno">   71 </span>  = Black
 <span class="lineno">   72 </span>  | White
 <span class="lineno">   73 </span>  | Chromatic !ChromaticColor
+<<<<<<< HEAD
 <span class="lineno">   74 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+=======
+<span class="lineno">   74 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+>>>>>>> e2b43021 (Add piet hi)
 
 </pre>
 </body>
