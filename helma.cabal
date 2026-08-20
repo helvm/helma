@@ -241,7 +241,11 @@ library
     HelVM.HelMA.Automata.Piet.Combiner.ALU
     HelVM.HelMA.Automata.Piet.Combiner.CPU
 
+    HelVM.HelMA.Automata.Piet.Hi.Evaluator
+    HelVM.HelMA.Automata.Piet.Hi.Types
+
     HelVM.HelMA.Automata.Piet.LLVM.Codel
+    HelVM.HelMA.Automata.Piet.LLVM.Evaluator
     HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
     HelVM.HelMA.Automata.Piet.Types.Lightness
@@ -290,6 +294,8 @@ library
     , free
     , IfElse
     , ilist
+    , microlens
+    , microlens-th
     , monad-logger
     , monad-loops
     , natural-transformation
