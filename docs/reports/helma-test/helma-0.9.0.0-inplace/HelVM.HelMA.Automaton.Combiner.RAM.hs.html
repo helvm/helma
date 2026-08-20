@@ -55,9 +55,9 @@ span.spaces    { background: white }
 <span class="lineno">   36 </span><span class="decl"><span class="istickedoff">store = insertDef . fromIntegral</span></span>
 <span class="lineno">   37 </span>
 <span class="lineno">   38 </span>-- | Types
-<span class="lineno">   39 </span>type RAM ll element = (Show ll , Default element , IsSequence ll , Element ll ~ element , Index ll ~ Int , II ll)
+<span class="lineno">   39 </span>type RAM ll element = (Default element , Element ll ~ element , Index ll ~ Int , LL ll)
 <span class="lineno">   40 </span>
-<span class="lineno">   41 </span>type II ll = (InsertDef ll , IndexSafe ll)
+<span class="lineno">   41 </span>type LL ll = (Show ll,  IsSequence ll, InsertDef ll , IndexSafe ll)
 <span class="lineno">   42 </span>
 <span class="lineno">   43 </span>type Address = Int
 

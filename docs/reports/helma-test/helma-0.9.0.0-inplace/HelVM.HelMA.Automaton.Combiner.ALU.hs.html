@@ -239,7 +239,9 @@ span.spaces    { background: white }
 <span class="lineno">  220 </span>
 <span class="lineno">  221 </span>type IntegralStack ll element = (Stack ll element , Integral element)
 <span class="lineno">  222 </span>
-<span class="lineno">  223 </span>type Stack ll element = (Show ll , IsSequence ll , Element ll ~ element , Index ll ~ Int , IndexSafe ll)
+<span class="lineno">  223 </span>type Stack ll element = (Element ll ~ element , Index ll ~ Int , LL ll)
+<span class="lineno">  224 </span>
+<span class="lineno">  225 </span>type LL ll = (Show ll , IsSequence ll , IndexSafe ll)
 
 </pre>
 </body>

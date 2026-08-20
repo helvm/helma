@@ -36,8 +36,8 @@ store ∷ (Integral a , RAM ll element) ⇒ a → element → ll → ll
 store = insertDef . fromIntegral
 
 -- | Types
-type RAM ll element = (Show ll , Default element , IsSequence ll , Element ll ~ element , Index ll ~ Int , II ll)
+type RAM ll element = (Default element , Element ll ~ element , Index ll ~ Int , LL ll)
 
-type II ll = (InsertDef ll , IndexSafe ll)
+type LL ll = (Show ll , IsSequence ll , InsertDef ll , IndexSafe ll)
 
 type Address = Int

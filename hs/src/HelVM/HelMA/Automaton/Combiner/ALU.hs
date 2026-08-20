@@ -220,4 +220,6 @@ type SafeStack m ll element  = (MonadSafe m , IntegralStack ll element)
 
 type IntegralStack ll element = (Stack ll element , Integral element)
 
-type Stack ll element = (Show ll , IsSequence ll , Element ll ~ element , Index ll ~ Int , IndexSafe ll)
+type Stack ll element = (Element ll ~ element , Index ll ~ Int , LL ll)
+
+type LL ll = (Show ll , IsSequence ll , IndexSafe ll)
