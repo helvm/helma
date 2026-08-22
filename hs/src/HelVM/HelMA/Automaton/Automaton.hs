@@ -36,10 +36,10 @@ import qualified Data.Sequence                              as Seq
 
 import           Prelude                                    hiding ( swap )
 
-start ∷ AppEff m ⇒ InstructionList → AutomatonOptions → m ()
+start ∷ AppSafeEff m ⇒ InstructionList → AutomatonOptions → m ()
 start il ao = start' (flip optimize il $ optLevelAutoOptions ao) (stackType ao) (ramType ao) (autoOptions ao)
 
-start' ∷ AppEff m ⇒ InstructionList → StackType → RAMType → AutoOptions → m ()
+start' ∷ AppSafeEff m ⇒ InstructionList → StackType → RAMType → AutoOptions → m ()
 start' il s ListRAMType    = start'' il s []
 start' il s SeqRAMType     = start'' il s Seq.empty
 start' il s SListRAMType   = start'' il s SList.sListEmpty

@@ -47,17 +47,16 @@ run TL   WhiteTokenType   = putLTextLnRio . show . tokenizeWhite   . source
 run Code VisibleTokenType = putLTextLnRio . show . readVisibleTokens . source
 run Code WhiteTokenType   = putLTextLnRio . show . readWhiteTokens   . source
 
-
-simpleEval ∷ AppEff m ⇒ S.SimpleParams → m ()
+simpleEval ∷ AppSafeEff m ⇒ S.SimpleParams → m ()
 simpleEval p = eval (S.tokenType p) (S.source p) (S.formatType p) $ S.automatonOptions p
 
 ----
 
-evalParams ∷ AppEff m ⇒ TokenType → EvalParams → m ()
+evalParams ∷ AppSafeEff m ⇒ TokenType → EvalParams → m ()
 evalParams tokenType p = eval tokenType (source p) (formatType p) $ automatonOptions p
 
-eval ∷ AppEff m ⇒ TokenType → Source → LabelType → Automaton.AutomatonOptions → m ()
+eval ∷ AppSafeEff m ⇒ TokenType → Source → LabelType → Automaton.AutomatonOptions → m ()
 eval tokenType source = evalTL $ tokenize tokenType source
 
-evalTL ∷ AppEff m ⇒ TokenList → LabelType → Automaton.AutomatonOptions → m ()
+evalTL ∷ AppSafeEff m ⇒ TokenList → LabelType → Automaton.AutomatonOptions → m ()
 evalTL tl ascii ao = flip start ao =<< liftSafe (parseFromTL ascii tl)

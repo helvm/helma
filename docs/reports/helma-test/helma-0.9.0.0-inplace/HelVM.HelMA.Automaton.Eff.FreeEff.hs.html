@@ -33,7 +33,7 @@ span.spaces    { background: white }
 <span class="lineno">   14 </span>import           Prelude                            hiding ( getLine, putLTextLn, putText, putTextLn )
 <span class="lineno">   15 </span>--------------------------------------------------------------------------------
 <span class="lineno">   16 </span>
-<span class="lineno">   17 </span>interpretFreeEffDebug ∷ MonadLoggerEff m ⇒ FreeEff a → m a
+<span class="lineno">   17 </span>interpretFreeEffDebug ∷ AppEff m ⇒ FreeEff a → m a
 <span class="lineno">   18 </span><span class="decl"><span class="istickedoff">interpretFreeEffDebug = foldF interpretFreeEffFDebug</span></span>
 <span class="lineno">   19 </span>
 <span class="lineno">   20 </span>interpretFreeEff ∷ MonadEff m ⇒ FreeEff a → m a
@@ -41,7 +41,7 @@ span.spaces    { background: white }
 <span class="lineno">   22 </span>
 <span class="lineno">   23 </span>--------------------------------------------------------------------------------
 <span class="lineno">   24 </span>
-<span class="lineno">   25 </span>interpretFreeEffFDebug ∷ MonadLoggerEff m ⇒ FreeEffF a → m a
+<span class="lineno">   25 </span>interpretFreeEffFDebug ∷ AppEff m ⇒ FreeEffF a → m a
 <span class="lineno">   26 </span><span class="decl"><span class="istickedoff">interpretFreeEffFDebug (GetContentsBS    cd) = <span class="nottickedoff">cd &lt;$&gt; (logDebugN &quot;GetContentsBS&quot;   *&gt; getContentsBS)</span></span>
 <span class="lineno">   27 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (GetContentsText  cd) = <span class="nottickedoff">cd &lt;$&gt; (logDebugN &quot;GetContentsText&quot; *&gt; getContentsText)</span></span>
 <span class="lineno">   28 </span><span class="spaces"></span><span class="istickedoff">interpretFreeEffFDebug (GetChar          cd) = logAndCont =&lt;&lt; getChar where logAndCont c = logDebugN (&quot;GetChar: &quot; &lt;&gt; one c) $&gt; cd c</span>

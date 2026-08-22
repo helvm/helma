@@ -66,20 +66,19 @@ span.spaces    { background: white }
 <span class="lineno">   47 </span><span class="spaces"></span><span class="nottickedoff">run Code VisibleTokenType = putLTextLnRio . show . readVisibleTokens . source</span>
 <span class="lineno">   48 </span><span class="spaces"></span><span class="nottickedoff">run Code WhiteTokenType   = putLTextLnRio . show . readWhiteTokens   . source</span></span>
 <span class="lineno">   49 </span>
-<span class="lineno">   50 </span>
-<span class="lineno">   51 </span>simpleEval ∷ AppEff m ⇒ S.SimpleParams → m ()
-<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">simpleEval p = eval (S.tokenType p) (S.source p) (S.formatType p) $ S.automatonOptions p</span></span>
-<span class="lineno">   53 </span>
-<span class="lineno">   54 </span>----
-<span class="lineno">   55 </span>
-<span class="lineno">   56 </span>evalParams ∷ AppEff m ⇒ TokenType → EvalParams → m ()
-<span class="lineno">   57 </span><span class="decl"><span class="nottickedoff">evalParams tokenType p = eval tokenType (source p) (formatType p) $ automatonOptions p</span></span>
-<span class="lineno">   58 </span>
-<span class="lineno">   59 </span>eval ∷ AppEff m ⇒ TokenType → Source → LabelType → Automaton.AutomatonOptions → m ()
-<span class="lineno">   60 </span><span class="decl"><span class="istickedoff">eval tokenType source = evalTL $ tokenize tokenType source</span></span>
-<span class="lineno">   61 </span>
-<span class="lineno">   62 </span>evalTL ∷ AppEff m ⇒ TokenList → LabelType → Automaton.AutomatonOptions → m ()
-<span class="lineno">   63 </span><span class="decl"><span class="istickedoff">evalTL tl ascii ao = flip start ao =&lt;&lt; liftSafe (parseFromTL ascii tl)</span></span>
+<span class="lineno">   50 </span>simpleEval ∷ AppSafeEff m ⇒ S.SimpleParams → m ()
+<span class="lineno">   51 </span><span class="decl"><span class="istickedoff">simpleEval p = eval (S.tokenType p) (S.source p) (S.formatType p) $ S.automatonOptions p</span></span>
+<span class="lineno">   52 </span>
+<span class="lineno">   53 </span>----
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>evalParams ∷ AppSafeEff m ⇒ TokenType → EvalParams → m ()
+<span class="lineno">   56 </span><span class="decl"><span class="nottickedoff">evalParams tokenType p = eval tokenType (source p) (formatType p) $ automatonOptions p</span></span>
+<span class="lineno">   57 </span>
+<span class="lineno">   58 </span>eval ∷ AppSafeEff m ⇒ TokenType → Source → LabelType → Automaton.AutomatonOptions → m ()
+<span class="lineno">   59 </span><span class="decl"><span class="istickedoff">eval tokenType source = evalTL $ tokenize tokenType source</span></span>
+<span class="lineno">   60 </span>
+<span class="lineno">   61 </span>evalTL ∷ AppSafeEff m ⇒ TokenList → LabelType → Automaton.AutomatonOptions → m ()
+<span class="lineno">   62 </span><span class="decl"><span class="istickedoff">evalTL tl ascii ao = flip start ao =&lt;&lt; liftSafe (parseFromTL ascii tl)</span></span>
 
 </pre>
 </body>

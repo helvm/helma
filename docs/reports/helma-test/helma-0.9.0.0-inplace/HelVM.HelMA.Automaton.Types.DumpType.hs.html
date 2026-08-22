@@ -25,7 +25,7 @@ span.spaces    { background: white }
 <span class="lineno">    6 </span>
 <span class="lineno">    7 </span>import           Control.Monad.Logger
 <span class="lineno">    8 </span>
-<span class="lineno">    9 </span>logDump ∷ (AppEff m , Show d) ⇒ DumpType → d → m ()
+<span class="lineno">    9 </span>logDump ∷ (AppSafeEff m , Show d) ⇒ DumpType → d → m ()
 <span class="lineno">   10 </span><span class="decl"><span class="istickedoff">logDump dt d = logDump' $ dump dt d where</span>
 <span class="lineno">   11 </span><span class="spaces">  </span><span class="istickedoff">logDump' Nothing  = <span class="nottickedoff">pass</span></span>
 <span class="lineno">   12 </span><span class="spaces">  </span><span class="istickedoff">logDump' (Just t) = logInfoN $ logTupleToMessage (&quot;dump&quot; , t)</span>

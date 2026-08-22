@@ -6,7 +6,7 @@ import           HelVM.HelIO.Extra
 
 import           Control.Monad.Logger
 
-logDump ∷ (AppEff m , Show d) ⇒ DumpType → d → m ()
+logDump ∷ (AppSafeEff m , Show d) ⇒ DumpType → d → m ()
 logDump dt d = logDump' $ dump dt d where
   logDump' Nothing  = pass
   logDump' (Just t) = logInfoN $ logTupleToMessage ("dump" , t)

@@ -1301,4 +1301,5 @@ Debug (42,0) pointer DPRight
 Debug (42,1) switch DPDown
 Debug (42,2) duplicate
 Error MTIndexSafe.indexSafe:
+ALU.copy
 

@@ -34,17 +34,17 @@ import           Data.IntMap                                        hiding ( fil
 
 -- Main interpreter entry point
 
-interpret ∷ AppEff m ⇒ Program → m ()
+interpret ∷ AppSafeEff m ⇒ Program → m ()
 interpret prog = Trampoline.trampolineM interpretStep initialState where
   initialState = (NormalStep Nothing, initialMemory prog)
 
-interpretStep ∷ AppEff m ⇒ (StepState, Memory) → m (Either () InterpreterMemory)
+interpretStep ∷ AppSafeEff m ⇒ (StepState, Memory) → m (Either () InterpreterMemory)
 interpretStep (NormalStep prev, mem) = stepNormal prev mem
 interpretStep (WhiteStep limit, mem) = pure $ stepWhite limit mem
 
 -- Step handlers
 
-stepNormal ∷ AppEff m ⇒ Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
+stepNormal ∷ AppSafeEff m ⇒ Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
 stepNormal previous memory = evalPixel (currentPixel memory) previous memory
 
 stepWhite ∷ Int → Memory → Either () InterpreterMemory
@@ -54,12 +54,12 @@ stepWhite limit memory
 
 -- Pixel handlers
 
-evalPixel ∷ AppEff m ⇒ Color → Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
+evalPixel ∷ AppSafeEff m ⇒ Color → Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
 evalPixel (Chromatic color) previous mem = evalChromaticPixel previous color mem
 evalPixel White             _        mem = pure $ Trampoline.continue $ evalWhitePixel mem
 evalPixel Black             _        _   = liftError "Entered black block, terminate"
 
-evalChromaticPixel ∷ AppEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m (Either () InterpreterMemory)
+evalChromaticPixel ∷ AppSafeEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m (Either () InterpreterMemory)
 evalChromaticPixel previous color mem = makeNext <$> applyPreviousColor previous color mem where
   makeNext mem1 = handleNext (nonBlackSucc (programMemory mem1) mStats (orientationMemory mem1)) (color, labelSize mStats) mem1
   mStats   = getMaskInfo (programMemory mem) (positionMemory mem)
@@ -80,7 +80,7 @@ checkWhitePixelStep limit mem = (WhiteStep (limit - 1), stepWhitePixel mem)
 currentPixel ∷ Memory → Color
 currentPixel mem = pixelImage (positionMemory mem) (image $ programMemory mem)
 
-applyPreviousColor ∷ AppEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m Memory
+applyPreviousColor ∷ AppSafeEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m Memory
 applyPreviousColor (Just (oldColor, oldS)) color = colors2Command oldColor color oldS
 applyPreviousColor Nothing                 _     = pure
 
@@ -131,10 +131,10 @@ getY (Orientation DPLeft  CCRight) = borderMin . labelLeft
 getY (Orientation DPUp    CCLeft)  = borderCoord . labelTop
 getY (Orientation DPUp    CCRight) = borderCoord . labelTop
 
-colors2Command ∷ AppEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
+colors2Command ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
 colors2Command from to = colorDiff2Command $ diffColor from to
 
-colorDiff2Command ∷ AppEff m ⇒ ChromaticColor → Int → Memory → m Memory
+colorDiff2Command ∷ AppSafeEff m ⇒ ChromaticColor → Int → Memory → m Memory
 colorDiff2Command (ChromaticColor Light  Red)     _ s = pure s
 colorDiff2Command (ChromaticColor Normal Red)     n s = pietPush n s
 colorDiff2Command (ChromaticColor Dark   Red)     _ s = pietPop s

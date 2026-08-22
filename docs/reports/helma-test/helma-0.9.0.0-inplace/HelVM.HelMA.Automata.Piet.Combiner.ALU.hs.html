@@ -47,20 +47,20 @@ span.spaces    { background: white }
 <span class="lineno">   28 </span>import           Prelude                                                hiding ( getLine )
 <span class="lineno">   29 </span>
 <span class="lineno">   30 </span>-- | I/O Instructions
-<span class="lineno">   31 </span>pietInNumber ∷ AppEff m ⇒ Memory → m Memory
+<span class="lineno">   31 </span>pietInNumber ∷ AppSafeEff m ⇒ Memory → m Memory
 <span class="lineno">   32 </span><span class="decl"><span class="istickedoff">pietInNumber = modifyStack &quot;in_number&quot; inputDec</span></span>
 <span class="lineno">   33 </span>
-<span class="lineno">   34 </span>pietInChar ∷ AppEff m ⇒ Memory → m Memory
+<span class="lineno">   34 </span>pietInChar ∷ AppSafeEff m ⇒ Memory → m Memory
 <span class="lineno">   35 </span><span class="decl"><span class="nottickedoff">pietInChar = modifyStack &quot;in_char&quot; inputChar</span></span>
 <span class="lineno">   36 </span>
-<span class="lineno">   37 </span>pietOutNumber ∷ AppEff m ⇒ Memory → m Memory
+<span class="lineno">   37 </span>pietOutNumber ∷ AppSafeEff m ⇒ Memory → m Memory
 <span class="lineno">   38 </span><span class="decl"><span class="istickedoff">pietOutNumber = modifyStack &quot;out_number&quot; outputDecMaybe</span></span>
 <span class="lineno">   39 </span>
-<span class="lineno">   40 </span>pietOutChar ∷ AppEff m ⇒ Memory → m Memory
+<span class="lineno">   40 </span>pietOutChar ∷ AppSafeEff m ⇒ Memory → m Memory
 <span class="lineno">   41 </span><span class="decl"><span class="istickedoff">pietOutChar = modifyStack &quot;out_char&quot; outputCharMaybe</span></span>
 <span class="lineno">   42 </span>
 <span class="lineno">   43 </span>-- | Push / Pop
-<span class="lineno">   44 </span>pietPush ∷ AppEff m ⇒ Int → Memory → m Memory
+<span class="lineno">   44 </span>pietPush ∷ AppSafeEff m ⇒ Int → Memory → m Memory
 <span class="lineno">   45 </span><span class="decl"><span class="istickedoff">pietPush n = modifyStack (&quot;push &quot; &lt;&gt; show n) (pure . push1 n)</span></span>
 <span class="lineno">   46 </span>
 <span class="lineno">   47 </span>pietPop ∷ (ALU m Stack Int) ⇒ Memory → m Memory
@@ -96,7 +96,7 @@ span.spaces    { background: white }
 <span class="lineno">   77 </span><span class="decl"><span class="istickedoff">pietRoll = modifyStack &quot;roll&quot; roll</span></span>
 <span class="lineno">   78 </span>
 <span class="lineno">   79 </span>-- | Utils
-<span class="lineno">   80 </span>modifyStack ∷ AppEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
+<span class="lineno">   80 </span>modifyStack ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
 <span class="lineno">   81 </span><span class="decl"><span class="istickedoff">modifyStack name f (Memory im s) = logWithPosition name im *&gt; (Memory im &lt;$&gt; f s)</span></span>
 
 </pre>

@@ -60,7 +60,7 @@ span.spaces    { background: white }
 <span class="lineno">   41 </span><span class="decl"><span class="nottickedoff">run No = runAsRIO . evalParams</span>
 <span class="lineno">   42 </span><span class="spaces"></span><span class="nottickedoff">run _  = fallback</span></span>
 <span class="lineno">   43 </span>
-<span class="lineno">   44 </span>evalParams ∷ AppEff m ⇒ EvalParams → m ()
+<span class="lineno">   44 </span>evalParams ∷ AppSafeEff m ⇒ EvalParams → m ()
 <span class="lineno">   45 </span><span class="decl"><span class="nottickedoff">evalParams p = putLine =&lt;&lt; evalWithFormat (formatType p) (source p) =&lt;&lt; getContentsText</span></span>
 <span class="lineno">   46 </span>
 <span class="lineno">   47 </span>evalWithFormat ∷ MonadSafe m ⇒ LabelType → Source → LText → m Output

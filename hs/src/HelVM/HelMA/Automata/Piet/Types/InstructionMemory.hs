@@ -17,7 +17,7 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           Control.Monad.Logger
 
-logWithPosition ∷ AppEff m ⇒ Text → InstructionMemory → m ()
+logWithPosition ∷ AppSafeEff m ⇒ Text → InstructionMemory → m ()
 logWithPosition msg im = logDebugN $ show (position $ instructionCounter im) <> " " <> msg
 
 codelChooserIM ∷ InstructionMemory → DirectionPointer

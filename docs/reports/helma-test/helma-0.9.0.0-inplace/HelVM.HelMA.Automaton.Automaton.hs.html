@@ -55,10 +55,10 @@ span.spaces    { background: white }
 <span class="lineno">   36 </span>
 <span class="lineno">   37 </span>import           Prelude                                    hiding ( swap )
 <span class="lineno">   38 </span>
-<span class="lineno">   39 </span>start ∷ AppEff m ⇒ InstructionList → AutomatonOptions → m ()
+<span class="lineno">   39 </span>start ∷ AppSafeEff m ⇒ InstructionList → AutomatonOptions → m ()
 <span class="lineno">   40 </span><span class="decl"><span class="istickedoff">start il ao = start' (flip optimize il $ optLevelAutoOptions ao) (stackType ao) (ramType ao) (autoOptions ao)</span></span>
 <span class="lineno">   41 </span>
-<span class="lineno">   42 </span>start' ∷ AppEff m ⇒ InstructionList → StackType → RAMType → AutoOptions → m ()
+<span class="lineno">   42 </span>start' ∷ AppSafeEff m ⇒ InstructionList → StackType → RAMType → AutoOptions → m ()
 <span class="lineno">   43 </span><span class="decl"><span class="istickedoff">start' il s ListRAMType    = <span class="nottickedoff">start'' il s []</span></span>
 <span class="lineno">   44 </span><span class="spaces"></span><span class="istickedoff">start' il s SeqRAMType     = <span class="nottickedoff">start'' il s Seq.empty</span></span>
 <span class="lineno">   45 </span><span class="spaces"></span><span class="istickedoff">start' il s SListRAMType   = <span class="nottickedoff">start'' il s SList.sListEmpty</span></span>

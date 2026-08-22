@@ -59,15 +59,15 @@ span.spaces    { background: white }
 <span class="lineno">   40 </span><span class="spaces"></span><span class="nottickedoff">run Emit.TL   = putLTextLnRio . show . tokenize . source</span>
 <span class="lineno">   41 </span><span class="spaces"></span><span class="nottickedoff">run Emit.Code = putLTextLnRio . show . readSymbols . source</span></span>
 <span class="lineno">   42 </span>
-<span class="lineno">   43 </span>simpleEval ∷ AppEff m ⇒ RAMType → Source → m ()
+<span class="lineno">   43 </span>simpleEval ∷ AppSafeEff m ⇒ RAMType → Source → m ()
 <span class="lineno">   44 </span><span class="decl"><span class="istickedoff">simpleEval rt s = evalSource s rt testMaybeLimit Pretty</span></span>
 <span class="lineno">   45 </span>
 <span class="lineno">   46 </span>----
 <span class="lineno">   47 </span>
-<span class="lineno">   48 </span>evalParams ∷ AppEff m ⇒ EvalParams → m ()
+<span class="lineno">   48 </span>evalParams ∷ AppSafeEff m ⇒ EvalParams → m ()
 <span class="lineno">   49 </span><span class="decl"><span class="nottickedoff">evalParams p = evalSource (source p) (ramAutoOptions p) Nothing (dumpAutoOptions p)</span></span>
 <span class="lineno">   50 </span>
-<span class="lineno">   51 </span>evalSource ∷ AppEff m ⇒ Source → RAMType → LimitMaybe → DumpType → m ()
+<span class="lineno">   51 </span>evalSource ∷ AppSafeEff m ⇒ Source → RAMType → LimitMaybe → DumpType → m ()
 <span class="lineno">   52 </span><span class="decl"><span class="istickedoff">evalSource source = evalIL $ tokenize source</span></span>
 <span class="lineno">   53 </span>
 <span class="lineno">   54 </span>evalIL ∷ AutomatonEff e m ⇒ [e] → RAMType → LimitMaybe → DumpType → m ()

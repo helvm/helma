@@ -73,12 +73,12 @@ span.spaces    { background: white }
 <span class="lineno">   54 </span><span class="spaces"></span><span class="nottickedoff">run Emit.TL   _ = putLTextLnRio . show . tokenize . source</span>
 <span class="lineno">   55 </span><span class="spaces"></span><span class="nottickedoff">run Emit.Code _ = putLTextLnRio . show . readTokens . source</span></span>
 <span class="lineno">   56 </span>
-<span class="lineno">   57 </span>simpleEval ∷ AppEff m ⇒ S.SimpleParams → m ()
+<span class="lineno">   57 </span>simpleEval ∷ AppSafeEff m ⇒ S.SimpleParams → m ()
 <span class="lineno">   58 </span><span class="decl"><span class="istickedoff">simpleEval p = evalSource (S.implType p) (S.source p) (S.stackType p) (S.autoOptions p)</span></span>
 <span class="lineno">   59 </span>
 <span class="lineno">   60 </span>----
 <span class="lineno">   61 </span>
-<span class="lineno">   62 </span>evalParams ∷ AppEff m ⇒ AutomatonType → EvalParams → m ()
+<span class="lineno">   62 </span>evalParams ∷ AppSafeEff m ⇒ AutomatonType → EvalParams → m ()
 <span class="lineno">   63 </span><span class="decl"><span class="nottickedoff">evalParams e p = evalSource e (source p) (stackAutoOptions p) (autoOptions p)</span></span>
 <span class="lineno">   64 </span>
 <span class="lineno">   65 </span>evalSource ∷ (AutomatonEff Symbol m) ⇒ AutomatonType → Source → StackType → AutoOptions → m ()

@@ -27,7 +27,7 @@ run ∷ Has env ⇒ Emit → EvalParams → RIO.RIO env ()
 run No = runAsRIO . evalParams
 run _  = fallback
 
-evalParams ∷ AppEff m ⇒ EvalParams → m ()
+evalParams ∷ AppSafeEff m ⇒ EvalParams → m ()
 evalParams = eval . source
 
 eval ∷ MonadEff m ⇒ Source → m ()

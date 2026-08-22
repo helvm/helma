@@ -28,5 +28,5 @@ runRio  _ codelInfo = runWithOptions =<< optionsRio where
 run ∷ Has env ⇒  Maybe Natural → Picture.DynamicImage → RIO.RIO env ()
 run cl i = runAsRIO $ simpleEval cl i
 
-simpleEval ∷ AppEff m ⇒ Maybe Natural → Picture.DynamicImage → m ()
+simpleEval ∷ AppSafeEff m ⇒ Maybe Natural → Picture.DynamicImage → m ()
 simpleEval codelInfo dynamicImage = (interpret . compile) =<< processImageWithLog codelInfo dynamicImage

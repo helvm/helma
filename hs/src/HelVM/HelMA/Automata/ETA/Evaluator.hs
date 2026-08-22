@@ -54,12 +54,12 @@ run Emit.IL   _ = putLTextLnRio . pShowNoColor . parseSafe . source
 run Emit.TL   _ = putLTextLnRio . show . tokenize . source
 run Emit.Code _ = putLTextLnRio . show . readTokens . source
 
-simpleEval ∷ AppEff m ⇒ S.SimpleParams → m ()
+simpleEval ∷ AppSafeEff m ⇒ S.SimpleParams → m ()
 simpleEval p = evalSource (S.implType p) (S.source p) (S.stackType p) (S.autoOptions p)
 
 ----
 
-evalParams ∷ AppEff m ⇒ AutomatonType → EvalParams → m ()
+evalParams ∷ AppSafeEff m ⇒ AutomatonType → EvalParams → m ()
 evalParams e p = evalSource e (source p) (stackAutoOptions p) (autoOptions p)
 
 evalSource ∷ (AutomatonEff Symbol m) ⇒ AutomatonType → Source → StackType → AutoOptions → m ()

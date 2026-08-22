@@ -53,17 +53,17 @@ span.spaces    { background: white }
 <span class="lineno">   34 </span>
 <span class="lineno">   35 </span>-- Main interpreter entry point
 <span class="lineno">   36 </span>
-<span class="lineno">   37 </span>interpret ∷ AppEff m ⇒ Program → m ()
+<span class="lineno">   37 </span>interpret ∷ AppSafeEff m ⇒ Program → m ()
 <span class="lineno">   38 </span><span class="decl"><span class="istickedoff">interpret prog = Trampoline.trampolineM interpretStep initialState where</span>
 <span class="lineno">   39 </span><span class="spaces">  </span><span class="istickedoff">initialState = (NormalStep Nothing, initialMemory prog)</span></span>
 <span class="lineno">   40 </span>
-<span class="lineno">   41 </span>interpretStep ∷ AppEff m ⇒ (StepState, Memory) → m (Either () InterpreterMemory)
+<span class="lineno">   41 </span>interpretStep ∷ AppSafeEff m ⇒ (StepState, Memory) → m (Either () InterpreterMemory)
 <span class="lineno">   42 </span><span class="decl"><span class="istickedoff">interpretStep (NormalStep prev, mem) = stepNormal prev mem</span>
 <span class="lineno">   43 </span><span class="spaces"></span><span class="istickedoff">interpretStep (WhiteStep limit, mem) = pure $ stepWhite limit mem</span></span>
 <span class="lineno">   44 </span>
 <span class="lineno">   45 </span>-- Step handlers
 <span class="lineno">   46 </span>
-<span class="lineno">   47 </span>stepNormal ∷ AppEff m ⇒ Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
+<span class="lineno">   47 </span>stepNormal ∷ AppSafeEff m ⇒ Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
 <span class="lineno">   48 </span><span class="decl"><span class="istickedoff">stepNormal previous memory = evalPixel (currentPixel memory) previous memory</span></span>
 <span class="lineno">   49 </span>
 <span class="lineno">   50 </span>stepWhite ∷ Int → Memory → Either () InterpreterMemory
@@ -73,12 +73,12 @@ span.spaces    { background: white }
 <span class="lineno">   54 </span>
 <span class="lineno">   55 </span>-- Pixel handlers
 <span class="lineno">   56 </span>
-<span class="lineno">   57 </span>evalPixel ∷ AppEff m ⇒ Color → Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
+<span class="lineno">   57 </span>evalPixel ∷ AppSafeEff m ⇒ Color → Maybe PreviousColor → Memory → m (Either () InterpreterMemory)
 <span class="lineno">   58 </span><span class="decl"><span class="istickedoff">evalPixel (Chromatic color) previous mem = evalChromaticPixel previous color mem</span>
 <span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">evalPixel White             _        mem = pure $ Trampoline.continue $ evalWhitePixel mem</span>
 <span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">evalPixel Black             _        _   = <span class="nottickedoff">liftError &quot;Entered black block, terminate&quot;</span></span></span>
 <span class="lineno">   61 </span>
-<span class="lineno">   62 </span>evalChromaticPixel ∷ AppEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m (Either () InterpreterMemory)
+<span class="lineno">   62 </span>evalChromaticPixel ∷ AppSafeEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m (Either () InterpreterMemory)
 <span class="lineno">   63 </span><span class="decl"><span class="istickedoff">evalChromaticPixel previous color mem = makeNext &lt;$&gt; applyPreviousColor previous color mem where</span>
 <span class="lineno">   64 </span><span class="spaces">  </span><span class="istickedoff">makeNext mem1 = handleNext (nonBlackSucc (programMemory mem1) mStats (orientationMemory mem1)) (color, labelSize mStats) mem1</span>
 <span class="lineno">   65 </span><span class="spaces">  </span><span class="istickedoff">mStats   = getMaskInfo (programMemory mem) (positionMemory mem)</span></span>
@@ -99,7 +99,7 @@ span.spaces    { background: white }
 <span class="lineno">   80 </span>currentPixel ∷ Memory → Color
 <span class="lineno">   81 </span><span class="decl"><span class="istickedoff">currentPixel mem = pixelImage (positionMemory mem) (image $ programMemory mem)</span></span>
 <span class="lineno">   82 </span>
-<span class="lineno">   83 </span>applyPreviousColor ∷ AppEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m Memory
+<span class="lineno">   83 </span>applyPreviousColor ∷ AppSafeEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m Memory
 <span class="lineno">   84 </span><span class="decl"><span class="istickedoff">applyPreviousColor (Just (oldColor, oldS)) color = colors2Command oldColor color oldS</span>
 <span class="lineno">   85 </span><span class="spaces"></span><span class="istickedoff">applyPreviousColor Nothing                 _     = pure</span></span>
 <span class="lineno">   86 </span>
@@ -150,10 +150,10 @@ span.spaces    { background: white }
 <span class="lineno">  131 </span><span class="spaces"></span><span class="istickedoff">getY (Orientation DPUp    CCLeft)  = borderCoord . labelTop</span>
 <span class="lineno">  132 </span><span class="spaces"></span><span class="istickedoff">getY (Orientation DPUp    CCRight) = borderCoord . labelTop</span></span>
 <span class="lineno">  133 </span>
-<span class="lineno">  134 </span>colors2Command ∷ AppEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
+<span class="lineno">  134 </span>colors2Command ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
 <span class="lineno">  135 </span><span class="decl"><span class="istickedoff">colors2Command from to = colorDiff2Command $ diffColor from to</span></span>
 <span class="lineno">  136 </span>
-<span class="lineno">  137 </span>colorDiff2Command ∷ AppEff m ⇒ ChromaticColor → Int → Memory → m Memory
+<span class="lineno">  137 </span>colorDiff2Command ∷ AppSafeEff m ⇒ ChromaticColor → Int → Memory → m Memory
 <span class="lineno">  138 </span><span class="decl"><span class="istickedoff">colorDiff2Command (ChromaticColor Light  Red)     _ s = <span class="nottickedoff">pure s</span></span>
 <span class="lineno">  139 </span><span class="spaces"></span><span class="istickedoff">colorDiff2Command (ChromaticColor Normal Red)     n s = pietPush n s</span>
 <span class="lineno">  140 </span><span class="spaces"></span><span class="istickedoff">colorDiff2Command (ChromaticColor Dark   Red)     _ s = pietPop s</span>
