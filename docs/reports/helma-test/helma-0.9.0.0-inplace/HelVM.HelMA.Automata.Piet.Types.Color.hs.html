@@ -19,41 +19,78 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Types.Color
 <span class="lineno">    2 </span>  ( Color (..)
-<span class="lineno">    3 </span>  , rgb2Color
-<span class="lineno">    4 </span>  ) where
-<span class="lineno">    5 </span>
-<span class="lineno">    6 </span>import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
-<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.Piet.Types.Hue
-<span class="lineno">    8 </span>import           HelVM.HelMA.Automata.Piet.Types.Lightness
+<span class="lineno">    3 </span>  , hueSteps
+<span class="lineno">    4 </span>  , lightnessSteps
+<span class="lineno">    5 </span>  , pixelToColor
+<span class="lineno">    6 </span>  , rgb2Color
+<span class="lineno">    7 </span>  , toRGB8OrError
+<span class="lineno">    8 </span>  ) where
 <span class="lineno">    9 </span>
-<span class="lineno">   10 </span>rgb2Color ∷ (Num w, Eq w) ⇒ w → w → w → Color
-<span class="lineno">   11 </span><span class="decl"><span class="istickedoff">rgb2Color 0x00 0x00 0x00 = Black</span>
-<span class="lineno">   12 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xff 0xff = White</span>
-<span class="lineno">   13 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xc0 0xc0 = Chromatic (ChromaticColor Light  Red)</span>
-<span class="lineno">   14 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0x00 0x00 = Chromatic (ChromaticColor Normal Red)</span>
-<span class="lineno">   15 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0x00 0x00 = Chromatic (ChromaticColor Dark   Red)</span>
-<span class="lineno">   16 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xff 0xc0 = Chromatic (ChromaticColor Light  Yellow)</span>
-<span class="lineno">   17 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xff 0x00 = Chromatic (ChromaticColor Normal Yellow)</span>
-<span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0xc0 0x00 = Chromatic (ChromaticColor Dark   Yellow)</span>
-<span class="lineno">   19 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0xff 0xc0 = Chromatic (ChromaticColor Light  Green)</span>
-<span class="lineno">   20 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0xff 0x00 = Chromatic (ChromaticColor Normal Green)</span>
-<span class="lineno">   21 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0xc0 0x00 = Chromatic (ChromaticColor Dark   Green)</span>
-<span class="lineno">   22 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0xff 0xff = Chromatic (ChromaticColor Light  Cyan)</span>
-<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0xff 0xff = Chromatic (ChromaticColor Normal Cyan)</span>
-<span class="lineno">   24 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0xc0 0xc0 = Chromatic (ChromaticColor Dark   Cyan)</span>
-<span class="lineno">   25 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0xc0 0xff = Chromatic (ChromaticColor Light  Blue)</span>
-<span class="lineno">   26 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0x00 0xff = Chromatic (ChromaticColor Normal Blue)</span>
-<span class="lineno">   27 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0x00 0xc0 = Chromatic (ChromaticColor Dark   Blue)</span>
-<span class="lineno">   28 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xc0 0xff = Chromatic (ChromaticColor Light  Magenta)</span>
-<span class="lineno">   29 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0x00 0xff = Chromatic (ChromaticColor Normal Magenta)</span>
-<span class="lineno">   30 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0x00 0xc0 = Chromatic (ChromaticColor Dark   Magenta)</span>
-<span class="lineno">   31 </span><span class="spaces"></span><span class="istickedoff">rgb2Color _    _    _    = White</span></span>
-<span class="lineno">   32 </span>
-<span class="lineno">   33 </span>data Color
-<span class="lineno">   34 </span>  = Black
-<span class="lineno">   35 </span>  | White
-<span class="lineno">   36 </span>  | Chromatic !ChromaticColor
-<span class="lineno">   37 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automata.Piet.Types.Hue
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automata.Piet.Types.Lightness
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>import           HelVM.HelIO.Control.Safe
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>import           Codec.Picture
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>toRGB8OrError ∷ DynamicImage → EitherError (Image PixelRGB8)
+<span class="lineno">   19 </span><span class="decl"><span class="nottickedoff">toRGB8OrError (ImageRGB8 rgb8)   = Right rgb8</span>
+<span class="lineno">   20 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageRGBA8 rgba8) = Right $ convertRGB8 (ImageRGBA8 rgba8)</span>
+<span class="lineno">   21 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageY8 _)        = Left  &quot;Y8 format&quot;</span>
+<span class="lineno">   22 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageY16 _)       = Left  &quot;Y16 format&quot;</span>
+<span class="lineno">   23 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageY32 _)       = Left  &quot;Y32 format&quot;</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageYF _)        = Left  &quot;YF format&quot;</span>
+<span class="lineno">   25 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageYA8 _)       = Left  &quot;YA8 format&quot;</span>
+<span class="lineno">   26 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageYA16 _)      = Left  &quot;YA16 format&quot;</span>
+<span class="lineno">   27 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageRGB16 _)     = Left  &quot;RGB16 format&quot;</span>
+<span class="lineno">   28 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageRGBF _)      = Left  &quot;RGBF format&quot;</span>
+<span class="lineno">   29 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageRGBA16 _)    = Left  &quot;RGBA16 format&quot;</span>
+<span class="lineno">   30 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageYCbCr8 _)    = Left  &quot;YCbCr8 format&quot;</span>
+<span class="lineno">   31 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageCMYK8 _)     = Left  &quot;CMYK8 format&quot;</span>
+<span class="lineno">   32 </span><span class="spaces"></span><span class="nottickedoff">toRGB8OrError (ImageCMYK16 _)    = Left  &quot;CMYK16 format&quot;</span></span>
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>pixelToColor ∷ PixelRGB8 → Color
+<span class="lineno">   35 </span><span class="decl"><span class="nottickedoff">pixelToColor (PixelRGB8 r g b) = rgb2Color r g b</span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>lightnessSteps ∷ Color → Color → Maybe Int
+<span class="lineno">   38 </span><span class="decl"><span class="nottickedoff">lightnessSteps (Chromatic (ChromaticColor l1 _)) (Chromatic (ChromaticColor l2 _)) =</span>
+<span class="lineno">   39 </span><span class="spaces">  </span><span class="nottickedoff">Just $ (fromEnum l2 - fromEnum l1) `mod` 3</span>
+<span class="lineno">   40 </span><span class="spaces"></span><span class="nottickedoff">lightnessSteps _ _ = Nothing</span></span>
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>hueSteps ∷ Color → Color → Maybe Int
+<span class="lineno">   43 </span><span class="decl"><span class="nottickedoff">hueSteps (Chromatic (ChromaticColor _ h1)) (Chromatic (ChromaticColor _ h2)) =</span>
+<span class="lineno">   44 </span><span class="spaces">  </span><span class="nottickedoff">Just $ (fromEnum h2 - fromEnum h1) `mod` 6</span>
+<span class="lineno">   45 </span><span class="spaces"></span><span class="nottickedoff">hueSteps _ _ = Nothing</span></span>
+<span class="lineno">   46 </span>
+<span class="lineno">   47 </span>rgb2Color ∷ (Num w, Eq w) ⇒ w → w → w → Color
+<span class="lineno">   48 </span><span class="decl"><span class="istickedoff">rgb2Color 0x00 0x00 0x00 = Black</span>
+<span class="lineno">   49 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xff 0xff = White</span>
+<span class="lineno">   50 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xc0 0xc0 = Chromatic (ChromaticColor Light  Red)</span>
+<span class="lineno">   51 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0x00 0x00 = Chromatic (ChromaticColor Normal Red)</span>
+<span class="lineno">   52 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0x00 0x00 = Chromatic (ChromaticColor Dark   Red)</span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xff 0xc0 = Chromatic (ChromaticColor Light  Yellow)</span>
+<span class="lineno">   54 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xff 0x00 = Chromatic (ChromaticColor Normal Yellow)</span>
+<span class="lineno">   55 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0xc0 0x00 = Chromatic (ChromaticColor Dark   Yellow)</span>
+<span class="lineno">   56 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0xff 0xc0 = Chromatic (ChromaticColor Light  Green)</span>
+<span class="lineno">   57 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0xff 0x00 = Chromatic (ChromaticColor Normal Green)</span>
+<span class="lineno">   58 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0xc0 0x00 = Chromatic (ChromaticColor Dark   Green)</span>
+<span class="lineno">   59 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0xff 0xff = Chromatic (ChromaticColor Light  Cyan)</span>
+<span class="lineno">   60 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0xff 0xff = Chromatic (ChromaticColor Normal Cyan)</span>
+<span class="lineno">   61 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0xc0 0xc0 = Chromatic (ChromaticColor Dark   Cyan)</span>
+<span class="lineno">   62 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0xc0 0xff = Chromatic (ChromaticColor Light  Blue)</span>
+<span class="lineno">   63 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0x00 0xff = Chromatic (ChromaticColor Normal Blue)</span>
+<span class="lineno">   64 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0x00 0x00 0xc0 = Chromatic (ChromaticColor Dark   Blue)</span>
+<span class="lineno">   65 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0xc0 0xff = Chromatic (ChromaticColor Light  Magenta)</span>
+<span class="lineno">   66 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xff 0x00 0xff = Chromatic (ChromaticColor Normal Magenta)</span>
+<span class="lineno">   67 </span><span class="spaces"></span><span class="istickedoff">rgb2Color 0xc0 0x00 0xc0 = Chromatic (ChromaticColor Dark   Magenta)</span>
+<span class="lineno">   68 </span><span class="spaces"></span><span class="istickedoff">rgb2Color _    _    _    = White</span></span>
+<span class="lineno">   69 </span>
+<span class="lineno">   70 </span>data Color
+<span class="lineno">   71 </span>  = Black
+<span class="lineno">   72 </span>  | White
+<span class="lineno">   73 </span>  | Chromatic !ChromaticColor
+<span class="lineno">   74 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

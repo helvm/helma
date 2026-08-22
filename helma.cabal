@@ -241,8 +241,9 @@ library
     HelVM.HelMA.Automata.Piet.Combiner.ALU
     HelVM.HelMA.Automata.Piet.Combiner.CPU
 
-    HelVM.HelMA.Automata.Piet.Hi.Evaluator
-    HelVM.HelMA.Automata.Piet.Hi.Types
+    HelVM.HelMA.Automata.Piet.Free.Program
+    HelVM.HelMA.Automata.Piet.Free.ProgramError 
+    HelVM.HelMA.Automata.Piet.Free.Piet
 
     HelVM.HelMA.Automata.Piet.LLVM.Codel
     HelVM.HelMA.Automata.Piet.LLVM.Evaluator
@@ -252,17 +253,21 @@ library
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
     HelVM.HelMA.Automata.Piet.Types.CodelChooser
     HelVM.HelMA.Automata.Piet.Types.Color
+    HelVM.HelMA.Automata.Piet.Types.ColorMap
     HelVM.HelMA.Automata.Piet.Types.Coordinates
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
     HelVM.HelMA.Automata.Piet.Types.Extra
     HelVM.HelMA.Automata.Piet.Types.Hue
     HelVM.HelMA.Automata.Piet.Types.Image
+    HelVM.HelMA.Automata.Piet.Types.Instruction
     HelVM.HelMA.Automata.Piet.Types.InstructionCounter
     HelVM.HelMA.Automata.Piet.Types.InstructionMemory
     HelVM.HelMA.Automata.Piet.Types.Label
     HelVM.HelMA.Automata.Piet.Types.Memory
     HelVM.HelMA.Automata.Piet.Types.Orientation
     HelVM.HelMA.Automata.Piet.Types.Program
+    HelVM.HelMA.Automata.Piet.Types.ProgramConfig
+    HelVM.HelMA.Automata.Piet.Types.ProgramState
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
@@ -295,6 +300,7 @@ library
     , IfElse
     , ilist
     , microlens
+    , microlens-mtl
     , microlens-th
     , monad-logger
     , monad-loops

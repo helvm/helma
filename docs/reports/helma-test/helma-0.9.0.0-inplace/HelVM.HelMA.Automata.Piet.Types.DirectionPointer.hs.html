@@ -20,27 +20,43 @@ span.spaces    { background: white }
 <span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 <span class="lineno">    2 </span>  ( DirectionPointer (..)
 <span class="lineno">    3 </span>  , addCoordinates
-<span class="lineno">    4 </span>  , rotate
-<span class="lineno">    5 </span>  ) where
-<span class="lineno">    6 </span>
-<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-<span class="lineno">    8 </span>import           HelVM.HelMA.Automata.Piet.Types.Extra
-<span class="lineno">    9 </span>
-<span class="lineno">   10 </span>addCoordinates ∷ DirectionPointer → Coordinates → Coordinates
-<span class="lineno">   11 </span><span class="decl"><span class="istickedoff">addCoordinates DPRight (x, y) = (x + 1, y)</span>
-<span class="lineno">   12 </span><span class="spaces"></span><span class="istickedoff">addCoordinates DPDown  (x, y) = (x, y + 1)</span>
-<span class="lineno">   13 </span><span class="spaces"></span><span class="istickedoff">addCoordinates DPLeft  (x, y) = (x - 1, y)</span>
-<span class="lineno">   14 </span><span class="spaces"></span><span class="istickedoff">addCoordinates DPUp    (x, y) = (x, y - 1)</span></span>
-<span class="lineno">   15 </span>
-<span class="lineno">   16 </span>rotate ∷ Int → DirectionPointer → DirectionPointer
-<span class="lineno">   17 </span><span class="decl"><span class="istickedoff">rotate = change 4</span></span>
-<span class="lineno">   18 </span>
-<span class="lineno">   19 </span>data DirectionPointer
-<span class="lineno">   20 </span>  = DPRight
-<span class="lineno">   21 </span>  | DPDown
-<span class="lineno">   22 </span>  | DPLeft
-<span class="lineno">   23 </span>  | DPUp
-<span class="lineno">   24 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">    4 </span>  , move
+<span class="lineno">    5 </span>  , nextPointer
+<span class="lineno">    6 </span>  , rotate
+<span class="lineno">    7 </span>  ) where
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.Piet.Types.Extra
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import           Lens.Micro
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>addCoordinates ∷ DirectionPointer → Coordinates → Coordinates
+<span class="lineno">   15 </span><span class="decl"><span class="istickedoff">addCoordinates DPRight (x, y) = (x + 1, y)</span>
+<span class="lineno">   16 </span><span class="spaces"></span><span class="istickedoff">addCoordinates DPDown  (x, y) = (x, y + 1)</span>
+<span class="lineno">   17 </span><span class="spaces"></span><span class="istickedoff">addCoordinates DPLeft  (x, y) = (x - 1, y)</span>
+<span class="lineno">   18 </span><span class="spaces"></span><span class="istickedoff">addCoordinates DPUp    (x, y) = (x, y - 1)</span></span>
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>move ∷ DirectionPointer → Coordinates → Coordinates
+<span class="lineno">   21 </span><span class="decl"><span class="nottickedoff">move DPLeft  = _1 -~ 1</span>
+<span class="lineno">   22 </span><span class="spaces"></span><span class="nottickedoff">move DPRight = _1 +~ 1</span>
+<span class="lineno">   23 </span><span class="spaces"></span><span class="nottickedoff">move DPUp    = _2 -~ 1</span>
+<span class="lineno">   24 </span><span class="spaces"></span><span class="nottickedoff">move DPDown  = _2 +~ 1</span></span>
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>nextPointer ∷ DirectionPointer → DirectionPointer
+<span class="lineno">   27 </span><span class="decl"><span class="nottickedoff">nextPointer DPLeft  = DPUp</span>
+<span class="lineno">   28 </span><span class="spaces"></span><span class="nottickedoff">nextPointer DPUp    = DPRight</span>
+<span class="lineno">   29 </span><span class="spaces"></span><span class="nottickedoff">nextPointer DPRight = DPDown</span>
+<span class="lineno">   30 </span><span class="spaces"></span><span class="nottickedoff">nextPointer DPDown  = DPLeft</span></span>
+<span class="lineno">   31 </span>
+<span class="lineno">   32 </span>rotate ∷ Int → DirectionPointer → DirectionPointer
+<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">rotate = change 4</span></span>
+<span class="lineno">   34 </span>
+<span class="lineno">   35 </span>data DirectionPointer
+<span class="lineno">   36 </span>  = DPRight
+<span class="lineno">   37 </span>  | DPDown
+<span class="lineno">   38 </span>  | DPLeft
+<span class="lineno">   39 </span>  | DPUp
+<span class="lineno">   40 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

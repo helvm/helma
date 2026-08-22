@@ -19,22 +19,27 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Types.Hue
 <span class="lineno">    2 </span>  ( Hue (..)
-<span class="lineno">    3 </span>  , hueChange
-<span class="lineno">    4 </span>  ) where
-<span class="lineno">    5 </span>
-<span class="lineno">    6 </span>import           HelVM.HelMA.Automata.Piet.Types.Extra
-<span class="lineno">    7 </span>
-<span class="lineno">    8 </span>hueChange ∷ Hue → Hue → Hue
-<span class="lineno">    9 </span><span class="decl"><span class="istickedoff">hueChange = changeDiff 6</span></span>
-<span class="lineno">   10 </span>
-<span class="lineno">   11 </span>data Hue
-<span class="lineno">   12 </span>  = Red
-<span class="lineno">   13 </span>  | Yellow
-<span class="lineno">   14 </span>  | Green
-<span class="lineno">   15 </span>  | Cyan
-<span class="lineno">   16 </span>  | Blue
-<span class="lineno">   17 </span>  | Magenta
-<span class="lineno">   18 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">    3 </span>  , calculate
+<span class="lineno">    4 </span>  , hueChange
+<span class="lineno">    5 </span>  ) where
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.Piet.Types.Extra
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>calculate ∷ Maybe Hue → Maybe Hue → Maybe Int
+<span class="lineno">   10 </span><span class="decl"><span class="nottickedoff">calculate (Just x) (Just y) = Just $ (fromEnum y - fromEnum x + 6) `mod` 6</span>
+<span class="lineno">   11 </span><span class="spaces"></span><span class="nottickedoff">calculate _        _        = Nothing</span></span>
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>hueChange ∷ Hue → Hue → Hue
+<span class="lineno">   14 </span><span class="decl"><span class="istickedoff">hueChange = changeDiff 6</span></span>
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>data Hue
+<span class="lineno">   17 </span>  = Red
+<span class="lineno">   18 </span>  | Yellow
+<span class="lineno">   19 </span>  | Green
+<span class="lineno">   20 </span>  | Cyan
+<span class="lineno">   21 </span>  | Blue
+<span class="lineno">   22 </span>  | Magenta
+<span class="lineno">   23 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

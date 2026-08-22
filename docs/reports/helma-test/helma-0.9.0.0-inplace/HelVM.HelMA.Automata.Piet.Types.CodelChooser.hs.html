@@ -19,18 +19,24 @@ span.spaces    { background: white }
 <pre>
 <span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Types.CodelChooser
 <span class="lineno">    2 </span>  ( CodelChooser (..)
-<span class="lineno">    3 </span>  , toggle
-<span class="lineno">    4 </span>  ) where
-<span class="lineno">    5 </span>
-<span class="lineno">    6 </span>import           HelVM.HelMA.Automata.Piet.Types.Extra
-<span class="lineno">    7 </span>
-<span class="lineno">    8 </span>toggle ∷ Int → CodelChooser → CodelChooser
-<span class="lineno">    9 </span><span class="decl"><span class="istickedoff">toggle = change 2</span></span>
-<span class="lineno">   10 </span>
-<span class="lineno">   11 </span>data CodelChooser
-<span class="lineno">   12 </span>  = CCLeft
-<span class="lineno">   13 </span>  | CCRight
-<span class="lineno">   14 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">    3 </span>  , nextChooser
+<span class="lineno">    4 </span>  , toggle
+<span class="lineno">    5 </span>  ) where
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.Piet.Types.Extra
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>nextChooser ∷ CodelChooser → CodelChooser
+<span class="lineno">   10 </span><span class="decl"><span class="nottickedoff">nextChooser CCLeft  = CCRight</span>
+<span class="lineno">   11 </span><span class="spaces"></span><span class="nottickedoff">nextChooser CCRight = CCLeft</span></span>
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>
+<span class="lineno">   14 </span>toggle ∷ Int → CodelChooser → CodelChooser
+<span class="lineno">   15 </span><span class="decl"><span class="istickedoff">toggle = change 2</span></span>
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>data CodelChooser
+<span class="lineno">   18 </span>  = CCLeft
+<span class="lineno">   19 </span>  | CCRight
+<span class="lineno">   20 </span>  deriving stock (<span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">Bounded</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Enum</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Read</span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 
 </pre>
 </body>

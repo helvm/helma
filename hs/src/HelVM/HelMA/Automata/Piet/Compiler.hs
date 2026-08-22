@@ -5,7 +5,7 @@ module HelVM.HelMA.Automata.Piet.Compiler
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates ( Coordinates )
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Program

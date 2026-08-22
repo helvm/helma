@@ -170,7 +170,7 @@ rollImediate rolls i l = build $ olength l where
   build ll
     | i < 0     = pure l
     | r == 0    = pure l
-    | ll < i    = liftErrorWithTupleList "ALU.role index must be less then lenght" [("i" , show i) , ("ll" , show ll)]
+    | ll < i    = liftErrorWithTupleList "ALU.role index must be less then length" [("i" , show i) , ("ll" , show ll)]
     | otherwise = pure $ l1 <> l2 <> l3
     where
       r = rolls `mod` i

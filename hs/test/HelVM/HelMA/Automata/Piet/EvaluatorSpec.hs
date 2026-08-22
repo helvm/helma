@@ -81,4 +81,4 @@ spec =
         it ("output" </> path) $
           calculateOutput <$> mock `goldenShouldIO` buildAbsolutePietOutFileName path
         it ("logged" </> path) $
-          calculateLogsWithLevelInfo <$> mock `goldenShouldIO` buildAbsolutePietLogFileName path
+          calculateLogsWithLevelDebug <$> mock `goldenShouldIO` buildAbsolutePietLogFileName path

@@ -189,7 +189,7 @@ span.spaces    { background: white }
 <span class="lineno">  170 </span><span class="spaces">  </span><span class="istickedoff">build ll</span>
 <span class="lineno">  171 </span><span class="spaces">    </span><span class="istickedoff">| <span class="tickonlyfalse">i &lt; 0</span>     = <span class="nottickedoff">pure l</span></span>
 <span class="lineno">  172 </span><span class="spaces">    </span><span class="istickedoff">| <span class="tickonlyfalse">r == 0</span>    = <span class="nottickedoff">pure l</span></span>
-<span class="lineno">  173 </span><span class="spaces">    </span><span class="istickedoff">| ll &lt; i    = liftErrorWithTupleList &quot;ALU.role index must be less then lenght&quot; [(&quot;i&quot; , show i) , (&quot;ll&quot; , show ll)]</span>
+<span class="lineno">  173 </span><span class="spaces">    </span><span class="istickedoff">| ll &lt; i    = liftErrorWithTupleList &quot;ALU.role index must be less then length&quot; [(&quot;i&quot; , show i) , (&quot;ll&quot; , show ll)]</span>
 <span class="lineno">  174 </span><span class="spaces">    </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span> = pure $ l1 &lt;&gt; l2 &lt;&gt; l3</span>
 <span class="lineno">  175 </span><span class="spaces">    </span><span class="istickedoff">where</span>
 <span class="lineno">  176 </span><span class="spaces">      </span><span class="istickedoff">r = rolls `mod` i</span>

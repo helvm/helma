@@ -48,7 +48,7 @@ span.spaces    { background: white }
 <span class="lineno">   29 </span><span class="decl"><span class="nottickedoff">run cl i = runAsRIO $ simpleEval cl i</span></span>
 <span class="lineno">   30 </span>
 <span class="lineno">   31 </span>simpleEval ∷ AppEff m ⇒ Maybe Natural → Picture.DynamicImage → m ()
-<span class="lineno">   32 </span><span class="decl"><span class="istickedoff">simpleEval codelInfo dynamicImage = (interpret . compile) $ processImage codelInfo dynamicImage</span></span>
+<span class="lineno">   32 </span><span class="decl"><span class="istickedoff">simpleEval codelInfo dynamicImage = (interpret . compile) =&lt;&lt; processImageWithLog codelInfo dynamicImage</span></span>
 
 </pre>
 </body>
