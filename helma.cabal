@@ -253,7 +253,6 @@ library
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
     HelVM.HelMA.Automata.Piet.Types.CodelChooser
     HelVM.HelMA.Automata.Piet.Types.Color
-    HelVM.HelMA.Automata.Piet.Types.ColorMap
     HelVM.HelMA.Automata.Piet.Types.Coordinates
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
     HelVM.HelMA.Automata.Piet.Types.Extra

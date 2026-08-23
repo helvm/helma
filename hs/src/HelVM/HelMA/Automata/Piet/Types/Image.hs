@@ -1,36 +1,38 @@
 module HelVM.HelMA.Automata.Piet.Types.Image
   ( Image (..)
+  , dimensionsImage
   , heightImage
   , inRangeImage
   , newImage
   , pixelImage
   , setPixelImage
-  , witdthImage
+  , widthImage
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
 import           Data.Array.Diff
 
-witdthImage ∷ Image a → Int
-witdthImage = fst . dimensionsImage
+widthImage :: Image a -> Int
+widthImage = fst . dimensionsImage
 
-heightImage ∷ Image a → Int
+heightImage :: Image a -> Int
 heightImage = snd . dimensionsImage
 
-dimensionsImage ∷ Image a → Coordinates
-dimensionsImage (Image pixels) = (maxX - minX + 1, maxY - minY + 1) where ((minX, minY), (maxX, maxY)) = bounds pixels
+dimensionsImage :: Image a -> Coordinates
+dimensionsImage (Image pixels) = (maxX + 1, maxY + 1) where
+  (_, (maxX, maxY)) = bounds pixels
 
-inRangeImage ∷ Coordinates → Image a → Bool
-inRangeImage (x, y) img = 0 <= x && x < witdthImage img && 0 <= y && y < heightImage img
+inRangeImage :: Coordinates -> Image a -> Bool
+inRangeImage (x, y) img = 0 <= x && x < widthImage img && 0 <= y && y < heightImage img
 
-pixelImage ∷ Coordinates → Image a → a
-pixelImage (x, y) img = pixels img ! (x, y)
+pixelImage :: Coordinates -> Image a -> a
+pixelImage coord (Image pixels) = pixels ! coord
 
-setPixelImage ∷ Coordinates → a → Image a → Image a
-setPixelImage (x, y) pixel img = img { pixels = pixels img // [((x, y), pixel)] }
+setPixelImage :: Coordinates -> a -> Image a -> Image a
+setPixelImage coord pixel img = img { pixels = pixels img // [(coord, pixel)] }
 
-newImage ∷ Coordinates → [(Coordinates, a)] → Image a
+newImage :: Coordinates -> [(Coordinates, a)] -> Image a
 newImage (width, height) = Image . array ((0, 0), (width - 1, height - 1))
 
 instance Functor Image where

@@ -8,7 +8,8 @@ module HelVM.HelMA.Automata.Piet.Free.Evaluator
 import           HelVM.HelMA.Automata.Piet.ColorMapParser
 import           HelVM.HelMA.Automata.Piet.Free.Automaton
 
-import           HelVM.HelMA.Automata.Piet.Types.ColorMap
+import           HelVM.HelMA.Automata.Piet.Types.Color
+import           HelVM.HelMA.Automata.Piet.Types.Image         (Image)
 import           HelVM.HelMA.Automata.Piet.Types.ProgramConfig
 import           HelVM.HelMA.Automata.Piet.Types.ProgramState
 
@@ -25,19 +26,19 @@ import qualified Codec.Picture                                 as Picture
 
 import qualified RIO
 
-runRio ∷ Has env ⇒ Maybe LexerType → Int → RIO.RIO env ()
+runRio :: Has env => Maybe LexerType -> Int -> RIO.RIO env ()
 runRio _ codelInfo = runWithOptions =<< optionsRio where
   runWithOptions o = run codelInfo =<< readImageRio (App.file o)
 
-run ∷ Has env ⇒ Int → Picture.DynamicImage → RIO.RIO env ()
+run :: Has env => Int -> Picture.DynamicImage -> RIO.RIO env ()
 run cl i = runAsRIO $ simpleEval cl i
 
-simpleEval ∷ AppSafeEff m ⇒ Int → Picture.DynamicImage → m ()
-simpleEval cs dynamicImage = interpret cs =<< parseColorMapSafe cs dynamicImage
+simpleEval :: AppSafeEff m => Int -> Picture.DynamicImage -> m ()
+simpleEval cs dynamicImage = interpret cs =<< parseColorImageSafe cs dynamicImage
 
-interpret ∷ AppSafeEff m ⇒ CodelSize → ColorMap → m ()
-interpret cs cm = loop initialState where
-  conf = ProgramConfig { _codelSize = cs, _colorMap = cm }
+interpret :: AppSafeEff m => CodelSize -> Image Color -> m ()
+interpret cs img = loop initialState where
+  conf = ProgramConfig { _codelSize = cs, _colorMap = img }
   loop st = do
     (continue, st') <- transition conf st
     when continue $ loop st'
