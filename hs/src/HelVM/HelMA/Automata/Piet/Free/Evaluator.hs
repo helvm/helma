@@ -15,6 +15,8 @@ import           HelVM.HelMA.Automata.Piet.Types.ProgramState
 
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 
+import           HelVM.HelMA.Automata.Piet.Compiler
+
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
 import           HelVM.HelMA.Automaton.API.Env
 
@@ -38,7 +40,7 @@ simpleEval cs = interpret (fromIntegral cs) . parseColorImage cs
 
 interpret ∷ AppSafeEff m ⇒ CodelSize → Image Color → m ()
 interpret cs img = loop initialState where
-  conf = ProgramConfig { _codelSize = cs, _image = img }
+  conf = compile cs img
   loop st = do
     (continue, st') <- transition conf st
     when continue $ loop st'

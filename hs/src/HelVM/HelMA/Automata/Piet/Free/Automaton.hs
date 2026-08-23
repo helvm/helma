@@ -12,7 +12,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Instruction
 import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter     ( InstructionCounter )
 import qualified HelVM.HelMA.Automata.Piet.Types.InstructionCounter     as IC
 import qualified HelVM.HelMA.Automata.Piet.Types.Orientation            as Orientation
-import           HelVM.HelMA.Automata.Piet.Types.ProgramConfig
+import           HelVM.HelMA.Automata.Piet.Types.Program
 import           HelVM.HelMA.Automata.Piet.Types.ProgramState
 
 import qualified HelVM.HelMA.Automaton.Combiner.ALU                     as ALU
@@ -30,10 +30,10 @@ import           Lens.Micro.Platform
 import           Prelude                                                hiding ( getLine )
 
 -- Top-level driver
-transition ∷ AppSafeEff m ⇒ ProgramConfig → ProgramState → m (Bool, ProgramState)
+transition ∷ AppSafeEff m ⇒ Program → ProgramState → m (Bool, ProgramState)
 transition conf st = transitionStep (_collisionCount st) conf st
 
-transitionStep ∷ AppSafeEff m ⇒ Int → ProgramConfig → ProgramState → m (Bool, ProgramState)
+transitionStep ∷ AppSafeEff m ⇒ Int → Program → ProgramState → m (Bool, ProgramState)
 transitionStep cc _ st
   | cc >= 8   = logDebugN "Max collisions reached (8). Terminating." >> pure (False, st)
 transitionStep _ conf st =
@@ -46,7 +46,7 @@ transitionStep _ conf st =
     p      = selectCodel st block
     colour = colourAt conf (move dp p)
 
-handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → ProgramConfig → ProgramState → Coordinates → Coordinates → Block → m (Bool, ProgramState)
+handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → Program → ProgramState → Coordinates → Coordinates → Block → m (Bool, ProgramState)
 handleNextColour Nothing _ st _ _ _           = pure (True, doIfCollided st)
 handleNextColour (Just Black) _ st _ _ _     = pure (True, doIfCollided st)
 handleNextColour (Just White) _ st _ newPos _ = pure (True, setPosition newPos 0 st)
@@ -56,7 +56,7 @@ handleNextColour (Just c') conf st pos newPos block =
 setPosition ∷ Coordinates → Int → ProgramState → ProgramState
 setPosition pos cc st = st { _collisionCount = cc } & ic . IC.position .~ pos
 
-evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ProgramConfig → ProgramState → Coordinates → Color → Block → m ProgramState
+evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → Program → ProgramState → Coordinates → Color → Block → m ProgramState
 evalTransitionBlock (Just c) conf st _ c' block
   | c /= White = interpretF (colorsToProgram c c' (blockCodelCount (conf ^. codelSize) block)) conf st
 evalTransitionBlock _ _ st _ _ _ = pure st
@@ -77,7 +77,7 @@ discoverBlock m startPos = S.toList $ go S.empty startPos where
 selectCodel ∷ ProgramState → Block → Coordinates
 selectCodel st = L.maximumBy (Orientation.furthest (st ^. ic . IC.orientation))
 
-colourAt ∷ ProgramConfig → Coordinates → Maybe Color
+colourAt ∷ Program → Coordinates → Maybe Color
 colourAt conf pos = (conf ^. image) &! pos
 
 infixl 9 &!
@@ -111,11 +111,11 @@ colorsToInstruction ∷ Color → Color → Int → Instruction
 colorsToInstruction c c' = step (lightnessSteps c c') (hueSteps c c')
 
 -- AST Interpreter
-interpretF ∷ AppSafeEff m ⇒ InstructionFF → ProgramConfig → ProgramState → m ProgramState
+interpretF ∷ AppSafeEff m ⇒ InstructionFF → Program → ProgramState → m ProgramState
 interpretF (Pure _) _ st                     = pure st
 interpretF (Free (InstructionF i r)) conf st = evalInstruction i r conf st
 
-evalInstruction ∷ AppSafeEff m ⇒ Instruction → InstructionFF → ProgramConfig → ProgramState → m ProgramState
+evalInstruction ∷ AppSafeEff m ⇒ Instruction → InstructionFF → Program → ProgramState → m ProgramState
 evalInstruction (Push n)  r conf st = evalStack ("push " <> show n) (pure . ALU.push1 n) r conf st
 evalInstruction Pop       r conf st = evalStack "pop" ALU.discard r conf st
 evalInstruction Add       r conf st = evalStack "add" (ALU.binaryInstruction ST.Add) r conf st
@@ -135,14 +135,14 @@ evalInstruction OutNum    r conf st = evalStack "out_number" ALU.outputDecMaybe 
 evalInstruction OutChar   r conf st = evalStack "out_char" ALU.outputCharMaybe r conf st
 evalInstruction Nop       r conf st = interpretF r conf st
 
-evalStack ∷ AppSafeEff m ⇒ Text → ([Int] → m [Int]) → InstructionFF → ProgramConfig → ProgramState → m ProgramState
+evalStack ∷ AppSafeEff m ⇒ Text → ([Int] → m [Int]) → InstructionFF → Program → ProgramState → m ProgramState
 evalStack name f r conf st =
   logMsg st name *> (setStack st <$> f (_stack st)) >>= interpretF r conf
 
 setStack ∷ ProgramState → [Int] → ProgramState
 setStack st s = st { _stack = s }
 
-evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionCounter → InstructionCounter) → InstructionFF → ProgramConfig → ProgramState → m ProgramState
+evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionCounter → InstructionCounter) → InstructionFF → Program → ProgramState → m ProgramState
 evalFlip _ _ r conf st@ProgramState{ _stack = [] } = interpretF r conf st
 evalFlip name f r conf st@ProgramState{ _stack = x:_ } = do
   let st' = st & ic %~ f x
