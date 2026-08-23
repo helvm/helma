@@ -9,8 +9,8 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Instruction
-import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter     ( position )
-import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory      hiding ( program )
+import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 import           HelVM.HelMA.Automata.Piet.Types.Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
@@ -21,7 +21,7 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import qualified HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction as ST
 
 import           Control.Monad.Free
-import           Control.Monad.Logger                                   
+import           Control.Monad.Logger
 
 import qualified Data.List                                              as L
 import           Data.MonoTraversable
@@ -29,7 +29,7 @@ import qualified Data.Sequence                                          as Seq
 import qualified Data.Set                                               as S
 import           Lens.Micro.Platform
 
-import           Prelude                                                
+import           Prelude
 
 -- Top-level driver
 interpret ∷ AppSafeEff m ⇒ Program → m ()
