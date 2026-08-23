@@ -9,7 +9,8 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Instruction
-import           HelVM.HelMA.Automata.Piet.Types.Orientation            ( Orientation )
+import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter     ( InstructionCounter )
+import qualified HelVM.HelMA.Automata.Piet.Types.InstructionCounter     as IC
 import qualified HelVM.HelMA.Automata.Piet.Types.Orientation            as Orientation
 import           HelVM.HelMA.Automata.Piet.Types.ProgramConfig
 import           HelVM.HelMA.Automata.Piet.Types.ProgramState
@@ -38,8 +39,8 @@ transitionStep cc _ st
 transitionStep _ conf st =
   handleNextColour colour conf st pos (move dp p) block
   where
-    dp     = st ^. orientation . Orientation.directionPointer
-    pos    = _currentPosition st
+    dp     = IC.directionPointerIC (_ic st)
+    pos    = st ^. ic . IC.position
     m      = conf ^. colorMap
     block  = discoverBlock m pos
     p      = selectCodel st block
@@ -53,7 +54,7 @@ handleNextColour (Just c') conf st pos newPos block =
   (True ,) <$> evalTransitionBlock (colourAt conf pos) conf (setPosition newPos 0 st) pos c' block
 
 setPosition ∷ Coordinates → Int → ProgramState → ProgramState
-setPosition pos cc st = st { _currentPosition = pos, _collisionCount = cc }
+setPosition pos cc st = st { _collisionCount = cc } & ic . IC.position .~ pos
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ProgramConfig → ProgramState → Coordinates → Color → Block → m ProgramState
 evalTransitionBlock (Just c) conf st _ c' block
@@ -74,7 +75,7 @@ discoverBlock m startPos = S.toList $ go S.empty startPos where
     | otherwise               = L.foldl' go (S.insert pos visited) (neighbours pos)
 
 selectCodel ∷ ProgramState → Block → Coordinates
-selectCodel st = L.maximumBy (Orientation.furthest (_orientation st))
+selectCodel st = L.maximumBy (Orientation.furthest (st ^. ic . IC.orientation))
 
 colourAt ∷ ProgramConfig → Coordinates → Maybe Color
 colourAt conf pos = (conf ^. colorMap) &! pos
@@ -97,10 +98,10 @@ handleCollision True  = toggleChooser
 handleCollision False = rotatePointer
 
 toggleChooser ∷ ProgramState → ProgramState
-toggleChooser = orientation %~ Orientation.toggleCodelChooser 1
+toggleChooser = ic %~ IC.toggleCodelChooserIC 1
 
 rotatePointer ∷ ProgramState → ProgramState
-rotatePointer = orientation %~ Orientation.rotateDirectionPointer 1
+rotatePointer = ic %~ IC.rotateDirectionPointerIC 1
 
 -- Instruction generation
 colorsToProgram ∷ Color → Color → Int → Program
@@ -124,8 +125,8 @@ evalInstruction Divide    r conf st = evalStack "divide" (ALU.binaryInstruction 
 evalInstruction Mod       r conf st = evalStack "mod" (ALU.binaryInstruction ST.Mod) r conf st
 evalInstruction Not       r conf st = evalStack "not" ALU.lNot r conf st
 evalInstruction Greater   r conf st = evalStack "greater" (ALU.binaryInstruction ST.LGT) r conf st
-evalInstruction Pointer   r conf st = evalFlip "pointer" Orientation.rotateDirectionPointer r conf st
-evalInstruction Switch    r conf st = evalFlip "switch" Orientation.toggleCodelChooser r conf st
+evalInstruction Pointer   r conf st = evalFlip "pointer" IC.rotateDirectionPointerIC r conf st
+evalInstruction Switch    r conf st = evalFlip "switch" IC.toggleCodelChooserIC r conf st
 evalInstruction Duplicate r conf st = evalStack "duplicate" (ALU.copy 0) r conf st
 evalInstruction Roll      r conf st = evalStack "roll" ALU.roll r conf st
 evalInstruction InNum     r conf st = evalStack "in_number" ALU.inputDec r conf st
@@ -141,15 +142,15 @@ evalStack name f r conf st =
 setStack ∷ ProgramState → [Int] → ProgramState
 setStack st s = st { _stack = s }
 
-evalFlip ∷ AppSafeEff m ⇒ Text → (Int → Orientation → Orientation) → Program → ProgramConfig → ProgramState → m ProgramState
+evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionCounter → InstructionCounter) → Program → ProgramConfig → ProgramState → m ProgramState
 evalFlip _ _ r conf st@ProgramState{ _stack = [] } = interpret r conf st
 evalFlip name f r conf st@ProgramState{ _stack = x:_ } = do
-  let st' = st & orientation %~ f x
-  logMsg st' (name <> " " <> show (st' ^. orientation . Orientation.directionPointer))
+  let st' = st & ic %~ f x
+  logMsg st' (name <> " " <> show (IC.directionPointerIC (_ic st')))
   interpret r conf st'
 
 logMsg ∷ AppSafeEff m ⇒ ProgramState → Text → m ()
-logMsg st msg = logDebugN $ formatLog (_currentPosition st) msg
+logMsg st msg = logDebugN $ formatLog (st ^. ic . IC.position) msg
 
 formatLog ∷ Coordinates → Text → Text
 formatLog (x, y) msg = "(" <> show x <> "," <> show y <> ") " <> msg

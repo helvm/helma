@@ -21,6 +21,7 @@ data InstructionCounter
       { _position    :: !Coordinates
       , _orientation :: !Orientation
       }
+  deriving stock (Eq, Show)
 
 makeLenses ''InstructionCounter
 
