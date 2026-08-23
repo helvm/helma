@@ -22,8 +22,8 @@ import           HelVM.HelMA.Automaton.Trampoline                       as Tramp
 import           Control.Monad.Free
 import           Control.Monad.Logger
 
-import qualified Data.List                                              as L
-import qualified Data.Set                                               as S
+import qualified Data.List                                              as List
+import qualified Data.Set                                               as Set
 
 import           Lens.Micro.Platform
 
@@ -78,19 +78,6 @@ evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → Coo
 evalTransitionBlock (Just c) st _ c' block
   | c /= White = interpretF (colorsToProgram c c' (blockCodelCount block (st ^. memory))) st
 evalTransitionBlock _ st _ _ _ = pure st
-
--- Board and Color queries
-discoverBlock ∷ Image Color → Coordinates → Block
-discoverBlock m startPos = S.toList $ go S.empty startPos where
-  targetColor = m &! startPos
-
-  go visited pos
-    | pos `S.member` visited    = visited
-    | m &! pos /= targetColor   = visited
-    | otherwise                 = L.foldl' go (S.insert pos visited) (neighbours pos)
-
-colourAt ∷ Program → Coordinates → Maybe Color
-colourAt prog pos = (prog ^. image) &! pos
 
 -- Collision state management
 doIfCollided ∷ AutomatonMemory → AutomatonMemory
