@@ -266,7 +266,6 @@ library
     HelVM.HelMA.Automata.Piet.Types.Memory
     HelVM.HelMA.Automata.Piet.Types.Orientation
     HelVM.HelMA.Automata.Piet.Types.Program
-    HelVM.HelMA.Automata.Piet.Types.ProgramConfig
     HelVM.HelMA.Automata.Piet.Types.ProgramState
 
     HelVM.HelMA.Automata.Rev.Evaluator

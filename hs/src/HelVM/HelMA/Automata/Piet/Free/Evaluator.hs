@@ -9,22 +9,22 @@ import           HelVM.HelMA.Automata.Piet.Free.Automaton
 import           HelVM.HelMA.Automata.Piet.Parser
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.Image         ( Image )
-import           HelVM.HelMA.Automata.Piet.Types.ProgramConfig
+import           HelVM.HelMA.Automata.Piet.Types.Image        ( Image )
+import           HelVM.HelMA.Automata.Piet.Types.Program
 import           HelVM.HelMA.Automata.Piet.Types.ProgramState
 
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 
 import           HelVM.HelMA.Automata.Piet.Compiler
 
-import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
+import qualified HelVM.HelMA.Automaton.API.AppOptions         as App
 import           HelVM.HelMA.Automaton.API.Env
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
 
-import qualified Codec.Picture                                 as Picture
+import qualified Codec.Picture                                as Picture
 
 import qualified RIO
 
@@ -40,7 +40,7 @@ simpleEval cs = interpret (fromIntegral cs) . parseColorImage cs
 
 interpret ∷ AppSafeEff m ⇒ CodelSize → Image Color → m ()
 interpret cs img = loop initialState where
-  conf = compile cs img
+  program = compile cs img
   loop st = do
-    (continue, st') <- transition conf st
+    (continue, st') <- transition program st
     when continue $ loop st'

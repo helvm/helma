@@ -6,9 +6,9 @@ module HelVM.HelMA.Automata.Piet.Parser
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Image
-import           HelVM.HelMA.Automata.Piet.Types.ProgramConfig
+import           HelVM.HelMA.Automata.Piet.Types.Program
 
-import qualified Codec.Picture                                 as Picture
+import qualified Codec.Picture                               as Picture
 
 import           Control.Monad.Logger
 
