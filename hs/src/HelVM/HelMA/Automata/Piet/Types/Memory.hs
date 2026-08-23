@@ -3,8 +3,10 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , Stack
   , blockCodelCount
   , codelSizeMemory
+  , colourAt
   , currentPixel
   , directionPointerMemory
+  , discoverBlock
   , handleCollision
   , initialMemory
   , instructionCounterMemory
@@ -23,8 +25,6 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , stack
   , stepWhitePixel
   , toggleChooser
-  , colourAt
-  , discoverBlock
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
@@ -42,8 +42,7 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import qualified Data.List                                          as List
 import           Data.MonoTraversable
 import qualified Data.Sequence                                      as Seq
-import qualified Data.Set                                               as Set
-
+import qualified Data.Set                                           as Set
 
 import           Lens.Micro.Platform
 
@@ -164,7 +163,7 @@ discoverBlock m startPos = Set.toList $ go Set.empty startPos where
   targetColor = m &! startPos
 
   go visited pos
-    | pos `S.member` visited    = visited
+    | pos `Set.member` visited    = visited
     | m &! pos /= targetColor   = visited
     | otherwise                 = List.foldl' go (Set.insert pos visited) (neighbours pos)
 
