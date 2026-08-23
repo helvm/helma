@@ -7,11 +7,18 @@ module HelVM.HelMA.Automata.Piet.Types.Image
   , pixelImage
   , setPixelImage
   , widthImage
+  , (&!)
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
 import           Data.Array.Diff
+
+infixl 9 &!
+(&!) ∷ Image a → Coordinates → Maybe a
+m &! coord
+  | inRangeImage coord m = Just $ pixelImage coord m
+  | otherwise            = Nothing
 
 widthImage ∷ Image a → Int
 widthImage = fst . dimensionsImage

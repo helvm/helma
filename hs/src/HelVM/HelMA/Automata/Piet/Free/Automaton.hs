@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automata.Piet.Free.Automaton
-  ( interpret
+  ( collisionCount
+  , interpret
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Free.InstructionFF
@@ -14,7 +15,6 @@ import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 import           HelVM.HelMA.Automata.Piet.Types.Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
-import           HelVM.HelMA.Automata.Piet.Types.ProgramState
 
 import qualified HelVM.HelMA.Automaton.Combiner.ALU                     as ALU
 import           HelVM.HelMA.Automaton.Eff.MonadEff
@@ -28,9 +28,26 @@ import qualified Data.List                                              as L
 import           Data.MonoTraversable
 import qualified Data.Sequence                                          as Seq
 import qualified Data.Set                                               as S
+
 import           Lens.Micro.Platform
 
+
 -- Top-level driver
+
+initialState ∷ Program → ProgramState
+initialState p = ProgramState
+  { _memory         = initialMemory p
+  , _collisionCount = 0
+  }
+
+data ProgramState
+  = ProgramState
+      { _memory         :: !Memory
+      , _collisionCount :: !Int
+      }
+
+makeLenses ''ProgramState
+
 interpret ∷ AppSafeEff m ⇒ Program → m ()
 interpret p = Trampoline.trampolineM transition $ initialState p
 
@@ -86,12 +103,6 @@ selectCodel st = L.maximumBy (furthest (orientationMemory (st ^. memory)))
 
 colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. image) &! pos
-
-infixl 9 &!
-(&!) ∷ Image Color → Coordinates → Maybe Color
-m &! coord
-  | inRangeImage coord m = Just $ pixelImage coord m
-  | otherwise            = Nothing
 
 -- Collision state management
 doIfCollided ∷ ProgramState → ProgramState

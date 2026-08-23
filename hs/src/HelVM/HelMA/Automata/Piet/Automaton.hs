@@ -1,9 +1,5 @@
 module HelVM.HelMA.Automata.Piet.Automaton
-  ( colorDiff2Command
-  , colors2Command
-  , interpret
-  , nonBlackSucc
-  , succCoordinates
+  ( interpret
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Memory
@@ -12,17 +8,15 @@ import           HelVM.HelMA.Automata.Piet.Combiner.ALU
 import           HelVM.HelMA.Automata.Piet.Combiner.CPU
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
-import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Labelling          as Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
-import           HelVM.HelMA.Automata.Piet.Types.Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program            as Program
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
@@ -79,18 +73,15 @@ checkWhitePixelStep limit mem = (WhiteStep (limit - 1), stepWhitePixel mem)
 
 -- Helper functions
 
-currentPixel ∷ Memory → Color
-currentPixel mem = pixelImage (positionMemory mem) (programMemory mem ^. Program.image)
-
 applyPreviousColor ∷ AppSafeEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m Memory
 applyPreviousColor (Just (oldColor, oldS)) color = colors2Command oldColor color oldS
 applyPreviousColor Nothing                 _     = pure
 
 getMaskInfo ∷ Program → Coordinates → Maybe LabelInfo
-getMaskInfo program pos = findWithDefault Nothing (pixelImage pos maskImg) infoMap
+getMaskInfo prog pos = findWithDefault Nothing (pixelImage pos maskImg) infoMap
   where
-    maskImg = program ^. Program.labelling . Labelling.mask
-    infoMap = program ^. Program.labelling . Labelling.info
+    maskImg = prog ^. Program.labelling . Labelling.mask
+    infoMap = prog ^. Program.labelling . Labelling.info
 
 handleNext ∷ Maybe InstructionCounter → PreviousColor → Memory → Either () InterpreterMemory
 handleNext (Just ic) prevColor mem = Trampoline.continue $ handleNextSuccess ic prevColor mem
@@ -101,40 +92,6 @@ handleNextSuccess ic prevColor mem =
   ( NormalStep (Just prevColor)
   , setInstructionCounter ic mem
   )
-
--- Utilities
-
-nonBlackSucc ∷ Program → Maybe LabelInfo → Orientation → Maybe InstructionCounter
-nonBlackSucc program mStats reg = uncurry InstructionCounter <$> find isValid (zip (fmap (succCoordinates mStats) directions) directions) where
-  directions       = flip rotateToggle reg <$> zip [ 0, 0, 1, 1, 2, 2, 3, 3 ] (0 : cycle [ 1, 1, 0, 0 ])
-  isValid (pos, _) = not (isBlocked pos program)
-
-succCoordinates ∷ Maybe LabelInfo → Orientation → Coordinates
-succCoordinates labelInfo reg = addCoordinates (reg ^. directionPointer) $ toCooCoordinates labelInfo reg
-
-toCooCoordinates ∷ Maybe LabelInfo → Orientation → Coordinates
-toCooCoordinates (Just labelInfo) reg = (getX reg labelInfo, getY reg labelInfo)
-toCooCoordinates Nothing          _   = (0, 0)
-
-getX ∷ Orientation → LabelInfo → Int
-getX (Orientation DPRight CCLeft)  lblInfo = lblInfo ^. labelRight . borderCoord
-getX (Orientation DPRight CCRight) lblInfo = lblInfo ^. labelRight . borderCoord
-getX (Orientation DPDown  CCLeft)  lblInfo = lblInfo ^. labelBottom . borderMax
-getX (Orientation DPDown  CCRight) lblInfo = lblInfo ^. labelBottom . borderMin
-getX (Orientation DPLeft  CCLeft)  lblInfo = lblInfo ^. labelLeft . borderCoord
-getX (Orientation DPLeft  CCRight) lblInfo = lblInfo ^. labelLeft . borderCoord
-getX (Orientation DPUp    CCLeft)  lblInfo = lblInfo ^. labelTop . borderMin
-getX (Orientation DPUp    CCRight) lblInfo = lblInfo ^. labelTop . borderMax
-
-getY ∷ Orientation → LabelInfo → Int
-getY (Orientation DPRight CCLeft)  lblInfo = lblInfo ^. labelRight . borderMin
-getY (Orientation DPRight CCRight) lblInfo = lblInfo ^. labelRight . borderMax
-getY (Orientation DPDown  CCLeft)  lblInfo = lblInfo ^. labelBottom . borderCoord
-getY (Orientation DPDown  CCRight) lblInfo = lblInfo ^. labelBottom . borderCoord
-getY (Orientation DPLeft  CCLeft)  lblInfo = lblInfo ^. labelLeft . borderMax
-getY (Orientation DPLeft  CCRight) lblInfo = lblInfo ^. labelLeft . borderMin
-getY (Orientation DPUp    CCLeft)  lblInfo = lblInfo ^. labelTop . borderCoord
-getY (Orientation DPUp    CCRight) lblInfo = lblInfo ^. labelTop . borderCoord
 
 colors2Command ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
 colors2Command fromColor toColor = colorDiff2Command $ diffColor fromColor toColor

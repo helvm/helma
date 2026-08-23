@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Types.Memory
   ( Memory (..)
   , Stack
+  , currentPixel
   , directionPointerMemory
   , initialMemory
   , instructionCounterMemory
@@ -14,8 +15,10 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
+import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Orientation
@@ -70,6 +73,9 @@ positionMemory mem = instructionCounterMemory mem ^. position
 
 orientationMemory ∷ Memory → Orientation
 orientationMemory mem = instructionCounterMemory mem ^. orientation
+
+currentPixel ∷ Memory → Color
+currentPixel mem = pixelImage (positionMemory mem) (programMemory mem ^. image)
 
 -- SETTERS
 
