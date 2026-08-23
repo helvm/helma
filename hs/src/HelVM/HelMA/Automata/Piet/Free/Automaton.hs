@@ -12,7 +12,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Instruction
 import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter     ( position )
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory      hiding ( program )
 import           HelVM.HelMA.Automata.Piet.Types.Memory
-import qualified HelVM.HelMA.Automata.Piet.Types.Orientation            as Orientation
+import           HelVM.HelMA.Automata.Piet.Types.Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
 import           HelVM.HelMA.Automata.Piet.Types.ProgramState
 
@@ -21,7 +21,7 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import qualified HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction as ST
 
 import           Control.Monad.Free
-import           Control.Monad.Logger                                   ( logDebugN )
+import           Control.Monad.Logger                                   
 
 import qualified Data.List                                              as L
 import           Data.MonoTraversable
@@ -29,7 +29,7 @@ import qualified Data.Sequence                                          as Seq
 import qualified Data.Set                                               as S
 import           Lens.Micro.Platform
 
-import           Prelude                                                hiding ( getLine )
+import           Prelude                                                
 
 -- Top-level driver
 interpret ∷ AppSafeEff m ⇒ Program → m ()
@@ -87,7 +87,7 @@ discoverBlock m startPos = S.toList $ go S.empty startPos where
     | otherwise               = L.foldl' go (S.insert pos visited) (neighbours pos)
 
 selectCodel ∷ ProgramState → Block → Coordinates
-selectCodel st = L.maximumBy (Orientation.furthest (orientationMemory (st ^. memory)))
+selectCodel st = L.maximumBy (furthest (orientationMemory (st ^. memory)))
 
 colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. image) &! pos
