@@ -1,16 +1,44 @@
 module HelVM.HelMA.Automata.Piet.Parser
-  ( processImage
+  ( imageToColorImage
+  , parseColorImage
+  , pixelToColor
+  , processImage
   , processImageWithLog
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Image
+import           HelVM.HelMA.Automata.Piet.Types.ProgramConfig
 
-import qualified Codec.Picture                         as Picture
+import           HelVM.HelIO.Control.Safe
+
+import qualified Codec.Picture                                 as Picture
 
 import           Control.Monad.Logger
 
 import           Data.MonoTraversable
+
+import qualified Relude.Extra                                  as Extra
+
+parseColorImage ∷ MonadSafe f ⇒ CodelSize → Picture.DynamicImage → f (Image Color)
+parseColorImage cs dyn = imageToColorImage cs <$> toRGB8 dyn
+
+imageToColorImage ∷ CodelSize → Picture.Image Picture.PixelRGB8 → Image Color
+imageToColorImage cs img = newImage (w', h') assocList where
+  w = Picture.imageWidth img
+  h = Picture.imageHeight img
+  w' = w `div` cs
+  h' = h `div` cs
+
+  assocList =
+    [ ((x `div` cs, y `div` cs), pixelToColor (Picture.pixelAt img x y))
+    | y <- [0..Extra.prev h]
+    , x <- [0..Extra.prev w]
+    , cs |^ x
+    , cs |^ y
+    ]
+
+  a |^ b = b `mod` a == 0
 
 processImageWithLog ∷ MonadLogger m ⇒ Maybe Natural → Picture.DynamicImage → m (Image Color)
 processImageWithLog codelInfo dynamicImage = imageFromJuicy actualCodelLength img <$ logDebugN ("Actual codel length: " <> show actualCodelLength) where

@@ -4,8 +4,7 @@ module HelVM.HelMA.Automata.Piet.Types.Color
   , lightnessSteps
   , pixelToColor
   , rgb2Color
-  , toRGB8OSafe
-  , toRGB8OrError
+  , toRGB8
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
@@ -16,24 +15,21 @@ import           HelVM.HelIO.Control.Safe
 
 import           Codec.Picture
 
-toRGB8OSafe ∷ MonadSafe m ⇒ DynamicImage → m (Image PixelRGB8)
-toRGB8OSafe = liftEitherError . toRGB8OrError
-
-toRGB8OrError ∷ DynamicImage → EitherError (Image PixelRGB8)
-toRGB8OrError (ImageRGB8 rgb8)   = Right rgb8
-toRGB8OrError (ImageRGBA8 rgba8) = Right $ convertRGB8 (ImageRGBA8 rgba8)
-toRGB8OrError (ImageY8 _)        = Left  "Y8 format"
-toRGB8OrError (ImageY16 _)       = Left  "Y16 format"
-toRGB8OrError (ImageY32 _)       = Left  "Y32 format"
-toRGB8OrError (ImageYF _)        = Left  "YF format"
-toRGB8OrError (ImageYA8 _)       = Left  "YA8 format"
-toRGB8OrError (ImageYA16 _)      = Left  "YA16 format"
-toRGB8OrError (ImageRGB16 _)     = Left  "RGB16 format"
-toRGB8OrError (ImageRGBF _)      = Left  "RGBF format"
-toRGB8OrError (ImageRGBA16 _)    = Left  "RGBA16 format"
-toRGB8OrError (ImageYCbCr8 _)    = Left  "YCbCr8 format"
-toRGB8OrError (ImageCMYK8 _)     = Left  "CMYK8 format"
-toRGB8OrError (ImageCMYK16 _)    = Left  "CMYK16 format"
+toRGB8 ∷ MonadSafe m ⇒ DynamicImage → m (Image PixelRGB8)
+toRGB8 (ImageRGB8 rgb8)   = pure rgb8
+toRGB8 (ImageRGBA8 rgba8) = pure $ convertRGB8 (ImageRGBA8 rgba8)
+toRGB8 (ImageY8 _)        = liftError  "Y8 format"
+toRGB8 (ImageY16 _)       = liftError  "Y16 format"
+toRGB8 (ImageY32 _)       = liftError  "Y32 format"
+toRGB8 (ImageYF _)        = liftError  "YF format"
+toRGB8 (ImageYA8 _)       = liftError  "YA8 format"
+toRGB8 (ImageYA16 _)      = liftError  "YA16 format"
+toRGB8 (ImageRGB16 _)     = liftError  "RGB16 format"
+toRGB8 (ImageRGBF _)      = liftError  "RGBF format"
+toRGB8 (ImageRGBA16 _)    = liftError  "RGBA16 format"
+toRGB8 (ImageYCbCr8 _)    = liftError  "YCbCr8 format"
+toRGB8 (ImageCMYK8 _)     = liftError  "CMYK8 format"
+toRGB8 (ImageCMYK16 _)    = liftError  "CMYK16 format"
 
 pixelToColor ∷ PixelRGB8 → Color
 pixelToColor (PixelRGB8 r g b) = rgb2Color r g b

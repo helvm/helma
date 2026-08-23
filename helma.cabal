@@ -243,7 +243,6 @@ library
 
     HelVM.HelMA.Automata.Piet.Free.Automaton
     HelVM.HelMA.Automata.Piet.Free.Evaluator
-    HelVM.HelMA.Automata.Piet.ColorMapParser
     HelVM.HelMA.Automata.Piet.Free.Program
 
     HelVM.HelMA.Automata.Piet.LLVM.Codel
