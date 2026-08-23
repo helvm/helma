@@ -13,11 +13,9 @@ import           Control.Monad.Logger
 
 import           Data.MonoTraversable
 
-processImage ∷ MonadLogger m ⇒ Maybe Natural → Picture.DynamicImage → m (Image Color)
-processImage codelInfo dyn = do
-  let (cs, img) = processJuicyImage codelInfo dyn
-  logDebugN ("Actual codel length: " <> show cs)
-  pure $ imageToColorImage cs img
+processImage :: MonadLogger m => Maybe Natural -> Picture.DynamicImage -> m (Image Color)
+processImage codelInfo dyn = logDebugN ("Actual codel length: " <> show cs) >> pure (imageToColorImage cs img) where
+  (cs, img) = processJuicyImage codelInfo dyn
 
 parseColorImage ∷ Natural → Picture.DynamicImage → Image Color
 parseColorImage nat dyn = imageToColorImage cs img where
@@ -48,15 +46,14 @@ imageGuessCodelLength img = lastUntil isOne $ scanl gcd (gcd width height) $ fma
   guardPred True  _  x _  = x
   guardPred False p' _ xs = lastUntil p' xs
 
-imageToColorImage ∷ Int → Picture.Image Picture.PixelRGB8 → Image Color
-imageToColorImage cs img = newImage (w', h') assocList where
-  w  = Picture.imageWidth img
-  h  = Picture.imageHeight img
-  w' = w `div` cs
-  h' = h `div` cs
+imageToColorImage :: Int -> Picture.Image Picture.PixelRGB8 -> Image Color
+imageToColorImage cs img = newImage (w', h') (assocList cs img w' h') where
+  w' = Picture.imageWidth img `div` cs
+  h' = Picture.imageHeight img `div` cs
 
-  assocList =
-    [ ((x, y), pixelToColor (Picture.pixelAt img (x * cs) (y * cs)))
-    | y <- [0 .. h' - 1]
-    , x <- [0 .. w' - 1]
-    ]
+assocList :: Int -> Picture.Image Picture.PixelRGB8 -> Int -> Int -> [((Int, Int), Color)]
+assocList cs img w' h' =
+  [ ((x, y), pixelToColor (Picture.pixelAt img (x * cs) (y * cs)))
+  | y <- [0 .. h' - 1]
+  , x <- [0 .. w' - 1]
+  ]
