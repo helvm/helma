@@ -6,7 +6,6 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , colourAt
   , currentPixel
   , directionPointerMemory
-  , discoverBlock
   , handleCollision
   , initialMemory
   , instructionCounterMemory
@@ -65,7 +64,7 @@ initialMemory prog = Memory
   , _stack             = Seq.empty
   }
 
--- GETTERS
+-- GETTERS & QUERIES
 
 programMemory ∷ Memory → Program
 programMemory mem = mem ^. instructionMemory . program
@@ -87,6 +86,19 @@ orientationMemory mem = instructionCounterMemory mem ^. orientation
 
 currentPixel ∷ Memory → Color
 currentPixel mem = pixelImage (positionMemory mem) (programMemory mem ^. image)
+
+codelSizeMemory ∷ Memory → CodelSize
+codelSizeMemory mem = programMemory mem ^. codelSize
+
+blockCodelCount ∷ Block → Memory → Int
+blockCodelCount block mem = olength block `div` (cs * cs) where
+  cs = codelSizeMemory mem
+
+selectCodel ∷ Block → Memory → Coordinates
+selectCodel block mem = List.maximumBy (furthest (orientationMemory mem)) block
+
+colourAt ∷ Program → Coordinates → Maybe Color
+colourAt prog pos = (prog ^. image) &! pos
 
 -- SETTERS & FIELD MODIFIERS
 
@@ -135,18 +147,10 @@ handleCollision ∷ Bool → Memory → Memory
 handleCollision True  = toggleChooser
 handleCollision False = rotatePointer
 
+-- MONADIC EFFECT MODIFIERS
+
 modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
 modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)
-
-codelSizeMemory ∷ Memory → CodelSize
-codelSizeMemory mem = programMemory mem ^. codelSize
-
-blockCodelCount ∷ Block → Memory → Int
-blockCodelCount block mem = olength block `div` (cs * cs) where
-  cs = codelSizeMemory mem
-
-selectCodel ∷ Block → Memory → Coordinates
-selectCodel block mem = List.maximumBy (furthest (orientationMemory mem)) block
 
 modifyFlipWithLog ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → Memory → m (Maybe Memory)
 modifyFlipWithLog name f mem = case mem ^. stack of
@@ -155,8 +159,3 @@ modifyFlipWithLog name f mem = case mem ^. stack of
     let mem' = modifyInstructionMemory (f x) mem
     logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemory)
     pure $ Just mem'
-
--- Board and Color queries
-
-colourAt ∷ Program → Coordinates → Maybe Color
-colourAt prog pos = (prog ^. image) &! pos
