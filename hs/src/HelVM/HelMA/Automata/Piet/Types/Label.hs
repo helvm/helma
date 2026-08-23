@@ -16,8 +16,7 @@ module HelVM.HelMA.Automata.Piet.Types.Label
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
-import           Lens.Micro                                  ( (%~), (^.) )
-import           Lens.Micro.TH                               ( makeLenses )
+import           Lens.Micro.Platform
 
 -- Types
 

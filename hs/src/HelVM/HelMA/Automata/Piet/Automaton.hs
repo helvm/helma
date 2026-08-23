@@ -31,7 +31,8 @@ import           HelVM.HelMA.Automaton.Trampoline                   as Trampolin
 import           HelVM.HelIO.Control.Safe
 
 import           Data.IntMap                                        hiding ( filter )
-import           Lens.Micro                                         ( (^.) )
+
+import           Lens.Micro.Platform
 
 -- Main interpreter entry point
 
@@ -136,7 +137,7 @@ getY (Orientation DPUp    CCLeft)  lblInfo = lblInfo ^. labelTop . borderCoord
 getY (Orientation DPUp    CCRight) lblInfo = lblInfo ^. labelTop . borderCoord
 
 colors2Command ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
-colors2Command from to = colorDiff2Command $ diffColor from to
+colors2Command fromColor toColor = colorDiff2Command $ diffColor fromColor toColor
 
 colorDiff2Command ∷ AppSafeEff m ⇒ ChromaticColor → Int → Memory → m Memory
 colorDiff2Command (ChromaticColor Light  Red)     _ s = pure s

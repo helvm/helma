@@ -14,8 +14,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Orientation
 
-import           Lens.Micro                                       ( (%~), (^.) )
-import           Lens.Micro.TH                                    ( makeLenses )
+import           Lens.Micro.Platform
 
 data InstructionCounter
   = InstructionCounter

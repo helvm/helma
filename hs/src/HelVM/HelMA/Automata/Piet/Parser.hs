@@ -1,53 +1,54 @@
 module HelVM.HelMA.Automata.Piet.Parser
-  ( processImage
-  , processImageWithLog
+  ( parseColorImage
+  , processImage
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Image
+import           HelVM.HelMA.Automata.Piet.Types.ProgramConfig
 
-import qualified Codec.Picture                         as Picture
+import qualified Codec.Picture                                 as Picture
 
 import           Control.Monad.Logger
 
 import           Data.MonoTraversable
 
-processImageWithLog ∷ MonadLogger m ⇒ Maybe Natural → Picture.DynamicImage → m (Image Color)
-processImageWithLog codelInfo dynamicImage = imageFromJuicy actualCodelLength img <$ logDebugN ("Actual codel length: " <> show actualCodelLength) where
-  actualCodelLength = calculateActualCodelLength codelInfo img
-  img = Picture.convertRGBA8 dynamicImage
+processImage ∷ MonadLogger m ⇒ Maybe Natural → Picture.DynamicImage → m (Image Color)
+processImage codelInfo dyn = imageToColorImage cs img <$ logDebugN ("Actual codel length: " <> show cs) where
+  (cs, img) = processJuicyImage codelInfo dyn
 
-processImage ∷  Maybe Natural → Picture.DynamicImage → Image Color
-processImage codelInfo dynamicImage = imageFromJuicy actualCodelLength img where
-  actualCodelLength = calculateActualCodelLength codelInfo img
-  img = Picture.convertRGBA8 dynamicImage
+parseColorImage ∷ Natural → Picture.DynamicImage → Image Color
+parseColorImage nat dyn = imageToColorImage cs img where
+  cs = fromIntegral nat
+  img = Picture.convertRGB8 dyn
 
-calculateActualCodelLength ∷ Maybe Natural → Picture.Image Picture.PixelRGBA8 → Int
-calculateActualCodelLength codelInfo img  = max 1 $ maybe defaultCodelInfo fromIntegral codelInfo where
-    defaultCodelInfo = imageGuessCodelLength img
+processJuicyImage ∷ Maybe Natural → Picture.DynamicImage → (CodelSize, Picture.Image Picture.PixelRGB8)
+processJuicyImage codelInfo dynamicImage = (calculateActualCodelLength codelInfo img, img) where
+  img = Picture.convertRGB8 dynamicImage
 
-imageFromJuicy ∷ Int → Picture.Image Picture.PixelRGBA8 → Image Color
-imageFromJuicy codelLength img = newImage (width, height) pixels where
-  width  = Picture.imageWidth img `div` codelLength
-  height = Picture.imageHeight img `div` codelLength
+calculateActualCodelLength ∷ Maybe Natural → Picture.Image Picture.PixelRGB8 → Int
+calculateActualCodelLength codelInfo img = max 1 $ maybe defaultCodelInfo fromIntegral codelInfo where
+  defaultCodelInfo = imageGuessCodelLength img
 
-  pixels = [ ((x, y), extractColor x y) | x <- [0 .. width-1], y <- [0 .. height-1] ]
+imageGuessCodelLength ∷ Picture.Image Picture.PixelRGB8 → Int
+imageGuessCodelLength img = fromMaybe 1 $ viaNonEmpty head (after <> before) where
+  (before, after) = break (== 1) (reverse values)
+  values = scanl gcd (gcd w h) $ fmap olength (group rows) <> fmap olength (group cols)
 
-  extractColor x y = checkAlpha (Picture.pixelAt img (x * codelLength) (y * codelLength))
-  checkAlpha (Picture.PixelRGBA8 r g b _) = rgb2Color r g b
+  rows = [ [ Picture.pixelAt img x y | x <- [0 .. w-1] ] | y <- [0 .. h-1] ]
+  cols = [ [ Picture.pixelAt img x y | y <- [0 .. h-1] ] | x <- [0 .. w-1] ]
 
-imageGuessCodelLength ∷ Picture.Image Picture.PixelRGBA8 → Int
-imageGuessCodelLength img = lastUntil isOne $ scanl gcd (gcd width height) $ fmap olength (group rows) <> fmap olength (group cols) where
-  width  = Picture.imageWidth img
-  height = Picture.imageHeight img
-  isOne  = (== 1)
+  w  = Picture.imageWidth img
+  h = Picture.imageHeight img
 
-  rows = [ [ Picture.pixelAt img x y | x <- [0 .. width-1] ]  | y <- [0 .. height-1] ]
-  cols = [ [ Picture.pixelAt img x y | y <- [0 .. height-1] ] | x <- [0 .. width-1] ]
+imageToColorImage ∷ Int → Picture.Image Picture.PixelRGB8 → Image Color
+imageToColorImage cs img = newImage p (assocList cs img p) where
+  p = (Picture.imageWidth img `div` cs, Picture.imageHeight img `div` cs)
 
-  lastUntil _ [x]    = x
-  lastUntil p (x:xs) = guardPred (p x) p x xs
-  lastUntil _ _      = error "empty list in lastUntil helper (imageGuessCodelLength)"
-
-  guardPred True  _  x _  = x
-  guardPred False p' _ xs = lastUntil p' xs
+assocList ∷ Int → Picture.Image Picture.PixelRGB8 → Coordinates → [(Coordinates, Color)]
+assocList cs img (w, h) =
+  [ ((x, y), pixelToColor (Picture.pixelAt img (x * cs) (y * cs)))
+  | y <- [0 .. h - 1]
+  , x <- [0 .. w - 1]
+  ]

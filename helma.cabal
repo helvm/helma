@@ -241,10 +241,6 @@ library
     HelVM.HelMA.Automata.Piet.Combiner.ALU
     HelVM.HelMA.Automata.Piet.Combiner.CPU
 
-    HelVM.HelMA.Automata.Piet.Free.Program
-    HelVM.HelMA.Automata.Piet.Free.ProgramError 
-    HelVM.HelMA.Automata.Piet.Free.Piet
-
     HelVM.HelMA.Automata.Piet.LLVM.Codel
     HelVM.HelMA.Automata.Piet.LLVM.Evaluator
     HelVM.HelMA.Automata.Piet.LLVM.Syntax
@@ -252,7 +248,6 @@ library
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
     HelVM.HelMA.Automata.Piet.Types.CodelChooser
     HelVM.HelMA.Automata.Piet.Types.Color
-    HelVM.HelMA.Automata.Piet.Types.ColorMap
     HelVM.HelMA.Automata.Piet.Types.Coordinates
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
     HelVM.HelMA.Automata.Piet.Types.Extra
@@ -300,9 +295,7 @@ library
     , free
     , IfElse
     , ilist
-    , microlens
-    , microlens-mtl
-    , microlens-th
+    , microlens-platform
     , monad-logger
     , monad-loops
     , natural-transformation

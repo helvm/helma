@@ -8,7 +8,7 @@ module HelVM.HelMA.Automata.Piet.Types.Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Label
 
-import           Lens.Micro.TH                         ( makeLenses )
+import           Lens.Micro.Platform
 
 data Labelling
   = Labelling

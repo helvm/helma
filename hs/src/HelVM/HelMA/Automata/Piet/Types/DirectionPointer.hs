@@ -9,7 +9,7 @@ module HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Extra
 
-import           Lens.Micro
+import           Lens.Micro.Platform
 
 addCoordinates ∷ DirectionPointer → Coordinates → Coordinates
 addCoordinates DPRight (x, y) = (x + 1, y)

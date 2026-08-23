@@ -13,8 +13,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Program     ( Program (Program)
 
 import           Data.IntMap                                 hiding ( filter )
 
-import           Lens.Micro
-import           Lens.Micro.TH                               ( makeLenses )
+import           Lens.Micro.Platform
 
 import qualified Relude.Extra                                as Extra
 
@@ -39,7 +38,7 @@ label4 = label4With (==)
 
 label4With ∷ (a → a → Bool) → Image a → Labelling
 label4With neighbours img = Labelling img' inf where
-  initialLabelling = Labelling (newImage (witdthImage img, heightImage img) []) mempty
+  initialLabelling = Labelling (newImage (widthImage img, heightImage img) []) mempty
   status           = label4With' neighbours img (LabellingStatus (0, 0) 0 initialLabelling mempty)
   currentLabelling = status ^. labelling
 
@@ -90,7 +89,7 @@ label4With' neighbours img status = checkNext (nextCoords xy) (updateStatus merg
   previousNeighbours (cx, cy) = filter validCoord [ (cx-1, cy), (cx, cy-1) ]
   validCoord (nx, ny) = nx >= 0 && ny >= 0
 
-  nextCoords (cx, cy) = guardX (cx < witdthImage img - 1) cx cy
+  nextCoords (cx, cy) = guardX (cx < widthImage img - 1) cx cy
   guardX True  cx cy = Just (cx + 1, cy)
   guardX False _ cy  = guardY (cy < heightImage img - 1) cy
   guardY True  cy = Just (0, cy + 1)

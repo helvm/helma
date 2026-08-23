@@ -5,17 +5,18 @@ module HelVM.HelMA.Automata.Piet.Types.ProgramConfig
   , colorMap
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Types.ColorMap
+import           HelVM.HelMA.Automata.Piet.Types.Color
+import           HelVM.HelMA.Automata.Piet.Types.Image
 
-import           Lens.Micro.TH
+import           Lens.Micro.Platform
 
 type CodelSize = Int
 
 data ProgramConfig
   = ProgramConfig
       { _codelSize :: CodelSize
-      , _colorMap  :: ColorMap
+      , _colorMap  :: Image Color
       }
-  deriving stock (Eq, Show)
+  deriving stock (Show)
 
 makeLenses ''ProgramConfig

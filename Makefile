@@ -1,14 +1,16 @@
 .PHONY: all bench build check check-whitespace clean configure exec fast golden haddock hlint hpack install main output repl report run sdist stan stylish test tix update
 
-# all: update fast bench
+# Ustaw bezpieczny limit wątków na podstawie dostępnego RAMu (np. 2 lub 4 zamiast bezlimitowego --jobs)
+JOBS ?= 2
+
 all: update fast
 
 bench:
 	rm -f helma-benchmark.tix
-	cabal new-bench --jobs -f ghcoptions
+	cabal new-bench --jobs=$(JOBS) -f ghcoptions
 
 build:
-	cabal new-build --jobs --enable-profiling -f ghcoptions
+	cabal new-build --jobs=$(JOBS) -f ghcoptions
 
 check:
 	cabal check
@@ -18,17 +20,17 @@ check-whitespace:
 
 clean:
 	cabal new-clean
-	if test -d .cabal-sandbox; then cabal sandbox delete; fi
-	if test -d .hpc; then rm -r .hpc; fi
-	if test -d .hie; then rm -r .hie; fi
+	if test -d .cabal-sandbox; then rm -rf .cabal-sandbox; fi
+	if test -d .hpc; then rm -rf .hpc; fi
+	if test -d .hie; then rm -rf .hie; fi
 
 configure:
 	rm -f cabal.project.local*
-	cabal configure --enable-benchmarks --enable-coverage --enable-tests -f ghcoptions
+	cabal configure --enable-tests -f ghcoptions
 
 exec:
 	make tix
-	cabal new-exec --jobs helma
+	cabal new-exec --jobs=$(JOBS) helma
 
 fast: main report sdist install
 
@@ -62,7 +64,7 @@ report:
 
 run:
 	make tix
-	cabal new-run --jobs helma
+	cabal new-run --jobs=$(JOBS) helma
 
 sdist:
 	cabal sdist
@@ -72,11 +74,10 @@ stan:
 	mv stan.html docs/reports
 
 stylish:
-	#curl -sL https://raw.github.com/haskell/stylish-haskell/master/scripts/latest.sh | sh -s "-r -v -i hs"
 	stylish-haskell -r -v -i hs
 
 test:
-	cabal new-test --jobs --test-show-details=streaming -f ghcoptions
+	cabal new-test --jobs=$(JOBS) --test-show-details=streaming -f ghcoptions
 
 tix:
 	rm -f helma.tix

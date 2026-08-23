@@ -13,8 +13,8 @@ import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
-import           Lens.Micro                                       ( (%~) )
-import           Lens.Micro.TH                                    ( makeLenses )
+import           Lens.Micro.Platform
+
 
 data Orientation
   = Orientation
