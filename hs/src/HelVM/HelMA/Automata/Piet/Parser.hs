@@ -1,9 +1,6 @@
 module HelVM.HelMA.Automata.Piet.Parser
-  ( imageToColorImage
-  , parseColorImage
-  , pixelToColor
+  ( parseColorImage
   , processImage
-  , processImageWithLog
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -18,40 +15,15 @@ import           Control.Monad.Logger
 
 import           Data.MonoTraversable
 
-parseColorImage :: MonadSafe f => CodelSize -> Picture.DynamicImage -> f (Image Color)
-parseColorImage cs dyn = imageToColorImage cs pixelToColor <$> toRGB8 dyn
-
--- Generic image converter with step/codel sampling
-imageToColorImage :: Picture.Pixel pixel => CodelSize -> (pixel -> Color) -> Picture.Image pixel -> Image Color
-imageToColorImage cs convertPixel img = newImage (w', h') assocList
-  where
-    w  = Picture.imageWidth img
-    h  = Picture.imageHeight img
-    w' = w `div` cs
-    h' = h `div` cs
-
-    assocList =
-      [ ((x, y), convertPixel (Picture.pixelAt img (x * cs) (y * cs)))
-      | y <- [0 .. h' - 1]
-      , x <- [0 .. w' - 1]
-      ]
-
-processImageWithLog :: MonadLogger m => Maybe Natural -> Picture.DynamicImage -> m (Image Color)
-processImageWithLog codelInfo dyn = do
+processImage :: MonadLogger m => Maybe Natural -> Picture.DynamicImage -> m (Image Color)
+processImage codelInfo dyn = do
   let (cs, img) = processJuicyImage codelInfo dyn
   logDebugN ("Actual codel length: " <> show cs)
   pure $ imageToColorImage cs rgba2Color img
 
-processImage :: Maybe Natural -> Picture.DynamicImage -> Image Color
-processImage codelInfo dyn = imageToColorImage cs rgba2Color img
-  where
-    (cs, img) = processJuicyImage codelInfo dyn
+parseColorImage :: MonadSafe m => Natural -> Picture.DynamicImage -> m (Image Color)
+parseColorImage cs dyn = imageToColorImage (fromIntegral cs) pixelToColor <$> toRGB8 dyn
 
--- Helper to convert PixelRGBA8 directly to Color
-rgba2Color :: Picture.PixelRGBA8 -> Color
-rgba2Color (Picture.PixelRGBA8 r g b _) = rgb2Color r g b
-
--- Common pipeline for resolving codel length and converting dynamic image
 processJuicyImage :: Maybe Natural -> Picture.DynamicImage -> (CodelSize, Picture.Image Picture.PixelRGBA8)
 processJuicyImage codelInfo dynamicImage = (actualCodelLength, img)
   where
@@ -79,4 +51,24 @@ imageGuessCodelLength img = lastUntil isOne $ scanl gcd (gcd width height) $ fma
 
     guardPred True  _  x _  = x
     guardPred False p' _ xs = lastUntil p' xs
-    
+
+
+
+-- Generic image converter with step/codel sampling
+imageToColorImage :: Picture.Pixel pixel => Int -> (pixel -> Color) -> Picture.Image pixel -> Image Color
+imageToColorImage cs convertPixel img = newImage (w', h') assocList
+  where
+    w  = Picture.imageWidth img
+    h  = Picture.imageHeight img
+    w' = w `div` cs
+    h' = h `div` cs
+
+    assocList =
+      [ ((x, y), convertPixel (Picture.pixelAt img (x * cs) (y * cs)))
+      | y <- [0 .. h' - 1]
+      , x <- [0 .. w' - 1]
+      ]
+
+rgba2Color :: Picture.PixelRGBA8 -> Color
+rgba2Color (Picture.PixelRGBA8 r g b _) = rgb2Color r g b
+

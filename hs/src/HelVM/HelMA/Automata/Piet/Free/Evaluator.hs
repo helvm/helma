@@ -26,15 +26,15 @@ import qualified Codec.Picture                                 as Picture
 
 import qualified RIO
 
-runRio ∷ Has env ⇒ Maybe LexerType → Int → RIO.RIO env ()
+runRio ∷ Has env ⇒ Maybe LexerType → Natural → RIO.RIO env ()
 runRio _ codelInfo = runWithOptions =<< optionsRio where
   runWithOptions o = run codelInfo =<< readImageRio (App.file o)
 
-run ∷ Has env ⇒ Int → Picture.DynamicImage → RIO.RIO env ()
+run ∷ Has env ⇒ Natural → Picture.DynamicImage → RIO.RIO env ()
 run cl i = runAsRIO $ simpleEval cl i
 
-simpleEval ∷ AppSafeEff m ⇒ Int → Picture.DynamicImage → m ()
-simpleEval cs dynamicImage = interpret cs =<< parseColorImage cs dynamicImage
+simpleEval ∷ AppSafeEff m ⇒ Natural → Picture.DynamicImage → m ()
+simpleEval cs dynamicImage = interpret (fromIntegral cs) =<< parseColorImage cs dynamicImage
 
 interpret ∷ AppSafeEff m ⇒ CodelSize → Image Color → m ()
 interpret cs img = loop initialState where
