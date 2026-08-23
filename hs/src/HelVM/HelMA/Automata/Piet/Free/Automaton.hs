@@ -29,7 +29,7 @@ import qualified Data.Sequence                                          as Seq
 import qualified Data.Set                                               as S
 import           Lens.Micro.Platform
 
-import           Prelude
+import           Prelude                                                hiding ( pass )
 
 -- Top-level driver
 interpret ∷ AppSafeEff m ⇒ Program → m ()
@@ -64,9 +64,8 @@ handleNextColour (Just c') st pos newPos block =
   Right <$> evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) (setPosition newPos 0 st) pos c' block
 
 setPosition ∷ Coordinates → Int → ProgramState → ProgramState
-setPosition pos cc st = st { _collisionCount = cc } & memory %~ setPositionMemory pos where
-  setPositionMemory p = memoryInstructionCounter . position .~ p
-  memoryInstructionCounter = instructionMemory . instructionCounter
+setPosition pos cc st = st { _collisionCount = cc } & memory %~ updatePos where
+  updatePos mem = setInstructionCounter (instructionCounterMemory mem & position .~ pos) mem
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ProgramState → Coordinates → Color → Block → m ProgramState
 evalTransitionBlock (Just c) st _ c' block
@@ -82,9 +81,9 @@ discoverBlock m startPos = S.toList $ go S.empty startPos where
   targetColor = m &! startPos
 
   go visited pos
-    | pos `S.member` visited  = visited
-    | m &! pos /= targetColor = visited
-    | otherwise               = L.foldl' go (S.insert pos visited) (neighbours pos)
+    | pos `S.member` visited    = visited
+    | m &! pos /= targetColor   = visited
+    | otherwise                 = L.foldl' go (S.insert pos visited) (neighbours pos)
 
 selectCodel ∷ ProgramState → Block → Coordinates
 selectCodel st = L.maximumBy (furthest (orientationMemory (st ^. memory)))
