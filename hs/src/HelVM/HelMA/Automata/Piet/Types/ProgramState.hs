@@ -3,26 +3,30 @@ module HelVM.HelMA.Automata.Piet.Types.ProgramState
   , collisionCount
   , ic
   , initialState
+  , program
   , stack
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           Lens.Micro.Platform
 
-initialState ∷ ProgramState
-initialState = ProgramState
-  { _ic             = initialInstructionCounter
+initialState ∷ Program → ProgramState
+initialState p = ProgramState
+  { _program = p
+  ,  _ic             = initialInstructionCounter
   , _stack          = []
   , _collisionCount = 0
   }
 
 data ProgramState
   = ProgramState
-      { _ic             :: !InstructionCounter
+      { _program        :: !Program
+      , _ic             :: !InstructionCounter
       , _stack          :: ![Int]
       , _collisionCount :: !Int
       }
-  deriving stock (Eq, Show)
+  deriving stock (Show)
 
 makeLenses ''ProgramState

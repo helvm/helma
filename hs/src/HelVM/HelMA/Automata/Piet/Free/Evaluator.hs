@@ -12,14 +12,14 @@ import           HelVM.HelMA.Automata.Piet.API.LexerType
 
 import           HelVM.HelMA.Automata.Piet.Compiler
 
-import qualified HelVM.HelMA.Automaton.API.AppOptions         as App
+import qualified HelVM.HelMA.Automaton.API.AppOptions     as App
 import           HelVM.HelMA.Automaton.API.Env
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
 
-import qualified Codec.Picture                                as Picture
+import qualified Codec.Picture                            as Picture
 
 import qualified RIO
 

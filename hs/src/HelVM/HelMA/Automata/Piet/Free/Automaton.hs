@@ -31,13 +31,13 @@ import           Prelude                                                hiding (
 
 -- Top-level driver
 interpret ∷ AppSafeEff m ⇒ Program → m ()
-interpret program = loop initialState where
+interpret p = loop $ initialState p where
   loop st = do
-    (continue, st') <- transition program st
+    (continue, st') <- transition p st
     when continue $ loop st'
 
 transition ∷ AppSafeEff m ⇒ Program → ProgramState → m (Bool, ProgramState)
-transition program st = transitionStep (_collisionCount st) program st
+transition p st = transitionStep (_collisionCount st) p st
 
 transitionStep ∷ AppSafeEff m ⇒ Int → Program → ProgramState → m (Bool, ProgramState)
 transitionStep cc _ st
@@ -142,8 +142,7 @@ evalInstruction OutChar   r conf st = evalStack "out_char" ALU.outputCharMaybe r
 evalInstruction Nop       r conf st = interpretF r conf st
 
 evalStack ∷ AppSafeEff m ⇒ Text → ([Int] → m [Int]) → InstructionFF → Program → ProgramState → m ProgramState
-evalStack name f r conf st =
-  logMsg st name *> (setStack st <$> f (_stack st)) >>= interpretF r conf
+evalStack name f r conf st = logMsg st name *> (setStack st <$> f (_stack st)) >>= interpretF r conf
 
 setStack ∷ ProgramState → [Int] → ProgramState
 setStack st s = st { _stack = s }
