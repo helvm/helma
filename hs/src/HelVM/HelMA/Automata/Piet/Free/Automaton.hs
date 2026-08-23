@@ -5,6 +5,7 @@ module HelVM.HelMA.Automata.Piet.Free.Automaton
 
 import           HelVM.HelMA.Automata.Piet.Combiner
 
+import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
@@ -44,31 +45,37 @@ transition st = transitionStep (_collisionCount st) st
 transitionStep ∷ AppSafeEff m ⇒ Int → AutomatonMemory → m (Either () AutomatonMemory)
 transitionStep cc _
   | cc >= 8   = logDebugN "Max collisions reached (8). Terminating." >> pure (Trampoline.break ())
-transitionStep _ st = Trampoline.continue <$> handleNextColour colour pos (move dp p) block st where
-    mem    = st ^. memory
-    prog   = programMemory mem
-    dp     = directionPointerMemory mem
-    pos    = positionMemory mem
-    m      = prog ^. image
-    block  = discoverBlock m pos
-    p      = selectCodel block mem
-    colour = colourAt prog (move dp p)
+transitionStep _ st = Trampoline.continue <$> handleNextColour (colourAt prog (nextCodelPos mem)) st where
+    mem  = st ^. memory
+    prog = programMemory mem
 
-handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → Coordinates → Coordinates → Block → AutomatonMemory → m AutomatonMemory
-handleNextColour Nothing _ _ _ st              = pure $ doIfCollided st
-handleNextColour (Just Black) _ _ _ st         = pure $ doIfCollided st
-handleNextColour (Just White) _ newPos _ st    = pure $ setPositionState newPos 0 st
-handleNextColour (Just c') pos newPos block st = evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) pos c' block (setPositionState newPos 0 st)
+handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m AutomatonMemory
+handleNextColour Nothing          st      = pure $ doIfCollided st
+handleNextColour (Just Black)     st      = pure $ doIfCollided st
+handleNextColour (Just White)     st      = pure $ setPositionState (nextCodelPos mem) 0 st where mem = st ^. memory
+handleNextColour (Just (Chromatic c')) st = stepChromatic c' st
 
-setPositionState ∷ Coordinates → Int → AutomatonMemory → AutomatonMemory
-setPositionState pos cc st = st { _collisionCount = cc } & memory %~ setPosition pos
+stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
+stepChromatic c' st = evalTransitionBlock (colourAt (programMemory mem) pos) c' block (setPositionState newPos 0 st) where
+    mem     = st ^. memory
+    pos     = positionMemory mem
+    block   = discoverBlock (programMemory mem ^. image) pos
+    newPos  = move (directionPointerMemory mem) (selectCodel block mem)
 
-evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → Coordinates → Color → Block → AutomatonMemory → m AutomatonMemory
-evalTransitionBlock (Just (Chromatic c)) _ (Chromatic c') block st = do
+nextCodelPos ∷ Memory → Coordinates
+nextCodelPos mem = move (directionPointerMemory mem) (selectCodel block mem) where
+    pos   = positionMemory mem
+    block = discoverBlock (programMemory mem ^. image) pos
+
+evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Block → AutomatonMemory → m AutomatonMemory
+evalTransitionBlock (Just (Chromatic c)) c' block st = do
   let blockSize = blockCodelCount block (st ^. memory)
   mem' <- colors2Command c c' blockSize (st ^. memory)
   pure $ st & memory .~ mem'
-evalTransitionBlock _ _ _ _ st = pure st
+evalTransitionBlock _ _ _ st = pure st
+
+setPositionState ∷ Coordinates → Int → AutomatonMemory → AutomatonMemory
+setPositionState pos cc st = st { _collisionCount = cc } & memory %~ setPosition pos
 
 -- Collision state management
 
