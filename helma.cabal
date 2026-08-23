@@ -301,9 +301,7 @@ library
     , free
     , IfElse
     , ilist
-    , microlens
-    , microlens-mtl
-    , microlens-th
+    , microlens-platform
     , monad-logger
     , monad-loops
     , natural-transformation

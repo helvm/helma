@@ -10,8 +10,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
 
-import           Lens.Micro                                  ( (^.) )
-import           Lens.Micro.TH                               ( makeLenses )
+import           Lens.Micro.Platform
 
 data Program
   = Program

@@ -7,7 +7,7 @@ module HelVM.HelMA.Automata.Piet.Types.ProgramConfig
 
 import           HelVM.HelMA.Automata.Piet.Types.ColorMap
 
-import           Lens.Micro.TH
+import           Lens.Micro.Platform
 
 type CodelSize = Int
 

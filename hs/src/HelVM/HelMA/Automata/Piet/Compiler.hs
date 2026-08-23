@@ -13,8 +13,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Program     ( Program (Program)
 
 import           Data.IntMap                                 hiding ( filter )
 
-import           Lens.Micro
-import           Lens.Micro.TH                               ( makeLenses )
+import           Lens.Micro.Platform
 
 import qualified Relude.Extra                                as Extra
 

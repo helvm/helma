@@ -7,12 +7,13 @@ module HelVM.HelMA.Automata.Piet.Types.ColorMap
   ) where
 import           HelVM.HelMA.Automata.Piet.Types.Color
 
-import qualified Data.Vector                           as V
-import           Lens.Micro.TH
+import qualified Data.Vector                           as Vector
+
+import           Lens.Micro.Platform
 
 data ColorMap
   = ColorMap
-      { _matrix    :: V.Vector (V.Vector Color)
+      { _matrix    :: Vector.Vector (Vector.Vector Color)
       , _mapWidth  :: Int
       , _mapHeight :: Int
       }

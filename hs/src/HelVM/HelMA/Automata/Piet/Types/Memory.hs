@@ -21,8 +21,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import qualified Data.Sequence                                      as Seq
 
-import           Lens.Micro                                         ( (.~), (^.) )
-import           Lens.Micro.TH                                      ( makeLenses )
+import           Lens.Micro.Platform
 
 import           Prelude                                            hiding ( empty )
 

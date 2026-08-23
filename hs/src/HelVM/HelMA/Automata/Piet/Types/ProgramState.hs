@@ -12,8 +12,7 @@ import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
-
-import           Lens.Micro.TH
+import           Lens.Micro.Platform
 
 initialState ∷ ProgramState
 initialState = ProgramState

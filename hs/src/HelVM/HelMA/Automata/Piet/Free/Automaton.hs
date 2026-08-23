@@ -25,7 +25,7 @@ import qualified Data.List                                              as L
 import           Data.MonoTraversable
 import qualified Data.Set                                               as S
 import           Data.Vector                                            ( (!) )
-import           Lens.Micro                                             ( (^.) )
+import           Lens.Micro.Platform
 
 import           Prelude                                                hiding ( getLine )
 

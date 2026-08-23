@@ -7,7 +7,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import qualified Codec.Picture                        as Picture
 
-import           Lens.Micro.TH                        ( makeLenses )
+import           Lens.Micro.Platform
 
 import qualified RIO
 

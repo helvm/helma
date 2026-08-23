@@ -19,8 +19,7 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           Control.Monad.Logger
 
-import           Lens.Micro                                         ( (%~), (^.) )
-import           Lens.Micro.TH                                      ( makeLenses )
+import           Lens.Micro.Platform
 
 data InstructionMemory
   = InstructionMemory
