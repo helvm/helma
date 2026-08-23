@@ -29,8 +29,6 @@ import qualified Data.Sequence                                          as Seq
 import qualified Data.Set                                               as S
 import           Lens.Micro.Platform
 
-import           Prelude                                                hiding ( pass )
-
 -- Top-level driver
 interpret ∷ AppSafeEff m ⇒ Program → m ()
 interpret p = loop $ initialState p where
