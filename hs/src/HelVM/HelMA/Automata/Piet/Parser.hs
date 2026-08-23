@@ -7,8 +7,6 @@ import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.ProgramConfig
 
-import           HelVM.HelIO.Control.Safe
-
 import qualified Codec.Picture                                 as Picture
 
 import           Control.Monad.Logger
@@ -19,23 +17,23 @@ processImage :: MonadLogger m => Maybe Natural -> Picture.DynamicImage -> m (Ima
 processImage codelInfo dyn = do
   let (cs, img) = processJuicyImage codelInfo dyn
   logDebugN ("Actual codel length: " <> show cs)
-  pure $ imageToColorImage cs rgba2Color img
+  pure $ imageToColorImage cs pixelToColor img
 
-parseColorImage :: MonadSafe m => Natural -> Picture.DynamicImage -> m (Image Color)
-parseColorImage cs dyn = imageToColorImage (fromIntegral cs) pixelToColor <$> toRGB8 dyn
+parseColorImage :: Natural -> Picture.DynamicImage -> Image Color
+parseColorImage cs dyn = imageToColorImage (fromIntegral cs) pixelToColor $ Picture.convertRGB8 dyn
 
-processJuicyImage :: Maybe Natural -> Picture.DynamicImage -> (CodelSize, Picture.Image Picture.PixelRGBA8)
+processJuicyImage :: Maybe Natural -> Picture.DynamicImage -> (CodelSize, Picture.Image Picture.PixelRGB8)
 processJuicyImage codelInfo dynamicImage = (actualCodelLength, img)
   where
-    img = Picture.convertRGBA8 dynamicImage
+    img = Picture.convertRGB8 dynamicImage
     actualCodelLength = calculateActualCodelLength codelInfo img
 
-calculateActualCodelLength :: Maybe Natural -> Picture.Image Picture.PixelRGBA8 -> Int
+calculateActualCodelLength :: Maybe Natural -> Picture.Image Picture.PixelRGB8 -> Int
 calculateActualCodelLength codelInfo img = max 1 $ maybe defaultCodelInfo fromIntegral codelInfo
   where
     defaultCodelInfo = imageGuessCodelLength img
 
-imageGuessCodelLength :: Picture.Image Picture.PixelRGBA8 -> Int
+imageGuessCodelLength :: Picture.Image Picture.PixelRGB8 -> Int
 imageGuessCodelLength img = lastUntil isOne $ scanl gcd (gcd width height) $ fmap olength (group rows) <> fmap olength (group cols)
   where
     width  = Picture.imageWidth img
@@ -52,9 +50,6 @@ imageGuessCodelLength img = lastUntil isOne $ scanl gcd (gcd width height) $ fma
     guardPred True  _  x _  = x
     guardPred False p' _ xs = lastUntil p' xs
 
-
-
--- Generic image converter with step/codel sampling
 imageToColorImage :: Picture.Pixel pixel => Int -> (pixel -> Color) -> Picture.Image pixel -> Image Color
 imageToColorImage cs convertPixel img = newImage (w', h') assocList
   where
@@ -68,7 +63,3 @@ imageToColorImage cs convertPixel img = newImage (w', h') assocList
       | y <- [0 .. h' - 1]
       , x <- [0 .. w' - 1]
       ]
-
-rgba2Color :: Picture.PixelRGBA8 -> Color
-rgba2Color (Picture.PixelRGBA8 r g b _) = rgb2Color r g b
-

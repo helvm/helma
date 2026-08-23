@@ -34,7 +34,7 @@ run ∷ Has env ⇒ Natural → Picture.DynamicImage → RIO.RIO env ()
 run cl i = runAsRIO $ simpleEval cl i
 
 simpleEval ∷ AppSafeEff m ⇒ Natural → Picture.DynamicImage → m ()
-simpleEval cs dynamicImage = interpret (fromIntegral cs) =<< parseColorImage cs dynamicImage
+simpleEval cs = interpret (fromIntegral cs) . parseColorImage cs
 
 interpret ∷ AppSafeEff m ⇒ CodelSize → Image Color → m ()
 interpret cs img = loop initialState where

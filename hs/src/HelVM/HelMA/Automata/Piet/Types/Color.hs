@@ -3,36 +3,13 @@ module HelVM.HelMA.Automata.Piet.Types.Color
   , hueSteps
   , lightnessSteps
   , pixelToColor
-  , rgb2Color
-  , toRGB8
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
-import           HelVM.HelIO.Control.Safe
-
 import           Codec.Picture
-
-toRGB8 ∷ MonadSafe m ⇒ DynamicImage → m (Image PixelRGB8)
-toRGB8 (ImageRGB8 rgb8)   = pure rgb8
-toRGB8 (ImageRGBA8 rgba8) = pure $ convertRGB8 (ImageRGBA8 rgba8)
-toRGB8 (ImageY8 _)        = liftError  "Y8 format"
-toRGB8 (ImageY16 _)       = liftError  "Y16 format"
-toRGB8 (ImageY32 _)       = liftError  "Y32 format"
-toRGB8 (ImageYF _)        = liftError  "YF format"
-toRGB8 (ImageYA8 _)       = liftError  "YA8 format"
-toRGB8 (ImageYA16 _)      = liftError  "YA16 format"
-toRGB8 (ImageRGB16 _)     = liftError  "RGB16 format"
-toRGB8 (ImageRGBF _)      = liftError  "RGBF format"
-toRGB8 (ImageRGBA16 _)    = liftError  "RGBA16 format"
-toRGB8 (ImageYCbCr8 _)    = liftError  "YCbCr8 format"
-toRGB8 (ImageCMYK8 _)     = liftError  "CMYK8 format"
-toRGB8 (ImageCMYK16 _)    = liftError  "CMYK16 format"
-
-pixelToColor ∷ PixelRGB8 → Color
-pixelToColor (PixelRGB8 r g b) = rgb2Color r g b
 
 lightnessSteps ∷ Color → Color → Maybe Int
 lightnessSteps (Chromatic (ChromaticColor l1 _)) (Chromatic (ChromaticColor l2 _)) =
@@ -43,6 +20,9 @@ hueSteps ∷ Color → Color → Maybe Int
 hueSteps (Chromatic (ChromaticColor _ h1)) (Chromatic (ChromaticColor _ h2)) =
   Just $ (fromEnum h2 - fromEnum h1) `mod` 6
 hueSteps _ _ = Nothing
+
+pixelToColor ∷ PixelRGB8 → Color
+pixelToColor (PixelRGB8 r g b) = rgb2Color r g b
 
 rgb2Color ∷ (Num w, Eq w) ⇒ w → w → w → Color
 rgb2Color 0x00 0x00 0x00 = Black
