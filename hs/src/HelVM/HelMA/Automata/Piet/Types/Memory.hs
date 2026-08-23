@@ -3,15 +3,22 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , Stack
   , currentPixel
   , directionPointerMemory
+  , handleCollision
   , initialMemory
   , instructionCounterMemory
   , instructionMemory
+  , modifyInstructionMemory
+  , modifyStack
+  , modifyStackWithLog
   , orientationMemory
   , positionMemory
   , programMemory
+  , rotatePointer
   , setInstructionCounter
+  , setPosition
   , stack
   , stepWhitePixel
+  , toggleChooser
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
@@ -23,6 +30,8 @@ import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
+
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import qualified Data.Sequence                                      as Seq
 
@@ -99,3 +108,24 @@ handleBlocked False nextPos _  = setPosition nextPos
 
 rotateAndToggle ∷ DirectionPointer → Memory → Memory
 rotateAndToggle dp mem = setCodelChooser (toggle 1 (codelChooserMemory mem)) $ setDirectionPointer (rotate 1 dp) mem
+
+-- SETTERS & MODIFIERS (Modyfikacje czysto na Memory)
+
+toggleChooser ∷ Memory → Memory
+toggleChooser = instructionMemory %~ toggleCodelChooserIM 1
+
+rotatePointer ∷ Memory → Memory
+rotatePointer = instructionMemory %~ rotateDirectionPointerIM 1
+
+handleCollision ∷ Bool → Memory → Memory
+handleCollision True  = toggleChooser
+handleCollision False = rotatePointer
+
+modifyInstructionMemory ∷ (InstructionMemory → InstructionMemory) → Memory → Memory
+modifyInstructionMemory f = instructionMemory %~ f
+
+modifyStack ∷ (Stack → Stack) → Memory → Memory
+modifyStack f = stack %~ f
+
+modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
+modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)

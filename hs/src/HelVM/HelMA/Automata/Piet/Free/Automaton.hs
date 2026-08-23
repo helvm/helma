@@ -10,9 +10,9 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Instruction
-import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
-import           HelVM.HelMA.Automata.Piet.Types.Memory
+import           HelVM.HelMA.Automata.Piet.Types.Memory                 hiding ( setPosition )
+import qualified HelVM.HelMA.Automata.Piet.Types.Memory                 as Memory
 import           HelVM.HelMA.Automata.Piet.Types.Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
@@ -30,7 +30,6 @@ import qualified Data.Sequence                                          as Seq
 import qualified Data.Set                                               as S
 
 import           Lens.Micro.Platform
-
 
 -- Top-level driver
 
@@ -72,13 +71,12 @@ transitionStep _ st =
 handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → ProgramState → Coordinates → Coordinates → Block → m (Either () ProgramState)
 handleNextColour Nothing st _ _ _           = pure $ Right (doIfCollided st)
 handleNextColour (Just Black) st _ _ _     = pure $ Right (doIfCollided st)
-handleNextColour (Just White) st _ newPos _ = pure $ Right (setPosition newPos 0 st)
+handleNextColour (Just White) st _ newPos _ = pure $ Right (setPositionState newPos 0 st)
 handleNextColour (Just c') st pos newPos block =
-  Right <$> evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) (setPosition newPos 0 st) pos c' block
+  Right <$> evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) (setPositionState newPos 0 st) pos c' block
 
-setPosition ∷ Coordinates → Int → ProgramState → ProgramState
-setPosition pos cc st = st { _collisionCount = cc } & memory %~ updatePos where
-  updatePos mem = setInstructionCounter (instructionCounterMemory mem & position .~ pos) mem
+setPositionState ∷ Coordinates → Int → ProgramState → ProgramState
+setPositionState pos cc st = st { _collisionCount = cc } & memory %~ Memory.setPosition pos
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ProgramState → Coordinates → Color → Block → m ProgramState
 evalTransitionBlock (Just c) st _ c' block
@@ -106,20 +104,10 @@ colourAt prog pos = (prog ^. image) &! pos
 
 -- Collision state management
 doIfCollided ∷ ProgramState → ProgramState
-doIfCollided st = updateCollisionCount (handleCollision (even (_collisionCount st)) st)
+doIfCollided st = updateCollisionCount $ st & memory %~ Memory.handleCollision (even (_collisionCount st))
 
 updateCollisionCount ∷ ProgramState → ProgramState
 updateCollisionCount st = st { _collisionCount = _collisionCount st + 1 }
-
-handleCollision ∷ Bool → ProgramState → ProgramState
-handleCollision True  = toggleChooser
-handleCollision False = rotatePointer
-
-toggleChooser ∷ ProgramState → ProgramState
-toggleChooser = memory . instructionMemory %~ toggleCodelChooserIM 1
-
-rotatePointer ∷ ProgramState → ProgramState
-rotatePointer = memory . instructionMemory %~ rotateDirectionPointerIM 1
 
 -- Instruction generation
 colorsToProgram ∷ Color → Color → Int → InstructionFF
@@ -164,7 +152,7 @@ evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → Instructio
 evalFlip name f r st = case st ^. memory . stack of
   Seq.Empty     -> interpretF r st
   (x Seq.:<| _) -> do
-    let st' = st & memory . instructionMemory %~ f x
+    let st' = st & memory %~ Memory.modifyInstructionMemory (f x)
     logMsg st' (name <> " " <> show (directionPointerMemory (st' ^. memory)))
     interpretF r st'
 
