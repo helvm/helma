@@ -11,8 +11,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Instruction
 import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter     ( position )
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory      hiding ( program )
-import           HelVM.HelMA.Automata.Piet.Types.Memory                 ( Stack )
-import qualified HelVM.HelMA.Automata.Piet.Types.Memory                 as Memory
+import           HelVM.HelMA.Automata.Piet.Types.Memory
 import qualified HelVM.HelMA.Automata.Piet.Types.Orientation            as Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
 import           HelVM.HelMA.Automata.Piet.Types.ProgramState
@@ -49,9 +48,9 @@ transitionStep _ st =
   handleNextColour colour st pos (move dp p) block
   where
     mem    = st ^. memory
-    prog   = Memory.programMemory mem
-    dp     = Memory.directionPointerMemory mem
-    pos    = Memory.positionMemory mem
+    prog   = programMemory mem
+    dp     = directionPointerMemory mem
+    pos    = positionMemory mem
     m      = prog ^. image
     block  = discoverBlock m pos
     p      = selectCodel st block
@@ -62,16 +61,16 @@ handleNextColour Nothing st _ _ _           = pure $ Right (doIfCollided st)
 handleNextColour (Just Black) st _ _ _     = pure $ Right (doIfCollided st)
 handleNextColour (Just White) st _ newPos _ = pure $ Right (setPosition newPos 0 st)
 handleNextColour (Just c') st pos newPos block =
-  Right <$> evalTransitionBlock (colourAt (Memory.programMemory (st ^. memory)) pos) (setPosition newPos 0 st) pos c' block
+  Right <$> evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) (setPosition newPos 0 st) pos c' block
 
 setPosition ∷ Coordinates → Int → ProgramState → ProgramState
 setPosition pos cc st = st { _collisionCount = cc } & memory %~ setPositionMemory pos where
   setPositionMemory p = memoryInstructionCounter . position .~ p
-  memoryInstructionCounter = Memory.instructionMemory . instructionCounter
+  memoryInstructionCounter = instructionMemory . instructionCounter
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ProgramState → Coordinates → Color → Block → m ProgramState
 evalTransitionBlock (Just c) st _ c' block
-  | c /= White = interpretF (colorsToProgram c c' (blockCodelCount (Memory.programMemory (st ^. memory) ^. codelSize) block)) st
+  | c /= White = interpretF (colorsToProgram c c' (blockCodelCount (programMemory (st ^. memory) ^. codelSize) block)) st
 evalTransitionBlock _ st _ _ _ = pure st
 
 blockCodelCount ∷ CodelSize → Block → Int
@@ -88,7 +87,7 @@ discoverBlock m startPos = S.toList $ go S.empty startPos where
     | otherwise               = L.foldl' go (S.insert pos visited) (neighbours pos)
 
 selectCodel ∷ ProgramState → Block → Coordinates
-selectCodel st = L.maximumBy (Orientation.furthest (Memory.orientationMemory (st ^. memory)))
+selectCodel st = L.maximumBy (Orientation.furthest (orientationMemory (st ^. memory)))
 
 colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. image) &! pos
@@ -111,10 +110,10 @@ handleCollision True  = toggleChooser
 handleCollision False = rotatePointer
 
 toggleChooser ∷ ProgramState → ProgramState
-toggleChooser = memory . Memory.instructionMemory %~ toggleCodelChooserIM 1
+toggleChooser = memory . instructionMemory %~ toggleCodelChooserIM 1
 
 rotatePointer ∷ ProgramState → ProgramState
-rotatePointer = memory . Memory.instructionMemory %~ rotateDirectionPointerIM 1
+rotatePointer = memory . instructionMemory %~ rotateDirectionPointerIM 1
 
 -- Instruction generation
 colorsToProgram ∷ Color → Color → Int → InstructionFF
@@ -150,18 +149,18 @@ evalInstruction Nop       r st = interpretF r st
 
 evalStack ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → InstructionFF → ProgramState → m ProgramState
 evalStack name f r st = do
-  newStack <- f (st ^. memory . Memory.stack)
-  let st' = st & memory . Memory.stack .~ newStack
+  newStack <- f (st ^. memory . stack)
+  let st' = st & memory . stack .~ newStack
   logMsg st' name
   interpretF r st'
 
 evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → InstructionFF → ProgramState → m ProgramState
-evalFlip name f r st = case st ^. memory . Memory.stack of
+evalFlip name f r st = case st ^. memory . stack of
   Seq.Empty     -> interpretF r st
   (x Seq.:<| _) -> do
-    let st' = st & memory . Memory.instructionMemory %~ f x
-    logMsg st' (name <> " " <> show (Memory.directionPointerMemory (st' ^. memory)))
+    let st' = st & memory . instructionMemory %~ f x
+    logMsg st' (name <> " " <> show (directionPointerMemory (st' ^. memory)))
     interpretF r st'
 
 logMsg ∷ AppSafeEff m ⇒ ProgramState → Text → m ()
-logMsg st msg = logWithPosition msg (st ^. memory . Memory.instructionMemory)
+logMsg st msg = logWithPosition msg (st ^. memory . instructionMemory)
