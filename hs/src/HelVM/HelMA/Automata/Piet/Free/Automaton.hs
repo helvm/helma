@@ -3,23 +3,18 @@ module HelVM.HelMA.Automata.Piet.Free.Automaton
   , interpret
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Free.InstructionFF
+import           HelVM.HelMA.Automata.Piet.Combiner
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Image
-import           HelVM.HelMA.Automata.Piet.Types.Instruction
-import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
-import qualified HelVM.HelMA.Automaton.Combiner.ALU                     as ALU
 import           HelVM.HelMA.Automaton.Eff.MonadEff
-import qualified HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction as ST
-import           HelVM.HelMA.Automaton.Trampoline                       as Trampoline
+import           HelVM.HelMA.Automaton.Trampoline                 as Trampoline
 
-import           Control.Monad.Free
 import           Control.Monad.Logger
 
 import           Lens.Micro.Platform
@@ -69,55 +64,16 @@ setPositionState ∷ Coordinates → Int → AutomatonMemory → AutomatonMemory
 setPositionState pos cc st = st { _collisionCount = cc } & memory %~ setPosition pos
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → Coordinates → Color → Block → m AutomatonMemory
-evalTransitionBlock (Just c) st _ c' block
-  | c /= White = interpretF (colorsToProgram c c' (blockCodelCount block (st ^. memory))) st
+evalTransitionBlock (Just (Chromatic c)) st _ (Chromatic c') block = do
+  let blockSize = blockCodelCount block (st ^. memory)
+  mem' <- colors2Command c c' blockSize (st ^. memory)
+  pure $ st & memory .~ mem'
 evalTransitionBlock _ st _ _ _ = pure st
 
 -- Collision state management
+
 doIfCollided ∷ AutomatonMemory → AutomatonMemory
 doIfCollided st = updateCollisionCount $ st & memory %~ handleCollision (even (_collisionCount st))
 
 updateCollisionCount ∷ AutomatonMemory → AutomatonMemory
 updateCollisionCount st = st { _collisionCount = _collisionCount st + 1 }
-
--- Instruction generation
-colorsToProgram ∷ Color → Color → Int → InstructionFF
-colorsToProgram c c' n = liftF $ InstructionF (colorsToInstruction c c' n) ()
-
-colorsToInstruction ∷ Color → Color → Int → Instruction
-colorsToInstruction c c' = step (lightnessSteps c c') (hueSteps c c')
-
--- AST Interpreter
-interpretF ∷ AppSafeEff m ⇒ InstructionFF → AutomatonMemory → m AutomatonMemory
-interpretF (Pure _) st                  = pure st
-interpretF (Free (InstructionF i r)) st = evalInstruction i r st
-
-evalInstruction ∷ AppSafeEff m ⇒ Instruction → InstructionFF → AutomatonMemory → m AutomatonMemory
-evalInstruction (Push n)  r st = evalStack ("push " <> show n) (pure . ALU.push1 n) r st
-evalInstruction Pop       r st = evalStack "pop" ALU.discard r st
-evalInstruction Add       r st = evalStack "add" (ALU.binaryInstruction ST.Add) r st
-evalInstruction Subtract  r st = evalStack "subtract" (ALU.binaryInstruction ST.Sub) r st
-evalInstruction Multiply  r st = evalStack "multiply" (ALU.binaryInstruction ST.Mul) r st
-evalInstruction Divide    r st = evalStack "divide" (ALU.binaryInstruction ST.Div) r st
-evalInstruction Mod       r st = evalStack "mod" (ALU.binaryInstruction ST.Mod) r st
-evalInstruction Not       r st = evalStack "not" ALU.lNot r st
-evalInstruction Greater   r st = evalStack "greater" (ALU.binaryInstruction ST.LGT) r st
-evalInstruction Pointer   r st = evalFlip "pointer" rotateDirectionPointerIM r st
-evalInstruction Switch    r st = evalFlip "switch" toggleCodelChooserIM r st
-evalInstruction Duplicate r st = evalStack "duplicate" (ALU.copy 0) r st
-evalInstruction Roll      r st = evalStack "roll" ALU.roll r st
-evalInstruction InNum     r st = evalStack "in_number" ALU.inputDec r st
-evalInstruction InChar    r st = evalStack "in_char" ALU.inputChar r st
-evalInstruction OutNum    r st = evalStack "out_number" ALU.outputDecMaybe r st
-evalInstruction OutChar   r st = evalStack "out_char" ALU.outputCharMaybe r st
-evalInstruction Nop       r st = interpretF r st
-
-evalStack ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → InstructionFF → AutomatonMemory → m AutomatonMemory
-evalStack name f r st = do
-  mem' <- modifyStackWithLog name f (st ^. memory)
-  interpretF r (st & memory .~ mem')
-
-evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → InstructionFF → AutomatonMemory → m AutomatonMemory
-evalFlip name f r st = modifyFlipWithLog name f (st ^. memory) >>= \case
-  Nothing   -> interpretF r st
-  Just mem' -> interpretF r (st & memory .~ mem')
