@@ -15,7 +15,7 @@ import           Control.Monad.Logger
 import           Data.MonoTraversable
 
 processImage ∷ MonadLogger m ⇒ Maybe Natural → Picture.DynamicImage → m (Image Color)
-processImage codelInfo dyn = logDebugN ("Actual codel length: " <> show cs) $> imageToColorImage cs img where
+processImage codelInfo dyn = imageToColorImage cs img <$ logDebugN ("Actual codel length: " <> show cs) where
   (cs, img) = processJuicyImage codelInfo dyn
 
 parseColorImage ∷ Natural → Picture.DynamicImage → Image Color
