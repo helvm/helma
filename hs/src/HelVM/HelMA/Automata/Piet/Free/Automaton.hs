@@ -65,8 +65,7 @@ handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → Coordi
 handleNextColour Nothing st _ _ _           = pure $ Trampoline.continue (doIfCollided st)
 handleNextColour (Just Black) st _ _ _      = pure $ Trampoline.continue (doIfCollided st)
 handleNextColour (Just White) st _ newPos _ = pure $ Trampoline.continue (setPositionState newPos 0 st)
-handleNextColour (Just c') st pos newPos block =
-  Trampoline.continue <$> evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) (setPositionState newPos 0 st) pos c' block
+handleNextColour (Just c') st pos newPos block = Trampoline.continue <$> evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) (setPositionState newPos 0 st) pos c' block
 
 setPositionState ∷ Coordinates → Int → AutomatonMemory → AutomatonMemory
 setPositionState pos cc st = st { _collisionCount = cc } & memory %~ setPosition pos
