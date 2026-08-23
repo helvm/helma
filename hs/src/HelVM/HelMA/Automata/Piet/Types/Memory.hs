@@ -1,12 +1,15 @@
 module HelVM.HelMA.Automata.Piet.Types.Memory
   ( Memory (..)
   , Stack
+  , blockCodelCount
+  , codelSizeMemory
   , currentPixel
   , directionPointerMemory
   , handleCollision
   , initialMemory
   , instructionCounterMemory
   , instructionMemory
+  , modifyFlipWithLog
   , modifyInstructionMemory
   , modifyStack
   , modifyStackWithLog
@@ -14,6 +17,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , positionMemory
   , programMemory
   , rotatePointer
+  , selectCodel
   , setInstructionCounter
   , setPosition
   , stack
@@ -33,6 +37,8 @@ import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
+import qualified Data.List                                          as List
+import           Data.MonoTraversable
 import qualified Data.Sequence                                      as Seq
 
 import           Lens.Micro.Platform
@@ -129,3 +135,21 @@ handleCollision False = rotatePointer
 
 modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
 modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)
+
+codelSizeMemory ∷ Memory → CodelSize
+codelSizeMemory mem = programMemory mem ^. codelSize
+
+blockCodelCount ∷ Block → Memory → Int
+blockCodelCount block mem = olength block `div` (cs * cs) where
+  cs = codelSizeMemory mem
+
+selectCodel ∷ Block → Memory → Coordinates
+selectCodel block mem = List.maximumBy (furthest (orientationMemory mem)) block
+
+modifyFlipWithLog ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → Memory → m (Maybe Memory)
+modifyFlipWithLog name f mem = case mem ^. stack of
+  Seq.Empty     -> pure Nothing
+  (x Seq.:<| _) -> do
+    let mem' = modifyInstructionMemory (f x) mem
+    logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemory)
+    pure $ Just mem'

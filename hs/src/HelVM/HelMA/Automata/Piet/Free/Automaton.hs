@@ -11,9 +11,7 @@ import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Instruction
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
-import           HelVM.HelMA.Automata.Piet.Types.Memory                 hiding ( setPosition )
-import qualified HelVM.HelMA.Automata.Piet.Types.Memory                 as Memory
-import           HelVM.HelMA.Automata.Piet.Types.Orientation
+import           HelVM.HelMA.Automata.Piet.Types.Memory
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import qualified HelVM.HelMA.Automaton.Combiner.ALU                     as ALU
@@ -25,8 +23,6 @@ import           Control.Monad.Free
 import           Control.Monad.Logger
 
 import qualified Data.List                                              as L
-import           Data.MonoTraversable
-import qualified Data.Sequence                                          as Seq
 import qualified Data.Set                                               as S
 
 import           Lens.Micro.Platform
@@ -65,7 +61,7 @@ transitionStep _ st =
     pos    = positionMemory mem
     m      = prog ^. image
     block  = discoverBlock m pos
-    p      = selectCodel st block
+    p      = selectCodel block mem
     colour = colourAt prog (move dp p)
 
 handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → Coordinates → Coordinates → Block → m (Either () AutomatonMemory)
@@ -76,15 +72,12 @@ handleNextColour (Just c') st pos newPos block =
   Right <$> evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) (setPositionState newPos 0 st) pos c' block
 
 setPositionState ∷ Coordinates → Int → AutomatonMemory → AutomatonMemory
-setPositionState pos cc st = st { _collisionCount = cc } & memory %~ Memory.setPosition pos
+setPositionState pos cc st = st { _collisionCount = cc } & memory %~ setPosition pos
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → Coordinates → Color → Block → m AutomatonMemory
 evalTransitionBlock (Just c) st _ c' block
-  | c /= White = interpretF (colorsToProgram c c' (blockCodelCount (programMemory (st ^. memory) ^. codelSize) block)) st
+  | c /= White = interpretF (colorsToProgram c c' (blockCodelCount block (st ^. memory))) st
 evalTransitionBlock _ st _ _ _ = pure st
-
-blockCodelCount ∷ CodelSize → Block → Int
-blockCodelCount cs block = olength block `div` (cs * cs)
 
 -- Board and Color queries
 discoverBlock ∷ Image Color → Coordinates → Block
@@ -96,15 +89,12 @@ discoverBlock m startPos = S.toList $ go S.empty startPos where
     | m &! pos /= targetColor   = visited
     | otherwise                 = L.foldl' go (S.insert pos visited) (neighbours pos)
 
-selectCodel ∷ AutomatonMemory → Block → Coordinates
-selectCodel st = L.maximumBy (furthest (orientationMemory (st ^. memory)))
-
 colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. image) &! pos
 
 -- Collision state management
 doIfCollided ∷ AutomatonMemory → AutomatonMemory
-doIfCollided st = updateCollisionCount $ st & memory %~ Memory.handleCollision (even (_collisionCount st))
+doIfCollided st = updateCollisionCount $ st & memory %~ handleCollision (even (_collisionCount st))
 
 updateCollisionCount ∷ AutomatonMemory → AutomatonMemory
 updateCollisionCount st = st { _collisionCount = _collisionCount st + 1 }
@@ -143,18 +133,10 @@ evalInstruction Nop       r st = interpretF r st
 
 evalStack ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → InstructionFF → AutomatonMemory → m AutomatonMemory
 evalStack name f r st = do
-  newStack <- f (st ^. memory . stack)
-  let st' = st & memory . stack .~ newStack
-  logMsg st' name
-  interpretF r st'
+  mem' <- modifyStackWithLog name f (st ^. memory)
+  interpretF r (st & memory .~ mem')
 
 evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → InstructionFF → AutomatonMemory → m AutomatonMemory
-evalFlip name f r st = case st ^. memory . stack of
-  Seq.Empty     -> interpretF r st
-  (x Seq.:<| _) -> do
-    let st' = st & memory %~ Memory.modifyInstructionMemory (f x)
-    logMsg st' (name <> " " <> show (directionPointerMemory (st' ^. memory)))
-    interpretF r st'
-
-logMsg ∷ AppSafeEff m ⇒ AutomatonMemory → Text → m ()
-logMsg st msg = logWithPosition msg (st ^. memory . instructionMemory)
+evalFlip name f r st = modifyFlipWithLog name f (st ^. memory) >>= \case
+  Nothing   -> interpretF r st
+  Just mem' -> interpretF r (st & memory .~ mem')
