@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates ( Coordinates )
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
-import           HelVM.HelMA.Automata.Piet.Types.Program     ( Program (Program) )
+import           HelVM.HelMA.Automata.Piet.Types.Program     ( CodelSize, Program (Program) )
 
 import           Data.IntMap                                 hiding ( filter )
 
@@ -30,8 +30,8 @@ data LabellingStatus
 
 makeLenses ''LabellingStatus
 
-compile ∷ Image Color → Program
-compile image_ = Program image_ (label4 image_)
+compile ∷ CodelSize → Image Color → Program
+compile cs img = Program cs img (label4 img)
 
 label4 ∷ Eq a ⇒ Image a → Labelling
 label4 = label4With (==)

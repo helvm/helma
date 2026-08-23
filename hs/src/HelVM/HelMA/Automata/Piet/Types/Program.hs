@@ -1,5 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Types.Program
-  ( Program (..)
+  ( CodelSize
+  , Program (..)
+  , codelSize
   , image
   , isBlocked
   , labelling
@@ -12,9 +14,12 @@ import           HelVM.HelMA.Automata.Piet.Types.Labelling
 
 import           Lens.Micro.Platform
 
+type CodelSize = Int
+
 data Program
   = Program
-      { _image     :: Image Color
+      { _codelSize :: CodelSize
+      , _image     :: Image Color
       , _labelling :: Labelling
       }
   deriving stock (Show)
