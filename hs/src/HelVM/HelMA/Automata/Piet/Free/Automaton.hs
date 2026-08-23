@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-import           HelVM.HelMA.Automata.Piet.Types.Image                  as PietImage
+import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Instruction
 import qualified HelVM.HelMA.Automata.Piet.Types.Orientation            as Orientation
 import           HelVM.HelMA.Automata.Piet.Types.ProgramConfig
