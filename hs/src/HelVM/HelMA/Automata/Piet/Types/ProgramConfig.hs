@@ -2,7 +2,7 @@ module HelVM.HelMA.Automata.Piet.Types.ProgramConfig
   ( CodelSize
   , ProgramConfig (..)
   , codelSize
-  , colorMap
+  , image
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -15,7 +15,7 @@ type CodelSize = Int
 data ProgramConfig
   = ProgramConfig
       { _codelSize :: CodelSize
-      , _colorMap  :: Image Color
+      , _image     :: Image Color
       }
   deriving stock (Show)
 

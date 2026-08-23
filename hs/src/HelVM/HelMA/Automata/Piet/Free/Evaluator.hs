@@ -38,7 +38,7 @@ simpleEval cs = interpret (fromIntegral cs) . parseColorImage cs
 
 interpret ∷ AppSafeEff m ⇒ CodelSize → Image Color → m ()
 interpret cs img = loop initialState where
-  conf = ProgramConfig { _codelSize = cs, _colorMap = img }
+  conf = ProgramConfig { _codelSize = cs, _image = img }
   loop st = do
     (continue, st') <- transition conf st
     when continue $ loop st'

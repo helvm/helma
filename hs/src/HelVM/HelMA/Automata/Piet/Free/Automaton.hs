@@ -41,7 +41,7 @@ transitionStep _ conf st =
   where
     dp     = IC.directionPointerIC (_ic st)
     pos    = st ^. ic . IC.position
-    m      = conf ^. colorMap
+    m      = conf ^. image
     block  = discoverBlock m pos
     p      = selectCodel st block
     colour = colourAt conf (move dp p)
@@ -58,7 +58,7 @@ setPosition pos cc st = st { _collisionCount = cc } & ic . IC.position .~ pos
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ProgramConfig → ProgramState → Coordinates → Color → Block → m ProgramState
 evalTransitionBlock (Just c) conf st _ c' block
-  | c /= White = interpret (colorsToProgram c c' (blockCodelCount (conf ^. codelSize) block)) conf st
+  | c /= White = interpretF (colorsToProgram c c' (blockCodelCount (conf ^. codelSize) block)) conf st
 evalTransitionBlock _ _ st _ _ _ = pure st
 
 blockCodelCount ∷ CodelSize → Block → Int
@@ -78,7 +78,7 @@ selectCodel ∷ ProgramState → Block → Coordinates
 selectCodel st = L.maximumBy (Orientation.furthest (st ^. ic . IC.orientation))
 
 colourAt ∷ ProgramConfig → Coordinates → Maybe Color
-colourAt conf pos = (conf ^. colorMap) &! pos
+colourAt conf pos = (conf ^. image) &! pos
 
 infixl 9 &!
 (&!) ∷ Image Color → Coordinates → Maybe Color
@@ -111,9 +111,9 @@ colorsToInstruction ∷ Color → Color → Int → Instruction
 colorsToInstruction c c' = step (lightnessSteps c c') (hueSteps c c')
 
 -- AST Interpreter
-interpret ∷ AppSafeEff m ⇒ Program → ProgramConfig → ProgramState → m ProgramState
-interpret (Pure _) _ st                     = pure st
-interpret (Free (InstructionF i r)) conf st = evalInstruction i r conf st
+interpretF ∷ AppSafeEff m ⇒ Program → ProgramConfig → ProgramState → m ProgramState
+interpretF (Pure _) _ st                     = pure st
+interpretF (Free (InstructionF i r)) conf st = evalInstruction i r conf st
 
 evalInstruction ∷ AppSafeEff m ⇒ Instruction → Program → ProgramConfig → ProgramState → m ProgramState
 evalInstruction (Push n)  r conf st = evalStack ("push " <> show n) (pure . ALU.push1 n) r conf st
@@ -133,21 +133,21 @@ evalInstruction InNum     r conf st = evalStack "in_number" ALU.inputDec r conf 
 evalInstruction InChar    r conf st = evalStack "in_char" ALU.inputChar r conf st
 evalInstruction OutNum    r conf st = evalStack "out_number" ALU.outputDecMaybe r conf st
 evalInstruction OutChar   r conf st = evalStack "out_char" ALU.outputCharMaybe r conf st
-evalInstruction Nop       r conf st = interpret r conf st
+evalInstruction Nop       r conf st = interpretF r conf st
 
 evalStack ∷ AppSafeEff m ⇒ Text → ([Int] → m [Int]) → Program → ProgramConfig → ProgramState → m ProgramState
 evalStack name f r conf st =
-  logMsg st name *> (setStack st <$> f (_stack st)) >>= interpret r conf
+  logMsg st name *> (setStack st <$> f (_stack st)) >>= interpretF r conf
 
 setStack ∷ ProgramState → [Int] → ProgramState
 setStack st s = st { _stack = s }
 
 evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionCounter → InstructionCounter) → Program → ProgramConfig → ProgramState → m ProgramState
-evalFlip _ _ r conf st@ProgramState{ _stack = [] } = interpret r conf st
+evalFlip _ _ r conf st@ProgramState{ _stack = [] } = interpretF r conf st
 evalFlip name f r conf st@ProgramState{ _stack = x:_ } = do
   let st' = st & ic %~ f x
   logMsg st' (name <> " " <> show (IC.directionPointerIC (_ic st')))
-  interpret r conf st'
+  interpretF r conf st'
 
 logMsg ∷ AppSafeEff m ⇒ ProgramState → Text → m ()
 logMsg st msg = logDebugN $ formatLog (st ^. ic . IC.position) msg
