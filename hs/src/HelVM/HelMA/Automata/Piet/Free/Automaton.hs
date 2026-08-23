@@ -9,8 +9,10 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Instruction
-import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter     ( InstructionCounter )
+import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter     ( position )
 import qualified HelVM.HelMA.Automata.Piet.Types.InstructionCounter     as IC
+import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory      hiding ( program )
+import qualified HelVM.HelMA.Automata.Piet.Types.InstructionMemory      as IM
 import qualified HelVM.HelMA.Automata.Piet.Types.Orientation            as Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
 import           HelVM.HelMA.Automata.Piet.Types.ProgramState
@@ -34,7 +36,7 @@ interpret ∷ AppSafeEff m ⇒ Program → m ()
 interpret p = loop $ initialState p where
   loop st = transition st >>= \case
     Right st' -> loop st'
-    Left ()   -> pure ()
+    Left ()   -> pass
 
 transition ∷ AppSafeEff m ⇒ ProgramState → m (Either () ProgramState)
 transition st = transitionStep (_collisionCount st) st
@@ -45,9 +47,9 @@ transitionStep cc _
 transitionStep _ st =
   handleNextColour colour st pos (move dp p) block
   where
-    prog   = _program st
-    dp     = IC.directionPointerIC (_ic st)
-    pos    = st ^. ic . IC.position
+    prog   = st ^. im . IM.program
+    dp     = directionPointerIM (st ^. im)
+    pos    = st ^. im . instructionCounter . position
     m      = prog ^. image
     block  = discoverBlock m pos
     p      = selectCodel st block
@@ -58,14 +60,14 @@ handleNextColour Nothing st _ _ _           = pure $ Right (doIfCollided st)
 handleNextColour (Just Black) st _ _ _     = pure $ Right (doIfCollided st)
 handleNextColour (Just White) st _ newPos _ = pure $ Right (setPosition newPos 0 st)
 handleNextColour (Just c') st pos newPos block =
-  Right <$> evalTransitionBlock (colourAt (_program st) pos) (setPosition newPos 0 st) pos c' block
+  Right <$> evalTransitionBlock (colourAt (st ^. im . IM.program) pos) (setPosition newPos 0 st) pos c' block
 
 setPosition ∷ Coordinates → Int → ProgramState → ProgramState
-setPosition pos cc st = st { _collisionCount = cc } & ic . IC.position .~ pos
+setPosition pos cc st = st { _collisionCount = cc } & im . instructionCounter . position .~ pos
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ProgramState → Coordinates → Color → Block → m ProgramState
 evalTransitionBlock (Just c) st _ c' block
-  | c /= White = interpretF (colorsToProgram c c' (blockCodelCount (st ^. program . codelSize) block)) st
+  | c /= White = interpretF (colorsToProgram c c' (blockCodelCount (st ^. im . IM.program . codelSize) block)) st
 evalTransitionBlock _ st _ _ _ = pure st
 
 blockCodelCount ∷ CodelSize → Block → Int
@@ -82,7 +84,7 @@ discoverBlock m startPos = S.toList $ go S.empty startPos where
     | otherwise               = L.foldl' go (S.insert pos visited) (neighbours pos)
 
 selectCodel ∷ ProgramState → Block → Coordinates
-selectCodel st = L.maximumBy (Orientation.furthest (st ^. ic . IC.orientation))
+selectCodel st = L.maximumBy (Orientation.furthest (st ^. im . instructionCounter . IC.orientation))
 
 colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. image) &! pos
@@ -105,10 +107,10 @@ handleCollision True  = toggleChooser
 handleCollision False = rotatePointer
 
 toggleChooser ∷ ProgramState → ProgramState
-toggleChooser = ic %~ IC.toggleCodelChooserIC 1
+toggleChooser = im %~ toggleCodelChooserIM 1
 
 rotatePointer ∷ ProgramState → ProgramState
-rotatePointer = ic %~ IC.rotateDirectionPointerIC 1
+rotatePointer = im %~ rotateDirectionPointerIM 1
 
 -- Instruction generation
 colorsToProgram ∷ Color → Color → Int → InstructionFF
@@ -132,8 +134,8 @@ evalInstruction Divide    r st = evalStack "divide" (ALU.binaryInstruction ST.Di
 evalInstruction Mod       r st = evalStack "mod" (ALU.binaryInstruction ST.Mod) r st
 evalInstruction Not       r st = evalStack "not" ALU.lNot r st
 evalInstruction Greater   r st = evalStack "greater" (ALU.binaryInstruction ST.LGT) r st
-evalInstruction Pointer   r st = evalFlip "pointer" IC.rotateDirectionPointerIC r st
-evalInstruction Switch    r st = evalFlip "switch" IC.toggleCodelChooserIC r st
+evalInstruction Pointer   r st = evalFlip "pointer" rotateDirectionPointerIM r st
+evalInstruction Switch    r st = evalFlip "switch" toggleCodelChooserIM r st
 evalInstruction Duplicate r st = evalStack "duplicate" (ALU.copy 0) r st
 evalInstruction Roll      r st = evalStack "roll" ALU.roll r st
 evalInstruction InNum     r st = evalStack "in_number" ALU.inputDec r st
@@ -148,15 +150,12 @@ evalStack name f r st = logMsg st name *> (setStack st <$> f (_stack st)) >>= in
 setStack ∷ ProgramState → [Int] → ProgramState
 setStack st s = st { _stack = s }
 
-evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionCounter → InstructionCounter) → InstructionFF → ProgramState → m ProgramState
+evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → InstructionFF → ProgramState → m ProgramState
 evalFlip _ _ r st@ProgramState{ _stack = [] } = interpretF r st
 evalFlip name f r st@ProgramState{ _stack = x:_ } = do
-  let st' = st & ic %~ f x
-  logMsg st' (name <> " " <> show (IC.directionPointerIC (_ic st')))
+  let st' = st & im %~ f x
+  logMsg st' (name <> " " <> show (directionPointerIM (st' ^. im)))
   interpretF r st'
 
 logMsg ∷ AppSafeEff m ⇒ ProgramState → Text → m ()
-logMsg st msg = logDebugN $ formatLog (st ^. ic . IC.position) msg
-
-formatLog ∷ Coordinates → Text → Text
-formatLog (x, y) msg = "(" <> show x <> "," <> show y <> ") " <> msg
+logMsg st msg = logWithPosition msg (st ^. im)
