@@ -2,7 +2,7 @@ module HelVM.HelMA.Automata.Piet.Free.Automaton
   ( transition
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Free.Program
+import           HelVM.HelMA.Automata.Piet.Free.InstructionFF
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
@@ -104,18 +104,18 @@ rotatePointer ∷ ProgramState → ProgramState
 rotatePointer = ic %~ IC.rotateDirectionPointerIC 1
 
 -- Instruction generation
-colorsToProgram ∷ Color → Color → Int → Program
+colorsToProgram ∷ Color → Color → Int → InstructionFF
 colorsToProgram c c' n = liftF $ InstructionF (colorsToInstruction c c' n) ()
 
 colorsToInstruction ∷ Color → Color → Int → Instruction
 colorsToInstruction c c' = step (lightnessSteps c c') (hueSteps c c')
 
 -- AST Interpreter
-interpretF ∷ AppSafeEff m ⇒ Program → ProgramConfig → ProgramState → m ProgramState
+interpretF ∷ AppSafeEff m ⇒ InstructionFF → ProgramConfig → ProgramState → m ProgramState
 interpretF (Pure _) _ st                     = pure st
 interpretF (Free (InstructionF i r)) conf st = evalInstruction i r conf st
 
-evalInstruction ∷ AppSafeEff m ⇒ Instruction → Program → ProgramConfig → ProgramState → m ProgramState
+evalInstruction ∷ AppSafeEff m ⇒ Instruction → InstructionFF → ProgramConfig → ProgramState → m ProgramState
 evalInstruction (Push n)  r conf st = evalStack ("push " <> show n) (pure . ALU.push1 n) r conf st
 evalInstruction Pop       r conf st = evalStack "pop" ALU.discard r conf st
 evalInstruction Add       r conf st = evalStack "add" (ALU.binaryInstruction ST.Add) r conf st
@@ -135,14 +135,14 @@ evalInstruction OutNum    r conf st = evalStack "out_number" ALU.outputDecMaybe 
 evalInstruction OutChar   r conf st = evalStack "out_char" ALU.outputCharMaybe r conf st
 evalInstruction Nop       r conf st = interpretF r conf st
 
-evalStack ∷ AppSafeEff m ⇒ Text → ([Int] → m [Int]) → Program → ProgramConfig → ProgramState → m ProgramState
+evalStack ∷ AppSafeEff m ⇒ Text → ([Int] → m [Int]) → InstructionFF → ProgramConfig → ProgramState → m ProgramState
 evalStack name f r conf st =
   logMsg st name *> (setStack st <$> f (_stack st)) >>= interpretF r conf
 
 setStack ∷ ProgramState → [Int] → ProgramState
 setStack st s = st { _stack = s }
 
-evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionCounter → InstructionCounter) → Program → ProgramConfig → ProgramState → m ProgramState
+evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionCounter → InstructionCounter) → InstructionFF → ProgramConfig → ProgramState → m ProgramState
 evalFlip _ _ r conf st@ProgramState{ _stack = [] } = interpretF r conf st
 evalFlip name f r conf st@ProgramState{ _stack = x:_ } = do
   let st' = st & ic %~ f x

@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveFunctor #-}
-module HelVM.HelMA.Automata.Piet.Free.Program
+module HelVM.HelMA.Automata.Piet.Free.InstructionFF
   ( InstructionF (..)
-  , Program
+  , InstructionFF
   , instructionF
   ) where
 
@@ -10,7 +10,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Instruction
 import           Control.Monad.Free
 import           Control.Monad.Free.TH                       ( makeFree )
 
-type Program = Free InstructionF ()
+type InstructionFF = Free InstructionF ()
 
 data InstructionF a
   = InstructionF Instruction a
