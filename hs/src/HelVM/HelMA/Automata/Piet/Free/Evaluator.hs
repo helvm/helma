@@ -8,8 +8,6 @@ module HelVM.HelMA.Automata.Piet.Free.Evaluator
 import           HelVM.HelMA.Automata.Piet.Free.Automaton
 import           HelVM.HelMA.Automata.Piet.Parser
 
-import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.Image        ( Image )
 import           HelVM.HelMA.Automata.Piet.Types.Program
 import           HelVM.HelMA.Automata.Piet.Types.ProgramState
 
@@ -36,11 +34,13 @@ run ∷ Has env ⇒ Natural → Picture.DynamicImage → RIO.RIO env ()
 run cl i = runAsRIO $ simpleEval cl i
 
 simpleEval ∷ AppSafeEff m ⇒ Natural → Picture.DynamicImage → m ()
-simpleEval cs = interpret (fromIntegral cs) . parseColorImage cs
-
-interpret ∷ AppSafeEff m ⇒ CodelSize → Image Color → m ()
-interpret cs img = loop initialState where
+simpleEval nat dyn = interpret program where
   program = compile cs img
+  cs = fromIntegral nat
+  img = parseColorImage nat dyn
+
+interpret ∷ AppSafeEff m ⇒ Program → m ()
+interpret program = loop initialState where
   loop st = do
     (continue, st') <- transition program st
     when continue $ loop st'
