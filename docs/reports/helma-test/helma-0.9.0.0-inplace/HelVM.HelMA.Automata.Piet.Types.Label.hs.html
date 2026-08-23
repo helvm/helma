@@ -17,73 +17,92 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Types.Label
-<span class="lineno">    2 </span>  ( LabelBorder (..)
-<span class="lineno">    3 </span>  , LabelInfo (..)
-<span class="lineno">    4 </span>  , LabelKey
-<span class="lineno">    5 </span>  , addPixel
-<span class="lineno">    6 </span>  , labelSize
-<span class="lineno">    7 </span>  ) where
-<span class="lineno">    8 </span>
-<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-<span class="lineno">   10 </span>
-<span class="lineno">   11 </span>addPixel ∷ Coordinates → Maybe LabelInfo → Maybe LabelInfo
-<span class="lineno">   12 </span><span class="decl"><span class="istickedoff">addPixel (x, y) Nothing = Just $ LabelInfo 1 (LabelBorder y x x) (LabelBorder x y y) (LabelBorder y x x) (LabelBorder x y y)</span>
-<span class="lineno">   13 </span><span class="spaces"></span><span class="istickedoff">addPixel (x, y) (Just stats) = Just $ stats</span>
-<span class="lineno">   14 </span><span class="spaces">  </span><span class="istickedoff">{ _labelSize   = 1 + _labelSize stats</span>
-<span class="lineno">   15 </span><span class="spaces">  </span><span class="istickedoff">, labelTop    = mergeMin (labelTop stats) (LabelBorder y x x)</span>
-<span class="lineno">   16 </span><span class="spaces">  </span><span class="istickedoff">, labelLeft   = mergeMin (labelLeft stats) (LabelBorder x y y)</span>
-<span class="lineno">   17 </span><span class="spaces">  </span><span class="istickedoff">, labelBottom = mergeMax (labelBottom stats) (LabelBorder y x x)</span>
-<span class="lineno">   18 </span><span class="spaces">  </span><span class="istickedoff">, labelRight  = mergeMax (labelRight stats) (LabelBorder x y y)</span>
-<span class="lineno">   19 </span><span class="spaces">  </span><span class="istickedoff">}</span></span>
-<span class="lineno">   20 </span>
-<span class="lineno">   21 </span>labelSize ∷ Maybe LabelInfo → Int
-<span class="lineno">   22 </span><span class="decl"><span class="istickedoff">labelSize Nothing     = <span class="nottickedoff">0</span></span>
-<span class="lineno">   23 </span><span class="spaces"></span><span class="istickedoff">labelSize (Just info) = _labelSize info</span></span>
+<span class="lineno">    1 </span>{-# LANGUAGE TemplateHaskell #-}
+<span class="lineno">    2 </span>module HelVM.HelMA.Automata.Piet.Types.Label
+<span class="lineno">    3 </span>  ( LabelBorder (..)
+<span class="lineno">    4 </span>  , LabelInfo (..)
+<span class="lineno">    5 </span>  , LabelKey
+<span class="lineno">    6 </span>  , addPixel
+<span class="lineno">    7 </span>  , borderCoord
+<span class="lineno">    8 </span>  , borderMax
+<span class="lineno">    9 </span>  , borderMin
+<span class="lineno">   10 </span>  , getLabelSize
+<span class="lineno">   11 </span>  , labelBottom
+<span class="lineno">   12 </span>  , labelLeft
+<span class="lineno">   13 </span>  , labelRight
+<span class="lineno">   14 </span>  , labelSize
+<span class="lineno">   15 </span>  , labelTop
+<span class="lineno">   16 </span>  ) where
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import           Lens.Micro                                  ( (%~), (^.) )
+<span class="lineno">   21 </span>import           Lens.Micro.TH                               ( makeLenses )
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>-- Types
 <span class="lineno">   24 </span>
-<span class="lineno">   25 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Semigroup LabelInfo</span></span></span></span> where
-<span class="lineno">   26 </span>  <span class="decl"><span class="istickedoff">s1 &lt;&gt; s2 = LabelInfo</span>
-<span class="lineno">   27 </span><span class="spaces">    </span><span class="istickedoff">(_labelSize s1 + _labelSize s2)</span>
-<span class="lineno">   28 </span><span class="spaces">    </span><span class="istickedoff">(mergeMin (labelTop s1) (labelTop s2))</span>
-<span class="lineno">   29 </span><span class="spaces">    </span><span class="istickedoff">(mergeMin (labelLeft s1) (labelLeft s2))</span>
-<span class="lineno">   30 </span><span class="spaces">    </span><span class="istickedoff">(mergeMax (labelBottom s1) (labelBottom s2))</span>
-<span class="lineno">   31 </span><span class="spaces">    </span><span class="istickedoff">(mergeMax (labelRight s1) (labelRight s2))</span></span>
-<span class="lineno">   32 </span>
-<span class="lineno">   33 </span>-- Internal
+<span class="lineno">   25 </span>type LabelKey = Int
+<span class="lineno">   26 </span>
+<span class="lineno">   27 </span>data LabelBorder
+<span class="lineno">   28 </span>  = LabelBorder
+<span class="lineno">   29 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_borderCoord</span></span></span> :: !Int
+<span class="lineno">   30 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_borderMin</span></span></span>   :: !Int
+<span class="lineno">   31 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_borderMax</span></span></span>   :: !Int
+<span class="lineno">   32 </span>      }
+<span class="lineno">   33 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 <span class="lineno">   34 </span>
-<span class="lineno">   35 </span>mergeMin ∷ LabelBorder → LabelBorder → LabelBorder
-<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">mergeMin = merge $ comparing borderCoord</span></span>
-<span class="lineno">   37 </span>
-<span class="lineno">   38 </span>mergeMax ∷ LabelBorder → LabelBorder → LabelBorder
-<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">mergeMax = merge $ comparing (negate . borderCoord)</span></span>
-<span class="lineno">   40 </span>
-<span class="lineno">   41 </span>merge ∷ (LabelBorder → LabelBorder → Ordering) → LabelBorder → LabelBorder → LabelBorder
-<span class="lineno">   42 </span><span class="decl"><span class="istickedoff">merge comp b1 b2 = go $ comp b1 b2 where</span>
-<span class="lineno">   43 </span><span class="spaces">  </span><span class="istickedoff">go EQ = b1 { borderMin = min (borderMin b1) (borderMin b2), borderMax = max (borderMax b1) (borderMax b2) }</span>
-<span class="lineno">   44 </span><span class="spaces">  </span><span class="istickedoff">go LT = b1</span>
-<span class="lineno">   45 </span><span class="spaces">  </span><span class="istickedoff">go GT = b2</span></span>
+<span class="lineno">   35 </span><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="nottickedoff"><span class="istickedoff"><span class="decl"><span class="istickedoff">makeLenses ''LabelBorder</span></span></span></span></span></span></span></span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>data LabelInfo
+<span class="lineno">   38 </span>  = LabelInfo
+<span class="lineno">   39 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_labelSize</span></span></span>   :: !Int
+<span class="lineno">   40 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_labelTop</span></span></span>    :: !LabelBorder
+<span class="lineno">   41 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_labelLeft</span></span></span>   :: !LabelBorder
+<span class="lineno">   42 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_labelBottom</span></span></span> :: !LabelBorder
+<span class="lineno">   43 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_labelRight</span></span></span>  :: !LabelBorder
+<span class="lineno">   44 </span>      }
+<span class="lineno">   45 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
 <span class="lineno">   46 </span>
-<span class="lineno">   47 </span>-- | Types
+<span class="lineno">   47 </span><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">makeLenses ''LabelInfo</span></span></span></span></span></span></span></span></span></span></span>
 <span class="lineno">   48 </span>
-<span class="lineno">   49 </span>type LabelKey = Int
+<span class="lineno">   49 </span>-- Exported Functions
 <span class="lineno">   50 </span>
-<span class="lineno">   51 </span>data LabelInfo
-<span class="lineno">   52 </span>  = LabelInfo
-<span class="lineno">   53 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">_labelSize</span></span></span>  :: !Int
-<span class="lineno">   54 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelTop</span></span></span>    :: !LabelBorder
-<span class="lineno">   55 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelLeft</span></span></span>   :: !LabelBorder
-<span class="lineno">   56 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelBottom</span></span></span> :: !LabelBorder
-<span class="lineno">   57 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">labelRight</span></span></span>  :: !LabelBorder
-<span class="lineno">   58 </span>      }
-<span class="lineno">   59 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   60 </span>
-<span class="lineno">   61 </span>data LabelBorder
-<span class="lineno">   62 </span>  = LabelBorder
-<span class="lineno">   63 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">borderCoord</span></span></span> :: !Int
-<span class="lineno">   64 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">borderMin</span></span></span>   :: !Int
-<span class="lineno">   65 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">borderMax</span></span></span>   :: !Int
-<span class="lineno">   66 </span>      }
-<span class="lineno">   67 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Eq</span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Ord</span></span></span></span></span></span></span></span></span></span></span></span></span></span>, <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   51 </span>addPixel ∷ Coordinates → Maybe LabelInfo → Maybe LabelInfo
+<span class="lineno">   52 </span><span class="decl"><span class="istickedoff">addPixel (x, y) Nothing = Just $ LabelInfo 1 (LabelBorder y x x) (LabelBorder x y y) (LabelBorder y x x) (LabelBorder x y y)</span>
+<span class="lineno">   53 </span><span class="spaces"></span><span class="istickedoff">addPixel (x, y) (Just stats) = Just $ stats</span>
+<span class="lineno">   54 </span><span class="spaces">  </span><span class="istickedoff">&amp; labelSize %~ (+ 1)</span>
+<span class="lineno">   55 </span><span class="spaces">  </span><span class="istickedoff">&amp; labelTop %~ (`mergeMin` LabelBorder y x x)</span>
+<span class="lineno">   56 </span><span class="spaces">  </span><span class="istickedoff">&amp; labelLeft %~ (`mergeMin` LabelBorder x y y)</span>
+<span class="lineno">   57 </span><span class="spaces">  </span><span class="istickedoff">&amp; labelBottom %~ (`mergeMax` LabelBorder y x x)</span>
+<span class="lineno">   58 </span><span class="spaces">  </span><span class="istickedoff">&amp; labelRight %~ (`mergeMax` LabelBorder x y y)</span></span>
+<span class="lineno">   59 </span>
+<span class="lineno">   60 </span>getLabelSize ∷ Maybe LabelInfo → Int
+<span class="lineno">   61 </span><span class="decl"><span class="istickedoff">getLabelSize Nothing     = <span class="nottickedoff">0</span></span>
+<span class="lineno">   62 </span><span class="spaces"></span><span class="istickedoff">getLabelSize (Just info) = info ^. labelSize</span></span>
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>instance <span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Semigroup LabelInfo</span></span></span></span> where
+<span class="lineno">   65 </span>  <span class="decl"><span class="istickedoff">s1 &lt;&gt; s2 = LabelInfo</span>
+<span class="lineno">   66 </span><span class="spaces">    </span><span class="istickedoff">(s1 ^. labelSize + s2 ^. labelSize)</span>
+<span class="lineno">   67 </span><span class="spaces">    </span><span class="istickedoff">(mergeMin (s1 ^. labelTop) (s2 ^. labelTop))</span>
+<span class="lineno">   68 </span><span class="spaces">    </span><span class="istickedoff">(mergeMin (s1 ^. labelLeft) (s2 ^. labelLeft))</span>
+<span class="lineno">   69 </span><span class="spaces">    </span><span class="istickedoff">(mergeMax (s1 ^. labelBottom) (s2 ^. labelBottom))</span>
+<span class="lineno">   70 </span><span class="spaces">    </span><span class="istickedoff">(mergeMax (s1 ^. labelRight) (s2 ^. labelRight))</span></span>
+<span class="lineno">   71 </span>
+<span class="lineno">   72 </span>-- Internal
+<span class="lineno">   73 </span>
+<span class="lineno">   74 </span>mergeMin ∷ LabelBorder → LabelBorder → LabelBorder
+<span class="lineno">   75 </span><span class="decl"><span class="istickedoff">mergeMin = merge $ comparing (^. borderCoord)</span></span>
+<span class="lineno">   76 </span>
+<span class="lineno">   77 </span>mergeMax ∷ LabelBorder → LabelBorder → LabelBorder
+<span class="lineno">   78 </span><span class="decl"><span class="istickedoff">mergeMax = merge $ comparing (negate . (^. borderCoord))</span></span>
+<span class="lineno">   79 </span>
+<span class="lineno">   80 </span>merge ∷ (LabelBorder → LabelBorder → Ordering) → LabelBorder → LabelBorder → LabelBorder
+<span class="lineno">   81 </span><span class="decl"><span class="istickedoff">merge comp b1 b2 = go $ comp b1 b2 where</span>
+<span class="lineno">   82 </span><span class="spaces">  </span><span class="istickedoff">go EQ = b1</span>
+<span class="lineno">   83 </span><span class="spaces">    </span><span class="istickedoff">&amp; borderMin %~ min (b2 ^. borderMin)</span>
+<span class="lineno">   84 </span><span class="spaces">    </span><span class="istickedoff">&amp; borderMax %~ max (b2 ^. borderMax)</span>
+<span class="lineno">   85 </span><span class="spaces">  </span><span class="istickedoff">go LT = b1</span>
+<span class="lineno">   86 </span><span class="spaces">  </span><span class="istickedoff">go GT = b2</span></span>
 
 </pre>
 </body>

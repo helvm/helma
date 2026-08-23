@@ -17,46 +17,54 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Types.Orientation
-<span class="lineno">    2 </span>  ( Orientation (..)
-<span class="lineno">    3 </span>  , furthest
-<span class="lineno">    4 </span>  , initialOrientation
-<span class="lineno">    5 </span>  , rotateDirectionPointer
-<span class="lineno">    6 </span>  , rotateToggle
-<span class="lineno">    7 </span>  , toggleCodelChooser
-<span class="lineno">    8 </span>  ) where
-<span class="lineno">    9 </span>
-<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
-<span class="lineno">   11 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-<span class="lineno">   12 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-<span class="lineno">   13 </span>
-<span class="lineno">   14 </span>furthest ∷ CodelChooser → DirectionPointer → Coordinates → Coordinates → Ordering
-<span class="lineno">   15 </span><span class="decl"><span class="nottickedoff">furthest CCLeft DPLeft   = flip (comparing fst) &lt;&gt; comparing snd</span>
-<span class="lineno">   16 </span><span class="spaces"></span><span class="nottickedoff">furthest CCLeft DPRight  = comparing fst &lt;&gt; flip (comparing snd)</span>
-<span class="lineno">   17 </span><span class="spaces"></span><span class="nottickedoff">furthest CCLeft DPUp     = flip (comparing snd &lt;&gt; comparing fst)</span>
-<span class="lineno">   18 </span><span class="spaces"></span><span class="nottickedoff">furthest CCLeft DPDown   = comparing snd &lt;&gt; comparing fst</span>
-<span class="lineno">   19 </span><span class="spaces"></span><span class="nottickedoff">furthest CCRight DPLeft  = flip (comparing fst &lt;&gt; comparing snd)</span>
-<span class="lineno">   20 </span><span class="spaces"></span><span class="nottickedoff">furthest CCRight DPRight = comparing fst &lt;&gt; comparing snd</span>
-<span class="lineno">   21 </span><span class="spaces"></span><span class="nottickedoff">furthest CCRight DPUp    = flip (comparing snd) &lt;&gt; comparing fst</span>
-<span class="lineno">   22 </span><span class="spaces"></span><span class="nottickedoff">furthest CCRight DPDown  = comparing snd &lt;&gt; flip (comparing fst)</span></span>
-<span class="lineno">   23 </span>
-<span class="lineno">   24 </span>rotateDirectionPointer ∷ Int → Orientation → Orientation
-<span class="lineno">   25 </span><span class="decl"><span class="istickedoff">rotateDirectionPointer n o = o { directionPointer = rotate n (directionPointer o)}</span></span>
-<span class="lineno">   26 </span>
-<span class="lineno">   27 </span>toggleCodelChooser ∷ Int → Orientation → Orientation
-<span class="lineno">   28 </span><span class="decl"><span class="istickedoff">toggleCodelChooser n o = o { codelChooser = toggle n (codelChooser o)}</span></span>
-<span class="lineno">   29 </span>
-<span class="lineno">   30 </span>rotateToggle ∷ Coordinates → Orientation → Orientation
-<span class="lineno">   31 </span><span class="decl"><span class="istickedoff">rotateToggle (r, t) (Orientation dp cc) = Orientation (rotate r dp) (toggle t cc)</span></span>
-<span class="lineno">   32 </span>
-<span class="lineno">   33 </span>initialOrientation ∷ Orientation
-<span class="lineno">   34 </span><span class="decl"><span class="istickedoff">initialOrientation = Orientation DPRight CCLeft</span></span>
-<span class="lineno">   35 </span>
-<span class="lineno">   36 </span>data Orientation
-<span class="lineno">   37 </span>  = Orientation
-<span class="lineno">   38 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">directionPointer</span></span></span> :: !DirectionPointer
-<span class="lineno">   39 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">codelChooser</span></span></span>     :: !CodelChooser
-<span class="lineno">   40 </span>      }
+<span class="lineno">    1 </span>{-# LANGUAGE TemplateHaskell #-}
+<span class="lineno">    2 </span>module HelVM.HelMA.Automata.Piet.Types.Orientation
+<span class="lineno">    3 </span>  ( Orientation (..)
+<span class="lineno">    4 </span>  , codelChooser
+<span class="lineno">    5 </span>  , directionPointer
+<span class="lineno">    6 </span>  , furthest
+<span class="lineno">    7 </span>  , initialOrientation
+<span class="lineno">    8 </span>  , rotateDirectionPointer
+<span class="lineno">    9 </span>  , rotateToggle
+<span class="lineno">   10 </span>  , toggleCodelChooser
+<span class="lineno">   11 </span>  ) where
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+<span class="lineno">   15 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>import           Lens.Micro                                       ( (%~) )
+<span class="lineno">   18 </span>import           Lens.Micro.TH                                    ( makeLenses )
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>data Orientation
+<span class="lineno">   21 </span>  = Orientation
+<span class="lineno">   22 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_directionPointer</span></span></span> :: !DirectionPointer
+<span class="lineno">   23 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_codelChooser</span></span></span>     :: !CodelChooser
+<span class="lineno">   24 </span>      }
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">makeLenses ''Orientation</span></span></span></span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>furthest ∷ Orientation → Coordinates → Coordinates → Ordering
+<span class="lineno">   29 </span><span class="decl"><span class="nottickedoff">furthest (Orientation DPLeft CCLeft)   = flip (comparing fst) &lt;&gt; comparing snd</span>
+<span class="lineno">   30 </span><span class="spaces"></span><span class="nottickedoff">furthest (Orientation DPRight CCLeft)  = comparing fst &lt;&gt; flip (comparing snd)</span>
+<span class="lineno">   31 </span><span class="spaces"></span><span class="nottickedoff">furthest (Orientation DPUp CCLeft)     = flip (comparing snd &lt;&gt; comparing fst)</span>
+<span class="lineno">   32 </span><span class="spaces"></span><span class="nottickedoff">furthest (Orientation DPDown CCLeft)   = comparing snd &lt;&gt; comparing fst</span>
+<span class="lineno">   33 </span><span class="spaces"></span><span class="nottickedoff">furthest (Orientation DPLeft CCRight)  = flip (comparing fst &lt;&gt; comparing snd)</span>
+<span class="lineno">   34 </span><span class="spaces"></span><span class="nottickedoff">furthest (Orientation DPRight CCRight) = comparing fst &lt;&gt; comparing snd</span>
+<span class="lineno">   35 </span><span class="spaces"></span><span class="nottickedoff">furthest (Orientation DPUp CCRight)    = flip (comparing snd) &lt;&gt; comparing fst</span>
+<span class="lineno">   36 </span><span class="spaces"></span><span class="nottickedoff">furthest (Orientation DPDown CCRight)  = comparing snd &lt;&gt; flip (comparing fst)</span></span>
+<span class="lineno">   37 </span>
+<span class="lineno">   38 </span>rotateDirectionPointer ∷ Int → Orientation → Orientation
+<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">rotateDirectionPointer n = directionPointer %~ rotate n</span></span>
+<span class="lineno">   40 </span>
+<span class="lineno">   41 </span>toggleCodelChooser ∷ Int → Orientation → Orientation
+<span class="lineno">   42 </span><span class="decl"><span class="istickedoff">toggleCodelChooser n = codelChooser %~ toggle n</span></span>
+<span class="lineno">   43 </span>
+<span class="lineno">   44 </span>rotateToggle ∷ Coordinates → Orientation → Orientation
+<span class="lineno">   45 </span><span class="decl"><span class="istickedoff">rotateToggle (r, t) = rotateDirectionPointer r . toggleCodelChooser t</span></span>
+<span class="lineno">   46 </span>
+<span class="lineno">   47 </span>initialOrientation ∷ Orientation
+<span class="lineno">   48 </span><span class="decl"><span class="istickedoff">initialOrientation = Orientation DPRight CCLeft</span></span>
 
 </pre>
 </body>

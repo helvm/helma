@@ -1298,7 +1298,7 @@ Debug (39,0) pop
 Debug (40,0) push 1
 Debug (41,0) push 1
 Debug (42,0) pointer DPRight
-Debug (42,1) switch DPDown
+Debug (42,1) switch CCLeft
 Debug (42,2) duplicate
 Error MTIndexSafe.indexSafe:
 ALU.copy

@@ -17,25 +17,33 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Types.Program
-<span class="lineno">    2 </span>  ( Program (..)
-<span class="lineno">    3 </span>  , isBlocked
-<span class="lineno">    4 </span>  ) where
-<span class="lineno">    5 </span>
-<span class="lineno">    6 </span>import           HelVM.HelMA.Automata.Piet.Types.Color
-<span class="lineno">    7 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-<span class="lineno">    8 </span>import           HelVM.HelMA.Automata.Piet.Types.Image
-<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.Piet.Types.Label
-<span class="lineno">   10 </span>
-<span class="lineno">   11 </span>isBlocked ∷ Coordinates → Program → Bool
-<span class="lineno">   12 </span><span class="decl"><span class="istickedoff">isBlocked pos p = not (inRangeImage pos $ image p) || (Black == pixelImage pos (image p))</span></span>
+<span class="lineno">    1 </span>{-# LANGUAGE TemplateHaskell #-}
+<span class="lineno">    2 </span>module HelVM.HelMA.Automata.Piet.Types.Program
+<span class="lineno">    3 </span>  ( Program (..)
+<span class="lineno">    4 </span>  , image
+<span class="lineno">    5 </span>  , isBlocked
+<span class="lineno">    6 </span>  , labelling
+<span class="lineno">    7 </span>  ) where
+<span class="lineno">    8 </span>
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.Piet.Types.Color
+<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+<span class="lineno">   11 </span>import           HelVM.HelMA.Automata.Piet.Types.Image
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automata.Piet.Types.Labelling
 <span class="lineno">   13 </span>
-<span class="lineno">   14 </span>data Program
-<span class="lineno">   15 </span>  = Program
-<span class="lineno">   16 </span>      { <span class="istickedoff"><span class="decl"><span class="istickedoff">image</span></span></span> :: Image Color
-<span class="lineno">   17 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">mask</span></span></span>  :: Image LabelKey
-<span class="lineno">   18 </span>      , <span class="istickedoff"><span class="decl"><span class="istickedoff">info</span></span></span>  :: IntMap (Maybe LabelInfo)
-<span class="lineno">   19 </span>      }
+<span class="lineno">   14 </span>import           Lens.Micro                                  ( (^.) )
+<span class="lineno">   15 </span>import           Lens.Micro.TH                               ( makeLenses )
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>data Program
+<span class="lineno">   18 </span>  = Program
+<span class="lineno">   19 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_image</span></span></span>     :: Image Color
+<span class="lineno">   20 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_labelling</span></span></span> :: Labelling
+<span class="lineno">   21 </span>      }
+<span class="lineno">   22 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   23 </span>
+<span class="lineno">   24 </span><span class="nottickedoff"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="nottickedoff"><span class="istickedoff"><span class="decl"><span class="istickedoff">makeLenses ''Program</span></span></span></span></span></span></span></span>
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span>isBlocked ∷ Coordinates → Program → Bool
+<span class="lineno">   27 </span><span class="decl"><span class="istickedoff">isBlocked pos p = not (inRangeImage pos $ p ^. image) || (Black == pixelImage pos (p ^. image))</span></span>
 
 </pre>
 </body>

@@ -1,11 +1,14 @@
+{-# LANGUAGE TemplateHaskell #-}
 module HelVM.HelMA.Automata.Piet.Types.Memory
   ( Memory (..)
   , Stack
   , initialMemory
+  , instructionMemory
   , orientationMemory
   , positionMemory
   , programMemory
   , setInstructionCounter
+  , stack
   , stepWhitePixel
   ) where
 
@@ -19,7 +22,20 @@ import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import qualified Data.Sequence                                      as Seq
 
+import           Lens.Micro                                         ( (.~), (^.) )
+import           Lens.Micro.TH                                      ( makeLenses )
+
 import           Prelude                                            hiding ( empty )
+
+data Memory
+  = Memory
+      { _instructionMemory :: !InstructionMemory
+      , _stack             :: !Stack
+      }
+
+type Stack = Seq.Seq Int
+
+makeLenses ''Memory
 
 stepWhitePixel ∷ Memory → Memory
 stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem where
@@ -31,49 +47,43 @@ stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem where
 
 initialMemory ∷ Program → Memory
 initialMemory prog = Memory
-  { instructionMemory = initialInstructionMemory prog
-  , stack             = Seq.empty
+  { _instructionMemory = initialInstructionMemory prog
+  , _stack             = Seq.empty
   }
 
 -- GETTERS
 
 programMemory ∷ Memory → Program
-programMemory = program . instructionMemory
+programMemory mem = mem ^. instructionMemory . program
 
 instructionCounterMemory ∷ Memory → InstructionCounter
-instructionCounterMemory = instructionCounter . instructionMemory
+instructionCounterMemory mem = mem ^. instructionMemory . instructionCounter
 
 directionPointerMemory ∷ Memory → DirectionPointer
-directionPointerMemory = directionPointer . orientationMemory
+directionPointerMemory mem = orientationMemory mem ^. directionPointer
 
 codelChooserMemory ∷ Memory → CodelChooser
-codelChooserMemory = codelChooser . orientationMemory
+codelChooserMemory mem = orientationMemory mem ^. codelChooser
 
 positionMemory ∷ Memory → Coordinates
-positionMemory = position . instructionCounterMemory
+positionMemory mem = instructionCounterMemory mem ^. position
 
 orientationMemory ∷ Memory → Orientation
-orientationMemory = orientation . instructionCounterMemory
+orientationMemory mem = instructionCounterMemory mem ^. orientation
 
 -- SETTERS
 
-setInstructionMemory ∷ InstructionMemory → Memory → Memory
-setInstructionMemory im mem = mem { instructionMemory = im }
-
 setInstructionCounter ∷ InstructionCounter → Memory → Memory
-setInstructionCounter ic mem = setInstructionMemory ((instructionMemory mem) { instructionCounter = ic }) mem
+setInstructionCounter ic = instructionMemory . instructionCounter .~ ic
 
 setPosition ∷ Coordinates → Memory → Memory
-setPosition pos mem = setInstructionCounter ((instructionCounterMemory mem) { position = pos }) mem
+setPosition pos = instructionMemory . instructionCounter . position .~ pos
 
 setDirectionPointer ∷ DirectionPointer → Memory → Memory
-setDirectionPointer dp mem = setOrientation ((orientationMemory mem) { directionPointer = dp }) mem
+setDirectionPointer dp = instructionMemory . instructionCounter . orientation . directionPointer .~ dp
 
 setCodelChooser ∷ CodelChooser → Memory → Memory
-setCodelChooser cc mem = setOrientation ((orientationMemory mem) { codelChooser = cc }) mem
-
-setOrientation ∷ Orientation → Memory → Memory
-setOrientation reg mem = setInstructionCounter ((instructionCounterMemory mem) { orientation = reg }) mem
+setCodelChooser cc = instructionMemory . instructionCounter . orientation . codelChooser .~ cc
 
 -- OPERATIONS & MODIFIERS
 
@@ -83,13 +93,3 @@ handleBlocked False nextPos _  = setPosition nextPos
 
 rotateAndToggle ∷ DirectionPointer → Memory → Memory
 rotateAndToggle dp mem = setCodelChooser (toggle 1 (codelChooserMemory mem)) $ setDirectionPointer (rotate 1 dp) mem
-
--- DATA TYPES
-
-data Memory
-  = Memory
-      { instructionMemory :: InstructionMemory
-      , stack             :: !Stack
-      }
-
-type Stack = Seq Int
