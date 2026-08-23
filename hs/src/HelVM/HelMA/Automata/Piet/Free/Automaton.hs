@@ -1,5 +1,5 @@
 module HelVM.HelMA.Automata.Piet.Free.Automaton
-  ( transition
+  ( interpret
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Free.InstructionFF
@@ -30,8 +30,14 @@ import           Lens.Micro.Platform
 import           Prelude                                                hiding ( getLine )
 
 -- Top-level driver
+interpret ∷ AppSafeEff m ⇒ Program → m ()
+interpret program = loop initialState where
+  loop st = do
+    (continue, st') <- transition program st
+    when continue $ loop st'
+
 transition ∷ AppSafeEff m ⇒ Program → ProgramState → m (Bool, ProgramState)
-transition conf st = transitionStep (_collisionCount st) conf st
+transition program st = transitionStep (_collisionCount st) program st
 
 transitionStep ∷ AppSafeEff m ⇒ Int → Program → ProgramState → m (Bool, ProgramState)
 transitionStep cc _ st

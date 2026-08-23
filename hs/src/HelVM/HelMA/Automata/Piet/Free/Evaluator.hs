@@ -8,9 +8,6 @@ module HelVM.HelMA.Automata.Piet.Free.Evaluator
 import           HelVM.HelMA.Automata.Piet.Free.Automaton
 import           HelVM.HelMA.Automata.Piet.Parser
 
-import           HelVM.HelMA.Automata.Piet.Types.Program
-import           HelVM.HelMA.Automata.Piet.Types.ProgramState
-
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 
 import           HelVM.HelMA.Automata.Piet.Compiler
@@ -38,9 +35,3 @@ simpleEval nat dyn = interpret program where
   program = compile cs img
   cs = fromIntegral nat
   img = parseColorImage nat dyn
-
-interpret ∷ AppSafeEff m ⇒ Program → m ()
-interpret program = loop initialState where
-  loop st = do
-    (continue, st') <- transition program st
-    when continue $ loop st'
