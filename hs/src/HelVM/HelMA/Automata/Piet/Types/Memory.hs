@@ -42,7 +42,6 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import qualified Data.List                                          as List
 import           Data.MonoTraversable
 import qualified Data.Sequence                                      as Seq
-import qualified Data.Set                                           as Set
 
 import           Lens.Micro.Platform
 
@@ -158,14 +157,6 @@ modifyFlipWithLog name f mem = case mem ^. stack of
     pure $ Just mem'
 
 -- Board and Color queries
-discoverBlock ∷ Image Color → Coordinates → Block
-discoverBlock m startPos = Set.toList $ go Set.empty startPos where
-  targetColor = m &! startPos
-
-  go visited pos
-    | pos `Set.member` visited    = visited
-    | m &! pos /= targetColor   = visited
-    | otherwise                 = List.foldl' go (Set.insert pos visited) (neighbours pos)
 
 colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. image) &! pos

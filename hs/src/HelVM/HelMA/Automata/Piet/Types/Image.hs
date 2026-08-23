@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Types.Image
   ( Image (..)
   , dimensionsImage
+  , discoverBlock
   , heightImage
   , inRangeImage
   , newImage
@@ -13,6 +14,8 @@ module HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
 import           Data.Array.Diff
+import qualified Data.List                                   as List
+import qualified Data.Set                                    as Set
 
 infixl 9 &!
 (&!) ∷ Image a → Coordinates → Maybe a
@@ -48,3 +51,12 @@ instance Functor Image where
 newtype Image a
   = Image { pixels :: DiffArray Coordinates a }
   deriving stock (Show)
+
+discoverBlock ∷ Eq a ⇒ Image a → Coordinates → Block
+discoverBlock m startPos = Set.toList $ go Set.empty startPos where
+  targetColor = m &! startPos
+
+  go visited pos
+    | pos `Set.member` visited    = visited
+    | m &! pos /= targetColor   = visited
+    | otherwise                 = List.foldl' go (Set.insert pos visited) (neighbours pos)
