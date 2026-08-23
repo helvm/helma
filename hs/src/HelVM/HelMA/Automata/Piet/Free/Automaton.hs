@@ -48,7 +48,7 @@ transition st = transitionStep (_collisionCount st) st
 
 transitionStep ∷ AppSafeEff m ⇒ Int → AutomatonMemory → m (Either () AutomatonMemory)
 transitionStep cc _
-  | cc >= 8   = logDebugN "Max collisions reached (8). Terminating." >> pure (Left ())
+  | cc >= 8   = logDebugN "Max collisions reached (8). Terminating." >> pure (Trampoline.break ())
 transitionStep _ st =
   handleNextColour colour st pos (move dp p) block
   where
@@ -62,11 +62,11 @@ transitionStep _ st =
     colour = colourAt prog (move dp p)
 
 handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → Coordinates → Coordinates → Block → m (Either () AutomatonMemory)
-handleNextColour Nothing st _ _ _           = pure $ Right (doIfCollided st)
-handleNextColour (Just Black) st _ _ _     = pure $ Right (doIfCollided st)
-handleNextColour (Just White) st _ newPos _ = pure $ Right (setPositionState newPos 0 st)
+handleNextColour Nothing st _ _ _           = pure $ Trampoline.continue (doIfCollided st)
+handleNextColour (Just Black) st _ _ _      = pure $ Trampoline.continue (doIfCollided st)
+handleNextColour (Just White) st _ newPos _ = pure $ Trampoline.continue (setPositionState newPos 0 st)
 handleNextColour (Just c') st pos newPos block =
-  Right <$> evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) (setPositionState newPos 0 st) pos c' block
+  Trampoline.continue <$> evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) (setPositionState newPos 0 st) pos c' block
 
 setPositionState ∷ Coordinates → Int → AutomatonMemory → AutomatonMemory
 setPositionState pos cc st = st { _collisionCount = cc } & memory %~ setPosition pos
