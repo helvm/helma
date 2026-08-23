@@ -13,27 +13,26 @@ import           Control.Monad.Logger
 
 import           Data.MonoTraversable
 
-processImage :: MonadLogger m => Maybe Natural -> Picture.DynamicImage -> m (Image Color)
+processImage ∷ MonadLogger m ⇒ Maybe Natural → Picture.DynamicImage → m (Image Color)
 processImage codelInfo dyn = do
   let (cs, img) = processJuicyImage codelInfo dyn
   logDebugN ("Actual codel length: " <> show cs)
-  pure $ imageToColorImage cs pixelToColor img
+  pure $ imageToColorImage cs img
 
-parseColorImage :: Natural -> Picture.DynamicImage -> Image Color
-parseColorImage cs dyn = imageToColorImage (fromIntegral cs) pixelToColor $ Picture.convertRGB8 dyn
+parseColorImage ∷ Natural → Picture.DynamicImage → Image Color
+parseColorImage nat dyn = imageToColorImage cs img where
+  cs = fromIntegral nat
+  img = Picture.convertRGB8 dyn
 
-processJuicyImage :: Maybe Natural -> Picture.DynamicImage -> (CodelSize, Picture.Image Picture.PixelRGB8)
-processJuicyImage codelInfo dynamicImage = (actualCodelLength, img)
-  where
-    img = Picture.convertRGB8 dynamicImage
-    actualCodelLength = calculateActualCodelLength codelInfo img
+processJuicyImage ∷ Maybe Natural → Picture.DynamicImage → (CodelSize, Picture.Image Picture.PixelRGB8)
+processJuicyImage codelInfo dynamicImage = (calculateActualCodelLength codelInfo img, img) where
+  img = Picture.convertRGB8 dynamicImage
 
-calculateActualCodelLength :: Maybe Natural -> Picture.Image Picture.PixelRGB8 -> Int
-calculateActualCodelLength codelInfo img = max 1 $ maybe defaultCodelInfo fromIntegral codelInfo
-  where
-    defaultCodelInfo = imageGuessCodelLength img
+calculateActualCodelLength ∷ Maybe Natural → Picture.Image Picture.PixelRGB8 → Int
+calculateActualCodelLength codelInfo img = max 1 $ maybe defaultCodelInfo fromIntegral codelInfo where
+  defaultCodelInfo = imageGuessCodelLength img
 
-imageGuessCodelLength :: Picture.Image Picture.PixelRGB8 -> Int
+imageGuessCodelLength ∷ Picture.Image Picture.PixelRGB8 → Int
 imageGuessCodelLength img = lastUntil isOne $ scanl gcd (gcd width height) $ fmap olength (group rows) <> fmap olength (group cols)
   where
     width  = Picture.imageWidth img
@@ -50,8 +49,8 @@ imageGuessCodelLength img = lastUntil isOne $ scanl gcd (gcd width height) $ fma
     guardPred True  _  x _  = x
     guardPred False p' _ xs = lastUntil p' xs
 
-imageToColorImage :: Picture.Pixel pixel => Int -> (pixel -> Color) -> Picture.Image pixel -> Image Color
-imageToColorImage cs convertPixel img = newImage (w', h') assocList
+imageToColorImage ∷ Int → Picture.Image Picture.PixelRGB8 → Image Color
+imageToColorImage cs img = newImage (w', h') assocList
   where
     w  = Picture.imageWidth img
     h  = Picture.imageHeight img
@@ -59,7 +58,7 @@ imageToColorImage cs convertPixel img = newImage (w', h') assocList
     h' = h `div` cs
 
     assocList =
-      [ ((x, y), convertPixel (Picture.pixelAt img (x * cs) (y * cs)))
+      [ ((x, y), pixelToColor (Picture.pixelAt img (x * cs) (y * cs)))
       | y <- [0 .. h' - 1]
       , x <- [0 .. w' - 1]
       ]
