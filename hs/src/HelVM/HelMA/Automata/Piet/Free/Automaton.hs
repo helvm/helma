@@ -19,6 +19,7 @@ import           HelVM.HelMA.Automata.Piet.Types.ProgramState
 import qualified HelVM.HelMA.Automaton.Combiner.ALU                     as ALU
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 import qualified HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction as ST
+import           HelVM.HelMA.Automaton.Trampoline                       as Trampoline
 
 import           Control.Monad.Free
 import           Control.Monad.Logger
@@ -31,10 +32,7 @@ import           Lens.Micro.Platform
 
 -- Top-level driver
 interpret ∷ AppSafeEff m ⇒ Program → m ()
-interpret p = loop $ initialState p where
-  loop st = transition st >>= \case
-    Right st' -> loop st'
-    Left ()   -> pass
+interpret p = Trampoline.trampolineM transition $ initialState p
 
 transition ∷ AppSafeEff m ⇒ ProgramState → m (Either () ProgramState)
 transition st = transitionStep (_collisionCount st) st
