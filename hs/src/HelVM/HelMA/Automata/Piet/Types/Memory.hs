@@ -49,12 +49,6 @@ type Stack = Seq.Seq Int
 
 makeLenses ''Memory
 
-stepWhitePixel ∷ Memory → Memory
-stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem where
-  prog    = programMemory mem
-  nextPos = addCoordinates dp $ positionMemory mem
-  dp      = directionPointerMemory mem
-
 -- INITIALIZERS & CONSTRUCTORS
 
 initialMemory ∷ Program → Memory
@@ -86,7 +80,7 @@ orientationMemory mem = instructionCounterMemory mem ^. orientation
 currentPixel ∷ Memory → Color
 currentPixel mem = pixelImage (positionMemory mem) (programMemory mem ^. image)
 
--- SETTERS
+-- SETTERS & FIELD MODIFIERS
 
 setInstructionCounter ∷ InstructionCounter → Memory → Memory
 setInstructionCounter ic = instructionMemory . instructionCounter .~ ic
@@ -100,32 +94,38 @@ setDirectionPointer dp = instructionMemory . instructionCounter . orientation . 
 setCodelChooser ∷ CodelChooser → Memory → Memory
 setCodelChooser cc = instructionMemory . instructionCounter . orientation . codelChooser .~ cc
 
--- OPERATIONS & MODIFIERS
+modifyInstructionMemory ∷ (InstructionMemory → InstructionMemory) → Memory → Memory
+modifyInstructionMemory f = instructionMemory %~ f
+
+modifyStack ∷ (Stack → Stack) → Memory → Memory
+modifyStack f = stack %~ f
+
+-- OPERATIONS & DOMAIN MODIFIERS
+
+stepWhitePixel ∷ Memory → Memory
+stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem where
+  prog    = programMemory mem
+  nextPos = addCoordinates dp $ positionMemory mem
+  dp      = directionPointerMemory mem
 
 handleBlocked ∷ Bool → Coordinates → DirectionPointer → Memory → Memory
 handleBlocked True  _       dp = rotateAndToggle dp
 handleBlocked False nextPos _  = setPosition nextPos
 
 rotateAndToggle ∷ DirectionPointer → Memory → Memory
-rotateAndToggle dp mem = setCodelChooser (toggle 1 (codelChooserMemory mem)) $ setDirectionPointer (rotate 1 dp) mem
-
--- SETTERS & MODIFIERS (Modyfikacje czysto na Memory)
+rotateAndToggle dp mem = mem
+  & setCodelChooser (toggle 1 $ codelChooserMemory mem)
+  & setDirectionPointer (rotate 1 dp)
 
 toggleChooser ∷ Memory → Memory
-toggleChooser = instructionMemory %~ toggleCodelChooserIM 1
+toggleChooser = modifyInstructionMemory (toggleCodelChooserIM 1)
 
 rotatePointer ∷ Memory → Memory
-rotatePointer = instructionMemory %~ rotateDirectionPointerIM 1
+rotatePointer = modifyInstructionMemory (rotateDirectionPointerIM 1)
 
 handleCollision ∷ Bool → Memory → Memory
 handleCollision True  = toggleChooser
 handleCollision False = rotatePointer
-
-modifyInstructionMemory ∷ (InstructionMemory → InstructionMemory) → Memory → Memory
-modifyInstructionMemory f = instructionMemory %~ f
-
-modifyStack ∷ (Stack → Stack) → Memory → Memory
-modifyStack f = stack %~ f
 
 modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
 modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)

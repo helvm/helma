@@ -33,27 +33,27 @@ import           Lens.Micro.Platform
 
 -- Top-level driver
 
-initialState ∷ Program → ProgramState
-initialState p = ProgramState
+initialState ∷ Program → AutomatonMemory
+initialState p = AutomatonMemory
   { _memory         = initialMemory p
   , _collisionCount = 0
   }
 
-data ProgramState
-  = ProgramState
+data AutomatonMemory
+  = AutomatonMemory
       { _memory         :: !Memory
       , _collisionCount :: !Int
       }
 
-makeLenses ''ProgramState
+makeLenses ''AutomatonMemory
 
 interpret ∷ AppSafeEff m ⇒ Program → m ()
 interpret p = Trampoline.trampolineM transition $ initialState p
 
-transition ∷ AppSafeEff m ⇒ ProgramState → m (Either () ProgramState)
+transition ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
 transition st = transitionStep (_collisionCount st) st
 
-transitionStep ∷ AppSafeEff m ⇒ Int → ProgramState → m (Either () ProgramState)
+transitionStep ∷ AppSafeEff m ⇒ Int → AutomatonMemory → m (Either () AutomatonMemory)
 transitionStep cc _
   | cc >= 8   = logDebugN "Max collisions reached (8). Terminating." >> pure (Left ())
 transitionStep _ st =
@@ -68,17 +68,17 @@ transitionStep _ st =
     p      = selectCodel st block
     colour = colourAt prog (move dp p)
 
-handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → ProgramState → Coordinates → Coordinates → Block → m (Either () ProgramState)
+handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → Coordinates → Coordinates → Block → m (Either () AutomatonMemory)
 handleNextColour Nothing st _ _ _           = pure $ Right (doIfCollided st)
 handleNextColour (Just Black) st _ _ _     = pure $ Right (doIfCollided st)
 handleNextColour (Just White) st _ newPos _ = pure $ Right (setPositionState newPos 0 st)
 handleNextColour (Just c') st pos newPos block =
   Right <$> evalTransitionBlock (colourAt (programMemory (st ^. memory)) pos) (setPositionState newPos 0 st) pos c' block
 
-setPositionState ∷ Coordinates → Int → ProgramState → ProgramState
+setPositionState ∷ Coordinates → Int → AutomatonMemory → AutomatonMemory
 setPositionState pos cc st = st { _collisionCount = cc } & memory %~ Memory.setPosition pos
 
-evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ProgramState → Coordinates → Color → Block → m ProgramState
+evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → Coordinates → Color → Block → m AutomatonMemory
 evalTransitionBlock (Just c) st _ c' block
   | c /= White = interpretF (colorsToProgram c c' (blockCodelCount (programMemory (st ^. memory) ^. codelSize) block)) st
 evalTransitionBlock _ st _ _ _ = pure st
@@ -96,17 +96,17 @@ discoverBlock m startPos = S.toList $ go S.empty startPos where
     | m &! pos /= targetColor   = visited
     | otherwise                 = L.foldl' go (S.insert pos visited) (neighbours pos)
 
-selectCodel ∷ ProgramState → Block → Coordinates
+selectCodel ∷ AutomatonMemory → Block → Coordinates
 selectCodel st = L.maximumBy (furthest (orientationMemory (st ^. memory)))
 
 colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. image) &! pos
 
 -- Collision state management
-doIfCollided ∷ ProgramState → ProgramState
+doIfCollided ∷ AutomatonMemory → AutomatonMemory
 doIfCollided st = updateCollisionCount $ st & memory %~ Memory.handleCollision (even (_collisionCount st))
 
-updateCollisionCount ∷ ProgramState → ProgramState
+updateCollisionCount ∷ AutomatonMemory → AutomatonMemory
 updateCollisionCount st = st { _collisionCount = _collisionCount st + 1 }
 
 -- Instruction generation
@@ -117,11 +117,11 @@ colorsToInstruction ∷ Color → Color → Int → Instruction
 colorsToInstruction c c' = step (lightnessSteps c c') (hueSteps c c')
 
 -- AST Interpreter
-interpretF ∷ AppSafeEff m ⇒ InstructionFF → ProgramState → m ProgramState
+interpretF ∷ AppSafeEff m ⇒ InstructionFF → AutomatonMemory → m AutomatonMemory
 interpretF (Pure _) st                  = pure st
 interpretF (Free (InstructionF i r)) st = evalInstruction i r st
 
-evalInstruction ∷ AppSafeEff m ⇒ Instruction → InstructionFF → ProgramState → m ProgramState
+evalInstruction ∷ AppSafeEff m ⇒ Instruction → InstructionFF → AutomatonMemory → m AutomatonMemory
 evalInstruction (Push n)  r st = evalStack ("push " <> show n) (pure . ALU.push1 n) r st
 evalInstruction Pop       r st = evalStack "pop" ALU.discard r st
 evalInstruction Add       r st = evalStack "add" (ALU.binaryInstruction ST.Add) r st
@@ -141,14 +141,14 @@ evalInstruction OutNum    r st = evalStack "out_number" ALU.outputDecMaybe r st
 evalInstruction OutChar   r st = evalStack "out_char" ALU.outputCharMaybe r st
 evalInstruction Nop       r st = interpretF r st
 
-evalStack ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → InstructionFF → ProgramState → m ProgramState
+evalStack ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → InstructionFF → AutomatonMemory → m AutomatonMemory
 evalStack name f r st = do
   newStack <- f (st ^. memory . stack)
   let st' = st & memory . stack .~ newStack
   logMsg st' name
   interpretF r st'
 
-evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → InstructionFF → ProgramState → m ProgramState
+evalFlip ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → InstructionFF → AutomatonMemory → m AutomatonMemory
 evalFlip name f r st = case st ^. memory . stack of
   Seq.Empty     -> interpretF r st
   (x Seq.:<| _) -> do
@@ -156,5 +156,5 @@ evalFlip name f r st = case st ^. memory . stack of
     logMsg st' (name <> " " <> show (directionPointerMemory (st' ^. memory)))
     interpretF r st'
 
-logMsg ∷ AppSafeEff m ⇒ ProgramState → Text → m ()
+logMsg ∷ AppSafeEff m ⇒ AutomatonMemory → Text → m ()
 logMsg st msg = logWithPosition msg (st ^. memory . instructionMemory)
