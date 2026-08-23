@@ -1,17 +1,15 @@
 module HelVM.HelMA.Automata.Piet.Combiner.ALU
-  ( -- | I/O Instructions
-    pietInChar
-  , pietInNumber
-  , pietOutChar
-  , pietOutNumber
-    -- | Stack & Arithmetic Instructions
-  , pietAdd
+  ( pietAdd
   , pietDivide
   , pietDuplicate
   , pietGreater
+  , pietInChar
+  , pietInNumber
   , pietMod
   , pietMultiply
   , pietNot
+  , pietOutChar
+  , pietOutNumber
   , pietPop
   , pietPush
   , pietRoll
@@ -25,6 +23,8 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
 import           Prelude                                                hiding ( getLine )
+
+
 
 -- | I/O Instructions
 pietInNumber ∷ AppSafeEff m ⇒ Memory → m Memory

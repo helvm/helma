@@ -232,6 +232,7 @@ library
     HelVM.HelMA.Automata.LazyK.Reducer
     
     HelVM.HelMA.Automata.Piet.Automaton
+    HelVM.HelMA.Automata.Piet.Combiner
     HelVM.HelMA.Automata.Piet.Compiler
     HelVM.HelMA.Automata.Piet.Evaluator
     HelVM.HelMA.Automata.Piet.Parser
