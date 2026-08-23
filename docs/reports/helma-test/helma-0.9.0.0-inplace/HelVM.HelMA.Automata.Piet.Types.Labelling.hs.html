@@ -18,26 +18,25 @@ span.spaces    { background: white }
 </pre>
 <pre>
 <span class="lineno">    1 </span>
-<span class="lineno">    2 </span>{-# LANGUAGE TemplateHaskell #-}
-<span class="lineno">    3 </span>module HelVM.HelMA.Automata.Piet.Types.Labelling
-<span class="lineno">    4 </span>  ( Labelling (..)
-<span class="lineno">    5 </span>  , info
-<span class="lineno">    6 </span>  , mask
-<span class="lineno">    7 </span>  ) where
-<span class="lineno">    8 </span>
-<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.Piet.Types.Image
-<span class="lineno">   10 </span>import           HelVM.HelMA.Automata.Piet.Types.Label
-<span class="lineno">   11 </span>
-<span class="lineno">   12 </span>import           Lens.Micro.TH                         ( makeLenses )
-<span class="lineno">   13 </span>
-<span class="lineno">   14 </span>data Labelling
-<span class="lineno">   15 </span>  = Labelling
-<span class="lineno">   16 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_mask</span></span></span> :: Image LabelKey
-<span class="lineno">   17 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_info</span></span></span> :: IntMap (Maybe LabelInfo)
-<span class="lineno">   18 </span>      }
-<span class="lineno">   19 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
-<span class="lineno">   20 </span>
-<span class="lineno">   21 </span><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">makeLenses ''Labelling</span></span></span></span></span>
+<span class="lineno">    2 </span>module HelVM.HelMA.Automata.Piet.Types.Labelling
+<span class="lineno">    3 </span>  ( Labelling (..)
+<span class="lineno">    4 </span>  , info
+<span class="lineno">    5 </span>  , mask
+<span class="lineno">    6 </span>  ) where
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>import           HelVM.HelMA.Automata.Piet.Types.Image
+<span class="lineno">    9 </span>import           HelVM.HelMA.Automata.Piet.Types.Label
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import           Lens.Micro.TH                         ( makeLenses )
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>data Labelling
+<span class="lineno">   14 </span>  = Labelling
+<span class="lineno">   15 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_mask</span></span></span> :: Image LabelKey
+<span class="lineno">   16 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_info</span></span></span> :: IntMap (Maybe LabelInfo)
+<span class="lineno">   17 </span>      }
+<span class="lineno">   18 </span>  deriving stock (<span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff"><span class="decl"><span class="nottickedoff">Show</span></span></span></span></span></span>)
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">makeLenses ''Labelling</span></span></span></span></span>
 
 </pre>
 </body>

@@ -73,7 +73,7 @@ common common-options
     TypeSynonymInstances
     ViewPatterns
 --    CPP
---    TemplateHaskell
+   TemplateHaskell
 --    ForeignFunctionInterface
 --    MagicHash
 --    UnliftedFFITypes

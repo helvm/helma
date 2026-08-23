@@ -17,48 +17,47 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>{-# LANGUAGE TemplateHaskell #-}
-<span class="lineno">    2 </span>module HelVM.HelMA.Automata.Piet.Types.InstructionCounter
-<span class="lineno">    3 </span>  ( InstructionCounter (..)
-<span class="lineno">    4 </span>  , codelChooserIC
-<span class="lineno">    5 </span>  , directionPointerIC
-<span class="lineno">    6 </span>  , initialInstructionCounter
-<span class="lineno">    7 </span>  , orientation
-<span class="lineno">    8 </span>  , position
-<span class="lineno">    9 </span>  , rotateDirectionPointerIC
-<span class="lineno">   10 </span>  , toggleCodelChooserIC
-<span class="lineno">   11 </span>  ) where
-<span class="lineno">   12 </span>
-<span class="lineno">   13 </span>import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
-<span class="lineno">   14 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-<span class="lineno">   15 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-<span class="lineno">   16 </span>import           HelVM.HelMA.Automata.Piet.Types.Orientation
-<span class="lineno">   17 </span>
-<span class="lineno">   18 </span>import           Lens.Micro                                       ( (%~), (^.) )
-<span class="lineno">   19 </span>import           Lens.Micro.TH                                    ( makeLenses )
-<span class="lineno">   20 </span>
-<span class="lineno">   21 </span>data InstructionCounter
-<span class="lineno">   22 </span>  = InstructionCounter
-<span class="lineno">   23 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_position</span></span></span>    :: !Coordinates
-<span class="lineno">   24 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_orientation</span></span></span> :: !Orientation
-<span class="lineno">   25 </span>      }
-<span class="lineno">   26 </span>
-<span class="lineno">   27 </span><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">makeLenses ''InstructionCounter</span></span></span></span></span>
-<span class="lineno">   28 </span>
-<span class="lineno">   29 </span>directionPointerIC ∷ InstructionCounter → DirectionPointer
-<span class="lineno">   30 </span><span class="decl"><span class="istickedoff">directionPointerIC ic = ic ^. (orientation . directionPointer)</span></span>
-<span class="lineno">   31 </span>
-<span class="lineno">   32 </span>codelChooserIC ∷ InstructionCounter → CodelChooser
-<span class="lineno">   33 </span><span class="decl"><span class="istickedoff">codelChooserIC ic = ic ^. (orientation . codelChooser)</span></span>
-<span class="lineno">   34 </span>
-<span class="lineno">   35 </span>rotateDirectionPointerIC ∷ Int → InstructionCounter → InstructionCounter
-<span class="lineno">   36 </span><span class="decl"><span class="istickedoff">rotateDirectionPointerIC n = orientation %~ rotateDirectionPointer n</span></span>
-<span class="lineno">   37 </span>
-<span class="lineno">   38 </span>toggleCodelChooserIC ∷ Int → InstructionCounter → InstructionCounter
-<span class="lineno">   39 </span><span class="decl"><span class="istickedoff">toggleCodelChooserIC n = orientation %~ toggleCodelChooser n</span></span>
-<span class="lineno">   40 </span>
-<span class="lineno">   41 </span>initialInstructionCounter ∷ InstructionCounter
-<span class="lineno">   42 </span><span class="decl"><span class="istickedoff">initialInstructionCounter = InstructionCounter initialCoordinates initialOrientation</span></span>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+<span class="lineno">    2 </span>  ( InstructionCounter (..)
+<span class="lineno">    3 </span>  , codelChooserIC
+<span class="lineno">    4 </span>  , directionPointerIC
+<span class="lineno">    5 </span>  , initialInstructionCounter
+<span class="lineno">    6 </span>  , orientation
+<span class="lineno">    7 </span>  , position
+<span class="lineno">    8 </span>  , rotateDirectionPointerIC
+<span class="lineno">    9 </span>  , toggleCodelChooserIC
+<span class="lineno">   10 </span>  ) where
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+<span class="lineno">   15 </span>import           HelVM.HelMA.Automata.Piet.Types.Orientation
+<span class="lineno">   16 </span>
+<span class="lineno">   17 </span>import           Lens.Micro                                       ( (%~), (^.) )
+<span class="lineno">   18 </span>import           Lens.Micro.TH                                    ( makeLenses )
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>data InstructionCounter
+<span class="lineno">   21 </span>  = InstructionCounter
+<span class="lineno">   22 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_position</span></span></span>    :: !Coordinates
+<span class="lineno">   23 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_orientation</span></span></span> :: !Orientation
+<span class="lineno">   24 </span>      }
+<span class="lineno">   25 </span>
+<span class="lineno">   26 </span><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">makeLenses ''InstructionCounter</span></span></span></span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>directionPointerIC ∷ InstructionCounter → DirectionPointer
+<span class="lineno">   29 </span><span class="decl"><span class="istickedoff">directionPointerIC ic = ic ^. (orientation . directionPointer)</span></span>
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>codelChooserIC ∷ InstructionCounter → CodelChooser
+<span class="lineno">   32 </span><span class="decl"><span class="istickedoff">codelChooserIC ic = ic ^. (orientation . codelChooser)</span></span>
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>rotateDirectionPointerIC ∷ Int → InstructionCounter → InstructionCounter
+<span class="lineno">   35 </span><span class="decl"><span class="istickedoff">rotateDirectionPointerIC n = orientation %~ rotateDirectionPointer n</span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>toggleCodelChooserIC ∷ Int → InstructionCounter → InstructionCounter
+<span class="lineno">   38 </span><span class="decl"><span class="istickedoff">toggleCodelChooserIC n = orientation %~ toggleCodelChooser n</span></span>
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>initialInstructionCounter ∷ InstructionCounter
+<span class="lineno">   41 </span><span class="decl"><span class="istickedoff">initialInstructionCounter = InstructionCounter initialCoordinates initialOrientation</span></span>
 
 </pre>
 </body>

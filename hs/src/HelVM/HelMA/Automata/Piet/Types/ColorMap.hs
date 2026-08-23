@@ -1,5 +1,4 @@
 
-{-# LANGUAGE TemplateHaskell #-}
 module HelVM.HelMA.Automata.Piet.Types.ColorMap
   ( ColorMap (..)
   , mapHeight

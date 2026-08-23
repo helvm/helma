@@ -17,59 +17,58 @@ span.spaces    { background: white }
 <span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
 </pre>
 <pre>
-<span class="lineno">    1 </span>{-# LANGUAGE TemplateHaskell #-}
-<span class="lineno">    2 </span>module HelVM.HelMA.Automata.Piet.Types.InstructionMemory
-<span class="lineno">    3 </span>  ( InstructionMemory (..)
-<span class="lineno">    4 </span>  , codelChooserIM
-<span class="lineno">    5 </span>  , directionPointerIM
-<span class="lineno">    6 </span>  , initialInstructionMemory
-<span class="lineno">    7 </span>  , instructionCounter
-<span class="lineno">    8 </span>  , logWithPosition
-<span class="lineno">    9 </span>  , program
-<span class="lineno">   10 </span>  , rotateDirectionPointerIM
-<span class="lineno">   11 </span>  , toggleCodelChooserIM
-<span class="lineno">   12 </span>  ) where
-<span class="lineno">   13 </span>
-<span class="lineno">   14 </span>import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
-<span class="lineno">   15 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-<span class="lineno">   16 </span>import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
-<span class="lineno">   17 </span>import           HelVM.HelMA.Automata.Piet.Types.Program
-<span class="lineno">   18 </span>
-<span class="lineno">   19 </span>import           HelVM.HelMA.Automaton.Eff.MonadEff
-<span class="lineno">   20 </span>
-<span class="lineno">   21 </span>import           Control.Monad.Logger
-<span class="lineno">   22 </span>
-<span class="lineno">   23 </span>import           Lens.Micro                                         ( (%~), (^.) )
-<span class="lineno">   24 </span>import           Lens.Micro.TH                                      ( makeLenses )
-<span class="lineno">   25 </span>
-<span class="lineno">   26 </span>data InstructionMemory
-<span class="lineno">   27 </span>  = InstructionMemory
-<span class="lineno">   28 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_instructionCounter</span></span></span> :: !InstructionCounter
-<span class="lineno">   29 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_program</span></span></span>            :: !Program
-<span class="lineno">   30 </span>      }
-<span class="lineno">   31 </span>
-<span class="lineno">   32 </span><span class="nottickedoff"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">makeLenses ''InstructionMemory</span></span></span></span></span></span>
-<span class="lineno">   33 </span>
-<span class="lineno">   34 </span>logWithPosition ∷ AppSafeEff m ⇒ Text → InstructionMemory → m ()
-<span class="lineno">   35 </span><span class="decl"><span class="istickedoff">logWithPosition msg im = logDebugN $ show (im ^. instructionCounter . position) &lt;&gt; &quot; &quot; &lt;&gt; msg</span></span>
-<span class="lineno">   36 </span>
-<span class="lineno">   37 </span>codelChooserIM ∷ InstructionMemory → CodelChooser
-<span class="lineno">   38 </span><span class="decl"><span class="istickedoff">codelChooserIM im = codelChooserIC (im ^. instructionCounter)</span></span>
-<span class="lineno">   39 </span>
-<span class="lineno">   40 </span>directionPointerIM ∷ InstructionMemory → DirectionPointer
-<span class="lineno">   41 </span><span class="decl"><span class="istickedoff">directionPointerIM im = directionPointerIC (im ^. instructionCounter)</span></span>
-<span class="lineno">   42 </span>
-<span class="lineno">   43 </span>toggleCodelChooserIM ∷ Int → InstructionMemory → InstructionMemory
-<span class="lineno">   44 </span><span class="decl"><span class="istickedoff">toggleCodelChooserIM n = instructionCounter %~ toggleCodelChooserIC n</span></span>
-<span class="lineno">   45 </span>
-<span class="lineno">   46 </span>rotateDirectionPointerIM ∷ Int → InstructionMemory → InstructionMemory
-<span class="lineno">   47 </span><span class="decl"><span class="istickedoff">rotateDirectionPointerIM n = instructionCounter %~ rotateDirectionPointerIC n</span></span>
-<span class="lineno">   48 </span>
-<span class="lineno">   49 </span>initialInstructionMemory ∷ Program → InstructionMemory
-<span class="lineno">   50 </span><span class="decl"><span class="istickedoff">initialInstructionMemory prog = InstructionMemory</span>
-<span class="lineno">   51 </span><span class="spaces">  </span><span class="istickedoff">{ _instructionCounter = initialInstructionCounter</span>
-<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">, _program            = prog</span>
-<span class="lineno">   53 </span><span class="spaces">  </span><span class="istickedoff">}</span></span>
+<span class="lineno">    1 </span>module HelVM.HelMA.Automata.Piet.Types.InstructionMemory
+<span class="lineno">    2 </span>  ( InstructionMemory (..)
+<span class="lineno">    3 </span>  , codelChooserIM
+<span class="lineno">    4 </span>  , directionPointerIM
+<span class="lineno">    5 </span>  , initialInstructionMemory
+<span class="lineno">    6 </span>  , instructionCounter
+<span class="lineno">    7 </span>  , logWithPosition
+<span class="lineno">    8 </span>  , program
+<span class="lineno">    9 </span>  , rotateDirectionPointerIM
+<span class="lineno">   10 </span>  , toggleCodelChooserIM
+<span class="lineno">   11 </span>  ) where
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
+<span class="lineno">   14 </span>import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+<span class="lineno">   15 </span>import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+<span class="lineno">   16 </span>import           HelVM.HelMA.Automata.Piet.Types.Program
+<span class="lineno">   17 </span>
+<span class="lineno">   18 </span>import           HelVM.HelMA.Automaton.Eff.MonadEff
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>import           Control.Monad.Logger
+<span class="lineno">   21 </span>
+<span class="lineno">   22 </span>import           Lens.Micro                                         ( (%~), (^.) )
+<span class="lineno">   23 </span>import           Lens.Micro.TH                                      ( makeLenses )
+<span class="lineno">   24 </span>
+<span class="lineno">   25 </span>data InstructionMemory
+<span class="lineno">   26 </span>  = InstructionMemory
+<span class="lineno">   27 </span>      { <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_instructionCounter</span></span></span> :: !InstructionCounter
+<span class="lineno">   28 </span>      , <span class="nottickedoff"><span class="decl"><span class="nottickedoff">_program</span></span></span>            :: !Program
+<span class="lineno">   29 </span>      }
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span><span class="nottickedoff"><span class="istickedoff"><span class="decl"><span class="istickedoff"><span class="decl"><span class="istickedoff">makeLenses ''InstructionMemory</span></span></span></span></span></span>
+<span class="lineno">   32 </span>
+<span class="lineno">   33 </span>logWithPosition ∷ AppSafeEff m ⇒ Text → InstructionMemory → m ()
+<span class="lineno">   34 </span><span class="decl"><span class="istickedoff">logWithPosition msg im = logDebugN $ show (im ^. instructionCounter . position) &lt;&gt; &quot; &quot; &lt;&gt; msg</span></span>
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>codelChooserIM ∷ InstructionMemory → CodelChooser
+<span class="lineno">   37 </span><span class="decl"><span class="istickedoff">codelChooserIM im = codelChooserIC (im ^. instructionCounter)</span></span>
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>directionPointerIM ∷ InstructionMemory → DirectionPointer
+<span class="lineno">   40 </span><span class="decl"><span class="istickedoff">directionPointerIM im = directionPointerIC (im ^. instructionCounter)</span></span>
+<span class="lineno">   41 </span>
+<span class="lineno">   42 </span>toggleCodelChooserIM ∷ Int → InstructionMemory → InstructionMemory
+<span class="lineno">   43 </span><span class="decl"><span class="istickedoff">toggleCodelChooserIM n = instructionCounter %~ toggleCodelChooserIC n</span></span>
+<span class="lineno">   44 </span>
+<span class="lineno">   45 </span>rotateDirectionPointerIM ∷ Int → InstructionMemory → InstructionMemory
+<span class="lineno">   46 </span><span class="decl"><span class="istickedoff">rotateDirectionPointerIM n = instructionCounter %~ rotateDirectionPointerIC n</span></span>
+<span class="lineno">   47 </span>
+<span class="lineno">   48 </span>initialInstructionMemory ∷ Program → InstructionMemory
+<span class="lineno">   49 </span><span class="decl"><span class="istickedoff">initialInstructionMemory prog = InstructionMemory</span>
+<span class="lineno">   50 </span><span class="spaces">  </span><span class="istickedoff">{ _instructionCounter = initialInstructionCounter</span>
+<span class="lineno">   51 </span><span class="spaces">  </span><span class="istickedoff">, _program            = prog</span>
+<span class="lineno">   52 </span><span class="spaces">  </span><span class="istickedoff">}</span></span>
 
 </pre>
 </body>

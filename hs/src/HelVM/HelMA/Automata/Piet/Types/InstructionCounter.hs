@@ -1,4 +1,3 @@
-{-# LANGUAGE TemplateHaskell #-}
 module HelVM.HelMA.Automata.Piet.Types.InstructionCounter
   ( InstructionCounter (..)
   , codelChooserIC
