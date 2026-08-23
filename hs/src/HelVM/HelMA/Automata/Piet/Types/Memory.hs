@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Types.Memory
   ( Memory (..)
   , Stack
+  , directionPointerMemory
   , initialMemory
   , instructionMemory
   , orientationMemory
