@@ -45,7 +45,7 @@ evalPixel Black             _        = liftError "Entered black block, terminate
 
 evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticMaybeMemory → m (Either () AutomatonMemory)
 evalChromaticPixel color (previous, mem) = makeNext <$> applyPreviousColor previous color mem where
-  makeNext mem1 = handleNext (nonBlackSuccMemory mem1 mStats) ((color, getLabelSize mStats), mem1)
+  makeNext mem' = handleNext (nonBlackSuccMemory mem' mStats) ((color, getLabelSize mStats), mem')
   mStats        = getMaskInfo mem
 
 evalWhitePixel ∷ Memory → AutomatonMemory
