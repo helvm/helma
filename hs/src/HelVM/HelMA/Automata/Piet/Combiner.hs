@@ -1,9 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Combiner
   ( PreviousColor
-  , aaa
   , applyPreviousColor
-  , colors2Command
-  , evalTransitionBlockMemory
+  , bbb
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -21,6 +19,9 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 applyPreviousColor ∷ AppSafeEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m Memory
 applyPreviousColor (Just (c, s)) c' = colors2Command c c' s
 applyPreviousColor Nothing    _     = pure
+
+bbb ∷ AppSafeEff m  ⇒ ChromaticColor → Memory → Memory → m Memory
+bbb c' oldMem = evalTransitionBlockMemory (currentColour oldMem) c' oldMem
 
 evalTransitionBlockMemory ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Memory → Memory → m Memory
 evalTransitionBlockMemory (Just (Chromatic c)) c' mem mem' = aaa c c' mem mem'
