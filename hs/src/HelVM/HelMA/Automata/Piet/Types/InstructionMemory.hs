@@ -2,8 +2,6 @@ module HelVM.HelMA.Automata.Piet.Types.InstructionMemory
   ( InstructionMemory (..)
   , codelChooserIM
   , directionPointerIM
-  , getX
-  , getY
   , initialInstructionMemory
   , instructionCounter
   , logWithPosition

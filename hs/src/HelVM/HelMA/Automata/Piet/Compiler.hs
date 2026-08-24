@@ -1,7 +1,5 @@
 module HelVM.HelMA.Automata.Piet.Compiler
   ( compile
-  , label4
-  , label4With
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -18,6 +16,8 @@ import           Lens.Micro.Platform
 
 import qualified Relude.Extra                                as Extra
 
+-- TYPES & LENSES
+
 type EquivalenceMap = IntMap LabelKey
 
 data LabellingStatus
@@ -31,8 +31,12 @@ data LabellingStatus
 
 makeLenses ''LabellingStatus
 
+-- PUBLIC API
+
 compile ∷ CodelSize → Image Color → Program
 compile cs img = Program cs img (label4 img)
+
+-- COMPILER CORE (LABELING PROCESS)
 
 label4 ∷ Eq a ⇒ Image a → Labelling
 label4 = label4With (==)
@@ -50,15 +54,8 @@ label4With neighbours img = Labelling img' inf where
   applyEquivClass eqMap lbl = equivClass lbl eqMap
   mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)
 
-updateMap ∷ Maybe LabelInfo → Maybe (Maybe LabelInfo) → Maybe (Maybe LabelInfo)
-updateMap Nothing    Nothing           = Nothing
-updateMap (Just new) Nothing           = Just (Just new)
-updateMap Nothing    (Just old)        = Just old
-updateMap (Just new) (Just Nothing)    = Just (Just new)
-updateMap (Just new) (Just (Just old)) = Just (Just (new <> old))
-
 label4With' ∷ (a → a → Bool) → Image a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
-label4With' neighbours img status acc = checkNext neighbours img (nextCoords (widthImage img, heightImage img) xy) (updateStatus mergeLabels status acc xy) where
+label4With' neighbours img status acc = checkNext (nextCoords (widthImage img, heightImage img) xy) neighbours img (updateStatus mergeLabels status acc xy) where
   xy@(x, y) = status ^. currentCoords
   pixel     = pixelImage (x, y) img
 
@@ -71,20 +68,11 @@ label4With' neighbours img status acc = checkNext neighbours img (nextCoords (wi
   previousNeighbours (cx, cy) = filter validCoord [ (cx-1, cy), (cx, cy-1) ]
   validCoord (nx, ny) = nx >= 0 && ny >= 0
 
-checkNext ∷ (a → a → Bool) → Image a → Maybe Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
-checkNext _          _   Nothing    res       = res
-checkNext neighbours img (Just xy') (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
+checkNext ∷ Maybe Coordinates → (a → a → Bool) → Image a → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
+checkNext Nothing    _          _   res       = res
+checkNext (Just xy') neighbours img (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
 
-nextCoords ∷ Coordinates → Coordinates → Maybe Coordinates
-nextCoords (w, h) (cx, cy) = guardX (cx < w - 1) cx cy h
-
-guardX ∷ Bool → Int → Int → Int → Maybe Coordinates
-guardX True  cx cy _ = Just (cx + 1, cy)
-guardX False _  cy h = guardY (cy < h - 1) cy
-
-guardY ∷ Bool → Int → Maybe Coordinates
-guardY False _  = Nothing
-guardY True  cy = Just (0, cy + 1)
+-- STATUS & MAP UPDATES
 
 updateStatus ∷ [LabelKey] → LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey)
 updateStatus []       status acc xy = updateEmptyStatus status acc xy
@@ -112,6 +100,15 @@ updatePairStatus status acc xy l1 l2 = setLabel status' acc xy targetLabel where
 setLabel ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
 setLabel status acc xy label = (status, Map.insert xy label acc)
 
+updateMap ∷ Maybe LabelInfo → Maybe (Maybe LabelInfo) → Maybe (Maybe LabelInfo)
+updateMap Nothing    Nothing           = Nothing
+updateMap (Just new) Nothing           = Just (Just new)
+updateMap Nothing    (Just old)        = Just old
+updateMap (Just new) (Just Nothing)    = Just (Just new)
+updateMap (Just new) (Just (Just old)) = Just (Just (new <> old))
+
+-- EQUIVALENCE CLASS UTILS
+
 equivClass ∷ LabelKey → EquivalenceMap → LabelKey
 equivClass e = findWithDefault e e
 
@@ -132,3 +129,16 @@ replaceClass newClass classes eqClass = checkInClass (eqClass `elem` classes) ne
 checkInClass ∷ Bool → LabelKey → LabelKey → LabelKey
 checkInClass False _        eqc = eqc
 checkInClass True  newClass _   = newClass
+
+-- COORDINATES TRAVERSAL UTILS
+
+nextCoords ∷ Coordinates → Coordinates → Maybe Coordinates
+nextCoords (w, h) (cx, cy) = guardX (cx < w - 1) cx cy h
+
+guardX ∷ Bool → Int → Int → Int → Maybe Coordinates
+guardX False _  cy h = guardY (cy < h - 1) cy
+guardX True  cx cy _ = Just (cx + 1, cy)
+
+guardY ∷ Bool → Int → Maybe Coordinates
+guardY False _  = Nothing
+guardY True  cy = Just (0, cy + 1)

@@ -11,19 +11,15 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , instructionCounterMemory
   , instructionMemory
   , modifyFlipWithLog
-  , modifyInstructionMemory
-  , modifyStack
   , modifyStackWithLog
   , orientationMemory
   , positionMemory
   , programMemory
-  , rotatePointer
   , selectCodel
   , setInstructionCounter
   , setPosition
   , stack
   , stepWhitePixel
-  , toggleChooser
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
@@ -46,6 +42,8 @@ import           Lens.Micro.Platform
 
 import           Prelude                                            hiding ( empty )
 
+-- TYPES & LENSES
+
 data Memory
   = Memory
       { _instructionMemory :: !InstructionMemory
@@ -64,7 +62,7 @@ initialMemory prog = Memory
   , _stack             = Seq.empty
   }
 
--- GETTERS & QUERIES
+-- PUBLIC GETTERS & QUERIES
 
 programMemory ∷ Memory → Program
 programMemory mem = mem ^. instructionMemory . program
@@ -74,9 +72,6 @@ instructionCounterMemory mem = mem ^. instructionMemory . instructionCounter
 
 directionPointerMemory ∷ Memory → DirectionPointer
 directionPointerMemory mem = orientationMemory mem ^. directionPointer
-
-codelChooserMemory ∷ Memory → CodelChooser
-codelChooserMemory mem = orientationMemory mem ^. codelChooser
 
 positionMemory ∷ Memory → Coordinates
 positionMemory mem = instructionCounterMemory mem ^. position
@@ -100,13 +95,43 @@ selectCodel block mem = List.maximumBy (furthest (orientationMemory mem)) block
 colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. image) &! pos
 
--- SETTERS & FIELD MODIFIERS
+-- PUBLIC SETTERS
 
 setInstructionCounter ∷ InstructionCounter → Memory → Memory
 setInstructionCounter ic = instructionMemory . instructionCounter .~ ic
 
 setPosition ∷ Coordinates → Memory → Memory
 setPosition pos = instructionMemory . instructionCounter . position .~ pos
+
+-- PUBLIC DOMAIN MODIFIERS
+
+stepWhitePixel ∷ Memory → Memory
+stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem where
+  prog    = programMemory mem
+  nextPos = addCoordinates dp $ positionMemory mem
+  dp      = directionPointerMemory mem
+
+handleCollision ∷ Bool → Memory → Memory
+handleCollision False = rotatePointer
+handleCollision True  = toggleChooser
+
+-- PUBLIC MONADIC EFFECT MODIFIERS
+
+modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
+modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)
+
+modifyFlipWithLog ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → Memory → m (Maybe Memory)
+modifyFlipWithLog name f mem = case mem ^. stack of
+  Seq.Empty     -> pure Nothing
+  (x Seq.:<| _) -> do
+    let mem' = modifyInstructionMemory (f x) mem
+    logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemory)
+    pure $ Just mem'
+
+-- PRIVATE UTILS & SETTERS
+
+codelChooserMemory ∷ Memory → CodelChooser
+codelChooserMemory mem = orientationMemory mem ^. codelChooser
 
 setDirectionPointer ∷ DirectionPointer → Memory → Memory
 setDirectionPointer dp = instructionMemory . instructionCounter . orientation . directionPointer .~ dp
@@ -116,17 +141,6 @@ setCodelChooser cc = instructionMemory . instructionCounter . orientation . code
 
 modifyInstructionMemory ∷ (InstructionMemory → InstructionMemory) → Memory → Memory
 modifyInstructionMemory f = instructionMemory %~ f
-
-modifyStack ∷ (Stack → Stack) → Memory → Memory
-modifyStack f = stack %~ f
-
--- OPERATIONS & DOMAIN MODIFIERS
-
-stepWhitePixel ∷ Memory → Memory
-stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem where
-  prog    = programMemory mem
-  nextPos = addCoordinates dp $ positionMemory mem
-  dp      = directionPointerMemory mem
 
 handleBlocked ∷ Bool → Coordinates → DirectionPointer → Memory → Memory
 handleBlocked True  _       dp = rotateAndToggle dp
@@ -142,20 +156,3 @@ toggleChooser = modifyInstructionMemory (toggleCodelChooserIM 1)
 
 rotatePointer ∷ Memory → Memory
 rotatePointer = modifyInstructionMemory (rotateDirectionPointerIM 1)
-
-handleCollision ∷ Bool → Memory → Memory
-handleCollision True  = toggleChooser
-handleCollision False = rotatePointer
-
--- MONADIC EFFECT MODIFIERS
-
-modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
-modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)
-
-modifyFlipWithLog ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → Memory → m (Maybe Memory)
-modifyFlipWithLog name f mem = case mem ^. stack of
-  Seq.Empty     -> pure Nothing
-  (x Seq.:<| _) -> do
-    let mem' = modifyInstructionMemory (f x) mem
-    logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemory)
-    pure $ Just mem'
