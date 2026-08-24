@@ -7,7 +7,6 @@ import           HelVM.HelMA.Automata.Piet.Combiner
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
@@ -53,18 +52,15 @@ handleNextColour (Just White)          = pure . stepWhite
 handleNextColour (Just (Chromatic c')) = stepChromatic c'
 
 stepWhite ∷ AutomatonMemory → AutomatonMemory
-stepWhite autoMem = setPositionState (nextCodelPos mem) autoMem where mem = autoMem ^. memory
+stepWhite autoMem = setPositionState mem autoMem where mem = autoMem ^. memory
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
-stepChromatic c' autoMem =
-  flip (set memory) (setPositionState (nextCodelPos oldMem) autoMem)
-    <$> evalTransitionBlockMemory (currentColour oldMem) c' oldMem newMem
-  where
-    newMem = setPosition (nextCodelPos oldMem) oldMem
-    oldMem = autoMem ^. memory
+stepChromatic c' autoMem = flip (set memory) (setPositionState oldMem autoMem) <$> evalTransitionBlockMemory (currentColour oldMem) c' oldMem newMem where
+  newMem = setPosition (nextCodelPos oldMem) oldMem
+  oldMem = autoMem ^. memory
 
-setPositionState ∷ Coordinates → AutomatonMemory → AutomatonMemory
-setPositionState pos autoMem = autoMem { _collisionCount = 0 } & memory %~ setPosition pos
+setPositionState ∷ Memory → AutomatonMemory → AutomatonMemory
+setPositionState mem autoMem = autoMem { _collisionCount = 0 } & memory %~ setPosition (nextCodelPos mem)
 
 -- Collision state management
 
