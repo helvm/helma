@@ -52,22 +52,21 @@ handleNextColour (Just White)          = pure . stepWhite
 handleNextColour (Just (Chromatic c')) = stepChromatic c'
 
 stepWhite ∷ AutomatonMemory → AutomatonMemory
-stepWhite = setPositionState
+stepWhite autoMem = updateMemory autoMem (advancePosition (autoMem ^. memory))
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
-stepChromatic c' autoMem = bbb c' oldMem newMem >>= \finalMem -> pure $ resetCollision autoMem & memory .~ finalMem where
-  newMem = setPosition2 oldMem
+stepChromatic c' autoMem = updateMemory autoMem <$> bbb c' oldMem newMem where
   oldMem = autoMem ^. memory
+  newMem = advancePosition oldMem
 
-setPositionState ∷ AutomatonMemory → AutomatonMemory
-setPositionState autoMem = autoMem { _collisionCount = 0 } & memory %~ setPosition (nextCodelPos ( autoMem ^. memory))
-
-
-setPosition2 :: Memory -> Memory
-setPosition2 oldMem = setPosition (nextCodelPos oldMem) oldMem
+updateMemory ∷ AutomatonMemory → Memory → AutomatonMemory
+updateMemory autoMem mem = resetCollision autoMem & memory .~ mem
 
 resetCollision ∷ AutomatonMemory → AutomatonMemory
 resetCollision autoMem = autoMem { _collisionCount = 0 }
+
+advancePosition ∷ Memory → Memory
+advancePosition mem = setPosition (nextCodelPos mem) mem
 
 -- Collision state management
 
