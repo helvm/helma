@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , Stack
   , blockCodelCount
   , codelSizeMemory
-  , colourAt
+  , currentColour
   , currentPixel
   , directionPointerMemory
   , handleCollision
@@ -13,6 +13,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , modifyFlipWithLog
   , modifyStackWithLog
   , nextCodelPos
+  , nextColour
   , orientationMemory
   , positionMemory
   , programMemory
@@ -97,6 +98,12 @@ blockCodelCount block mem = olength block `div` (cs * cs) where
 
 selectCodel ∷ Block → Memory → Coordinates
 selectCodel block mem = List.maximumBy (furthest (orientationMemory mem)) block
+
+currentColour ∷ Memory → Maybe Color
+currentColour mem = colourAt (programMemory mem) (positionMemory mem)
+
+nextColour ∷ Memory → Maybe Color
+nextColour mem = colourAt (programMemory mem) (nextCodelPos mem)
 
 colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. image) &! pos

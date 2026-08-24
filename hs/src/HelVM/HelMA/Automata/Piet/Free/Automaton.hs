@@ -45,18 +45,17 @@ transition autoMem = transitionStep (_collisionCount autoMem) autoMem
 transitionStep ∷ AppSafeEff m ⇒ Int → AutomatonMemory → m (Either () AutomatonMemory)
 transitionStep cc _
   | cc >= 8   = logDebugN "Max collisions reached (8). Terminating." >> pure (Trampoline.break ())
-transitionStep _ autoMem = Trampoline.continue <$> handleNextColour (colourAt prog (nextCodelPos mem)) autoMem where
-  prog = programMemory mem
+transitionStep _ autoMem = Trampoline.continue <$> handleNextColour (nextColour mem) autoMem where
   mem  = autoMem ^. memory
 
 handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m AutomatonMemory
 handleNextColour Nothing          autoMem      = pure $ doIfCollided autoMem
 handleNextColour (Just Black)     autoMem      = pure $ doIfCollided autoMem
-handleNextColour (Just White)     autoMem      = pure $ setPositionState (nextCodelPos mem) 0 autoMem where mem = autoMem ^. memory
+handleNextColour (Just White)     autoMem      = pure $ setPositionState (nextCodelPos mem) autoMem where mem = autoMem ^. memory
 handleNextColour (Just (Chromatic c')) autoMem = stepChromatic c' autoMem
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
-stepChromatic c' autoMem = evalTransitionBlock (colourAt (programMemory mem) pos) c' block (setPositionState newPos 0 autoMem) where
+stepChromatic c' autoMem = evalTransitionBlock (currentColour mem) c' block (setPositionState newPos autoMem) where
   newPos  = move (directionPointerMemory mem) (selectCodel block mem)
   block   = discoverBlock (programMemory mem ^. image) pos
   pos     = positionMemory mem
@@ -69,8 +68,8 @@ evalTransitionBlock (Just (Chromatic c)) c' block autoMem = do
   pure $ autoMem & memory .~ mem'
 evalTransitionBlock _ _ _ autoMem = pure autoMem
 
-setPositionState ∷ Coordinates → Int → AutomatonMemory → AutomatonMemory
-setPositionState pos cc autoMem = autoMem { _collisionCount = cc } & memory %~ setPosition pos
+setPositionState ∷ Coordinates → AutomatonMemory → AutomatonMemory
+setPositionState pos autoMem = autoMem { _collisionCount = 0 } & memory %~ setPosition pos
 
 -- Collision state management
 
