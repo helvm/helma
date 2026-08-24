@@ -48,7 +48,7 @@ transitionStep cc _
 transitionStep _ st = Trampoline.continue <$> handleNextColour (colourAt prog (nextCodelPos mem)) st where
   prog = programMemory mem
   mem  = st ^. memory
-  
+
 handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m AutomatonMemory
 handleNextColour Nothing          st      = pure $ doIfCollided st
 handleNextColour (Just Black)     st      = pure $ doIfCollided st
