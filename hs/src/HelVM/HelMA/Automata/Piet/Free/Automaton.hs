@@ -46,9 +46,9 @@ transitionStep ∷ AppSafeEff m ⇒ Int → AutomatonMemory → m (Either () Aut
 transitionStep cc _
   | cc >= 8   = logDebugN "Max collisions reached (8). Terminating." >> pure (Trampoline.break ())
 transitionStep _ st = Trampoline.continue <$> handleNextColour (colourAt prog (nextCodelPos mem)) st where
-    mem  = st ^. memory
-    prog = programMemory mem
-
+  prog = programMemory mem
+  mem  = st ^. memory
+  
 handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m AutomatonMemory
 handleNextColour Nothing          st      = pure $ doIfCollided st
 handleNextColour (Just Black)     st      = pure $ doIfCollided st
