@@ -1,18 +1,20 @@
-module HelVM.HelMA.Automata.Piet.Free.EvaluatorSpec
+module HelVM.HelMA.Automata.Piet.EvaluatorHiSpec
   ( spec
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Free.Evaluator
-
+import           HelVM.HelMA.Automata.Piet.Evaluator
 import           HelVM.HelMA.Automata.Piet.FileExtra
+
+import           HelVM.HelMA.Automata.Piet.API.ImplType
+
 
 import           HelVM.HelMA.Automaton.Eff.Mock
 
 import           HelVM.GoldenExpectations
 
-import           System.FilePath.Posix                    ( (<.>), (</>) )
+import           System.FilePath.Posix                  ( (<.>), (</>) )
 
-import           Test.Hspec                               ( Spec, describe, it )
+import           Test.Hspec                             ( Spec, describe, it )
 
 spec ∷ Spec
 spec =
@@ -20,13 +22,13 @@ spec =
     let dirName  = "pietcc"
     let fileName = "hi"
     let input    = ""
-    let cs       = 4
+    let cs       = Just 4
 
     let filePath = dirName </> fileName <.> "png"
     let fullPath = "examples" </> "piet" </> filePath
     let img = readImage fullPath
 
-    let mock = (ioExecDynamicMockEffWithInput(toText input) . simpleEval cs) =<< img
+    let mock = (ioExecDynamicMockEffWithInput(toText input) . simpleEval Hi cs) =<< img
     let path = "free" </> dirName </> fileName <> input
 
     describe path $ do

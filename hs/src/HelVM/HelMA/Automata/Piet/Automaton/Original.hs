@@ -1,5 +1,5 @@
-module HelVM.HelMA.Automata.Piet.Automaton
-  ( interpret
+module HelVM.HelMA.Automata.Piet.Automaton.Original
+  ( start
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Combiner
@@ -18,8 +18,8 @@ import           HelVM.HelIO.Control.Safe
 
 -- Main interpreter entry point
 
-interpret ∷ AppSafeEff m ⇒ Program → m ()
-interpret prog = Trampoline.trampolineM interpretStep initialState where
+start ∷ AppSafeEff m ⇒ Program → m ()
+start prog = Trampoline.trampolineM interpretStep initialState where
   initialState = (ChromaticStep Nothing, initialMemory prog)
 
 interpretStep ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)

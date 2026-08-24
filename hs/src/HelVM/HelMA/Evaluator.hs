@@ -23,14 +23,14 @@ runRio = runWithOpt =<< optionsRio where
 
 runLang ∷ Has env ⇒ LangCommand → RIO.RIO env ()
 -- Implerative
-runLang (BFCommand     t) = BF.runRio t
-runLang (ETACommand    i) = ETA.runRio i
-runLang (PietCommand l c) = Piet.runRio l c
-runLang FCommand          = F.runRio
-runLang SQCommand         = SQ.runRio
-runLang (WSCommand     t) = WS.runRio t
+runLang (BFCommand       t) = BF.runRio t
+runLang (ETACommand      i) = ETA.runRio i
+runLang (PietCommand i c l) = Piet.runRio i c l
+runLang FCommand            = F.runRio
+runLang SQCommand           = SQ.runRio
+runLang (WSCommand       t) = WS.runRio t
 -- Functional
-runLang LazyCommand       = Lazy.runRio
-runLang ZotCommand        = Zot.runRio
-runLang RevCommand        = Rev.runRio
-runLang CatCommand        = Cat.runRio
+runLang LazyCommand         = Lazy.runRio
+runLang ZotCommand          = Zot.runRio
+runLang RevCommand          = Rev.runRio
+runLang CatCommand          = Cat.runRio

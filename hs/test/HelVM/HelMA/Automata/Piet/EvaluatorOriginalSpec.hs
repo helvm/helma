@@ -1,9 +1,11 @@
-module HelVM.HelMA.Automata.Piet.EvaluatorSpec
+module HelVM.HelMA.Automata.Piet.EvaluatorOriginalSpec
   ( spec
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Evaluator
 import           HelVM.HelMA.Automata.Piet.FileExtra
+
+import           HelVM.HelMA.Automata.Piet.API.ImplType
 
 import           HelVM.HelMA.Automaton.Eff.Mock
 
@@ -13,7 +15,7 @@ import           HelVM.GoldenExpectations
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                          ( Spec, describe, it )
+import           Test.Hspec                             ( Spec, describe, it )
 
 spec ∷ Spec
 spec =
@@ -75,7 +77,7 @@ spec =
     let fullPath = "examples" </> "piet" </> filePath
     let img = readImage fullPath
     forM_ inputs $ \input -> do
-      let mock = (ioExecMockEffWithInput (toText input) . simpleEval Nothing) =<< img
+      let mock = (ioExecMockEffWithInput (toText input) . simpleEval Original Nothing) =<< img
       let path = dirName </> fileName <> input
       describe path $ do
         it ("output" </> path) $

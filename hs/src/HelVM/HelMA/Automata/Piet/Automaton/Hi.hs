@@ -1,6 +1,6 @@
-module HelVM.HelMA.Automata.Piet.Free.Automaton
+module HelVM.HelMA.Automata.Piet.Automaton.Hi
   ( collisionCount
-  , interpret
+  , start
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Combiner
@@ -33,8 +33,8 @@ data AutomatonMemory
 
 makeLenses ''AutomatonMemory
 
-interpret ∷ AppSafeEff m ⇒ Program → m ()
-interpret  = Trampoline.trampolineM transition . initialState
+start ∷ AppSafeEff m ⇒ Program → m ()
+start = Trampoline.trampolineM transition . initialState
 
 transition ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
 transition autoMem = transitionStep (_collisionCount autoMem) autoMem
