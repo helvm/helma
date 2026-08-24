@@ -17,6 +17,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , modifyStackWithLog
   , nextCodelPos
   , nextColour
+  , nonBlackSuccMemory
   , orientationMemory
   , positionMemory
   , programMemory
@@ -70,6 +71,9 @@ initialMemory prog = Memory
   }
 
 -- PUBLIC GETTERS & QUERIES
+
+nonBlackSuccMemory ∷ Memory → Maybe LabelInfo → Maybe InstructionCounter
+nonBlackSuccMemory mem = nonBlackSucc (programMemory mem) (orientationMemory mem)
 
 getMaskInfo ∷ Memory → Maybe LabelInfo
 getMaskInfo mem = getMaskInfo' (programMemory mem) (positionMemory mem)

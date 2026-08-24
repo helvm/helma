@@ -57,8 +57,8 @@ rotateDirectionPointerIM ∷ Int → InstructionMemory → InstructionMemory
 rotateDirectionPointerIM n = instructionCounter %~ rotateDirectionPointerIC n
 
 
-nonBlackSucc ∷ Program → Maybe LabelInfo → Orientation → Maybe InstructionCounter
-nonBlackSucc prog mStats reg = uncurry InstructionCounter <$> find isValid (zip (fmap (succCoordinates mStats) directions) directions) where
+nonBlackSucc ∷ Program → Orientation → Maybe LabelInfo →  Maybe InstructionCounter
+nonBlackSucc prog reg mStats  = uncurry InstructionCounter <$> find isValid (zip (fmap (succCoordinates mStats) directions) directions) where
   directions       = flip rotateToggle reg <$> zip [ 0, 0, 1, 1, 2, 2, 3, 3 ] (0 : cycle [ 1, 1, 0, 0 ])
   isValid (pos, _) = not (isBlocked pos prog)
 
