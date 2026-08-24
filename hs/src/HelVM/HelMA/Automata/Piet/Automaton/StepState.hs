@@ -51,13 +51,13 @@ start ∷ AppSafeEff m ⇒ Program → m ()
 start = Trampoline.trampolineM interpretStep . initialState
 
 interpretStep ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
-interpretStep (AutomatonMemory (ChromaticStep prev) mem) = stepNormal (prev, mem)
+interpretStep (AutomatonMemory (ChromaticStep prev) mem) = stepChromatic (prev, mem)
 interpretStep (AutomatonMemory (WhiteStep limit)    mem) = pure $ stepWhite limit mem
 
 -- Step handlers
 
-stepNormal ∷ AppSafeEff m ⇒ ChromaticMaybeMemory → m (Either () AutomatonMemory)
-stepNormal cmMem@(_, mem) = evalPixel (currentPixel mem) cmMem
+stepChromatic ∷ AppSafeEff m ⇒ ChromaticMaybeMemory → m (Either () AutomatonMemory)
+stepChromatic cmMem@(_, mem) = evalPixel (currentPixel mem) cmMem
 
 stepWhite ∷ Int → Memory → Either () AutomatonMemory
 stepWhite limit mem

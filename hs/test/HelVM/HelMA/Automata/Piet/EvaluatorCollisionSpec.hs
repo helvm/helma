@@ -21,13 +21,13 @@ spec =
     let dirName  = "pietcc"
     let fileName = "hi"
     let input    = ""
-    let cs       = Just 4
+    -- let cs       = Just 4
 
     let filePath = dirName </> fileName <.> "png"
     let fullPath = "examples" </> "piet" </> filePath
     let img = readImage fullPath
     let implType = Collision
-    let mock = (ioExecMockEffWithInput(toText input) . simpleEval implType cs) =<< img
+    let mock = (ioExecMockEffWithInput(toText input) . simpleEval implType Nothing) =<< img
     let path = show implType </> dirName </> fileName <> input
 
     describe path $ do

@@ -114,8 +114,7 @@ codelSizeMemory ∷ Memory → CodelSize
 codelSizeMemory mem = programMemory mem ^. codelSize
 
 blockCodelCount ∷ Memory → Int
-blockCodelCount mem = olength (currentBlock mem) `div` (cs * cs) where
-  cs = codelSizeMemory mem
+blockCodelCount = olength . currentBlock
 
 selectCodel ∷ Block → Memory → Coordinates
 selectCodel block mem = List.maximumBy (furthest (orientationMemory mem)) block
