@@ -10,12 +10,10 @@ import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import qualified Codec.Picture                               as Picture
 
-import           Control.Monad.Logger
-
 import           Data.MonoTraversable
 
-processImage ∷ MonadLogger m ⇒ Maybe Natural → Picture.DynamicImage → m (CodelSize, Image Color)
-processImage codelInfo dyn = (cs, imageToColorImage cs img) <$ logDebugN ("Actual codel length: " <> show cs) where
+processImage ∷ Maybe Natural → Picture.DynamicImage → (CodelSize, Image Color)
+processImage codelInfo dyn = (cs, imageToColorImage cs img) where
   (cs, img) = processJuicyImage codelInfo dyn
 
 parseColorImage ∷ Natural → Picture.DynamicImage → Image Color

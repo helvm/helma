@@ -8,6 +8,11 @@ import           HelVM.HelMA.Automata.Piet.Automaton
 import           HelVM.HelMA.Automata.Piet.Compiler
 import           HelVM.HelMA.Automata.Piet.Parser
 
+import           HelVM.HelMA.Automata.Piet.Types.Color
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Image
+import           HelVM.HelMA.Automata.Piet.Types.Program
+
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions    as App
@@ -17,7 +22,10 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
 
+
 import qualified Codec.Picture                           as Picture
+
+import           Control.Monad.Logger
 
 import qualified RIO
 
@@ -29,4 +37,7 @@ run ∷ Has env ⇒  Maybe Natural → Picture.DynamicImage → RIO.RIO env ()
 run cl i = runAsRIO $ simpleEval cl i
 
 simpleEval ∷ AppSafeEff m ⇒ Maybe Natural → Picture.DynamicImage → m ()
-simpleEval codelInfo dynamicImage = (interpret . uncurry compile) =<< processImage codelInfo dynamicImage
+simpleEval codelInfo dynamicImage = (interpret . uncurry compile) =<< logCS (processImage codelInfo dynamicImage)
+
+logCS :: MonadLogger m ⇒ (CodelSize, Image Color) -> m (CodelSize, Image Color)
+logCS (cs , img) = (cs , img) <$ logDebugN ("Actual codel length: " <> show cs)
