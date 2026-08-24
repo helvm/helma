@@ -1,3 +1,5 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 module HelVM.HelMA.Automata.Piet.Automaton.Collision
   ( collisionCount
   , memory
@@ -57,7 +59,7 @@ handleNextColour (Just White)          = pure . stepWhite
 handleNextColour (Just (Chromatic c')) = stepChromatic c'
 
 stepWhite ∷ AutomatonMemory → AutomatonMemory
-stepWhite autoMem = updateMemory autoMem $ advancePosition $ autoMem ^. memory
+stepWhite autoMem = autoMem & memory %~ stepWhitePixel
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
 stepChromatic c' autoMem = updateMemory autoMem <$> stepMemory c' oldMem newMem where

@@ -1,0 +1,26 @@
+Debug Actual codel length: 1
+Debug (3,1) in_number
+Debug (4,1) in_number
+Debug (5,1) duplicate
+Debug (6,1) push 1
+Debug (7,1) push 1
+Debug (8,1) subtract
+Debug (9,1) greater
+Debug (10,1) not
+Debug (11,1) pointer DPRight
+Debug (12,2) pop
+Debug (12,3) pop
+Debug (12,4) push 1
+Debug (6,1) push 1
+Debug (7,1) push 1
+Debug (8,1) subtract
+Debug (9,1) greater
+Debug (10,1) not
+Debug (11,1) pointer DPRight
+Debug (13,1) push 2
+Debug (14,1) push 1
+Debug (15,1) roll
+Error ALU.role index must be less then length [i 2] [ll 0]
+ALU.rollImediate
+ALU.roll
+
