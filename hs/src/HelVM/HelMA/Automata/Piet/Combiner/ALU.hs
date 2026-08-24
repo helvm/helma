@@ -1,24 +1,21 @@
 module HelVM.HelMA.Automata.Piet.Combiner.ALU
-  ( -- | I/O Instructions
-    pietInChar
-  , pietInNumber
-  , pietOutChar
-  , pietOutNumber
-    -- | Stack & Arithmetic Instructions
-  , pietAdd
+  ( pietAdd
   , pietDivide
   , pietDuplicate
   , pietGreater
+  , pietInChar
+  , pietInNumber
   , pietMod
   , pietMultiply
   , pietNot
+  , pietOutChar
+  , pietOutNumber
   , pietPop
   , pietPush
   , pietRoll
   , pietSubtract
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 
 import           HelVM.HelMA.Automaton.Combiner.ALU                     hiding ( Stack )
@@ -27,55 +24,53 @@ import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
 import           Prelude                                                hiding ( getLine )
 
+
+
 -- | I/O Instructions
 pietInNumber ∷ AppSafeEff m ⇒ Memory → m Memory
-pietInNumber = modifyStack "in_number" inputDec
+pietInNumber = modifyStackWithLog "in_number" inputDec
 
 pietInChar ∷ AppSafeEff m ⇒ Memory → m Memory
-pietInChar = modifyStack "in_char" inputChar
+pietInChar = modifyStackWithLog "in_char" inputChar
 
 pietOutNumber ∷ AppSafeEff m ⇒ Memory → m Memory
-pietOutNumber = modifyStack "out_number" outputDecMaybe
+pietOutNumber = modifyStackWithLog "out_number" outputDecMaybe
 
 pietOutChar ∷ AppSafeEff m ⇒ Memory → m Memory
-pietOutChar = modifyStack "out_char" outputCharMaybe
+pietOutChar = modifyStackWithLog "out_char" outputCharMaybe
 
 -- | Push / Pop
 pietPush ∷ AppSafeEff m ⇒ Int → Memory → m Memory
-pietPush n = modifyStack ("push " <> show n) (pure . push1 n)
+pietPush n = modifyStackWithLog ("push " <> show n) (pure . push1 n)
 
 pietPop ∷ (ALU m Stack Int) ⇒ Memory → m Memory
-pietPop = modifyStack "pop" discard
+pietPop = modifyStackWithLog "pop" discard
 
 -- | Binary & Unary Arithmetic Instructions
 pietAdd ∷ (ALU m Stack Int) ⇒ Memory → m Memory
-pietAdd = modifyStack "add" (binaryInstruction Add)
+pietAdd = modifyStackWithLog "add" (binaryInstruction Add)
 
 pietSubtract ∷ (ALU m Stack Int) ⇒ Memory → m Memory
-pietSubtract = modifyStack "subtract" (binaryInstruction Sub)
+pietSubtract = modifyStackWithLog "subtract" (binaryInstruction Sub)
 
 pietMultiply ∷ (ALU m Stack Int) ⇒ Memory → m Memory
-pietMultiply = modifyStack "multiply" (binaryInstruction Mul)
+pietMultiply = modifyStackWithLog "multiply" (binaryInstruction Mul)
 
 pietDivide ∷ (ALU m Stack Int) ⇒ Memory → m Memory
-pietDivide = modifyStack "divide" (binaryInstruction Div)
+pietDivide = modifyStackWithLog "divide" (binaryInstruction Div)
 
 pietMod ∷ (ALU m Stack Int) ⇒ Memory → m Memory
-pietMod = modifyStack "mod" (binaryInstruction Mod)
+pietMod = modifyStackWithLog "mod" (binaryInstruction Mod)
 
 pietNot ∷ (ALU m Stack Int) ⇒ Memory → m Memory
-pietNot = modifyStack "not" lNot
+pietNot = modifyStackWithLog "not" lNot
 
 pietGreater ∷ (ALU m Stack Int) ⇒ Memory → m Memory
-pietGreater = modifyStack "greater" (binaryInstruction LGT)
+pietGreater = modifyStackWithLog "greater" (binaryInstruction LGT)
 
 -- | Stack Manipulation Instructions
 pietDuplicate ∷ (ALU m Stack Int) ⇒ Memory → m Memory
-pietDuplicate = modifyStack "duplicate" (copy 0)
+pietDuplicate = modifyStackWithLog "duplicate" (copy 0)
 
 pietRoll ∷ (ALU m Stack Int) ⇒ Memory → m Memory
-pietRoll = modifyStack "roll" roll
-
--- | Utils
-modifyStack ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
-modifyStack name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)
+pietRoll = modifyStackWithLog "roll" roll

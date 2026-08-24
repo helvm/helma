@@ -15,12 +15,12 @@ import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
 import           Lens.Micro.Platform
 
-
 data Orientation
   = Orientation
       { _directionPointer :: !DirectionPointer
       , _codelChooser     :: !CodelChooser
       }
+  deriving stock (Eq, Show)
 
 makeLenses ''Orientation
 

@@ -29,4 +29,4 @@ run ∷ Has env ⇒  Maybe Natural → Picture.DynamicImage → RIO.RIO env ()
 run cl i = runAsRIO $ simpleEval cl i
 
 simpleEval ∷ AppSafeEff m ⇒ Maybe Natural → Picture.DynamicImage → m ()
-simpleEval codelInfo dynamicImage = (interpret . compile) =<< processImage codelInfo dynamicImage
+simpleEval codelInfo dynamicImage = (interpret . uncurry compile) =<< processImage codelInfo dynamicImage

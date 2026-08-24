@@ -1,7 +1,5 @@
 module HelVM.HelMA.Automata.Piet.Compiler
   ( compile
-  , label4
-  , label4With
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -9,13 +7,16 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates ( Coordinates )
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
-import           HelVM.HelMA.Automata.Piet.Types.Program     ( Program (Program) )
+import           HelVM.HelMA.Automata.Piet.Types.Program     ( CodelSize, Program (Program) )
 
 import           Data.IntMap                                 hiding ( filter )
+import qualified Data.Map                                    as Map
 
 import           Lens.Micro.Platform
 
 import qualified Relude.Extra                                as Extra
+
+-- TYPES & LENSES
 
 type EquivalenceMap = IntMap LabelKey
 
@@ -30,84 +31,114 @@ data LabellingStatus
 
 makeLenses ''LabellingStatus
 
-compile ∷ Image Color → Program
-compile image_ = Program image_ (label4 image_)
+-- PUBLIC API
+
+compile ∷ CodelSize → Image Color → Program
+compile cs img = Program cs img (label4 img)
+
+-- COMPILER CORE (LABELING PROCESS)
 
 label4 ∷ Eq a ⇒ Image a → Labelling
 label4 = label4With (==)
 
 label4With ∷ (a → a → Bool) → Image a → Labelling
 label4With neighbours img = Labelling img' inf where
-  initialLabelling = Labelling (newImage (widthImage img, heightImage img) []) mempty
-  status           = label4With' neighbours img (LabellingStatus (0, 0) 0 initialLabelling mempty)
-  currentLabelling = status ^. labelling
+  (status, assocMap) = label4With' neighbours img (LabellingStatus (0, 0) 0 (Labelling (newImage (0,0) []) mempty) mempty) Map.empty
+  currentLabelling   = status ^. labelling
 
-  img' = fmap (applyEquivClass (status ^. equivalences)) (currentLabelling ^. mask)
+  maskImg = newImage (widthImage img, heightImage img) (Map.toList assocMap)
+
+  img' = fmap (applyEquivClass (status ^. equivalences)) maskImg
   inf  = foldrWithKey (mergeClass (status ^. equivalences)) mempty (currentLabelling ^. info)
 
   applyEquivClass eqMap lbl = equivClass lbl eqMap
-
   mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)
 
-  updateMap Nothing    Nothing            = Nothing
-  updateMap (Just new) Nothing            = Just (Just new)
-  updateMap Nothing    (Just old)         = Just old
-  updateMap (Just new) (Just (Just oldS)) = Just (Just (new <> oldS))
-  updateMap _          _                  = Nothing
-
-label4With' ∷ (a → a → Bool) → Image a → LabellingStatus → LabellingStatus
-label4With' neighbours img status = checkNext (nextCoords xy) (updateStatus mergeLabels) where
+label4With' ∷ (a → a → Bool) → Image a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
+label4With' neighbours img status acc = checkNext (nextCoords (widthImage img, heightImage img) xy) neighbours img (updateStatus mergeLabels status acc xy) where
   xy@(x, y) = status ^. currentCoords
   pixel     = pixelImage (x, y) img
-  lblng     = status ^. labelling
 
   mergeLabels = fmap getMaskLabel $ filter isNeighbour $ addPixelInfo <$> previousNeighbours xy
 
   addPixelInfo (nx, ny) = (nx, ny, pixelImage (nx, ny) img)
   isNeighbour (_, _, e) = neighbours pixel e
-  getMaskLabel (nx, ny, _) = pixelImage (nx, ny) (lblng ^. mask)
-
-  updateStatus [] = status
-    & (labelling . mask %~ setPixelImage (x, y) (status ^. nextKey))
-    & (labelling . info %~ insert (status ^. nextKey) (addPixel (x, y) Nothing))
-    & (nextKey %~ Extra.next)
-
-  updateStatus [l] = status
-    & (labelling . mask %~ setPixelImage (x, y) l)
-    & (labelling . info %~ adjust (addPixel (x, y)) l)
-
-  updateStatus [l1, l2] = status
-    & (labelling . mask %~ setPixelImage (x, y) (max l1 l2))
-    & (labelling . info %~ adjust (addPixel (x, y)) (max l1 l2))
-    & (equivalences %~ equivInsert l1 l2)
-
-  updateStatus _ = error "too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'"
-
-  checkNext (Just xy') s = label4With' neighbours img (s & currentCoords .~ xy')
-  checkNext Nothing    s = s
+  getMaskLabel (nx, ny, _) = Map.findWithDefault (error "Missing label") (nx, ny) acc
 
   previousNeighbours (cx, cy) = filter validCoord [ (cx-1, cy), (cx, cy-1) ]
   validCoord (nx, ny) = nx >= 0 && ny >= 0
 
-  nextCoords (cx, cy) = guardX (cx < widthImage img - 1) cx cy
-  guardX True  cx cy = Just (cx + 1, cy)
-  guardX False _ cy  = guardY (cy < heightImage img - 1) cy
-  guardY True  cy = Just (0, cy + 1)
-  guardY False _  = Nothing
+checkNext ∷ Maybe Coordinates → (a → a → Bool) → Image a → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
+checkNext Nothing    _          _   res       = res
+checkNext (Just xy') neighbours img (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
+
+-- STATUS & MAP UPDATES
+
+updateStatus ∷ [LabelKey] → LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey)
+updateStatus []       status acc xy = updateEmptyStatus status acc xy
+updateStatus [l]      status acc xy = updateSingleStatus status acc xy l
+updateStatus [l1, l2] status acc xy = updatePairStatus status acc xy l1 l2
+updateStatus _        _      _   _  = error "too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'"
+
+updateEmptyStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey)
+updateEmptyStatus status acc xy = setLabel status' acc xy (status ^. nextKey) where
+  status' = status
+    & (labelling . info %~ insert (status ^. nextKey) (addPixel xy Nothing))
+    & (nextKey %~ Extra.next)
+
+updateSingleStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
+updateSingleStatus status acc xy l = setLabel status' acc xy l where
+  status' = status & (labelling . info %~ adjust (addPixel xy) l)
+
+updatePairStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
+updatePairStatus status acc xy l1 l2 = setLabel status' acc xy targetLabel where
+  targetLabel = max l1 l2
+  status'     = status
+    & (labelling . info %~ adjust (addPixel xy) targetLabel)
+    & (equivalences %~ equivInsert l1 l2)
+
+setLabel ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
+setLabel status acc xy label = (status, Map.insert xy label acc)
+
+updateMap ∷ Maybe LabelInfo → Maybe (Maybe LabelInfo) → Maybe (Maybe LabelInfo)
+updateMap Nothing    Nothing           = Nothing
+updateMap (Just new) Nothing           = Just (Just new)
+updateMap Nothing    (Just old)        = Just old
+updateMap (Just new) (Just Nothing)    = Just (Just new)
+updateMap (Just new) (Just (Just old)) = Just (Just (new <> old))
+
+-- EQUIVALENCE CLASS UTILS
 
 equivClass ∷ LabelKey → EquivalenceMap → LabelKey
 equivClass e = findWithDefault e e
 
 equivInsert ∷ LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
-equivInsert x y mp = guardInsert (x /= y) where
-  guardInsert True  = fmap replaceClass $ insert x newClass $ insert y newClass mp
-  guardInsert False = mp
+equivInsert x y = guardInsert (x /= y) x y
 
+guardInsert ∷ Bool → LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
+guardInsert False _ _ mp = mp
+guardInsert True  x y mp = fmap (replaceClass newClass classes) $ insert x newClass $ insert y newClass mp where
   class1   = equivClass x mp
   class2   = equivClass y mp
   classes  = x :| [y, class1, class2]
   newClass = Extra.minimum1 classes
 
-  replaceClass eqClass = checkInClass (eqClass `elem` classes) eqClass
-  checkInClass True  _   = newClass
-  checkInClass False eqc = eqc
+replaceClass ∷ LabelKey → NonEmpty LabelKey → LabelKey → LabelKey
+replaceClass newClass classes eqClass = checkInClass (eqClass `elem` classes) newClass eqClass
+
+checkInClass ∷ Bool → LabelKey → LabelKey → LabelKey
+checkInClass False _        eqc = eqc
+checkInClass True  newClass _   = newClass
+
+-- COORDINATES TRAVERSAL UTILS
+
+nextCoords ∷ Coordinates → Coordinates → Maybe Coordinates
+nextCoords (w, h) (cx, cy) = guardX (cx < w - 1) cx cy h
+
+guardX ∷ Bool → Int → Int → Int → Maybe Coordinates
+guardX False _  cy h = guardY (cy < h - 1) cy
+guardX True  cx cy _ = Just (cx + 1, cy)
+
+guardY ∷ Bool → Int → Maybe Coordinates
+guardY False _  = Nothing
+guardY True  cy = Just (0, cy + 1)

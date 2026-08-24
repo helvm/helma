@@ -238,6 +238,7 @@ library
 
     HelVM.HelMA.Automata.Piet.API.LexerType
 
+    HelVM.HelMA.Automata.Piet.Combiner
     HelVM.HelMA.Automata.Piet.Combiner.ALU
     HelVM.HelMA.Automata.Piet.Combiner.CPU
 
