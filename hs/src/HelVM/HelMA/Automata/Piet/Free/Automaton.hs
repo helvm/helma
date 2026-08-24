@@ -37,7 +37,7 @@ data AutomatonMemory
 makeLenses ''AutomatonMemory
 
 interpret ∷ AppSafeEff m ⇒ Program → m ()
-interpret p = Trampoline.trampolineM transition $ initialState p
+interpret  = Trampoline.trampolineM transition . initialState
 
 transition ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
 transition st = transitionStep (_collisionCount st) st
@@ -61,11 +61,6 @@ stepChromatic c' st = evalTransitionBlock (colourAt (programMemory mem) pos) c' 
   block   = discoverBlock (programMemory mem ^. image) pos
   pos     = positionMemory mem
   mem     = st ^. memory
-
-nextCodelPos ∷ Memory → Coordinates
-nextCodelPos mem = move (directionPointerMemory mem) (selectCodel block mem) where
-  block = discoverBlock (programMemory mem ^. image) pos
-  pos   = positionMemory mem
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Block → AutomatonMemory → m AutomatonMemory
 evalTransitionBlock (Just (Chromatic c)) c' block st = do

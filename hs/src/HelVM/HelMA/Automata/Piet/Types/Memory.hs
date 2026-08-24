@@ -12,6 +12,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , instructionMemory
   , modifyFlipWithLog
   , modifyStackWithLog
+  , nextCodelPos
   , orientationMemory
   , positionMemory
   , programMemory
@@ -63,6 +64,11 @@ initialMemory prog = Memory
   }
 
 -- PUBLIC GETTERS & QUERIES
+
+nextCodelPos ∷ Memory → Coordinates
+nextCodelPos mem = move (directionPointerMemory mem) (selectCodel block mem) where
+  block = discoverBlock (programMemory mem ^. image) pos
+  pos   = positionMemory mem
 
 programMemory ∷ Memory → Program
 programMemory mem = mem ^. instructionMemory . program
@@ -156,3 +162,4 @@ toggleChooser = modifyInstructionMemory (toggleCodelChooserIM 1)
 
 rotatePointer ∷ Memory → Memory
 rotatePointer = modifyInstructionMemory (rotateDirectionPointerIM 1)
+
