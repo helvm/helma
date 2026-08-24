@@ -19,7 +19,6 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , positionMemory
   , programMemory
   , selectCodel
-  , selectNextPos
   , setInstructionCounter
   , setPosition
   , stack
@@ -68,18 +67,14 @@ initialMemory prog = Memory
 
 -- PUBLIC GETTERS & QUERIES
 
-selectNextPos ∷ Memory → Coordinates
-selectNextPos mem = nextPosFromBlock (currentBlock mem) mem
-
-currentBlock ∷ Memory → Block
-currentBlock mem = discoverBlock (programMemory mem ^. image) (positionMemory mem)
+nextCodelPos ∷ Memory → Coordinates
+nextCodelPos mem = nextPosFromBlock (currentBlock mem) mem
 
 nextPosFromBlock ∷ Block → Memory → Coordinates
 nextPosFromBlock block mem = move (directionPointerMemory mem) (selectCodel block mem)
 
-nextCodelPos ∷ Memory → Coordinates
-nextCodelPos mem = nextPosFromBlock block mem where
-  block = currentBlock mem
+currentBlock ∷ Memory → Block
+currentBlock mem = discoverBlock (programMemory mem ^. image) (positionMemory mem)
 
 programMemory ∷ Memory → Program
 programMemory mem = mem ^. instructionMemory . program
