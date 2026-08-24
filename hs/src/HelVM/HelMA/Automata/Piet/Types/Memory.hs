@@ -15,11 +15,11 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , modifyStackWithLog
   , nextCodelPos
   , nextColour
-  , nextPosFromBlock
   , orientationMemory
   , positionMemory
   , programMemory
   , selectCodel
+  , selectNextPos
   , setInstructionCounter
   , setPosition
   , stack
@@ -67,6 +67,9 @@ initialMemory prog = Memory
   }
 
 -- PUBLIC GETTERS & QUERIES
+
+selectNextPos ∷ Memory → Coordinates
+selectNextPos mem = nextPosFromBlock (currentBlock mem) mem
 
 currentBlock ∷ Memory → Block
 currentBlock mem = discoverBlock (programMemory mem ^. image) (positionMemory mem)
