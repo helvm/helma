@@ -3,6 +3,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , Stack
   , blockCodelCount
   , codelSizeMemory
+  , currentBlock
   , currentColour
   , currentPixel
   , directionPointerMemory
@@ -14,6 +15,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , modifyStackWithLog
   , nextCodelPos
   , nextColour
+  , nextPosFromBlock
   , orientationMemory
   , positionMemory
   , programMemory
@@ -65,6 +67,13 @@ initialMemory prog = Memory
   }
 
 -- PUBLIC GETTERS & QUERIES
+
+currentBlock ∷ Memory → Block
+currentBlock mem = discoverBlock (programMemory mem ^. image) (positionMemory mem)
+
+nextPosFromBlock ∷ Block → Memory → Coordinates
+nextPosFromBlock block mem = move (directionPointerMemory mem) (selectCodel block mem)
+
 
 nextCodelPos ∷ Memory → Coordinates
 nextCodelPos mem = move (directionPointerMemory mem) (selectCodel block mem) where

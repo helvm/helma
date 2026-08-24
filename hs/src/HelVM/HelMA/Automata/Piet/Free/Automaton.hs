@@ -8,13 +8,11 @@ import           HelVM.HelMA.Automata.Piet.Combiner
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
-import           HelVM.HelMA.Automaton.Trampoline                 as Trampoline
+import           HelVM.HelMA.Automaton.Trampoline               as Trampoline
 
 import           Control.Monad.Logger
 
@@ -49,17 +47,19 @@ transitionStep _ autoMem = Trampoline.continue <$> handleNextColour (nextColour 
   mem  = autoMem ^. memory
 
 handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m AutomatonMemory
-handleNextColour Nothing          autoMem      = pure $ doIfCollided autoMem
-handleNextColour (Just Black)     autoMem      = pure $ doIfCollided autoMem
-handleNextColour (Just White)     autoMem      = pure $ setPositionState (nextCodelPos mem) autoMem where mem = autoMem ^. memory
-handleNextColour (Just (Chromatic c')) autoMem = stepChromatic c' autoMem
+handleNextColour Nothing                = pure . doIfCollided 
+handleNextColour (Just Black)           = pure . doIfCollided 
+handleNextColour (Just White)           = pure . stepWhite
+handleNextColour (Just (Chromatic c'))  = stepChromatic c' 
+
+stepWhite :: AutomatonMemory -> AutomatonMemory
+stepWhite autoMem = setPositionState (nextCodelPos mem) autoMem where mem = autoMem ^. memory
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
 stepChromatic c' autoMem = evalTransitionBlock (currentColour mem) c' block (setPositionState newPos autoMem) where
-  newPos  = move (directionPointerMemory mem) (selectCodel block mem)
-  block   = discoverBlock (programMemory mem ^. image) pos
-  pos     = positionMemory mem
-  mem     = autoMem ^. memory
+  block  = currentBlock mem
+  newPos = nextPosFromBlock block mem
+  mem    = autoMem ^. memory
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Block → AutomatonMemory → m AutomatonMemory
 evalTransitionBlock (Just (Chromatic c)) c' block autoMem = do
