@@ -23,13 +23,13 @@ interpret prog = Trampoline.trampolineM interpretStep initialState where
   initialState = (ChromaticStep Nothing, initialMemory prog)
 
 interpretStep ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
-interpretStep (ChromaticStep prev, mem) = stepNormal mem prev
-interpretStep (WhiteStep limit, mem) = pure $ stepWhite limit mem
+interpretStep (ChromaticStep prev, mem) = stepNormal prev mem
+interpretStep (WhiteStep limit, mem)    = pure $ stepWhite limit mem
 
 -- Step handlers
 
-stepNormal ∷ AppSafeEff m ⇒ Memory → Maybe PreviousColor → m (Either () AutomatonMemory)
-stepNormal mem = evalPixel (currentPixel mem) mem
+stepNormal ∷ AppSafeEff m ⇒ Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
+stepNormal prev mem = evalPixel (currentPixel mem) prev mem
 
 stepWhite ∷ Int → Memory → Either () AutomatonMemory
 stepWhite limit mem
@@ -38,13 +38,13 @@ stepWhite limit mem
 
 -- Pixel handlers
 
-evalPixel ∷ AppSafeEff m ⇒ Color → Memory →  Maybe PreviousColor →  m (Either () AutomatonMemory)
-evalPixel (Chromatic color) mem previous = evalChromaticPixel previous color mem
-evalPixel White             mem _        = pure $ Trampoline.continue $ evalWhitePixel mem
+evalPixel ∷ AppSafeEff m ⇒ Color →Maybe PreviousColor →  Memory →   m (Either () AutomatonMemory)
+evalPixel (Chromatic color) previous mem = evalChromaticPixel color previous  mem
+evalPixel White             _  mem       = pure $ Trampoline.continue $ evalWhitePixel mem
 evalPixel Black             _   _        = liftError "Entered black block, terminate"
 
-evalChromaticPixel ∷ AppSafeEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m (Either () AutomatonMemory)
-evalChromaticPixel previous color mem = makeNext <$> applyPreviousColor previous color mem where
+evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
+evalChromaticPixel  color previous mem = makeNext <$> applyPreviousColor previous color mem where
   makeNext mem1 = handleNext (nonBlackSuccMemory mem1 mStats) (color, getLabelSize mStats) mem1
   mStats   = getMaskInfo mem
 
@@ -74,4 +74,4 @@ data StepState
   = ChromaticStep (Maybe PreviousColor)
   | WhiteStep Int
 
-type ChromaticMemory = (PreviousColor, Memory)
+-- type ChromaticMemory = (PreviousColor, Memory)
