@@ -59,6 +59,8 @@ stepChromatic c' autoMem = flip (set memory) (setPositionState oldMem autoMem) <
   newMem = setPosition (nextCodelPos oldMem) oldMem
   oldMem = autoMem ^. memory
 
+bbb c' oldMem = evalTransitionBlockMemory (currentColour oldMem) c' oldMem
+
 setPositionState ∷ Memory → AutomatonMemory → AutomatonMemory
 setPositionState mem autoMem = autoMem { _collisionCount = 0 } & memory %~ setPosition (nextCodelPos mem)
 
