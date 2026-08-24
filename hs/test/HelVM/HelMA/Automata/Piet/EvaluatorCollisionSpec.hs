@@ -27,12 +27,14 @@ spec =
     let fullPath = "examples" </> "piet" </> filePath
     let img = readImage fullPath
 
-    let mock = (ioExecDynamicMockEffWithInput(toText input) . simpleEval Collision Nothing) =<< img
-    let path = "free" </> dirName </> fileName <> input
+    let implType = Collision
+
+    let mock = (ioExecMockEffWithInput(toText input) . simpleEval implType cs) =<< img
+    let path = show implType </> dirName </> fileName <> input
 
     describe path $ do
       it ("output" </> path) $
-        calculateDynamicOutput <$> mock `goldenShouldIO` buildAbsolutePietOutFileName path
+        calculateOutput <$> mock `goldenShouldIO` buildAbsolutePietOutFileName path
 
       it ("logged" </> path) $
-        calculateDynamicLogs <$> mock `goldenShouldIO` buildAbsolutePietLogFileName path
+        calculateLogsWithLevelDebug <$> mock `goldenShouldIO` buildAbsolutePietLogFileName path

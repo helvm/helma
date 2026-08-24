@@ -76,9 +76,10 @@ spec =
     let filePath = dirName </> fileName <.> "png"
     let fullPath = "examples" </> "piet" </> filePath
     let img = readImage fullPath
+    let implType = StepState
     forM_ inputs $ \input -> do
-      let mock = (ioExecMockEffWithInput (toText input) . simpleEval StepState Nothing) =<< img
-      let path = dirName </> fileName <> input
+      let mock = (ioExecMockEffWithInput (toText input) . simpleEval implType Nothing) =<< img
+      let path = show implType </> dirName </> fileName <> input
       describe path $ do
         it ("output" </> path) $
           calculateOutput <$> mock `goldenShouldIO` buildAbsolutePietOutFileName path
