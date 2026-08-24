@@ -39,39 +39,37 @@ initialState p = AutomatonMemory
 start ∷ AppSafeEff m ⇒ Program → m ()
 start = Trampoline.trampolineM transition . initialState
 
--- Czysty krok przesuwania po siatce i sprawdzania odbić (bez narzutu Monady Efektów)
 transition ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
 transition autoMem
-  | _collisionCount autoMem >= 8 = do
-      logDebugN "Max collisions reached (8). Terminating."
-      pure $ Trampoline.break ()
-  | otherwise = case nextColour (_memory autoMem) of
-      Nothing               -> transition (doIfCollided autoMem)
-      Just Black          -> transition (doIfCollided autoMem)
-      Just White          -> transition (stepWhite autoMem)
-      Just (Chromatic c') -> stepChromatic c' autoMem
+  | autoMem ^. collisionCount >= 8 = Trampoline.break () <$ logDebugN "Max collisions reached (8). Terminating."
+  | otherwise                      = stepByColour (nextColour (autoMem ^. memory)) autoMem
 
 -- STEP & COLOR HANDLERS
 
+stepByColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m (Either () AutomatonMemory)
+stepByColour Nothing               autoMem = transition (doIfCollided autoMem)
+stepByColour (Just Black)          autoMem = transition (doIfCollided autoMem)
+stepByColour (Just White)          autoMem = transition (stepWhite autoMem)
+stepByColour (Just (Chromatic c')) autoMem = stepChromatic c' autoMem
+
 {-# INLINE stepWhite #-}
 stepWhite ∷ AutomatonMemory → AutomatonMemory
-stepWhite autoMem = autoMem { _memory = stepWhitePixel (_memory autoMem) }
+stepWhite autoMem = autoMem & memory %~ stepWhitePixel
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m (Either () AutomatonMemory)
-stepChromatic c' autoMem = do
-  let oldMem = _memory autoMem
-  let newMem = advancePosition oldMem
-  nextMem <- stepMemory c' oldMem newMem
-  pure $ Trampoline.continue $ resetCollision autoMem { _memory = nextMem }
+stepChromatic c' autoMem = makeNext <$> stepMemory c' oldMem (advancePosition oldMem) where
+  makeNext nextMem = Trampoline.continue $ resetCollision autoMem { _memory = nextMem }
+  oldMem           = autoMem ^. memory
 
 -- COLLISION STATE MANAGEMENT
 
 {-# INLINE doIfCollided #-}
 doIfCollided ∷ AutomatonMemory → AutomatonMemory
-doIfCollided autoMem = 
-  let cc   = _collisionCount autoMem
-      mem' = handleCollision (even cc) (_memory autoMem)
-  in autoMem { _memory = mem', _collisionCount = cc + 1 }
+doIfCollided autoMem = updateCollisionCount $ autoMem & memory %~ handleCollision (even (autoMem ^. collisionCount))
+
+{-# INLINE updateCollisionCount #-}
+updateCollisionCount ∷ AutomatonMemory → AutomatonMemory
+updateCollisionCount autoMem = autoMem { _collisionCount = autoMem ^. collisionCount + 1 }
 
 {-# INLINE resetCollision #-}
 resetCollision ∷ AutomatonMemory → AutomatonMemory
