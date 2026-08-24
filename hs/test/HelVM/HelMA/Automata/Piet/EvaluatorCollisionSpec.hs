@@ -26,9 +26,7 @@ spec =
     let filePath = dirName </> fileName <.> "png"
     let fullPath = "examples" </> "piet" </> filePath
     let img = readImage fullPath
-
     let implType = Collision
-
     let mock = (ioExecMockEffWithInput(toText input) . simpleEval implType cs) =<< img
     let path = show implType </> dirName </> fileName <> input
 
