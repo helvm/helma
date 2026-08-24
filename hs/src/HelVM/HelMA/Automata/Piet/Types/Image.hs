@@ -6,7 +6,6 @@ module HelVM.HelMA.Automata.Piet.Types.Image
   , inRangeImage
   , newImage
   , pixelImage
-  , setPixelImage
   , widthImage
   , (&!)
   ) where
@@ -56,11 +55,6 @@ inRangeImage coord (Image pxs) = inRange (bounds pxs) coord
 
 pixelImage ∷ Coordinates → Image a → a
 pixelImage coord (Image pxs) = pxs ! coord
-
--- SETTERS & MODIFIERS
-
-setPixelImage ∷ Coordinates → a → Image a → Image a
-setPixelImage coord pixel (Image pxs) = Image (pxs // [(coord, pixel)])
 
 -- GRAPH / IMAGE SEARCH
 
