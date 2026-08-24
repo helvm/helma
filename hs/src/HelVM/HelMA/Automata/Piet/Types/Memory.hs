@@ -77,11 +77,9 @@ currentBlock mem = discoverBlock (programMemory mem ^. image) (positionMemory me
 nextPosFromBlock ∷ Block → Memory → Coordinates
 nextPosFromBlock block mem = move (directionPointerMemory mem) (selectCodel block mem)
 
-
 nextCodelPos ∷ Memory → Coordinates
-nextCodelPos mem = move (directionPointerMemory mem) (selectCodel block mem) where
-  block = discoverBlock (programMemory mem ^. image) pos
-  pos   = positionMemory mem
+nextCodelPos mem = nextPosFromBlock block mem where
+  block = currentBlock mem
 
 programMemory ∷ Memory → Program
 programMemory mem = mem ^. instructionMemory . program
