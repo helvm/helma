@@ -25,7 +25,7 @@ import           Lens.Micro.Platform
 data AutomatonMemory
   = AutomatonMemory
       { _memory         :: !Memory
-      , _collisionCount :: !Int
+      , _collisionCount :: {-# UNPACK #-} !Int
       }
 
 makeLenses ''AutomatonMemory
@@ -41,41 +41,40 @@ initialState p = AutomatonMemory
 start ∷ AppSafeEff m ⇒ Program → m ()
 start = Trampoline.trampolineM transition . initialState
 
+-- Czysty krok przesuwania po siatce i sprawdzania odbić (bez narzutu Monady Efektów)
 transition ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
 transition autoMem
-  | autoMem ^. collisionCount >= 8 = do
+  | _collisionCount autoMem >= 8 = do
       logDebugN "Max collisions reached (8). Terminating."
       pure $ Trampoline.break ()
-  | otherwise = Trampoline.continue <$> handleNextColour (nextColour mem) autoMem
-  where
-    mem = autoMem ^. memory
+  | otherwise = case nextColour (_memory autoMem) of
+      Nothing               -> transition (doIfCollided autoMem)
+      Just Black          -> transition (doIfCollided autoMem)
+      Just White          -> transition (stepWhite autoMem)
+      Just (Chromatic c') -> stepChromatic c' autoMem
 
 -- STEP & COLOR HANDLERS
 
-handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m AutomatonMemory
-handleNextColour Nothing               = pure . doIfCollided
-handleNextColour (Just Black)          = pure . doIfCollided
-handleNextColour (Just White)          = pure . stepWhite
-handleNextColour (Just (Chromatic c')) = stepChromatic c'
-
+{-# INLINE stepWhite #-}
 stepWhite ∷ AutomatonMemory → AutomatonMemory
-stepWhite autoMem = autoMem & memory %~ stepWhitePixel
+stepWhite autoMem = autoMem { _memory = stepWhitePixel (_memory autoMem) }
 
-stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
-stepChromatic c' autoMem = updateMemory autoMem <$> stepMemory c' oldMem newMem where
-  newMem = advancePosition oldMem
-  oldMem = autoMem ^. memory
+stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m (Either () AutomatonMemory)
+stepChromatic c' autoMem = do
+  let oldMem = _memory autoMem
+  let newMem = advancePosition oldMem
+  nextMem <- stepMemory c' oldMem newMem
+  pure $ Trampoline.continue $ resetCollision autoMem { _memory = nextMem }
 
 -- COLLISION STATE MANAGEMENT
 
+{-# INLINE doIfCollided #-}
 doIfCollided ∷ AutomatonMemory → AutomatonMemory
-doIfCollided autoMem = updateCollisionCount $ autoMem & memory %~ handleCollision (even (_collisionCount autoMem))
+doIfCollided autoMem = 
+  let cc   = _collisionCount autoMem
+      mem' = handleCollision (even cc) (_memory autoMem)
+  in autoMem { _memory = mem', _collisionCount = cc + 1 }
 
-updateCollisionCount ∷ AutomatonMemory → AutomatonMemory
-updateCollisionCount autoMem = autoMem { _collisionCount = _collisionCount autoMem + 1 }
-
-updateMemory ∷ AutomatonMemory → Memory → AutomatonMemory
-updateMemory autoMem mem = resetCollision autoMem & memory .~ mem
-
+{-# INLINE resetCollision #-}
 resetCollision ∷ AutomatonMemory → AutomatonMemory
 resetCollision autoMem = autoMem { _collisionCount = 0 }
