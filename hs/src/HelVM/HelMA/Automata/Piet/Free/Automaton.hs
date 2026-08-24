@@ -64,8 +64,8 @@ stepChromatic c' st = evalTransitionBlock (colourAt (programMemory mem) pos) c' 
 
 nextCodelPos ∷ Memory → Coordinates
 nextCodelPos mem = move (directionPointerMemory mem) (selectCodel block mem) where
-    pos   = positionMemory mem
-    block = discoverBlock (programMemory mem ^. image) pos
+  block = discoverBlock (programMemory mem ^. image) pos
+  pos   = positionMemory mem
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Block → AutomatonMemory → m AutomatonMemory
 evalTransitionBlock (Just (Chromatic c)) c' block st = do
