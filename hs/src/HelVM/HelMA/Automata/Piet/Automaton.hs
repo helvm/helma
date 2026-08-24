@@ -85,7 +85,6 @@ handleNextSuccess ic prevColor mem =
   , setInstructionCounter ic mem
   )
 
-
 data StepState
   = NormalStep (Maybe PreviousColor)
   | WhiteStep Int
