@@ -29,7 +29,7 @@ interpretStep (WhiteStep limit, mem)    = pure $ stepWhite limit mem
 -- Step handlers
 
 stepNormal ∷ AppSafeEff m ⇒ ChromaticMaybeMemory → m (Either () AutomatonMemory)
-stepNormal (prev, mem) = evalPixel (currentPixel mem) (prev, mem)
+stepNormal cmMem@(_, mem) = evalPixel (currentPixel mem) cmMem
 
 stepWhite ∷ Int → Memory → Either () AutomatonMemory
 stepWhite limit mem
@@ -39,25 +39,22 @@ stepWhite limit mem
 -- Pixel handlers
 
 evalPixel ∷ AppSafeEff m ⇒ Color → ChromaticMaybeMemory → m (Either () AutomatonMemory)
-evalPixel (Chromatic color) (prev, mem) = evalChromaticPixel color (prev, mem)
-evalPixel White             (_, mem)    = pure $ Trampoline.continue $ evalWhitePixel mem
-evalPixel Black             _           = liftError "Entered black block, terminate"
+evalPixel (Chromatic color) cmMem    = evalChromaticPixel color cmMem
+evalPixel White             (_, mem) = pure $ Trampoline.continue $ evalWhitePixel mem
+evalPixel Black             _        = liftError "Entered black block, terminate"
 
 evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticMaybeMemory → m (Either () AutomatonMemory)
 evalChromaticPixel color (previous, mem) = makeNext <$> applyPreviousColor previous color mem where
   makeNext mem1 = handleNext (nonBlackSuccMemory mem1 mStats) ((color, getLabelSize mStats), mem1)
-  mStats   = getMaskInfo mem
+  mStats        = getMaskInfo mem
 
 evalWhitePixel ∷ Memory → AutomatonMemory
 evalWhitePixel mem = (WhiteStep whiteLimit, mem) where
   whiteLimit = 8 * getLabelSize (getMaskInfo mem)
 
 checkWhitePixel ∷ Color → Int → Memory → AutomatonMemory
-checkWhitePixel White limit = checkWhitePixelStep limit
-checkWhitePixel _     _     = (ChromaticStep Nothing, )
-
-checkWhitePixelStep ∷ Int → Memory → AutomatonMemory
-checkWhitePixelStep limit mem = (WhiteStep (limit - 1), stepWhitePixel mem)
+checkWhitePixel White limit mem = (WhiteStep (limit - 1), stepWhitePixel mem)
+checkWhitePixel _     _     mem = (ChromaticStep Nothing, mem)
 
 -- Helper functions
 
@@ -67,6 +64,8 @@ handleNext Nothing   _            = Trampoline.break ()
 
 handleNextSuccess ∷ ChromaticMemory → AutomatonMemory
 handleNextSuccess (prevColor, mem) = (ChromaticStep (Just prevColor), mem)
+
+-- Types
 
 type AutomatonMemory = (StepState, Memory)
 
