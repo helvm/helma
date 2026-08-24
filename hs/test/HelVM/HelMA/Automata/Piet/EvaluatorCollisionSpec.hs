@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.EvaluatorHiSpec
+module HelVM.HelMA.Automata.Piet.EvaluatorCollisionSpec
   ( spec
   ) where
 
@@ -6,7 +6,6 @@ import           HelVM.HelMA.Automata.Piet.Evaluator
 import           HelVM.HelMA.Automata.Piet.FileExtra
 
 import           HelVM.HelMA.Automata.Piet.API.ImplType
-
 
 import           HelVM.HelMA.Automaton.Eff.Mock
 
@@ -28,7 +27,7 @@ spec =
     let fullPath = "examples" </> "piet" </> filePath
     let img = readImage fullPath
 
-    let mock = (ioExecDynamicMockEffWithInput(toText input) . simpleEval Hi cs) =<< img
+    let mock = (ioExecDynamicMockEffWithInput(toText input) . simpleEval Collision cs) =<< img
     let path = "free" </> dirName </> fileName <> input
 
     describe path $ do

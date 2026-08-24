@@ -1,5 +1,9 @@
-module HelVM.HelMA.Automata.Piet.Automaton.Original
-  ( start
+{-# LANGUAGE TemplateHaskell #-}
+
+module HelVM.HelMA.Automata.Piet.Automaton.StepState
+  ( memory
+  , start
+  , stepState
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Combiner
@@ -16,15 +20,39 @@ import           HelVM.HelMA.Automaton.Trampoline                   as Trampolin
 
 import           HelVM.HelIO.Control.Safe
 
+import           Lens.Micro.Platform
+
+-- Types & Lenses
+
+data StepState
+  = ChromaticStep (Maybe PreviousColor)
+  | WhiteStep Int
+
+data AutomatonMemory
+  = AutomatonMemory
+      { _stepState :: !StepState
+      , _memory    :: !Memory
+      }
+
+makeLenses ''AutomatonMemory
+
+type ChromaticMaybeMemory = (Maybe PreviousColor, Memory)
+type ChromaticMemory      = (PreviousColor, Memory)
+
 -- Main interpreter entry point
 
+initialState ∷ Program → AutomatonMemory
+initialState prog = AutomatonMemory
+  { _stepState = ChromaticStep Nothing
+  , _memory    = initialMemory prog
+  }
+
 start ∷ AppSafeEff m ⇒ Program → m ()
-start prog = Trampoline.trampolineM interpretStep initialState where
-  initialState = (ChromaticStep Nothing, initialMemory prog)
+start = Trampoline.trampolineM interpretStep . initialState
 
 interpretStep ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
-interpretStep (ChromaticStep prev, mem) = stepNormal (prev, mem)
-interpretStep (WhiteStep limit, mem)    = pure $ stepWhite limit mem
+interpretStep (AutomatonMemory (ChromaticStep prev) mem) = stepNormal (prev, mem)
+interpretStep (AutomatonMemory (WhiteStep limit)    mem) = pure $ stepWhite limit mem
 
 -- Step handlers
 
@@ -49,12 +77,14 @@ evalChromaticPixel color (previous, mem) = makeNext <$> applyPreviousColor previ
   mStats        = getMaskInfo mem
 
 evalWhitePixel ∷ Memory → AutomatonMemory
-evalWhitePixel mem = (WhiteStep whiteLimit, mem) where
-  whiteLimit = 8 * getLabelSize (getMaskInfo mem)
+evalWhitePixel mem = AutomatonMemory
+  { _stepState = WhiteStep (8 * getLabelSize (getMaskInfo mem))
+  , _memory    = mem
+  }
 
 checkWhitePixel ∷ Color → Int → Memory → AutomatonMemory
-checkWhitePixel White limit mem = (WhiteStep (limit - 1), stepWhitePixel mem)
-checkWhitePixel _     _     mem = (ChromaticStep Nothing, mem)
+checkWhitePixel White limit mem = AutomatonMemory (WhiteStep (limit - 1)) (stepWhitePixel mem)
+checkWhitePixel _     _     mem = AutomatonMemory (ChromaticStep Nothing) mem
 
 -- Helper functions
 
@@ -63,16 +93,4 @@ handleNext (Just ic) (color, mem) = Trampoline.continue $ handleNextSuccess (col
 handleNext Nothing   _            = Trampoline.break ()
 
 handleNextSuccess ∷ ChromaticMemory → AutomatonMemory
-handleNextSuccess (prevColor, mem) = (ChromaticStep (Just prevColor), mem)
-
--- Types
-
-type AutomatonMemory = (StepState, Memory)
-
-data StepState
-  = ChromaticStep (Maybe PreviousColor)
-  | WhiteStep Int
-
-type ChromaticMaybeMemory = (Maybe PreviousColor, Memory)
-
-type ChromaticMemory = (PreviousColor, Memory)
+handleNextSuccess (prevColor, mem) = AutomatonMemory (ChromaticStep (Just prevColor)) mem

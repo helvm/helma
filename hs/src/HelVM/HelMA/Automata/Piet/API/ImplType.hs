@@ -9,8 +9,8 @@ fileImplTypes ∷ NonEmpty ImplType
 fileImplTypes = universeNonEmpty
 
 data ImplType
-  = Original
-  | Hi
+  = StepState
+  | Collision
   deriving stock (Bounded, Enum, Eq, Read, Show)
 
 instance Default ImplType where

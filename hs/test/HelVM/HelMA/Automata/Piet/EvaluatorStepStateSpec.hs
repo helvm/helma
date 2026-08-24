@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.EvaluatorOriginalSpec
+module HelVM.HelMA.Automata.Piet.EvaluatorStepStateSpec
   ( spec
   ) where
 
@@ -77,7 +77,7 @@ spec =
     let fullPath = "examples" </> "piet" </> filePath
     let img = readImage fullPath
     forM_ inputs $ \input -> do
-      let mock = (ioExecMockEffWithInput (toText input) . simpleEval Original Nothing) =<< img
+      let mock = (ioExecMockEffWithInput (toText input) . simpleEval StepState Nothing) =<< img
       let path = dirName </> fileName <> input
       describe path $ do
         it ("output" </> path) $

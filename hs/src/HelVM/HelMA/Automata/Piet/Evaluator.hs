@@ -14,17 +14,17 @@ import           HelVM.HelMA.Automata.Piet.Types.Program
 import           HelVM.HelMA.Automata.Piet.API.ImplType
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 
-import           HelVM.HelMA.Automata.Piet.Automaton.Hi       as Hi
-import           HelVM.HelMA.Automata.Piet.Automaton.Original as Original
+import           HelVM.HelMA.Automata.Piet.Automaton.Collision as Collision
+import           HelVM.HelMA.Automata.Piet.Automaton.StepState as StepState
 
-import qualified HelVM.HelMA.Automaton.API.AppOptions         as App
+import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
 import           HelVM.HelMA.Automaton.API.Env
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
 
-import qualified Codec.Picture                                as Picture
+import qualified Codec.Picture                                 as Picture
 
 import           Control.Monad.Logger
 
@@ -41,8 +41,8 @@ simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe Natural → Picture.DynamicIm
 simpleEval implType codelInfo dynamicImage = (interpret implType . uncurry compile) =<< logCS (processImage codelInfo dynamicImage)
 
 interpret ∷ AppSafeEff m ⇒ ImplType → Program → m ()
-interpret Original = Original.start
-interpret Hi       = Hi.start
+interpret StepState = StepState.start
+interpret Collision = Collision.start
 
 logCS ∷ MonadLogger m ⇒ (CodelSize, Image Color) → m (CodelSize, Image Color)
 logCS (cs , img) = (cs , img) <$ logDebugN ("Actual codel length: " <> show cs)

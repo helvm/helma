@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.Automaton.Hi
+module HelVM.HelMA.Automata.Piet.Automaton.Collision
   ( collisionCount
   , start
   ) where
