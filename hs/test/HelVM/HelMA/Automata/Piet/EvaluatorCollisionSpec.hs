@@ -27,7 +27,7 @@ spec =
     let fullPath = "examples" </> "piet" </> filePath
     let img = readImage fullPath
 
-    let mock = (ioExecDynamicMockEffWithInput(toText input) . simpleEval Collision cs) =<< img
+    let mock = (ioExecDynamicMockEffWithInput(toText input) . simpleEval Collision Nothing) =<< img
     let path = "free" </> dirName </> fileName <> input
 
     describe path $ do
