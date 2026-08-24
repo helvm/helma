@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Types.Memory
   ( Memory (..)
   , Stack
+  , advancePosition
   , blockCodelCount
   , codelSizeMemory
   , currentBlock
@@ -20,7 +21,6 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , programMemory
   , selectCodel
   , setInstructionCounter
-  , setPosition
   , stack
   , stepWhitePixel
   ) where
@@ -114,6 +114,9 @@ colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. image) &! pos
 
 -- PUBLIC SETTERS
+
+advancePosition ∷ Memory → Memory
+advancePosition mem = setPosition (nextCodelPos mem) mem
 
 setInstructionCounter ∷ InstructionCounter → Memory → Memory
 setInstructionCounter ic = instructionMemory . instructionCounter .~ ic
