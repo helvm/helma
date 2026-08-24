@@ -8,6 +8,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , currentColour
   , currentPixel
   , directionPointerMemory
+  , getMaskInfo
   , handleCollision
   , initialMemory
   , instructionCounterMemory
@@ -32,11 +33,14 @@ import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
+import           HelVM.HelMA.Automata.Piet.Types.Label
+import           HelVM.HelMA.Automata.Piet.Types.Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
+import           Data.IntMap                                        hiding ( filter )
 import qualified Data.List                                          as List
 import           Data.MonoTraversable
 import qualified Data.Sequence                                      as Seq
@@ -66,6 +70,14 @@ initialMemory prog = Memory
   }
 
 -- PUBLIC GETTERS & QUERIES
+
+getMaskInfo ∷ Memory → Maybe LabelInfo
+getMaskInfo mem = getMaskInfo' (programMemory mem) (positionMemory mem)
+
+getMaskInfo' ∷ Program → Coordinates → Maybe LabelInfo
+getMaskInfo' prog pos = findWithDefault Nothing (pixelImage pos maskImg) infoMap where
+  maskImg = prog ^. labelling . mask
+  infoMap = prog ^. labelling . info
 
 nextCodelPos ∷ Memory → Coordinates
 nextCodelPos mem = nextPosFromBlock (currentBlock mem) mem

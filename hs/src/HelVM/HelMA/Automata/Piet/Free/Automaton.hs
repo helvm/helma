@@ -55,7 +55,7 @@ stepWhite ∷ AutomatonMemory → AutomatonMemory
 stepWhite autoMem = updateMemory autoMem $ advancePosition $ autoMem ^. memory
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
-stepChromatic c' autoMem = updateMemory autoMem <$> bbb c' oldMem newMem where
+stepChromatic c' autoMem = updateMemory autoMem <$> stepMemory c' oldMem newMem where
   newMem = advancePosition oldMem
   oldMem = autoMem ^. memory
 

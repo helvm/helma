@@ -6,12 +6,9 @@ import           HelVM.HelMA.Automata.Piet.Combiner
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Label
-import           HelVM.HelMA.Automata.Piet.Types.Labelling          as Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 import           HelVM.HelMA.Automata.Piet.Types.Program            as Program
 
@@ -19,10 +16,6 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           HelVM.HelMA.Automaton.Trampoline                   as Trampoline
 
 import           HelVM.HelIO.Control.Safe
-
-import           Data.IntMap                                        hiding ( filter )
-
-import           Lens.Micro.Platform
 
 -- Main interpreter entry point
 
@@ -54,11 +47,11 @@ evalPixel Black             _        _   = liftError "Entered black block, termi
 evalChromaticPixel ∷ AppSafeEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m (Either () AutomatonMemory)
 evalChromaticPixel previous color mem = makeNext <$> applyPreviousColor previous color mem where
   makeNext mem1 = handleNext (nonBlackSucc (programMemory mem1) mStats (orientationMemory mem1)) (color, getLabelSize mStats) mem1
-  mStats   = getMaskInfo (programMemory mem) (positionMemory mem)
+  mStats   = getMaskInfo mem
 
 evalWhitePixel ∷ Memory → AutomatonMemory
 evalWhitePixel mem = (WhiteStep whiteLimit, mem) where
-  whiteLimit = 8 * getLabelSize (getMaskInfo (programMemory mem) (positionMemory mem))
+  whiteLimit = 8 * getLabelSize (getMaskInfo mem)
 
 checkWhitePixel ∷ Color → Int → Memory → AutomatonMemory
 checkWhitePixel White limit = checkWhitePixelStep limit
@@ -68,12 +61,6 @@ checkWhitePixelStep ∷ Int → Memory → AutomatonMemory
 checkWhitePixelStep limit mem = (WhiteStep (limit - 1), stepWhitePixel mem)
 
 -- Helper functions
-
-
-getMaskInfo ∷ Program → Coordinates → Maybe LabelInfo
-getMaskInfo prog pos = findWithDefault Nothing (pixelImage pos maskImg) infoMap where
-  maskImg = prog ^. Program.labelling . Labelling.mask
-  infoMap = prog ^. Program.labelling . Labelling.info
 
 handleNext ∷ Maybe InstructionCounter → PreviousColor → Memory → Either () AutomatonMemory
 handleNext (Just ic) prevColor mem = Trampoline.continue $ handleNextSuccess ic prevColor mem
