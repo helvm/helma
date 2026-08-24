@@ -47,12 +47,12 @@ transitionStep _ autoMem = Trampoline.continue <$> handleNextColour (nextColour 
   mem  = autoMem ^. memory
 
 handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m AutomatonMemory
-handleNextColour Nothing                = pure . doIfCollided 
-handleNextColour (Just Black)           = pure . doIfCollided 
-handleNextColour (Just White)           = pure . stepWhite
-handleNextColour (Just (Chromatic c'))  = stepChromatic c' 
+handleNextColour Nothing               = pure . doIfCollided
+handleNextColour (Just Black)          = pure . doIfCollided
+handleNextColour (Just White)          = pure . stepWhite
+handleNextColour (Just (Chromatic c')) = stepChromatic c'
 
-stepWhite :: AutomatonMemory -> AutomatonMemory
+stepWhite ∷ AutomatonMemory → AutomatonMemory
 stepWhite autoMem = setPositionState (nextCodelPos mem) autoMem where mem = autoMem ^. memory
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
@@ -62,11 +62,8 @@ stepChromatic c' autoMem = evalTransitionBlock (currentColour mem) c' block (set
   mem    = autoMem ^. memory
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Block → AutomatonMemory → m AutomatonMemory
-evalTransitionBlock (Just (Chromatic c)) c' block autoMem = do
-  let blockSize = blockCodelCount block (autoMem ^. memory)
-  mem' <- colors2Command c c' blockSize (autoMem ^. memory)
-  pure $ autoMem & memory .~ mem'
-evalTransitionBlock _ _ _ autoMem = pure autoMem
+evalTransitionBlock (Just (Chromatic c)) c' block autoMem = flip (set memory) autoMem <$> colors2Command c c' (blockCodelCount block mem) mem where mem = autoMem ^. memory
+evalTransitionBlock _ _ _ autoMem                         = pure autoMem
 
 setPositionState ∷ Coordinates → AutomatonMemory → AutomatonMemory
 setPositionState pos autoMem = autoMem { _collisionCount = 0 } & memory %~ setPosition pos
