@@ -9,6 +9,7 @@ import           HelVM.HelMA.Automata.Piet.Combiner
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 import           HelVM.HelMA.Automata.Piet.Types.Program            as Program
 
@@ -23,7 +24,7 @@ import           Lens.Micro.Platform
 
 data StepState
   = ChromaticStep (Maybe PreviousColor)
-  | WhiteStep Int
+  | WhiteStep {-# UNPACK #-} !Int
 
 data AutomatonMemory
   = AutomatonMemory
@@ -32,9 +33,6 @@ data AutomatonMemory
       }
 
 makeLenses ''AutomatonMemory
-
-type ChromaticMaybeMemory = (Maybe PreviousColor, Memory)
-type ChromaticMemory      = (PreviousColor, Memory)
 
 -- MAIN INTERPRETER ENTRY POINT
 
@@ -48,14 +46,15 @@ start ∷ AppSafeEff m ⇒ Program → m ()
 start = Trampoline.trampolineM interpretStep . initialState
 
 interpretStep ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
-interpretStep (AutomatonMemory (ChromaticStep prev) mem) = stepChromatic (prev, mem)
+interpretStep (AutomatonMemory (ChromaticStep prev) mem) = stepChromatic prev mem
 interpretStep (AutomatonMemory (WhiteStep limit)    mem) = pure $ stepWhite limit mem
 
 -- STEP HANDLERS
 
-stepChromatic ∷ AppSafeEff m ⇒ ChromaticMaybeMemory → m (Either () AutomatonMemory)
-stepChromatic cmMem@(_, mem) = evalPixel (currentPixel mem) cmMem
+stepChromatic ∷ AppSafeEff m ⇒ Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
+stepChromatic prev mem = evalPixel (currentPixel mem) prev mem
 
+{-# INLINE stepWhite #-}
 stepWhite ∷ Int → Memory → Either () AutomatonMemory
 stepWhite limit mem
   | limit <= 0 = Trampoline.break ()
@@ -63,19 +62,20 @@ stepWhite limit mem
 
 -- PIXEL HANDLERS
 
-evalPixel ∷ AppSafeEff m ⇒ Color → ChromaticMaybeMemory → m (Either () AutomatonMemory)
-evalPixel (Chromatic color) cmMem    = evalChromaticPixel color cmMem
-evalPixel White             (_, mem) = pure $ Trampoline.continue $ evalWhitePixel mem
-evalPixel Black             _        = liftError "Entered black block, terminate"
+evalPixel ∷ AppSafeEff m ⇒ Color → Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
+evalPixel (Chromatic color) prev mem = evalChromaticPixel color prev mem
+evalPixel White             _    mem = pure $ Trampoline.continue $ evalWhitePixel mem
+evalPixel Black             _    _   = liftError "Entered black block, terminate"
 
-evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticMaybeMemory → m (Either () AutomatonMemory)
-evalChromaticPixel color (previous, mem) = makeNext <$> applyPreviousColor previous color mem where
-  makeNext mem' = handleNext (nonBlackSuccMemory mem' mStats) ((color, blockCodelCount mem'), mem')
+evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
+evalChromaticPixel color previous mem = makeNext <$> applyPreviousColor previous color mem where
+  makeNext mem' = handleNext (nonBlackSuccMemory mem' mStats) color (blockCodelCount mem') mem'
   mStats        = getMaskInfo mem
 
+-- Używamy z powrotem mStats (z gotowej maski O(1)), zamiast powolnego re-discovery bloku!
 evalWhitePixel ∷ Memory → AutomatonMemory
 evalWhitePixel mem = AutomatonMemory
-  { _stepState = WhiteStep (8 * blockCodelCount mem)
+  { _stepState = WhiteStep (8 * getLabelSize (getMaskInfo mem))
   , _memory    = mem
   }
 
@@ -85,9 +85,10 @@ checkWhitePixel _     _     mem = AutomatonMemory (ChromaticStep Nothing) mem
 
 -- HELPER FUNCTIONS
 
-handleNext ∷ Maybe InstructionCounter → ChromaticMemory → Either () AutomatonMemory
-handleNext (Just ic) (color, mem) = Trampoline.continue $ handleNextSuccess (color, setInstructionCounter ic mem)
-handleNext Nothing   _            = Trampoline.break ()
-
-handleNextSuccess ∷ ChromaticMemory → AutomatonMemory
-handleNextSuccess (prevColor, mem) = AutomatonMemory (ChromaticStep (Just prevColor)) mem
+{-# INLINE handleNext #-}
+handleNext ∷ Maybe InstructionCounter → ChromaticColor → Int → Memory → Either () AutomatonMemory
+handleNext (Just ic) color count mem = Trampoline.continue $ AutomatonMemory
+  { _stepState = ChromaticStep (Just (color, count))
+  , _memory    = setInstructionCounter ic mem
+  }
+handleNext Nothing _ _ _ = Trampoline.break ()

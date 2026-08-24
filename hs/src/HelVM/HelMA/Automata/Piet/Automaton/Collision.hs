@@ -1,5 +1,3 @@
-{-# LANGUAGE TemplateHaskell #-}
-
 module HelVM.HelMA.Automata.Piet.Automaton.Collision
   ( collisionCount
   , memory
