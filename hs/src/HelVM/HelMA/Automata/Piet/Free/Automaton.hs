@@ -57,10 +57,10 @@ handleNextColour (Just (Chromatic c')) st = stepChromatic c' st
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
 stepChromatic c' st = evalTransitionBlock (colourAt (programMemory mem) pos) c' block (setPositionState newPos 0 st) where
-    mem     = st ^. memory
-    pos     = positionMemory mem
-    block   = discoverBlock (programMemory mem ^. image) pos
-    newPos  = move (directionPointerMemory mem) (selectCodel block mem)
+  mem     = st ^. memory
+  pos     = positionMemory mem
+  block   = discoverBlock (programMemory mem ^. image) pos
+  newPos  = move (directionPointerMemory mem) (selectCodel block mem)
 
 nextCodelPos ∷ Memory → Coordinates
 nextCodelPos mem = move (directionPointerMemory mem) (selectCodel block mem) where
