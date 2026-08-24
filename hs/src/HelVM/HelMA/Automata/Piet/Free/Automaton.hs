@@ -62,8 +62,11 @@ stepChromatic c' autoMem = evalTransitionBlock (currentColour mem) c' block (set
   mem    = autoMem ^. memory
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Block → AutomatonMemory → m AutomatonMemory
-evalTransitionBlock (Just (Chromatic c)) c' block autoMem = flip (set memory) autoMem <$> colors2Command c c' (blockCodelCount block mem) mem where mem = autoMem ^. memory
-evalTransitionBlock _ _ _ autoMem                         = pure autoMem
+evalTransitionBlock c c' block autoMem = flip (set memory) autoMem <$> evalTransitionBlockMemory c c' block (autoMem ^. memory)
+
+evalTransitionBlockMemory ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Block → Memory → m Memory
+evalTransitionBlockMemory (Just (Chromatic c)) c' block mem = colors2Command c c' (blockCodelCount block mem) mem
+evalTransitionBlockMemory _ _ _ mem                         = pure mem
 
 setPositionState ∷ Coordinates → AutomatonMemory → AutomatonMemory
 setPositionState pos autoMem = autoMem { _collisionCount = 0 } & memory %~ setPosition pos
