@@ -72,8 +72,8 @@ label4With' neighbours img status acc = checkNext neighbours img (nextCoords (wi
   validCoord (nx, ny) = nx >= 0 && ny >= 0
 
 checkNext ∷ (a → a → Bool) → Image a → Maybe Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
-checkNext neighbours img (Just xy') (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
 checkNext _          _   Nothing    res       = res
+checkNext neighbours img (Just xy') (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
 
 nextCoords ∷ Coordinates → Coordinates → Maybe Coordinates
 nextCoords (w, h) (cx, cy) = guardX (cx < w - 1) cx cy h
@@ -83,8 +83,8 @@ guardX True  cx cy _ = Just (cx + 1, cy)
 guardX False _  cy h = guardY (cy < h - 1) cy
 
 guardY ∷ Bool → Int → Maybe Coordinates
-guardY True  cy = Just (0, cy + 1)
 guardY False _  = Nothing
+guardY True  cy = Just (0, cy + 1)
 
 updateStatus ∷ [LabelKey] → LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey)
 updateStatus []       status acc xy = updateEmptyStatus status acc xy
@@ -116,19 +116,19 @@ equivClass ∷ LabelKey → EquivalenceMap → LabelKey
 equivClass e = findWithDefault e e
 
 equivInsert ∷ LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
-equivInsert x y mp = guardInsert (x /= y) x y mp
+equivInsert x y = guardInsert (x /= y) x y
 
 guardInsert ∷ Bool → LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
+guardInsert False _ _ mp = mp
 guardInsert True  x y mp = fmap (replaceClass newClass classes) $ insert x newClass $ insert y newClass mp where
   class1   = equivClass x mp
   class2   = equivClass y mp
   classes  = x :| [y, class1, class2]
   newClass = Extra.minimum1 classes
-guardInsert False _ _ mp = mp
 
 replaceClass ∷ LabelKey → NonEmpty LabelKey → LabelKey → LabelKey
 replaceClass newClass classes eqClass = checkInClass (eqClass `elem` classes) newClass eqClass
 
 checkInClass ∷ Bool → LabelKey → LabelKey → LabelKey
-checkInClass True  newClass _   = newClass
 checkInClass False _        eqc = eqc
+checkInClass True  newClass _   = newClass
