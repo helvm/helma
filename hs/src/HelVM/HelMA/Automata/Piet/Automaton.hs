@@ -69,9 +69,6 @@ checkWhitePixelStep limit mem = (WhiteStep (limit - 1), stepWhitePixel mem)
 
 -- Helper functions
 
-applyPreviousColor ∷ AppSafeEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m Memory
-applyPreviousColor (Just (oldColor, oldS)) color = colors2Command oldColor color oldS
-applyPreviousColor Nothing                 _     = pure
 
 getMaskInfo ∷ Program → Coordinates → Maybe LabelInfo
 getMaskInfo prog pos = findWithDefault Nothing (pixelImage pos maskImg) infoMap where
@@ -88,7 +85,6 @@ handleNextSuccess ic prevColor mem =
   , setInstructionCounter ic mem
   )
 
-type PreviousColor = (ChromaticColor, Int)
 
 data StepState
   = NormalStep (Maybe PreviousColor)

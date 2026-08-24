@@ -1,5 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Combiner
-  ( aaa
+  ( PreviousColor
+  , aaa
+  , applyPreviousColor
   , colors2Command
   , evalTransitionBlockMemory
   ) where
@@ -16,16 +18,19 @@ import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
+applyPreviousColor ∷ AppSafeEff m ⇒ Maybe PreviousColor → ChromaticColor → Memory → m Memory
+applyPreviousColor (Just (c, s)) c' = colors2Command c c' s
+applyPreviousColor Nothing    _     = pure
+
 evalTransitionBlockMemory ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Memory → Memory → m Memory
 evalTransitionBlockMemory (Just (Chromatic c)) c' mem mem' = aaa c c' mem mem'
 evalTransitionBlockMemory _ _ _ mem'                       = pure mem'
-
 
 aaa ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Memory → Memory → m Memory
 aaa c c' mem = colors2Command c c' (blockCodelCount mem)
 
 colors2Command ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
-colors2Command fromColor toColor = colorDiff2Command $ diffColor fromColor toColor
+colors2Command c c' = colorDiff2Command $ diffColor c c'
 
 colorDiff2Command ∷ AppSafeEff m ⇒ ChromaticColor → Int → Memory → m Memory
 colorDiff2Command (ChromaticColor Light  Red)     _ s = pure s
@@ -46,3 +51,6 @@ colorDiff2Command (ChromaticColor Dark   Blue)    _ s = pietInNumber s
 colorDiff2Command (ChromaticColor Light  Magenta) _ s = pietInChar s
 colorDiff2Command (ChromaticColor Normal Magenta) _ s = pietOutNumber s
 colorDiff2Command (ChromaticColor Dark   Magenta) _ s = pietOutChar s
+
+type PreviousColor = (ChromaticColor, Int)
+
