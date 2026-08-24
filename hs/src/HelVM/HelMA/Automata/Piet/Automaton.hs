@@ -40,8 +40,8 @@ stepWhite limit mem
 
 evalPixel ∷ AppSafeEff m ⇒ Color →Maybe PreviousColor →  Memory →   m (Either () AutomatonMemory)
 evalPixel (Chromatic color) previous mem = evalChromaticPixel color previous  mem
-evalPixel White             _  mem       = pure $ Trampoline.continue $ evalWhitePixel mem
-evalPixel Black             _   _        = liftError "Entered black block, terminate"
+evalPixel White             _        mem = pure $ Trampoline.continue $ evalWhitePixel mem
+evalPixel Black             _        _   = liftError "Entered black block, terminate"
 
 evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
 evalChromaticPixel  color previous mem = makeNext <$> applyPreviousColor previous color mem where
