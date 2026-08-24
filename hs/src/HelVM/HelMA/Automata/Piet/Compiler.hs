@@ -48,17 +48,17 @@ label4With neighbours img = Labelling img' inf where
   inf  = foldrWithKey (mergeClass (status ^. equivalences)) mempty (currentLabelling ^. info)
 
   applyEquivClass eqMap lbl = equivClass lbl eqMap
-
   mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)
 
-  updateMap Nothing    Nothing            = Nothing
-  updateMap (Just new) Nothing            = Just (Just new)
-  updateMap Nothing    (Just old)         = Just old
-  updateMap (Just new) (Just (Just oldS)) = Just (Just (new <> oldS))
-  updateMap _          _                  = Nothing
+updateMap ∷ Maybe LabelInfo → Maybe (Maybe LabelInfo) → Maybe (Maybe LabelInfo)
+updateMap Nothing    Nothing           = Nothing
+updateMap (Just new) Nothing           = Just (Just new)
+updateMap Nothing    (Just old)        = Just old
+updateMap (Just new) (Just Nothing)    = Just (Just new)
+updateMap (Just new) (Just (Just old)) = Just (Just (new <> old))
 
 label4With' ∷ (a → a → Bool) → Image a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
-label4With' neighbours img status acc = checkNext (nextCoords xy) (updateStatus mergeLabels) where
+label4With' neighbours img status acc = checkNext neighbours img (nextCoords (widthImage img, heightImage img) xy) (updateStatus mergeLabels status acc xy) where
   xy@(x, y) = status ^. currentCoords
   pixel     = pixelImage (x, y) img
 
@@ -68,22 +68,29 @@ label4With' neighbours img status acc = checkNext (nextCoords xy) (updateStatus 
   isNeighbour (_, _, e) = neighbours pixel e
   getMaskLabel (nx, ny, _) = Map.findWithDefault (error "Missing label") (nx, ny) acc
 
-  updateStatus []       = updateEmptyStatus status acc (x, y)
-  updateStatus [l]      = updateSingleStatus status acc (x, y) l
-  updateStatus [l1, l2] = updatePairStatus status acc (x, y) l1 l2
-  updateStatus _        = error "too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'"
-
-  checkNext (Just xy') (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
-  checkNext Nothing    res       = res
-
   previousNeighbours (cx, cy) = filter validCoord [ (cx-1, cy), (cx, cy-1) ]
   validCoord (nx, ny) = nx >= 0 && ny >= 0
 
-  nextCoords (cx, cy) = guardX (cx < widthImage img - 1) cx cy
-  guardX True  cx cy = Just (cx + 1, cy)
-  guardX False _ cy  = guardY (cy < heightImage img - 1) cy
-  guardY True  cy = Just (0, cy + 1)
-  guardY False _  = Nothing
+checkNext ∷ (a → a → Bool) → Image a → Maybe Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
+checkNext neighbours img (Just xy') (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
+checkNext _          _   Nothing    res       = res
+
+nextCoords ∷ Coordinates → Coordinates → Maybe Coordinates
+nextCoords (w, h) (cx, cy) = guardX (cx < w - 1) cx cy h
+
+guardX ∷ Bool → Int → Int → Int → Maybe Coordinates
+guardX True  cx cy _ = Just (cx + 1, cy)
+guardX False _  cy h = guardY (cy < h - 1) cy
+
+guardY ∷ Bool → Int → Maybe Coordinates
+guardY True  cy = Just (0, cy + 1)
+guardY False _  = Nothing
+
+updateStatus ∷ [LabelKey] → LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey)
+updateStatus []       status acc xy = updateEmptyStatus status acc xy
+updateStatus [l]      status acc xy = updateSingleStatus status acc xy l
+updateStatus [l1, l2] status acc xy = updatePairStatus status acc xy l1 l2
+updateStatus _        _      _   _  = error "too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'"
 
 updateEmptyStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey)
 updateEmptyStatus status acc xy = setLabel status' acc xy (status ^. nextKey) where
@@ -109,15 +116,19 @@ equivClass ∷ LabelKey → EquivalenceMap → LabelKey
 equivClass e = findWithDefault e e
 
 equivInsert ∷ LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
-equivInsert x y mp = guardInsert (x /= y) where
-  guardInsert True  = fmap replaceClass $ insert x newClass $ insert y newClass mp
-  guardInsert False = mp
+equivInsert x y mp = guardInsert (x /= y) x y mp
 
+guardInsert ∷ Bool → LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
+guardInsert True  x y mp = fmap (replaceClass newClass classes) $ insert x newClass $ insert y newClass mp where
   class1   = equivClass x mp
   class2   = equivClass y mp
   classes  = x :| [y, class1, class2]
   newClass = Extra.minimum1 classes
+guardInsert False _ _ mp = mp
 
-  replaceClass eqClass = checkInClass (eqClass `elem` classes) eqClass
-  checkInClass True  _   = newClass
-  checkInClass False eqc = eqc
+replaceClass ∷ LabelKey → NonEmpty LabelKey → LabelKey → LabelKey
+replaceClass newClass classes eqClass = checkInClass (eqClass `elem` classes) newClass eqClass
+
+checkInClass ∷ Bool → LabelKey → LabelKey → LabelKey
+checkInClass True  newClass _   = newClass
+checkInClass False _        eqc = eqc
