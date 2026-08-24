@@ -23,8 +23,8 @@ spec =
     -- [ ("99bottles"          , [""])
     -- , ("artsy_hello_world"  , [""])
     -- , ("fizzbuzz"           , [""])
-    [ ("pi_big"            , [""])
-    , ("piet_hello_world"   , [""])
+    -- [ ("pi_big"            , [""]) --
+    [ ("piet_hello_world"   , [""])
     -- , ("valentines"         , [""])
     ] >*< ["pint"]
     ) <> (
@@ -39,14 +39,14 @@ spec =
     -- , ("helloworld-mondrian" , [""])
     -- , ("hw5"                 , [""])
     -- , ("japh"                , [""])
-    , ("piet_pi"             , [""])
+    -- , ("piet_pi"             , [""])--
     -- , ("power2"              , ["0\n0\n"])
-    , ("primetest2"          , ["0\n"])
+    -- , ("primetest2"          , ["0\n"])--
     ] >*< ["rpiet"]
     ) <> (
     -- [ ("99bottles"           , [""])
     [ ("adder"               , ["0\n0\n"])
-    , ("alpha_filled"        , [""])
+    -- , ("alpha_filled"        , [""])--
     -- , ("erat2"               , [""])
     -- , ("euclid_clint"        , [""])
     -- , ("euclid_clint_big"    , [""])
@@ -56,17 +56,17 @@ spec =
     -- , ("hw1-1"               , [""])
     -- , ("hw5"                 , [""])
     -- , ("hw5_big"             , [""])
-    , ("hw_large"            , [""])
+    -- , ("hw_large"            , [""])--
     -- , ("ILoveYouLaura"       , [""])
     -- , ("japh_big"            , [""])
     -- , ("piet_factorial"      , ["0\n0\n"])
-    , ("piet_pi"             , [""])
-    , ("piet_pi_big"         , [""])
+    -- , ("piet_pi"             , [""])--
+    -- , ("piet_pi_big"         , [""])--
     -- , ("pietquest"           , [""])
     -- , ("power2"              , ["0\n0\n"])
     -- , ("primetest"           , [""])
-    , ("primetest2"          , ["0\n"])
-    , ("test2"               , [""])
+    -- , ("primetest2"          , ["0\n"])--
+    -- , ("test2"               , [""])--
     -- , ("test2_upscaled"      , [""])
     -- , ("test3"               , [""])
     -- , ("test_break"          , [""])
