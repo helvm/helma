@@ -37,12 +37,12 @@ interpretStep (WhiteStep limit, mem) = pure $ stepWhite limit mem
 -- Step handlers
 
 stepNormal ∷ AppSafeEff m ⇒ Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
-stepNormal previous memory = evalPixel (currentPixel memory) previous memory
+stepNormal previous mem = evalPixel (currentPixel mem) previous mem
 
 stepWhite ∷ Int → Memory → Either () AutomatonMemory
-stepWhite limit memory
+stepWhite limit mem
   | limit <= 0 = Trampoline.break ()
-  | otherwise  = Trampoline.continue $ checkWhitePixel (currentPixel memory) limit memory
+  | otherwise  = Trampoline.continue $ checkWhitePixel (currentPixel mem) limit mem
 
 -- Pixel handlers
 

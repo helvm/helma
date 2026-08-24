@@ -1,7 +1,10 @@
 module HelVM.HelMA.Automata.Piet.Combiner
-  ( colors2Command
+  ( aaa
+  , colors2Command
+  , evalTransitionBlockMemory
   ) where
 
+import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Memory
 
 import           HelVM.HelMA.Automata.Piet.Combiner.ALU
@@ -12,6 +15,14 @@ import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
+
+evalTransitionBlockMemory ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Memory → Memory → m Memory
+evalTransitionBlockMemory (Just (Chromatic c)) c' mem mem' = aaa c c' mem mem'
+evalTransitionBlockMemory _ _ _ mem'                       = pure mem'
+
+
+aaa ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Memory → Memory → m Memory
+aaa c c' mem = colors2Command c c' (blockCodelCount mem)
 
 colors2Command ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
 colors2Command fromColor toColor = colorDiff2Command $ diffColor fromColor toColor
