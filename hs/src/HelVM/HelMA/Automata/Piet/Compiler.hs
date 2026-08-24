@@ -68,25 +68,10 @@ label4With' neighbours img status acc = checkNext (nextCoords xy) (updateStatus 
   isNeighbour (_, _, e) = neighbours pixel e
   getMaskLabel (nx, ny, _) = Map.findWithDefault (error "Missing label") (nx, ny) acc
 
-  setLabel l s = (s, Map.insert (x, y) l acc)
-
-  updateStatus [] =
-    let s' = status
-               & (labelling . info %~ insert (status ^. nextKey) (addPixel (x, y) Nothing))
-               & (nextKey %~ Extra.next)
-    in setLabel (status ^. nextKey) s'
-
-  updateStatus [l] =
-    let s' = status & (labelling . info %~ adjust (addPixel (x, y)) l)
-    in setLabel l s'
-
-  updateStatus [l1, l2] =
-    let s' = status
-               & (labelling . info %~ adjust (addPixel (x, y)) (max l1 l2))
-               & (equivalences %~ equivInsert l1 l2)
-    in setLabel (max l1 l2) s'
-
-  updateStatus _ = error "too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'"
+  updateStatus []       = updateEmptyStatus status acc (x, y)
+  updateStatus [l]      = updateSingleStatus status acc (x, y) l
+  updateStatus [l1, l2] = updatePairStatus status acc (x, y) l1 l2
+  updateStatus _        = error "too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'"
 
   checkNext (Just xy') (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
   checkNext Nothing    res       = res
@@ -99,6 +84,26 @@ label4With' neighbours img status acc = checkNext (nextCoords xy) (updateStatus 
   guardX False _ cy  = guardY (cy < heightImage img - 1) cy
   guardY True  cy = Just (0, cy + 1)
   guardY False _  = Nothing
+
+updateEmptyStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey)
+updateEmptyStatus status acc xy = setLabel status' acc xy (status ^. nextKey) where
+  status' = status
+    & (labelling . info %~ insert (status ^. nextKey) (addPixel xy Nothing))
+    & (nextKey %~ Extra.next)
+
+updateSingleStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
+updateSingleStatus status acc xy l = setLabel status' acc xy l where
+  status' = status & (labelling . info %~ adjust (addPixel xy) l)
+
+updatePairStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
+updatePairStatus status acc xy l1 l2 = setLabel status' acc xy targetLabel where
+  targetLabel = max l1 l2
+  status'     = status
+    & (labelling . info %~ adjust (addPixel xy) targetLabel)
+    & (equivalences %~ equivInsert l1 l2)
+
+setLabel ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
+setLabel status acc xy label = (status, Map.insert xy label acc)
 
 equivClass ∷ LabelKey → EquivalenceMap → LabelKey
 equivClass e = findWithDefault e e
