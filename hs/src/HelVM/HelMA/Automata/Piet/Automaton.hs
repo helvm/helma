@@ -44,7 +44,7 @@ evalPixel White             _        mem = pure $ Trampoline.continue $ evalWhit
 evalPixel Black             _        _   = liftError "Entered black block, terminate"
 
 evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
-evalChromaticPixel  color previous mem = makeNext <$> applyPreviousColor previous color mem where
+evalChromaticPixel color previous mem = makeNext <$> applyPreviousColor previous color mem where
   makeNext mem1 = handleNext (nonBlackSuccMemory mem1 mStats) (color, getLabelSize mStats) mem1
   mStats   = getMaskInfo mem
 
