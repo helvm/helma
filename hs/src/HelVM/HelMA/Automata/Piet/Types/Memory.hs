@@ -97,8 +97,8 @@ currentPixel mem = pixelImage (positionMemory mem) (programMemory mem ^. image)
 codelSizeMemory ∷ Memory → CodelSize
 codelSizeMemory mem = programMemory mem ^. codelSize
 
-blockCodelCount ∷ Block → Memory → Int
-blockCodelCount block mem = olength block `div` (cs * cs) where
+blockCodelCount ∷ Memory → Int
+blockCodelCount mem = olength (currentBlock mem) `div` (cs * cs) where
   cs = codelSizeMemory mem
 
 selectCodel ∷ Block → Memory → Coordinates
