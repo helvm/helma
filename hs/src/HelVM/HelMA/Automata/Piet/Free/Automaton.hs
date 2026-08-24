@@ -55,7 +55,7 @@ stepWhite ∷ AutomatonMemory → AutomatonMemory
 stepWhite autoMem = setPositionState mem autoMem where mem = autoMem ^. memory
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
-stepChromatic c' autoMem = flip (set memory) (setPositionState oldMem autoMem) <$> evalTransitionBlockMemory (currentColour oldMem) c' oldMem newMem where
+stepChromatic c' autoMem = flip (set memory) (setPositionState oldMem autoMem) <$> stepMemory c' oldMem newMem where
   newMem = setPosition (nextCodelPos oldMem) oldMem
   oldMem = autoMem ^. memory
 
