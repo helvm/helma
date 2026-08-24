@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automata.Piet.Automaton.Collision
   ( collisionCount
+  , memory
   , start
   ) where
 
@@ -17,13 +18,7 @@ import           Control.Monad.Logger
 
 import           Lens.Micro.Platform
 
--- Top-level driver
-
-initialState ∷ Program → AutomatonMemory
-initialState p = AutomatonMemory
-  { _memory         = initialMemory p
-  , _collisionCount = 0
-  }
+-- TYPES & LENSES
 
 data AutomatonMemory
   = AutomatonMemory
@@ -33,17 +28,27 @@ data AutomatonMemory
 
 makeLenses ''AutomatonMemory
 
+-- TOP-LEVEL DRIVER
+
+initialState ∷ Program → AutomatonMemory
+initialState p = AutomatonMemory
+  { _memory         = initialMemory p
+  , _collisionCount = 0
+  }
+
 start ∷ AppSafeEff m ⇒ Program → m ()
 start = Trampoline.trampolineM transition . initialState
 
 transition ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
-transition autoMem = transitionStep (_collisionCount autoMem) autoMem
+transition autoMem
+  | autoMem ^. collisionCount >= 8 = do
+      logDebugN "Max collisions reached (8). Terminating."
+      pure $ Trampoline.break ()
+  | otherwise = Trampoline.continue <$> handleNextColour (nextColour mem) autoMem
+  where
+    mem = autoMem ^. memory
 
-transitionStep ∷ AppSafeEff m ⇒ Int → AutomatonMemory → m (Either () AutomatonMemory)
-transitionStep cc _
-  | cc >= 8   = logDebugN "Max collisions reached (8). Terminating." >> pure (Trampoline.break ())
-transitionStep _ autoMem = Trampoline.continue <$> handleNextColour (nextColour mem) autoMem where
-  mem  = autoMem ^. memory
+-- STEP & COLOR HANDLERS
 
 handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m AutomatonMemory
 handleNextColour Nothing               = pure . doIfCollided
@@ -59,16 +64,16 @@ stepChromatic c' autoMem = updateMemory autoMem <$> stepMemory c' oldMem newMem 
   newMem = advancePosition oldMem
   oldMem = autoMem ^. memory
 
-updateMemory ∷ AutomatonMemory → Memory → AutomatonMemory
-updateMemory autoMem mem = resetCollision autoMem & memory .~ mem
-
-resetCollision ∷ AutomatonMemory → AutomatonMemory
-resetCollision autoMem = autoMem { _collisionCount = 0 }
-
--- Collision state management
+-- COLLISION STATE MANAGEMENT
 
 doIfCollided ∷ AutomatonMemory → AutomatonMemory
 doIfCollided autoMem = updateCollisionCount $ autoMem & memory %~ handleCollision (even (_collisionCount autoMem))
 
 updateCollisionCount ∷ AutomatonMemory → AutomatonMemory
 updateCollisionCount autoMem = autoMem { _collisionCount = _collisionCount autoMem + 1 }
+
+updateMemory ∷ AutomatonMemory → Memory → AutomatonMemory
+updateMemory autoMem mem = resetCollision autoMem & memory .~ mem
+
+resetCollision ∷ AutomatonMemory → AutomatonMemory
+resetCollision autoMem = autoMem { _collisionCount = 0 }
