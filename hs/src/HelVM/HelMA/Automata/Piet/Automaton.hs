@@ -74,10 +74,9 @@ applyPreviousColor (Just (oldColor, oldS)) color = colors2Command oldColor color
 applyPreviousColor Nothing                 _     = pure
 
 getMaskInfo ∷ Program → Coordinates → Maybe LabelInfo
-getMaskInfo prog pos = findWithDefault Nothing (pixelImage pos maskImg) infoMap
-  where
-    maskImg = prog ^. Program.labelling . Labelling.mask
-    infoMap = prog ^. Program.labelling . Labelling.info
+getMaskInfo prog pos = findWithDefault Nothing (pixelImage pos maskImg) infoMap where
+  maskImg = prog ^. Program.labelling . Labelling.mask
+  infoMap = prog ^. Program.labelling . Labelling.info
 
 handleNext ∷ Maybe InstructionCounter → PreviousColor → Memory → Either () AutomatonMemory
 handleNext (Just ic) prevColor mem = Trampoline.continue $ handleNextSuccess ic prevColor mem
