@@ -40,42 +40,42 @@ interpret ∷ AppSafeEff m ⇒ Program → m ()
 interpret  = Trampoline.trampolineM transition . initialState
 
 transition ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
-transition st = transitionStep (_collisionCount st) st
+transition autoMem = transitionStep (_collisionCount autoMem) autoMem
 
 transitionStep ∷ AppSafeEff m ⇒ Int → AutomatonMemory → m (Either () AutomatonMemory)
 transitionStep cc _
   | cc >= 8   = logDebugN "Max collisions reached (8). Terminating." >> pure (Trampoline.break ())
-transitionStep _ st = Trampoline.continue <$> handleNextColour (colourAt prog (nextCodelPos mem)) st where
+transitionStep _ autoMem = Trampoline.continue <$> handleNextColour (colourAt prog (nextCodelPos mem)) autoMem where
   prog = programMemory mem
-  mem  = st ^. memory
+  mem  = autoMem ^. memory
 
 handleNextColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m AutomatonMemory
-handleNextColour Nothing          st      = pure $ doIfCollided st
-handleNextColour (Just Black)     st      = pure $ doIfCollided st
-handleNextColour (Just White)     st      = pure $ setPositionState (nextCodelPos mem) 0 st where mem = st ^. memory
-handleNextColour (Just (Chromatic c')) st = stepChromatic c' st
+handleNextColour Nothing          autoMem      = pure $ doIfCollided autoMem
+handleNextColour (Just Black)     autoMem      = pure $ doIfCollided autoMem
+handleNextColour (Just White)     autoMem      = pure $ setPositionState (nextCodelPos mem) 0 autoMem where mem = autoMem ^. memory
+handleNextColour (Just (Chromatic c')) autoMem = stepChromatic c' autoMem
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m AutomatonMemory
-stepChromatic c' st = evalTransitionBlock (colourAt (programMemory mem) pos) c' block (setPositionState newPos 0 st) where
+stepChromatic c' autoMem = evalTransitionBlock (colourAt (programMemory mem) pos) c' block (setPositionState newPos 0 autoMem) where
   newPos  = move (directionPointerMemory mem) (selectCodel block mem)
   block   = discoverBlock (programMemory mem ^. image) pos
   pos     = positionMemory mem
-  mem     = st ^. memory
+  mem     = autoMem ^. memory
 
 evalTransitionBlock ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Block → AutomatonMemory → m AutomatonMemory
-evalTransitionBlock (Just (Chromatic c)) c' block st = do
-  let blockSize = blockCodelCount block (st ^. memory)
-  mem' <- colors2Command c c' blockSize (st ^. memory)
-  pure $ st & memory .~ mem'
-evalTransitionBlock _ _ _ st = pure st
+evalTransitionBlock (Just (Chromatic c)) c' block autoMem = do
+  let blockSize = blockCodelCount block (autoMem ^. memory)
+  mem' <- colors2Command c c' blockSize (autoMem ^. memory)
+  pure $ autoMem & memory .~ mem'
+evalTransitionBlock _ _ _ autoMem = pure autoMem
 
 setPositionState ∷ Coordinates → Int → AutomatonMemory → AutomatonMemory
-setPositionState pos cc st = st { _collisionCount = cc } & memory %~ setPosition pos
+setPositionState pos cc autoMem = autoMem { _collisionCount = cc } & memory %~ setPosition pos
 
 -- Collision state management
 
 doIfCollided ∷ AutomatonMemory → AutomatonMemory
-doIfCollided st = updateCollisionCount $ st & memory %~ handleCollision (even (_collisionCount st))
+doIfCollided autoMem = updateCollisionCount $ autoMem & memory %~ handleCollision (even (_collisionCount autoMem))
 
 updateCollisionCount ∷ AutomatonMemory → AutomatonMemory
-updateCollisionCount st = st { _collisionCount = _collisionCount st + 1 }
+updateCollisionCount autoMem = autoMem { _collisionCount = _collisionCount autoMem + 1 }
