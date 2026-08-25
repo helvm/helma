@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Syntax
+module HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
   ( Block (..)
   , CodelChooser (..)
   , Command (..)
@@ -11,9 +11,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.Syntax
   , showDPCC
   ) where
 
-import           Data.Vector                          ( Vector )
-import qualified Data.Vector.Generic                  as V
-import           HelVM.HelMA.Automata.Piet.LLVM.Codel
+import           Data.Vector                               ( Vector )
+import qualified Data.Vector.Generic                       as V
+import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
 
 newtype Block
   = Block { nextBlockTable :: Map DPCC NextBlock }

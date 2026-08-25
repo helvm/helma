@@ -1,16 +1,16 @@
 {-# LANGUAGE FlexibleContexts #-}
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
+module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.WhiteCodelSlider
   ( slideOnWhiteBlock
   ) where
 
 import           Control.Monad.Except
-import qualified Data.Set                                         as S
-import           Data.Vector                                      ( Vector )
-import qualified Data.Vector                                      as V
-import           HelVM.HelMA.Automata.Piet.LLVM.Codel
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
-import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
+import qualified Data.Set                                              as S
+import           Data.Vector                                           ( Vector )
+import qualified Data.Vector                                           as V
+import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
+import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Cyclic
+import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Position
+import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
 
 slideOnWhiteBlock ∷ Vector (Vector (Codel, Int)) → (Int, Int) → DPCC → NextBlock
 slideOnWhiteBlock image initialPosition initialDPCC = result where

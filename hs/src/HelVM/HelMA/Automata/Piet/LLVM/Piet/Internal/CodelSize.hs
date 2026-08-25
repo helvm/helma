@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
+module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.CodelSize
   ( guessCodelSize
   ) where
 

@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Codel
+module HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
   ( Codel (..)
   , Hue (..)
   , Lightness (..)

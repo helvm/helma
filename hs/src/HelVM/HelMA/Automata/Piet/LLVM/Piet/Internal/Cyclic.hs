@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
+module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Cyclic
   ( cyclicSucc
   ) where
 

@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
+module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.ToRGB8
   ( ToRGB8 (..)
   , toRGB8ImageM
   ) where

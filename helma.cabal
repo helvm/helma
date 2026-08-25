@@ -245,20 +245,23 @@ library
     HelVM.HelMA.Automata.Piet.Combiner.ALU
     HelVM.HelMA.Automata.Piet.Combiner.CPU
 
-    HelVM.HelMA.Automata.Piet.LLVM.Codel
-    HelVM.HelMA.Automata.Piet.LLVM.CompileOption
-    HelVM.HelMA.Automata.Piet.LLVM.Evaluator
-    HelVM.HelMA.Automata.Piet.LLVM.ImageReader
-    HelVM.HelMA.Automata.Piet.LLVM.Syntax
-    HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
+    HelVM.HelMA.Automata.Piet.LLVM.Piet
 
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCC
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.CompileOption
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Evaluator
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.ImageReader
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Parser
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.SyntaxVisualizer
+
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.CodelSize
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Cyclic
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.DPCC
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Filler
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Position
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.ToRGB8
+    HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.WhiteCodelSlider
 
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
     HelVM.HelMA.Automata.Piet.Types.CodelChooser
