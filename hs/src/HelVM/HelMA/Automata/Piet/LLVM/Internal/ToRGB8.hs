@@ -15,6 +15,7 @@ import           Prelude              hiding ( fail )
 toRGB8ImageM ∷ MonadError String m ⇒ DynamicImage → m (Image PixelRGB8)
 toRGB8ImageM (ImageY8     _)     = failConversion
 toRGB8ImageM (ImageY16    _)     = failConversion
+toRGB8ImageM (ImageY32    _)     = failConversion
 toRGB8ImageM (ImageYF     _)     = failConversion
 toRGB8ImageM (ImageYA8    _)     = failConversion
 toRGB8ImageM (ImageYA16   _)     = failConversion

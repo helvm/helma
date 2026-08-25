@@ -5,18 +5,18 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
 
 import           Control.Lens
 import           Control.Monad.Primitive
-import           Control.Monad.Reader
+-- import           Control.Monad.Reader
 import           Control.Monad.ST
-import           Control.Monad.State
-import           Control.Monad.Trans.Maybe
-import           Data.IntMap               ( IntMap )
-import qualified Data.IntMap               as IM
-import           Data.Maybe
-import           Data.Vector               ( Vector )
-import qualified Data.Vector.Generic       as V
-import           Data.Vector.Mutable       ( STVector )
-import qualified Data.Vector.Mutable       as VM
-import qualified ListT                     as L
+-- import           Control.Monad.State
+-- import           Control.Monad.Trans.Maybe
+-- import           Data.IntMap               ( IntMap )
+import qualified Data.IntMap             as IM
+import           Data.Maybe              ( fromJust )
+import           Data.Vector             ( Vector )
+import qualified Data.Vector.Generic     as V
+import           Data.Vector.Mutable     ( STVector )
+import qualified Data.Vector.Mutable     as VM
+import qualified ListT                   as L
 
 data FillerParams a b s
   = FillerParams

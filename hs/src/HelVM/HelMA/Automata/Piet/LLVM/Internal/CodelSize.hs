@@ -15,11 +15,11 @@ generate n f = f <$> [0 .. n - 1]
 groupGCD ∷ Eq a ⇒ (i → a) → [[i]] → Int
 groupGCD _ [] = 0
 groupGCD f ([] : rest) = groupGCD f rest
-groupGCD f (positions : rest) = n `gcd'` groupGCD f (nextPositions : rest) where
+groupGCD f (positions@(pos : _) : rest) = n `gcd'` groupGCD f (nextPositions : rest) where
   (n, nextPositions) = countSameElems 0 positions
-  first = f $ head positions
+  firstVal = f pos
   countSameElems acc []       = (acc, [])
-  countSameElems acc (x : xs) = if f x == first then countSameElems (acc + 1) xs else (acc, x : xs)
+  countSameElems acc (x : xs) = if f x == firstVal then countSameElems (acc + 1) xs else (acc, x : xs)
 
 gcd' ∷ Integral a ⇒ a → a → a
 gcd' 1 _ = 1

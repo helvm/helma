@@ -4,9 +4,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
   ) where
 
 import           Control.Monad.Except
-import           Control.Monad.State
-import           Data.Maybe
-import           Data.Set                                         ( Set )
+-- import           Control.Monad.State
+-- import           Data.Maybe
+-- import           Data.Set                                         ( Set )
 import qualified Data.Set                                         as S
 import           Data.Vector                                      ( Vector )
 import qualified Data.Vector                                      as V

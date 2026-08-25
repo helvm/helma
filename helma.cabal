@@ -250,6 +250,15 @@ library
     HelVM.HelMA.Automata.Piet.LLVM.Syntax
     HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
 
+    HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
+    HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
+    HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCC
+    HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
+    HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
+    HelVM.HelMA.Automata.Piet.LLVM.Internal.Runtime
+    HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
+    HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
+
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
     HelVM.HelMA.Automata.Piet.Types.CodelChooser
     HelVM.HelMA.Automata.Piet.Types.Color
@@ -296,11 +305,14 @@ library
     , free
     , IfElse
     , ilist
+    , lens
+    , list-t
     , microlens-platform
     , monad-logger
     , monad-loops
     , natural-transformation
     , pretty-simple
+    , primitive
     , safe
     , transformers
     , type-operators
