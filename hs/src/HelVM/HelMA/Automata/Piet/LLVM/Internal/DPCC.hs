@@ -2,9 +2,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCC
   ( dpccsToBackwardDPCCTable
   ) where
 
--- import           Control.Arrow                                  ((&&&))
 import qualified Data.List                                      as List
--- import           Data.Map                                       (Map)
 import qualified Data.Map                                       as M
 import qualified Data.Set                                       as S
 

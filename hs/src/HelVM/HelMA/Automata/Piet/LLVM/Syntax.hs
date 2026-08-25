@@ -22,11 +22,8 @@ newtype Block
 data NextBlock
   = NextBlock
       { _command    :: Command
-        -- ^ The command which will be executed when moving into the next codel block.
       , _dpcc       :: DPCC
-        -- ^ The DP and CC which will be used in the next codel block.
       , _blockIndex :: Int
-        -- ^ The index of the next codel block.
       }
   | ExitProgram
   deriving stock (Eq, Show)

@@ -2,7 +2,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
   ( guessCodelSize
   ) where
 
--- | Guess the codel size of a given image.
 guessCodelSize ∷ Eq a ⇒ (Int, Int) → ((Int, Int) → a) → Int
 guessCodelSize (width, height) pixelAccessor = codelSize where
   codelSize = groupGCD pixelAccessor horizontalPositionBlocks `gcd'` groupGCD pixelAccessor verticalPositionBlocks

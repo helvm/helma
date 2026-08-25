@@ -2,7 +2,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.CompileOption
   ( OptimizationLevel (..)
   ) where
 
--- | The optimization level to optimize assembly code.
 data OptimizationLevel
   = NoOptimization -- ^ -O0
   | OptimizationLevelLow -- ^ -O1

@@ -4,9 +4,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
   ) where
 
 import           Control.Monad.Except
--- import           Control.Monad.State
--- import           Data.Maybe
--- import           Data.Set                                         ( Set )
 import qualified Data.Set                                         as S
 import           Data.Vector                                      ( Vector )
 import qualified Data.Vector                                      as V
@@ -15,7 +12,6 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
--- | Move on white codels and return 'NextBlock'.
 slideOnWhiteBlock ∷ Vector (Vector (Codel, Int)) → (Int, Int) → DPCC → NextBlock
 slideOnWhiteBlock image initialPosition initialDPCC = result where
   result = (`evalState` S.empty) $ fmap (either id $ error "unreachable") . runExceptT $ slideOnWhiteBlockState initialPosition initialDPCC

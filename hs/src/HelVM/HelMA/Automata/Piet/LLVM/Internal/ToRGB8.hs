@@ -11,7 +11,6 @@ import           Control.Monad.Except
 import           Data.Bits
 import           Prelude              hiding ( fail )
 
--- | Convert a colored image to a RGB8Image.
 toRGB8ImageM ∷ MonadError String m ⇒ DynamicImage → m (Image PixelRGB8)
 toRGB8ImageM (ImageY8     _)     = failConversion
 toRGB8ImageM (ImageY16    _)     = failConversion

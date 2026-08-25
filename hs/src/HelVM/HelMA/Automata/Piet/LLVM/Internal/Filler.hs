@@ -5,11 +5,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
 
 import           Control.Lens
 import           Control.Monad.Primitive
--- import           Control.Monad.Reader
 import           Control.Monad.ST
--- import           Control.Monad.State
--- import           Control.Monad.Trans.Maybe
--- import           Data.IntMap               ( IntMap )
 import qualified Data.IntMap             as IM
 import           Data.Maybe              ( fromJust )
 import           Data.Vector             ( Vector )
@@ -25,10 +21,6 @@ data FillerParams a b s
       }
 makeLenses ''FillerParams
 
--- | Fill all connected pixels in a given image and return an filled image and a pixel map.
---
--- The filled image is consists of component indices.
--- The pixel map contains coordinates of pixels which belong to a component whose index is the key.
 fillAll ∷ Eq a ⇒ Vector (Vector a) → (Vector (Vector Int), IntMap [(Int, Int)])
 fillAll image = runST $ do
   filledRefs <- V.mapM (V.thaw . (Nothing <$)) image

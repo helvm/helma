@@ -257,7 +257,6 @@ library
     HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCC
     HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
     HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.Runtime
     HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
     HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 

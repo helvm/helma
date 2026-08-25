@@ -1,6 +1,5 @@
 {-# LANGUAGE FlexibleContexts #-}
 
--- | Functions to read images.
 module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   ( AdditionalColorStrategy (..)
   , CodelSize (..)
@@ -29,14 +28,12 @@ data ImageReaderError
   | CodelSizeError -- ^ The specified size of codel is not fit for the image.
   deriving stock (Eq, Show)
 
--- | This type is to determine how to deal with additional colors such as orange, gray, etc.
 data AdditionalColorStrategy
   = AdditionalColorAsWhite -- ^ Treating as a white codel.
   | AdditionalColorAsBlack -- ^ Treating as a black codel.
   | AdditionalColorNearest -- ^ Treating as a codel which has the nearest color.
   deriving stock (Eq, Ord, Show)
 
--- | This type is to determine how to deal with multicolored codels.
 data MulticoloredCodelStrategy
   = MulticoloredCodelAsWhite -- ^ Treating as a white codel.
   | MulticoloredCodelAsBlack -- ^ Treating as a black codel.
@@ -58,20 +55,17 @@ data ImageConfig
       }
   deriving stock (Eq, Show)
 
--- | Read an image and then convert to codels.
 readCodels ∷ (MonadIO m, MonadError ImageReaderError m) ⇒ ImageConfig → FilePath → m (Vector (Vector Codel))
 readCodels config path = do
   imageEither <- liftIO $ readImage path
   image <- liftEither $ first ReadImageFileError imageEither
   imageToCodels config image
 
--- | Convert an image to codels.
 imageToCodels ∷ MonadError ImageReaderError m ⇒ ImageConfig → DynamicImage → m (Vector (Vector Codel))
 imageToCodels config dynamicImage = do
   rgbImage <- liftEither $ first UnsupportedImageError $ toRGB8ImageM dynamicImage
   rgbImageToCodels config rgbImage
 
--- | Convert an image to codels. This function accepts only images in RGB8 format.
 rgbImageToCodels ∷ MonadError ImageReaderError m ⇒ ImageConfig → Image PixelRGB8 → m (Vector (Vector Codel))
 rgbImageToCodels config image = do
   let
