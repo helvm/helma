@@ -231,12 +231,15 @@ library
     HelVM.HelMA.Automata.LazyK.Parser
     HelVM.HelMA.Automata.LazyK.Reducer
     
-    HelVM.HelMA.Automata.Piet.Automaton
     HelVM.HelMA.Automata.Piet.Compiler
     HelVM.HelMA.Automata.Piet.Evaluator
     HelVM.HelMA.Automata.Piet.Parser
 
+    HelVM.HelMA.Automata.Piet.API.ImplType
     HelVM.HelMA.Automata.Piet.API.LexerType
+
+    HelVM.HelMA.Automata.Piet.Automaton.Collision
+    HelVM.HelMA.Automata.Piet.Automaton.StepState
 
     HelVM.HelMA.Automata.Piet.Combiner
     HelVM.HelMA.Automata.Piet.Combiner.ALU
@@ -367,7 +370,8 @@ test-suite helma-test
     HelVM.HelMA.Automata.LazyK.NumberSpec
     HelVM.HelMA.Automata.LazyK.ParserSpec
 
-    HelVM.HelMA.Automata.Piet.EvaluatorSpec
+    HelVM.HelMA.Automata.Piet.EvaluatorCollisionSpec
+    HelVM.HelMA.Automata.Piet.EvaluatorStepStateSpec
     HelVM.HelMA.Automata.Piet.FileExtra
 
     HelVM.HelMA.Automata.Rev.EvaluatorSpec

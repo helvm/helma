@@ -30,14 +30,11 @@ stepMemory targetColor oldMem = evalTransitionBlockMemory (currentColour oldMem)
 -- TRANSITION EVALUATION
 
 evalTransitionBlockMemory ∷ AppSafeEff m ⇒ Maybe Color → ChromaticColor → Memory → Memory → m Memory
-evalTransitionBlockMemory (Just (Chromatic sourceColor)) targetColor oldMem newMem =
-  evalChromaticCommand sourceColor targetColor oldMem newMem
-evalTransitionBlockMemory _ _ _ newMem =
-  pure newMem
+evalTransitionBlockMemory (Just (Chromatic sourceColor)) targetColor oldMem = evalChromaticCommand sourceColor targetColor oldMem
+evalTransitionBlockMemory _ _ _                                             = pure
 
 evalChromaticCommand ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Memory → Memory → m Memory
-evalChromaticCommand sourceColor targetColor oldMem =
-  colors2Command sourceColor targetColor (blockCodelCount oldMem)
+evalChromaticCommand sourceColor targetColor = colors2Command sourceColor targetColor . blockCodelCount
 
 -- COLOR DIFFERENCE & COMMAND EXECUTION
 

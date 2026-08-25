@@ -15,9 +15,13 @@ import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
-import           HelVM.HelMA.Automata.BrainFuck.API.ImplType
+import           HelVM.HelMA.Automata.BrainFuck.API.ImplType   as BF
+
 import           HelVM.HelMA.Automata.ETA.API.AutomatonType
+
+import           HelVM.HelMA.Automata.Piet.API.ImplType        as Piet
 import           HelVM.HelMA.Automata.Piet.API.LexerType
+
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 
 
@@ -134,16 +138,22 @@ langCommandParser = subparser
   <> command "rev"  (info (pure RevCommand)  (progDesc "Rev interpreter"))
   <> command "lazy" (info (pure LazyCommand) (progDesc "Lazy interpreter"))
   <> command "zot"  (info (pure ZotCommand)  (progDesc "Zot interpreter"))
-  ) where
-    bfParser = BFCommand
-      <$> option auto (long "ImplType" <> short 'b' <> metavar "[ImplType]" <> value defaultImplType <> showDefault)
+  )
 
-    etaParser = ETACommand
-      <$> option auto (long "AutomatonType" <> short 'i' <> metavar "[AutomatonType]" <> value defaultAutomatonType <> showDefault)
+bfParser ∷ Parser LangCommand
+bfParser = BFCommand
+  <$> option auto (long "ImplType" <> short 'b' <> metavar "[ImplType]" <> value BF.defaultImplType <> showDefault)
 
-    pietParser = PietCommand
-      <$> optional (option auto (long "LexerType" <> short 'l' <> metavar "[LexerType]" <> value defaultLexerType <> showDefault))
-      <*> optional (option auto (long "codels" <> short 'C' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)" ))
+etaParser ∷ Parser LangCommand
+etaParser = ETACommand
+  <$> option auto (long "AutomatonType" <> short 'i' <> metavar "[AutomatonType]" <> value defaultAutomatonType <> showDefault)
 
-    wsParser = WSCommand
-      <$> flag WhiteTokenType VisibleTokenType (long "tokenType" <> short 't' <> showDefault)
+pietParser ∷ Parser LangCommand
+pietParser = PietCommand
+  <$> option auto (long "ImplType" <> short 'i' <> metavar "[ImplType]" <> value Piet.defaultImplType <> showDefault)
+  <*> optional (option auto (long "codels" <> short 'C' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)" ))
+  <*> optional (option auto (long "LexerType" <> short 'l' <> metavar "[LexerType]" <> value defaultLexerType <> showDefault))
+
+wsParser ∷ Parser LangCommand
+wsParser = WSCommand
+  <$> flag WhiteTokenType VisibleTokenType (long "tokenType" <> short 't' <> showDefault)
