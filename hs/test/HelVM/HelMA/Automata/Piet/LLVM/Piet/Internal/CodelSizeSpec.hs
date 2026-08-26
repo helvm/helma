@@ -5,8 +5,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.CodelSizeSpec
   , spec
   ) where
 
--- import           Control.Monad
--- import           Data.Maybe
 import           Data.Vector                                            ( Vector )
 import qualified Data.Vector                                            as V
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.CodelSize
@@ -18,22 +16,23 @@ main ∷ IO ()
 main = hspec spec
 
 spec ∷ Spec
-spec = do
-  describe "guessCodelSize" $ do
-    forM_
-      [ ("emptyImage", V.empty, 0)
-      , ("smallestImage", smallestImage, 1)
-      --, ("largeWhiteImage", largeWhiteImage, largeImageSize)
-      --, ("largeCheckImage", largeCheckImage, 1)
-      , ("size3Image", size3Image, 3)
-      , ("size1Image", size1Image, 1)
-      ] $ \(name, image, codelSize) ->
-        context ("when given " ++ name) $ do
-          let
-            imageF (x, y) = image V.! y V.! x
-            width = fromMaybe 0 $ V.length <$> image V.!? 0
-            height = V.length image
-          it "pure the codel size of an image" $ guessCodelSize (width, height) imageF `shouldBe` codelSize
+spec = describe "guessCodelSize" $ mapM_ runTest testCases where
+  runTest (name, image, codelSize) =
+    context ("when given " ++ name) $
+      it "pure the codel size of an image" $ guessCodelSize (width, height) imageF `shouldBe` codelSize
+    where
+      imageF (x, y) = image V.! y V.! x
+      width = maybe 0 V.length (image V.!? 0)
+      height = V.length image
+
+  testCases =
+    [ ("emptyImage", V.empty, 0)
+    , ("smallestImage", smallestImage, 1)
+    --, ("largeWhiteImage", largeWhiteImage, largeImageSize)
+    --, ("largeCheckImage", largeCheckImage, 1)
+    , ("size3Image", size3Image, 3)
+    , ("size1Image", size1Image, 1)
+    ]
 
 smallestImage ∷ Vector (Vector Char)
 smallestImage = toVector2D [['a']]
