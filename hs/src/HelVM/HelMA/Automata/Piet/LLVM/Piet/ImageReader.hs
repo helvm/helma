@@ -102,8 +102,8 @@ getCodelColor strategy codelSizeInt image codelX codelY = getCodelColor' strateg
   getHead (c : _) = c
   getHead []      = error "unreachable"
   colors = do
-    pixelY <- (+ pixelOffsetY) <$> [0 .. codelSizeInt - 1]
-    pixelX <- (+ pixelOffsetX) <$> [0 .. codelSizeInt - 1]
+    pixelY <- [pixelOffsetY .. pixelOffsetY + codelSizeInt - 1]
+    pixelX <- [pixelOffsetX .. pixelOffsetX + codelSizeInt - 1]
     return $ pixelAt image pixelX pixelY
   pixelOffsetX = codelX * codelSizeInt
   pixelOffsetY = codelY * codelSizeInt
@@ -137,7 +137,7 @@ colorCodelTableList = [ (PixelRGB8 0xFF 0xC0 0xC0, AchromaticCodel Red Light)
                       , (PixelRGB8 0x00 0x00 0xC0, AchromaticCodel Blue Dark)
                       , (PixelRGB8 0xFF 0xC0 0xFF, AchromaticCodel Magenta Light)
                       , (PixelRGB8 0xFF 0x00 0xFF, AchromaticCodel Magenta Normal)
-                      , (PixelRGB8 0xC0 0x00 0xFF, AchromaticCodel Magenta Dark)
+                      , (PixelRGB8 0xC0 0x00 0xC0, AchromaticCodel Magenta Dark)
                       , (PixelRGB8 0xFF 0xFF 0xFF, WhiteCodel)
                       , (PixelRGB8 0x00 0x00 0x00, BlackCodel)
                       ]
