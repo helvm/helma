@@ -18,5 +18,5 @@ withTempFile template = bracket createTempFile removeTempFile where
     tempDir <- getTemporaryDirectory
     (path, fHandle) <- openTempFile tempDir template
     hClose fHandle
-    return path
+    pure path
   removeTempFile = removeFile

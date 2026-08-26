@@ -26,7 +26,7 @@ blocks ∷ IntMap Block → [LText.Builder]
 blocks blockMap = do
   (from, block) <- IM.toAscList blockMap
   let dpccAndNextBlock = M.toAscList $ nextBlockTable block
-  return $ if null dpccAndNextBlock then emptyBlock from else nonemptyBlock from dpccAndNextBlock
+  pure $ if null dpccAndNextBlock then emptyBlock from else nonemptyBlock from dpccAndNextBlock
 
 nonemptyBlock ∷ Int → [(DPCC, NextBlock)] → LText.Builder
 nonemptyBlock from dpccAndNextBlock = nodeLine <> edgeLines where

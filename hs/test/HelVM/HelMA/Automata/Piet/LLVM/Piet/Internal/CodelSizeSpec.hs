@@ -33,7 +33,7 @@ spec = do
             imageF (x, y) = image V.! y V.! x
             width = fromMaybe 0 $ V.length <$> image V.!? 0
             height = V.length image
-          it "return the codel size of an image" $ guessCodelSize (width, height) imageF `shouldBe` codelSize
+          it "pure the codel size of an image" $ guessCodelSize (width, height) imageF `shouldBe` codelSize
 
 smallestImage ∷ Vector (Vector Char)
 smallestImage = toVector2D [['a']]

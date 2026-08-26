@@ -40,10 +40,10 @@ parse image = let (indices, positionTable) = fillAll image in parseFilledImage (
 parseFilledImage ∷ MonadError ParserError m ⇒ (Vector (Vector (Codel, Int)), IntMap [(Int, Int)]) → m SyntaxGraph
 parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom where
   parseFrom ∷ MonadError ParserError m ⇒ Maybe (Int, DPCC) → m SyntaxGraph
-  parseFrom Nothing = return EmptySyntaxGraph
+  parseFrom Nothing = pure EmptySyntaxGraph
   parseFrom (Just (initialBlockIndex, initialDPCC)) = do
     blockMap <- execStateT (parseState initialBlockIndex) IM.empty
-    return $ SyntaxGraph initialBlockIndex initialDPCC blockMap
+    pure $ SyntaxGraph initialBlockIndex initialDPCC blockMap
 
   parseState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ Int → m ()
   parseState blockIndex = do
@@ -72,8 +72,8 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
     (initialCodel, initialBlockIndex) <- justOrThrow EmptyBlockTableError $ codelTable V.!? 0 >>= (V.!? 0)
     let initialDPCC = DPCC DPRight CCLeft
     case initialCodel of
-      AchromaticCodel _ _ -> return $ Just (initialBlockIndex, initialDPCC)
-      WhiteCodel          -> return $ nextBlockToIndexAndDPCC $ slideOnWhiteBlock codelTable (0, 0) initialDPCC
+      AchromaticCodel _ _ -> pure $ Just (initialBlockIndex, initialDPCC)
+      WhiteCodel          -> pure $ nextBlockToIndexAndDPCC $ slideOnWhiteBlock codelTable (0, 0) initialDPCC
       BlackCodel          -> throwError IllegalInitialColorError
 
   searchNextBlock ∷ (Int, Int) → DPCC → Int → Maybe NextBlock
@@ -107,4 +107,4 @@ maximumOn ∷ Ord b ⇒ (a → b) → [a] → a
 maximumOn f = maximumBy (\x y -> compare (f x) (f y))
 
 justOrThrow ∷ MonadError e m ⇒ e → Maybe a → m a
-justOrThrow e = maybe (throwError e) return
+justOrThrow e = maybe (throwError e) pure

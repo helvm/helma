@@ -83,7 +83,7 @@ graphText ∷ ( MonadIO m
 graphText messageReceiver imageConfig inputPath = do
   graph <- makeGraph messageReceiver imageConfig inputPath
   messageReceiver StepGenerateDOT
-  return $ syntaxToDOT graph
+  pure $ syntaxToDOT graph
 
 -- makeAST ∷ ( MonadIO m
 --            , MonadError PietError m
@@ -95,7 +95,7 @@ graphText messageReceiver imageConfig inputPath = do
 -- makeAST messageReceiver imageConfig inputPath = do
 --   graph <- makeGraph messageReceiver imageConfig inputPath
 --   messageReceiver StepMakeAssembly
---   return $ generateAssembly graph
+--   pure $ generateAssembly graph
 
 makeGraph ∷ ( MonadIO m
              , MonadError PietError m
@@ -111,7 +111,7 @@ makeGraph messageReceiver imageConfig inputPath = do
   mapError PietParserError $ parse codels
 
 nullReceiver ∷ Monad m ⇒ PietStep → m ()
-nullReceiver _ = return ()
+nullReceiver _ = pure ()
 
 mapError ∷ MonadError e2 m ⇒ (e1 → e2) → ExceptT e1 m a → m a
-mapError f = either (throwError . f) return <=< runExceptT
+mapError f = either (throwError . f) pure <=< runExceptT

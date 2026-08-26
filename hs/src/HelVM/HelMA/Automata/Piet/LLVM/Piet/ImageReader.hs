@@ -77,7 +77,7 @@ rgbImageToCodels config image = do
     (codelWidth, modX) = divMod pixelWidth codelSizeInt
     (codelHeight, modY) = divMod pixelHeight codelSizeInt
   when (modX /= 0 || modY /= 0) $ throwError CodelSizeError
-  return $ V.generate codelHeight $ \codelY ->
+  pure $ V.generate codelHeight $ \codelY ->
     V.generate codelWidth $ \codelX ->
       colorToCodel additionalColor' $ getCodelColor multicoloredCodel' codelSizeInt image codelX codelY
 
@@ -104,7 +104,7 @@ getCodelColor strategy codelSizeInt image codelX codelY = getCodelColor' strateg
   colors = do
     pixelY <- [pixelOffsetY .. pixelOffsetY + codelSizeInt - 1]
     pixelX <- [pixelOffsetX .. pixelOffsetX + codelSizeInt - 1]
-    return $ pixelAt image pixelX pixelY
+    pure $ pixelAt image pixelX pixelY
   pixelOffsetX = codelX * codelSizeInt
   pixelOffsetY = codelY * codelSizeInt
 

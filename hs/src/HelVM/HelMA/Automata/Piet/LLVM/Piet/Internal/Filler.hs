@@ -30,7 +30,7 @@ fillAll image = runST $ do
   positionTable <- fillAllST `evalStateT` 0 `runReaderT` params
   filledImageMaybe <- mapM V.freeze filledRefs
   let filledImage = fmap fromJust <$> filledImageMaybe
-  return (filledImage, positionTable)
+  pure (filledImage, positionTable)
 
 fillAllST ∷ ( Eq a
              , PrimMonad m
@@ -51,7 +51,7 @@ fillAllST = fmap IM.fromList $ L.toList $ do
   filledPositions <- lift $ fill targetColor blockIndex (x, y)
   lift $ modify (+1)
 
-  return (blockIndex, filledPositions)
+  pure (blockIndex, filledPositions)
 
 fill ∷ ( Eq a
         , PrimMonad m
@@ -64,7 +64,7 @@ fill ∷ ( Eq a
 fill targetColor fillingColor seed = execStateT (fill' seed) [] where
   fill' (x, y) = void $ runMaybeT $ do
     sourceImage <- view paramSourceImage
-    sourceColor <- MaybeT $ return $ sourceImage V.!? y >>= (V.!? x)
+    sourceColor <- MaybeT $ pure $ sourceImage V.!? y >>= (V.!? x)
     guard $ sourceColor == targetColor
 
     filledRefs <- view paramFilledRefs

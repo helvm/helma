@@ -18,14 +18,14 @@ toRGB8ImageM (ImageY32    _)     = failConversion
 toRGB8ImageM (ImageYF     _)     = failConversion
 toRGB8ImageM (ImageYA8    _)     = failConversion
 toRGB8ImageM (ImageYA16   _)     = failConversion
-toRGB8ImageM (ImageRGB8   image) = return $ toRGB8Image image
-toRGB8ImageM (ImageRGB16  image) = return $ toRGB8Image image
-toRGB8ImageM (ImageRGBF   image) = return $ toRGB8Image image
-toRGB8ImageM (ImageRGBA8  image) = return $ toRGB8Image image
-toRGB8ImageM (ImageRGBA16 image) = return $ toRGB8Image image
-toRGB8ImageM (ImageYCbCr8 image) = return $ toRGB8Image image
-toRGB8ImageM (ImageCMYK8  image) = return $ toRGB8Image image
-toRGB8ImageM (ImageCMYK16 image) = return $ toRGB8Image image
+toRGB8ImageM (ImageRGB8   image) = pure $ toRGB8Image image
+toRGB8ImageM (ImageRGB16  image) = pure $ toRGB8Image image
+toRGB8ImageM (ImageRGBF   image) = pure $ toRGB8Image image
+toRGB8ImageM (ImageRGBA8  image) = pure $ toRGB8Image image
+toRGB8ImageM (ImageRGBA16 image) = pure $ toRGB8Image image
+toRGB8ImageM (ImageYCbCr8 image) = pure $ toRGB8Image image
+toRGB8ImageM (ImageCMYK8  image) = pure $ toRGB8Image image
+toRGB8ImageM (ImageCMYK16 image) = pure $ toRGB8Image image
 
 failConversion ∷ MonadError String m ⇒ m a
 failConversion = throwError "can't convert from grayscale images"

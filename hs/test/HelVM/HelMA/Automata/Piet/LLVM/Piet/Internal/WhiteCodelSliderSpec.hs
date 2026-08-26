@@ -65,7 +65,7 @@ spec = do
       , ("stuckImage3 (1, 1) rl", stuckImage3, (1, 1), rl, ExitProgram)
       ] $ \(name, image, initialPosition, initialDPCC, expected) ->
         context ("when given " ++ name) $
-          it "slide and return the next codel" $
+          it "slide and pure the next codel" $
             slideOnWhiteBlock image initialPosition initialDPCC `shouldBe` expected
 
 singleCodelImage ∷ Vector (Vector (Codel, Int))

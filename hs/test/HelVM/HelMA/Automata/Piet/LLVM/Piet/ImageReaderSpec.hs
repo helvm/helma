@@ -16,7 +16,7 @@ main = hspec spec
 
 spec ∷ Spec
 spec = do
-  return ()
+  pure ()
   describe "readCodels" $ do
     forM_
       [ ( ImageConfig { additionalColor = AdditionalColorAsBlack
