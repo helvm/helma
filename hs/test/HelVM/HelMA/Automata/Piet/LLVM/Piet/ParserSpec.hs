@@ -100,7 +100,7 @@ smallBlockTable ∷ IntMap [(Int, Int)]
 smallBlockTable = IM.fromList [(0, [(0, 0)])]
 
 expectedSmallGraph ∷ SyntaxGraph
-expectedSmallGraph = SyntaxGraph 0 rl $ IM.fromList [(0, Block $ M.fromList [])]
+expectedSmallGraph = SyntaxGraph 0 rl $ IM.fromList [(0, Block $ M.empty)]
 
 whiteImage ∷ Vector (Vector (Codel, Int))
 whiteImage = toVector2D [[(WhiteCodel, 0)]]
