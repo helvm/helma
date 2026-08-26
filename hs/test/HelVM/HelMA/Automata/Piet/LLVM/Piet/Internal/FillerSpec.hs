@@ -18,18 +18,20 @@ main ∷ IO ()
 main = hspec spec
 
 spec ∷ Spec
-spec = do
-  describe "fillAll" $ do
-    forM_
-      [ ("emptyImage", V.empty, V.empty, [])
-      , ("smallImage", smallImage, expectedFilledSmallImage, expectedSmallCoords)
-      , ("complexImage", complexImage, expectedFilledComplexImage, expectedComplexCoords)
-      , ("irregularImage", irregularImage, expectedFilledIrregularImage, expectedIrregularCoords)
-      ] $ \(name, image, expectedFilledImage, expectedCoords) ->
-        context ("when given " ++ name) $ do
-          let (filledImage, coords) = fillAll image
-          it "fills all blocks in a given image" $ filledImage `shouldBe` expectedFilledImage
-          it "returns coordinates of filled blocks" $ fmap S.fromList <$> IM.toAscList coords `shouldBe` expectedCoords
+spec = describe "fillAll" $ mapM_ runTest testCases where
+  runTest (name, image, expectedFilledImage, expectedCoords) =
+    context ("when given " ++ name) $ do
+      it "fills all blocks in a given image" $ filledImage `shouldBe` expectedFilledImage
+      it "returns coordinates of filled blocks" $ fmap S.fromList <$> IM.toAscList coords `shouldBe` expectedCoords
+    where
+      (filledImage, coords) = fillAll image
+
+  testCases =
+    [ ("emptyImage", V.empty, V.empty, [])
+    , ("smallImage", smallImage, expectedFilledSmallImage, expectedSmallCoords)
+    , ("complexImage", complexImage, expectedFilledComplexImage, expectedComplexCoords)
+    , ("irregularImage", irregularImage, expectedFilledIrregularImage, expectedIrregularCoords)
+    ]
 
 smallImage ∷ Vector (Vector Char)
 smallImage = toVector2D [['a']]
@@ -53,7 +55,7 @@ cccRRRRRR*****mm
 |] ∷ String)))
 
 expectedFilledComplexImage ∷ Vector (Vector Int)
-expectedFilledComplexImage = fmap (fmap (\c -> ord c - ord 'a')) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+expectedFilledComplexImage = charToOrd <<$>> toVector2D (toString <$> drop 1 (lines (toText ([q|
 aaaaabcccdeeefff
 gggbbbbbddddhhhi
 ggggjbbjddhhhkkl
@@ -62,7 +64,7 @@ nnmmmjjjjjjjkllo
 nnnmmmmmjpqqlllo
 nnnnnnnnrssstuuv
 nwnnnnxxyzzz{{{|
-|] ∷ String)))
+|] ∷ String))))
 
 expectedComplexCoords ∷ [(Int, Set (Int, Int))]
 expectedComplexCoords =
@@ -105,12 +107,12 @@ cccaaaa
 |] ∷ String)))
 
 expectedFilledIrregularImage ∷ Vector (Vector Int)
-expectedFilledIrregularImage = fmap (fmap (\c -> ord c - ord 'a')) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+expectedFilledIrregularImage = charToOrd <<$>> toVector2D (toString <$> drop 1 (lines (toText ([q|
 abcc
 ddc
 d
 dddeeee
-|] ∷ String)))
+|] ∷ String))))
 
 expectedIrregularCoords ∷ [(Int, Set (Int, Int))]
 expectedIrregularCoords =
@@ -120,3 +122,6 @@ expectedIrregularCoords =
   , (3, S.fromList [(0, 1), (1, 1), (0, 2), (0, 3), (1, 3), (2, 3)])
   , (4, S.fromList [(3, 3), (4, 3), (5, 3), (6, 3)])
   ]
+
+charToOrd ∷ Char → Int
+charToOrd c = ord c - ord 'a'

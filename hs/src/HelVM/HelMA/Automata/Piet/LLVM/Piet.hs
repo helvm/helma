@@ -111,7 +111,7 @@ makeGraph messageReceiver imageConfig inputPath = do
   mapError PietParserError $ parse codels
 
 nullReceiver ∷ Monad m ⇒ PietStep → m ()
-nullReceiver _ = pure ()
+nullReceiver _ = pass
 
 mapError ∷ MonadError e2 m ⇒ (e1 → e2) → ExceptT e1 m a → m a
 mapError f = either (throwError . f) pure <=< runExceptT
