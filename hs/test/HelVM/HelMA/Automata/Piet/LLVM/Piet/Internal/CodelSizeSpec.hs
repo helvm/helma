@@ -5,13 +5,13 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.CodelSizeSpec
   , spec
   ) where
 
-import           Control.Monad
-import           Data.Maybe
+-- import           Control.Monad
+-- import           Data.Maybe
 import           Data.Vector                                            ( Vector )
 import qualified Data.Vector                                            as V
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.CodelSize
+import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 import           Test.Hspec
-import           TestUtils
 import           Text.InterpolatedString.Perl6
 
 main ∷ IO ()
@@ -50,7 +50,7 @@ largeImageSize = 10000
 -}
 
 size3Image ∷ Vector (Vector Char)
-size3Image = toVector2D $ tail $ lines $ [q|
+size3Image = toVector2D $ toString <$> drop 1 (lines (toText ([q|
 aaabbbbbb
 aaabbbbbb
 aaabbbbbb
@@ -60,13 +60,13 @@ ccccccddd
 ccccccddd
 ccccccddd
 ccccccddd
-|]
+|] ∷ String)))
 
 size1Image ∷ Vector (Vector Char)
-size1Image = toVector2D $ tail $ lines $ [q|
+size1Image = toVector2D $ toString <$> drop 1 (lines (toText ([q|
 aaabb
 aaabb
 aaabb
 cccdd
 cccdd
-|]
+|] ∷ String)))

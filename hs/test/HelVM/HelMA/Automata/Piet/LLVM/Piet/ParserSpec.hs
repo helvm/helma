@@ -3,18 +3,16 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.ParserSpec
   , spec
   ) where
 
-import           Control.Monad
-import           Data.IntMap                                ( IntMap )
-import qualified Data.IntMap                                as IM
-import qualified Data.Map                                   as M
-import           Data.Vector                                ( Vector )
-import qualified Data.Vector.Generic                        as V
+import qualified Data.IntMap                                     as IM
+import qualified Data.Map                                        as M
+import           Data.Vector                                     ( Vector )
+import qualified Data.Vector.Generic                             as V
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Parser
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
-import           SyntaxTestHelper
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
+import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 import           Test.Hspec
-import           TestUtils
 
 main ∷ IO ()
 main = hspec spec

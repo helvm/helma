@@ -3,13 +3,13 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.ImageReaderSpec
   , spec
   ) where
 
-import           Control.Monad
-import           Control.Monad.Except
+-- import           Control.Monad
+-- import           Control.Monad.Except
 import           Data.Vector                                     ( Vector )
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.ImageReader
+import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 import           Test.Hspec
-import           TestUtils
 
 main ∷ IO ()
 main = hspec spec
@@ -57,24 +57,24 @@ spec = do
         )
       ] $ \(config, expectedCodels) ->
         context ("when configured with " ++ show config) $ do
-          Right codels <- runIO $ runExceptT $ readCodels config "test/resources/imagereader-test.png"
-          it "returns codels" $ codels `shouldBe` expectedCodels
+          res <- runIO $ runExceptT $ readCodels config "test/resources/imagereader-test.png"
+          it "returns codels" $ res `shouldBe` Right expectedCodels
 
     context "when given GuessCodelSize" $ do
       let config = ImageConfig { additionalColor = AdditionalColorNearest
                                , multicoloredCodel = MulticoloredCodelAverage
                                , codelSize = GuessCodelSize
                                }
-      Right codels <- runIO $ runExceptT $ readCodels config "test/resources/codel10-test.png"
-      it "returns codels" $ codels `shouldBe` complexCodels
+      res <- runIO $ runExceptT $ readCodels config "test/resources/codel10-test.png"
+      it "returns codels" $ res `shouldBe` Right complexCodels
 
     context "when given an invalid codel size" $ do
       let config = ImageConfig { additionalColor = AdditionalColorNearest
                                , multicoloredCodel = MulticoloredCodelAverage
                                , codelSize = CodelSize 4
                                }
-      Left err <- runIO $ runExceptT $ readCodels config "test/resources/imagereader-test.png"
-      it "fails with CodelSizeError" $ err `shouldBe` CodelSizeError
+      res <- runIO $ runExceptT $ readCodels config "test/resources/imagereader-test.png"
+      it "fails with CodelSizeError" $ res `shouldBe` Left CodelSizeError
 
 blackWhiteCodels ∷ Vector (Vector Codel)
 blackWhiteCodels = toVector2D

@@ -4,8 +4,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.ToRGB8Spec
   ) where
 
 import           Codec.Picture
-import           Control.Monad
-import           Data.Either
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.ToRGB8
 import           Test.Hspec
 
@@ -37,7 +35,7 @@ spec = do
         context ("when given " ++ name) $ do
           let expectedImage127 = imageData $ singlePixelImage $ PixelRGB8 0x00 0x7F 0xFF
           let expectedImage128 = imageData $ singlePixelImage $ PixelRGB8 0x00 0x80 0xFF
-          let actualImage = imageData $ fromRight undefined $ toRGB8ImageM image
+          let actualImage = imageData $ fromRight (error "Unreachable") $ toRGB8ImageM image
           it "returns a RGB8 image" $ actualImage == expectedImage127 || actualImage == expectedImage128 `shouldBe` True
 
 singlePixelImage ∷ Pixel a ⇒ a → Image a

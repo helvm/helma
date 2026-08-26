@@ -5,16 +5,13 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.FillerSpec
   , spec
   ) where
 
-import           Control.Monad
-import           Data.Char
 import qualified Data.IntMap                                         as IM
-import           Data.Set                                            ( Set )
 import qualified Data.Set                                            as S
 import           Data.Vector                                         ( Vector )
 import qualified Data.Vector                                         as V
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Filler
+import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 import           Test.Hspec
-import           TestUtils
 import           Text.InterpolatedString.Perl6
 
 main ∷ IO ()
@@ -44,7 +41,7 @@ expectedSmallCoords ∷ [(Int, Set (Int, Int))]
 expectedSmallCoords = [(0, S.fromList [(0, 0)])]
 
 complexImage ∷ Vector (Vector Char)
-complexImage = toVector2D $ tail $ lines $ [q|
+complexImage = toVector2D $ toString <$> drop 1 (lines (toText ([q|
 GGGGGBrrr rrrMMM
 bbbBBBBB    YYY*
 bbbbRBBR  YYY**m
@@ -53,10 +50,10 @@ cccRRRRRR*****mm
    cccccRg**mmm*
         grrr*GGr
  y    CC ggg   *
-|]
+|] ∷ String)))
 
 expectedFilledComplexImage ∷ Vector (Vector Int)
-expectedFilledComplexImage = fmap (fmap (\c -> ord c - ord 'a')) $ toVector2D $ tail $ lines $ [q|
+expectedFilledComplexImage = fmap (fmap (\c -> ord c - ord 'a')) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 aaaaabcccdeeefff
 gggbbbbbddddhhhi
 ggggjbbjddhhhkkl
@@ -65,7 +62,7 @@ nnmmmjjjjjjjkllo
 nnnmmmmmjpqqlllo
 nnnnnnnnrssstuuv
 nwnnnnxxyzzz{{{|
-|]
+|] ∷ String)))
 
 expectedComplexCoords ∷ [(Int, Set (Int, Int))]
 expectedComplexCoords =
@@ -100,20 +97,20 @@ expectedComplexCoords =
   ]
 
 irregularImage ∷ Vector (Vector Char)
-irregularImage = toVector2D $ tail $ lines $ [q|
+irregularImage = toVector2D $ toString <$> drop 1 (lines (toText ([q|
 abaa
 cca
 c
 cccaaaa
-|]
+|] ∷ String)))
 
 expectedFilledIrregularImage ∷ Vector (Vector Int)
-expectedFilledIrregularImage = fmap (fmap (\c -> ord c - ord 'a')) $ toVector2D $ tail $ lines $ [q|
+expectedFilledIrregularImage = fmap (fmap (\c -> ord c - ord 'a')) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 abcc
 ddc
 d
 dddeeee
-|]
+|] ∷ String)))
 
 expectedIrregularCoords ∷ [(Int, Set (Int, Int))]
 expectedIrregularCoords =

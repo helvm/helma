@@ -3,10 +3,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.DPCCSpec
   , spec
   ) where
 
-import           Control.Monad
 import qualified Data.Map                                          as M
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.DPCC
-import           SyntaxTestHelper
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           Test.Hspec
 
 main ∷ IO ()

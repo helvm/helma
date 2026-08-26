@@ -1,18 +1,15 @@
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE QuasiQuotes       #-}
+{-# LANGUAGE QuasiQuotes #-}
 
 module HelVM.HelMA.Automata.Piet.LLVM.Piet.SyntaxVisualizerSpec
   ( main
   , spec
   ) where
 
-import           Control.Monad
 import qualified Data.IntMap                                          as IM
 import qualified Data.Map                                             as M
-import           Data.Text.Lazy                                       ( Text )
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.SyntaxVisualizer
-import           SyntaxTestHelper
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
 
@@ -34,7 +31,7 @@ spec = do
 smallestGraph ∷ SyntaxGraph
 smallestGraph = SyntaxGraph 999 dr $ IM.singleton 999 (Block M.empty)
 
-smallestDOT ∷ Text
+smallestDOT ∷ LText
 smallestDOT = [q|digraph {
   rankdir=LR
   start [label="" shape=point color=white]
@@ -64,7 +61,7 @@ stuckGraph = SyntaxGraph 0 rl $ IM.fromList
     )
   ]
 
-stuckDOT ∷ Text
+stuckDOT ∷ LText
 stuckDOT = [q|digraph {
   rankdir=LR
   start [label="" shape=point color=white]
@@ -216,7 +213,7 @@ complexGraph = SyntaxGraph 0 rl $ IM.fromList
     )
   ]
 
-complexDOT ∷ Text
+complexDOT ∷ LText
 complexDOT = [q|digraph {
   rankdir=LR
   start [label="" shape=point color=white]

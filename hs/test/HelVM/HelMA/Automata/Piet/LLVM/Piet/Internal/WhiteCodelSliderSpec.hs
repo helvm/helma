@@ -5,15 +5,14 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.WhiteCodelSliderSpec
   , spec
   ) where
 
-import           Control.Monad
 import           Data.Vector                                                   ( Vector )
 import qualified Data.Vector                                                   as V
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
-import           SyntaxTestHelper
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
+import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 import           Test.Hspec
-import           TestUtils
 import           Text.InterpolatedString.Perl6
 
 main ∷ IO ()
@@ -73,14 +72,14 @@ singleCodelImage ∷ Vector (Vector (Codel, Int))
 singleCodelImage = V.singleton $ V.singleton (WhiteCodel, 0)
 
 oneLoopImage ∷ Vector (Vector (Codel, Int))
-oneLoopImage = V.map (V.map f) $ toVector2D $ tail $ lines $ [q|
+oneLoopImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
 y          1
 y          1
 y          1
 y2         1
-|] where
+|] ∷ String))) where
   f '0' = (BlackCodel, 0)
   f 'r' = (AchromaticCodel Red Normal, 1)
   f 'g' = (AchromaticCodel Green Normal, 2)
@@ -89,16 +88,16 @@ y2         1
   f 'y' = (AchromaticCodel Yellow Normal, 5)
   f ' ' = (WhiteCodel, 6)
   f '2' = (BlackCodel, 7)
-  f _   = undefined
+  f _   = error "Unreachable"
 
 gammaImage ∷ Vector (Vector (Codel, Int))
-gammaImage = V.map (V.map f) $ toVector2D $ tail $ lines $ [q|
+gammaImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 r          g
 r       0  b
 r          c
 r          m
 r     1    y
-|] where
+|] ∷ String))) where
   f 'r' = (AchromaticCodel Red Normal, 0)
   f 'g' = (AchromaticCodel Green Normal, 1)
   f 'b' = (AchromaticCodel Blue Normal, 2)
@@ -108,26 +107,26 @@ r     1    y
   f ' ' = (WhiteCodel, 6)
   f '0' = (BlackCodel, 7)
   f '1' = (BlackCodel, 8)
-  f _   = undefined
+  f _   = error "Unreachable"
 
 crossShapedImage ∷ Vector (Vector (Codel, Int))
-crossShapedImage = V.map (V.map f) $ toVector2D $ tail $ lines $ [q|
+crossShapedImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 *****
 **0**
 *1r2*
 **3**
 *****
-|] where
+|] ∷ String))) where
   f '*' = (BlackCodel, 0)
   f '0' = (WhiteCodel, 1)
   f '1' = (WhiteCodel, 2)
   f '2' = (WhiteCodel, 3)
   f '3' = (WhiteCodel, 4)
   f 'r' = (AchromaticCodel Red Normal, 5)
-  f _   = undefined
+  f _   = error "Unreachable"
 
 spiralImage ∷ Vector (Vector (Codel, Int))
-spiralImage = V.map (V.map f) $ toVector2D $ tail $ lines $ [q|
+spiralImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 rrrrrrrrrrrg
 y         0g
 y 3        g
@@ -139,7 +138,7 @@ y      5   g
 y2         g
 y        1 g
 ybbbbbbbbbbb
-|] where
+|] ∷ String))) where
   f 'r' = (AchromaticCodel Red Normal, 0)
   f 'g' = (AchromaticCodel Green Normal, 1)
   f 'b' = (AchromaticCodel Blue Normal, 2)
@@ -154,17 +153,17 @@ ybbbbbbbbbbb
   f '5' = (BlackCodel, 11)
   f '6' = (BlackCodel, 12)
   f '7' = (BlackCodel, 13)
-  f _   = undefined
+  f _   = error "Unreachable"
 
 stuckImage1 ∷ Vector (Vector (Codel, Int))
-stuckImage1 = V.map (V.map f) $ toVector2D $ tail $ lines $ [q|
+stuckImage1 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
 y          1
 y          1
 y          1
 y       2  1
-|] where
+|] ∷ String))) where
   f '0' = (BlackCodel, 0)
   f 'r' = (AchromaticCodel Red Normal, 1)
   f 'g' = (AchromaticCodel Green Normal, 2)
@@ -173,17 +172,17 @@ y       2  1
   f 'y' = (AchromaticCodel Yellow Normal, 5)
   f ' ' = (WhiteCodel, 6)
   f '2' = (BlackCodel, 7)
-  f _   = undefined
+  f _   = error "Unreachable"
 
 stuckImage2 ∷ Vector (Vector (Codel, Int))
-stuckImage2 = V.map (V.map f) $ toVector2D $ tail $ lines $ [q|
+stuckImage2 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
 y          1
 y          1
 y          1
 y        2 1
-|] where
+|] ∷ String))) where
   f '0' = (BlackCodel, 0)
   f 'r' = (AchromaticCodel Red Normal, 1)
   f 'g' = (AchromaticCodel Green Normal, 2)
@@ -192,17 +191,17 @@ y        2 1
   f 'y' = (AchromaticCodel Yellow Normal, 5)
   f ' ' = (WhiteCodel, 6)
   f '2' = (BlackCodel, 7)
-  f _   = undefined
+  f _   = error "Unreachable"
 
 stuckImage3 ∷ Vector (Vector (Codel, Int))
-stuckImage3 = V.map (V.map f) $ toVector2D $ tail $ lines $ [q|
+stuckImage3 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 00gb11111111
 y          1
 y          1
 y          1
 y          1
 2          1
-|] where
+|] ∷ String))) where
   f '0' = (BlackCodel, 0)
   f 'g' = (AchromaticCodel Green Normal, 1)
   f 'b' = (AchromaticCodel Blue Normal, 2)
@@ -210,4 +209,4 @@ y          1
   f 'y' = (AchromaticCodel Yellow Normal, 4)
   f ' ' = (WhiteCodel, 5)
   f '2' = (BlackCodel, 6)
-  f _   = undefined
+  f _   = error "Unreachable"
