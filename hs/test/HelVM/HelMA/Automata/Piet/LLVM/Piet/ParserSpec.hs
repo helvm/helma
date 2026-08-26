@@ -81,13 +81,13 @@ spec = do
           let blockTable = IM.fromList [(0, [(0, 0)]), (1, [(1, 0)])]
           let expectedGraph = SyntaxGraph 0 rl $
                                 IM.fromList [ ( 0
-                                              , Block $ M.fromList [ (rl, NextBlock (command12) rl 1)
-                                                                   , (rr, NextBlock (command12) rr 1)
+                                              , Block $ M.fromList [ (rl, NextBlock command12 rl 1)
+                                                                   , (rr, NextBlock command12 rr 1)
                                                                    ]
                                               )
                                             , ( 1
-                                              , Block $ M.fromList [ (ll, NextBlock (command21) ll 0)
-                                                                   , (lr, NextBlock (command21) lr 0)
+                                              , Block $ M.fromList [ (ll, NextBlock command21 ll 0)
+                                                                   , (lr, NextBlock command21 lr 0)
                                                                    ]
                                               )
                                             ]
