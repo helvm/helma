@@ -6,7 +6,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Parser
   , parseFilledImage
   ) where
 
-import           Control.Arrow
+import           Control.Arrow                                                 ( Arrow ((***)) )
 import           Control.Monad.Except
 import qualified Data.IntMap                                                   as IM
 import qualified Data.IntSet                                                   as IS
@@ -85,14 +85,14 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
 -- {-# ANN minMaxCoords "HLint: ignore Use second" #-}
 minMaxCoords ∷ [(Int, Int)] → [(DPCC, (Int, Int))]
 minMaxCoords positions = fmap (`maximumOn` positions) <$> fs where
-  fs = [ (DPCC DPRight CCLeft,  (id     *** negate) . id  )
-       , (DPCC DPRight CCRight, (id     *** id    ) . id  )
-       , (DPCC DPDown  CCLeft,  (id     *** id    ) . swap)
-       , (DPCC DPDown  CCRight, (id     *** negate) . swap)
-       , (DPCC DPLeft  CCLeft,  (negate *** id    ) . id  )
-       , (DPCC DPLeft  CCRight, (negate *** negate) . id  )
+  fs = [ (DPCC DPRight CCLeft,  second negate)
+       , (DPCC DPRight CCRight, id *** id)
+       , (DPCC DPDown  CCLeft,  swap)
+       , (DPCC DPDown  CCRight, second negate . swap)
+       , (DPCC DPLeft  CCLeft,  first negate)
+       , (DPCC DPLeft  CCRight, negate *** negate)
        , (DPCC DPUp    CCLeft,  (negate *** negate) . swap)
-       , (DPCC DPUp    CCRight, (negate *** id    ) . swap)
+       , (DPCC DPUp    CCRight, first negate . swap)
        ]
 
 maximumOn ∷ Ord b ⇒ (a → b) → [a] → a
