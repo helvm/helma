@@ -14,6 +14,30 @@ import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 import           Test.Hspec
 
+data ImageTestCase
+  = ImageTestCase
+      { caseName      :: String
+      , testImage     :: Vector (Vector (Codel, Int))
+      , blockTable    :: IntMap [(Int, Int)]
+      , expectedGraph :: SyntaxGraph
+      }
+
+data ErrorTestCase
+  = ErrorTestCase
+      { errCaseName   :: String
+      , errTestImage  :: Vector (Vector (Codel, Int))
+      , errBlockTable :: IntMap [(Int, Int)]
+      , expectedErr   :: ParserError
+      }
+
+data TwoPixelTestCase
+  = TwoPixelTestCase
+      { color1    :: Codel
+      , color2    :: Codel
+      , command12 :: Command
+      , command21 :: Command
+      }
+
 main ∷ IO ()
 main = hspec spec
 
@@ -24,74 +48,75 @@ spec = do
 
   describe "parseFilledImage" $ do
     forM_
-      [ ("smallImage", smallImage, smallBlockTable, expectedSmallGraph)
-      , ("whiteImage", whiteImage, whiteBlockTable, EmptySyntaxGraph)
-      , ("distantInitialImage", distantInitialImage, distantInitialBlockTable, expectedDistantInitialGraph)
-      , ("stuckImage", stuckImage, stuckBlockTable, expectedStuckGraph)
-      , ("complexImage", complexImage, complexBlockTable, expectedComplexGraph)
-      ] $ \(name, image, blockTable, expectedGraph) ->
-        context ("when given " ++ name) $ do
-          it "returns a syntax graph" $ parseFilledImage (image, blockTable) `shouldBe` Right expectedGraph
+      [ ImageTestCase "smallImage" smallImage smallBlockTable expectedSmallGraph
+      , ImageTestCase "whiteImage" whiteImage whiteBlockTable EmptySyntaxGraph
+      , ImageTestCase "distantInitialImage" distantInitialImage distantInitialBlockTable expectedDistantInitialGraph
+      , ImageTestCase "stuckImage" stuckImage stuckBlockTable expectedStuckGraph
+      , ImageTestCase "complexImage" complexImage complexBlockTable expectedComplexGraph
+      ] $ \tc ->
+        context ("when given " ++ caseName tc) $ do
+          it "returns a syntax graph" $ parseFilledImage (testImage tc, blockTable tc) `shouldBe` Right (expectedGraph tc)
 
     forM_
-      [ ("emptyImage", V.empty, IM.empty, EmptyBlockTableError)
-      , ("blackImage", blackImage, blackBlockTable, IllegalInitialColorError)
-      ] $ \(name, image, blockTable, expectedError) ->
-        context ("when given " ++ name) $ do
-          it "returns an error" $ parseFilledImage (image, blockTable) `shouldBe` Left expectedError
+      [ ErrorTestCase "emptyImage" V.empty IM.empty EmptyBlockTableError
+      , ErrorTestCase "blackImage" blackImage blackBlockTable IllegalInitialColorError
+      ] $ \tc ->
+        context ("when given " ++ errCaseName tc) $ do
+          it "returns an error" $ parseFilledImage (errTestImage tc, errBlockTable tc) `shouldBe` Left (expectedErr tc)
 
     context "when given an image which only consists of two pixels" $ do
       forM_
-        [ (AchromaticCodel Red Light, AchromaticCodel Red Normal, Push 1, Pop)
-        , (AchromaticCodel Red Light, AchromaticCodel Red Dark, Pop, Push 1)
-        , (AchromaticCodel Red Light, AchromaticCodel Yellow Light, Add, InChar)
-        , (AchromaticCodel Red Light, AchromaticCodel Yellow Normal, Subtract, OutChar)
-        , (AchromaticCodel Red Light, AchromaticCodel Yellow Dark, Multiply, OutNumber)
-        , (AchromaticCodel Red Light, AchromaticCodel Green Light, Divide, Duplicate)
-        , (AchromaticCodel Red Light, AchromaticCodel Green Normal, Mod, InNumber)
-        , (AchromaticCodel Red Light, AchromaticCodel Green Dark, Not, Roll)
-        , (AchromaticCodel Red Light, AchromaticCodel Cyan Light, Greater, Greater)
-        , (AchromaticCodel Red Light, AchromaticCodel Cyan Normal, Pointer, Switch)
-        , (AchromaticCodel Red Light, AchromaticCodel Cyan Dark, Switch, Pointer)
-        , (AchromaticCodel Red Light, AchromaticCodel Blue Light, Duplicate, Divide)
-        , (AchromaticCodel Red Light, AchromaticCodel Blue Normal, Roll, Not)
-        , (AchromaticCodel Red Light, AchromaticCodel Blue Dark, InNumber, Mod)
-        , (AchromaticCodel Red Light, AchromaticCodel Magenta Light, InChar, Add)
-        , (AchromaticCodel Red Light, AchromaticCodel Magenta Normal, OutNumber, Multiply)
-        , (AchromaticCodel Red Light, AchromaticCodel Magenta Dark, OutChar, Subtract)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Cyan Light, Push 1, Pop)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Cyan Normal, Pop, Push 1)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Blue Dark, Add, InChar)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Blue Light, Subtract, OutChar)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Blue Normal, Multiply, OutNumber)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Magenta Dark, Divide, Duplicate)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Magenta Light, Mod, InNumber)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Magenta Normal, Not, Roll)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Red Dark, Greater, Greater)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Red Light, Pointer, Switch)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Red Normal, Switch, Pointer)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Yellow Dark, Duplicate, Divide)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Yellow Light, Roll, Not)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Yellow Normal, InNumber, Mod)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Green Dark, InChar, Add)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Green Light, OutNumber, Multiply)
-        , (AchromaticCodel Cyan Dark, AchromaticCodel Green Normal, OutChar, Subtract)
-        ] $ \(color1, color2, command12, command21) -> do
-          let image = toVector2D [[(color1, 0), (color2, 1)]]
-          let blockTable = IM.fromList [(0, [(0, 0)]), (1, [(1, 0)])]
-          let expectedGraph = SyntaxGraph 0 rl $
+        [ TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Red Normal) (Push 1) Pop
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Red Dark) Pop (Push 1)
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Yellow Light) Add InChar
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Yellow Normal) Subtract OutChar
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Yellow Dark) Multiply OutNumber
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Green Light) Divide Duplicate
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Green Normal) Mod InNumber
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Green Dark) Not Roll
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Cyan Light) Greater Greater
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Cyan Normal) Pointer Switch
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Cyan Dark) Switch Pointer
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Blue Light) Duplicate Divide
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Blue Normal) Roll Not
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Blue Dark) InNumber Mod
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Magenta Light) InChar Add
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Magenta Normal) OutNumber Multiply
+        , TwoPixelTestCase (AchromaticCodel Red Light) (AchromaticCodel Magenta Dark) OutChar Subtract
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Cyan Light) (Push 1) Pop
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Cyan Normal) Pop (Push 1)
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Blue Dark) Add InChar
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Blue Light) Subtract OutChar
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Blue Normal) Multiply OutNumber
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Magenta Dark) Divide Duplicate
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Magenta Light) Mod InNumber
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Magenta Normal) Not Roll
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Red Dark) Greater Greater
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Red Light) Pointer Switch
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Red Normal) Switch Pointer
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Yellow Dark) Duplicate Divide
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Yellow Light) Roll Not
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Yellow Normal) InNumber Mod
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Green Dark) InChar Add
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Green Light) OutNumber Multiply
+        , TwoPixelTestCase (AchromaticCodel Cyan Dark) (AchromaticCodel Green Normal) OutChar Subtract
+        ] $ \tc -> do
+          let image = toVector2D [[(color1 tc, 0), (color2 tc, 1)]]
+          let bTable = IM.fromList [(0, [(0, 0)]), (1, [(1, 0)])]
+          let expectedG = SyntaxGraph 0 rl $
                                 IM.fromList [ ( 0
-                                              , Block $ M.fromList [ (rl, NextBlock command12 rl 1)
-                                                                   , (rr, NextBlock command12 rr 1)
+                                              , Block $ M.fromList [ (rl, NextBlock (command12 tc) rl 1)
+                                                                   , (rr, NextBlock (command12 tc) rr 1)
                                                                    ]
                                               )
                                             , ( 1
-                                              , Block $ M.fromList [ (ll, NextBlock command21 ll 0)
-                                                                   , (lr, NextBlock command21 lr 0)
+                                              , Block $ M.fromList [ (ll, NextBlock (command21 tc) ll 0)
+                                                                   , (lr, NextBlock (command21 tc) lr 0)
                                                                    ]
                                               )
                                             ]
-          it ("returns " ++ show (command12, command21) ++ " when given " ++ show (color1, color2)) $ parseFilledImage (image, blockTable) `shouldBe` Right expectedGraph
+          it ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ parseFilledImage (image, bTable) `shouldBe` Right expectedG
+
 
 smallImage ∷ Vector (Vector (Codel, Int))
 smallImage = toVector2D [[(AchromaticCodel Red Normal, 0)]]

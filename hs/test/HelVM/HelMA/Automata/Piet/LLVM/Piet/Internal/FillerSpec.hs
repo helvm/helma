@@ -14,23 +14,30 @@ import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
 
+data TestCase
+  = TestCase
+      { caseName            :: String
+      , inputImage          :: Vector (Vector Char)
+      , expectedFilledImage :: Vector (Vector Int)
+      , expectedCoords      :: [(Int, Set (Int, Int))]
+      }
+
 main ∷ IO ()
 main = hspec spec
 
 spec ∷ Spec
-spec = describe "fillAll" $ mapM_ runTest testCases where
-  runTest (name, image, expectedFilledImage, expectedCoords) =
-    context ("when given " ++ name) $ do
-      it "fills all blocks in a given image" $ filledImage `shouldBe` expectedFilledImage
-      it "returns coordinates of filled blocks" $ fmap S.fromList <$> IM.toAscList coords `shouldBe` expectedCoords
+spec = describe "fillAll" $ forM_ testCases runTest where
+  runTest tc = context ("when given " ++ caseName tc) $ do
+    it "fills all blocks in a given image" $ filledImage `shouldBe` expectedFilledImage tc
+    it "returns coordinates of filled blocks" $ fmap S.fromList <$> IM.toAscList coords `shouldBe` expectedCoords tc
     where
-      (filledImage, coords) = fillAll image
+      (filledImage, coords) = fillAll (inputImage tc)
 
   testCases =
-    [ ("emptyImage", V.empty, V.empty, [])
-    , ("smallImage", smallImage, expectedFilledSmallImage, expectedSmallCoords)
-    , ("complexImage", complexImage, expectedFilledComplexImage, expectedComplexCoords)
-    , ("irregularImage", irregularImage, expectedFilledIrregularImage, expectedIrregularCoords)
+    [ TestCase "emptyImage" V.empty V.empty []
+    , TestCase "smallImage" smallImage expectedFilledSmallImage expectedSmallCoords
+    , TestCase "complexImage" complexImage expectedFilledComplexImage expectedComplexCoords
+    , TestCase "irregularImage" irregularImage expectedFilledIrregularImage expectedIrregularCoords
     ]
 
 smallImage ∷ Vector (Vector Char)

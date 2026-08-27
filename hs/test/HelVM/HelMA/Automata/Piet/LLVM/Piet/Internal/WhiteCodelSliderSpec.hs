@@ -15,58 +15,68 @@ import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
 
+data TestCase
+  = TestCase
+      { caseName        :: String
+      , testImage       :: Vector (Vector (Codel, Int))
+      , initialPosition :: (Int, Int)
+      , initialDPCC     :: DPCC
+      , expectedResult  :: NextBlock
+      }
+
 main ∷ IO ()
 main = hspec spec
 
 spec ∷ Spec
-spec = do
-  describe "slideOnWhiteBlock" $ do
-    forM_
-      [ ("singleCodelImage (0, 0) rl", singleCodelImage, (0, 0), rl, ExitProgram)
-      , ("oneLoopImage (1, 1) rl", oneLoopImage, (1, 1), rl, NextBlock NoOperation ur 2)
-      , ("oneLoopImage (1, 1) rr", oneLoopImage, (1, 1), rr, NextBlock NoOperation ul 2)
-      , ("gammaImage (1, 1) rl", gammaImage, (1, 1), rl, NextBlock NoOperation rl 1)
-      , ("gammaImage (1, 4) rl", gammaImage, (1, 4), rl, NextBlock NoOperation ll 0)
-      , ("crossShapedImage (2, 1) rl", crossShapedImage, (2, 1), rl, NextBlock NoOperation dr 5)
-      , ("crossShapedImage (2, 1) rr", crossShapedImage, (2, 1), rr, NextBlock NoOperation dl 5)
-      , ("crossShapedImage (2, 1) dl", crossShapedImage, (2, 1), dl, NextBlock NoOperation dl 5)
-      , ("crossShapedImage (2, 1) dr", crossShapedImage, (2, 1), dr, NextBlock NoOperation dr 5)
-      , ("crossShapedImage (2, 1) ll", crossShapedImage, (2, 1), ll, NextBlock NoOperation dr 5)
-      , ("crossShapedImage (2, 1) lr", crossShapedImage, (2, 1), lr, NextBlock NoOperation dl 5)
-      , ("crossShapedImage (2, 1) ul", crossShapedImage, (2, 1), ul, NextBlock NoOperation dl 5)
-      , ("crossShapedImage (2, 1) ur", crossShapedImage, (2, 1), ur, NextBlock NoOperation dr 5)
-      , ("crossShapedImage (1, 2) rl", crossShapedImage, (1, 2), rl, NextBlock NoOperation rl 5)
-      , ("crossShapedImage (1, 2) rr", crossShapedImage, (1, 2), rr, NextBlock NoOperation rr 5)
-      , ("crossShapedImage (1, 2) dl", crossShapedImage, (1, 2), dl, NextBlock NoOperation rr 5)
-      , ("crossShapedImage (1, 2) dr", crossShapedImage, (1, 2), dr, NextBlock NoOperation rl 5)
-      , ("crossShapedImage (1, 2) ll", crossShapedImage, (1, 2), ll, NextBlock NoOperation rl 5)
-      , ("crossShapedImage (1, 2) lr", crossShapedImage, (1, 2), lr, NextBlock NoOperation rr 5)
-      , ("crossShapedImage (1, 2) ul", crossShapedImage, (1, 2), ul, NextBlock NoOperation rr 5)
-      , ("crossShapedImage (1, 2) ur", crossShapedImage, (1, 2), ur, NextBlock NoOperation rl 5)
-      , ("crossShapedImage (3, 2) rl", crossShapedImage, (3, 2), rl, NextBlock NoOperation ll 5)
-      , ("crossShapedImage (3, 2) rr", crossShapedImage, (3, 2), rr, NextBlock NoOperation lr 5)
-      , ("crossShapedImage (3, 2) dl", crossShapedImage, (3, 2), dl, NextBlock NoOperation lr 5)
-      , ("crossShapedImage (3, 2) dr", crossShapedImage, (3, 2), dr, NextBlock NoOperation ll 5)
-      , ("crossShapedImage (3, 2) ll", crossShapedImage, (3, 2), ll, NextBlock NoOperation ll 5)
-      , ("crossShapedImage (3, 2) lr", crossShapedImage, (3, 2), lr, NextBlock NoOperation lr 5)
-      , ("crossShapedImage (3, 2) ul", crossShapedImage, (3, 2), ul, NextBlock NoOperation lr 5)
-      , ("crossShapedImage (3, 2) ur", crossShapedImage, (3, 2), ur, NextBlock NoOperation ll 5)
-      , ("crossShapedImage (2, 3) rl", crossShapedImage, (2, 3), rl, NextBlock NoOperation ur 5)
-      , ("crossShapedImage (2, 3) rr", crossShapedImage, (2, 3), rr, NextBlock NoOperation ul 5)
-      , ("crossShapedImage (2, 3) dl", crossShapedImage, (2, 3), dl, NextBlock NoOperation ul 5)
-      , ("crossShapedImage (2, 3) dr", crossShapedImage, (2, 3), dr, NextBlock NoOperation ur 5)
-      , ("crossShapedImage (2, 3) ll", crossShapedImage, (2, 3), ll, NextBlock NoOperation ur 5)
-      , ("crossShapedImage (2, 3) lr", crossShapedImage, (2, 3), lr, NextBlock NoOperation ul 5)
-      , ("crossShapedImage (2, 3) ul", crossShapedImage, (2, 3), ul, NextBlock NoOperation ul 5)
-      , ("crossShapedImage (2, 3) ur", crossShapedImage, (2, 3), ur, NextBlock NoOperation ur 5)
-      , ("spiralImage (1, 1) rl", spiralImage, (1, 1), rl, NextBlock NoOperation rl 4)
-      , ("stuckImage1 (1, 1) rl", stuckImage1, (1, 1), rl, ExitProgram)
-      , ("stuckImage2 (1, 1) rl", stuckImage2, (1, 1), rl, ExitProgram)
-      , ("stuckImage3 (1, 1) rl", stuckImage3, (1, 1), rl, ExitProgram)
-      ] $ \(name, image, initialPosition, initialDPCC, expected) ->
-        context ("when given " ++ name) $
-          it "slide and pure the next codel" $
-            slideOnWhiteBlock image initialPosition initialDPCC `shouldBe` expected
+spec = describe "slideOnWhiteBlock" $ forM_ testCases runTest where
+  runTest tc =
+    context ("when given " ++ caseName tc) $
+      it "slide and pure the next codel" $
+        slideOnWhiteBlock (testImage tc) (initialPosition tc) (initialDPCC tc) `shouldBe` expectedResult tc
+
+  testCases =
+    [ TestCase "singleCodelImage (0, 0) rl" singleCodelImage (0, 0) rl ExitProgram
+    , TestCase "oneLoopImage (1, 1) rl" oneLoopImage (1, 1) rl (NextBlock NoOperation ur 2)
+    , TestCase "oneLoopImage (1, 1) rr" oneLoopImage (1, 1) rr (NextBlock NoOperation ul 2)
+    , TestCase "gammaImage (1, 1) rl" gammaImage (1, 1) rl (NextBlock NoOperation rl 1)
+    , TestCase "gammaImage (1, 4) rl" gammaImage (1, 4) rl (NextBlock NoOperation ll 0)
+    , TestCase "crossShapedImage (2, 1) rl" crossShapedImage (2, 1) rl (NextBlock NoOperation dr 5)
+    , TestCase "crossShapedImage (2, 1) rr" crossShapedImage (2, 1) rr (NextBlock NoOperation dl 5)
+    , TestCase "crossShapedImage (2, 1) dl" crossShapedImage (2, 1) dl (NextBlock NoOperation dl 5)
+    , TestCase "crossShapedImage (2, 1) dr" crossShapedImage (2, 1) dr (NextBlock NoOperation dr 5)
+    , TestCase "crossShapedImage (2, 1) ll" crossShapedImage (2, 1) ll (NextBlock NoOperation dr 5)
+    , TestCase "crossShapedImage (2, 1) lr" crossShapedImage (2, 1) lr (NextBlock NoOperation dl 5)
+    , TestCase "crossShapedImage (2, 1) ul" crossShapedImage (2, 1) ul (NextBlock NoOperation dl 5)
+    , TestCase "crossShapedImage (2, 1) ur" crossShapedImage (2, 1) ur (NextBlock NoOperation dr 5)
+    , TestCase "crossShapedImage (1, 2) rl" crossShapedImage (1, 2) rl (NextBlock NoOperation rl 5)
+    , TestCase "crossShapedImage (1, 2) rr" crossShapedImage (1, 2) rr (NextBlock NoOperation rr 5)
+    , TestCase "crossShapedImage (1, 2) dl" crossShapedImage (1, 2) dl (NextBlock NoOperation rr 5)
+    , TestCase "crossShapedImage (1, 2) dr" crossShapedImage (1, 2) dr (NextBlock NoOperation rl 5)
+    , TestCase "crossShapedImage (1, 2) ll" crossShapedImage (1, 2) ll (NextBlock NoOperation rl 5)
+    , TestCase "crossShapedImage (1, 2) lr" crossShapedImage (1, 2) lr (NextBlock NoOperation rr 5)
+    , TestCase "crossShapedImage (1, 2) ul" crossShapedImage (1, 2) ul (NextBlock NoOperation rr 5)
+    , TestCase "crossShapedImage (1, 2) ur" crossShapedImage (1, 2) ur (NextBlock NoOperation rl 5)
+    , TestCase "crossShapedImage (3, 2) rl" crossShapedImage (3, 2) rl (NextBlock NoOperation ll 5)
+    , TestCase "crossShapedImage (3, 2) rr" crossShapedImage (3, 2) rr (NextBlock NoOperation lr 5)
+    , TestCase "crossShapedImage (3, 2) dl" crossShapedImage (3, 2) dl (NextBlock NoOperation lr 5)
+    , TestCase "crossShapedImage (3, 2) dr" crossShapedImage (3, 2) dr (NextBlock NoOperation ll 5)
+    , TestCase "crossShapedImage (3, 2) ll" crossShapedImage (3, 2) ll (NextBlock NoOperation ll 5)
+    , TestCase "crossShapedImage (3, 2) lr" crossShapedImage (3, 2) lr (NextBlock NoOperation lr 5)
+    , TestCase "crossShapedImage (3, 2) ul" crossShapedImage (3, 3) ul (NextBlock NoOperation lr 5)
+    , TestCase "crossShapedImage (3, 2) ur" crossShapedImage (3, 2) ur (NextBlock NoOperation ll 5)
+    , TestCase "crossShapedImage (2, 3) rl" crossShapedImage (2, 3) rl (NextBlock NoOperation ur 5)
+    , TestCase "crossShapedImage (2, 3) rr" crossShapedImage (2, 3) rr (NextBlock NoOperation ul 5)
+    , TestCase "crossShapedImage (2, 3) dl" crossShapedImage (2, 3) dl (NextBlock NoOperation ul 5)
+    , TestCase "crossShapedImage (2, 3) dr" crossShapedImage (2, 3) dr (NextBlock NoOperation ur 5)
+    , TestCase "crossShapedImage (2, 3) ll" crossShapedImage (2, 3) ll (NextBlock NoOperation ur 5)
+    , TestCase "crossShapedImage (2, 3) lr" crossShapedImage (2, 3) lr (NextBlock NoOperation ul 5)
+    , TestCase "crossShapedImage (2, 3) ul" crossShapedImage (2, 3) ul (NextBlock NoOperation ul 5)
+    , TestCase "crossShapedImage (2, 3) ur" crossShapedImage (2, 3) ur (NextBlock NoOperation ur 5)
+    , TestCase "spiralImage (1, 1) rl" spiralImage (1, 1) rl (NextBlock NoOperation rl 4)
+    , TestCase "stuckImage1 (1, 1) rl" stuckImage1 (1, 1) rl ExitProgram
+    , TestCase "stuckImage2 (1, 1) rl" stuckImage2 (1, 1) rl ExitProgram
+    , TestCase "stuckImage3 (1, 1) rl" stuckImage3 (1, 1) rl ExitProgram
+    ]
 
 singleCodelImage ∷ Vector (Vector (Codel, Int))
 singleCodelImage = V.singleton $ V.singleton (WhiteCodel, 0)
