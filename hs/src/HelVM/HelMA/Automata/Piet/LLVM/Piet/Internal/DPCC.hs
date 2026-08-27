@@ -25,7 +25,9 @@ nearestDPCCTable possibleDPCCs = (id &&& nearestDPCC) <$> allDPCCs where
   nearestDPCC (DPCC dp cc) =
     let
       nearestDP = nearestDPTable M.! dp
-      nearestCC = toEnum $ (fromEnum cc + fromEnum nearestDP - fromEnum dp) `mod` 2
+      nearestCC = if even (fromEnum nearestDP - fromEnum dp)
+                  then cc
+                  else cyclicSucc cc
       nearestDPCCCandidate = DPCC nearestDP nearestCC
     in if S.member nearestDPCCCandidate possibleDPCCSet
        then nearestDPCCCandidate
