@@ -29,7 +29,7 @@ spec = do
           it "convert a syntax graph to a DOT script" $ syntaxToDOT graph `shouldBe` dot
 
 smallestGraph ∷ SyntaxGraph
-smallestGraph = SyntaxGraph 999 dr $ IM.singleton 999 (Block M.empty)
+smallestGraph = SyntaxGraph 999 dr $ one (999 , Block M.empty)
 
 smallestDOT ∷ LText
 smallestDOT = [q|digraph {
