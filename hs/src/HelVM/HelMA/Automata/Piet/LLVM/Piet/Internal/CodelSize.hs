@@ -5,8 +5,8 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.CodelSize
 guessCodelSize ∷ Eq a ⇒ (Int, Int) → ((Int, Int) → a) → Int
 guessCodelSize (width, height) pixelAccessor = codelSize where
   codelSize = groupGCD pixelAccessor horizontalPositionBlocks `gcd'` groupGCD pixelAccessor verticalPositionBlocks
-  horizontalPositionBlocks = generate height $ \y -> generate width $ \x -> (x, y)
-  verticalPositionBlocks = generate width $ \x -> generate height $ \y -> (x, y)
+  horizontalPositionBlocks = generate height $ \y -> generate width (,y)
+  verticalPositionBlocks = generate width $ \x -> generate height (x,)
 
 generate ∷ Int → (Int → a) → [a]
 generate n f = f <$> [0 .. n - 1]
