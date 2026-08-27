@@ -21,22 +21,21 @@ slideOnWhiteBlock image initialPosition initialDPCC = result where
                             )
                          ⇒ (Int, Int) → DPCC → m ()
   slideOnWhiteBlockState position dpcc = do
-    (nextCodel, nextIndex, nextPosition, nextDPCC) <- maybe (throwError ExitProgram) pure $ next position dpcc
+    ((nextCodel, nextIndex), nextCodelDPCC@(nextPosition, nextDPCC)) <- maybe (throwError ExitProgram) pure $ next position dpcc
     when (nextCodel /= WhiteCodel) $ throwError $ NextBlock NoOperation nextDPCC nextIndex
 
     visited <- get
-    let nextCodelDPCC = (nextPosition, nextDPCC)
     when (S.member nextCodelDPCC visited) $ throwError ExitProgram
     modify $ S.insert nextCodelDPCC
 
     slideOnWhiteBlockState nextPosition nextDPCC
 
-  next ∷ (Int, Int) → DPCC → Maybe (Codel, Int, (Int, Int), DPCC)
+  next ∷ (Int, Int) → DPCC → Maybe ((Codel, Int), ((Int, Int), DPCC))
   next position dpcc = listToMaybe $ do
     nextDPCC@(DPCC nextDP _) <- take 4 $ iterate succDPCC dpcc
     let nextPosition = move nextDP position
-    (nextCodel, nextIndex) <- maybeToList $ getNonBlackCodel nextPosition
-    pure (nextCodel, nextIndex, nextPosition, nextDPCC)
+    codelInfo <- maybeToList $ getNonBlackCodel nextPosition
+    pure (codelInfo, (nextPosition, nextDPCC))
 
   getNonBlackCodel ∷ (Int, Int) → Maybe (Codel, Int)
   getNonBlackCodel (x, y) = do
