@@ -4,8 +4,10 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Position
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
 
-move ∷ Enum a ⇒ DirectionPointer → (a, a) → (a, a)
-move DPRight = first  succ
-move DPDown  = second succ
-move DPLeft  = first  pred
-move DPUp    = second pred
+import           Relude.Extra                               ( next, prev )
+
+move ∷ Eq a => Bounded a ⇒ Enum a ⇒ DirectionPointer → (a, a) → (a, a)
+move DPRight = first  next
+move DPDown  = second next
+move DPLeft  = first  prev
+move DPUp    = second prev
