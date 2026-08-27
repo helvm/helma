@@ -13,7 +13,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.ImageReader
 
 import           Codec.Picture
 import           Control.Monad.Except
-import           Data.List                                              ( maximumBy, minimum )
+import qualified Data.Foldable1                                         as F1
+import           Data.List                                              ( minimum )
+import qualified Data.List.NonEmpty                                     as NE
 import qualified Data.Map                                               as M
 import           Data.Vector                                            ( Vector )
 import qualified Data.Vector                                            as V
@@ -90,7 +92,7 @@ getCodelColor strategy codelSizeInt image codelX codelY = getCodelColor' strateg
   getCodelColor' MulticoloredCodelAsWhite = if hasMultipleColors then PixelRGB8 0xFF 0xFF 0xFF else firstColor
   getCodelColor' MulticoloredCodelAsBlack = if hasMultipleColors then PixelRGB8 0x00 0x00 0x00 else firstColor
   getCodelColor' MulticoloredCodelCenter = pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2)
-  getCodelColor' MulticoloredCodelModal = getHead $ maximumBy (comparing length) $ groupWith id colors
+  getCodelColor' MulticoloredCodelModal = getHead $ F1.maximumBy (comparing length) $ NE.fromList $ groupWith id colors
   getCodelColor' MulticoloredCodelAverage = average where
     average = PixelRGB8 (fromIntegral $ iR `div` codelsNum)
                         (fromIntegral $ iG `div` codelsNum)

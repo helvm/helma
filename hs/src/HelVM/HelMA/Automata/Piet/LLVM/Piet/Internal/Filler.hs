@@ -7,7 +7,6 @@ import           Control.Lens
 import           Control.Monad.Primitive
 import           Control.Monad.ST
 import qualified Data.IntMap             as IM
-import           Data.Maybe              ( fromJust )
 import           Data.Vector             ( Vector )
 import qualified Data.Vector.Generic     as V
 import           Data.Vector.Mutable     ( STVector )
@@ -29,7 +28,7 @@ fillAll image = runST $ do
                             }
   positionTable <- fillAllST `evalStateT` 0 `runReaderT` params
   filledImageMaybe <- mapM V.freeze filledRefs
-  let filledImage = fmap fromJust <$> filledImageMaybe
+  let filledImage = fmap (fromMaybe 0) <$> filledImageMaybe
   pure (filledImage, positionTable)
 
 fillAllST ∷ ( Eq a

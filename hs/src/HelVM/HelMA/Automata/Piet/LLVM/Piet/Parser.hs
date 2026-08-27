@@ -20,6 +20,8 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Position
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
 
+import           Data.MonoTraversable
+
 data ParserError
   = EmptyBlockTableError -- ^ The block table is empty.
   | IllegalInitialColorError -- ^ The initial codel of the block table is black.
@@ -41,7 +43,7 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
   parseState blockIndex = do
     blockCoords <- justOrThrow (MissingCodelIndexError blockIndex) $ blockTable IM.!? blockIndex
 
-    let blockSize = length blockCoords
+    let blockSize = olength blockCoords
     let nextBlockList = mapMaybe (\(dpcc, pos) -> (dpcc,) <$> searchNextBlock pos dpcc blockSize) $ minMaxCoords blockCoords
     let block = Block $ M.fromList nextBlockList
     modify $ IM.insert blockIndex block
