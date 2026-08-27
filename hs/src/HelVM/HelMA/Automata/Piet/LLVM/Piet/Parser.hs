@@ -80,20 +80,22 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
       WhiteCodel -> Just $ slideOnWhiteBlock codelTable (nextX, nextY) dpcc
       BlackCodel -> Nothing
 
+minMaxCoords ∷ [(Int, Int)] → [(DPCC, (Int, Int))]
+minMaxCoords positions = fmap (`maximumOn` positions) <$> fs
+
 -- {-# ANN minMaxCoords "HLint: ignore Redundant id" #-}
 -- {-# ANN minMaxCoords "HLint: ignore Use first" #-}
 -- {-# ANN minMaxCoords "HLint: ignore Use second" #-}
-minMaxCoords ∷ [(Int, Int)] → [(DPCC, (Int, Int))]
-minMaxCoords positions = fmap (`maximumOn` positions) <$> fs where
-  fs = [ (DPCC DPRight CCLeft,  second negate)
-       , (DPCC DPRight CCRight, id *** id)
-       , (DPCC DPDown  CCLeft,  swap)
-       , (DPCC DPDown  CCRight, second negate . swap)
-       , (DPCC DPLeft  CCLeft,  first negate)
-       , (DPCC DPLeft  CCRight, negate *** negate)
-       , (DPCC DPUp    CCLeft,  (negate *** negate) . swap)
-       , (DPCC DPUp    CCRight, first negate . swap)
-       ]
+fs ∷ [(DPCC, (Int, Int) → (Int, Int))]
+fs = [ (DPCC DPRight CCLeft,  second negate)
+     , (DPCC DPRight CCRight, first id)
+     , (DPCC DPDown  CCLeft,  swap)
+     , (DPCC DPDown  CCRight, second negate . swap)
+     , (DPCC DPLeft  CCLeft,  first negate)
+     , (DPCC DPLeft  CCRight, negate *** negate)
+     , (DPCC DPUp    CCLeft,  (negate *** negate) . swap)
+     , (DPCC DPUp    CCRight, first negate . swap)
+     ]
 
 maximumOn ∷ Ord b ⇒ (a → b) → [a] → a
 maximumOn f = maximumBy (\x y -> compare (f x) (f y))
