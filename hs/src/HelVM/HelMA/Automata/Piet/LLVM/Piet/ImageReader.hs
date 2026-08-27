@@ -92,10 +92,12 @@ getCodelColor strategy codelSizeInt image codelX codelY = getCodelColor' strateg
   getCodelColor' MulticoloredCodelCenter = pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2)
   getCodelColor' MulticoloredCodelModal = getHead $ maximumBy (comparing length) $ groupWith id colors
   getCodelColor' MulticoloredCodelAverage = average where
-    average = PixelRGB8 (toP $ iR `div` codelsNum) (toP $ iG `div` codelsNum) (toP $ iB `div` codelsNum)
-    (iR, iG, iB) = foldl' (\(accR, accG, accB) (PixelRGB8 r g b) -> (accR + toI r, accG + toI g, accB + toI b)) (0, 0, 0) colors
-    toI = toInteger . fromEnum
-    toP = toEnum . fromInteger
+    average = PixelRGB8 (fromIntegral $ iR `div` codelsNum)
+                        (fromIntegral $ iG `div` codelsNum)
+                        (fromIntegral $ iB `div` codelsNum)
+    (iR, iG, iB) = foldl' (\(accR, accG, accB) (PixelRGB8 r g b) ->
+                           (accR + fromIntegral r, accG + fromIntegral g, accB + fromIntegral b))
+                         (0, 0, 0) colors
     codelsNum = toInteger $ codelSizeInt * codelSizeInt
   hasMultipleColors = any (/= firstColor) colors
   firstColor = getHead colors
