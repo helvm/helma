@@ -64,7 +64,7 @@ fill ∷ ( Eq a
 fill targetColor fillingColor seed = execStateT (fill' seed) [] where
   fill' (x, y) = void $ runMaybeT $ do
     sourceImage <- view paramSourceImage
-    sourceColor <- MaybeT $ pure $ sourceImage V.!? y >>= (V.!? x)
+    sourceColor <- hoistMaybe (sourceImage V.!? y >>= (V.!? x))
     guard $ sourceColor == targetColor
 
     filledRefs <- view paramFilledRefs

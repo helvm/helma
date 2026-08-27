@@ -38,8 +38,8 @@ nearestDPCCTable possibleDPCCs = (id &&& nearestDPCC) <$> allDPCCs where
                                                       | otherwise = (currentDP, dp) : go currentDPs (nextDP : nextDPs) dp
     go _ [] _ = error "unreachable"
     reversedPossibleDPs = S.toDescList possibleDPSet
-    reversedAllDPs = reverse [minBound .. maxBound]
+    reversedAllDPs = reverse universe
 
-  allDPCCs = DPCC <$> [minBound .. maxBound] <*> [minBound .. maxBound]
+  allDPCCs = DPCC <$> universe <*> universe
   possibleDPCCSet = S.fromList possibleDPCCs
   possibleDPSet = S.map getDP possibleDPCCSet

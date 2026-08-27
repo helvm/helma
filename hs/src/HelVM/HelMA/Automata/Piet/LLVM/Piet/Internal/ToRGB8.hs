@@ -30,7 +30,6 @@ toRGB8ImageM (ImageCMYK16 image) = pure $ toRGB8Image image
 failConversion ∷ MonadError String m ⇒ m a
 failConversion = throwError "can't convert from grayscale images"
 
--- | RGB8 convertible pixels and images.
 class Pixel a => ToRGB8 a where
   toRGB8Pixel :: a → PixelRGB8
   toRGB8Image :: Image a → Image PixelRGB8
