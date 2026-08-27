@@ -1,7 +1,5 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE TupleSections    #-}
-
--- | Functions to parse images.
 module HelVM.HelMA.Automata.Piet.LLVM.Piet.Parser
   ( ParserError (..)
   , parse
@@ -10,14 +8,10 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Parser
 
 import           Control.Arrow
 import           Control.Monad.Except
--- import Control.Monad.State
--- import           Data.IntMap                                                   ( IntMap )
 import qualified Data.IntMap                                                   as IM
 import qualified Data.IntSet                                                   as IS
 import           Data.List
 import qualified Data.Map                                                      as M
--- import           Data.Maybe
--- import           Data.Tuple
 import           Data.Vector                                                   ( Vector )
 import qualified Data.Vector                                                   as V
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
@@ -32,11 +26,9 @@ data ParserError
   | MissingCodelIndexError Int -- ^ A codel index in the codel table is missing.
   deriving stock (Eq, Show)
 
--- | Parse codels into a 'SyntaxGraph'.
 parse ∷ MonadError ParserError m ⇒ Vector (Vector Codel) → m SyntaxGraph
 parse image = let (indices, positionTable) = fillAll image in parseFilledImage (V.zipWith V.zip image indices, positionTable)
 
--- | Parse a filled image which is returned by 'fillAll' into a 'SyntaxGraph'.
 parseFilledImage ∷ MonadError ParserError m ⇒ (Vector (Vector (Codel, Int)), IntMap [(Int, Int)]) → m SyntaxGraph
 parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom where
   parseFrom ∷ MonadError ParserError m ⇒ Maybe (Int, DPCC) → m SyntaxGraph
