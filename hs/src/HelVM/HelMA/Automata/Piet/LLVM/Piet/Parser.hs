@@ -88,7 +88,7 @@ minMaxCoords positions = fmap (`maximumOn` positions) <$> fs
 -- {-# ANN minMaxCoords "HLint: ignore Use second" #-}
 fs ∷ [(DPCC, (Int, Int) → (Int, Int))]
 fs = [ (DPCC DPRight CCLeft,  second negate)
-     , (DPCC DPRight CCRight, first id)
+     , (DPCC DPRight CCRight, id)
      , (DPCC DPDown  CCLeft,  swap)
      , (DPCC DPDown  CCRight, second negate . swap)
      , (DPCC DPLeft  CCLeft,  first negate)
