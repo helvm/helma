@@ -11,6 +11,8 @@ import           Control.Monad.Except
 import           Data.Bits
 import           Prelude              hiding ( fail )
 
+import           Relude.Extra         ( safeToEnum )
+
 toRGB8ImageM ∷ MonadError String m ⇒ DynamicImage → m (Image PixelRGB8)
 toRGB8ImageM (ImageY8     _)     = failConversion
 toRGB8ImageM (ImageY16    _)     = failConversion
@@ -38,9 +40,10 @@ class Pixel a => ToRGB8 a where
 instance ToRGB8 PixelRGB8 where
   toRGB8Pixel = id
 
+
 instance ToRGB8 PixelRGB16 where
   toRGB8Pixel (PixelRGB16 r g b) = PixelRGB8 (drop8 r) (drop8 g) (drop8 b) where
-    drop8 = toEnum . fromEnum . (`shiftR` 8)
+    drop8 x = fromMaybe 0 . safeToEnum . fromEnum $ shiftR x 8
 
 instance ToRGB8 PixelRGBF where
   toRGB8Pixel (PixelRGBF r g b) = PixelRGB8 (toI r) (toI g) (toI b) where
