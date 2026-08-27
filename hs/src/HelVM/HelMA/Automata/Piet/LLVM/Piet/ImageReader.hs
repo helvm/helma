@@ -13,13 +13,12 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.ImageReader
 
 import           Codec.Picture
 import           Control.Monad.Except
+import           Data.Foldable                                          ( maximumBy )
 import qualified Data.Foldable1                                         as F1
-import           Data.List                                              ( minimum )
 import qualified Data.List.NonEmpty                                     as NE
 import qualified Data.Map                                               as M
 import           Data.Vector                                            ( Vector )
 import qualified Data.Vector                                            as V
-import           GHC.Exts
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.CodelSize
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.ToRGB8
@@ -92,7 +91,7 @@ getCodelColor strategy codelSizeInt image codelX codelY = getCodelColor' strateg
   getCodelColor' MulticoloredCodelAsWhite = if hasMultipleColors then PixelRGB8 0xFF 0xFF 0xFF else firstColor
   getCodelColor' MulticoloredCodelAsBlack = if hasMultipleColors then PixelRGB8 0x00 0x00 0x00 else firstColor
   getCodelColor' MulticoloredCodelCenter = pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2)
-  getCodelColor' MulticoloredCodelModal = getHead $ F1.maximumBy (comparing length) $ NE.fromList $ groupWith id colors
+  getCodelColor' MulticoloredCodelModal = NE.head $ maximumBy (comparing length) $ NE.groupAllWith id colors
   getCodelColor' MulticoloredCodelAverage = average where
     average = PixelRGB8 (fromIntegral $ iR `div` codelsNum)
                         (fromIntegral $ iG `div` codelsNum)
@@ -118,9 +117,9 @@ colorToCodel AdditionalColorAsBlack color = M.findWithDefault BlackCodel color c
 colorToCodel AdditionalColorNearest color = nearestCodel where
   squaredColorDistance (PixelRGB8 r1 g1 b1) (PixelRGB8 r2 g2 b2) = square r1 r2 + square g1 g2 + square b1 b2
   square a b = (toInteger a - toInteger b) ^ (2 :: Int)
-  nearestCodel = snd $ minimum $ first (squaredColorDistance color) <$> colorCodelTableList
+  nearestCodel = snd $ F1.minimum $ NE.fromList $ first (squaredColorDistance color) <$> colorCodelTableList
 
-colorCodelTable ∷ Map PixelRGB8 Codel
+colorCodelTable ∷ M.Map PixelRGB8 Codel
 colorCodelTable = M.fromList colorCodelTableList
 
 colorCodelTableList ∷ [(PixelRGB8, Codel)]

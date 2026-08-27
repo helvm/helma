@@ -161,12 +161,12 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li>No hints</li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Use &#39;head&#39; from Relude (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
-<li>No files</li>
+<li><a id="file0" href="javascript:show('file0')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/ImageReader.hs (1)</a></li>
 </ul>
 
 </div>
@@ -177,7 +177,15 @@ v3.10
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-No hints
+<div class="hint0 file0">
+hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/ImageReader.hs:94:43-49: Warning: Use &#39;head&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-conid'>NE.head</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>head</span></pre>
+<span class='note'>Note: &#39;head&#39; is already exported from Relude</span>
+</div>
+
 </div>
 <script type='text/javascript'>
 show(window.location.hash.slice(1), true);
