@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import qualified Codec.Picture                               as Picture
-
+import qualified Data.List.NonEmpty                          as NE
 import           Data.MonoTraversable
 
 processImage ∷ Maybe Natural → Picture.DynamicImage → (CodelSize, Image Color)
@@ -31,13 +31,14 @@ calculateActualCodelLength codelInfo img = max 1 $ maybe defaultCodelInfo fromIn
 
 imageGuessCodelLength ∷ Picture.Image Picture.PixelRGB8 → Int
 imageGuessCodelLength img = fromMaybe 1 $ viaNonEmpty head (after <> before) where
-  (before, after) = break (== 1) (reverse values)
-  values = scanl gcd (gcd w h) $ fmap olength (group rows) <> fmap olength (group cols)
+  (before, after) = NE.break (== 1) values
+  values = NE.scanr gcd (gcd w h) lengths
+  lengths = gcd w h :| (fmap olength (group rows) <> fmap olength (group cols))
 
   rows = [ [ Picture.pixelAt img x y | x <- [0 .. w-1] ] | y <- [0 .. h-1] ]
   cols = [ [ Picture.pixelAt img x y | y <- [0 .. h-1] ] | x <- [0 .. w-1] ]
 
-  w  = Picture.imageWidth img
+  w = Picture.imageWidth img
   h = Picture.imageHeight img
 
 imageToColorImage ∷ Int → Picture.Image Picture.PixelRGB8 → Image Color

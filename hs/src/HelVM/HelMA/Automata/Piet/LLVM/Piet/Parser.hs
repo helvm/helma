@@ -83,9 +83,6 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
 minMaxCoords ∷ [(Int, Int)] → [(DPCC, (Int, Int))]
 minMaxCoords positions = fmap (`maximumOn` positions) <$> fs
 
--- {-# ANN minMaxCoords "HLint: ignore Redundant id" #-}
--- {-# ANN minMaxCoords "HLint: ignore Use first" #-}
--- {-# ANN minMaxCoords "HLint: ignore Use second" #-}
 fs ∷ [(DPCC, (Int, Int) → (Int, Int))]
 fs = [ (DPCC DPRight CCLeft,  second negate)
      , (DPCC DPRight CCRight, id)
