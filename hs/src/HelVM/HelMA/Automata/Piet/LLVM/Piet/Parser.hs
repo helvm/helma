@@ -8,9 +8,10 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Parser
 
 import           Control.Arrow                                                 ( Arrow ((***)) )
 import           Control.Monad.Except
+import qualified Data.Foldable1                                                as F1
 import qualified Data.IntMap                                                   as IM
 import qualified Data.IntSet                                                   as IS
-import           Data.List
+import qualified Data.List.NonEmpty                                            as NE
 import qualified Data.Map                                                      as M
 import           Data.Vector                                                   ( Vector )
 import qualified Data.Vector                                                   as V
@@ -83,7 +84,9 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
       BlackCodel -> Nothing
 
 minMaxCoords ∷ [(Int, Int)] → [(DPCC, (Int, Int))]
-minMaxCoords positions = fmap (`maximumOn` positions) <$> fs
+minMaxCoords positions = case NE.nonEmpty positions of
+  Just nePositions -> fmap (`maximumOn` nePositions) <$> fs
+  Nothing          -> []
 
 fs ∷ [(DPCC, (Int, Int) → (Int, Int))]
 fs = [ (DPCC DPRight CCLeft,  second negate)
@@ -96,8 +99,8 @@ fs = [ (DPCC DPRight CCLeft,  second negate)
      , (DPCC DPUp    CCRight, first negate . swap)
      ]
 
-maximumOn ∷ Ord b ⇒ (a → b) → [a] → a
-maximumOn f = maximumBy (\x y -> compare (f x) (f y))
+maximumOn ∷ Ord b ⇒ (a → b) → NE.NonEmpty a → a
+maximumOn f = F1.maximumBy (comparing f)
 
 justOrThrow ∷ MonadError e m ⇒ e → Maybe a → m a
 justOrThrow e = maybe (throwError e) pure

@@ -162,11 +162,12 @@ document.body.className = "script";
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
 <li><a id="hint0" href="javascript:show('hint0')">Warning: Use &#39;head&#39; from Relude (1)</a></li>
+<li><a id="hint1" href="javascript:show('hint1')">Warning: Use &#39;nonEmpty&#39; from Relude (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
-<li><a id="file0" href="javascript:show('file0')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/ImageReader.hs (1)</a></li>
+<li><a id="file0" href="javascript:show('file0')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/ImageReader.hs (2)</a></li>
 </ul>
 
 </div>
@@ -177,8 +178,17 @@ v3.10
     - a tool to suggest improvements to your Haskell code.
 </p>
 
+<div class="hint1 file0">
+hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/ImageReader.hs:93:48-58: Warning: Use &#39;nonEmpty&#39; from Relude<br/>
+Found<br/>
+<pre><span class='hs-conid'>NE.nonEmpty</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>nonEmpty</span></pre>
+<span class='note'>Note: &#39;nonEmpty&#39; is already exported from Relude</span>
+</div>
+
 <div class="hint0 file0">
-hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/ImageReader.hs:94:43-49: Warning: Use &#39;head&#39; from Relude<br/>
+hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/ImageReader.hs:94:21-27: Warning: Use &#39;head&#39; from Relude<br/>
 Found<br/>
 <pre><span class='hs-conid'>NE.head</span></pre>
 Perhaps<br/>
