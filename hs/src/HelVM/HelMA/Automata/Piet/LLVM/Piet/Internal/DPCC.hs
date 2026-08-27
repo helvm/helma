@@ -2,11 +2,11 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.DPCC
   ( dpccsToBackwardDPCCTable
   ) where
 
-import qualified Data.List                                           as List
+import qualified Data.List.NonEmpty                                  as NE
 import qualified Data.Map                                            as M
 import qualified Data.Set                                            as S
 
-import           GHC.Exts
+import           GHC.Exts                                            ( groupWith )
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Cyclic
 import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
 
@@ -34,13 +34,18 @@ nearestDPCCTable possibleDPCCs = (id &&& nearestDPCC) <$> allDPCCs where
        else DPCC nearestDP (cyclicSucc nearestCC)
 
   nearestDPTable ∷ Map DirectionPointer DirectionPointer
-  nearestDPTable = M.fromList $ go reversedAllDPs (cycle reversedPossibleDPs) (List.last reversedPossibleDPs) where
-    go [] _ _ = []
-    go (currentDP : currentDPs) (nextDP : nextDPs) dp | currentDP == nextDP = (currentDP, nextDP) : go currentDPs nextDPs nextDP
-                                                      | otherwise = (currentDP, dp) : go currentDPs (nextDP : nextDPs) dp
-    go _ [] _ = error "unreachable"
-    reversedPossibleDPs = S.toDescList possibleDPSet
-    reversedAllDPs = reverse universe
+  nearestDPTable = case NE.nonEmpty (S.toDescList possibleDPSet) of
+    Nothing -> M.empty
+    Just neReversedPossibleDPs ->
+      let lastDP = NE.last neReversedPossibleDPs
+          possibleList = NE.toList neReversedPossibleDPs
+          reversedAllDPs = S.toDescList (S.fromList universe)
+      in M.fromList $ go reversedAllDPs (cycle possibleList) lastDP
+
+  go [] _ _ = []
+  go (currentDP : currentDPs) (nextDP : nextDPs) dp | currentDP == nextDP = (currentDP, nextDP) : go currentDPs nextDPs nextDP
+                                                    | otherwise = (currentDP, dp) : go currentDPs (nextDP : nextDPs) dp
+  go _ [] _ = error "unreachable"
 
   allDPCCs = DPCC <$> universe <*> universe
   possibleDPCCSet = S.fromList possibleDPCCs
