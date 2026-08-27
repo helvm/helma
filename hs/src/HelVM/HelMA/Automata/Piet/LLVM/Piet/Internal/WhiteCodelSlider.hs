@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.WhiteCodelSlider
   ( slideOnWhiteBlock
   ) where
 
-import           Control.Monad.Except
+import           Control.Monad.Except                                  ( MonadError (throwError) )
 import qualified Data.Set                                              as S
 import           Data.Vector                                           ( Vector )
 import qualified Data.Vector                                           as V

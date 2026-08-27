@@ -162,13 +162,12 @@ document.body.className = "script";
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
 <li><a id="hint0" href="javascript:show('hint0')">Warning: Redundant id (4)</a></li>
-<li><a id="hint1" href="javascript:show('hint1')">Warning: Use &#39;runExceptT&#39; from Relude (1)</a></li>
-<li><a id="hint2" href="javascript:show('hint2')">Warning: Use first (4)</a></li>
-<li><a id="hint3" href="javascript:show('hint3')">Warning: Use second (4)</a></li>
-<li><a id="hint4" href="javascript:show('hint4')">Suggestion: Use next (3)</a></li>
-<li><a id="hint5" href="javascript:show('hint5')">Suggestion: Use prev (2)</a></li>
-<li><a id="hint6" href="javascript:show('hint6')">Suggestion: Use safeToEnum (3)</a></li>
-<li><a id="hint7" href="javascript:show('hint7')">Suggestion: Use tuple-section (2)</a></li>
+<li><a id="hint1" href="javascript:show('hint1')">Warning: Use first (4)</a></li>
+<li><a id="hint2" href="javascript:show('hint2')">Warning: Use second (4)</a></li>
+<li><a id="hint3" href="javascript:show('hint3')">Suggestion: Use next (3)</a></li>
+<li><a id="hint4" href="javascript:show('hint4')">Suggestion: Use prev (2)</a></li>
+<li><a id="hint5" href="javascript:show('hint5')">Suggestion: Use safeToEnum (3)</a></li>
+<li><a id="hint6" href="javascript:show('hint6')">Suggestion: Use tuple-section (2)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
@@ -179,8 +178,7 @@ document.body.className = "script";
 <li><a id="file3" href="javascript:show('file3')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/DPCC.hs (1)</a></li>
 <li><a id="file4" href="javascript:show('file4')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/Position.hs (4)</a></li>
 <li><a id="file5" href="javascript:show('file5')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/ToRGB8.hs (1)</a></li>
-<li><a id="file6" href="javascript:show('file6')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/WhiteCodelSlider.hs (1)</a></li>
-<li><a id="file7" href="javascript:show('file7')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs (12)</a></li>
+<li><a id="file6" href="javascript:show('file6')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs (12)</a></li>
 </ul>
 
 </div>
@@ -191,7 +189,7 @@ v3.10
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-<div class="hint6 file0">
+<div class="hint5 file0">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/ImageReader.hs:98:11-16: Suggestion: Use safeToEnum<br/>
 Found<br/>
 <pre><span class='hs-definition'>toEnum</span></pre>
@@ -200,7 +198,7 @@ Perhaps<br/>
 <span class='note'>Note: <tt>toEnum</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>safeToEnum</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
 </div>
 
-<div class="hint0 file7">
+<div class="hint0 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:88:33-56: Warning: Redundant id<br/>
 Found<br/>
 <pre><span class='hs-layout'>(</span><span class='hs-varid'>id</span> <span class='hs-varop'>***</span> <span class='hs-varid'>negate</span><span class='hs-layout'>)</span> <span class='hs-varop'>.</span> <span class='hs-varid'>id</span></pre>
@@ -209,7 +207,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint3 file7">
+<div class="hint2 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:88:34-50: Warning: Use second<br/>
 Found<br/>
 <pre><span class='hs-definition'>id</span> <span class='hs-varop'>***</span> <span class='hs-varid'>negate</span></pre>
@@ -218,7 +216,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint0 file7">
+<div class="hint0 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:89:33-56: Warning: Redundant id<br/>
 Found<br/>
 <pre><span class='hs-layout'>(</span><span class='hs-varid'>id</span> <span class='hs-varop'>***</span> <span class='hs-varid'>id</span><span class='hs-layout'>)</span> <span class='hs-varop'>.</span> <span class='hs-varid'>id</span></pre>
@@ -227,7 +225,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint3 file7">
+<div class="hint2 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:89:34-46: Warning: Use second<br/>
 Found<br/>
 <pre><span class='hs-definition'>id</span> <span class='hs-varop'>***</span> <span class='hs-varid'>id</span></pre>
@@ -236,7 +234,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint2 file7">
+<div class="hint1 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:89:34-46: Warning: Use first<br/>
 Found<br/>
 <pre><span class='hs-definition'>id</span> <span class='hs-varop'>***</span> <span class='hs-varid'>id</span></pre>
@@ -245,7 +243,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint3 file7">
+<div class="hint2 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:90:34-46: Warning: Use second<br/>
 Found<br/>
 <pre><span class='hs-definition'>id</span> <span class='hs-varop'>***</span> <span class='hs-varid'>id</span></pre>
@@ -254,7 +252,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint2 file7">
+<div class="hint1 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:90:34-46: Warning: Use first<br/>
 Found<br/>
 <pre><span class='hs-definition'>id</span> <span class='hs-varop'>***</span> <span class='hs-varid'>id</span></pre>
@@ -263,7 +261,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint3 file7">
+<div class="hint2 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:91:34-50: Warning: Use second<br/>
 Found<br/>
 <pre><span class='hs-definition'>id</span> <span class='hs-varop'>***</span> <span class='hs-varid'>negate</span></pre>
@@ -272,7 +270,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint0 file7">
+<div class="hint0 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:92:33-56: Warning: Redundant id<br/>
 Found<br/>
 <pre><span class='hs-layout'>(</span><span class='hs-varid'>negate</span> <span class='hs-varop'>***</span> <span class='hs-varid'>id</span><span class='hs-layout'>)</span> <span class='hs-varop'>.</span> <span class='hs-varid'>id</span></pre>
@@ -281,7 +279,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint2 file7">
+<div class="hint1 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:92:34-46: Warning: Use first<br/>
 Found<br/>
 <pre><span class='hs-definition'>negate</span> <span class='hs-varop'>***</span> <span class='hs-varid'>id</span></pre>
@@ -290,7 +288,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint0 file7">
+<div class="hint0 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:93:33-56: Warning: Redundant id<br/>
 Found<br/>
 <pre><span class='hs-layout'>(</span><span class='hs-varid'>negate</span> <span class='hs-varop'>***</span> <span class='hs-varid'>negate</span><span class='hs-layout'>)</span> <span class='hs-varop'>.</span> <span class='hs-varid'>id</span></pre>
@@ -299,7 +297,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint2 file7">
+<div class="hint1 file6">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Parser.hs:95:34-46: Warning: Use first<br/>
 Found<br/>
 <pre><span class='hs-definition'>negate</span> <span class='hs-varop'>***</span> <span class='hs-varid'>id</span></pre>
@@ -308,7 +306,7 @@ Perhaps<br/>
 
 </div>
 
-<div class="hint7 file1">
+<div class="hint6 file1">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/CodelSize.hs:8:71-82: Suggestion: Use tuple-section<br/>
 Found<br/>
 <pre><span class='hs-keyglyph'>\</span> <span class='hs-varid'>x</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>x</span><span class='hs-layout'>,</span> <span class='hs-varid'>y</span><span class='hs-layout'>)</span></pre>
@@ -317,7 +315,7 @@ Perhaps<br/>
 <span class='note'>Note: may require <tt>{-# LANGUAGE TupleSections #-}</tt> adding to the top of the file</span>
 </div>
 
-<div class="hint7 file1">
+<div class="hint6 file1">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/CodelSize.hs:9:69-80: Suggestion: Use tuple-section<br/>
 Found<br/>
 <pre><span class='hs-keyglyph'>\</span> <span class='hs-varid'>y</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-layout'>(</span><span class='hs-varid'>x</span><span class='hs-layout'>,</span> <span class='hs-varid'>y</span><span class='hs-layout'>)</span></pre>
@@ -326,7 +324,7 @@ Perhaps<br/>
 <span class='note'>Note: may require <tt>{-# LANGUAGE TupleSections #-}</tt> adding to the top of the file</span>
 </div>
 
-<div class="hint4 file2">
+<div class="hint3 file2">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/Cyclic.hs:7:28-31: Suggestion: Use next<br/>
 Found<br/>
 <pre><span class='hs-definition'>succ</span></pre>
@@ -335,7 +333,7 @@ Perhaps<br/>
 <span class='note'>Note: <tt>succ</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>next</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
 </div>
 
-<div class="hint6 file3">
+<div class="hint5 file3">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/DPCC.hs:28:19-24: Suggestion: Use safeToEnum<br/>
 Found<br/>
 <pre><span class='hs-definition'>toEnum</span></pre>
@@ -344,7 +342,7 @@ Perhaps<br/>
 <span class='note'>Note: <tt>toEnum</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>safeToEnum</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
 </div>
 
-<div class="hint4 file4">
+<div class="hint3 file4">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/Position.hs:8:23-26: Suggestion: Use next<br/>
 Found<br/>
 <pre><span class='hs-definition'>succ</span></pre>
@@ -353,7 +351,7 @@ Perhaps<br/>
 <span class='note'>Note: <tt>succ</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>next</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
 </div>
 
-<div class="hint4 file4">
+<div class="hint3 file4">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/Position.hs:9:23-26: Suggestion: Use next<br/>
 Found<br/>
 <pre><span class='hs-definition'>succ</span></pre>
@@ -362,7 +360,7 @@ Perhaps<br/>
 <span class='note'>Note: <tt>succ</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>next</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
 </div>
 
-<div class="hint5 file4">
+<div class="hint4 file4">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/Position.hs:10:23-26: Suggestion: Use prev<br/>
 Found<br/>
 <pre><span class='hs-definition'>pred</span></pre>
@@ -371,7 +369,7 @@ Perhaps<br/>
 <span class='note'>Note: <tt>pred</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>prev</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
 </div>
 
-<div class="hint5 file4">
+<div class="hint4 file4">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/Position.hs:11:23-26: Suggestion: Use prev<br/>
 Found<br/>
 <pre><span class='hs-definition'>pred</span></pre>
@@ -380,22 +378,13 @@ Perhaps<br/>
 <span class='note'>Note: <tt>pred</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>prev</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
 </div>
 
-<div class="hint6 file5">
+<div class="hint5 file5">
 hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/ToRGB8.hs:43:13-18: Suggestion: Use safeToEnum<br/>
 Found<br/>
 <pre><span class='hs-definition'>toEnum</span></pre>
 Perhaps<br/>
 <pre><span class='hs-definition'>safeToEnum</span></pre>
 <span class='note'>Note: <tt>toEnum</tt> from <tt>Prelude</tt> is a pure function but it may throw exception. Consider using <tt>safeToEnum</tt> from <tt>Relude.Extra.Enum</tt> instead.</span>
-</div>
-
-<div class="hint1 file6">
-hs/src/HelVM/HelMA/Automata/Piet/LLVM/Piet/Internal/WhiteCodelSlider.hs:17:77-86: Warning: Use &#39;runExceptT&#39; from Relude<br/>
-Found<br/>
-<pre><span class='hs-definition'>runExceptT</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>runExceptT</span></pre>
-<span class='note'>Note: &#39;runExceptT&#39; is already exported from Relude</span>
 </div>
 
 </div>
