@@ -2,13 +2,14 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.DPCC
   ( dpccsToBackwardDPCCTable
   ) where
 
+import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Cyclic
+import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
+
 import qualified Data.List.NonEmpty                                  as NE
 import qualified Data.Map                                            as M
 import qualified Data.Set                                            as S
 
 import           GHC.Exts                                            ( groupWith )
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Cyclic
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
 
 dpccsToBackwardDPCCTable ∷ [DPCC] → Map DPCC [DPCC]
 dpccsToBackwardDPCCTable [] = M.empty
@@ -37,11 +38,10 @@ nearestDPCCTable possibleDPCCs = (id &&& nearestDPCC) <$> allDPCCs where
 
   buildNearestDPTable ∷ Maybe (NE.NonEmpty DirectionPointer) → Map DirectionPointer DirectionPointer
   buildNearestDPTable Nothing = M.empty
-  buildNearestDPTable (Just neReversedPossibleDPs) = M.fromList $ go reversedAllDPs (cycle possibleList) lastDP
-    where
-      lastDP = last neReversedPossibleDPs
-      possibleList = NE.toList neReversedPossibleDPs
-      reversedAllDPs = S.toDescList (S.fromList universe)
+  buildNearestDPTable (Just neReversedPossibleDPs) = M.fromList $ go reversedAllDPs (cycle possibleList) lastDP where
+    lastDP = last neReversedPossibleDPs
+    possibleList = NE.toList neReversedPossibleDPs
+    reversedAllDPs = S.toDescList (S.fromList universe)
 
   go [] _ _ = []
   go (currentDP : currentDPs) (nextDP : nextDPs) dp
