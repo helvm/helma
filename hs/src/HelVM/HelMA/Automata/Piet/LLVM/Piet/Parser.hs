@@ -30,7 +30,9 @@ data ParserError
   deriving stock (Eq, Show)
 
 parse ∷ MonadError ParserError m ⇒ Vector (Vector Codel) → m SyntaxGraph
-parse image = let (indices, positionTable) = fillAll image in parseFilledImage (V.zipWith V.zip image indices, positionTable)
+parse image = parseFilledImage (V.zipWith V.zip image indices, positionTable)
+  where
+    (indices, positionTable) = fillAll image
 
 parseFilledImage ∷ MonadError ParserError m ⇒ (Vector (Vector (Codel, Int)), IntMap [(Int, Int)]) → m SyntaxGraph
 parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom where
@@ -43,7 +45,6 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
   parseState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ Int → m ()
   parseState blockIndex = do
     blockCoords <- justOrThrow (MissingCodelIndexError blockIndex) $ blockTable IM.!? blockIndex
-
     let blockSize = olength blockCoords
     let nextBlockList = mapMaybe (\(dpcc, pos) -> (dpcc,) <$> searchNextBlock pos dpcc blockSize) $ minMaxCoords blockCoords
     let block = Block $ M.fromList nextBlockList
@@ -65,28 +66,32 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
   searchInitialBlock ∷ MonadError ParserError m ⇒ m (Maybe (Int, DPCC))
   searchInitialBlock = do
     (initialCodel, initialBlockIndex) <- justOrThrow EmptyBlockTableError $ codelTable V.!? 0 >>= (V.!? 0)
-    let initialDPCC = DPCC DPRight CCLeft
-    case initialCodel of
-      AchromaticCodel _ _ -> pure $ Just (initialBlockIndex, initialDPCC)
-      WhiteCodel          -> pure $ nextBlockToIndexAndDPCC $ slideOnWhiteBlock codelTable (0, 0) initialDPCC
-      BlackCodel          -> throwError IllegalInitialColorError
+    processInitial initialCodel initialBlockIndex
+    where
+      initialDPCC = DPCC DPRight CCLeft
+      processInitial (AchromaticCodel _ _) blockIdx = pure $ Just (blockIdx, initialDPCC)
+      processInitial WhiteCodel          _          = pure $ nextBlockToIndexAndDPCC $ slideOnWhiteBlock codelTable (0, 0) initialDPCC
+      processInitial BlackCodel          _          = throwError IllegalInitialColorError
 
   searchNextBlock ∷ (Int, Int) → DPCC → Int → Maybe NextBlock
   searchNextBlock (x, y) dpcc@(DPCC dp _) blockSize = do
     (AchromaticCodel currentHue currentLightness, _) <- codelTable V.!? y >>= (V.!? x)
-    let (nextX, nextY) = move dp (x, y)
+    let nextPos@(nextX, nextY) = move dp (x, y)
     (nextCodel, blockIndex) <- codelTable V.!? nextY >>= (V.!? nextX)
-    case nextCodel of
-      AchromaticCodel nextHue nextLightness ->
-        let command = commandFromTransition (currentHue, currentLightness) (nextHue, nextLightness) blockSize
-        in Just $ NextBlock command dpcc blockIndex
-      WhiteCodel -> Just $ slideOnWhiteBlock codelTable (nextX, nextY) dpcc
-      BlackCodel -> Nothing
+    processNextCodel nextCodel currentHue currentLightness nextPos blockIndex
+    where
+      processNextCodel (AchromaticCodel nextHue nextLightness) curHue curLight _ blockIdx =
+        Just $ NextBlock (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) dpcc blockIdx
+      processNextCodel WhiteCodel _ _ pos _ =
+        Just $ slideOnWhiteBlock codelTable pos dpcc
+      processNextCodel BlackCodel _ _ _ _ =
+        Nothing
 
 minMaxCoords ∷ [(Int, Int)] → [(DPCC, (Int, Int))]
-minMaxCoords positions = case nonEmpty positions of
-  Just nePositions -> fmap (`maximumOn` nePositions) <$> fs
-  Nothing          -> []
+minMaxCoords positions = processPositions (nonEmpty positions)
+  where
+    processPositions (Just nePositions) = fmap (`maximumOn` nePositions) <$> fs
+    processPositions Nothing            = []
 
 fs ∷ [(DPCC, (Int, Int) → (Int, Int))]
 fs = [ (DPCC DPRight CCLeft,  second negate)

@@ -126,10 +126,11 @@ setInstructionCounter ic = instructionMemory . instructionCounter .~ ic
 -- PUBLIC DOMAIN MODIFIERS
 
 stepWhitePixel ∷ Memory → Memory
-stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem where
-  prog    = programMemory mem
-  nextPos = addCoordinates dp $ positionMemory mem
-  dp      = directionPointerMemory mem
+stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem
+  where
+    prog    = programMemory mem
+    nextPos = addCoordinates dp $ positionMemory mem
+    dp      = directionPointerMemory mem
 
 handleCollision ∷ Bool → Memory → Memory
 handleCollision False = rotatePointer
@@ -141,19 +142,22 @@ modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory 
 modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)
 
 modifyFlipWithLog ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → Memory → m (Maybe Memory)
-modifyFlipWithLog name f mem = case mem ^. stack of
-  Seq.Empty     -> pure Nothing
-  (x Seq.:<| _) -> do
-    let mem' = modifyInstructionMemory (f x) mem
-    logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemory)
-    pure $ Just mem'
+modifyFlipWithLog name f mem = processStack (mem ^. stack)
+  where
+    processStack Seq.Empty     = pure Nothing
+    processStack (x Seq.:<| _) = do
+      logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemory)
+      pure $ Just mem'
+      where
+        mem' = modifyInstructionMemory (f x) mem
 
 -- PRIVATE UTILS & HELPERS
 
 getMaskInfo' ∷ Program → Coordinates → Maybe LabelInfo
-getMaskInfo' prog pos = findWithDefault Nothing (pixelImage pos maskImg) infoMap where
-  maskImg = prog ^. labelling . mask
-  infoMap = prog ^. labelling . info
+getMaskInfo' prog pos = findWithDefault Nothing (pixelImage pos maskImg) infoMap
+  where
+    maskImg = prog ^. labelling . mask
+    infoMap = prog ^. labelling . info
 
 nextPosFromBlock ∷ Block → Memory → Coordinates
 nextPosFromBlock block mem = move (directionPointerMemory mem) (selectCodel block mem)

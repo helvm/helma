@@ -22,29 +22,31 @@ dpccsToBackwardDPCCTable possibleDPCCs = M.fromList $ nearestTableToBackwardTabl
 
 nearestDPCCTable ∷ [DPCC] → [(DPCC, DPCC)]
 nearestDPCCTable possibleDPCCs = (id &&& nearestDPCC) <$> allDPCCs where
-  nearestDPCC (DPCC dp cc) =
-    let
+  nearestDPCC (DPCC dp cc)
+    | S.member nearestDPCCCandidate possibleDPCCSet = nearestDPCCCandidate
+    | otherwise                                      = DPCC nearestDP (cyclicSucc nearestCC)
+    where
       nearestDP = nearestDPTable M.! dp
-      nearestCC = if even (fromEnum nearestDP - fromEnum dp)
-                  then cc
-                  else cyclicSucc cc
+      nearestCC
+        | even (fromEnum nearestDP - fromEnum dp) = cc
+        | otherwise                               = cyclicSucc cc
       nearestDPCCCandidate = DPCC nearestDP nearestCC
-    in if S.member nearestDPCCCandidate possibleDPCCSet
-       then nearestDPCCCandidate
-       else DPCC nearestDP (cyclicSucc nearestCC)
 
   nearestDPTable ∷ Map DirectionPointer DirectionPointer
-  nearestDPTable = case nonEmpty (S.toDescList possibleDPSet) of
-    Nothing -> M.empty
-    Just neReversedPossibleDPs ->
-      let lastDP = last neReversedPossibleDPs
-          possibleList = NE.toList neReversedPossibleDPs
-          reversedAllDPs = S.toDescList (S.fromList universe)
-      in M.fromList $ go reversedAllDPs (cycle possibleList) lastDP
+  nearestDPTable = buildNearestDPTable (nonEmpty (S.toDescList possibleDPSet))
+
+  buildNearestDPTable ∷ Maybe (NE.NonEmpty DirectionPointer) → Map DirectionPointer DirectionPointer
+  buildNearestDPTable Nothing = M.empty
+  buildNearestDPTable (Just neReversedPossibleDPs) = M.fromList $ go reversedAllDPs (cycle possibleList) lastDP
+    where
+      lastDP = last neReversedPossibleDPs
+      possibleList = NE.toList neReversedPossibleDPs
+      reversedAllDPs = S.toDescList (S.fromList universe)
 
   go [] _ _ = []
-  go (currentDP : currentDPs) (nextDP : nextDPs) dp | currentDP == nextDP = (currentDP, nextDP) : go currentDPs nextDPs nextDP
-                                                    | otherwise = (currentDP, dp) : go currentDPs (nextDP : nextDPs) dp
+  go (currentDP : currentDPs) (nextDP : nextDPs) dp
+    | currentDP == nextDP = (currentDP, nextDP) : go currentDPs nextDPs nextDP
+    | otherwise           = (currentDP, dp) : go currentDPs (nextDP : nextDPs) dp
   go _ [] _ = error "unreachable"
 
   allDPCCs = DPCC <$> universe <*> universe
