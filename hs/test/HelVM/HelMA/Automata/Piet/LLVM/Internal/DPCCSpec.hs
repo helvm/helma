@@ -1,11 +1,12 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.DPCCSpec
+module HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCCSpec
   ( main
   , spec
   ) where
 
-import qualified Data.Map                                          as M
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.DPCC
+import           HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCC
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
+
+import qualified Data.Map                                        as M
 import           Test.Hspec
 
 main ∷ IO ()

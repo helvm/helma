@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
+module HelVM.HelMA.Automata.Piet.LLVM.Codel
   ( Codel (..)
   , Hue (..)
   , Lightness (..)
@@ -6,7 +6,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
 
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
-
 
 data Codel
   = AchromaticCodel Hue Lightness

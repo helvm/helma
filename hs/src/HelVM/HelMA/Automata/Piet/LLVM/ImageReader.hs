@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.ImageReader
+module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   ( AdditionalColorStrategy (..)
   , CodelSize (..)
   , ImageConfig (..)
@@ -11,16 +11,17 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet.ImageReader
   , rgbImageToCodels
   ) where
 
+import           HelVM.HelMA.Automata.Piet.LLVM.Codel
+import           HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
+import           HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
+
 import           Codec.Picture
 import           Control.Monad.Except
-import qualified Data.Foldable1                                         as F1
-import qualified Data.List.NonEmpty                                     as NE
-import qualified Data.Map                                               as M
-import           Data.Vector                                            ( Vector )
-import qualified Data.Vector                                            as V
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.CodelSize
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.ToRGB8
+import qualified Data.Foldable1                                    as F1
+import qualified Data.List.NonEmpty                                as NE
+import qualified Data.Map                                          as M
+import           Data.Vector                                       ( Vector )
+import qualified Data.Vector                                       as V
 
 data ImageReaderError
   = ReadImageFileError String -- ^ The image file is unreadable.

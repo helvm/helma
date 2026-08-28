@@ -1,17 +1,19 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.WhiteCodelSliderSpec
+module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSliderSpec
   ( main
   , spec
   ) where
 
-import           Data.Vector                                                   ( Vector )
-import qualified Data.Vector                                                   as V
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.WhiteCodelSlider
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
+import           HelVM.HelMA.Automata.Piet.LLVM.Codel
+import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
+import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+
+import           Data.Vector                                              ( Vector )
+import qualified Data.Vector                                              as V
+
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
 

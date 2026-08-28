@@ -1,7 +1,7 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use next" #-}
 
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Cyclic
+module HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
   ( cyclicSucc
   ) where
 

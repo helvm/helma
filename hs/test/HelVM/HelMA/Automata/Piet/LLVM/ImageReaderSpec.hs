@@ -1,14 +1,13 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.ImageReaderSpec
+module HelVM.HelMA.Automata.Piet.LLVM.ImageReaderSpec
   ( main
   , spec
   ) where
 
--- import           Control.Monad
--- import           Control.Monad.Except
-import           Data.Vector                                     ( Vector )
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.ImageReader
+import           HelVM.HelMA.Automata.Piet.LLVM.Codel
+import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+
+import           Data.Vector                                ( Vector )
 import           Test.Hspec
 
 main ∷ IO ()

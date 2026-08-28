@@ -1,16 +1,18 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.FillerSpec
+module HelVM.HelMA.Automata.Piet.LLVM.Internal.FillerSpec
   ( main
   , spec
   ) where
 
-import qualified Data.IntMap                                         as IM
-import qualified Data.Set                                            as S
-import           Data.Vector                                         ( Vector )
-import qualified Data.Vector                                         as V
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Filler
+import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+
+import qualified Data.IntMap                                    as IM
+import qualified Data.Set                                       as S
+import           Data.Vector                                    ( Vector )
+import qualified Data.Vector                                    as V
+
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
 

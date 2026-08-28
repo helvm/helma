@@ -1,15 +1,17 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.SyntaxVisualizerSpec
+module HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizerSpec
   ( main
   , spec
   ) where
 
-import qualified Data.IntMap                                          as IM
-import qualified Data.Map                                             as M
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.SyntaxVisualizer
+import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
+
+import qualified Data.IntMap                                     as IM
+import qualified Data.Map                                        as M
+
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
 

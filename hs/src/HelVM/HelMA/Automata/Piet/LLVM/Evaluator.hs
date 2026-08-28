@@ -1,6 +1,5 @@
 {-# LANGUAGE FlexibleContexts #-}
-
-module HelVM.HelMA.Automata.Piet.LLVM.Piet
+module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
   ( AdditionalColorStrategy (..)
   , CodelSize (..)
   , ImageConfig (..)
@@ -14,12 +13,13 @@ module HelVM.HelMA.Automata.Piet.LLVM.Piet
   , nullReceiver
   ) where
 
-import           Control.Monad.Except                                 ( MonadError, throwError )
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.CompileOption
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.ImageReader
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Parser
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.SyntaxVisualizer
+import           HelVM.HelMA.Automata.Piet.LLVM.CompileOption
+import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
+import           HelVM.HelMA.Automata.Piet.LLVM.Parser
+import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
+
+import           Control.Monad.Except                            ( MonadError, throwError )
 
 data PietError
   = PietImageReaderError ImageReaderError

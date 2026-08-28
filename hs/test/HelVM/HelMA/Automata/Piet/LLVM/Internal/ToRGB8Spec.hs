@@ -1,10 +1,11 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.ToRGB8Spec
+module HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8Spec
   ( main
   , spec
   ) where
 
+import           HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
+
 import           Codec.Picture
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.ToRGB8
 import           Test.Hspec
 
 main ∷ IO ()

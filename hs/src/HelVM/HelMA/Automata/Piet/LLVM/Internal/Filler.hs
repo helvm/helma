@@ -1,5 +1,5 @@
 {-# LANGUAGE FlexibleContexts #-}
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Filler
+module HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
   ( fillAll
   ) where
 

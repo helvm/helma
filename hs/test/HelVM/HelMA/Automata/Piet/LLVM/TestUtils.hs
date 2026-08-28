@@ -4,8 +4,10 @@ module HelVM.HelMA.Automata.Piet.LLVM.TestUtils
   ) where
 
 import           Control.Exception
+
 import           Data.Vector         ( Vector )
 import qualified Data.Vector.Generic as V
+
 import           System.Directory
 import           System.IO
 

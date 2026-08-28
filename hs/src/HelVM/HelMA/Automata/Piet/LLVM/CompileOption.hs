@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.CompileOption
+module HelVM.HelMA.Automata.Piet.LLVM.CompileOption
   ( OptimizationLevel (..)
   ) where
 

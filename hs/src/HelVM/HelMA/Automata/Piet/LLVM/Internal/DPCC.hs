@@ -1,15 +1,15 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.DPCC
+module HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCC
   ( dpccsToBackwardDPCCTable
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Internal.Cyclic
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
+import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
+import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
-import qualified Data.List.NonEmpty                                  as NE
-import qualified Data.Map                                            as M
-import qualified Data.Set                                            as S
+import qualified Data.List.NonEmpty                             as NE
+import qualified Data.Map                                       as M
+import qualified Data.Set                                       as S
 
-import           GHC.Exts                                            ( groupWith )
+import           GHC.Exts                                       ( groupWith )
 
 dpccsToBackwardDPCCTable ∷ [DPCC] → Map DPCC [DPCC]
 dpccsToBackwardDPCCTable [] = M.empty

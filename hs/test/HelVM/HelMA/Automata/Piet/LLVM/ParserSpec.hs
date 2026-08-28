@@ -1,17 +1,19 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Piet.ParserSpec
+module HelVM.HelMA.Automata.Piet.LLVM.ParserSpec
   ( main
   , spec
   ) where
+
+import           HelVM.HelMA.Automata.Piet.LLVM.Codel
+import           HelVM.HelMA.Automata.Piet.LLVM.Parser
+import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
+import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 
 import qualified Data.IntMap                                     as IM
 import qualified Data.Map                                        as M
 import           Data.Vector                                     ( Vector )
 import qualified Data.Vector.Generic                             as V
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Codel
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Parser
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
-import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
-import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+
 import           Test.Hspec
 
 data ImageTestCase

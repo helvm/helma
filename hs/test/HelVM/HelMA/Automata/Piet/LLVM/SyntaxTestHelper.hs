@@ -9,7 +9,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
   , ur
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Piet.Syntax
+import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
 rl ∷ DPCC
 rl = DPCC DPRight CCLeft
