@@ -25,14 +25,19 @@ startEdge blockIndex dpcc =
 blocks ∷ IntMap Block → [LText.Builder]
 blocks blockMap = do
   (from, block) <- IM.toAscList blockMap
-  let dpccAndNextBlock = M.toAscList $ nextBlockTable block
-  pure $ if null dpccAndNextBlock then emptyBlock from else nonemptyBlock from dpccAndNextBlock
+  processBlock from (M.toAscList $ nextBlockTable block)
+  where
+    processBlock from []               = pure $ emptyBlock from
+    processBlock from dpccAndNextBlock = pure $ nonemptyBlock from dpccAndNextBlock
 
 nonemptyBlock ∷ Int → [(DPCC, NextBlock)] → LText.Builder
-nonemptyBlock from dpccAndNextBlock = nodeLine <> edgeLines where
-  hasExit = any ((== ExitProgram) . snd) dpccAndNextBlock
-  nodeLine = if hasExit then exitEdge from else ""
-  edgeLines = foldMap (uncurry $ nextBlockEdge from) dpccAndNextBlock
+nonemptyBlock from dpccAndNextBlock = nodeLine <> edgeLines
+  where
+    hasExit = any ((== ExitProgram) . snd) dpccAndNextBlock
+    nodeLine
+      | hasExit   = exitEdge from
+      | otherwise = ""
+    edgeLines = foldMap (uncurry $ nextBlockEdge from) dpccAndNextBlock
 
 emptyBlock ∷ Int → LText.Builder
 emptyBlock from = exitEdge from <> "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"\"]\n"
@@ -42,9 +47,13 @@ exitEdge from = "  exit" <> showBuilder from <> " [label=\"\" shape=point color=
 
 nextBlockEdge ∷ Int → DPCC → NextBlock → LText.Builder
 nextBlockEdge from fromDPCC (NextBlock command toDPCC nextBlockIndex) =
-  let nextDPCCText = if toDPCC /= fromDPCC then " -> " <> fromString (showDPCC toDPCC) else ""
-  in "  " <> showBuilder from <> " -> " <> showBuilder nextBlockIndex
-       <> " [label=\"" <> fromString (showDPCC fromDPCC) <> ": " <> fromString (showCommand command) <> nextDPCCText <> "\"]\n"
+  "  " <> showBuilder from <> " -> " <> showBuilder nextBlockIndex
+       <> " [label=\"" <> fromString (showDPCC fromDPCC) <> ": " <> fromString (showCommand command) <> nextDPCCText toDPCC <> "\"]\n"
+  where
+    nextDPCCText toDPCC'
+      | toDPCC' /= fromDPCC = " -> " <> fromString (showDPCC toDPCC')
+      | otherwise          = ""
+
 nextBlockEdge from fromDPCC ExitProgram =
   "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"" <> fromString (showDPCC fromDPCC) <> "\"]\n"
 
