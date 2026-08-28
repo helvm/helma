@@ -90,8 +90,8 @@ getCodelColor strategy codelSizeInt image codelX codelY = getCodelColor' strateg
   getCodelColor' MulticoloredCodelAsWhite = if hasMultipleColors then PixelRGB8 0xFF 0xFF 0xFF else firstColor
   getCodelColor' MulticoloredCodelAsBlack = if hasMultipleColors then PixelRGB8 0x00 0x00 0x00 else firstColor
   getCodelColor' MulticoloredCodelCenter = pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2)
-  getCodelColor' MulticoloredCodelModal = case NE.nonEmpty (NE.groupAllWith id colors) of
-    Just grouped -> NE.head $ F1.maximumBy (comparing length) grouped
+  getCodelColor' MulticoloredCodelModal = case nonEmpty (NE.groupAllWith id colors) of
+    Just grouped -> head $ F1.maximumBy (comparing length) grouped
     Nothing      -> firstColor
   getCodelColor' MulticoloredCodelAverage = average where
     average = PixelRGB8 (fromIntegral $ iR `div` codelsNum)

@@ -34,10 +34,10 @@ nearestDPCCTable possibleDPCCs = (id &&& nearestDPCC) <$> allDPCCs where
        else DPCC nearestDP (cyclicSucc nearestCC)
 
   nearestDPTable ∷ Map DirectionPointer DirectionPointer
-  nearestDPTable = case NE.nonEmpty (S.toDescList possibleDPSet) of
+  nearestDPTable = case nonEmpty (S.toDescList possibleDPSet) of
     Nothing -> M.empty
     Just neReversedPossibleDPs ->
-      let lastDP = NE.last neReversedPossibleDPs
+      let lastDP = last neReversedPossibleDPs
           possibleList = NE.toList neReversedPossibleDPs
           reversedAllDPs = S.toDescList (S.fromList universe)
       in M.fromList $ go reversedAllDPs (cycle possibleList) lastDP

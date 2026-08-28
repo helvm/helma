@@ -84,7 +84,7 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
       BlackCodel -> Nothing
 
 minMaxCoords ∷ [(Int, Int)] → [(DPCC, (Int, Int))]
-minMaxCoords positions = case NE.nonEmpty positions of
+minMaxCoords positions = case nonEmpty positions of
   Just nePositions -> fmap (`maximumOn` nePositions) <$> fs
   Nothing          -> []
 
