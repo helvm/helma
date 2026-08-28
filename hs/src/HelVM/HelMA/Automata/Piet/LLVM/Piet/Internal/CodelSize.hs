@@ -17,8 +17,10 @@ groupGCD f ([] : rest) = groupGCD f rest
 groupGCD f (positions@(pos : _) : rest) = n `gcd'` groupGCD f (nextPositions : rest) where
   (n, nextPositions) = countSameElems 0 positions
   firstVal = f pos
-  countSameElems acc []       = (acc, [])
-  countSameElems acc (x : xs) = if f x == firstVal then countSameElems (acc + 1) xs else (acc, x : xs)
+  countSameElems acc [] = (acc, [])
+  countSameElems acc (x : xs)
+    | f x == firstVal = countSameElems (acc + 1) xs
+    | otherwise       = (acc, x : xs)
 
 gcd' ∷ Integral a ⇒ a → a → a
 gcd' 1 _ = 1

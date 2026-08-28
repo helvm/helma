@@ -109,7 +109,7 @@ getCodelColor MulticoloredCodelCenter codelSizeInt image codelX codelY =
     pixelOffsetY = codelY * codelSizeInt
 
 getCodelColor MulticoloredCodelModal codelSizeInt image codelX codelY =
-  selectModal (NE.nonEmpty (NE.groupAllWith id colors))
+  selectModal (nonEmpty (NE.groupAllWith id colors))
   where
     colors = getColors codelSizeInt image codelX codelY
     selectModal (Just grouped) = head $ F1.maximumBy (comparing length) grouped
