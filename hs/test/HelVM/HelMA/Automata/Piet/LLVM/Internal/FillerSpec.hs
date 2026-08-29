@@ -8,6 +8,8 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.FillerSpec
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+
 import qualified Data.IntMap                                    as IM
 import qualified Data.Set                                       as S
 import           Data.Vector                                    ( Vector )
@@ -21,7 +23,7 @@ data TestCase
       { caseName            :: String
       , inputImage          :: Vector (Vector Char)
       , expectedFilledImage :: Vector (Vector Int)
-      , expectedCoords      :: [(Int, Set (Int, Int))]
+      , expectedCoords      :: [(Int, Set Coordinates)]
       }
 
 main ∷ IO ()
@@ -48,7 +50,7 @@ smallImage = toVector2D [['a']]
 expectedFilledSmallImage ∷ Vector (Vector Int)
 expectedFilledSmallImage = toVector2D [[0]]
 
-expectedSmallCoords ∷ [(Int, Set (Int, Int))]
+expectedSmallCoords ∷ [(Int, Set Coordinates)]
 expectedSmallCoords = [(0, S.fromList [(0, 0)])]
 
 complexImage ∷ Vector (Vector Char)
@@ -75,7 +77,7 @@ nnnnnnnnrssstuuv
 nwnnnnxxyzzz{{{|
 |] ∷ String))))
 
-expectedComplexCoords ∷ [(Int, Set (Int, Int))]
+expectedComplexCoords ∷ [(Int, Set Coordinates)]
 expectedComplexCoords =
   [ (0, S.fromList [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0)])
   , (1, S.fromList [(5, 0), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (5, 2), (6, 2)])
@@ -123,7 +125,7 @@ d
 dddeeee
 |] ∷ String))))
 
-expectedIrregularCoords ∷ [(Int, Set (Int, Int))]
+expectedIrregularCoords ∷ [(Int, Set Coordinates)]
 expectedIrregularCoords =
   [ (0, S.fromList [(0, 0)])
   , (1, S.fromList [(1, 0)])

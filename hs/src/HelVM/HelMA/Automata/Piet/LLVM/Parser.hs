@@ -12,6 +12,8 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates              ( Coordinates )
+
 import           Control.Arrow                                            ( Arrow ((***)) )
 import           Control.Monad.Except
 import qualified Data.Foldable1                                           as F1
@@ -35,7 +37,7 @@ parse image = parseFilledImage (V.zipWith V.zip image indices, positionTable)
   where
     (indices, positionTable) = fillAll image
 
-parseFilledImage ∷ MonadError ParserError m ⇒ (Vector (Vector (Codel, Int)), IntMap [(Int, Int)]) → m SyntaxGraph
+parseFilledImage ∷ MonadError ParserError m ⇒ (Vector (Vector (Codel, Int)), IntMap [Coordinates]) → m SyntaxGraph
 parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom where
   parseFrom ∷ MonadError ParserError m ⇒ Maybe (Int, DPCC) → m SyntaxGraph
   parseFrom Nothing = pure EmptySyntaxGraph
@@ -74,7 +76,7 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
       processInitial WhiteCodel          _          = pure $ nextBlockToIndexAndDPCC $ slideOnWhiteBlock codelTable (0, 0) initialDPCC
       processInitial BlackCodel          _          = throwError IllegalInitialColorError
 
-  searchNextBlock ∷ (Int, Int) → DPCC → Int → Maybe NextBlock
+  searchNextBlock ∷ Coordinates → DPCC → Int → Maybe NextBlock
   searchNextBlock (x, y) dpcc@(DPCC dp _) blockSize = do
     (AchromaticCodel currentHue currentLightness, _) <- codelTable V.!? y >>= (V.!? x)
     let nextPos@(nextX, nextY) = move dp (x, y)
@@ -88,13 +90,13 @@ parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom whe
       processNextCodel BlackCodel _ _ _ _ =
         Nothing
 
-minMaxCoords ∷ [(Int, Int)] → [(DPCC, (Int, Int))]
+minMaxCoords ∷ [Coordinates] → [(DPCC, Coordinates)]
 minMaxCoords positions = processPositions (nonEmpty positions)
   where
     processPositions (Just nePositions) = fmap (`maximumOn` nePositions) <$> fs
     processPositions Nothing            = []
 
-fs ∷ [(DPCC, (Int, Int) → (Int, Int))]
+fs ∷ [(DPCC, Coordinates → Coordinates)]
 fs = [ (DPCC DPRight CCLeft,  second negate)
      , (DPCC DPRight CCRight, id)
      , (DPCC DPDown  CCLeft,  swap)

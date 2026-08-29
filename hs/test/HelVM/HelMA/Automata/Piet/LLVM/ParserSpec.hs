@@ -9,6 +9,8 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+
 import qualified Data.IntMap                                     as IM
 import qualified Data.Map                                        as M
 import           Data.Vector                                     ( Vector )
@@ -20,7 +22,7 @@ data ImageTestCase
   = ImageTestCase
       { caseName      :: String
       , testImage     :: Vector (Vector (Codel, Int))
-      , blockTable    :: IntMap [(Int, Int)]
+      , blockTable    :: IntMap [Coordinates]
       , expectedGraph :: SyntaxGraph
       }
 
@@ -28,7 +30,7 @@ data ErrorTestCase
   = ErrorTestCase
       { errCaseName   :: String
       , errTestImage  :: Vector (Vector (Codel, Int))
-      , errBlockTable :: IntMap [(Int, Int)]
+      , errBlockTable :: IntMap [Coordinates]
       , expectedErr   :: ParserError
       }
 
@@ -123,7 +125,7 @@ spec = do
 smallImage ∷ Vector (Vector (Codel, Int))
 smallImage = toVector2D [[(AchromaticCodel Red Normal, 0)]]
 
-smallBlockTable ∷ IntMap [(Int, Int)]
+smallBlockTable ∷ IntMap [Coordinates]
 smallBlockTable = IM.fromList [(0, [(0, 0)])]
 
 expectedSmallGraph ∷ SyntaxGraph
@@ -132,13 +134,13 @@ expectedSmallGraph = SyntaxGraph 0 rl $ IM.fromList [(0, Block M.empty)]
 whiteImage ∷ Vector (Vector (Codel, Int))
 whiteImage = toVector2D [[(WhiteCodel, 0)]]
 
-whiteBlockTable ∷ IntMap [(Int, Int)]
+whiteBlockTable ∷ IntMap [Coordinates]
 whiteBlockTable = IM.fromList [(0, [(0, 0)])]
 
 blackImage ∷ Vector (Vector (Codel, Int))
 blackImage = toVector2D [[(BlackCodel, 0)]]
 
-blackBlockTable ∷ IntMap [(Int, Int)]
+blackBlockTable ∷ IntMap [Coordinates]
 blackBlockTable = IM.fromList [(0, [(0, 0)])]
 
 distantInitialImage ∷ Vector (Vector (Codel, Int))
@@ -157,7 +159,7 @@ distantInitialImage = toVector2D
     ]
   ]
 
-distantInitialBlockTable ∷ IntMap [(Int, Int)]
+distantInitialBlockTable ∷ IntMap [Coordinates]
 distantInitialBlockTable = IM.fromList
   [ (0, [(0, 0), (1, 0), (2, 0), (1, 1), (2, 1), (0, 2), (1, 2), (2, 2)])
   , (1, [(0, 1)])
@@ -192,7 +194,7 @@ stuckImage = toVector2D
     ]
   ]
 
-stuckBlockTable ∷ IntMap [(Int, Int)]
+stuckBlockTable ∷ IntMap [Coordinates]
 stuckBlockTable = IM.fromList
   [ (0, [(0, 0)])
   , (1, [(1, 0)])
@@ -500,7 +502,7 @@ complexImage = toVector2D
     ]
   ]
 
-complexBlockTable ∷ IntMap [(Int, Int)]
+complexBlockTable ∷ IntMap [Coordinates]
 complexBlockTable = IM.fromList
   [ (0, [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0)])
   , (1, [(5, 0), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (5, 2), (6, 2)])

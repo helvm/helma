@@ -15,6 +15,8 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
 
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+
 import           Codec.Picture
 import           Control.Monad.Except
 import qualified Data.Foldable1                                    as F1
@@ -82,7 +84,7 @@ rgbImageToCodels config image = do
     (codelWidth, modX) = divMod pixelWidth codelSizeInt
     (codelHeight, modY) = divMod pixelHeight codelSizeInt
 
-getIntCodelSize ∷ (Int, Int) → Image PixelRGB8 → CodelSize → Int
+getIntCodelSize ∷ Coordinates → Image PixelRGB8 → CodelSize → Int
 getIntCodelSize _ _ (CodelSize n)         = n
 getIntCodelSize size image GuessCodelSize = guessCodelSize size $ uncurry (pixelAt image)
 

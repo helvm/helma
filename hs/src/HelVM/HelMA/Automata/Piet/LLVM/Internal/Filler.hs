@@ -3,15 +3,17 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
   ( fillAll
   ) where
 
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+
 import           Control.Lens
 import           Control.Monad.Primitive
 import           Control.Monad.ST
-import qualified Data.IntMap             as IM
-import           Data.Vector             ( Vector )
-import qualified Data.Vector.Generic     as V
-import           Data.Vector.Mutable     ( STVector )
-import qualified Data.Vector.Mutable     as VM
-import qualified ListT                   as L
+import qualified Data.IntMap                                 as IM
+import           Data.Vector                                 ( Vector )
+import qualified Data.Vector.Generic                         as V
+import           Data.Vector.Mutable                         ( STVector )
+import qualified Data.Vector.Mutable                         as VM
+import qualified ListT                                       as L
 
 data FillerParams a b s
   = FillerParams
@@ -20,7 +22,7 @@ data FillerParams a b s
       }
 makeLenses ''FillerParams
 
-fillAll ∷ Eq a ⇒ Vector (Vector a) → (Vector (Vector Int), IntMap [(Int, Int)])
+fillAll ∷ Eq a ⇒ Vector (Vector a) → (Vector (Vector Int), IntMap [Coordinates])
 fillAll image = runST $ do
   filledRefs <- V.mapM (V.thaw . (Nothing <$)) image
   let params = FillerParams { _paramSourceImage = image
@@ -36,7 +38,7 @@ fillAllST ∷ ( Eq a
              , MonadReader (FillerParams a Int (PrimState m)) m
              , MonadState Int m
              )
-          ⇒ m (IntMap [(Int, Int)])
+          ⇒ m (IntMap [Coordinates])
 fillAllST = fmap IM.fromList $ L.toList $ do
   sourceImage <- lift $ view paramSourceImage
   (y, sourceRow) <- L.fromFoldable $ V.indexed sourceImage
@@ -58,8 +60,8 @@ fill ∷ ( Eq a
         )
      ⇒ a  -- target color
      → b  -- filling color
-     → (Int, Int)  -- seed
-     → m [(Int, Int)]  -- filled positions
+     → Coordinates  -- seed
+     → m [Coordinates]  -- filled positions
 fill targetColor fillingColor seed = execStateT (fill' seed) [] where
   fill' (x, y) = void $ runMaybeT $ do
     sourceImage <- view paramSourceImage

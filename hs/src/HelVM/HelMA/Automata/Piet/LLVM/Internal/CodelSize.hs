@@ -2,7 +2,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
   ( guessCodelSize
   ) where
 
-guessCodelSize ∷ Eq a ⇒ (Int, Int) → ((Int, Int) → a) → Int
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+
+guessCodelSize ∷ Eq a ⇒ Coordinates → (Coordinates → a) → Int
 guessCodelSize (width, height) pixelAccessor = codelSize where
   codelSize = groupGCD pixelAccessor horizontalPositionBlocks `gcd'` groupGCD pixelAccessor verticalPositionBlocks
   horizontalPositionBlocks = generate height $ \y -> generate width (,y)

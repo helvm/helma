@@ -11,6 +11,8 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+
 import           Data.Vector                                              ( Vector )
 import qualified Data.Vector                                              as V
 
@@ -21,7 +23,7 @@ data TestCase
   = TestCase
       { caseName        :: String
       , testImage       :: Vector (Vector (Codel, Int))
-      , initialPosition :: (Int, Int)
+      , initialPosition :: Coordinates
       , initialDPCC     :: DPCC
       , expectedResult  :: NextBlock
       }
