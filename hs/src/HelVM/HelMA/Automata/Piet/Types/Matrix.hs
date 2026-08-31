@@ -3,6 +3,7 @@ module HelVM.HelMA.Automata.Piet.Types.Matrix
   , atMatrix
   , discoverBlock
   , inRangeMatrix
+  , indexMaybe
   , newMatrix
   , nextCoords
   , (&!)
@@ -39,7 +40,7 @@ infixl 9 &!
 
 indexMaybe ∷ Matrix a → Coordinates → Maybe a
 indexMaybe m coord
-  | inRangeMatrix coord m = Just $ m `indexUncheck` coord
+  | inRangeMatrix coord m = Just $ m `unsafeIndex` coord
   | otherwise             = Nothing
 {-# INLINE indexMaybe #-}
 
@@ -55,15 +56,15 @@ inRangeMatrix (x, y) m = x >= 0 && x < widthMatrix m && y >= 0 && y < heightMatr
 
 atMatrix ∷ Coordinates → Matrix a → a
 atMatrix coord m
-  | inRangeMatrix coord m = m `indexUncheck` coord
+  | inRangeMatrix coord m = m `unsafeIndex` coord
   | otherwise             = error $ "Matrix.atMatrix: Out of bounds " <> show coord
 {-# INLINE atMatrix #-}
 
 -- UTILS (PRIVATE / INLINE)
 
-indexUncheck ∷ Matrix a → Coordinates → a
-indexUncheck m coord = cells m `V.unsafeIndex` toIndexFromMatrix m coord
-{-# INLINE indexUncheck #-}
+unsafeIndex ∷ Matrix a → Coordinates → a
+unsafeIndex m coord = cells m `V.unsafeIndex` toIndexFromMatrix m coord
+{-# INLINE unsafeIndex #-}
 
 toIndexFromMatrix ∷ Matrix a → Coordinates → Int
 toIndexFromMatrix m = toIndex (widthMatrix m)
@@ -81,7 +82,7 @@ discoverBlock m startPos
   | otherwise                      = runST $ UMV.replicate (widthMatrix m * heightMatrix m) False >>= runBfs m startPos
 
 runBfs ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Bool → ST s Block
-runBfs m startPos visited = bfs m (m `indexUncheck` startPos) visited [startPos] []
+runBfs m startPos visited = bfs m (m `unsafeIndex` startPos) visited [startPos] []
 
 bfs ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → [Coordinates] → Block → ST s Block
 bfs _ _ _ [] acc = pure acc
@@ -90,7 +91,7 @@ bfs m targetColor visited (curr : rest) acc = UMV.unsafeRead visited idx >>= pro
 
 processCell ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Int → Bool → ST s Block
 processCell m targetColor visited _    rest acc _   True  = bfs m targetColor visited rest acc
-processCell m targetColor visited curr rest acc idx False = UMV.unsafeWrite visited idx True >> checkColor m targetColor visited curr rest acc (m `indexUncheck` curr == targetColor)
+processCell m targetColor visited curr rest acc idx False = UMV.unsafeWrite visited idx True >> checkColor m targetColor visited curr rest acc (m `unsafeIndex` curr == targetColor)
 
 checkColor ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Bool → ST s Block
 checkColor m targetColor visited _ rest acc False = bfs m targetColor visited rest acc
