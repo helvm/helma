@@ -31,10 +31,14 @@ instance Functor Matrix where
 
 infixl 9 &!
 (&!) ∷ Matrix a → Coordinates → Maybe a
-m &! coord
+(&!) = indexMaybe
+{-# INLINE (&!) #-}
+
+indexMaybe ∷ Matrix a → Coordinates → Maybe a
+indexMaybe m coord
   | inRangeMatrix coord m = Just $ m `unsafeIndex` coord
   | otherwise             = Nothing
-{-# INLINE (&!) #-}
+{-# INLINE indexMaybe #-}
 
 newMatrix ∷ Coordinates → [(Coordinates, a)] → Matrix a
 newMatrix (w, h) elems = Matrix w h $ V.create $ MV.new (w * h) >>= \vec ->
