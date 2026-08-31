@@ -19,7 +19,7 @@ type CodelSize = Int
 data Program
   = Program
       { _codelSize :: CodelSize
-      , _image     :: Image Color
+      , _image     :: Matrix Color
       , _labelling :: Labelling
       }
   deriving stock (Show)

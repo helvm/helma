@@ -12,7 +12,7 @@ import           Lens.Micro.Platform
 
 data Labelling
   = Labelling
-      { _mask :: Image LabelKey
+      { _mask :: Matrix LabelKey
       , _info :: IntMap (Maybe LabelInfo)
       }
   deriving stock (Show)

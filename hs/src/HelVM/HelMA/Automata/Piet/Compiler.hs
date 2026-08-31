@@ -33,15 +33,15 @@ makeLenses ''LabellingStatus
 
 -- PUBLIC API
 
-compile ∷ CodelSize → Image Color → Program
+compile ∷ CodelSize → Matrix Color → Program
 compile cs img = Program cs img (label4 img)
 
 -- COMPILER CORE (LABELING PROCESS)
 
-label4 ∷ Eq a ⇒ Image a → Labelling
+label4 ∷ Eq a ⇒ Matrix a → Labelling
 label4 = label4With (==)
 
-label4With ∷ (a → a → Bool) → Image a → Labelling
+label4With ∷ (a → a → Bool) → Matrix a → Labelling
 label4With neighbours img = Labelling img' inf where
   (status, assocMap) = label4With' neighbours img (LabellingStatus (0, 0) 0 (Labelling (newImage (0,0) []) mempty) mempty) Map.empty
   currentLabelling   = status ^. labelling
@@ -54,7 +54,7 @@ label4With neighbours img = Labelling img' inf where
   applyEquivClass eqMap lbl = equivClass lbl eqMap
   mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)
 
-label4With' ∷ (a → a → Bool) → Image a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
+label4With' ∷ (a → a → Bool) → Matrix a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
 label4With' neighbours img status acc = checkNext (nextCoords (widthImage img, heightImage img) xy) neighbours img (updateStatus mergeLabels status acc xy) where
   xy@(x, y) = status ^. currentCoords
   pixel     = pixelImage (x, y) img
@@ -68,7 +68,7 @@ label4With' neighbours img status acc = checkNext (nextCoords (widthImage img, h
   previousNeighbours (cx, cy) = filter validCoord [ (cx-1, cy), (cx, cy-1) ]
   validCoord (nx, ny) = nx >= 0 && ny >= 0
 
-checkNext ∷ Maybe Coordinates → (a → a → Bool) → Image a → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
+checkNext ∷ Maybe Coordinates → (a → a → Bool) → Matrix a → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
 checkNext Nothing    _          _   res       = res
 checkNext (Just xy') neighbours img (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
 
