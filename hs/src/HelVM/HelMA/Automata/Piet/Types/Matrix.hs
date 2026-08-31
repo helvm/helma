@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.Types.Image
+module HelVM.HelMA.Automata.Piet.Types.Matrix
   ( Image (..)
   , discoverBlock
   , heightImage

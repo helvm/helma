@@ -268,7 +268,7 @@ library
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
     HelVM.HelMA.Automata.Piet.Types.Extra
     HelVM.HelMA.Automata.Piet.Types.Hue
-    HelVM.HelMA.Automata.Piet.Types.Image
+    HelVM.HelMA.Automata.Piet.Types.Matrix
     HelVM.HelMA.Automata.Piet.Types.InstructionCounter
     HelVM.HelMA.Automata.Piet.Types.InstructionMemory
     HelVM.HelMA.Automata.Piet.Types.Label

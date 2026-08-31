@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automata.Piet.Compiler
 import           HelVM.HelMA.Automata.Piet.Parser
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.Image
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           HelVM.HelMA.Automata.Piet.API.ImplType

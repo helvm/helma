@@ -4,9 +4,9 @@ module HelVM.HelMA.Automata.Piet.Compiler
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates ( Coordinates )
-import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.Program     ( CodelSize, Program (Program) )
 
 import           Data.IntMap                                 hiding ( filter )
