@@ -21,7 +21,7 @@ data Matrix a
   = Matrix
       { widthMatrix  :: {-# UNPACK #-} !Int
       , heightMatrix :: {-# UNPACK #-} !Int
-      , pixels       :: !(V.Vector a)
+      , cells        :: !(V.Vector a)
       }
   deriving stock (Eq, Show)
 
@@ -60,7 +60,7 @@ atMatrix coord m
 -- UTILS (PRIVATE / INLINE)
 
 indexUncheck ∷ Matrix a → Coordinates → a
-indexUncheck  m coord = pixels m `V.unsafeIndex` toIndexFromMatrix m coord
+indexUncheck m coord = cells m `V.unsafeIndex` toIndexFromMatrix m coord
 {-# INLINE indexUncheck #-}
 
 toIndexFromMatrix ∷ Matrix a → Coordinates → Int
