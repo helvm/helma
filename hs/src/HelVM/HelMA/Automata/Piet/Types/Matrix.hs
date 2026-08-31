@@ -31,9 +31,7 @@ instance Functor Matrix where
 
 infixl 9 &!
 (&!) ∷ Matrix a → Coordinates → Maybe a
-m &! coord
-  | inRangeMatrix coord m = Just $ m `unsafeIndex` coord
-  | otherwise             = Nothing
+(&!) = indexMaybe
 {-# INLINE (&!) #-}
 
 newMatrix ∷ Coordinates → [(Coordinates, a)] → Matrix a
@@ -51,6 +49,10 @@ pixelMatrix coord m
 {-# INLINE pixelMatrix #-}
 
 -- UTILS (PRIVATE / INLINE)
+
+indexMaybe ∷ Matrix a → Coordinates → Maybe a
+indexMaybe  m coord = pixels m V.!? toIndex (widthMatrix m) coord
+{-# INLINE indexMaybe #-}
 
 unsafeIndex ∷ Matrix a → Coordinates → a
 unsafeIndex  m coord = pixels m `V.unsafeIndex` toIndex (widthMatrix m) coord
@@ -79,6 +81,6 @@ bfs m targetColor visited (curr : rest) acc =
 
 processCell ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Int → Bool → ST s Block
 processCell m targetColor visited curr rest acc idx isVisited
-  | isVisited                               = bfs m targetColor visited rest acc
+  | isVisited                           = bfs m targetColor visited rest acc
   | m `unsafeIndex` curr /= targetColor = UMV.unsafeWrite visited idx True >> bfs m targetColor visited rest acc
-  | otherwise                               = UMV.unsafeWrite visited idx True >> bfs m targetColor visited (filter (`inRangeMatrix` m) (neighbours curr) ++ rest) (curr : acc)
+  | otherwise                           = UMV.unsafeWrite visited idx True >> bfs m targetColor visited (filter (`inRangeMatrix` m) (neighbours curr) ++ rest) (curr : acc)
