@@ -300,7 +300,6 @@ library
 
   build-depends:
       helio
-    , array
     , containers           <  0.7
     , data-default
     , extra
