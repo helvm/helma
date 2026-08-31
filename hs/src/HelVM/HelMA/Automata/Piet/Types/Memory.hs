@@ -98,7 +98,7 @@ orientationMemory ∷ Memory → Orientation
 orientationMemory mem = instructionCounterMemory mem ^. orientation
 
 currentPixel ∷ Memory → Color
-currentPixel mem = atMatrix (positionMemory mem) (programMemory mem ^. image)
+currentPixel mem = pixelMatrix (positionMemory mem) (programMemory mem ^. image)
 
 codelSizeMemory ∷ Memory → CodelSize
 codelSizeMemory mem = programMemory mem ^. codelSize
@@ -154,7 +154,7 @@ modifyFlipWithLog name f mem = processStack (mem ^. stack)
 -- PRIVATE UTILS & HELPERS
 
 getMaskInfo' ∷ Program → Coordinates → Maybe LabelInfo
-getMaskInfo' prog pos = findWithDefault Nothing (atMatrix pos maskImg) infoMap
+getMaskInfo' prog pos = findWithDefault Nothing (pixelMatrix pos maskImg) infoMap
   where
     maskImg = prog ^. labelling . mask
     infoMap = prog ^. labelling . info

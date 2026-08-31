@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.Piet.Types.Matrix
   , discoverBlock
   , inRangeMatrix
   , newMatrix
-  , atMatrix
+  , pixelMatrix
   , (&!)
   ) where
 
@@ -42,11 +42,11 @@ inRangeMatrix ∷ Coordinates → Matrix a → Bool
 inRangeMatrix (x, y) m = x >= 0 && x < widthMatrix m && y >= 0 && y < heightMatrix m
 {-# INLINE inRangeMatrix #-}
 
-atMatrix ∷ Coordinates → Matrix a → a
-atMatrix coord m
+pixelMatrix ∷ Coordinates → Matrix a → a
+pixelMatrix coord m
   | inRangeMatrix coord m = m `unsafeIndex` coord
-  | otherwise             = error $ "Matrix.atMatrix: Out of bounds " <> show coord
-{-# INLINE atMatrix #-}
+  | otherwise             = error $ "Matrix.pixelMatrix: Out of bounds " <> show coord
+{-# INLINE pixelMatrix #-}
 
 -- UTILS (PRIVATE / INLINE)
 
