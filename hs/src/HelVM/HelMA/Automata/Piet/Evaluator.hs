@@ -8,14 +8,14 @@ import           HelVM.HelMA.Automata.Piet.Compiler
 import           HelVM.HelMA.Automata.Piet.Parser
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.Image
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           HelVM.HelMA.Automata.Piet.API.ImplType
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 
-import           HelVM.HelMA.Automata.Piet.Automaton.Collision as Collision
-import           HelVM.HelMA.Automata.Piet.Automaton.StepState as StepState
+import qualified HelVM.HelMA.Automata.Piet.Automaton.Collision as Collision
+import qualified HelVM.HelMA.Automata.Piet.Automaton.StepState as StepState
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
 import           HelVM.HelMA.Automaton.API.Env
@@ -24,7 +24,7 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
 
-import qualified Codec.Picture                                 as Picture
+import           Codec.Picture
 
 import           Control.Monad.Logger
 
@@ -34,15 +34,15 @@ runRio ∷ Has env ⇒ ImplType → Maybe Natural → Maybe LexerType → RIO.RI
 runRio  implType codelInfo _  = runWithOptions  =<< optionsRio where
   runWithOptions o = run implType codelInfo =<< readImageRio (App.file o)
 
-run ∷ Has env ⇒  ImplType → Maybe Natural → Picture.DynamicImage → RIO.RIO env ()
+run ∷ Has env ⇒  ImplType → Maybe Natural → DynamicImage → RIO.RIO env ()
 run  implType codelInfo = runAsRIO . simpleEval implType codelInfo
 
-simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe Natural → Picture.DynamicImage → m ()
-simpleEval implType codelInfo dynamicImage = (interpret implType . uncurry compile) =<< logCS (processImage codelInfo dynamicImage)
+simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe Natural → DynamicImage → m ()
+simpleEval implType codelInfo dynamicImage = (start implType . uncurry compile) =<< logCS (processImage codelInfo dynamicImage)
 
-interpret ∷ AppSafeEff m ⇒ ImplType → Program → m ()
-interpret StepState = StepState.start
-interpret Collision = Collision.start
+start ∷ AppSafeEff m ⇒ ImplType → Program → m ()
+start StepState = StepState.start
+start Collision = Collision.start
 
-logCS ∷ MonadLogger m ⇒ (CodelSize, Image Color) → m (CodelSize, Image Color)
+logCS ∷ MonadLogger m ⇒ (CodelSize, Matrix Color) → m (CodelSize, Matrix Color)
 logCS (cs , img) = (cs , img) <$ logDebugN ("Actual codel length: " <> show cs)

@@ -179,7 +179,7 @@ rollImediate rolls i l = appendError "ALU.rollImediate" . build $ olength l wher
 
 -- | Copy instructions
 copy ∷ SafeStack m ll element ⇒ ImmediateIndex → ll → m ll
-copy i = appendError "ALU.copy" . teeMap flipPush1 (findSafe i)
+copy i = appendError "ALU.copy" . teeMap flipPush1 (atSafe i)
 
 -- | Pop instructions
 pop1 ∷ SafeStack m ll element ⇒ ll →  m (element , ll)

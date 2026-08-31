@@ -256,18 +256,16 @@ library
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
     HelVM.HelMA.Automata.Piet.Types.Extra
     HelVM.HelMA.Automata.Piet.Types.Hue
-    HelVM.HelMA.Automata.Piet.Types.Image
     HelVM.HelMA.Automata.Piet.Types.Instruction
     HelVM.HelMA.Automata.Piet.Types.InstructionCounter
     HelVM.HelMA.Automata.Piet.Types.InstructionMemory
     HelVM.HelMA.Automata.Piet.Types.Label
     HelVM.HelMA.Automata.Piet.Types.Labelling
     HelVM.HelMA.Automata.Piet.Types.Lightness
+    HelVM.HelMA.Automata.Piet.Types.Matrix
     HelVM.HelMA.Automata.Piet.Types.Memory
     HelVM.HelMA.Automata.Piet.Types.Orientation
     HelVM.HelMA.Automata.Piet.Types.Program
-    HelVM.HelMA.Automata.Piet.Types.ProgramConfig
-    HelVM.HelMA.Automata.Piet.Types.ProgramState
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
@@ -291,10 +289,8 @@ library
 
   build-depends:
       helio
-    , array
     , containers           <  0.7
     , data-default
-    , diffarray
     , extra
     , free
     , IfElse

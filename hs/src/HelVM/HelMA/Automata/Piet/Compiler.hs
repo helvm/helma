@@ -4,9 +4,9 @@ module HelVM.HelMA.Automata.Piet.Compiler
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates ( Coordinates )
-import           HelVM.HelMA.Automata.Piet.Types.Image
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.Program     ( CodelSize, Program (Program) )
 
 import           Data.IntMap                                 hiding ( filter )
@@ -33,20 +33,20 @@ makeLenses ''LabellingStatus
 
 -- PUBLIC API
 
-compile ∷ CodelSize → Image Color → Program
+compile ∷ CodelSize → Matrix Color → Program
 compile cs img = Program cs img (label4 img)
 
 -- COMPILER CORE (LABELING PROCESS)
 
-label4 ∷ Eq a ⇒ Image a → Labelling
+label4 ∷ Eq a ⇒ Matrix a → Labelling
 label4 = label4With (==)
 
-label4With ∷ (a → a → Bool) → Image a → Labelling
+label4With ∷ (a → a → Bool) → Matrix a → Labelling
 label4With neighbours img = Labelling img' inf where
-  (status, assocMap) = label4With' neighbours img (LabellingStatus (0, 0) 0 (Labelling (newImage (0,0) []) mempty) mempty) Map.empty
+  (status, assocMap) = label4With' neighbours img (LabellingStatus (0, 0) 0 (Labelling (newMatrix (0,0) []) mempty) mempty) Map.empty
   currentLabelling   = status ^. labelling
 
-  maskImg = newImage (widthImage img, heightImage img) (Map.toList assocMap)
+  maskImg = newMatrix (widthMatrix img, heightMatrix img) (Map.toList assocMap)
 
   img' = fmap (applyEquivClass (status ^. equivalences)) maskImg
   inf  = foldrWithKey (mergeClass (status ^. equivalences)) mempty (currentLabelling ^. info)
@@ -54,23 +54,23 @@ label4With neighbours img = Labelling img' inf where
   applyEquivClass eqMap lbl = equivClass lbl eqMap
   mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)
 
-label4With' ∷ (a → a → Bool) → Image a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
-label4With' neighbours img status acc = checkNext (nextCoords (widthImage img, heightImage img) xy) neighbours img (updateStatus mergeLabels status acc xy) where
-  xy@(x, y) = status ^. currentCoords
-  pixel     = pixelImage (x, y) img
+label4With' ∷ (a → a → Bool) → Matrix a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
+label4With' neighbours img status acc = checkNext (nextCoords img xy) neighbours img (updateStatus mergeLabels status acc xy) where
+  pixel  = atMatrix xy img
+  xy     = status ^. currentCoords
 
   mergeLabels = fmap getMaskLabel $ filter isNeighbour $ addPixelInfo <$> previousNeighbours xy
 
-  addPixelInfo (nx, ny) = (nx, ny, pixelImage (nx, ny) img)
+  addPixelInfo (nx, ny) = (nx, ny, atMatrix (nx, ny) img)
   isNeighbour (_, _, e) = neighbours pixel e
   getMaskLabel (nx, ny, _) = Map.findWithDefault (error "Missing label") (nx, ny) acc
 
   previousNeighbours (cx, cy) = filter validCoord [ (cx-1, cy), (cx, cy-1) ]
   validCoord (nx, ny) = nx >= 0 && ny >= 0
 
-checkNext ∷ Maybe Coordinates → (a → a → Bool) → Image a → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
-checkNext Nothing    _          _   res       = res
-checkNext (Just xy') neighbours img (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
+checkNext ∷ Maybe Coordinates → (a → a → Bool) → Matrix a → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
+checkNext Nothing    _          _   res      = res
+checkNext (Just xy) neighbours img (s, acc') = label4With' neighbours img (s & currentCoords .~ xy) acc'
 
 -- STATUS & MAP UPDATES
 
@@ -129,16 +129,3 @@ replaceClass newClass classes eqClass = checkInClass (eqClass `elem` classes) ne
 checkInClass ∷ Bool → LabelKey → LabelKey → LabelKey
 checkInClass False _        eqc = eqc
 checkInClass True  newClass _   = newClass
-
--- COORDINATES TRAVERSAL UTILS
-
-nextCoords ∷ Coordinates → Coordinates → Maybe Coordinates
-nextCoords (w, h) (cx, cy) = guardX (cx < w - 1) cx cy h
-
-guardX ∷ Bool → Int → Int → Int → Maybe Coordinates
-guardX False _  cy h = guardY (cy < h - 1) cy
-guardX True  cx cy _ = Just (cx + 1, cy)
-
-guardY ∷ Bool → Int → Maybe Coordinates
-guardY False _  = Nothing
-guardY True  cy = Just (0, cy + 1)
