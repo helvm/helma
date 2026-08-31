@@ -1,63 +1,84 @@
 module HelVM.HelMA.Automata.Piet.Types.Matrix
   ( Matrix (..)
   , discoverBlock
-  , heightMatrix
   , inRangeMatrix
   , newMatrix
   , pixelMatrix
-  , widthMatrix
   , (&!)
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
-import           Data.Array
-import qualified Data.List                                   as List
-import qualified Data.Set                                    as Set
+import           Control.Monad.ST                            ( ST, runST )
+import qualified Data.Vector                                 as V
+import qualified Data.Vector.Mutable                         as MV
+import qualified Data.Vector.Unboxed.Mutable                 as UMV
 
--- TYPES & INSTANCES
+-- MATRIX DEFINITION
 
-newtype Matrix a
-  = Matrix { pixels :: Array Coordinates a }
-  deriving stock (Show)
+data Matrix a
+  = Matrix
+      { widthMatrix  :: {-# UNPACK #-} !Int
+      , heightMatrix :: {-# UNPACK #-} !Int
+      , pixels       :: !(V.Vector a)
+      }
+  deriving stock (Eq, Show)
 
 instance Functor Matrix where
-  fmap f (Matrix pxs) = Matrix (fmap f pxs)
+  fmap f (Matrix w h pxs) = Matrix w h (fmap f pxs)
 
 -- EXPORTED FUNCTIONS & OPERATORS
 
 infixl 9 &!
 (&!) ∷ Matrix a → Coordinates → Maybe a
 m &! coord
-  | inRangeMatrix coord m = Just $ pixelMatrix coord m
-  | otherwise            = Nothing
+  | inRangeMatrix coord m = Just $ unsafePixelMatrix coord m
+  | otherwise             = Nothing
+{-# INLINE (&!) #-}
 
 newMatrix ∷ Coordinates → [(Coordinates, a)] → Matrix a
-newMatrix (width, height) = Matrix . array ((0, 0), (width - 1, height - 1))
-
-widthMatrix ∷ Matrix a → Int
-widthMatrix = fst . dimensionsMatrix
-
-heightMatrix ∷ Matrix a → Int
-heightMatrix = snd . dimensionsMatrix
+newMatrix (w, h) elems = Matrix w h $ V.create $ MV.new (w * h) >>= \vec ->
+  traverse_ (uncurry $ MV.write vec . toIndex w) elems >> pure vec
 
 inRangeMatrix ∷ Coordinates → Matrix a → Bool
-inRangeMatrix coord (Matrix pxs) = inRange (bounds pxs) coord
+inRangeMatrix (x, y) m = x >= 0 && x < widthMatrix m && y >= 0 && y < heightMatrix m
+{-# INLINE inRangeMatrix #-}
 
 pixelMatrix ∷ Coordinates → Matrix a → a
-pixelMatrix coord (Matrix pxs) = pxs ! coord
+pixelMatrix coord m
+  | inRangeMatrix coord m = unsafePixelMatrix coord m
+  | otherwise             = error $ "Matrix.pixelMatrix: Out of bounds " <> show coord
+{-# INLINE pixelMatrix #-}
+
+-- UTILS (PRIVATE / INLINE)
+
+unsafePixelMatrix ∷ Coordinates → Matrix a → a
+unsafePixelMatrix coord m = pixels m `V.unsafeIndex` toIndex (widthMatrix m) coord
+{-# INLINE unsafePixelMatrix #-}
+
+toIndex ∷ Int → Coordinates → Int
+toIndex w (x, y) = y * w + x
+{-# INLINE toIndex #-}
+
+-- GENERIC FAST BLOCK DISCOVERY
 
 discoverBlock ∷ Eq a ⇒ Matrix a → Coordinates → Block
-discoverBlock m startPos = Set.toList $ go Set.empty startPos where
-  targetColor = m &! startPos
+discoverBlock m startPos
+  | not (inRangeMatrix startPos m) = []
+  | otherwise                      = runST $ UMV.replicate (widthMatrix m * heightMatrix m) False >>= runBfs m startPos
 
-  go visited pos
-    | pos `Set.member` visited = visited
-    | m &! pos /= targetColor  = visited
-    | otherwise                = List.foldl' go (Set.insert pos visited) (neighbours pos)
+runBfs ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Bool → ST s Block
+runBfs m startPos visited = bfs m (unsafePixelMatrix startPos m) visited [startPos] []
 
--- UTILS (PRIVATE)
+bfs ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → [Coordinates] → Block → ST s Block
+bfs _ _ _ [] acc = pure acc
+bfs m targetColor visited (curr : rest) acc =
+  UMV.unsafeRead visited idx >>= processCell m targetColor visited curr rest acc idx
+  where
+    idx = toIndex (widthMatrix m) curr
 
-dimensionsMatrix ∷ Matrix a → Coordinates
-dimensionsMatrix (Matrix pxs) = (maxX + 1, maxY + 1) where
-  (_, (maxX, maxY)) = bounds pxs
+processCell ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Int → Bool → ST s Block
+processCell m targetColor visited curr rest acc idx isVisited
+  | isVisited                               = bfs m targetColor visited rest acc
+  | unsafePixelMatrix curr m /= targetColor = UMV.unsafeWrite visited idx True >> bfs m targetColor visited rest acc
+  | otherwise                               = UMV.unsafeWrite visited idx True >> bfs m targetColor visited (filter (`inRangeMatrix` m) (neighbours curr) ++ rest) (curr : acc)
