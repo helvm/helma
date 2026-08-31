@@ -16,6 +16,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates              ( Coor
 
 import           Control.Arrow                                            ( Arrow ((***)) )
 import           Control.Monad.Except
+
 import qualified Data.Foldable1                                           as F1
 import qualified Data.IntMap                                              as IM
 import qualified Data.IntSet                                              as IS
@@ -25,6 +26,8 @@ import           Data.MonoTraversable
 import           Data.Vector                                              ( Vector )
 import qualified Data.Vector                                              as V
 
+type CodelTable = Vector (Vector (Codel, Int))
+type BlockTable = IntMap [Coordinates]
 
 data ParserError
   = EmptyBlockTableError -- ^ The block table is empty.
@@ -37,58 +40,65 @@ parse image = parseFilledImage (V.zipWith V.zip image indices, positionTable)
   where
     (indices, positionTable) = fillAll image
 
-parseFilledImage ∷ MonadError ParserError m ⇒ (Vector (Vector (Codel, Int)), IntMap [Coordinates]) → m SyntaxGraph
-parseFilledImage (codelTable, blockTable) = searchInitialBlock >>= parseFrom where
-  parseFrom ∷ MonadError ParserError m ⇒ Maybe (Int, DPCC) → m SyntaxGraph
-  parseFrom Nothing = pure EmptySyntaxGraph
-  parseFrom (Just (initialBlockIndex, initialDPCC)) = do
-    blockMap <- execStateT (parseState initialBlockIndex) IM.empty
-    pure $ SyntaxGraph initialBlockIndex initialDPCC blockMap
+parseFilledImage ∷ MonadError ParserError m ⇒ (CodelTable, BlockTable) → m SyntaxGraph
+parseFilledImage (codelTable, blockTable) = do
+  initial <- searchInitialBlock codelTable
+  parseFrom codelTable blockTable initial
 
-  parseState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ Int → m ()
-  parseState blockIndex = do
-    blockCoords <- justOrThrow (MissingCodelIndexError blockIndex) $ blockTable IM.!? blockIndex
-    let blockSize = olength blockCoords
-    let nextBlockList = mapMaybe (\(dpcc, pos) -> (dpcc,) <$> searchNextBlock pos dpcc blockSize) $ minMaxCoords blockCoords
-    let block = Block $ M.fromList nextBlockList
-    modify $ IM.insert blockIndex block
+parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (Int, DPCC) → m SyntaxGraph
+parseFrom _ _ Nothing = pure EmptySyntaxGraph
+parseFrom codelTable blockTable (Just (initialBlockIndex, initialDPCC')) = do
+  blockMap <- execStateT (parseState codelTable blockTable initialBlockIndex) IM.empty
+  pure $ SyntaxGraph initialBlockIndex initialDPCC' blockMap
 
-    visitedIndices <- IM.keysSet <$> get
-    let nextBlockIndices = mapMaybe (nextBlockToIndex . snd) nextBlockList
-    let unvisitedBlockIndices = filter (`IS.notMember` visitedIndices) nextBlockIndices
-    mapM_ parseState unvisitedBlockIndices
+parseState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ CodelTable → BlockTable → Int → m ()
+parseState codelTable blockTable blockIndex = do
+  blockCoords <- justOrThrow (MissingCodelIndexError blockIndex) $ blockTable IM.!? blockIndex
+  let blockSize = olength blockCoords
+  let nextBlockList = mapMaybe (\(dpcc, pos) -> (dpcc,) <$> searchNextBlock codelTable pos dpcc blockSize) $ minMaxCoords blockCoords
+  let block = Block $ M.fromList nextBlockList
+  modify $ IM.insert blockIndex block
 
-  nextBlockToIndex ∷ NextBlock → Maybe Int
-  nextBlockToIndex (NextBlock _ _ nextBlockIndex) = Just nextBlockIndex
-  nextBlockToIndex ExitProgram                    = Nothing
+  visitedIndices <- IM.keysSet <$> get
+  let nextBlockIndices = mapMaybe (nextBlockToIndex . snd) nextBlockList
+  let unvisitedBlockIndices = filter (`IS.notMember` visitedIndices) nextBlockIndices
+  mapM_ (parseState codelTable blockTable) unvisitedBlockIndices
 
-  nextBlockToIndexAndDPCC ∷ NextBlock → Maybe (Int, DPCC)
-  nextBlockToIndexAndDPCC (NextBlock _ nextBlockDPCC nextBlockIndex) = Just (nextBlockIndex, nextBlockDPCC)
-  nextBlockToIndexAndDPCC ExitProgram                                = Nothing
+searchInitialBlock ∷ MonadError ParserError m ⇒ CodelTable → m (Maybe (Int, DPCC))
+searchInitialBlock codelTable = do
+  (initialCodel, initialBlockIndex) <- justOrThrow EmptyBlockTableError $ codelTable V.!? 0 >>= (V.!? 0)
+  processInitial codelTable initialCodel initialBlockIndex
 
-  searchInitialBlock ∷ MonadError ParserError m ⇒ m (Maybe (Int, DPCC))
-  searchInitialBlock = do
-    (initialCodel, initialBlockIndex) <- justOrThrow EmptyBlockTableError $ codelTable V.!? 0 >>= (V.!? 0)
-    processInitial initialCodel initialBlockIndex
-    where
-      initialDPCC = DPCC DPRight CCLeft
-      processInitial (AchromaticCodel _ _) blockIdx = pure $ Just (blockIdx, initialDPCC)
-      processInitial WhiteCodel          _          = pure $ nextBlockToIndexAndDPCC $ slideOnWhiteBlock codelTable (0, 0) initialDPCC
-      processInitial BlackCodel          _          = throwError IllegalInitialColorError
+processInitial ∷ MonadError ParserError m ⇒ CodelTable → Codel → Int → m (Maybe (Int, DPCC))
+processInitial _ (AchromaticCodel _ _) blockIdx = pure $ Just (blockIdx, initialDPCC)
+processInitial codelTable WhiteCodel _          = pure $ nextBlockToIndexAndDPCC $ slideOnWhiteBlock codelTable (0, 0) initialDPCC
+processInitial _ BlackCodel          _          = throwError IllegalInitialColorError
 
-  searchNextBlock ∷ Coordinates → DPCC → Int → Maybe NextBlock
-  searchNextBlock (x, y) dpcc@(DPCC dp _) blockSize = do
-    (AchromaticCodel currentHue currentLightness, _) <- codelTable V.!? y >>= (V.!? x)
-    let nextPos@(nextX, nextY) = move dp (x, y)
-    (nextCodel, blockIndex) <- codelTable V.!? nextY >>= (V.!? nextX)
-    processNextCodel nextCodel currentHue currentLightness nextPos blockIndex
-    where
-      processNextCodel (AchromaticCodel nextHue nextLightness) curHue curLight _ blockIdx =
-        Just $ NextBlock (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) dpcc blockIdx
-      processNextCodel WhiteCodel _ _ pos _ =
-        Just $ slideOnWhiteBlock codelTable pos dpcc
-      processNextCodel BlackCodel _ _ _ _ =
-        Nothing
+initialDPCC ∷ DPCC
+initialDPCC = DPCC DPRight CCLeft
+
+searchNextBlock ∷ CodelTable → Coordinates → DPCC → Int → Maybe NextBlock
+searchNextBlock codelTable (x, y) dpcc@(DPCC dp _) blockSize = do
+  (AchromaticCodel currentHue currentLightness, _) <- codelTable V.!? y >>= (V.!? x)
+  let nextPos@(nextX, nextY) = move dp (x, y)
+  (nextCodel, blockIndex) <- codelTable V.!? nextY >>= (V.!? nextX)
+  processNextCodel codelTable nextCodel currentHue currentLightness nextPos dpcc blockSize blockIndex
+
+processNextCodel ∷ CodelTable → Codel → Hue → Lightness → Coordinates → DPCC → Int → Int → Maybe NextBlock
+processNextCodel _ (AchromaticCodel nextHue nextLightness) curHue curLight _ dpcc blockSize blockIdx =
+  Just $ NextBlock (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) dpcc blockIdx
+processNextCodel codelTable WhiteCodel _ _ pos dpcc _ _ =
+  Just $ slideOnWhiteBlock codelTable pos dpcc
+processNextCodel _ BlackCodel _ _ _ _ _ _ =
+  Nothing
+
+nextBlockToIndex ∷ NextBlock → Maybe Int
+nextBlockToIndex (NextBlock _ _ nextBlockIndex) = Just nextBlockIndex
+nextBlockToIndex ExitProgram                    = Nothing
+
+nextBlockToIndexAndDPCC ∷ NextBlock → Maybe (Int, DPCC)
+nextBlockToIndexAndDPCC (NextBlock _ nextBlockDPCC nextBlockIndex) = Just (nextBlockIndex, nextBlockDPCC)
+nextBlockToIndexAndDPCC ExitProgram                                = Nothing
 
 minMaxCoords ∷ [Coordinates] → [(DPCC, Coordinates)]
 minMaxCoords positions = processPositions (nonEmpty positions)
