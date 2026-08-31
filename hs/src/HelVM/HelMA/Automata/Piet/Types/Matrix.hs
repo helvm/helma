@@ -57,8 +57,12 @@ atMatrix coord m
 -- UTILS (PRIVATE / INLINE)
 
 indexUncheck ∷ Matrix a → Coordinates → a
-indexUncheck  m coord = pixels m `V.unsafeIndex` toIndex (widthMatrix m) coord
+indexUncheck  m coord = pixels m `V.unsafeIndex` toIndexFromMatrix m coord
 {-# INLINE indexUncheck #-}
+
+toIndexFromMatrix ∷ Matrix a → Coordinates → Int
+toIndexFromMatrix m = toIndex (widthMatrix m)
+{-# INLINE toIndexFromMatrix #-}
 
 toIndex ∷ Int → Coordinates → Int
 toIndex w (x, y) = y * w + x
@@ -79,7 +83,7 @@ bfs _ _ _ [] acc = pure acc
 bfs m targetColor visited (curr : rest) acc =
   UMV.unsafeRead visited idx >>= processCell m targetColor visited curr rest acc idx
   where
-    idx = toIndex (widthMatrix m) curr
+    idx = toIndexFromMatrix m curr
 
 processCell ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Int → Bool → ST s Block
 processCell m targetColor visited curr rest acc idx isVisited
