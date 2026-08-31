@@ -4,8 +4,11 @@ Debug (6,2) push 8
 Debug (7,2) multiply
 Debug (8,2) duplicate
 Debug (9,2) out_char
-Debug (10,5) in_char
-Error Empty IsSequence for unconsSafe
- [mockGetCharSafe MockEffData {output = "H", input = ""}]
-ALU.inputChar
-
+Debug (9,6) push 11
+Debug (9,7) push 3
+Debug (9,8) multiply
+Debug (9,9) add
+Debug (8,9) out_char
+Debug (5,4) push 10
+Debug (4,4) out_char
+Debug Max collisions reached (8). Terminating.
