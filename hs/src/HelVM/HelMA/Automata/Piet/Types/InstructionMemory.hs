@@ -24,7 +24,9 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           Control.Monad.Logger
 
-import           Lens.Micro.Platform
+import           Relude.Extra
+
+-- TYPES & LENSES
 
 data InstructionMemory
   = InstructionMemory
@@ -32,7 +34,13 @@ data InstructionMemory
       , _program            :: !Program
       }
 
-makeLenses ''InstructionMemory
+instructionCounter ∷ Lens' InstructionMemory InstructionCounter
+instructionCounter = lens _instructionCounter (\s x -> s { _instructionCounter = x })
+
+program ∷ Lens' InstructionMemory Program
+program = lens _program (\s x -> s { _program = x })
+
+-- INITIALIZATION & LOGGING
 
 initialInstructionMemory ∷ Program → InstructionMemory
 initialInstructionMemory prog = InstructionMemory
@@ -40,9 +48,10 @@ initialInstructionMemory prog = InstructionMemory
   , _program            = prog
   }
 
-
 logWithPosition ∷ AppSafeEff m ⇒ Text → InstructionMemory → m ()
 logWithPosition msg im = logDebugN $ show (im ^. instructionCounter . position) <> " " <> msg
+
+-- HELPER FUNCTIONS
 
 codelChooserIM ∷ InstructionMemory → CodelChooser
 codelChooserIM im = codelChooserIC (im ^. instructionCounter)
@@ -56,9 +65,10 @@ toggleCodelChooserIM n = instructionCounter %~ toggleCodelChooserIC n
 rotateDirectionPointerIM ∷ Int → InstructionMemory → InstructionMemory
 rotateDirectionPointerIM n = instructionCounter %~ rotateDirectionPointerIC n
 
+-- SUCCESSOR & COORDINATES CALCULATIONS
 
-nonBlackSucc ∷ Program → Orientation → Maybe LabelInfo →  Maybe InstructionCounter
-nonBlackSucc prog reg mStats  = uncurry InstructionCounter <$> find isValid (zip (fmap (succCoordinates mStats) directions) directions) where
+nonBlackSucc ∷ Program → Orientation → Maybe LabelInfo → Maybe InstructionCounter
+nonBlackSucc prog reg mStats = uncurry InstructionCounter <$> find isValid (zip (fmap (succCoordinates mStats) directions) directions) where
   directions       = flip rotateToggle reg <$> zip [ 0, 0, 1, 1, 2, 2, 3, 3 ] (0 : cycle [ 1, 1, 0, 0 ])
   isValid (pos, _) = not (isBlocked pos prog)
 

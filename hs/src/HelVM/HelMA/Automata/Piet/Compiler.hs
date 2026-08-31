@@ -9,12 +9,10 @@ import           HelVM.HelMA.Automata.Piet.Types.Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.Program     ( CodelSize, Program (Program) )
 
-import           Data.IntMap                                 hiding ( filter )
+import qualified Data.IntMap                                 as IntMap
 import qualified Data.Map                                    as Map
 
-import           Lens.Micro.Platform
-
-import qualified Relude.Extra                                as Extra
+import           Relude.Extra
 
 -- TYPES & LENSES
 
@@ -29,7 +27,17 @@ data LabellingStatus
       }
   deriving stock (Show)
 
-makeLenses ''LabellingStatus
+currentCoords ∷ Lens' LabellingStatus Coordinates
+currentCoords = lens _currentCoords (\s x -> s { _currentCoords = x })
+
+nextKey ∷ Lens' LabellingStatus LabelKey
+nextKey = lens _nextKey (\s x -> s { _nextKey = x })
+
+labelling ∷ Lens' LabellingStatus Labelling
+labelling = lens _labelling (\s x -> s { _labelling = x })
+
+equivalences ∷ Lens' LabellingStatus EquivalenceMap
+equivalences = lens _equivalences (\s x -> s { _equivalences = x })
 
 -- PUBLIC API
 
@@ -49,7 +57,7 @@ label4With neighbours img = Labelling img' inf where
   maskImg = newMatrix (widthMatrix img, heightMatrix img) (Map.toList assocMap)
 
   img' = fmap (applyEquivClass (status ^. equivalences)) maskImg
-  inf  = foldrWithKey (mergeClass (status ^. equivalences)) mempty (currentLabelling ^. info)
+  inf  = IntMap.foldrWithKey (mergeClass (status ^. equivalences)) mempty (currentLabelling ^. info)
 
   applyEquivClass eqMap lbl = equivClass lbl eqMap
   mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)
@@ -84,17 +92,17 @@ updateEmptyStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coord
 updateEmptyStatus status acc xy = setLabel status' acc xy (status ^. nextKey) where
   status' = status
     & (labelling . info %~ insert (status ^. nextKey) (addPixel xy Nothing))
-    & (nextKey %~ Extra.next)
+    & (nextKey %~ next)
 
 updateSingleStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
 updateSingleStatus status acc xy l = setLabel status' acc xy l where
-  status' = status & (labelling . info %~ adjust (addPixel xy) l)
+  status' = status & (labelling . info %~ IntMap.adjust (addPixel xy) l)
 
 updatePairStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
 updatePairStatus status acc xy l1 l2 = setLabel status' acc xy targetLabel where
   targetLabel = max l1 l2
   status'     = status
-    & (labelling . info %~ adjust (addPixel xy) targetLabel)
+    & (labelling . info %~ IntMap.adjust (addPixel xy) targetLabel)
     & (equivalences %~ equivInsert l1 l2)
 
 setLabel ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
@@ -110,7 +118,7 @@ updateMap (Just new) (Just (Just old)) = Just (Just (new <> old))
 -- EQUIVALENCE CLASS UTILS
 
 equivClass ∷ LabelKey → EquivalenceMap → LabelKey
-equivClass e = findWithDefault e e
+equivClass e = IntMap.findWithDefault e e
 
 equivInsert ∷ LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
 equivInsert x y = guardInsert (x /= y) x y
@@ -121,7 +129,7 @@ guardInsert True  x y mp = fmap (replaceClass newClass classes) $ insert x newCl
   class1   = equivClass x mp
   class2   = equivClass y mp
   classes  = x :| [y, class1, class2]
-  newClass = Extra.minimum1 classes
+  newClass = minimum1 classes
 
 replaceClass ∷ LabelKey → NonEmpty LabelKey → LabelKey → LabelKey
 replaceClass newClass classes eqClass = checkInClass (eqClass `elem` classes) newClass eqClass

@@ -7,9 +7,9 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import qualified Codec.Picture                        as Picture
 
-import           Lens.Micro.Platform
-
 import qualified RIO
+
+-- TYPES & STRUCTS
 
 data FileIO
   = FileIO
@@ -33,7 +33,21 @@ data Env
       , _envLogFunc :: RIO.LogFunc
       }
 
-makeLenses ''Env
+-- Ręczne definicje lense'ów opartych bezpośrednio na `RIO.Lens'`
+
+envFileIO ∷ RIO.Lens' Env FileIO
+envFileIO = RIO.lens _envFileIO (\s x -> s { _envFileIO = x })
+
+envStdIO ∷ RIO.Lens' Env StdIO
+envStdIO = RIO.lens _envStdIO (\s x -> s { _envStdIO = x })
+
+envOptions ∷ RIO.Lens' Env AppOptions
+envOptions = RIO.lens _envOptions (\s x -> s { _envOptions = x })
+
+envLogFunc ∷ RIO.Lens' Env RIO.LogFunc
+envLogFunc = RIO.lens _envLogFunc (\s x -> s { _envLogFunc = x })
+
+-- HAS CLASSES & INSTANCES
 
 type Has env = (HasIO env, HasAppOptions env, RIO.HasLogFunc env)
 type HasIO env = (HasFileIO env, HasStdIO env)
@@ -58,6 +72,8 @@ instance HasAppOptions Env where
 
 instance RIO.HasLogFunc Env where
   logFuncL = envLogFunc
+
+-- RIO HELPERS
 
 readSourceFileRio ∷ Has env ⇒ RIO.RIO env Source
 readSourceFileRio = readSourceFileWithOptions =<< optionsRio where

@@ -18,7 +18,7 @@ import           HelVM.HelMA.Automaton.Trampoline                   as Trampolin
 
 import           HelVM.HelIO.Control.Safe
 
-import           Lens.Micro.Platform
+import           Relude.Extra
 
 -- TYPES & LENSES
 
@@ -32,7 +32,11 @@ data AutomatonMemory
       , _memory    :: !Memory
       }
 
-makeLenses ''AutomatonMemory
+stepState ∷ Lens' AutomatonMemory StepState
+stepState = lens _stepState (\s x -> s { _stepState = x })
+
+memory ∷ Lens' AutomatonMemory Memory
+memory = lens _memory (\s x -> s { _memory = x })
 
 -- MAIN INTERPRETER ENTRY POINT
 
@@ -46,13 +50,13 @@ start ∷ AppSafeEff m ⇒ Program → m ()
 start = Trampoline.trampolineM interpretStep . initialState
 
 interpretStep ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
-interpretStep (AutomatonMemory (ChromaticStep prev) mem) = stepChromatic prev mem
-interpretStep (AutomatonMemory (WhiteStep limit)    mem) = pure $ stepWhite limit mem
+interpretStep (AutomatonMemory (ChromaticStep p) mem) = stepChromatic p mem
+interpretStep (AutomatonMemory (WhiteStep limit) mem) = pure $ stepWhite limit mem
 
 -- STEP HANDLERS
 
 stepChromatic ∷ AppSafeEff m ⇒ Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
-stepChromatic prev mem = evalPixel (currentPixel mem) prev mem
+stepChromatic p mem = evalPixel (currentPixel mem) p mem
 
 {-# INLINE stepWhite #-}
 stepWhite ∷ Int → Memory → Either () AutomatonMemory
@@ -63,9 +67,9 @@ stepWhite limit mem
 -- PIXEL HANDLERS
 
 evalPixel ∷ AppSafeEff m ⇒ Color → Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
-evalPixel (Chromatic color) prev mem = evalChromaticPixel color prev mem
-evalPixel White             _    mem = pure $ Trampoline.continue $ evalWhitePixel mem
-evalPixel Black             _    _   = liftError "Entered black block, terminate"
+evalPixel (Chromatic color) p m = evalChromaticPixel color p m
+evalPixel White             _ m = pure $ Trampoline.continue $ evalWhitePixel m
+evalPixel Black             _ _ = liftError "Entered black block, terminate"
 
 evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
 evalChromaticPixel color previous mem = makeNext <$> applyPreviousColor previous color mem where

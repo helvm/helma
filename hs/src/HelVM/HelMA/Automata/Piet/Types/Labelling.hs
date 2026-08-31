@@ -1,4 +1,3 @@
-
 module HelVM.HelMA.Automata.Piet.Types.Labelling
   ( Labelling (..)
   , info
@@ -8,7 +7,9 @@ module HelVM.HelMA.Automata.Piet.Types.Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
-import           Lens.Micro.Platform
+import           Relude.Extra
+
+-- TYPES & LENSES
 
 data Labelling
   = Labelling
@@ -17,4 +18,8 @@ data Labelling
       }
   deriving stock (Show)
 
-makeLenses ''Labelling
+mask ∷ Lens' Labelling (Matrix LabelKey)
+mask = lens _mask (\s x -> s { _mask = x })
+
+info ∷ Lens' Labelling (IntMap (Maybe LabelInfo))
+info = lens _info (\s x -> s { _info = x })

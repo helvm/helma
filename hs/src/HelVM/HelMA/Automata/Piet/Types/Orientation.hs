@@ -13,7 +13,9 @@ import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
-import           Lens.Micro.Platform
+import           Relude.Extra
+
+-- TYPES & LENSES
 
 data Orientation
   = Orientation
@@ -22,7 +24,15 @@ data Orientation
       }
   deriving stock (Eq, Show)
 
-makeLenses ''Orientation
+-- Ręczne definicje lense'ów zastępujące `makeLenses ''Orientation`
+
+directionPointer ∷ Lens' Orientation DirectionPointer
+directionPointer = lens _directionPointer (\s x -> s { _directionPointer = x })
+
+codelChooser ∷ Lens' Orientation CodelChooser
+codelChooser = lens _codelChooser (\s x -> s { _codelChooser = x })
+
+-- FUNCTIONS
 
 furthest ∷ Orientation → Coordinates → Coordinates → Ordering
 furthest (Orientation DPLeft CCLeft)   = flip (comparing fst) <> comparing snd

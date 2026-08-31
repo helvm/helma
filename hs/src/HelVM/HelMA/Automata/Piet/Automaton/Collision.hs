@@ -16,7 +16,7 @@ import           HelVM.HelMA.Automaton.Trampoline               as Trampoline
 
 import           Control.Monad.Logger
 
-import           Lens.Micro.Platform
+import           Relude.Extra
 
 -- TYPES & LENSES
 
@@ -26,7 +26,11 @@ data AutomatonMemory
       , _collisionCount :: {-# UNPACK #-} !Int
       }
 
-makeLenses ''AutomatonMemory
+memory ∷ Lens' AutomatonMemory Memory
+memory = lens _memory (\s x -> s { _memory = x })
+
+collisionCount ∷ Lens' AutomatonMemory Int
+collisionCount = lens _collisionCount (\s x -> s { _collisionCount = x })
 
 -- TOP-LEVEL DRIVER
 

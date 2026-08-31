@@ -12,6 +12,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , handleCollision
   , initialMemory
   , instructionCounterMemory
+  , instructionMemory
   , modifyFlipWithLog
   , modifyStackWithLog
   , nextCodelPos
@@ -22,6 +23,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , programMemory
   , selectCodel
   , setInstructionCounter
+  , stack
   , stepWhitePixel
   ) where
 
@@ -44,11 +46,11 @@ import qualified Data.List                                          as List
 import           Data.MonoTraversable
 import qualified Data.Sequence                                      as Seq
 
-import           Lens.Micro.Platform
-
-import           Prelude                                            hiding ( empty )
+import           Relude.Extra
 
 -- TYPES & LENSES
+
+type Stack = Seq.Seq Int
 
 data Memory
   = Memory
@@ -56,9 +58,11 @@ data Memory
       , _stack             :: !Stack
       }
 
-type Stack = Seq.Seq Int
+instructionMemory ∷ Lens' Memory InstructionMemory
+instructionMemory = lens _instructionMemory (\s x -> s { _instructionMemory = x })
 
-makeLenses ''Memory
+stack ∷ Lens' Memory Stack
+stack = lens _stack (\s x -> s { _stack = x })
 
 -- INITIALIZERS & CONSTRUCTORS
 

@@ -12,7 +12,9 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
-import           Lens.Micro.Platform
+import           Relude.Extra
+
+-- TYPES & LENSES
 
 type CodelSize = Int
 
@@ -24,7 +26,16 @@ data Program
       }
   deriving stock (Show)
 
-makeLenses ''Program
+codelSize ∷ Lens' Program CodelSize
+codelSize = lens _codelSize (\s x -> s { _codelSize = x })
+
+image ∷ Lens' Program (Matrix Color)
+image = lens _image (\s x -> s { _image = x })
+
+labelling ∷ Lens' Program Labelling
+labelling = lens _labelling (\s x -> s { _labelling = x })
+
+-- HELPER FUNCTIONS
 
 isBlocked ∷ Coordinates → Program → Bool
 isBlocked pos p = not (inRangeMatrix pos $ p ^. image) || (Black == atMatrix pos (p ^. image))
