@@ -36,7 +36,7 @@ infixl 9 &!
 
 indexMaybe ∷ Matrix a → Coordinates → Maybe a
 indexMaybe m coord
-  | inRangeMatrix coord m = Just $ m `unsafeIndex` coord
+  | inRangeMatrix coord m = Just $ m `indexUncheck` coord
   | otherwise             = Nothing
 {-# INLINE indexMaybe #-}
 
@@ -50,15 +50,15 @@ inRangeMatrix (x, y) m = x >= 0 && x < widthMatrix m && y >= 0 && y < heightMatr
 
 pixelMatrix ∷ Coordinates → Matrix a → a
 pixelMatrix coord m
-  | inRangeMatrix coord m = m `unsafeIndex` coord
+  | inRangeMatrix coord m = m `indexUncheck` coord
   | otherwise             = error $ "Matrix.pixelMatrix: Out of bounds " <> show coord
 {-# INLINE pixelMatrix #-}
 
 -- UTILS (PRIVATE / INLINE)
 
-unsafeIndex ∷ Matrix a → Coordinates → a
-unsafeIndex  m coord = pixels m `V.unsafeIndex` toIndex (widthMatrix m) coord
-{-# INLINE unsafeIndex #-}
+indexUncheck ∷ Matrix a → Coordinates → a
+indexUncheck  m coord = pixels m `V.unsafeIndex` toIndex (widthMatrix m) coord
+{-# INLINE indexUncheck #-}
 
 toIndex ∷ Int → Coordinates → Int
 toIndex w (x, y) = y * w + x
@@ -72,7 +72,7 @@ discoverBlock m startPos
   | otherwise                      = runST $ UMV.replicate (widthMatrix m * heightMatrix m) False >>= runBfs m startPos
 
 runBfs ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Bool → ST s Block
-runBfs m startPos visited = bfs m (m `unsafeIndex` startPos) visited [startPos] []
+runBfs m startPos visited = bfs m (m `indexUncheck` startPos) visited [startPos] []
 
 bfs ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → [Coordinates] → Block → ST s Block
 bfs _ _ _ [] acc = pure acc
@@ -84,5 +84,5 @@ bfs m targetColor visited (curr : rest) acc =
 processCell ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Int → Bool → ST s Block
 processCell m targetColor visited curr rest acc idx isVisited
   | isVisited                               = bfs m targetColor visited rest acc
-  | m `unsafeIndex` curr /= targetColor = UMV.unsafeWrite visited idx True >> bfs m targetColor visited rest acc
+  | m `indexUncheck` curr /= targetColor = UMV.unsafeWrite visited idx True >> bfs m targetColor visited rest acc
   | otherwise                               = UMV.unsafeWrite visited idx True >> bfs m targetColor visited (filter (`inRangeMatrix` m) (neighbours curr) ++ rest) (curr : acc)
