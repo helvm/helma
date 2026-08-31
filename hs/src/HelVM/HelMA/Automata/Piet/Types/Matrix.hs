@@ -4,10 +4,12 @@ module HelVM.HelMA.Automata.Piet.Types.Matrix
   , discoverBlock
   , inRangeMatrix
   , newMatrix
+  , nextCoords
   , (&!)
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates ( Block, Coordinates )
+import qualified HelVM.HelMA.Automata.Piet.Types.Coordinates as Coordinates
 
 import           Control.Monad.ST                            ( ST, runST )
 
@@ -97,3 +99,6 @@ checkColor m targetColor visited curr rest acc True  =
 
 validNeighbours ∷ Matrix a → Coordinates → [Coordinates]
 validNeighbours m (x, y) = filter (`inRangeMatrix` m) [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
+
+nextCoords ∷ Matrix a → Coordinates → Maybe Coordinates
+nextCoords m = Coordinates.nextCoords (widthMatrix m, heightMatrix m)

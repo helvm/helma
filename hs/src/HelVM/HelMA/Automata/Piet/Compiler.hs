@@ -55,9 +55,9 @@ label4With neighbours img = Labelling img' inf where
   mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)
 
 label4With' ∷ (a → a → Bool) → Matrix a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
-label4With' neighbours img status acc = checkNext (nextCoords (widthMatrix img, heightMatrix img) xy) neighbours img (updateStatus mergeLabels status acc xy) where
-  xy@(x, y) = status ^. currentCoords
-  pixel     = atMatrix (x, y) img
+label4With' neighbours img status acc = checkNext (nextCoords img xy) neighbours img (updateStatus mergeLabels status acc xy) where
+  pixel  = atMatrix xy img
+  xy     = status ^. currentCoords
 
   mergeLabels = fmap getMaskLabel $ filter isNeighbour $ addPixelInfo <$> previousNeighbours xy
 
@@ -69,8 +69,8 @@ label4With' neighbours img status acc = checkNext (nextCoords (widthMatrix img, 
   validCoord (nx, ny) = nx >= 0 && ny >= 0
 
 checkNext ∷ Maybe Coordinates → (a → a → Bool) → Matrix a → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
-checkNext Nothing    _          _   res       = res
-checkNext (Just xy') neighbours img (s, acc') = label4With' neighbours img (s & currentCoords .~ xy') acc'
+checkNext Nothing    _          _   res      = res
+checkNext (Just xy) neighbours img (s, acc') = label4With' neighbours img (s & currentCoords .~ xy) acc'
 
 -- STATUS & MAP UPDATES
 
@@ -129,16 +129,3 @@ replaceClass newClass classes eqClass = checkInClass (eqClass `elem` classes) ne
 checkInClass ∷ Bool → LabelKey → LabelKey → LabelKey
 checkInClass False _        eqc = eqc
 checkInClass True  newClass _   = newClass
-
--- COORDINATES TRAVERSAL UTILS
-
-nextCoords ∷ Coordinates → Coordinates → Maybe Coordinates
-nextCoords (w, h) (cx, cy) = guardX (cx < w - 1) cx cy h
-
-guardX ∷ Bool → Int → Int → Int → Maybe Coordinates
-guardX False _  cy h = guardY (cy < h - 1) cy
-guardX True  cx cy _ = Just (cx + 1, cy)
-
-guardY ∷ Bool → Int → Maybe Coordinates
-guardY False _  = Nothing
-guardY True  cy = Just (0, cy + 1)
