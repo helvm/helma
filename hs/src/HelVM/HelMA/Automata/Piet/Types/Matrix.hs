@@ -42,12 +42,10 @@ indexMaybe m coord
 {-# INLINE indexMaybe #-}
 
 newMatrix ∷ Coordinates → [(Coordinates, a)] → Matrix a
-newMatrix (w, h) elems = Matrix w h $ V.create $
-  MV.unsafeNew (w * h) >>= writeElems elems w
+newMatrix (w, h) elems = Matrix w h $ V.create $ MV.unsafeNew (w * h) >>= writeElems elems w
 
 writeElems ∷ [(Coordinates, a)] → Int → MV.MVector s a → ST s (MV.MVector s a)
-writeElems elems w vec =
-  traverse_ (uncurry $ MV.write vec . toIndex w) elems >> pure vec
+writeElems elems w vec = traverse_ (uncurry $ MV.write vec . toIndex w) elems >> pure vec
 
 inRangeMatrix ∷ Coordinates → Matrix a → Bool
 inRangeMatrix (x, y) m = x >= 0 && x < widthMatrix m && y >= 0 && y < heightMatrix m
@@ -89,7 +87,7 @@ bfs m targetColor visited (curr : rest) acc = UMV.unsafeRead visited idx >>= pro
   idx = toIndexFromMatrix m curr
 
 processCell ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Int → Bool → ST s Block
-processCell m targetColor visited _ rest acc _ True  = bfs m targetColor visited rest acc
+processCell m targetColor visited _    rest acc _   True  = bfs m targetColor visited rest acc
 processCell m targetColor visited curr rest acc idx False = UMV.unsafeWrite visited idx True >> checkColor m targetColor visited curr rest acc (m `indexUncheck` curr == targetColor)
 
 checkColor ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Bool → ST s Block
