@@ -57,11 +57,11 @@ label4With neighbours img = Labelling img' inf where
 label4With' ∷ (a → a → Bool) → Matrix a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
 label4With' neighbours img status acc = checkNext (nextCoords (widthMatrix img, heightMatrix img) xy) neighbours img (updateStatus mergeLabels status acc xy) where
   xy@(x, y) = status ^. currentCoords
-  pixel     = pixelMatrix (x, y) img
+  pixel     = atMatrix (x, y) img
 
   mergeLabels = fmap getMaskLabel $ filter isNeighbour $ addPixelInfo <$> previousNeighbours xy
 
-  addPixelInfo (nx, ny) = (nx, ny, pixelMatrix (nx, ny) img)
+  addPixelInfo (nx, ny) = (nx, ny, atMatrix (nx, ny) img)
   isNeighbour (_, _, e) = neighbours pixel e
   getMaskLabel (nx, ny, _) = Map.findWithDefault (error "Missing label") (nx, ny) acc
 
