@@ -1,9 +1,9 @@
 module HelVM.HelMA.Automata.Piet.Types.Matrix
   ( Matrix (..)
+  , atMatrix
   , discoverBlock
   , inRangeMatrix
   , newMatrix
-  , atMatrix
   , (&!)
   ) where
 
