@@ -42,7 +42,7 @@ imageGuessCodelLength img = fromMaybe 1 $ viaNonEmpty head (after <> before) whe
   h = imageHeight img
 
 imageToColorImage ∷ Int → Image PixelRGB8 → Matrix Color
-imageToColorImage cs img = newImage p (assocList cs img p) where
+imageToColorImage cs img = newMatrix p (assocList cs img p) where
   p = (imageWidth img `div` cs, imageHeight img `div` cs)
 
 assocList ∷ Int → Image PixelRGB8 → Coordinates → [(Coordinates, Color)]

@@ -43,10 +43,10 @@ label4 = label4With (==)
 
 label4With ∷ (a → a → Bool) → Matrix a → Labelling
 label4With neighbours img = Labelling img' inf where
-  (status, assocMap) = label4With' neighbours img (LabellingStatus (0, 0) 0 (Labelling (newImage (0,0) []) mempty) mempty) Map.empty
+  (status, assocMap) = label4With' neighbours img (LabellingStatus (0, 0) 0 (Labelling (newMatrix (0,0) []) mempty) mempty) Map.empty
   currentLabelling   = status ^. labelling
 
-  maskImg = newImage (widthImage img, heightImage img) (Map.toList assocMap)
+  maskImg = newMatrix (widthMatrix img, heightMatrix img) (Map.toList assocMap)
 
   img' = fmap (applyEquivClass (status ^. equivalences)) maskImg
   inf  = foldrWithKey (mergeClass (status ^. equivalences)) mempty (currentLabelling ^. info)
@@ -55,13 +55,13 @@ label4With neighbours img = Labelling img' inf where
   mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)
 
 label4With' ∷ (a → a → Bool) → Matrix a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
-label4With' neighbours img status acc = checkNext (nextCoords (widthImage img, heightImage img) xy) neighbours img (updateStatus mergeLabels status acc xy) where
+label4With' neighbours img status acc = checkNext (nextCoords (widthMatrix img, heightMatrix img) xy) neighbours img (updateStatus mergeLabels status acc xy) where
   xy@(x, y) = status ^. currentCoords
-  pixel     = pixelImage (x, y) img
+  pixel     = pixelMatrix (x, y) img
 
   mergeLabels = fmap getMaskLabel $ filter isNeighbour $ addPixelInfo <$> previousNeighbours xy
 
-  addPixelInfo (nx, ny) = (nx, ny, pixelImage (nx, ny) img)
+  addPixelInfo (nx, ny) = (nx, ny, pixelMatrix (nx, ny) img)
   isNeighbour (_, _, e) = neighbours pixel e
   getMaskLabel (nx, ny, _) = Map.findWithDefault (error "Missing label") (nx, ny) acc
 

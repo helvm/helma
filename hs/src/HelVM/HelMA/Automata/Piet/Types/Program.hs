@@ -27,4 +27,4 @@ data Program
 makeLenses ''Program
 
 isBlocked ∷ Coordinates → Program → Bool
-isBlocked pos p = not (inRangeImage pos $ p ^. image) || (Black == pixelImage pos (p ^. image))
+isBlocked pos p = not (inRangeMatrix pos $ p ^. image) || (Black == pixelMatrix pos (p ^. image))
