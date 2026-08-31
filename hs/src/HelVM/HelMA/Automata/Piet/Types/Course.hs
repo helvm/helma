@@ -1,9 +1,9 @@
 module HelVM.HelMA.Automata.Piet.Types.Course
-  ( Orientation (..)
+  ( Course (..)
   , codelChooserL
   , directionPointerL
   , furthest
-  , initialOrientation
+  , initialCourse
   , rotateDirectionPointer
   , rotateToggle
   , toggleCodelChooser
@@ -17,41 +17,41 @@ import           Relude.Extra
 
 -- TYPES & LENSES
 
-data Orientation
-  = Orientation
+data Course
+  = Course
       { directionPointer :: !DirectionPointer
       , codelChooser     :: !CodelChooser
       }
   deriving stock (Eq, Show)
 
--- Ręczne definicje lense'ów zastępujące `makeLenses ''Orientation`
+-- Ręczne definicje lense'ów zastępujące `makeLenses ''Course`
 
-directionPointerL ∷ Lens' Orientation DirectionPointer
+directionPointerL ∷ Lens' Course DirectionPointer
 directionPointerL = lens directionPointer (\s x -> s { directionPointer = x })
 
-codelChooserL ∷ Lens' Orientation CodelChooser
+codelChooserL ∷ Lens' Course CodelChooser
 codelChooserL = lens codelChooser (\s x -> s { codelChooser = x })
 
 -- FUNCTIONS
 
-furthest ∷ Orientation → Coordinates → Coordinates → Ordering
-furthest (Orientation DPLeft CCLeft)   = flip (comparing fst) <> comparing snd
-furthest (Orientation DPRight CCLeft)  = comparing fst <> flip (comparing snd)
-furthest (Orientation DPUp CCLeft)     = flip (comparing snd <> comparing fst)
-furthest (Orientation DPDown CCLeft)   = comparing snd <> comparing fst
-furthest (Orientation DPLeft CCRight)  = flip (comparing fst <> comparing snd)
-furthest (Orientation DPRight CCRight) = comparing fst <> comparing snd
-furthest (Orientation DPUp CCRight)    = flip (comparing snd) <> comparing fst
-furthest (Orientation DPDown CCRight)  = comparing snd <> flip (comparing fst)
+furthest ∷ Course → Coordinates → Coordinates → Ordering
+furthest (Course DPLeft CCLeft)   = flip (comparing fst) <> comparing snd
+furthest (Course DPRight CCLeft)  = comparing fst <> flip (comparing snd)
+furthest (Course DPUp CCLeft)     = flip (comparing snd <> comparing fst)
+furthest (Course DPDown CCLeft)   = comparing snd <> comparing fst
+furthest (Course DPLeft CCRight)  = flip (comparing fst <> comparing snd)
+furthest (Course DPRight CCRight) = comparing fst <> comparing snd
+furthest (Course DPUp CCRight)    = flip (comparing snd) <> comparing fst
+furthest (Course DPDown CCRight)  = comparing snd <> flip (comparing fst)
 
-rotateDirectionPointer ∷ Int → Orientation → Orientation
+rotateDirectionPointer ∷ Int → Course → Course
 rotateDirectionPointer n = directionPointerL %~ rotate n
 
-toggleCodelChooser ∷ Int → Orientation → Orientation
+toggleCodelChooser ∷ Int → Course → Course
 toggleCodelChooser n = codelChooserL %~ toggle n
 
-rotateToggle ∷ Coordinates → Orientation → Orientation
+rotateToggle ∷ Coordinates → Course → Course
 rotateToggle (r, t) = rotateDirectionPointer r . toggleCodelChooser t
 
-initialOrientation ∷ Orientation
-initialOrientation = Orientation DPRight CCLeft
+initialCourse ∷ Course
+initialCourse = Course DPRight CCLeft

@@ -90,9 +90,9 @@ checkWhitePixel _     _     mem = AutomatonMemory (ChromaticStep Nothing) mem
 -- HELPER FUNCTIONS
 
 {-# INLINE handleNext #-}
-handleNext ∷ Maybe InstructionCounter → ChromaticColor → Int → Memory → Either () AutomatonMemory
+handleNext ∷ Maybe Cursor → ChromaticColor → Int → Memory → Either () AutomatonMemory
 handleNext (Just ic) color count mem = Trampoline.continue $ AutomatonMemory
   { stepState = ChromaticStep (Just (color, count))
-  , memory    = setInstructionCounter ic mem
+  , memory    = setCursor ic mem
   }
 handleNext Nothing _ _ _ = Trampoline.break ()

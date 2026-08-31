@@ -4,25 +4,25 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , advancePosition
   , blockCodelCount
   , codelSizeMemory
+  , courseMemory
   , currentBlock
   , currentColour
   , currentPixel
+  , cursorMemory
   , directionPointerMemory
   , getMaskInfo
   , handleCollision
   , initialMemory
-  , instructionCounterMemory
   , instructionMemoryL
   , modifyFlipWithLog
   , modifyStackWithLog
   , nextCodelPos
   , nextColour
   , nonBlackSuccMemory
-  , orientationMemory
   , positionMemory
   , programMemory
   , selectCodel
-  , setInstructionCounter
+  , setCursor
   , stackL
   , stepWhitePixel
   ) where
@@ -74,8 +74,8 @@ initialMemory prog = Memory
 
 -- PUBLIC GETTERS & QUERIES
 
-nonBlackSuccMemory ∷ Memory → Maybe LabelInfo → Maybe InstructionCounter
-nonBlackSuccMemory mem = nonBlackSucc (programMemory mem) (orientationMemory mem)
+nonBlackSuccMemory ∷ Memory → Maybe LabelInfo → Maybe Cursor
+nonBlackSuccMemory mem = nonBlackSucc (programMemory mem) (courseMemory mem)
 
 getMaskInfo ∷ Memory → Maybe LabelInfo
 getMaskInfo mem = getMaskInfo' (programMemory mem) (positionMemory mem)
@@ -89,17 +89,17 @@ currentBlock mem = discoverBlock (programMemory mem ^. imageL) (positionMemory m
 programMemory ∷ Memory → Program
 programMemory mem = mem ^. (instructionMemoryL . programL)
 
-instructionCounterMemory ∷ Memory → InstructionCounter
-instructionCounterMemory mem = mem ^. (instructionMemoryL . instructionCounterL)
+cursorMemory ∷ Memory → Cursor
+cursorMemory mem = mem ^. (instructionMemoryL . cursorL)
 
 directionPointerMemory ∷ Memory → DirectionPointer
-directionPointerMemory mem = orientationMemory mem ^. directionPointerL
+directionPointerMemory mem = courseMemory mem ^. directionPointerL
 
 positionMemory ∷ Memory → Coordinates
-positionMemory mem = instructionCounterMemory mem ^. positionL
+positionMemory mem = cursorMemory mem ^. positionL
 
-orientationMemory ∷ Memory → Orientation
-orientationMemory mem = instructionCounterMemory mem ^. orientationL
+courseMemory ∷ Memory → Course
+courseMemory mem = cursorMemory mem ^. courseL
 
 currentPixel ∷ Memory → Color
 currentPixel mem = atMatrix (positionMemory mem) (programMemory mem ^. imageL)
@@ -111,7 +111,7 @@ blockCodelCount ∷ Memory → Int
 blockCodelCount = olength . currentBlock
 
 selectCodel ∷ Block → Memory → Coordinates
-selectCodel block mem = List.maximumBy (furthest (orientationMemory mem)) block
+selectCodel block mem = List.maximumBy (furthest (courseMemory mem)) block
 
 currentColour ∷ Memory → Maybe Color
 currentColour mem = colourAt (programMemory mem) (positionMemory mem)
@@ -124,8 +124,8 @@ nextColour mem = colourAt (programMemory mem) (nextCodelPos mem)
 advancePosition ∷ Memory → Memory
 advancePosition mem = setPosition (nextCodelPos mem) mem
 
-setInstructionCounter ∷ InstructionCounter → Memory → Memory
-setInstructionCounter ic = (instructionMemoryL . instructionCounterL) .~ ic
+setCursor ∷ Cursor → Memory → Memory
+setCursor ic = (instructionMemoryL . cursorL) .~ ic
 
 -- PUBLIC DOMAIN MODIFIERS
 
@@ -170,7 +170,7 @@ colourAt ∷ Program → Coordinates → Maybe Color
 colourAt prog pos = (prog ^. imageL) &! pos
 
 setPosition ∷ Coordinates → Memory → Memory
-setPosition pos = (instructionMemoryL . instructionCounterL . positionL) .~ pos
+setPosition pos = (instructionMemoryL . cursorL . positionL) .~ pos
 
 handleBlocked ∷ Bool → Coordinates → DirectionPointer → Memory → Memory
 handleBlocked True  _       dp = rotateAndToggle dp
@@ -188,13 +188,13 @@ rotatePointer ∷ Memory → Memory
 rotatePointer = modifyInstructionMemory (rotateDirectionPointerIM 1)
 
 codelChooserMemory ∷ Memory → CodelChooser
-codelChooserMemory mem = orientationMemory mem ^. codelChooserL
+codelChooserMemory mem = courseMemory mem ^. codelChooserL
 
 setDirectionPointer ∷ DirectionPointer → Memory → Memory
-setDirectionPointer dp = (instructionMemoryL . instructionCounterL . orientationL . directionPointerL) .~ dp
+setDirectionPointer dp = (instructionMemoryL . cursorL . courseL . directionPointerL) .~ dp
 
 setCodelChooser ∷ CodelChooser → Memory → Memory
-setCodelChooser cc = (instructionMemoryL . instructionCounterL . orientationL . codelChooserL) .~ cc
+setCodelChooser cc = (instructionMemoryL . cursorL . courseL . codelChooserL) .~ cc
 
 modifyInstructionMemory ∷ (InstructionMemory → InstructionMemory) → Memory → Memory
 modifyInstructionMemory f = instructionMemoryL %~ f

@@ -1,9 +1,9 @@
 module HelVM.HelMA.Automata.Piet.Types.Cursor
-  ( InstructionCounter (..)
+  ( Cursor (..)
   , codelChooserIC
+  , courseL
   , directionPointerIC
-  , initialInstructionCounter
-  , orientationL
+  , initialCursor
   , positionL
   , rotateDirectionPointerIC
   , toggleCodelChooserIC
@@ -12,10 +12,10 @@ module HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
-  ( Orientation
+  ( Course
   , codelChooserL
   , directionPointerL
-  , initialOrientation
+  , initialCourse
   , rotateDirectionPointer
   , toggleCodelChooser
   )
@@ -25,32 +25,32 @@ import           Relude.Extra
 
 -- TYPES & LENSES
 
-data InstructionCounter
-  = InstructionCounter
-      { position    :: !Coordinates
-      , orientation :: !Orientation
+data Cursor
+  = Cursor
+      { position :: !Coordinates
+      , course   :: !Course
       }
   deriving stock (Eq, Show)
 
-positionL ∷ Lens' InstructionCounter Coordinates
+positionL ∷ Lens' Cursor Coordinates
 positionL = lens position (\s x -> s { position = x })
 
-orientationL ∷ Lens' InstructionCounter Orientation
-orientationL = lens orientation (\s x -> s { orientation = x })
+courseL ∷ Lens' Cursor Course
+courseL = lens course (\s x -> s { course = x })
 
 -- HELPER FUNCTIONS
 
-directionPointerIC ∷ InstructionCounter → DirectionPointer
-directionPointerIC ic = ic ^. (orientationL . directionPointerL)
+directionPointerIC ∷ Cursor → DirectionPointer
+directionPointerIC ic = ic ^. (courseL . directionPointerL)
 
-codelChooserIC ∷ InstructionCounter → CodelChooser
-codelChooserIC ic = ic ^. (orientationL . codelChooserL)
+codelChooserIC ∷ Cursor → CodelChooser
+codelChooserIC ic = ic ^. (courseL . codelChooserL)
 
-rotateDirectionPointerIC ∷ Int → InstructionCounter → InstructionCounter
-rotateDirectionPointerIC n = orientationL %~ rotateDirectionPointer n
+rotateDirectionPointerIC ∷ Int → Cursor → Cursor
+rotateDirectionPointerIC n = courseL %~ rotateDirectionPointer n
 
-toggleCodelChooserIC ∷ Int → InstructionCounter → InstructionCounter
-toggleCodelChooserIC n = orientationL %~ toggleCodelChooser n
+toggleCodelChooserIC ∷ Int → Cursor → Cursor
+toggleCodelChooserIC n = courseL %~ toggleCodelChooser n
 
-initialInstructionCounter ∷ InstructionCounter
-initialInstructionCounter = InstructionCounter initialCoordinates initialOrientation
+initialCursor ∷ Cursor
+initialCursor = Cursor initialCoordinates initialCourse
