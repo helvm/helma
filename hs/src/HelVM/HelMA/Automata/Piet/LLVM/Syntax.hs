@@ -13,8 +13,11 @@ module HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 
-import           Data.Vector                          ( Vector )
-import qualified Data.Vector.Generic                  as V
+import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
+import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+
+import           Data.Vector                                      ( Vector )
+import qualified Data.Vector.Generic                              as V
 
 newtype Block
   = Block { nextBlockTable :: Map DPCC NextBlock }
@@ -38,17 +41,6 @@ data SyntaxGraph
   | EmptySyntaxGraph
   deriving stock (Eq, Show)
 
-data DirectionPointer
-  = DPRight
-  | DPDown
-  | DPLeft
-  | DPUp
-  deriving stock (Bounded, Enum, Eq, Ord, Show)
-
-data CodelChooser
-  = CCLeft
-  | CCRight
-  deriving stock (Bounded, Enum, Eq, Ord, Show)
 
 data DPCC
   = DPCC
