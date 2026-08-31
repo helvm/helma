@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+module HelVM.HelMA.Automata.Piet.Types.Cursor
   ( InstructionCounter (..)
   , codelChooserIC
   , directionPointerIC
@@ -11,8 +11,7 @@ module HelVM.HelMA.Automata.Piet.Types.InstructionCounter
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-import           HelVM.HelMA.Automata.Piet.Types.Orientation
+import           HelVM.HelMA.Automata.Piet.Types.Course
   ( Orientation
   , codelChooserL
   , directionPointerL
@@ -20,6 +19,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Orientation
   , rotateDirectionPointer
   , toggleCodelChooser
   )
+import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
 import           Relude.Extra
 

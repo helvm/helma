@@ -8,13 +8,13 @@ import           HelVM.HelMA.Automata.Piet.Combiner
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
+import           HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Memory
-import           HelVM.HelMA.Automata.Piet.Types.Program            as Program
+import           HelVM.HelMA.Automata.Piet.Types.Program        as Program
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
-import           HelVM.HelMA.Automaton.Trampoline                   as Trampoline
+import           HelVM.HelMA.Automaton.Trampoline               as Trampoline
 
 import           HelVM.HelIO.Control.Safe
 

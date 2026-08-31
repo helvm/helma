@@ -30,21 +30,21 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Course
+import           HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
-import           HelVM.HelMA.Automata.Piet.Types.Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           Data.IntMap                                        hiding ( filter )
-import qualified Data.List                                          as List
+import           Data.IntMap                                       hiding ( filter )
+import qualified Data.List                                         as List
 import           Data.MonoTraversable
-import qualified Data.Sequence                                      as Seq
+import qualified Data.Sequence                                     as Seq
 
 import           Relude.Extra
 

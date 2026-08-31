@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.Types.Orientation
+module HelVM.HelMA.Automata.Piet.Types.Course
   ( Orientation (..)
   , codelChooserL
   , directionPointerL
