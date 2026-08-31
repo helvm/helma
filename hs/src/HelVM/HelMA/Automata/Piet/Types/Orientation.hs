@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Types.Orientation
   ( Orientation (..)
-  , codelChooser
-  , directionPointer
+  , codelChooserL
+  , directionPointerL
   , furthest
   , initialOrientation
   , rotateDirectionPointer
@@ -19,18 +19,18 @@ import           Relude.Extra
 
 data Orientation
   = Orientation
-      { _directionPointer :: !DirectionPointer
-      , _codelChooser     :: !CodelChooser
+      { directionPointer :: !DirectionPointer
+      , codelChooser     :: !CodelChooser
       }
   deriving stock (Eq, Show)
 
 -- Ręczne definicje lense'ów zastępujące `makeLenses ''Orientation`
 
-directionPointer ∷ Lens' Orientation DirectionPointer
-directionPointer = lens _directionPointer (\s x -> s { _directionPointer = x })
+directionPointerL ∷ Lens' Orientation DirectionPointer
+directionPointerL = lens directionPointer (\s x -> s { directionPointer = x })
 
-codelChooser ∷ Lens' Orientation CodelChooser
-codelChooser = lens _codelChooser (\s x -> s { _codelChooser = x })
+codelChooserL ∷ Lens' Orientation CodelChooser
+codelChooserL = lens codelChooser (\s x -> s { codelChooser = x })
 
 -- FUNCTIONS
 
@@ -45,10 +45,10 @@ furthest (Orientation DPUp CCRight)    = flip (comparing snd) <> comparing fst
 furthest (Orientation DPDown CCRight)  = comparing snd <> flip (comparing fst)
 
 rotateDirectionPointer ∷ Int → Orientation → Orientation
-rotateDirectionPointer n = directionPointer %~ rotate n
+rotateDirectionPointer n = directionPointerL %~ rotate n
 
 toggleCodelChooser ∷ Int → Orientation → Orientation
-toggleCodelChooser n = codelChooser %~ toggle n
+toggleCodelChooser n = codelChooserL %~ toggle n
 
 rotateToggle ∷ Coordinates → Orientation → Orientation
 rotateToggle (r, t) = rotateDirectionPointer r . toggleCodelChooser t

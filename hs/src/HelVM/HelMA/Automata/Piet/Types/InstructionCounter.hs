@@ -3,8 +3,8 @@ module HelVM.HelMA.Automata.Piet.Types.InstructionCounter
   , codelChooserIC
   , directionPointerIC
   , initialInstructionCounter
-  , orientation
-  , position
+  , orientationL
+  , positionL
   , rotateDirectionPointerIC
   , toggleCodelChooserIC
   ) where
@@ -14,8 +14,8 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Orientation
   ( Orientation
-  , codelChooser
-  , directionPointer
+  , codelChooserL
+  , directionPointerL
   , initialOrientation
   , rotateDirectionPointer
   , toggleCodelChooser
@@ -27,30 +27,30 @@ import           Relude.Extra
 
 data InstructionCounter
   = InstructionCounter
-      { _position    :: !Coordinates
-      , _orientation :: !Orientation
+      { position    :: !Coordinates
+      , orientation :: !Orientation
       }
   deriving stock (Eq, Show)
 
-position ∷ Lens' InstructionCounter Coordinates
-position = lens _position (\s x -> s { _position = x })
+positionL ∷ Lens' InstructionCounter Coordinates
+positionL = lens position (\s x -> s { position = x })
 
-orientation ∷ Lens' InstructionCounter Orientation
-orientation = lens _orientation (\s x -> s { _orientation = x })
+orientationL ∷ Lens' InstructionCounter Orientation
+orientationL = lens orientation (\s x -> s { orientation = x })
 
 -- HELPER FUNCTIONS
 
 directionPointerIC ∷ InstructionCounter → DirectionPointer
-directionPointerIC ic = ic ^. (orientation . directionPointer)
+directionPointerIC ic = ic ^. (orientationL . directionPointerL)
 
 codelChooserIC ∷ InstructionCounter → CodelChooser
-codelChooserIC ic = ic ^. (orientation . codelChooser)
+codelChooserIC ic = ic ^. (orientationL . codelChooserL)
 
 rotateDirectionPointerIC ∷ Int → InstructionCounter → InstructionCounter
-rotateDirectionPointerIC n = orientation %~ rotateDirectionPointer n
+rotateDirectionPointerIC n = orientationL %~ rotateDirectionPointer n
 
 toggleCodelChooserIC ∷ Int → InstructionCounter → InstructionCounter
-toggleCodelChooserIC n = orientation %~ toggleCodelChooser n
+toggleCodelChooserIC n = orientationL %~ toggleCodelChooser n
 
 initialInstructionCounter ∷ InstructionCounter
 initialInstructionCounter = InstructionCounter initialCoordinates initialOrientation

@@ -3,10 +3,10 @@ module HelVM.HelMA.Automata.Piet.Types.InstructionMemory
   , codelChooserIM
   , directionPointerIM
   , initialInstructionMemory
-  , instructionCounter
+  , instructionCounterL
   , logWithPosition
   , nonBlackSucc
-  , program
+  , programL
   , rotateDirectionPointerIM
   , succCoordinates
   , toggleCodelChooserIM
@@ -30,40 +30,40 @@ import           Relude.Extra
 
 data InstructionMemory
   = InstructionMemory
-      { _instructionCounter :: !InstructionCounter
-      , _program            :: !Program
+      { instructionCounter :: !InstructionCounter
+      , program            :: !Program
       }
 
-instructionCounter ∷ Lens' InstructionMemory InstructionCounter
-instructionCounter = lens _instructionCounter (\s x -> s { _instructionCounter = x })
+instructionCounterL ∷ Lens' InstructionMemory InstructionCounter
+instructionCounterL = lens instructionCounter (\s x -> s { instructionCounter = x })
 
-program ∷ Lens' InstructionMemory Program
-program = lens _program (\s x -> s { _program = x })
+programL ∷ Lens' InstructionMemory Program
+programL = lens program (\s x -> s { program = x })
 
 -- INITIALIZATION & LOGGING
 
 initialInstructionMemory ∷ Program → InstructionMemory
 initialInstructionMemory prog = InstructionMemory
-  { _instructionCounter = initialInstructionCounter
-  , _program            = prog
+  { instructionCounter = initialInstructionCounter
+  , program            = prog
   }
 
 logWithPosition ∷ AppSafeEff m ⇒ Text → InstructionMemory → m ()
-logWithPosition msg im = logDebugN $ show (im ^. instructionCounter . position) <> " " <> msg
+logWithPosition msg im = logDebugN $ show (im ^. (instructionCounterL . positionL)) <> " " <> msg
 
 -- HELPER FUNCTIONS
 
 codelChooserIM ∷ InstructionMemory → CodelChooser
-codelChooserIM im = codelChooserIC (im ^. instructionCounter)
+codelChooserIM im = codelChooserIC (im ^. instructionCounterL)
 
 directionPointerIM ∷ InstructionMemory → DirectionPointer
-directionPointerIM im = directionPointerIC (im ^. instructionCounter)
+directionPointerIM im = directionPointerIC (im ^. instructionCounterL)
 
 toggleCodelChooserIM ∷ Int → InstructionMemory → InstructionMemory
-toggleCodelChooserIM n = instructionCounter %~ toggleCodelChooserIC n
+toggleCodelChooserIM n = instructionCounterL %~ toggleCodelChooserIC n
 
 rotateDirectionPointerIM ∷ Int → InstructionMemory → InstructionMemory
-rotateDirectionPointerIM n = instructionCounter %~ rotateDirectionPointerIC n
+rotateDirectionPointerIM n = instructionCounterL %~ rotateDirectionPointerIC n
 
 -- SUCCESSOR & COORDINATES CALCULATIONS
 
@@ -73,28 +73,28 @@ nonBlackSucc prog reg mStats = uncurry InstructionCounter <$> find isValid (zip 
   isValid (pos, _) = not (isBlocked pos prog)
 
 succCoordinates ∷ Maybe LabelInfo → Orientation → Coordinates
-succCoordinates labelInfo reg = move (reg ^. directionPointer) $ toCooCoordinates labelInfo reg
+succCoordinates labelInfo reg = move (reg ^. directionPointerL) $ toCooCoordinates labelInfo reg
 
 toCooCoordinates ∷ Maybe LabelInfo → Orientation → Coordinates
 toCooCoordinates (Just labelInfo) reg = (getX reg labelInfo, getY reg labelInfo)
 toCooCoordinates Nothing          _   = (0, 0)
 
 getX ∷ Orientation → LabelInfo → Int
-getX (Orientation DPRight CCLeft)  lblInfo = lblInfo ^. labelRight . borderCoord
-getX (Orientation DPRight CCRight) lblInfo = lblInfo ^. labelRight . borderCoord
-getX (Orientation DPDown  CCLeft)  lblInfo = lblInfo ^. labelBottom . borderMax
-getX (Orientation DPDown  CCRight) lblInfo = lblInfo ^. labelBottom . borderMin
-getX (Orientation DPLeft  CCLeft)  lblInfo = lblInfo ^. labelLeft . borderCoord
-getX (Orientation DPLeft  CCRight) lblInfo = lblInfo ^. labelLeft . borderCoord
-getX (Orientation DPUp    CCLeft)  lblInfo = lblInfo ^. labelTop . borderMin
-getX (Orientation DPUp    CCRight) lblInfo = lblInfo ^. labelTop . borderMax
+getX (Orientation DPRight CCLeft)  lblInfo = lblInfo ^. (labelRightL . borderCoordL)
+getX (Orientation DPRight CCRight) lblInfo = lblInfo ^. (labelRightL . borderCoordL)
+getX (Orientation DPDown  CCLeft)  lblInfo = lblInfo ^. (labelBottomL . borderMaxL)
+getX (Orientation DPDown  CCRight) lblInfo = lblInfo ^. (labelBottomL . borderMinL)
+getX (Orientation DPLeft  CCLeft)  lblInfo = lblInfo ^. (labelLeftL . borderCoordL)
+getX (Orientation DPLeft  CCRight) lblInfo = lblInfo ^. (labelLeftL . borderCoordL)
+getX (Orientation DPUp    CCLeft)  lblInfo = lblInfo ^. (labelTopL . borderMinL)
+getX (Orientation DPUp    CCRight) lblInfo = lblInfo ^. (labelTopL . borderMaxL)
 
 getY ∷ Orientation → LabelInfo → Int
-getY (Orientation DPRight CCLeft)  lblInfo = lblInfo ^. labelRight . borderMin
-getY (Orientation DPRight CCRight) lblInfo = lblInfo ^. labelRight . borderMax
-getY (Orientation DPDown  CCLeft)  lblInfo = lblInfo ^. labelBottom . borderCoord
-getY (Orientation DPDown  CCRight) lblInfo = lblInfo ^. labelBottom . borderCoord
-getY (Orientation DPLeft  CCLeft)  lblInfo = lblInfo ^. labelLeft . borderMax
-getY (Orientation DPLeft  CCRight) lblInfo = lblInfo ^. labelLeft . borderMin
-getY (Orientation DPUp    CCLeft)  lblInfo = lblInfo ^. labelTop . borderCoord
-getY (Orientation DPUp    CCRight) lblInfo = lblInfo ^. labelTop . borderCoord
+getY (Orientation DPRight CCLeft)  lblInfo = lblInfo ^. (labelRightL . borderMinL)
+getY (Orientation DPRight CCRight) lblInfo = lblInfo ^. (labelRightL . borderMaxL)
+getY (Orientation DPDown  CCLeft)  lblInfo = lblInfo ^. (labelBottomL . borderCoordL)
+getY (Orientation DPDown  CCRight) lblInfo = lblInfo ^. (labelBottomL . borderCoordL)
+getY (Orientation DPLeft  CCLeft)  lblInfo = lblInfo ^. (labelLeftL . borderMaxL)
+getY (Orientation DPLeft  CCRight) lblInfo = lblInfo ^. (labelLeftL . borderMinL)
+getY (Orientation DPUp    CCLeft)  lblInfo = lblInfo ^. (labelTopL . borderCoordL)
+getY (Orientation DPUp    CCRight) lblInfo = lblInfo ^. (labelTopL . borderCoordL)

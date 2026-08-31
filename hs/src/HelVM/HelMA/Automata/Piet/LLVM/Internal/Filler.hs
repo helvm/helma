@@ -1,6 +1,8 @@
 {-# LANGUAGE FlexibleContexts #-}
 module HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
   ( fillAll
+  , paramFilledRefsL
+  , paramSourceImageL
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
@@ -20,15 +22,15 @@ import           Relude.Extra
 
 data FillerParams a b s
   = FillerParams
-      { _paramSourceImage :: Vector (Vector a)
-      , _paramFilledRefs  :: Vector (STVector s (Maybe b))
+      { paramSourceImage :: Vector (Vector a)
+      , paramFilledRefs  :: Vector (STVector s (Maybe b))
       }
 
-paramSourceImage ∷ Lens' (FillerParams a b s) (Vector (Vector a))
-paramSourceImage = lens _paramSourceImage (\s x -> s { _paramSourceImage = x })
+paramSourceImageL ∷ Lens' (FillerParams a b s) (Vector (Vector a))
+paramSourceImageL = lens paramSourceImage (\s x -> s { paramSourceImage = x })
 
-paramFilledRefs ∷ Lens' (FillerParams a b s) (Vector (STVector s (Maybe b)))
-paramFilledRefs = lens _paramFilledRefs (\s x -> s { _paramFilledRefs = x })
+paramFilledRefsL ∷ Lens' (FillerParams a b s) (Vector (STVector s (Maybe b)))
+paramFilledRefsL = lens paramFilledRefs (\s x -> s { paramFilledRefs = x })
 
 -- HELPER FOR MONADREADER
 
@@ -40,8 +42,8 @@ asksView l = asks (view l)
 fillAll ∷ Eq a ⇒ Vector (Vector a) → (Vector (Vector Int), IntMap [Coordinates])
 fillAll image = runST $ do
   filledRefs <- V.mapM (V.thaw . (Nothing <$)) image
-  let params = FillerParams { _paramSourceImage = image
-                            , _paramFilledRefs = filledRefs
+  let params = FillerParams { paramSourceImage = image
+                            , paramFilledRefs  = filledRefs
                             }
   positionTable <- fillAllST `evalStateT` 0 `runReaderT` params
   filledImageMaybe <- mapM V.freeze filledRefs
@@ -57,11 +59,11 @@ fillAllST ∷ ( Eq a
              )
           ⇒ m (IntMap [Coordinates])
 fillAllST = fmap IM.fromList $ L.toList $ do
-  sourceImage <- lift $ asksView paramSourceImage
+  sourceImage <- lift $ asksView paramSourceImageL
   (y, sourceRow) <- L.fromFoldable $ V.indexed sourceImage
   (x, targetColor) <- L.fromFoldable $ V.indexed sourceRow
 
-  filledRefs <- lift $ asksView paramFilledRefs
+  filledRefs <- lift $ asksView paramFilledRefsL
   filledColorMaybe <- lift $ filledRefs V.! y `VM.read` x
   guard $ isNothing filledColorMaybe
 
@@ -81,11 +83,11 @@ fill ∷ ( Eq a
      → m [Coordinates]  -- filled positions
 fill targetColor fillingColor seed = execStateT (fill' seed) [] where
   fill' (x, y) = void $ runMaybeT $ do
-    sourceImage <- asksView paramSourceImage
+    sourceImage <- asksView paramSourceImageL
     sourceColor <- hoistMaybe (sourceImage V.!? y >>= (V.!? x))
     guard $ sourceColor == targetColor
 
-    filledRefs <- asksView paramFilledRefs
+    filledRefs <- asksView paramFilledRefsL
     let filledRow = filledRefs V.! y
     Nothing <- VM.read filledRow x
 

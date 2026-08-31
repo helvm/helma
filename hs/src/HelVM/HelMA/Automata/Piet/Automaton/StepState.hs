@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Automaton.StepState
-  ( memory
+  ( memoryL
   , start
-  , stepState
+  , stepStateL
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Combiner
@@ -28,22 +28,22 @@ data StepState
 
 data AutomatonMemory
   = AutomatonMemory
-      { _stepState :: !StepState
-      , _memory    :: !Memory
+      { stepState :: !StepState
+      , memory    :: !Memory
       }
 
-stepState ∷ Lens' AutomatonMemory StepState
-stepState = lens _stepState (\s x -> s { _stepState = x })
+stepStateL ∷ Lens' AutomatonMemory StepState
+stepStateL = lens stepState (\s x -> s { stepState = x })
 
-memory ∷ Lens' AutomatonMemory Memory
-memory = lens _memory (\s x -> s { _memory = x })
+memoryL ∷ Lens' AutomatonMemory Memory
+memoryL = lens memory (\s x -> s { memory = x })
 
 -- MAIN INTERPRETER ENTRY POINT
 
 initialState ∷ Program → AutomatonMemory
 initialState prog = AutomatonMemory
-  { _stepState = ChromaticStep Nothing
-  , _memory    = initialMemory prog
+  { stepState = ChromaticStep Nothing
+  , memory    = initialMemory prog
   }
 
 start ∷ AppSafeEff m ⇒ Program → m ()
@@ -79,8 +79,8 @@ evalChromaticPixel color previous mem = makeNext <$> applyPreviousColor previous
 -- Używamy z powrotem mStats (z gotowej maski O(1)), zamiast powolnego re-discovery bloku!
 evalWhitePixel ∷ Memory → AutomatonMemory
 evalWhitePixel mem = AutomatonMemory
-  { _stepState = WhiteStep (8 * getLabelSize (getMaskInfo mem))
-  , _memory    = mem
+  { stepState = WhiteStep (8 * getLabelSize (getMaskInfo mem))
+  , memory    = mem
   }
 
 checkWhitePixel ∷ Color → Int → Memory → AutomatonMemory
@@ -92,7 +92,7 @@ checkWhitePixel _     _     mem = AutomatonMemory (ChromaticStep Nothing) mem
 {-# INLINE handleNext #-}
 handleNext ∷ Maybe InstructionCounter → ChromaticColor → Int → Memory → Either () AutomatonMemory
 handleNext (Just ic) color count mem = Trampoline.continue $ AutomatonMemory
-  { _stepState = ChromaticStep (Just (color, count))
-  , _memory    = setInstructionCounter ic mem
+  { stepState = ChromaticStep (Just (color, count))
+  , memory    = setInstructionCounter ic mem
   }
 handleNext Nothing _ _ _ = Trampoline.break ()

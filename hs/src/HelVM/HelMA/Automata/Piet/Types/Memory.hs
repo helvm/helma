@@ -12,7 +12,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , handleCollision
   , initialMemory
   , instructionCounterMemory
-  , instructionMemory
+  , instructionMemoryL
   , modifyFlipWithLog
   , modifyStackWithLog
   , nextCodelPos
@@ -23,7 +23,7 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , programMemory
   , selectCodel
   , setInstructionCounter
-  , stack
+  , stackL
   , stepWhitePixel
   ) where
 
@@ -54,22 +54,22 @@ type Stack = Seq.Seq Int
 
 data Memory
   = Memory
-      { _instructionMemory :: !InstructionMemory
-      , _stack             :: !Stack
+      { instructionMemory :: !InstructionMemory
+      , stack             :: !Stack
       }
 
-instructionMemory ∷ Lens' Memory InstructionMemory
-instructionMemory = lens _instructionMemory (\s x -> s { _instructionMemory = x })
+instructionMemoryL ∷ Lens' Memory InstructionMemory
+instructionMemoryL = lens instructionMemory (\s x -> s { instructionMemory = x })
 
-stack ∷ Lens' Memory Stack
-stack = lens _stack (\s x -> s { _stack = x })
+stackL ∷ Lens' Memory Stack
+stackL = lens stack (\s x -> s { stack = x })
 
 -- INITIALIZERS & CONSTRUCTORS
 
 initialMemory ∷ Program → Memory
 initialMemory prog = Memory
-  { _instructionMemory = initialInstructionMemory prog
-  , _stack             = Seq.empty
+  { instructionMemory = initialInstructionMemory prog
+  , stack             = Seq.empty
   }
 
 -- PUBLIC GETTERS & QUERIES
@@ -84,28 +84,28 @@ nextCodelPos ∷ Memory → Coordinates
 nextCodelPos mem = nextPosFromBlock (currentBlock mem) mem
 
 currentBlock ∷ Memory → Block
-currentBlock mem = discoverBlock (programMemory mem ^. image) (positionMemory mem)
+currentBlock mem = discoverBlock (programMemory mem ^. imageL) (positionMemory mem)
 
 programMemory ∷ Memory → Program
-programMemory mem = mem ^. instructionMemory . program
+programMemory mem = mem ^. (instructionMemoryL . programL)
 
 instructionCounterMemory ∷ Memory → InstructionCounter
-instructionCounterMemory mem = mem ^. instructionMemory . instructionCounter
+instructionCounterMemory mem = mem ^. (instructionMemoryL . instructionCounterL)
 
 directionPointerMemory ∷ Memory → DirectionPointer
-directionPointerMemory mem = orientationMemory mem ^. directionPointer
+directionPointerMemory mem = orientationMemory mem ^. directionPointerL
 
 positionMemory ∷ Memory → Coordinates
-positionMemory mem = instructionCounterMemory mem ^. position
+positionMemory mem = instructionCounterMemory mem ^. positionL
 
 orientationMemory ∷ Memory → Orientation
-orientationMemory mem = instructionCounterMemory mem ^. orientation
+orientationMemory mem = instructionCounterMemory mem ^. orientationL
 
 currentPixel ∷ Memory → Color
-currentPixel mem = atMatrix (positionMemory mem) (programMemory mem ^. image)
+currentPixel mem = atMatrix (positionMemory mem) (programMemory mem ^. imageL)
 
 codelSizeMemory ∷ Memory → CodelSize
-codelSizeMemory mem = programMemory mem ^. codelSize
+codelSizeMemory mem = programMemory mem ^. codelSizeL
 
 blockCodelCount ∷ Memory → Int
 blockCodelCount = olength . currentBlock
@@ -125,7 +125,7 @@ advancePosition ∷ Memory → Memory
 advancePosition mem = setPosition (nextCodelPos mem) mem
 
 setInstructionCounter ∷ InstructionCounter → Memory → Memory
-setInstructionCounter ic = instructionMemory . instructionCounter .~ ic
+setInstructionCounter ic = (instructionMemoryL . instructionCounterL) .~ ic
 
 -- PUBLIC DOMAIN MODIFIERS
 
@@ -146,11 +146,11 @@ modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory 
 modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)
 
 modifyFlipWithLog ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → Memory → m (Maybe Memory)
-modifyFlipWithLog name f mem = processStack (mem ^. stack)
+modifyFlipWithLog name f mem = processStack (mem ^. stackL)
   where
     processStack Seq.Empty     = pure Nothing
     processStack (x Seq.:<| _) = do
-      logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemory)
+      logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemoryL)
       pure $ Just mem'
       where
         mem' = modifyInstructionMemory (f x) mem
@@ -160,17 +160,17 @@ modifyFlipWithLog name f mem = processStack (mem ^. stack)
 getMaskInfo' ∷ Program → Coordinates → Maybe LabelInfo
 getMaskInfo' prog pos = findWithDefault Nothing (atMatrix pos maskImg) infoMap
   where
-    maskImg = prog ^. labelling . mask
-    infoMap = prog ^. labelling . info
+    maskImg = prog ^. (labellingL . maskL)
+    infoMap = prog ^. (labellingL . infoL)
 
 nextPosFromBlock ∷ Block → Memory → Coordinates
 nextPosFromBlock block mem = move (directionPointerMemory mem) (selectCodel block mem)
 
 colourAt ∷ Program → Coordinates → Maybe Color
-colourAt prog pos = (prog ^. image) &! pos
+colourAt prog pos = (prog ^. imageL) &! pos
 
 setPosition ∷ Coordinates → Memory → Memory
-setPosition pos = instructionMemory . instructionCounter . position .~ pos
+setPosition pos = (instructionMemoryL . instructionCounterL . positionL) .~ pos
 
 handleBlocked ∷ Bool → Coordinates → DirectionPointer → Memory → Memory
 handleBlocked True  _       dp = rotateAndToggle dp
@@ -188,13 +188,13 @@ rotatePointer ∷ Memory → Memory
 rotatePointer = modifyInstructionMemory (rotateDirectionPointerIM 1)
 
 codelChooserMemory ∷ Memory → CodelChooser
-codelChooserMemory mem = orientationMemory mem ^. codelChooser
+codelChooserMemory mem = orientationMemory mem ^. codelChooserL
 
 setDirectionPointer ∷ DirectionPointer → Memory → Memory
-setDirectionPointer dp = instructionMemory . instructionCounter . orientation . directionPointer .~ dp
+setDirectionPointer dp = (instructionMemoryL . instructionCounterL . orientationL . directionPointerL) .~ dp
 
 setCodelChooser ∷ CodelChooser → Memory → Memory
-setCodelChooser cc = instructionMemory . instructionCounter . orientation . codelChooser .~ cc
+setCodelChooser cc = (instructionMemoryL . instructionCounterL . orientationL . codelChooserL) .~ cc
 
 modifyInstructionMemory ∷ (InstructionMemory → InstructionMemory) → Memory → Memory
-modifyInstructionMemory f = instructionMemory %~ f
+modifyInstructionMemory f = instructionMemoryL %~ f

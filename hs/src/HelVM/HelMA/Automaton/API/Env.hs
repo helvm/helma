@@ -1,6 +1,28 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE RankNTypes        #-}
-module HelVM.HelMA.Automaton.API.Env where
+module HelVM.HelMA.Automaton.API.Env
+  ( Env (..)
+  , FileIO (..)
+  , Has
+  , HasAppOptions (..)
+  , HasFileIO (..)
+  , HasIO
+  , HasStdIO (..)
+  , StdIO (..)
+  , envFileIOL
+  , envLogFuncL
+  , envOptionsL
+  , envStdIOL
+  , getContentsBSRio
+  , getContentsTextRio
+  , logFuncRio
+  , optionsRio
+  , putLBSLnRio
+  , putLTextLnRio
+  , readImageRio
+  , readSourceFileRio
+  , readTextFileRio
+  ) where
 
 import           HelVM.HelMA.Automaton.API.AppOptions
 import           HelVM.HelMA.Automaton.API.IOTypes
@@ -27,25 +49,25 @@ data StdIO
 
 data Env
   = Env
-      { _envFileIO  :: FileIO
-      , _envStdIO   :: StdIO
-      , _envOptions :: AppOptions
-      , _envLogFunc :: RIO.LogFunc
+      { envFileIO  :: FileIO
+      , envStdIO   :: StdIO
+      , envOptions :: AppOptions
+      , envLogFunc :: RIO.LogFunc
       }
 
--- Ręczne definicje lense'ów opartych bezpośrednio na `RIO.Lens'`
+-- RĘCZNE DEFINICJE LENSE'ÓW (RIO)
 
-envFileIO ∷ RIO.Lens' Env FileIO
-envFileIO = RIO.lens _envFileIO (\s x -> s { _envFileIO = x })
+envFileIOL ∷ RIO.Lens' Env FileIO
+envFileIOL = RIO.lens envFileIO (\s x -> s { envFileIO = x })
 
-envStdIO ∷ RIO.Lens' Env StdIO
-envStdIO = RIO.lens _envStdIO (\s x -> s { _envStdIO = x })
+envStdIOL ∷ RIO.Lens' Env StdIO
+envStdIOL = RIO.lens envStdIO (\s x -> s { envStdIO = x })
 
-envOptions ∷ RIO.Lens' Env AppOptions
-envOptions = RIO.lens _envOptions (\s x -> s { _envOptions = x })
+envOptionsL ∷ RIO.Lens' Env AppOptions
+envOptionsL = RIO.lens envOptions (\s x -> s { envOptions = x })
 
-envLogFunc ∷ RIO.Lens' Env RIO.LogFunc
-envLogFunc = RIO.lens _envLogFunc (\s x -> s { _envLogFunc = x })
+envLogFuncL ∷ RIO.Lens' Env RIO.LogFunc
+envLogFuncL = RIO.lens envLogFunc (\s x -> s { envLogFunc = x })
 
 -- HAS CLASSES & INSTANCES
 
@@ -56,22 +78,22 @@ class HasFileIO env where
   fileIOL :: RIO.Lens' env FileIO
 
 instance HasFileIO Env where
-  fileIOL = envFileIO
+  fileIOL = envFileIOL
 
 class HasStdIO env where
   stdIOL :: RIO.Lens' env StdIO
 
 instance HasStdIO Env where
-  stdIOL = envStdIO
+  stdIOL = envStdIOL
 
 class HasAppOptions env where
   appOptionsL :: RIO.Lens' env AppOptions
 
 instance HasAppOptions Env where
-  appOptionsL = envOptions
+  appOptionsL = envOptionsL
 
 instance RIO.HasLogFunc Env where
-  logFuncL = envLogFunc
+  logFuncL = envLogFuncL
 
 -- RIO HELPERS
 
