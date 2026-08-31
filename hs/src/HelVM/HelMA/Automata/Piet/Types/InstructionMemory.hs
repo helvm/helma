@@ -73,7 +73,7 @@ nonBlackSucc prog reg mStats = uncurry InstructionCounter <$> find isValid (zip 
   isValid (pos, _) = not (isBlocked pos prog)
 
 succCoordinates ∷ Maybe LabelInfo → Orientation → Coordinates
-succCoordinates labelInfo reg = addCoordinates (reg ^. directionPointer) $ toCooCoordinates labelInfo reg
+succCoordinates labelInfo reg = move (reg ^. directionPointer) $ toCooCoordinates labelInfo reg
 
 toCooCoordinates ∷ Maybe LabelInfo → Orientation → Coordinates
 toCooCoordinates (Just labelInfo) reg = (getX reg labelInfo, getY reg labelInfo)

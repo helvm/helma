@@ -133,7 +133,7 @@ stepWhitePixel ∷ Memory → Memory
 stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem
   where
     prog    = programMemory mem
-    nextPos = addCoordinates dp $ positionMemory mem
+    nextPos = move dp $ positionMemory mem
     dp      = directionPointerMemory mem
 
 handleCollision ∷ Bool → Memory → Memory

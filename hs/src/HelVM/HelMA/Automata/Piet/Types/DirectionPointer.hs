@@ -1,6 +1,5 @@
 module HelVM.HelMA.Automata.Piet.Types.DirectionPointer
   ( DirectionPointer (..)
-  , addCoordinates
   , move
   , nextPointer
   , rotate
@@ -9,19 +8,22 @@ module HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Extra
 
-import           Lens.Micro.Platform
+-- TYPES
 
-addCoordinates ∷ DirectionPointer → Coordinates → Coordinates
-addCoordinates DPRight (x, y) = (x + 1, y)
-addCoordinates DPDown  (x, y) = (x, y + 1)
-addCoordinates DPLeft  (x, y) = (x - 1, y)
-addCoordinates DPUp    (x, y) = (x, y - 1)
+data DirectionPointer
+  = DPRight
+  | DPDown
+  | DPLeft
+  | DPUp
+  deriving stock (Bounded, Enum, Eq, Ord, Read, Show)
+
+-- FUNCTIONS
 
 move ∷ DirectionPointer → Coordinates → Coordinates
-move DPLeft  = _1 -~ 1
-move DPRight = _1 +~ 1
-move DPUp    = _2 -~ 1
-move DPDown  = _2 +~ 1
+move DPRight (x, y) = (x + 1, y)
+move DPDown  (x, y) = (x, y + 1)
+move DPUp    (x, y) = (x, y - 1)
+move DPLeft  (x, y) = (x - 1, y)
 
 nextPointer ∷ DirectionPointer → DirectionPointer
 nextPointer DPLeft  = DPUp
@@ -31,10 +33,3 @@ nextPointer DPDown  = DPLeft
 
 rotate ∷ Int → DirectionPointer → DirectionPointer
 rotate = change 4
-
-data DirectionPointer
-  = DPRight
-  | DPDown
-  | DPLeft
-  | DPUp
-  deriving stock (Bounded, Enum, Eq, Ord, Read, Show)
