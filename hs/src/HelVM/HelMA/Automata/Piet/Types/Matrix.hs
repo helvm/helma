@@ -85,13 +85,17 @@ runBfs m startPos visited = bfs m (m `indexUncheck` startPos) visited [startPos]
 
 bfs ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → [Coordinates] → Block → ST s Block
 bfs _ _ _ [] acc = pure acc
-bfs m targetColor visited (curr : rest) acc =
-  UMV.unsafeRead visited idx >>= processCell m targetColor visited curr rest acc idx
-  where
-    idx = toIndexFromMatrix m curr
+bfs m targetColor visited (curr : rest) acc = UMV.unsafeRead visited idx >>= processCell m targetColor visited curr rest acc idx where
+  idx = toIndexFromMatrix m curr
 
 processCell ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Int → Bool → ST s Block
-processCell m targetColor visited curr rest acc idx isVisited
-  | isVisited                            = bfs m targetColor visited rest acc
-  | m `indexUncheck` curr /= targetColor = UMV.unsafeWrite visited idx True >> bfs m targetColor visited rest acc
-  | otherwise                            = UMV.unsafeWrite visited idx True >> bfs m targetColor visited (filter (`inRangeMatrix` m) (neighbours curr) ++ rest) (curr : acc)
+processCell m targetColor visited _ rest acc _ True  = bfs m targetColor visited rest acc
+processCell m targetColor visited curr rest acc idx False = UMV.unsafeWrite visited idx True >> checkColor m targetColor visited curr rest acc (m `indexUncheck` curr == targetColor)
+
+checkColor ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Bool → ST s Block
+checkColor m targetColor visited _ rest acc False = bfs m targetColor visited rest acc
+checkColor m targetColor visited curr rest acc True  =
+  bfs m targetColor visited (validNeighbours m curr ++ rest) (curr : acc)
+
+validNeighbours ∷ Matrix a → Coordinates → [Coordinates]
+validNeighbours m (x, y) = filter (`inRangeMatrix` m) [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
