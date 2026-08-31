@@ -10,6 +10,7 @@ module HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
 import           Control.Monad.ST                            ( ST, runST )
+
 import qualified Data.Vector                                 as V
 import qualified Data.Vector.Mutable                         as MV
 import qualified Data.Vector.Unboxed.Mutable                 as UMV
@@ -41,7 +42,11 @@ indexMaybe m coord
 {-# INLINE indexMaybe #-}
 
 newMatrix ∷ Coordinates → [(Coordinates, a)] → Matrix a
-newMatrix (w, h) elems = Matrix w h $ V.create $ MV.new (w * h) >>= \vec ->
+newMatrix (w, h) elems = Matrix w h $ V.create $
+  MV.unsafeNew (w * h) >>= writeElems elems w
+
+writeElems ∷ [(Coordinates, a)] → Int → MV.MVector s a → ST s (MV.MVector s a)
+writeElems elems w vec =
   traverse_ (uncurry $ MV.write vec . toIndex w) elems >> pure vec
 
 inRangeMatrix ∷ Coordinates → Matrix a → Bool
@@ -87,6 +92,6 @@ bfs m targetColor visited (curr : rest) acc =
 
 processCell ∷ Eq a ⇒ Matrix a → a → UMV.MVector s Bool → Coordinates → [Coordinates] → Block → Int → Bool → ST s Block
 processCell m targetColor visited curr rest acc idx isVisited
-  | isVisited                               = bfs m targetColor visited rest acc
+  | isVisited                            = bfs m targetColor visited rest acc
   | m `indexUncheck` curr /= targetColor = UMV.unsafeWrite visited idx True >> bfs m targetColor visited rest acc
-  | otherwise                               = UMV.unsafeWrite visited idx True >> bfs m targetColor visited (filter (`inRangeMatrix` m) (neighbours curr) ++ rest) (curr : acc)
+  | otherwise                            = UMV.unsafeWrite visited idx True >> bfs m targetColor visited (filter (`inRangeMatrix` m) (neighbours curr) ++ rest) (curr : acc)
