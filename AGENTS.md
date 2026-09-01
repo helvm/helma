@@ -34,6 +34,7 @@ Not lazy about: understanding the problem (read it fully and trace the real flow
 Special Rules for Haskell:
 - Use `relude` and `relude.extra` 
 - Use `RIO` but only for `main` and infrastructure (`RIO`-ful). Logic is `RIO` free (`RIO`-less)
+- Try do not use lambdas with parameters
 - Do not use `do notation`, use operators
 - Do not use `case of`, use pattern mapping
 - Do not use `if else`, use guards
