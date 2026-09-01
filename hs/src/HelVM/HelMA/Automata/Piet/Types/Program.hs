@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automata.Piet.Types.Program
   ( CodelSize
   , Program (..)
-  , codelSize
-  , image
+  , codelSizeL
+  , imageL
   , isBlocked
-  , labelling
+  , labellingL
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -12,19 +12,30 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
-import           Lens.Micro.Platform
+import           Relude.Extra
+
+-- TYPES & LENSES
 
 type CodelSize = Int
 
 data Program
   = Program
-      { _codelSize :: CodelSize
-      , _image     :: Matrix Color
-      , _labelling :: Labelling
+      { codelSize :: CodelSize
+      , image     :: Matrix Color
+      , labelling :: Labelling
       }
   deriving stock (Show)
 
-makeLenses ''Program
+codelSizeL ∷ Lens' Program CodelSize
+codelSizeL = lens codelSize (\s x -> s { codelSize = x })
+
+imageL ∷ Lens' Program (Matrix Color)
+imageL = lens image (\s x -> s { image = x })
+
+labellingL ∷ Lens' Program Labelling
+labellingL = lens labelling (\s x -> s { labelling = x })
+
+-- HELPER FUNCTIONS
 
 isBlocked ∷ Coordinates → Program → Bool
-isBlocked pos p = not (inRangeMatrix pos $ p ^. image) || (Black == atMatrix pos (p ^. image))
+isBlocked pos p = not (inRangeMatrix pos $ p ^. imageL) || (Black == atMatrix pos (p ^. imageL))

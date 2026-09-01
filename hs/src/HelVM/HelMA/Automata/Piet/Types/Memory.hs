@@ -3,75 +3,68 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , Stack
   , advancePosition
   , blockCodelCount
-  , codelSizeMemory
-  , currentBlock
   , currentColour
   , currentPixel
-  , directionPointerMemory
   , getMaskInfo
   , handleCollision
   , initialMemory
-  , instructionCounterMemory
-  , modifyFlipWithLog
   , modifyStackWithLog
-  , nextCodelPos
   , nextColour
   , nonBlackSuccMemory
-  , orientationMemory
-  , positionMemory
-  , programMemory
-  , selectCodel
-  , setInstructionCounter
+  , setCursor
+  , stackL
   , stepWhitePixel
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Course
+import           HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-import           HelVM.HelMA.Automata.Piet.Types.InstructionCounter
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
-import           HelVM.HelMA.Automata.Piet.Types.Orientation
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           Data.IntMap                                        hiding ( filter )
-import qualified Data.List                                          as List
+import           Data.IntMap                                       hiding ( filter )
+import qualified Data.List                                         as List
 import           Data.MonoTraversable
-import qualified Data.Sequence                                      as Seq
+import qualified Data.Sequence                                     as Seq
 
-import           Lens.Micro.Platform
-
-import           Prelude                                            hiding ( empty )
+import           Relude.Extra
 
 -- TYPES & LENSES
 
-data Memory
-  = Memory
-      { _instructionMemory :: !InstructionMemory
-      , _stack             :: !Stack
-      }
-
 type Stack = Seq.Seq Int
 
-makeLenses ''Memory
+data Memory
+  = Memory
+      { instructionMemory :: !InstructionMemory
+      , stack             :: !Stack
+      }
+
+instructionMemoryL ∷ Lens' Memory InstructionMemory
+instructionMemoryL = lens instructionMemory (\s x -> s { instructionMemory = x })
+
+stackL ∷ Lens' Memory Stack
+stackL = lens stack (\s x -> s { stack = x })
 
 -- INITIALIZERS & CONSTRUCTORS
 
 initialMemory ∷ Program → Memory
 initialMemory prog = Memory
-  { _instructionMemory = initialInstructionMemory prog
-  , _stack             = Seq.empty
+  { instructionMemory = initialInstructionMemory prog
+  , stack             = Seq.empty
   }
 
 -- PUBLIC GETTERS & QUERIES
 
-nonBlackSuccMemory ∷ Memory → Maybe LabelInfo → Maybe InstructionCounter
-nonBlackSuccMemory mem = nonBlackSucc (programMemory mem) (orientationMemory mem)
+nonBlackSuccMemory ∷ Memory → Maybe LabelInfo → Maybe Cursor
+nonBlackSuccMemory mem = nonBlackSucc (programMemory mem) (courseMemory mem)
 
 getMaskInfo ∷ Memory → Maybe LabelInfo
 getMaskInfo mem = getMaskInfo' (programMemory mem) (positionMemory mem)
@@ -79,49 +72,46 @@ getMaskInfo mem = getMaskInfo' (programMemory mem) (positionMemory mem)
 nextCodelPos ∷ Memory → Coordinates
 nextCodelPos mem = nextPosFromBlock (currentBlock mem) mem
 
-currentBlock ∷ Memory → Block
-currentBlock mem = discoverBlock (programMemory mem ^. image) (positionMemory mem)
+currentBlock ∷ Memory → BlockCoordinates
+currentBlock mem = discoverBlock (programMemory mem ^. imageL) (positionMemory mem)
 
 programMemory ∷ Memory → Program
-programMemory mem = mem ^. instructionMemory . program
+programMemory mem = mem ^. (instructionMemoryL . programL)
 
-instructionCounterMemory ∷ Memory → InstructionCounter
-instructionCounterMemory mem = mem ^. instructionMemory . instructionCounter
+cursorMemory ∷ Memory → Cursor
+cursorMemory mem = mem ^. (instructionMemoryL . cursorL)
 
 directionPointerMemory ∷ Memory → DirectionPointer
-directionPointerMemory mem = orientationMemory mem ^. directionPointer
+directionPointerMemory mem = courseMemory mem ^. directionPointerL
 
 positionMemory ∷ Memory → Coordinates
-positionMemory mem = instructionCounterMemory mem ^. position
+positionMemory mem = cursorMemory mem ^. positionL
 
-orientationMemory ∷ Memory → Orientation
-orientationMemory mem = instructionCounterMemory mem ^. orientation
+courseMemory ∷ Memory → Course
+courseMemory mem = cursorMemory mem ^. courseL
 
 currentPixel ∷ Memory → Color
-currentPixel mem = atMatrix (positionMemory mem) (programMemory mem ^. image)
-
-codelSizeMemory ∷ Memory → CodelSize
-codelSizeMemory mem = programMemory mem ^. codelSize
+currentPixel mem = atMatrix (positionMemory mem) (programMemory mem ^. imageL)
 
 blockCodelCount ∷ Memory → Int
 blockCodelCount = olength . currentBlock
 
-selectCodel ∷ Block → Memory → Coordinates
-selectCodel block mem = List.maximumBy (furthest (orientationMemory mem)) block
+selectCodel ∷ BlockCoordinates → Memory → Coordinates
+selectCodel block mem = List.maximumBy (furthest (courseMemory mem)) block
 
 currentColour ∷ Memory → Maybe Color
-currentColour mem = colourAt (programMemory mem) (positionMemory mem)
+currentColour mem = colorAt (programMemory mem) (positionMemory mem)
 
 nextColour ∷ Memory → Maybe Color
-nextColour mem = colourAt (programMemory mem) (nextCodelPos mem)
+nextColour mem = colorAt (programMemory mem) (nextCodelPos mem)
 
 -- PUBLIC SETTERS
 
 advancePosition ∷ Memory → Memory
 advancePosition mem = setPosition (nextCodelPos mem) mem
 
-setInstructionCounter ∷ InstructionCounter → Memory → Memory
-setInstructionCounter ic = instructionMemory . instructionCounter .~ ic
+setCursor ∷ Cursor → Memory → Memory
+setCursor ic = (instructionMemoryL . cursorL) .~ ic
 
 -- PUBLIC DOMAIN MODIFIERS
 
@@ -129,7 +119,7 @@ stepWhitePixel ∷ Memory → Memory
 stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem
   where
     prog    = programMemory mem
-    nextPos = addCoordinates dp $ positionMemory mem
+    nextPos = move dp $ positionMemory mem
     dp      = directionPointerMemory mem
 
 handleCollision ∷ Bool → Memory → Memory
@@ -141,32 +131,22 @@ handleCollision True  = toggleChooser
 modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
 modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)
 
-modifyFlipWithLog ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → Memory → m (Maybe Memory)
-modifyFlipWithLog name f mem = processStack (mem ^. stack)
-  where
-    processStack Seq.Empty     = pure Nothing
-    processStack (x Seq.:<| _) = do
-      logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemory)
-      pure $ Just mem'
-      where
-        mem' = modifyInstructionMemory (f x) mem
-
 -- PRIVATE UTILS & HELPERS
 
 getMaskInfo' ∷ Program → Coordinates → Maybe LabelInfo
 getMaskInfo' prog pos = findWithDefault Nothing (atMatrix pos maskImg) infoMap
   where
-    maskImg = prog ^. labelling . mask
-    infoMap = prog ^. labelling . info
+    maskImg = prog ^. (labellingL . maskL)
+    infoMap = prog ^. (labellingL . infoL)
 
-nextPosFromBlock ∷ Block → Memory → Coordinates
+nextPosFromBlock ∷ BlockCoordinates → Memory → Coordinates
 nextPosFromBlock block mem = move (directionPointerMemory mem) (selectCodel block mem)
 
-colourAt ∷ Program → Coordinates → Maybe Color
-colourAt prog pos = (prog ^. image) &! pos
+colorAt ∷ Program → Coordinates → Maybe Color
+colorAt prog pos = (prog ^. imageL) &! pos
 
 setPosition ∷ Coordinates → Memory → Memory
-setPosition pos = instructionMemory . instructionCounter . position .~ pos
+setPosition pos = (instructionMemoryL . cursorL . positionL) .~ pos
 
 handleBlocked ∷ Bool → Coordinates → DirectionPointer → Memory → Memory
 handleBlocked True  _       dp = rotateAndToggle dp
@@ -184,13 +164,13 @@ rotatePointer ∷ Memory → Memory
 rotatePointer = modifyInstructionMemory (rotateDirectionPointerIM 1)
 
 codelChooserMemory ∷ Memory → CodelChooser
-codelChooserMemory mem = orientationMemory mem ^. codelChooser
+codelChooserMemory mem = courseMemory mem ^. codelChooserL
 
 setDirectionPointer ∷ DirectionPointer → Memory → Memory
-setDirectionPointer dp = instructionMemory . instructionCounter . orientation . directionPointer .~ dp
+setDirectionPointer dp = (instructionMemoryL . cursorL . courseL . directionPointerL) .~ dp
 
 setCodelChooser ∷ CodelChooser → Memory → Memory
-setCodelChooser cc = instructionMemory . instructionCounter . orientation . codelChooser .~ cc
+setCodelChooser cc = (instructionMemoryL . cursorL . courseL . codelChooserL) .~ cc
 
 modifyInstructionMemory ∷ (InstructionMemory → InstructionMemory) → Memory → Memory
-modifyInstructionMemory f = instructionMemory %~ f
+modifyInstructionMemory f = instructionMemoryL %~ f

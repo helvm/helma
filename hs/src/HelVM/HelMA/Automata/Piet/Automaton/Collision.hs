@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.Piet.Automaton.Collision
-  ( collisionCount
-  , memory
+  ( collisionCountL
+  , memoryL
   , start
   ) where
 
@@ -16,24 +16,28 @@ import           HelVM.HelMA.Automaton.Trampoline               as Trampoline
 
 import           Control.Monad.Logger
 
-import           Lens.Micro.Platform
+import           Relude.Extra
 
 -- TYPES & LENSES
 
 data AutomatonMemory
   = AutomatonMemory
-      { _memory         :: !Memory
-      , _collisionCount :: {-# UNPACK #-} !Int
+      { memory         :: !Memory
+      , collisionCount :: {-# UNPACK #-} !Int
       }
 
-makeLenses ''AutomatonMemory
+memoryL ∷ Lens' AutomatonMemory Memory
+memoryL = lens memory (\s x -> s { memory = x })
+
+collisionCountL ∷ Lens' AutomatonMemory Int
+collisionCountL = lens collisionCount (\s x -> s { collisionCount = x })
 
 -- TOP-LEVEL DRIVER
 
 initialState ∷ Program → AutomatonMemory
 initialState p = AutomatonMemory
-  { _memory         = initialMemory p
-  , _collisionCount = 0
+  { memory         = initialMemory p
+  , collisionCount = 0
   }
 
 start ∷ AppSafeEff m ⇒ Program → m ()
@@ -41,8 +45,8 @@ start = Trampoline.trampolineM transition . initialState
 
 transition ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
 transition autoMem
-  | autoMem ^. collisionCount >= 8 = Trampoline.break () <$ logDebugN "Max collisions reached (8). Terminating."
-  | otherwise                      = stepByColour (nextColour (autoMem ^. memory)) autoMem
+  | autoMem ^. collisionCountL >= 8 = Trampoline.break () <$ logDebugN "Max collisions reached (8). Terminating."
+  | otherwise                       = stepByColour (nextColour (autoMem ^. memoryL)) autoMem
 
 -- STEP & COLOR HANDLERS
 
@@ -54,23 +58,23 @@ stepByColour (Just (Chromatic c')) autoMem = stepChromatic c' autoMem
 
 {-# INLINE stepWhite #-}
 stepWhite ∷ AutomatonMemory → AutomatonMemory
-stepWhite autoMem = autoMem & memory %~ stepWhitePixel
+stepWhite autoMem = autoMem & memoryL %~ stepWhitePixel
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m (Either () AutomatonMemory)
 stepChromatic c' autoMem = makeNext <$> stepMemory c' oldMem (advancePosition oldMem) where
-  makeNext nextMem = Trampoline.continue $ resetCollision autoMem { _memory = nextMem }
-  oldMem           = autoMem ^. memory
+  makeNext nextMem = Trampoline.continue $ resetCollision autoMem { memory = nextMem }
+  oldMem           = autoMem ^. memoryL
 
 -- COLLISION STATE MANAGEMENT
 
 {-# INLINE doIfCollided #-}
 doIfCollided ∷ AutomatonMemory → AutomatonMemory
-doIfCollided autoMem = updateCollisionCount $ autoMem & memory %~ handleCollision (even (autoMem ^. collisionCount))
+doIfCollided autoMem = updateCollisionCount $ autoMem & memoryL %~ handleCollision (even (autoMem ^. collisionCountL))
 
 {-# INLINE updateCollisionCount #-}
 updateCollisionCount ∷ AutomatonMemory → AutomatonMemory
-updateCollisionCount autoMem = autoMem { _collisionCount = autoMem ^. collisionCount + 1 }
+updateCollisionCount autoMem = autoMem { collisionCount = autoMem ^. collisionCountL + 1 }
 
 {-# INLINE resetCollision #-}
 resetCollision ∷ AutomatonMemory → AutomatonMemory
-resetCollision autoMem = autoMem { _collisionCount = 0 }
+resetCollision autoMem = autoMem { collisionCount = 0 }

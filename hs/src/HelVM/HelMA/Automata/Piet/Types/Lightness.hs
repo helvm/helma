@@ -1,12 +1,16 @@
 module HelVM.HelMA.Automata.Piet.Types.Lightness
   ( Lightness (..)
-  , brightnessChange
+  , lightnessChange
+  , lightnessDiff
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Types.Extra
+import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
-brightnessChange ∷ Lightness → Lightness → Lightness
-brightnessChange = changeDiff 3
+lightnessDiff ∷ Lightness → Lightness → Int
+lightnessDiff = cyclicDiff 3
+
+lightnessChange ∷ Lightness → Lightness → Lightness
+lightnessChange = cyclicChange 3
 
 data Lightness
   = Light

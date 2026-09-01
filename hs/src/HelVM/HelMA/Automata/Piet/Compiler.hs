@@ -9,12 +9,10 @@ import           HelVM.HelMA.Automata.Piet.Types.Labelling
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.Program     ( CodelSize, Program (Program) )
 
-import           Data.IntMap                                 hiding ( filter )
+import qualified Data.IntMap                                 as IntMap
 import qualified Data.Map                                    as Map
 
-import           Lens.Micro.Platform
-
-import qualified Relude.Extra                                as Extra
+import           Relude.Extra
 
 -- TYPES & LENSES
 
@@ -22,14 +20,24 @@ type EquivalenceMap = IntMap LabelKey
 
 data LabellingStatus
   = LabellingStatus
-      { _currentCoords :: Coordinates
-      , _nextKey       :: LabelKey
-      , _labelling     :: Labelling
-      , _equivalences  :: EquivalenceMap
+      { currentCoords :: Coordinates
+      , nextKey       :: LabelKey
+      , labelling     :: Labelling
+      , equivalences  :: EquivalenceMap
       }
   deriving stock (Show)
 
-makeLenses ''LabellingStatus
+currentCoordsL ∷ Lens' LabellingStatus Coordinates
+currentCoordsL = lens currentCoords (\s x -> s { currentCoords = x })
+
+nextKeyL ∷ Lens' LabellingStatus LabelKey
+nextKeyL = lens nextKey (\s x -> s { nextKey = x })
+
+labellingL ∷ Lens' LabellingStatus Labelling
+labellingL = lens labelling (\s x -> s { labelling = x })
+
+equivalencesL ∷ Lens' LabellingStatus EquivalenceMap
+equivalencesL = lens equivalences (\s x -> s { equivalences = x })
 
 -- PUBLIC API
 
@@ -44,12 +52,12 @@ label4 = label4With (==)
 label4With ∷ (a → a → Bool) → Matrix a → Labelling
 label4With neighbours img = Labelling img' inf where
   (status, assocMap) = label4With' neighbours img (LabellingStatus (0, 0) 0 (Labelling (newMatrix (0,0) []) mempty) mempty) Map.empty
-  currentLabelling   = status ^. labelling
+  currentLabelling   = status ^. labellingL
 
   maskImg = newMatrix (widthMatrix img, heightMatrix img) (Map.toList assocMap)
 
-  img' = fmap (applyEquivClass (status ^. equivalences)) maskImg
-  inf  = foldrWithKey (mergeClass (status ^. equivalences)) mempty (currentLabelling ^. info)
+  img' = fmap (applyEquivClass (status ^. equivalencesL)) maskImg
+  inf  = IntMap.foldrWithKey (mergeClass (status ^. equivalencesL)) mempty (currentLabelling ^. infoL)
 
   applyEquivClass eqMap lbl = equivClass lbl eqMap
   mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)
@@ -57,7 +65,7 @@ label4With neighbours img = Labelling img' inf where
 label4With' ∷ (a → a → Bool) → Matrix a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
 label4With' neighbours img status acc = checkNext (nextCoords img xy) neighbours img (updateStatus mergeLabels status acc xy) where
   pixel  = atMatrix xy img
-  xy     = status ^. currentCoords
+  xy     = status ^. currentCoordsL
 
   mergeLabels = fmap getMaskLabel $ filter isNeighbour $ addPixelInfo <$> previousNeighbours xy
 
@@ -70,7 +78,7 @@ label4With' neighbours img status acc = checkNext (nextCoords img xy) neighbours
 
 checkNext ∷ Maybe Coordinates → (a → a → Bool) → Matrix a → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
 checkNext Nothing    _          _   res      = res
-checkNext (Just xy) neighbours img (s, acc') = label4With' neighbours img (s & currentCoords .~ xy) acc'
+checkNext (Just xy) neighbours img (s, acc') = label4With' neighbours img (s & currentCoordsL .~ xy) acc'
 
 -- STATUS & MAP UPDATES
 
@@ -81,21 +89,21 @@ updateStatus [l1, l2] status acc xy = updatePairStatus status acc xy l1 l2
 updateStatus _        _      _   _  = error "too many neighbours in HelVM.HelMA.Automata.Piet.Compiler.ImageProcessor.label4With'"
 
 updateEmptyStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → (LabellingStatus, Map.Map Coordinates LabelKey)
-updateEmptyStatus status acc xy = setLabel status' acc xy (status ^. nextKey) where
+updateEmptyStatus status acc xy = setLabel status' acc xy (status ^. nextKeyL) where
   status' = status
-    & (labelling . info %~ insert (status ^. nextKey) (addPixel xy Nothing))
-    & (nextKey %~ Extra.next)
+    & (labellingL . infoL %~ insert (status ^. nextKeyL) (addPixel xy Nothing))
+    & (nextKeyL %~ next)
 
 updateSingleStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
 updateSingleStatus status acc xy l = setLabel status' acc xy l where
-  status' = status & (labelling . info %~ adjust (addPixel xy) l)
+  status' = status & (labellingL . infoL %~ IntMap.adjust (addPixel xy) l)
 
 updatePairStatus ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
 updatePairStatus status acc xy l1 l2 = setLabel status' acc xy targetLabel where
   targetLabel = max l1 l2
   status'     = status
-    & (labelling . info %~ adjust (addPixel xy) targetLabel)
-    & (equivalences %~ equivInsert l1 l2)
+    & (labellingL . infoL %~ IntMap.adjust (addPixel xy) targetLabel)
+    & (equivalencesL %~ equivInsert l1 l2)
 
 setLabel ∷ LabellingStatus → Map.Map Coordinates LabelKey → Coordinates → LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
 setLabel status acc xy label = (status, Map.insert xy label acc)
@@ -110,7 +118,7 @@ updateMap (Just new) (Just (Just old)) = Just (Just (new <> old))
 -- EQUIVALENCE CLASS UTILS
 
 equivClass ∷ LabelKey → EquivalenceMap → LabelKey
-equivClass e = findWithDefault e e
+equivClass e = IntMap.findWithDefault e e
 
 equivInsert ∷ LabelKey → LabelKey → EquivalenceMap → EquivalenceMap
 equivInsert x y = guardInsert (x /= y) x y
@@ -121,7 +129,7 @@ guardInsert True  x y mp = fmap (replaceClass newClass classes) $ insert x newCl
   class1   = equivClass x mp
   class2   = equivClass y mp
   classes  = x :| [y, class1, class2]
-  newClass = Extra.minimum1 classes
+  newClass = minimum1 classes
 
 replaceClass ∷ LabelKey → NonEmpty LabelKey → LabelKey → LabelKey
 replaceClass newClass classes eqClass = checkInClass (eqClass `elem` classes) newClass eqClass
