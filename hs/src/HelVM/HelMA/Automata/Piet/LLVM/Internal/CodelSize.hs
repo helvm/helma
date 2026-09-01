@@ -5,9 +5,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
 guessCodelSize ∷ Eq a ⇒ Coordinates → (Coordinates → a) → Int
-guessCodelSize (width, height) pixelAccessor =
-  groupGCD pixelAccessor (horizontalPositionBlocks width height)
-    `gcd'` groupGCD pixelAccessor (verticalPositionBlocks width height)
+guessCodelSize (width, height) pixelAccessor = groupGCD pixelAccessor (horizontalPositionBlocks width height) `gcd'` groupGCD pixelAccessor (verticalPositionBlocks width height)
 
 horizontalPositionBlocks ∷ Int → Int → [[Coordinates]]
 horizontalPositionBlocks width height = generate height (buildRow width)
@@ -30,9 +28,8 @@ groupGCD f = fix (groupGCDStep f)
 groupGCDStep ∷ Eq a ⇒ (i → a) → ([[i]] → Int) → [[i]] → Int
 groupGCDStep _ _ [] = 0
 groupGCDStep _ rec ([] : rest) = rec rest
-groupGCDStep f rec (positions@(_ : _) : rest) = n `gcd'` rec (nextPositions : rest)
-  where
-    (n, nextPositions) = countSameElems f positions
+groupGCDStep f rec (positions@(_ : _) : rest) = n `gcd'` rec (nextPositions : rest) where
+  (n, nextPositions) = countSameElems f positions
 
 countSameElems ∷ Eq a ⇒ (i → a) → [i] → (Int, [i])
 countSameElems _ []         = (0, [])
