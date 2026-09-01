@@ -32,18 +32,22 @@ Not lazy about: understanding the problem (read it fully and trace the real flow
 (Yes, this file also applies to agents working on the ponytail repo itself. Especially to them.)
 
 Special Rules for Haskell:
-- Use `relude` and `relude.extra` 
+- Use `relude` and `relude.extra`
 - Use `RIO` but only for `main` and infrastructure (`RIO`-ful). Logic is `RIO` free (`RIO`-less)
+- Prefer Pointfree Style
+  - Do not use `do notation`, use operators
+  - Try do not use lambdas with parameters
 - Prefer Declaration Style
   - Do not use `case of`, use pattern mapping
   - Do not use `if else`, use guards
   - Do not use `let in`, use `where`
-- Prefer Pointfree Style
-  - Do not use `do notation`, use operators
-  - Try do not use lambdas with parameters
+- `where` Style 
+  - `where` should be at the end of the line
+  - Do not use pattern maching inside `where`. Move function to top level declaration
+  - Use a maximum of one `where` per function
 - Others
   - The parameters that are used for pattern matching should be the first ones
-  - Do not use pattern maching inside `where`. Move function to top level declaration
+  - Extract complex constraint types from declarations using `type`
   - Don't use explicit recursion. Use `fix` instead or other available functions
   - Do not use `>>=`, use `=<<`
   - Do not use `return`, use `pure`
