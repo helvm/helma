@@ -267,7 +267,7 @@ library
     HelVM.HelMA.Automata.Piet.Types.Coordinates
     HelVM.HelMA.Automata.Piet.Types.Course
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-    HelVM.HelMA.Automata.Piet.Types.Extra
+    HelVM.HelMA.Automata.Piet.Types.Cyclic
     HelVM.HelMA.Automata.Piet.Types.Hue
     HelVM.HelMA.Automata.Piet.Types.Matrix
     HelVM.HelMA.Automata.Piet.Types.Cursor

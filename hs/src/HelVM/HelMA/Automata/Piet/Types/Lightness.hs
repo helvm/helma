@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.Piet.Types.Lightness
   , brightnessChange
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Types.Extra
+import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 brightnessChange ∷ Lightness → Lightness → Lightness
 brightnessChange = changeDiff 3

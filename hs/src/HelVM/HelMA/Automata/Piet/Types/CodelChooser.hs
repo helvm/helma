@@ -4,7 +4,7 @@ module HelVM.HelMA.Automata.Piet.Types.CodelChooser
   , toggle
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Types.Extra
+import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 nextChooser ∷ CodelChooser → CodelChooser
 nextChooser CCLeft  = CCRight

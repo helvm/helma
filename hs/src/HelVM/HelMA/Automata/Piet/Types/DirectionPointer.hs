@@ -6,7 +6,7 @@ module HelVM.HelMA.Automata.Piet.Types.DirectionPointer
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Extra
+import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 -- TYPES
 

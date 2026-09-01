@@ -4,7 +4,7 @@ module HelVM.HelMA.Automata.Piet.Types.Hue
   , hueChange
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Types.Extra
+import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 calculate ∷ Maybe Hue → Maybe Hue → Maybe Int
 calculate (Just x) (Just y) = Just $ (fromEnum y - fromEnum x + 6) `mod` 6

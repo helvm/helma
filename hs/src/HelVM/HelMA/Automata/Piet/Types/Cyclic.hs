@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.Types.Extra where
+module HelVM.HelMA.Automata.Piet.Types.Cyclic where
 
 import           HelVM.HelIO.SwitchEnum
 
