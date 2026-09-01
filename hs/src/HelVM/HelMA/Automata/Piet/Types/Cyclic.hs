@@ -1,6 +1,3 @@
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Use next" #-}
-
 module HelVM.HelMA.Automata.Piet.Types.Cyclic
   ( change
   , changeDiff
@@ -9,9 +6,10 @@ module HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 import           HelVM.HelIO.SwitchEnum
 
-cyclicSucc ∷ (Eq a, Enum a, Bounded a) ⇒ a → a
-cyclicSucc x | x == maxBound = minBound
-             | otherwise     = succ x
+-- FUNCTIONS
+
+cyclicSucc ∷ (Bounded a, Enum a) ⇒ a → a
+cyclicSucc a = change (fromEnum (maxBound `asTypeOf` a) + 1) 1 a
 
 change ∷ (Bounded e, Enum e, Enum a) ⇒ Int → Int → a → e
 change i n e = unsafeEnum $ (fromEnum e + n) `mod` i
