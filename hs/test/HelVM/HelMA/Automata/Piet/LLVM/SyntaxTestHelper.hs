@@ -11,26 +11,26 @@ module HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
-rl ∷ DPCC
-rl = DPCC DPRight CCLeft
+rl ∷ Course
+rl = Course DPRight CCLeft
 
-rr ∷ DPCC
-rr = DPCC DPRight CCRight
+rr ∷ Course
+rr = Course DPRight CCRight
 
-dl ∷ DPCC
-dl = DPCC DPDown CCLeft
+dl ∷ Course
+dl = Course DPDown CCLeft
 
-dr ∷ DPCC
-dr = DPCC DPDown CCRight
+dr ∷ Course
+dr = Course DPDown CCRight
 
-ll ∷ DPCC
-ll = DPCC DPLeft CCLeft
+ll ∷ Course
+ll = Course DPLeft CCLeft
 
-lr ∷ DPCC
-lr = DPCC DPLeft CCRight
+lr ∷ Course
+lr = Course DPLeft CCRight
 
-ul ∷ DPCC
-ul = DPCC DPUp CCLeft
+ul ∷ Course
+ul = Course DPUp CCLeft
 
-ur ∷ DPCC
-ur = DPCC DPUp CCRight
+ur ∷ Course
+ur = Course DPUp CCRight

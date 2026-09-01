@@ -1,5 +1,5 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCC
-  ( dpccsToBackwardDPCCTable
+module HelVM.HelMA.Automata.Piet.LLVM.Internal.Course
+  ( coursesToBackwardCourseTable
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
@@ -11,9 +11,9 @@ import qualified Data.Set                                       as S
 
 import           GHC.Exts                                       ( groupWith )
 
-dpccsToBackwardDPCCTable ∷ [DPCC] → Map DPCC [DPCC]
-dpccsToBackwardDPCCTable [] = M.empty
-dpccsToBackwardDPCCTable possibleDPCCs = M.fromList $ nearestTableToBackwardTable $ nearestDPCCTable possibleDPCCs where
+coursesToBackwardCourseTable ∷ [Course] → Map Course [Course]
+coursesToBackwardCourseTable [] = M.empty
+coursesToBackwardCourseTable possibleCourses = M.fromList $ nearestTableToBackwardTable $ nearestCourseTable possibleCourses where
   nearestTableToBackwardTable ∷ Ord b ⇒ [(a, b)] → [(b, [a])]
   nearestTableToBackwardTable = fmap (extractGroup &&& fmap fst) . groupWith snd
 
@@ -21,17 +21,17 @@ dpccsToBackwardDPCCTable possibleDPCCs = M.fromList $ nearestTableToBackwardTabl
   extractGroup ((_, b) : _) = b
   extractGroup []           = error "unreachable"
 
-nearestDPCCTable ∷ [DPCC] → [(DPCC, DPCC)]
-nearestDPCCTable possibleDPCCs = (id &&& nearestDPCC) <$> allDPCCs where
-  nearestDPCC (DPCC dp cc)
-    | S.member nearestDPCCCandidate possibleDPCCSet = nearestDPCCCandidate
-    | otherwise                                      = DPCC nearestDP (cyclicSucc nearestCC)
+nearestCourseTable ∷ [Course] → [(Course, Course)]
+nearestCourseTable possibleCourses = (id &&& nearestCourse) <$> allCourses where
+  nearestCourse (Course dp cc)
+    | S.member nearestCourseCandidate possibleCourseSet = nearestCourseCandidate
+    | otherwise                                      = Course nearestDP (cyclicSucc nearestCC)
     where
       nearestDP = nearestDPTable M.! dp
       nearestCC
         | even (fromEnum nearestDP - fromEnum dp) = cc
         | otherwise                               = cyclicSucc cc
-      nearestDPCCCandidate = DPCC nearestDP nearestCC
+      nearestCourseCandidate = Course nearestDP nearestCC
 
   nearestDPTable ∷ Map DirectionPointer DirectionPointer
   nearestDPTable = buildNearestDPTable (nonEmpty (S.toDescList possibleDPSet))
@@ -49,6 +49,6 @@ nearestDPCCTable possibleDPCCs = (id &&& nearestDPCC) <$> allDPCCs where
     | otherwise           = (currentDP, dp) : go currentDPs (nextDP : nextDPs) dp
   go _ [] _ = error "unreachable"
 
-  allDPCCs = DPCC <$> universe <*> universe
-  possibleDPCCSet = S.fromList possibleDPCCs
-  possibleDPSet = S.map getDP possibleDPCCSet
+  allCourses = Course <$> universe <*> universe
+  possibleCourseSet = S.fromList possibleCourses
+  possibleDPSet = S.map getDP possibleCourseSet

@@ -45,17 +45,17 @@ parseFilledImage (codelTable, blockTable) = do
   initial <- searchInitialBlock codelTable
   parseFrom codelTable blockTable initial
 
-parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (Int, DPCC) → m SyntaxGraph
+parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (Int, Course) → m SyntaxGraph
 parseFrom _ _ Nothing = pure EmptySyntaxGraph
-parseFrom codelTable blockTable (Just (initialBlockIndex, initialDPCC')) = do
+parseFrom codelTable blockTable (Just (initialBlockIndex, initialCourse')) = do
   blockMap <- execStateT (parseState codelTable blockTable initialBlockIndex) IM.empty
-  pure $ SyntaxGraph initialBlockIndex initialDPCC' blockMap
+  pure $ SyntaxGraph initialBlockIndex initialCourse' blockMap
 
 parseState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ CodelTable → BlockTable → Int → m ()
 parseState codelTable blockTable blockIndex = do
   blockCoords <- justOrThrow (MissingCodelIndexError blockIndex) $ blockTable IM.!? blockIndex
   let blockSize = olength blockCoords
-  let nextBlockList = mapMaybe (\(dpcc, pos) -> (dpcc,) <$> searchNextBlock codelTable pos dpcc blockSize) $ minMaxCoords blockCoords
+  let nextBlockList = mapMaybe (\(course, pos) -> (course,) <$> searchNextBlock codelTable pos course blockSize) $ minMaxCoords blockCoords
   let block = Block $ M.fromList nextBlockList
   modify $ IM.insert blockIndex block
 
@@ -64,31 +64,31 @@ parseState codelTable blockTable blockIndex = do
   let unvisitedBlockIndices = filter (`IS.notMember` visitedIndices) nextBlockIndices
   mapM_ (parseState codelTable blockTable) unvisitedBlockIndices
 
-searchInitialBlock ∷ MonadError ParserError m ⇒ CodelTable → m (Maybe (Int, DPCC))
+searchInitialBlock ∷ MonadError ParserError m ⇒ CodelTable → m (Maybe (Int, Course))
 searchInitialBlock codelTable = do
   (initialCodel, initialBlockIndex) <- justOrThrow EmptyBlockTableError $ codelTable V.!? 0 >>= (V.!? 0)
   processInitial codelTable initialCodel initialBlockIndex
 
-processInitial ∷ MonadError ParserError m ⇒ CodelTable → Codel → Int → m (Maybe (Int, DPCC))
-processInitial _ (AchromaticCodel _ _) blockIdx = pure $ Just (blockIdx, initialDPCC)
-processInitial codelTable WhiteCodel _          = pure $ nextBlockToIndexAndDPCC $ slideOnWhiteBlock codelTable (0, 0) initialDPCC
+processInitial ∷ MonadError ParserError m ⇒ CodelTable → Codel → Int → m (Maybe (Int, Course))
+processInitial _ (AchromaticCodel _ _) blockIdx = pure $ Just (blockIdx, initialCourse)
+processInitial codelTable WhiteCodel _          = pure $ nextBlockToIndexAndCourse $ slideOnWhiteBlock codelTable (0, 0) initialCourse
 processInitial _ BlackCodel          _          = throwError IllegalInitialColorError
 
-initialDPCC ∷ DPCC
-initialDPCC = DPCC DPRight CCLeft
+initialCourse ∷ Course
+initialCourse = Course DPRight CCLeft
 
-searchNextBlock ∷ CodelTable → Coordinates → DPCC → Int → Maybe NextBlock
-searchNextBlock codelTable (x, y) dpcc@(DPCC dp _) blockSize = do
+searchNextBlock ∷ CodelTable → Coordinates → Course → Int → Maybe NextBlock
+searchNextBlock codelTable (x, y) course@(Course dp _) blockSize = do
   (AchromaticCodel currentHue currentLightness, _) <- codelTable V.!? y >>= (V.!? x)
   let nextPos@(nextX, nextY) = move dp (x, y)
   (nextCodel, blockIndex) <- codelTable V.!? nextY >>= (V.!? nextX)
-  processNextCodel codelTable nextCodel currentHue currentLightness nextPos dpcc blockSize blockIndex
+  processNextCodel codelTable nextCodel currentHue currentLightness nextPos course blockSize blockIndex
 
-processNextCodel ∷ CodelTable → Codel → Hue → Lightness → Coordinates → DPCC → Int → Int → Maybe NextBlock
-processNextCodel _ (AchromaticCodel nextHue nextLightness) curHue curLight _ dpcc blockSize blockIdx =
-  Just $ NextBlock (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) dpcc blockIdx
-processNextCodel codelTable WhiteCodel _ _ pos dpcc _ _ =
-  Just $ slideOnWhiteBlock codelTable pos dpcc
+processNextCodel ∷ CodelTable → Codel → Hue → Lightness → Coordinates → Course → Int → Int → Maybe NextBlock
+processNextCodel _ (AchromaticCodel nextHue nextLightness) curHue curLight _ course blockSize blockIdx =
+  Just $ NextBlock (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) course blockIdx
+processNextCodel codelTable WhiteCodel _ _ pos course _ _ =
+  Just $ slideOnWhiteBlock codelTable pos course
 processNextCodel _ BlackCodel _ _ _ _ _ _ =
   Nothing
 
@@ -96,25 +96,25 @@ nextBlockToIndex ∷ NextBlock → Maybe Int
 nextBlockToIndex (NextBlock _ _ nextBlockIndex) = Just nextBlockIndex
 nextBlockToIndex ExitProgram                    = Nothing
 
-nextBlockToIndexAndDPCC ∷ NextBlock → Maybe (Int, DPCC)
-nextBlockToIndexAndDPCC (NextBlock _ nextBlockDPCC nextBlockIndex) = Just (nextBlockIndex, nextBlockDPCC)
-nextBlockToIndexAndDPCC ExitProgram                                = Nothing
+nextBlockToIndexAndCourse ∷ NextBlock → Maybe (Int, Course)
+nextBlockToIndexAndCourse (NextBlock _ nextBlockCourse nextBlockIndex) = Just (nextBlockIndex, nextBlockCourse)
+nextBlockToIndexAndCourse ExitProgram                                  = Nothing
 
-minMaxCoords ∷ [Coordinates] → [(DPCC, Coordinates)]
+minMaxCoords ∷ [Coordinates] → [(Course, Coordinates)]
 minMaxCoords positions = processPositions (nonEmpty positions)
   where
     processPositions (Just nePositions) = fmap (`maximumOn` nePositions) <$> fs
     processPositions Nothing            = []
 
-fs ∷ [(DPCC, Coordinates → Coordinates)]
-fs = [ (DPCC DPRight CCLeft,  second negate)
-     , (DPCC DPRight CCRight, id)
-     , (DPCC DPDown  CCLeft,  swap)
-     , (DPCC DPDown  CCRight, second negate . swap)
-     , (DPCC DPLeft  CCLeft,  first negate)
-     , (DPCC DPLeft  CCRight, negate *** negate)
-     , (DPCC DPUp    CCLeft,  (negate *** negate) . swap)
-     , (DPCC DPUp    CCRight, first negate . swap)
+fs ∷ [(Course, Coordinates → Coordinates)]
+fs = [ (Course DPRight CCLeft,  second negate)
+     , (Course DPRight CCRight, id)
+     , (Course DPDown  CCLeft,  swap)
+     , (Course DPDown  CCRight, second negate . swap)
+     , (Course DPLeft  CCLeft,  first negate)
+     , (Course DPLeft  CCRight, negate *** negate)
+     , (Course DPUp    CCLeft,  (negate *** negate) . swap)
+     , (Course DPUp    CCRight, first negate . swap)
      ]
 
 maximumOn ∷ Ord b ⇒ (a → b) → NE.NonEmpty a → a

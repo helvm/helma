@@ -2,13 +2,13 @@ module HelVM.HelMA.Automata.Piet.LLVM.Syntax
   ( Block (..)
   , CodelChooser (..)
   , Command (..)
-  , DPCC (..)
+  , Course (..)
   , DirectionPointer (..)
   , NextBlock (..)
   , SyntaxGraph (..)
   , commandFromTransition
   , showCommand
-  , showDPCC
+  , showCourse
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Codel
@@ -20,13 +20,13 @@ import           Data.Vector                                      ( Vector )
 import qualified Data.Vector.Generic                              as V
 
 newtype Block
-  = Block { nextBlockTable :: Map DPCC NextBlock }
+  = Block { nextBlockTable :: Map Course NextBlock }
   deriving stock (Eq, Show)
 
 data NextBlock
   = NextBlock
       { _command    :: Command
-      , _dpcc       :: DPCC
+      , _course     :: Course
       , _blockIndex :: Int
       }
   | ExitProgram
@@ -35,15 +35,15 @@ data NextBlock
 data SyntaxGraph
   = SyntaxGraph
       { _initialBlockIndex :: Int
-      , _initialDPCC       :: DPCC
+      , _initialCourse     :: Course
       , _blockMap          :: IntMap Block
       }
   | EmptySyntaxGraph
   deriving stock (Eq, Show)
 
 
-data DPCC
-  = DPCC
+data Course
+  = Course
       { getDP :: DirectionPointer
       , getCC :: CodelChooser
       }
@@ -117,8 +117,8 @@ showCommand InChar      = "in (char)"
 showCommand OutNumber   = "out (number)"
 showCommand OutChar     = "out (char)"
 
-showDPCC ∷ DPCC → String
-showDPCC (DPCC dp cc) = [charDP dp, charCC cc] where
+showCourse ∷ Course → String
+showCourse (Course dp cc) = [charDP dp, charCC cc] where
   charDP DPRight = 'r'
   charDP DPDown  = 'd'
   charDP DPLeft  = 'l'

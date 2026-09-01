@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCCSpec
+module HelVM.HelMA.Automata.Piet.LLVM.Internal.CourseSpec
   ( main
   , spec
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCC
+import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Course
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 
 import qualified Data.Map                                        as M
@@ -14,7 +14,7 @@ main = hspec spec
 
 spec ∷ Spec
 spec = do
-  describe "dpccsToBackwardDPCCTable" $ do
+  describe "coursesToBackwardCourseTable" $ do
     forM_
       [ ([], M.empty)
       , ([rl], M.fromList [(rl, [rl, rr, dl, dr, ll, lr, ul, ur])])
@@ -28,6 +28,6 @@ spec = do
       , ([rr, dl], M.fromList [(rr, [rl, rr, ll, lr, ul, ur]), (dl, [dl, dr])])
       , ([ur], M.fromList [(ur, [rl, rr, dl, dr, ll, lr, ul, ur])])
       , ([ul, ur], M.fromList [(ul, [rr, dl, lr, ul]), (ur, [rl, dr, ll, ur])])
-      ] $ \(dpccs, expected) ->
-        context ("when given " ++ show dpccs) $ do
-          it "returns a backward DPCC table" $ dpccsToBackwardDPCCTable dpccs `shouldBe` expected
+      ] $ \(courses, expected) ->
+        context ("when given " ++ show courses) $ do
+          it "returns a backward Course table" $ coursesToBackwardCourseTable courses `shouldBe` expected

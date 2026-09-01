@@ -24,7 +24,7 @@ data TestCase
       { caseName        :: String
       , testImage       :: Vector (Vector (Codel, Int))
       , initialPosition :: Coordinates
-      , initialDPCC     :: DPCC
+      , initialCourse   :: Course
       , expectedResult  :: NextBlock
       }
 
@@ -36,7 +36,7 @@ spec = describe "slideOnWhiteBlock" $ forM_ testCases runTest where
   runTest tc =
     context ("when given " ++ caseName tc) $
       it "slide and pure the next codel" $
-        slideOnWhiteBlock (testImage tc) (initialPosition tc) (initialDPCC tc) `shouldBe` expectedResult tc
+        slideOnWhiteBlock (testImage tc) (initialPosition tc) (initialCourse tc) `shouldBe` expectedResult tc
 
   testCases =
     [ TestCase "singleCodelImage (0, 0) rl" singleCodelImage (0, 0) rl ExitProgram

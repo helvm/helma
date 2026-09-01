@@ -15,30 +15,30 @@ import qualified Data.Set                                         as S
 import           Data.Vector                                      ( Vector )
 import qualified Data.Vector                                      as V
 
-slideOnWhiteBlock ∷ Vector (Vector (Codel, Int)) → Coordinates → DPCC → NextBlock
-slideOnWhiteBlock image initialPosition initialDPCC = result where
-  result = (`evalState` S.empty) $ fmap (either id $ error "unreachable") . runExceptT $ slideOnWhiteBlockState initialPosition initialDPCC
+slideOnWhiteBlock ∷ Vector (Vector (Codel, Int)) → Coordinates → Course → NextBlock
+slideOnWhiteBlock image initialPosition initialCourse = result where
+  result = (`evalState` S.empty) $ fmap (either id $ error "unreachable") . runExceptT $ slideOnWhiteBlockState initialPosition initialCourse
 
-  slideOnWhiteBlockState ∷ ( MonadState (Set (Coordinates, DPCC)) m
+  slideOnWhiteBlockState ∷ ( MonadState (Set (Coordinates, Course)) m
                             , MonadError NextBlock m
                             )
-                         ⇒ Coordinates → DPCC → m ()
-  slideOnWhiteBlockState position dpcc = do
-    ((nextCodel, nextIndex), nextCodelDPCC@(nextPosition, nextDPCC)) <- maybe (throwError ExitProgram) pure $ next position dpcc
-    when (nextCodel /= WhiteCodel) $ throwError $ NextBlock NoOperation nextDPCC nextIndex
+                         ⇒ Coordinates → Course → m ()
+  slideOnWhiteBlockState position course = do
+    ((nextCodel, nextIndex), nextCodelCourse@(nextPosition, nextCourse)) <- maybe (throwError ExitProgram) pure $ next position course
+    when (nextCodel /= WhiteCodel) $ throwError $ NextBlock NoOperation nextCourse nextIndex
 
     visited <- get
-    when (S.member nextCodelDPCC visited) $ throwError ExitProgram
-    modify $ S.insert nextCodelDPCC
+    when (S.member nextCodelCourse visited) $ throwError ExitProgram
+    modify $ S.insert nextCodelCourse
 
-    slideOnWhiteBlockState nextPosition nextDPCC
+    slideOnWhiteBlockState nextPosition nextCourse
 
-  next ∷ Coordinates → DPCC → Maybe ((Codel, Int), (Coordinates, DPCC))
-  next position dpcc = listToMaybe $ do
-    nextDPCC@(DPCC nextDP _) <- take 4 $ iterate succDPCC dpcc
+  next ∷ Coordinates → Course → Maybe ((Codel, Int), (Coordinates, Course))
+  next position course = listToMaybe $ do
+    nextCourse@(Course nextDP _) <- take 4 $ iterate succCourse course
     let nextPosition = move nextDP position
     codelInfo <- maybeToList $ getNonBlackCodel nextPosition
-    pure (codelInfo, (nextPosition, nextDPCC))
+    pure (codelInfo, (nextPosition, nextCourse))
 
   getNonBlackCodel ∷ Coordinates → Maybe (Codel, Int)
   getNonBlackCodel (x, y) = do
@@ -46,5 +46,5 @@ slideOnWhiteBlock image initialPosition initialDPCC = result where
     guard $ codel /= BlackCodel
     pure (codel, index)
 
-succDPCC ∷ DPCC → DPCC
-succDPCC (DPCC dp cc) = DPCC (cyclicSucc dp) (cyclicSucc cc)
+succCourse ∷ Course → Course
+succCourse (Course dp cc) = Course (cyclicSucc dp) (cyclicSucc cc)

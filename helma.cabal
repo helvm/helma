@@ -255,7 +255,7 @@ library
 
     HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
     HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCC
+    HelVM.HelMA.Automata.Piet.LLVM.Internal.Course
     HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
     HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
     HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
@@ -265,6 +265,7 @@ library
     HelVM.HelMA.Automata.Piet.Types.CodelChooser
     HelVM.HelMA.Automata.Piet.Types.Color
     HelVM.HelMA.Automata.Piet.Types.Coordinates
+    HelVM.HelMA.Automata.Piet.Types.Course
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
     HelVM.HelMA.Automata.Piet.Types.Extra
     HelVM.HelMA.Automata.Piet.Types.Hue
@@ -275,7 +276,6 @@ library
     HelVM.HelMA.Automata.Piet.Types.Labelling
     HelVM.HelMA.Automata.Piet.Types.Lightness
     HelVM.HelMA.Automata.Piet.Types.Memory
-    HelVM.HelMA.Automata.Piet.Types.Course
     HelVM.HelMA.Automata.Piet.Types.Program
 
     HelVM.HelMA.Automata.Rev.Evaluator
@@ -391,7 +391,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizerSpec
     
     HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSizeSpec
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.DPCCSpec
+    HelVM.HelMA.Automata.Piet.LLVM.Internal.CourseSpec
     HelVM.HelMA.Automata.Piet.LLVM.Internal.FillerSpec
     HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8Spec
     HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSliderSpec

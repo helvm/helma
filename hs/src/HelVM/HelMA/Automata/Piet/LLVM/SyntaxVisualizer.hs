@@ -10,35 +10,35 @@ import qualified Data.Text.Lazy.Builder                as LText
 
 syntaxToDOT ∷ SyntaxGraph → LText
 syntaxToDOT EmptySyntaxGraph = "digraph {}"
-syntaxToDOT (SyntaxGraph blockIndex dpcc blockMap) =
+syntaxToDOT (SyntaxGraph blockIndex course blockMap) =
   LText.toLazyText $  "digraph {\n"
              <> "  rankdir=LR\n"
              <> "  start [label=\"\" shape=point color=white]\n"
              <> "  node [label=\"\" shape=circle color=black]\n"
-             <> startEdge blockIndex dpcc
+             <> startEdge blockIndex course
              <> mconcat (blocks blockMap)
              <> "}"
 
-startEdge ∷ Int → DPCC → LText.Builder
-startEdge blockIndex dpcc =
-  "  start -> " <> showBuilder blockIndex <> " [label=\"" <> fromString (showDPCC dpcc) <> "\"]\n"
+startEdge ∷ Int → Course → LText.Builder
+startEdge blockIndex course =
+  "  start -> " <> showBuilder blockIndex <> " [label=\"" <> fromString (showCourse course) <> "\"]\n"
 
 blocks ∷ IntMap Block → [LText.Builder]
 blocks blockMap = do
   (from, block) <- IM.toAscList blockMap
   processBlock from (M.toAscList $ nextBlockTable block)
   where
-    processBlock from []               = pure $ emptyBlock from
-    processBlock from dpccAndNextBlock = pure $ nonemptyBlock from dpccAndNextBlock
+    processBlock from []                 = pure $ emptyBlock from
+    processBlock from courseAndNextBlock = pure $ nonemptyBlock from courseAndNextBlock
 
-nonemptyBlock ∷ Int → [(DPCC, NextBlock)] → LText.Builder
-nonemptyBlock from dpccAndNextBlock = nodeLine <> edgeLines
+nonemptyBlock ∷ Int → [(Course, NextBlock)] → LText.Builder
+nonemptyBlock from courseAndNextBlock = nodeLine <> edgeLines
   where
-    hasExit = any ((== ExitProgram) . snd) dpccAndNextBlock
+    hasExit = any ((== ExitProgram) . snd) courseAndNextBlock
     nodeLine
       | hasExit   = exitEdge from
       | otherwise = ""
-    edgeLines = foldMap (uncurry $ nextBlockEdge from) dpccAndNextBlock
+    edgeLines = foldMap (uncurry $ nextBlockEdge from) courseAndNextBlock
 
 emptyBlock ∷ Int → LText.Builder
 emptyBlock from = exitEdge from <> "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"\"]\n"
@@ -46,17 +46,17 @@ emptyBlock from = exitEdge from <> "  " <> showBuilder from <> " -> exit" <> sho
 exitEdge ∷ Int → LText.Builder
 exitEdge from = "  exit" <> showBuilder from <> " [label=\"\" shape=point color=white]\n"
 
-nextBlockEdge ∷ Int → DPCC → NextBlock → LText.Builder
-nextBlockEdge from fromDPCC (NextBlock command toDPCC nextBlockIndex) =
+nextBlockEdge ∷ Int → Course → NextBlock → LText.Builder
+nextBlockEdge from fromCourse (NextBlock command toCourse nextBlockIndex) =
   "  " <> showBuilder from <> " -> " <> showBuilder nextBlockIndex
-       <> " [label=\"" <> fromString (showDPCC fromDPCC) <> ": " <> fromString (showCommand command) <> nextDPCCText toDPCC <> "\"]\n"
+       <> " [label=\"" <> fromString (showCourse fromCourse) <> ": " <> fromString (showCommand command) <> nextCourseText toCourse <> "\"]\n"
   where
-    nextDPCCText toDPCC'
-      | toDPCC' /= fromDPCC = " -> " <> fromString (showDPCC toDPCC')
+    nextCourseText toCourse'
+      | toCourse' /= fromCourse = " -> " <> fromString (showCourse toCourse')
       | otherwise          = ""
 
-nextBlockEdge from fromDPCC ExitProgram =
-  "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"" <> fromString (showDPCC fromDPCC) <> "\"]\n"
+nextBlockEdge from fromCourse ExitProgram =
+  "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"" <> fromString (showCourse fromCourse) <> "\"]\n"
 
 showBuilder ∷ Show a ⇒ a → LText.Builder
 showBuilder = LText.fromString . show
