@@ -5,11 +5,11 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSizeSpec
   , spec
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
+import           HelVM.HelMA.Automata.Piet.CodelSize
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 
-import           Data.Vector                                       ( Vector )
-import qualified Data.Vector                                       as V
+import           Data.Vector                              ( Vector )
+import qualified Data.Vector                              as V
 
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6

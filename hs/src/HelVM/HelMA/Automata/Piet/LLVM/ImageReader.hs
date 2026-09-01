@@ -11,7 +11,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   , rgbImageToCodels
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
+import           HelVM.HelMA.Automata.Piet.CodelSize
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
 import           HelVM.HelMA.Automata.Piet.Types.Color
 
@@ -24,11 +24,11 @@ import           Codec.Picture
 
 import           Control.Monad.Except
 
-import qualified Data.Foldable1                                    as F1
-import qualified Data.List.NonEmpty                                as NE
-import qualified Data.Map                                          as M
-import           Data.Vector                                       ( Vector )
-import qualified Data.Vector                                       as V
+import qualified Data.Foldable1                                 as F1
+import qualified Data.List.NonEmpty                             as NE
+import qualified Data.Map                                       as M
+import           Data.Vector                                    ( Vector )
+import qualified Data.Vector                                    as V
 
 data ImageReaderError
   = ReadImageFileError String -- ^ The image file is unreadable.
