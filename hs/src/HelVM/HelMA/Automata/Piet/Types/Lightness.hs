@@ -8,7 +8,7 @@ module HelVM.HelMA.Automata.Piet.Types.Lightness
 import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 lightnessDiff ∷ Lightness → Lightness → Int
-lightnessDiff l1 l2 = (fromEnum l1 - fromEnum l2) `mod` 3
+lightnessDiff l1 l2 = (fromEnum l2 - fromEnum l1) `mod` 3
 
 diffLightness ∷ Lightness → Lightness → Int
 diffLightness l1 l2 = (fromEnum l2 - fromEnum l1) `mod` 3

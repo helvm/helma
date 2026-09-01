@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 chromaticDiff ∷ (Hue, Lightness) → (Hue, Lightness) → Int
-chromaticDiff (h1, l1) (h2, l2) = hueDiff h2 h1 * 3 + lightnessDiff l2 l1
+chromaticDiff (h1, l1) (h2, l2) = hueDiff h1 h2 * 3 + lightnessDiff l1 l2
 
 diffColor ∷ ChromaticColor → ChromaticColor → ChromaticColor
 diffColor (ChromaticColor fromLight fromColor) (ChromaticColor toLight toColor) = ChromaticColor (brightnessChange fromLight toLight) (hueChange fromColor toColor)

@@ -9,7 +9,7 @@ module HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 hueDiff ∷ Hue → Hue → Int
-hueDiff h1 h2 = (fromEnum h1 - fromEnum h2) `mod` 6
+hueDiff h1 h2 = (fromEnum h2 - fromEnum h1) `mod` 6
 
 diffHue ∷ Hue → Hue → Int
 diffHue h1 h2 = (fromEnum h2 - fromEnum h1) `mod` 6
