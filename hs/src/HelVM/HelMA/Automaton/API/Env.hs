@@ -102,34 +102,22 @@ readSourceFileRio = readSourceFileWithOptions =<< optionsRio where
   readSourceFile _    = readTextFileRio
 
 readTextFileRio ∷ Has env ⇒ FilePath → RIO.RIO env Source
-readTextFileRio fp = do
-  io <- RIO.view fileIOL
-  readTextFile io fp
+readTextFileRio fp = (`readTextFile` fp) =<< RIO.view fileIOL
 
 readImageRio ∷ Has env ⇒ FilePath → RIO.RIO env Picture.DynamicImage
-readImageRio fp = do
-  io <- RIO.view fileIOL
-  readImage io fp
+readImageRio fp = (`readImage` fp) =<< RIO.view fileIOL
 
 putLTextLnRio ∷ Has env ⇒ LText → RIO.RIO env ()
-putLTextLnRio text = do
-  io <- RIO.view stdIOL
-  stdPutLTextLn io text
+putLTextLnRio text = (`stdPutLTextLn` text) =<< RIO.view stdIOL
 
 getContentsTextRio ∷ Has env ⇒ RIO.RIO env LText
-getContentsTextRio = do
-  io <- RIO.view stdIOL
-  stdGetContentsText io
+getContentsTextRio = stdGetContentsText =<< RIO.view stdIOL
 
 putLBSLnRio ∷ Has env ⇒ LByteString → RIO.RIO env ()
-putLBSLnRio lbs = do
-  io <- RIO.view stdIOL
-  stdPutLBSLn io lbs
+putLBSLnRio lbs = (`stdPutLBSLn` lbs) =<< RIO.view stdIOL
 
 getContentsBSRio ∷ Has env ⇒ RIO.RIO env LByteString
-getContentsBSRio = do
-  io <- RIO.view stdIOL
-  stdGetContentsBS io
+getContentsBSRio = stdGetContentsBS =<< RIO.view stdIOL
 
 optionsRio ∷ Has env ⇒ RIO.RIO env AppOptions
 optionsRio = RIO.view appOptionsL
