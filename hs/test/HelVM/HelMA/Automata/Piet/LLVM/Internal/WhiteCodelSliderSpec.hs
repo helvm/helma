@@ -11,6 +11,7 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 
+import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
@@ -97,11 +98,11 @@ y          1
 y2         1
 |] ∷ String))) where
   f '0' = (BlackCodel, 0)
-  f 'r' = (AchromaticCodel Red Normal, 1)
-  f 'g' = (AchromaticCodel Green Normal, 2)
-  f 'b' = (AchromaticCodel Blue Normal, 3)
+  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 1)
+  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 2)
+  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 3)
   f '1' = (BlackCodel, 4)
-  f 'y' = (AchromaticCodel Yellow Normal, 5)
+  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 5)
   f ' ' = (WhiteCodel, 6)
   f '2' = (BlackCodel, 7)
   f _   = error "Unreachable"
@@ -114,12 +115,12 @@ r          c
 r          m
 r     1    y
 |] ∷ String))) where
-  f 'r' = (AchromaticCodel Red Normal, 0)
-  f 'g' = (AchromaticCodel Green Normal, 1)
-  f 'b' = (AchromaticCodel Blue Normal, 2)
-  f 'c' = (AchromaticCodel Cyan Normal, 3)
-  f 'm' = (AchromaticCodel Magenta Normal, 4)
-  f 'y' = (AchromaticCodel Yellow Normal, 5)
+  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 0)
+  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 1)
+  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 2)
+  f 'c' = (AchromaticCodel $ ChromaticColor Cyan Normal, 3)
+  f 'm' = (AchromaticCodel $ ChromaticColor Magenta Normal, 4)
+  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 5)
   f ' ' = (WhiteCodel, 6)
   f '0' = (BlackCodel, 7)
   f '1' = (BlackCodel, 8)
@@ -138,7 +139,7 @@ crossShapedImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (to
   f '1' = (WhiteCodel, 2)
   f '2' = (WhiteCodel, 3)
   f '3' = (WhiteCodel, 4)
-  f 'r' = (AchromaticCodel Red Normal, 5)
+  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 5)
   f _   = error "Unreachable"
 
 spiralImage ∷ Vector (Vector (Codel, Int))
@@ -155,11 +156,11 @@ y2         g
 y        1 g
 ybbbbbbbbbbb
 |] ∷ String))) where
-  f 'r' = (AchromaticCodel Red Normal, 0)
-  f 'g' = (AchromaticCodel Green Normal, 1)
-  f 'b' = (AchromaticCodel Blue Normal, 2)
-  f 'y' = (AchromaticCodel Yellow Normal, 3)
-  f 'c' = (AchromaticCodel Cyan Normal, 4)
+  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 0)
+  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 1)
+  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 2)
+  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 3)
+  f 'c' = (AchromaticCodel $ ChromaticColor Cyan Normal, 4)
   f ' ' = (WhiteCodel, 5)
   f '0' = (BlackCodel, 6)
   f '1' = (BlackCodel, 7)
@@ -181,11 +182,11 @@ y          1
 y       2  1
 |] ∷ String))) where
   f '0' = (BlackCodel, 0)
-  f 'r' = (AchromaticCodel Red Normal, 1)
-  f 'g' = (AchromaticCodel Green Normal, 2)
-  f 'b' = (AchromaticCodel Blue Normal, 3)
+  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 1)
+  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 2)
+  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 3)
   f '1' = (BlackCodel, 4)
-  f 'y' = (AchromaticCodel Yellow Normal, 5)
+  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 5)
   f ' ' = (WhiteCodel, 6)
   f '2' = (BlackCodel, 7)
   f _   = error "Unreachable"
@@ -200,11 +201,11 @@ y          1
 y        2 1
 |] ∷ String))) where
   f '0' = (BlackCodel, 0)
-  f 'r' = (AchromaticCodel Red Normal, 1)
-  f 'g' = (AchromaticCodel Green Normal, 2)
-  f 'b' = (AchromaticCodel Blue Normal, 3)
+  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 1)
+  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 2)
+  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 3)
   f '1' = (BlackCodel, 4)
-  f 'y' = (AchromaticCodel Yellow Normal, 5)
+  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 5)
   f ' ' = (WhiteCodel, 6)
   f '2' = (BlackCodel, 7)
   f _   = error "Unreachable"
@@ -219,10 +220,10 @@ y          1
 2          1
 |] ∷ String))) where
   f '0' = (BlackCodel, 0)
-  f 'g' = (AchromaticCodel Green Normal, 1)
-  f 'b' = (AchromaticCodel Blue Normal, 2)
+  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 1)
+  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 2)
   f '1' = (BlackCodel, 3)
-  f 'y' = (AchromaticCodel Yellow Normal, 4)
+  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 4)
   f ' ' = (WhiteCodel, 5)
   f '2' = (BlackCodel, 6)
   f _   = error "Unreachable"

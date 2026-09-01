@@ -15,6 +15,7 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
 
+import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
@@ -163,22 +164,22 @@ colorCodelTableList ∷ NonEmpty (PixelRGB8, Codel)
 colorCodelTableList =
     (PixelRGB8 0xFF 0xFF 0xFF, WhiteCodel)
     :| [(PixelRGB8 0x00 0x00 0x00, BlackCodel)
-      , (PixelRGB8 0xFF 0xC0 0xC0, AchromaticCodel Red Light)
-      , (PixelRGB8 0xFF 0x00 0x00, AchromaticCodel Red Normal)
-      , (PixelRGB8 0xC0 0x00 0x00, AchromaticCodel Red Dark)
-      , (PixelRGB8 0xFF 0xFF 0xC0, AchromaticCodel Yellow Light)
-      , (PixelRGB8 0xFF 0xFF 0x00, AchromaticCodel Yellow Normal)
-      , (PixelRGB8 0xC0 0xC0 0x00, AchromaticCodel Yellow Dark)
-      , (PixelRGB8 0xC0 0xFF 0xC0, AchromaticCodel Green Light)
-      , (PixelRGB8 0x00 0xFF 0x00, AchromaticCodel Green Normal)
-      , (PixelRGB8 0x00 0xC0 0x00, AchromaticCodel Green Dark)
-      , (PixelRGB8 0xC0 0xFF 0xFF, AchromaticCodel Cyan Light)
-      , (PixelRGB8 0x00 0xFF 0xFF, AchromaticCodel Cyan Normal)
-      , (PixelRGB8 0x00 0xC0 0xC0, AchromaticCodel Cyan Dark)
-      , (PixelRGB8 0xC0 0xC0 0xFF, AchromaticCodel Blue Light)
-      , (PixelRGB8 0x00 0x00 0xFF, AchromaticCodel Blue Normal)
-      , (PixelRGB8 0x00 0x00 0xC0, AchromaticCodel Blue Dark)
-      , (PixelRGB8 0xFF 0xC0 0xFF, AchromaticCodel Magenta Light)
-      , (PixelRGB8 0xFF 0x00 0xFF, AchromaticCodel Magenta Normal)
-      , (PixelRGB8 0xC0 0x00 0xC0, AchromaticCodel Magenta Dark)
+      , (PixelRGB8 0xFF 0xC0 0xC0, AchromaticCodel $ ChromaticColor Red Light)
+      , (PixelRGB8 0xFF 0x00 0x00, AchromaticCodel $ ChromaticColor Red Normal)
+      , (PixelRGB8 0xC0 0x00 0x00, AchromaticCodel $ ChromaticColor Red Dark)
+      , (PixelRGB8 0xFF 0xFF 0xC0, AchromaticCodel $ ChromaticColor Yellow Light)
+      , (PixelRGB8 0xFF 0xFF 0x00, AchromaticCodel $ ChromaticColor Yellow Normal)
+      , (PixelRGB8 0xC0 0xC0 0x00, AchromaticCodel $ ChromaticColor Yellow Dark)
+      , (PixelRGB8 0xC0 0xFF 0xC0, AchromaticCodel $ ChromaticColor Green Light)
+      , (PixelRGB8 0x00 0xFF 0x00, AchromaticCodel $ ChromaticColor Green Normal)
+      , (PixelRGB8 0x00 0xC0 0x00, AchromaticCodel $ ChromaticColor Green Dark)
+      , (PixelRGB8 0xC0 0xFF 0xFF, AchromaticCodel $ ChromaticColor Cyan Light)
+      , (PixelRGB8 0x00 0xFF 0xFF, AchromaticCodel $ ChromaticColor Cyan Normal)
+      , (PixelRGB8 0x00 0xC0 0xC0, AchromaticCodel $ ChromaticColor Cyan Dark)
+      , (PixelRGB8 0xC0 0xC0 0xFF, AchromaticCodel $ ChromaticColor Blue Light)
+      , (PixelRGB8 0x00 0x00 0xFF, AchromaticCodel $ ChromaticColor Blue Normal)
+      , (PixelRGB8 0x00 0x00 0xC0, AchromaticCodel $ ChromaticColor Blue Dark)
+      , (PixelRGB8 0xFF 0xC0 0xFF, AchromaticCodel $ ChromaticColor Magenta Light)
+      , (PixelRGB8 0xFF 0x00 0xFF, AchromaticCodel $ ChromaticColor Magenta Normal)
+      , (PixelRGB8 0xC0 0x00 0xC0, AchromaticCodel $ ChromaticColor Magenta Dark)
       ]

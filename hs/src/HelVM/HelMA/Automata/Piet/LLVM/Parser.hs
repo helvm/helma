@@ -12,6 +12,7 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
+import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates              ( Coordinates )
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
@@ -73,22 +74,22 @@ searchInitialBlock codelTable = do
   processInitial codelTable initialCodel initialBlockIndex
 
 processInitial ∷ MonadError ParserError m ⇒ CodelTable → Codel → Int → m (Maybe (Int, Course))
-processInitial _ (AchromaticCodel _ _) blockIdx = pure $ Just (blockIdx, initialCourse)
-processInitial codelTable WhiteCodel _          = pure $ nextBlockToIndexAndCourse $ slideOnWhiteBlock codelTable (0, 0) initialCourse
-processInitial _ BlackCodel          _          = throwError IllegalInitialColorError
+processInitial _ (AchromaticCodel (ChromaticColor _ _)) blockIdx = pure $ Just (blockIdx, initialCourse)
+processInitial codelTable WhiteCodel _                           = pure $ nextBlockToIndexAndCourse $ slideOnWhiteBlock codelTable (0, 0) initialCourse
+processInitial _ BlackCodel          _                           = throwError IllegalInitialColorError
 
 initialCourse ∷ Course
 initialCourse = Course DPRight CCLeft
 
 searchNextBlock ∷ CodelTable → Coordinates → Course → Int → Maybe NextBlock
 searchNextBlock codelTable (x, y) course@(Course dp _) blockSize = do
-  (AchromaticCodel currentHue currentLightness, _) <- codelTable V.!? y >>= (V.!? x)
+  (AchromaticCodel (ChromaticColor currentHue currentLightness), _) <- codelTable V.!? y >>= (V.!? x)
   let nextPos@(nextX, nextY) = move dp (x, y)
   (nextCodel, blockIndex) <- codelTable V.!? nextY >>= (V.!? nextX)
   processNextCodel codelTable nextCodel currentHue currentLightness nextPos course blockSize blockIndex
 
 processNextCodel ∷ CodelTable → Codel → Hue → Lightness → Coordinates → Course → Int → Int → Maybe NextBlock
-processNextCodel _ (AchromaticCodel nextHue nextLightness) curHue curLight _ course blockSize blockIdx =
+processNextCodel _ (AchromaticCodel (ChromaticColor nextHue nextLightness)) curHue curLight _ course blockSize blockIdx =
   Just $ NextBlock (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) course blockIdx
 processNextCodel codelTable WhiteCodel _ _ pos course _ _ =
   Just $ slideOnWhiteBlock codelTable pos course
