@@ -14,7 +14,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
 
 import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
 import           HelVM.HelMA.Automata.Piet.LLVM.Parser
-import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
 
 import           Control.Monad.Except                            ( MonadError, throwError )

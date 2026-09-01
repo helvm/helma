@@ -9,7 +9,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
   , ur
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
+import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
+import           HelVM.HelMA.Automata.Piet.Types.Course
+import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
 rl ∷ Course
 rl = Course DPRight CCLeft

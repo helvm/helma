@@ -7,16 +7,20 @@ module HelVM.HelMA.Automata.Piet.LLVM.Parser
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
+import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position         as P
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
-import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
-import           HelVM.HelMA.Automata.Piet.Types.Color
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
+
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
+import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
+import           HelVM.HelMA.Automata.Piet.Types.Color
+import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates              ( Coordinates )
+import           HelVM.HelMA.Automata.Piet.Types.Course
+import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
-
 
 import           Control.Arrow                                            ( Arrow ((***)) )
 import           Control.Monad.Except
@@ -78,13 +82,10 @@ processInitial _ (Chromatic (ChromaticColor _ _)) blockIdx = pure $ Just (blockI
 processInitial codelTable White _                          = pure $ nextBlockToIndexAndCourse $ slideOnWhiteBlock codelTable (0, 0) initialCourse
 processInitial _ Black          _                          = throwError IllegalInitialColorError
 
-initialCourse ∷ Course
-initialCourse = Course DPRight CCLeft
-
 searchNextBlock ∷ CodelTable → Coordinates → Course → Int → Maybe NextBlock
 searchNextBlock codelTable (x, y) course@(Course dp _) blockSize = do
   (Chromatic (ChromaticColor currentHue currentLightness), _) <- codelTable V.!? y >>= (V.!? x)
-  let nextPos@(nextX, nextY) = move dp (x, y)
+  let nextPos@(nextX, nextY) = P.move dp (x, y)
   (nextCodel, blockIndex) <- codelTable V.!? nextY >>= (V.!? nextX)
   processNextCodel codelTable nextCodel currentHue currentLightness nextPos course blockSize blockIndex
 

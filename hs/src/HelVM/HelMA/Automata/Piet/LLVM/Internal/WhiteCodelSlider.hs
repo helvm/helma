@@ -4,11 +4,13 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
-import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
-import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.Cyclic
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
 
+import           HelVM.HelMA.Automata.Piet.Types.Color
+import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Course
+import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 import           Control.Monad.Except                             ( MonadError (throwError) )
 import qualified Data.Set                                         as S
@@ -16,8 +18,8 @@ import           Data.Vector                                      ( Vector )
 import qualified Data.Vector                                      as V
 
 slideOnWhiteBlock ∷ Vector (Vector (Color, Int)) → Coordinates → Course → NextBlock
-slideOnWhiteBlock image initialPosition initialCourse = result where
-  result = (`evalState` S.empty) $ fmap (either id $ error "unreachable") . runExceptT $ slideOnWhiteBlockState initialPosition initialCourse
+slideOnWhiteBlock image initialPosition initialCourse' = result where
+  result = (`evalState` S.empty) $ fmap (either id $ error "unreachable") . runExceptT $ slideOnWhiteBlockState initialPosition initialCourse'
 
   slideOnWhiteBlockState ∷ ( MonadState (Set (Coordinates, Course)) m
                             , MonadError NextBlock m

@@ -5,9 +5,11 @@ module HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizerSpec
   , spec
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
+
+import           HelVM.HelMA.Automata.Piet.Types.Command
 
 import qualified Data.IntMap                                     as IM
 import qualified Data.Map                                        as M
