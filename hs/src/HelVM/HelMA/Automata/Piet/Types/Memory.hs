@@ -3,25 +3,14 @@ module HelVM.HelMA.Automata.Piet.Types.Memory
   , Stack
   , advancePosition
   , blockCodelCount
-  , codelSizeMemory
-  , courseMemory
-  , currentBlock
   , currentColour
   , currentPixel
-  , cursorMemory
-  , directionPointerMemory
   , getMaskInfo
   , handleCollision
   , initialMemory
-  , instructionMemoryL
-  , modifyFlipWithLog
   , modifyStackWithLog
-  , nextCodelPos
   , nextColour
   , nonBlackSuccMemory
-  , positionMemory
-  , programMemory
-  , selectCodel
   , setCursor
   , stackL
   , stepWhitePixel
@@ -104,9 +93,6 @@ courseMemory mem = cursorMemory mem ^. courseL
 currentPixel ∷ Memory → Color
 currentPixel mem = atMatrix (positionMemory mem) (programMemory mem ^. imageL)
 
-codelSizeMemory ∷ Memory → CodelSize
-codelSizeMemory mem = programMemory mem ^. codelSizeL
-
 blockCodelCount ∷ Memory → Int
 blockCodelCount = olength . currentBlock
 
@@ -114,10 +100,10 @@ selectCodel ∷ BlockCoordinates → Memory → Coordinates
 selectCodel block mem = List.maximumBy (furthest (courseMemory mem)) block
 
 currentColour ∷ Memory → Maybe Color
-currentColour mem = colourAt (programMemory mem) (positionMemory mem)
+currentColour mem = colorAt (programMemory mem) (positionMemory mem)
 
 nextColour ∷ Memory → Maybe Color
-nextColour mem = colourAt (programMemory mem) (nextCodelPos mem)
+nextColour mem = colorAt (programMemory mem) (nextCodelPos mem)
 
 -- PUBLIC SETTERS
 
@@ -130,7 +116,8 @@ setCursor ic = (instructionMemoryL . cursorL) .~ ic
 -- PUBLIC DOMAIN MODIFIERS
 
 stepWhitePixel ∷ Memory → Memory
-stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem where
+stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem
+  where
     prog    = programMemory mem
     nextPos = move dp $ positionMemory mem
     dp      = directionPointerMemory mem
@@ -144,27 +131,19 @@ handleCollision True  = toggleChooser
 modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory → m Memory
 modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)
 
-modifyFlipWithLog ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → Memory → m (Maybe Memory)
-modifyFlipWithLog name f mem = processStack (mem ^. stackL) where
-    processStack Seq.Empty     = pure Nothing
-    processStack (x Seq.:<| _) = do
-      logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemoryL)
-      pure $ Just mem'
-      where
-        mem' = modifyInstructionMemory (f x) mem
-
 -- PRIVATE UTILS & HELPERS
 
 getMaskInfo' ∷ Program → Coordinates → Maybe LabelInfo
-getMaskInfo' prog pos = findWithDefault Nothing (atMatrix pos maskImg) infoMap where
-  maskImg = prog ^. (labellingL . maskL)
-  infoMap = prog ^. (labellingL . infoL)
+getMaskInfo' prog pos = findWithDefault Nothing (atMatrix pos maskImg) infoMap
+  where
+    maskImg = prog ^. (labellingL . maskL)
+    infoMap = prog ^. (labellingL . infoL)
 
 nextPosFromBlock ∷ BlockCoordinates → Memory → Coordinates
 nextPosFromBlock block mem = move (directionPointerMemory mem) (selectCodel block mem)
 
-colourAt ∷ Program → Coordinates → Maybe Color
-colourAt prog pos = (prog ^. imageL) &! pos
+colorAt ∷ Program → Coordinates → Maybe Color
+colorAt prog pos = (prog ^. imageL) &! pos
 
 setPosition ∷ Coordinates → Memory → Memory
 setPosition pos = (instructionMemoryL . cursorL . positionL) .~ pos
