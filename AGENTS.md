@@ -43,6 +43,7 @@ Special Rules for Haskell:
   - Do not use `let in`, use `where`
 - Others
   - Do not use pattern maching inside `where`. Move function to top level declaration
+  - Don't use explicit recursion. Use fix instead.
   - Do not use `>>=`, use `=<<`
   - Do not use `return`, use `pure`
   - Do not use `pure ()`, use `pass`
