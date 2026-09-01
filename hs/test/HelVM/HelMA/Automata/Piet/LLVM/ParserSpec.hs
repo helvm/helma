@@ -3,11 +3,11 @@ module HelVM.HelMA.Automata.Piet.LLVM.ParserSpec
   , spec
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Parser
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+import           HelVM.HelMA.Automata.Piet.Types.Color
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
@@ -24,7 +24,7 @@ import           Test.Hspec
 data ImageTestCase
   = ImageTestCase
       { caseName      :: String
-      , testImage     :: Vector (Vector (Codel, Int))
+      , testImage     :: Vector (Vector (Color, Int))
       , blockTable    :: IntMap [Coordinates]
       , expectedGraph :: SyntaxGraph
       }
@@ -32,15 +32,15 @@ data ImageTestCase
 data ErrorTestCase
   = ErrorTestCase
       { errCaseName   :: String
-      , errTestImage  :: Vector (Vector (Codel, Int))
+      , errTestImage  :: Vector (Vector (Color, Int))
       , errBlockTable :: IntMap [Coordinates]
       , expectedErr   :: ParserError
       }
 
 data TwoPixelTestCase
   = TwoPixelTestCase
-      { color1    :: Codel
-      , color2    :: Codel
+      { color1    :: Color
+      , color2    :: Color
       , command12 :: Command
       , command21 :: Command
       }
@@ -125,7 +125,7 @@ spec = do
           it ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ parseFilledImage (image, bTable) `shouldBe` Right expectedG
 
 
-smallImage ∷ Vector (Vector (Codel, Int))
+smallImage ∷ Vector (Vector (Color, Int))
 smallImage = toVector2D [[(Chromatic $ ChromaticColor Red Normal, 0)]]
 
 smallBlockTable ∷ IntMap [Coordinates]
@@ -134,19 +134,19 @@ smallBlockTable = IM.fromList [(0, [(0, 0)])]
 expectedSmallGraph ∷ SyntaxGraph
 expectedSmallGraph = SyntaxGraph 0 rl $ IM.fromList [(0, Block M.empty)]
 
-whiteImage ∷ Vector (Vector (Codel, Int))
+whiteImage ∷ Vector (Vector (Color, Int))
 whiteImage = toVector2D [[(White, 0)]]
 
 whiteBlockTable ∷ IntMap [Coordinates]
 whiteBlockTable = IM.fromList [(0, [(0, 0)])]
 
-blackImage ∷ Vector (Vector (Codel, Int))
+blackImage ∷ Vector (Vector (Color, Int))
 blackImage = toVector2D [[(Black, 0)]]
 
 blackBlockTable ∷ IntMap [Coordinates]
 blackBlockTable = IM.fromList [(0, [(0, 0)])]
 
-distantInitialImage ∷ Vector (Vector (Codel, Int))
+distantInitialImage ∷ Vector (Vector (Color, Int))
 distantInitialImage = toVector2D
   [ [ (White, 0)
     , (White, 0)
@@ -181,7 +181,7 @@ expectedDistantInitialGraph = SyntaxGraph 1 ur $ IM.fromList
     )
   ]
 
-stuckImage ∷ Vector (Vector (Codel, Int))
+stuckImage ∷ Vector (Vector (Color, Int))
 stuckImage = toVector2D
   [ [ (Chromatic $ ChromaticColor Red Light, 0)
     , (Chromatic $ ChromaticColor Red Normal, 1)
@@ -225,7 +225,7 @@ expectedStuckGraph = SyntaxGraph 0 rl $ IM.fromList
     )
   ]
 
-rawComplexImage ∷ Vector (Vector Codel)
+rawComplexImage ∷ Vector (Vector Color)
 rawComplexImage = toVector2D
   [ [ Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark
@@ -365,7 +365,7 @@ rawComplexImage = toVector2D
     ]
   ]
 
-complexImage ∷ Vector (Vector (Codel, Int))
+complexImage ∷ Vector (Vector (Color, Int))
 complexImage = toVector2D
   [ [ (Chromatic $ ChromaticColor Blue Dark, 0)
     , (Chromatic $ ChromaticColor Blue Dark, 0)

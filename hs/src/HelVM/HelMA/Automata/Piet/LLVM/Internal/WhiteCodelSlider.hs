@@ -3,9 +3,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
   ( slideOnWhiteBlock
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
+import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
@@ -15,7 +15,7 @@ import qualified Data.Set                                         as S
 import           Data.Vector                                      ( Vector )
 import qualified Data.Vector                                      as V
 
-slideOnWhiteBlock ∷ Vector (Vector (Codel, Int)) → Coordinates → Course → NextBlock
+slideOnWhiteBlock ∷ Vector (Vector (Color, Int)) → Coordinates → Course → NextBlock
 slideOnWhiteBlock image initialPosition initialCourse = result where
   result = (`evalState` S.empty) $ fmap (either id $ error "unreachable") . runExceptT $ slideOnWhiteBlockState initialPosition initialCourse
 
@@ -33,14 +33,14 @@ slideOnWhiteBlock image initialPosition initialCourse = result where
 
     slideOnWhiteBlockState nextPosition nextCourse
 
-  next ∷ Coordinates → Course → Maybe ((Codel, Int), (Coordinates, Course))
+  next ∷ Coordinates → Course → Maybe ((Color, Int), (Coordinates, Course))
   next position course = listToMaybe $ do
     nextCourse@(Course nextDP _) <- take 4 $ iterate succCourse course
     let nextPosition = move nextDP position
     codelInfo <- maybeToList $ getNonBlackCodel nextPosition
     pure (codelInfo, (nextPosition, nextCourse))
 
-  getNonBlackCodel ∷ Coordinates → Maybe (Codel, Int)
+  getNonBlackCodel ∷ Coordinates → Maybe (Color, Int)
   getNonBlackCodel (x, y) = do
     (codel, index) <- image V.!? y >>= (V.!? x)
     guard $ codel /= Black

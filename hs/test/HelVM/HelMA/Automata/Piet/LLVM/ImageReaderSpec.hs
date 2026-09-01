@@ -3,9 +3,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.ImageReaderSpec
   , spec
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+import           HelVM.HelMA.Automata.Piet.Types.Color
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Hue
@@ -79,7 +79,7 @@ spec = do
       res <- runIO $ runExceptT $ readCodels config "test/resources/imagereader-test.png"
       it "fails with CodelSizeError" $ res `shouldBe` Left CodelSizeError
 
-blackWhiteCodels ∷ Vector (Vector Codel)
+blackWhiteCodels ∷ Vector (Vector Color)
 blackWhiteCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
@@ -90,7 +90,7 @@ blackWhiteCodels = toVector2D
   , [White, White, White, White, White, White]
   ]
 
-whiteBlackCodels ∷ Vector (Vector Codel)
+whiteBlackCodels ∷ Vector (Vector Color)
 whiteBlackCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
@@ -101,7 +101,7 @@ whiteBlackCodels = toVector2D
   , [Black, Black, Black, Black, White, White]
   ]
 
-whiteCenterCodels ∷ Vector (Vector Codel)
+whiteCenterCodels ∷ Vector (Vector Color)
 whiteCenterCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
@@ -112,7 +112,7 @@ whiteCenterCodels = toVector2D
   , [Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Blue Normal, White, Chromatic $ ChromaticColor Red Normal, White, White]
   ]
 
-whiteModalCodels ∷ Vector (Vector Codel)
+whiteModalCodels ∷ Vector (Vector Color)
 whiteModalCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
@@ -123,7 +123,7 @@ whiteModalCodels = toVector2D
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, White, Chromatic $ ChromaticColor Red Normal, White, White]
   ]
 
-whiteAverageCodels ∷ Vector (Vector Codel)
+whiteAverageCodels ∷ Vector (Vector Color)
 whiteAverageCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
@@ -134,7 +134,7 @@ whiteAverageCodels = toVector2D
   , [White, White, Chromatic $ ChromaticColor Magenta Dark, White, White, White]
   ]
 
-nearestWhiteCodels ∷ Vector (Vector Codel)
+nearestWhiteCodels ∷ Vector (Vector Color)
 nearestWhiteCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
@@ -145,7 +145,7 @@ nearestWhiteCodels = toVector2D
   , [White, White, White, White, White, White]
   ]
 
-complexCodels ∷ Vector (Vector Codel)
+complexCodels ∷ Vector (Vector Color)
 complexCodels = toVector2D
   [ [ Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark

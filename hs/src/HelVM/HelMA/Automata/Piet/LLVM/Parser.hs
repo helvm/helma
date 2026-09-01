@@ -6,11 +6,11 @@ module HelVM.HelMA.Automata.Piet.LLVM.Parser
   , parseFilledImage
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
+import           HelVM.HelMA.Automata.Piet.Types.Color
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates              ( Coordinates )
@@ -30,7 +30,7 @@ import           Data.MonoTraversable
 import           Data.Vector                                              ( Vector )
 import qualified Data.Vector                                              as V
 
-type CodelTable = Vector (Vector (Codel, Int))
+type CodelTable = Vector (Vector (Color, Int))
 type BlockTable = IntMap [Coordinates]
 
 data ParserError
@@ -39,7 +39,7 @@ data ParserError
   | MissingCodelIndexError Int -- ^ A codel index in the codel table is missing.
   deriving stock (Eq, Show)
 
-parse ∷ MonadError ParserError m ⇒ Vector (Vector Codel) → m SyntaxGraph
+parse ∷ MonadError ParserError m ⇒ Vector (Vector Color) → m SyntaxGraph
 parse image = parseFilledImage (V.zipWith V.zip image indices, positionTable)
   where
     (indices, positionTable) = fillAll image
@@ -73,7 +73,7 @@ searchInitialBlock codelTable = do
   (initialCodel, initialBlockIndex) <- justOrThrow EmptyBlockTableError $ codelTable V.!? 0 >>= (V.!? 0)
   processInitial codelTable initialCodel initialBlockIndex
 
-processInitial ∷ MonadError ParserError m ⇒ CodelTable → Codel → Int → m (Maybe (Int, Course))
+processInitial ∷ MonadError ParserError m ⇒ CodelTable → Color → Int → m (Maybe (Int, Course))
 processInitial _ (Chromatic (ChromaticColor _ _)) blockIdx = pure $ Just (blockIdx, initialCourse)
 processInitial codelTable White _                          = pure $ nextBlockToIndexAndCourse $ slideOnWhiteBlock codelTable (0, 0) initialCourse
 processInitial _ Black          _                          = throwError IllegalInitialColorError
@@ -88,7 +88,7 @@ searchNextBlock codelTable (x, y) course@(Course dp _) blockSize = do
   (nextCodel, blockIndex) <- codelTable V.!? nextY >>= (V.!? nextX)
   processNextCodel codelTable nextCodel currentHue currentLightness nextPos course blockSize blockIndex
 
-processNextCodel ∷ CodelTable → Codel → Hue → Lightness → Coordinates → Course → Int → Int → Maybe NextBlock
+processNextCodel ∷ CodelTable → Color → Hue → Lightness → Coordinates → Course → Int → Int → Maybe NextBlock
 processNextCodel _ (Chromatic (ChromaticColor nextHue nextLightness)) curHue curLight _ course blockSize blockIdx =
   Just $ NextBlock (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) course blockIdx
 processNextCodel codelTable White _ _ pos course _ _ =

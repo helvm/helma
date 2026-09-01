@@ -245,7 +245,6 @@ library
     HelVM.HelMA.Automata.Piet.Combiner.ALU
     HelVM.HelMA.Automata.Piet.Combiner.CPU
 
-    HelVM.HelMA.Automata.Piet.LLVM.Codel
     HelVM.HelMA.Automata.Piet.LLVM.CompileOption
     HelVM.HelMA.Automata.Piet.LLVM.Evaluator
     HelVM.HelMA.Automata.Piet.LLVM.ImageReader

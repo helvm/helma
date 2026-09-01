@@ -5,11 +5,11 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSliderSpec
   , spec
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+import           HelVM.HelMA.Automata.Piet.Types.Color
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
@@ -25,7 +25,7 @@ import           Text.InterpolatedString.Perl6
 data TestCase
   = TestCase
       { caseName        :: String
-      , testImage       :: Vector (Vector (Codel, Int))
+      , testImage       :: Vector (Vector (Color, Int))
       , initialPosition :: Coordinates
       , initialCourse   :: Course
       , expectedResult  :: NextBlock
@@ -85,10 +85,10 @@ spec = describe "slideOnWhiteBlock" $ forM_ testCases runTest where
     , TestCase "stuckImage3 (1, 1) rl" stuckImage3 (1, 1) rl ExitProgram
     ]
 
-singleCodelImage ∷ Vector (Vector (Codel, Int))
+singleCodelImage ∷ Vector (Vector (Color, Int))
 singleCodelImage = V.singleton $ V.singleton (White, 0)
 
-oneLoopImage ∷ Vector (Vector (Codel, Int))
+oneLoopImage ∷ Vector (Vector (Color, Int))
 oneLoopImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
@@ -107,7 +107,7 @@ y2         1
   f '2' = (Black, 7)
   f _   = error "Unreachable"
 
-gammaImage ∷ Vector (Vector (Codel, Int))
+gammaImage ∷ Vector (Vector (Color, Int))
 gammaImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 r          g
 r       0  b
@@ -126,7 +126,7 @@ r     1    y
   f '1' = (Black, 8)
   f _   = error "Unreachable"
 
-crossShapedImage ∷ Vector (Vector (Codel, Int))
+crossShapedImage ∷ Vector (Vector (Color, Int))
 crossShapedImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 *****
 **0**
@@ -142,7 +142,7 @@ crossShapedImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (to
   f 'r' = (Chromatic $ ChromaticColor Red Normal, 5)
   f _   = error "Unreachable"
 
-spiralImage ∷ Vector (Vector (Codel, Int))
+spiralImage ∷ Vector (Vector (Color, Int))
 spiralImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 rrrrrrrrrrrg
 y         0g
@@ -172,7 +172,7 @@ ybbbbbbbbbbb
   f '7' = (Black, 13)
   f _   = error "Unreachable"
 
-stuckImage1 ∷ Vector (Vector (Codel, Int))
+stuckImage1 ∷ Vector (Vector (Color, Int))
 stuckImage1 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
@@ -191,7 +191,7 @@ y       2  1
   f '2' = (Black, 7)
   f _   = error "Unreachable"
 
-stuckImage2 ∷ Vector (Vector (Codel, Int))
+stuckImage2 ∷ Vector (Vector (Color, Int))
 stuckImage2 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
@@ -210,7 +210,7 @@ y        2 1
   f '2' = (Black, 7)
   f _   = error "Unreachable"
 
-stuckImage3 ∷ Vector (Vector (Codel, Int))
+stuckImage3 ∷ Vector (Vector (Color, Int))
 stuckImage3 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 00gb11111111
 y          1

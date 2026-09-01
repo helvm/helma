@@ -11,9 +11,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   , rgbImageToCodels
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
+import           HelVM.HelMA.Automata.Piet.Types.Color
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
@@ -63,18 +63,18 @@ data ImageConfig
       }
   deriving stock (Eq, Show)
 
-readCodels ∷ (MonadIO m, MonadError ImageReaderError m) ⇒ ImageConfig → FilePath → m (Vector (Vector Codel))
+readCodels ∷ (MonadIO m, MonadError ImageReaderError m) ⇒ ImageConfig → FilePath → m (Vector (Vector Color))
 readCodels config path = do
   imageEither <- liftIO $ readImage path
   image <- liftEither $ first ReadImageFileError imageEither
   imageToCodels config image
 
-imageToCodels ∷ MonadError ImageReaderError m ⇒ ImageConfig → DynamicImage → m (Vector (Vector Codel))
+imageToCodels ∷ MonadError ImageReaderError m ⇒ ImageConfig → DynamicImage → m (Vector (Vector Color))
 imageToCodels config dynamicImage = do
   rgbImage <- liftEither $ first UnsupportedImageError $ toRGB8ImageM dynamicImage
   rgbImageToCodels config rgbImage
 
-rgbImageToCodels ∷ MonadError ImageReaderError m ⇒ ImageConfig → Image PixelRGB8 → m (Vector (Vector Codel))
+rgbImageToCodels ∷ MonadError ImageReaderError m ⇒ ImageConfig → Image PixelRGB8 → m (Vector (Vector Color))
 rgbImageToCodels config image = do
   when (modX /= 0 || modY /= 0) $ throwError CodelSizeError
   pure $ V.generate codelHeight $ \codelY ->
@@ -148,7 +148,7 @@ getColors codelSizeInt image codelX codelY = do
     pixelOffsetX = codelX * codelSizeInt
     pixelOffsetY = codelY * codelSizeInt
 
-colorToCodel ∷ AdditionalColorStrategy → PixelRGB8 → Codel
+colorToCodel ∷ AdditionalColorStrategy → PixelRGB8 → Color
 colorToCodel AdditionalColorAsWhite color = M.findWithDefault White color colorCodelTable
 colorToCodel AdditionalColorAsBlack color = M.findWithDefault Black color colorCodelTable
 colorToCodel AdditionalColorNearest color = nearestCodel
@@ -157,10 +157,10 @@ colorToCodel AdditionalColorNearest color = nearestCodel
     square a b = (toInteger a - toInteger b) ^ (2 :: Int)
     nearestCodel = snd $ F1.minimum $ first (squaredColorDistance color) <$> colorCodelTableList
 
-colorCodelTable ∷ M.Map PixelRGB8 Codel
+colorCodelTable ∷ M.Map PixelRGB8 Color
 colorCodelTable = M.fromList $ NE.toList colorCodelTableList
 
-colorCodelTableList ∷ NonEmpty (PixelRGB8, Codel)
+colorCodelTableList ∷ NonEmpty (PixelRGB8, Color)
 colorCodelTableList =
     (PixelRGB8 0xFF 0xFF 0xFF, White)
     :| [(PixelRGB8 0x00 0x00 0x00, Black)
