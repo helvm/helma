@@ -35,12 +35,15 @@ data Command
 -- FUNCTIONS
 
 commandFromTransition ∷ (Hue, Lightness) → (Hue, Lightness) → Int → Command
-commandFromTransition (currentHue, currentLightness) (nextHue, nextLightness) = commandConstructorsVector V.! ( hueDiff nextHue currentHue * 3 + lightnessDiff nextLightness currentLightness)
+commandFromTransition c1 c2 = commandConstructorsVector V.! chromaticDiff c1 c2
 
-hueDiff ∷ (Enum a1, Enum a2) ⇒ a1 → a2 → Int
+chromaticDiff ∷ (Hue, Lightness) → (Hue, Lightness) → Int
+chromaticDiff (currentHue, currentLightness) (nextHue, nextLightness) = hueDiff nextHue currentHue * 3 + lightnessDiff nextLightness currentLightness
+
+hueDiff ∷ Hue → Hue → Int
 hueDiff nextHue currentHue = (fromEnum nextHue - fromEnum currentHue) `mod` 6
 
-lightnessDiff ∷ (Enum a1, Enum a2) ⇒ a1 → a2 → Int
+lightnessDiff ∷ Lightness → Lightness → Int
 lightnessDiff nextLightness currentLightness = (fromEnum nextLightness - fromEnum currentLightness) `mod` 3
 
 commandConstructorsVector ∷ Vector (Int → Command)
