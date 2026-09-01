@@ -7,7 +7,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.Parser
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position         as P
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
 
@@ -85,7 +84,7 @@ processInitial _ Black          _                          = throwError IllegalI
 searchNextBlock ∷ CodelTable → Coordinates → Course → Int → Maybe NextBlock
 searchNextBlock codelTable (x, y) course@(Course dp _) blockSize = do
   (Chromatic (ChromaticColor currentHue currentLightness), _) <- codelTable V.!? y >>= (V.!? x)
-  let nextPos@(nextX, nextY) = P.move dp (x, y)
+  let nextPos@(nextX, nextY) = move dp (x, y)
   (nextCodel, blockIndex) <- codelTable V.!? nextY >>= (V.!? nextX)
   processNextCodel codelTable nextCodel currentHue currentLightness nextPos course blockSize blockIndex
 

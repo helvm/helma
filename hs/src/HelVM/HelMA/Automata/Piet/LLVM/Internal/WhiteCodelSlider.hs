@@ -3,13 +3,13 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
   ( slideOnWhiteBlock
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
+import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
 import           Control.Monad.Except                             ( MonadError (throwError) )
 import qualified Data.Set                                         as S

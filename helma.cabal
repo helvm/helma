@@ -254,7 +254,6 @@ library
     HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
     HelVM.HelMA.Automata.Piet.LLVM.Internal.Course
     HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
     HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
     HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 
