@@ -4,9 +4,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Codel
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Position
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
+import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 

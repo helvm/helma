@@ -2,14 +2,14 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.Course
   ( coursesToBackwardCourseTable
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Cyclic
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
+import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
-import qualified Data.List.NonEmpty                             as NE
-import qualified Data.Map                                       as M
-import qualified Data.Set                                       as S
+import qualified Data.List.NonEmpty                     as NE
+import qualified Data.Map                               as M
+import qualified Data.Set                               as S
 
-import           GHC.Exts                                       ( groupWith )
+import           GHC.Exts                               ( groupWith )
 
 coursesToBackwardCourseTable ∷ [Course] → Map Course [Course]
 coursesToBackwardCourseTable [] = M.empty
