@@ -6,6 +6,7 @@ module HelVM.HelMA.Automata.Piet.Types.Course
   , initialCourse
   , rotateDirectionPointer
   , rotateToggle
+  , showCourse
   , toggleCodelChooser
   ) where
 
@@ -15,16 +16,19 @@ import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
 import           Relude.Extra
 
--- TYPES & LENSES
+-- TYPES & CONSTRUCTORS
 
 data Course
   = Course
       { directionPointer :: !DirectionPointer
       , codelChooser     :: !CodelChooser
       }
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Ord, Show)
 
--- Ręczne definicje lense'ów zastępujące `makeLenses ''Course`
+initialCourse ∷ Course
+initialCourse = Course DPRight CCLeft
+
+-- LENSES
 
 directionPointerL ∷ Lens' Course DirectionPointer
 directionPointerL = lens directionPointer (\s x -> s { directionPointer = x })
@@ -32,7 +36,18 @@ directionPointerL = lens directionPointer (\s x -> s { directionPointer = x })
 codelChooserL ∷ Lens' Course CodelChooser
 codelChooserL = lens codelChooser (\s x -> s { codelChooser = x })
 
--- FUNCTIONS
+-- TRANSFORMATIONS
+
+rotateDirectionPointer ∷ Int → Course → Course
+rotateDirectionPointer n = directionPointerL %~ rotate n
+
+toggleCodelChooser ∷ Int → Course → Course
+toggleCodelChooser n = codelChooserL %~ toggle n
+
+rotateToggle ∷ Coordinates → Course → Course
+rotateToggle (r, t) = rotateDirectionPointer r . toggleCodelChooser t
+
+-- QUERYING / LOGIC
 
 furthest ∷ Course → Coordinates → Coordinates → Ordering
 furthest (Course DPLeft CCLeft)   = flip (comparing fst) <> comparing snd
@@ -44,14 +59,17 @@ furthest (Course DPRight CCRight) = comparing fst <> comparing snd
 furthest (Course DPUp CCRight)    = flip (comparing snd) <> comparing fst
 furthest (Course DPDown CCRight)  = comparing snd <> flip (comparing fst)
 
-rotateDirectionPointer ∷ Int → Course → Course
-rotateDirectionPointer n = directionPointerL %~ rotate n
+-- DISPLAY
 
-toggleCodelChooser ∷ Int → Course → Course
-toggleCodelChooser n = codelChooserL %~ toggle n
+showCourse ∷ Course → String
+showCourse (Course dp cc) = [charDP dp, charCC cc]
 
-rotateToggle ∷ Coordinates → Course → Course
-rotateToggle (r, t) = rotateDirectionPointer r . toggleCodelChooser t
+charDP ∷ DirectionPointer → Char
+charDP DPRight = 'r'
+charDP DPDown  = 'd'
+charDP DPLeft  = 'l'
+charDP DPUp    = 'u'
 
-initialCourse ∷ Course
-initialCourse = Course DPRight CCLeft
+charCC ∷ CodelChooser → Char
+charCC CCLeft  = 'l'
+charCC CCRight = 'r'

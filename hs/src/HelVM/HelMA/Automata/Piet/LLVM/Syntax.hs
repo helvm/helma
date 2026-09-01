@@ -14,6 +14,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Syntax
 import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
+import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
 import           Data.Vector                                      ( Vector )
@@ -40,14 +41,6 @@ data SyntaxGraph
       }
   | EmptySyntaxGraph
   deriving stock (Eq, Show)
-
-
-data Course
-  = Course
-      { directionPointer :: DirectionPointer
-      , codelChooser     :: CodelChooser
-      }
-  deriving stock (Eq, Ord, Show)
 
 data Command
   = NoOperation
@@ -116,12 +109,3 @@ showCommand InNumber    = "in (number)"
 showCommand InChar      = "in (char)"
 showCommand OutNumber   = "out (number)"
 showCommand OutChar     = "out (char)"
-
-showCourse ∷ Course → String
-showCourse (Course dp cc) = [charDP dp, charCC cc] where
-  charDP DPRight = 'r'
-  charDP DPDown  = 'd'
-  charDP DPLeft  = 'l'
-  charDP DPUp    = 'u'
-  charCC CCLeft  = 'l'
-  charCC CCRight = 'r'

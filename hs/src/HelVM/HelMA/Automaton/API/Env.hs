@@ -55,8 +55,6 @@ data Env
       , envLogFunc :: RIO.LogFunc
       }
 
--- RĘCZNE DEFINICJE LENSE'ÓW (RIO)
-
 envFileIOL ∷ RIO.Lens' Env FileIO
 envFileIOL = RIO.lens envFileIO (\s x -> s { envFileIO = x })
 
