@@ -1,5 +1,4 @@
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE RankNTypes        #-}
 module HelVM.HelMA.Automaton.API.Env
   ( Env (..)
   , FileIO (..)
@@ -35,16 +34,16 @@ import qualified RIO
 
 data FileIO
   = FileIO
-      { readTextFile :: forall env. FilePath -> RIO.RIO env Source
-      , readImage    :: forall env. FilePath -> RIO.RIO env Picture.DynamicImage
+      { readTextFile :: FilePath -> IO Source
+      , readImage    :: FilePath -> IO Picture.DynamicImage
       }
 
 data StdIO
   = StdIO
-      { stdPutLTextLn      :: forall env. LText -> RIO.RIO env ()
-      , stdGetContentsText :: forall env. RIO.RIO env LText
-      , stdPutLBSLn        :: forall env. LByteString -> RIO.RIO env ()
-      , stdGetContentsBS   :: forall env. RIO.RIO env LByteString
+      { stdPutLTextLn      :: LText -> IO ()
+      , stdGetContentsText :: IO LText
+      , stdPutLBSLn        :: LByteString -> IO ()
+      , stdGetContentsBS   :: IO LByteString
       }
 
 data Env
@@ -98,26 +97,28 @@ instance RIO.HasLogFunc Env where
 readSourceFileRio ∷ Has env ⇒ RIO.RIO env Source
 readSourceFileRio = readSourceFileWithOptions =<< optionsRio where
   readSourceFileWithOptions = readSourceFile <$> exec <*> file
-  readSourceFile True = pure . toText
-  readSourceFile _    = readTextFileRio
+
+readSourceFile ∷ Has env ⇒ Bool → FilePath → RIO.RIO env Text
+readSourceFile True = pure . toText
+readSourceFile _    = readTextFileRio
 
 readTextFileRio ∷ Has env ⇒ FilePath → RIO.RIO env Source
-readTextFileRio fp = RIO.view fileIOL >>= \io -> readTextFile io fp
+readTextFileRio fp = RIO.liftIO . (`readTextFile` fp) =<< RIO.view fileIOL
 
 readImageRio ∷ Has env ⇒ FilePath → RIO.RIO env Picture.DynamicImage
-readImageRio fp = RIO.view fileIOL >>= \io -> readImage io fp
+readImageRio fp = RIO.liftIO . (`readImage` fp) =<< RIO.view fileIOL
 
 putLTextLnRio ∷ Has env ⇒ LText → RIO.RIO env ()
-putLTextLnRio text = RIO.view stdIOL >>= \io -> stdPutLTextLn io text
+putLTextLnRio text = RIO.liftIO . (`stdPutLTextLn` text) =<< RIO.view stdIOL
 
 getContentsTextRio ∷ Has env ⇒ RIO.RIO env LText
-getContentsTextRio = RIO.view stdIOL >>= stdGetContentsText
+getContentsTextRio = RIO.liftIO . stdGetContentsText =<< RIO.view stdIOL
 
 putLBSLnRio ∷ Has env ⇒ LByteString → RIO.RIO env ()
-putLBSLnRio lbs = RIO.view stdIOL >>= \io -> stdPutLBSLn io lbs
+putLBSLnRio lbs = RIO.liftIO . (`stdPutLBSLn` lbs) =<< RIO.view stdIOL
 
 getContentsBSRio ∷ Has env ⇒ RIO.RIO env LByteString
-getContentsBSRio = RIO.view stdIOL >>= stdGetContentsBS
+getContentsBSRio = RIO.liftIO . stdGetContentsBS =<< RIO.view stdIOL
 
 optionsRio ∷ Has env ⇒ RIO.RIO env AppOptions
 optionsRio = RIO.view appOptionsL
