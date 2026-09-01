@@ -32,7 +32,7 @@ Not lazy about: understanding the problem (read it fully and trace the real flow
 (Yes, this file also applies to agents working on the ponytail repo itself. Especially to them.)
 
 Special Rules for Haskell:
-- Use `relude` and `relude.extra`
+- Use relude (configured globally via Cabal mixins, no need for NoImplicitPrelude) and relude.extra
 - Use `RIO` but only for `main` and infrastructure (`RIO`-ful). Logic is `RIO` free (`RIO`-less)
 - Prefer Pointfree Style
   - Do not use `do notation`, use operators
