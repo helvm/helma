@@ -1,17 +1,19 @@
 module HelVM.HelMA.Automata.Piet.Types.Coordinates
   ( Block
+  , BlockCoordinates
   , Coordinates
   , initialCoordinates
   , neighbours
   , nextCoords
   ) where
 
-import qualified Relude.Extra as Extra
+import           Relude.Extra
 
-type Block = [Coordinates]
+type BlockCoordinates = [Coordinates]
+type Block = BlockCoordinates
 
-neighbours ∷ Coordinates → [Coordinates]
-neighbours (x, y) = [(x, Extra.prev y), (x, Extra.next y), (Extra.prev x, y), (Extra.next x, y)]
+neighbours ∷ Coordinates → BlockCoordinates
+neighbours (x, y) = [(x, prev y), (x, next y), (prev x, y), (next x, y)]
 
 initialCoordinates ∷ Coordinates
 initialCoordinates = (0, 0)
@@ -28,4 +30,3 @@ guardX True  cx cy _ = Just (cx + 1, cy)
 guardY ∷ Bool → Int → Maybe Coordinates
 guardY False _  = Nothing
 guardY True  cy = Just (0, cy + 1)
-
