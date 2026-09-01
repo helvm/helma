@@ -63,13 +63,3 @@ furthest (Course DPDown CCRight)  = comparing snd <> flip (comparing fst)
 
 showCourse ∷ Course → String
 showCourse (Course dp cc) = [charDP dp, charCC cc]
-
-charDP ∷ DirectionPointer → Char
-charDP DPRight = 'r'
-charDP DPDown  = 'd'
-charDP DPLeft  = 'l'
-charDP DPUp    = 'u'
-
-charCC ∷ CodelChooser → Char
-charCC CCLeft  = 'l'
-charCC CCRight = 'r'

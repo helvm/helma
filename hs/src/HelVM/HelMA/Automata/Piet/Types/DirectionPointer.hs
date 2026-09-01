@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automata.Piet.Types.DirectionPointer
   ( DirectionPointer (..)
+  , charDP
   , move
   , nextPointer
   , rotate
@@ -22,14 +23,20 @@ data DirectionPointer
 move ∷ DirectionPointer → Coordinates → Coordinates
 move DPRight (x, y) = (x + 1, y)
 move DPDown  (x, y) = (x, y + 1)
-move DPUp    (x, y) = (x, y - 1)
 move DPLeft  (x, y) = (x - 1, y)
+move DPUp    (x, y) = (x, y - 1)
 
 nextPointer ∷ DirectionPointer → DirectionPointer
-nextPointer DPLeft  = DPUp
-nextPointer DPUp    = DPRight
 nextPointer DPRight = DPDown
 nextPointer DPDown  = DPLeft
+nextPointer DPLeft  = DPUp
+nextPointer DPUp    = DPRight
 
 rotate ∷ Int → DirectionPointer → DirectionPointer
 rotate = change 4
+
+charDP ∷ DirectionPointer → Char
+charDP DPRight = 'r'
+charDP DPDown  = 'd'
+charDP DPLeft  = 'l'
+charDP DPUp    = 'u'
