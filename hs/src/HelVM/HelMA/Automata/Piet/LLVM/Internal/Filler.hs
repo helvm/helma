@@ -58,7 +58,7 @@ paramFilledRefsL = lens paramFilledRefs updateFilledRefs
 
 fillAll ∷ Eq a ⇒ Matrix a → (Matrix Int, IntMap [Coordinates])
 fillAll image = runST $
-  thawImage image >>= processWithThawed image
+  processWithThawed image =<< thawImage image
 
 -- FILLER LOGIC
 
@@ -67,7 +67,7 @@ fillAllST = IM.fromList <$> L.toList processListT
 
 processListT ∷ FillStateMonad a m ⇒ ListMonad m (Int, [Coordinates])
 processListT =
-  (L.fromFoldable . V.indexed =<< lift (asksView paramSourceImageL)) >>= processSourceRow
+  processSourceRow =<< (L.fromFoldable . V.indexed =<< lift (asksView paramSourceImageL))
 
 fill ∷ FillMonad a b m ⇒ a → b → Coordinates → m [Coordinates]
 fill targetColor fillingColor seed = execStateT (fix (fillStep targetColor fillingColor) seed) []
@@ -84,28 +84,28 @@ processWithThawed ∷ (Eq a, PrimMonad m)
                   → STMatrix (PrimState m) Int
                   → m (Matrix Int, IntMap [Coordinates])
 processWithThawed image refs =
-  runFillAllST image refs >>= formatResult refs
+  formatResult refs =<< runFillAllST image refs
 
 formatResult ∷ PrimMonad m
              ⇒ STMatrix (PrimState m) Int
              → IntMap [Coordinates]
              → m (Matrix Int, IntMap [Coordinates])
 formatResult refs positionTable =
-  freezeAndFormat refs >>= makeResultPair positionTable
+  makeResultPair positionTable =<< freezeAndFormat refs
 
 makeResultPair ∷ Applicative m ⇒ b → a → m (a, b)
 makeResultPair positionTable filledImage = pure (filledImage, positionTable)
 
 processSourceRow ∷ FillStateMonad a m ⇒ (Int, Vector a) → ListMonad m (Int, [Coordinates])
 processSourceRow (y, sourceRow) =
-  (L.fromFoldable $ V.indexed sourceRow) >>= processSourceCell y
+  processSourceCell y =<< (L.fromFoldable $ V.indexed sourceRow)
 
 processSourceCell ∷ FillStateMonad a m ⇒ Int → (Int, a) → ListMonad m (Int, [Coordinates])
 processSourceCell y (x, targetColor) = checkUnfilledAndIndex targetColor (x, y)
 
 checkUnfilledAndIndex ∷ FillStateMonad a m ⇒ a → Coordinates → ListMonad m (Int, [Coordinates])
 checkUnfilledAndIndex targetColor coord =
-  lift (asksView paramFilledRefsL) >>= lift . readRefAt coord >>= checkCellState targetColor coord
+  checkCellState targetColor coord =<< (lift . readRefAt coord =<< lift (asksView paramFilledRefsL))
 
 readRefAt ∷ PrimMonad m ⇒ Coordinates → STMatrix (PrimState m) b → m (Maybe b)
 readRefAt (x, y) filledRefs = VM.read (filledRefs V.! y) x
@@ -116,11 +116,11 @@ checkCellState targetColor coord filledColorMaybe =
 
 processCell ∷ FillStateMonad a m ⇒ a → Coordinates → ListMonad m (Int, [Coordinates])
 processCell targetColor coord =
-  lift get >>= fillCellWithIndex targetColor coord
+  fillCellWithIndex targetColor coord =<< lift get
 
 fillCellWithIndex ∷ FillStateMonad a m ⇒ a → Coordinates → Int → ListMonad m (Int, [Coordinates])
 fillCellWithIndex targetColor coord blockIndex =
-  lift (fill targetColor blockIndex coord) >>= advanceAndPair blockIndex
+  advanceAndPair blockIndex =<< lift (fill targetColor blockIndex coord)
 
 advanceAndPair ∷ MonadState Int m ⇒ Int → [Coordinates] → ListMonad m (Int, [Coordinates])
 advanceAndPair blockIndex filledPositions =
@@ -128,23 +128,23 @@ advanceAndPair blockIndex filledPositions =
 
 validateColorAndUnfilled ∷ FillMonad a b m ⇒ a → Coordinates → FillStepMonad m ()
 validateColorAndUnfilled targetColor coord =
-  lift (asksView paramSourceImageL) >>= validatePixel targetColor coord
+  validatePixel targetColor coord =<< lift (asksView paramSourceImageL)
 
 validatePixel ∷ FillMonad a b m ⇒ a → Coordinates → Matrix a → FillStepMonad m ()
 validatePixel targetColor (x, y) sourceImage =
-  hoistMaybe (lookupPixel sourceImage x y) >>= checkSourceAndTargetRef targetColor (x, y)
+  checkSourceAndTargetRef targetColor (x, y) =<< hoistMaybe (lookupPixel sourceImage x y)
 
 checkSourceAndTargetRef ∷ FillMonad a b m ⇒ a → Coordinates → a → FillStepMonad m ()
 checkSourceAndTargetRef targetColor coord sourceColor =
   guard (sourceColor == targetColor) *>
-    lift (asksView paramFilledRefsL) >>= lift . lift . readRefAt coord >>= guardUnfilled
+    (guardUnfilled =<< (lift . lift . readRefAt coord =<< lift (asksView paramFilledRefsL)))
 
 guardUnfilled ∷ Monad m ⇒ Maybe b → MaybeT m ()
 guardUnfilled filledVal = guard (isNothing filledVal)
 
 markAndRecurse ∷ FillMonad a b m ⇒ b → StepRec m → Coordinates → FillStepMonad m ()
 markAndRecurse fillingColor rec coord =
-  lift (asksView paramFilledRefsL) >>= writeAndRecurse fillingColor rec coord
+  writeAndRecurse fillingColor rec coord =<< lift (asksView paramFilledRefsL)
 
 writeAndRecurse ∷ PrimMonad m ⇒ b → StepRec m → Coordinates → STMatrix (PrimState m) b → FillStepMonad m ()
 writeAndRecurse fillingColor rec (x, y) filledRefs =
