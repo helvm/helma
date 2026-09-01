@@ -252,7 +252,6 @@ library
     HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
 
     HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.Course
     HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
     HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
     HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
@@ -388,7 +387,6 @@ test-suite helma-test
     HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizerSpec
     
     HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSizeSpec
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.CourseSpec
     HelVM.HelMA.Automata.Piet.LLVM.Internal.FillerSpec
     HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8Spec
     HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSliderSpec

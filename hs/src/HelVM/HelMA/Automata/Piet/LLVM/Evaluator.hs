@@ -1,14 +1,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
-  ( AdditionalColorStrategy (..)
-  , CodelSize (..)
-  , ImageConfig (..)
-  , ImageReaderError (..)
-  , MulticoloredCodelStrategy (..)
-  , ParserError (..)
-  , PietError (..)
-  , PietStep (..)
-  , graphText
+  ( graphText
   , nullReceiver
   ) where
 

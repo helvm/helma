@@ -16,11 +16,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
-
 import           Relude.Extra
-
-succCourse ∷ Course → Course
-succCourse (Course dp cc) = Course (cyclicSucc dp) (cyclicSucc cc)
 
 -- TYPES & CONSTRUCTORS
 
@@ -37,10 +33,12 @@ initialCourse = Course DPRight CCLeft
 -- LENSES
 
 directionPointerL ∷ Lens' Course DirectionPointer
-directionPointerL = lens directionPointer (\s x -> s { directionPointer = x })
+directionPointerL = lens directionPointer updateDP where
+  updateDP s x = s { directionPointer = x }
 
 codelChooserL ∷ Lens' Course CodelChooser
-codelChooserL = lens codelChooser (\s x -> s { codelChooser = x })
+codelChooserL = lens codelChooser updateCC where
+  updateCC s x = s { codelChooser = x }
 
 -- TRANSFORMATIONS
 
@@ -52,6 +50,9 @@ toggleCodelChooser n = codelChooserL %~ toggle n
 
 rotateToggle ∷ Coordinates → Course → Course
 rotateToggle (r, t) = rotateDirectionPointer r . toggleCodelChooser t
+
+succCourse ∷ Course → Course
+succCourse (Course dp cc) = Course (cyclicSucc dp) (cyclicSucc cc)
 
 -- QUERYING / LOGIC
 
