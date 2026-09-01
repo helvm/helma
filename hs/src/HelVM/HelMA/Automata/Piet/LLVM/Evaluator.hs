@@ -5,7 +5,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
   , ImageConfig (..)
   , ImageReaderError (..)
   , MulticoloredCodelStrategy (..)
-  , OptimizationLevel (..)
   , ParserError (..)
   , PietError (..)
   , PietStep (..)
@@ -13,7 +12,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
   , nullReceiver
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.CompileOption
 import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
 import           HelVM.HelMA.Automata.Piet.LLVM.Parser
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
