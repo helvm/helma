@@ -5,15 +5,15 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.FillerSpec
   , spec
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
+import           HelVM.HelMA.Automata.Piet.Filler
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
-import qualified Data.IntMap                                    as IM
-import qualified Data.Set                                       as S
-import           Data.Vector                                    ( Vector )
-import qualified Data.Vector                                    as V
+import qualified Data.IntMap                                 as IM
+import qualified Data.Set                                    as S
+import           Data.Vector                                 ( Vector )
+import qualified Data.Vector                                 as V
 
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6

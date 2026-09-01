@@ -1,5 +1,5 @@
 {-# LANGUAGE FlexibleContexts #-}
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
+module HelVM.HelMA.Automata.Piet.Filler
   ( fillAll
   , paramFilledRefsL
   , paramSourceImageL
@@ -93,8 +93,7 @@ processSourceCell ∷ FillStateMonad a m ⇒ Int → (Int, a) → ListMonad m (I
 processSourceCell y (x, targetColor) = checkUnfilledAndIndex targetColor (x, y)
 
 checkUnfilledAndIndex ∷ FillStateMonad a m ⇒ a → Coordinates → ListMonad m (Int, BlockCoordinates)
-checkUnfilledAndIndex targetColor coord =
-  checkCellState targetColor coord =<< (lift . readRefAt coord =<< lift (asksView paramFilledRefsL))
+checkUnfilledAndIndex targetColor coord = checkCellState targetColor coord =<< (lift . readRefAt coord =<< lift (asksView paramFilledRefsL))
 
 readRefAt ∷ PrimMonad m ⇒ Coordinates → STMatrix (PrimState m) b → m (Maybe b)
 readRefAt (x, y) filledRefs = VM.read (filledRefs V.! y) x
@@ -104,12 +103,10 @@ checkCellState targetColor coord filledColorMaybe =
   guard (isNothing filledColorMaybe) *> processCell targetColor coord
 
 processCell ∷ FillStateMonad a m ⇒ a → Coordinates → ListMonad m (Int, BlockCoordinates)
-processCell targetColor coord =
-  fillCellWithIndex targetColor coord =<< lift get
+processCell targetColor coord = fillCellWithIndex targetColor coord =<< lift get
 
 fillCellWithIndex ∷ FillStateMonad a m ⇒ a → Coordinates → Int → ListMonad m (Int, BlockCoordinates)
-fillCellWithIndex targetColor coord blockIndex =
-  advanceAndPair blockIndex =<< lift (fill targetColor blockIndex coord)
+fillCellWithIndex targetColor coord blockIndex = advanceAndPair blockIndex =<< lift (fill targetColor blockIndex coord)
 
 advanceAndPair ∷ MonadState Int m ⇒ Int → BlockCoordinates → ListMonad m (Int, BlockCoordinates)
 advanceAndPair blockIndex filledPositions = lift (modify (+1)) $> (blockIndex, filledPositions)

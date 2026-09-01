@@ -252,7 +252,7 @@ library
     HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
 
     HelVM.HelMA.Automata.Piet.CodelSize
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
+    HelVM.HelMA.Automata.Piet.Filler
     HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
     HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 

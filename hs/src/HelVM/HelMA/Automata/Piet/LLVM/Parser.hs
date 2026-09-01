@@ -6,7 +6,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Parser
   , parseFilledImage
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
+import           HelVM.HelMA.Automata.Piet.Filler
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
 
