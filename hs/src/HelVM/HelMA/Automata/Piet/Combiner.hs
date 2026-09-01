@@ -39,7 +39,7 @@ evalChromaticCommand sourceColor targetColor = colors2Command sourceColor target
 -- COLOR DIFFERENCE & COMMAND EXECUTION
 
 colors2Command ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
-colors2Command sourceColor targetColor = executeColorDiff $ diffColor sourceColor targetColor
+colors2Command sourceColor targetColor = executeColorDiff $ chromaticDiff sourceColor targetColor
 
 executeColorDiff ∷ AppSafeEff m ⇒ ChromaticColor → Int → Memory → m Memory
 executeColorDiff (ChromaticColor Light  Red)     _ s = pure s

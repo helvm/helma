@@ -37,7 +37,7 @@ data Command
 -- FUNCTIONS
 
 commandFromTransition ∷ (Hue, Lightness) → (Hue, Lightness) → Int → Command
-commandFromTransition c1 c2 = commandConstructorsVector V.! chromaticDiff c1 c2
+commandFromTransition c1 c2 = commandConstructorsVector V.! chromaticDiffToIndex c1 c2
 
 commandConstructorsVector ∷ Vector (Int → Command)
 commandConstructorsVector = V.fromList commandConstructors

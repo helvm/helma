@@ -1,7 +1,5 @@
 module HelVM.HelMA.Automata.Piet.Types.Color
   ( Color (..)
-  , hueSteps
-  , lightnessSteps
   , pixelToColor
   ) where
 
@@ -10,14 +8,6 @@ import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 import           Codec.Picture
-
-lightnessSteps ∷ Color → Color → Maybe Int
-lightnessSteps (Chromatic (ChromaticColor l1 _)) (Chromatic (ChromaticColor l2 _)) = Just $ diffLightness l1 l2
-lightnessSteps _ _                                                                 = Nothing
-
-hueSteps ∷ Color → Color → Maybe Int
-hueSteps (Chromatic (ChromaticColor _ h1)) (Chromatic (ChromaticColor _ h2)) = Just $ diffHue h1 h2
-hueSteps _ _                                                                 = Nothing
 
 pixelToColor ∷ PixelRGB8 → Color
 pixelToColor (PixelRGB8 r g b) = rgb2Color r g b

@@ -21,7 +21,7 @@ nextChooser CCLeft  = CCRight
 nextChooser CCRight = CCLeft
 
 toggle ∷ Int → CodelChooser → CodelChooser
-toggle = change 2
+toggle = cyclicMove 2
 
 charCC ∷ CodelChooser → Char
 charCC CCLeft  = 'l'

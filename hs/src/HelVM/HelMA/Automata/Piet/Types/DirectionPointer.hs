@@ -33,7 +33,7 @@ nextPointer DPLeft  = DPUp
 nextPointer DPUp    = DPRight
 
 rotate ∷ Int → DirectionPointer → DirectionPointer
-rotate = change 4
+rotate = cyclicMove 4
 
 charDP ∷ DirectionPointer → Char
 charDP DPRight = 'r'
