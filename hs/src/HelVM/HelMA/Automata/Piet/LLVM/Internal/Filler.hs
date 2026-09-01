@@ -5,6 +5,8 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.Filler
   , paramSourceImageL
   ) where
 
+import           Relude.Extra
+
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
 import           Control.Monad.Primitive
@@ -16,8 +18,6 @@ import           Data.Vector.Mutable                         ( STVector )
 import qualified Data.Vector.Mutable                         as VM
 import qualified ListT                                       as L
 
-import           Relude.Extra
-
 -- TYPES & LENSES
 
 data FillerParams a b s
@@ -27,25 +27,18 @@ data FillerParams a b s
       }
 
 paramSourceImageL ∷ Lens' (FillerParams a b s) (Vector (Vector a))
-paramSourceImageL = lens paramSourceImage (\s x -> s { paramSourceImage = x })
+paramSourceImageL = lens paramSourceImage updateSourceImage
 
 paramFilledRefsL ∷ Lens' (FillerParams a b s) (Vector (STVector s (Maybe b)))
-paramFilledRefsL = lens paramFilledRefs (\s x -> s { paramFilledRefs = x })
-
--- HELPER FOR MONADREADER
-
-asksView ∷ MonadReader r m ⇒ Lens' r a → m a
-asksView l = asks (view l)
+paramFilledRefsL = lens paramFilledRefs updateFilledRefs
 
 -- PUBLIC API
 
 fillAll ∷ Eq a ⇒ Vector (Vector a) → (Vector (Vector Int), IntMap [Coordinates])
 fillAll image = runST $ do
   filledRefs <- V.mapM (V.thaw . (Nothing <$)) image
-  let params = FillerParams { paramSourceImage = image
-                            , paramFilledRefs  = filledRefs
-                            }
-  positionTable <- fillAllST `evalStateT` 0 `runReaderT` params
+  let params = FillerParams { paramSourceImage = image, paramFilledRefs = filledRefs }
+  positionTable <- runReaderT (evalStateT fillAllST 0) params
   filledImageMaybe <- mapM V.freeze filledRefs
   let filledImage = fmap (fromMaybe 0) <$> filledImageMaybe
   pure (filledImage, positionTable)
@@ -58,13 +51,21 @@ fillAllST ∷ ( Eq a
              , MonadState Int m
              )
           ⇒ m (IntMap [Coordinates])
-fillAllST = fmap IM.fromList $ L.toList $ do
+fillAllST = IM.fromList <$> L.toList processListT
+
+processListT ∷ ( Eq a
+                , PrimMonad m
+                , MonadReader (FillerParams a Int (PrimState m)) m
+                , MonadState Int m
+                )
+             ⇒ L.ListT m (Int, [Coordinates])
+processListT = do
   sourceImage <- lift $ asksView paramSourceImageL
   (y, sourceRow) <- L.fromFoldable $ V.indexed sourceImage
   (x, targetColor) <- L.fromFoldable $ V.indexed sourceRow
 
   filledRefs <- lift $ asksView paramFilledRefsL
-  filledColorMaybe <- lift $ filledRefs V.! y `VM.read` x
+  filledColorMaybe <- lift $ VM.read (filledRefs V.! y) x
   guard $ isNothing filledColorMaybe
 
   blockIndex <- lift get
@@ -77,21 +78,48 @@ fill ∷ ( Eq a
         , PrimMonad m
         , MonadReader (FillerParams a b (PrimState m)) m
         )
-     ⇒ a  -- target color
-     → b  -- filling color
-     → Coordinates  -- seed
-     → m [Coordinates]  -- filled positions
-fill targetColor fillingColor seed = execStateT (fill' seed) [] where
-  fill' (x, y) = void $ runMaybeT $ do
-    sourceImage <- asksView paramSourceImageL
-    sourceColor <- hoistMaybe (sourceImage V.!? y >>= (V.!? x))
-    guard $ sourceColor == targetColor
+     ⇒ a
+     → b
+     → Coordinates
+     → m [Coordinates]
+fill targetColor fillingColor seed = execStateT (fix (fillStep targetColor fillingColor) seed) []
 
-    filledRefs <- asksView paramFilledRefsL
-    let filledRow = filledRefs V.! y
-    Nothing <- VM.read filledRow x
+fillStep ∷ ( Eq a
+           , PrimMonad m
+           , MonadReader (FillerParams a b (PrimState m)) m
+           )
+        ⇒ a
+        → b
+        → (Coordinates → StateT [Coordinates] m ())
+        → Coordinates
+        → StateT [Coordinates] m ()
+fillStep targetColor fillingColor rec (x, y) = void . runMaybeT $ do
+  sourceImage <- lift $ asksView paramSourceImageL
+  sourceColor <- hoistMaybe $ lookupPixel sourceImage x y
+  guard $ sourceColor == targetColor
 
-    modify ((x, y) :)
-    VM.write filledRow x (Just fillingColor)
-    let neighbors = [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]
-    lift $ mapM_ fill' neighbors
+  filledRefs <- lift $ asksView paramFilledRefsL
+  let filledRow = filledRefs V.! y
+  filledVal <- lift $ VM.read filledRow x
+  guard $ isNothing filledVal
+
+  modify ((x, y) :)
+  lift $ VM.write filledRow x (Just fillingColor)
+  lift $ mapM_ rec (getNeighbors (x, y))
+
+-- HELPERS
+
+lookupPixel ∷ Vector (Vector a) → Int → Int → Maybe a
+lookupPixel img x y = img V.!? y >>= (V.!? x)
+
+getNeighbors ∷ Coordinates → [Coordinates]
+getNeighbors (x, y) = [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]
+
+asksView ∷ MonadReader r m ⇒ Lens' r a → m a
+asksView l = asks (view l)
+
+updateSourceImage ∷ FillerParams a b s → Vector (Vector a) → FillerParams a b s
+updateSourceImage s x = s { paramSourceImage = x }
+
+updateFilledRefs ∷ FillerParams a b s → Vector (STVector s (Maybe b)) → FillerParams a b s
+updateFilledRefs s x = s { paramFilledRefs = x }
