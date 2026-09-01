@@ -4,11 +4,12 @@ module HelVM.HelMA.Automata.Piet.Types.Command
   , showCommand
   ) where
 
+import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
-import           Data.Vector                               ( Vector )
-import qualified Data.Vector.Generic                       as V
+import           Data.Vector                                    ( Vector )
+import qualified Data.Vector.Generic                            as V
 
 -- TYPES
 
@@ -37,15 +38,6 @@ data Command
 
 commandFromTransition ∷ (Hue, Lightness) → (Hue, Lightness) → Int → Command
 commandFromTransition c1 c2 = commandConstructorsVector V.! chromaticDiff c1 c2
-
-chromaticDiff ∷ (Hue, Lightness) → (Hue, Lightness) → Int
-chromaticDiff (currentHue, currentLightness) (nextHue, nextLightness) = hueDiff nextHue currentHue * 3 + lightnessDiff nextLightness currentLightness
-
-hueDiff ∷ Hue → Hue → Int
-hueDiff nextHue currentHue = (fromEnum nextHue - fromEnum currentHue) `mod` 6
-
-lightnessDiff ∷ Lightness → Lightness → Int
-lightnessDiff nextLightness currentLightness = (fromEnum nextLightness - fromEnum currentLightness) `mod` 3
 
 commandConstructorsVector ∷ Vector (Int → Command)
 commandConstructorsVector = V.fromList commandConstructors

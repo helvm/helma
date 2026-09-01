@@ -20,7 +20,9 @@ import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 import           Codec.Picture
+
 import           Control.Monad.Except
+
 import qualified Data.Foldable1                                    as F1
 import qualified Data.List.NonEmpty                                as NE
 import qualified Data.Map                                          as M
