@@ -12,7 +12,7 @@ import           HelVM.HelIO.SwitchEnum
 cyclicSucc ∷ (Bounded a, Enum a) ⇒ a → a
 cyclicSucc a = change (fromEnum (maxBound `asTypeOf` a) + 1) 1 a
 
-change ∷ (Bounded e, Enum e, Enum a) ⇒ Int → Int → a → e
+change ∷ (Bounded e, Enum e) ⇒ Int → Int → e → e
 change i n e = unsafeEnum $ (fromEnum e + n) `mod` i
 
 changeDiff ∷ (Bounded e, Enum e) ⇒ Int → e → e → e
