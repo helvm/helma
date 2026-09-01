@@ -25,7 +25,7 @@ slideOnWhiteBlock image initialPosition initialCourse = result where
                          ⇒ Coordinates → Course → m ()
   slideOnWhiteBlockState position course = do
     ((nextCodel, nextIndex), nextCodelCourse@(nextPosition, nextCourse)) <- maybe (throwError ExitProgram) pure $ next position course
-    when (nextCodel /= WhiteCodel) $ throwError $ NextBlock NoOperation nextCourse nextIndex
+    when (nextCodel /= White) $ throwError $ NextBlock NoOperation nextCourse nextIndex
 
     visited <- get
     when (S.member nextCodelCourse visited) $ throwError ExitProgram
@@ -43,7 +43,7 @@ slideOnWhiteBlock image initialPosition initialCourse = result where
   getNonBlackCodel ∷ Coordinates → Maybe (Codel, Int)
   getNonBlackCodel (x, y) = do
     (codel, index) <- image V.!? y >>= (V.!? x)
-    guard $ codel /= BlackCodel
+    guard $ codel /= Black
     pure (codel, index)
 
 succCourse ∷ Course → Course

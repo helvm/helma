@@ -5,7 +5,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Codel
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 
 data Codel
-  = AchromaticCodel ChromaticColor
-  | WhiteCodel
-  | BlackCodel
+  = Chromatic ChromaticColor
+  | White
+  | Black
   deriving stock (Eq, Ord, Show)

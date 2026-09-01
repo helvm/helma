@@ -149,8 +149,8 @@ getColors codelSizeInt image codelX codelY = do
     pixelOffsetY = codelY * codelSizeInt
 
 colorToCodel ∷ AdditionalColorStrategy → PixelRGB8 → Codel
-colorToCodel AdditionalColorAsWhite color = M.findWithDefault WhiteCodel color colorCodelTable
-colorToCodel AdditionalColorAsBlack color = M.findWithDefault BlackCodel color colorCodelTable
+colorToCodel AdditionalColorAsWhite color = M.findWithDefault White color colorCodelTable
+colorToCodel AdditionalColorAsBlack color = M.findWithDefault Black color colorCodelTable
 colorToCodel AdditionalColorNearest color = nearestCodel
   where
     squaredColorDistance (PixelRGB8 r1 g1 b1) (PixelRGB8 r2 g2 b2) = square r1 r2 + square g1 g2 + square b1 b2
@@ -162,24 +162,24 @@ colorCodelTable = M.fromList $ NE.toList colorCodelTableList
 
 colorCodelTableList ∷ NonEmpty (PixelRGB8, Codel)
 colorCodelTableList =
-    (PixelRGB8 0xFF 0xFF 0xFF, WhiteCodel)
-    :| [(PixelRGB8 0x00 0x00 0x00, BlackCodel)
-      , (PixelRGB8 0xFF 0xC0 0xC0, AchromaticCodel $ ChromaticColor Red Light)
-      , (PixelRGB8 0xFF 0x00 0x00, AchromaticCodel $ ChromaticColor Red Normal)
-      , (PixelRGB8 0xC0 0x00 0x00, AchromaticCodel $ ChromaticColor Red Dark)
-      , (PixelRGB8 0xFF 0xFF 0xC0, AchromaticCodel $ ChromaticColor Yellow Light)
-      , (PixelRGB8 0xFF 0xFF 0x00, AchromaticCodel $ ChromaticColor Yellow Normal)
-      , (PixelRGB8 0xC0 0xC0 0x00, AchromaticCodel $ ChromaticColor Yellow Dark)
-      , (PixelRGB8 0xC0 0xFF 0xC0, AchromaticCodel $ ChromaticColor Green Light)
-      , (PixelRGB8 0x00 0xFF 0x00, AchromaticCodel $ ChromaticColor Green Normal)
-      , (PixelRGB8 0x00 0xC0 0x00, AchromaticCodel $ ChromaticColor Green Dark)
-      , (PixelRGB8 0xC0 0xFF 0xFF, AchromaticCodel $ ChromaticColor Cyan Light)
-      , (PixelRGB8 0x00 0xFF 0xFF, AchromaticCodel $ ChromaticColor Cyan Normal)
-      , (PixelRGB8 0x00 0xC0 0xC0, AchromaticCodel $ ChromaticColor Cyan Dark)
-      , (PixelRGB8 0xC0 0xC0 0xFF, AchromaticCodel $ ChromaticColor Blue Light)
-      , (PixelRGB8 0x00 0x00 0xFF, AchromaticCodel $ ChromaticColor Blue Normal)
-      , (PixelRGB8 0x00 0x00 0xC0, AchromaticCodel $ ChromaticColor Blue Dark)
-      , (PixelRGB8 0xFF 0xC0 0xFF, AchromaticCodel $ ChromaticColor Magenta Light)
-      , (PixelRGB8 0xFF 0x00 0xFF, AchromaticCodel $ ChromaticColor Magenta Normal)
-      , (PixelRGB8 0xC0 0x00 0xC0, AchromaticCodel $ ChromaticColor Magenta Dark)
+    (PixelRGB8 0xFF 0xFF 0xFF, White)
+    :| [(PixelRGB8 0x00 0x00 0x00, Black)
+      , (PixelRGB8 0xFF 0xC0 0xC0, Chromatic $ ChromaticColor Red Light)
+      , (PixelRGB8 0xFF 0x00 0x00, Chromatic $ ChromaticColor Red Normal)
+      , (PixelRGB8 0xC0 0x00 0x00, Chromatic $ ChromaticColor Red Dark)
+      , (PixelRGB8 0xFF 0xFF 0xC0, Chromatic $ ChromaticColor Yellow Light)
+      , (PixelRGB8 0xFF 0xFF 0x00, Chromatic $ ChromaticColor Yellow Normal)
+      , (PixelRGB8 0xC0 0xC0 0x00, Chromatic $ ChromaticColor Yellow Dark)
+      , (PixelRGB8 0xC0 0xFF 0xC0, Chromatic $ ChromaticColor Green Light)
+      , (PixelRGB8 0x00 0xFF 0x00, Chromatic $ ChromaticColor Green Normal)
+      , (PixelRGB8 0x00 0xC0 0x00, Chromatic $ ChromaticColor Green Dark)
+      , (PixelRGB8 0xC0 0xFF 0xFF, Chromatic $ ChromaticColor Cyan Light)
+      , (PixelRGB8 0x00 0xFF 0xFF, Chromatic $ ChromaticColor Cyan Normal)
+      , (PixelRGB8 0x00 0xC0 0xC0, Chromatic $ ChromaticColor Cyan Dark)
+      , (PixelRGB8 0xC0 0xC0 0xFF, Chromatic $ ChromaticColor Blue Light)
+      , (PixelRGB8 0x00 0x00 0xFF, Chromatic $ ChromaticColor Blue Normal)
+      , (PixelRGB8 0x00 0x00 0xC0, Chromatic $ ChromaticColor Blue Dark)
+      , (PixelRGB8 0xFF 0xC0 0xFF, Chromatic $ ChromaticColor Magenta Light)
+      , (PixelRGB8 0xFF 0x00 0xFF, Chromatic $ ChromaticColor Magenta Normal)
+      , (PixelRGB8 0xC0 0x00 0xC0, Chromatic $ ChromaticColor Magenta Dark)
       ]

@@ -73,40 +73,40 @@ spec = do
 
     context "when given an image which only consists of two pixels" $ do
       forM_
-        [ TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Red Normal) (Push 1) Pop
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Red Dark) Pop (Push 1)
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Yellow Light) Add InChar
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Yellow Normal) Subtract OutChar
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Yellow Dark) Multiply OutNumber
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Green Light) Divide Duplicate
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Green Normal) Mod InNumber
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Green Dark) Not Roll
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Cyan Light) Greater Greater
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Cyan Normal) Pointer Switch
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Cyan Dark) Switch Pointer
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Blue Light) Duplicate Divide
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Blue Normal) Roll Not
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Blue Dark) InNumber Mod
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Magenta Light) InChar Add
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Magenta Normal) OutNumber Multiply
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Red Light) (AchromaticCodel $ ChromaticColor Magenta Dark) OutChar Subtract
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Cyan Light) (Push 1) Pop
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Cyan Normal) Pop (Push 1)
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Blue Dark) Add InChar
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Blue Light) Subtract OutChar
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Blue Normal) Multiply OutNumber
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Magenta Dark) Divide Duplicate
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Magenta Light) Mod InNumber
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Magenta Normal) Not Roll
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Red Dark) Greater Greater
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Red Light) Pointer Switch
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Red Normal) Switch Pointer
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Yellow Dark) Duplicate Divide
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Yellow Light) Roll Not
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Yellow Normal) InNumber Mod
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Green Dark) InChar Add
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Green Light) OutNumber Multiply
-        , TwoPixelTestCase (AchromaticCodel $ ChromaticColor Cyan Dark) (AchromaticCodel $ ChromaticColor Green Normal) OutChar Subtract
+        [ TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Red Normal) (Push 1) Pop
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Red Dark) Pop (Push 1)
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Yellow Light) Add InChar
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Yellow Normal) Subtract OutChar
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Yellow Dark) Multiply OutNumber
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Green Light) Divide Duplicate
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Green Normal) Mod InNumber
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Green Dark) Not Roll
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Cyan Light) Greater Greater
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Cyan Normal) Pointer Switch
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Cyan Dark) Switch Pointer
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Blue Light) Duplicate Divide
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Blue Normal) Roll Not
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Blue Dark) InNumber Mod
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Magenta Light) InChar Add
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Magenta Normal) OutNumber Multiply
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Red Light) (Chromatic $ ChromaticColor Magenta Dark) OutChar Subtract
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Cyan Light) (Push 1) Pop
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Cyan Normal) Pop (Push 1)
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Blue Dark) Add InChar
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Blue Light) Subtract OutChar
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Blue Normal) Multiply OutNumber
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Magenta Dark) Divide Duplicate
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Magenta Light) Mod InNumber
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Magenta Normal) Not Roll
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Red Dark) Greater Greater
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Red Light) Pointer Switch
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Red Normal) Switch Pointer
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Yellow Dark) Duplicate Divide
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Yellow Light) Roll Not
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Yellow Normal) InNumber Mod
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Green Dark) InChar Add
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Green Light) OutNumber Multiply
+        , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Green Normal) OutChar Subtract
         ] $ \tc -> do
           let image = toVector2D [[(color1 tc, 0), (color2 tc, 1)]]
           let bTable = IM.fromList [(0, [(0, 0)]), (1, [(1, 0)])]
@@ -126,7 +126,7 @@ spec = do
 
 
 smallImage ∷ Vector (Vector (Codel, Int))
-smallImage = toVector2D [[(AchromaticCodel $ ChromaticColor Red Normal, 0)]]
+smallImage = toVector2D [[(Chromatic $ ChromaticColor Red Normal, 0)]]
 
 smallBlockTable ∷ IntMap [Coordinates]
 smallBlockTable = IM.fromList [(0, [(0, 0)])]
@@ -135,30 +135,30 @@ expectedSmallGraph ∷ SyntaxGraph
 expectedSmallGraph = SyntaxGraph 0 rl $ IM.fromList [(0, Block M.empty)]
 
 whiteImage ∷ Vector (Vector (Codel, Int))
-whiteImage = toVector2D [[(WhiteCodel, 0)]]
+whiteImage = toVector2D [[(White, 0)]]
 
 whiteBlockTable ∷ IntMap [Coordinates]
 whiteBlockTable = IM.fromList [(0, [(0, 0)])]
 
 blackImage ∷ Vector (Vector (Codel, Int))
-blackImage = toVector2D [[(BlackCodel, 0)]]
+blackImage = toVector2D [[(Black, 0)]]
 
 blackBlockTable ∷ IntMap [Coordinates]
 blackBlockTable = IM.fromList [(0, [(0, 0)])]
 
 distantInitialImage ∷ Vector (Vector (Codel, Int))
 distantInitialImage = toVector2D
-  [ [ (WhiteCodel, 0)
-    , (WhiteCodel, 0)
-    , (WhiteCodel, 0)
+  [ [ (White, 0)
+    , (White, 0)
+    , (White, 0)
     ]
-  , [ (AchromaticCodel $ ChromaticColor Red Normal, 1)
-    , (WhiteCodel, 0)
-    , (WhiteCodel, 0)
+  , [ (Chromatic $ ChromaticColor Red Normal, 1)
+    , (White, 0)
+    , (White, 0)
     ]
-  , [ (WhiteCodel, 0)
-    , (WhiteCodel, 0)
-    , (WhiteCodel, 0)
+  , [ (White, 0)
+    , (White, 0)
+    , (White, 0)
     ]
   ]
 
@@ -183,17 +183,17 @@ expectedDistantInitialGraph = SyntaxGraph 1 ur $ IM.fromList
 
 stuckImage ∷ Vector (Vector (Codel, Int))
 stuckImage = toVector2D
-  [ [ (AchromaticCodel $ ChromaticColor Red Light, 0)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 1)
-    , (WhiteCodel, 2)
+  [ [ (Chromatic $ ChromaticColor Red Light, 0)
+    , (Chromatic $ ChromaticColor Red Normal, 1)
+    , (White, 2)
     ]
-  , [ (WhiteCodel, 2)
-    , (WhiteCodel, 2)
-    , (WhiteCodel, 2)
+  , [ (White, 2)
+    , (White, 2)
+    , (White, 2)
     ]
-  , [ (WhiteCodel, 2)
-    , (BlackCodel, 3)
-    , (WhiteCodel, 2)
+  , [ (White, 2)
+    , (Black, 3)
+    , (White, 2)
     ]
   ]
 
@@ -227,281 +227,281 @@ expectedStuckGraph = SyntaxGraph 0 rl $ IM.fromList
 
 rawComplexImage ∷ Vector (Vector Codel)
 rawComplexImage = toVector2D
-  [ [ AchromaticCodel $ ChromaticColor Blue Dark
-    , AchromaticCodel $ ChromaticColor Blue Dark
-    , AchromaticCodel $ ChromaticColor Blue Dark
-    , AchromaticCodel $ ChromaticColor Blue Dark
-    , AchromaticCodel $ ChromaticColor Blue Dark
-    , AchromaticCodel $ ChromaticColor Blue Normal
-    , AchromaticCodel $ ChromaticColor Red Light
-    , AchromaticCodel $ ChromaticColor Red Light
-    , AchromaticCodel $ ChromaticColor Red Light
-    , WhiteCodel
-    , AchromaticCodel $ ChromaticColor Red Light
-    , AchromaticCodel $ ChromaticColor Red Light
-    , AchromaticCodel $ ChromaticColor Red Light
-    , AchromaticCodel $ ChromaticColor Magenta Dark
-    , AchromaticCodel $ ChromaticColor Magenta Dark
-    , AchromaticCodel $ ChromaticColor Magenta Dark
+  [ [ Chromatic $ ChromaticColor Blue Dark
+    , Chromatic $ ChromaticColor Blue Dark
+    , Chromatic $ ChromaticColor Blue Dark
+    , Chromatic $ ChromaticColor Blue Dark
+    , Chromatic $ ChromaticColor Blue Dark
+    , Chromatic $ ChromaticColor Blue Normal
+    , Chromatic $ ChromaticColor Red Light
+    , Chromatic $ ChromaticColor Red Light
+    , Chromatic $ ChromaticColor Red Light
+    , White
+    , Chromatic $ ChromaticColor Red Light
+    , Chromatic $ ChromaticColor Red Light
+    , Chromatic $ ChromaticColor Red Light
+    , Chromatic $ ChromaticColor Magenta Dark
+    , Chromatic $ ChromaticColor Magenta Dark
+    , Chromatic $ ChromaticColor Magenta Dark
     ]
-  , [ AchromaticCodel $ ChromaticColor Blue Light
-    , AchromaticCodel $ ChromaticColor Blue Light
-    , AchromaticCodel $ ChromaticColor Blue Light
-    , AchromaticCodel $ ChromaticColor Blue Normal
-    , AchromaticCodel $ ChromaticColor Blue Normal
-    , AchromaticCodel $ ChromaticColor Blue Normal
-    , AchromaticCodel $ ChromaticColor Blue Normal
-    , AchromaticCodel $ ChromaticColor Blue Normal
-    , WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , AchromaticCodel $ ChromaticColor Yellow Normal
-    , AchromaticCodel $ ChromaticColor Yellow Normal
-    , AchromaticCodel $ ChromaticColor Yellow Normal
-    , BlackCodel
+  , [ Chromatic $ ChromaticColor Blue Light
+    , Chromatic $ ChromaticColor Blue Light
+    , Chromatic $ ChromaticColor Blue Light
+    , Chromatic $ ChromaticColor Blue Normal
+    , Chromatic $ ChromaticColor Blue Normal
+    , Chromatic $ ChromaticColor Blue Normal
+    , Chromatic $ ChromaticColor Blue Normal
+    , Chromatic $ ChromaticColor Blue Normal
+    , White
+    , White
+    , White
+    , White
+    , Chromatic $ ChromaticColor Yellow Normal
+    , Chromatic $ ChromaticColor Yellow Normal
+    , Chromatic $ ChromaticColor Yellow Normal
+    , Black
     ]
-  , [ AchromaticCodel $ ChromaticColor Blue Light
-    , AchromaticCodel $ ChromaticColor Blue Light
-    , AchromaticCodel $ ChromaticColor Blue Light
-    , AchromaticCodel $ ChromaticColor Blue Light
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Blue Normal
-    , AchromaticCodel $ ChromaticColor Blue Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , WhiteCodel
-    , WhiteCodel
-    , AchromaticCodel $ ChromaticColor Yellow Normal
-    , AchromaticCodel $ ChromaticColor Yellow Normal
-    , AchromaticCodel $ ChromaticColor Yellow Normal
-    , BlackCodel
-    , BlackCodel
-    , AchromaticCodel $ ChromaticColor Magenta Light
+  , [ Chromatic $ ChromaticColor Blue Light
+    , Chromatic $ ChromaticColor Blue Light
+    , Chromatic $ ChromaticColor Blue Light
+    , Chromatic $ ChromaticColor Blue Light
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Blue Normal
+    , Chromatic $ ChromaticColor Blue Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , White
+    , White
+    , Chromatic $ ChromaticColor Yellow Normal
+    , Chromatic $ ChromaticColor Yellow Normal
+    , Chromatic $ ChromaticColor Yellow Normal
+    , Black
+    , Black
+    , Chromatic $ ChromaticColor Magenta Light
     ]
-  , [ AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , BlackCodel
-    , BlackCodel
-    , BlackCodel
-    , BlackCodel
-    , BlackCodel
-    , AchromaticCodel $ ChromaticColor Magenta Light
-    , AchromaticCodel $ ChromaticColor Magenta Light
+  , [ Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Black
+    , Black
+    , Black
+    , Black
+    , Black
+    , Chromatic $ ChromaticColor Magenta Light
+    , Chromatic $ ChromaticColor Magenta Light
     ]
-  , [ WhiteCodel
-    , WhiteCodel
-    , AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , BlackCodel
-    , AchromaticCodel $ ChromaticColor Magenta Light
-    , AchromaticCodel $ ChromaticColor Magenta Light
-    , BlackCodel
+  , [ White
+    , White
+    , Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Red Normal
+    , Black
+    , Chromatic $ ChromaticColor Magenta Light
+    , Chromatic $ ChromaticColor Magenta Light
+    , Black
     ]
-  , [ WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Cyan Light
-    , AchromaticCodel $ ChromaticColor Red Normal
-    , AchromaticCodel $ ChromaticColor Green Light
-    , BlackCodel
-    , BlackCodel
-    , AchromaticCodel $ ChromaticColor Magenta Light
-    , AchromaticCodel $ ChromaticColor Magenta Light
-    , AchromaticCodel $ ChromaticColor Magenta Light
-    , BlackCodel
+  , [ White
+    , White
+    , White
+    , Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Cyan Light
+    , Chromatic $ ChromaticColor Red Normal
+    , Chromatic $ ChromaticColor Green Light
+    , Black
+    , Black
+    , Chromatic $ ChromaticColor Magenta Light
+    , Chromatic $ ChromaticColor Magenta Light
+    , Chromatic $ ChromaticColor Magenta Light
+    , Black
     ]
-  , [ WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , AchromaticCodel $ ChromaticColor Red Dark
-    , AchromaticCodel $ ChromaticColor Red Light
-    , AchromaticCodel $ ChromaticColor Red Light
-    , AchromaticCodel $ ChromaticColor Red Light
-    , BlackCodel
-    , AchromaticCodel $ ChromaticColor Green Dark
-    , AchromaticCodel $ ChromaticColor Green Dark
-    , AchromaticCodel $ ChromaticColor Red Light
+  , [ White
+    , White
+    , White
+    , White
+    , White
+    , White
+    , White
+    , White
+    , Chromatic $ ChromaticColor Red Dark
+    , Chromatic $ ChromaticColor Red Light
+    , Chromatic $ ChromaticColor Red Light
+    , Chromatic $ ChromaticColor Red Light
+    , Black
+    , Chromatic $ ChromaticColor Green Dark
+    , Chromatic $ ChromaticColor Green Dark
+    , Chromatic $ ChromaticColor Red Light
     ]
-  , [ WhiteCodel
-    , AchromaticCodel $ ChromaticColor Yellow Light
-    , WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , AchromaticCodel $ ChromaticColor Cyan Dark
-    , AchromaticCodel $ ChromaticColor Cyan Dark
-    , WhiteCodel
-    , AchromaticCodel $ ChromaticColor Green Light
-    , AchromaticCodel $ ChromaticColor Green Light
-    , AchromaticCodel $ ChromaticColor Green Light
-    , WhiteCodel
-    , WhiteCodel
-    , WhiteCodel
-    , BlackCodel
+  , [ White
+    , Chromatic $ ChromaticColor Yellow Light
+    , White
+    , White
+    , White
+    , White
+    , Chromatic $ ChromaticColor Cyan Dark
+    , Chromatic $ ChromaticColor Cyan Dark
+    , White
+    , Chromatic $ ChromaticColor Green Light
+    , Chromatic $ ChromaticColor Green Light
+    , Chromatic $ ChromaticColor Green Light
+    , White
+    , White
+    , White
+    , Black
     ]
   ]
 
 complexImage ∷ Vector (Vector (Codel, Int))
 complexImage = toVector2D
-  [ [ (AchromaticCodel $ ChromaticColor Blue Dark, 0)
-    , (AchromaticCodel $ ChromaticColor Blue Dark, 0)
-    , (AchromaticCodel $ ChromaticColor Blue Dark, 0)
-    , (AchromaticCodel $ ChromaticColor Blue Dark, 0)
-    , (AchromaticCodel $ ChromaticColor Blue Dark, 0)
-    , (AchromaticCodel $ ChromaticColor Blue Normal, 1)
-    , (AchromaticCodel $ ChromaticColor Red Light, 2)
-    , (AchromaticCodel $ ChromaticColor Red Light, 2)
-    , (AchromaticCodel $ ChromaticColor Red Light, 2)
-    , (WhiteCodel, 3)
-    , (AchromaticCodel $ ChromaticColor Red Light, 4)
-    , (AchromaticCodel $ ChromaticColor Red Light, 4)
-    , (AchromaticCodel $ ChromaticColor Red Light, 4)
-    , (AchromaticCodel $ ChromaticColor Magenta Dark, 5)
-    , (AchromaticCodel $ ChromaticColor Magenta Dark, 5)
-    , (AchromaticCodel $ ChromaticColor Magenta Dark, 5)
+  [ [ (Chromatic $ ChromaticColor Blue Dark, 0)
+    , (Chromatic $ ChromaticColor Blue Dark, 0)
+    , (Chromatic $ ChromaticColor Blue Dark, 0)
+    , (Chromatic $ ChromaticColor Blue Dark, 0)
+    , (Chromatic $ ChromaticColor Blue Dark, 0)
+    , (Chromatic $ ChromaticColor Blue Normal, 1)
+    , (Chromatic $ ChromaticColor Red Light, 2)
+    , (Chromatic $ ChromaticColor Red Light, 2)
+    , (Chromatic $ ChromaticColor Red Light, 2)
+    , (White, 3)
+    , (Chromatic $ ChromaticColor Red Light, 4)
+    , (Chromatic $ ChromaticColor Red Light, 4)
+    , (Chromatic $ ChromaticColor Red Light, 4)
+    , (Chromatic $ ChromaticColor Magenta Dark, 5)
+    , (Chromatic $ ChromaticColor Magenta Dark, 5)
+    , (Chromatic $ ChromaticColor Magenta Dark, 5)
     ]
-  , [ (AchromaticCodel $ ChromaticColor Blue Light, 6)
-    , (AchromaticCodel $ ChromaticColor Blue Light, 6)
-    , (AchromaticCodel $ ChromaticColor Blue Light, 6)
-    , (AchromaticCodel $ ChromaticColor Blue Normal, 1)
-    , (AchromaticCodel $ ChromaticColor Blue Normal, 1)
-    , (AchromaticCodel $ ChromaticColor Blue Normal, 1)
-    , (AchromaticCodel $ ChromaticColor Blue Normal, 1)
-    , (AchromaticCodel $ ChromaticColor Blue Normal, 1)
-    , (WhiteCodel, 3)
-    , (WhiteCodel, 3)
-    , (WhiteCodel, 3)
-    , (WhiteCodel, 3)
-    , (AchromaticCodel $ ChromaticColor Yellow Normal, 7)
-    , (AchromaticCodel $ ChromaticColor Yellow Normal, 7)
-    , (AchromaticCodel $ ChromaticColor Yellow Normal, 7)
-    , (BlackCodel, 8)
+  , [ (Chromatic $ ChromaticColor Blue Light, 6)
+    , (Chromatic $ ChromaticColor Blue Light, 6)
+    , (Chromatic $ ChromaticColor Blue Light, 6)
+    , (Chromatic $ ChromaticColor Blue Normal, 1)
+    , (Chromatic $ ChromaticColor Blue Normal, 1)
+    , (Chromatic $ ChromaticColor Blue Normal, 1)
+    , (Chromatic $ ChromaticColor Blue Normal, 1)
+    , (Chromatic $ ChromaticColor Blue Normal, 1)
+    , (White, 3)
+    , (White, 3)
+    , (White, 3)
+    , (White, 3)
+    , (Chromatic $ ChromaticColor Yellow Normal, 7)
+    , (Chromatic $ ChromaticColor Yellow Normal, 7)
+    , (Chromatic $ ChromaticColor Yellow Normal, 7)
+    , (Black, 8)
     ]
-  , [ (AchromaticCodel $ ChromaticColor Blue Light, 6)
-    , (AchromaticCodel $ ChromaticColor Blue Light, 6)
-    , (AchromaticCodel $ ChromaticColor Blue Light, 6)
-    , (AchromaticCodel $ ChromaticColor Blue Light, 6)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Blue Normal, 1)
-    , (AchromaticCodel $ ChromaticColor Blue Normal, 1)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (WhiteCodel, 3)
-    , (WhiteCodel, 3)
-    , (AchromaticCodel $ ChromaticColor Yellow Normal, 7)
-    , (AchromaticCodel $ ChromaticColor Yellow Normal, 7)
-    , (AchromaticCodel $ ChromaticColor Yellow Normal, 7)
-    , (BlackCodel, 10)
-    , (BlackCodel, 10)
-    , (AchromaticCodel $ ChromaticColor Magenta Light, 11)
+  , [ (Chromatic $ ChromaticColor Blue Light, 6)
+    , (Chromatic $ ChromaticColor Blue Light, 6)
+    , (Chromatic $ ChromaticColor Blue Light, 6)
+    , (Chromatic $ ChromaticColor Blue Light, 6)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Blue Normal, 1)
+    , (Chromatic $ ChromaticColor Blue Normal, 1)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (White, 3)
+    , (White, 3)
+    , (Chromatic $ ChromaticColor Yellow Normal, 7)
+    , (Chromatic $ ChromaticColor Yellow Normal, 7)
+    , (Chromatic $ ChromaticColor Yellow Normal, 7)
+    , (Black, 10)
+    , (Black, 10)
+    , (Chromatic $ ChromaticColor Magenta Light, 11)
     ]
-  , [ (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (BlackCodel, 10)
-    , (BlackCodel, 10)
-    , (BlackCodel, 10)
-    , (BlackCodel, 10)
-    , (BlackCodel, 10)
-    , (AchromaticCodel $ ChromaticColor Magenta Light, 11)
-    , (AchromaticCodel $ ChromaticColor Magenta Light, 11)
+  , [ (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Black, 10)
+    , (Black, 10)
+    , (Black, 10)
+    , (Black, 10)
+    , (Black, 10)
+    , (Chromatic $ ChromaticColor Magenta Light, 11)
+    , (Chromatic $ ChromaticColor Magenta Light, 11)
     ]
-  , [ (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (BlackCodel, 10)
-    , (AchromaticCodel $ ChromaticColor Magenta Light, 11)
-    , (AchromaticCodel $ ChromaticColor Magenta Light, 11)
-    , (BlackCodel, 14)
+  , [ (White, 13)
+    , (White, 13)
+    , (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Black, 10)
+    , (Chromatic $ ChromaticColor Magenta Light, 11)
+    , (Chromatic $ ChromaticColor Magenta Light, 11)
+    , (Black, 14)
     ]
-  , [ (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Cyan Light, 12)
-    , (AchromaticCodel $ ChromaticColor Red Normal, 9)
-    , (AchromaticCodel $ ChromaticColor Green Light, 15)
-    , (BlackCodel, 16)
-    , (BlackCodel, 16)
-    , (AchromaticCodel $ ChromaticColor Magenta Light, 11)
-    , (AchromaticCodel $ ChromaticColor Magenta Light, 11)
-    , (AchromaticCodel $ ChromaticColor Magenta Light, 11)
-    , (BlackCodel, 14)
+  , [ (White, 13)
+    , (White, 13)
+    , (White, 13)
+    , (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Cyan Light, 12)
+    , (Chromatic $ ChromaticColor Red Normal, 9)
+    , (Chromatic $ ChromaticColor Green Light, 15)
+    , (Black, 16)
+    , (Black, 16)
+    , (Chromatic $ ChromaticColor Magenta Light, 11)
+    , (Chromatic $ ChromaticColor Magenta Light, 11)
+    , (Chromatic $ ChromaticColor Magenta Light, 11)
+    , (Black, 14)
     ]
-  , [ (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (AchromaticCodel $ ChromaticColor Red Dark, 17)
-    , (AchromaticCodel $ ChromaticColor Red Light, 18)
-    , (AchromaticCodel $ ChromaticColor Red Light, 18)
-    , (AchromaticCodel $ ChromaticColor Red Light, 18)
-    , (BlackCodel, 19)
-    , (AchromaticCodel $ ChromaticColor Green Dark, 20)
-    , (AchromaticCodel $ ChromaticColor Green Dark, 20)
-    , (AchromaticCodel $ ChromaticColor Red Light, 21)
+  , [ (White, 13)
+    , (White, 13)
+    , (White, 13)
+    , (White, 13)
+    , (White, 13)
+    , (White, 13)
+    , (White, 13)
+    , (White, 13)
+    , (Chromatic $ ChromaticColor Red Dark, 17)
+    , (Chromatic $ ChromaticColor Red Light, 18)
+    , (Chromatic $ ChromaticColor Red Light, 18)
+    , (Chromatic $ ChromaticColor Red Light, 18)
+    , (Black, 19)
+    , (Chromatic $ ChromaticColor Green Dark, 20)
+    , (Chromatic $ ChromaticColor Green Dark, 20)
+    , (Chromatic $ ChromaticColor Red Light, 21)
     ]
-  , [ (WhiteCodel, 13)
-    , (AchromaticCodel $ ChromaticColor Yellow Light, 22)
-    , (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (WhiteCodel, 13)
-    , (AchromaticCodel $ ChromaticColor Cyan Dark, 23)
-    , (AchromaticCodel $ ChromaticColor Cyan Dark, 23)
-    , (WhiteCodel, 24)
-    , (AchromaticCodel $ ChromaticColor Green Light, 25)
-    , (AchromaticCodel $ ChromaticColor Green Light, 25)
-    , (AchromaticCodel $ ChromaticColor Green Light, 25)
-    , (WhiteCodel, 26)
-    , (WhiteCodel, 26)
-    , (WhiteCodel, 26)
-    , (BlackCodel, 27)
+  , [ (White, 13)
+    , (Chromatic $ ChromaticColor Yellow Light, 22)
+    , (White, 13)
+    , (White, 13)
+    , (White, 13)
+    , (White, 13)
+    , (Chromatic $ ChromaticColor Cyan Dark, 23)
+    , (Chromatic $ ChromaticColor Cyan Dark, 23)
+    , (White, 24)
+    , (Chromatic $ ChromaticColor Green Light, 25)
+    , (Chromatic $ ChromaticColor Green Light, 25)
+    , (Chromatic $ ChromaticColor Green Light, 25)
+    , (White, 26)
+    , (White, 26)
+    , (White, 26)
+    , (Black, 27)
     ]
   ]
 

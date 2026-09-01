@@ -86,7 +86,7 @@ spec = describe "slideOnWhiteBlock" $ forM_ testCases runTest where
     ]
 
 singleCodelImage ∷ Vector (Vector (Codel, Int))
-singleCodelImage = V.singleton $ V.singleton (WhiteCodel, 0)
+singleCodelImage = V.singleton $ V.singleton (White, 0)
 
 oneLoopImage ∷ Vector (Vector (Codel, Int))
 oneLoopImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
@@ -97,14 +97,14 @@ y          1
 y          1
 y2         1
 |] ∷ String))) where
-  f '0' = (BlackCodel, 0)
-  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 1)
-  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 2)
-  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 3)
-  f '1' = (BlackCodel, 4)
-  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 5)
-  f ' ' = (WhiteCodel, 6)
-  f '2' = (BlackCodel, 7)
+  f '0' = (Black, 0)
+  f 'r' = (Chromatic $ ChromaticColor Red Normal, 1)
+  f 'g' = (Chromatic $ ChromaticColor Green Normal, 2)
+  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 3)
+  f '1' = (Black, 4)
+  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 5)
+  f ' ' = (White, 6)
+  f '2' = (Black, 7)
   f _   = error "Unreachable"
 
 gammaImage ∷ Vector (Vector (Codel, Int))
@@ -115,15 +115,15 @@ r          c
 r          m
 r     1    y
 |] ∷ String))) where
-  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 0)
-  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 1)
-  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 2)
-  f 'c' = (AchromaticCodel $ ChromaticColor Cyan Normal, 3)
-  f 'm' = (AchromaticCodel $ ChromaticColor Magenta Normal, 4)
-  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 5)
-  f ' ' = (WhiteCodel, 6)
-  f '0' = (BlackCodel, 7)
-  f '1' = (BlackCodel, 8)
+  f 'r' = (Chromatic $ ChromaticColor Red Normal, 0)
+  f 'g' = (Chromatic $ ChromaticColor Green Normal, 1)
+  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 2)
+  f 'c' = (Chromatic $ ChromaticColor Cyan Normal, 3)
+  f 'm' = (Chromatic $ ChromaticColor Magenta Normal, 4)
+  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 5)
+  f ' ' = (White, 6)
+  f '0' = (Black, 7)
+  f '1' = (Black, 8)
   f _   = error "Unreachable"
 
 crossShapedImage ∷ Vector (Vector (Codel, Int))
@@ -134,12 +134,12 @@ crossShapedImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (to
 **3**
 *****
 |] ∷ String))) where
-  f '*' = (BlackCodel, 0)
-  f '0' = (WhiteCodel, 1)
-  f '1' = (WhiteCodel, 2)
-  f '2' = (WhiteCodel, 3)
-  f '3' = (WhiteCodel, 4)
-  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 5)
+  f '*' = (Black, 0)
+  f '0' = (White, 1)
+  f '1' = (White, 2)
+  f '2' = (White, 3)
+  f '3' = (White, 4)
+  f 'r' = (Chromatic $ ChromaticColor Red Normal, 5)
   f _   = error "Unreachable"
 
 spiralImage ∷ Vector (Vector (Codel, Int))
@@ -156,20 +156,20 @@ y2         g
 y        1 g
 ybbbbbbbbbbb
 |] ∷ String))) where
-  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 0)
-  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 1)
-  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 2)
-  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 3)
-  f 'c' = (AchromaticCodel $ ChromaticColor Cyan Normal, 4)
-  f ' ' = (WhiteCodel, 5)
-  f '0' = (BlackCodel, 6)
-  f '1' = (BlackCodel, 7)
-  f '2' = (BlackCodel, 8)
-  f '3' = (BlackCodel, 9)
-  f '4' = (BlackCodel, 10)
-  f '5' = (BlackCodel, 11)
-  f '6' = (BlackCodel, 12)
-  f '7' = (BlackCodel, 13)
+  f 'r' = (Chromatic $ ChromaticColor Red Normal, 0)
+  f 'g' = (Chromatic $ ChromaticColor Green Normal, 1)
+  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 2)
+  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 3)
+  f 'c' = (Chromatic $ ChromaticColor Cyan Normal, 4)
+  f ' ' = (White, 5)
+  f '0' = (Black, 6)
+  f '1' = (Black, 7)
+  f '2' = (Black, 8)
+  f '3' = (Black, 9)
+  f '4' = (Black, 10)
+  f '5' = (Black, 11)
+  f '6' = (Black, 12)
+  f '7' = (Black, 13)
   f _   = error "Unreachable"
 
 stuckImage1 ∷ Vector (Vector (Codel, Int))
@@ -181,14 +181,14 @@ y          1
 y          1
 y       2  1
 |] ∷ String))) where
-  f '0' = (BlackCodel, 0)
-  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 1)
-  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 2)
-  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 3)
-  f '1' = (BlackCodel, 4)
-  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 5)
-  f ' ' = (WhiteCodel, 6)
-  f '2' = (BlackCodel, 7)
+  f '0' = (Black, 0)
+  f 'r' = (Chromatic $ ChromaticColor Red Normal, 1)
+  f 'g' = (Chromatic $ ChromaticColor Green Normal, 2)
+  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 3)
+  f '1' = (Black, 4)
+  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 5)
+  f ' ' = (White, 6)
+  f '2' = (Black, 7)
   f _   = error "Unreachable"
 
 stuckImage2 ∷ Vector (Vector (Codel, Int))
@@ -200,14 +200,14 @@ y          1
 y          1
 y        2 1
 |] ∷ String))) where
-  f '0' = (BlackCodel, 0)
-  f 'r' = (AchromaticCodel $ ChromaticColor Red Normal, 1)
-  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 2)
-  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 3)
-  f '1' = (BlackCodel, 4)
-  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 5)
-  f ' ' = (WhiteCodel, 6)
-  f '2' = (BlackCodel, 7)
+  f '0' = (Black, 0)
+  f 'r' = (Chromatic $ ChromaticColor Red Normal, 1)
+  f 'g' = (Chromatic $ ChromaticColor Green Normal, 2)
+  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 3)
+  f '1' = (Black, 4)
+  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 5)
+  f ' ' = (White, 6)
+  f '2' = (Black, 7)
   f _   = error "Unreachable"
 
 stuckImage3 ∷ Vector (Vector (Codel, Int))
@@ -219,11 +219,11 @@ y          1
 y          1
 2          1
 |] ∷ String))) where
-  f '0' = (BlackCodel, 0)
-  f 'g' = (AchromaticCodel $ ChromaticColor Green Normal, 1)
-  f 'b' = (AchromaticCodel $ ChromaticColor Blue Normal, 2)
-  f '1' = (BlackCodel, 3)
-  f 'y' = (AchromaticCodel $ ChromaticColor Yellow Normal, 4)
-  f ' ' = (WhiteCodel, 5)
-  f '2' = (BlackCodel, 6)
+  f '0' = (Black, 0)
+  f 'g' = (Chromatic $ ChromaticColor Green Normal, 1)
+  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 2)
+  f '1' = (Black, 3)
+  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 4)
+  f ' ' = (White, 5)
+  f '2' = (Black, 6)
   f _   = error "Unreachable"
