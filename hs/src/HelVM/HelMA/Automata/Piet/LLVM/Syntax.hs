@@ -44,8 +44,8 @@ data SyntaxGraph
 
 data Course
   = Course
-      { getDP :: DirectionPointer
-      , getCC :: CodelChooser
+      { directionPointer :: DirectionPointer
+      , codelChooser     :: CodelChooser
       }
   deriving stock (Eq, Ord, Show)
 

@@ -51,4 +51,4 @@ nearestCourseTable possibleCourses = (id &&& nearestCourse) <$> allCourses where
 
   allCourses = Course <$> universe <*> universe
   possibleCourseSet = S.fromList possibleCourses
-  possibleDPSet = S.map getDP possibleCourseSet
+  possibleDPSet = S.map directionPointer possibleCourseSet
