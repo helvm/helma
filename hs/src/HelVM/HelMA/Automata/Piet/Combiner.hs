@@ -39,24 +39,24 @@ evalChromaticCommand sourceColor targetColor = colors2Command sourceColor target
 -- COLOR DIFFERENCE & COMMAND EXECUTION
 
 colors2Command ∷ AppSafeEff m ⇒ ChromaticColor → ChromaticColor → Int → Memory → m Memory
-colors2Command sourceColor targetColor = executeColorDiff $ chromaticDiff sourceColor targetColor
+colors2Command sourceColor targetColor = executeColorChange $ chromaticChange sourceColor targetColor
 
-executeColorDiff ∷ AppSafeEff m ⇒ ChromaticColor → Int → Memory → m Memory
-executeColorDiff (ChromaticColor Red    Light)   _ s = pure s
-executeColorDiff (ChromaticColor Red    Normal)  n s = pietPush n s
-executeColorDiff (ChromaticColor Red    Dark)    _ s = pietPop s
-executeColorDiff (ChromaticColor Yellow Light)   _ s = pietAdd s
-executeColorDiff (ChromaticColor Yellow Normal)  _ s = pietSubtract s
-executeColorDiff (ChromaticColor Yellow Dark)    _ s = pietMultiply s
-executeColorDiff (ChromaticColor Green  Light)   _ s = pietDivide s
-executeColorDiff (ChromaticColor Green  Normal)  _ s = pietMod s
-executeColorDiff (ChromaticColor Green  Dark)    _ s = pietNot s
-executeColorDiff (ChromaticColor Cyan   Light)   _ s = pietGreater s
-executeColorDiff (ChromaticColor Cyan   Normal)  _ s = pietPointer s
-executeColorDiff (ChromaticColor Cyan   Dark)    _ s = pietSwitch s
-executeColorDiff (ChromaticColor Blue   Light)   _ s = pietDuplicate s
-executeColorDiff (ChromaticColor Blue   Normal)  _ s = pietRoll s
-executeColorDiff (ChromaticColor Blue   Dark)    _ s = pietInNumber s
-executeColorDiff (ChromaticColor Magenta Light)  _ s = pietInChar s
-executeColorDiff (ChromaticColor Magenta Normal) _ s = pietOutNumber s
-executeColorDiff (ChromaticColor Magenta Dark)   _ s = pietOutChar s
+executeColorChange ∷ AppSafeEff m ⇒ ChromaticColor → Int → Memory → m Memory
+executeColorChange (ChromaticColor Red    Light)   _ s = pure s
+executeColorChange (ChromaticColor Red    Normal)  n s = pietPush n s
+executeColorChange (ChromaticColor Red    Dark)    _ s = pietPop s
+executeColorChange (ChromaticColor Yellow Light)   _ s = pietAdd s
+executeColorChange (ChromaticColor Yellow Normal)  _ s = pietSubtract s
+executeColorChange (ChromaticColor Yellow Dark)    _ s = pietMultiply s
+executeColorChange (ChromaticColor Green  Light)   _ s = pietDivide s
+executeColorChange (ChromaticColor Green  Normal)  _ s = pietMod s
+executeColorChange (ChromaticColor Green  Dark)    _ s = pietNot s
+executeColorChange (ChromaticColor Cyan   Light)   _ s = pietGreater s
+executeColorChange (ChromaticColor Cyan   Normal)  _ s = pietPointer s
+executeColorChange (ChromaticColor Cyan   Dark)    _ s = pietSwitch s
+executeColorChange (ChromaticColor Blue   Light)   _ s = pietDuplicate s
+executeColorChange (ChromaticColor Blue   Normal)  _ s = pietRoll s
+executeColorChange (ChromaticColor Blue   Dark)    _ s = pietInNumber s
+executeColorChange (ChromaticColor Magenta Light)  _ s = pietInChar s
+executeColorChange (ChromaticColor Magenta Normal) _ s = pietOutNumber s
+executeColorChange (ChromaticColor Magenta Dark)   _ s = pietOutChar s
