@@ -7,16 +7,16 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 guessCodelSize ∷ Eq a ⇒ Coordinates → (Coordinates → a) → Int
 guessCodelSize (width, height) pixelAccessor = groupGCD pixelAccessor (horizontalPositionBlocks width height) `gcd'` groupGCD pixelAccessor (verticalPositionBlocks width height)
 
-horizontalPositionBlocks ∷ Int → Int → [[Coordinates]]
+horizontalPositionBlocks ∷ Int → Int → [BlockCoordinates]
 horizontalPositionBlocks width height = generate height (buildRow width)
 
-buildRow ∷ Int → Int → [Coordinates]
+buildRow ∷ Int → Int → BlockCoordinates
 buildRow w y = generate w (`makePair` y)
 
-verticalPositionBlocks ∷ Int → Int → [[Coordinates]]
+verticalPositionBlocks ∷ Int → Int → [BlockCoordinates]
 verticalPositionBlocks width height = generate width (buildCol height)
 
-buildCol ∷ Int → Int → [Coordinates]
+buildCol ∷ Int → Int → BlockCoordinates
 buildCol h x = generate h (x `makePair`)
 
 makePair ∷ a → b → (a, b)

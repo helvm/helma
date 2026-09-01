@@ -26,7 +26,7 @@ data ImageTestCase
   = ImageTestCase
       { caseName      :: String
       , testImage     :: Vector (Vector (Color, Int))
-      , blockTable    :: IntMap [Coordinates]
+      , blockTable    :: IntMap BlockCoordinates
       , expectedGraph :: SyntaxGraph
       }
 
@@ -34,7 +34,7 @@ data ErrorTestCase
   = ErrorTestCase
       { errCaseName   :: String
       , errTestImage  :: Vector (Vector (Color, Int))
-      , errBlockTable :: IntMap [Coordinates]
+      , errBlockTable :: IntMap BlockCoordinates
       , expectedErr   :: ParserError
       }
 
@@ -129,7 +129,7 @@ spec = do
 smallImage ∷ Vector (Vector (Color, Int))
 smallImage = toVector2D [[(Chromatic $ ChromaticColor Red Normal, 0)]]
 
-smallBlockTable ∷ IntMap [Coordinates]
+smallBlockTable ∷ IntMap BlockCoordinates
 smallBlockTable = IM.fromList [(0, [(0, 0)])]
 
 expectedSmallGraph ∷ SyntaxGraph
@@ -138,13 +138,13 @@ expectedSmallGraph = SyntaxGraph 0 rl $ IM.fromList [(0, Block M.empty)]
 whiteImage ∷ Vector (Vector (Color, Int))
 whiteImage = toVector2D [[(White, 0)]]
 
-whiteBlockTable ∷ IntMap [Coordinates]
+whiteBlockTable ∷ IntMap BlockCoordinates
 whiteBlockTable = IM.fromList [(0, [(0, 0)])]
 
 blackImage ∷ Vector (Vector (Color, Int))
 blackImage = toVector2D [[(Black, 0)]]
 
-blackBlockTable ∷ IntMap [Coordinates]
+blackBlockTable ∷ IntMap BlockCoordinates
 blackBlockTable = IM.fromList [(0, [(0, 0)])]
 
 distantInitialImage ∷ Vector (Vector (Color, Int))
@@ -163,7 +163,7 @@ distantInitialImage = toVector2D
     ]
   ]
 
-distantInitialBlockTable ∷ IntMap [Coordinates]
+distantInitialBlockTable ∷ IntMap BlockCoordinates
 distantInitialBlockTable = IM.fromList
   [ (0, [(0, 0), (1, 0), (2, 0), (1, 1), (2, 1), (0, 2), (1, 2), (2, 2)])
   , (1, [(0, 1)])
@@ -198,7 +198,7 @@ stuckImage = toVector2D
     ]
   ]
 
-stuckBlockTable ∷ IntMap [Coordinates]
+stuckBlockTable ∷ IntMap BlockCoordinates
 stuckBlockTable = IM.fromList
   [ (0, [(0, 0)])
   , (1, [(1, 0)])
@@ -506,7 +506,7 @@ complexImage = toVector2D
     ]
   ]
 
-complexBlockTable ∷ IntMap [Coordinates]
+complexBlockTable ∷ IntMap BlockCoordinates
 complexBlockTable = IM.fromList
   [ (0, [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0)])
   , (1, [(5, 0), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (5, 2), (6, 2)])

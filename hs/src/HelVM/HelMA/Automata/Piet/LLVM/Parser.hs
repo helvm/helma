@@ -15,7 +15,7 @@ import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
-import           HelVM.HelMA.Automata.Piet.Types.Coordinates              ( Coordinates )
+import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Hue
@@ -34,7 +34,7 @@ import           Data.Vector                                              ( Vect
 import qualified Data.Vector                                              as V
 
 type CodelTable = Vector (Vector (Color, Int))
-type BlockTable = IntMap [Coordinates]
+type BlockTable = IntMap BlockCoordinates
 
 data ParserError
   = EmptyBlockTableError -- ^ The block table is empty.
@@ -104,7 +104,7 @@ nextBlockToIndexAndCourse ∷ NextBlock → Maybe (Int, Course)
 nextBlockToIndexAndCourse (NextBlock _ nextBlockCourse nextBlockIndex) = Just (nextBlockIndex, nextBlockCourse)
 nextBlockToIndexAndCourse ExitProgram                                  = Nothing
 
-minMaxCoords ∷ [Coordinates] → [(Course, Coordinates)]
+minMaxCoords ∷ BlockCoordinates → [(Course, Coordinates)]
 minMaxCoords positions = processPositions (nonEmpty positions)
   where
     processPositions (Just nePositions) = fmap (`maximumOn` nePositions) <$> fs

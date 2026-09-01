@@ -83,7 +83,7 @@ getMaskInfo mem = getMaskInfo' (programMemory mem) (positionMemory mem)
 nextCodelPos ∷ Memory → Coordinates
 nextCodelPos mem = nextPosFromBlock (currentBlock mem) mem
 
-currentBlock ∷ Memory → Block
+currentBlock ∷ Memory → BlockCoordinates
 currentBlock mem = discoverBlock (programMemory mem ^. imageL) (positionMemory mem)
 
 programMemory ∷ Memory → Program
@@ -110,7 +110,7 @@ codelSizeMemory mem = programMemory mem ^. codelSizeL
 blockCodelCount ∷ Memory → Int
 blockCodelCount = olength . currentBlock
 
-selectCodel ∷ Block → Memory → Coordinates
+selectCodel ∷ BlockCoordinates → Memory → Coordinates
 selectCodel block mem = List.maximumBy (furthest (courseMemory mem)) block
 
 currentColour ∷ Memory → Maybe Color
@@ -130,8 +130,7 @@ setCursor ic = (instructionMemoryL . cursorL) .~ ic
 -- PUBLIC DOMAIN MODIFIERS
 
 stepWhitePixel ∷ Memory → Memory
-stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem
-  where
+stepWhitePixel mem = handleBlocked (isBlocked nextPos prog) nextPos dp mem where
     prog    = programMemory mem
     nextPos = move dp $ positionMemory mem
     dp      = directionPointerMemory mem
@@ -146,8 +145,7 @@ modifyStackWithLog ∷ AppSafeEff m ⇒ Text → (Stack → m Stack) → Memory 
 modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im <$> f s)
 
 modifyFlipWithLog ∷ AppSafeEff m ⇒ Text → (Int → InstructionMemory → InstructionMemory) → Memory → m (Maybe Memory)
-modifyFlipWithLog name f mem = processStack (mem ^. stackL)
-  where
+modifyFlipWithLog name f mem = processStack (mem ^. stackL) where
     processStack Seq.Empty     = pure Nothing
     processStack (x Seq.:<| _) = do
       logWithPosition (name <> " " <> show (directionPointerMemory mem')) (mem' ^. instructionMemoryL)
@@ -158,12 +156,11 @@ modifyFlipWithLog name f mem = processStack (mem ^. stackL)
 -- PRIVATE UTILS & HELPERS
 
 getMaskInfo' ∷ Program → Coordinates → Maybe LabelInfo
-getMaskInfo' prog pos = findWithDefault Nothing (atMatrix pos maskImg) infoMap
-  where
-    maskImg = prog ^. (labellingL . maskL)
-    infoMap = prog ^. (labellingL . infoL)
+getMaskInfo' prog pos = findWithDefault Nothing (atMatrix pos maskImg) infoMap where
+  maskImg = prog ^. (labellingL . maskL)
+  infoMap = prog ^. (labellingL . infoL)
 
-nextPosFromBlock ∷ Block → Memory → Coordinates
+nextPosFromBlock ∷ BlockCoordinates → Memory → Coordinates
 nextPosFromBlock block mem = move (directionPointerMemory mem) (selectCodel block mem)
 
 colourAt ∷ Program → Coordinates → Maybe Color
