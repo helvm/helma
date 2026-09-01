@@ -39,19 +39,20 @@ computeCC nearestDP dp cc
   | even (fromEnum nearestDP - fromEnum dp) = cc
   | otherwise                               = cyclicSucc cc
 
-buildNearestDPTable ∷ Maybe (NE.NonEmpty DirectionPointer) → Map DirectionPointer DirectionPointer
+buildNearestDPTable ∷ Maybe (NonEmpty DirectionPointer) → Map DirectionPointer DirectionPointer
 buildNearestDPTable Nothing                      = M.empty
-buildNearestDPTable (Just neReversedPossibleDPs) = M.fromList $ go reversedAllDPs (cycle possibleList) lastDP where
+buildNearestDPTable (Just neReversedPossibleDPs) = M.fromList $ fix goStep reversedAllDPs (cycle possibleList) lastDP where
   lastDP         = last neReversedPossibleDPs
   possibleList   = NE.toList neReversedPossibleDPs
   reversedAllDPs = S.toDescList (S.fromList universe)
 
-go ∷ [DirectionPointer] → [DirectionPointer] → DirectionPointer → [(DirectionPointer, DirectionPointer)]
-go [] _ _ = []
-go (currentDP : currentDPs) (nextDP : nextDPs) dp
-  | currentDP == nextDP = (currentDP, nextDP) : go currentDPs nextDPs nextDP
-  | otherwise           = (currentDP, dp)     : go currentDPs (nextDP : nextDPs) dp
-go _ [] _ = error "unreachable"
+goStep ∷ ([DirectionPointer] → [DirectionPointer] → DirectionPointer → [(DirectionPointer, DirectionPointer)])
+       → [DirectionPointer] → [DirectionPointer] → DirectionPointer → [(DirectionPointer, DirectionPointer)]
+goStep _ [] _ _ = []
+goStep rec (currentDP : currentDPs) (nextDP : nextDPs) dp
+  | currentDP == nextDP = (currentDP, nextDP) : rec currentDPs nextDPs nextDP
+  | otherwise           = (currentDP, dp)     : rec currentDPs (nextDP : nextDPs) dp
+goStep _ _ [] _ = error "unreachable"
 
 nearestTableToBackwardTable ∷ Ord b ⇒ [(a, b)] → [(b, [a])]
 nearestTableToBackwardTable = fmap (extractGroup &&& fmap fst) . groupWith snd
