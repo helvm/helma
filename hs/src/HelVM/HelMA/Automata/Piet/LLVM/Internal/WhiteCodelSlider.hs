@@ -1,3 +1,4 @@
+{-# LANGUAGE ConstraintKinds  #-}
 {-# LANGUAGE FlexibleContexts #-}
 module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
   ( slideOnWhiteBlock
@@ -11,39 +12,65 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
-import           Control.Monad.Except                             ( MonadError (throwError) )
+import           Control.Monad.Except                             ( MonadError (throwError), liftEither )
+
 import qualified Data.Set                                         as S
 import           Data.Vector                                      ( Vector )
 import qualified Data.Vector                                      as V
 
+-- Constraint Type Aliases
+type MonadNextBlockError m = MonadError NextBlock m
+type MonadSlider m = (MonadState (Set (Coordinates, Course)) m, MonadNextBlockError m)
+
 slideOnWhiteBlock ∷ Vector (Vector (Color, Int)) → Coordinates → Course → NextBlock
 slideOnWhiteBlock image initialPosition initialCourse' = result where
-  result = (`evalState` S.empty) $ fmap (either id $ error "unreachable") . runExceptT $ slideOnWhiteBlockState initialPosition initialCourse'
+  result = either id (error "unreachable")
+         . runIdentity
+         . runExceptT
+         . (`evalStateT` S.empty)
+         $ slideOnWhiteBlockLoop image initialPosition initialCourse'
 
-  slideOnWhiteBlockState ∷ ( MonadState (Set (Coordinates, Course)) m
-                            , MonadError NextBlock m
-                            )
-                         ⇒ Coordinates → Course → m ()
-  slideOnWhiteBlockState position course = do
-    ((nextCodel, nextIndex), nextCodelCourse@(nextPosition, nextCourse)) <- maybe (throwError ExitProgram) pure $ next position course
-    when (nextCodel /= White) $ throwError $ NextBlock NoOperation nextCourse nextIndex
+slideOnWhiteBlockLoop ∷ MonadSlider m ⇒ Vector (Vector (Color, Int)) → Coordinates → Course → m ()
+slideOnWhiteBlockLoop image = fix step where
+  step loop position course =
+    processNext loop =<< liftEither (maybeToRight ExitProgram $ next image position course)
 
-    visited <- get
-    when (S.member nextCodelCourse visited) $ throwError ExitProgram
-    modify $ S.insert nextCodelCourse
+processNext ∷ MonadSlider m ⇒ (Coordinates → Course → m ()) → ((Color, Int), (Coordinates, Course)) → m ()
+processNext loop ((nextCodel, nextIndex), nextCodelCourse@(nextPosition, nextCourse)) =
+  checkNonWhite nextCodel nextCourse nextIndex
+  *> checkVisited nextCodelCourse
+  *> loop nextPosition nextCourse
 
-    slideOnWhiteBlockState nextPosition nextCourse
+checkNonWhite ∷ MonadNextBlockError m ⇒ Color → Course → Int → m ()
+checkNonWhite White _ _              = pass
+checkNonWhite _ nextCourse nextIndex = throwError $ NextBlock NoOperation nextCourse nextIndex
 
-  next ∷ Coordinates → Course → Maybe ((Color, Int), (Coordinates, Course))
-  next position course = listToMaybe $ do
-    nextCourse@(Course nextDP _) <- take 4 $ iterate succCourse course
-    let nextPosition = move nextDP position
-    codelInfo <- maybeToList $ getNonBlackCodel nextPosition
-    pure (codelInfo, (nextPosition, nextCourse))
+checkVisited ∷ MonadSlider m ⇒ (Coordinates, Course) → m ()
+checkVisited nextCodelCourse =
+  checkMember nextCodelCourse =<< get
 
-  getNonBlackCodel ∷ Coordinates → Maybe (Color, Int)
-  getNonBlackCodel (x, y) = do
-    (codel, index) <- image V.!? y >>= (V.!? x)
-    guard $ codel /= Black
-    pure (codel, index)
+checkMember ∷ MonadSlider m ⇒ (Coordinates, Course) → Set (Coordinates, Course) → m ()
+checkMember nextCodelCourse visited =
+  handleVisited (S.member nextCodelCourse visited) nextCodelCourse
 
+handleVisited ∷ MonadSlider m ⇒ Bool → (Coordinates, Course) → m ()
+handleVisited True _                = throwError ExitProgram
+handleVisited False nextCodelCourse = modify (S.insert nextCodelCourse)
+
+next ∷ Vector (Vector (Color, Int)) → Coordinates → Course → Maybe ((Color, Int), (Coordinates, Course))
+next image position course = viaNonEmpty head (mapMaybe (checkCourse image position) . take 4 $ iterate succCourse course)
+
+checkCourse ∷ Vector (Vector (Color, Int)) → Coordinates → Course → Maybe ((Color, Int), (Coordinates, Course))
+checkCourse image position nextCourse@(Course nextDP _) =
+  makePair nextCourse nextPosition =<< getNonBlackCodel image nextPosition where
+    nextPosition = move nextDP position
+
+makePair ∷ Course → Coordinates → (Color, Int) → Maybe ((Color, Int), (Coordinates, Course))
+makePair nextCourse nextPosition codelInfo = Just (codelInfo, (nextPosition, nextCourse))
+
+getNonBlackCodel ∷ Vector (Vector (Color, Int)) → Coordinates → Maybe (Color, Int)
+getNonBlackCodel image (x, y) = checkColor =<< (image V.!? y >>= (V.!? x))
+
+checkColor ∷ (Color, Int) → Maybe (Color, Int)
+checkColor (Black, _) = Nothing
+checkColor codelInfo  = Just codelInfo
