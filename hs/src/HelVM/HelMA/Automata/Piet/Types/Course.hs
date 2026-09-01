@@ -7,14 +7,20 @@ module HelVM.HelMA.Automata.Piet.Types.Course
   , rotateDirectionPointer
   , rotateToggle
   , showCourse
+  , succCourse
   , toggleCodelChooser
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
+
 import           Relude.Extra
+
+succCourse ∷ Course → Course
+succCourse (Course dp cc) = Course (cyclicSucc dp) (cyclicSucc cc)
 
 -- TYPES & CONSTRUCTORS
 

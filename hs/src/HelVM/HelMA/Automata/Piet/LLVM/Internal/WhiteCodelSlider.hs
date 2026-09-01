@@ -10,7 +10,6 @@ import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
-import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 import           Control.Monad.Except                             ( MonadError (throwError) )
 import qualified Data.Set                                         as S
@@ -48,5 +47,3 @@ slideOnWhiteBlock image initialPosition initialCourse' = result where
     guard $ codel /= Black
     pure (codel, index)
 
-succCourse ∷ Course → Course
-succCourse (Course dp cc) = Course (cyclicSucc dp) (cyclicSucc cc)
