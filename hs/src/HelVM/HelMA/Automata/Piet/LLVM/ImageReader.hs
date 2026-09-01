@@ -16,6 +16,8 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSize
 import           HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Hue
+import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 import           Codec.Picture
 import           Control.Monad.Except

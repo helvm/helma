@@ -7,6 +7,9 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Codel
 import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 
+import           HelVM.HelMA.Automata.Piet.Types.Hue
+import           HelVM.HelMA.Automata.Piet.Types.Lightness
+
 import           Data.Vector                                ( Vector )
 import           Test.Hspec
 

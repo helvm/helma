@@ -13,6 +13,9 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.Syntax
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates              ( Coordinates )
+import           HelVM.HelMA.Automata.Piet.Types.Hue
+import           HelVM.HelMA.Automata.Piet.Types.Lightness
+
 
 import           Control.Arrow                                            ( Arrow ((***)) )
 import           Control.Monad.Except

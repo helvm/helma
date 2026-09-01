@@ -1,7 +1,5 @@
 module HelVM.HelMA.Automata.Piet.LLVM.Codel
   ( Codel (..)
-  , Hue (..)
-  , Lightness (..)
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Hue

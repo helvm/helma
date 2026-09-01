@@ -1,10 +1,14 @@
 module HelVM.HelMA.Automata.Piet.Types.Hue
   ( Hue (..)
   , calculate
+  , diffHue
   , hueChange
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Cyclic
+
+diffHue ∷ Hue → Hue → Int
+diffHue h1 h2 = (fromEnum h2 - fromEnum h1) `mod` 6
 
 calculate ∷ Maybe Hue → Maybe Hue → Maybe Int
 calculate (Just x) (Just y) = Just $ (fromEnum y - fromEnum x + 6) `mod` 6
