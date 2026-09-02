@@ -75,21 +75,21 @@ imageToCodels ∷ MonadImageError m ⇒ ImageConfig → DynamicImage → m (Vect
 imageToCodels config = (=<<) (rgbImageToCodels config) . liftEither . first UnsupportedImageError . toRGB8ImageM
 
 rgbImageToCodels ∷ MonadImageError m ⇒ ImageConfig → Image PixelRGB8 → m (Vector (Vector Color))
-rgbImageToCodels config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) additionalColor' multicoloredCodel' codelSizeInt image where
-  pixelWidth = imageWidth image
-  pixelHeight = imageHeight image
-  codelSizeInt = getIntCodelSize (pixelWidth, pixelHeight) image (codelSize config)
-  additionalColor' = additionalColor config
-  multicoloredCodel' = multicoloredCodel config
+rgbImageToCodels config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image where
   (codelWidth, modX) = divMod pixelWidth codelSizeInt
   (codelHeight, modY) = divMod pixelHeight codelSizeInt
+  codelSizeInt = getIntCodelSize (pixelWidth, pixelHeight) image (codelSize config)
+  pixelWidth = imageWidth image
+  pixelHeight = imageHeight image
 
 checkDimensions ∷ MonadImageError m ⇒ Coordinates → m ()
 checkDimensions (0, 0) = pass
 checkDimensions _      = throwError CodelSizeError
 
-buildMatrix ∷ Coordinates → AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Vector (Vector Color)
-buildMatrix (codelWidth, codelHeight) stratMulti stratAdd sizeInt image = V.generate codelHeight (buildRow codelWidth stratMulti stratAdd sizeInt image)
+buildMatrix ∷ Coordinates → ImageConfig → Int → Image PixelRGB8 → Vector (Vector Color)
+buildMatrix (codelWidth, codelHeight) config sizeInt image = V.generate codelHeight (buildRow codelWidth stratAdd stratMulti sizeInt image) where
+  stratAdd = additionalColor config
+  stratMulti = multicoloredCodel config
 
 buildRow ∷ Int → AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Int → Vector Color
 buildRow codelWidth stratMulti stratAdd sizeInt image codelY = V.generate codelWidth (\codelX → buildCodel stratMulti stratAdd sizeInt image (codelX, codelY))
