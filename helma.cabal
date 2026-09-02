@@ -255,7 +255,6 @@ library
     HelVM.HelMA.Automata.Piet.LLVM.Evaluator
     HelVM.HelMA.Automata.Piet.LLVM.ImageReader
     HelVM.HelMA.Automata.Piet.LLVM.Parser
-    HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
 
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
     HelVM.HelMA.Automata.Piet.Types.Codel
@@ -278,6 +277,7 @@ library
     HelVM.HelMA.Automata.Piet.Types.PointedCodel
     HelVM.HelMA.Automata.Piet.Types.Program
     HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
+    HelVM.HelMA.Automata.Piet.WhiteCodelSlider
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
@@ -388,12 +388,12 @@ test-suite helma-test
 
     HelVM.HelMA.Automata.Piet.LLVM.ImageReaderSpec
     HelVM.HelMA.Automata.Piet.LLVM.ParserSpec
-    HelVM.HelMA.Automata.Piet.SyntaxVisualizerSpec
     
     HelVM.HelMA.Automata.Piet.CodelSizeSpec
     HelVM.HelMA.Automata.Piet.FillerSpec
     HelVM.HelMA.Automata.Piet.ToRGB8Spec
-    HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSliderSpec
+    HelVM.HelMA.Automata.Piet.SyntaxVisualizerSpec
+    HelVM.HelMA.Automata.Piet.WhiteCodelSliderSpec
 
     HelVM.HelMA.Automata.Rev.EvaluatorSpec
 

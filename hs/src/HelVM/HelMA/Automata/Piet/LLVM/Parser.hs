@@ -5,7 +5,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Parser
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Filler
-import           HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
+import           HelVM.HelMA.Automata.Piet.WhiteCodelSlider
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Codel

@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
+module HelVM.HelMA.Automata.Piet.WhiteCodelSlider
   ( Image
   , slideOnWhiteBlock
   ) where

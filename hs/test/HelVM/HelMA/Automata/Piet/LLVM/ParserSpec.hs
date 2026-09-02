@@ -4,9 +4,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.ParserSpec
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Parser
-import           HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider ( Image )
 import           HelVM.HelMA.Automata.Piet.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.TestUtils
+import           HelVM.HelMA.Automata.Piet.WhiteCodelSlider     ( Image )
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Codel
@@ -17,10 +17,10 @@ import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
-import qualified Data.IntMap                                     as IM
-import qualified Data.Map                                        as M
-import           Data.Vector                                     ( Vector )
-import qualified Data.Vector.Generic                             as V
+import qualified Data.IntMap                                    as IM
+import qualified Data.Map                                       as M
+import           Data.Vector                                    ( Vector )
+import qualified Data.Vector.Generic                            as V
 
 import           Test.Hspec
 
