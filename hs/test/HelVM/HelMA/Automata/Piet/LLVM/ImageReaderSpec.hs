@@ -24,37 +24,37 @@ spec = do
     forM_
       [ ( ImageConfig { additionalColor = AdditionalColorAsBlack
                       , multicoloredCodel = MulticoloredCodelAsWhite
-                      , codelSize = CodelSize 5
+                      , codelSize = CodelSizeJust 5
                       }
         , blackWhiteCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColorAsWhite
                       , multicoloredCodel = MulticoloredCodelAsBlack
-                      , codelSize = CodelSize 5
+                      , codelSize = CodelSizeJust 5
                       }
         , whiteBlackCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColorAsWhite
                       , multicoloredCodel = MulticoloredCodelCenter
-                      , codelSize = CodelSize 5
+                      , codelSize = CodelSizeJust 5
                       }
         , whiteCenterCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColorAsWhite
                       , multicoloredCodel = MulticoloredCodelModal
-                      , codelSize = CodelSize 5
+                      , codelSize = CodelSizeJust 5
                       }
         , whiteModalCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColorAsWhite
                       , multicoloredCodel = MulticoloredCodelAverage
-                      , codelSize = CodelSize 5
+                      , codelSize = CodelSizeJust 5
                       }
         , whiteAverageCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColorNearest
                       , multicoloredCodel = MulticoloredCodelAsWhite
-                      , codelSize = CodelSize 5
+                      , codelSize = CodelSizeJust 5
                       }
         , nearestWhiteCodels
         )
@@ -74,7 +74,7 @@ spec = do
     context "when given an invalid codel size" $ do
       let config = ImageConfig { additionalColor = AdditionalColorNearest
                                , multicoloredCodel = MulticoloredCodelAverage
-                               , codelSize = CodelSize 4
+                               , codelSize = CodelSizeJust 4
                                }
       res <- runIO $ runExceptT $ readCodels config "test/resources/imagereader-test.png"
       it "fails with CodelSizeError" $ res `shouldBe` Left CodelSizeError

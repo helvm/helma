@@ -45,8 +45,9 @@ data MulticoloredCodelStrategy
   | MulticoloredCodelAverage
   deriving stock (Eq, Ord, Show)
 
+-- FIXME change to Maybe
 data CodelSize
-  = CodelSize Int
+  = CodelSizeJust Int
   | GuessCodelSize
   deriving stock (Eq, Show)
 
@@ -70,7 +71,7 @@ buildCodel ∷ AdditionalColorStrategy → MulticoloredCodelStrategy → Int →
 buildCodel stratAdd stratMulti sizeInt image coords = colorToCodel stratAdd (getCodelColor stratMulti sizeInt image coords)
 
 getIntCodelSize ∷ Coordinates → Image PixelRGB8 → CodelSize → Int
-getIntCodelSize _ _ (CodelSize n)         = n
+getIntCodelSize _ _ (CodelSizeJust n)     = n
 getIntCodelSize size image GuessCodelSize = guessCodelSize size (uncurry (pixelAt image))
 
 getCodelColor ∷ MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → PixelRGB8
