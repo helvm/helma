@@ -1,12 +1,12 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.FillerSpec
+module HelVM.HelMA.Automata.Piet.FillerSpec
   ( main
   , spec
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Filler
-import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+import           HelVM.HelMA.Automata.Piet.TestUtils
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 

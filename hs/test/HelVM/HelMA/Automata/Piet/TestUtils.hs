@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+module HelVM.HelMA.Automata.Piet.TestUtils
   ( toVector2D
   , withTempFile
   ) where

@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
+module HelVM.HelMA.Automata.Piet.SyntaxTestHelper
   ( dl
   , dr
   , ll

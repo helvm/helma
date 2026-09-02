@@ -379,17 +379,17 @@ test-suite helma-test
     HelVM.HelMA.Automata.Piet.EvaluatorStepStateSpec
     HelVM.HelMA.Automata.Piet.FileExtra
 
-    HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
-    HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+    HelVM.HelMA.Automata.Piet.SyntaxTestHelper
+    HelVM.HelMA.Automata.Piet.TestUtils
 
     HelVM.HelMA.Automata.Piet.LLVM.ImageReaderSpec
     HelVM.HelMA.Automata.Piet.LLVM.ParserSpec
-    HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizerSpec
+    HelVM.HelMA.Automata.Piet.SyntaxVisualizerSpec
     
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSizeSpec
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.FillerSpec
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8Spec
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSliderSpec
+    HelVM.HelMA.Automata.Piet.CodelSizeSpec
+    HelVM.HelMA.Automata.Piet.FillerSpec
+    HelVM.HelMA.Automata.Piet.ToRGB8Spec
+    HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSliderSpec
 
     HelVM.HelMA.Automata.Rev.EvaluatorSpec
 

@@ -1,15 +1,15 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.CodelSizeSpec
+module HelVM.HelMA.Automata.Piet.CodelSizeSpec
   ( main
   , spec
   ) where
 
 import           HelVM.HelMA.Automata.Piet.CodelSize
-import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+import           HelVM.HelMA.Automata.Piet.TestUtils
 
-import           Data.Vector                              ( Vector )
-import qualified Data.Vector                              as V
+import           Data.Vector                         ( Vector )
+import qualified Data.Vector                         as V
 
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6

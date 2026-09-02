@@ -89,7 +89,7 @@ searchNextBlock codelTable p@(x, y) course blockSize = searchNextBlockWithColor 
 
 searchNextBlockWithColor ∷ CodelTable → Coordinates → Course → Int → (Color, Int) → Maybe (Maybe NextBlock)
 searchNextBlockWithColor codelTable p course@(Course dp _) blockSize (Chromatic curColor, _) = fetchNextCodel codelTable (move dp p) >>= searchNextBlockFromMove codelTable (move dp p) course blockSize curColor
-searchNextBlockWithColor _ _ _ _ _                                                                 = Nothing
+searchNextBlockWithColor _ _ _ _ _                                                           = Nothing
 
 fetchNextCodel ∷ CodelTable → Coordinates → Maybe (Color, Int)
 fetchNextCodel codelTable (nextX, nextY) = codelTable V.!? nextY >>= (V.!? nextX)
@@ -100,7 +100,7 @@ searchNextBlockFromMove codelTable nextPos course blockSize curColor (nextCodel,
 processNextCodel ∷ CodelTable → Color → ChromaticColor → Coordinates → Course → Int → Int → Maybe (Maybe NextBlock)
 processNextCodel _ (Chromatic nextColor) curColor _ course blockSize blockIdx = Just $ Just $ NextBlock (commandFromTransition (view hueL curColor, view lightnessL curColor) (view hueL nextColor, view lightnessL nextColor) blockSize) (BlockEdge blockIdx course)
 processNextCodel codelTable White _ pos course _ _                            = Just $ slideOnWhiteBlock codelTable pos course
-processNextCodel _ Black _ _ _ _ _                                           = Nothing
+processNextCodel _ Black _ _ _ _ _                                            = Nothing
 
 nextBlockToIndex ∷ Maybe NextBlock → Maybe Int
 nextBlockToIndex nb = view (targetL . blockIndexL) <$> nb

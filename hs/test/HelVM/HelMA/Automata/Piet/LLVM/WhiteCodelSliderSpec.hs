@@ -1,13 +1,13 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSliderSpec
+module HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSliderSpec
   ( main
   , spec
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
-import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 import           HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
+import           HelVM.HelMA.Automata.Piet.SyntaxTestHelper
+import           HelVM.HelMA.Automata.Piet.TestUtils
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor

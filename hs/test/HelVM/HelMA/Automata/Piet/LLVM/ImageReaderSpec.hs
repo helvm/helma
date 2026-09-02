@@ -4,7 +4,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.ImageReaderSpec
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
-import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+import           HelVM.HelMA.Automata.Piet.TestUtils
 import           HelVM.HelMA.Automata.Piet.Types.Color
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor

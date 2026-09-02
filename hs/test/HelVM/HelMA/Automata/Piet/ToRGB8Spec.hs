@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8Spec
+module HelVM.HelMA.Automata.Piet.ToRGB8Spec
   ( main
   , spec
   ) where
