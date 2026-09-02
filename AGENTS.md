@@ -38,6 +38,7 @@ Special Rules for Haskell:
   - Use `relude.extra` if needed
   - Use `RIO` but only for `main` and infrastructure (`RIO`-ful). Logic is `RIO` free (`RIO`-less)
 - Access tu record preference:
+  - All records shoud have implemented Relude Lens
   - Use Record Dot, if that's not enough:
   - Use Relude Lens, if that's not enough:
   - Use Rio Lens, if that's not enough:
@@ -56,11 +57,13 @@ Special Rules for Haskell:
 - Pattern matching style
   - The parameters used for pattern matching must come first in the function signature.
   - Do not use `where` inside individual pattern matching clauses. Extract any clause that requires local definitions (`where`) into a top-level helper function.
+- Extractions
+  - Extract complex constraint types from declarations using `type`
+  - Extract container in container from declarations using `type`
+  - Extract tuples from the result as new records. Then try to extract these records from the function parameters
 - Others
   - Don't break code lines unless necessary. Breaking lines is cheating, unless they're data lines
   - Don't use explicit recursion. Use `fix` instead or other available functions
-  - Extract complex constraint types from declarations using `type`
-  - Extract container in container from declarations using `type`
   - Do not use `>>=`, use `=<<`
   - Do not use `return`, use `pure`
   - Do not use `pure ()`, use `pass`
