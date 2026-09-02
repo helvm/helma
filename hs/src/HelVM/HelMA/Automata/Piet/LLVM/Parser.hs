@@ -56,7 +56,7 @@ parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (
 parseFrom _ _ Nothing = pure EmptySyntaxGraph
 parseFrom codelTable blockTable (Just (initialBlockIndex, initialCourse')) = do
   blockMap <- execStateT (parseState codelTable blockTable initialBlockIndex) IM.empty
-  pure $ SyntaxGraphJust initialBlockIndex initialCourse' blockMap
+  pure $ SyntaxGraphJust $ SyntaxGraph initialBlockIndex initialCourse' blockMap
 
 parseState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ CodelTable → BlockTable → Int → m ()
 parseState codelTable blockTable blockIndex = do
