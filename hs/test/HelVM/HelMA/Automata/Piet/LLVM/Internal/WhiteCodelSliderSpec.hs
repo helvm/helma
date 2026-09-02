@@ -5,21 +5,21 @@ module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSliderSpec
   , spec
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
+import           HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Course                   hiding ( initialCourse )
+import           HelVM.HelMA.Automata.Piet.Types.Course          hiding ( initialCourse )
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
-import           Data.Vector                                              ( Vector )
-import qualified Data.Vector                                              as V
+import           Data.Vector                                     ( Vector )
+import qualified Data.Vector                                     as V
 
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6

@@ -7,8 +7,8 @@ module HelVM.HelMA.Automata.Piet.LLVM.Parser
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Filler
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
+import           HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
 
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
@@ -21,17 +21,17 @@ import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
-import           Control.Arrow                                            ( Arrow ((***)) )
+import           Control.Arrow                                    ( Arrow ((***)) )
 import           Control.Monad.Except
 
-import qualified Data.Foldable1                                           as F1
-import qualified Data.IntMap                                              as IM
-import qualified Data.IntSet                                              as IS
-import qualified Data.List.NonEmpty                                       as NE
-import qualified Data.Map                                                 as M
+import qualified Data.Foldable1                                   as F1
+import qualified Data.IntMap                                      as IM
+import qualified Data.IntSet                                      as IS
+import qualified Data.List.NonEmpty                               as NE
+import qualified Data.Map                                         as M
 import           Data.MonoTraversable
-import           Data.Vector                                              ( Vector )
-import qualified Data.Vector                                              as V
+import           Data.Vector                                      ( Vector )
+import qualified Data.Vector                                      as V
 
 type CodelTable = Vector (Vector (Color, Int))
 type BlockTable = IntMap BlockCoordinates

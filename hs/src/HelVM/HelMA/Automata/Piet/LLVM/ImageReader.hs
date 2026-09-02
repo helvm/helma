@@ -14,9 +14,9 @@ module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
 
 import           HelVM.HelMA.Automata.Piet.CodelSize
 import           HelVM.HelMA.Automata.Piet.ToRGB8
-import           HelVM.HelMA.Automata.Piet.Types.Color
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
+import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness

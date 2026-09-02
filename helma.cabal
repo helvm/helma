@@ -254,7 +254,7 @@ library
     HelVM.HelMA.Automata.Piet.CodelSize
     HelVM.HelMA.Automata.Piet.Filler
     HelVM.HelMA.Automata.Piet.ToRGB8
-    HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
+    HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
 
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
     HelVM.HelMA.Automata.Piet.Types.CodelChooser

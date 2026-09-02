@@ -1,6 +1,6 @@
 {-# LANGUAGE ConstraintKinds  #-}
 {-# LANGUAGE FlexibleContexts #-}
-module HelVM.HelMA.Automata.Piet.LLVM.Internal.WhiteCodelSlider
+module HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
   ( slideOnWhiteBlock
   ) where
 
