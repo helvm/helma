@@ -108,23 +108,18 @@ getIntCodelSize _ _ (CodelSize n)         = n
 getIntCodelSize size image GuessCodelSize = guessCodelSize size $ uncurry (pixelAt image)
 
 getCodelColor ∷ MulticoloredCodelStrategy → Int → Image PixelRGB8 → Int → Int → PixelRGB8
-getCodelColor MulticoloredCodelAsWhite codelSizeInt image codelX codelY =
-  handleWhiteStrategy (getColors codelSizeInt image codelX codelY)
+getCodelColor MulticoloredCodelAsWhite codelSizeInt image codelX codelY = handleWhiteStrategy (getColors codelSizeInt image codelX codelY)
 
-getCodelColor MulticoloredCodelAsBlack codelSizeInt image codelX codelY =
-  handleBlackStrategy (getColors codelSizeInt image codelX codelY)
+getCodelColor MulticoloredCodelAsBlack codelSizeInt image codelX codelY = handleBlackStrategy (getColors codelSizeInt image codelX codelY)
 
-getCodelColor MulticoloredCodelCenter codelSizeInt image codelX codelY =
-  pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2) where
-    pixelOffsetX = codelX * codelSizeInt
-    pixelOffsetY = codelY * codelSizeInt
+getCodelColor MulticoloredCodelCenter codelSizeInt image codelX codelY = pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2) where
+  pixelOffsetX = codelX * codelSizeInt
+  pixelOffsetY = codelY * codelSizeInt
 
-getCodelColor MulticoloredCodelModal codelSizeInt image codelX codelY =
-  selectModal (nonEmpty (NE.groupAllWith id colors)) colors where
-    colors = getColors codelSizeInt image codelX codelY
+getCodelColor MulticoloredCodelModal codelSizeInt image codelX codelY = selectModal (nonEmpty (NE.groupAllWith id colors)) colors where
+  colors = getColors codelSizeInt image codelX codelY
 
-getCodelColor MulticoloredCodelAverage codelSizeInt image codelX codelY =
-  makeAveragePixel iR iG iB codelsNum where
+getCodelColor MulticoloredCodelAverage codelSizeInt image codelX codelY = makeAveragePixel iR iG iB codelsNum where
     colors = getColors codelSizeInt image codelX codelY
     (iR, iG, iB) = foldl' accumulateRGB (0, 0, 0) colors
     codelsNum = toInteger $ codelSizeInt * codelSizeInt
