@@ -161,12 +161,12 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li>No hints</li>
+<li><a id="hint0" href="javascript:show('hint0')">Warning: Eta reduce (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
-<li>No files</li>
+<li><a id="file0" href="javascript:show('file0')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Parser.hs (1)</a></li>
 </ul>
 
 </div>
@@ -177,7 +177,16 @@ v3.10
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-No hints
+<div class="hint0 file0">
+hs/src/HelVM/HelMA/Automata/Piet/LLVM/Parser.hs:54:1-92: Warning: Eta reduce<br/>
+Found<br/>
+<pre><span class='hs-definition'>parseFromWithInitial</span> <span class='hs-varid'>codelTable</span> <span class='hs-varid'>blockTable</span> <span class='hs-varid'>initial</span>
+  <span class='hs-keyglyph'>=</span> <span class='hs-varid'>parseFrom</span> <span class='hs-varid'>codelTable</span> <span class='hs-varid'>blockTable</span> <span class='hs-varid'>initial</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>parseFromWithInitial</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>parseFrom</span></pre>
+
+</div>
+
 </div>
 <script type='text/javascript'>
 show(window.location.hash.slice(1), true);
