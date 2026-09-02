@@ -75,7 +75,7 @@ imageToCodels ∷ MonadImageError m ⇒ ImageConfig → DynamicImage → m (Vect
 imageToCodels config = (=<<) (rgbImageToCodels config) . liftEither . first UnsupportedImageError . toRGB8ImageM
 
 rgbImageToCodels ∷ MonadImageError m ⇒ ImageConfig → Image PixelRGB8 → m (Vector (Vector Color))
-rgbImageToCodels config image = checkDimensions modX modY $> buildMatrix codelHeight codelWidth additionalColor' multicoloredCodel' codelSizeInt image where
+rgbImageToCodels config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) additionalColor' multicoloredCodel' codelSizeInt image where
   pixelWidth = imageWidth image
   pixelHeight = imageHeight image
   codelSizeInt = getIntCodelSize (pixelWidth, pixelHeight) image (codelSize config)
@@ -84,42 +84,42 @@ rgbImageToCodels config image = checkDimensions modX modY $> buildMatrix codelHe
   (codelWidth, modX) = divMod pixelWidth codelSizeInt
   (codelHeight, modY) = divMod pixelHeight codelSizeInt
 
-checkDimensions ∷ MonadImageError m ⇒ Int → Int → m ()
-checkDimensions 0 0 = pass
-checkDimensions _ _ = throwError CodelSizeError
+checkDimensions ∷ MonadImageError m ⇒ Coordinates → m ()
+checkDimensions (0, 0) = pass
+checkDimensions _      = throwError CodelSizeError
 
-buildMatrix ∷ Int → Int → AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Vector (Vector Color)
-buildMatrix codelHeight codelWidth stratMulti stratAdd sizeInt image = V.generate codelHeight (buildRow codelWidth stratMulti stratAdd sizeInt image)
+buildMatrix ∷ Coordinates → AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Vector (Vector Color)
+buildMatrix (codelWidth, codelHeight) stratMulti stratAdd sizeInt image = V.generate codelHeight (buildRow codelWidth stratMulti stratAdd sizeInt image)
 
 buildRow ∷ Int → AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Int → Vector Color
-buildRow codelWidth stratMulti stratAdd sizeInt image codelY = V.generate codelWidth (buildCodel stratMulti stratAdd sizeInt image codelY)
+buildRow codelWidth stratMulti stratAdd sizeInt image codelY = V.generate codelWidth (\codelX → buildCodel stratMulti stratAdd sizeInt image (codelX, codelY))
 
-buildCodel ∷ AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Int → Int → Color
-buildCodel stratAdd stratMulti sizeInt image codelY codelX = colorToCodel stratAdd (getCodelColor stratMulti sizeInt image codelX codelY)
+buildCodel ∷ AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → Color
+buildCodel stratAdd stratMulti sizeInt image coords = colorToCodel stratAdd (getCodelColor stratMulti sizeInt image coords)
 
 getIntCodelSize ∷ Coordinates → Image PixelRGB8 → CodelSize → Int
 getIntCodelSize _ _ (CodelSize n)         = n
 getIntCodelSize size image GuessCodelSize = guessCodelSize size (uncurry (pixelAt image))
 
-getCodelColor ∷ MulticoloredCodelStrategy → Int → Image PixelRGB8 → Int → Int → PixelRGB8
-getCodelColor MulticoloredCodelAsWhite codelSizeInt image codelX codelY = handleWhiteStrategy (getColors codelSizeInt image codelX codelY)
-getCodelColor MulticoloredCodelAsBlack codelSizeInt image codelX codelY = handleBlackStrategy (getColors codelSizeInt image codelX codelY)
-getCodelColor MulticoloredCodelCenter  codelSizeInt image codelX codelY = getCodelColorCenter codelSizeInt image codelX codelY
-getCodelColor MulticoloredCodelModal   codelSizeInt image codelX codelY = getCodelColorModal codelSizeInt image codelX codelY
-getCodelColor MulticoloredCodelAverage codelSizeInt image codelX codelY = getCodelColorAverage codelSizeInt image codelX codelY
+getCodelColor ∷ MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → PixelRGB8
+getCodelColor MulticoloredCodelAsWhite codelSizeInt image coords = handleWhiteStrategy (getColors codelSizeInt image coords)
+getCodelColor MulticoloredCodelAsBlack codelSizeInt image coords = handleBlackStrategy (getColors codelSizeInt image coords)
+getCodelColor MulticoloredCodelCenter  codelSizeInt image coords = getCodelColorCenter codelSizeInt image coords
+getCodelColor MulticoloredCodelModal   codelSizeInt image coords = getCodelColorModal codelSizeInt image coords
+getCodelColor MulticoloredCodelAverage codelSizeInt image coords = getCodelColorAverage codelSizeInt image coords
 
-getCodelColorCenter ∷ Int → Image PixelRGB8 → Int → Int → PixelRGB8
-getCodelColorCenter codelSizeInt image codelX codelY = pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2) where
+getCodelColorCenter ∷ Int → Image PixelRGB8 → Coordinates → PixelRGB8
+getCodelColorCenter codelSizeInt image (codelX, codelY) = pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2) where
   pixelOffsetX = codelX * codelSizeInt
   pixelOffsetY = codelY * codelSizeInt
 
-getCodelColorModal ∷ Int → Image PixelRGB8 → Int → Int → PixelRGB8
-getCodelColorModal codelSizeInt image codelX codelY = selectModal (nonEmpty (NE.groupAllWith id colors)) colors where
-  colors = getColors codelSizeInt image codelX codelY
+getCodelColorModal ∷ Int → Image PixelRGB8 → Coordinates → PixelRGB8
+getCodelColorModal codelSizeInt image coords = selectModal (nonEmpty (NE.groupAllWith id colors)) colors where
+  colors = getColors codelSizeInt image coords
 
-getCodelColorAverage ∷ Int → Image PixelRGB8 → Int → Int → PixelRGB8
-getCodelColorAverage codelSizeInt image codelX codelY = makeAveragePixel iR iG iB codelsNum where
-  colors = getColors codelSizeInt image codelX codelY
+getCodelColorAverage ∷ Int → Image PixelRGB8 → Coordinates → PixelRGB8
+getCodelColorAverage codelSizeInt image coords = makeAveragePixel iR iG iB codelsNum where
+  colors = getColors codelSizeInt image coords
   (iR, iG, iB) = foldl' accumulateRGB (0, 0, 0) colors
   codelsNum = toInteger (codelSizeInt * codelSizeInt)
 
@@ -153,8 +153,8 @@ getFirstColor ∷ [PixelRGB8] → PixelRGB8
 getFirstColor (c : _) = c
 getFirstColor []      = PixelRGB8 0 0 0
 
-getColors ∷ Int → Image PixelRGB8 → Int → Int → [PixelRGB8]
-getColors codelSizeInt image codelX codelY = pixelAt image <$> [pixelOffsetX .. pixelOffsetX + codelSizeInt - 1] <*> [pixelOffsetY .. pixelOffsetY + codelSizeInt - 1] where
+getColors ∷ Int → Image PixelRGB8 → Coordinates → [PixelRGB8]
+getColors codelSizeInt image (codelX, codelY) = pixelAt image <$> [pixelOffsetX .. pixelOffsetX + codelSizeInt - 1] <*> [pixelOffsetY .. pixelOffsetY + codelSizeInt - 1] where
   pixelOffsetX = codelX * codelSizeInt
   pixelOffsetY = codelY * codelSizeInt
 
