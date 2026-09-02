@@ -3,16 +3,13 @@ module HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
   , NextBlock (..)
   , NextBlockMaybe
   , SyntaxGraph (..)
-  , SyntaxGraphMaybe (..)
+  , SyntaxGraphMaybe
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Course
 
-data SyntaxGraphMaybe
-  = SyntaxGraphJust SyntaxGraph
-  | EmptySyntaxGraph
-  deriving stock (Eq, Show)
+type SyntaxGraphMaybe = Maybe SyntaxGraph
 
 data SyntaxGraph
   = SyntaxGraph

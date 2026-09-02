@@ -53,10 +53,10 @@ parseFilledImage (codelTable, blockTable) = do
   parseFrom codelTable blockTable initial
 
 parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (Int, Course) → m SyntaxGraphMaybe
-parseFrom _ _ Nothing = pure EmptySyntaxGraph
+parseFrom _ _ Nothing = pure Nothing
 parseFrom codelTable blockTable (Just (initialBlockIndex, initialCourse')) = do
   blockMap <- execStateT (parseState codelTable blockTable initialBlockIndex) IM.empty
-  pure $ SyntaxGraphJust $ SyntaxGraph initialBlockIndex initialCourse' blockMap
+  pure $ Just $ SyntaxGraph initialBlockIndex initialCourse' blockMap
 
 parseState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ CodelTable → BlockTable → Int → m ()
 parseState codelTable blockTable blockIndex = do
