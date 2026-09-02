@@ -4,10 +4,10 @@ module HelVM.HelMA.Automata.Piet.LLVM.ParserSpec
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Parser
-import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.LLVM.TestUtils
 import           HelVM.HelMA.Automata.Piet.Types.Color
+import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Command

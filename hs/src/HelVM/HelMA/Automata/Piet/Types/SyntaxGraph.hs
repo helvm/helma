@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
+module HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
   ( Block (..)
   , NextBlock (..)
   , NextBlockMaybe

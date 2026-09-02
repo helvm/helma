@@ -252,7 +252,7 @@ library
     HelVM.HelMA.Automata.Piet.LLVM.Evaluator
     HelVM.HelMA.Automata.Piet.LLVM.ImageReader
     HelVM.HelMA.Automata.Piet.LLVM.Parser
-    HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
+    HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
     HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
     HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
 

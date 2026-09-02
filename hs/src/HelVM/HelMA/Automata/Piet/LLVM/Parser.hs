@@ -7,8 +7,8 @@ module HelVM.HelMA.Automata.Piet.LLVM.Parser
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Filler
-import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
 import           HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
+import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor

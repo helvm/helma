@@ -2,14 +2,14 @@ module HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
   ( syntaxToDOT
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
+import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Course
 
-import qualified Data.IntMap                                as IM
-import qualified Data.Map                                   as M
-import qualified Data.Text.Lazy.Builder                     as LText
+import qualified Data.IntMap                                 as IM
+import qualified Data.Map                                    as M
+import qualified Data.Text.Lazy.Builder                      as LText
 
 syntaxToDOT ∷ SyntaxGraphMaybe → LText
 syntaxToDOT Nothing = "digraph {}"

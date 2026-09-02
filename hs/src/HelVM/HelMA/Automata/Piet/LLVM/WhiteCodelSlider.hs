@@ -4,7 +4,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
   ( slideOnWhiteBlock
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
+import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
