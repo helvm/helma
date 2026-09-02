@@ -51,9 +51,9 @@ parseFilledImageWithSplit (indices, positionTable) image = parseFilledImage (V.z
 parseFilledImage ∷ MonadError ParserError m ⇒ (CodelTable, BlockTable) → m (Maybe SyntaxGraph)
 parseFilledImage (codelTable, blockTable) = parseFrom codelTable blockTable =<< searchInitialBlock codelTable
 
-parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (Int, Course) → m (Maybe SyntaxGraph)
-parseFrom _ _ Nothing                                              = pure Nothing
-parseFrom codelTable blockTable (Just (entryIndex, entryCourse')) = Just . SyntaxGraph entryIndex entryCourse' <$> execStateT (parseState codelTable blockTable entryIndex) IM.empty
+parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe BlockEdge → m (Maybe SyntaxGraph)
+parseFrom _ _ Nothing                       = pure Nothing
+parseFrom codelTable blockTable (Just edge) = Just . SyntaxGraph edge <$> execStateT (parseState codelTable blockTable (view blockIndexL edge)) IM.empty
 
 parseState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ CodelTable → BlockTable → Int → m ()
 parseState codelTable blockTable blockIndex = justOrThrow (MissingCodelIndexError blockIndex) (blockTable IM.!? blockIndex) >>= processBlockState codelTable blockTable blockIndex
@@ -76,12 +76,12 @@ buildNextBlockList codelTable blockCoords = mapMaybe (findCourseNextBlock codelT
 findCourseNextBlock ∷ CodelTable → BlockCoordinates → Int → (Course, Coordinates) → Maybe (Course, Maybe NextBlock)
 findCourseNextBlock codelTable _ blockSize (course, pos) = (course,) <$> searchNextBlock codelTable pos course blockSize
 
-searchInitialBlock ∷ MonadError ParserError m ⇒ CodelTable → m (Maybe (Int, Course))
+searchInitialBlock ∷ MonadError ParserError m ⇒ CodelTable → m (Maybe BlockEdge)
 searchInitialBlock codelTable = uncurry (processInitial codelTable) =<< justOrThrow EmptyBlockTableError (codelTable V.!? 0 >>= (V.!? 0))
 
-processInitial ∷ MonadError ParserError m ⇒ CodelTable → Color → Int → m (Maybe (Int, Course))
-processInitial _ (Chromatic _) blockIdx = pure $ Just (blockIdx, initialCourse)
-processInitial codelTable White _       = pure $ nextBlockToIndexAndCourse $ slideOnWhiteBlock codelTable (0, 0) initialCourse
+processInitial ∷ MonadError ParserError m ⇒ CodelTable → Color → Int → m (Maybe BlockEdge)
+processInitial _ (Chromatic _) blockIdx = pure $ Just $ BlockEdge blockIdx initialCourse
+processInitial codelTable White _       = pure $ view targetL <$> slideOnWhiteBlock codelTable (0, 0) initialCourse
 processInitial _ Black          _       = throwError IllegalInitialColorError
 
 searchNextBlock ∷ CodelTable → Coordinates → Course → Int → Maybe (Maybe NextBlock)
@@ -98,15 +98,12 @@ searchNextBlockFromMove ∷ CodelTable → Coordinates → Course → Int → Ch
 searchNextBlockFromMove codelTable nextPos course blockSize curColor (nextCodel, blockIndex) = processNextCodel codelTable nextCodel curColor nextPos course blockSize blockIndex
 
 processNextCodel ∷ CodelTable → Color → ChromaticColor → Coordinates → Course → Int → Int → Maybe (Maybe NextBlock)
-processNextCodel _ (Chromatic nextColor) curColor _ course blockSize blockIdx = Just $ Just $ NextBlock (commandFromTransition (view hueL curColor, view lightnessL curColor) (view hueL nextColor, view lightnessL nextColor) blockSize) course blockIdx
+processNextCodel _ (Chromatic nextColor) curColor _ course blockSize blockIdx = Just $ Just $ NextBlock (commandFromTransition (view hueL curColor, view lightnessL curColor) (view hueL nextColor, view lightnessL nextColor) blockSize) (BlockEdge blockIdx course)
 processNextCodel codelTable White _ pos course _ _                            = Just $ slideOnWhiteBlock codelTable pos course
 processNextCodel _ Black _ _ _ _ _                                           = Nothing
 
 nextBlockToIndex ∷ Maybe NextBlock → Maybe Int
-nextBlockToIndex nb = view blockIndexL <$> nb
-
-nextBlockToIndexAndCourse ∷ Maybe NextBlock → Maybe (Int, Course)
-nextBlockToIndexAndCourse nb = ((,) . view blockIndexL <$> nb) <*> (view courseL <$> nb)
+nextBlockToIndex nb = view (targetL . blockIndexL) <$> nb
 
 minMaxCoords ∷ BlockCoordinates → [(Course, Coordinates)]
 minMaxCoords positions = processPositions (nonEmpty positions)

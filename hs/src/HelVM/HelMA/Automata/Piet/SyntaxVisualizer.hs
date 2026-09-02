@@ -14,10 +14,10 @@ import           Relude.Extra
 
 syntaxToDOT ∷ Maybe SyntaxGraph → LText
 syntaxToDOT Nothing   = "digraph {}"
-syntaxToDOT (Just sg) = LText.toLazyText $ "digraph {\n" <> "  rankdir=LR\n" <> "  start [label=\"\" shape=point color=white]\n" <> "  node [label=\"\" shape=circle color=black]\n" <> startEdge (view entryBlockIndexL sg) (view entryCourseL sg) <> mconcat (blocks $ view blockMapL sg) <> "}"
+syntaxToDOT (Just sg) = LText.toLazyText $ "digraph {\n" <> "  rankdir=LR\n" <> "  start [label=\"\" shape=point color=white]\n" <> "  node [label=\"\" shape=circle color=black]\n" <> startEdge (view entryL sg) <> mconcat (blocks $ view blockMapL sg) <> "}"
 
-startEdge ∷ Int → Course → LText.Builder
-startEdge blockIndex course = "  start -> " <> showBuilder blockIndex <> " [label=\"" <> toStringBuilder (showCourse course) <> "\"]\n"
+startEdge ∷ BlockEdge → LText.Builder
+startEdge edge = "  start -> " <> showBuilder (view blockIndexL edge) <> " [label=\"" <> toStringBuilder (showCourse $ view courseL edge) <> "\"]\n"
 
 blocks ∷ IntMap Block → [LText.Builder]
 blocks = fmap (uncurry processBlock) . IM.toAscList
@@ -50,11 +50,11 @@ exitEdge ∷ Int → LText.Builder
 exitEdge from = "  exit" <> showBuilder from <> " [label=\"\" shape=point color=white]\n"
 
 nextBlockEdge ∷ Int → Course → Maybe NextBlock → LText.Builder
-nextBlockEdge from fromCourse (Just nb) = formatNextBlockEdge from fromCourse (view commandL nb) (view courseL nb) (view blockIndexL nb)
+nextBlockEdge from fromCourse (Just nb) = formatNextBlockEdge from fromCourse (view commandL nb) (view targetL nb)
 nextBlockEdge from fromCourse Nothing   = "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"" <> toStringBuilder (showCourse fromCourse) <> "\"]\n"
 
-formatNextBlockEdge ∷ Int → Course → Command → Course → Int → LText.Builder
-formatNextBlockEdge from fromCourse cmd toCourse toIdx = "  " <> showBuilder from <> " -> " <> showBuilder toIdx <> " [label=\"" <> toStringBuilder (showCourse fromCourse) <> ": " <> toStringBuilder (showCommand cmd) <> nextCourseText fromCourse toCourse <> "\"]\n"
+formatNextBlockEdge ∷ Int → Course → Command → BlockEdge → LText.Builder
+formatNextBlockEdge from fromCourse cmd targetEdge = "  " <> showBuilder from <> " -> " <> showBuilder (view blockIndexL targetEdge) <> " [label=\"" <> toStringBuilder (showCourse fromCourse) <> ": " <> toStringBuilder (showCommand cmd) <> nextCourseText fromCourse (view courseL targetEdge) <> "\"]\n"
 
 nextCourseText ∷ Course → Course → LText.Builder
 nextCourseText fromCourse toCourse

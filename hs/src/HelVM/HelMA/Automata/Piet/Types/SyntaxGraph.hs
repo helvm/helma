@@ -1,13 +1,14 @@
 module HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
   ( Block (..)
+  , BlockEdge (..)
   , NextBlock (..)
   , SyntaxGraph (..)
   , blockIndexL
   , blockMapL
   , commandL
   , courseL
-  , entryBlockIndexL
-  , entryCourseL
+  , entryL
+  , targetL
   , transitionsL
   ) where
 
@@ -20,9 +21,8 @@ import           Relude.Extra
 
 data SyntaxGraph
   = SyntaxGraph
-      { entryBlockIndex :: Int
-      , entryCourse     :: Course
-      , blockMap        :: IntMap Block
+      { entry    :: !BlockEdge
+      , blockMap :: !(IntMap Block)
       }
   deriving stock (Eq, Show)
 
@@ -32,19 +32,23 @@ newtype Block
 
 data NextBlock
   = NextBlock
-      { command    :: Command
-      , course     :: Course
-      , blockIndex :: Int
+      { command :: !Command
+      , target  :: !BlockEdge
       }
   deriving stock (Eq, Show)
 
+data BlockEdge
+  = BlockEdge
+      { blockIndex :: !Int
+      , course     :: !Course
+      }
+  deriving stock (Eq, Show)
+
+
 -- LENSES: SyntaxGraph
 
-entryBlockIndexL ∷ Lens' SyntaxGraph Int
-entryBlockIndexL = lens entryBlockIndex $ \s x → s { entryBlockIndex = x }
-
-entryCourseL ∷ Lens' SyntaxGraph Course
-entryCourseL = lens entryCourse $ \s x → s { entryCourse = x }
+entryL ∷ Lens' SyntaxGraph BlockEdge
+entryL = lens entry $ \s x → s { entry = x }
 
 blockMapL ∷ Lens' SyntaxGraph (IntMap Block)
 blockMapL = lens blockMap $ \s x → s { blockMap = x }
@@ -59,8 +63,14 @@ transitionsL = lens transitions $ \_ x → Block x
 commandL ∷ Lens' NextBlock Command
 commandL = lens command $ \s x → s { command = x }
 
-courseL ∷ Lens' NextBlock Course
+targetL ∷ Lens' NextBlock BlockEdge
+targetL = lens target $ \s x → s { target = x }
+
+-- LENSES: BlockEdge
+
+blockIndexL ∷ Lens' BlockEdge Int
+blockIndexL = lens blockIndex $ \s x → s { blockIndex = x }
+
+courseL ∷ Lens' BlockEdge Course
 courseL = lens course $ \s x → s { course = x }
 
-blockIndexL ∷ Lens' NextBlock Int
-blockIndexL = lens blockIndex $ \s x → s { blockIndex = x }

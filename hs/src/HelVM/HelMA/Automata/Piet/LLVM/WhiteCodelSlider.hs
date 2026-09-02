@@ -23,35 +23,24 @@ type MonadNextBlockError m = MonadError (Maybe NextBlock) m
 type MonadSlider m = (MonadState (Set (Coordinates, Course)) m, MonadNextBlockError m)
 
 slideOnWhiteBlock ∷ Vector (Vector (Color, Int)) → Coordinates → Course → Maybe NextBlock
-slideOnWhiteBlock image initialPosition initialCourse' = result where
-  result = either id (error "unreachable")
-         . runIdentity
-         . runExceptT
-         . (`evalStateT` S.empty)
-         $ slideOnWhiteBlockLoop image initialPosition initialCourse'
+slideOnWhiteBlock image initialPosition initialCourse' = either id (error "unreachable") . runIdentity . runExceptT . (`evalStateT` S.empty) $ slideOnWhiteBlockLoop image initialPosition initialCourse'
 
 slideOnWhiteBlockLoop ∷ MonadSlider m ⇒ Vector (Vector (Color, Int)) → Coordinates → Course → m ()
 slideOnWhiteBlockLoop image = fix step where
-  step loop position course =
-    processNext loop =<< liftEither (maybeToRight Nothing $ next image position course)
+  step loop position course = processNext loop =<< liftEither (maybeToRight Nothing $ next image position course)
 
 processNext ∷ MonadSlider m ⇒ (Coordinates → Course → m ()) → ((Color, Int), (Coordinates, Course)) → m ()
-processNext loop ((nextCodel, nextIndex), nextCodelCourse@(nextPosition, nextCourse)) =
-  checkNonWhite nextCodel nextCourse nextIndex
-  *> checkVisited nextCodelCourse
-  *> loop nextPosition nextCourse
+processNext loop ((nextCodel, nextIndex), nextCodelCourse@(nextPosition, nextCourse)) = checkNonWhite nextCodel nextCourse nextIndex *> checkVisited nextCodelCourse *> loop nextPosition nextCourse
 
 checkNonWhite ∷ MonadNextBlockError m ⇒ Color → Course → Int → m ()
 checkNonWhite White _ _              = pass
-checkNonWhite _ nextCourse nextIndex = throwError $ Just $ NextBlock NoOperation nextCourse nextIndex
+checkNonWhite _ nextCourse nextIndex = throwError $ Just $ NextBlock NoOperation (BlockEdge nextIndex nextCourse)
 
 checkVisited ∷ MonadSlider m ⇒ (Coordinates, Course) → m ()
-checkVisited nextCodelCourse =
-  checkMember nextCodelCourse =<< get
+checkVisited nextCodelCourse = checkMember nextCodelCourse =<< get
 
 checkMember ∷ MonadSlider m ⇒ (Coordinates, Course) → Set (Coordinates, Course) → m ()
-checkMember nextCodelCourse visited =
-  handleVisited (S.member nextCodelCourse visited) nextCodelCourse
+checkMember nextCodelCourse visited = handleVisited (S.member nextCodelCourse visited) nextCodelCourse
 
 handleVisited ∷ MonadSlider m ⇒ Bool → (Coordinates, Course) → m ()
 handleVisited True _                = throwError Nothing
@@ -61,9 +50,7 @@ next ∷ Vector (Vector (Color, Int)) → Coordinates → Course → Maybe ((Col
 next image position course = viaNonEmpty head (mapMaybe (checkCourse image position) . take 4 $ iterate succCourse course)
 
 checkCourse ∷ Vector (Vector (Color, Int)) → Coordinates → Course → Maybe ((Color, Int), (Coordinates, Course))
-checkCourse image position nextCourse@(Course nextDP _) =
-  makePair nextCourse nextPosition =<< getNonBlackCodel image nextPosition where
-    nextPosition = move nextDP position
+checkCourse image position nextCourse@(Course nextDP _) = makePair nextCourse (move nextDP position) =<< getNonBlackCodel image (move nextDP position)
 
 makePair ∷ Course → Coordinates → (Color, Int) → Maybe ((Color, Int), (Coordinates, Course))
 makePair nextCourse nextPosition codelInfo = Just (codelInfo, (nextPosition, nextCourse))

@@ -32,8 +32,8 @@ spec = do
         context ("when given " ++ name) $
           it "convert a syntax graph to a DOT script" $ syntaxToDOT graph `shouldBe` dot
 
-smallestGraph ∷ (Maybe SyntaxGraph)
-smallestGraph = Just $ SyntaxGraph 999 dr $ one (999 , Block M.empty)
+smallestGraph ∷ Maybe SyntaxGraph
+smallestGraph = Just $ SyntaxGraph (BlockEdge 999 dr) $ one (999 , Block M.empty)
 
 smallestDOT ∷ LText
 smallestDOT = [q|digraph {
@@ -45,22 +45,22 @@ smallestDOT = [q|digraph {
   999 -> exit999 [label=""]
 }|]
 
-stuckGraph ∷ (Maybe SyntaxGraph)
-stuckGraph = Just $ SyntaxGraph 0 rl $ IM.fromList
+stuckGraph ∷ Maybe SyntaxGraph
+stuckGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList
   [ ( 0
-    , Block $ M.fromList [ (rl, Just $ NextBlock (Push 1) rl 1)
-                         , (rr, Just $ NextBlock (Push 1) rr 1)
-                         , (dl, Just $ NextBlock NoOperation ul 0)
-                         , (dr, Just $ NextBlock NoOperation ur 0)
+    , Block $ M.fromList [ (rl, Just $ NextBlock (Push 1) (BlockEdge 1 rl))
+                         , (rr, Just $ NextBlock (Push 1) (BlockEdge 1 rr))
+                         , (dl, Just $ NextBlock NoOperation (BlockEdge 0 ul))
+                         , (dr, Just $ NextBlock NoOperation (BlockEdge 0 ur))
                          ]
     )
   , ( 1
     , Block $ M.fromList [ (rl, Nothing)
                          , (rr, Nothing)
-                         , (dl, Just $ NextBlock NoOperation ul 0)
-                         , (dr, Just $ NextBlock NoOperation ur 0)
-                         , (ll, Just $ NextBlock Pop ll 0)
-                         , (lr, Just $ NextBlock Pop lr 0)
+                         , (dl, Just $ NextBlock NoOperation (BlockEdge 0 ul))
+                         , (dr, Just $ NextBlock NoOperation (BlockEdge 0 ur))
+                         , (ll, Just $ NextBlock Pop (BlockEdge 0 ll))
+                         , (lr, Just $ NextBlock Pop (BlockEdge 0 lr))
                          ]
     )
   ]
@@ -84,135 +84,135 @@ stuckDOT = [q|digraph {
   1 -> 0 [label="lr: pop"]
 }|]
 
-complexGraph ∷ (Maybe SyntaxGraph)
-complexGraph = Just $ SyntaxGraph 0 rl $ IM.fromList
+complexGraph ∷ Maybe SyntaxGraph
+complexGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList
   [ ( 0
-    , Block $ M.fromList [ (rl, Just $ NextBlock Pop rl 1)
-                         , (rr, Just $ NextBlock Pop rr 1)
-                         , (dl, Just $ NextBlock Pop dl 1)
-                         , (dr, Just $ NextBlock (Push 5) dr 6)
+    , Block $ M.fromList [ (rl, Just $ NextBlock Pop (BlockEdge 1 rl))
+                         , (rr, Just $ NextBlock Pop (BlockEdge 1 rr))
+                         , (dl, Just $ NextBlock Pop (BlockEdge 1 dl))
+                         , (dr, Just $ NextBlock (Push 5) (BlockEdge 6 dr))
                          ]
     )
   , ( 1
-    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation rl 7)
-                         , (rr, Just $ NextBlock NoOperation rr 7)
-                         , (dl, Just $ NextBlock Divide dl 9)
-                         , (dr, Just $ NextBlock Divide dr 9)
-                         , (ll, Just $ NextBlock Pop ll 6)
-                         , (lr, Just $ NextBlock Pop lr 6)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation (BlockEdge 7 rl))
+                         , (rr, Just $ NextBlock NoOperation (BlockEdge 7 rr))
+                         , (dl, Just $ NextBlock Divide (BlockEdge 9 dl))
+                         , (dr, Just $ NextBlock Divide (BlockEdge 9 dr))
+                         , (ll, Just $ NextBlock Pop (BlockEdge 6 ll))
+                         , (lr, Just $ NextBlock Pop (BlockEdge 6 lr))
                          ]
     )
   , ( 2
-    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation rl 4)
-                         , (rr, Just $ NextBlock NoOperation rr 4)
-                         , (dl, Just $ NextBlock NoOperation dl 9)
-                         , (dr, Just $ NextBlock Roll dr 1)
-                         , (ll, Just $ NextBlock Roll ll 1)
-                         , (lr, Just $ NextBlock Roll lr 1)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation (BlockEdge 4 rl))
+                         , (rr, Just $ NextBlock NoOperation (BlockEdge 4 rr))
+                         , (dl, Just $ NextBlock NoOperation (BlockEdge 9 dl))
+                         , (dr, Just $ NextBlock Roll (BlockEdge 1 dr))
+                         , (ll, Just $ NextBlock Roll (BlockEdge 1 ll))
+                         , (lr, Just $ NextBlock Roll (BlockEdge 1 lr))
                          ]
     )
   , ( 4
-    , Block $ M.fromList [ (rl, Just $ NextBlock OutChar rl 5)
-                         , (rr, Just $ NextBlock OutChar rr 5)
-                         , (dl, Just $ NextBlock Subtract dl 7)
-                         , (dr, Just $ NextBlock NoOperation dr 7)
-                         , (ll, Just $ NextBlock NoOperation ll 2)
-                         , (lr, Just $ NextBlock NoOperation lr 2)
+    , Block $ M.fromList [ (rl, Just $ NextBlock OutChar (BlockEdge 5 rl))
+                         , (rr, Just $ NextBlock OutChar (BlockEdge 5 rr))
+                         , (dl, Just $ NextBlock Subtract (BlockEdge 7 dl))
+                         , (dr, Just $ NextBlock NoOperation (BlockEdge 7 dr))
+                         , (ll, Just $ NextBlock NoOperation (BlockEdge 2 ll))
+                         , (lr, Just $ NextBlock NoOperation (BlockEdge 2 lr))
                          ]
     )
   , ( 5
-    , Block $ M.fromList [ (dr, Just $ NextBlock Not dr 7)
-                         , (ll, Just $ NextBlock Subtract ll 4)
-                         , (lr, Just $ NextBlock Subtract lr 4)
+    , Block $ M.fromList [ (dr, Just $ NextBlock Not (BlockEdge 7 dr))
+                         , (ll, Just $ NextBlock Subtract (BlockEdge 4 ll))
+                         , (lr, Just $ NextBlock Subtract (BlockEdge 4 lr))
                          ]
     )
   , ( 6
-    , Block $ M.fromList [ (rl, Just $ NextBlock Mod rl 9)
-                         , (rr, Just $ NextBlock Mod rr 9)
-                         , (dl, Just $ NextBlock Mod dl 9)
-                         , (dr, Just $ NextBlock InChar dr 12)
-                         , (ul, Just $ NextBlock Pop ul 0)
-                         , (ur, Just $ NextBlock Pop ur 0)
+    , Block $ M.fromList [ (rl, Just $ NextBlock Mod (BlockEdge 9 rl))
+                         , (rr, Just $ NextBlock Mod (BlockEdge 9 rr))
+                         , (dl, Just $ NextBlock Mod (BlockEdge 9 dl))
+                         , (dr, Just $ NextBlock InChar (BlockEdge 12 dr))
+                         , (ul, Just $ NextBlock Pop (BlockEdge 0 ul))
+                         , (ur, Just $ NextBlock Pop (BlockEdge 0 ur))
                          ]
     )
   , ( 7
-    , Block $ M.fromList [ (ll, Just $ NextBlock NoOperation ll 9)
-                         , (lr, Just $ NextBlock NoOperation lr 9)
-                         , (ul, Just $ NextBlock OutChar ul 4)
-                         , (ur, Just $ NextBlock Roll ur 5)
+    , Block $ M.fromList [ (ll, Just $ NextBlock NoOperation (BlockEdge 9 ll))
+                         , (lr, Just $ NextBlock NoOperation (BlockEdge 9 lr))
+                         , (ul, Just $ NextBlock OutChar (BlockEdge 4 ul))
+                         , (ur, Just $ NextBlock Roll (BlockEdge 5 ur))
                          ]
     )
   , ( 9
-    , Block $ M.fromList [ (dl, Just $ NextBlock (Push 16) dl 17)
-                         , (dr, Just $ NextBlock (Push 16) dr 17)
-                         , (ll, Just $ NextBlock Switch ll 12)
-                         , (lr, Just $ NextBlock Switch lr 12)
-                         , (ul, Just $ NextBlock Duplicate ul 1)
-                         , (ur, Just $ NextBlock Duplicate ur 1)
+    , Block $ M.fromList [ (dl, Just $ NextBlock (Push 16) (BlockEdge 17 dl))
+                         , (dr, Just $ NextBlock (Push 16) (BlockEdge 17 dr))
+                         , (ll, Just $ NextBlock Switch (BlockEdge 12 ll))
+                         , (lr, Just $ NextBlock Switch (BlockEdge 12 lr))
+                         , (ul, Just $ NextBlock Duplicate (BlockEdge 1 ul))
+                         , (ur, Just $ NextBlock Duplicate (BlockEdge 1 ur))
                          ]
     )
   , ( 12
-    , Block $ M.fromList [ (rl, Just $ NextBlock Pointer rl 9)
-                         , (rr, Just $ NextBlock Pointer rr 9)
-                         , (dl, Just $ NextBlock NoOperation dl 23)
-                         , (dr, Just $ NextBlock NoOperation ll 22)
-                         , (ul, Just $ NextBlock Add ul 6)
-                         , (ur, Just $ NextBlock Add ur 6)
+    , Block $ M.fromList [ (rl, Just $ NextBlock Pointer (BlockEdge 9 rl))
+                         , (rr, Just $ NextBlock Pointer (BlockEdge 9 rr))
+                         , (dl, Just $ NextBlock NoOperation (BlockEdge 23 dl))
+                         , (dr, Just $ NextBlock NoOperation (BlockEdge 22 ll))
+                         , (ul, Just $ NextBlock Add (BlockEdge 6 ul))
+                         , (ur, Just $ NextBlock Add (BlockEdge 6 ur))
                          ]
     )
   , ( 15
-    , Block $ M.fromList [ (dl, Just $ NextBlock Duplicate dl 18)
-                         , (dr, Just $ NextBlock Duplicate dr 18)
-                         , (ll, Just $ NextBlock Roll ll 9)
-                         , (lr, Just $ NextBlock Roll lr 9)
-                         , (ul, Just $ NextBlock Roll ul 9)
-                         , (ur, Just $ NextBlock Roll ur 9)
+    , Block $ M.fromList [ (dl, Just $ NextBlock Duplicate (BlockEdge 18 dl))
+                         , (dr, Just $ NextBlock Duplicate (BlockEdge 18 dr))
+                         , (ll, Just $ NextBlock Roll (BlockEdge 9 ll))
+                         , (lr, Just $ NextBlock Roll (BlockEdge 9 lr))
+                         , (ul, Just $ NextBlock Roll (BlockEdge 9 ul))
+                         , (ur, Just $ NextBlock Roll (BlockEdge 9 ur))
                          ]
     )
   , ( 17
-    , Block $ M.fromList [ (rl, Just $ NextBlock (Push 1) rl 18)
-                         , (rr, Just $ NextBlock (Push 1) rr 18)
-                         , (dl, Just $ NextBlock NoOperation lr 23)
-                         , (dr, Just $ NextBlock NoOperation ll 23)
-                         , (ll, Just $ NextBlock NoOperation ur 12)
-                         , (lr, Just $ NextBlock NoOperation ul 12)
-                         , (ul, Just $ NextBlock Pop ul 9)
-                         , (ur, Just $ NextBlock Pop ur 9)
+    , Block $ M.fromList [ (rl, Just $ NextBlock (Push 1) (BlockEdge 18 rl))
+                         , (rr, Just $ NextBlock (Push 1) (BlockEdge 18 rr))
+                         , (dl, Just $ NextBlock NoOperation (BlockEdge 23 lr))
+                         , (dr, Just $ NextBlock NoOperation (BlockEdge 23 ll))
+                         , (ll, Just $ NextBlock NoOperation (BlockEdge 12 ur))
+                         , (lr, Just $ NextBlock NoOperation (BlockEdge 12 ul))
+                         , (ul, Just $ NextBlock Pop (BlockEdge 9 ul))
+                         , (ur, Just $ NextBlock Pop (BlockEdge 9 ur))
                          ]
     )
   , ( 18
-    , Block $ M.fromList [ (dl, Just $ NextBlock Divide dl 25)
-                         , (dr, Just $ NextBlock Divide dr 25)
-                         , (ll, Just $ NextBlock Pop ll 17)
-                         , (lr, Just $ NextBlock Pop lr 17)
-                         , (ul, Just $ NextBlock Divide ul 15)
+    , Block $ M.fromList [ (dl, Just $ NextBlock Divide (BlockEdge 25 dl))
+                         , (dr, Just $ NextBlock Divide (BlockEdge 25 dr))
+                         , (ll, Just $ NextBlock Pop (BlockEdge 17 ll))
+                         , (lr, Just $ NextBlock Pop (BlockEdge 17 lr))
+                         , (ul, Just $ NextBlock Divide (BlockEdge 15 ul))
                          ]
     )
   , ( 22
-    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation rl 23)
-                         , (rr, Just $ NextBlock NoOperation rr 23)
-                         , (ll, Just $ NextBlock NoOperation ur 12)
-                         , (lr, Just $ NextBlock NoOperation ul 12)
-                         , (ul, Just $ NextBlock NoOperation ul 12)
-                         , (ur, Just $ NextBlock NoOperation ur 12)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation (BlockEdge 23 rl))
+                         , (rr, Just $ NextBlock NoOperation (BlockEdge 23 rr))
+                         , (ll, Just $ NextBlock NoOperation (BlockEdge 12 ur))
+                         , (lr, Just $ NextBlock NoOperation (BlockEdge 12 ul))
+                         , (ul, Just $ NextBlock NoOperation (BlockEdge 12 ul))
+                         , (ur, Just $ NextBlock NoOperation (BlockEdge 12 ur))
                          ]
     )
   , ( 23
-    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation rl 25)
-                         , (rr, Just $ NextBlock NoOperation rr 25)
-                         , (ll, Just $ NextBlock NoOperation ll 22)
-                         , (lr, Just $ NextBlock NoOperation lr 22)
-                         , (ul, Just $ NextBlock NoOperation ul 12)
-                         , (ur, Just $ NextBlock NoOperation ur 12)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation (BlockEdge 25 rl))
+                         , (rr, Just $ NextBlock NoOperation (BlockEdge 25 rr))
+                         , (ll, Just $ NextBlock NoOperation (BlockEdge 22 ll))
+                         , (lr, Just $ NextBlock NoOperation (BlockEdge 22 lr))
+                         , (ul, Just $ NextBlock NoOperation (BlockEdge 12 ul))
+                         , (ur, Just $ NextBlock NoOperation (BlockEdge 12 ur))
                          ]
     )
   , ( 25
-    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation ll 25)
-                         , (rr, Just $ NextBlock NoOperation lr 25)
-                         , (ll, Just $ NextBlock NoOperation ll 23)
-                         , (lr, Just $ NextBlock NoOperation lr 23)
-                         , (ul, Just $ NextBlock Duplicate ul 18)
-                         , (ur, Just $ NextBlock Duplicate ur 18)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation (BlockEdge 25 ll))
+                         , (rr, Just $ NextBlock NoOperation (BlockEdge 25 lr))
+                         , (ll, Just $ NextBlock NoOperation (BlockEdge 23 ll))
+                         , (lr, Just $ NextBlock NoOperation (BlockEdge 23 lr))
+                         , (ul, Just $ NextBlock Duplicate (BlockEdge 18 ul))
+                         , (ur, Just $ NextBlock Duplicate (BlockEdge 18 ur))
                          ]
     )
   ]
