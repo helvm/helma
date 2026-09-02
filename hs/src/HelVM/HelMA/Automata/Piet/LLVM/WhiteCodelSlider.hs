@@ -34,7 +34,7 @@ data Codel
 
 -- Constraint Type Aliases
 type MonadNextBlockError m = MonadError (Maybe NextBlock) m
-type MonadSlider m = (MonadState (Set (Coordinates, Course)) m, MonadNextBlockError m)
+type MonadSlider m = (MonadState (Set Cursor) m, MonadNextBlockError m)
 
 slideOnWhiteBlock ∷ Image → Cursor → Maybe NextBlock
 slideOnWhiteBlock image cur = either id (error "unreachable") . runIdentity . runExceptT . (`evalStateT` S.empty) $ slideOnWhiteBlockLoop image cur
@@ -51,14 +51,14 @@ checkNonWhite White _ _              = pass
 checkNonWhite _ nextCourse nextIndex = throwError $ Just $ NextBlock NoOperation (BlockEdge nextIndex nextCourse)
 
 checkVisited ∷ MonadSlider m ⇒ Cursor → m ()
-checkVisited nextCursor = checkMember (nextCursor.position, nextCursor.course) =<< get
+checkVisited nextCursor = checkMember nextCursor =<< get
 
-checkMember ∷ MonadSlider m ⇒ (Coordinates, Course) → Set (Coordinates, Course) → m () --FIXME cursor
-checkMember key visited = handleVisited (S.member key visited) key
+checkMember ∷ MonadSlider m ⇒ Cursor → Set Cursor → m ()
+checkMember cur visited = handleVisited (S.member cur visited) cur
 
-handleVisited ∷ MonadSlider m ⇒ Bool → (Coordinates, Course) → m ()
+handleVisited ∷ MonadSlider m ⇒ Bool → Cursor → m ()
 handleVisited True _    = throwError Nothing
-handleVisited False key = modify (S.insert key)
+handleVisited False cur = modify (S.insert cur)
 
 next ∷ Image → Cursor → Maybe (Codel, Cursor)
 next image cur = viaNonEmpty head (mapMaybe (checkCourse image cur.position) . take 4 $ iterate succCourse cur.course)

@@ -26,7 +26,7 @@ data Cursor
       { position :: !Coordinates
       , course   :: !Course
       }
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Ord, Show)
 
 positionL ∷ Lens' Cursor Coordinates
 positionL = lens position (\s x -> s { position = x })
