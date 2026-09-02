@@ -27,7 +27,7 @@ data ImageTestCase
       { caseName      :: String
       , testImage     :: Vector (Vector (Color, Int))
       , blockTable    :: IntMap BlockCoordinates
-      , expectedGraph :: SyntaxGraph
+      , expectedGraph :: SyntaxGraphMaybe
       }
 
 data ErrorTestCase
@@ -111,7 +111,7 @@ spec = do
         ] $ \tc -> do
           let image = toVector2D [[(color1 tc, 0), (color2 tc, 1)]]
           let bTable = IM.fromList [(0, [(0, 0)]), (1, [(1, 0)])]
-          let expectedG = SyntaxGraph 0 rl $
+          let expectedG = SyntaxGraphMaybe 0 rl $
                                 IM.fromList [ ( 0
                                               , Block $ M.fromList [ (rl, NextBlockJust (command12 tc) rl 1)
                                                                    , (rr, NextBlockJust (command12 tc) rr 1)
@@ -132,8 +132,8 @@ smallImage = toVector2D [[(Chromatic $ ChromaticColor Red Normal, 0)]]
 smallBlockTable ∷ IntMap BlockCoordinates
 smallBlockTable = IM.fromList [(0, [(0, 0)])]
 
-expectedSmallGraph ∷ SyntaxGraph
-expectedSmallGraph = SyntaxGraph 0 rl $ IM.fromList [(0, Block M.empty)]
+expectedSmallGraph ∷ SyntaxGraphMaybe
+expectedSmallGraph = SyntaxGraphMaybe 0 rl $ IM.fromList [(0, Block M.empty)]
 
 whiteImage ∷ Vector (Vector (Color, Int))
 whiteImage = toVector2D [[(White, 0)]]
@@ -169,8 +169,8 @@ distantInitialBlockTable = IM.fromList
   , (1, [(0, 1)])
   ]
 
-expectedDistantInitialGraph ∷ SyntaxGraph
-expectedDistantInitialGraph = SyntaxGraph 1 ur $ IM.fromList
+expectedDistantInitialGraph ∷ SyntaxGraphMaybe
+expectedDistantInitialGraph = SyntaxGraphMaybe 1 ur $ IM.fromList
   [ ( 1
     , Block $ M.fromList [ (rl, NextBlockJust NoOperation ur 1)
                          , (rr, NextBlockJust NoOperation ul 1)
@@ -206,8 +206,8 @@ stuckBlockTable = IM.fromList
   , (3, [(1, 2)])
   ]
 
-expectedStuckGraph ∷ SyntaxGraph
-expectedStuckGraph = SyntaxGraph 0 rl $ IM.fromList
+expectedStuckGraph ∷ SyntaxGraphMaybe
+expectedStuckGraph = SyntaxGraphMaybe 0 rl $ IM.fromList
   [ ( 0
     , Block $ M.fromList [ (rl, NextBlockJust (Push 1) rl 1)
                          , (rr, NextBlockJust (Push 1) rr 1)
@@ -538,8 +538,8 @@ complexBlockTable = IM.fromList
   , (27, [(15, 7)])
   ]
 
-expectedComplexGraph ∷ SyntaxGraph
-expectedComplexGraph = SyntaxGraph 0 rl $ IM.fromList
+expectedComplexGraph ∷ SyntaxGraphMaybe
+expectedComplexGraph = SyntaxGraphMaybe 0 rl $ IM.fromList
   [ ( 0
     , Block $ M.fromList [ (rl, NextBlockJust Pop rl 1)
                          , (rr, NextBlockJust Pop rr 1)

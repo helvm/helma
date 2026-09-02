@@ -42,21 +42,21 @@ data ParserError
   | MissingCodelIndexError Int -- ^ A codel index in the codel table is missing.
   deriving stock (Eq, Show)
 
-parse ∷ MonadError ParserError m ⇒ Vector (Vector Color) → m SyntaxGraph
+parse ∷ MonadError ParserError m ⇒ Vector (Vector Color) → m SyntaxGraphMaybe
 parse image = parseFilledImage (V.zipWith V.zip image indices, positionTable)
   where
     (indices, positionTable) = fillAll image
 
-parseFilledImage ∷ MonadError ParserError m ⇒ (CodelTable, BlockTable) → m SyntaxGraph
+parseFilledImage ∷ MonadError ParserError m ⇒ (CodelTable, BlockTable) → m SyntaxGraphMaybe
 parseFilledImage (codelTable, blockTable) = do
   initial <- searchInitialBlock codelTable
   parseFrom codelTable blockTable initial
 
-parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (Int, Course) → m SyntaxGraph
+parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (Int, Course) → m SyntaxGraphMaybe
 parseFrom _ _ Nothing = pure EmptySyntaxGraph
 parseFrom codelTable blockTable (Just (initialBlockIndex, initialCourse')) = do
   blockMap <- execStateT (parseState codelTable blockTable initialBlockIndex) IM.empty
-  pure $ SyntaxGraph initialBlockIndex initialCourse' blockMap
+  pure $ SyntaxGraphMaybe initialBlockIndex initialCourse' blockMap
 
 parseState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ CodelTable → BlockTable → Int → m ()
 parseState codelTable blockTable blockIndex = do

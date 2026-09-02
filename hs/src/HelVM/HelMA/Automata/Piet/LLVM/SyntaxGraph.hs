@@ -1,14 +1,14 @@
 module HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
   ( Block (..)
   , NextBlockMaybe (..)
-  , SyntaxGraph (..)
+  , SyntaxGraphMaybe (..)
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Course
 
-data SyntaxGraph
-  = SyntaxGraph
+data SyntaxGraphMaybe
+  = SyntaxGraphMaybe
       { _initialBlockIndex :: Int
       , _initialCourse     :: Course
       , _blockMap          :: IntMap Block

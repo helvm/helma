@@ -11,9 +11,9 @@ import qualified Data.IntMap                                as IM
 import qualified Data.Map                                   as M
 import qualified Data.Text.Lazy.Builder                     as LText
 
-syntaxToDOT ∷ SyntaxGraph → LText
+syntaxToDOT ∷ SyntaxGraphMaybe → LText
 syntaxToDOT EmptySyntaxGraph = "digraph {}"
-syntaxToDOT (SyntaxGraph blockIndex course blockMap) =
+syntaxToDOT (SyntaxGraphMaybe blockIndex course blockMap) =
   LText.toLazyText $  "digraph {\n"
              <> "  rankdir=LR\n"
              <> "  start [label=\"\" shape=point color=white]\n"

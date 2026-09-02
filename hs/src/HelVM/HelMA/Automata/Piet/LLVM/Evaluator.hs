@@ -43,7 +43,7 @@ makeGraph ∷ ( MonadIO m
           ⇒ (PietStep → m ())
           → ImageConfig
           → FilePath
-          → m SyntaxGraph
+          → m SyntaxGraphMaybe
 makeGraph messageReceiver imageConfig inputPath = do
   messageReceiver StepReadImage
   codels <- mapError PietImageReaderError $ readCodels imageConfig inputPath
