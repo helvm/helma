@@ -29,7 +29,7 @@ data ImageReaderError
 type MonadImageError m = MonadError ImageReaderError m
 
 readCodels ∷ (MonadIO m, MonadImageError m) ⇒ ImageConfig → FilePath → m (Grid Color)
-readCodels config = (=<<) (imageToCodels config) . (=<<) (liftEither . first ReadImageFileError) . liftIO . readImage
+readCodels config path = imageToCodels config =<< liftEither . first ReadImageFileError =<< liftIO (readImage path)
 
 imageToCodels ∷ MonadImageError m ⇒ ImageConfig → DynamicImage → m (Grid Color)
 imageToCodels config = (=<<) (rgbImageToCodels config) . liftEither . first UnsupportedImageError . toRGB8ImageM

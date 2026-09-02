@@ -28,20 +28,13 @@ data PietStep
 type MonadEvaluator m = (MonadIO m, MonadError PietError m)
 
 graphText ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → FilePath → m LText
-graphText messageReceiver imageConfig inputPath = do
-  graph <- makeGraph messageReceiver imageConfig inputPath
-  messageReceiver StepGenerateDOT
-  pure $ syntaxToDOT graph
+graphText messageReceiver imageConfig inputPath = messageReceiver StepGenerateDOT *> (syntaxToDOT <$> makeGraph messageReceiver imageConfig inputPath)
 
 makeGraph ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → FilePath → m (Maybe SyntaxGraph)
-makeGraph messageReceiver imageConfig inputPath = do
-  messageReceiver StepReadImage
-  codels <- mapError PietImageReaderError $ readCodels imageConfig inputPath
-  messageReceiver StepParse
-  mapError PietParserError $ parse codels
+makeGraph messageReceiver imageConfig inputPath = messageReceiver StepParse *> (mapError PietParserError . parse =<< messageReceiver StepReadImage *> mapError PietImageReaderError (readCodels imageConfig inputPath))
 
 nullReceiver ∷ Monad m ⇒ PietStep → m ()
 nullReceiver _ = pass
 
 mapError ∷ MonadError e2 m ⇒ (e1 → e2) → ExceptT e1 m a → m a
-mapError f = either (throwError . f) pure <=< runExceptT
+mapError f action = either (throwError . f) pure =<< runExceptT action
