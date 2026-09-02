@@ -57,16 +57,13 @@ exitEdge ∷ Int → LText.Builder
 exitEdge from = "  exit" <> showBuilder from <> " [label=\"\" shape=point color=white]\n"
 
 nextBlockEdge ∷ Int → Course → NextBlockMaybe → LText.Builder
-nextBlockEdge from fromCourse (Just (NextBlock command toCourse nextBlockIndex)) =
-  "  " <> showBuilder from <> " -> " <> showBuilder nextBlockIndex
-       <> " [label=\"" <> fromString (showCourse fromCourse) <> ": " <> fromString (showCommand command) <> nextCourseText toCourse <> "\"]\n"
-  where
-    nextCourseText toCourse'
-      | toCourse' /= fromCourse = " -> " <> fromString (showCourse toCourse')
-      | otherwise          = ""
+nextBlockEdge from fromCourse (Just (NextBlock command toCourse nextBlockIndex)) = "  " <> showBuilder from <> " -> " <> showBuilder nextBlockIndex <> " [label=\"" <> fromString (showCourse fromCourse) <> ": " <> fromString (showCommand command) <> nextCourseText fromCourse toCourse <> "\"]\n"
+nextBlockEdge from fromCourse Nothing                                           = "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"" <> fromString (showCourse fromCourse) <> "\"]\n"
 
-nextBlockEdge from fromCourse Nothing =
-  "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"" <> fromString (showCourse fromCourse) <> "\"]\n"
+nextCourseText ∷ Course → Course → LText.Builder
+nextCourseText fromCourse toCourse
+  | toCourse /= fromCourse = " -> " <> fromString (showCourse toCourse)
+  | otherwise              = ""
 
 showBuilder ∷ Show a ⇒ a → LText.Builder
 showBuilder = LText.fromString . show
