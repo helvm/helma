@@ -2,13 +2,13 @@ module HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
   ( Block (..)
   , NextBlock (..)
   , SyntaxGraph (..)
+  , blockIndexL
   , blockMapL
+  , commandL
+  , courseL
   , entryBlockIndexL
   , entryCourseL
   , transitionsL
-  , blockIndexL
-  , commandL
-  , courseL
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Command
