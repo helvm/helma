@@ -4,9 +4,9 @@ module HelVM.HelMA.Automata.Piet.Compiler
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates ( Coordinates )
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.Program     ( CodelSize, Program (Program) )
 
 import qualified Data.IntMap                                 as IntMap
@@ -41,20 +41,20 @@ equivalencesL = lens equivalences (\s x -> s { equivalences = x })
 
 -- PUBLIC API
 
-compile ∷ CodelSize → Matrix Color → Program
+compile ∷ CodelSize → Grid Color → Program
 compile cs img = Program cs img (label4 img)
 
 -- COMPILER CORE (LABELING PROCESS)
 
-label4 ∷ Eq a ⇒ Matrix a → Labelling
+label4 ∷ Eq a ⇒ Grid a → Labelling
 label4 = label4With (==)
 
-label4With ∷ (a → a → Bool) → Matrix a → Labelling
+label4With ∷ (a → a → Bool) → Grid a → Labelling
 label4With neighbours img = Labelling img' inf where
-  (status, assocMap) = label4With' neighbours img (LabellingStatus (0, 0) 0 (Labelling (newMatrix (0,0) []) mempty) mempty) Map.empty
+  (status, assocMap) = label4With' neighbours img (LabellingStatus (0, 0) 0 (Labelling (newGrid (0,0) []) mempty) mempty) Map.empty
   currentLabelling   = status ^. labellingL
 
-  maskImg = newMatrix (widthMatrix img, heightMatrix img) (Map.toList assocMap)
+  maskImg = newGrid (widthGrid img, heightGrid img) (Map.toList assocMap)
 
   img' = fmap (applyEquivClass (status ^. equivalencesL)) maskImg
   inf  = IntMap.foldrWithKey (mergeClass (status ^. equivalencesL)) mempty (currentLabelling ^. infoL)
@@ -62,21 +62,21 @@ label4With neighbours img = Labelling img' inf where
   applyEquivClass eqMap lbl = equivClass lbl eqMap
   mergeClass eqMap label labelInfo = alter (updateMap labelInfo) (equivClass label eqMap)
 
-label4With' ∷ (a → a → Bool) → Matrix a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
+label4With' ∷ (a → a → Bool) → Grid a → LabellingStatus → Map.Map Coordinates LabelKey → (LabellingStatus, Map.Map Coordinates LabelKey)
 label4With' neighbours img status acc = checkNext (nextCoords img xy) neighbours img (updateStatus mergeLabels status acc xy) where
-  pixel  = atMatrix xy img
+  pixel  = atGrid xy img
   xy     = status ^. currentCoordsL
 
   mergeLabels = fmap getMaskLabel $ filter isNeighbour $ addPixelInfo <$> previousNeighbours xy
 
-  addPixelInfo (nx, ny) = (nx, ny, atMatrix (nx, ny) img)
+  addPixelInfo (nx, ny) = (nx, ny, atGrid (nx, ny) img)
   isNeighbour (_, _, e) = neighbours pixel e
   getMaskLabel (nx, ny, _) = Map.findWithDefault (error "Missing label") (nx, ny) acc
 
   previousNeighbours (cx, cy) = filter validCoord [ (cx-1, cy), (cx, cy-1) ]
   validCoord (nx, ny) = nx >= 0 && ny >= 0
 
-checkNext ∷ Maybe Coordinates → (a → a → Bool) → Matrix a → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
+checkNext ∷ Maybe Coordinates → (a → a → Bool) → Grid a → (LabellingStatus, Map.Map Coordinates LabelKey) → (LabellingStatus, Map.Map Coordinates LabelKey)
 checkNext Nothing    _          _   res      = res
 checkNext (Just xy) neighbours img (s, acc') = label4With' neighbours img (s & currentCoordsL .~ xy) acc'
 

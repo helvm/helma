@@ -5,18 +5,18 @@ module HelVM.HelMA.Automata.Piet.Parser
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           Codec.Picture
 import qualified Data.List.NonEmpty                          as NE
 import           Data.MonoTraversable
 
-processImage ∷ Maybe Natural → DynamicImage → (CodelSize, Matrix Color)
+processImage ∷ Maybe Natural → DynamicImage → (CodelSize, Grid Color)
 processImage codelInfo dyn = (cs, imageToColorImage cs img) where
   (cs, img) = processJuicyImage codelInfo dyn
 
-parseColorImage ∷ Natural → DynamicImage → Matrix Color
+parseColorImage ∷ Natural → DynamicImage → Grid Color
 parseColorImage nat dyn = imageToColorImage cs img where
   cs = fromIntegral nat
   img = convertRGB8 dyn
@@ -41,8 +41,8 @@ imageGuessCodelLength img = fromMaybe 1 $ viaNonEmpty head (after <> before) whe
   w = imageWidth img
   h = imageHeight img
 
-imageToColorImage ∷ Int → Image PixelRGB8 → Matrix Color
-imageToColorImage cs img = newMatrix p (assocList cs img p) where
+imageToColorImage ∷ Int → Image PixelRGB8 → Grid Color
+imageToColorImage cs img = newGrid p (assocList cs img p) where
   p = (imageWidth img `div` cs, imageHeight img `div` cs)
 
 assocList ∷ Int → Image PixelRGB8 → Coordinates → [(Coordinates, Color)]

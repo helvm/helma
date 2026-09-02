@@ -30,8 +30,8 @@ import qualified Data.Vector                                      as V
 
 import           Relude.Extra
 
-type Matrix a   = Vector (Vector a)
-type CodelTable = Matrix (Color, Int)
+type Grid a   = Vector (Vector a)
+type CodelTable = Grid (Color, Int)
 type BlockTable = IntMap BlockCoordinates
 
 data ParserError
@@ -40,10 +40,10 @@ data ParserError
   | MissingCodelIndexError Int
   deriving stock (Eq, Show)
 
-parse ∷ MonadError ParserError m ⇒ Matrix Color → m (Maybe SyntaxGraph)
+parse ∷ MonadError ParserError m ⇒ Grid Color → m (Maybe SyntaxGraph)
 parse image = parseFilledImageWithSplit (fillAll image) image
 
-parseFilledImageWithSplit ∷ MonadError ParserError m ⇒ (Matrix Int, BlockTable) → Matrix Color → m (Maybe SyntaxGraph)
+parseFilledImageWithSplit ∷ MonadError ParserError m ⇒ (Grid Int, BlockTable) → Grid Color → m (Maybe SyntaxGraph)
 parseFilledImageWithSplit (indices, positionTable) image = parseFilledImage (V.zipWith V.zip image indices, positionTable)
 
 parseFilledImage ∷ MonadError ParserError m ⇒ (CodelTable, BlockTable) → m (Maybe SyntaxGraph)

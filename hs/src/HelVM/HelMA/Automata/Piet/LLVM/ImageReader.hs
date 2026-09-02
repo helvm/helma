@@ -4,9 +4,9 @@
 module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   ( AdditionalColorStrategy (..)
   , CodelSizeMaybe
+  , Grid
   , ImageConfig (..)
   , ImageReaderError (..)
-  , Matrix
   , MulticoloredCodelStrategy (..)
   , imageToCodels
   , readCodels
@@ -31,14 +31,14 @@ data ImageReaderError
 
 type MonadImageError m = MonadError ImageReaderError m
 
-readCodels ∷ (MonadIO m, MonadImageError m) ⇒ ImageConfig → FilePath → m (Matrix Color)
+readCodels ∷ (MonadIO m, MonadImageError m) ⇒ ImageConfig → FilePath → m (Grid Color)
 readCodels config = (=<<) (imageToCodels config) . (=<<) (liftEither . first ReadImageFileError) . liftIO . readImage
 
-imageToCodels ∷ MonadImageError m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
+imageToCodels ∷ MonadImageError m ⇒ ImageConfig → DynamicImage → m (Grid Color)
 imageToCodels config = (=<<) (rgbImageToCodels config) . liftEither . first UnsupportedImageError . toRGB8ImageM
 
-rgbImageToCodels ∷ MonadImageError m ⇒ ImageConfig → Image PixelRGB8 → m (Matrix Color)
-rgbImageToCodels config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image where
+rgbImageToCodels ∷ MonadImageError m ⇒ ImageConfig → Image PixelRGB8 → m (Grid Color)
+rgbImageToCodels config image = checkDimensions (modX, modY) $> buildGrid (codelWidth, codelHeight) config codelSizeInt image where
   (codelWidth, modX) = divMod pixelWidth codelSizeInt
   (codelHeight, modY) = divMod pixelHeight codelSizeInt
   codelSizeInt = getIntCodelSize (pixelWidth, pixelHeight) image (codelSize config)

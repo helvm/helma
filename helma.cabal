@@ -267,12 +267,13 @@ library
     HelVM.HelMA.Automata.Piet.Types.Cursor
     HelVM.HelMA.Automata.Piet.Types.Cyclic
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+    HelVM.HelMA.Automata.Piet.Types.Grid
     HelVM.HelMA.Automata.Piet.Types.Hue
     HelVM.HelMA.Automata.Piet.Types.Matrix
-    HelVM.HelMA.Automata.Piet.Types.InstructionMemory
     HelVM.HelMA.Automata.Piet.Types.Label
     HelVM.HelMA.Automata.Piet.Types.Labelling
     HelVM.HelMA.Automata.Piet.Types.Lightness
+    HelVM.HelMA.Automata.Piet.Types.InstructionMemory
     HelVM.HelMA.Automata.Piet.Types.Memory
     HelVM.HelMA.Automata.Piet.Types.Program
 
