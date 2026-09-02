@@ -98,7 +98,7 @@ searchNextBlockFromMove ∷ CodelTable → Coordinates → Course → Int → Ch
 searchNextBlockFromMove codelTable nextPos course blockSize curColor (nextCodel, blockIndex) = processNextCodel codelTable nextCodel curColor nextPos course blockSize blockIndex
 
 processNextCodel ∷ CodelTable → Color → ChromaticColor → Coordinates → Course → Int → Int → Maybe (Maybe NextBlock)
-processNextCodel _ (Chromatic nextColor) curColor _ course blockSize blockIdx = Just $ Just $ NextBlock (commandFromTransition (view hueL curColor, view lightnessL curColor) (view hueL nextColor, view lightnessL nextColor) blockSize) (BlockEdge blockIdx course)
+processNextCodel _ (Chromatic nextColor) curColor _ course blockSize blockIdx = Just $ Just $ NextBlock (commandFromTransition curColor nextColor blockSize) (BlockEdge blockIdx course)
 processNextCodel codelTable White _ pos course _ _                            = Just $ slideOnWhiteBlock codelTable pos course
 processNextCodel _ Black _ _ _ _ _                                            = Nothing
 
