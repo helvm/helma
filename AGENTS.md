@@ -57,6 +57,7 @@ Special Rules for Haskell:
 - Pattern matching style
   - The parameters used for pattern matching must come first in the function signature.
   - Do not use `where` inside individual pattern matching clauses. Extract any clause that requires local definitions (`where`) into a top-level helper function.
+  - If there is pattern matching for Maybe or Either, try to replace it with built-in functions
 - Extractions
   - Extract complex constraint types from declarations using `type`
   - Extract container in container from declarations using `type`
