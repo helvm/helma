@@ -116,7 +116,7 @@ nextBlockToIndex ∷ Maybe NextBlock → Maybe Int
 nextBlockToIndex nb = view blockIndexL <$> nb
 
 nextBlockToIndexAndCourse ∷ Maybe NextBlock → Maybe (Int, Course)
-nextBlockToIndexAndCourse nb = (,) <$> (view blockIndexL <$> nb) <*> (view courseL <$> nb)
+nextBlockToIndexAndCourse nb = ((,) . view blockIndexL <$> nb) <*> (view courseL <$> nb)
 
 minMaxCoords ∷ BlockCoordinates → [(Course, Coordinates)]
 minMaxCoords positions = processPositions (nonEmpty positions)
