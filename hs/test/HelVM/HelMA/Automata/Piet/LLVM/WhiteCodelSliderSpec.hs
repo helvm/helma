@@ -8,7 +8,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSliderSpec
 import           HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.TestUtils
-import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -16,8 +15,8 @@ import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Cursor          hiding ( initialCursor )
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
+import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
-import           Data.Vector                                     ( Vector )
 import qualified Data.Vector                                     as V
 
 import           Test.Hspec
@@ -26,7 +25,7 @@ import           Text.InterpolatedString.Perl6
 data TestCase
   = TestCase
       { caseName       :: String
-      , testImage      :: Vector (Vector (Color, Int))
+      , testImage      :: Image
       , initialCursor  :: Cursor
       , expectedResult :: Maybe NextBlock
       }
@@ -85,10 +84,10 @@ spec = describe "slideOnWhiteBlock" $ forM_ testCases runTest where
     , TestCase "stuckImage3 (1, 1) rl" stuckImage3 (Cursor (1, 1) rl) Nothing
     ]
 
-singleCodelImage ∷ Vector (Vector (Color, Int))
-singleCodelImage = V.singleton $ V.singleton (White, 0)
+singleCodelImage ∷ Image
+singleCodelImage = V.singleton $ V.singleton $ Codel White 0
 
-oneLoopImage ∷ Vector (Vector (Color, Int))
+oneLoopImage ∷ Image
 oneLoopImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
@@ -97,17 +96,17 @@ y          1
 y          1
 y2         1
 |] ∷ String))) where
-  f '0' = (Black, 0)
-  f 'r' = (Chromatic $ ChromaticColor Red Normal, 1)
-  f 'g' = (Chromatic $ ChromaticColor Green Normal, 2)
-  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 3)
-  f '1' = (Black, 4)
-  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 5)
-  f ' ' = (White, 6)
-  f '2' = (Black, 7)
+  f '0' = Codel Black 0
+  f 'r' = Codel (Chromatic $ ChromaticColor Red Normal) 1
+  f 'g' = Codel (Chromatic $ ChromaticColor Green Normal) 2
+  f 'b' = Codel (Chromatic $ ChromaticColor Blue Normal) 3
+  f '1' = Codel Black 4
+  f 'y' = Codel (Chromatic $ ChromaticColor Yellow Normal) 5
+  f ' ' = Codel White 6
+  f '2' = Codel Black 7
   f _   = error "Unreachable"
 
-gammaImage ∷ Vector (Vector (Color, Int))
+gammaImage ∷ Image
 gammaImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 r          g
 r       0  b
@@ -115,18 +114,18 @@ r          c
 r          m
 r     1    y
 |] ∷ String))) where
-  f 'r' = (Chromatic $ ChromaticColor Red Normal, 0)
-  f 'g' = (Chromatic $ ChromaticColor Green Normal, 1)
-  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 2)
-  f 'c' = (Chromatic $ ChromaticColor Cyan Normal, 3)
-  f 'm' = (Chromatic $ ChromaticColor Magenta Normal, 4)
-  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 5)
-  f ' ' = (White, 6)
-  f '0' = (Black, 7)
-  f '1' = (Black, 8)
+  f 'r' = Codel (Chromatic $ ChromaticColor Red Normal) 0
+  f 'g' = Codel (Chromatic $ ChromaticColor Green Normal) 1
+  f 'b' = Codel (Chromatic $ ChromaticColor Blue Normal) 2
+  f 'c' = Codel (Chromatic $ ChromaticColor Cyan Normal) 3
+  f 'm' = Codel (Chromatic $ ChromaticColor Magenta Normal) 4
+  f 'y' = Codel (Chromatic $ ChromaticColor Yellow Normal) 5
+  f ' ' = Codel White 6
+  f '0' = Codel Black 7
+  f '1' = Codel Black 8
   f _   = error "Unreachable"
 
-crossShapedImage ∷ Vector (Vector (Color, Int))
+crossShapedImage ∷ Image
 crossShapedImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 *****
 **0**
@@ -134,15 +133,15 @@ crossShapedImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (to
 **3**
 *****
 |] ∷ String))) where
-  f '*' = (Black, 0)
-  f '0' = (White, 1)
-  f '1' = (White, 2)
-  f '2' = (White, 3)
-  f '3' = (White, 4)
-  f 'r' = (Chromatic $ ChromaticColor Red Normal, 5)
+  f '*' = Codel Black 0
+  f '0' = Codel White 1
+  f '1' = Codel White 2
+  f '2' = Codel White 3
+  f '3' = Codel White 4
+  f 'r' = Codel (Chromatic $ ChromaticColor Red Normal) 5
   f _   = error "Unreachable"
 
-spiralImage ∷ Vector (Vector (Color, Int))
+spiralImage ∷ Image
 spiralImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 rrrrrrrrrrrg
 y         0g
@@ -156,23 +155,23 @@ y2         g
 y        1 g
 ybbbbbbbbbbb
 |] ∷ String))) where
-  f 'r' = (Chromatic $ ChromaticColor Red Normal, 0)
-  f 'g' = (Chromatic $ ChromaticColor Green Normal, 1)
-  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 2)
-  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 3)
-  f 'c' = (Chromatic $ ChromaticColor Cyan Normal, 4)
-  f ' ' = (White, 5)
-  f '0' = (Black, 6)
-  f '1' = (Black, 7)
-  f '2' = (Black, 8)
-  f '3' = (Black, 9)
-  f '4' = (Black, 10)
-  f '5' = (Black, 11)
-  f '6' = (Black, 12)
-  f '7' = (Black, 13)
+  f 'r' = Codel (Chromatic $ ChromaticColor Red Normal) 0
+  f 'g' = Codel (Chromatic $ ChromaticColor Green Normal) 1
+  f 'b' = Codel (Chromatic $ ChromaticColor Blue Normal) 2
+  f 'y' = Codel (Chromatic $ ChromaticColor Yellow Normal) 3
+  f 'c' = Codel (Chromatic $ ChromaticColor Cyan Normal) 4
+  f ' ' = Codel White 5
+  f '0' = Codel Black 6
+  f '1' = Codel Black 7
+  f '2' = Codel Black 8
+  f '3' = Codel Black 9
+  f '4' = Codel Black 10
+  f '5' = Codel Black 11
+  f '6' = Codel Black 12
+  f '7' = Codel Black 13
   f _   = error "Unreachable"
 
-stuckImage1 ∷ Vector (Vector (Color, Int))
+stuckImage1 ∷ Image
 stuckImage1 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
@@ -181,17 +180,17 @@ y          1
 y          1
 y       2  1
 |] ∷ String))) where
-  f '0' = (Black, 0)
-  f 'r' = (Chromatic $ ChromaticColor Red Normal, 1)
-  f 'g' = (Chromatic $ ChromaticColor Green Normal, 2)
-  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 3)
-  f '1' = (Black, 4)
-  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 5)
-  f ' ' = (White, 6)
-  f '2' = (Black, 7)
+  f '0' = Codel Black 0
+  f 'r' = Codel (Chromatic $ ChromaticColor Red Normal) 1
+  f 'g' = Codel (Chromatic $ ChromaticColor Green Normal) 2
+  f 'b' = Codel (Chromatic $ ChromaticColor Blue Normal) 3
+  f '1' = Codel Black 4
+  f 'y' = Codel (Chromatic $ ChromaticColor Yellow Normal) 5
+  f ' ' = Codel White 6
+  f '2' = Codel Black 7
   f _   = error "Unreachable"
 
-stuckImage2 ∷ Vector (Vector (Color, Int))
+stuckImage2 ∷ Image
 stuckImage2 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
@@ -200,17 +199,17 @@ y          1
 y          1
 y        2 1
 |] ∷ String))) where
-  f '0' = (Black, 0)
-  f 'r' = (Chromatic $ ChromaticColor Red Normal, 1)
-  f 'g' = (Chromatic $ ChromaticColor Green Normal, 2)
-  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 3)
-  f '1' = (Black, 4)
-  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 5)
-  f ' ' = (White, 6)
-  f '2' = (Black, 7)
+  f '0' = Codel Black 0
+  f 'r' = Codel (Chromatic $ ChromaticColor Red Normal) 1
+  f 'g' = Codel (Chromatic $ ChromaticColor Green Normal) 2
+  f 'b' = Codel (Chromatic $ ChromaticColor Blue Normal) 3
+  f '1' = Codel Black 4
+  f 'y' = Codel (Chromatic $ ChromaticColor Yellow Normal) 5
+  f ' ' = Codel White 6
+  f '2' = Codel Black 7
   f _   = error "Unreachable"
 
-stuckImage3 ∷ Vector (Vector (Color, Int))
+stuckImage3 ∷ Image
 stuckImage3 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 00gb11111111
 y          1
@@ -219,11 +218,11 @@ y          1
 y          1
 2          1
 |] ∷ String))) where
-  f '0' = (Black, 0)
-  f 'g' = (Chromatic $ ChromaticColor Green Normal, 1)
-  f 'b' = (Chromatic $ ChromaticColor Blue Normal, 2)
-  f '1' = (Black, 3)
-  f 'y' = (Chromatic $ ChromaticColor Yellow Normal, 4)
-  f ' ' = (White, 5)
-  f '2' = (Black, 6)
+  f '0' = Codel Black 0
+  f 'g' = Codel (Chromatic $ ChromaticColor Green Normal) 1
+  f 'b' = Codel (Chromatic $ ChromaticColor Blue Normal) 2
+  f '1' = Codel Black 3
+  f 'y' = Codel (Chromatic $ ChromaticColor Yellow Normal) 4
+  f ' ' = Codel White 5
+  f '2' = Codel Black 6
   f _   = error "Unreachable"

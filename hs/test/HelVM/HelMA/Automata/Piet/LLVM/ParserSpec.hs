@@ -4,6 +4,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.ParserSpec
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.Parser
+import           HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider ( Codel (..), Image )
 import           HelVM.HelMA.Automata.Piet.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.TestUtils
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -15,17 +16,17 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
-import qualified Data.IntMap                                    as IM
-import qualified Data.Map                                       as M
-import           Data.Vector                                    ( Vector )
-import qualified Data.Vector.Generic                            as V
+import qualified Data.IntMap                                     as IM
+import qualified Data.Map                                        as M
+import           Data.Vector                                     ( Vector )
+import qualified Data.Vector.Generic                             as V
 
 import           Test.Hspec
 
 data ImageTestCase
   = ImageTestCase
       { caseName      :: String
-      , testImage     :: Vector (Vector (Color, Int))
+      , testImage     :: Image
       , blockTable    :: IntMap BlockCoordinates
       , expectedGraph :: Maybe SyntaxGraph
       }
@@ -33,7 +34,7 @@ data ImageTestCase
 data ErrorTestCase
   = ErrorTestCase
       { errCaseName   :: String
-      , errTestImage  :: Vector (Vector (Color, Int))
+      , errTestImage  :: Image
       , errBlockTable :: IntMap BlockCoordinates
       , expectedErr   :: ParserError
       }
@@ -109,7 +110,7 @@ spec = do
         , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Green Light) OutNumber Multiply
         , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Green Normal) OutChar Subtract
         ] $ \tc -> do
-          let image = toVector2D [[(color1 tc, 0), (color2 tc, 1)]]
+          let image = toVector2D [[Codel (color1 tc) 0, Codel (color2 tc) 1]]
           let bTable = IM.fromList [(0, [(0, 0)]), (1, [(1, 0)])]
           let expectedG = Just $ SyntaxGraph (BlockEdge 0 rl) $
                                 IM.fromList [ ( 0
@@ -126,8 +127,8 @@ spec = do
           it ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ parseFilledImage (image, bTable) `shouldBe` Right expectedG
 
 
-smallImage ∷ Vector (Vector (Color, Int))
-smallImage = toVector2D [[(Chromatic $ ChromaticColor Red Normal, 0)]]
+smallImage ∷ Image
+smallImage = toVector2D [[Codel (Chromatic $ ChromaticColor Red Normal) 0]]
 
 smallBlockTable ∷ IntMap BlockCoordinates
 smallBlockTable = IM.fromList [(0, [(0, 0)])]
@@ -135,31 +136,31 @@ smallBlockTable = IM.fromList [(0, [(0, 0)])]
 expectedSmallGraph ∷ Maybe SyntaxGraph
 expectedSmallGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList [(0, Block M.empty)]
 
-whiteImage ∷ Vector (Vector (Color, Int))
-whiteImage = toVector2D [[(White, 0)]]
+whiteImage ∷ Image
+whiteImage = toVector2D [[Codel White 0]]
 
 whiteBlockTable ∷ IntMap BlockCoordinates
 whiteBlockTable = IM.fromList [(0, [(0, 0)])]
 
-blackImage ∷ Vector (Vector (Color, Int))
-blackImage = toVector2D [[(Black, 0)]]
+blackImage ∷ Image
+blackImage = toVector2D [[Codel Black 0]]
 
 blackBlockTable ∷ IntMap BlockCoordinates
 blackBlockTable = IM.fromList [(0, [(0, 0)])]
 
-distantInitialImage ∷ Vector (Vector (Color, Int))
+distantInitialImage ∷ Image
 distantInitialImage = toVector2D
-  [ [ (White, 0)
-    , (White, 0)
-    , (White, 0)
+  [ [ Codel White 0
+    , Codel White 0
+    , Codel White 0
     ]
-  , [ (Chromatic $ ChromaticColor Red Normal, 1)
-    , (White, 0)
-    , (White, 0)
+  , [ Codel (Chromatic $ ChromaticColor Red Normal) 1
+    , Codel White 0
+    , Codel White 0
     ]
-  , [ (White, 0)
-    , (White, 0)
-    , (White, 0)
+  , [ Codel White 0
+    , Codel White 0
+    , Codel White 0
     ]
   ]
 
@@ -182,19 +183,19 @@ expectedDistantInitialGraph = Just $ SyntaxGraph (BlockEdge 1 ur) $ IM.fromList
     )
   ]
 
-stuckImage ∷ Vector (Vector (Color, Int))
+stuckImage ∷ Image
 stuckImage = toVector2D
-  [ [ (Chromatic $ ChromaticColor Red Light, 0)
-    , (Chromatic $ ChromaticColor Red Normal, 1)
-    , (White, 2)
+  [ [ Codel (Chromatic $ ChromaticColor Red Light) 0
+    , Codel (Chromatic $ ChromaticColor Red Normal) 1
+    , Codel White 2
     ]
-  , [ (White, 2)
-    , (White, 2)
-    , (White, 2)
+  , [ Codel White 2
+    , Codel White 2
+    , Codel White 2
     ]
-  , [ (White, 2)
-    , (Black, 3)
-    , (White, 2)
+  , [ Codel White 2
+    , Codel Black 3
+    , Codel White 2
     ]
   ]
 
@@ -366,143 +367,143 @@ rawComplexImage = toVector2D
     ]
   ]
 
-complexImage ∷ Vector (Vector (Color, Int))
+complexImage ∷ Image
 complexImage = toVector2D
-  [ [ (Chromatic $ ChromaticColor Blue Dark, 0)
-    , (Chromatic $ ChromaticColor Blue Dark, 0)
-    , (Chromatic $ ChromaticColor Blue Dark, 0)
-    , (Chromatic $ ChromaticColor Blue Dark, 0)
-    , (Chromatic $ ChromaticColor Blue Dark, 0)
-    , (Chromatic $ ChromaticColor Blue Normal, 1)
-    , (Chromatic $ ChromaticColor Red Light, 2)
-    , (Chromatic $ ChromaticColor Red Light, 2)
-    , (Chromatic $ ChromaticColor Red Light, 2)
-    , (White, 3)
-    , (Chromatic $ ChromaticColor Red Light, 4)
-    , (Chromatic $ ChromaticColor Red Light, 4)
-    , (Chromatic $ ChromaticColor Red Light, 4)
-    , (Chromatic $ ChromaticColor Magenta Dark, 5)
-    , (Chromatic $ ChromaticColor Magenta Dark, 5)
-    , (Chromatic $ ChromaticColor Magenta Dark, 5)
+  [ [ Codel (Chromatic $ ChromaticColor Blue Dark) 0
+    , Codel (Chromatic $ ChromaticColor Blue Dark) 0
+    , Codel (Chromatic $ ChromaticColor Blue Dark) 0
+    , Codel (Chromatic $ ChromaticColor Blue Dark) 0
+    , Codel (Chromatic $ ChromaticColor Blue Dark) 0
+    , Codel (Chromatic $ ChromaticColor Blue Normal) 1
+    , Codel (Chromatic $ ChromaticColor Red Light) 2
+    , Codel (Chromatic $ ChromaticColor Red Light) 2
+    , Codel (Chromatic $ ChromaticColor Red Light) 2
+    , Codel White 3
+    , Codel (Chromatic $ ChromaticColor Red Light) 4
+    , Codel (Chromatic $ ChromaticColor Red Light) 4
+    , Codel (Chromatic $ ChromaticColor Red Light) 4
+    , Codel (Chromatic $ ChromaticColor Magenta Dark) 5
+    , Codel (Chromatic $ ChromaticColor Magenta Dark) 5
+    , Codel (Chromatic $ ChromaticColor Magenta Dark) 5
     ]
-  , [ (Chromatic $ ChromaticColor Blue Light, 6)
-    , (Chromatic $ ChromaticColor Blue Light, 6)
-    , (Chromatic $ ChromaticColor Blue Light, 6)
-    , (Chromatic $ ChromaticColor Blue Normal, 1)
-    , (Chromatic $ ChromaticColor Blue Normal, 1)
-    , (Chromatic $ ChromaticColor Blue Normal, 1)
-    , (Chromatic $ ChromaticColor Blue Normal, 1)
-    , (Chromatic $ ChromaticColor Blue Normal, 1)
-    , (White, 3)
-    , (White, 3)
-    , (White, 3)
-    , (White, 3)
-    , (Chromatic $ ChromaticColor Yellow Normal, 7)
-    , (Chromatic $ ChromaticColor Yellow Normal, 7)
-    , (Chromatic $ ChromaticColor Yellow Normal, 7)
-    , (Black, 8)
+  , [ Codel (Chromatic $ ChromaticColor Blue Light) 6
+    , Codel (Chromatic $ ChromaticColor Blue Light) 6
+    , Codel (Chromatic $ ChromaticColor Blue Light) 6
+    , Codel (Chromatic $ ChromaticColor Blue Normal) 1
+    , Codel (Chromatic $ ChromaticColor Blue Normal) 1
+    , Codel (Chromatic $ ChromaticColor Blue Normal) 1
+    , Codel (Chromatic $ ChromaticColor Blue Normal) 1
+    , Codel (Chromatic $ ChromaticColor Blue Normal) 1
+    , Codel White 3
+    , Codel White 3
+    , Codel White 3
+    , Codel White 3
+    , Codel (Chromatic $ ChromaticColor Yellow Normal) 7
+    , Codel (Chromatic $ ChromaticColor Yellow Normal) 7
+    , Codel (Chromatic $ ChromaticColor Yellow Normal) 7
+    , Codel Black 8
     ]
-  , [ (Chromatic $ ChromaticColor Blue Light, 6)
-    , (Chromatic $ ChromaticColor Blue Light, 6)
-    , (Chromatic $ ChromaticColor Blue Light, 6)
-    , (Chromatic $ ChromaticColor Blue Light, 6)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Blue Normal, 1)
-    , (Chromatic $ ChromaticColor Blue Normal, 1)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (White, 3)
-    , (White, 3)
-    , (Chromatic $ ChromaticColor Yellow Normal, 7)
-    , (Chromatic $ ChromaticColor Yellow Normal, 7)
-    , (Chromatic $ ChromaticColor Yellow Normal, 7)
-    , (Black, 10)
-    , (Black, 10)
-    , (Chromatic $ ChromaticColor Magenta Light, 11)
+  , [ Codel (Chromatic $ ChromaticColor Blue Light) 6
+    , Codel (Chromatic $ ChromaticColor Blue Light) 6
+    , Codel (Chromatic $ ChromaticColor Blue Light) 6
+    , Codel (Chromatic $ ChromaticColor Blue Light) 6
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Blue Normal) 1
+    , Codel (Chromatic $ ChromaticColor Blue Normal) 1
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel White 3
+    , Codel White 3
+    , Codel (Chromatic $ ChromaticColor Yellow Normal) 7
+    , Codel (Chromatic $ ChromaticColor Yellow Normal) 7
+    , Codel (Chromatic $ ChromaticColor Yellow Normal) 7
+    , Codel Black 10
+    , Codel Black 10
+    , Codel (Chromatic $ ChromaticColor Magenta Light) 11
     ]
-  , [ (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Black, 10)
-    , (Black, 10)
-    , (Black, 10)
-    , (Black, 10)
-    , (Black, 10)
-    , (Chromatic $ ChromaticColor Magenta Light, 11)
-    , (Chromatic $ ChromaticColor Magenta Light, 11)
+  , [ Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel Black 10
+    , Codel Black 10
+    , Codel Black 10
+    , Codel Black 10
+    , Codel Black 10
+    , Codel (Chromatic $ ChromaticColor Magenta Light) 11
+    , Codel (Chromatic $ ChromaticColor Magenta Light) 11
     ]
-  , [ (White, 13)
-    , (White, 13)
-    , (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Black, 10)
-    , (Chromatic $ ChromaticColor Magenta Light, 11)
-    , (Chromatic $ ChromaticColor Magenta Light, 11)
-    , (Black, 14)
+  , [ Codel White 13
+    , Codel White 13
+    , Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel Black 10
+    , Codel (Chromatic $ ChromaticColor Magenta Light) 11
+    , Codel (Chromatic $ ChromaticColor Magenta Light) 11
+    , Codel Black 14
     ]
-  , [ (White, 13)
-    , (White, 13)
-    , (White, 13)
-    , (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Cyan Light, 12)
-    , (Chromatic $ ChromaticColor Red Normal, 9)
-    , (Chromatic $ ChromaticColor Green Light, 15)
-    , (Black, 16)
-    , (Black, 16)
-    , (Chromatic $ ChromaticColor Magenta Light, 11)
-    , (Chromatic $ ChromaticColor Magenta Light, 11)
-    , (Chromatic $ ChromaticColor Magenta Light, 11)
-    , (Black, 14)
+  , [ Codel White 13
+    , Codel White 13
+    , Codel White 13
+    , Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Cyan Light) 12
+    , Codel (Chromatic $ ChromaticColor Red Normal) 9
+    , Codel (Chromatic $ ChromaticColor Green Light) 15
+    , Codel Black 16
+    , Codel Black 16
+    , Codel (Chromatic $ ChromaticColor Magenta Light) 11
+    , Codel (Chromatic $ ChromaticColor Magenta Light) 11
+    , Codel (Chromatic $ ChromaticColor Magenta Light) 11
+    , Codel Black 14
     ]
-  , [ (White, 13)
-    , (White, 13)
-    , (White, 13)
-    , (White, 13)
-    , (White, 13)
-    , (White, 13)
-    , (White, 13)
-    , (White, 13)
-    , (Chromatic $ ChromaticColor Red Dark, 17)
-    , (Chromatic $ ChromaticColor Red Light, 18)
-    , (Chromatic $ ChromaticColor Red Light, 18)
-    , (Chromatic $ ChromaticColor Red Light, 18)
-    , (Black, 19)
-    , (Chromatic $ ChromaticColor Green Dark, 20)
-    , (Chromatic $ ChromaticColor Green Dark, 20)
-    , (Chromatic $ ChromaticColor Red Light, 21)
+  , [ Codel White 13
+    , Codel White 13
+    , Codel White 13
+    , Codel White 13
+    , Codel White 13
+    , Codel White 13
+    , Codel White 13
+    , Codel White 13
+    , Codel (Chromatic $ ChromaticColor Red Dark) 17
+    , Codel (Chromatic $ ChromaticColor Red Light) 18
+    , Codel (Chromatic $ ChromaticColor Red Light) 18
+    , Codel (Chromatic $ ChromaticColor Red Light) 18
+    , Codel Black 19
+    , Codel (Chromatic $ ChromaticColor Green Dark) 20
+    , Codel (Chromatic $ ChromaticColor Green Dark) 20
+    , Codel (Chromatic $ ChromaticColor Red Light) 21
     ]
-  , [ (White, 13)
-    , (Chromatic $ ChromaticColor Yellow Light, 22)
-    , (White, 13)
-    , (White, 13)
-    , (White, 13)
-    , (White, 13)
-    , (Chromatic $ ChromaticColor Cyan Dark, 23)
-    , (Chromatic $ ChromaticColor Cyan Dark, 23)
-    , (White, 24)
-    , (Chromatic $ ChromaticColor Green Light, 25)
-    , (Chromatic $ ChromaticColor Green Light, 25)
-    , (Chromatic $ ChromaticColor Green Light, 25)
-    , (White, 26)
-    , (White, 26)
-    , (White, 26)
-    , (Black, 27)
+  , [ Codel White 13
+    , Codel (Chromatic $ ChromaticColor Yellow Light) 22
+    , Codel White 13
+    , Codel White 13
+    , Codel White 13
+    , Codel White 13
+    , Codel (Chromatic $ ChromaticColor Cyan Dark) 23
+    , Codel (Chromatic $ ChromaticColor Cyan Dark) 23
+    , Codel White 24
+    , Codel (Chromatic $ ChromaticColor Green Light) 25
+    , Codel (Chromatic $ ChromaticColor Green Light) 25
+    , Codel (Chromatic $ ChromaticColor Green Light) 25
+    , Codel White 26
+    , Codel White 26
+    , Codel White 26
+    , Codel Black 27
     ]
   ]
 
@@ -670,4 +671,3 @@ expectedComplexGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList
                          ]
     )
   ]
-
