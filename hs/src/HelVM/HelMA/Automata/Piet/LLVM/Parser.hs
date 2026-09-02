@@ -73,7 +73,7 @@ findCourseNextBlock ∷ Image → BlockCoordinates → Int → Cursor → Maybe 
 findCourseNextBlock image _ blockSize cur = (cur.course,) <$> searchNextBlock image cur.position cur.course blockSize
 
 searchInitialBlock ∷ MonadError ParserError m ⇒ Image → m (Maybe BlockEdge)
-searchInitialBlock image = processInitial image =<< justOrThrow EmptyBlockTableError (image V.!? 0 >>= (V.!? 0))
+searchInitialBlock image = processInitial image =<< justOrThrow EmptyBlockTableError ((V.!? 0) =<< image V.!? 0)
 
 processInitial ∷ MonadError ParserError m ⇒ Image → Codel → m (Maybe BlockEdge)
 processInitial _ (Codel (Chromatic _) blockIdx) = pure $ Just $ BlockEdge blockIdx initialCourse
@@ -81,14 +81,14 @@ processInitial image (Codel White _)            = pure $ view targetL <$> slideO
 processInitial _ (Codel Black _)                = throwError IllegalInitialColorError
 
 searchNextBlock ∷ Image → Coordinates → Course → Int → Maybe (Maybe NextBlock)
-searchNextBlock image p@(x, y) crs blockSize = searchNextBlockWithColor image p crs blockSize =<< (image V.!? y >>= (V.!? x))
+searchNextBlock image p@(x, y) crs blockSize = searchNextBlockWithColor image p crs blockSize =<< (V.!? x) =<< image V.!? y
 
 searchNextBlockWithColor ∷ Image → Coordinates → Course → Int → Codel → Maybe (Maybe NextBlock)
 searchNextBlockWithColor image p crs@(Course dp _) blockSize (Codel (Chromatic curColor) _) = fetchNextCodel image (move dp p) >>= searchNextBlockFromMove image (move dp p) crs blockSize curColor
 searchNextBlockWithColor _ _ _ _ _                                                          = Nothing
 
 fetchNextCodel ∷ Image → Coordinates → Maybe Codel
-fetchNextCodel image (nextX, nextY) = image V.!? nextY >>= (V.!? nextX)
+fetchNextCodel image (nextX, nextY) = (V.!? nextX) =<< image V.!? nextY
 
 searchNextBlockFromMove ∷ Image → Coordinates → Course → Int → ChromaticColor → Codel → Maybe (Maybe NextBlock)
 searchNextBlockFromMove image nextPos crs blockSize curColor codel = processNextCodel image codel curColor (Cursor nextPos crs) blockSize
