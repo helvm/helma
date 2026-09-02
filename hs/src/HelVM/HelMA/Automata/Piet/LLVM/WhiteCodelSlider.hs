@@ -19,10 +19,10 @@ import           Data.Vector                                      ( Vector )
 import qualified Data.Vector                                      as V
 
 -- Constraint Type Aliases
-type MonadNextBlockError m = MonadError NextBlock m
+type MonadNextBlockError m = MonadError NextBlockMaybe m
 type MonadSlider m = (MonadState (Set (Coordinates, Course)) m, MonadNextBlockError m)
 
-slideOnWhiteBlock ∷ Vector (Vector (Color, Int)) → Coordinates → Course → NextBlock
+slideOnWhiteBlock ∷ Vector (Vector (Color, Int)) → Coordinates → Course → NextBlockMaybe
 slideOnWhiteBlock image initialPosition initialCourse' = result where
   result = either id (error "unreachable")
          . runIdentity

@@ -81,14 +81,14 @@ processInitial _ (Chromatic (ChromaticColor _ _)) blockIdx = pure $ Just (blockI
 processInitial codelTable White _                          = pure $ nextBlockToIndexAndCourse $ slideOnWhiteBlock codelTable (0, 0) initialCourse
 processInitial _ Black          _                          = throwError IllegalInitialColorError
 
-searchNextBlock ∷ CodelTable → Coordinates → Course → Int → Maybe NextBlock
+searchNextBlock ∷ CodelTable → Coordinates → Course → Int → Maybe NextBlockMaybe
 searchNextBlock codelTable (x, y) course@(Course dp _) blockSize = do
   (Chromatic (ChromaticColor currentHue currentLightness), _) <- codelTable V.!? y >>= (V.!? x)
   let nextPos@(nextX, nextY) = move dp (x, y)
   (nextCodel, blockIndex) <- codelTable V.!? nextY >>= (V.!? nextX)
   processNextCodel codelTable nextCodel currentHue currentLightness nextPos course blockSize blockIndex
 
-processNextCodel ∷ CodelTable → Color → Hue → Lightness → Coordinates → Course → Int → Int → Maybe NextBlock
+processNextCodel ∷ CodelTable → Color → Hue → Lightness → Coordinates → Course → Int → Int → Maybe NextBlockMaybe
 processNextCodel _ (Chromatic (ChromaticColor nextHue nextLightness)) curHue curLight _ course blockSize blockIdx =
   Just $ NextBlockJust (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) course blockIdx
 processNextCodel codelTable White _ _ pos course _ _ =
@@ -96,11 +96,11 @@ processNextCodel codelTable White _ _ pos course _ _ =
 processNextCodel _ Black _ _ _ _ _ _ =
   Nothing
 
-nextBlockToIndex ∷ NextBlock → Maybe Int
+nextBlockToIndex ∷ NextBlockMaybe → Maybe Int
 nextBlockToIndex (NextBlockJust _ _ nextBlockIndex) = Just nextBlockIndex
 nextBlockToIndex ExitProgram                        = Nothing
 
-nextBlockToIndexAndCourse ∷ NextBlock → Maybe (Int, Course)
+nextBlockToIndexAndCourse ∷ NextBlockMaybe → Maybe (Int, Course)
 nextBlockToIndexAndCourse (NextBlockJust _ nextBlockCourse nextBlockIndex) = Just (nextBlockIndex, nextBlockCourse)
 nextBlockToIndexAndCourse ExitProgram                                      = Nothing
 

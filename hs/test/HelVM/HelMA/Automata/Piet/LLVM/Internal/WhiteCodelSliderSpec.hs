@@ -30,7 +30,7 @@ data TestCase
       , testImage       :: Vector (Vector (Color, Int))
       , initialPosition :: Coordinates
       , initialCourse   :: Course
-      , expectedResult  :: NextBlock
+      , expectedResult  :: NextBlockMaybe
       }
 
 main ∷ IO ()
