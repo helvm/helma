@@ -10,7 +10,7 @@ import           Data.Bits
 
 import qualified Relude.Extra         as Extra
 
-toRGB8ImageM ∷ MonadError String m ⇒ DynamicImage → m (Image PixelRGB8)
+toRGB8ImageM ∷ MonadError Text m ⇒ DynamicImage → m (Image PixelRGB8)
 toRGB8ImageM (ImageY8     _)     = failConversion
 toRGB8ImageM (ImageY16    _)     = failConversion
 toRGB8ImageM (ImageY32    _)     = failConversion
@@ -26,7 +26,7 @@ toRGB8ImageM (ImageYCbCr8 image) = pure $ toRGB8Image image
 toRGB8ImageM (ImageCMYK8  image) = pure $ toRGB8Image image
 toRGB8ImageM (ImageCMYK16 image) = pure $ toRGB8Image image
 
-failConversion ∷ MonadError String m ⇒ m a
+failConversion ∷ MonadError Text m ⇒ m a
 failConversion = throwError "can't convert from grayscale images"
 
 class Pixel a => ToRGB8 a where

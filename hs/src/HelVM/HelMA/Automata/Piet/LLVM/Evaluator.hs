@@ -13,7 +13,8 @@ import           Codec.Picture
 import           Control.Monad.Except                        ( MonadError, throwError )
 
 data PietError
-  = PietImageReaderError ImageReaderError
+  = ReadImageFileError Text
+  | PietImageReaderError ImageReaderError
   | PietParserError ParserError
   deriving stock (Eq, Show)
 
@@ -36,7 +37,7 @@ makeGraph ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → FileP
 makeGraph messageReceiver imageConfig inputPath = messageReceiver StepParse *> (mapError PietParserError . parse =<< messageReceiver StepReadImage *> (mapError PietImageReaderError . readCodels imageConfig =<< readImageFile inputPath))
 
 readImageFile ∷ MonadEvaluator m ⇒ FilePath → m DynamicImage
-readImageFile filePath = either (throwError . PietImageReaderError . ReadImageFileError . show) pure =<< liftIO (readImage filePath)
+readImageFile filePath = either (throwError . ReadImageFileError . show) pure =<< liftIO (readImage filePath)
 
 nullReceiver ∷ Monad m ⇒ PietStep → m ()
 nullReceiver _ = pass

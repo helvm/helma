@@ -21,8 +21,7 @@ import           Codec.Picture
 import           Control.Monad.Except                        ( MonadError (throwError), liftEither )
 
 data ImageReaderError
-  = ReadImageFileError String
-  | UnsupportedImageError String
+  = UnsupportedImageError Text
   | CodelSizeError
   deriving stock (Eq, Show)
 
