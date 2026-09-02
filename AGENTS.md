@@ -47,8 +47,8 @@ Special Rules for Haskell:
   - Do not use pattern maching inside `where`. Move function to top level declaration
   - Use a maximum of one `where` per function
 - Pattern matching style
-  - If individual pattern matching lines have their own `where` then it extracts the entire line into a separate function
-  - The parameters that are used for pattern matching should be the first ones
+  - The parameters used for pattern matching must come first in the function signature.
+  - Do not use `where` inside individual pattern matching clauses. Extract any clause that requires local definitions (`where`) into a top-level helper function.
 - Others
   - Don't break code lines unless necessary. Breaking lines is cheating, unless they're data lines
   - Extract complex constraint types from declarations using `type`
@@ -56,3 +56,4 @@ Special Rules for Haskell:
   - Do not use `>>=`, use `=<<`
   - Do not use `return`, use `pure`
   - Do not use `pure ()`, use `pass`
+  - Do not use `*> pure`, use `$>`
