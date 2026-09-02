@@ -17,8 +17,6 @@ import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-import           HelVM.HelMA.Automata.Piet.Types.Hue
-import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 import           Control.Arrow                                    ( Arrow ((***)) )
 import           Control.Monad.Except
@@ -54,25 +52,20 @@ parseFilledImage ∷ MonadError ParserError m ⇒ (CodelTable, BlockTable) → m
 parseFilledImage (codelTable, blockTable) = parseFrom codelTable blockTable =<< searchInitialBlock codelTable
 
 parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (Int, Course) → m (Maybe SyntaxGraph)
-parseFrom _ _ Nothing                                          = pure Nothing
-parseFrom codelTable blockTable (Just (entryIndex, entryCourse')) =
-  Just . SyntaxGraph entryIndex entryCourse' <$> execStateT (parseState codelTable blockTable entryIndex) IM.empty
+parseFrom _ _ Nothing                                              = pure Nothing
+parseFrom codelTable blockTable (Just (entryIndex, entryCourse')) = Just . SyntaxGraph entryIndex entryCourse' <$> execStateT (parseState codelTable blockTable entryIndex) IM.empty
 
 parseState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ CodelTable → BlockTable → Int → m ()
-parseState codelTable blockTable blockIndex =
-  processBlockState codelTable blockTable blockIndex =<< justOrThrow (MissingCodelIndexError blockIndex) (blockTable IM.!? blockIndex)
+parseState codelTable blockTable blockIndex = justOrThrow (MissingCodelIndexError blockIndex) (blockTable IM.!? blockIndex) >>= processBlockState codelTable blockTable blockIndex
 
 processBlockState ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ CodelTable → BlockTable → Int → BlockCoordinates → m ()
-processBlockState codelTable blockTable blockIndex blockCoords = do
-  let nextBlockList = buildNextBlockList codelTable blockCoords
-  insertBlock blockIndex nextBlockList
-  processUnvisited codelTable blockTable nextBlockList
+processBlockState codelTable blockTable blockIndex blockCoords = processUnvisited codelTable blockTable (buildNextBlockList codelTable blockCoords) =<< insertBlock blockIndex (buildNextBlockList codelTable blockCoords)
 
 insertBlock ∷ MonadState (IntMap Block) m ⇒ Int → [(Course, Maybe NextBlock)] → m ()
 insertBlock blockIndex nextBlockList = modify (IM.insert blockIndex (Block $ M.fromList nextBlockList))
 
-processUnvisited ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ CodelTable → BlockTable → [(Course, Maybe NextBlock)] → m ()
-processUnvisited codelTable blockTable nextBlockList = traverse_ (parseState codelTable blockTable) . filterUnvisited nextBlockList =<< get
+processUnvisited ∷ (MonadError ParserError m, MonadState (IntMap Block) m) ⇒ CodelTable → BlockTable → [(Course, Maybe NextBlock)] → () → m ()
+processUnvisited codelTable blockTable nextBlockList () = traverse_ (parseState codelTable blockTable) . filterUnvisited nextBlockList =<< get
 
 filterUnvisited ∷ [(Course, Maybe NextBlock)] → IntMap Block → [Int]
 filterUnvisited nextBlockList visitedMap = filter (`IS.notMember` IM.keysSet visitedMap) (mapMaybe (nextBlockToIndex . snd) nextBlockList)
@@ -95,22 +88,19 @@ searchNextBlock ∷ CodelTable → Coordinates → Course → Int → Maybe (May
 searchNextBlock codelTable (x, y) course blockSize = searchNextBlockWithColor codelTable (x, y) course blockSize =<< (codelTable V.!? y >>= (V.!? x))
 
 searchNextBlockWithColor ∷ CodelTable → Coordinates → Course → Int → (Color, Int) → Maybe (Maybe NextBlock)
-searchNextBlockWithColor codelTable (x, y) course@(Course dp _) blockSize (Chromatic (ChromaticColor currentHue currentLightness), _) =
-  searchNextBlockFromMove codelTable (move dp (x, y)) course blockSize currentHue currentLightness =<< fetchNextCodel codelTable (move dp (x, y))
-searchNextBlockWithColor _ _ _ _ _                                                                                                     = Nothing
+searchNextBlockWithColor codelTable (x, y) course@(Course dp _) blockSize (Chromatic curColor, _) = fetchNextCodel codelTable (move dp (x, y)) >>= searchNextBlockFromMove codelTable (move dp (x, y)) course blockSize curColor
+searchNextBlockWithColor _ _ _ _ _                                                                 = Nothing
 
 fetchNextCodel ∷ CodelTable → Coordinates → Maybe (Color, Int)
 fetchNextCodel codelTable (nextX, nextY) = codelTable V.!? nextY >>= (V.!? nextX)
 
-searchNextBlockFromMove ∷ CodelTable → Coordinates → Course → Int → Hue → Lightness → (Color, Int) → Maybe (Maybe NextBlock)
-searchNextBlockFromMove codelTable nextPos course blockSize curHue curLight (nextCodel, blockIndex) =
-  processNextCodel codelTable nextCodel curHue curLight nextPos course blockSize blockIndex
+searchNextBlockFromMove ∷ CodelTable → Coordinates → Course → Int → ChromaticColor → (Color, Int) → Maybe (Maybe NextBlock)
+searchNextBlockFromMove codelTable nextPos course blockSize curColor (nextCodel, blockIndex) = processNextCodel codelTable nextCodel curColor nextPos course blockSize blockIndex
 
-processNextCodel ∷ CodelTable → Color → Hue → Lightness → Coordinates → Course → Int → Int → Maybe (Maybe NextBlock)
-processNextCodel _ (Chromatic (ChromaticColor nextHue nextLightness)) curHue curLight _ course blockSize blockIdx =
-  Just $ Just $ NextBlock (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) course blockIdx
-processNextCodel codelTable White _ _ pos course _ _ = Just $ slideOnWhiteBlock codelTable pos course
-processNextCodel _ Black _ _ _ _ _ _                 = Nothing
+processNextCodel ∷ CodelTable → Color → ChromaticColor → Coordinates → Course → Int → Int → Maybe (Maybe NextBlock)
+processNextCodel _ (Chromatic nextColor) curColor _ course blockSize blockIdx = Just $ Just $ NextBlock (commandFromTransition (view hueL curColor, view lightnessL curColor) (view hueL nextColor, view lightnessL nextColor) blockSize) course blockIdx
+processNextCodel codelTable White _ pos course _ _                            = Just $ slideOnWhiteBlock codelTable pos course
+processNextCodel _ Black _ _ _ _ _                                           = Nothing
 
 nextBlockToIndex ∷ Maybe NextBlock → Maybe Int
 nextBlockToIndex nb = view blockIndexL <$> nb
