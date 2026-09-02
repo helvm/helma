@@ -27,12 +27,14 @@ startEdge blockIndex course =
   "  start -> " <> showBuilder blockIndex <> " [label=\"" <> fromString (showCourse course) <> "\"]\n"
 
 blocks ∷ IntMap Block → [LText.Builder]
-blocks blockMap = do
-  (from, block) <- IM.toAscList blockMap
-  processBlock from (M.toAscList $ nextBlockTable block)
-  where
-    processBlock from []                 = pure $ emptyBlock from
-    processBlock from courseAndNextBlock = pure $ nonemptyBlock from courseAndNextBlock
+blocks = fmap (uncurry processBlock) . IM.toAscList
+
+processBlock ∷ Int → Block → LText.Builder
+processBlock from block = processCourseList from (M.toAscList $ nextBlockTable block)
+
+processCourseList ∷ Int → [(Course, NextBlockMaybe)] → LText.Builder
+processCourseList from []                 = emptyBlock from
+processCourseList from courseAndNextBlock = nonemptyBlock from courseAndNextBlock
 
 nonemptyBlock ∷ Int → [(Course, NextBlockMaybe)] → LText.Builder
 nonemptyBlock from courseAndNextBlock = nodeLine <> edgeLines
