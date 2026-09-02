@@ -1,4 +1,3 @@
-{-# LANGUAGE FlexibleContexts #-}
 module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
   ( graphText
   , nullReceiver
@@ -25,25 +24,16 @@ data PietStep
   | StepGenerateDOT
   deriving stock (Eq, Show)
 
-graphText ∷ ( MonadIO m
-             , MonadError PietError m
-             )
-          ⇒ (PietStep → m ())
-          → ImageConfig
-          → FilePath
-          → m LText
+-- Constraint Type Aliases
+type MonadEvaluator m = (MonadIO m, MonadError PietError m)
+
+graphText ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → FilePath → m LText
 graphText messageReceiver imageConfig inputPath = do
   graph <- makeGraph messageReceiver imageConfig inputPath
   messageReceiver StepGenerateDOT
   pure $ syntaxToDOT graph
 
-makeGraph ∷ ( MonadIO m
-             , MonadError PietError m
-             )
-          ⇒ (PietStep → m ())
-          → ImageConfig
-          → FilePath
-          → m (Maybe SyntaxGraph)
+makeGraph ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → FilePath → m (Maybe SyntaxGraph)
 makeGraph messageReceiver imageConfig inputPath = do
   messageReceiver StepReadImage
   codels <- mapError PietImageReaderError $ readCodels imageConfig inputPath

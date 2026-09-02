@@ -1,6 +1,3 @@
-{-# LANGUAGE ConstraintKinds     #-}
-{-# LANGUAGE FlexibleContexts    #-}
-{-# LANGUAGE OverloadedRecordDot #-}
 module HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
   ( Image
   , slideOnWhiteBlock
