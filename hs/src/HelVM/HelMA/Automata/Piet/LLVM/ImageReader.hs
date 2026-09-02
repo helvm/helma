@@ -3,7 +3,7 @@
 
 module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   ( AdditionalColorStrategy (..)
-  , CodelSize (..)
+  , CodelSizeMaybe (..)
   , ImageConfig (..)
   , ImageReaderError (..)
   , Matrix
