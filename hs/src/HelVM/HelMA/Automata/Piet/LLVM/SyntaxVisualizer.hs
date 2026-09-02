@@ -37,7 +37,7 @@ blocks blockMap = do
 nonemptyBlock ∷ Int → [(Course, NextBlockMaybe)] → LText.Builder
 nonemptyBlock from courseAndNextBlock = nodeLine <> edgeLines
   where
-    hasExit = any ((== ExitProgram) . snd) courseAndNextBlock
+    hasExit = any ((== Nothing) . snd) courseAndNextBlock
     nodeLine
       | hasExit   = exitEdge from
       | otherwise = ""
@@ -50,7 +50,7 @@ exitEdge ∷ Int → LText.Builder
 exitEdge from = "  exit" <> showBuilder from <> " [label=\"\" shape=point color=white]\n"
 
 nextBlockEdge ∷ Int → Course → NextBlockMaybe → LText.Builder
-nextBlockEdge from fromCourse (NextBlockJust (NextBlock command toCourse nextBlockIndex)) =
+nextBlockEdge from fromCourse (Just (NextBlock command toCourse nextBlockIndex)) =
   "  " <> showBuilder from <> " -> " <> showBuilder nextBlockIndex
        <> " [label=\"" <> fromString (showCourse fromCourse) <> ": " <> fromString (showCommand command) <> nextCourseText toCourse <> "\"]\n"
   where
@@ -58,7 +58,7 @@ nextBlockEdge from fromCourse (NextBlockJust (NextBlock command toCourse nextBlo
       | toCourse' /= fromCourse = " -> " <> fromString (showCourse toCourse')
       | otherwise          = ""
 
-nextBlockEdge from fromCourse ExitProgram =
+nextBlockEdge from fromCourse Nothing =
   "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"" <> fromString (showCourse fromCourse) <> "\"]\n"
 
 showBuilder ∷ Show a ⇒ a → LText.Builder

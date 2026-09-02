@@ -113,13 +113,13 @@ spec = do
           let bTable = IM.fromList [(0, [(0, 0)]), (1, [(1, 0)])]
           let expectedG = SyntaxGraphJust $ SyntaxGraph 0 rl $
                                 IM.fromList [ ( 0
-                                              , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock (command12 tc) rl 1)
-                                                                   , (rr, NextBlockJust $ NextBlock (command12 tc) rr 1)
+                                              , Block $ M.fromList [ (rl, Just $ NextBlock (command12 tc) rl 1)
+                                                                   , (rr, Just $ NextBlock (command12 tc) rr 1)
                                                                    ]
                                               )
                                             , ( 1
-                                              , Block $ M.fromList [ (ll, NextBlockJust $ NextBlock (command21 tc) ll 0)
-                                                                   , (lr, NextBlockJust $ NextBlock (command21 tc) lr 0)
+                                              , Block $ M.fromList [ (ll, Just $ NextBlock (command21 tc) ll 0)
+                                                                   , (lr, Just $ NextBlock (command21 tc) lr 0)
                                                                    ]
                                               )
                                             ]
@@ -172,12 +172,12 @@ distantInitialBlockTable = IM.fromList
 expectedDistantInitialGraph ∷ SyntaxGraphMaybe
 expectedDistantInitialGraph = SyntaxGraphJust $ SyntaxGraph 1 ur $ IM.fromList
   [ ( 1
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock NoOperation ur 1)
-                         , (rr, NextBlockJust $ NextBlock NoOperation ul 1)
-                         , (dl, NextBlockJust $ NextBlock NoOperation ul 1)
-                         , (dr, NextBlockJust $ NextBlock NoOperation ur 1)
-                         , (ul, NextBlockJust $ NextBlock NoOperation ul 1)
-                         , (ur, NextBlockJust $ NextBlock NoOperation ur 1)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation ur 1)
+                         , (rr, Just $ NextBlock NoOperation ul 1)
+                         , (dl, Just $ NextBlock NoOperation ul 1)
+                         , (dr, Just $ NextBlock NoOperation ur 1)
+                         , (ul, Just $ NextBlock NoOperation ul 1)
+                         , (ur, Just $ NextBlock NoOperation ur 1)
                          ]
     )
   ]
@@ -209,19 +209,19 @@ stuckBlockTable = IM.fromList
 expectedStuckGraph ∷ SyntaxGraphMaybe
 expectedStuckGraph = SyntaxGraphJust $ SyntaxGraph 0 rl $ IM.fromList
   [ ( 0
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock (Push 1) rl 1)
-                         , (rr, NextBlockJust $ NextBlock (Push 1) rr 1)
-                         , (dl, NextBlockJust $ NextBlock NoOperation ul 0)
-                         , (dr, NextBlockJust $ NextBlock NoOperation ur 0)
+    , Block $ M.fromList [ (rl, Just $ NextBlock (Push 1) rl 1)
+                         , (rr, Just $ NextBlock (Push 1) rr 1)
+                         , (dl, Just $ NextBlock NoOperation ul 0)
+                         , (dr, Just $ NextBlock NoOperation ur 0)
                          ]
     )
   , ( 1
-    , Block $ M.fromList [ (rl, ExitProgram)
-                         , (rr, ExitProgram)
-                         , (dl, NextBlockJust $ NextBlock NoOperation ul 0)
-                         , (dr, NextBlockJust $ NextBlock NoOperation ur 0)
-                         , (ll, NextBlockJust $ NextBlock Pop ll 0)
-                         , (lr, NextBlockJust $ NextBlock Pop lr 0)
+    , Block $ M.fromList [ (rl, Nothing)
+                         , (rr, Nothing)
+                         , (dl, Just $ NextBlock NoOperation ul 0)
+                         , (dr, Just $ NextBlock NoOperation ur 0)
+                         , (ll, Just $ NextBlock Pop ll 0)
+                         , (lr, Just $ NextBlock Pop lr 0)
                          ]
     )
   ]
@@ -541,132 +541,132 @@ complexBlockTable = IM.fromList
 expectedComplexGraph ∷ SyntaxGraphMaybe
 expectedComplexGraph = SyntaxGraphJust $ SyntaxGraph 0 rl $ IM.fromList
   [ ( 0
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock Pop rl 1)
-                         , (rr, NextBlockJust $ NextBlock Pop rr 1)
-                         , (dl, NextBlockJust $ NextBlock Pop dl 1)
-                         , (dr, NextBlockJust $ NextBlock (Push 5) dr 6)
+    , Block $ M.fromList [ (rl, Just $ NextBlock Pop rl 1)
+                         , (rr, Just $ NextBlock Pop rr 1)
+                         , (dl, Just $ NextBlock Pop dl 1)
+                         , (dr, Just $ NextBlock (Push 5) dr 6)
                          ]
     )
   , ( 1
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock NoOperation rl 7)
-                         , (rr, NextBlockJust $ NextBlock NoOperation rr 7)
-                         , (dl, NextBlockJust $ NextBlock Divide dl 9)
-                         , (dr, NextBlockJust $ NextBlock Divide dr 9)
-                         , (ll, NextBlockJust $ NextBlock Pop ll 6)
-                         , (lr, NextBlockJust $ NextBlock Pop lr 6)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation rl 7)
+                         , (rr, Just $ NextBlock NoOperation rr 7)
+                         , (dl, Just $ NextBlock Divide dl 9)
+                         , (dr, Just $ NextBlock Divide dr 9)
+                         , (ll, Just $ NextBlock Pop ll 6)
+                         , (lr, Just $ NextBlock Pop lr 6)
                          ]
     )
   , ( 2
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock NoOperation rl 4)
-                         , (rr, NextBlockJust $ NextBlock NoOperation rr 4)
-                         , (dl, NextBlockJust $ NextBlock NoOperation dl 9)
-                         , (dr, NextBlockJust $ NextBlock Roll dr 1)
-                         , (ll, NextBlockJust $ NextBlock Roll ll 1)
-                         , (lr, NextBlockJust $ NextBlock Roll lr 1)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation rl 4)
+                         , (rr, Just $ NextBlock NoOperation rr 4)
+                         , (dl, Just $ NextBlock NoOperation dl 9)
+                         , (dr, Just $ NextBlock Roll dr 1)
+                         , (ll, Just $ NextBlock Roll ll 1)
+                         , (lr, Just $ NextBlock Roll lr 1)
                          ]
     )
   , ( 4
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock OutChar rl 5)
-                         , (rr, NextBlockJust $ NextBlock OutChar rr 5)
-                         , (dl, NextBlockJust $ NextBlock Subtract dl 7)
-                         , (dr, NextBlockJust $ NextBlock NoOperation dr 7)
-                         , (ll, NextBlockJust $ NextBlock NoOperation ll 2)
-                         , (lr, NextBlockJust $ NextBlock NoOperation lr 2)
+    , Block $ M.fromList [ (rl, Just $ NextBlock OutChar rl 5)
+                         , (rr, Just $ NextBlock OutChar rr 5)
+                         , (dl, Just $ NextBlock Subtract dl 7)
+                         , (dr, Just $ NextBlock NoOperation dr 7)
+                         , (ll, Just $ NextBlock NoOperation ll 2)
+                         , (lr, Just $ NextBlock NoOperation lr 2)
                          ]
     )
   , ( 5
-    , Block $ M.fromList [ (dr, NextBlockJust $ NextBlock Not dr 7)
-                         , (ll, NextBlockJust $ NextBlock Subtract ll 4)
-                         , (lr, NextBlockJust $ NextBlock Subtract lr 4)
+    , Block $ M.fromList [ (dr, Just $ NextBlock Not dr 7)
+                         , (ll, Just $ NextBlock Subtract ll 4)
+                         , (lr, Just $ NextBlock Subtract lr 4)
                          ]
     )
   , ( 6
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock Mod rl 9)
-                         , (rr, NextBlockJust $ NextBlock Mod rr 9)
-                         , (dl, NextBlockJust $ NextBlock Mod dl 9)
-                         , (dr, NextBlockJust $ NextBlock InChar dr 12)
-                         , (ul, NextBlockJust $ NextBlock Pop ul 0)
-                         , (ur, NextBlockJust $ NextBlock Pop ur 0)
+    , Block $ M.fromList [ (rl, Just $ NextBlock Mod rl 9)
+                         , (rr, Just $ NextBlock Mod rr 9)
+                         , (dl, Just $ NextBlock Mod dl 9)
+                         , (dr, Just $ NextBlock InChar dr 12)
+                         , (ul, Just $ NextBlock Pop ul 0)
+                         , (ur, Just $ NextBlock Pop ur 0)
                          ]
     )
   , ( 7
-    , Block $ M.fromList [ (ll, NextBlockJust $ NextBlock NoOperation ll 9)
-                         , (lr, NextBlockJust $ NextBlock NoOperation lr 9)
-                         , (ul, NextBlockJust $ NextBlock OutChar ul 4)
-                         , (ur, NextBlockJust $ NextBlock Roll ur 5)
+    , Block $ M.fromList [ (ll, Just $ NextBlock NoOperation ll 9)
+                         , (lr, Just $ NextBlock NoOperation lr 9)
+                         , (ul, Just $ NextBlock OutChar ul 4)
+                         , (ur, Just $ NextBlock Roll ur 5)
                          ]
     )
   , ( 9
-    , Block $ M.fromList [ (dl, NextBlockJust $ NextBlock (Push 16) dl 17)
-                         , (dr, NextBlockJust $ NextBlock (Push 16) dr 17)
-                         , (ll, NextBlockJust $ NextBlock Switch ll 12)
-                         , (lr, NextBlockJust $ NextBlock Switch lr 12)
-                         , (ul, NextBlockJust $ NextBlock Duplicate ul 1)
-                         , (ur, NextBlockJust $ NextBlock Duplicate ur 1)
+    , Block $ M.fromList [ (dl, Just $ NextBlock (Push 16) dl 17)
+                         , (dr, Just $ NextBlock (Push 16) dr 17)
+                         , (ll, Just $ NextBlock Switch ll 12)
+                         , (lr, Just $ NextBlock Switch lr 12)
+                         , (ul, Just $ NextBlock Duplicate ul 1)
+                         , (ur, Just $ NextBlock Duplicate ur 1)
                          ]
     )
   , ( 12
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock Pointer rl 9)
-                         , (rr, NextBlockJust $ NextBlock Pointer rr 9)
-                         , (dl, NextBlockJust $ NextBlock NoOperation dl 23)
-                         , (dr, NextBlockJust $ NextBlock NoOperation ll 22)
-                         , (ul, NextBlockJust $ NextBlock Add ul 6)
-                         , (ur, NextBlockJust $ NextBlock Add ur 6)
+    , Block $ M.fromList [ (rl, Just $ NextBlock Pointer rl 9)
+                         , (rr, Just $ NextBlock Pointer rr 9)
+                         , (dl, Just $ NextBlock NoOperation dl 23)
+                         , (dr, Just $ NextBlock NoOperation ll 22)
+                         , (ul, Just $ NextBlock Add ul 6)
+                         , (ur, Just $ NextBlock Add ur 6)
                          ]
     )
   , ( 15
-    , Block $ M.fromList [ (dl, NextBlockJust $ NextBlock Duplicate dl 18)
-                         , (dr, NextBlockJust $ NextBlock Duplicate dr 18)
-                         , (ll, NextBlockJust $ NextBlock Roll ll 9)
-                         , (lr, NextBlockJust $ NextBlock Roll lr 9)
-                         , (ul, NextBlockJust $ NextBlock Roll ul 9)
-                         , (ur, NextBlockJust $ NextBlock Roll ur 9)
+    , Block $ M.fromList [ (dl, Just $ NextBlock Duplicate dl 18)
+                         , (dr, Just $ NextBlock Duplicate dr 18)
+                         , (ll, Just $ NextBlock Roll ll 9)
+                         , (lr, Just $ NextBlock Roll lr 9)
+                         , (ul, Just $ NextBlock Roll ul 9)
+                         , (ur, Just $ NextBlock Roll ur 9)
                          ]
     )
   , ( 17
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock (Push 1) rl 18)
-                         , (rr, NextBlockJust $ NextBlock (Push 1) rr 18)
-                         , (dl, NextBlockJust $ NextBlock NoOperation lr 23)
-                         , (dr, NextBlockJust $ NextBlock NoOperation ll 23)
-                         , (ll, NextBlockJust $ NextBlock NoOperation ur 12)
-                         , (lr, NextBlockJust $ NextBlock NoOperation ul 12)
-                         , (ul, NextBlockJust $ NextBlock Pop ul 9)
-                         , (ur, NextBlockJust $ NextBlock Pop ur 9)
+    , Block $ M.fromList [ (rl, Just $ NextBlock (Push 1) rl 18)
+                         , (rr, Just $ NextBlock (Push 1) rr 18)
+                         , (dl, Just $ NextBlock NoOperation lr 23)
+                         , (dr, Just $ NextBlock NoOperation ll 23)
+                         , (ll, Just $ NextBlock NoOperation ur 12)
+                         , (lr, Just $ NextBlock NoOperation ul 12)
+                         , (ul, Just $ NextBlock Pop ul 9)
+                         , (ur, Just $ NextBlock Pop ur 9)
                          ]
     )
   , ( 18
-    , Block $ M.fromList [ (dl, NextBlockJust $ NextBlock Divide dl 25)
-                         , (dr, NextBlockJust $ NextBlock Divide dr 25)
-                         , (ll, NextBlockJust $ NextBlock Pop ll 17)
-                         , (lr, NextBlockJust $ NextBlock Pop lr 17)
-                         , (ul, NextBlockJust $ NextBlock Divide ul 15)
+    , Block $ M.fromList [ (dl, Just $ NextBlock Divide dl 25)
+                         , (dr, Just $ NextBlock Divide dr 25)
+                         , (ll, Just $ NextBlock Pop ll 17)
+                         , (lr, Just $ NextBlock Pop lr 17)
+                         , (ul, Just $ NextBlock Divide ul 15)
                          ]
     )
   , ( 22
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock NoOperation rl 23)
-                         , (rr, NextBlockJust $ NextBlock NoOperation rr 23)
-                         , (ll, NextBlockJust $ NextBlock NoOperation ur 12)
-                         , (lr, NextBlockJust $ NextBlock NoOperation ul 12)
-                         , (ul, NextBlockJust $ NextBlock NoOperation ul 12)
-                         , (ur, NextBlockJust $ NextBlock NoOperation ur 12)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation rl 23)
+                         , (rr, Just $ NextBlock NoOperation rr 23)
+                         , (ll, Just $ NextBlock NoOperation ur 12)
+                         , (lr, Just $ NextBlock NoOperation ul 12)
+                         , (ul, Just $ NextBlock NoOperation ul 12)
+                         , (ur, Just $ NextBlock NoOperation ur 12)
                          ]
     )
   , ( 23
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock NoOperation rl 25)
-                         , (rr, NextBlockJust $ NextBlock NoOperation rr 25)
-                         , (ll, NextBlockJust $ NextBlock NoOperation ll 22)
-                         , (lr, NextBlockJust $ NextBlock NoOperation lr 22)
-                         , (ul, NextBlockJust $ NextBlock NoOperation ul 12)
-                         , (ur, NextBlockJust $ NextBlock NoOperation ur 12)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation rl 25)
+                         , (rr, Just $ NextBlock NoOperation rr 25)
+                         , (ll, Just $ NextBlock NoOperation ll 22)
+                         , (lr, Just $ NextBlock NoOperation lr 22)
+                         , (ul, Just $ NextBlock NoOperation ul 12)
+                         , (ur, Just $ NextBlock NoOperation ur 12)
                          ]
     )
   , ( 25
-    , Block $ M.fromList [ (rl, NextBlockJust $ NextBlock NoOperation ll 25)
-                         , (rr, NextBlockJust $ NextBlock NoOperation lr 25)
-                         , (ll, NextBlockJust $ NextBlock NoOperation ll 23)
-                         , (lr, NextBlockJust $ NextBlock NoOperation lr 23)
-                         , (ul, NextBlockJust $ NextBlock Duplicate ul 18)
-                         , (ur, NextBlockJust $ NextBlock Duplicate ur 18)
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation ll 25)
+                         , (rr, Just $ NextBlock NoOperation lr 25)
+                         , (ll, Just $ NextBlock NoOperation ll 23)
+                         , (lr, Just $ NextBlock NoOperation lr 23)
+                         , (ul, Just $ NextBlock Duplicate ul 18)
+                         , (ur, Just $ NextBlock Duplicate ur 18)
                          ]
     )
   ]

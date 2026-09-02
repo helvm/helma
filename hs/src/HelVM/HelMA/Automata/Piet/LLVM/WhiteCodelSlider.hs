@@ -33,7 +33,7 @@ slideOnWhiteBlock image initialPosition initialCourse' = result where
 slideOnWhiteBlockLoop ∷ MonadSlider m ⇒ Vector (Vector (Color, Int)) → Coordinates → Course → m ()
 slideOnWhiteBlockLoop image = fix step where
   step loop position course =
-    processNext loop =<< liftEither (maybeToRight ExitProgram $ next image position course)
+    processNext loop =<< liftEither (maybeToRight Nothing $ next image position course)
 
 processNext ∷ MonadSlider m ⇒ (Coordinates → Course → m ()) → ((Color, Int), (Coordinates, Course)) → m ()
 processNext loop ((nextCodel, nextIndex), nextCodelCourse@(nextPosition, nextCourse)) =
@@ -43,7 +43,7 @@ processNext loop ((nextCodel, nextIndex), nextCodelCourse@(nextPosition, nextCou
 
 checkNonWhite ∷ MonadNextBlockError m ⇒ Color → Course → Int → m ()
 checkNonWhite White _ _              = pass
-checkNonWhite _ nextCourse nextIndex = throwError $ NextBlockJust $ NextBlock NoOperation nextCourse nextIndex
+checkNonWhite _ nextCourse nextIndex = throwError $ Just $ NextBlock NoOperation nextCourse nextIndex
 
 checkVisited ∷ MonadSlider m ⇒ (Coordinates, Course) → m ()
 checkVisited nextCodelCourse =
@@ -54,7 +54,7 @@ checkMember nextCodelCourse visited =
   handleVisited (S.member nextCodelCourse visited) nextCodelCourse
 
 handleVisited ∷ MonadSlider m ⇒ Bool → (Coordinates, Course) → m ()
-handleVisited True _                = throwError ExitProgram
+handleVisited True _                = throwError Nothing
 handleVisited False nextCodelCourse = modify (S.insert nextCodelCourse)
 
 next ∷ Vector (Vector (Color, Int)) → Coordinates → Course → Maybe ((Color, Int), (Coordinates, Course))

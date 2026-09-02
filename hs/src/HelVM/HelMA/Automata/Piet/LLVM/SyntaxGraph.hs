@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.Piet.LLVM.SyntaxGraph
   ( Block (..)
   , NextBlock (..)
-  , NextBlockMaybe (..)
+  , NextBlockMaybe
   , SyntaxGraph (..)
   , SyntaxGraphMaybe (..)
   ) where
@@ -26,10 +26,7 @@ newtype Block
   = Block { nextBlockTable :: Map Course NextBlockMaybe }
   deriving stock (Eq, Show)
 
-data NextBlockMaybe
-  = NextBlockJust NextBlock
-  | ExitProgram
-  deriving stock (Eq, Show)
+type NextBlockMaybe = Maybe NextBlock
 
 data NextBlock
   = NextBlock
