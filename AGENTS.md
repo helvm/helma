@@ -65,7 +65,7 @@ Special Rules for Haskell:
 - Others
   - Don't add extension declarations to files if they aren't in the original file. They're probably already added in cabal
   - Don't break code lines unless necessary. Breaking lines is cheating, unless they're data lines
-  - Don't use explicit recursion. Use `fix` instead or other available functions
+  - Don't use explicit recursion. Use `fix` instead or other available functions, for example from monad-loops or our custom trampoline
   - Do not use `>>=`, use `=<<`
   - Do not use `*> pure`, use `$>`
   - Do not use `return`, use `pure`
