@@ -153,19 +153,16 @@ makeAveragePixel iR iG iB codelsNum =
             (fromIntegral $ iB `div` codelsNum)
 
 accumulateRGB ∷ (Integer, Integer, Integer) → PixelRGB8 → (Integer, Integer, Integer)
-accumulateRGB (accR, accG, accB) (PixelRGB8 r g b) =
-  (accR + fromIntegral r, accG + fromIntegral g, accB + fromIntegral b)
+accumulateRGB (accR, accG, accB) (PixelRGB8 r g b) = (accR + fromIntegral r, accG + fromIntegral g, accB + fromIntegral b)
 
 getFirstColor ∷ [PixelRGB8] → PixelRGB8
 getFirstColor (c : _) = c
 getFirstColor []      = PixelRGB8 0 0 0
 
 getColors ∷ Int → Image PixelRGB8 → Int → Int → [PixelRGB8]
-getColors codelSizeInt image codelX codelY =
-  pixelAt image <$> [pixelOffsetX .. pixelOffsetX + codelSizeInt - 1]
-                 <*> [pixelOffsetY .. pixelOffsetY + codelSizeInt - 1] where
-    pixelOffsetX = codelX * codelSizeInt
-    pixelOffsetY = codelY * codelSizeInt
+getColors codelSizeInt image codelX codelY = pixelAt image <$> [pixelOffsetX .. pixelOffsetX + codelSizeInt - 1] <*> [pixelOffsetY .. pixelOffsetY + codelSizeInt - 1] where
+  pixelOffsetX = codelX * codelSizeInt
+  pixelOffsetY = codelY * codelSizeInt
 
 colorToCodel ∷ AdditionalColorStrategy → PixelRGB8 → Color
 colorToCodel AdditionalColorAsWhite color = M.findWithDefault White color colorCodelTable
