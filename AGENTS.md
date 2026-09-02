@@ -57,7 +57,7 @@ Special Rules for Haskell:
 - Pattern matching style
   - The parameters used for pattern matching must come first in the function signature.
   - Do not use `where` inside individual pattern matching clauses. Extract any clause that requires local definitions (`where`) into a top-level helper function.
-  - If there is pattern matching for Maybe or Either, try to replace it with built-in functions
+  - If there is pattern matching for `Maybe` or `Either`, try to replace it with built-in functions
 - Extractions
   - Extract complex constraint types from declarations using `type`
   - Extract container in container from declarations using `type`
@@ -65,6 +65,7 @@ Special Rules for Haskell:
 - Others
   - Don't break code lines unless necessary. Breaking lines is cheating, unless they're data lines
   - Don't use explicit recursion. Use `fix` instead or other available functions
+  - Don't add extension declarations to files if they aren't in the original file. They're probably already added in cabal
   - Do not use `>>=`, use `=<<`
   - Do not use `*> pure`, use `$>`
   - Do not use `return`, use `pure`

@@ -317,7 +317,6 @@ library
     , transformers
     , type-operators
     , vector
-    , vector-th-unbox
     , yjtools
 
   ghc-options:
