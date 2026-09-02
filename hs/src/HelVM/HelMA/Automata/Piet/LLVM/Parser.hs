@@ -80,15 +80,15 @@ searchInitialBlock ∷ MonadError ParserError m ⇒ CodelTable → m (Maybe (Int
 searchInitialBlock codelTable = uncurry (processInitial codelTable) =<< justOrThrow EmptyBlockTableError (codelTable V.!? 0 >>= (V.!? 0))
 
 processInitial ∷ MonadError ParserError m ⇒ CodelTable → Color → Int → m (Maybe (Int, Course))
-processInitial _ (Chromatic (ChromaticColor _ _)) blockIdx = pure $ Just (blockIdx, initialCourse)
-processInitial codelTable White _                          = pure $ nextBlockToIndexAndCourse $ slideOnWhiteBlock codelTable (0, 0) initialCourse
-processInitial _ Black          _                          = throwError IllegalInitialColorError
+processInitial _ (Chromatic _) blockIdx = pure $ Just (blockIdx, initialCourse)
+processInitial codelTable White _       = pure $ nextBlockToIndexAndCourse $ slideOnWhiteBlock codelTable (0, 0) initialCourse
+processInitial _ Black          _       = throwError IllegalInitialColorError
 
 searchNextBlock ∷ CodelTable → Coordinates → Course → Int → Maybe (Maybe NextBlock)
-searchNextBlock codelTable (x, y) course blockSize = searchNextBlockWithColor codelTable (x, y) course blockSize =<< (codelTable V.!? y >>= (V.!? x))
+searchNextBlock codelTable p@(x, y) course blockSize = searchNextBlockWithColor codelTable p course blockSize =<< (codelTable V.!? y >>= (V.!? x))
 
 searchNextBlockWithColor ∷ CodelTable → Coordinates → Course → Int → (Color, Int) → Maybe (Maybe NextBlock)
-searchNextBlockWithColor codelTable (x, y) course@(Course dp _) blockSize (Chromatic curColor, _) = fetchNextCodel codelTable (move dp (x, y)) >>= searchNextBlockFromMove codelTable (move dp (x, y)) course blockSize curColor
+searchNextBlockWithColor codelTable p course@(Course dp _) blockSize (Chromatic curColor, _) = fetchNextCodel codelTable (move dp p) >>= searchNextBlockFromMove codelTable (move dp p) course blockSize curColor
 searchNextBlockWithColor _ _ _ _ _                                                                 = Nothing
 
 fetchNextCodel ∷ CodelTable → Coordinates → Maybe (Color, Int)
