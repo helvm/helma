@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Course
 
 data SyntaxGraphMaybe
-  = SyntaxGraphMaybe
+  = SyntaxGraphJust
       { _initialBlockIndex :: Int
       , _initialCourse     :: Course
       , _blockMap          :: IntMap Block

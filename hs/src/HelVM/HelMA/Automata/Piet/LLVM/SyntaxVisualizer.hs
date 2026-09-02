@@ -13,7 +13,7 @@ import qualified Data.Text.Lazy.Builder                     as LText
 
 syntaxToDOT ∷ SyntaxGraphMaybe → LText
 syntaxToDOT EmptySyntaxGraph = "digraph {}"
-syntaxToDOT (SyntaxGraphMaybe blockIndex course blockMap) =
+syntaxToDOT (SyntaxGraphJust blockIndex course blockMap) =
   LText.toLazyText $  "digraph {\n"
              <> "  rankdir=LR\n"
              <> "  start [label=\"\" shape=point color=white]\n"
