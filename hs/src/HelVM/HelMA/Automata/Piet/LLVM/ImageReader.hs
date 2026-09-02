@@ -13,7 +13,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   ) where
 
 import           HelVM.HelMA.Automata.Piet.CodelSize
-import           HelVM.HelMA.Automata.Piet.LLVM.Internal.ToRGB8
+import           HelVM.HelMA.Automata.Piet.ToRGB8
 import           HelVM.HelMA.Automata.Piet.Types.Color
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
