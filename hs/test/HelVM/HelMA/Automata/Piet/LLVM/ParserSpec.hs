@@ -27,7 +27,7 @@ data ImageTestCase
       { caseName      :: String
       , testImage     :: Vector (Vector (Color, Int))
       , blockTable    :: IntMap BlockCoordinates
-      , expectedGraph :: (Maybe SyntaxGraph)
+      , expectedGraph :: Maybe SyntaxGraph
       }
 
 data ErrorTestCase

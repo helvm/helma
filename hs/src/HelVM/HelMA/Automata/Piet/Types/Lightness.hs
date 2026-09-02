@@ -7,10 +7,10 @@ module HelVM.HelMA.Automata.Piet.Types.Lightness
 import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 lightnessDiff ∷ Lightness → Lightness → Int
-lightnessDiff = cyclicDiff 3
+lightnessDiff = cyclicDiff
 
 lightnessChange ∷ Lightness → Lightness → Lightness
-lightnessChange = cyclicChange 3
+lightnessChange = cyclicChange
 
 data Lightness
   = Light
