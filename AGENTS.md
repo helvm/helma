@@ -66,6 +66,6 @@ Special Rules for Haskell:
   - Don't break code lines unless necessary. Breaking lines is cheating, unless they're data lines
   - Don't use explicit recursion. Use `fix` instead or other available functions
   - Do not use `>>=`, use `=<<`
+  - Do not use `*> pure`, use `$>`
   - Do not use `return`, use `pure`
   - Do not use `pure ()`, use `pass`
-  - Do not use `*> pure`, use `$>`
