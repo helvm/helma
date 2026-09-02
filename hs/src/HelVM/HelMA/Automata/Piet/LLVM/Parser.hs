@@ -32,7 +32,8 @@ import           Data.MonoTraversable
 import           Data.Vector                                      ( Vector )
 import qualified Data.Vector                                      as V
 
-type CodelTable = Vector (Vector (Color, Int))
+type Matrix a   = Vector (Vector a)
+type CodelTable = Matrix (Color, Int)
 type BlockTable = IntMap BlockCoordinates
 
 data ParserError
@@ -41,17 +42,14 @@ data ParserError
   | MissingCodelIndexError Int
   deriving stock (Eq, Show)
 
-parse ∷ MonadError ParserError m ⇒ Vector (Vector Color) → m SyntaxGraphMaybe
+parse ∷ MonadError ParserError m ⇒ Matrix Color → m SyntaxGraphMaybe
 parse image = parseFilledImageWithSplit (fillAll image) image
 
-parseFilledImageWithSplit ∷ MonadError ParserError m ⇒ (Vector (Vector Int), BlockTable) → Vector (Vector Color) → m SyntaxGraphMaybe
+parseFilledImageWithSplit ∷ MonadError ParserError m ⇒ (Matrix Int, BlockTable) → Matrix Color → m SyntaxGraphMaybe
 parseFilledImageWithSplit (indices, positionTable) image = parseFilledImage (V.zipWith V.zip image indices, positionTable)
 
 parseFilledImage ∷ MonadError ParserError m ⇒ (CodelTable, BlockTable) → m SyntaxGraphMaybe
-parseFilledImage (codelTable, blockTable) = parseFromWithInitial codelTable blockTable =<< searchInitialBlock codelTable
-
-parseFromWithInitial ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (Int, Course) → m SyntaxGraphMaybe
-parseFromWithInitial codelTable blockTable initial = parseFrom codelTable blockTable initial
+parseFilledImage (codelTable, blockTable) = parseFrom codelTable blockTable =<< searchInitialBlock codelTable
 
 parseFrom ∷ MonadError ParserError m ⇒ CodelTable → BlockTable → Maybe (Int, Course) → m SyntaxGraphMaybe
 parseFrom _ _ Nothing                                         = pure Nothing
