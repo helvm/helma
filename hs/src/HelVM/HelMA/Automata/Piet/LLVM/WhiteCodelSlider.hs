@@ -2,13 +2,13 @@
 {-# LANGUAGE FlexibleContexts    #-}
 {-# LANGUAGE OverloadedRecordDot #-}
 module HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
-  ( Codel (..)
-  , Image
+  ( Image
   , slideOnWhiteBlock
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
+import           HelVM.HelMA.Automata.Piet.Types.Codel
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
@@ -16,6 +16,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
+import           HelVM.HelMA.Automata.Piet.Types.PointedCodel
 
 import           Control.Monad.Except                             ( MonadError (throwError), liftEither )
 
@@ -24,13 +25,6 @@ import qualified Data.Vector                                      as V
 
 -- Local Types
 type Image = Matrix Codel
-
-data Codel
-  = Codel
-      { color :: Color
-      , index :: Int
-      }
-  deriving stock (Eq, Show)
 
 -- Constraint Type Aliases
 type MonadNextBlockError m = MonadError (Maybe NextBlock) m
@@ -43,8 +37,8 @@ slideOnWhiteBlockLoop ∷ MonadSlider m ⇒ Image → Cursor → m ()
 slideOnWhiteBlockLoop image = fix step where
   step loop cur = processNext loop =<< liftEither (maybeToRight Nothing $ next image cur)
 
-processNext ∷ MonadSlider m ⇒ (Cursor → m ()) → (Codel, Cursor) → m ()
-processNext loop (nextCodel, nextCursor) = checkNonWhite nextCodel.color nextCursor.course nextCodel.index *> checkVisited nextCursor *> loop nextCursor
+processNext ∷ MonadSlider m ⇒ (Cursor → m ()) → PointedCodel → m ()
+processNext loop pc = checkNonWhite pc.codel.color pc.cursor.course pc.codel.index *> checkVisited pc.cursor *> loop pc.cursor
 
 checkNonWhite ∷ MonadNextBlockError m ⇒ Color → Course → Int → m ()
 checkNonWhite White _ _              = pass
@@ -60,19 +54,11 @@ handleVisited ∷ MonadSlider m ⇒ Bool → Cursor → m ()
 handleVisited True _    = throwError Nothing
 handleVisited False cur = modify (S.insert cur)
 
-next ∷ Image → Cursor → Maybe (Codel, Cursor)
+next ∷ Image → Cursor → Maybe PointedCodel
 next image cur = viaNonEmpty head (mapMaybe (checkCourse image cur) . take 4 $ iterate succCourse cur.course)
 
-checkCourse ∷ Image → Cursor → Course → Maybe (Codel, Cursor)
+checkCourse ∷ Image → Cursor → Course → Maybe PointedCodel
 checkCourse image cur nextCourse@(Course nextDP _) = makePair (Cursor (move nextDP cur.position) nextCourse) =<< getNonBlackCodel image (move nextDP cur.position)
-
-makePair ∷ Cursor → Codel → Maybe (Codel, Cursor)
-makePair nextCursor codelInfo = Just (codelInfo, nextCursor)
 
 getNonBlackCodel ∷ Image → Coordinates → Maybe Codel
 getNonBlackCodel image (x, y) = checkColor =<< (image V.!? y >>= (V.!? x))
-
-checkColor ∷ Codel → Maybe Codel
-checkColor codel
-  | codel.color == Black = Nothing
-  | otherwise            = Just codel

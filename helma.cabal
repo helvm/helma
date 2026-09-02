@@ -259,6 +259,7 @@ library
     HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
 
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
+    HelVM.HelMA.Automata.Piet.Types.Codel
     HelVM.HelMA.Automata.Piet.Types.CodelChooser
     HelVM.HelMA.Automata.Piet.Types.Color
     HelVM.HelMA.Automata.Piet.Types.Command
@@ -275,6 +276,7 @@ library
     HelVM.HelMA.Automata.Piet.Types.Lightness
     HelVM.HelMA.Automata.Piet.Types.InstructionMemory
     HelVM.HelMA.Automata.Piet.Types.Memory
+    HelVM.HelMA.Automata.Piet.Types.PointedCodel
     HelVM.HelMA.Automata.Piet.Types.Program
 
     HelVM.HelMA.Automata.Rev.Evaluator
