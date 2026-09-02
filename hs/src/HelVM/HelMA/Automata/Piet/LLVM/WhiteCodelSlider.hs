@@ -61,13 +61,13 @@ handleVisited True _    = throwError Nothing
 handleVisited False cur = modify (S.insert cur)
 
 next ∷ Image → Cursor → Maybe (Codel, Cursor)
-next image cur = viaNonEmpty head (mapMaybe (checkCourse image cur.position) . take 4 $ iterate succCourse cur.course)
+next image cur = viaNonEmpty head (mapMaybe (checkCourse image cur) . take 4 $ iterate succCourse cur.course)
 
-checkCourse ∷ Image → Coordinates → Course → Maybe (Codel, Cursor)
-checkCourse image position nextCourse@(Course nextDP _) = makePair nextCourse (move nextDP position) =<< getNonBlackCodel image (move nextDP position)
+checkCourse ∷ Image → Cursor → Course → Maybe (Codel, Cursor)
+checkCourse image cur nextCourse@(Course nextDP _) = makePair (Cursor (move nextDP cur.position) nextCourse) =<< getNonBlackCodel image (move nextDP cur.position)
 
-makePair ∷ Course → Coordinates → Codel → Maybe (Codel, Cursor)
-makePair nextCourse nextPosition codelInfo = Just (codelInfo, Cursor nextPosition nextCourse)
+makePair ∷ Cursor → Codel → Maybe (Codel, Cursor)
+makePair nextCursor codelInfo = Just (codelInfo, nextCursor)
 
 getNonBlackCodel ∷ Image → Coordinates → Maybe Codel
 getNonBlackCodel image (x, y) = checkColor =<< (image V.!? y >>= (V.!? x))
