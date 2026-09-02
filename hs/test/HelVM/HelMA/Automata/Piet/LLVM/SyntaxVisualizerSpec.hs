@@ -6,7 +6,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizerSpec
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxTestHelper
-import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
+import           HelVM.HelMA.Automata.Piet.SyntaxVisualizer
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import           HelVM.HelMA.Automata.Piet.Types.Command

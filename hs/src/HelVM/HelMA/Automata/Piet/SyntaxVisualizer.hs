@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.SyntaxVisualizer
+module HelVM.HelMA.Automata.Piet.SyntaxVisualizer
   ( syntaxToDOT
   ) where
 
