@@ -28,12 +28,6 @@ move DPDown  = second next
 move DPLeft  = first  prev
 move DPUp    = second prev
 
--- move ∷ DirectionPointer → Coordinates → Coordinates
--- move DPRight (x, y) = (x + 1, y)
--- move DPDown  (x, y) = (x, y + 1)
--- move DPLeft  (x, y) = (x - 1, y)
--- move DPUp    (x, y) = (x, y - 1)
-
 nextPointer ∷ DirectionPointer → DirectionPointer
 nextPointer DPRight = DPDown
 nextPointer DPDown  = DPLeft
@@ -41,7 +35,7 @@ nextPointer DPLeft  = DPUp
 nextPointer DPUp    = DPRight
 
 rotate ∷ Int → DirectionPointer → DirectionPointer
-rotate = cyclicMove 4
+rotate = cyclicMove
 
 charDP ∷ DirectionPointer → Char
 charDP DPRight = 'r'

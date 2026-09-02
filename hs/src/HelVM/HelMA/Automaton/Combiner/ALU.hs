@@ -102,7 +102,7 @@ outputCharMaybe ∷ ALU m ll element ⇒ ll → m ll
 outputCharMaybe = appendError "ALU.outputCharMaybe" . outputMaybe putAsChar
 
 outputDecMaybe ∷ ALU m ll element ⇒ ll → m ll
-outputDecMaybe = appendError "ALU.outputDecMaybe" .outputMaybe putAsDec
+outputDecMaybe = appendError "ALU.outputDecMaybe" . outputMaybe putAsDec
 
 outputMaybe ∷ ALU m ll element ⇒ (element → m ()) → ll → m ll
 outputMaybe putAs l = maybe (pure l) f (uncons l) where f = uncurry $ flip (<$) . putAs

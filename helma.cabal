@@ -88,6 +88,8 @@ common common-options
     ConstraintKinds
     StrictData
     UnicodeSyntax
+    DuplicateRecordFields
+    OverloadedRecordDot
   if flag(ghcoptions)
     ghc-options:
       -Wall
@@ -231,9 +233,14 @@ library
     HelVM.HelMA.Automata.LazyK.Parser
     HelVM.HelMA.Automata.LazyK.Reducer
     
+    HelVM.HelMA.Automata.Piet.CodelSize
     HelVM.HelMA.Automata.Piet.Compiler
     HelVM.HelMA.Automata.Piet.Evaluator
+    HelVM.HelMA.Automata.Piet.Filler
+    HelVM.HelMA.Automata.Piet.MatrixBuilder
     HelVM.HelMA.Automata.Piet.Parser
+    HelVM.HelMA.Automata.Piet.SyntaxVisualizer
+    HelVM.HelMA.Automata.Piet.ToRGB8
 
     HelVM.HelMA.Automata.Piet.API.ImplType
     HelVM.HelMA.Automata.Piet.API.LexerType
@@ -258,6 +265,7 @@ library
     HelVM.HelMA.Automata.Piet.Types.Cursor
     HelVM.HelMA.Automata.Piet.Types.Cyclic
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+    HelVM.HelMA.Automata.Piet.Types.Grid
     HelVM.HelMA.Automata.Piet.Types.Hue
     HelVM.HelMA.Automata.Piet.Types.Matrix
     HelVM.HelMA.Automata.Piet.Types.InstructionMemory
@@ -266,6 +274,7 @@ library
     HelVM.HelMA.Automata.Piet.Types.Lightness
     HelVM.HelMA.Automata.Piet.Types.Memory
     HelVM.HelMA.Automata.Piet.Types.Program
+    HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
     HelVM.HelMA.Automata.Rev.Evaluator
 
@@ -295,10 +304,12 @@ library
     , free
     , IfElse
     , ilist
+    , list-t
     , monad-logger
     , monad-loops
     , natural-transformation
     , pretty-simple
+    , primitive
     , safe
     , transformers
     , type-operators
@@ -365,9 +376,15 @@ test-suite helma-test
     HelVM.HelMA.Automata.LazyK.NumberSpec
     HelVM.HelMA.Automata.LazyK.ParserSpec
 
+    HelVM.HelMA.Automata.Piet.CodelSizeSpec
     HelVM.HelMA.Automata.Piet.EvaluatorCollisionSpec
     HelVM.HelMA.Automata.Piet.EvaluatorStepStateSpec
     HelVM.HelMA.Automata.Piet.FileExtra
+    HelVM.HelMA.Automata.Piet.FillerSpec
+    HelVM.HelMA.Automata.Piet.SyntaxTestHelper
+    HelVM.HelMA.Automata.Piet.SyntaxVisualizerSpec
+    HelVM.HelMA.Automata.Piet.TestUtils
+    HelVM.HelMA.Automata.Piet.ToRGB8Spec    
 
     HelVM.HelMA.Automata.Rev.EvaluatorSpec
 
@@ -394,7 +411,10 @@ test-suite helma-test
     , helio
     , helma
 
+    , containers
+    , directory
     , filepath
+    , interpolatedstring-perl6
     , stm
     , time
     , type-operators

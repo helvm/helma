@@ -1,4 +1,3 @@
-{-# LANGUAGE FlexibleInstances #-}
 module HelVM.HelMA.Automaton.API.Env
   ( Env (..)
   , FileIO (..)

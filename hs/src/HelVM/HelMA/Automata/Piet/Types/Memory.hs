@@ -22,10 +22,10 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.InstructionMemory
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
@@ -91,7 +91,7 @@ courseMemory ∷ Memory → Course
 courseMemory mem = cursorMemory mem ^. courseL
 
 currentPixel ∷ Memory → Color
-currentPixel mem = atMatrix (positionMemory mem) (programMemory mem ^. imageL)
+currentPixel mem = atGrid (positionMemory mem) (programMemory mem ^. imageL)
 
 blockCodelCount ∷ Memory → Int
 blockCodelCount = olength . currentBlock
@@ -134,7 +134,7 @@ modifyStackWithLog name f (Memory im s) = logWithPosition name im *> (Memory im 
 -- PRIVATE UTILS & HELPERS
 
 getMaskInfo' ∷ Program → Coordinates → Maybe LabelInfo
-getMaskInfo' prog pos = findWithDefault Nothing (atMatrix pos maskImg) infoMap
+getMaskInfo' prog pos = findWithDefault Nothing (atGrid pos maskImg) infoMap
   where
     maskImg = prog ^. (labellingL . maskL)
     infoMap = prog ^. (labellingL . infoL)

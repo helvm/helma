@@ -4,8 +4,8 @@ module HelVM.HelMA.Automata.Piet.Types.Labelling
   , maskL
   ) where
 
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Label
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
 import           Relude.Extra
 
@@ -13,12 +13,12 @@ import           Relude.Extra
 
 data Labelling
   = Labelling
-      { mask :: Matrix LabelKey
+      { mask :: Grid LabelKey
       , info :: IntMap (Maybe LabelInfo)
       }
   deriving stock (Show)
 
-maskL ∷ Lens' Labelling (Matrix LabelKey)
+maskL ∷ Lens' Labelling (Grid LabelKey)
 maskL = lens mask (\s x -> s { mask = x })
 
 infoL ∷ Lens' Labelling (IntMap (Maybe LabelInfo))

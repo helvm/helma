@@ -7,10 +7,10 @@ module HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Cyclic
 
 hueDiff ∷ Hue → Hue → Int
-hueDiff = cyclicDiff 6
+hueDiff = cyclicDiff
 
 hueChange ∷ Hue → Hue → Hue
-hueChange = cyclicChange 6
+hueChange = cyclicChange
 
 data Hue
   = Red

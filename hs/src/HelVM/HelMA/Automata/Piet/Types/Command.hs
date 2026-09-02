@@ -5,8 +5,6 @@ module HelVM.HelMA.Automata.Piet.Types.Command
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
-import           HelVM.HelMA.Automata.Piet.Types.Hue
-import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 import           Data.Vector                                    ( Vector )
 import qualified Data.Vector.Generic                            as V
@@ -36,7 +34,7 @@ data Command
 
 -- FUNCTIONS
 
-commandFromTransition ∷ (Hue, Lightness) → (Hue, Lightness) → Int → Command
+commandFromTransition ∷ ChromaticColor → ChromaticColor  → Int → Command
 commandFromTransition c1 c2 = commandConstructorsVector V.! chromaticDiffToIndex c1 c2
 
 commandConstructorsVector ∷ Vector (Int → Command)

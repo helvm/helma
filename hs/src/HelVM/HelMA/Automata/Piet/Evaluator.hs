@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automata.Piet.Compiler
 import           HelVM.HelMA.Automata.Piet.Parser
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
 import           HelVM.HelMA.Automata.Piet.API.ImplType
@@ -44,5 +44,5 @@ start ∷ AppSafeEff m ⇒ ImplType → Program → m ()
 start StepState = StepState.start
 start Collision = Collision.start
 
-logCS ∷ MonadLogger m ⇒ (CodelSize, Matrix Color) → m (CodelSize, Matrix Color)
+logCS ∷ MonadLogger m ⇒ (CodelSize, Grid Color) → m (CodelSize, Grid Color)
 logCS (cs , img) = (cs , img) <$ logDebugN ("Actual codel length: " <> show cs)

@@ -32,19 +32,29 @@ Not lazy about: understanding the problem (read it fully and trace the real flow
 (Yes, this file also applies to agents working on the ponytail repo itself. Especially to them.)
 
 Special Rules for Haskell:
-- Use `relude` and `relude.extra` 
+- The file should be read from general to specific. The main function is at the top, then other public functions, and finally private functions. Functions lower in the file should not call those higher up
+- Use `relude` (configured globally via Cabal mixins, no need for NoImplicitPrelude)
+- Use `relude.extra` if needed
 - Use `RIO` but only for `main` and infrastructure (`RIO`-ful). Logic is `RIO` free (`RIO`-less)
+- Prefer Pointfree Style
+  - Do not use `do notation`, use operators
+  - Try do not use lambdas with parameters
 - Prefer Declaration Style
   - Do not use `case of`, use pattern mapping
   - Do not use `if else`, use guards
   - Do not use `let in`, use `where`
-- Prefer Pointfree Style
-  - Do not use `do notation`, use operators
-  - Try do not use lambdas with parameters
-- Others
-  - The parameters that are used for pattern matching should be the first ones
+- `where` Style 
+  - `where` should be at the end of the line
   - Do not use pattern maching inside `where`. Move function to top level declaration
+  - Use a maximum of one `where` per function
+- Pattern matching style
+  - The parameters used for pattern matching must come first in the function signature.
+  - Do not use `where` inside individual pattern matching clauses. Extract any clause that requires local definitions (`where`) into a top-level helper function.
+- Others
+  - Don't break code lines unless necessary. Breaking lines is cheating, unless they're data lines
+  - Extract complex constraint types from declarations using `type`
   - Don't use explicit recursion. Use `fix` instead or other available functions
   - Do not use `>>=`, use `=<<`
   - Do not use `return`, use `pure`
   - Do not use `pure ()`, use `pass`
+  - Do not use `*> pure`, use `$>`

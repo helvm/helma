@@ -1,5 +1,4 @@
-{-# LANGUAGE GADTs      #-}
-{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE GADTs #-}
 module HelVM.HelMA.Automaton.Eff.GADTEff
   ( GADTEff
   , GADTEffF (..)
