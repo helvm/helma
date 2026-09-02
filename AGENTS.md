@@ -46,7 +46,7 @@ Special Rules for Haskell:
   - `where` should be at the end of the line
   - Do not use pattern maching inside `where`. Move function to top level declaration
   - Use a maximum of one `where` per function
-- Pattern maching style
+- Pattern matching style
   - If individual pattern matching lines have their own `where` then it extracts the entire line into a separate function
   - The parameters that are used for pattern matching should be the first ones
 - Others
