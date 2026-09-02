@@ -161,12 +161,12 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li>No hints</li>
+<li><a id="hint0" href="javascript:show('hint0')">Suggestion: Use $&gt; (1)</a></li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
-<li>No files</li>
+<li><a id="file0" href="javascript:show('file0')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/ImageReader.hs (1)</a></li>
 </ul>
 
 </div>
@@ -177,7 +177,24 @@ v3.10
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-No hints
+<div class="hint0 file0">
+hs/src/HelVM/HelMA/Automata/Piet/LLVM/ImageReader.hs:(80,3)-(81,101): Suggestion: Use $&gt;<br/>
+Found<br/>
+<pre><span class='hs-definition'>checkDimensions</span> <span class='hs-varid'>modX</span> <span class='hs-varid'>modY</span>
+  <span class='hs-varop'>*&gt;</span>
+    <span class='hs-varid'>pure</span>
+      <span class='hs-layout'>(</span><span class='hs-varid'>buildMatrix</span>
+         <span class='hs-varid'>codelHeight</span> <span class='hs-varid'>codelWidth</span> <span class='hs-varid'>additionalColor'</span> <span class='hs-varid'>multicoloredCodel'</span>
+         <span class='hs-varid'>codelSizeInt</span> <span class='hs-varid'>image</span><span class='hs-layout'>)</span></pre>
+Perhaps<br/>
+<pre><span class='hs-definition'>checkDimensions</span> <span class='hs-varid'>modX</span> <span class='hs-varid'>modY</span>
+  <span class='hs-conid'>Data.Functor</span><span class='hs-varop'>.$&gt;</span>
+    <span class='hs-varid'>buildMatrix</span>
+      <span class='hs-varid'>codelHeight</span> <span class='hs-varid'>codelWidth</span> <span class='hs-varid'>additionalColor'</span> <span class='hs-varid'>multicoloredCodel'</span>
+      <span class='hs-varid'>codelSizeInt</span> <span class='hs-varid'>image</span></pre>
+
+</div>
+
 </div>
 <script type='text/javascript'>
 show(window.location.hash.slice(1), true);

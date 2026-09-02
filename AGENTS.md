@@ -32,7 +32,8 @@ Not lazy about: understanding the problem (read it fully and trace the real flow
 (Yes, this file also applies to agents working on the ponytail repo itself. Especially to them.)
 
 Special Rules for Haskell:
-- Use relude (configured globally via Cabal mixins, no need for NoImplicitPrelude) and relude.extra
+- Use `relude` (configured globally via Cabal mixins, no need for NoImplicitPrelude)
+- Use `relude.extra` if needed
 - Use `RIO` but only for `main` and infrastructure (`RIO`-ful). Logic is `RIO` free (`RIO`-less)
 - Prefer Pointfree Style
   - Do not use `do notation`, use operators
@@ -46,6 +47,7 @@ Special Rules for Haskell:
   - Do not use pattern maching inside `where`. Move function to top level declaration
   - Use a maximum of one `where` per function
 - Others
+  - Don't break lines unless necessary. Breaking lines is cheating
   - The parameters that are used for pattern matching should be the first ones
   - Extract complex constraint types from declarations using `type`
   - Don't use explicit recursion. Use `fix` instead or other available functions

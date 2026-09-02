@@ -1,3 +1,4 @@
+{-# LANGUAGE ConstraintKinds  #-}
 {-# LANGUAGE FlexibleContexts #-}
 
 module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
@@ -22,7 +23,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
 import           Codec.Picture
 
-import           Control.Monad.Except
+import           Control.Monad.Except                           ( MonadError (throwError), liftEither )
 
 import qualified Data.Foldable1                                 as F1
 import qualified Data.List.NonEmpty                             as NE
@@ -31,23 +32,23 @@ import           Data.Vector                                    ( Vector )
 import qualified Data.Vector                                    as V
 
 data ImageReaderError
-  = ReadImageFileError String -- ^ The image file is unreadable.
-  | UnsupportedImageError String -- ^ The input image has an unsupported format.
-  | CodelSizeError -- ^ The specified size of codel is not fit for the image.
+  = ReadImageFileError String
+  | UnsupportedImageError String
+  | CodelSizeError
   deriving stock (Eq, Show)
 
 data AdditionalColorStrategy
-  = AdditionalColorAsWhite -- ^ Treating as a white codel.
-  | AdditionalColorAsBlack -- ^ Treating as a black codel.
-  | AdditionalColorNearest -- ^ Treating as a codel which has the nearest color.
+  = AdditionalColorAsWhite
+  | AdditionalColorAsBlack
+  | AdditionalColorNearest
   deriving stock (Eq, Ord, Show)
 
 data MulticoloredCodelStrategy
-  = MulticoloredCodelAsWhite -- ^ Treating as a white codel.
-  | MulticoloredCodelAsBlack -- ^ Treating as a black codel.
-  | MulticoloredCodelCenter -- ^ Picking up a center pixel.
-  | MulticoloredCodelModal -- ^ Finding the modal color, the most frequent color.
-  | MulticoloredCodelAverage -- ^ Calculating an average color.
+  = MulticoloredCodelAsWhite
+  | MulticoloredCodelAsBlack
+  | MulticoloredCodelCenter
+  | MulticoloredCodelModal
+  | MulticoloredCodelAverage
   deriving stock (Eq, Ord, Show)
 
 data CodelSize
@@ -63,24 +64,21 @@ data ImageConfig
       }
   deriving stock (Eq, Show)
 
-readCodels ∷ (MonadIO m, MonadError ImageReaderError m) ⇒ ImageConfig → FilePath → m (Vector (Vector Color))
-readCodels config path = do
-  imageEither <- liftIO $ readImage path
-  image <- liftEither $ first ReadImageFileError imageEither
-  imageToCodels config image
+-- Constraint Type Alias
+type MonadImageError m = MonadError ImageReaderError m
 
-imageToCodels ∷ MonadError ImageReaderError m ⇒ ImageConfig → DynamicImage → m (Vector (Vector Color))
-imageToCodels config dynamicImage = do
-  rgbImage <- liftEither $ first UnsupportedImageError $ toRGB8ImageM dynamicImage
-  rgbImageToCodels config rgbImage
+readCodels ∷ (MonadIO m, MonadImageError m) ⇒ ImageConfig → FilePath → m (Vector (Vector Color))
+readCodels config path =
+  imageToCodels config =<< (liftEither . first ReadImageFileError =<< liftIO (readImage path))
 
-rgbImageToCodels ∷ MonadError ImageReaderError m ⇒ ImageConfig → Image PixelRGB8 → m (Vector (Vector Color))
-rgbImageToCodels config image = do
-  when (modX /= 0 || modY /= 0) $ throwError CodelSizeError
-  pure $ V.generate codelHeight $ \codelY ->
-    V.generate codelWidth $ \codelX ->
-      colorToCodel additionalColor' $ getCodelColor multicoloredCodel' codelSizeInt image codelX codelY
-  where
+imageToCodels ∷ MonadImageError m ⇒ ImageConfig → DynamicImage → m (Vector (Vector Color))
+imageToCodels config dynamicImage =
+  rgbImageToCodels config =<< (liftEither . first UnsupportedImageError $ toRGB8ImageM dynamicImage)
+
+rgbImageToCodels ∷ MonadImageError m ⇒ ImageConfig → Image PixelRGB8 → m (Vector (Vector Color))
+rgbImageToCodels config image =
+  checkDimensions modX modY
+  *> pure (buildMatrix codelHeight codelWidth additionalColor' multicoloredCodel' codelSizeInt image) where
     pixelWidth = imageWidth image
     pixelHeight = imageHeight image
     codelSizeInt = getIntCodelSize (pixelWidth, pixelHeight) image (codelSize config)
@@ -89,73 +87,105 @@ rgbImageToCodels config image = do
     (codelWidth, modX) = divMod pixelWidth codelSizeInt
     (codelHeight, modY) = divMod pixelHeight codelSizeInt
 
+checkDimensions ∷ MonadImageError m ⇒ Int → Int → m ()
+checkDimensions 0 0 = pass
+checkDimensions _ _ = throwError CodelSizeError
+
+buildMatrix ∷ Int → Int → AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Vector (Vector Color)
+buildMatrix codelHeight codelWidth stratMulti stratAdd sizeInt image =
+  V.generate codelHeight (buildRow codelWidth stratMulti stratAdd sizeInt image)
+
+buildRow ∷ Int → AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Int → Vector Color
+buildRow codelWidth stratMulti stratAdd sizeInt image codelY =
+  V.generate codelWidth (buildCodel stratMulti stratAdd sizeInt image codelY)
+
+buildCodel ∷ AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Int → Int → Color
+buildCodel stratAdd stratMulti sizeInt image codelY codelX =
+  colorToCodel stratAdd $ getCodelColor stratMulti sizeInt image codelX codelY
+
 getIntCodelSize ∷ Coordinates → Image PixelRGB8 → CodelSize → Int
 getIntCodelSize _ _ (CodelSize n)         = n
 getIntCodelSize size image GuessCodelSize = guessCodelSize size $ uncurry (pixelAt image)
 
 getCodelColor ∷ MulticoloredCodelStrategy → Int → Image PixelRGB8 → Int → Int → PixelRGB8
-getCodelColor MulticoloredCodelAsWhite codelSizeInt image codelX codelY
-  | hasMultipleColors = PixelRGB8 0xFF 0xFF 0xFF
-  | otherwise         = firstColor
-  where
-    hasMultipleColors = any (/= firstColor) colors
-    firstColor = getFirstColor colors
-    colors = getColors codelSizeInt image codelX codelY
+getCodelColor MulticoloredCodelAsWhite codelSizeInt image codelX codelY =
+  handleWhiteStrategy (getColors codelSizeInt image codelX codelY)
 
-getCodelColor MulticoloredCodelAsBlack codelSizeInt image codelX codelY
-  | hasMultipleColors = PixelRGB8 0x00 0x00 0x00
-  | otherwise         = firstColor
-  where
-    hasMultipleColors = any (/= firstColor) colors
-    firstColor = getFirstColor colors
-    colors = getColors codelSizeInt image codelX codelY
+getCodelColor MulticoloredCodelAsBlack codelSizeInt image codelX codelY =
+  handleBlackStrategy (getColors codelSizeInt image codelX codelY)
 
 getCodelColor MulticoloredCodelCenter codelSizeInt image codelX codelY =
-  pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2)
-  where
+  pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2) where
     pixelOffsetX = codelX * codelSizeInt
     pixelOffsetY = codelY * codelSizeInt
 
 getCodelColor MulticoloredCodelModal codelSizeInt image codelX codelY =
-  selectModal (nonEmpty (NE.groupAllWith id colors))
-  where
+  selectModal (nonEmpty (NE.groupAllWith id colors)) colors where
     colors = getColors codelSizeInt image codelX codelY
-    selectModal (Just grouped) = head $ F1.maximumBy (comparing length) grouped
-    selectModal Nothing        = getFirstColor colors
 
 getCodelColor MulticoloredCodelAverage codelSizeInt image codelX codelY =
+  makeAveragePixel iR iG iB codelsNum where
+    colors = getColors codelSizeInt image codelX codelY
+    (iR, iG, iB) = foldl' accumulateRGB (0, 0, 0) colors
+    codelsNum = toInteger $ codelSizeInt * codelSizeInt
+
+handleWhiteStrategy ∷ [PixelRGB8] → PixelRGB8
+handleWhiteStrategy colors =
+  checkMultipleWhite (any (/= firstColor) colors) firstColor where
+    firstColor = getFirstColor colors
+
+checkMultipleWhite ∷ Bool → PixelRGB8 → PixelRGB8
+checkMultipleWhite True _           = PixelRGB8 0xFF 0xFF 0xFF
+checkMultipleWhite False firstColor = firstColor
+
+handleBlackStrategy ∷ [PixelRGB8] → PixelRGB8
+handleBlackStrategy colors =
+  checkMultipleBlack (any (/= firstColor) colors) firstColor where
+    firstColor = getFirstColor colors
+
+checkMultipleBlack ∷ Bool → PixelRGB8 → PixelRGB8
+checkMultipleBlack True _           = PixelRGB8 0x00 0x00 0x00
+checkMultipleBlack False firstColor = firstColor
+
+selectModal ∷ Maybe (NonEmpty (NonEmpty PixelRGB8)) → [PixelRGB8] → PixelRGB8
+selectModal (Just grouped) _      = head $ F1.maximumBy (comparing length) grouped
+selectModal Nothing        colors = getFirstColor colors
+
+makeAveragePixel ∷ Integer → Integer → Integer → Integer → PixelRGB8
+makeAveragePixel iR iG iB codelsNum =
   PixelRGB8 (fromIntegral $ iR `div` codelsNum)
             (fromIntegral $ iG `div` codelsNum)
             (fromIntegral $ iB `div` codelsNum)
-  where
-    colors = getColors codelSizeInt image codelX codelY
-    (iR, iG, iB) = foldl' (\(accR, accG, accB) (PixelRGB8 r g b) ->
-                           (accR + fromIntegral r, accG + fromIntegral g, accB + fromIntegral b))
-                         (0, 0, 0) colors
-    codelsNum = toInteger $ codelSizeInt * codelSizeInt
 
--- Pomocnicze funkcje dla getCodelColor
+accumulateRGB ∷ (Integer, Integer, Integer) → PixelRGB8 → (Integer, Integer, Integer)
+accumulateRGB (accR, accG, accB) (PixelRGB8 r g b) =
+  (accR + fromIntegral r, accG + fromIntegral g, accB + fromIntegral b)
+
 getFirstColor ∷ [PixelRGB8] → PixelRGB8
 getFirstColor (c : _) = c
 getFirstColor []      = PixelRGB8 0 0 0
 
 getColors ∷ Int → Image PixelRGB8 → Int → Int → [PixelRGB8]
-getColors codelSizeInt image codelX codelY = do
-  pixelY <- [pixelOffsetY .. pixelOffsetY + codelSizeInt - 1]
-  pixelX <- [pixelOffsetX .. pixelOffsetX + codelSizeInt - 1]
-  pure $ pixelAt image pixelX pixelY
-  where
+getColors codelSizeInt image codelX codelY =
+  pixelAt image <$> [pixelOffsetX .. pixelOffsetX + codelSizeInt - 1]
+                 <*> [pixelOffsetY .. pixelOffsetY + codelSizeInt - 1] where
     pixelOffsetX = codelX * codelSizeInt
     pixelOffsetY = codelY * codelSizeInt
 
 colorToCodel ∷ AdditionalColorStrategy → PixelRGB8 → Color
 colorToCodel AdditionalColorAsWhite color = M.findWithDefault White color colorCodelTable
 colorToCodel AdditionalColorAsBlack color = M.findWithDefault Black color colorCodelTable
-colorToCodel AdditionalColorNearest color = nearestCodel
-  where
-    squaredColorDistance (PixelRGB8 r1 g1 b1) (PixelRGB8 r2 g2 b2) = square r1 r2 + square g1 g2 + square b1 b2
-    square a b = (toInteger a - toInteger b) ^ (2 :: Int)
-    nearestCodel = snd $ F1.minimum $ first (squaredColorDistance color) <$> colorCodelTableList
+colorToCodel AdditionalColorNearest color = nearestCodel color
+
+nearestCodel ∷ PixelRGB8 → Color
+nearestCodel color = snd $ F1.minimum $ first (squaredColorDistance color) <$> colorCodelTableList
+
+squaredColorDistance ∷ PixelRGB8 → PixelRGB8 → Integer
+squaredColorDistance (PixelRGB8 r1 g1 b1) (PixelRGB8 r2 g2 b2) =
+  square r1 r2 + square g1 g2 + square b1 b2
+
+square ∷ Word8 → Word8 → Integer
+square a b = (toInteger a - toInteger b) ^ (2 :: Int)
 
 colorCodelTable ∷ M.Map PixelRGB8 Color
 colorCodelTable = M.fromList $ NE.toList colorCodelTableList
