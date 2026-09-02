@@ -24,37 +24,37 @@ spec = do
     forM_
       [ ( ImageConfig { additionalColor = AdditionalColorAsBlack
                       , multicoloredCodel = MulticoloredCodelAsWhite
-                      , codelSize = CodelSizeJust 5
+                      , codelSize = Just 5
                       }
         , blackWhiteCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColorAsWhite
                       , multicoloredCodel = MulticoloredCodelAsBlack
-                      , codelSize = CodelSizeJust 5
+                      , codelSize = Just 5
                       }
         , whiteBlackCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColorAsWhite
                       , multicoloredCodel = MulticoloredCodelCenter
-                      , codelSize = CodelSizeJust 5
+                      , codelSize = Just 5
                       }
         , whiteCenterCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColorAsWhite
                       , multicoloredCodel = MulticoloredCodelModal
-                      , codelSize = CodelSizeJust 5
+                      , codelSize = Just 5
                       }
         , whiteModalCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColorAsWhite
                       , multicoloredCodel = MulticoloredCodelAverage
-                      , codelSize = CodelSizeJust 5
+                      , codelSize = Just 5
                       }
         , whiteAverageCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColorNearest
                       , multicoloredCodel = MulticoloredCodelAsWhite
-                      , codelSize = CodelSizeJust 5
+                      , codelSize = Just 5
                       }
         , nearestWhiteCodels
         )
@@ -63,10 +63,10 @@ spec = do
           res <- runIO $ runExceptT $ readCodels config "test/resources/imagereader-test.png"
           it "returns codels" $ res `shouldBe` Right expectedCodels
 
-    context "when given GuessCodelSize" $ do
+    context "when given Nothing" $ do
       let config = ImageConfig { additionalColor = AdditionalColorNearest
                                , multicoloredCodel = MulticoloredCodelAverage
-                               , codelSize = GuessCodelSize
+                               , codelSize = Nothing
                                }
       res <- runIO $ runExceptT $ readCodels config "test/resources/codel10-test.png"
       it "returns codels" $ res `shouldBe` Right complexCodels
@@ -74,7 +74,7 @@ spec = do
     context "when given an invalid codel size" $ do
       let config = ImageConfig { additionalColor = AdditionalColorNearest
                                , multicoloredCodel = MulticoloredCodelAverage
-                               , codelSize = CodelSizeJust 4
+                               , codelSize = Just 4
                                }
       res <- runIO $ runExceptT $ readCodels config "test/resources/imagereader-test.png"
       it "fails with CodelSizeError" $ res `shouldBe` Left CodelSizeError

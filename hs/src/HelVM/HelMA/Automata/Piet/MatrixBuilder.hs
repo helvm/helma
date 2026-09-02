@@ -3,7 +3,7 @@
 
 module HelVM.HelMA.Automata.Piet.MatrixBuilder
   ( AdditionalColorStrategy (..)
-  , CodelSizeMaybe (..)
+  , CodelSizeMaybe
   , ImageConfig (..)
   , Matrix
   , MulticoloredCodelStrategy (..)
@@ -46,10 +46,7 @@ data MulticoloredCodelStrategy
   deriving stock (Eq, Ord, Show)
 
 -- FIXME change to Maybe
-data CodelSizeMaybe
-  = CodelSizeJust Int
-  | GuessCodelSize
-  deriving stock (Eq, Show)
+type CodelSizeMaybe = Maybe Int
 
 data ImageConfig
   = ImageConfig
@@ -71,8 +68,8 @@ buildCodel ∷ AdditionalColorStrategy → MulticoloredCodelStrategy → Int →
 buildCodel stratAdd stratMulti sizeInt image coords = colorToCodel stratAdd (getCodelColor stratMulti sizeInt image coords)
 
 getIntCodelSize ∷ Coordinates → Image PixelRGB8 → CodelSizeMaybe → Int
-getIntCodelSize _ _ (CodelSizeJust n)     = n
-getIntCodelSize size image GuessCodelSize = guessCodelSize size (uncurry (pixelAt image))
+getIntCodelSize _ _ (Just n)       = n
+getIntCodelSize size image Nothing = guessCodelSize size (uncurry (pixelAt image))
 
 getCodelColor ∷ MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → PixelRGB8
 getCodelColor MulticoloredCodelAsWhite codelSizeInt image coords = handleWhiteStrategy (getColors codelSizeInt image coords)
