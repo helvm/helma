@@ -240,6 +240,7 @@ library
     HelVM.HelMA.Automata.Piet.Filler
     HelVM.HelMA.Automata.Piet.MatrixBuilder
     HelVM.HelMA.Automata.Piet.Parser
+    HelVM.HelMA.Automata.Piet.SyntaxVisualizer
     HelVM.HelMA.Automata.Piet.ToRGB8
 
     HelVM.HelMA.Automata.Piet.API.ImplType
@@ -254,8 +255,6 @@ library
     HelVM.HelMA.Automata.Piet.LLVM.Evaluator
     HelVM.HelMA.Automata.Piet.LLVM.ImageReader
     HelVM.HelMA.Automata.Piet.LLVM.Parser
-    HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
-    HelVM.HelMA.Automata.Piet.SyntaxVisualizer
     HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
 
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
@@ -278,6 +277,7 @@ library
     HelVM.HelMA.Automata.Piet.Types.Memory
     HelVM.HelMA.Automata.Piet.Types.PointedCodel
     HelVM.HelMA.Automata.Piet.Types.Program
+    HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
     HelVM.HelMA.Automata.Rev.Evaluator
 

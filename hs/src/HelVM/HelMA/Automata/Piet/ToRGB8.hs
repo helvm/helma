@@ -1,5 +1,3 @@
-{-# LANGUAGE FlexibleContexts #-}
-
 module HelVM.HelMA.Automata.Piet.ToRGB8
   ( ToRGB8 (..)
   , toRGB8ImageM

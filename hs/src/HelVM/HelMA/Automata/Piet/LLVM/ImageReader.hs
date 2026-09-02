@@ -1,6 +1,3 @@
-{-# LANGUAGE ConstraintKinds  #-}
-{-# LANGUAGE FlexibleContexts #-}
-
 module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   ( AdditionalColorStrategy (..)
   , CodelSizeMaybe

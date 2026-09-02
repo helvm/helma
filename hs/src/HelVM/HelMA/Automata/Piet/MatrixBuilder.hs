@@ -1,6 +1,3 @@
-{-# LANGUAGE ConstraintKinds  #-}
-{-# LANGUAGE FlexibleContexts #-}
-
 module HelVM.HelMA.Automata.Piet.MatrixBuilder
   ( AdditionalColorStrategy (..)
   , CodelSizeMaybe

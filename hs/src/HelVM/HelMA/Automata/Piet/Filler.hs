@@ -1,4 +1,3 @@
-{-# LANGUAGE FlexibleContexts #-}
 module HelVM.HelMA.Automata.Piet.Filler
   ( fillAll
   , paramFilledRefsL
