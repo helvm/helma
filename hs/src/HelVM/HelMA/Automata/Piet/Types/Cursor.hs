@@ -3,6 +3,7 @@ module HelVM.HelMA.Automata.Piet.Types.Cursor
   , codelChooserIC
   , courseL
   , directionPointerIC
+  , fs
   , initialCursor
   , positionL
   , rotateDirectionPointerIC
@@ -13,6 +14,8 @@ import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+
+import           Control.Arrow                                    ( Arrow ((***)) )
 
 import           Relude.Extra
 
@@ -47,3 +50,14 @@ toggleCodelChooserIC n = courseL %~ toggleCodelChooser n
 
 initialCursor ∷ Cursor
 initialCursor = Cursor initialCoordinates initialCourse
+
+fs ∷ [(Course, Coordinates → Coordinates)]
+fs = [ (Course DPRight CCLeft,  second negate)
+     , (Course DPRight CCRight, id)
+     , (Course DPDown  CCLeft,  swap)
+     , (Course DPDown  CCRight, second negate . swap)
+     , (Course DPLeft  CCLeft,  first negate)
+     , (Course DPLeft  CCRight, negate *** negate)
+     , (Course DPUp    CCLeft,  (negate *** negate) . swap)
+     , (Course DPUp    CCRight, first negate . swap)
+     ]

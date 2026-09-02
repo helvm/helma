@@ -11,14 +11,14 @@ import           HelVM.HelMA.Automata.Piet.LLVM.WhiteCodelSlider
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
-import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
+import           HelVM.HelMA.Automata.Piet.Types.Cursor
+
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 
-import           Control.Arrow                                    ( Arrow ((***)) )
 import           Control.Monad.Except
 
 import qualified Data.Foldable1                                   as F1
@@ -111,17 +111,6 @@ minMaxCoords positions = processPositions (nonEmpty positions)
 processPositions ∷ Maybe (NE.NonEmpty Coordinates) → [(Course, Coordinates)]
 processPositions (Just nePositions) = fmap (`maximumOn` nePositions) <$> fs
 processPositions Nothing            = []
-
-fs ∷ [(Course, Coordinates → Coordinates)]
-fs = [ (Course DPRight CCLeft,  second negate)
-     , (Course DPRight CCRight, id)
-     , (Course DPDown  CCLeft,  swap)
-     , (Course DPDown  CCRight, second negate . swap)
-     , (Course DPLeft  CCLeft,  first negate)
-     , (Course DPLeft  CCRight, negate *** negate)
-     , (Course DPUp    CCLeft,  (negate *** negate) . swap)
-     , (Course DPUp    CCRight, first negate . swap)
-     ]
 
 maximumOn ∷ Ord b ⇒ (a → b) → NE.NonEmpty a → a
 maximumOn f = F1.maximumBy (comparing f)
