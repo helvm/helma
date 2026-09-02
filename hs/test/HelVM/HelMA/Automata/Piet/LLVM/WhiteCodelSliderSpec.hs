@@ -13,8 +13,7 @@ import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
-import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Course          hiding ( initialCourse )
+import           HelVM.HelMA.Automata.Piet.Types.Cursor          hiding ( initialCursor )
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
@@ -26,11 +25,10 @@ import           Text.InterpolatedString.Perl6
 
 data TestCase
   = TestCase
-      { caseName        :: String
-      , testImage       :: Vector (Vector (Color, Int))
-      , initialPosition :: Coordinates
-      , initialCourse   :: Course
-      , expectedResult  :: Maybe NextBlock
+      { caseName       :: String
+      , testImage      :: Vector (Vector (Color, Int))
+      , initialCursor  :: Cursor
+      , expectedResult :: Maybe NextBlock
       }
 
 main ∷ IO ()
@@ -41,50 +39,50 @@ spec = describe "slideOnWhiteBlock" $ forM_ testCases runTest where
   runTest tc =
     context ("when given " ++ caseName tc) $
       it "slide and pure the next codel" $
-        slideOnWhiteBlock (testImage tc) (initialPosition tc) (initialCourse tc) `shouldBe` expectedResult tc
+        slideOnWhiteBlock (testImage tc) (initialCursor tc) `shouldBe` expectedResult tc
 
   testCases =
-    [ TestCase "singleCodelImage (0, 0) rl" singleCodelImage (0, 0) rl Nothing
-    , TestCase "oneLoopImage (1, 1) rl" oneLoopImage (1, 1) rl (Just $ NextBlock NoOperation (BlockEdge 2 ur))
-    , TestCase "oneLoopImage (1, 1) rr" oneLoopImage (1, 1) rr (Just $ NextBlock NoOperation (BlockEdge 2 ul))
-    , TestCase "gammaImage (1, 1) rl" gammaImage (1, 1) rl (Just $ NextBlock NoOperation (BlockEdge 1 rl))
-    , TestCase "gammaImage (1, 4) rl" gammaImage (1, 4) rl (Just $ NextBlock NoOperation (BlockEdge 0 ll))
-    , TestCase "crossShapedImage (2, 1) rl" crossShapedImage (2, 1) rl (Just $ NextBlock NoOperation (BlockEdge 5 dr))
-    , TestCase "crossShapedImage (2, 1) rr" crossShapedImage (2, 1) rr (Just $ NextBlock NoOperation (BlockEdge 5 dl))
-    , TestCase "crossShapedImage (2, 1) dl" crossShapedImage (2, 1) dl (Just $ NextBlock NoOperation (BlockEdge 5 dl))
-    , TestCase "crossShapedImage (2, 1) dr" crossShapedImage (2, 1) dr (Just $ NextBlock NoOperation (BlockEdge 5 dr))
-    , TestCase "crossShapedImage (2, 1) ll" crossShapedImage (2, 1) ll (Just $ NextBlock NoOperation (BlockEdge 5 dr))
-    , TestCase "crossShapedImage (2, 1) lr" crossShapedImage (2, 1) lr (Just $ NextBlock NoOperation (BlockEdge 5 dl))
-    , TestCase "crossShapedImage (2, 1) ul" crossShapedImage (2, 1) ul (Just $ NextBlock NoOperation (BlockEdge 5 dl))
-    , TestCase "crossShapedImage (2, 1) ur" crossShapedImage (2, 1) ur (Just $ NextBlock NoOperation (BlockEdge 5 dr))
-    , TestCase "crossShapedImage (1, 2) rl" crossShapedImage (1, 2) rl (Just $ NextBlock NoOperation (BlockEdge 5 rl))
-    , TestCase "crossShapedImage (1, 2) rr" crossShapedImage (1, 2) rr (Just $ NextBlock NoOperation (BlockEdge 5 rr))
-    , TestCase "crossShapedImage (1, 2) dl" crossShapedImage (1, 2) dl (Just $ NextBlock NoOperation (BlockEdge 5 rr))
-    , TestCase "crossShapedImage (1, 2) dr" crossShapedImage (1, 2) dr (Just $ NextBlock NoOperation (BlockEdge 5 rl))
-    , TestCase "crossShapedImage (1, 2) ll" crossShapedImage (1, 2) ll (Just $ NextBlock NoOperation (BlockEdge 5 rl))
-    , TestCase "crossShapedImage (1, 2) lr" crossShapedImage (1, 2) lr (Just $ NextBlock NoOperation (BlockEdge 5 rr))
-    , TestCase "crossShapedImage (1, 2) ul" crossShapedImage (1, 2) ul (Just $ NextBlock NoOperation (BlockEdge 5 rr))
-    , TestCase "crossShapedImage (1, 2) ur" crossShapedImage (1, 2) ur (Just $ NextBlock NoOperation (BlockEdge 5 rl))
-    , TestCase "crossShapedImage (3, 2) rl" crossShapedImage (3, 2) rl (Just $ NextBlock NoOperation (BlockEdge 5 ll))
-    , TestCase "crossShapedImage (3, 2) rr" crossShapedImage (3, 2) rr (Just $ NextBlock NoOperation (BlockEdge 5 lr))
-    , TestCase "crossShapedImage (3, 2) dl" crossShapedImage (3, 2) dl (Just $ NextBlock NoOperation (BlockEdge 5 lr))
-    , TestCase "crossShapedImage (3, 2) dr" crossShapedImage (3, 2) dr (Just $ NextBlock NoOperation (BlockEdge 5 ll))
-    , TestCase "crossShapedImage (3, 2) ll" crossShapedImage (3, 2) ll (Just $ NextBlock NoOperation (BlockEdge 5 ll))
-    , TestCase "crossShapedImage (3, 2) lr" crossShapedImage (3, 2) lr (Just $ NextBlock NoOperation (BlockEdge 5 lr))
-    , TestCase "crossShapedImage (3, 2) ul" crossShapedImage (3, 3) ul (Just $ NextBlock NoOperation (BlockEdge 5 lr))
-    , TestCase "crossShapedImage (3, 2) ur" crossShapedImage (3, 2) ur (Just $ NextBlock NoOperation (BlockEdge 5 ll))
-    , TestCase "crossShapedImage (2, 3) rl" crossShapedImage (2, 3) rl (Just $ NextBlock NoOperation (BlockEdge 5 ur))
-    , TestCase "crossShapedImage (2, 3) rr" crossShapedImage (2, 3) rr (Just $ NextBlock NoOperation (BlockEdge 5 ul))
-    , TestCase "crossShapedImage (2, 3) dl" crossShapedImage (2, 3) dl (Just $ NextBlock NoOperation (BlockEdge 5 ul))
-    , TestCase "crossShapedImage (2, 3) dr" crossShapedImage (2, 3) dr (Just $ NextBlock NoOperation (BlockEdge 5 ur))
-    , TestCase "crossShapedImage (2, 3) ll" crossShapedImage (2, 3) ll (Just $ NextBlock NoOperation (BlockEdge 5 ur))
-    , TestCase "crossShapedImage (2, 3) lr" crossShapedImage (2, 3) lr (Just $ NextBlock NoOperation (BlockEdge 5 ul))
-    , TestCase "crossShapedImage (2, 3) ul" crossShapedImage (2, 3) ul (Just $ NextBlock NoOperation (BlockEdge 5 ul))
-    , TestCase "crossShapedImage (2, 3) ur" crossShapedImage (2, 3) ur (Just $ NextBlock NoOperation (BlockEdge 5 ur))
-    , TestCase "spiralImage (1, 1) rl" spiralImage (1, 1) rl (Just $ NextBlock NoOperation (BlockEdge 4 rl))
-    , TestCase "stuckImage1 (1, 1) rl" stuckImage1 (1, 1) rl Nothing
-    , TestCase "stuckImage2 (1, 1) rl" stuckImage2 (1, 1) rl Nothing
-    , TestCase "stuckImage3 (1, 1) rl" stuckImage3 (1, 1) rl Nothing
+    [ TestCase "singleCodelImage (0, 0) rl" singleCodelImage (Cursor (0, 0) rl) Nothing
+    , TestCase "oneLoopImage (1, 1) rl" oneLoopImage (Cursor (1, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 2 ur))
+    , TestCase "oneLoopImage (1, 1) rr" oneLoopImage (Cursor (1, 1) rr) (Just $ NextBlock NoOperation (BlockEdge 2 ul))
+    , TestCase "gammaImage (1, 1) rl" gammaImage (Cursor (1, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 1 rl))
+    , TestCase "gammaImage (1, 4) rl" gammaImage (Cursor (1, 4) rl) (Just $ NextBlock NoOperation (BlockEdge 0 ll))
+    , TestCase "crossShapedImage (2, 1) rl" crossShapedImage (Cursor (2, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
+    , TestCase "crossShapedImage (2, 1) rr" crossShapedImage (Cursor (2, 1) rr) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
+    , TestCase "crossShapedImage (2, 1) dl" crossShapedImage (Cursor (2, 1) dl) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
+    , TestCase "crossShapedImage (2, 1) dr" crossShapedImage (Cursor (2, 1) dr) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
+    , TestCase "crossShapedImage (2, 1) ll" crossShapedImage (Cursor (2, 1) ll) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
+    , TestCase "crossShapedImage (2, 1) lr" crossShapedImage (Cursor (2, 1) lr) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
+    , TestCase "crossShapedImage (2, 1) ul" crossShapedImage (Cursor (2, 1) ul) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
+    , TestCase "crossShapedImage (2, 1) ur" crossShapedImage (Cursor (2, 1) ur) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
+    , TestCase "crossShapedImage (1, 2) rl" crossShapedImage (Cursor (1, 2) rl) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
+    , TestCase "crossShapedImage (1, 2) rr" crossShapedImage (Cursor (1, 2) rr) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
+    , TestCase "crossShapedImage (1, 2) dl" crossShapedImage (Cursor (1, 2) dl) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
+    , TestCase "crossShapedImage (1, 2) dr" crossShapedImage (Cursor (1, 2) dr) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
+    , TestCase "crossShapedImage (1, 2) ll" crossShapedImage (Cursor (1, 2) ll) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
+    , TestCase "crossShapedImage (1, 2) lr" crossShapedImage (Cursor (1, 2) lr) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
+    , TestCase "crossShapedImage (1, 2) ul" crossShapedImage (Cursor (1, 2) ul) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
+    , TestCase "crossShapedImage (1, 2) ur" crossShapedImage (Cursor (1, 2) ur) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
+    , TestCase "crossShapedImage (3, 2) rl" crossShapedImage (Cursor (3, 2) rl) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
+    , TestCase "crossShapedImage (3, 2) rr" crossShapedImage (Cursor (3, 2) rr) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
+    , TestCase "crossShapedImage (3, 2) dl" crossShapedImage (Cursor (3, 2) dl) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
+    , TestCase "crossShapedImage (3, 2) dr" crossShapedImage (Cursor (3, 2) dr) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
+    , TestCase "crossShapedImage (3, 2) ll" crossShapedImage (Cursor (3, 2) ll) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
+    , TestCase "crossShapedImage (3, 2) lr" crossShapedImage (Cursor (3, 2) lr) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
+    , TestCase "crossShapedImage (3, 2) ul" crossShapedImage (Cursor (3, 3) ul) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
+    , TestCase "crossShapedImage (3, 2) ur" crossShapedImage (Cursor (3, 2) ur) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
+    , TestCase "crossShapedImage (2, 3) rl" crossShapedImage (Cursor (2, 3) rl) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
+    , TestCase "crossShapedImage (2, 3) rr" crossShapedImage (Cursor (2, 3) rr) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
+    , TestCase "crossShapedImage (2, 3) dl" crossShapedImage (Cursor (2, 3) dl) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
+    , TestCase "crossShapedImage (2, 3) dr" crossShapedImage (Cursor (2, 3) dr) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
+    , TestCase "crossShapedImage (2, 3) ll" crossShapedImage (Cursor (2, 3) ll) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
+    , TestCase "crossShapedImage (2, 3) lr" crossShapedImage (Cursor (2, 3) lr) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
+    , TestCase "crossShapedImage (2, 3) ul" crossShapedImage (Cursor (2, 3) ul) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
+    , TestCase "crossShapedImage (2, 3) ur" crossShapedImage (Cursor (2, 3) ur) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
+    , TestCase "spiralImage (1, 1) rl" spiralImage (Cursor (1, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 4 rl))
+    , TestCase "stuckImage1 (1, 1) rl" stuckImage1 (Cursor (1, 1) rl) Nothing
+    , TestCase "stuckImage2 (1, 1) rl" stuckImage2 (Cursor (1, 1) rl) Nothing
+    , TestCase "stuckImage3 (1, 1) rl" stuckImage3 (Cursor (1, 1) rl) Nothing
     ]
 
 singleCodelImage ∷ Vector (Vector (Color, Int))

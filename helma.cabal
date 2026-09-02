@@ -88,6 +88,8 @@ common common-options
     ConstraintKinds
     StrictData
     UnicodeSyntax
+    DuplicateRecordFields
+    OverloadedRecordDot
   if flag(ghcoptions)
     ghc-options:
       -Wall

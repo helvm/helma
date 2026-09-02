@@ -1,5 +1,3 @@
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE TupleSections    #-}
 module HelVM.HelMA.Automata.Piet.LLVM.Parser
   ( ParserError (..)
   , parse
@@ -73,43 +71,43 @@ filterUnvisited nextBlockList visitedMap = filter (`IS.notMember` IM.keysSet vis
 buildNextBlockList ∷ CodelTable → BlockCoordinates → [(Course, Maybe NextBlock)]
 buildNextBlockList codelTable blockCoords = mapMaybe (findCourseNextBlock codelTable blockCoords (olength blockCoords)) (minMaxCoords blockCoords)
 
-findCourseNextBlock ∷ CodelTable → BlockCoordinates → Int → (Course, Coordinates) → Maybe (Course, Maybe NextBlock)
-findCourseNextBlock codelTable _ blockSize (course, pos) = (course,) <$> searchNextBlock codelTable pos course blockSize
+findCourseNextBlock ∷ CodelTable → BlockCoordinates → Int → Cursor → Maybe (Course, Maybe NextBlock)
+findCourseNextBlock codelTable _ blockSize cur = (cur.course,) <$> searchNextBlock codelTable cur.position cur.course blockSize
 
 searchInitialBlock ∷ MonadError ParserError m ⇒ CodelTable → m (Maybe BlockEdge)
 searchInitialBlock codelTable = uncurry (processInitial codelTable) =<< justOrThrow EmptyBlockTableError (codelTable V.!? 0 >>= (V.!? 0))
 
 processInitial ∷ MonadError ParserError m ⇒ CodelTable → Color → Int → m (Maybe BlockEdge)
 processInitial _ (Chromatic _) blockIdx = pure $ Just $ BlockEdge blockIdx initialCourse
-processInitial codelTable White _       = pure $ view targetL <$> slideOnWhiteBlock codelTable (0, 0) initialCourse
+processInitial codelTable White _       = pure $ view targetL <$> slideOnWhiteBlock codelTable initialCursor
 processInitial _ Black          _       = throwError IllegalInitialColorError
 
 searchNextBlock ∷ CodelTable → Coordinates → Course → Int → Maybe (Maybe NextBlock)
-searchNextBlock codelTable p@(x, y) course blockSize = searchNextBlockWithColor codelTable p course blockSize =<< (codelTable V.!? y >>= (V.!? x))
+searchNextBlock codelTable p@(x, y) crs blockSize = searchNextBlockWithColor codelTable p crs blockSize =<< (codelTable V.!? y >>= (V.!? x))
 
 searchNextBlockWithColor ∷ CodelTable → Coordinates → Course → Int → (Color, Int) → Maybe (Maybe NextBlock)
-searchNextBlockWithColor codelTable p course@(Course dp _) blockSize (Chromatic curColor, _) = fetchNextCodel codelTable (move dp p) >>= searchNextBlockFromMove codelTable (move dp p) course blockSize curColor
-searchNextBlockWithColor _ _ _ _ _                                                           = Nothing
+searchNextBlockWithColor codelTable p crs@(Course dp _) blockSize (Chromatic curColor, _) = fetchNextCodel codelTable (move dp p) >>= searchNextBlockFromMove codelTable (move dp p) crs blockSize curColor
+searchNextBlockWithColor _ _ _ _ _                                                        = Nothing
 
 fetchNextCodel ∷ CodelTable → Coordinates → Maybe (Color, Int)
 fetchNextCodel codelTable (nextX, nextY) = codelTable V.!? nextY >>= (V.!? nextX)
 
 searchNextBlockFromMove ∷ CodelTable → Coordinates → Course → Int → ChromaticColor → (Color, Int) → Maybe (Maybe NextBlock)
-searchNextBlockFromMove codelTable nextPos course blockSize curColor (nextCodel, blockIndex) = processNextCodel codelTable nextCodel curColor nextPos course blockSize blockIndex
+searchNextBlockFromMove codelTable nextPos crs blockSize curColor (nextCodel, blockIndex) = processNextCodel codelTable nextCodel curColor (Cursor nextPos crs) blockSize blockIndex
 
-processNextCodel ∷ CodelTable → Color → ChromaticColor → Coordinates → Course → Int → Int → Maybe (Maybe NextBlock)
-processNextCodel _ (Chromatic nextColor) curColor _ course blockSize blockIdx = Just $ Just $ NextBlock (commandFromTransition curColor nextColor blockSize) (BlockEdge blockIdx course)
-processNextCodel codelTable White _ pos course _ _                            = Just $ slideOnWhiteBlock codelTable pos course
-processNextCodel _ Black _ _ _ _ _                                            = Nothing
+processNextCodel ∷ CodelTable → Color → ChromaticColor → Cursor → Int → Int → Maybe (Maybe NextBlock)
+processNextCodel _ (Chromatic nextColor) curColor cur blockSize blockIdx = Just $ Just $ NextBlock (commandFromTransition curColor nextColor blockSize) (BlockEdge blockIdx cur.course)
+processNextCodel codelTable White _ cur _ _                              = Just $ slideOnWhiteBlock codelTable cur
+processNextCodel _ Black _ _ _ _                                         = Nothing
 
 nextBlockToIndex ∷ Maybe NextBlock → Maybe Int
 nextBlockToIndex nb = view (targetL . blockIndexL) <$> nb
 
-minMaxCoords ∷ BlockCoordinates → [(Course, Coordinates)]
+minMaxCoords ∷ BlockCoordinates → [Cursor]
 minMaxCoords positions = processPositions (nonEmpty positions)
 
-processPositions ∷ Maybe (NE.NonEmpty Coordinates) → [(Course, Coordinates)]
-processPositions (Just nePositions) = fmap (`maximumOn` nePositions) <$> fs
+processPositions ∷ Maybe (NE.NonEmpty Coordinates) → [Cursor]
+processPositions (Just nePositions) = [ Cursor (maximumOn f nePositions) crs | (crs, f) <- fs ]
 processPositions Nothing            = []
 
 maximumOn ∷ Ord b ⇒ (a → b) → NE.NonEmpty a → a

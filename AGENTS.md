@@ -32,6 +32,7 @@ Not lazy about: understanding the problem (read it fully and trace the real flow
 (Yes, this file also applies to agents working on the ponytail repo itself. Especially to them.)
 
 Special Rules for Haskell:
+- The file should be read from general to specific. The main function is at the top, then other public functions, and finally private functions. Functions lower in the file should not call those higher up
 - Use `relude` (configured globally via Cabal mixins, no need for NoImplicitPrelude)
 - Use `relude.extra` if needed
 - Use `RIO` but only for `main` and infrastructure (`RIO`-ful). Logic is `RIO` free (`RIO`-less)
