@@ -7,9 +7,9 @@ module HelVM.HelMA.Automata.Piet.CodelSizeSpec
 
 import           HelVM.HelMA.Automata.Piet.CodelSize
 import           HelVM.HelMA.Automata.Piet.TestUtils
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
-import           Data.Vector                         ( Vector )
-import qualified Data.Vector                         as V
+import qualified Data.Vector                            as V
 
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
@@ -36,21 +36,21 @@ spec = describe "guessCodelSize" $ mapM_ runTest testCases where
     , ("size1Image", size1Image, 1)
     ]
 
-smallestImage ∷ Vector (Vector Char)
+smallestImage ∷ Matrix Char
 smallestImage = toVector2D [['a']]
 
 {-
-largeWhiteImage :: Vector (Vector Char)
+largeWhiteImage :: Matrix Char
 largeWhiteImage = V.replicate largeImageSize $ V.replicate largeImageSize 'a'
 
-largeCheckImage :: Vector (Vector Char)
+largeCheckImage :: Matrix Char
 largeCheckImage = V.generate largeImageSize $ \y -> V.generate largeImageSize $ \x -> if (x + y) `mod` 2 == 0 then 'a' else 'b'
 
 largeImageSize :: Int
 largeImageSize = 10000
 -}
 
-size3Image ∷ Vector (Vector Char)
+size3Image ∷ Matrix Char
 size3Image = toVector2D $ toString <$> drop 1 (lines (toText ([q|
 aaabbbbbb
 aaabbbbbb
@@ -63,7 +63,7 @@ ccccccddd
 ccccccddd
 |] ∷ String)))
 
-size1Image ∷ Vector (Vector Char)
+size1Image ∷ Matrix Char
 size1Image = toVector2D $ toString <$> drop 1 (lines (toText ([q|
 aaabb
 aaabb

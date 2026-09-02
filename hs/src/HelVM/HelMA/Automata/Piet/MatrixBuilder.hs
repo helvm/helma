@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automata.Piet.MatrixBuilder
   ( AdditionalColorStrategy (..)
   , CodelSizeMaybe
-  , Grid
   , ImageConfig (..)
+  , Matrix
   , MulticoloredCodelStrategy (..)
-  , buildGrid
+  , buildMatrix
   , getIntCodelSize
   ) where
 
@@ -15,6 +15,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
 import           Codec.Picture
 
@@ -26,7 +27,6 @@ import qualified Data.Vector                                    as V
 
 import qualified Relude.Extra                                   as Extra
 
-type Grid a = Vector (Vector a)
 
 data AdditionalColorStrategy
   = AdditionalColorAsWhite
@@ -53,8 +53,8 @@ data ImageConfig
       }
   deriving stock (Eq, Show)
 
-buildGrid ∷ Coordinates → ImageConfig → Int → Image PixelRGB8 → Grid Color
-buildGrid (codelWidth, codelHeight) config sizeInt image = V.generate codelHeight (buildRow codelWidth stratAdd stratMulti sizeInt image) where
+buildMatrix ∷ Coordinates → ImageConfig → Int → Image PixelRGB8 → Matrix Color
+buildMatrix (codelWidth, codelHeight) config sizeInt image = V.generate codelHeight (buildRow codelWidth stratAdd stratMulti sizeInt image) where
   stratAdd = additionalColor config
   stratMulti = multicoloredCodel config
 

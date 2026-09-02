@@ -8,6 +8,8 @@ import           HelVM.HelMA.Automata.Piet.LLVM.Parser
 import           HelVM.HelMA.Automata.Piet.SyntaxVisualizer
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
+import           Codec.Picture
+
 import           Control.Monad.Except                        ( MonadError, throwError )
 
 data PietError
@@ -31,7 +33,10 @@ graphText ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → FileP
 graphText messageReceiver imageConfig inputPath = messageReceiver StepGenerateDOT *> (syntaxToDOT <$> makeGraph messageReceiver imageConfig inputPath)
 
 makeGraph ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → FilePath → m (Maybe SyntaxGraph)
-makeGraph messageReceiver imageConfig inputPath = messageReceiver StepParse *> (mapError PietParserError . parse =<< messageReceiver StepReadImage *> mapError PietImageReaderError (readCodels imageConfig inputPath))
+makeGraph messageReceiver imageConfig inputPath = messageReceiver StepParse *> (mapError PietParserError . parse =<< messageReceiver StepReadImage *> (mapError PietImageReaderError . readCodels imageConfig =<< readImageFile inputPath))
+
+readImageFile ∷ MonadEvaluator m ⇒ FilePath → m DynamicImage
+readImageFile filePath = either (throwError . PietImageReaderError . ReadImageFileError . show) pure =<< liftIO (readImage filePath)
 
 nullReceiver ∷ Monad m ⇒ PietStep → m ()
 nullReceiver _ = pass

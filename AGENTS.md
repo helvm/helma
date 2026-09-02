@@ -43,13 +43,13 @@ Special Rules for Haskell:
   - Use Relude Lens, if that's not enough:
   - Use Rio Lens, if that's not enough:
   - Use Record Destructuring, but only if necessary
-- Prefer Pointfree Style
-  - Do not use `do notation`, use operators
-  - Try do not use lambdas with parameters
-- Prefer Declaration Style
+- Prefer Pointfree Style (the rule does not apply to tests)
+  - Do not use `do notation`, use operators 
+  - Try do not use lambdas with parameters 
+- Prefer Declaration Style (the rule does not apply to tests)
+  - Do not use `let in`, use `where` 
   - Do not use `case of`, use pattern mapping
   - Do not use `if else`, use guards
-  - Do not use `let in`, use `where`
 - `where` Style 
   - `where` should be at the end of the line
   - Do not use pattern maching inside `where`. Move function to top level declaration

@@ -15,11 +15,11 @@ import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import qualified Data.IntMap                                    as IM
 import qualified Data.Map                                       as M
-import           Data.Vector                                    ( Vector )
 import qualified Data.Vector.Generic                            as V
 
 import           Test.Hspec
@@ -228,7 +228,7 @@ expectedStuckGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList
     )
   ]
 
-rawComplexImage ∷ Vector (Vector Color)
+rawComplexImage ∷ Matrix Color
 rawComplexImage = toVector2D
   [ [ Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark

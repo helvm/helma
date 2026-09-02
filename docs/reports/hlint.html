@@ -161,12 +161,12 @@ document.body.className = "script";
 
 <p><a class="all" href="javascript:show('')">All hints</a></p>
 <ul>
-<li><a id="hint0" href="javascript:show('hint0')">Suggestion: Move brackets to avoid $ (1)</a></li>
+<li>No hints</li>
 </ul>
 
 <p><a class="all" href="javascript:show('')">All files</a></p>
 <ul>
-<li><a id="file0" href="javascript:show('file0')">./hs/src/HelVM/HelMA/Automata/Piet/LLVM/Evaluator.hs (1)</a></li>
+<li>No files</li>
 </ul>
 
 </div>
@@ -177,18 +177,7 @@ v3.10
     - a tool to suggest improvements to your Haskell code.
 </p>
 
-<div class="hint0 file0">
-hs/src/HelVM/HelMA/Automata/Piet/LLVM/Evaluator.hs:36:70-168: Suggestion: Move brackets to avoid $<br/>
-Found<br/>
-<pre><span class='hs-definition'>messageReceiver</span> <span class='hs-conid'>StepReadImage</span>
-  <span class='hs-varop'>*&gt;</span>
-    <span class='hs-layout'>(</span><span class='hs-varid'>mapError</span> <span class='hs-conid'>PietImageReaderError</span> <span class='hs-varop'>$</span> <span class='hs-varid'>readCodels</span> <span class='hs-varid'>imageConfig</span> <span class='hs-varid'>inputPath</span><span class='hs-layout'>)</span></pre>
-Perhaps<br/>
-<pre><span class='hs-definition'>messageReceiver</span> <span class='hs-conid'>StepReadImage</span>
-  <span class='hs-varop'>*&gt;</span> <span class='hs-varid'>mapError</span> <span class='hs-conid'>PietImageReaderError</span> <span class='hs-layout'>(</span><span class='hs-varid'>readCodels</span> <span class='hs-varid'>imageConfig</span> <span class='hs-varid'>inputPath</span><span class='hs-layout'>)</span></pre>
-
-</div>
-
+No hints
 </div>
 <script type='text/javascript'>
 show(window.location.hash.slice(1), true);
