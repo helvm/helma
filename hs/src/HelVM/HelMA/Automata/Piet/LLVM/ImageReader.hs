@@ -6,6 +6,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   , CodelSize (..)
   , ImageConfig (..)
   , ImageReaderError (..)
+  , Matrix
   , MulticoloredCodelStrategy (..)
   , imageToCodels
   , readCodels
@@ -32,6 +33,8 @@ import           Data.Vector                                    ( Vector )
 import qualified Data.Vector                                    as V
 
 import qualified Relude.Extra                                   as Extra
+
+type Matrix a = Vector (Vector a)
 
 data ImageReaderError
   = ReadImageFileError String
@@ -68,13 +71,13 @@ data ImageConfig
 
 type MonadImageError m = MonadError ImageReaderError m
 
-readCodels ∷ (MonadIO m, MonadImageError m) ⇒ ImageConfig → FilePath → m (Vector (Vector Color))
+readCodels ∷ (MonadIO m, MonadImageError m) ⇒ ImageConfig → FilePath → m (Matrix Color)
 readCodels config = (=<<) (imageToCodels config) . (=<<) (liftEither . first ReadImageFileError) . liftIO . readImage
 
-imageToCodels ∷ MonadImageError m ⇒ ImageConfig → DynamicImage → m (Vector (Vector Color))
+imageToCodels ∷ MonadImageError m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
 imageToCodels config = (=<<) (rgbImageToCodels config) . liftEither . first UnsupportedImageError . toRGB8ImageM
 
-rgbImageToCodels ∷ MonadImageError m ⇒ ImageConfig → Image PixelRGB8 → m (Vector (Vector Color))
+rgbImageToCodels ∷ MonadImageError m ⇒ ImageConfig → Image PixelRGB8 → m (Matrix Color)
 rgbImageToCodels config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image where
   (codelWidth, modX) = divMod pixelWidth codelSizeInt
   (codelHeight, modY) = divMod pixelHeight codelSizeInt
@@ -86,7 +89,7 @@ checkDimensions ∷ MonadImageError m ⇒ Coordinates → m ()
 checkDimensions (0, 0) = pass
 checkDimensions _      = throwError CodelSizeError
 
-buildMatrix ∷ Coordinates → ImageConfig → Int → Image PixelRGB8 → Vector (Vector Color)
+buildMatrix ∷ Coordinates → ImageConfig → Int → Image PixelRGB8 → Matrix Color
 buildMatrix (codelWidth, codelHeight) config sizeInt image = V.generate codelHeight (buildRow codelWidth stratAdd stratMulti sizeInt image) where
   stratAdd = additionalColor config
   stratMulti = multicoloredCodel config
