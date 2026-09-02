@@ -37,13 +37,18 @@ processCourseList from []                 = emptyBlock from
 processCourseList from courseAndNextBlock = nonemptyBlock from courseAndNextBlock
 
 nonemptyBlock ∷ Int → [(Course, NextBlockMaybe)] → LText.Builder
-nonemptyBlock from courseAndNextBlock = nodeLine <> edgeLines
-  where
-    hasExit = any ((== Nothing) . snd) courseAndNextBlock
-    nodeLine
-      | hasExit   = exitEdge from
-      | otherwise = ""
-    edgeLines = foldMap (uncurry $ nextBlockEdge from) courseAndNextBlock
+nonemptyBlock from courseAndNextBlock = nodeLine from courseAndNextBlock <> edgeLines from courseAndNextBlock
+
+nodeLine ∷ Int → [(Course, NextBlockMaybe)] → LText.Builder
+nodeLine from courseAndNextBlock
+  | hasExit courseAndNextBlock = exitEdge from
+  | otherwise                  = ""
+
+hasExit ∷ [(Course, NextBlockMaybe)] → Bool
+hasExit = any (isNothing . snd)
+
+edgeLines ∷ Int → [(Course, NextBlockMaybe)] → LText.Builder
+edgeLines from = foldMap (uncurry $ nextBlockEdge from)
 
 emptyBlock ∷ Int → LText.Builder
 emptyBlock from = exitEdge from <> "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"\"]\n"
