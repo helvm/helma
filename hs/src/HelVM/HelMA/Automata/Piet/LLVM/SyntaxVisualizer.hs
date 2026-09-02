@@ -50,7 +50,7 @@ exitEdge ∷ Int → LText.Builder
 exitEdge from = "  exit" <> showBuilder from <> " [label=\"\" shape=point color=white]\n"
 
 nextBlockEdge ∷ Int → Course → NextBlock → LText.Builder
-nextBlockEdge from fromCourse (NextBlock command toCourse nextBlockIndex) =
+nextBlockEdge from fromCourse (NextBlockJust command toCourse nextBlockIndex) =
   "  " <> showBuilder from <> " -> " <> showBuilder nextBlockIndex
        <> " [label=\"" <> fromString (showCourse fromCourse) <> ": " <> fromString (showCommand command) <> nextCourseText toCourse <> "\"]\n"
   where

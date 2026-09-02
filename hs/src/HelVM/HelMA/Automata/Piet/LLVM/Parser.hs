@@ -90,19 +90,19 @@ searchNextBlock codelTable (x, y) course@(Course dp _) blockSize = do
 
 processNextCodel ∷ CodelTable → Color → Hue → Lightness → Coordinates → Course → Int → Int → Maybe NextBlock
 processNextCodel _ (Chromatic (ChromaticColor nextHue nextLightness)) curHue curLight _ course blockSize blockIdx =
-  Just $ NextBlock (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) course blockIdx
+  Just $ NextBlockJust (commandFromTransition (curHue, curLight) (nextHue, nextLightness) blockSize) course blockIdx
 processNextCodel codelTable White _ _ pos course _ _ =
   Just $ slideOnWhiteBlock codelTable pos course
 processNextCodel _ Black _ _ _ _ _ _ =
   Nothing
 
 nextBlockToIndex ∷ NextBlock → Maybe Int
-nextBlockToIndex (NextBlock _ _ nextBlockIndex) = Just nextBlockIndex
-nextBlockToIndex ExitProgram                    = Nothing
+nextBlockToIndex (NextBlockJust _ _ nextBlockIndex) = Just nextBlockIndex
+nextBlockToIndex ExitProgram                        = Nothing
 
 nextBlockToIndexAndCourse ∷ NextBlock → Maybe (Int, Course)
-nextBlockToIndexAndCourse (NextBlock _ nextBlockCourse nextBlockIndex) = Just (nextBlockIndex, nextBlockCourse)
-nextBlockToIndexAndCourse ExitProgram                                  = Nothing
+nextBlockToIndexAndCourse (NextBlockJust _ nextBlockCourse nextBlockIndex) = Just (nextBlockIndex, nextBlockCourse)
+nextBlockToIndexAndCourse ExitProgram                                      = Nothing
 
 minMaxCoords ∷ BlockCoordinates → [(Course, Coordinates)]
 minMaxCoords positions = processPositions (nonEmpty positions)

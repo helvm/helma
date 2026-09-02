@@ -21,7 +21,7 @@ newtype Block
   deriving stock (Eq, Show)
 
 data NextBlock
-  = NextBlock
+  = NextBlockJust
       { _command    :: Command
       , _course     :: Course
       , _blockIndex :: Int
