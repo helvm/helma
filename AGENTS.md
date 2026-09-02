@@ -58,8 +58,9 @@ Special Rules for Haskell:
   - Do not use `where` inside individual pattern matching clauses. Extract any clause that requires local definitions (`where`) into a top-level helper function.
 - Others
   - Don't break code lines unless necessary. Breaking lines is cheating, unless they're data lines
-  - Extract complex constraint types from declarations using `type`
   - Don't use explicit recursion. Use `fix` instead or other available functions
+  - Extract complex constraint types from declarations using `type`
+  - Extract container in container from declarations using `type`
   - Do not use `>>=`, use `=<<`
   - Do not use `return`, use `pure`
   - Do not use `pure ()`, use `pass`
