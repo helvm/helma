@@ -43,7 +43,7 @@ processNext loop ((nextCodel, nextIndex), nextCodelCourse@(nextPosition, nextCou
 
 checkNonWhite ∷ MonadNextBlockError m ⇒ Color → Course → Int → m ()
 checkNonWhite White _ _              = pass
-checkNonWhite _ nextCourse nextIndex = throwError $ NextBlockJust NoOperation nextCourse nextIndex
+checkNonWhite _ nextCourse nextIndex = throwError $ NextBlockJust $ NextBlock NoOperation nextCourse nextIndex
 
 checkVisited ∷ MonadSlider m ⇒ (Coordinates, Course) → m ()
 checkVisited nextCodelCourse =
