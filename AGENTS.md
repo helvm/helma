@@ -70,3 +70,5 @@ Special Rules for Haskell:
   - Do not use `*> pure`, use `$>`
   - Do not use `return`, use `pure`
   - Do not use `pure ()`, use `pass`
+  - Use operators `<*>` `<$>` `$` `.` if it is posible
+  - Use `type-operators`
