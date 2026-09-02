@@ -27,7 +27,7 @@ data ImageTestCase
       { caseName      :: String
       , testImage     :: Vector (Vector (Color, Int))
       , blockTable    :: IntMap BlockCoordinates
-      , expectedGraph :: SyntaxGraphMaybe
+      , expectedGraph :: (Maybe SyntaxGraph)
       }
 
 data ErrorTestCase
@@ -132,7 +132,7 @@ smallImage = toVector2D [[(Chromatic $ ChromaticColor Red Normal, 0)]]
 smallBlockTable ∷ IntMap BlockCoordinates
 smallBlockTable = IM.fromList [(0, [(0, 0)])]
 
-expectedSmallGraph ∷ SyntaxGraphMaybe
+expectedSmallGraph ∷ (Maybe SyntaxGraph)
 expectedSmallGraph = Just $ SyntaxGraph 0 rl $ IM.fromList [(0, Block M.empty)]
 
 whiteImage ∷ Vector (Vector (Color, Int))
@@ -169,7 +169,7 @@ distantInitialBlockTable = IM.fromList
   , (1, [(0, 1)])
   ]
 
-expectedDistantInitialGraph ∷ SyntaxGraphMaybe
+expectedDistantInitialGraph ∷ (Maybe SyntaxGraph)
 expectedDistantInitialGraph = Just $ SyntaxGraph 1 ur $ IM.fromList
   [ ( 1
     , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation ur 1)
@@ -206,7 +206,7 @@ stuckBlockTable = IM.fromList
   , (3, [(1, 2)])
   ]
 
-expectedStuckGraph ∷ SyntaxGraphMaybe
+expectedStuckGraph ∷ (Maybe SyntaxGraph)
 expectedStuckGraph = Just $ SyntaxGraph 0 rl $ IM.fromList
   [ ( 0
     , Block $ M.fromList [ (rl, Just $ NextBlock (Push 1) rl 1)
@@ -538,7 +538,7 @@ complexBlockTable = IM.fromList
   , (27, [(15, 7)])
   ]
 
-expectedComplexGraph ∷ SyntaxGraphMaybe
+expectedComplexGraph ∷ (Maybe SyntaxGraph)
 expectedComplexGraph = Just $ SyntaxGraph 0 rl $ IM.fromList
   [ ( 0
     , Block $ M.fromList [ (rl, Just $ NextBlock Pop rl 1)

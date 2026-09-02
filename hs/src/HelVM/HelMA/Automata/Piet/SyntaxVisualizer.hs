@@ -10,7 +10,7 @@ import qualified Data.IntMap                                 as IM
 import qualified Data.Map                                    as M
 import qualified Data.Text.Lazy.Builder                      as LText
 
-syntaxToDOT ∷ SyntaxGraphMaybe → LText
+syntaxToDOT ∷ Maybe SyntaxGraph → LText
 syntaxToDOT Nothing                                         = "digraph {}"
 syntaxToDOT (Just (SyntaxGraph blockIndex course blockMap)) = LText.toLazyText $ "digraph {\n" <> "  rankdir=LR\n" <> "  start [label=\"\" shape=point color=white]\n" <> "  node [label=\"\" shape=circle color=black]\n" <> startEdge blockIndex course <> mconcat (blocks blockMap) <> "}"
 
@@ -21,24 +21,24 @@ blocks ∷ IntMap Block → [LText.Builder]
 blocks = fmap (uncurry processBlock) . IM.toAscList
 
 processBlock ∷ Int → Block → LText.Builder
-processBlock from block = processCourseList from (M.toAscList $ nextBlockTable block)
+processBlock from block = processCourseList from (M.toAscList $ transitions block)
 
-processCourseList ∷ Int → [(Course, NextBlockMaybe)] → LText.Builder
+processCourseList ∷ Int → [(Course, Maybe NextBlock)] → LText.Builder
 processCourseList from []                 = emptyBlock from
 processCourseList from courseAndNextBlock = nonemptyBlock from courseAndNextBlock
 
-nonemptyBlock ∷ Int → [(Course, NextBlockMaybe)] → LText.Builder
+nonemptyBlock ∷ Int → [(Course, Maybe NextBlock)] → LText.Builder
 nonemptyBlock from courseAndNextBlock = nodeLine from courseAndNextBlock <> edgeLines from courseAndNextBlock
 
-nodeLine ∷ Int → [(Course, NextBlockMaybe)] → LText.Builder
+nodeLine ∷ Int → [(Course, Maybe NextBlock)] → LText.Builder
 nodeLine from courseAndNextBlock
   | hasExit courseAndNextBlock = exitEdge from
   | otherwise                  = ""
 
-hasExit ∷ [(Course, NextBlockMaybe)] → Bool
+hasExit ∷ [(Course, Maybe NextBlock)] → Bool
 hasExit = any (isNothing . snd)
 
-edgeLines ∷ Int → [(Course, NextBlockMaybe)] → LText.Builder
+edgeLines ∷ Int → [(Course, Maybe NextBlock)] → LText.Builder
 edgeLines from = foldMap (uncurry $ nextBlockEdge from)
 
 emptyBlock ∷ Int → LText.Builder
@@ -47,7 +47,7 @@ emptyBlock from = exitEdge from <> "  " <> showBuilder from <> " -> exit" <> sho
 exitEdge ∷ Int → LText.Builder
 exitEdge from = "  exit" <> showBuilder from <> " [label=\"\" shape=point color=white]\n"
 
-nextBlockEdge ∷ Int → Course → NextBlockMaybe → LText.Builder
+nextBlockEdge ∷ Int → Course → Maybe NextBlock → LText.Builder
 nextBlockEdge from fromCourse (Just (NextBlock command toCourse nextBlockIndex)) = "  " <> showBuilder from <> " -> " <> showBuilder nextBlockIndex <> " [label=\"" <> toStringBuilder (showCourse fromCourse) <> ": " <> toStringBuilder (showCommand command) <> nextCourseText fromCourse toCourse <> "\"]\n"
 nextBlockEdge from fromCourse Nothing                                           = "  " <> showBuilder from <> " -> exit" <> showBuilder from <> " [label=\"" <> toStringBuilder (showCourse fromCourse) <> "\"]\n"
 

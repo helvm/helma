@@ -32,7 +32,7 @@ spec = do
         context ("when given " ++ name) $
           it "convert a syntax graph to a DOT script" $ syntaxToDOT graph `shouldBe` dot
 
-smallestGraph ∷ SyntaxGraphMaybe
+smallestGraph ∷ (Maybe SyntaxGraph)
 smallestGraph = Just $ SyntaxGraph 999 dr $ one (999 , Block M.empty)
 
 smallestDOT ∷ LText
@@ -45,7 +45,7 @@ smallestDOT = [q|digraph {
   999 -> exit999 [label=""]
 }|]
 
-stuckGraph ∷ SyntaxGraphMaybe
+stuckGraph ∷ (Maybe SyntaxGraph)
 stuckGraph = Just $ SyntaxGraph 0 rl $ IM.fromList
   [ ( 0
     , Block $ M.fromList [ (rl, Just $ NextBlock (Push 1) rl 1)
@@ -84,7 +84,7 @@ stuckDOT = [q|digraph {
   1 -> 0 [label="lr: pop"]
 }|]
 
-complexGraph ∷ SyntaxGraphMaybe
+complexGraph ∷ (Maybe SyntaxGraph)
 complexGraph = Just $ SyntaxGraph 0 rl $ IM.fromList
   [ ( 0
     , Block $ M.fromList [ (rl, Just $ NextBlock Pop rl 1)
