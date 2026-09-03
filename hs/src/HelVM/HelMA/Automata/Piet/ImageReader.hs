@@ -1,20 +1,18 @@
 module HelVM.HelMA.Automata.Piet.ImageReader
-  ( AdditionalColorStrategy (..)
-  , CodelSizeMaybe
-  , ImageConfig (..)
-  , Matrix
-  , MulticoloredCodelStrategy (..)
-  , readColors
+  ( readColors
   , rgbImageToColors
   ) where
-
-import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelMA.Automata.Piet.MatrixBuilder
 import           HelVM.HelMA.Automata.Piet.ToRGB8
 
+import           HelVM.HelMA.Automata.Piet.API.ImageConfig
+
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
+
+import           HelVM.HelIO.Control.Safe
 
 import           Codec.Picture
 

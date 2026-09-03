@@ -8,7 +8,6 @@ import           HelVM.HelIO.Control.Safe
 import           HelVM.HelMA.Automata.Piet.SyntaxParser
 import           HelVM.HelMA.Automata.Piet.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.TestUtils
-import           HelVM.HelMA.Automata.Piet.WhiteCodelSlider     ( Image )
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Codel
@@ -29,7 +28,7 @@ import           Test.Hspec
 data ImageTestCase
   = ImageTestCase
       { caseName      :: String
-      , testImage     :: Image
+      , testImage     :: Matrix Codel
       , blockTable    :: IntMap BlockCoordinates
       , expectedGraph :: Maybe SyntaxGraph
       }
@@ -37,7 +36,7 @@ data ImageTestCase
 data ErrorTestCase
   = ErrorTestCase
       { errCaseName   :: String
-      , errTestImage  :: Image
+      , errTestImage  :: Matrix Codel
       , errBlockTable :: IntMap BlockCoordinates
       , expectedErr   :: String
       }
@@ -133,7 +132,7 @@ spec = do
           it ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ safeToEitherLegacy res `shouldBe` Right expectedG
 
 
-smallImage ∷ Image
+smallImage ∷ Matrix Codel
 smallImage = toVector2D [[Codel (Chromatic $ ChromaticColor Red Normal) 0]]
 
 smallBlockTable ∷ IntMap BlockCoordinates
@@ -142,19 +141,19 @@ smallBlockTable = IM.fromList [(0, [(0, 0)])]
 expectedSmallGraph ∷ Maybe SyntaxGraph
 expectedSmallGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList [(0, Block M.empty)]
 
-whiteImage ∷ Image
+whiteImage ∷ Matrix Codel
 whiteImage = toVector2D [[Codel White 0]]
 
 whiteBlockTable ∷ IntMap BlockCoordinates
 whiteBlockTable = IM.fromList [(0, [(0, 0)])]
 
-blackImage ∷ Image
+blackImage ∷ Matrix Codel
 blackImage = toVector2D [[Codel Black 0]]
 
 blackBlockTable ∷ IntMap BlockCoordinates
 blackBlockTable = IM.fromList [(0, [(0, 0)])]
 
-distantInitialImage ∷ Image
+distantInitialImage ∷ Matrix Codel
 distantInitialImage = toVector2D
   [ [ Codel White 0
     , Codel White 0
@@ -189,7 +188,7 @@ expectedDistantInitialGraph = Just $ SyntaxGraph (BlockEdge 1 ur) $ IM.fromList
     )
   ]
 
-stuckImage ∷ Image
+stuckImage ∷ Matrix Codel
 stuckImage = toVector2D
   [ [ Codel (Chromatic $ ChromaticColor Red Light) 0
     , Codel (Chromatic $ ChromaticColor Red Normal) 1
@@ -373,7 +372,7 @@ rawComplexImage = toVector2D
     ]
   ]
 
-complexImage ∷ Image
+complexImage ∷ Matrix Codel
 complexImage = toVector2D
   [ [ Codel (Chromatic $ ChromaticColor Blue Dark) 0
     , Codel (Chromatic $ ChromaticColor Blue Dark) 0

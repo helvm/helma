@@ -8,7 +8,10 @@ import           HelVM.HelMA.Automata.Piet.SyntaxParser
 
 import           HelVM.HelMA.Automata.Piet.SyntaxVisualizer
 
+import           HelVM.HelMA.Automata.Piet.API.ImageConfig
+
 import           HelVM.HelMA.Automata.Piet.Types.Color
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import           HelVM.HelMA.Automaton.API.Env
