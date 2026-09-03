@@ -67,7 +67,7 @@ spec = do
         )
       ] $ \(config, expectedCodels) ->
         context ("when configured with " ++ show config) $ do
-          res <- runIO . runSafeT $ readColors config =<< readImageFile "test/resources/imagereader-test.png"
+          res <- runIO . runSafeT $ readColors config =<< readImageFile "examples/piet/llvm/imagereader-test.png"
           it "returns codels" $ safeToEitherLegacy res `shouldBe` Right expectedCodels
 
     context "when given Nothing" $ do
@@ -75,7 +75,7 @@ spec = do
                                , multicoloredCodel = MulticoloredCodel.Average
                                , codelSize = Nothing
                                }
-      res <- runIO . runSafeT $ readColors config =<< readImageFile "test/resources/codel10-test.png"
+      res <- runIO . runSafeT $ readColors config =<< readImageFile "examples/piet/llvm/codel10-test.png"
       it "returns codels" $ safeToEitherLegacy res `shouldBe` Right complexCodels
 
     context "when given an invalid codel size" $ do
@@ -83,7 +83,7 @@ spec = do
                                , multicoloredCodel = MulticoloredCodel.Average
                                , codelSize = Just 4
                                }
-      res <- runIO . runSafeT $ readColors config =<< readImageFile "test/resources/imagereader-test.png"
+      res <- runIO . runSafeT $ readColors config =<< readImageFile "examples/piet/llvm/imagereader-test.png"
       it "fails with CodelSizeError" $ do
         let leftText = safeToEitherLegacy res
         leftText `shouldBe` Left "CodelSizeError\n"
