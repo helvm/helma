@@ -1,19 +1,16 @@
 module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
-  ( graphText
-  , graphTextRio
+  ( evaluate
+  , graphText
   ) where
+
+import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
 import           HelVM.HelMA.Automata.Piet.LLVM.Parser
 import           HelVM.HelMA.Automata.Piet.SyntaxVisualizer
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
-import qualified HelVM.HelMA.Automaton.API.AppOptions        as App
-import           HelVM.HelMA.Automaton.API.Env
-
-import           HelVM.HelMA.Automaton.Extra
-
-import qualified RIO
+import           Codec.Picture
 
 data PietStep
   = StepReadImage
@@ -24,22 +21,18 @@ data PietStep
   | StepGenerateDOT
   deriving stock (Eq, Show)
 
-graphTextRio ∷ Has env ⇒ ImageConfig → RIO.RIO env LText
-graphTextRio imageConfig = graphTextWithOptions =<< optionsRio where
-  graphTextWithOptions o = graphText imageConfig (App.file o)
+-- Constraint Type Aliases
+type MonadEvaluator m = (MonadIO m, MonadSafe m)
 
-graphText ∷ Has env ⇒ ImageConfig → FilePath → RIO.RIO env LText
-graphText imageConfig inputPath = do
-  logStep StepGenerateDOT
-  syntaxToDOT <$> makeGraph imageConfig inputPath
 
-makeGraph ∷ Has env ⇒ ImageConfig → FilePath → RIO.RIO env (Maybe SyntaxGraph)
-makeGraph imageConfig inputPath = do
-  logStep StepParse
-  logStep StepReadImage
-  image <- readImageRio inputPath
-  codels <- runAsRIO $ readCodels imageConfig image
-  runAsRIO $ parse codels
+evaluate ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → FilePath → m LText
+evaluate messageReceiver imageConfig inputPath = graphText messageReceiver imageConfig =<< readImageFile inputPath
 
-logStep ∷ Has env ⇒ PietStep → RIO.RIO env ()
-logStep step = RIO.logDebug (RIO.displayShow step)
+graphText ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → DynamicImage → m LText
+graphText messageReceiver imageConfig image = messageReceiver StepGenerateDOT *> (syntaxToDOT <$> makeGraph messageReceiver imageConfig image)
+
+makeGraph ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → DynamicImage → m (Maybe SyntaxGraph)
+makeGraph messageReceiver imageConfig image = messageReceiver StepParse *> (parse =<< messageReceiver StepReadImage *> readCodels imageConfig image)
+
+readImageFile ∷ MonadEvaluator m ⇒ FilePath → m DynamicImage
+readImageFile filePath = liftEitherLegacy =<< liftIO (readImage filePath)
