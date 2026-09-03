@@ -10,8 +10,9 @@ import           HelVM.HelMA.Automata.Piet.API.ImageConfig
 import           HelVM.HelIO.CartesianProduct
 import           HelVM.HelIO.Control.Safe
 
-
 import           HelVM.GoldenExpectations
+
+import           Codec.Picture                             ( DynamicImage )
 
 import           System.FilePath.Posix
 
@@ -85,4 +86,7 @@ dot ∷ String → IO Text
 dot path = toText <$> dotL path
 
 dotL ∷ String → IO LText
-dotL path = (safeToIO . graphText defaultConfig) =<< readImage path
+dotL = graphTextIO <=< readImage
+
+graphTextIO ∷ DynamicImage → IO LText
+graphTextIO = safeToIO . graphText defaultConfig
