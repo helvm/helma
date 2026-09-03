@@ -11,11 +11,16 @@ import           HelVM.HelMA.Automata.Piet.SyntaxVisualizer
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
+import           HelVM.HelMA.Automaton.API.Env
+import           HelVM.HelMA.Automaton.Extra
+
 import           HelVM.HelIO.Control.Safe
 
 import           Codec.Picture
 
 import           Control.Monad.Logger
+
+import qualified RIO
 
 data PietStep
   = StepReadImage
@@ -27,12 +32,11 @@ data PietStep
   deriving stock (Eq, Show)
 
 -- Constraint Type Aliases
-type MonadEvaluator m = (MonadIO m, MonadControl m)
 
 type MonadControl m = (MonadSafe m, MonadLogger m)
 
-evaluate ∷ MonadEvaluator m ⇒ ImageConfig → FilePath → m LText
-evaluate imageConfig inputPath = graphText imageConfig =<< readImageFile inputPath
+evaluate ∷ Has env ⇒ ImageConfig → FilePath → RIO.RIO env LText
+evaluate imageConfig inputPath = (runAsRIO . graphText imageConfig) =<< readImageRio inputPath
 
 graphText ∷ MonadControl m ⇒ ImageConfig → DynamicImage → m LText
 graphText imageConfig image = logStep StepGenerateDOT *> (syntaxToDOT <$> makeGraph imageConfig image)
@@ -42,9 +46,6 @@ makeGraph imageConfig image = logStep StepParse *> (parse =<< readCodelsWithStep
 
 readCodelsWithStep ∷ MonadControl m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
 readCodelsWithStep imageConfig image = logStep StepReadImage *> readCodels imageConfig image
-
-readImageFile ∷ MonadEvaluator m ⇒ FilePath → m DynamicImage
-readImageFile filePath = liftEitherLegacy =<< liftIO (readImage filePath)
 
 logStep ∷ MonadLogger m ⇒ PietStep → m ()
 logStep step = logDebugN $ show step

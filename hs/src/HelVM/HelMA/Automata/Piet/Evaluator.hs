@@ -19,7 +19,6 @@ import qualified HelVM.HelMA.Automata.Piet.Automaton.StepState as StepState
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
 import           HelVM.HelMA.Automaton.API.Env
-
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
