@@ -254,7 +254,7 @@ library
 
     HelVM.HelMA.Automata.Piet.LLVM.Evaluator
     HelVM.HelMA.Automata.Piet.ImageReader
-    HelVM.HelMA.Automata.Piet.LLVM.SyntaxParser
+    HelVM.HelMA.Automata.Piet.SyntaxParser
 
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor
     HelVM.HelMA.Automata.Piet.Types.Codel

@@ -5,7 +5,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.ParserSpec
 
 import           HelVM.HelIO.Control.Safe
 
-import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxParser
+import           HelVM.HelMA.Automata.Piet.SyntaxParser
 import           HelVM.HelMA.Automata.Piet.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.TestUtils
 import           HelVM.HelMA.Automata.Piet.WhiteCodelSlider     ( Image )

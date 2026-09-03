@@ -4,7 +4,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
   ) where
 
 import           HelVM.HelMA.Automata.Piet.ImageReader
-import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxParser
+import           HelVM.HelMA.Automata.Piet.SyntaxParser
 
 import           HelVM.HelMA.Automata.Piet.SyntaxVisualizer
 
@@ -36,7 +36,7 @@ data PietStep
 type MonadControl m = (MonadSafe m, MonadLogger m)
 
 evaluate ∷ Has env ⇒ ImageConfig → FilePath → RIO.RIO env LText
-evaluate imageConfig inputPath = (runAsRIO . graphText imageConfig) =<< readImageRio inputPath
+evaluate imageConfig = (runAsRIO . graphText imageConfig) <=< readImageRio
 
 graphText ∷ MonadControl m ⇒ ImageConfig → DynamicImage → m LText
 graphText imageConfig image = logStep StepGenerateDOT *> (syntaxToDOT <$> makeGraph imageConfig image)
