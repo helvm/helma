@@ -1,0 +1,78 @@
+Debug Actual codel length: 1
+Debug (3,0) push 3
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (6,0) duplicate
+Debug (7,0) add
+Debug (8,0) duplicate
+Debug (9,0) multiply
+Debug (10,0) duplicate
+Debug (11,0) add
+Debug (12,0) out_char
+Debug (13,0) multiply
+Debug (14,0) push 1
+Debug (15,0) add
+Debug (16,0) duplicate
+Debug (17,0) duplicate
+Debug (18,0) multiply
+Debug (19,0) duplicate
+Debug (20,0) push 1
+Debug (21,0) add
+Debug (22,0) out_char
+Debug (22,1) duplicate
+Debug (22,3) push 2
+Debug (22,4) duplicate
+Debug (22,5) duplicate
+Debug (22,6) multiply
+Debug (22,7) multiply
+Debug (22,8) add
+Debug (22,9) duplicate
+Debug (22,10) out_char
+Debug (22,11) duplicate
+Debug (22,12) duplicate
+Debug (22,13) out_char
+Debug (22,16) push 3
+Debug (22,17) add
+Debug (22,18) duplicate
+Debug (22,19) duplicate
+Debug (22,20) out_char
+Debug (22,22) push 2
+Debug (21,22) duplicate
+Debug (20,22) multiply
+Debug (19,22) duplicate
+Debug (18,22) add
+Debug (17,22) duplicate
+Debug (16,22) duplicate
+Debug (15,22) duplicate
+Debug (14,22) push 1
+Debug (13,22) duplicate
+Debug (12,22) add
+Debug (11,22) subtract
+Debug (10,22) duplicate
+Debug (9,22) multiply
+Debug (8,22) add
+Debug (7,22) out_char
+Debug (6,22) duplicate
+Debug (5,22) add
+Debug (4,22) duplicate
+Debug (3,22) add
+Debug (2,22) out_char
+Debug (1,22) add
+Debug (0,22) out_char
+Debug (0,21) duplicate
+Debug (0,20) out_char
+Debug (0,17) push 3
+Debug (0,16) add
+Debug (0,15) out_char
+Debug (0,14) out_char
+Debug (0,13) out_char
+Debug (0,12) duplicate
+Debug (0,11) push 1
+Debug (0,10) add
+Debug (0,9) duplicate
+Debug (0,8) duplicate
+Debug (0,7) add
+Debug (0,6) add
+Debug (0,5) out_char
+Debug (0,4) out_char
+Debug Max collisions reached (8). Terminating.

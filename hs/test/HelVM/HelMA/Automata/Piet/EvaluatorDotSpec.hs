@@ -30,8 +30,8 @@ spec =
     ] >*< ["pint"]
     ) <> (
     [ "99bottles"
-    -- , "cowsay"
-    -- , "euclid_clint"
+    , "cowsay"
+    , "euclid_clint"
     , "fizzbuzz"
     , "GameOfLife"
     , "hello_world_c1"
@@ -48,9 +48,9 @@ spec =
     [ "99bottles"
     , "adder"
     , "alpha_filled"
-    -- , "erat2"
-    -- , "euclid_clint"
-    -- , "euclid_clint_big"
+    , "erat2"
+    , "euclid_clint"
+    , "euclid_clint_big"
     , "fizzbuzz"
     , "hi"
     , "hw"
@@ -59,19 +59,19 @@ spec =
     , "hw5_big"
     , "hw_large"
     , "ILoveYouLaura"
-    -- , "japh_big"
+    , "japh_big"
     , "piet_factorial"
     , "piet_pi"
     , "piet_pi_big"
-    -- , "pietquest"
+    , "pietquest"
     , "power2"
-    -- , "primetest"
+    , "primetest"
     , "primetest2"
     , "test2"
     , "test2_upscaled"
-    -- , "test3"
+    , "test3"
     , "test_break"
-    -- , "test_push"
+    , "test_push"
     ] >*< ["pietcc"]
     )) $ \(fileName , dirName ) -> do
     let filePath = dirName </> fileName <.> "png"
@@ -81,10 +81,10 @@ spec =
       it ("dot" </> path) $
         dot fullPath `goldenShouldIO` buildAbsolutePietDotFileName path
 
-dot ∷ String → IO Text
+dot ∷ FilePath → IO Text
 dot path = toText <$> dotL path
 
-dotL ∷ String → IO LText
+dotL ∷ FilePath → IO LText
 dotL = graphTextIO <=< readImage
 
 graphTextIO ∷ DynamicImage → IO LText

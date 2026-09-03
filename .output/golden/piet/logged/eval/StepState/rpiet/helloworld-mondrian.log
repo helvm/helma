@@ -1,0 +1,264 @@
+Debug Actual codel length: 1
+Debug (1,0) push 1
+Debug (2,0) not
+Debug (4,0) push 10
+Debug (7,0) push 8
+Debug (10,3) push 4
+Debug (11,3) multiply
+Debug (12,3) push 1
+Debug (13,3) add
+Debug (14,4) push 5
+Debug (18,4) push 20
+Debug (19,4) multiply
+Debug (20,4) push 5
+Debug (24,4) push 20
+Debug (25,4) multiply
+Debug (27,4) push 8
+Debug (28,4) add
+Debug (29,4) push 5
+Debug (33,4) push 20
+Debug (34,4) multiply
+Debug (38,4) push 14
+Debug (39,4) add
+Debug (40,4) push 1
+Debug (41,4) pointer DPRight
+Debug (41,5) push 1
+Debug (41,8) pointer DPDown
+Debug (1,8) push 3
+Debug (0,8) pointer DPLeft
+Debug (0,11) push 3
+Debug (0,12) pointer DPDown
+Debug (1,16) push 5
+Debug (5,16) push 20
+Debug (6,16) multiply
+Debug (9,16) push 11
+Debug (10,16) add
+Debug (11,16) push 5
+Debug (15,16) push 20
+Debug (16,16) multiply
+Debug (20,16) push 19
+Debug (21,16) add
+Debug (23,16) push 8
+Debug (24,16) push 4
+Debug (25,16) multiply
+Debug (27,16) push 8
+Debug (28,16) push 4
+Debug (29,16) multiply
+Debug (32,16) push 12
+Debug (33,16) add
+Debug (34,16) push 1
+Debug (35,16) pointer DPRight
+Debug (35,17) push 1
+Debug (35,18) pointer DPDown
+Debug (1,18) push 3
+Debug (0,18) pointer DPLeft
+Debug (0,21) push 3
+Debug (0,22) pointer DPDown
+Debug (1,26) push 5
+Debug (5,26) push 20
+Debug (6,26) multiply
+Debug (9,26) push 11
+Debug (10,26) add
+Debug (11,26) push 5
+Debug (15,26) push 20
+Debug (16,26) multiply
+Debug (18,26) push 8
+Debug (19,26) add
+Debug (20,26) push 5
+Debug (24,26) push 20
+Debug (25,26) multiply
+Debug (27,26) push 8
+Debug (28,26) add
+Debug (29,26) push 5
+Debug (33,26) push 20
+Debug (34,26) multiply
+Debug (35,26) push 1
+Debug (36,26) add
+Debug (37,26) push 1
+Debug (38,26) pointer DPRight
+Debug (38,27) push 1
+Debug (38,28) pointer DPDown
+Debug (24,28) push 3
+Debug (23,28) pointer DPLeft
+Debug (23,31) push 3
+Debug (23,32) pointer DPDown
+Debug (24,35) push 4
+Debug (26,35) push 8
+Debug (27,35) multiply
+Debug (29,35) push 2
+Debug (30,35) multiply
+Debug (34,35) push 8
+Debug (35,35) add
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (45,35) out_char
+Debug (48,35) push 3
+Debug (49,35) pointer DPRight
+Debug (49,32) push 3
+Debug (49,31) pointer DPUp
+Debug (46,31) push 3
+Debug (41,31) pointer DPLeft
+Debug (41,34) push 3
+Debug (41,35) pointer DPDown
+Debug (42,35) duplicate
+Debug (43,35) not
+Debug (44,35) pointer DPRight
+Debug (44,36) push 1
+Debug (44,37) add
