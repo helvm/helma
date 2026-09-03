@@ -2,13 +2,14 @@ module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   ( AdditionalColorStrategy (..)
   , CodelSizeMaybe
   , ImageConfig (..)
-  , ImageReaderError (..)
   , Matrix
   , MulticoloredCodelStrategy (..)
   , imageToCodels
   , readCodels
   , rgbImageToCodels
   ) where
+
+import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelMA.Automata.Piet.MatrixBuilder
 import           HelVM.HelMA.Automata.Piet.ToRGB8
@@ -18,22 +19,13 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
 import           Codec.Picture
 
-import           Control.Monad.Except                        ( MonadError (throwError), liftEither )
-
-data ImageReaderError
-  = UnsupportedImageError Text
-  | CodelSizeError
-  deriving stock (Eq, Show)
-
-type MonadImageError m = MonadError ImageReaderError m
-
-readCodels ∷ MonadImageError m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
+readCodels ∷ MonadSafe m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
 readCodels = imageToCodels
 
-imageToCodels ∷ MonadImageError m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
-imageToCodels config = (=<<) (rgbImageToCodels config) . liftEither . first UnsupportedImageError . toRGB8ImageM
+imageToCodels ∷ MonadSafe m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
+imageToCodels config image = toRGB8ImageM image >>= rgbImageToCodels config
 
-rgbImageToCodels ∷ MonadImageError m ⇒ ImageConfig → Image PixelRGB8 → m (Matrix Color)
+rgbImageToCodels ∷ MonadSafe m ⇒ ImageConfig → Image PixelRGB8 → m (Matrix Color)
 rgbImageToCodels config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image where
   (codelWidth, modX) = divMod pixelWidth codelSizeInt
   (codelHeight, modY) = divMod pixelHeight codelSizeInt
@@ -41,6 +33,6 @@ rgbImageToCodels config image = checkDimensions (modX, modY) $> buildMatrix (cod
   pixelWidth = imageWidth image
   pixelHeight = imageHeight image
 
-checkDimensions ∷ MonadImageError m ⇒ Coordinates → m ()
+checkDimensions ∷ MonadSafe m ⇒ Coordinates → m ()
 checkDimensions (0, 0) = pass
-checkDimensions _      = throwError CodelSizeError
+checkDimensions _      = liftError "CodelSizeError"

@@ -3,6 +3,8 @@ module HelVM.HelMA.Automata.Piet.LLVM.ParserSpec
   , spec
   ) where
 
+import           HelVM.HelIO.Control.Safe
+
 import           HelVM.HelMA.Automata.Piet.LLVM.Parser
 import           HelVM.HelMA.Automata.Piet.SyntaxTestHelper
 import           HelVM.HelMA.Automata.Piet.TestUtils
@@ -37,7 +39,7 @@ data ErrorTestCase
       { errCaseName   :: String
       , errTestImage  :: Image
       , errBlockTable :: IntMap BlockCoordinates
-      , expectedErr   :: ParserError
+      , expectedErr   :: String
       }
 
 data TwoPixelTestCase
@@ -65,14 +67,16 @@ spec = do
       , ImageTestCase "complexImage" complexImage complexBlockTable expectedComplexGraph
       ] $ \tc ->
         context ("when given " ++ caseName tc) $ do
-          it "returns a syntax graph" $ parseFilledImage (testImage tc, blockTable tc) `shouldBe` Right (expectedGraph tc)
+          res <- runIO . runSafeT $ parseFilledImage (testImage tc, blockTable tc)
+          it "returns a syntax graph" $ safeToEitherLegacy res `shouldBe` Right (expectedGraph tc)
 
     forM_
-      [ ErrorTestCase "emptyImage" V.empty IM.empty EmptyBlockTableError
-      , ErrorTestCase "blackImage" blackImage blackBlockTable IllegalInitialColorError
+      [ ErrorTestCase "emptyImage" V.empty IM.empty "EmptyBlockTableError\n"
+      , ErrorTestCase "blackImage" blackImage blackBlockTable "IllegalInitialColorError\n"
       ] $ \tc ->
         context ("when given " ++ errCaseName tc) $ do
-          it "returns an error" $ parseFilledImage (errTestImage tc, errBlockTable tc) `shouldBe` Left (expectedErr tc)
+          res <- runIO . runSafeT $ parseFilledImage (errTestImage tc, errBlockTable tc)
+          it "returns an error" $ safeToEitherLegacy res `shouldBe` Left (expectedErr tc)
 
     context "when given an image which only consists of two pixels" $ do
       forM_
@@ -125,7 +129,8 @@ spec = do
                                                                    ]
                                               )
                                             ]
-          it ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ parseFilledImage (image, bTable) `shouldBe` Right expectedG
+          res <- runIO . runSafeT $ parseFilledImage (image, bTable)
+          it ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ safeToEitherLegacy res `shouldBe` Right expectedG
 
 
 smallImage ∷ Image

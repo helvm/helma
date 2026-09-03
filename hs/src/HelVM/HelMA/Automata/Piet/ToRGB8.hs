@@ -3,14 +3,15 @@ module HelVM.HelMA.Automata.Piet.ToRGB8
   , toRGB8ImageM
   ) where
 
+import           HelVM.HelIO.Control.Safe
+
 import           Codec.Picture
 import           Codec.Picture.Types
-import           Control.Monad.Except
 import           Data.Bits
 
-import qualified Relude.Extra         as Extra
+import qualified Relude.Extra             as Extra
 
-toRGB8ImageM ∷ MonadError Text m ⇒ DynamicImage → m (Image PixelRGB8)
+toRGB8ImageM ∷ MonadSafe m ⇒ DynamicImage → m (Image PixelRGB8)
 toRGB8ImageM (ImageY8     _)     = failConversion
 toRGB8ImageM (ImageY16    _)     = failConversion
 toRGB8ImageM (ImageY32    _)     = failConversion
@@ -26,8 +27,8 @@ toRGB8ImageM (ImageYCbCr8 image) = pure $ toRGB8Image image
 toRGB8ImageM (ImageCMYK8  image) = pure $ toRGB8Image image
 toRGB8ImageM (ImageCMYK16 image) = pure $ toRGB8Image image
 
-failConversion ∷ MonadError Text m ⇒ m a
-failConversion = throwError "can't convert from grayscale images"
+failConversion ∷ MonadSafe m ⇒ m a
+failConversion = liftError "can't convert from grayscale images"
 
 class Pixel a => ToRGB8 a where
   toRGB8Pixel :: a → PixelRGB8

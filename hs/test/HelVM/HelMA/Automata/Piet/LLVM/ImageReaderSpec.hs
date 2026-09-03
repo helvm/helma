@@ -3,11 +3,13 @@ module HelVM.HelMA.Automata.Piet.LLVM.ImageReaderSpec
   , spec
   ) where
 
+import           HelVM.HelIO.Control.Safe
+
 import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
 import           HelVM.HelMA.Automata.Piet.TestUtils
-import           HelVM.HelMA.Automata.Piet.Types.Color
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
+import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 
@@ -60,24 +62,26 @@ spec = do
         )
       ] $ \(config, expectedCodels) ->
         context ("when configured with " ++ show config) $ do
-          res <- runIO . runExceptT $ readCodels config =<< readImageFile "test/resources/imagereader-test.png"
-          it "returns codels" $ res `shouldBe` Right expectedCodels
+          res <- runIO . runSafeT $ readCodels config =<< readImageFile "test/resources/imagereader-test.png"
+          it "returns codels" $ safeToEitherLegacy res `shouldBe` Right expectedCodels
 
     context "when given Nothing" $ do
       let config = ImageConfig { additionalColor = AdditionalColorNearest
                                , multicoloredCodel = MulticoloredCodelAverage
                                , codelSize = Nothing
                                }
-      res <- runIO . runExceptT $ readCodels config =<< readImageFile "test/resources/codel10-test.png"
-      it "returns codels" $ res `shouldBe` Right complexCodels
+      res <- runIO . runSafeT $ readCodels config =<< readImageFile "test/resources/codel10-test.png"
+      it "returns codels" $ safeToEitherLegacy res `shouldBe` Right complexCodels
 
     context "when given an invalid codel size" $ do
       let config = ImageConfig { additionalColor = AdditionalColorNearest
                                , multicoloredCodel = MulticoloredCodelAverage
                                , codelSize = Just 4
                                }
-      res <- runIO . runExceptT $ readCodels config =<< readImageFile "test/resources/imagereader-test.png"
-      it "fails with CodelSizeError" $ res `shouldBe` Left CodelSizeError
+      res <- runIO . runSafeT $ readCodels config =<< readImageFile "test/resources/imagereader-test.png"
+      it "fails with CodelSizeError" $ do
+        let leftText = safeToEitherLegacy res
+        leftText `shouldBe` Left "CodelSizeError\n"
 
 readImageFile ∷ MonadIO m ⇒ FilePath → m DynamicImage
 readImageFile filePath = either (error . show) pure =<< liftIO (readImage filePath)
