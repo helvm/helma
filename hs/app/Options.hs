@@ -15,12 +15,14 @@ import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
-import           HelVM.HelMA.Automata.BrainFuck.API.ImplType   as BF
+import           HelVM.HelMA.Automata.BrainFuck.API.ImplType             as BF
 
 import           HelVM.HelMA.Automata.ETA.API.AutomatonType
 
-import           HelVM.HelMA.Automata.Piet.API.ImplType        as Piet
+import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
+import           HelVM.HelMA.Automata.Piet.API.ImplType                  as Piet
 import           HelVM.HelMA.Automata.Piet.API.LexerType
+import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 
@@ -151,6 +153,8 @@ etaParser = ETACommand
 pietParser ∷ Parser LangCommand
 pietParser = PietCommand
   <$> option auto (long "ImplType" <> short 'i' <> metavar "[ImplType]" <> value Piet.defaultImplType <> showDefault)
+  <*> optional (option auto (long "Additional" <> short 'a' <> metavar "[AdditionalColorStrategy]" <> value defaultAdditionalColorStrategy <> showDefault))
+  <*> optional (option auto (long "Multicolored" <> short 'm' <> metavar "[MulticoloredCodelStrategy]" <> value defaultMulticoloredCodelStrategy <> showDefault))
   <*> optional (option auto (long "codels" <> short 'C' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)" ))
   <*> optional (option auto (long "LexerType" <> short 'l' <> metavar "[LexerType]" <> value defaultLexerType <> showDefault))
 

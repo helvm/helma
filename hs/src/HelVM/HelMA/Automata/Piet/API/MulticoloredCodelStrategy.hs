@@ -1,6 +1,12 @@
-module HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
-  ( MulticoloredCodelStrategy (..)
-  ) where
+module HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy where
+
+import           Data.Default
+
+defaultMulticoloredCodelStrategy ∷ MulticoloredCodelStrategy
+defaultMulticoloredCodelStrategy = def
+
+fileMulticoloredCodelStrategies ∷ NonEmpty MulticoloredCodelStrategy
+fileMulticoloredCodelStrategies = universeNonEmpty
 
 data MulticoloredCodelStrategy
   = AsWhite
@@ -8,4 +14,7 @@ data MulticoloredCodelStrategy
   | Center
   | Modal
   | Average
-  deriving stock (Eq, Ord, Show)
+  deriving stock (Bounded, Enum, Eq, Read, Show)
+
+instance Default MulticoloredCodelStrategy where
+  def = minBound

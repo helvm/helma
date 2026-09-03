@@ -11,13 +11,16 @@ import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Program
 
+import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
 import           HelVM.HelMA.Automata.Piet.API.ImplType
 import           HelVM.HelMA.Automata.Piet.API.LexerType
+import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
 
-import qualified HelVM.HelMA.Automata.Piet.Automaton.Collision as Collision
-import qualified HelVM.HelMA.Automata.Piet.Automaton.StepState as StepState
 
-import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
+import qualified HelVM.HelMA.Automata.Piet.Automaton.Collision           as Collision
+import qualified HelVM.HelMA.Automata.Piet.Automaton.StepState           as StepState
+
+import qualified HelVM.HelMA.Automaton.API.AppOptions                    as App
 import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
@@ -29,8 +32,8 @@ import           Control.Monad.Logger
 
 import qualified RIO
 
-runRio ∷ Has env ⇒ ImplType → Maybe Natural → Maybe LexerType → RIO.RIO env ()
-runRio  implType codelInfo _  = runWithOptions  =<< optionsRio where
+runRio ∷ Has env ⇒ ImplType → Maybe AdditionalColorStrategy →  Maybe MulticoloredCodelStrategy → Maybe Natural → Maybe LexerType → RIO.RIO env ()
+runRio implType _ _  codelInfo _  = runWithOptions  =<< optionsRio where
   runWithOptions o = run implType codelInfo =<< readImageRio (App.file o)
 
 run ∷ Has env ⇒  ImplType → Maybe Natural → DynamicImage → RIO.RIO env ()
