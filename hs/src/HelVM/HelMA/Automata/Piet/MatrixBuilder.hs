@@ -35,7 +35,7 @@ buildRow codelWidth stratMulti stratAdd sizeInt image codelY = V.generate codelW
 buildCodel ∷ AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → Color
 buildCodel stratAdd stratMulti sizeInt image coords = colorToCodel stratAdd (getCodelColor stratMulti sizeInt image coords)
 
-getIntCodelSize ∷ Coordinates → Image PixelRGB8 → CodelSizeMaybe → Int
+getIntCodelSize ∷ Coordinates → Image PixelRGB8 → Maybe CodelSize → Int
 getIntCodelSize _ _ (Just n)       = n
 getIntCodelSize size image Nothing = guessCodelSize size (uncurry (pixelAt image))
 

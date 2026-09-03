@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.Piet.API.ImageConfig
   ( AdditionalColorStrategy (..)
-  , CodelSizeMaybe
+  , CodelSize
   , ImageConfig (..)
   , MulticoloredCodelStrategy (..)
   ) where
@@ -9,7 +9,7 @@ data ImageConfig
   = ImageConfig
       { additionalColor   :: AdditionalColorStrategy
       , multicoloredCodel :: MulticoloredCodelStrategy
-      , codelSize         :: CodelSizeMaybe
+      , codelSize         :: Maybe CodelSize
       }
   deriving stock (Eq, Show)
 
@@ -27,4 +27,4 @@ data MulticoloredCodelStrategy
   | MulticoloredCodelAverage
   deriving stock (Eq, Ord, Show)
 
-type CodelSizeMaybe = Maybe Int
+type CodelSize = Int
