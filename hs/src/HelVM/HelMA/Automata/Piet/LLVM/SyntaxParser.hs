@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.Parser
+module HelVM.HelMA.Automata.Piet.LLVM.SyntaxParser
   ( parse
   , parseFilledImage
   ) where

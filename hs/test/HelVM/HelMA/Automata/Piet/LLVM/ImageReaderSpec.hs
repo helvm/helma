@@ -22,7 +22,7 @@ main = hspec spec
 spec ∷ Spec
 spec = do
   pass
-  describe "readCodels" $ do
+  describe "readColors" $ do
     forM_
       [ ( ImageConfig { additionalColor = AdditionalColorAsBlack
                       , multicoloredCodel = MulticoloredCodelAsWhite
@@ -62,7 +62,7 @@ spec = do
         )
       ] $ \(config, expectedCodels) ->
         context ("when configured with " ++ show config) $ do
-          res <- runIO . runSafeT $ readCodels config =<< readImageFile "test/resources/imagereader-test.png"
+          res <- runIO . runSafeT $ readColors config =<< readImageFile "test/resources/imagereader-test.png"
           it "returns codels" $ safeToEitherLegacy res `shouldBe` Right expectedCodels
 
     context "when given Nothing" $ do
@@ -70,7 +70,7 @@ spec = do
                                , multicoloredCodel = MulticoloredCodelAverage
                                , codelSize = Nothing
                                }
-      res <- runIO . runSafeT $ readCodels config =<< readImageFile "test/resources/codel10-test.png"
+      res <- runIO . runSafeT $ readColors config =<< readImageFile "test/resources/codel10-test.png"
       it "returns codels" $ safeToEitherLegacy res `shouldBe` Right complexCodels
 
     context "when given an invalid codel size" $ do
@@ -78,7 +78,7 @@ spec = do
                                , multicoloredCodel = MulticoloredCodelAverage
                                , codelSize = Just 4
                                }
-      res <- runIO . runSafeT $ readCodels config =<< readImageFile "test/resources/imagereader-test.png"
+      res <- runIO . runSafeT $ readColors config =<< readImageFile "test/resources/imagereader-test.png"
       it "fails with CodelSizeError" $ do
         let leftText = safeToEitherLegacy res
         leftText `shouldBe` Left "CodelSizeError\n"

@@ -4,7 +4,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
   ) where
 
 import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
-import           HelVM.HelMA.Automata.Piet.LLVM.Parser
+import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxParser
 
 import           HelVM.HelMA.Automata.Piet.SyntaxVisualizer
 
@@ -45,7 +45,7 @@ makeGraph ∷ MonadControl m ⇒ ImageConfig → DynamicImage → m (Maybe Synta
 makeGraph imageConfig image = logStep StepParse *> (parse =<< readCodelsWithStep imageConfig image)
 
 readCodelsWithStep ∷ MonadControl m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
-readCodelsWithStep imageConfig image = logStep StepReadImage *> readCodels imageConfig image
+readCodelsWithStep imageConfig image = logStep StepReadImage *> readColors imageConfig image
 
 logStep ∷ MonadLogger m ⇒ PietStep → m ()
 logStep step = logDebugN $ show step

@@ -4,9 +4,8 @@ module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
   , ImageConfig (..)
   , Matrix
   , MulticoloredCodelStrategy (..)
-  , imageToCodels
-  , readCodels
-  , rgbImageToCodels
+  , readColors
+  , rgbImageToColors
   ) where
 
 import           HelVM.HelIO.Control.Safe
@@ -19,14 +18,11 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
 import           Codec.Picture
 
-readCodels ∷ MonadSafe m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
-readCodels = imageToCodels
+readColors ∷ MonadSafe m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
+readColors config image = rgbImageToColors config =<< toRGB8ImageM image
 
-imageToCodels ∷ MonadSafe m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
-imageToCodels config image = toRGB8ImageM image >>= rgbImageToCodels config
-
-rgbImageToCodels ∷ MonadSafe m ⇒ ImageConfig → Image PixelRGB8 → m (Matrix Color)
-rgbImageToCodels config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image where
+rgbImageToColors ∷ MonadSafe m ⇒ ImageConfig → Image PixelRGB8 → m (Matrix Color)
+rgbImageToColors config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image where
   (codelWidth, modX) = divMod pixelWidth codelSizeInt
   (codelHeight, modY) = divMod pixelHeight codelSizeInt
   codelSizeInt = getIntCodelSize (pixelWidth, pixelHeight) image (codelSize config)
