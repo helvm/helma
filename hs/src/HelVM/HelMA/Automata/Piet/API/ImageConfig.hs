@@ -1,8 +1,6 @@
 module HelVM.HelMA.Automata.Piet.API.ImageConfig
-  ( AdditionalColorStrategy (..)
-  , CodelSize
+  ( CodelSize
   , ImageConfig (..)
-  , MulticoloredCodelStrategy (..)
   ) where
 
 import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy

@@ -5,7 +5,9 @@ module HelVM.HelMA.Automata.Piet.MatrixBuilder
 
 import           HelVM.HelMA.Automata.Piet.CodelSize
 
+import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
 import           HelVM.HelMA.Automata.Piet.API.ImageConfig
+import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -16,13 +18,13 @@ import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
 import           Codec.Picture
 
-import qualified Data.Foldable1                                 as F1
-import qualified Data.List.NonEmpty                             as NE
-import qualified Data.Map                                       as M
-import           Data.Vector                                    ( Vector )
-import qualified Data.Vector                                    as V
+import qualified Data.Foldable1                                          as F1
+import qualified Data.List.NonEmpty                                      as NE
+import qualified Data.Map                                                as M
+import           Data.Vector                                             ( Vector )
+import qualified Data.Vector                                             as V
 
-import qualified Relude.Extra                                   as Extra
+import qualified Relude.Extra                                            as Extra
 
 buildMatrix ∷ Coordinates → ImageConfig → Int → Image PixelRGB8 → Matrix Color
 buildMatrix (codelWidth, codelHeight) config sizeInt image = V.generate codelHeight (buildRow codelWidth stratAdd stratMulti sizeInt image) where

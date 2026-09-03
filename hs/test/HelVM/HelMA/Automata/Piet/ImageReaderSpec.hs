@@ -8,7 +8,10 @@ import           HelVM.HelIO.Control.Safe
 import           HelVM.HelMA.Automata.Piet.ImageReader
 import           HelVM.HelMA.Automata.Piet.TestUtils
 
+import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
 import           HelVM.HelMA.Automata.Piet.API.ImageConfig
+import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
+
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Hue
