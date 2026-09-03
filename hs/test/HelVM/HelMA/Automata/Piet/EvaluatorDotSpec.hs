@@ -73,7 +73,7 @@ spec =
     , ("test_break"          )
     -- , ("test_push"           )
     ] >*< ["pietcc"]
-    )) $ \((fileName) , dirName ) -> do
+    )) $ \(fileName , dirName ) -> do
     let filePath = dirName </> fileName <.> "png"
     let fullPath = "examples" </> "piet" </> filePath
     let path = dirName </> fileName
