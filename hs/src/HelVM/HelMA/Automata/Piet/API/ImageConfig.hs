@@ -4,6 +4,7 @@ module HelVM.HelMA.Automata.Piet.API.ImageConfig
   ) where
 
 import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
+import           HelVM.HelMA.Automata.Piet.API.CodelSize
 import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
 
 data ImageConfig
@@ -13,5 +14,3 @@ data ImageConfig
       , codelSize         :: Maybe CodelSize
       }
   deriving stock (Eq, Show)
-
-type CodelSize = Int

@@ -1,6 +1,5 @@
 module HelVM.HelMA.Automata.Piet.Types.Program
-  ( CodelSize
-  , Program (..)
+  ( Program (..)
   , codelSizeL
   , imageL
   , isBlocked
@@ -12,21 +11,21 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
 
+import           HelVM.HelMA.Automata.Piet.API.CodelSize
+
 import           Relude.Extra
 
 -- TYPES & LENSES
 
-type CodelSize = Int
-
 data Program
   = Program
-      { codelSize :: CodelSize
+      { codelSize :: CodelSizeInternal
       , image     :: Grid Color
       , labelling :: Labelling
       }
   deriving stock (Show)
 
-codelSizeL ∷ Lens' Program CodelSize
+codelSizeL ∷ Lens' Program CodelSizeInternal
 codelSizeL = lens codelSize (\s x -> s { codelSize = x })
 
 imageL ∷ Lens' Program (Grid Color)

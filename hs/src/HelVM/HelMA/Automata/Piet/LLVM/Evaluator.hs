@@ -5,7 +5,6 @@ module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
 
 import           HelVM.HelMA.Automata.Piet.ImageReader
 import           HelVM.HelMA.Automata.Piet.SyntaxParser
-
 import           HelVM.HelMA.Automata.Piet.SyntaxVisualizer
 
 import           HelVM.HelMA.Automata.Piet.API.ImageConfig

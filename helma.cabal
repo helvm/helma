@@ -247,6 +247,7 @@ library
     HelVM.HelMA.Automata.Piet.WhiteCodelSlider
 
     HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
+    HelVM.HelMA.Automata.Piet.API.CodelSize
     HelVM.HelMA.Automata.Piet.API.ImageConfig
     HelVM.HelMA.Automata.Piet.API.ImplType
     HelVM.HelMA.Automata.Piet.API.LexerType

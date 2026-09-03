@@ -7,6 +7,7 @@ import           HelVM.HelMA.Automata.Piet.CodelSize
 
 import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   ( AdditionalColorStrategy )
 import qualified HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   as AdditionalColor
+import           HelVM.HelMA.Automata.Piet.API.CodelSize
 import           HelVM.HelMA.Automata.Piet.API.ImageConfig
 import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy ( MulticoloredCodelStrategy )
 import qualified HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy as MulticoloredCodel
@@ -39,8 +40,8 @@ buildRow codelWidth stratMulti stratAdd sizeInt image codelY = V.generate codelW
 buildCodel ∷ AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → Color
 buildCodel stratAdd stratMulti sizeInt image coords = colorToCodel stratAdd (getCodelColor stratMulti sizeInt image coords)
 
-getIntCodelSize ∷ Coordinates → Image PixelRGB8 → Maybe CodelSize → Int
-getIntCodelSize _ _ (Just n)       = n
+getIntCodelSize ∷ Coordinates → Image PixelRGB8 → Maybe CodelSize → CodelSizeInternal
+getIntCodelSize _ _ (Just n)       = fromIntegral n
 getIntCodelSize size image Nothing = guessCodelSize size (uncurry (pixelAt image))
 
 getCodelColor ∷ MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → PixelRGB8
