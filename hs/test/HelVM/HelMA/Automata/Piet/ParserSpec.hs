@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.ParserSpec
+module HelVM.HelMA.Automata.Piet.ParserSpec
   ( main
   , spec
   ) where

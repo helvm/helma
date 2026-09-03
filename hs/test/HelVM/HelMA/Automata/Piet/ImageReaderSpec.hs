@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.ImageReaderSpec
+module HelVM.HelMA.Automata.Piet.ImageReaderSpec
   ( main
   , spec
   ) where
