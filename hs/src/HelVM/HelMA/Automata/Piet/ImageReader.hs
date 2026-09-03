@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.LLVM.ImageReader
+module HelVM.HelMA.Automata.Piet.ImageReader
   ( AdditionalColorStrategy (..)
   , CodelSizeMaybe
   , ImageConfig (..)

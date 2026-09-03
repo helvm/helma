@@ -253,7 +253,7 @@ library
     HelVM.HelMA.Automata.Piet.Combiner.CPU
 
     HelVM.HelMA.Automata.Piet.LLVM.Evaluator
-    HelVM.HelMA.Automata.Piet.LLVM.ImageReader
+    HelVM.HelMA.Automata.Piet.ImageReader
     HelVM.HelMA.Automata.Piet.LLVM.SyntaxParser
 
     HelVM.HelMA.Automata.Piet.Types.ChromaticColor

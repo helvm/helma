@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.Piet.LLVM.Evaluator
   , graphText
   ) where
 
-import           HelVM.HelMA.Automata.Piet.LLVM.ImageReader
+import           HelVM.HelMA.Automata.Piet.ImageReader
 import           HelVM.HelMA.Automata.Piet.LLVM.SyntaxParser
 
 import           HelVM.HelMA.Automata.Piet.SyntaxVisualizer
