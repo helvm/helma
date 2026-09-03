@@ -385,6 +385,7 @@ test-suite helma-test
 
     HelVM.HelMA.Automata.Piet.CodelSizeSpec
     HelVM.HelMA.Automata.Piet.EvaluatorCollisionSpec
+    HelVM.HelMA.Automata.Piet.EvaluatorDotSpec
     HelVM.HelMA.Automata.Piet.EvaluatorStepStateSpec
     HelVM.HelMA.Automata.Piet.FileExtra
     HelVM.HelMA.Automata.Piet.FillerSpec

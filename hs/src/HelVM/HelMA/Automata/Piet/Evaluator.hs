@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automata.Piet.Evaluator
-  ( run
+  ( graphText
+  , run
   , runRio
   , simpleEval
   ) where
