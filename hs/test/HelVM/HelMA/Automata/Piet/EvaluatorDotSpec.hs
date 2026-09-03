@@ -21,57 +21,57 @@ import           Test.Hspec                                ( Spec, describe, it 
 spec ∷ Spec
 spec =
   describe "Piet Interpreter Golden Tests" $ forM_ ((
-    [ ("99bottles"          )
-    , ("artsy_hello_world"  )
-    , ("fizzbuzz"           )
-    , ("pi_big"            )
-    , ("piet_hello_world"   )
-    , ("valentines"         )
+    [ "99bottles"          
+    , "artsy_hello_world"  
+    , "fizzbuzz"           
+    , "pi_big"            
+    , "piet_hello_world"   
+    , "valentines"         
     ] >*< ["pint"]
     ) <> (
-    [ ("99bottles"           )
-    -- , ("cowsay"              )
-    -- , ("euclid_clint"        )
-    , ("fizzbuzz"            )
-    , ("GameOfLife"          )
-    , ("hello_world_c1"      )
-    , ("hello_world_c4"      )
-    , ("hello_world_globe"   )
-    , ("helloworld-mondrian" )
-    , ("hw5"                 )
-    , ("japh"                )
-    , ("piet_pi"             )
-    , ("power2"              )
-    , ("primetest2"          )
+    [ "99bottles"           
+    -- , "cowsay"              
+    -- , "euclid_clint"        
+    , "fizzbuzz"           
+    , "GameOfLife"         
+    , "hello_world_c1"     
+    , "hello_world_c4"     
+    , "hello_world_globe"  
+    , "helloworld-mondrian"
+    , "hw5"                 
+    , "japh"                
+    , "piet_pi"             
+    , "power2"              
+    , "primetest2"          
     ] >*< ["rpiet"]
     ) <> (
-    [ ("99bottles"           )
-    , ("adder"               )
-    , ("alpha_filled"        )
-    -- , ("erat2"               )
-    -- , ("euclid_clint"        )
-    -- , ("euclid_clint_big"    )
-    , ("fizzbuzz"            )
-    , ("hi"                  )
-    , ("hw"                  )
-    , ("hw1-1"               )
-    , ("hw5"                 )
-    , ("hw5_big"             )
-    , ("hw_large"            )
-    , ("ILoveYouLaura"       )
-    -- , ("japh_big"            )
-    , ("piet_factorial"      )
-    , ("piet_pi"             )
-    , ("piet_pi_big"         )
-    -- , ("pietquest"           )
-    , ("power2"              )
-    -- , ("primetest"           )
-    , ("primetest2"          )
-    , ("test2"               )
-    , ("test2_upscaled"      )
-    -- , ("test3"               )
-    , ("test_break"          )
-    -- , ("test_push"           )
+    [ "99bottles"           
+    , "adder"               
+    , "alpha_filled"        
+    -- , "erat2"               
+    -- , "euclid_clint"        
+    -- , "euclid_clint_big"    
+    , "fizzbuzz"            
+    , "hi"                  
+    , "hw"                  
+    , "hw1-1"               
+    , "hw5"                 
+    , "hw5_big"             
+    , "hw_large"            
+    , "ILoveYouLaura"       
+    -- , "japh_big"            
+    , "piet_factorial"      
+    , "piet_pi"             
+    , "piet_pi_big"         
+    -- , "pietquest"           
+    , "power2"              
+    -- , "primetest"           
+    , "primetest2"          
+    , "test2"               
+    , "test2_upscaled"      
+    -- , "test3"               
+    , "test_break"          
+    -- , "test_push"           
     ] >*< ["pietcc"]
     )) $ \(fileName , dirName ) -> do
     let filePath = dirName </> fileName <.> "png"
