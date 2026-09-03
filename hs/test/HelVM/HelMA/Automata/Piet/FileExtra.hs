@@ -12,10 +12,13 @@ readImage ∷ FilePath → IO Picture.DynamicImage
 readImage path = Picture.readImage path >>= either RIO.throwString pure
 
 buildAbsolutePietOutFileName ∷ FilePath → FilePath
-buildAbsolutePietOutFileName path = "piet" </> "output" </> path <.> "output"
+buildAbsolutePietOutFileName path = "piet" </> "eval" </> "output" </> path <.> "output"
 
 buildAbsolutePietLogFileName ∷ FilePath → FilePath
-buildAbsolutePietLogFileName path = "piet" </> "logged" </> path <.> "log"
+buildAbsolutePietLogFileName path = "piet" </> "eval" </> "logged" </> path <.> "log"
+
+buildAbsolutePietDotFileName ∷ FilePath → FilePath
+buildAbsolutePietDotFileName path = "piet" </> "dot" </> path <.> "dot"
 
 buildAbsolutePietFileName ∷ FilePath → FilePath
 buildAbsolutePietFileName path = examplesDir </> lang </> path

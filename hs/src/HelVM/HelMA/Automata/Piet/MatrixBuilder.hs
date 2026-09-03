@@ -1,60 +1,36 @@
 module HelVM.HelMA.Automata.Piet.MatrixBuilder
-  ( AdditionalColorStrategy (..)
-  , CodelSizeMaybe
-  , Grid
-  , ImageConfig (..)
-  , MulticoloredCodelStrategy (..)
-  , buildGrid
+  ( buildMatrix
   , getIntCodelSize
   ) where
 
 import           HelVM.HelMA.Automata.Piet.CodelSize
+
+import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   ( AdditionalColorStrategy )
+import qualified HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   as AdditionalColor
+import           HelVM.HelMA.Automata.Piet.API.CodelSize
+import           HelVM.HelMA.Automata.Piet.API.ImageConfig
+import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy ( MulticoloredCodelStrategy )
+import qualified HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy as MulticoloredCodel
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
 import           Codec.Picture
 
-import qualified Data.Foldable1                                 as F1
-import qualified Data.List.NonEmpty                             as NE
-import qualified Data.Map                                       as M
-import           Data.Vector                                    ( Vector )
-import qualified Data.Vector                                    as V
+import qualified Data.Foldable1                                          as F1
+import qualified Data.List.NonEmpty                                      as NE
+import qualified Data.Map                                                as M
+import           Data.Vector                                             ( Vector )
+import qualified Data.Vector                                             as V
 
-import qualified Relude.Extra                                   as Extra
+import qualified Relude.Extra                                            as Extra
 
-type Grid a = Vector (Vector a)
-
-data AdditionalColorStrategy
-  = AdditionalColorAsWhite
-  | AdditionalColorAsBlack
-  | AdditionalColorNearest
-  deriving stock (Eq, Ord, Show)
-
-data MulticoloredCodelStrategy
-  = MulticoloredCodelAsWhite
-  | MulticoloredCodelAsBlack
-  | MulticoloredCodelCenter
-  | MulticoloredCodelModal
-  | MulticoloredCodelAverage
-  deriving stock (Eq, Ord, Show)
-
--- FIXME change to Maybe
-type CodelSizeMaybe = Maybe Int
-
-data ImageConfig
-  = ImageConfig
-      { additionalColor   :: AdditionalColorStrategy
-      , multicoloredCodel :: MulticoloredCodelStrategy
-      , codelSize         :: CodelSizeMaybe
-      }
-  deriving stock (Eq, Show)
-
-buildGrid ∷ Coordinates → ImageConfig → Int → Image PixelRGB8 → Grid Color
-buildGrid (codelWidth, codelHeight) config sizeInt image = V.generate codelHeight (buildRow codelWidth stratAdd stratMulti sizeInt image) where
+buildMatrix ∷ Coordinates → ImageConfig → Int → Image PixelRGB8 → Matrix Color
+buildMatrix (codelWidth, codelHeight) config sizeInt image = V.generate codelHeight (buildRow codelWidth stratAdd stratMulti sizeInt image) where
   stratAdd = additionalColor config
   stratMulti = multicoloredCodel config
 
@@ -64,16 +40,16 @@ buildRow codelWidth stratMulti stratAdd sizeInt image codelY = V.generate codelW
 buildCodel ∷ AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → Color
 buildCodel stratAdd stratMulti sizeInt image coords = colorToCodel stratAdd (getCodelColor stratMulti sizeInt image coords)
 
-getIntCodelSize ∷ Coordinates → Image PixelRGB8 → CodelSizeMaybe → Int
-getIntCodelSize _ _ (Just n)       = n
+getIntCodelSize ∷ Coordinates → Image PixelRGB8 → Maybe CodelSize → CodelSizeInternal
+getIntCodelSize _ _ (Just n)       = fromIntegral n
 getIntCodelSize size image Nothing = guessCodelSize size (uncurry (pixelAt image))
 
 getCodelColor ∷ MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → PixelRGB8
-getCodelColor MulticoloredCodelAsWhite codelSizeInt image coords = handleWhiteStrategy (getColors codelSizeInt image coords)
-getCodelColor MulticoloredCodelAsBlack codelSizeInt image coords = handleBlackStrategy (getColors codelSizeInt image coords)
-getCodelColor MulticoloredCodelCenter  codelSizeInt image coords = getCodelColorCenter codelSizeInt image coords
-getCodelColor MulticoloredCodelModal   codelSizeInt image coords = getCodelColorModal codelSizeInt image coords
-getCodelColor MulticoloredCodelAverage codelSizeInt image coords = getCodelColorAverage codelSizeInt image coords
+getCodelColor MulticoloredCodel.AsWhite codelSizeInt image coords = handleWhiteStrategy (getColors codelSizeInt image coords)
+getCodelColor MulticoloredCodel.AsBlack codelSizeInt image coords = handleBlackStrategy (getColors codelSizeInt image coords)
+getCodelColor MulticoloredCodel.Center  codelSizeInt image coords = getCodelColorCenter codelSizeInt image coords
+getCodelColor MulticoloredCodel.Modal   codelSizeInt image coords = getCodelColorModal codelSizeInt image coords
+getCodelColor MulticoloredCodel.Average codelSizeInt image coords = getCodelColorAverage codelSizeInt image coords
 
 getCodelColorCenter ∷ Int → Image PixelRGB8 → Coordinates → PixelRGB8
 getCodelColorCenter codelSizeInt image (codelX, codelY) = pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2) where
@@ -126,9 +102,9 @@ getColors codelSizeInt image (codelX, codelY) = pixelAt image <$> [pixelOffsetX 
   pixelOffsetY = codelY * codelSizeInt
 
 colorToCodel ∷ AdditionalColorStrategy → PixelRGB8 → Color
-colorToCodel AdditionalColorAsWhite color = M.findWithDefault White color colorCodelTable
-colorToCodel AdditionalColorAsBlack color = M.findWithDefault Black color colorCodelTable
-colorToCodel AdditionalColorNearest color = nearestCodel color
+colorToCodel AdditionalColor.AsWhite color = M.findWithDefault White color colorCodelTable
+colorToCodel AdditionalColor.AsBlack color = M.findWithDefault Black color colorCodelTable
+colorToCodel AdditionalColor.Nearest color = nearestCodel color
 
 nearestCodel ∷ PixelRGB8 → Color
 nearestCodel color = snd (F1.minimum (Extra.firstF (squaredColorDistance color) colorCodelTableList))

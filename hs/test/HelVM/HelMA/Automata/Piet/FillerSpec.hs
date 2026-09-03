@@ -9,10 +9,10 @@ import           HelVM.HelMA.Automata.Piet.Filler
 import           HelVM.HelMA.Automata.Piet.TestUtils
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
 import qualified Data.IntMap                                 as IM
 import qualified Data.Set                                    as S
-import           Data.Vector                                 ( Vector )
 import qualified Data.Vector                                 as V
 
 import           Test.Hspec
@@ -21,8 +21,8 @@ import           Text.InterpolatedString.Perl6
 data TestCase
   = TestCase
       { caseName            :: String
-      , inputImage          :: Vector (Vector Char)
-      , expectedFilledImage :: Vector (Vector Int)
+      , inputImage          :: Matrix Char
+      , expectedFilledImage :: Matrix Int
       , expectedCoords      :: [(Int, Set Coordinates)]
       }
 
@@ -44,16 +44,16 @@ spec = describe "fillAll" $ forM_ testCases runTest where
     , TestCase "irregularImage" irregularImage expectedFilledIrregularImage expectedIrregularCoords
     ]
 
-smallImage ∷ Vector (Vector Char)
+smallImage ∷ Matrix Char
 smallImage = toVector2D [['a']]
 
-expectedFilledSmallImage ∷ Vector (Vector Int)
+expectedFilledSmallImage ∷ Matrix Int
 expectedFilledSmallImage = toVector2D [[0]]
 
 expectedSmallCoords ∷ [(Int, Set Coordinates)]
 expectedSmallCoords = [(0, S.fromList [(0, 0)])]
 
-complexImage ∷ Vector (Vector Char)
+complexImage ∷ Matrix Char
 complexImage = toVector2D $ toString <$> drop 1 (lines (toText ([q|
 GGGGGBrrr rrrMMM
 bbbBBBBB    YYY*
@@ -65,7 +65,7 @@ cccRRRRRR*****mm
  y    CC ggg   *
 |] ∷ String)))
 
-expectedFilledComplexImage ∷ Vector (Vector Int)
+expectedFilledComplexImage ∷ Matrix Int
 expectedFilledComplexImage = charToOrd <<$>> toVector2D (toString <$> drop 1 (lines (toText ([q|
 aaaaabcccdeeefff
 gggbbbbbddddhhhi
@@ -109,7 +109,7 @@ expectedComplexCoords =
   , (27, S.fromList [(15, 7)])
   ]
 
-irregularImage ∷ Vector (Vector Char)
+irregularImage ∷ Matrix Char
 irregularImage = toVector2D $ toString <$> drop 1 (lines (toText ([q|
 abaa
 cca
@@ -117,7 +117,7 @@ c
 cccaaaa
 |] ∷ String)))
 
-expectedFilledIrregularImage ∷ Vector (Vector Int)
+expectedFilledIrregularImage ∷ Matrix Int
 expectedFilledIrregularImage = charToOrd <<$>> toVector2D (toString <$> drop 1 (lines (toText ([q|
 abcc
 ddc

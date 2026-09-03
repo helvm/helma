@@ -1,0 +1,10 @@
+digraph {
+  rankdir=LR
+  start [label="" shape=point color=white]
+  node [label="" shape=circle color=black]
+  start -> 0 [label="rl"]
+  0 -> 1 [label="dl: greater"]
+  0 -> 1 [label="dr: greater"]
+  1 -> 0 [label="ul: greater"]
+  1 -> 0 [label="ur: greater"]
+}

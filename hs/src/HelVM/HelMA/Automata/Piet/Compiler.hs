@@ -7,7 +7,9 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates ( Coordinates )
 import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Label
 import           HelVM.HelMA.Automata.Piet.Types.Labelling
-import           HelVM.HelMA.Automata.Piet.Types.Program     ( CodelSize, Program (Program) )
+import           HelVM.HelMA.Automata.Piet.Types.Program     ( Program (Program) )
+
+import           HelVM.HelMA.Automata.Piet.API.CodelSize
 
 import qualified Data.IntMap                                 as IntMap
 import qualified Data.Map                                    as Map
@@ -41,7 +43,7 @@ equivalencesL = lens equivalences (\s x -> s { equivalences = x })
 
 -- PUBLIC API
 
-compile ∷ CodelSize → Grid Color → Program
+compile ∷ CodelSizeInternal → Grid Color → Program
 compile cs img = Program cs img (label4 img)
 
 -- COMPILER CORE (LABELING PROCESS)

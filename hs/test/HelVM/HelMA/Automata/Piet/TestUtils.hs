@@ -3,15 +3,17 @@ module HelVM.HelMA.Automata.Piet.TestUtils
   , withTempFile
   ) where
 
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
+
+
 import           Control.Exception
 
-import           Data.Vector         ( Vector )
-import qualified Data.Vector.Generic as V
+import qualified Data.Vector.Generic                    as V
 
 import           System.Directory
 import           System.IO
 
-toVector2D ∷ [[a]] → Vector (Vector a)
+toVector2D ∷ [[a]] → Matrix a
 toVector2D = V.fromList . fmap V.fromList
 
 withTempFile ∷ String → (FilePath → IO a) → IO a
