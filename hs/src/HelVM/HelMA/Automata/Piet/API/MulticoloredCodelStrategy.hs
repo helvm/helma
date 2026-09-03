@@ -3,9 +3,9 @@ module HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
   ) where
 
 data MulticoloredCodelStrategy
-  = MulticoloredCodelAsWhite
-  | MulticoloredCodelAsBlack
-  | MulticoloredCodelCenter
-  | MulticoloredCodelModal
-  | MulticoloredCodelAverage
+  = AsWhite
+  | AsBlack
+  | Center
+  | Modal
+  | Average
   deriving stock (Eq, Ord, Show)

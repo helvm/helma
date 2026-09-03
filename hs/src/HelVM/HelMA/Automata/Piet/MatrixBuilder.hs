@@ -8,7 +8,9 @@ import           HelVM.HelMA.Automata.Piet.CodelSize
 import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   ( AdditionalColorStrategy )
 import qualified HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   as AdditionalColor
 import           HelVM.HelMA.Automata.Piet.API.ImageConfig
-import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
+
+import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy ( MulticoloredCodelStrategy )
+import qualified HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy as MulticoloredCodel
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -43,11 +45,11 @@ getIntCodelSize _ _ (Just n)       = n
 getIntCodelSize size image Nothing = guessCodelSize size (uncurry (pixelAt image))
 
 getCodelColor ∷ MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → PixelRGB8
-getCodelColor MulticoloredCodelAsWhite codelSizeInt image coords = handleWhiteStrategy (getColors codelSizeInt image coords)
-getCodelColor MulticoloredCodelAsBlack codelSizeInt image coords = handleBlackStrategy (getColors codelSizeInt image coords)
-getCodelColor MulticoloredCodelCenter  codelSizeInt image coords = getCodelColorCenter codelSizeInt image coords
-getCodelColor MulticoloredCodelModal   codelSizeInt image coords = getCodelColorModal codelSizeInt image coords
-getCodelColor MulticoloredCodelAverage codelSizeInt image coords = getCodelColorAverage codelSizeInt image coords
+getCodelColor MulticoloredCodel.AsWhite codelSizeInt image coords = handleWhiteStrategy (getColors codelSizeInt image coords)
+getCodelColor MulticoloredCodel.AsBlack codelSizeInt image coords = handleBlackStrategy (getColors codelSizeInt image coords)
+getCodelColor MulticoloredCodel.Center  codelSizeInt image coords = getCodelColorCenter codelSizeInt image coords
+getCodelColor MulticoloredCodel.Modal   codelSizeInt image coords = getCodelColorModal codelSizeInt image coords
+getCodelColor MulticoloredCodel.Average codelSizeInt image coords = getCodelColorAverage codelSizeInt image coords
 
 getCodelColorCenter ∷ Int → Image PixelRGB8 → Coordinates → PixelRGB8
 getCodelColorCenter codelSizeInt image (codelX, codelY) = pixelAt image (pixelOffsetX + codelSizeInt `div` 2) (pixelOffsetY + codelSizeInt `div` 2) where

@@ -8,10 +8,9 @@ import           HelVM.HelIO.Control.Safe
 import           HelVM.HelMA.Automata.Piet.ImageReader
 import           HelVM.HelMA.Automata.Piet.TestUtils
 
--- import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   ( AdditionalColorStrategy )
 import qualified HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   as AdditionalColor
 import           HelVM.HelMA.Automata.Piet.API.ImageConfig
-import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
+import qualified HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy as MulticoloredCodel
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
@@ -31,37 +30,37 @@ spec = do
   describe "readColors" $ do
     forM_
       [ ( ImageConfig { additionalColor = AdditionalColor.AsBlack
-                      , multicoloredCodel = MulticoloredCodelAsWhite
+                      , multicoloredCodel = MulticoloredCodel.AsWhite
                       , codelSize = Just 5
                       }
         , blackWhiteCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColor.AsWhite
-                      , multicoloredCodel = MulticoloredCodelAsBlack
+                      , multicoloredCodel = MulticoloredCodel.AsBlack
                       , codelSize = Just 5
                       }
         , whiteBlackCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColor.AsWhite
-                      , multicoloredCodel = MulticoloredCodelCenter
+                      , multicoloredCodel = MulticoloredCodel.Center
                       , codelSize = Just 5
                       }
         , whiteCenterCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColor.AsWhite
-                      , multicoloredCodel = MulticoloredCodelModal
+                      , multicoloredCodel = MulticoloredCodel.Modal
                       , codelSize = Just 5
                       }
         , whiteModalCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColor.AsWhite
-                      , multicoloredCodel = MulticoloredCodelAverage
+                      , multicoloredCodel = MulticoloredCodel.Average
                       , codelSize = Just 5
                       }
         , whiteAverageCodels
         )
       , ( ImageConfig { additionalColor = AdditionalColor.Nearest
-                      , multicoloredCodel = MulticoloredCodelAsWhite
+                      , multicoloredCodel = MulticoloredCodel.AsWhite
                       , codelSize = Just 5
                       }
         , nearestWhiteCodels
@@ -73,7 +72,7 @@ spec = do
 
     context "when given Nothing" $ do
       let config = ImageConfig { additionalColor = AdditionalColor.Nearest
-                               , multicoloredCodel = MulticoloredCodelAverage
+                               , multicoloredCodel = MulticoloredCodel.Average
                                , codelSize = Nothing
                                }
       res <- runIO . runSafeT $ readColors config =<< readImageFile "test/resources/codel10-test.png"
@@ -81,7 +80,7 @@ spec = do
 
     context "when given an invalid codel size" $ do
       let config = ImageConfig { additionalColor = AdditionalColor.Nearest
-                               , multicoloredCodel = MulticoloredCodelAverage
+                               , multicoloredCodel = MulticoloredCodel.Average
                                , codelSize = Just 4
                                }
       res <- runIO . runSafeT $ readColors config =<< readImageFile "test/resources/imagereader-test.png"
