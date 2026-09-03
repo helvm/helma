@@ -15,6 +15,8 @@ import           HelVM.HelIO.Control.Safe
 
 import           Codec.Picture
 
+import           Control.Monad.Logger
+
 data PietStep
   = StepReadImage
   | StepParse
@@ -25,20 +27,21 @@ data PietStep
   deriving stock (Eq, Show)
 
 -- Constraint Type Aliases
-type MonadEvaluator m = (MonadIO m, MonadSafe m)
+type MonadEvaluator m = (MonadIO m, MonadControl m)
 
+type MonadControl m = (MonadSafe m, MonadLogger m)
 
 evaluate ∷ MonadEvaluator m ⇒ (PietStep → m ()) → ImageConfig → FilePath → m LText
 evaluate messageReceiver imageConfig inputPath = graphText messageReceiver imageConfig =<< readImageFile inputPath
 
-graphText ∷ MonadSafe m ⇒ (PietStep → m ()) → ImageConfig → DynamicImage → m LText
-graphText messageReceiver imageConfig image = messageReceiver StepGenerateDOT *> (syntaxToDOT <$> makeGraph messageReceiver imageConfig image)
-
-makeGraph ∷ MonadSafe m ⇒ (PietStep → m ()) → ImageConfig → DynamicImage → m (Maybe SyntaxGraph)
-makeGraph messageReceiver imageConfig image = messageReceiver StepParse *> (parse =<< readCodelsWithStep messageReceiver imageConfig image)
-
-readCodelsWithStep ∷ MonadSafe m ⇒ (PietStep → m ()) → ImageConfig → DynamicImage → m (Matrix Color)
-readCodelsWithStep messageReceiver imageConfig image = messageReceiver StepReadImage *> readCodels imageConfig image
-
 readImageFile ∷ MonadEvaluator m ⇒ FilePath → m DynamicImage
 readImageFile filePath = liftEitherLegacy =<< liftIO (readImage filePath)
+
+graphText ∷ MonadControl m ⇒ (PietStep → m ()) → ImageConfig → DynamicImage → m LText
+graphText messageReceiver imageConfig image = messageReceiver StepGenerateDOT *> (syntaxToDOT <$> makeGraph messageReceiver imageConfig image)
+
+makeGraph ∷ MonadControl m ⇒ (PietStep → m ()) → ImageConfig → DynamicImage → m (Maybe SyntaxGraph)
+makeGraph messageReceiver imageConfig image = messageReceiver StepParse *> (parse =<< readCodelsWithStep messageReceiver imageConfig image)
+
+readCodelsWithStep ∷ MonadControl m ⇒ (PietStep → m ()) → ImageConfig → DynamicImage → m (Matrix Color)
+readCodelsWithStep messageReceiver imageConfig image = messageReceiver StepReadImage *> readCodels imageConfig image
