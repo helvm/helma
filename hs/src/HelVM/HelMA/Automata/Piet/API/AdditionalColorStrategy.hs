@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
   ) where
 
 data AdditionalColorStrategy
-  = AdditionalColorAsWhite
-  | AdditionalColorAsBlack
-  | AdditionalColorNearest
+  = AsWhite
+  | AsBlack
+  | Nearest
   deriving stock (Eq, Ord, Show)

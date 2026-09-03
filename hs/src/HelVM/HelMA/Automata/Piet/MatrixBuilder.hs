@@ -5,7 +5,8 @@ module HelVM.HelMA.Automata.Piet.MatrixBuilder
 
 import           HelVM.HelMA.Automata.Piet.CodelSize
 
-import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
+import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   ( AdditionalColorStrategy )
+import qualified HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   as AdditionalColor
 import           HelVM.HelMA.Automata.Piet.API.ImageConfig
 import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
 
@@ -99,9 +100,9 @@ getColors codelSizeInt image (codelX, codelY) = pixelAt image <$> [pixelOffsetX 
   pixelOffsetY = codelY * codelSizeInt
 
 colorToCodel ∷ AdditionalColorStrategy → PixelRGB8 → Color
-colorToCodel AdditionalColorAsWhite color = M.findWithDefault White color colorCodelTable
-colorToCodel AdditionalColorAsBlack color = M.findWithDefault Black color colorCodelTable
-colorToCodel AdditionalColorNearest color = nearestCodel color
+colorToCodel AdditionalColor.AsWhite color = M.findWithDefault White color colorCodelTable
+colorToCodel AdditionalColor.AsBlack color = M.findWithDefault Black color colorCodelTable
+colorToCodel AdditionalColor.Nearest color = nearestCodel color
 
 nearestCodel ∷ PixelRGB8 → Color
 nearestCodel color = snd (F1.minimum (Extra.firstF (squaredColorDistance color) colorCodelTableList))
