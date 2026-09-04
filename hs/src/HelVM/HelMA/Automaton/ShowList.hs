@@ -9,14 +9,14 @@ import           HelVM.HelIO.Control.Safe
 showListSafeToLText ∷ Show a ⇒ Safe [a] → LText
 showListSafeToLText = either (toLText . errorsToText) showListToLText
 
-printListSafeToLText ∷ (a → Text) → Safe [a] → LText
+printListSafeToLText ∷ (a → LText) → Safe [a] → LText
 printListSafeToLText = either (toLText . errorsToText) . printListToLText
 
 showListToLText ∷ Show a ⇒ [a] → LText
 showListToLText = printListToLText show
 
-printListToLText ∷ (a → Text) → [a] → LText
-printListToLText f = buildListToLText (LText.fromText . f)
+printListToLText ∷ (a → LText) → [a] → LText
+printListToLText f = buildListToLText (LText.fromLazyText  . f)
 
 buildListToLText ∷ (a → LText.Builder) → [a] → LText
 buildListToLText toBuilder = LText.toLazyText . foldMap (wrap toBuilder)
