@@ -9,6 +9,7 @@ module HelVM.HelMA.Automata.Piet.Evaluator
 import           HelVM.HelMA.Automata.Piet.AssemblyGenerator
 import           HelVM.HelMA.Automata.Piet.Compiler
 import           HelVM.HelMA.Automata.Piet.ImageReader
+import           HelVM.HelMA.Automata.Piet.InstructionCompiler
 import           HelVM.HelMA.Automata.Piet.Parser
 import           HelVM.HelMA.Automata.Piet.SyntaxParser
 import           HelVM.HelMA.Automata.Piet.SyntaxVisualizer
@@ -43,6 +44,8 @@ import           Control.Monad.Logger
 
 import qualified RIO
 
+import           Text.Pretty.Simple                                      ( pShowNoColor )
+
 type ImageInput = (ImageConfig, DynamicImage)
 
 runRio ∷ Has env ⇒ ImplType → Maybe AdditionalColorStrategy → Maybe MulticoloredCodelStrategy → Maybe CodelSize → Maybe LexerType → RIO.RIO env ()
@@ -50,11 +53,15 @@ runRio i a m cs _ = runWithOptions i a m cs =<< optionsRio
 
 run ∷ Has env ⇒ Emit → ImplType → Maybe AdditionalColorStrategy → Maybe MulticoloredCodelStrategy → Maybe CodelSize → DynamicImage → RIO.RIO env ()
 run No i _ _ cs = runAsRIO . simpleEval i cs
-run IL _ a m cs = putLTextLnRio <=< (runAsRIO . assemblyText . imageInput a m cs)
+run IL _ a m cs = putLTextLnRio <=< (runAsRIO . ilText . imageInput a m cs)
+run TL _ a m cs = putLTextLnRio <=< (runAsRIO . assemblyText . imageInput a m cs)
 run _  _ a m cs = putLTextLnRio <=< (runAsRIO . graphText . imageInput a m cs)
 
 simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
 simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs
+
+ilText ∷ MonadSafe m ⇒ ImageInput → m LText
+ilText = fmap (pShowNoColor . compileToIL . generateAssembly) . parseColors
 
 assemblyText ∷ MonadSafe m ⇒ ImageInput → m LText
 assemblyText = fmap (renderAssembly . generateAssembly) . parseColors
