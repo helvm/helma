@@ -89,10 +89,10 @@ il ∷ FilePath → IO Text
 il path = toText <$> ilL path
 
 ilL ∷ FilePath → IO LText
-ilL = ilTextIO <=< readImage
+ilL = emitILIO <=< readImage
 
-ilTextIO ∷ DynamicImage → IO LText
-ilTextIO = safeToIO . ilText . (defaultConfig, )
+emitILIO ∷ DynamicImage → IO LText
+emitILIO = safeToIO . emitIL . (defaultConfig, )
 
 asm ∷ FilePath → IO Text
 asm path = toText <$> asmL path
@@ -101,13 +101,13 @@ asmL ∷ FilePath → IO LText
 asmL = asmTextIO <=< readImage
 
 asmTextIO ∷ DynamicImage → IO LText
-asmTextIO = safeToIO . assemblyText . (defaultConfig, )
+asmTextIO = safeToIO . emitCommands . (defaultConfig, )
 
 dot ∷ FilePath → IO Text
 dot path = toText <$> dotL path
 
 dotL ∷ FilePath → IO LText
-dotL = graphTextIO <=< readImage
+dotL = emitDotIO <=< readImage
 
-graphTextIO ∷ DynamicImage → IO LText
-graphTextIO = safeToIO . graphText . (defaultConfig, )
+emitDotIO ∷ DynamicImage → IO LText
+emitDotIO = safeToIO . emitDot . (defaultConfig, )

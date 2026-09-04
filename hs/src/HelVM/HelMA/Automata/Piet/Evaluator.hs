@@ -1,7 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Evaluator
-  ( assemblyText
-  , graphText
-  , ilText
+  ( emitCommands
+  , emitDot
+  , emitIL
   , run
   , runRio
   , simpleEval
@@ -55,21 +55,21 @@ runRio i a m cs _ = runWithOptions i a m cs =<< optionsRio
 
 run ∷ Has env ⇒ Emit → ImplType → Maybe AdditionalColorStrategy → Maybe MulticoloredCodelStrategy → Maybe CodelSize → DynamicImage → RIO.RIO env ()
 run No i _ _ cs = runAsRIO . simpleEval i cs
-run IL _ a m cs = putLTextLnRio <=< (runAsRIO . ilText . imageInput a m cs)
-run TL _ a m cs = putLTextLnRio <=< (runAsRIO . assemblyText . imageInput a m cs)
-run _  _ a m cs = putLTextLnRio <=< (runAsRIO . graphText . imageInput a m cs)
+run IL _ a m cs = putLTextLnRio <=< (runAsRIO . emitIL . imageInput a m cs)
+run TL _ a m cs = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput a m cs)
+run _  _ a m cs = putLTextLnRio <=< (runAsRIO . emitDot . imageInput a m cs)
 
 simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
 simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs
 
-ilText ∷ MonadSafe m ⇒ ImageInput → m LText
-ilText = fmap (printListToLText printI . compileToIL . generateAssembly) . parseColors
+emitIL ∷ MonadSafe m ⇒ ImageInput → m LText
+emitIL = fmap (printListToLText printI . compileToIL . generateAssembly) . parseColors
 
-assemblyText ∷ MonadSafe m ⇒ ImageInput → m LText
-assemblyText = fmap (renderAssembly . generateAssembly) . parseColors
+emitCommands ∷ MonadSafe m ⇒ ImageInput → m LText
+emitCommands = fmap (renderAssembly . generateAssembly) . parseColors
 
-graphText ∷ MonadSafe m ⇒ ImageInput → m LText
-graphText = fmap syntaxToDOT . parseColors
+emitDot ∷ MonadSafe m ⇒ ImageInput → m LText
+emitDot = fmap syntaxToDOT . parseColors
 
 -- HELPERS
 
