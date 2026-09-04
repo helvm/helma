@@ -5,10 +5,11 @@ import qualified Data.Text.Lazy.Builder      as LText
 import           HelVM.HelIO.Control.Message
 import           HelVM.HelIO.Control.Safe
 
-
+--DEPRECARTED
 showListSafeToLText ∷ Show a ⇒ Safe [a] → LText
 showListSafeToLText = either (toLText . errorsToText) showListToLText
 
+--DEPRECARTED
 printListSafeToLText ∷ (a → Text) → Safe [a] → LText
 printListSafeToLText = either (toLText . errorsToText) . printListToLText
 

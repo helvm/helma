@@ -1,5 +1,8 @@
 module HelVM.HelMA.Automata.ETA.Evaluator
-  ( evalParams
+  ( emitCode
+  , emitIL
+  , emitTL
+  , evalParams
   , run
   , runRio
   , simpleEval
@@ -30,13 +33,15 @@ import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
+import           HelVM.HelMA.Automaton.Instruction
 
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.StackType
 
-import           HelVM.HelMA.Automaton.ShowList
-
 import           HelVM.HelIO.Collections.SList              as SList
+import           HelVM.HelIO.Control.Safe
+
+import           Control.Applicative.Tools
 
 import qualified Data.Sequence                              as Seq
 
@@ -50,9 +55,18 @@ runRio i = runWIthOptions =<< optionsRio where
 
 run ∷ Has env ⇒ Emit.Emit → AutomatonType → EvalParams → RIO.RIO env ()
 run Emit.No   i = runAsRIO . evalParams i
-run Emit.IL   _ = putLTextLnRio . showListSafeToLText . parseSafe . source
-run Emit.TL   _ = putLTextLnRio . show . tokenize . source
-run Emit.Code _ = putLTextLnRio . show . readTokens . source
+run Emit.IL   _ = putLTextLnRio <=< runAsRIO . emitIL . source
+run Emit.TL   _ = putLTextLnRio . emitTL . source
+run Emit.Code _ = putLTextLnRio . emitCode . source
+
+emitIL ∷ MonadSafe m ⇒ Source → m LText
+emitIL = printIL <.> parse
+
+emitTL ∷ Source → LText
+emitTL = show . tokenize
+
+emitCode ∷ Source → LText
+emitCode = show . readTokens
 
 simpleEval ∷ AppSafeEff m ⇒ S.SimpleParams → m ()
 simpleEval p = evalSource (S.implType p) (S.source p) (S.stackType p) (S.autoOptions p)

@@ -2,12 +2,13 @@ module HelVM.HelMA.Automata.ETA.LexerSpec
   ( spec
   ) where
 
-import           HelVM.HelMA.Automata.ETA.Lexer
+import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.Parser
 
 import           HelVM.HelMA.Automata.ETA.FileExtra
 
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
+
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Optimizer
 
@@ -28,11 +29,11 @@ spec =
       let path = dirName </> fileName
       let file = readEtaFile path
       it ("minified" </> path) $
-        (show . readTokens <$> file) `goldenShouldIO` buildAbsoluteEtaFileName ("minified" </> path)
+        (emitCode <$> file) `goldenLShouldIO` buildAbsoluteEtaFileName ("minified" </> path)
       it ("parsed" </> path) $
-        safeIOToIO ((printIL <.> parseSafe) <$> file) `goldenShouldIO` buildAbsoluteEtaIlFileName ("parsed" </> path)
+        safeIOToIO (emitIL <$> file) `goldenLShouldIO` buildAbsoluteEtaIlFileName ("parsed" </> path)
       it ("optimized" </> path) $
-        safeIOToIO ((printIL <.> optimize AllOptimizations <.> parseSafe) <$> file) `goldenShouldIO` buildAbsoluteEtaIlFileName ("optimized" </> path)
+        safeIOToIO ((printIL <.> optimize AllOptimizations <.> parseSafe) <$> file) `goldenLShouldIO` buildAbsoluteEtaIlFileName ("optimized" </> path)
 
 allFiles ∷ [(FilePath, FilePath)]
 allFiles = original <> fromEAS

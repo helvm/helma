@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.FALSE.ParserSpec
+module HelVM.HelMA.Automata.FALSE.EmiterSpec
   ( spec
   ) where
 
