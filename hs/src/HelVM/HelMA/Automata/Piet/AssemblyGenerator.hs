@@ -2,6 +2,8 @@
 
 module HelVM.HelMA.Automata.Piet.AssemblyGenerator
   ( AssemblyProgram (..)
+  , BlockAssembly (..)
+  , BranchAssembly (..)
   , Instruction (..)
   , Label
   , generateAssembly
@@ -22,17 +24,30 @@ type Label = Int
 
 data Instruction
   = ExecCmd Command
-  | SetDPCC Course
+  | StoreDPCC Course
   | Jump Label
-  | BranchDPCC Course Label
   | Exit
+  deriving stock (Eq, Show)
+
+data BranchAssembly
+  = BranchAssembly
+      { branchCourses :: [Course]
+      , branchInstrs  :: [Instruction]
+      }
+  deriving stock (Eq, Show)
+
+data BlockAssembly
+  = BlockAssembly
+      { blockLabel :: Label
+      , branches   :: [BranchAssembly]
+      }
   deriving stock (Eq, Show)
 
 data AssemblyProgram
   = AssemblyProgram
-      { entryLabel   :: Label
-      , entryDPCC    :: Course
-      , instructions :: [(Maybe Label, Instruction)]
+      { entryLabel :: Label
+      , entryDPCC  :: Course
+      , blocks     :: [BlockAssembly]
       }
   deriving stock (Eq, Show)
 
@@ -42,65 +57,71 @@ generateAssembly (Just sg) = compileGraph sg
 
 renderAssembly ∷ AssemblyProgram → LText
 renderAssembly prog
-  | null (instructions prog) = "; Empty Piet Program\nmain:\n    exit\n"
-  | otherwise                = LText.toLazyText $ renderAssemblyBuilder prog
+  | null (blocks prog) = "; Empty Piet Program\nmain:\n    exit\n"
+  | otherwise          = LText.toLazyText $ renderAssemblyBuilder prog
 
 -- HELPERS
 
 compileGraph ∷ SyntaxGraph → AssemblyProgram
-compileGraph sg = AssemblyProgram (blockIndex entry) (course entry) instrs where
-  entry  = sg ^. entryL
-  bMap   = sg ^. blockMapL
-  instrs = compileBlocks $ IM.toAscList bMap
+compileGraph sg = AssemblyProgram (blockIndex entry) (course entry) blockList where
+  entry     = sg ^. entryL
+  bMap      = sg ^. blockMapL
+  blockList = uncurry compileBlock <$> IM.toAscList bMap
 
-compileBlocks ∷ [(Int, Block)] → [(Maybe Label, Instruction)]
-compileBlocks = foldMap (uncurry compileBlock)
+compileBlock ∷ Label → Block → BlockAssembly
+compileBlock lbl block = BlockAssembly lbl $ compileBranches $ M.toAscList $ block ^. transitionsL
 
-compileBlock ∷ Int → Block → [(Maybe Label, Instruction)]
-compileBlock lbl block = attachLabel lbl $ compileTransitions $ M.toAscList $ block ^. transitionsL
+compileBranches ∷ [(Course, Maybe NextBlock)] → [BranchAssembly]
+compileBranches transitions = uncurry (compileBranch backwardTable) <$> transitions where
+  backwardTable = buildBackwardTable $ fst <$> transitions
 
-attachLabel ∷ Label → [Instruction] → [(Maybe Label, Instruction)]
-attachLabel _ []         = []
-attachLabel lbl (i : is) = (Just lbl, i) : fmap (Nothing ,) is
+compileBranch ∷ Map Course [Course] → Course → Maybe NextBlock → BranchAssembly
+compileBranch bwdTable c maybeNext = BranchAssembly currentCourses $ handleNextBlock currentCourses maybeNext where
+  currentCourses = fromMaybe [c] $ M.lookup c bwdTable
 
-compileTransitions ∷ [(Course, Maybe NextBlock)] → [Instruction]
-compileTransitions = foldMap (uncurry compileBranch)
-
-compileBranch ∷ Course → Maybe NextBlock → [Instruction]
-compileBranch c Nothing   = [BranchDPCC c exitTarget]
-compileBranch c (Just nb) = BranchDPCC c targetLbl : handleNextBlock nb where
-  targetLbl = blockIndex $ nb ^. targetL
-
-exitTarget ∷ Label
-exitTarget = -1
-
-handleNextBlock ∷ NextBlock → [Instruction]
-handleNextBlock nb = filterNotNop [ExecCmd cmd, SetDPCC targetCourse] where
+handleNextBlock ∷ [Course] → Maybe NextBlock → [Instruction]
+handleNextBlock _ Nothing   = [Exit]
+handleNextBlock currentCourses (Just nb) = filterNotNop $ storeInstr ++ [ExecCmd cmd, Jump targetLbl] where
   cmd          = nb ^. commandL
-  targetCourse = course $ nb ^. targetL
+  targetEdge   = nb ^. targetL
+  targetCourse = course targetEdge
+  targetLbl    = blockIndex targetEdge
+  storeInstr   = [StoreDPCC targetCourse | currentCourses /= [targetCourse]]
 
 filterNotNop ∷ [Instruction] → [Instruction]
 filterNotNop = filter (/= ExecCmd NoOperation)
+
+buildBackwardTable ∷ [Course] → Map Course [Course]
+buildBackwardTable courses = M.fromList $ fmap (\c -> (c, [c])) courses
 
 -- BUILDER
 
 renderAssemblyBuilder ∷ AssemblyProgram → LText.Builder
 renderAssemblyBuilder prog =
-  "; --- PIET FLAT ASSEMBLY LISTING ---\n"
-    <> "; Entry point: label_" <> showBuilder (entryLabel prog) <> "\n"
+  "; --- PIET SWITCH-BASED ASSEMBLY LISTING ---\n"
+    <> "; Entry point: block_" <> showBuilder (entryLabel prog) <> "\n"
     <> "; Initial Course: " <> showBuilder (entryDPCC prog) <> "\n\n"
-    <> mconcat (renderLabeledInstruction <$> instructions prog)
+    <> mconcat (renderBlock <$> blocks prog)
 
-renderLabeledInstruction ∷ (Maybe Label, Instruction) → LText.Builder
-renderLabeledInstruction (Just lbl, inst) = "label_" <> showBuilder lbl <> ":\n" <> renderInstruction inst
-renderLabeledInstruction (Nothing, inst)  = renderInstruction inst
+renderBlock ∷ BlockAssembly → LText.Builder
+renderBlock block =
+  "block_" <> showBuilder (blockLabel block) <> ":\n"
+    <> "    switch_dpcc\n"
+    <> mconcat (renderBranch <$> branches block)
+
+renderBranch ∷ BranchAssembly → LText.Builder
+renderBranch branch =
+  "  case " <> renderCourses (branchCourses branch) <> ":\n"
+    <> mconcat (renderInstruction <$> branchInstrs branch)
+
+renderCourses ∷ [Course] → LText.Builder
+renderCourses cs = mconcat $ intersperse ", " (showBuilder <$> cs)
 
 renderInstruction ∷ Instruction → LText.Builder
-renderInstruction (ExecCmd cmd)      = "    " <> toStringBuilder (showCommand cmd) <> "\n"
-renderInstruction (SetDPCC dpcc)     = "    set_dpcc " <> showBuilder dpcc <> "\n"
-renderInstruction (Jump target)      = "    jump label_" <> showBuilder target <> "\n"
-renderInstruction (BranchDPCC c lbl) = "    branch_dpcc " <> showBuilder c <> " label_" <> showBuilder lbl <> "\n"
-renderInstruction Exit               = "    exit\n"
+renderInstruction (ExecCmd cmd)    = "    " <> toStringBuilder (showCommand cmd) <> "\n"
+renderInstruction (StoreDPCC dpcc) = "    store_dpcc " <> showBuilder dpcc <> "\n"
+renderInstruction (Jump target)    = "    jump block_" <> showBuilder target <> "\n"
+renderInstruction Exit             = "    exit\n"
 
 toStringBuilder ∷ ToString a ⇒ a → LText.Builder
 toStringBuilder = LText.fromString . toString

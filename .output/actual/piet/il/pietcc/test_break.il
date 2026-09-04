@@ -1,18 +1,20 @@
-; --- PIET FLAT ASSEMBLY LISTING ---
-; Entry point: label_0
+; --- PIET SWITCH-BASED ASSEMBLY LISTING ---
+; Entry point: block_0
 ; Initial Course: Course {directionPointer = DPRight, codelChooser = CCLeft}
 
-label_0:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_1
+block_0:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     greater
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_1
+    jump block_1
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     greater
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-label_1:
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_0
+    jump block_1
+block_1:
+    switch_dpcc
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     greater
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_0
+    jump block_0
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     greater
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_0

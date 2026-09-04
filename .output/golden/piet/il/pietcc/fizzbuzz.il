@@ -1,2938 +1,3249 @@
-; --- PIET FLAT ASSEMBLY LISTING ---
-; Entry point: label_0
+; --- PIET SWITCH-BASED ASSEMBLY LISTING ---
+; Entry point: block_0
 ; Initial Course: Course {directionPointer = DPRight, codelChooser = CCLeft}
 
-label_0:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_1
+block_0:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_1
+    jump block_1
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-label_1:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_3
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_3
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_0
+    jump block_1
+block_1:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_3
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_3
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_0
+    jump block_0
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_3:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_4
+    jump block_0
+block_3:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_4
+    jump block_4
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_1
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_1
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_4:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_5
+    jump block_4
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_1
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_1
+block_4:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_5
+    jump block_5
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_3
+    jump block_5
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     divide
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_3
+    jump block_3
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_5:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_6
+    jump block_3
+block_5:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_4
+    jump block_6
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_6:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_7
+    jump block_4
+block_6:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_7
+    jump block_7
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_5
+    jump block_7
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_5
+    jump block_5
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_7:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_8
+    jump block_5
+block_7:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 4
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_6
+    jump block_8
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_8:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_9
+    jump block_6
+block_8:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_9
+    jump block_9
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_7
+    jump block_9
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_7
+    jump block_7
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_9:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_10
+    jump block_7
+block_9:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     mod
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_10
+    jump block_10
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     mod
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_8
+    jump block_10
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     in (char)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_8
+    jump block_8
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_10:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_11
+    jump block_8
+block_10:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     not
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_11
+    jump block_11
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     not
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_9
+    jump block_11
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     in (number)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_9
+    jump block_9
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     in (number)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_11:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_12
+    jump block_9
+block_11:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_12
+    jump block_12
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_10
+    jump block_12
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     roll
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_10
+    jump block_10
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     roll
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_12:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_14
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_14
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_64
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_64
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_11
+    jump block_10
+block_12:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_14
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_14
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_64
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_64
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_11
+    jump block_11
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_14:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_15
+    jump block_11
+block_14:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_15
+    jump block_15
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_12
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_12
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_15:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_16
+    jump block_15
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_12
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_12
+block_15:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 3
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_14
+    jump block_16
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_16:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_17
+    jump block_14
+block_16:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     mod
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_17
+    jump block_17
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     mod
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_15
+    jump block_17
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_15
+    jump block_15
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_17:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_18
+    jump block_15
+block_17:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     not
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_18
+    jump block_18
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     not
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_16
+    jump block_18
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     in (number)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_16
+    jump block_16
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     in (number)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_18:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_19
+    jump block_16
+block_18:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_19
+    jump block_19
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_17
+    jump block_19
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     roll
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_17
+    jump block_17
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     roll
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_19:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_21
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_21
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_66
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_66
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_18
+    jump block_17
+block_19:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_21
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_21
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_66
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_66
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_18
+    jump block_18
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_21:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_22
+    jump block_18
+block_21:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_22
+    jump block_22
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_19
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_19
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_22:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_23
+    jump block_22
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_19
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_19
+block_22:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 5
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_21
+    jump block_23
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_23:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_24
+    jump block_21
+block_23:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     mod
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_24
+    jump block_24
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     mod
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_22
+    jump block_24
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_22
+    jump block_22
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_24:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_25
+    jump block_22
+block_24:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     not
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_25
+    jump block_25
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     not
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_23
+    jump block_25
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     in (number)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_23
+    jump block_23
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     in (number)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_25:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_26
+    jump block_23
+block_25:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_26
+    jump block_26
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_24
+    jump block_26
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     roll
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_24
+    jump block_24
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     roll
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_26:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_28
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_28
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_68
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_68
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_25
+    jump block_24
+block_26:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_28
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_28
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_68
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_68
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_25
+    jump block_25
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_28:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_29
+    jump block_25
+block_28:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_29
+    jump block_29
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_26
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_26
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_29:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_30
+    jump block_29
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_26
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_26
+block_29:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     out (number)
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_30
+    jump block_30
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_28
+    jump block_30
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     divide
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_28
+    jump block_28
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_30:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_31
+    jump block_28
+block_30:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 10
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_29
+    jump block_31
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_31:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_32
+    jump block_29
+block_31:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     out (char)
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_32
+    jump block_32
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     out (char)
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_30
+    jump block_32
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_30
+    jump block_30
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_32:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_34
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_34
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_31
+    jump block_30
+block_32:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_34
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_34
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     subtract
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_31
+    jump block_31
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     subtract
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_34:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_35
+    jump block_31
+block_34:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_35
+    jump block_35
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_32
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_32
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_35:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_36
+    jump block_35
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_32
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_32
+block_35:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_36
+    jump block_36
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_34
+    jump block_36
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_34
+    jump block_34
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_36:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_37
+    jump block_34
+block_36:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_37
+    jump block_37
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_35
+    jump block_37
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     in (char)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_35
+    jump block_35
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_37:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_38
+    jump block_35
+block_37:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_38
+    jump block_38
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_36
+    jump block_38
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     divide
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_36
+    jump block_36
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_38:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_39
+    jump block_36
+block_38:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_37
+    jump block_39
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_39:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_40
+    jump block_37
+block_39:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_40
+    jump block_40
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_38
+    jump block_40
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_38
+    jump block_38
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_40:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_41
+    jump block_38
+block_40:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 5
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_39
+    jump block_41
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_41:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_42
+    jump block_39
+block_41:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_42
+    jump block_42
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_40
+    jump block_42
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_40
+    jump block_40
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_42:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_43
+    jump block_40
+block_42:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     greater
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_43
+    jump block_43
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     greater
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_41
+    jump block_43
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     in (char)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_41
+    jump block_41
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_43:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_44
+    jump block_41
+block_43:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     not
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_44
+    jump block_44
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     not
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_42
+    jump block_44
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     greater
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_42
+    jump block_42
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     greater
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_44:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_45
+    jump block_42
+block_44:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_45
+    jump block_45
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_43
+    jump block_45
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     roll
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_43
+    jump block_43
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     roll
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_45:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_47
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_47
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_72
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_72
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_44
+    jump block_43
+block_45:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_47
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_47
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_72
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_72
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_44
+    jump block_44
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_47:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_60
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_60
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_45
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_45
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_61:
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_3
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_3
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-label_64:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_66
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_66
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_84
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_84
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_61
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_61
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_12
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_12
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_66:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_68
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_68
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_86
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_86
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_64
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_64
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_19
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_19
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_68:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_70
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_70
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_88
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_88
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_66
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_66
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_26
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_26
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_70:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_72
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_72
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_90
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_90
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_68
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_68
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_34
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_34
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-label_72:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_72
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_72
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_70
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_70
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_45
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_45
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_82:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_111
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_111
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-label_84:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_86
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_86
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_84
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_84
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_64
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_64
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_86:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_88
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_88
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_104
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_104
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_84
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_84
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_66
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_66
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_88:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_90
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_90
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_106
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_106
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_86
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_86
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_68
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_68
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_90:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_82
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_82
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_108
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_108
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_88
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_88
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_70
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_70
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_101:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_127
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_127
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-label_104:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_106
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_106
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_121
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_121
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_104
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_104
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_86
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_86
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_106:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_108
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_108
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_104
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_104
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_88
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_88
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_108:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_101
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_101
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_125
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_125
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_106
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_106
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_90
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_90
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_111:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_111
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_111
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_129
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_129
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_101
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_101
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_82
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_82
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_121:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_144
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_104
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-label_125:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_127
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_127
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_140
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_140
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_121
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_121
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_108
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_108
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_127:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_129
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_129
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_149
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_149
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_125
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_125
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_101
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_101
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_129:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_129
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_129
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_153
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_153
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_127
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_127
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_111
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_111
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_140:
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_125
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_125
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_142:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_144
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_144
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_368
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_368
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_142
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_142
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-label_144:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_146
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_146
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_168
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_168
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_142
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_142
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_121
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_121
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_146:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_140
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_140
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_348
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_348
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_144
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_144
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_149:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_151
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_151
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_171
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_171
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_140
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_140
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_127
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_127
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_151:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_153
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_153
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_415
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_415
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_149
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_149
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_153:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_153
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_153
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_174
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_174
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_151
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_151
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_129
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_129
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_168:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_175
+    jump block_44
+block_47:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_60
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_60
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_45
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_45
+block_60:
+    switch_dpcc
+block_61:
+    switch_dpcc
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    jump block_3
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    jump block_3
+block_64:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_66
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_66
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_84
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_84
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_61
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_61
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_12
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_12
+block_66:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_68
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_68
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_86
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_86
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_64
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_64
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_19
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_19
+block_68:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_70
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_70
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_88
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_88
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_66
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_66
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_26
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_26
+block_70:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_72
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_72
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_90
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_90
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_68
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_68
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    jump block_34
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    jump block_34
+block_72:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
+    jump block_72
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
+    jump block_72
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_70
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_70
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_45
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_45
+block_82:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_111
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_111
+block_84:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_86
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_86
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    jump block_84
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    jump block_84
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_64
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_64
+block_86:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_88
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_88
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_104
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_104
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_84
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_84
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_66
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_66
+block_88:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_90
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_90
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_106
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_106
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_86
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_86
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_68
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_68
+block_90:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_82
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_82
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_108
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_108
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_88
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_88
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_70
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_70
+block_101:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_127
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_127
+block_104:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_106
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_106
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_121
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_121
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    jump block_104
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    jump block_104
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_86
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_86
+block_106:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_108
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_108
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_104
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_104
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_88
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_88
+block_108:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_101
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_101
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_125
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_125
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_106
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_106
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_90
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_90
+block_111:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
+    jump block_111
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
+    jump block_111
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_129
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_129
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_101
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_101
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_82
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_82
+block_121:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_144
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_104
+block_125:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_127
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_127
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_140
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_140
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_121
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_121
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_108
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_108
+block_127:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_129
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_129
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_149
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_149
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_125
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_125
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_101
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_101
+block_129:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
+    jump block_129
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
+    jump block_129
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_153
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_153
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_127
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_127
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_111
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_111
+block_140:
+    switch_dpcc
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_125
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_125
+block_142:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_144
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_144
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_368
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_368
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    jump block_142
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    jump block_142
+block_144:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_146
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_146
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_168
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_168
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_142
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_142
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_121
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_121
+block_146:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_140
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_140
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_348
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_348
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_144
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_144
+block_149:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_151
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_151
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_171
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_171
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_140
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_140
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_127
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_127
+block_151:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_153
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_153
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_415
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_415
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_149
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_149
+block_153:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
+    jump block_153
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
+    jump block_153
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_174
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_174
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_151
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_151
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_129
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_129
+block_168:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_175
+    jump block_175
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_144
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_171:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_176
+    jump block_175
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_144
+block_171:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_176
+    jump block_176
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_149
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_174:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_177
+    jump block_176
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_149
+block_174:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_177
+    jump block_177
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_153
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_175:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_178
+    jump block_177
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_153
+block_175:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_168
+    jump block_178
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_168
+    jump block_168
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_176:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_179
+    jump block_168
+block_176:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_171
+    jump block_179
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_171
+    jump block_171
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_177:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_180
+    jump block_171
+block_177:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_174
+    jump block_180
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_174
+    jump block_174
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_178:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_181
+    jump block_174
+block_178:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_181
+    jump block_181
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_175
+    jump block_181
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_175
+    jump block_175
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_179:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_182
+    jump block_175
+block_179:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_182
+    jump block_182
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_176
+    jump block_182
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_176
+    jump block_176
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_180:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_183
+    jump block_176
+block_180:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_183
+    jump block_183
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_177
+    jump block_183
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_177
+    jump block_177
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_181:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_184
+    jump block_177
+block_181:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_184
+    jump block_184
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_178
+    jump block_184
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_178
+    jump block_178
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_182:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_185
+    jump block_178
+block_182:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_185
+    jump block_185
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_179
+    jump block_185
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_179
+    jump block_179
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_183:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_186
+    jump block_179
+block_183:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_186
+    jump block_186
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_180
+    jump block_186
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_180
+    jump block_180
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_184:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_187
+    jump block_180
+block_184:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_187
+    jump block_187
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_181
+    jump block_187
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_181
+    jump block_181
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_185:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_188
+    jump block_181
+block_185:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_188
+    jump block_188
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_182
+    jump block_188
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_182
+    jump block_182
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_186:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_189
+    jump block_182
+block_186:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_189
+    jump block_189
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_183
+    jump block_189
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_183
+    jump block_183
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_187:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_190
+    jump block_183
+block_187:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_190
+    jump block_190
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_184
+    jump block_190
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_188:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_191
+    jump block_184
+block_188:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_191
+    jump block_191
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_185
+    jump block_191
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_189:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_192
+    jump block_185
+block_189:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_192
+    jump block_192
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_186
+    jump block_192
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_190:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_193
+    jump block_186
+block_190:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_187
+    jump block_193
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_187
+    jump block_187
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_191:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_194
+    jump block_187
+block_191:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_188
+    jump block_194
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_188
+    jump block_188
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_192:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_195
+    jump block_188
+block_192:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_189
+    jump block_195
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_189
+    jump block_189
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_193:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_196
+    jump block_189
+block_193:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_196
+    jump block_196
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_190
+    jump block_196
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_190
+    jump block_190
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_194:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_197
+    jump block_190
+block_194:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_197
+    jump block_197
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_191
+    jump block_197
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_191
+    jump block_191
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_195:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_198
+    jump block_191
+block_195:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_198
+    jump block_198
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_192
+    jump block_198
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_192
+    jump block_192
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_196:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_199
+    jump block_192
+block_196:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_199
+    jump block_199
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_193
+    jump block_199
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_193
+    jump block_193
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_197:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_200
+    jump block_193
+block_197:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_200
+    jump block_200
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_194
+    jump block_200
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_194
+    jump block_194
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_198:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_201
+    jump block_194
+block_198:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_201
+    jump block_201
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_195
+    jump block_201
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_195
+    jump block_195
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_199:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_202
+    jump block_195
+block_199:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_202
+    jump block_202
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_196
+    jump block_202
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_196
+    jump block_196
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_200:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_203
+    jump block_196
+block_200:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_203
+    jump block_203
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_197
+    jump block_203
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_197
+    jump block_197
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_201:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_204
+    jump block_197
+block_201:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_204
+    jump block_204
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_198
+    jump block_204
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_198
+    jump block_198
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_202:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_205
+    jump block_198
+block_202:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 9
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_205
+    jump block_205
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 9
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_199
+    jump block_205
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_203:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_206
+    jump block_199
+block_203:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 10
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_206
+    jump block_206
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 10
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_200
+    jump block_206
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_204:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_207
+    jump block_200
+block_204:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 10
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_207
+    jump block_207
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 10
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_201
+    jump block_207
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_205:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_208
+    jump block_201
+block_205:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_202
+    jump block_208
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_206:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_209
+    jump block_202
+block_206:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_203
+    jump block_209
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_207:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_210
+    jump block_203
+block_207:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_204
+    jump block_210
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_208:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_211
+    jump block_204
+block_208:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_211
+    jump block_211
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_205
+    jump block_211
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_205
+    jump block_205
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_209:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_212
+    jump block_205
+block_209:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_212
+    jump block_212
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_206
+    jump block_212
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_206
+    jump block_206
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_210:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_213
+    jump block_206
+block_210:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_213
+    jump block_213
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_207
+    jump block_213
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_207
+    jump block_207
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_211:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_214
+    jump block_207
+block_211:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 6
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_208
+    jump block_214
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_212:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_215
+    jump block_208
+block_212:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 7
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_209
+    jump block_215
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_213:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_216
+    jump block_209
+block_213:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 7
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_210
+    jump block_216
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_214:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_217
+    jump block_210
+block_214:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_217
+    jump block_217
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_211
+    jump block_217
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_211
+    jump block_211
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_215:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_218
+    jump block_211
+block_215:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_218
+    jump block_218
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_212
+    jump block_218
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_212
+    jump block_212
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_216:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_219
+    jump block_212
+block_216:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_219
+    jump block_219
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_213
+    jump block_219
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_213
+    jump block_213
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_217:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_220
+    jump block_213
+block_217:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 6
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_220
+    jump block_220
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 6
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_214
+    jump block_220
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_218:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_221
+    jump block_214
+block_218:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 6
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_221
+    jump block_221
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 6
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_215
+    jump block_221
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_219:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_222
+    jump block_215
+block_219:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 6
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_222
+    jump block_222
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 6
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_216
+    jump block_222
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_220:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_223
+    jump block_216
+block_220:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_217
+    jump block_223
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_221:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_224
+    jump block_217
+block_221:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_218
+    jump block_224
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_222:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_225
+    jump block_218
+block_222:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_219
+    jump block_225
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_223:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_226
+    jump block_219
+block_223:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_226
+    jump block_226
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_220
+    jump block_226
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_220
+    jump block_220
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_224:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_227
+    jump block_220
+block_224:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_227
+    jump block_227
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_221
+    jump block_227
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_221
+    jump block_221
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_225:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_228
+    jump block_221
+block_225:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_228
+    jump block_228
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_222
+    jump block_228
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_222
+    jump block_222
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_226:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_229
+    jump block_222
+block_226:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 4
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_223
+    jump block_229
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_227:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_230
+    jump block_223
+block_227:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 4
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_224
+    jump block_230
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_228:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_231
+    jump block_224
+block_228:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_231
+    jump block_231
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_225
+    jump block_231
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_229:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_232
+    jump block_225
+block_229:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_232
+    jump block_232
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_226
+    jump block_232
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_226
+    jump block_226
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_230:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_233
+    jump block_226
+block_230:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_233
+    jump block_233
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_227
+    jump block_233
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_227
+    jump block_227
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_231:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_234
+    jump block_227
+block_231:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_228
+    jump block_234
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_228
+    jump block_228
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_232:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_235
+    jump block_228
+block_232:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 4
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_229
+    jump block_235
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_233:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_246
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_246
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_230
+    jump block_229
+block_233:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_246
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_246
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     divide
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_230
+    jump block_230
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_234:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_240
+    jump block_230
+block_234:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_240
+    jump block_240
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_231
+    jump block_240
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_231
+    jump block_231
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_235:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_241
+    jump block_231
+block_235:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_241
+    jump block_241
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_232
+    jump block_241
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_232
+    jump block_232
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_236:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_238
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_238
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-label_238:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_246
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_246
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_259
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_259
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_236
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_236
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_238
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_238
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-label_240:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_247
+    jump block_232
+block_236:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_238
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_238
+block_238:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_246
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_246
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_259
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_259
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_236
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_236
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_238
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_238
+block_240:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_247
+    jump block_247
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_234
+    jump block_247
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_234
+    jump block_234
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_241:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_258
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_258
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_235
+    jump block_234
+block_241:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_258
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_258
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     divide
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_235
+    jump block_235
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_246:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_252
+    jump block_235
+block_246:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     not
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_252
+    jump block_252
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     not
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_233
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_233
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_247:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_253
+    jump block_252
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_233
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_233
+block_247:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_253
+    jump block_253
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_240
+    jump block_253
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_240
+    jump block_240
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_248:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_250
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_250
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-label_250:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_258
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_258
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_273
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_273
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_248
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_248
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_250
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_250
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-label_252:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_266
+    jump block_240
+block_248:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_250
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_250
+block_250:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_258
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_258
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_273
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_273
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_248
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_248
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_250
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_250
+block_252:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_266
+    jump block_266
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_246
+    jump block_266
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     roll
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_246
+    jump block_246
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     roll
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_253:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_267
+    jump block_246
+block_253:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_267
+    jump block_267
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_247
+    jump block_267
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_258:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_268
+    jump block_247
+block_258:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     not
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_268
+    jump block_268
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     not
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_241
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_241
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_259:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_260
+    jump block_268
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_241
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_241
+block_259:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_260
+    jump block_260
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_309
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_309
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_238
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_238
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_260:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_262
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_262
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_259
+    jump block_260
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_309
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_309
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_238
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_238
+block_260:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_262
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_262
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_259
+    jump block_259
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_262:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_263
+    jump block_259
+block_262:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_263
+    jump block_263
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_260
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_260
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_263:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_265
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_265
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_262
+    jump block_263
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_260
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_260
+block_263:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_265
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_265
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     push 3
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_262
+    jump block_262
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     push 3
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_265:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_266
+    jump block_262
+block_265:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_266
+    jump block_266
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_263
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_263
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_266:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_281
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_281
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_265
+    jump block_266
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_263
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_263
+block_266:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_281
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_281
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_265
+    jump block_265
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_252
+    jump block_265
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_252
+    jump block_252
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_267:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_272
+    jump block_252
+block_267:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_253
+    jump block_272
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_253
+    jump block_253
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_268:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_280
+    jump block_253
+block_268:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_280
+    jump block_280
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_258
+    jump block_280
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     roll
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_258
+    jump block_258
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     roll
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_272:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_282
+    jump block_258
+block_272:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_282
+    jump block_282
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_267
+    jump block_282
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_267
+    jump block_267
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_273:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_274
+    jump block_267
+block_273:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_274
+    jump block_274
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_321
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_321
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_250
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_250
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_274:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_276
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_276
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_273
+    jump block_274
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_321
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_321
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_250
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_250
+block_274:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_276
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_276
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_273
+    jump block_273
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_276:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_277
+    jump block_273
+block_276:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_277
+    jump block_277
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_274
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_274
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_277:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_279
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_279
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_276
+    jump block_277
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_274
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_274
+block_277:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_279
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_279
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     push 3
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_276
+    jump block_276
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     push 3
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_279:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_280
+    jump block_276
+block_279:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_280
+    jump block_280
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_277
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_277
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_280:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_288
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_288
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_279
+    jump block_280
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_277
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_277
+block_280:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_288
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_288
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_279
+    jump block_279
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_268
+    jump block_279
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_268
+    jump block_268
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_281:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_286
+    jump block_268
+block_281:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 2
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_266
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_282:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_287
+    jump block_286
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_266
+block_282:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_287
+    jump block_287
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_272
+    jump block_287
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_272
+    jump block_272
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_286:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_289
+    jump block_272
+block_286:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_289
+    jump block_289
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_281
+    jump block_289
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_281
+    jump block_281
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_287:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_290
+    jump block_281
+block_287:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_290
+    jump block_290
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_282
+    jump block_290
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_282
+    jump block_282
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_288:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_291
+    jump block_282
+block_288:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 2
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_280
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_289:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_292
+    jump block_291
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_280
+block_289:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     roll
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_292
+    jump block_292
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     roll
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_286
+    jump block_292
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_286
+    jump block_286
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_290:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_293
+    jump block_286
+block_290:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 9
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_293
+    jump block_293
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 9
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_287
+    jump block_293
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_291:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_294
+    jump block_287
+block_291:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_294
+    jump block_294
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_288
+    jump block_294
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_288
+    jump block_288
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_292:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_295
+    jump block_288
+block_292:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_295
+    jump block_295
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_289
+    jump block_295
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     not
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_289
+    jump block_289
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     not
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_293:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_296
+    jump block_289
+block_293:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_290
+    jump block_296
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_294:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_297
+    jump block_290
+block_294:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     roll
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_297
+    jump block_297
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     roll
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_291
+    jump block_297
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_291
+    jump block_291
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_295:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_298
+    jump block_291
+block_295:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_298
+    jump block_298
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_292
+    jump block_298
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_292
+    jump block_292
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_296:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_299
+    jump block_292
+block_296:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_299
+    jump block_299
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_293
+    jump block_299
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_293
+    jump block_293
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_297:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_300
+    jump block_293
+block_297:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_300
+    jump block_300
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_294
+    jump block_300
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     not
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_294
+    jump block_294
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     not
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_298:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_301
+    jump block_294
+block_298:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     subtract
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_301
+    jump block_301
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     subtract
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_295
+    jump block_301
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_295
+    jump block_295
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_299:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_302
+    jump block_295
+block_299:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 6
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_296
+    jump block_302
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_300:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_303
+    jump block_296
+block_300:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_303
+    jump block_303
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_297
+    jump block_303
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_297
+    jump block_297
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_301:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_304
+    jump block_297
+block_301:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_304
+    jump block_304
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_298
+    jump block_304
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_298
+    jump block_298
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_302:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_305
+    jump block_298
+block_302:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_305
+    jump block_305
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_299
+    jump block_305
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_299
+    jump block_299
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_303:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_306
+    jump block_299
+block_303:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     subtract
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_306
+    jump block_306
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     subtract
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_300
+    jump block_306
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_300
+    jump block_300
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_304:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_312
+    jump block_300
+block_304:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_312
+    jump block_312
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_301
+    jump block_312
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_301
+    jump block_301
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_305:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_313
+    jump block_301
+block_305:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 6
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_313
+    jump block_313
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 6
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_302
+    jump block_313
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_306:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_314
+    jump block_302
+block_306:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_314
+    jump block_314
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_303
+    jump block_314
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_303
+    jump block_303
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_307:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_309
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_309
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_350
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_350
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_236
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_236
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_309:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_311
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_311
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_325
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_325
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_307
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_307
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_259
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_259
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_311:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_312
+    jump block_303
+block_307:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_309
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_309
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_350
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_350
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_236
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_236
+block_309:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_311
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_311
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_325
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_325
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_307
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_307
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_259
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_259
+block_311:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     divide
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_312
+    jump block_312
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_309
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_309
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_312:
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_311
+    jump block_312
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_309
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_309
+block_312:
+    switch_dpcc
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_311
+    jump block_311
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_304
+    jump block_311
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_304
+    jump block_304
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_313:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_318
+    jump block_304
+block_313:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 11
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_305
+    jump block_318
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_314:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_324
+    jump block_305
+block_314:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_324
+    jump block_324
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_306
+    jump block_324
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_306
+    jump block_306
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_318:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_327
+    jump block_306
+block_318:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_327
+    jump block_327
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     multiply
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_313
+    jump block_327
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_313
+    jump block_313
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_319:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_321
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_321
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_370
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_370
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_248
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_248
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_321:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_323
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_323
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_335
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_335
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_319
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_319
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_273
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_273
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_323:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_324
+    jump block_313
+block_319:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_321
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_321
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_370
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_370
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_248
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_248
+block_321:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_323
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_323
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_335
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_335
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_319
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_319
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_273
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_273
+block_323:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     divide
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_324
+    jump block_324
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_321
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_321
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_324:
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_323
+    jump block_324
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_321
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_321
+block_324:
+    switch_dpcc
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_323
+    jump block_323
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_314
+    jump block_323
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_314
+    jump block_314
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_325:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_333
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_333
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-label_327:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_334
+    jump block_314
+block_325:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_333
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_333
+block_327:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 4
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_318
+    jump block_334
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (number)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_333:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_337
+    jump block_318
+block_333:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 10
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_333
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_333
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-label_334:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_338
+    jump block_337
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_333
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_333
+block_334:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_338
+    jump block_338
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     add
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_327
+    jump block_338
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_327
+    jump block_327
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_335:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_341
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_341
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-label_337:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_342
+    jump block_327
+block_335:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_341
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_341
+block_337:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_342
+    jump block_342
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_333
+    jump block_342
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_333
+    jump block_333
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_338:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_343
+    jump block_333
+block_338:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 8
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_334
+    jump block_343
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     in (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_341:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_344
+    jump block_334
+block_341:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 10
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_341
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_341
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-label_342:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_345
+    jump block_344
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_341
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_341
+block_342:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_345
+    jump block_345
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_337
+    jump block_345
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_337
+    jump block_337
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_343:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_346
+    jump block_337
+block_343:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_346
+    jump block_346
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_338
+    jump block_346
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_338
+    jump block_338
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_344:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_347
+    jump block_338
+block_344:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_347
+    jump block_347
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_341
+    jump block_347
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_341
+    jump block_341
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_345:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_354
+    jump block_341
+block_345:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_354
+    jump block_354
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_342
+    jump block_354
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_342
+    jump block_342
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_346:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_367
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_367
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_343
+    jump block_342
+block_346:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_367
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_367
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     divide
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_343
+    jump block_343
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_347:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_359
+    jump block_343
+block_347:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_359
+    jump block_359
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_344
+    jump block_359
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_344
+    jump block_344
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_348:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_350
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_350
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_348
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_348
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_146
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_146
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_350:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_352
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_352
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_350
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_350
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_348
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_348
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_307
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_307
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_352:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_354
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_354
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_352
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_352
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_350
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_350
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_325
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_325
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_354:
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_352
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_352
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_345
+    jump block_344
+block_348:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_350
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_350
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_348
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_348
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_146
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_146
+block_350:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_352
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_352
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_350
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_350
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_348
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_348
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_307
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_307
+block_352:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_354
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_354
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_352
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_352
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_350
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_350
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_325
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_325
+block_354:
+    switch_dpcc
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_352
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_352
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_345
+    jump block_345
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_355:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_357
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_357
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-label_357:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_367
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_367
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_379
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_379
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_355
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_355
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_357
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_357
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-label_359:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_374
+    jump block_345
+block_355:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_357
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_357
+block_357:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_367
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_367
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_379
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_379
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_355
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_355
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_357
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_357
+block_359:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_374
+    jump block_374
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_347
+    jump block_374
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_347
+    jump block_347
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_367:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_375
+    jump block_347
+block_367:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     not
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_375
+    jump block_375
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     not
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_346
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_346
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_368:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_370
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_370
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_368
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_368
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_142
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_142
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_370:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_372
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_372
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_370
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_370
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_368
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_368
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_319
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_319
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_372:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_374
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_374
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_372
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_372
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_370
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_370
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_335
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_335
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_374:
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_372
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_372
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_359
+    jump block_375
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_346
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_346
+block_368:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_370
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_370
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_368
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_368
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_142
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_142
+block_370:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_372
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_372
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_370
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_370
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_368
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_368
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_319
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_319
+block_372:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_374
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_374
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_372
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_372
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_370
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_370
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_335
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_335
+block_374:
+    switch_dpcc
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_372
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_372
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_359
+    jump block_359
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_375:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_386
+    jump block_359
+block_375:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_386
+    jump block_386
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_367
+    jump block_386
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     roll
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_367
+    jump block_367
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     roll
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_379:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_380
+    jump block_367
+block_379:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_380
+    jump block_380
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_400
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_400
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_357
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_357
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_380:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_382
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_382
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_379
+    jump block_380
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_400
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_400
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_357
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_357
+block_380:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_382
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_382
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_379
+    jump block_379
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_382:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_383
+    jump block_379
+block_382:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_383
+    jump block_383
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_380
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_380
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_383:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_385
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_385
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_382
+    jump block_383
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_380
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_380
+block_383:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_385
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_385
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     push 3
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_382
+    jump block_382
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     push 3
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_385:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_386
+    jump block_382
+block_385:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_386
+    jump block_386
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_383
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_383
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_386:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_390
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_390
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_385
+    jump block_386
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_383
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_383
+block_386:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_390
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_390
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_385
+    jump block_385
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_375
+    jump block_385
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_375
+    jump block_375
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_390:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_391
+    jump block_375
+block_390:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 2
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_386
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_391:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_392
+    jump block_391
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_386
+block_391:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_392
+    jump block_392
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_390
+    jump block_392
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_390
+    jump block_390
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_392:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_393
+    jump block_390
+block_392:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     roll
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_393
+    jump block_393
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     roll
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_391
+    jump block_393
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_391
+    jump block_391
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_393:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_394
+    jump block_391
+block_393:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_394
+    jump block_394
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_392
+    jump block_394
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     not
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_392
+    jump block_392
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     not
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_394:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_395
+    jump block_392
+block_394:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_395
+    jump block_395
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_393
+    jump block_395
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_393
+    jump block_393
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_395:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_396
+    jump block_393
+block_395:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     subtract
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_396
+    jump block_396
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     subtract
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_394
+    jump block_396
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_394
+    jump block_394
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_396:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_397
+    jump block_394
+block_396:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_397
+    jump block_397
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_395
+    jump block_397
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     out (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_395
+    jump block_395
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     out (char)
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_397:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_403
+    jump block_395
+block_397:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_403
+    jump block_403
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_396
+    jump block_403
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_396
+    jump block_396
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_398:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_400
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_400
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_417
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_417
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_355
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_355
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_400:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_402
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_402
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_407
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_407
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_398
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_398
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_379
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_379
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_402:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_403
+    jump block_396
+block_398:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_400
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_400
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_417
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_417
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_355
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_355
+block_400:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_402
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_402
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    jump block_407
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    jump block_407
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_398
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_398
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_379
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_379
+block_402:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
     divide
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_403
+    jump block_403
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
     divide
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_400
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_400
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-label_403:
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_402
+    jump block_403
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_400
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_400
+block_403:
+    switch_dpcc
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
     duplicate
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_402
+    jump block_402
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     duplicate
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_397
+    jump block_402
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_397
+    jump block_397
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_407:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_411
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_411
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-label_411:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_412
+    jump block_397
+block_407:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_411
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_411
+block_411:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 10
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_411
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_411
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-label_412:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_413
+    jump block_412
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_411
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_411
+block_412:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_413
+    jump block_413
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     out (char)
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_411
+    jump block_413
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_411
+    jump block_411
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_413:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_414
+    jump block_411
+block_413:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_414
+    jump block_414
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     push 1
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_412
+    jump block_414
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_412
+    jump block_412
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     subtract
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_414:
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_421
+    jump block_412
+block_414:
+    switch_dpcc
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_421
+    jump block_421
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
     pointer
-    set_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_413
+    jump block_421
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_413
+    jump block_413
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     pop
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_415:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_417
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_417
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_415
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_415
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_151
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_151
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_417:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_419
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_419
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_417
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_417
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_415
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_415
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_398
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_398
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_419:
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft} label_421
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPRight, codelChooser = CCRight} label_421
-    set_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft} label_419
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPDown, codelChooser = CCRight} label_419
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_417
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_417
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_407
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_407
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
-label_421:
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft} label_419
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight} label_419
-    set_dpcc Course {directionPointer = DPLeft, codelChooser = CCRight}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft} label_414
+    jump block_413
+block_415:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_417
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_417
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_415
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_415
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_151
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_151
+block_417:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_419
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_419
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_417
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_417
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_415
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_415
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_398
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_398
+block_419:
+    switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    jump block_421
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    jump block_421
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_419
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_419
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_417
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_417
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_407
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    jump block_407
+block_421:
+    switch_dpcc
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    jump block_419
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    jump block_419
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
-    branch_dpcc Course {directionPointer = DPUp, codelChooser = CCRight} label_414
+    jump block_414
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
     switch
-    set_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_414
