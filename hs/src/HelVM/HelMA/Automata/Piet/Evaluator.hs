@@ -38,6 +38,7 @@ import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
+import           HelVM.HelMA.Automaton.ShowList
 
 import           HelVM.HelIO.Control.Safe
 
@@ -62,7 +63,7 @@ simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage �
 simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs
 
 ilText ∷ MonadSafe m ⇒ ImageInput → m LText
-ilText = fmap (renderIL . compileToIL . generateAssembly) . parseColors
+ilText = fmap (printListToLText printI . compileToIL . generateAssembly) . parseColors
 
 assemblyText ∷ MonadSafe m ⇒ ImageInput → m LText
 assemblyText = fmap (renderAssembly . generateAssembly) . parseColors
