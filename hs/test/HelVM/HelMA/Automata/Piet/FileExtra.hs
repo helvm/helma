@@ -20,6 +20,9 @@ buildAbsolutePietLogFileName path = "piet" </> "eval" </> "logged" </> path <.> 
 buildAbsolutePietIlFileName ∷ FilePath → FilePath
 buildAbsolutePietIlFileName path = "piet" </> "il" </> path <.> "il"
 
+buildAbsolutePietTlFileName ∷ FilePath → FilePath
+buildAbsolutePietTlFileName path = "piet" </> "tl" </> path <.> "tl"
+
 buildAbsolutePietDotFileName ∷ FilePath → FilePath
 buildAbsolutePietDotFileName path = "piet" </> "dot" </> path <.> "dot"
 

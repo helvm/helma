@@ -79,9 +79,21 @@ spec =
     let path = dirName </> fileName
     describe path $ do
       it ("il" </> path) $
-        asm fullPath `goldenShouldIO` buildAbsolutePietIlFileName path
+        il fullPath `goldenShouldIO` buildAbsolutePietIlFileName path
+      it ("tl" </> path) $
+        asm fullPath `goldenShouldIO` buildAbsolutePietTlFileName path
       it ("dot" </> path) $
         dot fullPath `goldenShouldIO` buildAbsolutePietDotFileName path
+
+il ∷ FilePath → IO Text
+il path = toText <$> ilL path
+
+ilL ∷ FilePath → IO LText
+ilL = ilTextIO <=< readImage
+
+ilTextIO ∷ DynamicImage → IO LText
+ilTextIO = safeToIO . ilText . (defaultConfig, )
+
 
 asm ∷ FilePath → IO Text
 asm path = toText <$> asmL path

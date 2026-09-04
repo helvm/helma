@@ -4,6 +4,7 @@ module HelVM.HelMA.Automata.Piet.Evaluator
   , run
   , runRio
   , simpleEval
+  , ilText
   ) where
 
 import           HelVM.HelMA.Automata.Piet.AssemblyGenerator
