@@ -10,6 +10,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.API.CodelSize
 
 import           Codec.Picture
+
 import qualified Data.List.NonEmpty                          as NE
 import           Data.MonoTraversable
 

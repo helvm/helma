@@ -25,7 +25,7 @@ data Course
       { directionPointer :: !DirectionPointer
       , codelChooser     :: !CodelChooser
       }
-  deriving stock (Eq, Ord, Show)
+  deriving stock (Bounded, Eq, Ord, Show)
 
 initialCourse ∷ Course
 initialCourse = Course DPRight CCLeft

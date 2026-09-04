@@ -6,12 +6,14 @@ import qualified HelVM.HelMA.Automaton.API.AppOptions as App
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
+import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Extra
 
-import qualified RIO
+import           HelVM.HelIO.Control.Safe
 
-import           Text.Pretty.Simple
+import qualified RIO
+import           Text.Pretty.Simple                   ( pShowNoColor )
 
 runRio ∷ Has env ⇒ RIO.RIO env ()
 runRio = runWIthOptions =<< optionsRio where
@@ -19,5 +21,9 @@ runRio = runWIthOptions =<< optionsRio where
 
 run ∷ Has env ⇒ Emit → EvalParams → RIO.RIO env ()
 run No = const $ error "FALSE is not supported now"
-run IL = putLTextLnRio . pShowNoColor . parseSafe . source
+run IL = putLTextLnRio <=< runAsRIO . emitTL . source
+run TL = putLTextLnRio <=< runAsRIO . emitTL . source
 run _  = fallback
+
+emitTL ∷ MonadSafe m ⇒ Source → m LText
+emitTL s = liftSafe $ pShowNoColor <$> parseSafe s

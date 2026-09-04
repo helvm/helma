@@ -34,9 +34,9 @@ spec =
         it ("minified" </> outputPath) $
           minifyFile tokenType path `goldenShouldIO` buildAbsoluteStnFileName outputPath
         it ("parsed"  </> outputPath) $
-          optimizeFile NoOptimizations formatLabel tokenType path `goldenShouldIO` buildAbsoluteWsIlFileName ("parsed" </> outputPath)
+          optimizeFile NoOptimizations formatLabel tokenType path `goldenLShouldIO` buildAbsoluteWsIlFileName ("parsed" </> outputPath)
         it ("optimized" </> outputPath) $
-          optimizeFile AllOptimizations formatLabel tokenType path `goldenShouldIO` buildAbsoluteWsIlFileName ("optimized" </> outputPath)
+          optimizeFile AllOptimizations formatLabel tokenType path `goldenLShouldIO` buildAbsoluteWsIlFileName ("optimized" </> outputPath)
 
 allFiles ∷ [((LabelType , TokenType , FilePath) , FilePath)]
 allFiles = originalW <> originalV <> fromWsa <> binaryLabel
@@ -83,7 +83,7 @@ binaryLabel = [(BinaryLabel , WhiteTokenType , "from-elvm")] >*<
 minifyFile ∷ TokenType → String → IO Text
 minifyFile tokenType = readTokensByTokenType tokenType <.> readFileByTokenType tokenType
 
-optimizeFile ∷ OptimizationLevel → LabelType → TokenType → String → IO Text
+optimizeFile ∷ OptimizationLevel → LabelType → TokenType → String → IO LText
 optimizeFile optLevel labelType tokenType path = safeIOToIO ((printIL <.> optimize optLevel <.> parseForTest labelType tokenType) <$> readFileByTokenType tokenType path)
 
 readTokensByTokenType∷ TokenType → Text → Text

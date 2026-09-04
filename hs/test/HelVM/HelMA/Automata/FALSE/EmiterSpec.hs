@@ -1,9 +1,9 @@
-module HelVM.HelMA.Automata.FALSE.ParserSpec
+module HelVM.HelMA.Automata.FALSE.EmiterSpec
   ( spec
   ) where
 
+import           HelVM.HelMA.Automata.FALSE.Evaluator
 import           HelVM.HelMA.Automata.FALSE.FileExtra
-import           HelVM.HelMA.Automata.FALSE.Parser
 
 import           HelVM.HelIO.Control.Safe
 
@@ -90,4 +90,4 @@ spec = do
 
       ] $ \ path ->
       it path $
-        safeIOToPTextIO (parse <$> readFFile path) `goldenShouldIO` buildAbsoluteFIlFileName path
+        safeIOToIO (emitTL <$> readFFile path) `goldenLShouldIO` buildAbsoluteFIlFileName path

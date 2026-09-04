@@ -6,9 +6,10 @@ import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
+import           HelVM.HelMA.Automaton.ShowList
+
 import           Data.List.Index
 import qualified Data.Vector                                            as Vector
-
 
 -- | Types
 
@@ -30,8 +31,8 @@ printIndexedIL il = unlines $ printIndexedI <$> indexed il
 printIndexedI ∷ (Int , Instruction) → Text
 printIndexedI (index , i) = printI i <> " # " <> show index
 
-printIL ∷ InstructionList → Text
-printIL il = unlines $ printI <$> il
+printIL ∷ [Instruction] → LText
+printIL = printListToLText printI
 
 printI ∷ Instruction → Text
 printI (ISM i) = printSM i

@@ -163,6 +163,8 @@ library
 
     HelVM.HelMA.Automaton.ReadPExtra
 
+    HelVM.HelMA.Automaton.ShowList
+
     HelVM.HelMA.Automaton.Symbol
 
     HelVM.HelMA.Automaton.Trampoline
@@ -233,12 +235,14 @@ library
     HelVM.HelMA.Automata.LazyK.Parser
     HelVM.HelMA.Automata.LazyK.Reducer
     
+    HelVM.HelMA.Automata.Piet.AssemblyGenerator
     HelVM.HelMA.Automata.Piet.CodelSize
     HelVM.HelMA.Automata.Piet.Combiner
     HelVM.HelMA.Automata.Piet.Compiler
     HelVM.HelMA.Automata.Piet.Evaluator
     HelVM.HelMA.Automata.Piet.Filler
     HelVM.HelMA.Automata.Piet.ImageReader
+    HelVM.HelMA.Automata.Piet.InstructionCompiler
     HelVM.HelMA.Automata.Piet.MatrixBuilder
     HelVM.HelMA.Automata.Piet.Parser
     HelVM.HelMA.Automata.Piet.SyntaxParser
@@ -374,7 +378,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.ETA.OperandParsersSpec
 
     HelVM.HelMA.Automata.FALSE.FileExtra
-    HelVM.HelMA.Automata.FALSE.ParserSpec
+    HelVM.HelMA.Automata.FALSE.EmiterSpec
 
     HelVM.HelMA.Automata.LazyK.EvaluatorSpec
     HelVM.HelMA.Automata.LazyK.FileExtra
@@ -383,7 +387,7 @@ test-suite helma-test
 
     HelVM.HelMA.Automata.Piet.CodelSizeSpec
     HelVM.HelMA.Automata.Piet.EvaluatorCollisionSpec
-    HelVM.HelMA.Automata.Piet.EvaluatorDotSpec
+    HelVM.HelMA.Automata.Piet.EvaluatorParseSpec
     HelVM.HelMA.Automata.Piet.EvaluatorStepStateSpec
     HelVM.HelMA.Automata.Piet.FileExtra
     HelVM.HelMA.Automata.Piet.FillerSpec
