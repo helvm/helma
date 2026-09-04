@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.EvaluatorDotSpec
+module HelVM.HelMA.Automata.Piet.EvaluatorParseSpec
   ( spec
   ) where
 
@@ -78,8 +78,19 @@ spec =
     let fullPath = "examples" </> "piet" </> filePath
     let path = dirName </> fileName
     describe path $ do
+      it ("il" </> path) $
+        asm fullPath `goldenShouldIO` buildAbsolutePietIlFileName path
       it ("dot" </> path) $
         dot fullPath `goldenShouldIO` buildAbsolutePietDotFileName path
+
+asm ∷ FilePath → IO Text
+asm path = toText <$> asmL path
+
+asmL ∷ FilePath → IO LText
+asmL = asmTextIO <=< readImage
+
+asmTextIO ∷ DynamicImage → IO LText
+asmTextIO = safeToIO . assemblyText . (defaultConfig, )
 
 dot ∷ FilePath → IO Text
 dot path = toText <$> dotL path
@@ -88,4 +99,5 @@ dotL ∷ FilePath → IO LText
 dotL = graphTextIO <=< readImage
 
 graphTextIO ∷ DynamicImage → IO LText
-graphTextIO = safeToIO . graphText defaultConfig
+graphTextIO = safeToIO . graphText . (defaultConfig, )
+

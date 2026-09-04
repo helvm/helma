@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automata.Piet.Types.Command
   ( Command (..)
   , commandFromTransition
+  , renderCommand
   , showCommand
   ) where
 
@@ -81,3 +82,23 @@ showCommand InNumber    = "in (number)"
 showCommand InChar      = "in (char)"
 showCommand OutNumber   = "out (number)"
 showCommand OutChar     = "out (char)"
+
+renderCommand ∷ Command → Text
+renderCommand NoOperation = "nop"
+renderCommand (Push n)    = "push " <> show n
+renderCommand Pop         = "pop"
+renderCommand Add         = "add"
+renderCommand Subtract    = "sub"
+renderCommand Multiply    = "mul"
+renderCommand Divide      = "div"
+renderCommand Mod         = "mod"
+renderCommand Not         = "not"
+renderCommand Greater     = "greater"
+renderCommand Pointer     = "pointer"
+renderCommand Switch      = "switch"
+renderCommand Duplicate   = "dup"
+renderCommand Roll        = "roll"
+renderCommand InNumber    = "in_num"
+renderCommand InChar      = "in_char"
+renderCommand OutNumber   = "out_num"
+renderCommand OutChar     = "out_char"

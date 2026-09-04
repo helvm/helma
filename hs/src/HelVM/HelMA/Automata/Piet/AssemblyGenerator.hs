@@ -1,29 +1,24 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- | Functions to generate a high-level assembly IR and pretty-printed code from 'SyntaxGraph'.
 module HelVM.HelMA.Automata.Piet.AssemblyGenerator
-  ( -- * Types
-    AssemblyProgram (..)
+  ( AssemblyProgram (..)
   , BlockAssembly (..)
   , Instruction (..)
   , Label
-    -- * Generation
   , generateAssembly
-    -- * Pretty Printing
   , renderAssembly
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Command
-import           HelVM.HelMA.Automata.Piet.Types.Course      ( Course )
+import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import qualified Data.IntMap                                 as IM
 import qualified Data.Map                                    as M
+import qualified Data.Text.Lazy.Builder                      as LText
 
--- | Label identifying a basic block in the assembly code.
 type Label = Int
 
--- | High-level instructions representing Piet execution flow.
 data Instruction
   = ExecCmd Command
   | SetDPCC Course
@@ -31,7 +26,6 @@ data Instruction
   | Exit
   deriving stock (Eq, Show)
 
--- | A single basic block with a label, Course switch-case branches, and fallback transitions.
 data BlockAssembly
   = BlockAssembly
       { blockLabel   :: Label
@@ -39,7 +33,6 @@ data BlockAssembly
       }
   deriving stock (Eq, Show)
 
--- | The complete compiled Piet assembly program.
 data AssemblyProgram
   = AssemblyProgram
       { entryLabel :: Label
@@ -48,9 +41,9 @@ data AssemblyProgram
       }
   deriving stock (Eq, Show)
 
--- | Generate an 'AssemblyProgram' IR from a 'SyntaxGraph'.
-generateAssembly ∷ SyntaxGraph → AssemblyProgram
-generateAssembly (SyntaxGraph entryEdge bMap) =
+generateAssembly ∷ Maybe SyntaxGraph → AssemblyProgram
+generateAssembly Nothing = AssemblyProgram 0 initialCourse IM.empty
+generateAssembly (Just (SyntaxGraph entryEdge bMap)) =
   AssemblyProgram
     { entryLabel = blockIndex entryEdge
     , entryDPCC  = course entryEdge
@@ -76,49 +69,38 @@ filterNotNop ∷ [Instruction] → [Instruction]
 filterNotNop = filter (/= ExecCmd NoOperation)
 
 --------------------------------------------------------------------------------
--- Pretty Printing / Assembly Text Generation
+-- Pretty Printing / Assembly Text Generation (Builder Pattern)
 --------------------------------------------------------------------------------
 
--- | Renders the 'AssemblyProgram' into a readable textual assembly listing.
-renderAssembly ∷ AssemblyProgram → Text
-renderAssembly (AssemblyProgram _ _ blockMap)
-  | IM.null blockMap = "; Empty Piet Program\nmain:\n    exit\n"
-renderAssembly prog = unlines $
-  [ "; --- PIET ASSEMBLY LISTING ---"
-  , "; Entry point: block_" <> show (entryLabel prog)
-  , "; Initial Course: " <> show (entryDPCC prog)
-  , ""
-  ] <> concatMap renderBlock (IM.toList $ blocks prog)
+renderAssembly ∷ AssemblyProgram → LText
+renderAssembly prog
+  | IM.null (blocks prog) = "; Empty Piet Program\nmain:\n    exit\n"
+  | otherwise            = LText.toLazyText $ renderAssemblyBuilder prog
 
-renderBlock ∷ (Label, BlockAssembly) → [Text]
+renderAssemblyBuilder ∷ AssemblyProgram → LText.Builder
+renderAssemblyBuilder prog =
+  "; --- PIET ASSEMBLY LISTING ---\n"
+    <> "; Entry point: block_" <> showBuilder (entryLabel prog) <> "\n"
+    <> "; Initial Course: " <> showBuilder (entryDPCC prog) <> "\n\n"
+    <> mconcat (renderBlock <$> IM.toList (blocks prog))
+
+renderBlock ∷ (Label, BlockAssembly) → LText.Builder
 renderBlock (lbl, block) =
-  ("block_" <> show lbl <> ":") : concatMap renderBranch (dpccBranches block)
+  "block_" <> showBuilder lbl <> ":\n"
+    <> mconcat (renderBranch <$> dpccBranches block)
   where
     renderBranch (dpcc, instrs) =
-      ("  case_dpcc " <> show dpcc <> ":") : map (\i → "    " <> renderInstruction i) instrs
+      "  case_dpcc " <> showBuilder dpcc <> ":\n"
+        <> mconcat (renderInstruction <$> instrs)
 
-renderInstruction ∷ Instruction → Text
-renderInstruction (ExecCmd cmd)  = renderCommand cmd
-renderInstruction (SetDPCC dpcc) = "set_dpcc " <> show dpcc
-renderInstruction (Jump target)  = "jump block_" <> show target
-renderInstruction Exit           = "exit"
+renderInstruction ∷ Instruction → LText.Builder
+renderInstruction (ExecCmd cmd)  = "    " <> toStringBuilder (renderCommand cmd) <> "\n"
+renderInstruction (SetDPCC dpcc) = "    set_dpcc " <> showBuilder dpcc <> "\n"
+renderInstruction (Jump target)  = "    jump block_" <> showBuilder target <> "\n"
+renderInstruction Exit           = "    exit\n"
 
-renderCommand ∷ Command → Text
-renderCommand NoOperation = "nop"
-renderCommand (Push n)    = "push " <> show n
-renderCommand Pop         = "pop"
-renderCommand Add         = "add"
-renderCommand Subtract    = "sub"
-renderCommand Multiply    = "mul"
-renderCommand Divide      = "div"
-renderCommand Mod         = "mod"
-renderCommand Not         = "not"
-renderCommand Greater     = "greater"
-renderCommand Pointer     = "pointer"
-renderCommand Switch      = "switch"
-renderCommand Duplicate   = "dup"
-renderCommand Roll        = "roll"
-renderCommand InNumber    = "in_num"
-renderCommand InChar      = "in_char"
-renderCommand OutNumber   = "out_num"
-renderCommand OutChar     = "out_char"
+toStringBuilder ∷ ToString a ⇒ a → LText.Builder
+toStringBuilder = LText.fromString . toString
+
+showBuilder ∷ Show a ⇒ a → LText.Builder
+showBuilder = LText.fromString . show
