@@ -34,6 +34,8 @@ import           HelVM.HelMA.Automaton.Extra
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.StackType
 
+import           HelVM.HelMA.Automaton.ShowList
+
 import           HelVM.HelIO.Collections.SList              as SList
 
 import qualified Data.Sequence                              as Seq
@@ -42,15 +44,13 @@ import           Prelude                                    hiding ( divMod )
 
 import qualified RIO
 
-import           Text.Pretty.Simple
-
 runRio ∷ Has env ⇒ AutomatonType → RIO.RIO env ()
 runRio i = runWIthOptions =<< optionsRio where
   runWIthOptions o = run (App.emit o) i . App.evalParams o =<< readSourceFileRio
 
 run ∷ Has env ⇒ Emit.Emit → AutomatonType → EvalParams → RIO.RIO env ()
 run Emit.No   i = runAsRIO . evalParams i
-run Emit.IL   _ = putLTextLnRio . pShowNoColor . parseSafe . source
+run Emit.IL   _ = putLTextLnRio . showListSafeToLText . parseSafe . source
 run Emit.TL   _ = putLTextLnRio . show . tokenize . source
 run Emit.Code _ = putLTextLnRio . show . readTokens . source
 
