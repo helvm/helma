@@ -19,6 +19,7 @@ import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Automaton
+import           HelVM.HelMA.Automaton.Instruction
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
@@ -32,16 +33,14 @@ import           Prelude                                       hiding ( swap )
 
 import qualified RIO
 
-import           Text.Pretty.Simple
-
 runRio ∷ Has env ⇒ TokenType → RIO.RIO env ()
 runRio t = runWithOptions =<< optionsRio where
   runWithOptions o = run (App.emit o) t . App.evalParams o =<< readSourceFileRio
 
 run ∷ Has env ⇒ Emit → TokenType → EvalParams → RIO.RIO env ()
 run No   t                = runAsRIO . evalParams t
-run IL   VisibleTokenType = putLTextLnRio . pShowNoColor . (flipParseVisible <$> formatType <*> source)
-run IL   WhiteTokenType   = putLTextLnRio . pShowNoColor . (flipParseWhite   <$> formatType <*> source)
+run IL   VisibleTokenType = putLTextLnRio . renderILSafe . (flipParseVisible <$> formatType <*> source)
+run IL   WhiteTokenType   = putLTextLnRio . renderILSafe . (flipParseWhite   <$> formatType <*> source)
 run TL   VisibleTokenType = putLTextLnRio . show . tokenizeVisible . source
 run TL   WhiteTokenType   = putLTextLnRio . show . tokenizeWhite   . source
 run Code VisibleTokenType = putLTextLnRio . show . readVisibleTokens . source
