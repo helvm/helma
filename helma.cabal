@@ -163,6 +163,8 @@ library
 
     HelVM.HelMA.Automaton.ReadPExtra
 
+    HelVM.HelMA.Automaton.ShowList
+
     HelVM.HelMA.Automaton.Symbol
 
     HelVM.HelMA.Automaton.Trampoline

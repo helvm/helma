@@ -46,7 +46,6 @@ printIBuilder (ICF i) = LText.fromText (printCF i)
 printIBuilder (ILS i) = LText.fromText (toLowerShow i)
 printIBuilder  End    = "end"
 
-
 printIndexedIL ∷ InstructionList → Text
 printIndexedIL il = unlines $ printIndexedI <$> indexed il
 
