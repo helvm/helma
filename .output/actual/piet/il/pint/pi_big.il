@@ -1,1859 +1,670 @@
-[ ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Store
-, ICF
-    ( Mark
-        ( MArtificial "block_0" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_0_rr" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Cons 52 )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_32" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_0_rr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_2" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_2_rr" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Cons 8492 )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_40" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_2_rr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_32" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_32_rl" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Indexed
-            ( IImmediate 0 ) Copy
-        )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_33" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_32_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_32_rr" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Indexed
-            ( IImmediate 0 ) Copy
-        )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_33" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_32_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_32_ll" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_0" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_32_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_32_lr" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_0" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_32_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_33" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_33_rl" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Mul ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_34" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_33_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_33_rr" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Mul ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_34" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_33_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_33_ll" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Div ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_32" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_33_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_33_lr" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Div ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_32" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_33_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_34" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_34_rl" ) EZ
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_2" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_34_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_34_rr" ) EZ
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_2" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_34_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_34_ll" ) EZ
-    )
-, ILS ( MIO OutputDec )
-, ICF
-    ( Labeled
-        ( LArtificial "block_33" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_34_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_34_lr" ) EZ
-    )
-, ILS ( MIO OutputDec )
-, ICF
-    ( Labeled
-        ( LArtificial "block_33" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_34_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_37" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_37_rl" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Cons 10 )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_42" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_37_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_37_rr" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Cons 10 )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_42" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_37_rr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_38" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_38_rl" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Cons 10 )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_54" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_38_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_38_rr" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Cons 10 )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_54" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_38_rr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_39" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_40" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_40_rl" ) EZ
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_37" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_40_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_40_rr" ) EZ
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_37" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_40_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_40_ll" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_2" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_40_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_40_lr" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_2" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_40_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_42" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_42_rl" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Indexed
-            ( IImmediate 0 ) Copy
-        )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_43" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_42_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_42_rr" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Indexed
-            ( IImmediate 0 ) Copy
-        )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_43" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_42_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_42_ll" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_37" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_42_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_42_lr" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_37" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_42_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_43" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_43_rl" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Mul ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_44" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_43_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_43_rr" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Mul ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_44" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_43_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_43_ll" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Div ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_42" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_43_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_43_lr" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Div ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_42" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_43_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_44" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_44_rl" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Indexed
-            ( IImmediate 0 ) Copy
-        )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_45" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_44_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_44_rr" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Indexed
-            ( IImmediate 0 ) Copy
-        )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_45" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_44_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_44_ll" ) EZ
-    )
-, ILS ( MIO OutputDec )
-, ICF
-    ( Labeled
-        ( LArtificial "block_43" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_44_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_44_lr" ) EZ
-    )
-, ILS ( MIO OutputDec )
-, ICF
-    ( Labeled
-        ( LArtificial "block_43" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_44_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_45" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_45_rl" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Mul ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_46" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_45_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_45_rr" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Mul ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_46" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_45_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_45_ll" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Div ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_44" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_45_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_45_lr" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Div ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_44" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_45_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_46" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_46_rl" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Mul ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_47" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_46_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_46_rr" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Mul ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_47" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_46_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_46_ll" ) EZ
-    )
-, ILS ( MIO OutputDec )
-, ICF
-    ( Labeled
-        ( LArtificial "block_45" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_46_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_46_lr" ) EZ
-    )
-, ILS ( MIO OutputDec )
-, ICF
-    ( Labeled
-        ( LArtificial "block_45" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_46_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_47" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_47_rl" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Cons 2 )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_48" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_47_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_47_rr" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Cons 2 )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_48" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_47_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_47_ll" ) EZ
-    )
-, ILS ( MIO OutputDec )
-, ICF
-    ( Labeled
-        ( LArtificial "block_46" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_47_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_47_lr" ) EZ
-    )
-, ILS ( MIO OutputDec )
-, ICF
-    ( Labeled
-        ( LArtificial "block_46" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_47_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_48" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_48_rl" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_49" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_48_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_48_rr" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_49" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_48_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_48_ll" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_47" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_48_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_48_lr" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_47" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_48_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_49" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_49_rl" ) EZ
-    )
-, ISM ( SPure Halibut )
-, ICF
-    ( Labeled
-        ( LArtificial "block_50" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_49_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_49_rr" ) EZ
-    )
-, ISM ( SPure Halibut )
-, ICF
-    ( Labeled
-        ( LArtificial "block_50" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_49_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_49_ll" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_48" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_49_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_49_lr" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_48" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_49_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_50" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_50_rl" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Div ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_51" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_50_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_50_rr" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Div ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_51" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_50_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_50_ll" ) EZ
-    )
-, ISM
-    ( SPure ( Unary LNot ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_49" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_50_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_50_lr" ) EZ
-    )
-, ISM
-    ( SPure ( Unary LNot ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_49" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_50_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_51" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_51_rl" ) EZ
-    )
-, ILS ( MIO OutputDec )
-, ICF
-    ( Labeled
-        ( LArtificial "block_52" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_51_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_51_rr" ) EZ
-    )
-, ILS ( MIO OutputDec )
-, ICF
-    ( Labeled
-        ( LArtificial "block_52" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_51_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_51_ll" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Indexed
-            ( IImmediate 0 ) Copy
-        )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_50" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_51_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_51_lr" ) EZ
-    )
-, ISM
-    ( SPure
-        ( Indexed
-            ( IImmediate 0 ) Copy
-        )
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_50" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_51_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_52" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_52_rl" ) EZ
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_38" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_52_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_52_rr" ) EZ
-    )
-, ICF
-    ( Labeled
-        ( LArtificial "block_38" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_52_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_52_ll" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Mul ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_51" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_52_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_52_lr" ) EZ
-    )
-, ISM
-    ( SPure ( Binary Mul ) )
-, ICF
-    ( Labeled
-        ( LArtificial "block_51" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_52_lr" )
-    )
-, ICF
-    ( Mark
-        ( MArtificial "block_54" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_54_rl" ) EZ
-    )
-, ILS ( MIO OutputChar )
-, ICF
-    ( Labeled
-        ( LArtificial "block_39" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_54_rl" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 1 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_54_rr" ) EZ
-    )
-, ILS ( MIO OutputChar )
-, ICF
-    ( Labeled
-        ( LArtificial "block_39" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_54_rr" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 4 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_54_ll" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_38" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_54_ll" )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Load
-, ISM
-    ( SPure
-        ( Cons 5 )
-    )
-, ISM
-    ( SPure ( Binary Sub ) )
-, ICF
-    ( Branch
-        ( BArtificial "branch_54_lr" ) EZ
-    )
-, ISM ( SPure Discard )
-, ICF
-    ( Labeled
-        ( LArtificial "block_38" ) Jump
-    )
-, ICF
-    ( Mark
-        ( MArtificial "branch_54_lr" )
-    )
-, End
-]
+cons 0
+cons 0
+store
+
+markA "block_0"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_0_rr"
+cons 52
+jumpA "block_32"
+
+markA "branch_0_rr"
+
+markA "block_2"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_2_rr"
+cons 8492
+jumpA "block_40"
+
+markA "branch_2_rr"
+
+markA "block_32"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_32_rl"
+copyI 0
+jumpA "block_33"
+
+markA "branch_32_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_32_rr"
+copyI 0
+jumpA "block_33"
+
+markA "branch_32_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_32_ll"
+discard
+jumpA "block_0"
+
+markA "branch_32_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_32_lr"
+discard
+jumpA "block_0"
+
+markA "branch_32_lr"
+
+markA "block_33"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_33_rl"
+mul
+jumpA "block_34"
+
+markA "branch_33_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_33_rr"
+mul
+jumpA "block_34"
+
+markA "branch_33_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_33_ll"
+div
+jumpA "block_32"
+
+markA "branch_33_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_33_lr"
+div
+jumpA "block_32"
+
+markA "branch_33_lr"
+
+markA "block_34"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_34_rl"
+jumpA "block_2"
+
+markA "branch_34_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_34_rr"
+jumpA "block_2"
+
+markA "branch_34_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_34_ll"
+mio outputdec
+jumpA "block_33"
+
+markA "branch_34_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_34_lr"
+mio outputdec
+jumpA "block_33"
+
+markA "branch_34_lr"
+
+markA "block_37"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_37_rl"
+cons 10
+jumpA "block_42"
+
+markA "branch_37_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_37_rr"
+cons 10
+jumpA "block_42"
+
+markA "branch_37_rr"
+
+markA "block_38"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_38_rl"
+cons 10
+jumpA "block_54"
+
+markA "branch_38_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_38_rr"
+cons 10
+jumpA "block_54"
+
+markA "branch_38_rr"
+
+markA "block_39"
+
+markA "block_40"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_40_rl"
+jumpA "block_37"
+
+markA "branch_40_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_40_rr"
+jumpA "block_37"
+
+markA "branch_40_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_40_ll"
+discard
+jumpA "block_2"
+
+markA "branch_40_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_40_lr"
+discard
+jumpA "block_2"
+
+markA "branch_40_lr"
+
+markA "block_42"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_42_rl"
+copyI 0
+jumpA "block_43"
+
+markA "branch_42_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_42_rr"
+copyI 0
+jumpA "block_43"
+
+markA "branch_42_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_42_ll"
+discard
+jumpA "block_37"
+
+markA "branch_42_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_42_lr"
+discard
+jumpA "block_37"
+
+markA "branch_42_lr"
+
+markA "block_43"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_43_rl"
+mul
+jumpA "block_44"
+
+markA "branch_43_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_43_rr"
+mul
+jumpA "block_44"
+
+markA "branch_43_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_43_ll"
+div
+jumpA "block_42"
+
+markA "branch_43_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_43_lr"
+div
+jumpA "block_42"
+
+markA "branch_43_lr"
+
+markA "block_44"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_44_rl"
+copyI 0
+jumpA "block_45"
+
+markA "branch_44_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_44_rr"
+copyI 0
+jumpA "block_45"
+
+markA "branch_44_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_44_ll"
+mio outputdec
+jumpA "block_43"
+
+markA "branch_44_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_44_lr"
+mio outputdec
+jumpA "block_43"
+
+markA "branch_44_lr"
+
+markA "block_45"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_45_rl"
+mul
+jumpA "block_46"
+
+markA "branch_45_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_45_rr"
+mul
+jumpA "block_46"
+
+markA "branch_45_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_45_ll"
+div
+jumpA "block_44"
+
+markA "branch_45_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_45_lr"
+div
+jumpA "block_44"
+
+markA "branch_45_lr"
+
+markA "block_46"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_46_rl"
+mul
+jumpA "block_47"
+
+markA "branch_46_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_46_rr"
+mul
+jumpA "block_47"
+
+markA "branch_46_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_46_ll"
+mio outputdec
+jumpA "block_45"
+
+markA "branch_46_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_46_lr"
+mio outputdec
+jumpA "block_45"
+
+markA "branch_46_lr"
+
+markA "block_47"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_47_rl"
+cons 2
+jumpA "block_48"
+
+markA "branch_47_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_47_rr"
+cons 2
+jumpA "block_48"
+
+markA "branch_47_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_47_ll"
+mio outputdec
+jumpA "block_46"
+
+markA "branch_47_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_47_lr"
+mio outputdec
+jumpA "block_46"
+
+markA "branch_47_lr"
+
+markA "block_48"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_48_rl"
+cons 1
+jumpA "block_49"
+
+markA "branch_48_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_48_rr"
+cons 1
+jumpA "block_49"
+
+markA "branch_48_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_48_ll"
+discard
+jumpA "block_47"
+
+markA "branch_48_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_48_lr"
+discard
+jumpA "block_47"
+
+markA "branch_48_lr"
+
+markA "block_49"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_49_rl"
+halibut
+jumpA "block_50"
+
+markA "branch_49_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_49_rr"
+halibut
+jumpA "block_50"
+
+markA "branch_49_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_49_ll"
+discard
+jumpA "block_48"
+
+markA "branch_49_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_49_lr"
+discard
+jumpA "block_48"
+
+markA "branch_49_lr"
+
+markA "block_50"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_50_rl"
+div
+jumpA "block_51"
+
+markA "branch_50_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_50_rr"
+div
+jumpA "block_51"
+
+markA "branch_50_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_50_ll"
+lnot
+jumpA "block_49"
+
+markA "branch_50_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_50_lr"
+lnot
+jumpA "block_49"
+
+markA "branch_50_lr"
+
+markA "block_51"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_51_rl"
+mio outputdec
+jumpA "block_52"
+
+markA "branch_51_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_51_rr"
+mio outputdec
+jumpA "block_52"
+
+markA "branch_51_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_51_ll"
+copyI 0
+jumpA "block_50"
+
+markA "branch_51_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_51_lr"
+copyI 0
+jumpA "block_50"
+
+markA "branch_51_lr"
+
+markA "block_52"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_52_rl"
+jumpA "block_38"
+
+markA "branch_52_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_52_rr"
+jumpA "block_38"
+
+markA "branch_52_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_52_ll"
+mul
+jumpA "block_51"
+
+markA "branch_52_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_52_lr"
+mul
+jumpA "block_51"
+
+markA "branch_52_lr"
+
+markA "block_54"
+cons 0
+load
+cons 0
+sub
+bEZA "branch_54_rl"
+mio outputchar
+jumpA "block_39"
+
+markA "branch_54_rl"
+cons 0
+load
+cons 1
+sub
+bEZA "branch_54_rr"
+mio outputchar
+jumpA "block_39"
+
+markA "branch_54_rr"
+cons 0
+load
+cons 4
+sub
+bEZA "branch_54_ll"
+discard
+jumpA "block_38"
+
+markA "branch_54_ll"
+cons 0
+load
+cons 5
+sub
+bEZA "branch_54_lr"
+discard
+jumpA "block_38"
+
+markA "branch_54_lr"
+end

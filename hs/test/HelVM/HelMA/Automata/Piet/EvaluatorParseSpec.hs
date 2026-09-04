@@ -111,4 +111,3 @@ dotL = graphTextIO <=< readImage
 
 graphTextIO ∷ DynamicImage → IO LText
 graphTextIO = safeToIO . graphText . (defaultConfig, )
-

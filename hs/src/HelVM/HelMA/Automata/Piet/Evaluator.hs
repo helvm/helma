@@ -30,6 +30,8 @@ import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
 import qualified HelVM.HelMA.Automata.Piet.Automaton.Collision           as Collision
 import qualified HelVM.HelMA.Automata.Piet.Automaton.StepState           as StepState
 
+import           HelVM.HelMA.Automaton.Instruction
+
 import qualified HelVM.HelMA.Automaton.API.AppOptions                    as App
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
@@ -44,8 +46,6 @@ import           Codec.Picture
 import           Control.Monad.Logger
 
 import qualified RIO
-
-import           Text.Pretty.Simple                                      ( pShowNoColor )
 
 type ImageInput = (ImageConfig, DynamicImage)
 
@@ -62,7 +62,7 @@ simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage �
 simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs
 
 ilText ∷ MonadSafe m ⇒ ImageInput → m LText
-ilText = fmap (pShowNoColor . compileToIL . generateAssembly) . parseColors
+ilText = fmap (renderIL . compileToIL . generateAssembly) . parseColors
 
 assemblyText ∷ MonadSafe m ⇒ ImageInput → m LText
 assemblyText = fmap (renderAssembly . generateAssembly) . parseColors

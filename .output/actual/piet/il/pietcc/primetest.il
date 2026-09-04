@@ -1,11 +1,4 @@
-[ ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ISM
-    ( SPure
-        ( Cons 0 )
-    )
-, ILS Store
-, End
-]
+cons 0
+cons 0
+store
+end
