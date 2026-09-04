@@ -1,10 +1,10 @@
 module HelVM.HelMA.Automata.Piet.Evaluator
   ( assemblyText
   , graphText
+  , ilText
   , run
   , runRio
   , simpleEval
-  , ilText
   ) where
 
 import           HelVM.HelMA.Automata.Piet.AssemblyGenerator

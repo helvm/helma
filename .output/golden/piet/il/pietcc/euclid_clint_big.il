@@ -1,180 +1,1404 @@
-; --- PIET SWITCH-BASED ASSEMBLY LISTING ---
-; Entry point: block_0
-; Initial Course: Course {directionPointer = DPRight, codelChooser = CCLeft}
-
-block_0:
-    switch_dpcc
-  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
-    in (number)
-    jump block_3
-block_3:
-    switch_dpcc
-  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
-    in (number)
-    jump block_5
-  case Course {directionPointer = DPDown, codelChooser = CCRight}:
-    in (number)
-    jump block_5
-  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
-    mod
-    jump block_0
-  case Course {directionPointer = DPUp, codelChooser = CCRight}:
-    mod
-    jump block_0
-block_4:
-    switch_dpcc
-  case Course {directionPointer = DPDown, codelChooser = CCRight}:
-    push 4
-    jump block_11
-block_5:
-    switch_dpcc
-  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
-    duplicate
-    jump block_6
-  case Course {directionPointer = DPDown, codelChooser = CCRight}:
-    duplicate
-    jump block_6
-  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
-    mod
-    jump block_3
-  case Course {directionPointer = DPUp, codelChooser = CCRight}:
-    mod
-    jump block_3
-block_6:
-    switch_dpcc
-  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
-    jump block_8
-  case Course {directionPointer = DPRight, codelChooser = CCRight}:
-    jump block_8
-  case Course {directionPointer = DPDown, codelChooser = CCRight}:
-    push 3
-    jump block_4
-  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
-    push 3
-    jump block_4
-  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
-    push 3
-    jump block_4
-block_8:
-    switch_dpcc
-  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
-    divide
-    jump block_9
-  case Course {directionPointer = DPRight, codelChooser = CCRight}:
-    divide
-    jump block_9
-  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
-    jump block_6
-  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
-    jump block_6
-block_9:
-    switch_dpcc
-  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
-    duplicate
-    jump block_8
-  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
-    duplicate
-    jump block_8
-block_11:
-    switch_dpcc
-  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
-    roll
-    jump block_14
-  case Course {directionPointer = DPDown, codelChooser = CCRight}:
-    roll
-    jump block_14
-  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
-    pop
-    jump block_4
-  case Course {directionPointer = DPUp, codelChooser = CCRight}:
-    pop
-    jump block_4
-block_12:
-    switch_dpcc
-  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
-    jump block_9
-  case Course {directionPointer = DPRight, codelChooser = CCRight}:
-    pop
-    jump block_23
-block_14:
-    switch_dpcc
-  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
-    mod
-    jump block_19
-  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
-    not
-    jump block_11
-block_15:
-    switch_dpcc
-  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
-    not
-    jump block_16
-  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
-    greater
-    jump block_24
-block_16:
-    switch_dpcc
-  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
-    switch
-    jump block_12
-  case Course {directionPointer = DPRight, codelChooser = CCRight}:
-    switch
-    jump block_12
-  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
-    roll
-    jump block_15
-  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
-    roll
-    jump block_15
-block_19:
-    switch_dpcc
-  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
-    duplicate
-    jump block_22
-  case Course {directionPointer = DPDown, codelChooser = CCRight}:
-    duplicate
-    jump block_22
-  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
-    in (number)
-    jump block_14
-  case Course {directionPointer = DPUp, codelChooser = CCRight}:
-    in (number)
-    jump block_14
-block_21:
-    switch_dpcc
-block_22:
-    switch_dpcc
-  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
-    push 1
-    jump block_24
-  case Course {directionPointer = DPDown, codelChooser = CCRight}:
-    push 1
-    jump block_24
-  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
-    divide
-    jump block_19
-  case Course {directionPointer = DPUp, codelChooser = CCRight}:
-    divide
-    jump block_19
-block_23:
-    switch_dpcc
-  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
-    out (number)
-    jump block_21
-  case Course {directionPointer = DPRight, codelChooser = CCRight}:
-    out (number)
-    jump block_21
-  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
-    push 1
-    jump block_12
-  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
-    push 1
-    jump block_12
-block_24:
-    switch_dpcc
-  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
-    greater
-    jump block_15
-  case Course {directionPointer = DPRight, codelChooser = CCRight}:
-    greater
-    jump block_15
+[ ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Store
+, ICF
+    ( Mark
+        ( MArtificial "block_0" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_0_dl" ) EZ
+    )
+, ILS ( MIO InputDec )
+, ICF
+    ( Labeled
+        ( LArtificial "block_3" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_0_dl" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_3" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_3_dl" ) EZ
+    )
+, ILS ( MIO InputDec )
+, ICF
+    ( Labeled
+        ( LArtificial "block_5" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_3_dl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 3 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_3_dr" ) EZ
+    )
+, ILS ( MIO InputDec )
+, ICF
+    ( Labeled
+        ( LArtificial "block_5" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_3_dr" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 6 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_3_ul" ) EZ
+    )
+, ISM
+    ( SPure ( Binary Mod ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_0" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_3_ul" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 7 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_3_ur" ) EZ
+    )
+, ISM
+    ( SPure ( Binary Mod ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_0" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_3_ur" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_4" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 3 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_4_dr" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Cons 4 )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_11" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_4_dr" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_5" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_5_dl" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Indexed
+            ( IImmediate 0 ) Copy
+        )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_6" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_5_dl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 3 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_5_dr" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Indexed
+            ( IImmediate 0 ) Copy
+        )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_6" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_5_dr" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 6 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_5_ul" ) EZ
+    )
+, ISM
+    ( SPure ( Binary Mod ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_3" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_5_ul" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 7 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_5_ur" ) EZ
+    )
+, ISM
+    ( SPure ( Binary Mod ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_3" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_5_ur" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_6" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_6_rl" ) EZ
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_8" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_6_rl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 1 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_6_rr" ) EZ
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_8" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_6_rr" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 3 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_6_dr" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Cons 3 )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_4" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_6_dr" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 4 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_6_ll" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Cons 3 )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_4" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_6_ll" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 5 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_6_lr" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Cons 3 )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_4" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_6_lr" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_8" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_8_rl" ) EZ
+    )
+, ISM
+    ( SPure ( Binary Div ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_9" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_8_rl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 1 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_8_rr" ) EZ
+    )
+, ISM
+    ( SPure ( Binary Div ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_9" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_8_rr" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 4 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_8_ll" ) EZ
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_6" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_8_ll" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 5 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_8_lr" ) EZ
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_6" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_8_lr" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_9" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 4 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_9_ll" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Indexed
+            ( IImmediate 0 ) Copy
+        )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_8" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_9_ll" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 5 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_9_lr" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Indexed
+            ( IImmediate 0 ) Copy
+        )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_8" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_9_lr" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_11" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_11_dl" ) EZ
+    )
+, ISM ( SPure Halibut )
+, ICF
+    ( Labeled
+        ( LArtificial "block_14" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_11_dl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 3 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_11_dr" ) EZ
+    )
+, ISM ( SPure Halibut )
+, ICF
+    ( Labeled
+        ( LArtificial "block_14" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_11_dr" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 6 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_11_ul" ) EZ
+    )
+, ISM ( SPure Discard )
+, ICF
+    ( Labeled
+        ( LArtificial "block_4" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_11_ul" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 7 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_11_ur" ) EZ
+    )
+, ISM ( SPure Discard )
+, ICF
+    ( Labeled
+        ( LArtificial "block_4" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_11_ur" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_12" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_12_rl" ) EZ
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_9" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_12_rl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 1 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_12_rr" ) EZ
+    )
+, ISM ( SPure Discard )
+, ICF
+    ( Labeled
+        ( LArtificial "block_23" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_12_rr" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_14" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_14_dl" ) EZ
+    )
+, ISM
+    ( SPure ( Binary Mod ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_19" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_14_dl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 6 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_14_ul" ) EZ
+    )
+, ISM
+    ( SPure ( Unary LNot ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_11" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_14_ul" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_15" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_15_rl" ) EZ
+    )
+, ISM
+    ( SPure ( Unary LNot ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_16" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_15_rl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 4 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_15_ll" ) EZ
+    )
+, ISM
+    ( SPure ( Binary LGT ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_24" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_15_ll" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_16" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_16_rl" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Mod ) )
+, ISM
+    ( SPure ( Binary Add ) )
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Mod ) )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Div ) )
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Mul ) )
+, ISM
+    ( SPure ( Binary Add ) )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ISM ( SPure Halibut )
+, ILS Store
+, ICF
+    ( Labeled
+        ( LArtificial "block_12" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_16_rl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 1 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_16_rr" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Mod ) )
+, ISM
+    ( SPure ( Binary Add ) )
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Mod ) )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Div ) )
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Mul ) )
+, ISM
+    ( SPure ( Binary Add ) )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ISM ( SPure Halibut )
+, ILS Store
+, ICF
+    ( Labeled
+        ( LArtificial "block_12" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_16_rr" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 4 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_16_ll" ) EZ
+    )
+, ISM ( SPure Halibut )
+, ICF
+    ( Labeled
+        ( LArtificial "block_15" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_16_ll" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 5 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_16_lr" ) EZ
+    )
+, ISM ( SPure Halibut )
+, ICF
+    ( Labeled
+        ( LArtificial "block_15" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_16_lr" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_19" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_19_dl" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Indexed
+            ( IImmediate 0 ) Copy
+        )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_22" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_19_dl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 3 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_19_dr" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Indexed
+            ( IImmediate 0 ) Copy
+        )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_22" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_19_dr" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 6 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_19_ul" ) EZ
+    )
+, ILS ( MIO InputDec )
+, ICF
+    ( Labeled
+        ( LArtificial "block_14" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_19_ul" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 7 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_19_ur" ) EZ
+    )
+, ILS ( MIO InputDec )
+, ICF
+    ( Labeled
+        ( LArtificial "block_14" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_19_ur" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_21" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_22" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 2 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_22_dl" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Cons 1 )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_24" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_22_dl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 3 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_22_dr" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Cons 1 )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_24" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_22_dr" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 6 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_22_ul" ) EZ
+    )
+, ISM
+    ( SPure ( Binary Div ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_19" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_22_ul" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 7 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_22_ur" ) EZ
+    )
+, ISM
+    ( SPure ( Binary Div ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_19" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_22_ur" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_23" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_23_rl" ) EZ
+    )
+, ILS ( MIO OutputDec )
+, ICF
+    ( Labeled
+        ( LArtificial "block_21" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_23_rl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 1 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_23_rr" ) EZ
+    )
+, ILS ( MIO OutputDec )
+, ICF
+    ( Labeled
+        ( LArtificial "block_21" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_23_rr" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 4 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_23_ll" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Cons 1 )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_12" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_23_ll" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 5 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_23_lr" ) EZ
+    )
+, ISM
+    ( SPure
+        ( Cons 1 )
+    )
+, ICF
+    ( Labeled
+        ( LArtificial "block_12" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_23_lr" )
+    )
+, ICF
+    ( Mark
+        ( MArtificial "block_24" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_24_rl" ) EZ
+    )
+, ISM
+    ( SPure ( Binary LGT ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_15" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_24_rl" )
+    )
+, ISM
+    ( SPure
+        ( Cons 0 )
+    )
+, ILS Load
+, ISM
+    ( SPure
+        ( Cons 1 )
+    )
+, ISM
+    ( SPure ( Binary Sub ) )
+, ICF
+    ( Branch
+        ( BArtificial "branch_24_rr" ) EZ
+    )
+, ISM
+    ( SPure ( Binary LGT ) )
+, ICF
+    ( Labeled
+        ( LArtificial "block_15" ) Jump
+    )
+, ICF
+    ( Mark
+        ( MArtificial "branch_24_rr" )
+    )
+, End
+]

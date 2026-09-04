@@ -94,7 +94,6 @@ ilL = ilTextIO <=< readImage
 ilTextIO ∷ DynamicImage → IO LText
 ilTextIO = safeToIO . ilText . (defaultConfig, )
 
-
 asm ∷ FilePath → IO Text
 asm path = toText <$> asmL path
 
