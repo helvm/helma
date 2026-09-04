@@ -240,6 +240,7 @@ library
     HelVM.HelMA.Automata.Piet.Evaluator
     HelVM.HelMA.Automata.Piet.Filler
     HelVM.HelMA.Automata.Piet.ImageReader
+    HelVM.HelMA.Automata.Piet.InstructionCompiler
     HelVM.HelMA.Automata.Piet.MatrixBuilder
     HelVM.HelMA.Automata.Piet.Parser
     HelVM.HelMA.Automata.Piet.SyntaxParser
