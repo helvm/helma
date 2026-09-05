@@ -68,4 +68,4 @@ eval ∷ AppSafeEff m ⇒ TokenType → Source → LabelType → Automaton.Autom
 eval tokenType source = evalTL $ tokenize tokenType source
 
 evalTL ∷ AppSafeEff m ⇒ TokenList → LabelType → Automaton.AutomatonOptions → m ()
-evalTL tl ascii ao = flip start ao =<< liftSafe (parseFromTL ascii tl)
+evalTL tl labelType ao = flip start ao =<< parseFromTL labelType tl
