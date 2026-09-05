@@ -3,8 +3,8 @@ module HelVM.HelMA.Automata.WhiteSpace.ParserSpec
   ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
+import HelVM.HelMA.Automata.WhiteSpace.Evaluator
 import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
-import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 import           HelVM.HelMA.Automata.WhiteSpace.Parser
 
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
@@ -32,7 +32,7 @@ spec =
       let outputPath = tokenTypeToExt tokenType </> path
       describe path $ do
         it ("minified" </> outputPath) $
-          minifyFile tokenType path `goldenShouldIO` buildAbsoluteStnFileName outputPath
+          minifyFile tokenType path `goldenLShouldIO` buildAbsoluteStnFileName outputPath
         it ("parsed"  </> outputPath) $
           optimizeFile NoOptimizations formatLabel tokenType path `goldenLShouldIO` buildAbsoluteWsIlFileName ("parsed" </> outputPath)
         it ("optimized" </> outputPath) $
@@ -80,12 +80,8 @@ binaryLabel = [(BinaryLabel , WhiteTokenType , "from-elvm")] >*<
   , "8cc.c.eir"
   ]
 
-minifyFile ∷ TokenType → String → IO Text
-minifyFile tokenType = readTokensByTokenType tokenType <.> readFileByTokenType tokenType
+minifyFile ∷ TokenType → String → IO LText
+minifyFile tokenType = emitCode tokenType <.> readFileByTokenType tokenType
 
 optimizeFile ∷ OptimizationLevel → LabelType → TokenType → String → IO LText
 optimizeFile optLevel labelType tokenType path = safeIOToIO ((printIL <.> optimize optLevel <.> parseForTest labelType tokenType) <$> readFileByTokenType tokenType path)
-
-readTokensByTokenType∷ TokenType → Text → Text
-readTokensByTokenType WhiteTokenType   = show . readWhiteTokens
-readTokensByTokenType VisibleTokenType = show . readVisibleTokens
