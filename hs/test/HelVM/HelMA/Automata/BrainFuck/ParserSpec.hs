@@ -2,21 +2,18 @@ module HelVM.HelMA.Automata.BrainFuck.ParserSpec
   ( spec
   ) where
 
-import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser as Flat
-
 import           HelVM.HelMA.Automata.BrainFuck.API.ImplType
 import           HelVM.HelMA.Automata.BrainFuck.Evaluator
 
 import           HelVM.HelMA.Automata.BrainFuck.FileExtra
 
 import           HelVM.HelIO.Control.Safe
-import           HelVM.HelIO.Extra
 
 import           HelVM.GoldenExpectations
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                                      ( Spec, describe, it )
+import           Test.Hspec                                  ( Spec, describe, it )
 
 spec ∷ Spec
 spec =
@@ -40,4 +37,4 @@ spec =
         it ("tree" </> fileName) $
           safeIOToIO (emitIL TreeType False <$> file) `goldenLShouldIO` buildAbsoluteBfIlFileName ("tree" </> fileName)
         it ("flat" </> fileName) $
-           (showP . Flat.tokenize <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("flat" </> fileName)
+          safeIOToIO (emitIL FlatType False <$> file) `goldenLShouldIO` buildAbsoluteBfIlFileName ("flat" </> fileName)
