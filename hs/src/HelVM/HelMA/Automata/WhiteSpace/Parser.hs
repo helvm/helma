@@ -2,6 +2,7 @@ module HelVM.HelMA.Automata.WhiteSpace.Parser
   ( flipParseVisible
   , flipParseWhite
   , parse
+  , parse2
   , parseForTest
   , parseFromTL
   , parseVisible
@@ -24,7 +25,7 @@ import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Extra
 
 parseForTest ∷ LabelType → TokenType → Source → Safe InstructionList
-parseForTest formatType tokenType s = parse tokenType s formatType
+parseForTest formatType tokenType = parse2 (tokenType , formatType)
 
 flipParseVisible ∷ LabelType → Source → Safe InstructionList
 flipParseVisible = flip parseVisible
@@ -37,6 +38,9 @@ parseVisible = parse VisibleTokenType
 
 parseWhite ∷ Source → LabelType → Safe InstructionList
 parseWhite = parse WhiteTokenType
+
+parse2 ∷ MonadSafe m ⇒ (TokenType , LabelType) → Source → m InstructionList
+parse2 (tokenType , labelType) = parse tokenType `flip` labelType
 
 parse ∷ MonadSafe m ⇒ TokenType → Source → LabelType → m InstructionList
 parse tokenType = flip parseFromTL . tokenize tokenType

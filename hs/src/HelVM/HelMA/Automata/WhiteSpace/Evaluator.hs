@@ -23,7 +23,6 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 
 import           HelVM.HelMA.Automaton.Automaton
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.ShowList
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
@@ -43,13 +42,12 @@ runRio t = runWithOptions =<< optionsRio where
 
 run ∷ Has env ⇒ Emit → TokenType → EvalParams → RIO.RIO env ()
 run No   t = runAsRIO . evalParams t
-run IL   t = putLTextLnRio . emitIL t
+run IL   t = putLTextLnRio <=< runAsRIO . emitIL t
 run TL   t = putLTextLnRio . emitTL t . source
 run Code t = putLTextLnRio . emitCode t . source
 
-emitIL ∷ TokenType → EvalParams → LText
-emitIL VisibleTokenType = printListSafeToLText printI . (flipParseVisible <$> formatType <*> source)
-emitIL WhiteTokenType   = printListSafeToLText printI . (flipParseWhite   <$> formatType <*> source)
+emitIL ∷ MonadSafe m ⇒ TokenType → EvalParams → m LText
+emitIL t p = printIL <$> parse2 (t, formatType p) (source p)
 
 emitTL ∷ TokenType → Source → LText
 emitTL t = show . tokenize t
