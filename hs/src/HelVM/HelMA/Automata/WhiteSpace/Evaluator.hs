@@ -12,7 +12,6 @@ import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.Lexer
 import           HelVM.HelMA.Automata.WhiteSpace.Parser
 import qualified HelVM.HelMA.Automata.WhiteSpace.SimpleParams  as S
-import           HelVM.HelMA.Automata.WhiteSpace.Token
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
 import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
@@ -47,7 +46,7 @@ run TL   t = putLTextLnRio . emitTL t . source
 run Code t = putLTextLnRio . emitCode t . source
 
 emitIL ∷ MonadSafe m ⇒ TokenType → EvalParams → m LText
-emitIL t p = printIL <$> parse2 (t, labelType p) (source p)
+emitIL t p = printIL <$> parseIL (labelType p) t (source p)
 
 emitTL ∷ TokenType → Source → LText
 emitTL t = show . tokenize t
@@ -57,15 +56,15 @@ emitCode VisibleTokenType = show . readVisibleTokens
 emitCode WhiteTokenType   = show . readWhiteTokens
 
 simpleEval ∷ AppSafeEff m ⇒ S.SimpleParams → m ()
-simpleEval p = eval (S.tokenType p) (S.source p) (S.labelType p) $ S.automatonOptions p
+simpleEval p = eval (S.automatonOptions p)  (S.labelType p) (S.tokenType p) (S.source p)
 
 ----
 
 evalParams ∷ AppSafeEff m ⇒ TokenType → EvalParams → m ()
-evalParams tokenType p = eval tokenType (source p) (labelType p) $ automatonOptions p
+evalParams tokenType p = eval (automatonOptions p) (labelType p) tokenType (source p)
 
-eval ∷ AppSafeEff m ⇒ TokenType → Source → LabelType → Automaton.AutomatonOptions → m ()
-eval tokenType source = evalTL $ tokenize tokenType source
+eval ∷ AppSafeEff m ⇒ Automaton.AutomatonOptions → LabelType → TokenType → Source →m ()
+eval ao labelType tokenType source = evalIL ao =<< parseIL labelType tokenType source
 
-evalTL ∷ AppSafeEff m ⇒ TokenList → LabelType → Automaton.AutomatonOptions → m ()
-evalTL tl labelType ao = flip start ao =<< parseFromTL labelType tl
+evalIL ∷ AppSafeEff m ⇒ Automaton.AutomatonOptions → InstructionList → m ()
+evalIL = flip start

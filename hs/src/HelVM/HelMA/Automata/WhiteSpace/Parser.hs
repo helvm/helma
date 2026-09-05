@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.WhiteSpace.Parser
-  ( parse2
-  , parseFromTL
+  ( parseFromTL
+  , parseIL
   ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
@@ -18,11 +18,8 @@ import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Extra
 
-parse2 ∷ MonadSafe m ⇒ (TokenType , LabelType) → Source → m InstructionList
-parse2 (tokenType , labelType) = parse tokenType `flip` labelType
-
-parse ∷ MonadSafe m ⇒ TokenType → Source → LabelType → m InstructionList
-parse tokenType = flip parseFromTL . tokenize tokenType
+parseIL ∷ MonadSafe m ⇒ LabelType → TokenType → Source → m InstructionList
+parseIL labelType tokenType source  = parseFromTL labelType $ tokenize tokenType source
 
 parseFromTL ∷ MonadSafe m ⇒ LabelType → TokenList → m InstructionList
 parseFromTL labelType = repeatedlyM (parseInstruction labelType)
