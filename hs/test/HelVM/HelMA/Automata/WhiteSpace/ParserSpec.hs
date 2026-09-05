@@ -5,13 +5,9 @@ module HelVM.HelMA.Automata.WhiteSpace.ParserSpec
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
 import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
-import           HelVM.HelMA.Automata.WhiteSpace.Parser
 
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
-import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Optimizer
 
-import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Types.LabelType
 
 import           HelVM.HelIO.Control.Safe
@@ -86,6 +82,3 @@ minifyFile tokenType = emitCode tokenType <.> readFileByTokenType tokenType
 
 optimizeFile ∷ OptimizationLevel → LabelType → TokenType → String → IO LText
 optimizeFile optLevel labelType tokenType path = safeIOToIO (emitILForTest optLevel labelType tokenType <$> readFileByTokenType tokenType path)
-
-emitILForTest ∷ OptimizationLevel → LabelType → TokenType → Source → Safe LText
-emitILForTest optLevel labelType tokenType = printIL <.> optimize optLevel <.> parseIL labelType tokenType

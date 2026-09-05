@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automata.WhiteSpace.Evaluator
   ( emitCode
   , emitIL
+  , emitILForTest
   , emitTL
   , evalParams
   , run
@@ -15,13 +16,16 @@ import qualified HelVM.HelMA.Automata.WhiteSpace.SimpleParams  as S
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
 import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
+import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.OptimizationLevel
 
 import           HelVM.HelMA.Automaton.Automaton
 import           HelVM.HelMA.Automaton.Instruction
+import           HelVM.HelMA.Automaton.Optimizer
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
@@ -30,6 +34,8 @@ import           HelVM.HelMA.Automaton.Extra
 import           HelVM.HelMA.Automaton.Types.LabelType
 
 import           HelVM.HelIO.Control.Safe
+
+import           Control.Applicative.Tools
 
 import           Prelude                                       hiding ( swap )
 
@@ -46,7 +52,10 @@ run TL   t = putLTextLnRio . emitTL t . source
 run Code t = putLTextLnRio . emitCode t . source
 
 emitIL ∷ MonadSafe m ⇒ TokenType → EvalParams → m LText
-emitIL t p = printIL <$> parseIL (labelType p) t (source p)
+emitIL t p = emitILForTest (optLevel $ autoOptions p) (labelType p) t (source p)
+
+emitILForTest ∷ MonadSafe m ⇒ OptimizationLevel → LabelType → TokenType → Source → m LText
+emitILForTest optLevel labelType tokenType = printIL <.> optimize optLevel <.> parseIL labelType tokenType
 
 emitTL ∷ TokenType → Source → LText
 emitTL t = show . tokenize t
