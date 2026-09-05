@@ -2,7 +2,6 @@ module HelVM.HelMA.Automata.BrainFuck.ParserSpec
   ( spec
   ) where
 
-import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser as Fast
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser as Flat
 
 import           HelVM.HelMA.Automata.BrainFuck.API.ImplType
@@ -35,10 +34,10 @@ spec =
       let file = readBfFile fileName
       describe fileName $ do
         it ("optimized" </> fileName) $
-          safeIOToPTextIO (Fast.parseWithOptimizeSafe <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("optimized" </> fileName)
+          safeIOToIO (emitIL FastType True  <$> file) `goldenLShouldIO` buildAbsoluteBfIlFileName ("optimized" </> fileName)
         it ("fast" </> fileName) $
-          safeIOToIO (emitIL FastType <$> file) `goldenLShouldIO` buildAbsoluteBfIlFileName ("fast" </> fileName)
+          safeIOToIO (emitIL FastType False <$> file) `goldenLShouldIO` buildAbsoluteBfIlFileName ("fast" </> fileName)
         it ("tree" </> fileName) $
-          safeIOToIO (emitIL TreeType <$> file) `goldenLShouldIO` buildAbsoluteBfIlFileName ("tree" </> fileName)
+          safeIOToIO (emitIL TreeType False <$> file) `goldenLShouldIO` buildAbsoluteBfIlFileName ("tree" </> fileName)
         it ("flat" </> fileName) $
            (showP . Flat.tokenize <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("flat" </> fileName)

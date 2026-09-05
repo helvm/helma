@@ -41,13 +41,14 @@ runRio t = runWithOptions =<< optionsRio where
 
 run ∷ Has env ⇒ Emit.Emit → ImplType → EvalParams → RIO.RIO env ()
 run Emit.No i = runAsRIO . evalParams i
-run Emit.IL i = putLTextLnRio <=< runAsRIO . emitIL i . source
+run Emit.IL i = putLTextLnRio <=< runAsRIO . emitIL i True . source
 run _ _       = putLTextLnRio . show . Flat.readTokens . source
 
-emitIL ∷ MonadSafe m ⇒ ImplType →  Source → m LText
-emitIL FastType = pShowNoColor <.> Fast.parseAsList
-emitIL TreeType = pShowNoColor <.> Tree.parseAsVector
-emitIL _        = show <.> pure . Flat.readTokens
+emitIL ∷ MonadSafe m ⇒ ImplType → Bool → Source → m LText
+emitIL FastType True = pShowNoColor <.> Fast.parseWithOptimize
+emitIL FastType _    = pShowNoColor <.> Fast.parseAsList
+emitIL TreeType _    = pShowNoColor <.> Tree.parseAsVector
+emitIL _        _    = show <.> pure . Flat.readTokens
 
 simpleEval ∷ AppSafeEff m ⇒ (ImplType , Source , CellType) → m ()
 simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Trampoline
