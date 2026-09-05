@@ -5,8 +5,8 @@ import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.MemoryOptions
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
+import           HelVM.HelMA.Automaton.API.ParserOptions
 
-import           HelVM.HelMA.Automaton.API.LabelType
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.IntCellType
@@ -33,13 +33,13 @@ automatonOptions ∷ EvalParams → Automaton.AutomatonOptions
 automatonOptions p = Automaton.AutomatonOptions (stackAutoOptions p) (ramAutoOptions p) (autoOptions p)
 
 toInstructionParams ∷ EvalParams → (OptimizationLevel, Source)
-toInstructionParams p = (optLevel (autoOptions p), source p)
+toInstructionParams p = (optLevel (parserOptions p), source p)
 
 -- | Type
 data EvalParams
   = EvalParams
-      { labelType     :: !LabelType
-      , source        :: !Source
+      { source        :: !Source
+      , parserOptions :: !ParserOptions
       , memoryOptions :: !MemoryOptions
       , autoOptions   :: !AutoOptions
       }

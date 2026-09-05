@@ -16,12 +16,11 @@ import qualified HelVM.HelMA.Automata.WhiteSpace.SimpleParams  as S
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
 import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
-import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
-import           HelVM.HelMA.Automaton.API.OptimizationLevel
+import           HelVM.HelMA.Automaton.API.ParserOptions
 
 import           HelVM.HelMA.Automaton.Automaton
 import           HelVM.HelMA.Automaton.Instruction
@@ -30,8 +29,6 @@ import           HelVM.HelMA.Automaton.Optimizer
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
-
-import           HelVM.HelMA.Automaton.API.LabelType
 
 import           HelVM.HelIO.Control.Safe
 
@@ -52,10 +49,10 @@ run TL   t = putLTextLnRio . emitTL t . source
 run Code t = putLTextLnRio . emitCode t . source
 
 emitIL ∷ MonadSafe m ⇒ TokenType → EvalParams → m LText
-emitIL t p = emitILForTest (optLevel $ autoOptions p) (labelType p) t (source p)
+emitIL t p = emitILForTest (parserOptions p) t (source p)
 
-emitILForTest ∷ MonadSafe m ⇒ OptimizationLevel → LabelType → TokenType → Source → m LText
-emitILForTest optLevel labelType tokenType = printIL <.> optimize optLevel <.> parseIL labelType tokenType
+emitILForTest ∷ MonadSafe m ⇒ ParserOptions → TokenType → Source → m LText
+emitILForTest parserOptions tokenType = printIL <.> optimize (optLevel parserOptions) <.> parseIL parserOptions tokenType
 
 emitTL ∷ TokenType → Source → LText
 emitTL t = show . tokenize t
@@ -65,15 +62,15 @@ emitCode VisibleTokenType = show . readVisibleTokens
 emitCode WhiteTokenType   = show . readWhiteTokens
 
 simpleEval ∷ AppSafeEff m ⇒ S.SimpleParams → m ()
-simpleEval p = eval (S.automatonOptions p)  (S.labelType p) (S.tokenType p) (S.source p)
+simpleEval p = eval (S.automatonOptions p) (simpleAutoParams (S.labelType p)) (S.tokenType p) (S.source p)
 
 ----
 
 evalParams ∷ AppSafeEff m ⇒ TokenType → EvalParams → m ()
-evalParams tokenType p = eval (automatonOptions p) (labelType p) tokenType (source p)
+evalParams tokenType p = eval (automatonOptions p) (parserOptions p) tokenType (source p)
 
-eval ∷ AppSafeEff m ⇒ Automaton.AutomatonOptions → LabelType → TokenType → Source →m ()
-eval ao labelType tokenType source = evalIL ao =<< parseIL labelType tokenType source
+eval ∷ AppSafeEff m ⇒ Automaton.AutomatonOptions → ParserOptions → TokenType → Source →m ()
+eval ao parserOptions tokenType source = evalIL ao =<< parseIL  parserOptions tokenType source
 
 evalIL ∷ AppSafeEff m ⇒ Automaton.AutomatonOptions → InstructionList → m ()
 evalIL = flip start

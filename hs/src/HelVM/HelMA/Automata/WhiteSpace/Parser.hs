@@ -9,17 +9,19 @@ import           HelVM.HelMA.Automata.WhiteSpace.OperandParsers
 import           HelVM.HelMA.Automata.WhiteSpace.Token
 
 import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.LabelType
+import           HelVM.HelMA.Automaton.API.ParserOptions
 
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 
-import           HelVM.HelMA.Automaton.API.LabelType
+import           HelVM.HelMA.Automaton.Optimizer
 
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Extra
 
-parseIL ∷ MonadSafe m ⇒ LabelType → TokenType → Source → m InstructionList
-parseIL labelType tokenType source  = parseFromTL labelType $ tokenize tokenType source
+parseIL ∷ MonadSafe m ⇒ ParserOptions → TokenType → Source → m InstructionList
+parseIL parserOptions tokenType source  = optimize (optLevel parserOptions) <$> parseFromTL (labelType parserOptions) (tokenize tokenType source)
 
 parseFromTL ∷ MonadSafe m ⇒ LabelType → TokenList → m InstructionList
 parseFromTL labelType = repeatedlyM (parseInstruction labelType)

@@ -5,13 +5,13 @@ import           HelVM.HelMA.Automaton.API.OptimizationLevel
 
 simpleAutoParams ∷ LabelType → ParserOptions
 simpleAutoParams l = ParserOptions
-  { labelType = l
-  , optLevel  = AllOptimizations
+  { optLevel  = AllOptimizations
+  ,  labelType = l
   }
 
 -- | Type
 data ParserOptions
   = ParserOptions
-      { labelType :: !LabelType
-      , optLevel  :: !OptimizationLevel
+      { optLevel  :: !OptimizationLevel
+      , labelType :: !LabelType
       }
