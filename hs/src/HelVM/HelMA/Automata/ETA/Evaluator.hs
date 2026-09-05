@@ -1,7 +1,6 @@
 module HelVM.HelMA.Automata.ETA.Evaluator
   ( emitCode
   , emitIL
-  , emitOptimizedIL
   , emitTL
   , evalParams
   , run
@@ -58,18 +57,12 @@ runRio i = runWIthOptions =<< optionsRio where
 
 run ∷ Has env ⇒ Emit.Emit → AutomatonType → EvalParams → RIO.RIO env ()
 run Emit.No   i = runAsRIO . evalParams i
-run Emit.IL   _ = putLTextLnRio <=< runAsRIO . emitIL . source
+run Emit.IL   _ = putLTextLnRio <=< runAsRIO . uncurry emitIL . toInstructionParams
 run Emit.TL   _ = putLTextLnRio . emitTL . source
 run Emit.Code _ = putLTextLnRio . emitCode . source
 
-emitIL ∷ MonadSafe m ⇒ Source → m LText
-emitIL = emitWithOptimalization NoOptimizations
-
-emitOptimizedIL ∷ MonadSafe m ⇒ Source → m LText
-emitOptimizedIL = emitWithOptimalization AllOptimizations
-
-emitWithOptimalization ∷ MonadSafe m ⇒ OptimizationLevel → Source →  m LText
-emitWithOptimalization o = printIL <.> Automaton.optimize o <.> parse
+emitIL ∷ MonadSafe m ⇒ OptimizationLevel → Source →  m LText
+emitIL o = printIL <.> Automaton.optimize o <.> parse
 
 emitTL ∷ Source → LText
 emitTL = show . tokenize

@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.ETA.LexerSpec
+module HelVM.HelMA.Automata.ETA.EmiterSpec
   ( spec
   ) where
 
@@ -6,14 +6,16 @@ import           HelVM.HelMA.Automata.ETA.Evaluator
 
 import           HelVM.HelMA.Automata.ETA.FileExtra
 
+import           HelVM.HelMA.Automaton.API.OptimizationLevel
+
 import           HelVM.HelIO.CartesianProduct
 import           HelVM.HelIO.Control.Safe
 
 import           HelVM.GoldenExpectations
 
-import           System.FilePath.Posix              hiding ( (<.>) )
+import           System.FilePath.Posix                       hiding ( (<.>) )
 
-import           Test.Hspec                         ( Spec, describe, it )
+import           Test.Hspec                                  ( Spec, describe, it )
 
 spec ∷ Spec
 spec =
@@ -23,9 +25,9 @@ spec =
       it ("minified" </> path) $
         (emitCode <$> file) `goldenLShouldIO` buildAbsoluteEtaFileName ("minified" </> path)
       it ("parsed" </> path) $
-        safeIOToIO (emitIL <$> file) `goldenLShouldIO` buildAbsoluteEtaIlFileName ("parsed" </> path)
+        safeIOToIO (emitIL NoOptimizations <$> file) `goldenLShouldIO` buildAbsoluteEtaIlFileName ("parsed" </> path)
       it ("optimized" </> path) $
-        safeIOToIO (emitOptimizedIL <$> file) `goldenLShouldIO` buildAbsoluteEtaIlFileName ("optimized" </> path)
+        safeIOToIO (emitIL AllOptimizations <$> file) `goldenLShouldIO` buildAbsoluteEtaIlFileName ("optimized" </> path)
 
 allFiles ∷ [(FilePath, FilePath)]
 allFiles = original <> fromEAS

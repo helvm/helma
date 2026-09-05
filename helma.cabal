@@ -374,7 +374,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.ETA.AddressingSpec
     HelVM.HelMA.Automata.ETA.EvaluatorSpec
     HelVM.HelMA.Automata.ETA.FileExtra
-    HelVM.HelMA.Automata.ETA.LexerSpec
+    HelVM.HelMA.Automata.ETA.EmiterSpec
     HelVM.HelMA.Automata.ETA.OperandParsersSpec
 
     HelVM.HelMA.Automata.FALSE.FileExtra

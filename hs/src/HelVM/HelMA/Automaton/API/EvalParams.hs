@@ -1,9 +1,10 @@
 module HelVM.HelMA.Automaton.API.EvalParams where
 
-import qualified HelVM.HelMA.Automaton.API.AutomatonOptions as Automaton
+import qualified HelVM.HelMA.Automaton.API.AutomatonOptions  as Automaton
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.MemoryOptions
+import           HelVM.HelMA.Automaton.API.OptimizationLevel
 
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
@@ -30,6 +31,9 @@ dumpAutoOptions = dumpType . autoOptions
 
 automatonOptions ∷ EvalParams → Automaton.AutomatonOptions
 automatonOptions p = Automaton.AutomatonOptions (stackAutoOptions p) (ramAutoOptions p) (autoOptions p)
+
+toInstructionParams ∷ EvalParams → (OptimizationLevel, Source)
+toInstructionParams p = (optLevel (autoOptions p), source p)
 
 -- | Type
 data EvalParams
