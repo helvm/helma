@@ -88,4 +88,4 @@ optimizeFile ∷ OptimizationLevel → LabelType → TokenType → String → IO
 optimizeFile optLevel labelType tokenType path = safeIOToIO (emitILForTest optLevel labelType tokenType <$> readFileByTokenType tokenType path)
 
 emitILForTest ∷ OptimizationLevel → LabelType → TokenType → Source → Safe LText
-emitILForTest optLevel labelType tokenType = printIL <.> optimize optLevel <.> parseForTest labelType tokenType
+emitILForTest optLevel labelType tokenType = printIL <.> optimize optLevel <.> parse2 (tokenType , labelType)
