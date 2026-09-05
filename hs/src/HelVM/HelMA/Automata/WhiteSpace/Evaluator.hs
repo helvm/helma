@@ -52,8 +52,7 @@ emitIL VisibleTokenType = printListSafeToLText printI . (flipParseVisible <$> fo
 emitIL WhiteTokenType   = printListSafeToLText printI . (flipParseWhite   <$> formatType <*> source)
 
 emitTL ∷ TokenType → Source → LText
-emitTL VisibleTokenType = show . tokenizeVisible
-emitTL WhiteTokenType   = show . tokenizeWhite
+emitTL t = show . tokenize t
 
 emitCode ∷ TokenType → Source → LText
 emitCode VisibleTokenType = show . readVisibleTokens
