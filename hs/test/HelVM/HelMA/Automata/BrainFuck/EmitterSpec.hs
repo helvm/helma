@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.BrainFuck.ParserSpec
+module HelVM.HelMA.Automata.BrainFuck.EmitterSpec
   ( spec
   ) where
 

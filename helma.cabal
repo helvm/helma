@@ -367,7 +367,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.BrainFuck.EvaluatorSpecData
     HelVM.HelMA.Automata.BrainFuck.FileExtra
     HelVM.HelMA.Automata.BrainFuck.InstructionSpec
-    HelVM.HelMA.Automata.BrainFuck.ParserSpec
+    HelVM.HelMA.Automata.BrainFuck.EmitterSpec
 
     HelVM.HelMA.Automata.Cat.EvaluatorSpec
 
@@ -392,7 +392,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.Piet.FileExtra
     HelVM.HelMA.Automata.Piet.FillerSpec
     HelVM.HelMA.Automata.Piet.ImageReaderSpec
-    HelVM.HelMA.Automata.Piet.ParserSpec    
+    HelVM.HelMA.Automata.Piet.SyntaxParserSpec    
     HelVM.HelMA.Automata.Piet.SyntaxTestHelper
     HelVM.HelMA.Automata.Piet.SyntaxVisualizerSpec
     HelVM.HelMA.Automata.Piet.TestUtils
