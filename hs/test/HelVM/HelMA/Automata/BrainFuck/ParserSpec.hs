@@ -4,7 +4,9 @@ module HelVM.HelMA.Automata.BrainFuck.ParserSpec
 
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser as Fast
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser as Flat
-import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser as Tree
+
+import           HelVM.HelMA.Automata.BrainFuck.API.ImplType
+import           HelVM.HelMA.Automata.BrainFuck.Evaluator
 
 import           HelVM.HelMA.Automata.BrainFuck.FileExtra
 
@@ -35,8 +37,8 @@ spec =
         it ("optimized" </> fileName) $
           safeIOToPTextIO (Fast.parseWithOptimizeSafe <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("optimized" </> fileName)
         it ("fast" </> fileName) $
-          safeIOToPTextIO (Fast.parseAsList <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("fast" </> fileName)
+          safeIOToIO (emitIL FastType <$> file) `goldenLShouldIO` buildAbsoluteBfIlFileName ("fast" </> fileName)
         it ("tree" </> fileName) $
-          safeIOToPTextIO (Tree.parseAsVector <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("tree" </> fileName)
+          safeIOToIO (emitIL TreeType <$> file) `goldenLShouldIO` buildAbsoluteBfIlFileName ("tree" </> fileName)
         it ("flat" </> fileName) $
            (showP . Flat.tokenize <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("flat" </> fileName)
