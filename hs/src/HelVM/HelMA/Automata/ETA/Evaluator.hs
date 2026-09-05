@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automata.ETA.Evaluator
   ( emitCode
   , emitIL
+  , emitOptimizedIL
   , emitTL
   , evalParams
   , run
@@ -14,20 +15,22 @@ import           HelVM.HelMA.Automata.ETA.Automaton
 import           HelVM.HelMA.Automata.ETA.Lexer
 import           HelVM.HelMA.Automata.ETA.Optimizer
 import           HelVM.HelMA.Automata.ETA.Parser
-import qualified HelVM.HelMA.Automata.ETA.SimpleParams      as S
+import qualified HelVM.HelMA.Automata.ETA.SimpleParams       as S
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
 
-import qualified HelVM.HelMA.Automaton.API.AppOptions       as App
-import qualified HelVM.HelMA.Automaton.API.AutomatonOptions as Automaton
+import qualified HelVM.HelMA.Automaton.API.AppOptions        as App
+import qualified HelVM.HelMA.Automaton.API.AutomatonOptions  as Automaton
 import           HelVM.HelMA.Automaton.API.AutoOptions
-import qualified HelVM.HelMA.Automaton.API.Emit             as Emit
+import qualified HelVM.HelMA.Automaton.API.Emit              as Emit
 import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.OptimizationLevel
 
-import qualified HelVM.HelMA.Automaton.Automaton            as Automaton
+import qualified HelVM.HelMA.Automaton.Automaton             as Automaton
+import qualified HelVM.HelMA.Automaton.Optimizer             as Automaton
 
 import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 import           HelVM.HelMA.Automaton.Eff.MonadEff
@@ -38,14 +41,14 @@ import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.StackType
 
-import           HelVM.HelIO.Collections.SList              as SList
+import           HelVM.HelIO.Collections.SList               as SList
 import           HelVM.HelIO.Control.Safe
 
 import           Control.Applicative.Tools
 
-import qualified Data.Sequence                              as Seq
+import qualified Data.Sequence                               as Seq
 
-import           Prelude                                    hiding ( divMod )
+import           Prelude                                     hiding ( divMod )
 
 import qualified RIO
 
@@ -60,7 +63,13 @@ run Emit.TL   _ = putLTextLnRio . emitTL . source
 run Emit.Code _ = putLTextLnRio . emitCode . source
 
 emitIL ∷ MonadSafe m ⇒ Source → m LText
-emitIL = printIL <.> parse
+emitIL = emitWithOptimalization NoOptimizations
+
+emitOptimizedIL ∷ MonadSafe m ⇒ Source → m LText
+emitOptimizedIL = emitWithOptimalization AllOptimizations
+
+emitWithOptimalization ∷ MonadSafe m ⇒ OptimizationLevel → Source →  m LText
+emitWithOptimalization o = printIL <.> Automaton.optimize o <.> parse
 
 emitTL ∷ Source → LText
 emitTL = show . tokenize

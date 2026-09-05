@@ -2,10 +2,11 @@
 
 mkdir -p ../helma/hs
 rsync -av \
-  --exclude='src/HelVM/HelMA/Automata/Piet/LLVM/' \
-  --exclude='test/HelVM/HelMA/Automata/Piet/LLVM/' \
   hs/ ../helma/hs/
 
 mkdir -p ../helma/examples
 rsync -av \
   examples/ ../helma/examples/
+
+rsync -av \
+  helma.cabal ../helma/helma.cabal
