@@ -48,7 +48,7 @@ newGrid ∷ Coordinates → [(Coordinates, a)] → Grid a
 newGrid (w, h) elems = Grid w h $ V.create $ MV.unsafeNew (w * h) >>= writeElems elems w
 
 writeElems ∷ [(Coordinates, a)] → Int → MV.MVector s a → ST s (MV.MVector s a)
-writeElems elems w vec = traverse_ (uncurry $ MV.write vec . toIndex w) elems >> pure vec
+writeElems elems w vec = traverse_ (uncurry $ MV.write vec . toIndex w) elems $> vec
 
 inRangeGrid ∷ Coordinates → Grid a → Bool
 inRangeGrid (x, y) m = x >= 0 && x < widthGrid m && y >= 0 && y < heightGrid m
@@ -91,7 +91,7 @@ bfs m targetColor visited (curr : rest) acc = UMV.unsafeRead visited idx >>= pro
 
 processCell ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → Coordinates → BlockCoordinates → BlockCoordinates → Int → Bool → ST s BlockCoordinates
 processCell m targetColor visited _    rest acc _   True  = bfs m targetColor visited rest acc
-processCell m targetColor visited curr rest acc idx False = UMV.unsafeWrite visited idx True >> checkColor m targetColor visited curr rest acc (m `unsafeIndex` curr == targetColor)
+processCell m targetColor visited curr rest acc idx False = UMV.unsafeWrite visited idx True *> checkColor m targetColor visited curr rest acc (m `unsafeIndex` curr == targetColor)
 
 checkColor ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → Coordinates → BlockCoordinates → BlockCoordinates → Bool → ST s BlockCoordinates
 checkColor m targetColor visited _ rest acc False = bfs m targetColor visited rest acc

@@ -35,7 +35,7 @@ spec =
         it ("optimized" </> fileName) $
           safeIOToPTextIO (Fast.parseWithOptimizeSafe <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("optimized" </> fileName)
         it ("fast" </> fileName) $
-          safeIOToPTextIO (Fast.parseAsListSafe <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("fast" </> fileName)
+          safeIOToPTextIO (Fast.parseAsList <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("fast" </> fileName)
         it ("tree" </> fileName) $
           safeIOToPTextIO (Tree.parseAsVector <$> file) `goldenShouldIO` buildAbsoluteBfIlFileName ("tree" </> fileName)
         it ("flat" </> fileName) $

@@ -1,6 +1,5 @@
 module HelVM.HelMA.Automata.BrainFuck.Impl.Fast.Parser
   ( parseAsList
-  , parseAsListSafe
   , parseWithOptimize
   , parseWithOptimizeSafe
   ) where
@@ -23,9 +22,6 @@ import           Text.ParserCombinators.ReadP                            hiding 
 
 parseWithOptimizeSafe ∷ Source → Safe FastInstructionList
 parseWithOptimizeSafe = parseWithOptimize
-
-parseAsListSafe ∷ Source → Safe FastInstructionList
-parseAsListSafe = parseAsList
 
 parseWithOptimize ∷ MonadSafe m ⇒ Source → m FastInstructionList
 parseWithOptimize = optimize <.> parseAsList

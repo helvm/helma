@@ -26,4 +26,4 @@ run TL = putLTextLnRio <=< runAsRIO . emitTL . source
 run _  = fallback
 
 emitTL ∷ MonadSafe m ⇒ Source → m LText
-emitTL s = liftSafe $ pShowNoColor <$> parseSafe s
+emitTL s = pShowNoColor <$> parse s
