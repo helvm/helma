@@ -13,7 +13,7 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 
-import           HelVM.HelMA.Automaton.Types.LabelType
+import           HelVM.HelMA.Automaton.API.LabelType
 
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Extra

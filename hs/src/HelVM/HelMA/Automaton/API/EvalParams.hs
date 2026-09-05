@@ -6,10 +6,10 @@ import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.MemoryOptions
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
 
+import           HelVM.HelMA.Automaton.API.LabelType
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.IntCellType
-import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 

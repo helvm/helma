@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.ETA.EmiterSpec
+module HelVM.HelMA.Automata.ETA.EmitterSpec
   ( spec
   ) where
 

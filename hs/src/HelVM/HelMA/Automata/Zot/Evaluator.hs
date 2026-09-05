@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automata.Zot.Automaton
 import           HelVM.HelMA.Automata.Zot.Expression
 import           HelVM.HelMA.Automata.Zot.Parser
 
-import qualified HelVM.HelMA.Automaton.API.AppOptions  as App
+import qualified HelVM.HelMA.Automaton.API.AppOptions as App
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
@@ -19,7 +19,7 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
 
-import           HelVM.HelMA.Automaton.Types.LabelType
+import           HelVM.HelMA.Automaton.API.LabelType
 
 import           HelVM.HelIO.Containers.Extra
 import           HelVM.HelIO.Control.Safe
@@ -29,8 +29,8 @@ import           HelVM.HelIO.Digit.ToDigit
 
 import           Control.Monad.Writer.Lazy
 
-import qualified Data.DList                            as DList
-import qualified HelVM.HelIO.Collections.SList         as SList
+import qualified Data.DList                           as DList
+import qualified HelVM.HelIO.Collections.SList        as SList
 import qualified RIO
 
 runRio ∷ Has env ⇒ RIO.RIO env ()

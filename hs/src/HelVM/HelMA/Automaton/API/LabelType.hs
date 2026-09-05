@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automaton.Types.LabelType where
+module HelVM.HelMA.Automaton.API.LabelType where
 
 -- | Constructors
 defaultFormatType ∷ LabelType

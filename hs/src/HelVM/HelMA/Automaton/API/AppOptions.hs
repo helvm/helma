@@ -9,7 +9,7 @@ import qualified HelVM.HelMA.Automaton.API.Lang          as API
 import           HelVM.HelMA.Automaton.API.LogLevel      as API
 import qualified HelVM.HelMA.Automaton.API.MemoryOptions as API
 
-import           HelVM.HelMA.Automaton.Types.LabelType
+import           HelVM.HelMA.Automaton.API.LabelType
 
 -- | Methods
 

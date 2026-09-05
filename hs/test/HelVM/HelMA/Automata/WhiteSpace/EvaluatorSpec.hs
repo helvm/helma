@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.SimpleParams
 
 import           HelVM.HelMA.Automaton.Eff.Mock
 
-import           HelVM.HelMA.Automaton.Types.LabelType
+import           HelVM.HelMA.Automaton.API.LabelType
 
 import           HelVM.GoldenExpectations
 import           HelVM.HelIO.CartesianProduct

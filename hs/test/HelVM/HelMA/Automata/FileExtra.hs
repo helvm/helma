@@ -13,7 +13,7 @@ module HelVM.HelMA.Automata.FileExtra
   , showAscii
   ) where
 
-import           HelVM.HelMA.Automaton.Types.LabelType
+import           HelVM.HelMA.Automaton.API.LabelType
 
 import           HelVM.HelIO.Extra
 

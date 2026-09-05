@@ -6,7 +6,7 @@ import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelMA.Automaton.Types.LabelType
+import           HelVM.HelMA.Automaton.API.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 

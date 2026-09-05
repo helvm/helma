@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.WhiteSpace.ParserSpec
+module HelVM.HelMA.Automata.WhiteSpace.EmitterSpec
   ( spec
   ) where
 
@@ -8,7 +8,7 @@ import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
 
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
 
-import           HelVM.HelMA.Automaton.Types.LabelType
+import           HelVM.HelMA.Automaton.API.LabelType
 
 import           HelVM.HelIO.Control.Safe
 

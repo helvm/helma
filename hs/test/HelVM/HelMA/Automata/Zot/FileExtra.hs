@@ -12,7 +12,7 @@ import           HelVM.HelMA.Automata.FileExtra
 
 import           HelVM.HelMA.Automaton.API.IOTypes
 
-import           HelVM.HelMA.Automaton.Types.LabelType
+import           HelVM.HelMA.Automaton.API.LabelType
 
 readZotFile ∷ FilePath → IO Source
 readZotFile = readSourceFile . buildAbsoluteZotFileName

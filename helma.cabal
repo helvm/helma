@@ -131,6 +131,7 @@ library
     HelVM.HelMA.Automaton.API.IOTypes
     HelVM.HelMA.Automaton.API.Lang
     HelVM.HelMA.Automaton.API.OptimizationLevel
+    HelVM.HelMA.Automaton.API.ParserOptions
     
     HelVM.HelMA.Automaton.Automaton
 
@@ -172,7 +173,7 @@ library
     HelVM.HelMA.Automaton.Types.CellType
     HelVM.HelMA.Automaton.Types.DumpType
     HelVM.HelMA.Automaton.Types.IntCellType
-    HelVM.HelMA.Automaton.Types.LabelType
+    HelVM.HelMA.Automaton.API.LabelType
     HelVM.HelMA.Automaton.Types.RAMType
     HelVM.HelMA.Automaton.Types.StackType
 
@@ -374,11 +375,11 @@ test-suite helma-test
     HelVM.HelMA.Automata.ETA.AddressingSpec
     HelVM.HelMA.Automata.ETA.EvaluatorSpec
     HelVM.HelMA.Automata.ETA.FileExtra
-    HelVM.HelMA.Automata.ETA.EmiterSpec
+    HelVM.HelMA.Automata.ETA.EmitterSpec
     HelVM.HelMA.Automata.ETA.OperandParsersSpec
 
     HelVM.HelMA.Automata.FALSE.FileExtra
-    HelVM.HelMA.Automata.FALSE.EmiterSpec
+    HelVM.HelMA.Automata.FALSE.EmitterSpec
 
     HelVM.HelMA.Automata.LazyK.EvaluatorSpec
     HelVM.HelMA.Automata.LazyK.FileExtra
@@ -387,7 +388,7 @@ test-suite helma-test
 
     HelVM.HelMA.Automata.Piet.CodelSizeSpec
     HelVM.HelMA.Automata.Piet.EvaluatorCollisionSpec
-    HelVM.HelMA.Automata.Piet.EvaluatorParseSpec
+    HelVM.HelMA.Automata.Piet.EmitterSpec
     HelVM.HelMA.Automata.Piet.EvaluatorStepStateSpec
     HelVM.HelMA.Automata.Piet.FileExtra
     HelVM.HelMA.Automata.Piet.FillerSpec
@@ -409,7 +410,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec
     HelVM.HelMA.Automata.WhiteSpace.FileExtra
     HelVM.HelMA.Automata.WhiteSpace.OperandParsersSpec
-    HelVM.HelMA.Automata.WhiteSpace.ParserSpec
+    HelVM.HelMA.Automata.WhiteSpace.EmitterSpec
 
     HelVM.HelMA.Automata.Zot.EvaluatorSpec
     HelVM.HelMA.Automata.Zot.FileExtra
