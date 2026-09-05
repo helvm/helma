@@ -3,7 +3,7 @@ module HelVM.HelMA.Automata.WhiteSpace.ParserSpec
   ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
-import HelVM.HelMA.Automata.WhiteSpace.Evaluator
+import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
 import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
 import           HelVM.HelMA.Automata.WhiteSpace.Parser
 
