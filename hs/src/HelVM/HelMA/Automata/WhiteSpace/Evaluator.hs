@@ -1,5 +1,8 @@
 module HelVM.HelMA.Automata.WhiteSpace.Evaluator
-  ( evalParams
+  ( emitCode
+  , emitIL
+  , emitTL
+  , evalParams
   , run
   , runRio
   , simpleEval
