@@ -39,13 +39,22 @@ runRio t = runWithOptions =<< optionsRio where
   runWithOptions o = run (App.emit o) t . App.evalParams o =<< readSourceFileRio
 
 run ∷ Has env ⇒ Emit → TokenType → EvalParams → RIO.RIO env ()
-run No   t                = runAsRIO . evalParams t
-run IL   VisibleTokenType = putLTextLnRio . printListSafeToLText printI . (flipParseVisible <$> formatType <*> source)
-run IL   WhiteTokenType   = putLTextLnRio . printListSafeToLText printI . (flipParseWhite   <$> formatType <*> source)
-run TL   VisibleTokenType = putLTextLnRio . show . tokenizeVisible . source
-run TL   WhiteTokenType   = putLTextLnRio . show . tokenizeWhite   . source
-run Code VisibleTokenType = putLTextLnRio . show . readVisibleTokens . source
-run Code WhiteTokenType   = putLTextLnRio . show . readWhiteTokens   . source
+run No   t = runAsRIO . evalParams t
+run IL   t = putLTextLnRio . emitIL t
+run TL   t = putLTextLnRio . emitTL t . source
+run Code t = putLTextLnRio . emitCode t . source
+
+emitIL ∷ TokenType → EvalParams → LText
+emitIL VisibleTokenType = printListSafeToLText printI . (flipParseVisible <$> formatType <*> source)
+emitIL WhiteTokenType   = printListSafeToLText printI . (flipParseWhite   <$> formatType <*> source)
+
+emitTL ∷ TokenType → Source → LText
+emitTL VisibleTokenType = show . tokenizeVisible
+emitTL WhiteTokenType   = show . tokenizeWhite
+
+emitCode ∷ TokenType → Source → LText
+emitCode VisibleTokenType = show . readVisibleTokens
+emitCode WhiteTokenType   = show . readWhiteTokens
 
 simpleEval ∷ AppSafeEff m ⇒ S.SimpleParams → m ()
 simpleEval p = eval (S.tokenType p) (S.source p) (S.formatType p) $ S.automatonOptions p
