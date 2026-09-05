@@ -13,7 +13,6 @@ import           HelVM.HelMA.Automata.ETA.API.AutomatonType
 import           HelVM.HelMA.Automata.ETA.Automaton
 import           HelVM.HelMA.Automata.ETA.Lexer
 import           HelVM.HelMA.Automata.ETA.Optimizer
-import           HelVM.HelMA.Automata.ETA.Parser
 import qualified HelVM.HelMA.Automata.ETA.SimpleParams       as S
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
@@ -62,7 +61,7 @@ run Emit.TL   _ = putLTextLnRio . emitTL . source
 run Emit.Code _ = putLTextLnRio . emitCode . source
 
 emitIL ∷ MonadSafe m ⇒ OptimizationLevel → Source →  m LText
-emitIL ol = printIL <.> parse ol
+emitIL ol = printIL <.> optimize ol . tokenize
 
 emitTL ∷ Source → LText
 emitTL = show . tokenize

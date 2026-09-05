@@ -218,7 +218,6 @@ library
     HelVM.HelMA.Automata.ETA.Lexer
     HelVM.HelMA.Automata.ETA.OperandParsers
     HelVM.HelMA.Automata.ETA.Optimizer
-    HelVM.HelMA.Automata.ETA.Parser
     HelVM.HelMA.Automata.ETA.SimpleParams
     HelVM.HelMA.Automata.ETA.Symbol
     HelVM.HelMA.Automata.ETA.Token
