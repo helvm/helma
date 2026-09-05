@@ -38,7 +38,7 @@ toInstructionParams p = (optLevel (autoOptions p), source p)
 -- | Type
 data EvalParams
   = EvalParams
-      { formatType    :: !LabelType
+      { labelType     :: !LabelType
       , source        :: !Source
       , memoryOptions :: !MemoryOptions
       , autoOptions   :: !AutoOptions

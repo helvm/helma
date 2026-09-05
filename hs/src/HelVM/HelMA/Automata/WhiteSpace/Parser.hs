@@ -25,7 +25,7 @@ import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Extra
 
 parseForTest ∷ LabelType → TokenType → Source → Safe InstructionList
-parseForTest formatType tokenType = parse2 (tokenType , formatType)
+parseForTest labelType tokenType = parse2 (tokenType , labelType)
 
 flipParseVisible ∷ LabelType → Source → Safe InstructionList
 flipParseVisible = flip parseVisible

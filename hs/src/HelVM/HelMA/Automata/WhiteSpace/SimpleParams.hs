@@ -34,7 +34,7 @@ simpleParams ∷ TokenType → (StackType, RAMType) → LabelType → Source →
 simpleParams tt (st , rt) al s = SimpleParams
   { tokenType = tt
   , source = s
-  , formatType = al
+  , labelType = al
   , stackType = st
   , ramType = rt
   , autoOptions = simpleAutoParams
@@ -45,7 +45,7 @@ data SimpleParams
   = SimpleParams
       { tokenType   :: !TokenType
       , source      :: !Source
-      , formatType  :: !LabelType
+      , labelType   :: !LabelType
       , stackType   :: !StackType
       , ramType     :: !RAMType
       , autoOptions :: !AutoOptions

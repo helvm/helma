@@ -14,7 +14,7 @@ import           HelVM.HelMA.Automaton.Types.LabelType
 -- | Methods
 
 evalParams ∷ AppOptions → Source → API.EvalParams
-evalParams o source = API.EvalParams (formatType o) source (memoryOptions o) (autoOptions o)
+evalParams o source = API.EvalParams (labelType o) source (memoryOptions o) (autoOptions o)
 
 -- | Types
 
@@ -23,7 +23,7 @@ data AppOptions
       { verbosity     :: !LogLevel
       , emit          :: !Emit
       , exec          :: !Exec
-      , formatType    :: !LabelType
+      , labelType     :: !LabelType
       , memoryOptions :: !API.MemoryOptions
       , autoOptions   :: !API.AutoOptions
       , langCommand   :: !API.LangCommand
