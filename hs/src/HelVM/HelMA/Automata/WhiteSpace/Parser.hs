@@ -1,6 +1,5 @@
 module HelVM.HelMA.Automata.WhiteSpace.Parser
-  ( parse
-  , parse2
+  ( parse2
   , parseFromTL
   ) where
 
@@ -26,7 +25,7 @@ parse ∷ MonadSafe m ⇒ TokenType → Source → LabelType → m InstructionLi
 parse tokenType = flip parseFromTL . tokenize tokenType
 
 parseFromTL ∷ MonadSafe m ⇒ LabelType → TokenList → m InstructionList
-parseFromTL ascii = repeatedlyM (parseInstruction ascii)
+parseFromTL labelType = repeatedlyM (parseInstruction labelType)
 
 parseInstruction ∷ MonadSafe m ⇒ LabelType → InstructionParser m
 parseInstruction     _ (S :     tl) = parseInstructionStackManipulation tl
