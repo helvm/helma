@@ -5,7 +5,7 @@ import           HelVM.HelMA.Automaton.Symbol
 
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 
-import           HelVM.HelMA.Automaton.Types.LabelType
+import           HelVM.HelMA.Automaton.API.LabelType
 
 import           HelVM.HelIO.Collections.SList
 import           HelVM.HelIO.Control.Safe

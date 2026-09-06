@@ -8,6 +8,10 @@ import           HelVM.HelMA.Automata.ETA.Token
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 
+import           HelVM.HelMA.Automaton.API.OptimizationLevel
+
+import qualified HelVM.HelMA.Automaton.Optimizer                       as Automaton
+
 import           HelVM.HelIO.Control.Safe
 
 import           Control.Applicative.Tools
@@ -17,8 +21,8 @@ import qualified Data.List.Index                                       as List
 
 import           Data.MonoTraversable
 
-optimize ∷ MonadSafe m ⇒ TokenList → m InstructionList
-optimize = appendEnd <.> join <.> optimizeLines
+optimize ∷ MonadSafe m ⇒ OptimizationLevel → TokenList → m InstructionList
+optimize ol = Automaton.optimize ol <.> appendEnd <.> join <.> optimizeLines
 
 appendEnd ∷ InstructionList → InstructionList
 appendEnd l = l <> [markNI 0 , End]

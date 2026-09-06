@@ -2,20 +2,20 @@ module HelVM.HelMA.Automaton.Types.DumpType where
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           HelVM.HelIO.Extra
-
 import           Control.Monad.Logger
 
-logDump ∷ (AppSafeEff m , Show d) ⇒ DumpType → d → m ()
-logDump dt d = logDump' $ dump dt d where
-  logDump' Nothing  = pass
-  logDump' (Just t) = logInfoN $ logTupleToMessage ("dump" , t)
-  logTupleToMessage (k , v) = k <> ": " <> v
+import           Text.Pretty.Simple
 
-dump ∷ Show a ⇒ DumpType → a → Maybe Text
+logDump ∷ (AppSafeEff m , Show d) ⇒ DumpType → d → m ()
+logDump dt d = flip whenJust logInfoNL $ dump dt d
+
+logInfoNL ∷ MonadLogger m ⇒ LText → m ()
+logInfoNL  = logWithoutLoc "" LevelInfo . toLogStr
+
+dump ∷ Show a ⇒ DumpType → a → Maybe LText
 dump No     _ = Nothing
 dump Ugly   a = Just $ show  a
-dump Pretty a = Just $ showP a
+dump Pretty a = Just $ pShowNoColor a
 
 -- | Constructors
 defaultDumpType ∷ DumpType

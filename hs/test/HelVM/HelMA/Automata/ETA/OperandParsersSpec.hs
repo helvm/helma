@@ -6,6 +6,8 @@ import           HelVM.HelMA.Automata.ETA.OperandParsers
 import           HelVM.HelMA.Automata.ETA.Optimizer
 import           HelVM.HelMA.Automata.ETA.Token
 
+import           HelVM.HelMA.Automaton.API.OptimizationLevel
+
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 
@@ -37,7 +39,7 @@ spec = describe "parse" $ do
     ] $ \(input , output) ->
     describe (show input) $ do
       it "parseInteger" $ parseInteger input `shouldSafe` output
-      it "optimalize" $ optimize ([N] <> input) `shouldSafe` decorateInteger output
+      it "optimalize" $ optimize NoOptimizations ([N] <> input) `shouldSafe` decorateInteger output
   describe "single" $ forM_
     [ (E , [divModI, markSI "1"])
     , (T , [bNeTI              ])
@@ -49,7 +51,7 @@ spec = describe "parse" $ do
     , (R , [markNI 2           ])
     ] $ \(input , output) ->
     describe (show input) $
-      it "optimalize" $ optimize [input] `shouldSafe` decorateIL output
+      it "optimalize" $ optimize NoOptimizations [input] `shouldSafe` decorateIL output
 
 parseInteger ∷ TokenList → Safe Integer
 parseInteger tl = fst <$> parseNumber (IM (Vector.fromList tl) 0)

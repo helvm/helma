@@ -1,7 +1,6 @@
 module HelVM.HelMA.Automata.FALSE.Parser
   ( charToSimpleInstruction
   , parse
-  , parseSafe
   ) where
 
 import           HelVM.HelMA.Automata.FALSE.Expression
@@ -21,9 +20,6 @@ import           HelVM.HelIO.ReadText
 import           Data.Char
 
 import           Text.ParserCombinators.ReadP                           hiding ( many )
-
-parseSafe ∷ Source → Safe ExpressionList
-parseSafe = parse
 
 parse ∷ MonadSafe m ⇒ Source → m ExpressionList
 parse = runParser vlParser

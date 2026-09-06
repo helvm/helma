@@ -12,7 +12,6 @@ import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
-import           HelVM.HelMA.Automaton.Optimizer
 import           HelVM.HelMA.Automaton.Symbol
 import           HelVM.HelMA.Automaton.Trampoline           as Trampoline
 
@@ -37,7 +36,7 @@ import qualified Data.Sequence                              as Seq
 import           Prelude                                    hiding ( swap )
 
 start ∷ AppSafeEff m ⇒ InstructionList → AutomatonOptions → m ()
-start il ao = start' (flip optimize il $ optLevelAutoOptions ao) (stackType ao) (ramType ao) (autoOptions ao)
+start il ao = start' il (stackType ao) (ramType ao) (autoOptions ao)
 
 start' ∷ AppSafeEff m ⇒ InstructionList → StackType → RAMType → AutoOptions → m ()
 start' il s ListRAMType    = start'' il s []

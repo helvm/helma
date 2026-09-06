@@ -27,6 +27,10 @@ import           HelVM.HelMA.Automaton.Extra
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
 
+import           HelVM.HelIO.Control.Safe
+
+import           Control.Applicative.Tools
+
 import qualified RIO
 
 import           Text.Pretty.Simple
@@ -36,10 +40,22 @@ runRio t = runWithOptions =<< optionsRio where
   runWithOptions o = run (App.emit o) t . App.evalParams o =<< readSourceFileRio
 
 run ∷ Has env ⇒ Emit.Emit → ImplType → EvalParams → RIO.RIO env ()
-run Emit.No   i        = runAsRIO . evalParams i
-run Emit.IL   FastType = putLTextLnRio . pShowNoColor . Fast.parseAsListSafe   . source
-run Emit.IL   TreeType = putLTextLnRio . pShowNoColor . Tree.parseAsVectorSafe . source
-run _ _                = putLTextLnRio . show . Flat.readTokens . source
+run Emit.No i = runAsRIO . evalParams i
+run Emit.IL i = putLTextLnRio <=< runAsRIO . emitIL i True . source
+run Emit.TL _ = putLTextLnRio . emitTL . source
+run _ _       = putLTextLnRio . emitCode . source
+
+emitIL ∷ MonadSafe m ⇒ ImplType → Bool → Source → m LText
+emitIL FastType True = pShowNoColor <.> Fast.parseWithOptimize
+emitIL FastType _    = pShowNoColor <.> Fast.parseAsList
+emitIL TreeType _    = pShowNoColor <.> Tree.parseAsVector
+emitIL _        _    = pure . emitTL
+
+emitTL ∷ Source → LText
+emitTL = pShowNoColor . Flat.tokenize
+
+emitCode ∷ Source → LText
+emitCode = show . Flat.readTokens
 
 simpleEval ∷ AppSafeEff m ⇒ (ImplType , Source , CellType) → m ()
 simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Trampoline

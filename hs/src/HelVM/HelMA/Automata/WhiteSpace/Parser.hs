@@ -1,11 +1,6 @@
 module HelVM.HelMA.Automata.WhiteSpace.Parser
-  ( flipParseVisible
-  , flipParseWhite
-  , parse
-  , parseForTest
-  , parseFromTL
-  , parseVisible
-  , parseWhite
+  ( parseFromTL
+  , parseIL
   ) where
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
@@ -14,35 +9,22 @@ import           HelVM.HelMA.Automata.WhiteSpace.OperandParsers
 import           HelVM.HelMA.Automata.WhiteSpace.Token
 
 import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.LabelType
+import           HelVM.HelMA.Automaton.API.ParserOptions
 
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Instruction.Extras.Constructors
 
-import           HelVM.HelMA.Automaton.Types.LabelType
+import           HelVM.HelMA.Automaton.Optimizer
 
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Extra
 
-parseForTest ∷ LabelType → TokenType → Source → Safe InstructionList
-parseForTest formatType tokenType s = parse tokenType s formatType
-
-flipParseVisible ∷ LabelType → Source → Safe InstructionList
-flipParseVisible = flip parseVisible
-
-flipParseWhite ∷ LabelType → Source → Safe InstructionList
-flipParseWhite = flip parseWhite
-
-parseVisible ∷ Source → LabelType → Safe InstructionList
-parseVisible = parse VisibleTokenType
-
-parseWhite ∷ Source → LabelType → Safe InstructionList
-parseWhite = parse WhiteTokenType
-
-parse ∷ MonadSafe m ⇒ TokenType → Source → LabelType → m InstructionList
-parse tokenType = flip parseFromTL . tokenize tokenType
+parseIL ∷ MonadSafe m ⇒ ParserOptions → TokenType → Source → m InstructionList
+parseIL parserOptions tokenType source  = optimize (optLevel parserOptions) <$> parseFromTL (labelType parserOptions) (tokenize tokenType source)
 
 parseFromTL ∷ MonadSafe m ⇒ LabelType → TokenList → m InstructionList
-parseFromTL ascii = repeatedlyM (parseInstruction ascii)
+parseFromTL labelType = repeatedlyM (parseInstruction labelType)
 
 parseInstruction ∷ MonadSafe m ⇒ LabelType → InstructionParser m
 parseInstruction     _ (S :     tl) = parseInstructionStackManipulation tl

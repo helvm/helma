@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.EvaluatorParseSpec
+module HelVM.HelMA.Automata.Piet.EmitterSpec
   ( spec
   ) where
 

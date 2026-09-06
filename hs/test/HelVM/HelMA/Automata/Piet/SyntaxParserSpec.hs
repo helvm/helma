@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.ParserSpec
+module HelVM.HelMA.Automata.Piet.SyntaxParserSpec
   ( main
   , spec
   ) where

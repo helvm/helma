@@ -1,4 +1,4 @@
-Info dump: Memory
+Info Memory
     { memoryIM = IM
         [ While
             [ Inc

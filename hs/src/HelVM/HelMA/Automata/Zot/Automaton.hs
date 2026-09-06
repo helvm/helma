@@ -25,7 +25,7 @@ printExpression ∷ Expression
 printExpression = Expression innerPrintExpression
 
 innerPrintExpression ∷ Expression → Out Expression
-innerPrintExpression f = interrogateExpression f >>< Zero >>< One >>= tell . D.singleton >> pure printExpression
+innerPrintExpression f = (interrogateExpression f >>< Zero >>< One >>= tell . D.singleton) $> printExpression
 
 interrogateExpression ∷ Expression → Out Expression
 interrogateExpression f = f >< iExpression >>< iExpression >>< iExpression >>< kExpression

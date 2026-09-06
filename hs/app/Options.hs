@@ -7,11 +7,12 @@ import           HelVM.HelMA.Automaton.API.Lang
 import           HelVM.HelMA.Automaton.API.LogLevel
 import           HelVM.HelMA.Automaton.API.MemoryOptions
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
+import           HelVM.HelMA.Automaton.API.ParserOptions
 
+import           HelVM.HelMA.Automaton.API.LabelType
 import           HelVM.HelMA.Automaton.Types.CellType
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.IntCellType
-import           HelVM.HelMA.Automaton.Types.LabelType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
@@ -46,14 +47,9 @@ optionsParser = AppOptions
                    <> help    "Exec"
                    <> showDefault
                    )
-  <*> flag BinaryLabel TextLabel
-                   (  long    "ascii-labels"
-                   <> short   'A'
-                   <> help    "Use ascii labels"
-                   <> showDefault
-                   )
-  <*> memoryOptionsParser
   <*> autoOptionsParser
+  <*> memoryOptionsParser
+  <*> parserOptionsParser
   <*> langCommandParser
   <*> argument str (  metavar "FILE")
 
@@ -69,6 +65,22 @@ logLevelParser = explicitVerbosity <|> countedVerbosity <|> pure defaultLogLevel
       (  short   'v'
       <> help    "Increase verbosity level (can be repeated, e.g. -vvv)"
       )
+
+autoOptionsParser ∷ Parser AutoOptions
+autoOptionsParser = AutoOptions
+  <$> option auto  (  long    "Limit"
+                   <> short   'L'
+                   <> metavar "[Limit]"
+                   <> value    Nothing
+                   <> showDefault
+                   )
+  <*> option auto  (  long    "DumpType"
+                   <> short   'd'
+                   <> metavar "[DumpType]"
+                   <> help   ("Implementation of DumpType " <> show dumpTypes)
+                   <> value    defaultDumpType
+                   <> showDefault
+                   )
 
 memoryOptionsParser ∷ Parser MemoryOptions
 memoryOptionsParser = MemoryOptions
@@ -97,20 +109,14 @@ memoryOptionsParser = MemoryOptions
                  <> value defaultIntCellType
                  <> showDefault )
 
-autoOptionsParser ∷ Parser AutoOptions
-autoOptionsParser = AutoOptions
+
+parserOptionsParser ∷ Parser ParserOptions
+parserOptionsParser = ParserOptions
   <$> optLevelParser
-  <*> option auto  (  long    "Limit"
-                   <> short   'L'
-                   <> metavar "[Limit]"
-                   <> value    Nothing
-                   <> showDefault
-                   )
-  <*> option auto  (  long    "DumpType"
-                   <> short   'd'
-                   <> metavar "[DumpType]"
-                   <> help   ("Implementation of DumpType " <> show dumpTypes)
-                   <> value    defaultDumpType
+  <*> flag BinaryLabel TextLabel
+                   (  long    "ascii-labels"
+                   <> short   'A'
+                   <> help    "Use ascii labels"
                    <> showDefault
                    )
 

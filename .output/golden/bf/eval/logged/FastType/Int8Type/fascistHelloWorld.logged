@@ -1,4 +1,4 @@
-Info dump: Memory
+Info Memory
     { memoryIM = IM
         [ Move 1
         , Inc 8
