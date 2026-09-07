@@ -7,6 +7,8 @@ import           HelVM.HelMA.Automata.Piet.API.ImplType
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
 
+import           HelVM.HelMA.Automaton.API.AutomatonType
+
 imageConfig ∷ PietOptions → ImageConfig
 imageConfig po = ImageConfig
   (fromMaybe defaultAdditionalColorStrategy po.additionalColor)
@@ -15,7 +17,8 @@ imageConfig po = ImageConfig
 
 data PietOptions
   = PietOptions
-      { implType          :: !ImplType
+      { automatonType     :: !(Maybe AutomatonType)
+      , implType          :: !ImplType
       , additionalColor   :: !(Maybe AdditionalColorStrategy)
       , multicoloredCodel :: !(Maybe MulticoloredCodelStrategy)
       , codelSize         :: !(Maybe CodelSize)

@@ -31,10 +31,11 @@ import qualified HelVM.HelMA.Automata.Piet.Automaton.StepState as StepState
 import           HelVM.HelMA.Automaton.Instruction
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
+import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
-import           HelVM.HelMA.Automaton.Eff.MonadEff
 
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           HelVM.HelMA.Automaton.Extra
 
 import           HelVM.HelIO.Control.Safe
@@ -54,13 +55,15 @@ runWithOptions ∷ Has env ⇒ PietOptions → App.AppOptions → RIO.RIO env ()
 runWithOptions po o = run (App.emit o) po =<< readImageRio (App.file o)
 
 run ∷ Has env ⇒ Emit → PietOptions → DynamicImage → RIO.RIO env ()
-run No po = runAsRIO . simpleEval2 po
+run No po = runAsRIO . simpleEval2 (fromMaybe Custom po.automatonType) po
 run IL po =  putLTextLnRio <=< (runAsRIO . emitIL . imageInput po)
 run TL po = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput po)
 run _ po  = putLTextLnRio <=< (runAsRIO . emitDot . imageInput po)
 
-simpleEval2 ∷ AppSafeEff m ⇒ PietOptions → DynamicImage → m ()
-simpleEval2 po = simpleEval po.implType po.codelSize
+simpleEval2 ∷ AppSafeEff m ⇒ AutomatonType → PietOptions → DynamicImage → m ()
+simpleEval2 Custom po = simpleEval po.implType po.codelSize
+simpleEval2 _      po = simpleEval po.implType po.codelSize
+
 
 simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
 simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs

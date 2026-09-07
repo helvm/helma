@@ -160,7 +160,8 @@ pietParser = PietCommand <$> pietOptionsParser
 
 pietOptionsParser ∷ Parser PietOptions
 pietOptionsParser = PietOptions
-  <$> option auto (long "ImplType" <> short 'i' <> metavar "[ImplType]" <> value Piet.defaultImplType <> showDefault)
+  <$> optional (option auto (long "AutomatonType" <> short 'A' <> metavar "[AutomatonType]" <> value defaultAutomatonType <> showDefault))
+  <*> option auto (long "ImplType" <> short 'i' <> metavar "[ImplType]" <> value Piet.defaultImplType <> showDefault)
   <*> optional (option auto (long "Additional" <> short 'a' <> metavar "[AdditionalColorStrategy]" <> value defaultAdditionalColorStrategy <> showDefault))
   <*> optional (option auto (long "Multicolored" <> short 'm' <> metavar "[MulticoloredCodelStrategy]" <> value defaultMulticoloredCodelStrategy <> showDefault))
   <*> optional (option auto (long "codels" <> short 'C' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)"))
