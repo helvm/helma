@@ -14,15 +14,17 @@ import           HelVM.HelIO.Control.Safe
 import           Control.Type.Operator
 
 runSLI ∷ (LSU m s r element) ⇒ LSInstruction → LoadStoreMemory s r → m $ LoadStoreMemory s r
-runSLI Load             = load
-runSLI Store            = store
-runSLI (LoadD     a)    = loadD a
-runSLI (StoreID v a)    = storeID v a
-runSLI (MoveD   s d)    = moveD s d
-runSLI (MIO OutputChar) = loadOutputChar
-runSLI (MIO OutputDec)  = loadOutputDec
-runSLI (MIO InputChar)  = storeInputChar
-runSLI (MIO InputDec)   = storeInputDec
+runSLI Load                  = load
+runSLI Store                 = store
+runSLI (LoadD     a)         = loadD a
+runSLI (StoreID v a)         = storeID v a
+runSLI (MoveD   s d)         = moveD s d
+runSLI (MIO OutputChar)      = loadOutputChar
+runSLI (MIO OutputDec)       = loadOutputDec
+runSLI (MIO OutputCharMaybe) = loadOutputCharMaybe
+runSLI (MIO OutputDecMaybe)  = loadOutputDecMaybe
+runSLI (MIO InputChar)       = storeInputChar
+runSLI (MIO InputDec)        = storeInputDec
 
 load ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 load (LSM s r) = appendError "LSM.load" $ build =<< pop1 s where
@@ -56,6 +58,12 @@ loadOutputChar (LSM s r) = appendError "LSM.loadOutputChar" $ build =<< pop1 s w
 loadOutputDec ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 loadOutputDec (LSM s r) = appendError "LSM.loadOutputDec" $ build =<< pop1 s where
   build (address , s') = LSM s' r <$ putAsDec (RAM.genericLoad r address)
+
+loadOutputCharMaybe ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
+loadOutputCharMaybe = loadOutputChar
+
+loadOutputDecMaybe ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
+loadOutputDecMaybe = loadOutputDec
 
 storeInputChar ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 storeInputChar (LSM s r) = appendError "LSM.storeInputChar" $ build =<< pop1 s where

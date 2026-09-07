@@ -58,10 +58,12 @@ runALI (SPure ali) = runSAL ali
 runALI (SIO   ioi) = runSIO ioi
 
 runSIO ∷ ALU m ll element ⇒ IOInstruction → ll → m ll
-runSIO OutputChar = outputChar
-runSIO OutputDec  = outputDec
-runSIO InputChar  = inputChar
-runSIO InputDec   = inputDec
+runSIO OutputChar      = outputChar
+runSIO OutputDec       = outputDec
+runSIO OutputCharMaybe = outputCharMaybe
+runSIO OutputDecMaybe  = outputDecMaybe
+runSIO InputChar       = inputChar
+runSIO InputDec        = inputDec
 
 runSAL ∷ SafeStack m ll element ⇒ SPureInstruction → ll → m ll
 runSAL (Cons      i   ) = push  i

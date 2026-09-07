@@ -50,7 +50,7 @@ load
 cons 6
 sub
 bEZA "branch_4_ul"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_3"
 
 markA "branch_4_ul"
@@ -59,7 +59,7 @@ load
 cons 7
 sub
 bEZA "branch_4_ur"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_3"
 
 markA "branch_4_ur"

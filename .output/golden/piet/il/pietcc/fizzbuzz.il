@@ -205,7 +205,7 @@ load
 cons 5
 sub
 bEZA "branch_7_lr"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_6"
 
 markA "branch_7_lr"
@@ -1008,7 +1008,7 @@ load
 cons 0
 sub
 bEZA "branch_29_rl"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_30"
 
 markA "branch_29_rl"
@@ -1017,7 +1017,7 @@ load
 cons 1
 sub
 bEZA "branch_29_rr"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_30"
 
 markA "branch_29_rr"
@@ -1066,7 +1066,7 @@ load
 cons 0
 sub
 bEZA "branch_31_rl"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_32"
 
 markA "branch_31_rl"
@@ -1075,7 +1075,7 @@ load
 cons 1
 sub
 bEZA "branch_31_rr"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_32"
 
 markA "branch_31_rr"
@@ -1357,7 +1357,7 @@ load
 cons 5
 sub
 bEZA "branch_40_lr"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_39"
 
 markA "branch_40_lr"
@@ -3453,7 +3453,7 @@ load
 cons 6
 sub
 bEZA "branch_181_ul"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_178"
 
 markA "branch_181_ul"
@@ -3462,7 +3462,7 @@ load
 cons 7
 sub
 bEZA "branch_181_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_178"
 
 markA "branch_181_ur"
@@ -3491,7 +3491,7 @@ load
 cons 6
 sub
 bEZA "branch_182_ul"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_179"
 
 markA "branch_182_ul"
@@ -3500,7 +3500,7 @@ load
 cons 7
 sub
 bEZA "branch_182_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_179"
 
 markA "branch_182_ur"
@@ -3529,7 +3529,7 @@ load
 cons 6
 sub
 bEZA "branch_183_ul"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_180"
 
 markA "branch_183_ul"
@@ -3538,7 +3538,7 @@ load
 cons 7
 sub
 bEZA "branch_183_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_180"
 
 markA "branch_183_ur"
@@ -3969,7 +3969,7 @@ load
 cons 6
 sub
 bEZA "branch_196_ul"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_193"
 
 markA "branch_196_ul"
@@ -3978,7 +3978,7 @@ load
 cons 7
 sub
 bEZA "branch_196_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_193"
 
 markA "branch_196_ur"
@@ -4007,7 +4007,7 @@ load
 cons 6
 sub
 bEZA "branch_197_ul"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_194"
 
 markA "branch_197_ul"
@@ -4016,7 +4016,7 @@ load
 cons 7
 sub
 bEZA "branch_197_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_194"
 
 markA "branch_197_ur"
@@ -4045,7 +4045,7 @@ load
 cons 6
 sub
 bEZA "branch_198_ul"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_195"
 
 markA "branch_198_ul"
@@ -4054,7 +4054,7 @@ load
 cons 7
 sub
 bEZA "branch_198_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_195"
 
 markA "branch_198_ur"
@@ -4449,7 +4449,7 @@ load
 cons 7
 sub
 bEZA "branch_211_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_208"
 
 markA "branch_211_ur"
@@ -4469,7 +4469,7 @@ load
 cons 7
 sub
 bEZA "branch_212_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_209"
 
 markA "branch_212_ur"
@@ -4489,7 +4489,7 @@ load
 cons 7
 sub
 bEZA "branch_213_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_210"
 
 markA "branch_213_ur"
@@ -4884,7 +4884,7 @@ load
 cons 7
 sub
 bEZA "branch_226_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_223"
 
 markA "branch_226_ur"
@@ -4904,7 +4904,7 @@ load
 cons 7
 sub
 bEZA "branch_227_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_224"
 
 markA "branch_227_ur"
@@ -4933,7 +4933,7 @@ load
 cons 7
 sub
 bEZA "branch_228_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_225"
 
 markA "branch_228_ur"
@@ -5295,7 +5295,7 @@ load
 cons 6
 sub
 bEZA "branch_240_ul"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_234"
 
 markA "branch_240_ul"
@@ -5304,7 +5304,7 @@ load
 cons 7
 sub
 bEZA "branch_240_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_234"
 
 markA "branch_240_ur"
@@ -6410,7 +6410,7 @@ load
 cons 6
 sub
 bEZA "branch_282_ul"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_272"
 
 markA "branch_282_ul"
@@ -6419,7 +6419,7 @@ load
 cons 7
 sub
 bEZA "branch_282_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_272"
 
 markA "branch_282_ur"
@@ -6630,7 +6630,7 @@ load
 cons 2
 sub
 bEZA "branch_292_dl"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_295"
 
 markA "branch_292_dl"
@@ -6639,7 +6639,7 @@ load
 cons 3
 sub
 bEZA "branch_292_dr"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_295"
 
 markA "branch_292_dr"
@@ -6802,7 +6802,7 @@ load
 cons 2
 sub
 bEZA "branch_297_dl"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_300"
 
 markA "branch_297_dl"
@@ -6811,7 +6811,7 @@ load
 cons 3
 sub
 bEZA "branch_297_dr"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_300"
 
 markA "branch_297_dr"
@@ -6887,7 +6887,7 @@ load
 cons 7
 sub
 bEZA "branch_299_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_296"
 
 markA "branch_299_ur"
@@ -6954,7 +6954,7 @@ load
 cons 6
 sub
 bEZA "branch_301_ul"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_298"
 
 markA "branch_301_ul"
@@ -6963,7 +6963,7 @@ load
 cons 7
 sub
 bEZA "branch_301_ur"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_298"
 
 markA "branch_301_ur"
@@ -7157,7 +7157,7 @@ load
 cons 6
 sub
 bEZA "branch_306_ul"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_303"
 
 markA "branch_306_ul"
@@ -7166,7 +7166,7 @@ load
 cons 7
 sub
 bEZA "branch_306_ur"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_303"
 
 markA "branch_306_ur"
@@ -7736,7 +7736,7 @@ load
 cons 7
 sub
 bEZA "branch_327_ur"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_318"
 
 markA "branch_327_ur"
@@ -7842,7 +7842,7 @@ load
 cons 2
 sub
 bEZA "branch_337_dl"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_342"
 
 markA "branch_337_dl"
@@ -7851,7 +7851,7 @@ load
 cons 3
 sub
 bEZA "branch_337_dr"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_342"
 
 markA "branch_337_dr"
@@ -8009,7 +8009,7 @@ load
 cons 2
 sub
 bEZA "branch_344_dl"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_347"
 
 markA "branch_344_dl"
@@ -8018,7 +8018,7 @@ load
 cons 3
 sub
 bEZA "branch_344_dr"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_347"
 
 markA "branch_344_dr"
@@ -9328,7 +9328,7 @@ load
 cons 2
 sub
 bEZA "branch_393_dl"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_394"
 
 markA "branch_393_dl"
@@ -9337,7 +9337,7 @@ load
 cons 3
 sub
 bEZA "branch_393_dr"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_394"
 
 markA "branch_393_dr"
@@ -9460,7 +9460,7 @@ load
 cons 6
 sub
 bEZA "branch_396_ul"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_395"
 
 markA "branch_396_ul"
@@ -9469,7 +9469,7 @@ load
 cons 7
 sub
 bEZA "branch_396_ur"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_395"
 
 markA "branch_396_ur"
@@ -9801,7 +9801,7 @@ load
 cons 2
 sub
 bEZA "branch_412_dl"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_413"
 
 markA "branch_412_dl"
@@ -9810,7 +9810,7 @@ load
 cons 3
 sub
 bEZA "branch_412_dr"
-mio outputchar
+mio outputcharmaybe
 jumpA "block_413"
 
 markA "branch_412_dr"

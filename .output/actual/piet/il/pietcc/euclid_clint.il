@@ -434,7 +434,7 @@ load
 cons 0
 sub
 bEZA "branch_23_rl"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_21"
 
 markA "branch_23_rl"
@@ -443,7 +443,7 @@ load
 cons 1
 sub
 bEZA "branch_23_rr"
-mio outputdec
+mio outputdecmaybe
 jumpA "block_21"
 
 markA "branch_23_rr"
