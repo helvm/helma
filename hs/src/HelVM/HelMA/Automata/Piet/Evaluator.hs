@@ -36,6 +36,7 @@ import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
 import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
+import qualified HelVM.HelMA.Automaton.API.EvalOptions         as EvalOptions
 import qualified HelVM.HelMA.Automaton.API.MemoryOptions       as MemoryOptions
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
@@ -71,7 +72,8 @@ simpleEvalCommon ∷ AppSafeEff m ⇒ App.AppOptions → PietOptions → Dynamic
 simpleEvalCommon o po = flip Automaton.start (automatonOptions o) <=< generateIL . imageInput po
 
 automatonOptions ∷ App.AppOptions → Automaton.AutomatonOptions
-automatonOptions o = Automaton.withDefaultRam (MemoryOptions.stack $ App.memoryOptions o) (App.autoOptions o)
+automatonOptions o = Automaton.withDefaultRam (MemoryOptions.stack $ EvalOptions.memoryOptions eo) (EvalOptions.autoOptions eo) where
+  eo = App.evalOptions o
 
 simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
 simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs

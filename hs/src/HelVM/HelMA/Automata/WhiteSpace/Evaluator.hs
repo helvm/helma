@@ -18,6 +18,7 @@ import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
 import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
+import           HelVM.HelMA.Automaton.API.EvalOptions
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.ParserOptions
@@ -49,7 +50,7 @@ run TL   t = putLTextLnRio . emitTL t . source
 run Code t = putLTextLnRio . emitCode t . source
 
 emitIL ∷ MonadSafe m ⇒ TokenType → EvalParams → m LText
-emitIL t p = emitILForTest (parserOptions p) t (source p)
+emitIL t p = emitILForTest (parserOptions $ evalOptions p) t (source p)
 
 emitILForTest ∷ MonadSafe m ⇒ ParserOptions → TokenType → Source → m LText
 emitILForTest parserOptions tokenType = printIL <.> optimize (optLevel parserOptions) <.> parseIL parserOptions tokenType
@@ -67,7 +68,8 @@ simpleEval p = eval (S.automatonOptions p) (simpleAutoParams (S.labelType p)) (S
 ----
 
 evalParams ∷ AppSafeEff m ⇒ TokenType → EvalParams → m ()
-evalParams tokenType p = eval (automatonOptions p) (parserOptions p) tokenType (source p)
+evalParams tokenType p = eval (automatonOptions eo) (parserOptions eo) tokenType (source p) where
+  eo = evalOptions p
 
 eval ∷ AppSafeEff m ⇒ Automaton.AutomatonOptions → ParserOptions → TokenType → Source →m ()
 eval ao parserOptions tokenType source = evalIL ao =<< parseIL  parserOptions tokenType source

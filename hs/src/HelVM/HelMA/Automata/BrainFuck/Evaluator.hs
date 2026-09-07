@@ -7,7 +7,6 @@ import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Flat.Parser     as Flat
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Evaluator  as Tree
 import qualified HelVM.HelMA.Automata.BrainFuck.Impl.Tree.Parser     as Tree
 
-
 import           HelVM.HelMA.Automata.BrainFuck.API.ImplType
 
 import           HelVM.HelMA.Automata.BrainFuck.Common.Symbol
@@ -17,6 +16,7 @@ import qualified HelVM.HelMA.Automaton.API.AppOptions                as App
 import qualified HelVM.HelMA.Automaton.API.Emit                      as Emit
 import           HelVM.HelMA.Automaton.API.Env
 
+import           HelVM.HelMA.Automaton.API.EvalOptions
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
@@ -63,7 +63,7 @@ simpleEval (c , s , t) = eval c s t Pretty --TODO Add MaybeLimit and use Trampol
 ----
 
 evalParams ∷ AppSafeEff m ⇒ ImplType → EvalParams → m ()
-evalParams b p = eval b (source p) (cellAutoOptions p) (dumpAutoOptions p)
+evalParams b p = eval b (source p) (cellAutoOptions $ evalOptions p) (dumpAutoOptions $ evalOptions p)
 
 eval ∷ AppSafeEff m ⇒ ImplType → Source → CellType → DumpType → m ()
 eval c s Int8Type   = evalSource c s (newTape :: FullTape Int8)

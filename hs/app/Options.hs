@@ -3,6 +3,7 @@ module Options where
 import           HelVM.HelMA.Automaton.API.AppOptions
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.Emit
+import           HelVM.HelMA.Automaton.API.EvalOptions
 import           HelVM.HelMA.Automaton.API.LogLevel
 import           HelVM.HelMA.Automaton.API.MemoryOptions
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
@@ -47,11 +48,15 @@ optionsParser = AppOptions
                    <> help    "Exec"
                    <> showDefault
                    )
-  <*> autoOptionsParser
-  <*> memoryOptionsParser
-  <*> parserOptionsParser
+  <*> evalOptionsParser
   <*> langCommandParser
   <*> argument str (  metavar "FILE")
+
+evalOptionsParser ∷ Parser EvalOptions
+evalOptionsParser = EvalOptions
+  <$> parserOptionsParser
+  <*> memoryOptionsParser
+  <*> autoOptionsParser
 
 logLevelParser ∷ Parser LogLevel
 logLevelParser = explicitVerbosity <|> countedVerbosity <|> pure defaultLogLevel where

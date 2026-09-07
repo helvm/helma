@@ -17,15 +17,16 @@ import qualified HelVM.HelMA.Automata.ETA.SimpleParams       as S
 import           HelVM.HelMA.Automata.ETA.Symbol
 import           HelVM.HelMA.Automata.ETA.Token
 
-
 import qualified HelVM.HelMA.Automaton.API.AppOptions        as App
 import qualified HelVM.HelMA.Automaton.API.AutomatonOptions  as Automaton
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import qualified HelVM.HelMA.Automaton.API.Emit              as Emit
 import           HelVM.HelMA.Automaton.API.Env
+import           HelVM.HelMA.Automaton.API.EvalOptions
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
+import           HelVM.HelMA.Automaton.API.ParserOptions     ( ParserOptions (optLevel) )
 
 import qualified HelVM.HelMA.Automaton.Automaton             as Automaton
 
@@ -47,7 +48,6 @@ import qualified Data.Sequence                               as Seq
 
 import           Prelude                                     hiding ( divMod )
 
-import           HelVM.HelMA.Automaton.API.ParserOptions     ( ParserOptions (optLevel) )
 import qualified RIO
 
 runRio ∷ Has env ⇒ AutomatonType → RIO.RIO env ()
@@ -75,7 +75,8 @@ simpleEval p = evalSource (S.implType p) AllOptimizations (S.source p) (S.stackT
 ----
 
 evalParams ∷ AppSafeEff m ⇒ AutomatonType → EvalParams → m ()
-evalParams e p = evalSource e (optLevel $ parserOptions p) (source p) (stackAutoOptions p) (autoOptions p)
+evalParams e p = evalSource e (optLevel $ parserOptions eo) (source p) (stackAutoOptions eo) (autoOptions eo) where
+  eo = evalOptions p
 
 evalSource ∷ (AutomatonEff Symbol m) ⇒ AutomatonType → OptimizationLevel →  Source → StackType → AutoOptions → m ()
 evalSource automatonType ol source = evalTL automatonType ol (tokenize source)

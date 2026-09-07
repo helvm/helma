@@ -12,6 +12,7 @@ import           HelVM.HelMA.Automata.Zot.Parser
 import qualified HelVM.HelMA.Automaton.API.AppOptions    as App
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
+import           HelVM.HelMA.Automaton.API.EvalOptions
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.API.ParserOptions
@@ -43,7 +44,7 @@ run No = runAsRIO . evalParams
 run _  = fallback
 
 evalParams ∷ AppSafeEff m ⇒ EvalParams → m ()
-evalParams p = putLine =<< evalWithFormat (labelType $ parserOptions p) (source p) =<< getContentsText
+evalParams p = putLine =<< evalWithFormat (labelType $ parserOptions $ evalOptions p) (source p) =<< getContentsText
 
 evalWithFormat ∷ MonadSafe m ⇒ LabelType → Source → LText → m Output
 evalWithFormat BinaryLabel source input = pure $ showFoldable $ evalInternal source input
