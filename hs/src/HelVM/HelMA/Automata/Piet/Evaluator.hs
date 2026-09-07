@@ -65,7 +65,10 @@ run _  _ po = putLTextLnRio <=< (runAsRIO . emitDot . imageInput po)
 
 simpleEvalByType ∷ AppSafeEff m ⇒ AutomatonType → App.AppOptions → PietOptions → DynamicImage → m ()
 simpleEvalByType Custom _ po = simpleEval po.implType po.codelSize
-simpleEvalByType _      o po = flip Automaton.start (automatonOptions o) <=< generateIL . imageInput po
+simpleEvalByType _      o po = simpleEvalCommon o po
+
+simpleEvalCommon ∷ AppSafeEff m ⇒ App.AppOptions → PietOptions → DynamicImage → m ()
+simpleEvalCommon o po = flip Automaton.start (automatonOptions o) <=< generateIL . imageInput po
 
 automatonOptions ∷ App.AppOptions → Automaton.AutomatonOptions
 automatonOptions o = Automaton.withDefaultRam (MemoryOptions.stack $ App.memoryOptions o) (App.autoOptions o)
