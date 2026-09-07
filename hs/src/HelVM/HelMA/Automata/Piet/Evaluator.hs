@@ -64,7 +64,6 @@ simpleEval2 ∷ AppSafeEff m ⇒ AutomatonType → PietOptions → DynamicImage 
 simpleEval2 Custom po = simpleEval po.implType po.codelSize
 simpleEval2 _      po = simpleEval po.implType po.codelSize
 
-
 simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
 simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs
 
