@@ -1,7 +1,0 @@
-Debug Actual codel length: 20
-Debug (3,6) push 12
-Debug (4,6) pop
-Debug (6,6) duplicate
-Error MTIndexSafe.indexSafe:
-ALU.copy
-

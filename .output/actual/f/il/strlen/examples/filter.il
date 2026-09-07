@@ -1,1 +1,0 @@
-[ Comment " filter.f: filters words outof binaries >=4 chars " ]
