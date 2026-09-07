@@ -196,20 +196,15 @@ load
 cons 0
 sub
 bEZA "branch_5_rl"
-cons 0
-load
-cons 2
-div
-add
 cons 4
 mod
 cons 2
 mul
 cons 0
 load
-cons 2
-mod
 add
+cons 8
+mod
 cons 0
 halibut
 store
@@ -221,20 +216,15 @@ load
 cons 1
 sub
 bEZA "branch_5_rr"
-cons 0
-load
-cons 2
-div
-add
 cons 4
 mod
 cons 2
 mul
 cons 0
 load
-cons 2
-mod
 add
+cons 8
+mod
 cons 0
 halibut
 store
@@ -298,20 +288,11 @@ load
 cons 4
 sub
 bEZA "branch_6_ll"
-cons 0
-load
-cons 2
-mod
-add
 cons 2
 mod
 cons 0
 load
-cons 2
-div
-cons 2
-mul
-add
+bxor
 cons 0
 halibut
 store
@@ -323,20 +304,11 @@ load
 cons 5
 sub
 bEZA "branch_6_lr"
-cons 0
-load
-cons 2
-mod
-add
 cons 2
 mod
 cons 0
 load
-cons 2
-div
-cons 2
-mul
-add
+bxor
 cons 0
 halibut
 store
@@ -746,7 +718,7 @@ load
 cons 2
 sub
 bEZA "branch_28_dl"
-halibut
+roll
 jumpA "block_29"
 
 markA "branch_28_dl"
@@ -755,7 +727,7 @@ load
 cons 3
 sub
 bEZA "branch_28_dr"
-halibut
+roll
 jumpA "block_29"
 
 markA "branch_28_dr"
@@ -898,7 +870,7 @@ load
 cons 2
 sub
 bEZA "branch_32_dl"
-halibut
+roll
 jumpA "block_34"
 
 markA "branch_32_dl"
@@ -907,7 +879,7 @@ load
 cons 3
 sub
 bEZA "branch_32_dr"
-halibut
+roll
 jumpA "block_34"
 
 markA "branch_32_dr"
@@ -1048,20 +1020,11 @@ load
 cons 2
 sub
 bEZA "branch_36_dl"
-cons 0
-load
-cons 2
-mod
-add
 cons 2
 mod
 cons 0
 load
-cons 2
-div
-cons 2
-mul
-add
+bxor
 cons 0
 halibut
 store
@@ -1073,20 +1036,11 @@ load
 cons 3
 sub
 bEZA "branch_36_dr"
-cons 0
-load
-cons 2
-mod
-add
 cons 2
 mod
 cons 0
 load
-cons 2
-div
-cons 2
-mul
-add
+bxor
 cons 0
 halibut
 store
@@ -1170,20 +1124,15 @@ load
 cons 6
 sub
 bEZA "branch_39_ul"
-cons 0
-load
-cons 2
-div
-add
 cons 4
 mod
 cons 2
 mul
 cons 0
 load
-cons 2
-mod
 add
+cons 8
+mod
 cons 0
 halibut
 store
@@ -1195,20 +1144,15 @@ load
 cons 7
 sub
 bEZA "branch_39_ur"
-cons 0
-load
-cons 2
-div
-add
 cons 4
 mod
 cons 2
 mul
 cons 0
 load
-cons 2
-mod
 add
+cons 8
+mod
 cons 0
 halibut
 store

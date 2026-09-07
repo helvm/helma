@@ -486,7 +486,7 @@ load
 cons 0
 sub
 bEZA "branch_49_rl"
-halibut
+roll
 jumpA "block_50"
 
 markA "branch_49_rl"
@@ -495,7 +495,7 @@ load
 cons 1
 sub
 bEZA "branch_49_rr"
-halibut
+roll
 jumpA "block_50"
 
 markA "branch_49_rr"

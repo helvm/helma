@@ -19,7 +19,7 @@ load
 cons 2
 sub
 bEZA "branch_2_dl"
-halibut
+roll
 jumpA "block_3"
 
 markA "branch_2_dl"
@@ -28,7 +28,7 @@ load
 cons 3
 sub
 bEZA "branch_2_dr"
-halibut
+roll
 jumpA "block_3"
 
 markA "branch_2_dr"

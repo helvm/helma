@@ -80,45 +80,33 @@ compileCommand Piet.InNumber    = [ILS (MIO InputDec)]
 compileCommand Piet.InChar      = [ILS (MIO InputChar)]
 compileCommand Piet.OutNumber   = [ILS (MIO OutputDec)]
 compileCommand Piet.OutChar     = [ILS (MIO OutputChar)]
-compileCommand Piet.Pointer     = mutateDP 4
-compileCommand Piet.Switch      = mutateCC 2
-compileCommand Piet.Roll        = [ISM (SPure Halibut)]
+compileCommand Piet.Pointer     = mutateDP
+compileCommand Piet.Switch      = mutateCC
+compileCommand Piet.Roll        = [ISM (SPure Roll)]
 
-mutateDP ∷ Integer → InstructionList
-mutateDP modVal =
-  loadDPCC
-    <> [ ISM (SPure (Cons 2))
-       , ISM (SPure (Binary Div))
-       , ISM (SPure (Binary Add))
-       , ISM (SPure (Cons modVal))
-       , ISM (SPure (Binary Mod))
-       , ISM (SPure (Cons 2))
-       , ISM (SPure (Binary Mul))
-       ]
+mutateDP ∷ InstructionList
+mutateDP =
+  [ ISM (SPure (Cons 4))
+  , ISM (SPure (Binary Mod))
+  , ISM (SPure (Cons 2))
+  , ISM (SPure (Binary Mul))
+  ]
     <> loadDPCC
-    <> [ ISM (SPure (Cons 2))
+    <> [ ISM (SPure (Binary Add))
+       , ISM (SPure (Cons 8))
        , ISM (SPure (Binary Mod))
-       , ISM (SPure (Binary Add))
        , ISM (SPure (Cons dpccRamAddress))
        , ISM (SPure Halibut)
        , ILS Store
        ]
 
-mutateCC ∷ Integer → InstructionList
-mutateCC modVal =
-  loadDPCC
-    <> [ ISM (SPure (Cons 2))
-       , ISM (SPure (Binary Mod))
-       , ISM (SPure (Binary Add))
-       , ISM (SPure (Cons modVal))
-       , ISM (SPure (Binary Mod))
-       ]
+mutateCC ∷ InstructionList
+mutateCC =
+  [ ISM (SPure (Cons 2))
+  , ISM (SPure (Binary Mod))
+  ]
     <> loadDPCC
-    <> [ ISM (SPure (Cons 2))
-       , ISM (SPure (Binary Div))
-       , ISM (SPure (Cons 2))
-       , ISM (SPure (Binary Mul))
-       , ISM (SPure (Binary Add))
+    <> [ ISM (SPure (Binary BXor))
        , ISM (SPure (Cons dpccRamAddress))
        , ISM (SPure Halibut)
        , ILS Store
