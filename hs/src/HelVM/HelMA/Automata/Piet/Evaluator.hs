@@ -32,13 +32,11 @@ import qualified HelVM.HelMA.Automaton.Automaton               as Automaton
 import           HelVM.HelMA.Automaton.Instruction
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
-import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
 import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalOptions         ( EvalOptions )
 import qualified HelVM.HelMA.Automaton.API.EvalOptions         as EvalOptions
-import qualified HelVM.HelMA.Automaton.API.MemoryOptions       as MemoryOptions
 
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           HelVM.HelMA.Automaton.Extra
@@ -66,14 +64,11 @@ run TL _  po = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput po)
 run _  _  po = putLTextLnRio <=< (runAsRIO . emitDot . imageInput po)
 
 simpleEvalByType ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → PietOptions → DynamicImage → m ()
-simpleEvalByType Custom _ po  = simpleEval po.implType po.codelSize
+simpleEvalByType Custom _  po = simpleEval po.implType po.codelSize
 simpleEvalByType _      eo po = simpleEvalCommon eo po
 
 simpleEvalCommon ∷ AppSafeEff m ⇒ EvalOptions → PietOptions → DynamicImage → m ()
-simpleEvalCommon eo po = flip Automaton.start (automatonOptions eo) <=< generateIL . imageInput po
-
-automatonOptions ∷ EvalOptions → Automaton.AutomatonOptions
-automatonOptions eo = Automaton.withDefaultRam (MemoryOptions.stack $ EvalOptions.memoryOptions eo) (EvalOptions.autoOptions eo)
+simpleEvalCommon eo po = flip Automaton.start (EvalOptions.automatonOptions eo) <=< generateIL . imageInput po
 
 simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
 simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs
