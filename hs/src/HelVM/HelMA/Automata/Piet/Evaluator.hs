@@ -2,9 +2,9 @@ module HelVM.HelMA.Automata.Piet.Evaluator
   ( emitCommands
   , emitDot
   , emitIL
+  , evalCustom
   , run
   , runRio
-  , simpleEval
   ) where
 
 import           HelVM.HelMA.Automata.Piet.AssemblyGenerator
@@ -32,6 +32,7 @@ import qualified HelVM.HelMA.Automaton.Automaton               as Automaton
 import           HelVM.HelMA.Automaton.Instruction
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
+import           HelVM.HelMA.Automaton.API.AutomatonOptions    ( AutomatonOptions )
 import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
@@ -58,20 +59,20 @@ runWithOptions ∷ Has env ⇒ PietOptions → App.AppOptions → RIO.RIO env ()
 runWithOptions po o = run (App.emit o) (App.evalOptions o) po =<< readImageRio (App.file o)
 
 run ∷ Has env ⇒ Emit → EvalOptions → PietOptions → DynamicImage → RIO.RIO env ()
-run No eo po = runAsRIO . simpleEvalByType (fromMaybe Custom (automatonType po)) eo po
+run No eo po = runAsRIO . evalParams (fromMaybe Custom (automatonType po)) eo po
 run IL _  po = putLTextLnRio <=< (runAsRIO . emitIL . imageInput po)
 run TL _  po = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput po)
 run _  _  po = putLTextLnRio <=< (runAsRIO . emitDot . imageInput po)
 
-simpleEvalByType ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → PietOptions → DynamicImage → m ()
-simpleEvalByType Custom _  po = simpleEval po.implType po.codelSize
-simpleEvalByType _      eo po = simpleEvalCommon eo po
+evalParams ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → PietOptions → DynamicImage → m ()
+evalParams Custom _  po = evalCustom po.implType po.codelSize
+evalParams _      eo po = evalCommon (EvalOptions.automatonOptions eo) po
 
-simpleEvalCommon ∷ AppSafeEff m ⇒ EvalOptions → PietOptions → DynamicImage → m ()
-simpleEvalCommon eo po = flip Automaton.start (EvalOptions.automatonOptions eo) <=< generateIL . imageInput po
+evalCommon ∷ AppSafeEff m ⇒ AutomatonOptions → PietOptions → DynamicImage → m ()
+evalCommon ao po = flip Automaton.start ao <=< generateIL . imageInput po
 
-simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
-simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs
+evalCustom ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
+evalCustom i cs = start i . uncurry compile <=< logCS . processImage cs
 
 emitIL ∷ MonadSafe m ⇒ ImageInput → m LText
 emitIL = fmap printIL . generateIL

@@ -78,7 +78,7 @@ spec =
     let img = readImage fullPath
     let implType = StepState
     forM_ inputs $ \input -> do
-      let mock = (ioExecMockEffWithInput (toText input) . simpleEval implType Nothing) =<< img
+      let mock = (ioExecMockEffWithInput (toText input) . evalCustom implType Nothing) =<< img
       let path = show implType </> dirName </> fileName <> input
       describe path $ do
         it ("output" </> path) $
