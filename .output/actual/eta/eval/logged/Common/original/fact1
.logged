@@ -1,0 +1,549 @@
+Info Memory
+    { memoryCM = CM
+        { program =
+            [ ICF
+                ( Mark
+                    ( MNatural 1 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 14 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 2 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 5 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 3 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 32 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 4 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM ( SIO OutputChar )
+            , ICF
+                ( Labeled
+                    ( LImmediate 0 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 5 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BImmediate 9 ) NE
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 13 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 9 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 10 )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 12 )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 5 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 12 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 13 )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 42 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 13 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ICF ( Labeled LTop Jump )
+            , ICF
+                ( Mark
+                    ( MNatural 14 )
+                )
+            , ISM ( SIO InputChar )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 32 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BImmediate 18 ) NE
+                )
+            , ICF
+                ( Branch
+                    ( BImmediate 14 ) NE
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 18 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 19 )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 48 Sub )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 22 )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 42 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "21" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 22 )
+                )
+            , ISM
+                ( SPure
+                    ( Binaries
+                        [ Mod
+                        , Div
+                        ]
+                    )
+                )
+            , ICF ( Branch BTop NE )
+            , ISM ( SIO InputChar )
+            , ICF ( Branch BTop NE )
+            , ISM
+                ( SPure
+                    ( Binaries
+                        [ Mod
+                        , Div
+                        ]
+                    )
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 22 )
+                )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ISM ( SIO InputChar )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 32 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BImmediate 27 ) NE
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 30 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 27 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 10 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BImmediate 29 ) NE
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 30 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 29 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate
+                            ( -1 ) Sub
+                        )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BImmediate 19 ) NE
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 30 )
+                )
+            , ISM ( SPure Discard )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ICF ( Labeled LTop Jump )
+            , ICF
+                ( Mark
+                    ( MNatural 32 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 2 ) Move
+                    )
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 33 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BImmediate 36 ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LImmediate 40 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 36 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM
+                ( SPure
+                    ( Binaries
+                        [ Mod
+                        , Div
+                        ]
+                    )
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "36" )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate
+                            ( -48 ) Sub
+                        )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 33 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 40 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 41 )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 58 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 41 )
+                )
+            , ICF ( Labeled LTop Jump )
+            , ICF
+                ( Mark
+                    ( MNatural 42 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 2 ) Move
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 2 ) Move
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 2 ) Move
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 2 ) Move
+                    )
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 46 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BImmediate 49 ) NE
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 48 )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 56 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 49 )
+                )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 2 ) Move
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 2 ) Copy
+                    )
+                )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 2 ) Move
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 2 ) Move
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 46 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 56 )
+                )
+            , ICF ( Branch BSwapped NE )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ICF ( Labeled LTop Jump )
+            , ICF
+                ( Mark
+                    ( MNatural 58 )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 1 ) Move
+                    )
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BImmediate 62 ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF ( Labeled LTop Jump )
+            , ICF
+                ( Mark
+                    ( MNatural 62 )
+                )
+            , ISM ( SIO OutputChar )
+            , ICF
+                ( Labeled
+                    ( LImmediate 58 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 0 )
+                )
+            , End
+            ]
+        , programCounter = 127
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM = []
+    }

@@ -81,16 +81,16 @@ evalSource ∷ (AutomatonEff Symbol m) ⇒ AutomatonType → OptimizationLevel �
 evalSource automatonType ol source = evalTL automatonType ol (tokenize source)
 
 evalTL ∷ (AutomatonEff Symbol m) ⇒ AutomatonType → OptimizationLevel → TokenList → StackType → AutoOptions → m ()
-evalTL Fast     ol = fastEval ol
-evalTL Original _  = originalEval
+evalTL Common ol = common ol
+evalTL Custom _  = customEval
 
-fastEval ∷ (AutomatonEff Symbol m) ⇒  OptimizationLevel → TokenList → StackType → AutoOptions → m ()
-fastEval ol tl s a = flip Automaton.start (Automaton.withDefaultRam s a) =<< optimize ol tl
+common ∷ (AutomatonEff Symbol m) ⇒  OptimizationLevel → TokenList → StackType → AutoOptions → m ()
+common ol tl s a = flip Automaton.start (Automaton.withDefaultRam s a) =<< optimize ol tl
 
-originalEval ∷ (AutomatonEff Symbol m) ⇒ TokenList → StackType → AutoOptions → m ()
-originalEval tl ListStackType  = eval tl []
-originalEval tl SeqStackType   = eval tl Seq.empty
-originalEval tl SListStackType = eval tl SList.sListEmpty
+customEval ∷ (AutomatonEff Symbol m) ⇒ TokenList → StackType → AutoOptions → m ()
+customEval tl ListStackType  = eval tl []
+customEval tl SeqStackType   = eval tl Seq.empty
+customEval tl SListStackType = eval tl SList.sListEmpty
 
 eval ∷ (SAutomatonEff Symbol s m) ⇒ TokenList → s → AutoOptions → m ()
 eval tl s (AutoOptions limit dt) = logDump dt =<< runAutomat limit (newMemory tl s)

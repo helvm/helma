@@ -9,6 +9,6 @@ automatonTypes = universeNonEmpty
 
 -- | Type
 data AutomatonType
-  = Fast
-  | Original
+  = Common
+  | Custom
   deriving stock (Bounded, Enum, Eq, Read, Show)

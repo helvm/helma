@@ -1,0 +1,46 @@
+Info Memory
+    { memoryCM = CM
+        { program =
+            [ ICF
+                ( Mark
+                    ( MNatural 1 )
+                )
+            , ICF
+                ( Labeled
+                    ( LImmediate 3 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 3 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 75 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 79 )
+                )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ISM ( SIO OutputChar )
+            , ICF
+                ( Labeled
+                    ( LImmediate 0 ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 0 )
+                )
+            , End
+            ]
+        , programCounter = 12
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM = []
+    }
