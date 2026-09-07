@@ -18,7 +18,7 @@ import           HelVM.HelMA.Automaton.Types.StackType
 
 import           HelVM.HelMA.Automata.BrainFuck.API.ImplType             as BF
 
-import           HelVM.HelMA.Automata.ETA.API.AutomatonType
+import           HelVM.HelMA.Automaton.API.AutomatonType
 
 import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
 import           HelVM.HelMA.Automata.Piet.API.ImplType                  as Piet

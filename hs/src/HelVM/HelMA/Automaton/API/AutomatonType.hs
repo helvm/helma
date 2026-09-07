@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.ETA.API.AutomatonType where
+module HelVM.HelMA.Automaton.API.AutomatonType where
 
 -- | Constructors
 defaultAutomatonType ∷ AutomatonType

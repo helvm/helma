@@ -8,7 +8,7 @@ module HelVM.HelMA.Automata.ETA.Evaluator
   , simpleEval
   ) where
 
-import           HelVM.HelMA.Automata.ETA.API.AutomatonType
+import           HelVM.HelMA.Automaton.API.AutomatonType
 
 import           HelVM.HelMA.Automata.ETA.Automaton
 import           HelVM.HelMA.Automata.ETA.Lexer

@@ -210,7 +210,7 @@ library
 
     HelVM.HelMA.Automata.Cat.Evaluator
 
-    HelVM.HelMA.Automata.ETA.API.AutomatonType
+    HelVM.HelMA.Automaton.API.AutomatonType
 
     HelVM.HelMA.Automata.ETA.Addressing
     HelVM.HelMA.Automata.ETA.Automaton
