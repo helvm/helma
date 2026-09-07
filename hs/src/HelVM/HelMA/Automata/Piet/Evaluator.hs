@@ -58,14 +58,14 @@ runWithOptions ∷ Has env ⇒ PietOptions → App.AppOptions → RIO.RIO env ()
 runWithOptions po o = run (App.emit o) po o =<< readImageRio (App.file o)
 
 run ∷ Has env ⇒ Emit → PietOptions → App.AppOptions → DynamicImage → RIO.RIO env ()
-run No po o = runAsRIO . simpleEval2 (fromMaybe Custom (automatonType po)) po o
+run No po o = runAsRIO . simpleEvalByType (fromMaybe Custom (automatonType po)) po o
 run IL po _ =  putLTextLnRio <=< (runAsRIO . emitIL . imageInput po)
 run TL po _ = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput po)
 run _ po  _ = putLTextLnRio <=< (runAsRIO . emitDot . imageInput po)
 
-simpleEval2 ∷ AppSafeEff m ⇒ AutomatonType → PietOptions → App.AppOptions → DynamicImage → m ()
-simpleEval2 Custom po _ dyn = simpleEval po.implType po.codelSize dyn
-simpleEval2 _      po o dyn = flip Automaton.start (automatonOptions o) =<< generateIL (imageInput po dyn)
+simpleEvalByType ∷ AppSafeEff m ⇒ AutomatonType → PietOptions → App.AppOptions → DynamicImage → m ()
+simpleEvalByType Custom po _ = simpleEval po.implType po.codelSize
+simpleEvalByType _      po o = flip Automaton.start (automatonOptions o) <=< generateIL . imageInput po
 
 automatonOptions ∷ App.AppOptions → Automaton.AutomatonOptions
 automatonOptions o = Automaton.withDefaultRam (MemoryOptions.stack $ App.memoryOptions o) (App.autoOptions o)
