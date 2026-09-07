@@ -36,7 +36,6 @@ import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           HelVM.HelMA.Automaton.Extra
-import           HelVM.HelMA.Automaton.ShowList
 
 import           HelVM.HelIO.Control.Safe
 
@@ -67,7 +66,7 @@ imageInput ∷ PietOptions → DynamicImage → ImageInput
 imageInput po dyn = (imageConfig po, dyn)
 
 emitIL ∷ MonadSafe m ⇒ ImageInput → m LText
-emitIL = fmap (printListToLText printI . compileToIL . generateAssembly) . parseColors
+emitIL = fmap (printIL . compileToIL . generateAssembly) . parseColors
 
 emitCommands ∷ MonadSafe m ⇒ ImageInput → m LText
 emitCommands = fmap (renderAssembly . generateAssembly) . parseColors
