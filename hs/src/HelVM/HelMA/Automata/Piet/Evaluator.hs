@@ -36,6 +36,7 @@ import qualified HelVM.HelMA.Automaton.API.AutomatonOptions    as Automaton
 import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
+import           HelVM.HelMA.Automaton.API.EvalOptions         ( EvalOptions )
 import qualified HelVM.HelMA.Automaton.API.EvalOptions         as EvalOptions
 import qualified HelVM.HelMA.Automaton.API.MemoryOptions       as MemoryOptions
 
@@ -56,24 +57,23 @@ runRio ∷ Has env ⇒ PietOptions → RIO.RIO env ()
 runRio po = runWithOptions po =<< optionsRio
 
 runWithOptions ∷ Has env ⇒ PietOptions → App.AppOptions → RIO.RIO env ()
-runWithOptions po o = run (App.emit o) o po =<< readImageRio (App.file o)
+runWithOptions po o = run (App.emit o) (App.evalOptions o) po =<< readImageRio (App.file o)
 
-run ∷ Has env ⇒ Emit → App.AppOptions → PietOptions → DynamicImage → RIO.RIO env ()
-run No o po = runAsRIO . simpleEvalByType (fromMaybe Custom (automatonType po)) o po
-run IL _ po = putLTextLnRio <=< (runAsRIO . emitIL . imageInput po)
-run TL _ po = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput po)
-run _  _ po = putLTextLnRio <=< (runAsRIO . emitDot . imageInput po)
+run ∷ Has env ⇒ Emit → EvalOptions → PietOptions → DynamicImage → RIO.RIO env ()
+run No eo po = runAsRIO . simpleEvalByType (fromMaybe Custom (automatonType po)) eo po
+run IL _  po = putLTextLnRio <=< (runAsRIO . emitIL . imageInput po)
+run TL _  po = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput po)
+run _  _  po = putLTextLnRio <=< (runAsRIO . emitDot . imageInput po)
 
-simpleEvalByType ∷ AppSafeEff m ⇒ AutomatonType → App.AppOptions → PietOptions → DynamicImage → m ()
-simpleEvalByType Custom _ po = simpleEval po.implType po.codelSize
-simpleEvalByType _      o po = simpleEvalCommon o po
+simpleEvalByType ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → PietOptions → DynamicImage → m ()
+simpleEvalByType Custom _ po  = simpleEval po.implType po.codelSize
+simpleEvalByType _      eo po = simpleEvalCommon eo po
 
-simpleEvalCommon ∷ AppSafeEff m ⇒ App.AppOptions → PietOptions → DynamicImage → m ()
-simpleEvalCommon o po = flip Automaton.start (automatonOptions o) <=< generateIL . imageInput po
+simpleEvalCommon ∷ AppSafeEff m ⇒ EvalOptions → PietOptions → DynamicImage → m ()
+simpleEvalCommon eo po = flip Automaton.start (automatonOptions eo) <=< generateIL . imageInput po
 
-automatonOptions ∷ App.AppOptions → Automaton.AutomatonOptions
-automatonOptions o = Automaton.withDefaultRam (MemoryOptions.stack $ EvalOptions.memoryOptions eo) (EvalOptions.autoOptions eo) where
-  eo = App.evalOptions o
+automatonOptions ∷ EvalOptions → Automaton.AutomatonOptions
+automatonOptions eo = Automaton.withDefaultRam (MemoryOptions.stack $ EvalOptions.memoryOptions eo) (EvalOptions.autoOptions eo)
 
 simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
 simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs
