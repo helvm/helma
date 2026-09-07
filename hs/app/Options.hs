@@ -24,9 +24,9 @@ import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
 import           HelVM.HelMA.Automata.Piet.API.ImplType                  as Piet
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
+import           HelVM.HelMA.Automata.Piet.API.PietOptions
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
-
 
 import           Data.MonoTraversable
 
@@ -109,7 +109,6 @@ memoryOptionsParser = MemoryOptions
                  <> value defaultIntCellType
                  <> showDefault )
 
-
 parserOptionsParser ∷ Parser ParserOptions
 parserOptionsParser = ParserOptions
   <$> optLevelParser
@@ -157,11 +156,14 @@ etaParser = ETACommand
   <$> option auto (long "AutomatonType" <> short 'i' <> metavar "[AutomatonType]" <> value defaultAutomatonType <> showDefault)
 
 pietParser ∷ Parser LangCommand
-pietParser = PietCommand
+pietParser = PietCommand <$> pietOptionsParser
+
+pietOptionsParser ∷ Parser PietOptions
+pietOptionsParser = PietOptions
   <$> option auto (long "ImplType" <> short 'i' <> metavar "[ImplType]" <> value Piet.defaultImplType <> showDefault)
   <*> optional (option auto (long "Additional" <> short 'a' <> metavar "[AdditionalColorStrategy]" <> value defaultAdditionalColorStrategy <> showDefault))
   <*> optional (option auto (long "Multicolored" <> short 'm' <> metavar "[MulticoloredCodelStrategy]" <> value defaultMulticoloredCodelStrategy <> showDefault))
-  <*> optional (option auto (long "codels" <> short 'C' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)" ))
+  <*> optional (option auto (long "codels" <> short 'C' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)"))
   <*> optional (option auto (long "LexerType" <> short 'l' <> metavar "[LexerType]" <> value defaultLexerType <> showDefault))
 
 wsParser ∷ Parser LangCommand
