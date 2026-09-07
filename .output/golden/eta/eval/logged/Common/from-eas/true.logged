@@ -1,0 +1,9 @@
+Info Memory
+    { memoryCM = CM
+        { program = [ End ]
+        , programCounter = 1
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM = []
+    }

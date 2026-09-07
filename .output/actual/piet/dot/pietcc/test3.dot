@@ -1,0 +1,13 @@
+digraph {
+  rankdir=LR
+  start [label="" shape=point color=white]
+  node [label="" shape=circle color=black]
+  start -> 0 [label="rl"]
+  0 -> 3 [label="rr: push 10"]
+  2 -> 3 [label="dl: roll"]
+  2 -> 3 [label="dr: roll"]
+  3 -> 0 [label="ll: pop"]
+  3 -> 0 [label="lr: pop"]
+  3 -> 2 [label="ul: not"]
+  3 -> 2 [label="ur: not"]
+}

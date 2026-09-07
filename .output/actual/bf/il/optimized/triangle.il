@@ -1,0 +1,98 @@
+[ While
+    [ Inc
+        ( -1 )
+    , Output
+    ]
+, Move 1
+, Inc 4
+, MulAddClr 8
+    ( -1 )
+, Move 1
+, Inc 8
+, MulAddClr 4 1
+, Move 2
+, Inc 2
+, Move 3
+, Inc 1
+, Move 3
+, Inc 1
+, Move
+    ( -10 )
+, While
+    [ Inc
+        ( -1 )
+    , AddClr 1
+    , Move 1
+    , While
+        [ Inc
+            ( -1 )
+        , Move
+            ( -1 )
+        , Inc 1
+        , Move 3
+        , Output
+        , Move
+            ( -2 )
+        ]
+    , Move 3
+    , While
+        [ While
+            [ Inc
+                ( -1 )
+            , Move 1
+            , Inc 8
+            , MulAddClr 4 1
+            , Move 1
+            , Output
+            , Move
+                ( -2 )
+            , AddClr 1
+            , Inc 1
+            , Move 1
+            , MulDupClr 10 1 1
+                ( -2 )
+            , Move 1
+            , Output
+            , Set 0
+            , Move 1
+            ]
+        ]
+    , Inc 1
+    , Move
+        ( -3 )
+    , While
+        [ Inc
+            ( -1 )
+        , AddClr 1
+        , Inc 1
+        , Move 1
+        , While
+            [ Inc
+                ( -1 )
+            , Move
+                ( -1 )
+            , Inc 1
+            , Move 3
+            , Inc
+                ( -1 )
+            , AddClr 1
+            , Inc 2
+            , Move 1
+            , SubClr
+                ( -1 )
+            , Move
+                ( -3 )
+            ]
+        , Move
+            ( -4 )
+        ]
+    , Inc 10
+    , Output
+    , Inc 3
+    , Output
+    , Set 0
+    , Move
+        ( -1 )
+    ]
+, Inc 5
+]

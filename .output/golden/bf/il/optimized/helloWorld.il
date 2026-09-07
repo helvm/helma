@@ -1,0 +1,72 @@
+[ Inc 8
+, While
+    [ Move 1
+    , Inc 4
+    , While
+        [ Move 1
+        , Inc 2
+        , Move 1
+        , Inc 3
+        , Move 1
+        , Inc 3
+        , Move 1
+        , Inc 1
+        , Move
+            ( -4 )
+        , Inc
+            ( -1 )
+        ]
+    , Move 1
+    , Inc 1
+    , Move 1
+    , Inc 1
+    , Move 1
+    , Inc
+        ( -1 )
+    , Move 2
+    , Inc 1
+    , While
+        [ Move
+            ( -1 )
+        ]
+    , Move
+        ( -1 )
+    , Inc
+        ( -1 )
+    ]
+, Move 2
+, Output
+, Move 1
+, Inc
+    ( -3 )
+, Output
+, Inc 7
+, Output
+, Output
+, Inc 3
+, Output
+, Move 2
+, Output
+, Move
+    ( -1 )
+, Inc
+    ( -1 )
+, Output
+, Move
+    ( -1 )
+, Output
+, Inc 3
+, Output
+, Inc
+    ( -6 )
+, Output
+, Inc
+    ( -8 )
+, Output
+, Move 2
+, Inc 1
+, Output
+, Move 1
+, Inc 2
+, Output
+]

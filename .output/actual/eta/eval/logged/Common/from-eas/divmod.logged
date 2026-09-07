@@ -1,0 +1,34 @@
+Info Memory
+    { memoryCM = CM
+        { program =
+            [ ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "1" )
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 2 )
+                )
+            , ICF
+                ( Mark
+                    ( MNatural 0 )
+                )
+            , End
+            ]
+        , programCounter = 6
+        , returnStack = IS []
+        }
+    , memoryStack = fromList
+        [ 0
+        , 2
+        ]
+    , memoryRAM = []
+    }
