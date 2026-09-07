@@ -118,18 +118,19 @@ library
   exposed-modules:
 
     HelVM.HelMA.Evaluator
+    HelVM.HelMA.LangCommand
 
     HelVM.HelMA.Automaton.API.AppOptions
     HelVM.HelMA.Automaton.API.AutomatonOptions
     HelVM.HelMA.Automaton.API.BoolTypes
-    HelVM.HelMA.Automaton.API.MemoryOptions
     HelVM.HelMA.Automaton.API.AutoOptions
     HelVM.HelMA.Automaton.API.Emit
     HelVM.HelMA.Automaton.API.Env
+    HelVM.HelMA.Automaton.API.EvalOptions
     HelVM.HelMA.Automaton.API.EvalParams
-    HelVM.HelMA.Automaton.API.LogLevel
     HelVM.HelMA.Automaton.API.IOTypes
-    HelVM.HelMA.LangCommand
+    HelVM.HelMA.Automaton.API.LogLevel
+    HelVM.HelMA.Automaton.API.MemoryOptions
     HelVM.HelMA.Automaton.API.OptimizationLevel
     HelVM.HelMA.Automaton.API.ParserOptions
     

@@ -1,9 +1,8 @@
 module HelVM.HelMA.Automaton.API.EvalOptions where
 
-import qualified HelVM.HelMA.Automaton.API.AutomatonOptions  as Automaton
+import qualified HelVM.HelMA.Automaton.API.AutomatonOptions as Automaton
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.MemoryOptions
-import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.API.ParserOptions
 
 import           HelVM.HelMA.Automaton.Types.CellType
@@ -38,4 +37,3 @@ data EvalOptions
       , memoryOptions :: !MemoryOptions
       , autoOptions   :: !AutoOptions
       }
-  deriving stock (Eq, Show)
