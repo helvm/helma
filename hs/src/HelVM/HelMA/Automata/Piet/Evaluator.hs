@@ -54,10 +54,13 @@ runWithOptions ∷ Has env ⇒ PietOptions → App.AppOptions → RIO.RIO env ()
 runWithOptions po o = run (App.emit o) po =<< readImageRio (App.file o)
 
 run ∷ Has env ⇒ Emit → PietOptions → DynamicImage → RIO.RIO env ()
-run No po = runAsRIO . simpleEval po.implType po.codelSize
+run No po = runAsRIO . simpleEval2 po
 run IL po =  putLTextLnRio <=< (runAsRIO . emitIL . imageInput po)
 run TL po = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput po)
 run _ po  = putLTextLnRio <=< (runAsRIO . emitDot . imageInput po)
+
+simpleEval2 ∷ AppSafeEff m ⇒ PietOptions → DynamicImage → m ()
+simpleEval2 po = simpleEval po.implType po.codelSize
 
 simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
 simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs
