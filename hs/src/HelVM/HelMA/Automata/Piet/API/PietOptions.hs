@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
 
 import           HelVM.HelMA.Automaton.API.AutomatonType
 
-simplePietOptions :: PietOptions
+simplePietOptions ∷ PietOptions
 simplePietOptions = PietOptions Nothing defaultImplType Nothing Nothing Nothing Nothing
 
 imageConfig ∷ PietOptions → ImageConfig

@@ -33,7 +33,7 @@ import qualified HelVM.HelMA.Automaton.Automaton               as Automaton
 import           HelVM.HelMA.Automaton.Instruction
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
-import           HelVM.HelMA.Automaton.API.AutomatonOptions    ( AutomatonOptions , simpleAutomatonOptions)
+import           HelVM.HelMA.Automaton.API.AutomatonOptions    ( AutomatonOptions, simpleAutomatonOptions )
 import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
@@ -69,7 +69,7 @@ evalParams ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → PietOptions �
 evalParams Custom _  po = evalCustom po.implType po.codelSize
 evalParams _      eo po = evalCommon (EvalOptions.automatonOptions eo) po
 
-simpleEval :: AppSafeEff m ⇒ DynamicImage -> m ()
+simpleEval ∷ AppSafeEff m ⇒ DynamicImage → m ()
 simpleEval = evalCommon simpleAutomatonOptions simplePietOptions
 
 evalCommon ∷ AppSafeEff m ⇒ AutomatonOptions → PietOptions → DynamicImage → m ()
