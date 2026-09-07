@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automaton.API.Lang where
+module HelVM.HelMA.LangCommand where
 
 import           HelVM.HelMA.Automata.BrainFuck.API.ImplType             as BF
 

@@ -2,7 +2,7 @@ module HelVM.HelMA.Evaluator where
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions      as App
 import           HelVM.HelMA.Automaton.API.Env
-import           HelVM.HelMA.Automaton.API.Lang
+import           HelVM.HelMA.LangCommand
 
 import qualified HelVM.HelMA.Automata.BrainFuck.Evaluator  as BF
 import qualified HelVM.HelMA.Automata.Cat.Evaluator        as Cat

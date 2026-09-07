@@ -3,11 +3,11 @@ module Options where
 import           HelVM.HelMA.Automaton.API.AppOptions
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.Emit
-import           HelVM.HelMA.Automaton.API.Lang
 import           HelVM.HelMA.Automaton.API.LogLevel
 import           HelVM.HelMA.Automaton.API.MemoryOptions
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.API.ParserOptions
+import           HelVM.HelMA.LangCommand
 
 import           HelVM.HelMA.Automaton.API.LabelType
 import           HelVM.HelMA.Automaton.Types.CellType

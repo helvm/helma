@@ -5,10 +5,10 @@ import           HelVM.HelMA.Automaton.API.BoolTypes     as API
 import           HelVM.HelMA.Automaton.API.Emit          as API
 import qualified HelVM.HelMA.Automaton.API.EvalParams    as API
 import           HelVM.HelMA.Automaton.API.IOTypes       as API
-import qualified HelVM.HelMA.Automaton.API.Lang          as API
 import           HelVM.HelMA.Automaton.API.LogLevel      as API
 import qualified HelVM.HelMA.Automaton.API.MemoryOptions as API
 import qualified HelVM.HelMA.Automaton.API.ParserOptions as API
+import qualified HelVM.HelMA.LangCommand                 as API
 
 
 -- | Methods

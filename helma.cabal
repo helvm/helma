@@ -129,7 +129,7 @@ library
     HelVM.HelMA.Automaton.API.EvalParams
     HelVM.HelMA.Automaton.API.LogLevel
     HelVM.HelMA.Automaton.API.IOTypes
-    HelVM.HelMA.Automaton.API.Lang
+    HelVM.HelMA.LangCommand
     HelVM.HelMA.Automaton.API.OptimizationLevel
     HelVM.HelMA.Automaton.API.ParserOptions
     
@@ -256,6 +256,7 @@ library
     HelVM.HelMA.Automata.Piet.API.ImplType
     HelVM.HelMA.Automata.Piet.API.LexerType
     HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
+    HelVM.HelMA.Automata.Piet.API.PietOptions
 
     HelVM.HelMA.Automata.Piet.Automaton.Collision
     HelVM.HelMA.Automata.Piet.Automaton.StepState
