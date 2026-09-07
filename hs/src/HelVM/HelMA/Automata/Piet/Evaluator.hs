@@ -5,6 +5,7 @@ module HelVM.HelMA.Automata.Piet.Evaluator
   , evalCustom
   , run
   , runRio
+  , simpleEval
   ) where
 
 import           HelVM.HelMA.Automata.Piet.AssemblyGenerator
@@ -32,7 +33,7 @@ import qualified HelVM.HelMA.Automaton.Automaton               as Automaton
 import           HelVM.HelMA.Automaton.Instruction
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
-import           HelVM.HelMA.Automaton.API.AutomatonOptions    ( AutomatonOptions )
+import           HelVM.HelMA.Automaton.API.AutomatonOptions    ( AutomatonOptions , simpleAutomatonOptions)
 import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
@@ -67,6 +68,9 @@ run _  _  po = putLTextLnRio <=< (runAsRIO . emitDot . imageInput po)
 evalParams ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → PietOptions → DynamicImage → m ()
 evalParams Custom _  po = evalCustom po.implType po.codelSize
 evalParams _      eo po = evalCommon (EvalOptions.automatonOptions eo) po
+
+simpleEval :: AppSafeEff m ⇒ DynamicImage -> m ()
+simpleEval = evalCommon simpleAutomatonOptions simplePietOptions
 
 evalCommon ∷ AppSafeEff m ⇒ AutomatonOptions → PietOptions → DynamicImage → m ()
 evalCommon ao po = flip Automaton.start ao <=< generateIL . imageInput po
