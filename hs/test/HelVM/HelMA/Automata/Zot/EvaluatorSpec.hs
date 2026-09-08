@@ -16,7 +16,7 @@ import           Test.Hspec                          ( Spec, describe, it )
 
 spec ∷ Spec
 spec = describe "eval" $ forM_ ((
-  [ ("hello"             , ""         , toList formatTypes)
+  [ ("hello"             , ""         , toList labelTypes)
   , ("reverse"           , "10101010" , binaryOnly)
   , ("reverse"           , "01010101" , binaryOnly)
   ] >*< ["original"]

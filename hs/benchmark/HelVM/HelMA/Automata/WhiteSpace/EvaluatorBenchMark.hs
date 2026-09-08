@@ -35,7 +35,7 @@ simpleEvalWS t = forM
   , ("name"         , "WriteOnly\n")
   ] $ \(fileName , input) -> do
     let file = readWsFile ("original" </> fileName)
-    forM (toList formatTypes) $ \ ascii -> do
+    forM (toList labelTypes) $ \ ascii -> do
       let paramsIO = simpleParamsWithWhiteTokenType t ascii <$> file
       calculateOutput <$> (ioExecMockEffWithInput input . simpleEval =<< paramsIO)
 

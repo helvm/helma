@@ -63,7 +63,7 @@ emitCode VisibleTokenType = show . readVisibleTokens
 emitCode WhiteTokenType   = show . readWhiteTokens
 
 simpleEval ∷ AppSafeEff m ⇒ S.SimpleParams → m ()
-simpleEval p = eval (S.automatonOptions p) (simpleAutoParams (S.labelType p)) (S.tokenType p) (S.source p)
+simpleEval p = eval (S.automatonOptions p) (simpleParserOptionsWithLabel (S.labelType p)) (S.tokenType p) (S.source p)
 
 ----
 

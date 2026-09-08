@@ -1,94 +1,63 @@
-cons 0
-cons 0
-store
+storeid 0 0
 
 markA "block_0"
-cons 0
-load
-cons 0
-sub
+loadd 0
 bNEA "branch_0_rl"
 cons 6
 jumpA "block_1"
 
 markA "branch_0_rl"
-cons 0
-load
-cons 1
-sub
+loadd 0
+subI 1
 bNEA "branch_0_rr"
 cons 6
 jumpA "block_1"
 
 markA "branch_0_rr"
-cons 0
-load
-cons 2
-sub
+loadd 0
+subI 2
 bNEA "branch_0_dl"
-cons 0
-cons 1
-store
+storeid 1 0
 cons 6
 jumpA "block_1"
 
 markA "branch_0_dl"
-cons 0
-load
-cons 3
-sub
+loadd 0
+subI 3
 bNEA "branch_0_dr"
-cons 0
-cons 0
-store
+storeid 0 0
 cons 6
 jumpA "block_1"
 
 markA "branch_0_dr"
-cons 0
-load
-cons 4
-sub
+loadd 0
+subI 4
 bNEA "branch_0_ll"
-cons 0
-cons 0
-store
+storeid 0 0
 cons 6
 jumpA "block_1"
 
 markA "branch_0_ll"
-cons 0
-load
-cons 5
-sub
+loadd 0
+subI 5
 bNEA "branch_0_lr"
-cons 0
-cons 1
-store
+storeid 1 0
 cons 6
 jumpA "block_1"
 
 markA "branch_0_lr"
-cons 0
-load
-cons 6
-sub
+loadd 0
+subI 6
 bNEA "branch_0_ul"
-cons 0
-cons 1
-store
+storeid 1 0
 cons 6
 jumpA "block_1"
 
 markA "branch_0_ul"
-cons 0
-load
-cons 7
-sub
+loadd 0
+subI 7
 bNEA "branch_0_ur"
-cons 0
-cons 0
-store
+storeid 0 0
 cons 6
 jumpA "block_1"
 
@@ -96,92 +65,63 @@ markA "branch_0_ur"
 end
 
 markA "block_1"
-cons 0
-load
-cons 0
-sub
+loadd 0
 bNEA "branch_1_rl"
-cons 0
-cons 4
-store
+storeid 4 0
 discard
 jumpA "block_0"
 
 markA "branch_1_rl"
-cons 0
-load
-cons 1
-sub
+loadd 0
+subI 1
 bNEA "branch_1_rr"
-cons 0
-cons 5
-store
+storeid 5 0
 discard
 jumpA "block_0"
 
 markA "branch_1_rr"
-cons 0
-load
-cons 2
-sub
+loadd 0
+subI 2
 bNEA "branch_1_dl"
-cons 0
-cons 5
-store
+storeid 5 0
 discard
 jumpA "block_0"
 
 markA "branch_1_dl"
-cons 0
-load
-cons 3
-sub
+loadd 0
+subI 3
 bNEA "branch_1_dr"
-cons 0
-cons 4
-store
+storeid 4 0
 discard
 jumpA "block_0"
 
 markA "branch_1_dr"
-cons 0
-load
-cons 4
-sub
+loadd 0
+subI 4
 bNEA "branch_1_ll"
 discard
 jumpA "block_0"
 
 markA "branch_1_ll"
-cons 0
-load
-cons 5
-sub
+loadd 0
+subI 5
 bNEA "branch_1_lr"
 discard
 jumpA "block_0"
 
 markA "branch_1_lr"
-cons 0
-load
-cons 6
-sub
+loadd 0
+subI 6
 bNEA "branch_1_ul"
-cons 0
-cons 5
-store
+storeid 5 0
 discard
 jumpA "block_0"
 
 markA "branch_1_ul"
-cons 0
-load
-cons 7
-sub
+loadd 0
+subI 7
 bNEA "branch_1_ur"
-cons 0
-cons 4
-store
+storeid 4 0
 discard
 jumpA "block_0"
 

@@ -56,7 +56,7 @@ spec =
       let ext = tokenTypeToExt tokenType
       let filePath = dirName </> fileName
       let file = readExtFile ext filePath
-      forM_ formatTypes $ \ ascii -> do
+      forM_ labelTypes $ \ ascii -> do
         let paramsF = simpleParamsWithDefaults tokenType ascii
         let paramsIO = paramsF <$> file
         let path = ext </> show ascii </> filePath <> toString input

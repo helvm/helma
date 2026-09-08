@@ -1,4 +1,2 @@
-cons 0
-cons 0
-store
+storeid 0 0
 end

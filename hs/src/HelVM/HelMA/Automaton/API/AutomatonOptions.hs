@@ -5,7 +5,10 @@ import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
 simpleAutomatonOptions ∷ AutomatonOptions
-simpleAutomatonOptions = AutomatonOptions  defaultStackType defaultRAMType simpleAutoParams
+simpleAutomatonOptions = AutomatonOptions
+  defaultStackType
+  defaultRAMType
+  simpleAutoOptions
 
 withDefaultRam ∷ StackType → AutoOptions → AutomatonOptions
 withDefaultRam s ao = AutomatonOptions

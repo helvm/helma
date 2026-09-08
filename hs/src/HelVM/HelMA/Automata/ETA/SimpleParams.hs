@@ -12,7 +12,7 @@ simpleParams it st s = SimpleParams
   { implType   = it
   , source     = s
   , stackType  = st
-  , autoOptions = simpleAutoParams
+  , autoOptions = simpleAutoOptions
   }
 
 -- | Type

@@ -1,30 +1,14 @@
 Info Memory
     { memoryCM = CM
         { program =
-            [ ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Store
+            [ ILS
+                ( StoreID 0 0 )
             , ICF
                 ( Mark
                     ( MArtificial "block_0" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_rl" ) NE
@@ -41,17 +25,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_0_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_rr" ) NE
@@ -68,17 +49,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_0_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_dl" ) NE
@@ -93,17 +71,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_0_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_dr" ) NE
@@ -118,30 +93,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_0_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_ll" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 0 0 )
             , ISM
                 ( SPure
                     ( Cons 9 )
@@ -154,30 +119,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_0_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_lr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 1 0 )
             , ISM
                 ( SPure
                     ( Cons 9 )
@@ -190,30 +145,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_0_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_ul" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 1 0 )
             , ISM
                 ( SPure
                     ( Cons 9 )
@@ -226,30 +171,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_0_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_ur" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 0 0 )
             , ISM
                 ( SPure
                     ( Cons 9 )
@@ -267,30 +202,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_1" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_rl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 1 0 )
             , ISM
                 ( SPure
                     ( Cons 8 )
@@ -303,17 +222,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_1_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_rr" ) NE
@@ -330,17 +246,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_1_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_dl" ) NE
@@ -355,17 +268,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_1_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_dr" ) NE
@@ -380,17 +290,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_1_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_ll" ) NE
@@ -404,17 +311,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_1_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_lr" ) NE
@@ -428,30 +332,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_1_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_ul" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 1 0 )
             , ISM
                 ( SPure
                     ( Cons 8 )
@@ -464,30 +358,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_1_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_ur" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 1 0 )
             , ISM
                 ( SPure
                     ( Cons 8 )
@@ -505,30 +389,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_3" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_rl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 3 0 )
             , ISM
                 ( SPure
                     ( Cons 11 )
@@ -541,30 +409,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_3_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_rr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 2 0 )
             , ISM
                 ( SPure
                     ( Cons 11 )
@@ -577,17 +435,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_3_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_dl" ) NE
@@ -604,17 +459,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_3_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_dr" ) NE
@@ -631,17 +483,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_3_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_ll" ) NE
@@ -656,17 +505,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_3_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_lr" ) NE
@@ -681,30 +527,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_3_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_ul" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 2 0 )
             , ISM
                 ( SPure
                     ( Cons 11 )
@@ -717,30 +553,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_3_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_ur" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 3 0 )
             , ISM
                 ( SPure
                     ( Cons 11 )
@@ -758,17 +584,8 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_5" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_rl" ) NE
@@ -783,17 +600,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_5_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_rr" ) NE
@@ -808,17 +622,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_5_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_dl" ) NE
@@ -833,17 +644,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_5_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_dr" ) NE
@@ -858,17 +666,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_5_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_ll" ) NE
@@ -882,17 +687,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_5_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_lr" ) NE
@@ -906,17 +708,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_5_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_ul" ) NE
@@ -930,17 +729,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_5_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_ur" ) NE
@@ -959,17 +755,8 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_6" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_rl" ) NE
@@ -988,17 +775,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_6_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_rr" ) NE
@@ -1017,17 +801,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_6_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_dl" ) NE
@@ -1041,17 +822,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_6_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_dr" ) NE
@@ -1065,17 +843,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_6_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_ll" ) NE
@@ -1089,17 +864,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_6_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_lr" ) NE
@@ -1113,39 +885,30 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_6_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_ul" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary BXor ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_3" ) Jump
@@ -1154,39 +917,30 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_6_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_ur" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary BXor ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_3" ) Jump
@@ -1200,17 +954,8 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_7" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_rl" ) NE
@@ -1224,17 +969,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_7_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_rr" ) NE
@@ -1248,39 +990,30 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_7_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_dl" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary BXor ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_12" ) Jump
@@ -1289,39 +1022,30 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_7_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_dr" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary BXor ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_12" ) Jump
@@ -1330,17 +1054,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_7_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_ll" ) NE
@@ -1355,17 +1076,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_7_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_lr" ) NE
@@ -1380,17 +1098,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_7_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_ul" ) NE
@@ -1404,17 +1119,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_7_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_ur" ) NE
@@ -1433,30 +1145,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_8" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_rl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 1 0 )
             , ISM
                 ( SPure ( Binary Div ) )
             , ICF
@@ -1467,17 +1163,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_8_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_rr" ) NE
@@ -1492,30 +1185,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_8_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_dl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 3 0 )
             , ISM
                 ( SPure ( Binary Add ) )
             , ICF
@@ -1526,17 +1209,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_8_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_dr" ) NE
@@ -1551,30 +1231,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_8_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_ll" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 7 0 )
             , ISM ( SPure Roll )
             , ICF
                 ( Labeled
@@ -1584,30 +1254,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_8_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_lr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 6 0 )
             , ISM
                 ( SPure
                     ( Indexed
@@ -1622,17 +1282,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_8_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_ul" ) NE
@@ -1651,17 +1308,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_8_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_ur" ) NE
@@ -1680,17 +1334,8 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_10" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_rl" ) NE
@@ -1705,17 +1350,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_10_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_rr" ) NE
@@ -1730,17 +1372,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_10_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_dl" ) NE
@@ -1755,51 +1394,42 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_10_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_dr" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 4 )
+                    ( Unary
+                        ( UImmediate 4 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mul )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mul ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary Add ) )
             , ISM
                 ( SPure
-                    ( Cons 8 )
+                    ( Unary
+                        ( UImmediate 8 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_14" ) Jump
@@ -1808,30 +1438,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_10_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_ll" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 7 0 )
             , ISM ( SIO InputDec )
             , ICF
                 ( Labeled
@@ -1841,30 +1461,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_10_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_lr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 6 0 )
             , ISM ( SPure Roll )
             , ICF
                 ( Labeled
@@ -1874,17 +1484,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_10_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_ul" ) NE
@@ -1898,17 +1505,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_10_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_ur" ) NE
@@ -1927,17 +1531,8 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_11" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_rl" ) NE
@@ -1951,17 +1546,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_11_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_rr" ) NE
@@ -1976,30 +1568,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_11_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_dl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 5 0 )
             , ISM
                 ( SPure
                     ( Cons 10 )
@@ -2012,30 +1594,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_11_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_dr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 4 0 )
             , ISM
                 ( SPure
                     ( Cons 10 )
@@ -2048,17 +1620,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_11_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_ll" ) NE
@@ -2075,17 +1644,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_11_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_lr" ) NE
@@ -2102,17 +1668,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_11_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_ul" ) NE
@@ -2127,17 +1690,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_11_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_ur" ) NE
@@ -2157,17 +1717,8 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_12" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_rl" ) NE
@@ -2182,17 +1733,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_12_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_rr" ) NE
@@ -2207,17 +1755,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_12_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_dl" ) NE
@@ -2232,17 +1777,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_12_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_dr" ) NE
@@ -2257,17 +1799,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_12_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_ll" ) NE
@@ -2282,17 +1821,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_12_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_lr" ) NE
@@ -2307,51 +1843,42 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_12_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_ul" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 4 )
+                    ( Unary
+                        ( UImmediate 4 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mul )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mul ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary Add ) )
             , ISM
                 ( SPure
-                    ( Cons 8 )
+                    ( Unary
+                        ( UImmediate 8 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_7" ) Jump
@@ -2360,51 +1887,42 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_12_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_ur" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 4 )
+                    ( Unary
+                        ( UImmediate 4 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mul )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mul ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary Add ) )
             , ISM
                 ( SPure
-                    ( Cons 8 )
+                    ( Unary
+                        ( UImmediate 8 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_7" ) Jump
@@ -2423,17 +1941,8 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_14" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_rl" ) NE
@@ -2447,17 +1956,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_14_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_rr" ) NE
@@ -2471,39 +1977,30 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_14_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_dl" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary BXor ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_15" ) Jump
@@ -2512,39 +2009,30 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_14_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_dr" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary BXor ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_15" ) Jump
@@ -2553,17 +2041,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_14_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_ll" ) NE
@@ -2577,17 +2062,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_14_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_lr" ) NE
@@ -2601,39 +2083,30 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_14_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_ul" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary BXor ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_10" ) Jump
@@ -2642,39 +2115,30 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_14_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_ur" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary BXor ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_10" ) Jump
@@ -2688,17 +2152,8 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_15" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_rl" ) NE
@@ -2713,17 +2168,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_15_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_rr" ) NE
@@ -2738,30 +2190,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_15_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_dl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 5 0 )
             , ISM
                 ( SPure ( Binary Div ) )
             , ICF
@@ -2772,30 +2214,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_15_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_dr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 4 0 )
             , ISM
                 ( SPure ( Binary Div ) )
             , ICF
@@ -2806,17 +2238,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_15_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_ll" ) NE
@@ -2831,17 +2260,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_15_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_lr" ) NE
@@ -2856,51 +2282,42 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_15_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_ul" ) NE
                 )
             , ISM
                 ( SPure
-                    ( Cons 4 )
+                    ( Unary
+                        ( UImmediate 4 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
             , ISM
                 ( SPure
-                    ( Cons 2 )
+                    ( Unary
+                        ( UImmediate 2 Mul )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mul ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure ( Binary Add ) )
             , ISM
                 ( SPure
-                    ( Cons 8 )
+                    ( Unary
+                        ( UImmediate 8 Mod )
+                    )
                 )
-            , ISM
-                ( SPure ( Binary Mod ) )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS RStore
+            , ILS
+                ( RStoreD 0 )
             , ICF
                 ( Labeled
                     ( LArtificial "block_14" ) Jump
@@ -2909,17 +2326,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_15_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_ur" ) NE
@@ -2939,30 +2353,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_16" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_rl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 3 0 )
             , ISM
                 ( SPure ( Binary Mul ) )
             , ICF
@@ -2973,30 +2371,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_16_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_rr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 2 0 )
             , ISM
                 ( SPure
                     ( Cons 3 )
@@ -3009,17 +2397,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_16_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_dl" ) NE
@@ -3036,17 +2421,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_16_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_dr" ) NE
@@ -3061,17 +2443,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_16_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_ll" ) NE
@@ -3086,17 +2465,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_16_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_lr" ) NE
@@ -3111,17 +2487,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_16_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_ul" ) NE
@@ -3136,17 +2509,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_16_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_ur" ) NE
@@ -3166,30 +2536,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_17" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_rl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 7 0 )
             , ISM ( SIO InputChar )
             , ICF
                 ( Labeled
@@ -3199,30 +2553,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_17_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_rr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 6 0 )
             , ISM ( SIO InputChar )
             , ICF
                 ( Labeled
@@ -3232,30 +2576,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_17_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_dl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 6 0 )
             , ISM ( SIO InputChar )
             , ICF
                 ( Labeled
@@ -3265,30 +2599,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_17_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_dr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 7 0 )
             , ISM ( SIO InputChar )
             , ICF
                 ( Labeled
@@ -3298,30 +2622,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_17_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_ll" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 7 0 )
             , ISM ( SIO InputChar )
             , ICF
                 ( Labeled
@@ -3331,30 +2645,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_17_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_lr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 6 0 )
             , ISM ( SIO InputChar )
             , ICF
                 ( Labeled
@@ -3364,17 +2668,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_17_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_ul" ) NE
@@ -3388,17 +2689,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_17_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_ur" ) NE
@@ -3417,30 +2715,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_19" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_rl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 3 0 )
             , ISM
                 ( SPure ( Binary Mul ) )
             , ICF
@@ -3451,30 +2733,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_19_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_rr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 2 0 )
             , ISM
                 ( SPure ( Binary Mul ) )
             , ICF
@@ -3485,17 +2757,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_19_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_dl" ) NE
@@ -3510,17 +2779,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_19_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_dr" ) NE
@@ -3535,17 +2801,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_19_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_ll" ) NE
@@ -3560,17 +2823,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_19_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_lr" ) NE
@@ -3585,17 +2845,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_19_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_ul" ) NE
@@ -3609,17 +2866,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_19_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_ur" ) NE
@@ -3638,30 +2892,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_20" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_rl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 3 0 )
             , ISM
                 ( SPure ( Binary Add ) )
             , ICF
@@ -3672,30 +2910,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_20_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_rr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 2 0 )
             , ISM
                 ( SPure ( Binary Add ) )
             , ICF
@@ -3706,17 +2934,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_20_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_dl" ) NE
@@ -3731,17 +2956,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_20_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_dr" ) NE
@@ -3756,17 +2978,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_20_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_ll" ) NE
@@ -3780,17 +2999,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_20_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_lr" ) NE
@@ -3804,17 +3020,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_20_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_ul" ) NE
@@ -3828,17 +3041,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_20_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_ur" ) NE
@@ -3857,30 +3067,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "block_23" )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
+            , ILS
+                ( LoadD 0 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_rl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 4 0 )
             , ISM ( SIO OutputCharMaybe )
             , ICF
                 ( Labeled
@@ -3890,30 +3084,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_23_rl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_rr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 5 0 )
             , ISM ( SIO OutputCharMaybe )
             , ICF
                 ( Labeled
@@ -3923,30 +3107,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_23_rr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 2 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_dl" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 5 0 )
             , ISM ( SIO OutputCharMaybe )
             , ICF
                 ( Labeled
@@ -3956,30 +3130,20 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_23_dl" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 3 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_dr" ) NE
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreID 4 0 )
             , ISM ( SIO OutputCharMaybe )
             , ICF
                 ( Labeled
@@ -3989,17 +3153,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_23_dr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 4 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_ll" ) NE
@@ -4013,17 +3174,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_23_ll" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 5 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_lr" ) NE
@@ -4037,17 +3195,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_23_lr" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 6 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_ul" ) NE
@@ -4061,17 +3216,14 @@ Info Memory
                 ( Mark
                     ( MArtificial "branch_23_ul" )
                 )
+            , ILS
+                ( LoadD 0 )
             , ISM
                 ( SPure
-                    ( Cons 0 )
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
                 )
-            , ILS Load
-            , ISM
-                ( SPure
-                    ( Cons 7 )
-                )
-            , ISM
-                ( SPure ( Binary Sub ) )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_ur" ) NE
@@ -4088,7 +3240,7 @@ Info Memory
             , End
             , End
             ]
-        , programCounter = 776
+        , programCounter = 539
         , returnStack = IS []
         }
     , memoryStack = fromList []

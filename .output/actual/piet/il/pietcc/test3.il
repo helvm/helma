@@ -1,97 +1,64 @@
-cons 0
-cons 0
-store
+storeid 0 0
 
 markA "block_0"
-cons 0
-load
-cons 0
-sub
+loadd 0
 bNEA "branch_0_rl"
-cons 0
-cons 1
-store
+storeid 1 0
 cons 10
 jumpA "block_3"
 
 markA "branch_0_rl"
-cons 0
-load
-cons 1
-sub
+loadd 0
+subI 1
 bNEA "branch_0_rr"
 cons 10
 jumpA "block_3"
 
 markA "branch_0_rr"
-cons 0
-load
-cons 2
-sub
+loadd 0
+subI 2
 bNEA "branch_0_dl"
-cons 0
-cons 1
-store
+storeid 1 0
 cons 10
 jumpA "block_3"
 
 markA "branch_0_dl"
-cons 0
-load
-cons 3
-sub
+loadd 0
+subI 3
 bNEA "branch_0_dr"
-cons 0
-cons 1
-store
+storeid 1 0
 cons 10
 jumpA "block_3"
 
 markA "branch_0_dr"
-cons 0
-load
-cons 4
-sub
+loadd 0
+subI 4
 bNEA "branch_0_ll"
-cons 0
-cons 1
-store
+storeid 1 0
 cons 10
 jumpA "block_3"
 
 markA "branch_0_ll"
-cons 0
-load
-cons 5
-sub
+loadd 0
+subI 5
 bNEA "branch_0_lr"
-cons 0
-cons 1
-store
+storeid 1 0
 cons 10
 jumpA "block_3"
 
 markA "branch_0_lr"
-cons 0
-load
-cons 6
-sub
+loadd 0
+subI 6
 bNEA "branch_0_ul"
-cons 0
-cons 1
-store
+storeid 1 0
 cons 10
 jumpA "block_3"
 
 markA "branch_0_ul"
-cons 0
-load
-cons 7
-sub
+loadd 0
+subI 7
 bNEA "branch_0_ur"
-cons 0
-cons 1
-store
+storeid 1 0
 cons 10
 jumpA "block_3"
 
@@ -99,92 +66,63 @@ markA "branch_0_ur"
 end
 
 markA "block_2"
-cons 0
-load
-cons 0
-sub
+loadd 0
 bNEA "branch_2_rl"
-cons 0
-cons 3
-store
+storeid 3 0
 roll
 jumpA "block_3"
 
 markA "branch_2_rl"
-cons 0
-load
-cons 1
-sub
+loadd 0
+subI 1
 bNEA "branch_2_rr"
-cons 0
-cons 2
-store
+storeid 2 0
 roll
 jumpA "block_3"
 
 markA "branch_2_rr"
-cons 0
-load
-cons 2
-sub
+loadd 0
+subI 2
 bNEA "branch_2_dl"
 roll
 jumpA "block_3"
 
 markA "branch_2_dl"
-cons 0
-load
-cons 3
-sub
+loadd 0
+subI 3
 bNEA "branch_2_dr"
 roll
 jumpA "block_3"
 
 markA "branch_2_dr"
-cons 0
-load
-cons 4
-sub
+loadd 0
+subI 4
 bNEA "branch_2_ll"
-cons 0
-cons 3
-store
+storeid 3 0
 roll
 jumpA "block_3"
 
 markA "branch_2_ll"
-cons 0
-load
-cons 5
-sub
+loadd 0
+subI 5
 bNEA "branch_2_lr"
-cons 0
-cons 2
-store
+storeid 2 0
 roll
 jumpA "block_3"
 
 markA "branch_2_lr"
-cons 0
-load
-cons 6
-sub
+loadd 0
+subI 6
 bNEA "branch_2_ul"
-cons 0
-cons 2
-store
+storeid 2 0
 roll
 jumpA "block_3"
 
 markA "branch_2_ul"
-cons 0
-load
-cons 7
-sub
+loadd 0
+subI 7
 bNEA "branch_2_ur"
-cons 0
-cons 3
-store
+storeid 3 0
 roll
 jumpA "block_3"
 
@@ -192,85 +130,60 @@ markA "branch_2_ur"
 end
 
 markA "block_3"
-cons 0
-load
-cons 0
-sub
+loadd 0
 bNEA "branch_3_rl"
-cons 0
-cons 4
-store
+storeid 4 0
 discard
 jumpA "block_0"
 
 markA "branch_3_rl"
-cons 0
-load
-cons 1
-sub
+loadd 0
+subI 1
 bNEA "branch_3_rr"
-cons 0
-cons 5
-store
+storeid 5 0
 discard
 jumpA "block_0"
 
 markA "branch_3_rr"
-cons 0
-load
-cons 2
-sub
+loadd 0
+subI 2
 bNEA "branch_3_dl"
-cons 0
-cons 5
-store
+storeid 5 0
 discard
 jumpA "block_0"
 
 markA "branch_3_dl"
-cons 0
-load
-cons 3
-sub
+loadd 0
+subI 3
 bNEA "branch_3_dr"
-cons 0
-cons 4
-store
+storeid 4 0
 discard
 jumpA "block_0"
 
 markA "branch_3_dr"
-cons 0
-load
-cons 4
-sub
+loadd 0
+subI 4
 bNEA "branch_3_ll"
 discard
 jumpA "block_0"
 
 markA "branch_3_ll"
-cons 0
-load
-cons 5
-sub
+loadd 0
+subI 5
 bNEA "branch_3_lr"
 discard
 jumpA "block_0"
 
 markA "branch_3_lr"
-cons 0
-load
-cons 6
-sub
+loadd 0
+subI 6
 bNEA "branch_3_ul"
 lnot
 jumpA "block_2"
 
 markA "branch_3_ul"
-cons 0
-load
-cons 7
-sub
+loadd 0
+subI 7
 bNEA "branch_3_ur"
 lnot
 jumpA "block_2"

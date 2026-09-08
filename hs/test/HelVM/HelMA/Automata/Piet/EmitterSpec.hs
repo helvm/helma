@@ -12,11 +12,12 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.GoldenExpectations
 
-import           Codec.Picture                             ( DynamicImage )
+import           Codec.Picture                               ( DynamicImage )
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                                ( Spec, describe, it )
+import           HelVM.HelMA.Automaton.API.OptimizationLevel ( OptimizationLevel (AllOptimizations) )
+import           Test.Hspec                                  ( Spec, describe, it )
 
 spec ∷ Spec
 spec =
@@ -92,7 +93,7 @@ ilL ∷ FilePath → IO LText
 ilL = emitILIO <=< readImage
 
 emitILIO ∷ DynamicImage → IO LText
-emitILIO = safeToIO . emitIL . (defaultConfig, )
+emitILIO = safeToIO . emitIL AllOptimizations . (defaultConfig, )
 
 asm ∷ FilePath → IO Text
 asm path = toText <$> asmL path

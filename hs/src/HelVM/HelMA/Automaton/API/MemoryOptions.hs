@@ -5,6 +5,13 @@ import           HelVM.HelMA.Automaton.Types.IntCellType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
+simpleMemoryOptions ∷ MemoryOptions
+simpleMemoryOptions = MemoryOptions
+  defaultRAMType
+  defaultStackType
+  defaultCellType
+  defaultIntCellType
+
 -- | Types
 data MemoryOptions
   = MemoryOptions
