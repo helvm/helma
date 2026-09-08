@@ -34,7 +34,7 @@ import qualified HelVM.HelMA.Automaton.Automaton               as Automaton
 import           HelVM.HelMA.Automaton.Instruction
 import           HelVM.HelMA.Automaton.Optimizer
 
-import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
+import           HelVM.HelMA.Automaton.API.AppOptions
 import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
@@ -58,18 +58,18 @@ type ImageInput = (ImageConfig, DynamicImage)
 runRio ∷ Has env ⇒ Options → RIO.RIO env ()
 runRio o = runWithOptions o =<< optionsRio
 
-runWithOptions ∷ Has env ⇒ Options → App.AppOptions → RIO.RIO env ()
-runWithOptions o ao = run (App.emit ao) (App.evalOptions ao) o =<< readImageRio (App.file ao)
+runWithOptions ∷ Has env ⇒ Options → AppOptions → RIO.RIO env ()
+runWithOptions o ao = run (emit ao) (evalOptions ao) o =<< readImageRio (file ao)
 
 run ∷ Has env ⇒ Emit → EvalOptions → Options → DynamicImage → RIO.RIO env ()
-run No eo o = runAsRIO . evalParams (fromMaybe Custom (automatonType o)) eo o
+run No eo o = runAsRIO . evalParamsByType (fromMaybe Custom (automatonType o)) eo o
 run IL eo o = putLTextLnRio <=< (runAsRIO . emitIL (optLevel $ parserOptions eo) . imageInput o)
 run TL _  o = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput o)
 run _  _  o = putLTextLnRio <=< (runAsRIO . emitDot . imageInput o)
 
-evalParams ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → Options → DynamicImage → m ()
-evalParams Common eo = evalCommon eo
-evalParams Custom _  = evalCustom
+evalParamsByType ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → Options → DynamicImage → m ()
+evalParamsByType Common eo = evalCommon eo
+evalParamsByType Custom _  = evalCustom
 
 simpleEval ∷ AppSafeEff m ⇒ DynamicImage → m ()
 simpleEval = evalCommon simpleEvalOptions simplePietOptions
