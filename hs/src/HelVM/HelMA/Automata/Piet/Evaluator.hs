@@ -55,26 +55,26 @@ import qualified RIO
 type ImageInput = (ImageConfig, DynamicImage)
 
 runRio ∷ Has env ⇒ Options → RIO.RIO env ()
-runRio po = runWithOptions po =<< optionsRio
+runRio o = runWithOptions o =<< optionsRio
 
 runWithOptions ∷ Has env ⇒ Options → App.AppOptions → RIO.RIO env ()
-runWithOptions po o = run (App.emit o) (App.evalOptions o) po =<< readImageRio (App.file o)
+runWithOptions o ao = run (App.emit ao) (App.evalOptions ao) o =<< readImageRio (App.file ao)
 
 run ∷ Has env ⇒ Emit → EvalOptions → Options → DynamicImage → RIO.RIO env ()
-run No eo po = runAsRIO . evalParams (fromMaybe Custom (automatonType po)) eo po
-run IL eo po = putLTextLnRio <=< (runAsRIO . emitIL (optLevel $ parserOptions eo) . imageInput po)
-run TL _  po = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput po)
-run _  _  po = putLTextLnRio <=< (runAsRIO . emitDot . imageInput po)
+run No eo o = runAsRIO . evalParams (fromMaybe Custom (automatonType o)) eo o
+run IL eo o = putLTextLnRio <=< (runAsRIO . emitIL (optLevel $ parserOptions eo) . imageInput o)
+run TL _  o = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput o)
+run _  _  o = putLTextLnRio <=< (runAsRIO . emitDot . imageInput o)
 
 evalParams ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → Options → DynamicImage → m ()
-evalParams Custom _  po = evalCustom po.implType po.codelSize
-evalParams _      eo po = evalCommon eo po
+evalParams Custom _  o = evalCustom o.implType o.codelSize
+evalParams _      eo o = evalCommon eo o
 
 simpleEval ∷ AppSafeEff m ⇒ DynamicImage → m ()
 simpleEval = evalCommon simpleEvalOptions simplePietOptions
 
 evalCommon ∷ AppSafeEff m ⇒ EvalOptions → Options → DynamicImage → m ()
-evalCommon eo po = flip Automaton.start (automatonOptions eo) <=< generateIL (optLevel $ parserOptions eo) . imageInput po
+evalCommon eo o = flip Automaton.start (automatonOptions eo) <=< generateIL (optLevel $ parserOptions eo) . imageInput o
 
 evalCustom ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
 evalCustom i cs = start i . uncurry compile <=< logCS . processImage cs
@@ -83,13 +83,13 @@ emitIL ∷ MonadSafe m ⇒ OptimizationLevel → ImageInput → m LText
 emitIL ol = fmap printIL . generateIL ol
 
 generateIL ∷ MonadSafe m ⇒ OptimizationLevel → ImageInput → m InstructionList
-generateIL ol = fmap (aaa ol) . parseColors
+generateIL ol = fmap (buildIL ol) . parseColors
 
-aaa ∷ OptimizationLevel → Maybe SyntaxGraph → InstructionList
-aaa ol = optimize ol . compileToIL . generateAssembly
+buildIL ∷ OptimizationLevel → Maybe SyntaxGraph → InstructionList
+buildIL ol = optimize ol . compileToIL . generateAssembly
 
 imageInput ∷ Options → DynamicImage → ImageInput
-imageInput po dyn = (imageConfig po, dyn)
+imageInput o dyn = (imageConfig o, dyn)
 
 emitCommands ∷ MonadSafe m ⇒ ImageInput → m LText
 emitCommands = fmap (renderAssembly . generateAssembly) . parseColors
