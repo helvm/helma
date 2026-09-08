@@ -12,6 +12,5 @@ mkdir -p ../helma/.output
 rsync -av \
   .output/ ../helma/.output/
 
-
 rsync -av \
   helma.cabal ../helma/helma.cabal

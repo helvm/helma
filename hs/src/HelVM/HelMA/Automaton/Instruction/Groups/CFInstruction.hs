@@ -20,6 +20,7 @@ data CFInstruction
   = Mark !Mark
   | Branch !BranchOperand !BranchTest
   | Labeled !LabelOperand !LabelOperation
+  | Switch ![Label]
   | Return
   deriving stock (Eq, Read, Show)
 
@@ -62,14 +63,18 @@ data BranchTest
 -- | Internal
 
 printCF ∷ CFInstruction → Text
-printCF (Mark     i  ) = "\nmark" <> printMark i
+printCF (Mark     i)   = "\nmark" <> printMark i
 printCF (Branch i t)   = printBranchTest t <> printBranchOperand i
 printCF (Labeled  i o) = toLowerShow o <> printLabelOperand i
+printCF (Switch   ls)  = "switch" <> printLabelList ls
 printCF           i    = toLowerShow i
 
 printMark ∷ Mark → Text
 printMark (MNatural    i) = "M " <> show i
 printMark (MArtificial i) = "A " <> show i
+
+printLabelList ∷ [Label] → Text
+printLabelList = foldMap ((" " <>) . show)
 
 printBranchTest ∷ BranchTest → Text
 printBranchTest t = "b" <> show t

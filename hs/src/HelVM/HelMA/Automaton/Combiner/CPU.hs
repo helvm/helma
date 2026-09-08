@@ -17,11 +17,22 @@ runCFI ∷ (ALU m ll element , Show element) ⇒ CFInstruction → CentralProces
 runCFI (Mark      _) = pure
 runCFI (Branch  o t) = branchInstruction t o
 runCFI (Labeled o i) = labeledInstruction i o
+runCFI (Switch   ls) = switchInstruction ls
 runCFI  Return       = popAddress
 
 popAddress ∷ ALU m ll element  ⇒ CentralProcessingMemory ll → m $ CentralProcessingMemory ll
 popAddress (CPM (CM il _ (IS (a : is))) s) = pure $ CPM (CM il a $ IS is) s
 popAddress (CPM (CM il _ (IS      [] )) _) = liftErrorWithTupleList "Empty Return Stack" [("il" , show il)]
+
+--
+
+switchInstruction ∷ ALU m ll element ⇒ [Label] → CentralProcessingStep ll m
+switchInstruction ls cpm = appendError "CPM.switchInstruction" $ build =<< cpmPop1 cpm where
+  build (idxElement, cpm') = do
+    let idx = fromIntegral idxElement ∷ Int
+    label <- indexSafe ls idx
+    ic    <- findAddressForArtificialLabel label (cpmProgram cpm')
+    pure $ jump ic cpm'
 
 --
 
