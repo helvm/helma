@@ -6,6 +6,7 @@ module HelVM.HelMA.Automata.Piet.Evaluator
   , run
   , runRio
   , simpleEval
+  , simpleEvalCustom
   ) where
 
 import           HelVM.HelMA.Automata.Piet.AssemblyGenerator
@@ -67,17 +68,20 @@ run TL _  o = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput o)
 run _  _  o = putLTextLnRio <=< (runAsRIO . emitDot . imageInput o)
 
 evalParams ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → Options → DynamicImage → m ()
-evalParams Custom _  o = evalCustom o.implType o.codelSize
-evalParams _      eo o = evalCommon eo o
+evalParams Common eo = evalCommon eo
+evalParams Custom _  = evalCustom
 
 simpleEval ∷ AppSafeEff m ⇒ DynamicImage → m ()
 simpleEval = evalCommon simpleEvalOptions simplePietOptions
 
+simpleEvalCustom ∷ AppSafeEff m ⇒ (ImplType , Maybe CodelSize) → DynamicImage → m ()
+simpleEvalCustom = evalCustom . simplePietOptions2
+
 evalCommon ∷ AppSafeEff m ⇒ EvalOptions → Options → DynamicImage → m ()
 evalCommon eo o = flip Automaton.start (automatonOptions eo) <=< generateIL (optLevel $ parserOptions eo) . imageInput o
 
-evalCustom ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
-evalCustom i cs = start i . uncurry compile <=< logCS . processImage cs
+evalCustom ∷ AppSafeEff m ⇒ Options → DynamicImage → m ()
+evalCustom o = start o.implType . uncurry compile <=< logCS . processImage o.codelSize
 
 emitIL ∷ MonadSafe m ⇒ OptimizationLevel → ImageInput → m LText
 emitIL ol = fmap printIL . generateIL ol

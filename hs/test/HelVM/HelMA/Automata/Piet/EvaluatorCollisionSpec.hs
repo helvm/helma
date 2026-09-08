@@ -80,7 +80,7 @@ spec =
     let implType = Custom
     let implPietType = Collision
     forM_ inputs $ \input -> do
-      let mock = (ioExecMockEffWithInput (toText input) . evalCustom implPietType Nothing) =<< img
+      let mock = (ioExecMockEffWithInput (toText input) . simpleEvalCustom (implPietType, Nothing)) =<< img
       let path = show implType </> show implPietType </> dirName </> fileName <> input
       describe path $ do
         it ("output" </> path) $
