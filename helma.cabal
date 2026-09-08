@@ -118,18 +118,19 @@ library
   exposed-modules:
 
     HelVM.HelMA.Evaluator
+    HelVM.HelMA.LangCommand
 
     HelVM.HelMA.Automaton.API.AppOptions
     HelVM.HelMA.Automaton.API.AutomatonOptions
     HelVM.HelMA.Automaton.API.BoolTypes
-    HelVM.HelMA.Automaton.API.MemoryOptions
     HelVM.HelMA.Automaton.API.AutoOptions
     HelVM.HelMA.Automaton.API.Emit
     HelVM.HelMA.Automaton.API.Env
+    HelVM.HelMA.Automaton.API.EvalOptions
     HelVM.HelMA.Automaton.API.EvalParams
-    HelVM.HelMA.Automaton.API.LogLevel
     HelVM.HelMA.Automaton.API.IOTypes
-    HelVM.HelMA.Automaton.API.Lang
+    HelVM.HelMA.Automaton.API.LogLevel
+    HelVM.HelMA.Automaton.API.MemoryOptions
     HelVM.HelMA.Automaton.API.OptimizationLevel
     HelVM.HelMA.Automaton.API.ParserOptions
     
@@ -210,7 +211,7 @@ library
 
     HelVM.HelMA.Automata.Cat.Evaluator
 
-    HelVM.HelMA.Automata.ETA.API.AutomatonType
+    HelVM.HelMA.Automaton.API.AutomatonType
 
     HelVM.HelMA.Automata.ETA.Addressing
     HelVM.HelMA.Automata.ETA.Automaton
@@ -256,6 +257,7 @@ library
     HelVM.HelMA.Automata.Piet.API.ImplType
     HelVM.HelMA.Automata.Piet.API.LexerType
     HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
+    HelVM.HelMA.Automata.Piet.API.Options
 
     HelVM.HelMA.Automata.Piet.Automaton.Collision
     HelVM.HelMA.Automata.Piet.Automaton.StepState
@@ -386,8 +388,9 @@ test-suite helma-test
     HelVM.HelMA.Automata.LazyK.ParserSpec
 
     HelVM.HelMA.Automata.Piet.CodelSizeSpec
-    HelVM.HelMA.Automata.Piet.EvaluatorCollisionSpec
     HelVM.HelMA.Automata.Piet.EmitterSpec
+    HelVM.HelMA.Automata.Piet.EvaluatorCollisionSpec
+    HelVM.HelMA.Automata.Piet.EvaluatorCommonSpec
     HelVM.HelMA.Automata.Piet.EvaluatorStepStateSpec
     HelVM.HelMA.Automata.Piet.FileExtra
     HelVM.HelMA.Automata.Piet.FillerSpec

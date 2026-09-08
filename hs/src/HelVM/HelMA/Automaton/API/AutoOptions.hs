@@ -3,8 +3,8 @@ module HelVM.HelMA.Automaton.API.AutoOptions where
 import           HelVM.HelMA.Automaton.Trampoline
 import           HelVM.HelMA.Automaton.Types.DumpType
 
-simpleAutoParams ∷ AutoOptions
-simpleAutoParams = AutoOptions
+simpleAutoOptions ∷ AutoOptions
+simpleAutoOptions = AutoOptions
   { limit        = testMaybeLimit
   , dumpType     = Pretty
   }

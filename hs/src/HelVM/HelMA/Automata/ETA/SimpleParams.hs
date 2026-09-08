@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automata.ETA.SimpleParams where
 
-import           HelVM.HelMA.Automata.ETA.API.AutomatonType
+import           HelVM.HelMA.Automaton.API.AutomatonType
 
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.IOTypes
@@ -12,7 +12,7 @@ simpleParams it st s = SimpleParams
   { implType   = it
   , source     = s
   , stackType  = st
-  , autoOptions = simpleAutoParams
+  , autoOptions = simpleAutoOptions
   }
 
 -- | Type

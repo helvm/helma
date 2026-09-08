@@ -18,9 +18,6 @@ import           HelVM.HelMA.Automata.Piet.Types.Course
 import qualified Data.Text                                              as T
 import           HelVM.HelIO.Collections.SList                          ( sListFromList )
 
-dpccRamAddress ∷ Integer
-dpccRamAddress = 0
-
 compileToIL ∷ AG.AssemblyProgram → InstructionList
 compileToIL prog = initDPCC (AG.entryDPCC prog) <> foldMap compileBlock (AG.blocks prog) <> [End]
 
@@ -32,35 +29,40 @@ initDPCC c =
   ]
 
 compileBlock ∷ AG.BlockAssembly → InstructionList
-compileBlock block = blockMark : foldMap (compileBranch blockLbl) (AG.branches block) where
+compileBlock block = (blockMark : foldMap (compileBranch blockLbl) (AG.branches block)) <> [End] where
   blockLbl  = AG.blockLabel block
   blockMark = ICF (Mark (MArtificial (showBlockLabel blockLbl)))
 
 compileBranch ∷ AG.Label → AG.BranchAssembly → InstructionList
-compileBranch blockLbl branch = checkCourses (AG.branchCourses branch) nextLabel <> branchCode <> [jumpNext] where
+compileBranch blockLbl branch = checkBranch (AG.branchCourses branch) bodyLabel nextLabel <> branchCode <> [jumpNext] where
   nextLabel  = showBranchLabel blockLbl (AG.branchCourses branch)
+  bodyLabel  = showBranchBodyLabel blockLbl (AG.branchCourses branch)
   jumpNext   = ICF (Mark (MArtificial nextLabel))
   branchCode = foldMap compileInstruction (AG.branchInstrs branch)
 
-checkCourses ∷ [Course] → CFInstructionLabel → InstructionList
-checkCourses [] _ = []
-checkCourses (c : cs) targetLabel =
+checkBranch ∷ [Course] → CFInstructionLabel → CFInstructionLabel → InstructionList
+checkBranch [] _ nextLabel = [ICF (Labeled (LArtificial nextLabel) Jump)]
+checkBranch [c] _ nextLabel =
   loadDPCC
     <> [ ISM (SPure (Cons (courseToVal c)))
        , ISM (SPure (Binary Sub))
-       , ICF (Branch (BArtificial targetLabel) EZ)
+       , ICF (Branch (BArtificial nextLabel) NE)
        ]
-    <> checkCourses cs targetLabel
-
-loadDPCC ∷ InstructionList
-loadDPCC =
-  [ ISM (SPure (Cons dpccRamAddress))
-  , ILS Load
-  ]
+checkBranch cs bodyLabel nextLabel =
+  foldMap checkCourse cs
+    <> [ ICF (Labeled (LArtificial nextLabel) Jump)
+       , ICF (Mark (MArtificial bodyLabel))
+       ] where
+    checkCourse c =
+      loadDPCC
+        <> [ ISM (SPure (Cons (courseToVal c)))
+           , ISM (SPure (Binary Sub))
+           , ICF (Branch (BArtificial bodyLabel) EZ)
+           ]
 
 compileInstruction ∷ AG.Instruction → InstructionList
 compileInstruction (AG.ExecCmd cmd) = compileCommand cmd
-compileInstruction (AG.StoreDPCC c) = initDPCC c
+compileInstruction (AG.StoreIPCC c) = initDPCC c
 compileInstruction (AG.Jump lbl)    = [ICF (Labeled (LArtificial (showBlockLabel lbl)) Jump)]
 compileInstruction AG.Exit          = [End]
 
@@ -76,53 +78,48 @@ compileCommand Piet.Mod         = [ISM (SPure (Binary Mod))]
 compileCommand Piet.Not         = [ISM (SPure (Unary LNot))]
 compileCommand Piet.Greater     = [ISM (SPure (Binary LGT))]
 compileCommand Piet.Duplicate   = [ISM (SPure (Indexed (IImmediate 0) Copy))]
-compileCommand Piet.InNumber    = [ILS (MIO InputDec)]
-compileCommand Piet.InChar      = [ILS (MIO InputChar)]
-compileCommand Piet.OutNumber   = [ILS (MIO OutputDec)]
-compileCommand Piet.OutChar     = [ILS (MIO OutputChar)]
-compileCommand Piet.Pointer     = mutateDP 4
-compileCommand Piet.Switch      = mutateCC 2
-compileCommand Piet.Roll        = [ISM (SPure Halibut)]
+compileCommand Piet.InNumber    = [ISM (SIO InputDec)]
+compileCommand Piet.InChar      = [ISM (SIO InputChar)]
+compileCommand Piet.OutNumber   = [ISM (SIO OutputDecMaybe)]
+compileCommand Piet.OutChar     = [ISM (SIO OutputCharMaybe)]
+compileCommand Piet.Pointer     = mutateDP
+compileCommand Piet.Switch      = mutateCC
+compileCommand Piet.Roll        = [ISM (SPure Roll)]
 
-mutateDP ∷ Integer → InstructionList
-mutateDP modVal =
-  loadDPCC
-    <> [ ISM (SPure (Cons 2))
-       , ISM (SPure (Binary Div))
-       , ISM (SPure (Binary Add))
-       , ISM (SPure (Cons modVal))
-       , ISM (SPure (Binary Mod))
-       , ISM (SPure (Cons 2))
-       , ISM (SPure (Binary Mul))
-       ]
+mutateDP ∷ InstructionList
+mutateDP =
+  [ ISM (SPure (Cons 4))
+  , ISM (SPure (Binary Mod))
+  , ISM (SPure (Cons 2))
+  , ISM (SPure (Binary Mul))
+  ]
     <> loadDPCC
-    <> [ ISM (SPure (Cons 2))
+    <> [ ISM (SPure (Binary Add))
+       , ISM (SPure (Cons 8))
        , ISM (SPure (Binary Mod))
-       , ISM (SPure (Binary Add))
        , ISM (SPure (Cons dpccRamAddress))
-       , ISM (SPure Halibut)
-       , ILS Store
+       , ILS RStore
        ]
 
-mutateCC ∷ Integer → InstructionList
-mutateCC modVal =
-  loadDPCC
-    <> [ ISM (SPure (Cons 2))
-       , ISM (SPure (Binary Mod))
-       , ISM (SPure (Binary Add))
-       , ISM (SPure (Cons modVal))
-       , ISM (SPure (Binary Mod))
-       ]
+mutateCC ∷ InstructionList
+mutateCC =
+  [ ISM (SPure (Cons 2))
+  , ISM (SPure (Binary Mod))
+  ]
     <> loadDPCC
-    <> [ ISM (SPure (Cons 2))
-       , ISM (SPure (Binary Div))
-       , ISM (SPure (Cons 2))
-       , ISM (SPure (Binary Mul))
-       , ISM (SPure (Binary Add))
+    <> [ ISM (SPure (Binary BXor))
        , ISM (SPure (Cons dpccRamAddress))
-       , ISM (SPure Halibut)
-       , ILS Store
+       , ILS RStore
        ]
+
+loadDPCC ∷ InstructionList
+loadDPCC =
+  [ ISM (SPure (Cons dpccRamAddress))
+  , ILS Load
+  ]
+
+dpccRamAddress ∷ Integer
+dpccRamAddress = 0
 
 type CFInstructionLabel = HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction.Label
 
@@ -134,3 +131,6 @@ showBlockLabel lbl = sListFromList $ toString ("block_" <> show lbl ∷ Text)
 
 showBranchLabel ∷ AG.Label → [Course] → CFInstructionLabel
 showBranchLabel lbl cs = sListFromList $ toString ("branch_" <> show lbl <> "_" <> T.intercalate "_" (toText . showCourse <$> cs))
+
+showBranchBodyLabel ∷ AG.Label → [Course] → CFInstructionLabel
+showBranchBodyLabel lbl cs = sListFromList $ toString ("body_" <> show lbl <> "_" <> T.intercalate "_" (toText . showCourse <$> cs))

@@ -1,0 +1,46 @@
+module HelVM.HelMA.Automata.Piet.API.Options where
+
+import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
+import           HelVM.HelMA.Automata.Piet.API.CodelSize
+import           HelVM.HelMA.Automata.Piet.API.ImageConfig
+import           HelVM.HelMA.Automata.Piet.API.ImplType
+import           HelVM.HelMA.Automata.Piet.API.LexerType
+import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
+
+import           HelVM.HelMA.Automaton.API.AutomatonType
+
+simplePietOptions ∷ Options
+simplePietOptions = Options
+  Nothing
+  defaultImplType
+  Nothing
+  Nothing
+  Nothing
+  Nothing
+
+simplePietOptions2 ∷ (ImplType, Maybe CodelSize) → Options
+simplePietOptions2 (i, cs) = Options
+  Nothing
+  i
+  Nothing
+  Nothing
+  cs
+  Nothing
+
+
+imageConfig ∷ Options → ImageConfig
+imageConfig po = ImageConfig
+  (fromMaybe defaultAdditionalColorStrategy po.additionalColor)
+  (fromMaybe defaultMulticoloredCodelStrategy po.multicoloredCodel)
+  po.codelSize
+
+data Options
+  = Options
+      { automatonType     :: !(Maybe AutomatonType)
+      , implType          :: !ImplType
+      , additionalColor   :: !(Maybe AdditionalColorStrategy)
+      , multicoloredCodel :: !(Maybe MulticoloredCodelStrategy)
+      , codelSize         :: !(Maybe CodelSize)
+      , lexerType         :: !(Maybe LexerType)
+      }
+  deriving stock (Eq, Show)

@@ -1,13 +1,14 @@
 module HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction where
 
 import           HelVM.HelMA.Automaton.Instruction.Extras.Common
--- | Types
 
--- TODO convert to (Output/Input) (Char/Dec)
+-- | Types
 
 data IOInstruction
   = OutputChar
   | OutputDec
+  | OutputCharMaybe
+  | OutputDecMaybe
   | InputChar
   | InputDec
   deriving stock (Eq, Read, Show)
@@ -20,7 +21,9 @@ instance PrintAsm IOInstruction where
 -- | Internal
 
 printIO ∷ IOInstruction → Text
-printIO OutputChar = "outputC"
-printIO OutputDec  = "outputD"
-printIO InputChar  = "inputC"
-printIO InputDec   = "inputD"
+printIO OutputChar      = "outputC"
+printIO OutputDec       = "outputD"
+printIO OutputCharMaybe = "outputCMaybe"
+printIO OutputDecMaybe  = "outputDMaybe"
+printIO InputChar       = "inputC"
+printIO InputDec        = "inputD"

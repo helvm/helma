@@ -2,7 +2,7 @@ module HelVM.HelMA.Evaluator where
 
 import qualified HelVM.HelMA.Automaton.API.AppOptions      as App
 import           HelVM.HelMA.Automaton.API.Env
-import           HelVM.HelMA.Automaton.API.Lang
+import           HelVM.HelMA.LangCommand
 
 import qualified HelVM.HelMA.Automata.BrainFuck.Evaluator  as BF
 import qualified HelVM.HelMA.Automata.Cat.Evaluator        as Cat
@@ -23,14 +23,14 @@ runRio = runWithOpt =<< optionsRio where
 
 runLang ∷ Has env ⇒ LangCommand → RIO.RIO env ()
 -- Implerative
-runLang (BFCommand       t)     = BF.runRio t
-runLang (ETACommand      i)     = ETA.runRio i
-runLang (PietCommand i a m c l) = Piet.runRio i a m c l
-runLang FCommand                = F.runRio
-runLang SQCommand               = SQ.runRio
-runLang (WSCommand       t)     = WS.runRio t
+runLang (BFCommand       t) = BF.runRio t
+runLang (ETACommand      i) = ETA.runRio i
+runLang (PietCommand po)    = Piet.runRio po
+runLang FCommand            = F.runRio
+runLang SQCommand           = SQ.runRio
+runLang (WSCommand       t) = WS.runRio t
 -- Functional
-runLang LazyCommand             = Lazy.runRio
-runLang ZotCommand              = Zot.runRio
-runLang RevCommand              = Rev.runRio
-runLang CatCommand              = Cat.runRio
+runLang LazyCommand         = Lazy.runRio
+runLang ZotCommand          = Zot.runRio
+runLang RevCommand          = Rev.runRio
+runLang CatCommand          = Cat.runRio

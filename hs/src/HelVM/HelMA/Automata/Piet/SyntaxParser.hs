@@ -64,7 +64,7 @@ buildNextBlockList ∷ Matrix Codel → BlockCoordinates → [(Course, Maybe Nex
 buildNextBlockList image blockCoords = mapMaybe (findCourseNextBlock image blockCoords (olength blockCoords)) (minMaxCoords blockCoords)
 
 findCourseNextBlock ∷ Matrix Codel → BlockCoordinates → Int → Cursor → Maybe (Course, Maybe NextBlock)
-findCourseNextBlock image _ blockSize cur = (cur.course,) <$> searchNextBlock image cur.position cur.course blockSize
+findCourseNextBlock image blockCoords blockSize cur = (cur.course,) <$> searchNextBlock image blockCoords cur.course blockSize
 
 searchInitialBlock ∷ MonadSafe m ⇒ Matrix Codel → m (Maybe BlockEdge)
 searchInitialBlock image = processInitial image =<< justOrThrow "EmptyBlockTableError" ((V.!? 0) =<< image V.!? 0)
@@ -74,23 +74,44 @@ processInitial _ (Codel (Chromatic _) blockIdx) = pure $ Just $ BlockEdge blockI
 processInitial image (Codel White _)            = pure $ view targetL <$> slideOnWhiteBlock image initialCursor
 processInitial _ (Codel Black _)                = liftError "IllegalInitialColorError"
 
-searchNextBlock ∷ Matrix Codel → Coordinates → Course → Int → Maybe (Maybe NextBlock)
-searchNextBlock image p@(x, y) crs blockSize = searchNextBlockWithColor image p crs blockSize =<< (V.!? x) =<< image V.!? y
+searchNextBlock ∷ Matrix Codel → BlockCoordinates → Course → Int → Maybe (Maybe NextBlock)
+searchNextBlock image blockCoords startCourse blockSize = tryCourseAttempts image curColor cornerMap blockSize 0 startCourse where
+  curColor  = getCurColor image blockCoords
+  cornerMap = M.fromList [ (c.course, c.position) | c <- minMaxCoords blockCoords ]
 
-searchNextBlockWithColor ∷ Matrix Codel → Coordinates → Course → Int → Codel → Maybe (Maybe NextBlock)
-searchNextBlockWithColor image p crs@(Course dp _) blockSize (Codel (Chromatic curColor) _) = fetchNextCodel image (move dp p) >>= searchNextBlockFromMove image (move dp p) crs blockSize curColor
-searchNextBlockWithColor _ _ _ _ _                                                          = Nothing
+tryCourseAttempts ∷ Matrix Codel → Maybe ChromaticColor → Map Course Coordinates → Int → Int → Course → Maybe (Maybe NextBlock)
+tryCourseAttempts _     Nothing         _         _         _ _   = Nothing
+tryCourseAttempts _     _               _         _         8 _   = Nothing
+tryCourseAttempts image (Just curColor) cornerMap blockSize k crs =
+  checkTargetCodel image curColor crs blockSize (nextAttempt (k + 1) (bounceCourse k crs)) (fetchTargetCodel image cornerMap crs) where
+    nextAttempt = tryCourseAttempts image (Just curColor) cornerMap blockSize
+
+fetchTargetCodel ∷ Matrix Codel → Map Course Coordinates → Course → Maybe (Coordinates, Codel)
+fetchTargetCodel image cornerMap crs = makeTarget =<< M.lookup crs cornerMap where
+  makeTarget p = (targetPos,) <$> fetchNextCodel image targetPos where targetPos = move (crs.directionPointer) p
+
+checkTargetCodel ∷ Matrix Codel → ChromaticColor → Course → Int → Maybe (Maybe NextBlock) → Maybe (Coordinates, Codel) → Maybe (Maybe NextBlock)
+checkTargetCodel _     _        _   _         fallback Nothing                          = fallback
+checkTargetCodel _     _        _   _         fallback (Just (_, Codel Black _))        = fallback
+checkTargetCodel image _        crs _         _        (Just (pos, Codel White _))      = Just $ slideOnWhiteBlock image (Cursor pos crs)
+checkTargetCodel _     curColor crs blockSize _        (Just (_, Codel (Chromatic nextColor) nextIdx)) =
+  Just $ Just $ NextBlock (commandFromTransition curColor nextColor blockSize) (BlockEdge nextIdx crs)
+
+bounceCourse ∷ Int → Course → Course
+bounceCourse k
+  | even k    = toggleCodelChooser 1
+  | otherwise = rotateDirectionPointer 1
+
+getCurColor ∷ Matrix Codel → BlockCoordinates → Maybe ChromaticColor
+getCurColor _     []           = Nothing
+getCurColor image ((x, y) : _) = extractChromatic =<< fetchNextCodel image (x, y)
+
+extractChromatic ∷ Codel → Maybe ChromaticColor
+extractChromatic (Codel (Chromatic c) _) = Just c
+extractChromatic _                       = Nothing
 
 fetchNextCodel ∷ Matrix Codel → Coordinates → Maybe Codel
 fetchNextCodel image (nextX, nextY) = (V.!? nextX) =<< image V.!? nextY
-
-searchNextBlockFromMove ∷ Matrix Codel → Coordinates → Course → Int → ChromaticColor → Codel → Maybe (Maybe NextBlock)
-searchNextBlockFromMove image nextPos crs blockSize curColor codel = processNextCodel image codel curColor (Cursor nextPos crs) blockSize
-
-processNextCodel ∷ Matrix Codel → Codel → ChromaticColor → Cursor → Int → Maybe (Maybe NextBlock)
-processNextCodel _ (Codel (Chromatic nextColor) blockIdx) curColor cur blockSize = Just $ Just $ NextBlock (commandFromTransition curColor nextColor blockSize) (BlockEdge blockIdx cur.course)
-processNextCodel image (Codel White _) _ cur _                                   = Just $ slideOnWhiteBlock image cur
-processNextCodel _ (Codel Black _) _ _ _                                         = Nothing
 
 nextBlockToIndex ∷ Maybe NextBlock → Maybe Int
 nextBlockToIndex nb = view (targetL . blockIndexL) <$> nb

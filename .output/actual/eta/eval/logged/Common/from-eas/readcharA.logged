@@ -1,0 +1,12 @@
+Info Memory
+    { memoryCM = CM
+        { program =
+            [ ISM ( SIO InputChar )
+            , End
+            ]
+        , programCounter = 2
+        , returnStack = IS []
+        }
+    , memoryStack = fromList [ 65 ]
+    , memoryRAM = []
+    }

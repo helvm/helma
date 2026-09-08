@@ -129,11 +129,8 @@ Info Memory
                         ( UImmediate 100 Add )
                     )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 1 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreI 1 )
             , ISM
                 ( SPure
                     ( Unary
@@ -255,11 +252,8 @@ Info Memory
                         ( UImmediate 100 Add )
                     )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreI 0 )
             , ISM
                 ( SPure
                     ( Unary
@@ -418,7 +412,7 @@ Info Memory
             , ISM ( SIO OutputChar )
             , ICF Return
             ]
-        , programCounter = 92
+        , programCounter = 90
         , returnStack = IS []
         }
     , memoryStack = fromList []

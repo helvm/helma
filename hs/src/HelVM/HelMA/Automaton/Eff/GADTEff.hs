@@ -10,8 +10,6 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 
 import           Control.Monad.Logger
 
-import           Prelude                            hiding ( getLine, putLTextLn, putText, putTextLn )
-
 newtype GADTEff a
   = GADTEff { runGADTEff :: forall m. Monad m => (forall x. GADTEffF x -> m x) -> m a }
 
@@ -45,18 +43,18 @@ interpretGADTEffFDebug ∷ AppEff m ⇒ GADTEffF a → m a
 interpretGADTEffFDebug GetContentsBS   = logDebugN "GetContentsBS"   *> getContentsBS
 interpretGADTEffFDebug GetContentsText = logDebugN "GetContentsText" *> getContentsText
 interpretGADTEffFDebug GetChar         = logAndCont =<< getChar where logAndCont c = logDebugN ("GetChar: " <> one c) $> c
-interpretGADTEffFDebug GetLine         = logAndCont =<< getLine where logAndCont l = logDebugN ("GetLine: " <>     l) $> l
+interpretGADTEffFDebug GetChars        = logAndCont =<< getChars where logAndCont l = logDebugN ("GetChars: " <>     l) $> l
 interpretGADTEffFDebug (PutChar c)     = logDebugN ("PutChar: " <> one c) *> putChar c
-interpretGADTEffFDebug (PutText s)     = logDebugN ("PutText: " <>     s) *> putLine s
+interpretGADTEffFDebug (PutChars s)    = logDebugN ("PutChars: " <>     s) *> putChars s
 interpretGADTEffFDebug Flush           = logDebugN "Flush"                *> flush
 
 interpretGADTEffF ∷ MonadEff m ⇒ GADTEffF a → m a
 interpretGADTEffF GetContentsBS   = getContentsBS
 interpretGADTEffF GetContentsText = getContentsText
 interpretGADTEffF GetChar         = getChar
-interpretGADTEffF GetLine         = getLine
+interpretGADTEffF GetChars        = getChars
 interpretGADTEffF (PutChar c)     = putChar c
-interpretGADTEffF (PutText s)     = putLine s
+interpretGADTEffF (PutChars s)    = putChars s
 interpretGADTEffF Flush           = flush
 
 --------------------------------------------------------------------------------
@@ -65,9 +63,9 @@ instance MonadEff GADTEff where
   getContentsBS   = gadtGetContentsBS
   getContentsText = gadtGetContentsText
   getChar         = gadtGetChar
-  getLine         = gadtGetLine
+  getChars         = gadtGetChars
   putChar         = gadtPutChar
-  putLine         = gadtPutLine
+  putChars         = gadtPutLine
   flush           = gadtFlush
 
 gadtGetContentsBS ∷ GADTEff LByteString
@@ -79,14 +77,14 @@ gadtGetContentsText = liftF GetContentsText
 gadtGetChar ∷ GADTEff Char
 gadtGetChar = liftF GetChar
 
-gadtGetLine ∷ GADTEff Text
-gadtGetLine = liftF GetLine
+gadtGetChars ∷ GADTEff Text
+gadtGetChars = liftF GetChars
 
 gadtPutChar ∷ Char → GADTEff ()
 gadtPutChar = liftF . PutChar
 
 gadtPutLine ∷ Text → GADTEff ()
-gadtPutLine = liftF . PutText
+gadtPutLine = liftF . PutChars
 
 gadtFlush ∷ GADTEff ()
 gadtFlush = liftF Flush
@@ -97,7 +95,7 @@ data GADTEffF a where
   GetContentsBS :: GADTEffF LByteString
   GetContentsText :: GADTEffF LText
   GetChar :: GADTEffF Char
-  GetLine :: GADTEffF Text
+  GetChars :: GADTEffF Text
   PutChar :: Char -> GADTEffF ()
-  PutText :: Text -> GADTEffF ()
+  PutChars :: Text -> GADTEffF ()
   Flush :: GADTEffF ()

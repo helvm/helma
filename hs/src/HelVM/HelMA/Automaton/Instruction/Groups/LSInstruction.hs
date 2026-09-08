@@ -9,6 +9,9 @@ data LSInstruction
   = Load --Restore --Fetch
   | LoadD !ImmediateIndex
   | Store --Save
+  | RStore --Save
+  | StoreI Integer
+  | RStoreD ImmediateIndex
   | StoreID !Integer !ImmediateIndex
   | MoveD !ImmediateIndex !ImmediateIndex
   | MIO !IOInstruction

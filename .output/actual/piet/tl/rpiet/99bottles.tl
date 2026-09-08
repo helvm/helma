@@ -12,6 +12,25 @@ block_0:
     jump block_1
   case Course {directionPointer = DPDown, codelChooser = CCLeft}:
     jump block_19
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_19
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    push 3
+    jump block_1
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    push 3
+    jump block_1
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    push 3
+    jump block_1
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    push 3
+    jump block_1
 block_1:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -30,6 +49,14 @@ block_1:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
     jump block_0
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    duplicate
+    jump block_2
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    duplicate
+    jump block_2
 block_2:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -48,6 +75,14 @@ block_2:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     divide
     jump block_1
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    multiply
+    jump block_3
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    multiply
+    jump block_3
 block_3:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -66,6 +101,14 @@ block_3:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     out (number)
     jump block_2
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    push 1
+    jump block_4
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    push 1
+    jump block_4
 block_4:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -84,6 +127,14 @@ block_4:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
     jump block_3
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    add
+    jump block_5
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    add
+    jump block_5
 block_5:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -102,6 +153,14 @@ block_5:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     in (char)
     jump block_4
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    duplicate
+    jump block_6
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    duplicate
+    jump block_6
 block_6:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -120,6 +179,14 @@ block_6:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     divide
     jump block_5
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    multiply
+    jump block_7
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    multiply
+    jump block_7
 block_7:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -138,6 +205,14 @@ block_7:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     out (number)
     jump block_6
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    push 1
+    jump block_8
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    push 1
+    jump block_8
 block_8:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -156,6 +231,14 @@ block_8:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
     jump block_7
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    subtract
+    jump block_9
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    subtract
+    jump block_9
 block_9:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -174,6 +257,14 @@ block_9:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     out (char)
     jump block_8
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    duplicate
+    jump block_10
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    duplicate
+    jump block_10
 block_10:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -192,6 +283,14 @@ block_10:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     divide
     jump block_9
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    push 1
+    jump block_11
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    push 1
+    jump block_11
 block_11:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -208,6 +307,12 @@ block_11:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
     jump block_10
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    jump block_13
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    jump block_13
 block_13:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -224,6 +329,14 @@ block_13:
     jump block_11
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     jump block_11
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    push 1
+    jump block_14
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    push 1
+    jump block_14
 block_14:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -242,6 +355,14 @@ block_14:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     pop
     jump block_13
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCRight}
+    pointer
+    jump block_15
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPRight, codelChooser = CCLeft}
+    pointer
+    jump block_15
 block_15:
     switch_dpcc
   case Course {directionPointer = DPRight, codelChooser = CCLeft}:
@@ -260,6 +381,12 @@ block_15:
   case Course {directionPointer = DPLeft, codelChooser = CCRight}:
     switch
     jump block_14
+  case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCLeft}
+    jump block_93
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPDown, codelChooser = CCRight}
+    jump block_93
 block_17:
     switch_dpcc
 block_18:
@@ -276,6 +403,12 @@ block_18:
   case Course {directionPointer = DPDown, codelChooser = CCRight}:
     switch
     jump block_81
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    jump block_0
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_0
   case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     jump block_0
   case Course {directionPointer = DPUp, codelChooser = CCRight}:
@@ -1734,6 +1867,14 @@ block_81:
   case Course {directionPointer = DPDown, codelChooser = CCRight}:
     pop
     jump block_92
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    pointer
+    jump block_18
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    pointer
+    jump block_18
   case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     pointer
     jump block_18
@@ -1954,6 +2095,14 @@ block_92:
     jump block_93
   case Course {directionPointer = DPDown, codelChooser = CCRight}:
     jump block_93
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCRight}
+    push 1
+    jump block_81
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    push 1
+    jump block_81
   case Course {directionPointer = DPUp, codelChooser = CCLeft}:
     push 1
     jump block_81
@@ -1962,7 +2111,28 @@ block_92:
     jump block_81
 block_93:
     switch_dpcc
+  case Course {directionPointer = DPRight, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_92
+  case Course {directionPointer = DPRight, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_92
+  case Course {directionPointer = DPDown, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_92
+  case Course {directionPointer = DPDown, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_92
+  case Course {directionPointer = DPLeft, codelChooser = CCLeft}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_92
+  case Course {directionPointer = DPLeft, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
+    jump block_92
   case Course {directionPointer = DPUp, codelChooser = CCLeft}:
+    jump block_92
+  case Course {directionPointer = DPUp, codelChooser = CCRight}:
+    store_dpcc Course {directionPointer = DPUp, codelChooser = CCLeft}
     jump block_92
 block_94:
     switch_dpcc

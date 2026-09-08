@@ -2,9 +2,11 @@ module HelVM.HelMA.Automata.Piet.Evaluator
   ( emitCommands
   , emitDot
   , emitIL
+  , evalCustom
   , run
   , runRio
   , simpleEval
+  , simpleEvalCustom
   ) where
 
 import           HelVM.HelMA.Automata.Piet.AssemblyGenerator
@@ -20,25 +22,28 @@ import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Program
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
-import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
 import           HelVM.HelMA.Automata.Piet.API.CodelSize
 import           HelVM.HelMA.Automata.Piet.API.ImageConfig
 import           HelVM.HelMA.Automata.Piet.API.ImplType
-import           HelVM.HelMA.Automata.Piet.API.LexerType
-import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
+import           HelVM.HelMA.Automata.Piet.API.Options
 
-import qualified HelVM.HelMA.Automata.Piet.Automaton.Collision           as Collision
-import qualified HelVM.HelMA.Automata.Piet.Automaton.StepState           as StepState
+import qualified HelVM.HelMA.Automata.Piet.Automaton.Collision as Collision
+import qualified HelVM.HelMA.Automata.Piet.Automaton.StepState as StepState
 
+import qualified HelVM.HelMA.Automaton.Automaton               as Automaton
 import           HelVM.HelMA.Automaton.Instruction
+import           HelVM.HelMA.Automaton.Optimizer
 
-import qualified HelVM.HelMA.Automaton.API.AppOptions                    as App
+import           HelVM.HelMA.Automaton.API.AppOptions
+import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
-import           HelVM.HelMA.Automaton.Eff.MonadEff
+import           HelVM.HelMA.Automaton.API.EvalOptions
+import           HelVM.HelMA.Automaton.API.OptimizationLevel
+import           HelVM.HelMA.Automaton.API.ParserOptions
 
+import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           HelVM.HelMA.Automaton.Extra
-import           HelVM.HelMA.Automaton.ShowList
 
 import           HelVM.HelIO.Control.Safe
 
@@ -50,20 +55,45 @@ import qualified RIO
 
 type ImageInput = (ImageConfig, DynamicImage)
 
-runRio ∷ Has env ⇒ ImplType → Maybe AdditionalColorStrategy → Maybe MulticoloredCodelStrategy → Maybe CodelSize → Maybe LexerType → RIO.RIO env ()
-runRio i a m cs _ = runWithOptions i a m cs =<< optionsRio
+runRio ∷ Has env ⇒ Options → RIO.RIO env ()
+runRio o = runWithOptions o =<< optionsRio
 
-run ∷ Has env ⇒ Emit → ImplType → Maybe AdditionalColorStrategy → Maybe MulticoloredCodelStrategy → Maybe CodelSize → DynamicImage → RIO.RIO env ()
-run No i _ _ cs = runAsRIO . simpleEval i cs
-run IL _ a m cs = putLTextLnRio <=< (runAsRIO . emitIL . imageInput a m cs)
-run TL _ a m cs = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput a m cs)
-run _  _ a m cs = putLTextLnRio <=< (runAsRIO . emitDot . imageInput a m cs)
+runWithOptions ∷ Has env ⇒ Options → AppOptions → RIO.RIO env ()
+runWithOptions o ao = run (emit ao) (evalOptions ao) o =<< readImageRio (file ao)
 
-simpleEval ∷ AppSafeEff m ⇒ ImplType → Maybe CodelSize → DynamicImage → m ()
-simpleEval i cs = start i . uncurry compile <=< logCS . processImage cs
+run ∷ Has env ⇒ Emit → EvalOptions → Options → DynamicImage → RIO.RIO env ()
+run No eo o = runAsRIO . evalParamsByType (fromMaybe Custom (automatonType o)) eo o
+run IL eo o = putLTextLnRio <=< (runAsRIO . emitIL (optLevel $ parserOptions eo) . imageInput o)
+run TL _  o = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput o)
+run _  _  o = putLTextLnRio <=< (runAsRIO . emitDot . imageInput o)
 
-emitIL ∷ MonadSafe m ⇒ ImageInput → m LText
-emitIL = fmap (printListToLText printI . compileToIL . generateAssembly) . parseColors
+evalParamsByType ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → Options → DynamicImage → m ()
+evalParamsByType Common eo = evalCommon eo
+evalParamsByType Custom _  = evalCustom
+
+simpleEval ∷ AppSafeEff m ⇒ DynamicImage → m ()
+simpleEval = evalCommon simpleEvalOptions simplePietOptions
+
+simpleEvalCustom ∷ AppSafeEff m ⇒ (ImplType , Maybe CodelSize) → DynamicImage → m ()
+simpleEvalCustom = evalCustom . simplePietOptions2
+
+evalCommon ∷ AppSafeEff m ⇒ EvalOptions → Options → DynamicImage → m ()
+evalCommon eo o = flip Automaton.start (automatonOptions eo) <=< generateIL (optLevel $ parserOptions eo) . imageInput o
+
+evalCustom ∷ AppSafeEff m ⇒ Options → DynamicImage → m ()
+evalCustom o = start o.implType . uncurry compile <=< logCS . processImage o.codelSize
+
+emitIL ∷ MonadSafe m ⇒ OptimizationLevel → ImageInput → m LText
+emitIL ol = fmap printIL . generateIL ol
+
+generateIL ∷ MonadSafe m ⇒ OptimizationLevel → ImageInput → m InstructionList
+generateIL ol = fmap (buildIL ol) . parseColors
+
+buildIL ∷ OptimizationLevel → Maybe SyntaxGraph → InstructionList
+buildIL ol = optimize ol . compileToIL . generateAssembly
+
+imageInput ∷ Options → DynamicImage → ImageInput
+imageInput o dyn = (imageConfig o, dyn)
 
 emitCommands ∷ MonadSafe m ⇒ ImageInput → m LText
 emitCommands = fmap (renderAssembly . generateAssembly) . parseColors
@@ -72,9 +102,6 @@ emitDot ∷ MonadSafe m ⇒ ImageInput → m LText
 emitDot = fmap syntaxToDOT . parseColors
 
 -- HELPERS
-
-runWithOptions ∷ Has env ⇒ ImplType → Maybe AdditionalColorStrategy → Maybe MulticoloredCodelStrategy → Maybe CodelSize → App.AppOptions → RIO.RIO env ()
-runWithOptions i a m cs o = run (App.emit o) i a m cs =<< readImageRio (App.file o)
 
 start ∷ AppSafeEff m ⇒ ImplType → Program → m ()
 start StepState = StepState.start
@@ -85,9 +112,3 @@ logCS res@(cs, _) = logDebugN ("Actual codel length: " <> show cs) $> res
 
 parseColors ∷ MonadSafe m ⇒ ImageInput → m (Maybe SyntaxGraph)
 parseColors = parse <=< uncurry readColors
-
-imageInput ∷ Maybe AdditionalColorStrategy → Maybe MulticoloredCodelStrategy → Maybe CodelSize → DynamicImage → ImageInput
-imageInput a m cs dyn = (imageConfig a m cs, dyn)
-
-imageConfig ∷ Maybe AdditionalColorStrategy → Maybe MulticoloredCodelStrategy → Maybe CodelSize → ImageConfig
-imageConfig a m = ImageConfig (fromMaybe defaultAdditionalColorStrategy a) (fromMaybe defaultMulticoloredCodelStrategy m)

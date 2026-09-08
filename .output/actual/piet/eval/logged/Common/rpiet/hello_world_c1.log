@@ -1,0 +1,13 @@
+Info Memory
+    { memoryCM = CM
+        { program =
+            [ ILS
+                ( StoreID 0 0 )
+            , End
+            ]
+        , programCounter = 2
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM = [ 0 ]
+    }

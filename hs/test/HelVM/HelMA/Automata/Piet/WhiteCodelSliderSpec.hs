@@ -13,7 +13,7 @@ import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Codel
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
-import           HelVM.HelMA.Automata.Piet.Types.Cursor         hiding ( initialCursor )
+import           HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
@@ -28,7 +28,7 @@ data TestCase
   = TestCase
       { caseName       :: String
       , testImage      :: Matrix Codel
-      , initialCursor  :: Cursor
+      , entryCursor    :: Cursor
       , expectedResult :: Maybe NextBlock
       }
 
@@ -40,7 +40,7 @@ spec = describe "slideOnWhiteBlock" $ forM_ testCases runTest where
   runTest tc =
     context ("when given " ++ caseName tc) $
       it "slide and pure the next codel" $
-        slideOnWhiteBlock (testImage tc) (initialCursor tc) `shouldBe` expectedResult tc
+        slideOnWhiteBlock (testImage tc) (entryCursor tc) `shouldBe` expectedResult tc
 
   testCases =
     [ TestCase "singleCodelImage (0, 0) rl" singleCodelImage (Cursor (0, 0) rl) Nothing

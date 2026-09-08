@@ -1,0 +1,522 @@
+Error Empty IsSequence for uncons2Safe
+ALU.pop2
+ [i: ISM (SPure (Binary LGT))]
+ [program: storeid 0 0 # 0
+
+markA "block_0" # 1
+loadd 0 # 2
+bNEA "branch_0_rl" # 3
+storeid 3 0 # 4
+lgt # 5
+jumpA "block_1" # 6
+
+markA "branch_0_rl" # 7
+loadd 0 # 8
+subI 1 # 9
+bNEA "branch_0_rr" # 10
+storeid 2 0 # 11
+lgt # 12
+jumpA "block_1" # 13
+
+markA "branch_0_rr" # 14
+loadd 0 # 15
+subI 2 # 16
+bNEA "branch_0_dl" # 17
+lgt # 18
+jumpA "block_1" # 19
+
+markA "branch_0_dl" # 20
+loadd 0 # 21
+subI 3 # 22
+bNEA "branch_0_dr" # 23
+lgt # 24
+jumpA "block_1" # 25
+
+markA "branch_0_dr" # 26
+loadd 0 # 27
+subI 4 # 28
+bNEA "branch_0_ll" # 29
+storeid 3 0 # 30
+lgt # 31
+jumpA "block_1" # 32
+
+markA "branch_0_ll" # 33
+loadd 0 # 34
+subI 5 # 35
+bNEA "branch_0_lr" # 36
+storeid 2 0 # 37
+lgt # 38
+jumpA "block_1" # 39
+
+markA "branch_0_lr" # 40
+loadd 0 # 41
+subI 6 # 42
+bNEA "branch_0_ul" # 43
+storeid 2 0 # 44
+lgt # 45
+jumpA "block_1" # 46
+
+markA "branch_0_ul" # 47
+loadd 0 # 48
+subI 7 # 49
+bNEA "branch_0_ur" # 50
+storeid 3 0 # 51
+lgt # 52
+jumpA "block_1" # 53
+
+markA "branch_0_ur" # 54
+end # 55
+
+markA "block_1" # 56
+loadd 0 # 57
+bNEA "branch_1_rl" # 58
+storeid 7 0 # 59
+lgt # 60
+jumpA "block_0" # 61
+
+markA "branch_1_rl" # 62
+loadd 0 # 63
+subI 1 # 64
+bNEA "branch_1_rr" # 65
+storeid 6 0 # 66
+lgt # 67
+jumpA "block_0" # 68
+
+markA "branch_1_rr" # 69
+loadd 0 # 70
+subI 2 # 71
+bNEA "branch_1_dl" # 72
+storeid 6 0 # 73
+lgt # 74
+jumpA "block_0" # 75
+
+markA "branch_1_dl" # 76
+loadd 0 # 77
+subI 3 # 78
+bNEA "branch_1_dr" # 79
+storeid 7 0 # 80
+lgt # 81
+jumpA "block_0" # 82
+
+markA "branch_1_dr" # 83
+loadd 0 # 84
+subI 4 # 85
+bNEA "branch_1_ll" # 86
+storeid 7 0 # 87
+lgt # 88
+jumpA "block_0" # 89
+
+markA "branch_1_ll" # 90
+loadd 0 # 91
+subI 5 # 92
+bNEA "branch_1_lr" # 93
+storeid 6 0 # 94
+lgt # 95
+jumpA "block_0" # 96
+
+markA "branch_1_lr" # 97
+loadd 0 # 98
+subI 6 # 99
+bNEA "branch_1_ul" # 100
+lgt # 101
+jumpA "block_0" # 102
+
+markA "branch_1_ul" # 103
+loadd 0 # 104
+subI 7 # 105
+bNEA "branch_1_ur" # 106
+lgt # 107
+jumpA "block_0" # 108
+
+markA "branch_1_ur" # 109
+end # 110
+end # 111
+]
+ [Automaton.nextState Memory
+    { memoryCM = CM
+        { program =
+            [ ILS
+                ( StoreID 0 0 )
+            , ICF
+                ( Mark
+                    ( MArtificial "block_0" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_rl" ) NE
+                )
+            , ILS
+                ( StoreID 3 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_rl" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_rr" ) NE
+                )
+            , ILS
+                ( StoreID 2 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_rr" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_dl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_dl" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_dr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_dr" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_ll" ) NE
+                )
+            , ILS
+                ( StoreID 3 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_ll" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_lr" ) NE
+                )
+            , ILS
+                ( StoreID 2 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_lr" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_ul" ) NE
+                )
+            , ILS
+                ( StoreID 2 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_ul" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_ur" ) NE
+                )
+            , ILS
+                ( StoreID 3 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_1" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_rl" ) NE
+                )
+            , ILS
+                ( StoreID 7 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_rl" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 1 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_rr" ) NE
+                )
+            , ILS
+                ( StoreID 6 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_rr" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 2 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_dl" ) NE
+                )
+            , ILS
+                ( StoreID 6 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_dl" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 3 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_dr" ) NE
+                )
+            , ILS
+                ( StoreID 7 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_dr" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 4 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_ll" ) NE
+                )
+            , ILS
+                ( StoreID 7 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_ll" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 5 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_lr" ) NE
+                )
+            , ILS
+                ( StoreID 6 0 )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_lr" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 6 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_ul" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_ul" )
+                )
+            , ILS
+                ( LoadD 0 )
+            , ISM
+                ( SPure
+                    ( Unary
+                        ( UImmediate 7 Sub )
+                    )
+                )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_ur" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_ur" )
+                )
+            , End
+            , End
+            ]
+        , programCounter = 5
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM = [ 3 ]
+    }]
+

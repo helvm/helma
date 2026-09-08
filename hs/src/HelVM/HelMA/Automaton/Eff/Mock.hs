@@ -98,17 +98,17 @@ instance MonadEff Mock where
   getContentsBS   = mockGetContentsBS
   getContentsText = mockGetContentsText
   getChar         = mockGetChar
-  getLine         = mockGetLine
+  getChars        = mockGetChars
   putChar         = mockPutChar
-  putLine         = mockPutLine
+  putChars        = mockPutChars
 
 instance MonadEff (SafeT Mock) where
   getContentsBS   = mockGetContentsBS
   getContentsText = mockGetContentsText
   getChar         = mockGetCharSafe
-  getLine         = mockGetLineSafe
+  getChars        = mockGetCharsSafe
   putChar         = mockPutChar
-  putLine         = mockPutLine
+  putChars        = mockPutChars
 
 instance {-# OVERLAPPING #-} MonadLogger Mock where
   monadLoggerLog loc src level msg = mockLog $ MockLog loc src level $ toLogStr msg

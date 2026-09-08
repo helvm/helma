@@ -82,6 +82,9 @@ pattern BranchTP t = ICF (Branch BTop t)
 pattern StoreP :: Instruction
 pattern StoreP = ILS Store
 
+pattern RStoreP :: Instruction
+pattern RStoreP = ILS RStore
+
 pattern LoadP :: Instruction
 pattern LoadP = ILS Load
 

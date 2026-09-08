@@ -11,7 +11,6 @@ import           HelVM.HelMA.Automaton.Eff.MonadEff
 import           Control.Monad.Free.Church          ( F, foldF, liftF )
 import           Control.Monad.Logger
 
-import           Prelude                            hiding ( getLine, putLTextLn, putText, putTextLn )
 --------------------------------------------------------------------------------
 
 interpretFreeEffDebug ∷ AppEff m ⇒ FreeEff a → m a
@@ -26,18 +25,18 @@ interpretFreeEffFDebug ∷ AppEff m ⇒ FreeEffF a → m a
 interpretFreeEffFDebug (GetContentsBS    cd) = cd <$> (logDebugN "GetContentsBS"   *> getContentsBS)
 interpretFreeEffFDebug (GetContentsText  cd) = cd <$> (logDebugN "GetContentsText" *> getContentsText)
 interpretFreeEffFDebug (GetChar          cd) = logAndCont =<< getChar where logAndCont c = logDebugN ("GetChar: " <> one c) $> cd c
-interpretFreeEffFDebug (GetLine          cd) = logAndCont =<< getLine where logAndCont l = logDebugN ("GetLine: " <>     l) $> cd l
+interpretFreeEffFDebug (GetLine          cd) = logAndCont =<< getChars where logAndCont l = logDebugN ("GetLine: " <>     l) $> cd l
 interpretFreeEffFDebug (PutChar        c v ) = logDebugN ("PutChar: " <> one c) *> putChar    c $> v
-interpretFreeEffFDebug (PutText        s v ) = logDebugN ("PutText: " <>     s) *> putLine s $> v
+interpretFreeEffFDebug (PutText        s v ) = logDebugN ("PutText: " <>     s) *> putChars s $> v
 interpretFreeEffFDebug (Flush            v ) = logDebugN "Flush"                *> flush        $> v
 
 interpretFreeEffF ∷ MonadEff m ⇒ FreeEffF a → m a
 interpretFreeEffF (GetContentsBS    cd) = cd <$> getContentsBS
 interpretFreeEffF (GetContentsText  cd) = cd <$> getContentsText
 interpretFreeEffF (GetChar          cd) = cd <$> getChar
-interpretFreeEffF (GetLine          cd) = cd <$> getLine
+interpretFreeEffF (GetLine          cd) = cd <$> getChars
 interpretFreeEffF (PutChar        c v ) = putChar      c $> v
-interpretFreeEffF (PutText        s v ) = putLine   s $> v
+interpretFreeEffF (PutText        s v ) = putChars   s $> v
 interpretFreeEffF (Flush            v ) = flush          $> v
 
 --------------------------------------------------------------------------------
@@ -46,9 +45,9 @@ instance MonadEff FreeEff where
   getContentsBS   = freeGetContentsBS
   getContentsText = freeGetContentsText
   getChar         = freeGetChar
-  getLine         = freeGetLine
+  getChars         = freeGetChars
   putChar         = freePutChar
-  putLine         = freePutLine
+  putChars         = freeChars
   flush           = freeFlush
 
 freeGetContentsBS ∷ FreeEff LByteString
@@ -60,14 +59,14 @@ freeGetContentsText = liftF $ GetContentsText id
 freeGetChar ∷ FreeEff Char
 freeGetChar = liftF $ GetChar id
 
-freeGetLine ∷ FreeEff Text
-freeGetLine = liftF $ GetLine id
+freeGetChars ∷ FreeEff Text
+freeGetChars = liftF $ GetLine id
 
 freePutChar ∷ Char → FreeEff ()
 freePutChar = liftF . flip PutChar ()
 
-freePutLine ∷ Text → FreeEff ()
-freePutLine = liftF . flip PutText ()
+freeChars ∷ Text → FreeEff ()
+freeChars = liftF . flip PutText ()
 
 freeFlush ∷ FreeEff ()
 freeFlush = liftF $ Flush ()

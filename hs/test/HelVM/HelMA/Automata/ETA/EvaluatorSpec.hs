@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.FileExtra
 import           HelVM.HelMA.Automata.ETA.SimpleParams
 
-import           HelVM.HelMA.Automata.ETA.API.AutomatonType
+import           HelVM.HelMA.Automaton.API.AutomatonType
 
 import           HelVM.HelMA.Automaton.Eff.Mock
 import           HelVM.HelMA.Automaton.Types.StackType
@@ -17,7 +17,7 @@ import           HelVM.GoldenExpectations
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                                 ( Spec, describe, it )
+import           Test.Hspec                              ( Spec, describe, it )
 
 spec ∷ Spec
 spec =

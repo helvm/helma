@@ -3,11 +3,12 @@ module Options where
 import           HelVM.HelMA.Automaton.API.AppOptions
 import           HelVM.HelMA.Automaton.API.AutoOptions
 import           HelVM.HelMA.Automaton.API.Emit
-import           HelVM.HelMA.Automaton.API.Lang
+import           HelVM.HelMA.Automaton.API.EvalOptions
 import           HelVM.HelMA.Automaton.API.LogLevel
 import           HelVM.HelMA.Automaton.API.MemoryOptions
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.API.ParserOptions
+import           HelVM.HelMA.LangCommand
 
 import           HelVM.HelMA.Automaton.API.LabelType
 import           HelVM.HelMA.Automaton.Types.CellType
@@ -18,15 +19,15 @@ import           HelVM.HelMA.Automaton.Types.StackType
 
 import           HelVM.HelMA.Automata.BrainFuck.API.ImplType             as BF
 
-import           HelVM.HelMA.Automata.ETA.API.AutomatonType
+import           HelVM.HelMA.Automaton.API.AutomatonType
 
 import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
 import           HelVM.HelMA.Automata.Piet.API.ImplType                  as Piet
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
+import           HelVM.HelMA.Automata.Piet.API.Options
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
-
 
 import           Data.MonoTraversable
 
@@ -47,11 +48,15 @@ optionsParser = AppOptions
                    <> help    "Exec"
                    <> showDefault
                    )
-  <*> autoOptionsParser
-  <*> memoryOptionsParser
-  <*> parserOptionsParser
+  <*> evalOptionsParser
   <*> langCommandParser
   <*> argument str (  metavar "FILE")
+
+evalOptionsParser ∷ Parser EvalOptions
+evalOptionsParser = EvalOptions
+  <$> parserOptionsParser
+  <*> memoryOptionsParser
+  <*> autoOptionsParser
 
 logLevelParser ∷ Parser LogLevel
 logLevelParser = explicitVerbosity <|> countedVerbosity <|> pure defaultLogLevel where
@@ -109,7 +114,6 @@ memoryOptionsParser = MemoryOptions
                  <> value defaultIntCellType
                  <> showDefault )
 
-
 parserOptionsParser ∷ Parser ParserOptions
 parserOptionsParser = ParserOptions
   <$> optLevelParser
@@ -157,11 +161,15 @@ etaParser = ETACommand
   <$> option auto (long "AutomatonType" <> short 'i' <> metavar "[AutomatonType]" <> value defaultAutomatonType <> showDefault)
 
 pietParser ∷ Parser LangCommand
-pietParser = PietCommand
-  <$> option auto (long "ImplType" <> short 'i' <> metavar "[ImplType]" <> value Piet.defaultImplType <> showDefault)
+pietParser = PietCommand <$> pietOptionsParser
+
+pietOptionsParser ∷ Parser Options
+pietOptionsParser = Options
+  <$> optional (option auto (long "AutomatonType" <> short 'A' <> metavar "[AutomatonType]" <> value defaultAutomatonType <> showDefault))
+  <*> option auto (long "ImplType" <> short 'i' <> metavar "[ImplType]" <> value Piet.defaultImplType <> showDefault)
   <*> optional (option auto (long "Additional" <> short 'a' <> metavar "[AdditionalColorStrategy]" <> value defaultAdditionalColorStrategy <> showDefault))
   <*> optional (option auto (long "Multicolored" <> short 'm' <> metavar "[MulticoloredCodelStrategy]" <> value defaultMulticoloredCodelStrategy <> showDefault))
-  <*> optional (option auto (long "codels" <> short 'C' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)" ))
+  <*> optional (option auto (long "codels" <> short 'C' <> metavar "[LENGTH]" <> help "codel length (the codel size will be LENGTH^2)"))
   <*> optional (option auto (long "LexerType" <> short 'l' <> metavar "[LexerType]" <> value defaultLexerType <> showDefault))
 
 wsParser ∷ Parser LangCommand

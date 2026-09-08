@@ -11,6 +11,7 @@ import           HelVM.HelMA.Automaton.API.Env
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 import           HelVM.HelMA.Automaton.Eff.MonadEff
+
 import           HelVM.HelMA.Automaton.Extra
 
 import qualified RIO
@@ -27,4 +28,4 @@ evalParams ∷ AppSafeEff m ⇒ EvalParams → m ()
 evalParams = eval . source
 
 eval ∷ MonadEff m ⇒ Source → m ()
-eval = putLine
+eval = putChars

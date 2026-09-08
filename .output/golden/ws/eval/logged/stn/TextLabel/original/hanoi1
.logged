@@ -396,11 +396,8 @@ Info Memory
                         ( UImmediate 1 Add )
                     )
                 )
-            , ISM
-                ( SPure
-                    ( Cons 0 )
-                )
-            , ILS Store
+            , ILS
+                ( StoreI 0 )
             , ICF Return
             , ICF
                 ( Mark

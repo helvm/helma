@@ -11,6 +11,7 @@ import           HelVM.HelMA.Automata.SubLeq.Lexer
 import qualified HelVM.HelMA.Automaton.API.AppOptions   as App
 import qualified HelVM.HelMA.Automaton.API.Emit         as Emit
 import           HelVM.HelMA.Automaton.API.Env
+import           HelVM.HelMA.Automaton.API.EvalOptions
 import           HelVM.HelMA.Automaton.API.EvalParams
 import           HelVM.HelMA.Automaton.API.IOTypes
 
@@ -46,7 +47,8 @@ simpleEval rt s = evalSource s rt testMaybeLimit Pretty
 ----
 
 evalParams ∷ AppSafeEff m ⇒ EvalParams → m ()
-evalParams p = evalSource (source p) (ramAutoOptions p) Nothing (dumpAutoOptions p)
+evalParams p = evalSource (source p) (ramAutoOptions eo) Nothing (dumpAutoOptions eo) where
+  eo = evalOptions p
 
 evalSource ∷ AppSafeEff m ⇒ Source → RAMType → LimitMaybe → DumpType → m ()
 evalSource source = evalIL $ tokenize source

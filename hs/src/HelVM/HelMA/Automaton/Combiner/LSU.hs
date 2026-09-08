@@ -14,15 +14,20 @@ import           HelVM.HelIO.Control.Safe
 import           Control.Type.Operator
 
 runSLI ∷ (LSU m s r element) ⇒ LSInstruction → LoadStoreMemory s r → m $ LoadStoreMemory s r
-runSLI Load             = load
-runSLI Store            = store
-runSLI (LoadD     a)    = loadD a
-runSLI (StoreID v a)    = storeID v a
-runSLI (MoveD   s d)    = moveD s d
-runSLI (MIO OutputChar) = loadOutputChar
-runSLI (MIO OutputDec)  = loadOutputDec
-runSLI (MIO InputChar)  = storeInputChar
-runSLI (MIO InputDec)   = storeInputDec
+runSLI Load                  = load
+runSLI Store                 = store
+runSLI RStore                = rstore
+runSLI (LoadD     a)         = loadD a
+runSLI (StoreI    v)         = storeI v
+runSLI (RStoreD   a)         = rstoreD a
+runSLI (StoreID v a)         = storeID v a
+runSLI (MoveD   s d)         = moveD s d
+runSLI (MIO OutputChar)      = loadOutputChar
+runSLI (MIO OutputDec)       = loadOutputDec
+runSLI (MIO OutputCharMaybe) = loadOutputCharMaybe
+runSLI (MIO OutputDecMaybe)  = loadOutputDecMaybe
+runSLI (MIO InputChar)       = storeInputChar
+runSLI (MIO InputDec)        = storeInputDec
 
 load ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 load (LSM s r) = appendError "LSM.load" $ build =<< pop1 s where
@@ -37,6 +42,18 @@ loadPure address (LSM s r) = pure $ LSM (push1 (RAM.genericLoad r address) s) r
 store ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 store (LSM s r) = appendError "LSM.store" $ build =<< pop2 s where
   build (value , address , s') = storePure value address $ LSM s' r
+
+rstore ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
+rstore (LSM s r) = appendError "LSM.rstore" $ build =<< pop2 s where
+  build (address , value , s') = storePure value address $ LSM s' r
+
+storeI ∷ LSU m s r element ⇒ Integer → LoadStoreMemory s r → m $ LoadStoreMemory s r
+storeI value (LSM s r) = appendError "LSM.storeI" $ build =<< pop1 s where
+  build (address , s') = storePure (fromIntegral value) address  $ LSM s' r
+
+rstoreD ∷ LSU m s r element ⇒ ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
+rstoreD address (LSM s r) = appendError "LSM.rstoreD" $ build =<< pop1 s where
+  build (value , s') = storePure value (fromIntegral address)  $ LSM s' r
 
 storeID ∷ LSU m s r element ⇒ Integer → ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
 storeID value address = storePure (fromIntegral value) (fromIntegral address)
@@ -56,6 +73,12 @@ loadOutputChar (LSM s r) = appendError "LSM.loadOutputChar" $ build =<< pop1 s w
 loadOutputDec ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 loadOutputDec (LSM s r) = appendError "LSM.loadOutputDec" $ build =<< pop1 s where
   build (address , s') = LSM s' r <$ putAsDec (RAM.genericLoad r address)
+
+loadOutputCharMaybe ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
+loadOutputCharMaybe = loadOutputChar
+
+loadOutputDecMaybe ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
+loadOutputDecMaybe = loadOutputDec
 
 storeInputChar ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 storeInputChar (LSM s r) = appendError "LSM.storeInputChar" $ build =<< pop1 s where

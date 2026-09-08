@@ -1,9 +1,9 @@
 module HelVM.HelMA.Automata.ETA.EvaluatorBenchMark where
 
-import           HelVM.HelMA.Automata.ETA.API.AutomatonType
 import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.FileExtra
 import           HelVM.HelMA.Automata.ETA.SimpleParams
+import           HelVM.HelMA.Automaton.API.AutomatonType
 
 import           HelVM.HelMA.Automaton.Eff.Mock
 import           HelVM.HelMA.Automaton.Types.StackType

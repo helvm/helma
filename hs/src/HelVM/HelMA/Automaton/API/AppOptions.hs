@@ -1,32 +1,25 @@
 module HelVM.HelMA.Automaton.API.AppOptions where
 
-import qualified HelVM.HelMA.Automaton.API.AutoOptions   as API
-import           HelVM.HelMA.Automaton.API.BoolTypes     as API
-import           HelVM.HelMA.Automaton.API.Emit          as API
-import qualified HelVM.HelMA.Automaton.API.EvalParams    as API
-import           HelVM.HelMA.Automaton.API.IOTypes       as API
-import qualified HelVM.HelMA.Automaton.API.Lang          as API
-import           HelVM.HelMA.Automaton.API.LogLevel      as API
-import qualified HelVM.HelMA.Automaton.API.MemoryOptions as API
-import qualified HelVM.HelMA.Automaton.API.ParserOptions as API
+import           HelVM.HelMA.Automaton.API.BoolTypes
+import           HelVM.HelMA.Automaton.API.Emit
+import           HelVM.HelMA.Automaton.API.EvalOptions
+import           HelVM.HelMA.Automaton.API.EvalParams
+import           HelVM.HelMA.Automaton.API.IOTypes
+import           HelVM.HelMA.Automaton.API.LogLevel
 
+import           HelVM.HelMA.LangCommand
 
 -- | Methods
-
-evalParams ∷ AppOptions → Source → API.EvalParams
-evalParams o source = API.EvalParams source (parserOptions o) (memoryOptions o) (autoOptions o)
+evalParams ∷ AppOptions → Source → EvalParams
+evalParams o s = EvalParams s (o.evalOptions)
 
 -- | Types
-
 data AppOptions
   = AppOptions
-      { verbosity     :: !LogLevel
-      , emit          :: !Emit
-      , exec          :: !Exec
-      , autoOptions   :: !API.AutoOptions
-      , memoryOptions :: !API.MemoryOptions
-      , parserOptions :: !API.ParserOptions
-      , langCommand   :: !API.LangCommand
-      , file          :: !FilePath
+      { verbosity   :: !LogLevel
+      , emit        :: !Emit
+      , exec        :: !Exec
+      , evalOptions :: !EvalOptions
+      , langCommand :: !LangCommand
+      , file        :: !FilePath
       }
-

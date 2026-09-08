@@ -46,20 +46,24 @@ import           HelVM.HelIO.Containers.MTIndexSafe
 import           HelVM.HelIO.SequencesExtra
 
 import           Control.Applicative.Tools
+
+import           Data.Bits                                              ( Bits )
 import           Data.MonoTraversable
 import           Data.Sequences
-import           Prelude                                                hiding ( divMod, drop, fromList, length, splitAt, swap, uncons )
 
+import           Prelude                                                hiding ( divMod, drop, fromList, length, splitAt, swap, uncons )
 
 runALI ∷ ALU m ll element ⇒ SMInstruction → ll → m ll
 runALI (SPure ali) = runSAL ali
 runALI (SIO   ioi) = runSIO ioi
 
 runSIO ∷ ALU m ll element ⇒ IOInstruction → ll → m ll
-runSIO OutputChar = outputChar
-runSIO OutputDec  = outputDec
-runSIO InputChar  = inputChar
-runSIO InputDec   = inputDec
+runSIO OutputChar      = outputChar
+runSIO OutputDec       = outputDec
+runSIO OutputCharMaybe = outputCharMaybe
+runSIO OutputDecMaybe  = outputDecMaybe
+runSIO InputChar       = inputChar
+runSIO InputDec        = inputDec
 
 runSAL ∷ SafeStack m ll element ⇒ SPureInstruction → ll → m ll
 runSAL (Cons      i   ) = push  i
@@ -69,6 +73,7 @@ runSAL (Binaries  ops ) = binaryInstructions ops
 runSAL (Indexed t op)   = indexedInstruction op t
 runSAL  Halibut         = halibut
 runSAL  Pick            = pick
+runSAL  Roll            = roll
 runSAL  Discard         = discard
 
 -- | Arithmetic instructions
@@ -218,7 +223,7 @@ type ALU m ll element = (AppSafeEff m , SafeStack m ll element)
 
 type SafeStack m ll element  = (MonadSafe m , IntegralStack ll element)
 
-type IntegralStack ll element = (Stack ll element , Integral element)
+type IntegralStack ll element = (Stack ll element , Integral element , Bits element)
 
 type Stack ll element = (Element ll ~ element , Index ll ~ Int , LL ll)
 
