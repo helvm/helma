@@ -4,13 +4,11 @@ module HelVM.HelMA.Automaton.Generator.LLGenerator
   ) where
 
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
-import           Data.Text                                              ( Text )
 import           Prettyprinter
 import           Prettyprinter.Render.Text                              ( renderStrict )
 
@@ -69,9 +67,10 @@ generateLL il = vsep
 
 -- | Translacja pojedynczej instrukcji z HelMA na LLVM IR
 genInstruction ∷ Instruction → Doc ann
-genInstruction (SInstruction   inst) = genSMInstruction inst
-genInstruction (LSInstruction  inst) = genLSInstruction inst
-genInstruction (CFInstruction  inst) = genCFInstruction inst
+genInstruction (ISM inst) = genSMInstruction inst
+genInstruction (ILS inst) = genLSInstruction inst
+genInstruction (ICF inst) = genCFInstruction inst
+genInstruction End        = "ret i32 0"
 
 -- | 1. Generowanie instrukcji ALU / Stosu (SMInstruction)
 genSMInstruction ∷ SMInstruction → Doc ann
@@ -83,12 +82,11 @@ genSMInstruction (SPure (Unary LNot)) = vsep
   , "%res = zext i1 %cmp to i32"
   , "call void @push(i32 %res)"
   ]
-genSMInstruction (SPure (Binary op)) = genBinOp op
+genSMInstruction (SPure (Binary op))    = genBinOp op
 genSMInstruction (SPure (Binaries ops)) = vsep (map genBinOp ops)
-genSMInstruction (SPure Discard) =
-  "%unused = call i32 @pop()"
-genSMInstruction (SIO ioInst) = genIOInstruction ioInst
-genSMInstruction inst = ";; Unsupported SMInstruction: " <> viaShow inst
+genSMInstruction (SPure Discard)        = "%unused = call i32 @pop()"
+genSMInstruction (SIO ioInst)           = genIOInstruction ioInst
+genSMInstruction inst                   = ";; Unsupported SMInstruction: " <> viaShow inst
 
 -- | Translacja operacji binarnych ALU
 genBinOp ∷ BinaryOperation → Doc ann
@@ -100,11 +98,15 @@ genBinOp op = vsep
   ]
 
 llvmBinOp ∷ BinaryOperation → Doc ann
-llvmBinOp Add = "add"
-llvmBinOp Sub = "sub"
-llvmBinOp Mul = "mul"
-llvmBinOp Div = "sdiv"
-llvmBinOp Mod = "srem"
+llvmBinOp Add  = "add"
+llvmBinOp Sub  = "sub"
+llvmBinOp Mul  = "mul"
+llvmBinOp Div  = "sdiv"
+llvmBinOp Mod  = "srem"
+llvmBinOp BAnd = "and"
+llvmBinOp BOr  = "or"
+llvmBinOp BXor = "xor"
+llvmBinOp op   = ";; Unsupported BinOp: " <> viaShow op
 
 -- | 2. Generowanie instrukcji Pamięci (LSU / RAM)
 genLSInstruction ∷ LSInstruction → Doc ann
@@ -148,40 +150,44 @@ genLSInstruction (StoreID v a) = vsep
   , "store i32 " <> pretty v <> ", i32* %ram_ptr"
   ]
 genLSInstruction (MIO ioInst) = genIOInstruction ioInst
-genLSInstruction inst = ";; Unsupported LSInstruction: " <> viaShow inst
+genLSInstruction inst         = ";; Unsupported LSInstruction: " <> viaShow inst
 
 -- | 3. Generowanie instrukcji Sterowania (CPU)
 genCFInstruction ∷ CFInstruction → Doc ann
-genCFInstruction (Mark l) = vsep
+genCFInstruction (Mark (MNatural l)) = vsep
   [ "br label %label_" <> pretty l
   , "label_" <> pretty l <> ":"
   ]
-genCFInstruction (Labeled Jump (LImmediate l)) =
+genCFInstruction (Mark (MArtificial l)) = vsep
+  [ "br label %art_label_" <> viaShow l
+  , "art_label_" <> viaShow l <> ":"
+  ]
+genCFInstruction (Labeled (LImmediate l) Jump) =
   "br label %label_" <> pretty l
-genCFInstruction (Labeled Jump (LArtificial l)) =
-  "br label %art_label_" <> pretty l
+genCFInstruction (Labeled (LArtificial l) Jump) =
+  "br label %art_label_" <> viaShow l
 genCFInstruction Return =
   "ret i32 0"
-genCFInstruction (Branch test operand) = genBranchInstruction test operand
+genCFInstruction (Branch (BImmediate l) test) =
+  genBranchInstruction test ("label_" <> pretty l)
+genCFInstruction (Branch (BArtificial l) test) =
+  genBranchInstruction test ("art_label_" <> viaShow l)
 genCFInstruction inst = ";; Control Flow: " <> viaShow inst
 
-genBranchInstruction ∷ BranchTest → BranchOperand → Doc ann
-genBranchInstruction test (BImmediate l) = vsep
+genBranchInstruction ∷ BranchTest → Doc ann → Doc ann
+genBranchInstruction test targetLabel = vsep
   [ "%cond_val = call i32 @pop()"
   , "%cond = icmp " <> llvmCmpPred test <> " i32 %cond_val, 0"
-  , "%tmp_label = select i1 %cond, label %label_" <> pretty l <> ", label %next_label"
+  , "%tmp_label = select i1 %cond, label %" <> targetLabel <> ", label %next_label"
   , "br label %tmp_label"
   , "next_label:"
   ]
-genBranchInstruction _ op = ";; Dynamic Branch: " <> viaShow op
 
 llvmCmpPred ∷ BranchTest → Doc ann
-llvmCmpPred BEZ  = "eq"
-llvmCmpPred BNZ  = "ne"
-llvmCmpPred BLZ  = "slt"
-llvmCmpPred BGZ  = "sgt"
-llvmCmpPred BLEZ = "sle"
-llvmCmpPred BGEZ = "sge"
+llvmCmpPred EZ  = "eq"
+llvmCmpPred NE  = "ne"
+llvmCmpPred LTZ = "slt"
+llvmCmpPred GTZ = "sgt"
 
 -- | 4. Instrukcje WE/WY (I/O)
 genIOInstruction ∷ IOInstruction → Doc ann

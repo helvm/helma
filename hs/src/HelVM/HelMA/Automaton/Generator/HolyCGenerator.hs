@@ -4,13 +4,11 @@ module HelVM.HelMA.Automaton.Generator.HolyCGenerator
   ) where
 
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
-import           Data.Text                                              ( Text )
 import           Prettyprinter
 import           Prettyprinter.Render.Text                              ( renderStrict )
 
@@ -50,9 +48,10 @@ generateHolyC il = vsep
 
 -- | Translacja pojedynczej instrukcji z HelMA na HolyC
 genInstruction ∷ Instruction → Doc ann
-genInstruction (SInstruction   inst) = genSMInstruction inst
-genInstruction (LSInstruction  inst) = genLSInstruction inst
-genInstruction (CFInstruction  inst) = genCFInstruction inst
+genInstruction (ISM inst) = genSMInstruction inst
+genInstruction (ILS inst) = genLSInstruction inst
+genInstruction (ICF inst) = genCFInstruction inst
+genInstruction End        = "return;"
 
 -- | 1. Generowanie instrukcji ALU / Stosu (SMInstruction)
 genSMInstruction ∷ SMInstruction → Doc ann
@@ -74,11 +73,15 @@ genBinOp op = vsep
   ]
 
 holyBinOp ∷ BinaryOperation → Doc ann
-holyBinOp Add = "+"
-holyBinOp Sub = "-"
-holyBinOp Mul = "*"
-holyBinOp Div = "/"
-holyBinOp Mod = "%"
+holyBinOp Add  = "+"
+holyBinOp Sub  = "-"
+holyBinOp Mul  = "*"
+holyBinOp Div  = "/"
+holyBinOp Mod  = "%"
+holyBinOp BAnd = "&"
+holyBinOp BOr  = "|"
+holyBinOp BXor = "^"
+holyBinOp op   = "// Unsupported BinOp: " <> viaShow op
 
 -- | 2. Generowanie instrukcji Pamięci (LSU / RAM)
 genLSInstruction ∷ LSInstruction → Doc ann
@@ -97,28 +100,35 @@ genLSInstruction RStore = vsep
   , "  ram[addr] = val;"
   , "}"
   ]
-genLSInstruction (LoadD a) = "Push(ram[" <> pretty a <> "]);"
-genLSInstruction (StoreI v) = "ram[Pop] = " <> pretty v <> ";"
+genLSInstruction (LoadD a)   = "Push(ram[" <> pretty a <> "]);"
+genLSInstruction (StoreI v)  = "ram[Pop] = " <> pretty v <> ";"
 genLSInstruction (RStoreD a) = "ram[" <> pretty a <> "] = Pop;"
 genLSInstruction (MIO ioInst) = genIOInstruction ioInst
-genLSInstruction inst = "// Unsupported LSInstruction: " <> viaShow inst
+genLSInstruction inst        = "// Unsupported LSInstruction: " <> viaShow inst
 
 -- | 3. Generowanie instrukcji Sterowania (CPU)
 genCFInstruction ∷ CFInstruction → Doc ann
-genCFInstruction (Mark l) = "label_" <> pretty l <> ":"
-genCFInstruction (Labeled Jump (LImmediate l)) = "goto label_" <> pretty l <> ";"
-genCFInstruction Return = "return;"
-genCFInstruction (Branch test (BImmediate l)) =
+genCFInstruction (Mark (MNatural l)) =
+  "label_" <> pretty l <> ":"
+genCFInstruction (Mark (MArtificial l)) =
+  "label_" <> viaShow l <> ":"
+genCFInstruction (Labeled (LImmediate l) Jump) =
+  "goto label_" <> pretty l <> ";"
+genCFInstruction (Labeled (LArtificial l) Jump) =
+  "goto label_" <> viaShow l <> ";"
+genCFInstruction Return =
+  "return;"
+genCFInstruction (Branch (BImmediate l) test) =
   "if (Pop " <> holyCmpPred test <> " 0) goto label_" <> pretty l <> ";"
+genCFInstruction (Branch (BArtificial l) test) =
+  "if (Pop " <> holyCmpPred test <> " 0) goto label_" <> viaShow l <> ";"
 genCFInstruction inst = "// Control Flow: " <> viaShow inst
 
 holyCmpPred ∷ BranchTest → Doc ann
-holyCmpPred BEZ  = "=="
-holyCmpPred BNZ  = "!="
-holyCmpPred BLZ  = "<"
-holyCmpPred BGZ  = ">"
-holyCmpPred BLEZ = "<="
-holyCmpPred BGEZ = ">="
+holyCmpPred EZ  = "=="
+holyCmpPred NE  = "!="
+holyCmpPred LTZ = "<"
+holyCmpPred GTZ = ">"
 
 -- | 4. Instrukcje WE/WY (I/O w HolyC)
 genIOInstruction ∷ IOInstruction → Doc ann

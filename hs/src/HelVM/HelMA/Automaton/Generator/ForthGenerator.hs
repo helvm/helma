@@ -4,13 +4,11 @@ module HelVM.HelMA.Automaton.Generator.ForthGenerator
   ) where
 
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
-import           Data.Text                                              ( Text )
 import           Prettyprinter
 import           Prettyprinter.Render.Text                              ( renderStrict )
 
@@ -23,7 +21,7 @@ generateForth ∷ InstructionList → Doc ann
 generateForth il = vsep
   [ "( Generowane automatycznie przez HelVM.HelMA.Automaton.Generator.ForthGenerator )"
   , ""
-  , "( Alokacja pamięci RAM: 65536 komórek 32-bitowych / cell )"
+  , "( Alokacja pamięci RAM: 65536 komórek 32-bitowych )"
   , "create ram 65536 cells allot"
   , "ram 65536 cells erase"
   , ""
@@ -37,9 +35,10 @@ generateForth il = vsep
 
 -- | Translacja pojedynczej instrukcji z HelMA na Forth
 genInstruction ∷ Instruction → Doc ann
-genInstruction (SInstruction   inst) = genSMInstruction inst
-genInstruction (LSInstruction  inst) = genLSInstruction inst
-genInstruction (CFInstruction  inst) = genCFInstruction inst
+genInstruction (ISM inst) = genSMInstruction inst
+genInstruction (ILS inst) = genLSInstruction inst
+genInstruction (ICF inst) = genCFInstruction inst
+genInstruction End        = "exit"
 
 -- | 1. Generowanie instrukcji ALU / Stosu (SMInstruction)
 genSMInstruction ∷ SMInstruction → Doc ann
@@ -55,11 +54,15 @@ genSMInstruction (SIO ioInst)           = genIOInstruction ioInst
 genSMInstruction inst                   = "( Unsupported SMInstruction: " <> viaShow inst <> " )"
 
 forthBinOp ∷ BinaryOperation → Doc ann
-forthBinOp Add = "+"
-forthBinOp Sub = "-"
-forthBinOp Mul = "*"
-forthBinOp Div = "/"
-forthBinOp Mod = "mod"
+forthBinOp Add  = "+"
+forthBinOp Sub  = "-"
+forthBinOp Mul  = "*"
+forthBinOp Div  = "/"
+forthBinOp Mod  = "mod"
+forthBinOp BAnd = "and"
+forthBinOp BOr  = "or"
+forthBinOp BXor = "xor"
+forthBinOp op   = "( Unsupported BinaryOperation: " <> viaShow op <> " )"
 
 -- | 2. Generowanie instrukcji Pamięci (LSU / RAM)
 genLSInstruction ∷ LSInstruction → Doc ann
@@ -93,25 +96,31 @@ genLSInstruction inst = "( Unsupported LSInstruction: " <> viaShow inst <> " )"
 
 -- | 3. Generowanie instrukcji Sterowania (CPU)
 genCFInstruction ∷ CFInstruction → Doc ann
-genCFInstruction (Mark l) =
-  "defer label_" <> pretty l
-genCFInstruction (Labeled Jump (LImmediate l)) =
+genCFInstruction (Mark (MNatural l)) =
+  ": label_" <> pretty l
+genCFInstruction (Mark (MArtificial l)) =
+  ": label_" <> viaShow l
+genCFInstruction (Labeled (LImmediate l) Jump) =
   "label_" <> pretty l
+genCFInstruction (Labeled (LArtificial l) Jump) =
+  "label_" <> viaShow l
 genCFInstruction Return =
   "exit"
-genCFInstruction (Branch test (BImmediate l)) = vsep
+genCFInstruction (Branch (BImmediate l) test) = vsep
   [ forthCmpPred test
   , "if label_" <> pretty l <+> "then"
+  ]
+genCFInstruction (Branch (BArtificial l) test) = vsep
+  [ forthCmpPred test
+  , "if label_" <> viaShow l <+> "then"
   ]
 genCFInstruction inst = "( Control Flow: " <> viaShow inst <> " )"
 
 forthCmpPred ∷ BranchTest → Doc ann
-forthCmpPred BEZ  = "0="
-forthCmpPred BNZ  = "0<>"
-forthCmpPred BLZ  = "0<"
-forthCmpPred BGZ  = "0>"
-forthCmpPred BLEZ = "0<="
-forthCmpPred BGEZ = "0>="
+forthCmpPred EZ  = "0="
+forthCmpPred NE  = "0<>"
+forthCmpPred LTZ = "0<"
+forthCmpPred GTZ = "0>"
 
 -- | 4. Instrukcje WE/WY (I/O)
 genIOInstruction ∷ IOInstruction → Doc ann

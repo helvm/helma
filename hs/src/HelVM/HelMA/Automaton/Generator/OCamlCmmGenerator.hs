@@ -4,13 +4,11 @@ module HelVM.HelMA.Automaton.Generator.OCamlCmmGenerator
   ) where
 
 import           HelVM.HelMA.Automaton.Instruction
-import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
-import           Data.Text                                              ( Text )
 import           Prettyprinter
 import           Prettyprinter.Render.Text                              ( renderStrict )
 
@@ -57,9 +55,10 @@ generateCmm il = vsep
 
 -- | Translacja pojedynczej instrukcji z HelMA na Cmm
 genInstruction ∷ Instruction → Doc ann
-genInstruction (SInstruction   inst) = genSMInstruction inst
-genInstruction (LSInstruction  inst) = genLSInstruction inst
-genInstruction (CFInstruction  inst) = genCFInstruction inst
+genInstruction (ISM inst) = genSMInstruction inst
+genInstruction (ILS inst) = genLSInstruction inst
+genInstruction (ICF inst) = genCFInstruction inst
+genInstruction End        = "(return 0)"
 
 -- | 1. Generowanie instrukcji dla ALU / Stosu (SMInstruction)
 genSMInstruction ∷ SMInstruction → Doc ann
@@ -81,11 +80,15 @@ genBinOp op =
     "(app \"helma_push\" (" <> cmmBinOp op <+> "a b) val))"
 
 cmmBinOp ∷ BinaryOperation → Doc ann
-cmmBinOp Add = "+"
-cmmBinOp Sub = "-"
-cmmBinOp Mul = "*"
-cmmBinOp Div = "/"
-cmmBinOp Mod = "mod"
+cmmBinOp Add  = "+"
+cmmBinOp Sub  = "-"
+cmmBinOp Mul  = "*"
+cmmBinOp Div  = "/"
+cmmBinOp Mod  = "mod"
+cmmBinOp BAnd = "&"
+cmmBinOp BOr  = "|"
+cmmBinOp BXor = "^"
+cmmBinOp op   = ";; Unsupported BinOp: " <> viaShow op
 
 -- | 2. Generowanie instrukcji Pamięci (LSU / RAM)
 genLSInstruction ∷ LSInstruction → Doc ann
@@ -111,28 +114,29 @@ genLSInstruction inst = ";; Unsupported LSInstruction: " <> viaShow inst
 
 -- | 3. Generowanie instrukcji Sterowania (CPU)
 genCFInstruction ∷ CFInstruction → Doc ann
-genCFInstruction (Mark l) =
+genCFInstruction (Mark (MNatural l)) =
   "(label \"label_" <> pretty l <> "\")"
-genCFInstruction (Labeled Jump (LImmediate l)) =
+genCFInstruction (Mark (MArtificial l)) =
+  "(label \"art_label_" <> viaShow l <> "\")"
+genCFInstruction (Labeled (LImmediate l) Jump) =
   "(exit (label_" <> pretty l <> "))"
+genCFInstruction (Labeled (LArtificial l) Jump) =
+  "(exit (art_label_" <> viaShow l <> "))"
 genCFInstruction Return =
   "(return 0)"
-genCFInstruction (Branch test operand) = genBranchInstruction test operand
-genCFInstruction inst = ";; Control Flow: " <> viaShow inst
-
-genBranchInstruction ∷ BranchTest → BranchOperand → Doc ann
-genBranchInstruction test (BImmediate l) =
+genCFInstruction (Branch (BImmediate l) test) =
   "(if (" <> cmmCmpPred test <+> "(app \"helma_pop\" () val) 0)" <+>
     "(exit (label_" <> pretty l <> ")) 0)"
-genBranchInstruction _ op = ";; Dynamic Branch: " <> viaShow op
+genCFInstruction (Branch (BArtificial l) test) =
+  "(if (" <> cmmCmpPred test <+> "(app \"helma_pop\" () val) 0)" <+>
+    "(exit (art_label_" <> viaShow l <> ")) 0)"
+genCFInstruction inst = ";; Control Flow: " <> viaShow inst
 
 cmmCmpPred ∷ BranchTest → Doc ann
-cmmCmpPred BEZ  = "=="
-cmmCmpPred BNZ  = "!="
-cmmCmpPred BLZ  = "<"
-cmmCmpPred BGZ  = ">"
-cmmCmpPred BLEZ = "<="
-cmmCmpPred BGEZ = ">="
+cmmCmpPred EZ  = "=="
+cmmCmpPred NE  = "!="
+cmmCmpPred LTZ = "<"
+cmmCmpPred GTZ = ">"
 
 -- | 4. Instrukcje WE/WY (I/O)
 genIOInstruction ∷ IOInstruction → Doc ann

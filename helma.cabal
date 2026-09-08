@@ -184,6 +184,14 @@ library
     HelVM.HelMA.Automaton.Combiner.LSU
     HelVM.HelMA.Automaton.Combiner.RAM
 
+    HelVM.HelMA.Automaton.Generator.ForthGenerator
+    HelVM.HelMA.Automaton.Generator.GhcCmmGenerator
+    HelVM.HelMA.Automaton.Generator.HolyCGenerator
+    HelVM.HelMA.Automaton.Generator.JasminGenerator
+    HelVM.HelMA.Automaton.Generator.LLGenerator
+    HelVM.HelMA.Automaton.Generator.OCamlCmmGenerator
+    HelVM.HelMA.Automaton.Generator.WatGenerator
+
     HelVM.HelMA.Automaton.WrapTokenList
 
     HelVM.HelMA.Automata.BrainFuck.Evaluator
@@ -320,6 +328,7 @@ library
     , monad-loops
     , natural-transformation
     , pretty-simple
+    , prettyprinter
     , primitive
     , safe
     , transformers
