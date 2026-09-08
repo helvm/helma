@@ -16,8 +16,10 @@ import           Control.Type.Operator
 runSLI ∷ (LSU m s r element) ⇒ LSInstruction → LoadStoreMemory s r → m $ LoadStoreMemory s r
 runSLI Load                  = load
 runSLI Store                 = store
+runSLI RStore                = rstore
 runSLI (LoadD     a)         = loadD a
 runSLI (StoreI    v)         = storeI v
+runSLI (RStoreD   a)         = rstoreD a
 runSLI (StoreID v a)         = storeID v a
 runSLI (MoveD   s d)         = moveD s d
 runSLI (MIO OutputChar)      = loadOutputChar
@@ -41,9 +43,17 @@ store ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 store (LSM s r) = appendError "LSM.store" $ build =<< pop2 s where
   build (value , address , s') = storePure value address $ LSM s' r
 
+rstore ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
+rstore (LSM s r) = appendError "LSM.rstore" $ build =<< pop2 s where
+  build (address , value , s') = storePure value address $ LSM s' r
+
 storeI ∷ LSU m s r element ⇒ Integer → LoadStoreMemory s r → m $ LoadStoreMemory s r
-storeI value (LSM s r) = appendError "LSM.store" $ build =<< pop1 s where
+storeI value (LSM s r) = appendError "LSM.storeI" $ build =<< pop1 s where
   build (address , s') = storePure (fromIntegral value) address  $ LSM s' r
+
+rstoreD ∷ LSU m s r element ⇒ ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
+rstoreD address (LSM s r) = appendError "LSM.rstoreD" $ build =<< pop1 s where
+  build (value , s') = storePure value (fromIntegral address)  $ LSM s' r
 
 storeID ∷ LSU m s r element ⇒ Integer → ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
 storeID value address = storePure (fromIntegral value) (fromIntegral address)
