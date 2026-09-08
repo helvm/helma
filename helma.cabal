@@ -257,7 +257,7 @@ library
     HelVM.HelMA.Automata.Piet.API.ImplType
     HelVM.HelMA.Automata.Piet.API.LexerType
     HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
-    HelVM.HelMA.Automata.Piet.API.PietOptions
+    HelVM.HelMA.Automata.Piet.API.Options
 
     HelVM.HelMA.Automata.Piet.Automaton.Collision
     HelVM.HelMA.Automata.Piet.Automaton.StepState

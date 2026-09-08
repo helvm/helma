@@ -25,7 +25,7 @@ import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
 import           HelVM.HelMA.Automata.Piet.API.ImplType                  as Piet
 import           HelVM.HelMA.Automata.Piet.API.LexerType
 import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
-import           HelVM.HelMA.Automata.Piet.API.PietOptions
+import           HelVM.HelMA.Automata.Piet.API.Options
 
 import           HelVM.HelMA.Automata.WhiteSpace.API.TokenType
 
@@ -163,8 +163,8 @@ etaParser = ETACommand
 pietParser ∷ Parser LangCommand
 pietParser = PietCommand <$> pietOptionsParser
 
-pietOptionsParser ∷ Parser PietOptions
-pietOptionsParser = PietOptions
+pietOptionsParser ∷ Parser Options
+pietOptionsParser = Options
   <$> optional (option auto (long "AutomatonType" <> short 'A' <> metavar "[AutomatonType]" <> value defaultAutomatonType <> showDefault))
   <*> option auto (long "ImplType" <> short 'i' <> metavar "[ImplType]" <> value Piet.defaultImplType <> showDefault)
   <*> optional (option auto (long "Additional" <> short 'a' <> metavar "[AdditionalColorStrategy]" <> value defaultAdditionalColorStrategy <> showDefault))

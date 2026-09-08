@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.Piet.API.PietOptions where
+module HelVM.HelMA.Automata.Piet.API.Options where
 
 import           HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy
 import           HelVM.HelMA.Automata.Piet.API.CodelSize
@@ -9,17 +9,17 @@ import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
 
 import           HelVM.HelMA.Automaton.API.AutomatonType
 
-simplePietOptions ∷ PietOptions
-simplePietOptions = PietOptions Nothing defaultImplType Nothing Nothing Nothing Nothing
+simplePietOptions ∷ Options
+simplePietOptions = Options Nothing defaultImplType Nothing Nothing Nothing Nothing
 
-imageConfig ∷ PietOptions → ImageConfig
+imageConfig ∷ Options → ImageConfig
 imageConfig po = ImageConfig
   (fromMaybe defaultAdditionalColorStrategy po.additionalColor)
   (fromMaybe defaultMulticoloredCodelStrategy po.multicoloredCodel)
   po.codelSize
 
-data PietOptions
-  = PietOptions
+data Options
+  = Options
       { automatonType     :: !(Maybe AutomatonType)
       , implType          :: !ImplType
       , additionalColor   :: !(Maybe AdditionalColorStrategy)
