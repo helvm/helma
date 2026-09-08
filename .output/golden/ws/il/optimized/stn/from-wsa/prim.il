@@ -30,8 +30,7 @@ subI 100
 bEZA "f_finished_1"
 copyI 0
 addI 100
-cons 1
-store
+stored 1
 addI 1
 jumpA "f_start_1"
 
@@ -63,8 +62,7 @@ loadd 1
 loadd 2
 mul
 addI 100
-cons 0
-store
+stored 0
 addI 1
 jumpA "f_start_3"
 
