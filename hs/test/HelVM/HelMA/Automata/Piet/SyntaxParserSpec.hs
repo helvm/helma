@@ -75,7 +75,7 @@ spec = do
       ] $ \tc ->
         context ("when given " ++ errCaseName tc) $ do
           res <- runIO . runSafeT $ parseFilledImage (errTestImage tc, errBlockTable tc)
-          xit "returns an error" $ safeToEitherLegacy res `shouldBe` Left (expectedErr tc)
+          it "returns an error" $ safeToEitherLegacy res `shouldBe` Left (expectedErr tc)
 
     context "when given an image which only consists of two pixels" $ do
       forM_
@@ -141,7 +141,7 @@ spec = do
                                               )
                                             ]
           res <- runIO . runSafeT $ parseFilledImage (image, bTable)
-          xit ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ safeToEitherLegacy res `shouldBe` Right expectedG
+          it ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ safeToEitherLegacy res `shouldBe` Right expectedG
 
 
 smallImage ∷ Matrix Codel
