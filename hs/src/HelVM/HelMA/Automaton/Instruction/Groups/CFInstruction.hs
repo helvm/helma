@@ -20,7 +20,7 @@ data CFInstruction
   = Mark !Mark
   | Branch !BranchOperand !BranchTest
   | Labeled !LabelOperand !LabelOperation
-  | Switch ![Label]
+  | Switch !(NonEmpty Label)
   | Return
   deriving stock (Eq, Read, Show)
 
@@ -73,7 +73,7 @@ printMark ∷ Mark → Text
 printMark (MNatural    i) = "M " <> show i
 printMark (MArtificial i) = "A " <> show i
 
-printLabelList ∷ [Label] → Text
+printLabelList ∷ NonEmpty Label → Text
 printLabelList = foldMap ((" " <>) . show)
 
 printBranchTest ∷ BranchTest → Text

@@ -26,14 +26,11 @@ popAddress (CPM (CM il _ (IS      [] )) _) = liftErrorWithTupleList "Empty Retur
 
 --
 
-switchInstruction ∷ ALU m ll element ⇒ [Label] → CentralProcessingStep ll m
-switchInstruction ls cpm = appendError "CPM.switchInstruction" $ build =<< cpmPop1 cpm where
-  build (idxElement, cpm') = do
-    let idx = fromIntegral idxElement ∷ Int
-    label <- indexSafe ls idx
-    ic    <- findAddressForArtificialLabel label (cpmProgram cpm')
-    pure $ jump ic cpm'
+switchInstruction ∷ ALU m ll element ⇒ NonEmpty Label → CentralProcessingStep ll m
+switchInstruction ls = appendError "CPM.switchInstruction" . (buildSwitch ls <=< cpmPop1)
 
+buildSwitch ∷ ALU m ll element ⇒ NonEmpty Label → (element , CentralProcessingMemory ll) → m (CentralProcessingMemory ll)
+buildSwitch ls (e , cpm) = flip jump cpm <$> (flip findAddressForArtificialLabel (cpmProgram cpm) =<< indexSafe (toList ls) (mod (fromIntegral e) $ length ls))
 --
 
 branchInstruction ∷ (ALU m ll element , Show element) ⇒ BranchTest → BranchOperand → CentralProcessingStep ll m
