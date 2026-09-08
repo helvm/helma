@@ -13,7 +13,7 @@ import           Control.Monad.Logger
 import qualified Data.ByteString.Lazy     as LByteString
 import qualified Data.Text.Lazy.IO        as LText
 
-import           Prelude                  hiding ( getLine, putText )
+import           Prelude                  hiding ( getLine )
 import qualified Prelude
 
 import qualified RIO
@@ -63,7 +63,7 @@ instance MonadEff IO where
   getChar         = IO.getChar
   getLine         = Prelude.getLine
   putChar         = IO.putChar
-  putLine         = Prelude.putText
+  putLine         = putText
   flush           = flushIO
 
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) ⇒ MonadEff (t m) where
@@ -81,7 +81,7 @@ instance RIO.HasLogFunc env ⇒ MonadEff (RIO.RIO env) where
   getChar         = liftIO IO.getChar
   getLine         = liftIO Prelude.getLine
   putChar         = liftIO . IO.putChar
-  putLine         = liftIO . Prelude.putText
+  putLine         = liftIO . putText
   flush           = liftIO flushIO
 
 ---- Internal
