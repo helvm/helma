@@ -1,0 +1,9 @@
+Debug Actual codel length: 1
+Debug (1,0) push 1
+Debug (2,0) in_number
+Debug (3,0) duplicate
+Debug (4,0) push 1
+Debug (5,0) greater
+Debug (6,0) pointer DPRight
+Debug (10,0) pop
+Debug (11,0) out_number

@@ -1,0 +1,842 @@
+Debug Actual codel length: 1
+Debug (1,0) push 1
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (17,1) push 5
+Debug (17,6) push 14
+Debug (17,7) multiply
+Debug (17,8) out_char
+Debug (17,9) push 5
+Debug (17,11) push 10
+Debug (17,13) push 10
+Debug (17,14) multiply
+Debug (17,15) add
+Debug (17,16) out_char
+Debug (17,19) push 15
+Debug (17,20) push 4
+Debug (17,21) multiply
+Debug (17,22) push 1
+Debug (17,23) add
+Debug (17,24) push 2
+Debug (17,25) multiply
+Debug (17,26) duplicate
+Debug (17,27) out_char
+Debug (17,28) out_char
+Debug (17,29) push 5
+Debug (17,30) mod
+Debug (17,31) not
+Debug (17,32) pointer DPDown
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (17,25) push 3
+Debug (19,31) pointer DPDown
+Debug (20,31) push 6
+Debug (23,31) push 11
+Debug (24,31) multiply
+Debug (25,31) out_char
+Debug (29,31) push 17
+Debug (31,31) push 10
+Debug (33,31) push 10
+Debug (34,31) multiply
+Debug (35,31) add
+Debug (36,31) out_char
+Debug (39,31) push 15
+Debug (40,31) push 4
+Debug (41,31) multiply
+Debug (42,31) push 1
+Debug (43,31) add
+Debug (44,31) push 2
+Debug (45,31) multiply
+Debug (46,31) duplicate
+Debug (47,31) out_char
+Debug (48,31) out_char
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (17,1) push 5
+Debug (17,6) push 14
+Debug (17,7) multiply
+Debug (17,8) out_char
+Debug (17,9) push 5
+Debug (17,11) push 10
+Debug (17,13) push 10
+Debug (17,14) multiply
+Debug (17,15) add
+Debug (17,16) out_char
+Debug (17,19) push 15
+Debug (17,20) push 4
+Debug (17,21) multiply
+Debug (17,22) push 1
+Debug (17,23) add
+Debug (17,24) push 2
+Debug (17,25) multiply
+Debug (17,26) duplicate
+Debug (17,27) out_char
+Debug (17,28) out_char
+Debug (17,29) push 5
+Debug (17,30) mod
+Debug (17,31) not
+Debug (17,32) pointer DPDown
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (17,1) push 5
+Debug (17,6) push 14
+Debug (17,7) multiply
+Debug (17,8) out_char
+Debug (17,9) push 5
+Debug (17,11) push 10
+Debug (17,13) push 10
+Debug (17,14) multiply
+Debug (17,15) add
+Debug (17,16) out_char
+Debug (17,19) push 15
+Debug (17,20) push 4
+Debug (17,21) multiply
+Debug (17,22) push 1
+Debug (17,23) add
+Debug (17,24) push 2
+Debug (17,25) multiply
+Debug (17,26) duplicate
+Debug (17,27) out_char
+Debug (17,28) out_char
+Debug (17,29) push 5
+Debug (17,30) mod
+Debug (17,31) not
+Debug (17,32) pointer DPDown
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (17,25) push 3
+Debug (19,31) pointer DPDown
+Debug (20,31) push 6
+Debug (23,31) push 11
+Debug (24,31) multiply
+Debug (25,31) out_char
+Debug (29,31) push 17
+Debug (31,31) push 10
+Debug (33,31) push 10
+Debug (34,31) multiply
+Debug (35,31) add
+Debug (36,31) out_char
+Debug (39,31) push 15
+Debug (40,31) push 4
+Debug (41,31) multiply
+Debug (42,31) push 1
+Debug (43,31) add
+Debug (44,31) push 2
+Debug (45,31) multiply
+Debug (46,31) duplicate
+Debug (47,31) out_char
+Debug (48,31) out_char
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (17,1) push 5
+Debug (17,6) push 14
+Debug (17,7) multiply
+Debug (17,8) out_char
+Debug (17,9) push 5
+Debug (17,11) push 10
+Debug (17,13) push 10
+Debug (17,14) multiply
+Debug (17,15) add
+Debug (17,16) out_char
+Debug (17,19) push 15
+Debug (17,20) push 4
+Debug (17,21) multiply
+Debug (17,22) push 1
+Debug (17,23) add
+Debug (17,24) push 2
+Debug (17,25) multiply
+Debug (17,26) duplicate
+Debug (17,27) out_char
+Debug (17,28) out_char
+Debug (17,29) push 5
+Debug (17,30) mod
+Debug (17,31) not
+Debug (17,32) pointer DPDown
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (17,1) push 5
+Debug (17,6) push 14
+Debug (17,7) multiply
+Debug (17,8) out_char
+Debug (17,9) push 5
+Debug (17,11) push 10
+Debug (17,13) push 10
+Debug (17,14) multiply
+Debug (17,15) add
+Debug (17,16) out_char
+Debug (17,19) push 15
+Debug (17,20) push 4
+Debug (17,21) multiply
+Debug (17,22) push 1
+Debug (17,23) add
+Debug (17,24) push 2
+Debug (17,25) multiply
+Debug (17,26) duplicate
+Debug (17,27) out_char
+Debug (17,28) out_char
+Debug (17,29) push 5
+Debug (17,30) mod
+Debug (17,31) not
+Debug (17,32) pointer DPDown
+Debug (20,31) push 6
+Debug (23,31) push 11
+Debug (24,31) multiply
+Debug (25,31) out_char
+Debug (29,31) push 17
+Debug (31,31) push 10
+Debug (33,31) push 10
+Debug (34,31) multiply
+Debug (35,31) add
+Debug (36,31) out_char
+Debug (39,31) push 15
+Debug (40,31) push 4
+Debug (41,31) multiply
+Debug (42,31) push 1
+Debug (43,31) add
+Debug (44,31) push 2
+Debug (45,31) multiply
+Debug (46,31) duplicate
+Debug (47,31) out_char
+Debug (48,31) out_char
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (17,1) push 5
+Debug (17,6) push 14
+Debug (17,7) multiply
+Debug (17,8) out_char
+Debug (17,9) push 5
+Debug (17,11) push 10
+Debug (17,13) push 10
+Debug (17,14) multiply
+Debug (17,15) add
+Debug (17,16) out_char
+Debug (17,19) push 15
+Debug (17,20) push 4
+Debug (17,21) multiply
+Debug (17,22) push 1
+Debug (17,23) add
+Debug (17,24) push 2
+Debug (17,25) multiply
+Debug (17,26) duplicate
+Debug (17,27) out_char
+Debug (17,28) out_char
+Debug (17,29) push 5
+Debug (17,30) mod
+Debug (17,31) not
+Debug (17,32) pointer DPDown
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (17,25) push 3
+Debug (19,31) pointer DPDown
+Debug (20,31) push 6
+Debug (23,31) push 11
+Debug (24,31) multiply
+Debug (25,31) out_char
+Debug (29,31) push 17
+Debug (31,31) push 10
+Debug (33,31) push 10
+Debug (34,31) multiply
+Debug (35,31) add
+Debug (36,31) out_char
+Debug (39,31) push 15
+Debug (40,31) push 4
+Debug (41,31) multiply
+Debug (42,31) push 1
+Debug (43,31) add
+Debug (44,31) push 2
+Debug (45,31) multiply
+Debug (46,31) duplicate
+Debug (47,31) out_char
+Debug (48,31) out_char
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (17,1) push 5
+Debug (17,6) push 14
+Debug (17,7) multiply
+Debug (17,8) out_char
+Debug (17,9) push 5
+Debug (17,11) push 10
+Debug (17,13) push 10
+Debug (17,14) multiply
+Debug (17,15) add
+Debug (17,16) out_char
+Debug (17,19) push 15
+Debug (17,20) push 4
+Debug (17,21) multiply
+Debug (17,22) push 1
+Debug (17,23) add
+Debug (17,24) push 2
+Debug (17,25) multiply
+Debug (17,26) duplicate
+Debug (17,27) out_char
+Debug (17,28) out_char
+Debug (17,29) push 5
+Debug (17,30) mod
+Debug (17,31) not
+Debug (17,32) pointer DPDown
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (22,0) duplicate
+Debug (23,0) out_number
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (17,1) push 5
+Debug (17,6) push 14
+Debug (17,7) multiply
+Debug (17,8) out_char
+Debug (17,9) push 5
+Debug (17,11) push 10
+Debug (17,13) push 10
+Debug (17,14) multiply
+Debug (17,15) add
+Debug (17,16) out_char
+Debug (17,19) push 15
+Debug (17,20) push 4
+Debug (17,21) multiply
+Debug (17,22) push 1
+Debug (17,23) add
+Debug (17,24) push 2
+Debug (17,25) multiply
+Debug (17,26) duplicate
+Debug (17,27) out_char
+Debug (17,28) out_char
+Debug (17,29) push 5
+Debug (17,30) mod
+Debug (17,31) not
+Debug (17,32) pointer DPDown
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp
+Debug (0,5) push 1
+Debug (0,4) pointer DPUp
+Debug (1,4) push 3
+Debug (2,4) pointer DPRight
+Debug (4,0) duplicate
+Debug (5,0) duplicate
+Debug (10,0) push 3
+Debug (11,0) mod
+Debug (12,0) not
+Debug (13,0) pointer DPRight
+Debug (18,0) push 5
+Debug (19,0) mod
+Debug (20,0) not
+Debug (21,0) pointer DPRight
+Debug (17,25) push 3
+Debug (19,31) pointer DPDown
+Debug (20,31) push 6
+Debug (23,31) push 11
+Debug (24,31) multiply
+Debug (25,31) out_char
+Debug (29,31) push 17
+Debug (31,31) push 10
+Debug (33,31) push 10
+Debug (34,31) multiply
+Debug (35,31) add
+Debug (36,31) out_char
+Debug (39,31) push 15
+Debug (40,31) push 4
+Debug (41,31) multiply
+Debug (42,31) push 1
+Debug (43,31) add
+Debug (44,31) push 2
+Debug (45,31) multiply
+Debug (46,31) duplicate
+Debug (47,31) out_char
+Debug (48,31) out_char
+Debug (4,26) push 10
+Debug (4,25) out_char
+Debug (4,21) push 1
+Debug (4,20) add
+Debug (4,19) duplicate
+Debug (0,12) push 25
+Debug (0,11) greater
+Debug (0,10) pointer DPUp

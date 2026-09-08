@@ -7,6 +7,7 @@ import           HelVM.HelMA.Automata.Piet.FileExtra
 
 import           HelVM.HelMA.Automata.Piet.API.ImplType
 
+import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.Eff.Mock
 
 import           HelVM.HelIO.CartesianProduct
@@ -76,10 +77,11 @@ spec =
     let filePath = dirName </> fileName <.> "png"
     let fullPath = "examples" </> "piet" </> filePath
     let img = readImage fullPath
-    let implType = StepState
+    let implType = Custom
+    let implPietType = StepState
     forM_ inputs $ \input -> do
-      let mock = (ioExecMockEffWithInput (toText input) . evalCustom implType Nothing) =<< img
-      let path = show implType </> dirName </> fileName <> input
+      let mock = (ioExecMockEffWithInput (toText input) . evalCustom implPietType Nothing) =<< img
+      let path = show implType </> show implPietType </> dirName </> fileName <> input
       describe path $ do
         it ("output" </> path) $
           calculateOutput <$> mock `goldenShouldIO` buildAbsolutePietOutFileName path
