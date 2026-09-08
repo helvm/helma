@@ -17,16 +17,17 @@ peepholeOptimize = peepholeOptimize2 . peepholeOptimize1
 peepholeOptimize1 ∷ InstructionList → InstructionList
 peepholeOptimize1 = fix optimize where
   optimize ∷ (InstructionList → InstructionList) → InstructionList → InstructionList
-  optimize f (ConsP i : BinaryP op           : il) = optimizeImmediateBinary i op <> f il
-  optimize f (ConsP i : HalibutP             : il) = optimizeHalibut i             : f il
-  optimize f (ConsP i : PickP                : il) = optimizePick i                : f il
-  optimize f (ConsP c : ConsP a : BranchTP t : il) = optimizeBranch t c a         <> f il
-  optimize f (ConsP a : BranchTP t           : il) = optimizeBranchLabel t a      <> f il
-  optimize f (ConsP a : ConsP v : StoreP     : il) = optimizeStoreID v a           : f il
-  optimize f (ConsP v : StoreP               : il) = optimizeStoreI v              : f il
-  optimize f (ConsP a : LoadP                : il) = optimizeLoadD a               : f il
-  optimize f (i                              : il) = i                             : f il
-  optimize _                                   []  = []
+  optimize f (ConsP i : BinaryP op           : il)  = optimizeImmediateBinary i op <> f il
+  optimize f (ConsP i : HalibutP             : il)  = optimizeHalibut i             : f il
+  optimize f (ConsP i : PickP                : il)  = optimizePick i                : f il
+  optimize f (ConsP c : ConsP a : BranchTP t : il)  = optimizeBranch t c a         <> f il
+  optimize f (ConsP a : BranchTP t           : il)  = optimizeBranchLabel t a      <> f il
+  optimize f (ConsP a : ConsP v : StoreP     : il)  = optimizeStoreID v a           : f il
+  optimize f (ConsP v : ConsP a : RStoreP     : il) = optimizeStoreID v a           : f il
+  optimize f (ConsP v : StoreP               : il)  = optimizeStoreI v              : f il
+  optimize f (ConsP a : LoadP                : il)  = optimizeLoadD a               : f il
+  optimize f (i                              : il)  = i                             : f il
+  optimize _                                   []   = []
 
 peepholeOptimize2 ∷ InstructionList → InstructionList
 peepholeOptimize2 = fix optimize where
