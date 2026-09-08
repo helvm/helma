@@ -18,9 +18,6 @@ import           HelVM.HelMA.Automata.Piet.Types.Course
 import qualified Data.Text                                              as T
 import           HelVM.HelIO.Collections.SList                          ( sListFromList )
 
-dpccRamAddress ∷ Integer
-dpccRamAddress = 0
-
 compileToIL ∷ AG.AssemblyProgram → InstructionList
 compileToIL prog = initDPCC (AG.entryDPCC prog) <> foldMap compileBlock (AG.blocks prog) <> [End]
 
@@ -52,11 +49,6 @@ checkCourses (c : cs) targetLabel =
        ]
     <> checkCourses cs targetLabel
 
-loadDPCC ∷ InstructionList
-loadDPCC =
-  [ ISM (SPure (Cons dpccRamAddress))
-  , ILS Load
-  ]
 
 compileInstruction ∷ AG.Instruction → InstructionList
 compileInstruction (AG.ExecCmd cmd) = compileCommand cmd
@@ -111,6 +103,15 @@ mutateCC =
        , ISM (SPure Halibut)
        , ILS Store
        ]
+
+loadDPCC ∷ InstructionList
+loadDPCC =
+  [ ISM (SPure (Cons dpccRamAddress))
+  , ILS Load
+  ]
+
+dpccRamAddress ∷ Integer
+dpccRamAddress = 0
 
 type CFInstructionLabel = HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction.Label
 

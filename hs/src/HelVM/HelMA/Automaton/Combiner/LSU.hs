@@ -17,6 +17,7 @@ runSLI ∷ (LSU m s r element) ⇒ LSInstruction → LoadStoreMemory s r → m $
 runSLI Load                  = load
 runSLI Store                 = store
 runSLI (LoadD     a)         = loadD a
+runSLI (StoreD a)            = storeD a
 runSLI (StoreID v a)         = storeID v a
 runSLI (MoveD   s d)         = moveD s d
 runSLI (MIO OutputChar)      = loadOutputChar
@@ -39,6 +40,10 @@ loadPure address (LSM s r) = pure $ LSM (push1 (RAM.genericLoad r address) s) r
 store ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
 store (LSM s r) = appendError "LSM.store" $ build =<< pop2 s where
   build (value , address , s') = storePure value address $ LSM s' r
+
+storeD ∷ LSU m s r element ⇒ ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
+storeD address (LSM s r) = appendError "LSM.store" $ build =<< pop1 s where
+  build (value , s') = storePure value (fromIntegral address)  $ LSM s' r
 
 storeID ∷ LSU m s r element ⇒ Integer → ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
 storeID value address = storePure (fromIntegral value) (fromIntegral address)
