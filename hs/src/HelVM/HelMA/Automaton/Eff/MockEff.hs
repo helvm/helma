@@ -5,13 +5,13 @@ module HelVM.HelMA.Automaton.Eff.MockEff
   , createMockEffData
   , mockGetChar
   , mockGetCharSafe
+  , mockGetChars
+  , mockGetCharsSafe
   , mockGetContents
   , mockGetContentsBS
   , mockGetContentsText
-  , mockGetLine
-  , mockGetLineSafe
   , mockPutChar
-  , mockPutLine
+  , mockPutChars
   , reverseOutput
   ) where
 
@@ -40,10 +40,10 @@ mockGetChar = mockGetChar' =<< get where
   mockGetChar' ∷ MonadMockEff m ⇒ MockEffData → m Char
   mockGetChar' mockEff = orErrorTuple ("mockGetChar" , Text.show mockEff) (top (input mockEff)) <$ put mockEff { input = orErrorTuple ("mockGetChar" , Text.show mockEff) $ discard $ input mockEff }
 
-mockGetLine ∷ MonadMockEff m ⇒ m Text
-mockGetLine = mockGetLine' =<< get where
-  mockGetLine' ∷ MonadMockEff m ⇒ MockEffData → m Text
-  mockGetLine' mockEff = toText line <$ put mockEff { input = input' } where (line , input') = splitStringByLn $ input mockEff
+mockGetChars ∷ MonadMockEff m ⇒ m Text
+mockGetChars = mockGetChars' =<< get where
+  mockGetChars' ∷ MonadMockEff m ⇒ MockEffData → m Text
+  mockGetChars' mockEff = toText line <$ put mockEff { input = input' } where (line , input') = splitStringByLn $ input mockEff
 
 mockGetCharSafe ∷ MonadSafeMockEff m ⇒ m Char
 mockGetCharSafe = mockGetChar' =<< get where
@@ -51,16 +51,16 @@ mockGetCharSafe = mockGetChar' =<< get where
   mockGetChar' mockEff = appendErrorTuple ("mockGetCharSafe" , Text.show mockEff) $ mockGetChar'' =<< unconsSafe (input mockEff) where
     mockGetChar'' (c, input') = put mockEff { input = input' } $> c
 
-mockGetLineSafe ∷ MonadSafeMockEff m ⇒ m Text
-mockGetLineSafe = mockGetLineSafe' =<< get where
-  mockGetLineSafe' ∷ MonadSafeMockEff m ⇒ MockEffData → m Text
-  mockGetLineSafe' mockEff = toText line <$ put mockEff { input = input' } where (line , input') = splitStringByLn $ input mockEff
+mockGetCharsSafe ∷ MonadSafeMockEff m ⇒ m Text
+mockGetCharsSafe = mockGetCharsSafe' =<< get where
+  mockGetCharsSafe' ∷ MonadSafeMockEff m ⇒ MockEffData → m Text
+  mockGetCharsSafe' mockEff = toText line <$ put mockEff { input = input' } where (line , input') = splitStringByLn $ input mockEff
 
 mockPutChar ∷ MonadMockEff m ⇒ Char → m ()
 mockPutChar = modify . mockDataPutChar
 
-mockPutLine ∷ MonadMockEff m ⇒ Text → m ()
-mockPutLine = modify . mockDataPutText
+mockPutChars ∷ MonadMockEff m ⇒ Text → m ()
+mockPutChars = modify . mockDataPutText
 
 ----
 

@@ -44,7 +44,7 @@ run No = runAsRIO . evalParams
 run _  = fallback
 
 evalParams ∷ AppSafeEff m ⇒ EvalParams → m ()
-evalParams p = putLine =<< evalWithFormat (labelType $ parserOptions $ evalOptions p) (source p) =<< getContentsText
+evalParams p = putChars =<< evalWithFormat (labelType $ parserOptions $ evalOptions p) (source p) =<< getContentsText
 
 evalWithFormat ∷ MonadSafe m ⇒ LabelType → Source → LText → m Output
 evalWithFormat BinaryLabel source input = pure $ showFoldable $ evalInternal source input
