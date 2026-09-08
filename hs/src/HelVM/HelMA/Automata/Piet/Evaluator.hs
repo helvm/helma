@@ -37,7 +37,7 @@ import qualified HelVM.HelMA.Automaton.API.AppOptions          as App
 import           HelVM.HelMA.Automaton.API.AutomatonType
 import           HelVM.HelMA.Automaton.API.Emit
 import           HelVM.HelMA.Automaton.API.Env
-import           HelVM.HelMA.Automaton.API.EvalOptions         ( EvalOptions, automatonOptions, parserOptions, simpleEvalOptions )
+import           HelVM.HelMA.Automaton.API.EvalOptions
 import           HelVM.HelMA.Automaton.API.OptimizationLevel
 import           HelVM.HelMA.Automaton.API.ParserOptions
 
