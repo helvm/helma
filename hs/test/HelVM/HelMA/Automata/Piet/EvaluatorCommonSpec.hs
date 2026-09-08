@@ -80,7 +80,7 @@ spec =
       let mock = (ioExecMockEffWithInput (toText input) . simpleEval) =<< img
       let path = show implType </> dirName </> fileName <> input
       describe path $ do
-        xit ("output" </> path) $
+        it ("output" </> path) $
           calculateOutput <$> mock `goldenShouldIO` buildAbsolutePietOutFileName path
-        xit ("logged" </> path) $
+        it ("logged" </> path) $
           calculateLogsWithLevelDebug <$> mock `goldenShouldIO` buildAbsolutePietLogFileName path

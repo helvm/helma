@@ -1,0 +1,4096 @@
+Info Memory
+    { memoryCM = CM
+        { program =
+            [ ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Store
+            , ICF
+                ( Mark
+                    ( MArtificial "block_0" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_rl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 9 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_rr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 9 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_dl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_dr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_ll" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 9 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_lr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 9 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_ul" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 9 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_0_ur" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 9 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_0_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_1" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_rl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 8 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_5" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_rr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 8 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_5" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_dl" ) NE
+                )
+            , ISM
+                ( SPure ( Unary LNot ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_10" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_dr" ) NE
+                )
+            , ISM
+                ( SPure ( Unary LNot ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_ll" ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_lr" ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_ul" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 8 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_5" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_1_ur" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 8 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_5" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_1_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_3" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_3_rl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 11 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_16" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_3_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_3_rr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 11 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_16" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_3_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_3_dl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 11 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_16" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_3_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_3_dr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 11 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_16" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_3_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_3_ll" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_3_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_3_lr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_3_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_3_ul" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 11 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_16" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_3_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_3_ur" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 11 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_16" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_3_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_5" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_5_rl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_6" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_5_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_5_rr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_6" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_5_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_5_dl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_10" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_5_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_5_dr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_10" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_5_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_5_ll" ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_5_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_5_lr" ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_5_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_5_ul" ) NE
+                )
+            , ISM ( SPure Roll )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_5_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_5_ur" ) NE
+                )
+            , ISM ( SPure Roll )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_5_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_6" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_6_rl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_7" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_6_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_6_rr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_7" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_6_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_6_dl" ) NE
+                )
+            , ISM ( SIO InputDec )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_6_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_6_dr" ) NE
+                )
+            , ISM ( SIO InputDec )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_6_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_6_ll" ) NE
+                )
+            , ISM ( SIO OutputDecMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_5" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_6_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_6_lr" ) NE
+                )
+            , ISM ( SIO OutputDecMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_5" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_6_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_6_ul" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary BXor ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_6_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_6_ur" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary BXor ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_6_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_7" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_7_rl" ) NE
+                )
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_7_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_7_rr" ) NE
+                )
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_7_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_7_dl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary BXor ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_12" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_7_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_7_dr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary BXor ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_12" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_7_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_7_ll" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_6" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_7_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_7_lr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_6" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_7_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_7_ul" ) NE
+                )
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_7_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_7_ur" ) NE
+                )
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_7_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_8" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_8_rl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_13" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_8_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_8_rr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_13" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_8_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_8_dl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_17" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_8_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_8_dr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_17" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_8_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_8_ll" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ILS Store
+            , ISM ( SPure Roll )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_8_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_8_lr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_8_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_8_ul" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Indexed
+                        ( IImmediate 0 ) Copy
+                    )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_0" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_8_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_8_ur" ) NE
+                )
+            , ISM ( SPure Roll )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_8_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_10" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_10_rl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_10_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_10_rr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_10_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_10_dl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_10_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_10_dr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ISM
+                ( SPure
+                    ( Cons 8 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_14" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_10_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_10_ll" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ILS Store
+            , ISM ( SIO InputDec )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_5" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_10_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_10_lr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ILS Store
+            , ISM ( SPure Roll )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_10_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_10_ul" ) NE
+                )
+            , ISM ( SPure Roll )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_1" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_10_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_10_ur" ) NE
+                )
+            , ISM ( SIO InputDec )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_5" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_10_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_11" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_11_rl" ) NE
+                )
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_11_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_11_rr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_23" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_11_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_11_dl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_14" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_11_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_11_dr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_14" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_11_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_11_ll" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_14" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_11_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_11_lr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 10 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_14" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_11_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_11_ul" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_6" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_11_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_11_ur" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_6" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_11_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_12" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_12_rl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_12_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_12_rr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_3" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_12_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_12_dl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_12_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_12_dr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_12_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_12_ll" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_12_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_12_lr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_12_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_12_ul" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ISM
+                ( SPure
+                    ( Cons 8 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_7" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_12_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_12_ur" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ISM
+                ( SPure
+                    ( Cons 8 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_7" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_12_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_13" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_14" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_14_rl" ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_14_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_14_rr" ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_14_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_14_dl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary BXor ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_15" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_14_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_14_dr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary BXor ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_15" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_14_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_14_ll" ) NE
+                )
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_13" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_14_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_14_lr" ) NE
+                )
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_13" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_14_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_14_ul" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary BXor ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_10" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_14_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_14_ur" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary BXor ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_10" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_14_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_15" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_15_rl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_15_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_15_rr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_15_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_15_dl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_13" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_15_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_15_dr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_13" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_15_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_15_ll" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_13" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_15_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_15_lr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Div ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_13" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_15_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_15_ul" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ISM
+                ( SPure
+                    ( Cons 8 )
+                )
+            , ISM
+                ( SPure ( Binary Mod ) )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS RStore
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_14" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_15_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_15_ur" ) NE
+                )
+            , ISM
+                ( SPure ( Binary LGT ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_15_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_16" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_16_rl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_16_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_16_rr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_19" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_16_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_16_dl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_19" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_16_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_16_dr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_16_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_16_ll" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_16_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_16_lr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_16_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_16_ul" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_16_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_16_ur" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_16_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_17" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_17_rl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ILS Store
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_17_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_17_rr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ILS Store
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_17_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_17_dl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ILS Store
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_17_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_17_dr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ILS Store
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_17_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_17_ll" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ILS Store
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_17_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_17_lr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ILS Store
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_17_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_17_ul" ) NE
+                )
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_17_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_17_ur" ) NE
+                )
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_8" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_17_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_19" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_19_rl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_20" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_19_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_19_rr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_20" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_19_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_19_dl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_20" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_19_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_19_dr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Mul ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_20" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_19_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_19_ll" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_19_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_19_lr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_19_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_19_ul" ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_16" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_19_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_19_ur" ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_16" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_19_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_20" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_20_rl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_23" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_20_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_20_rr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ILS Store
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_23" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_20_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_20_dl" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_23" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_20_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_20_dr" ) NE
+                )
+            , ISM
+                ( SPure ( Binary Add ) )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_23" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_20_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_20_ll" ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_20_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_20_lr" ) NE
+                )
+            , ISM ( SPure Discard )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_20_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_20_ul" ) NE
+                )
+            , ISM ( SIO OutputDecMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_19" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_20_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_20_ur" ) NE
+                )
+            , ISM ( SIO OutputDecMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_19" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_20_ur" )
+                )
+            , End
+            , ICF
+                ( Mark
+                    ( MArtificial "block_23" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_23_rl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ILS Store
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_23_rl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 1 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_23_rr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ILS Store
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_23_rr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 2 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_23_dl" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ILS Store
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_23_dl" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 3 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_23_dr" ) NE
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ILS Store
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_23_dr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 4 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_23_ll" ) NE
+                )
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_23_ll" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 5 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_23_lr" ) NE
+                )
+            , ISM ( SIO OutputCharMaybe )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_11" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_23_lr" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 6 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_23_ul" ) NE
+                )
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_20" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_23_ul" )
+                )
+            , ISM
+                ( SPure
+                    ( Cons 0 )
+                )
+            , ILS Load
+            , ISM
+                ( SPure
+                    ( Cons 7 )
+                )
+            , ISM
+                ( SPure ( Binary Sub ) )
+            , ICF
+                ( Branch
+                    ( BArtificial "branch_23_ur" ) NE
+                )
+            , ISM ( SIO InputChar )
+            , ICF
+                ( Labeled
+                    ( LArtificial "block_20" ) Jump
+                )
+            , ICF
+                ( Mark
+                    ( MArtificial "branch_23_ur" )
+                )
+            , End
+            , End
+            ]
+        , programCounter = 776
+        , returnStack = IS []
+        }
+    , memoryStack = fromList []
+    , memoryRAM = [ 5 ]
+    }

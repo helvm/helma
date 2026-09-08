@@ -7,7 +7,7 @@ cons 0
 load
 cons 0
 sub
-bEZA "branch_0_rl"
+bNEA "branch_0_rl"
 cons 1
 jumpA "block_1"
 
@@ -16,7 +16,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_0_rr"
+bNEA "branch_0_rr"
 cons 1
 jumpA "block_1"
 
@@ -25,15 +25,14 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_0_dl"
+bNEA "branch_0_dl"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_9"
 
 markA "branch_0_dl"
@@ -41,25 +40,73 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_0_dr"
+bNEA "branch_0_dr"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_9"
 
 markA "branch_0_dr"
+cons 0
+load
+cons 4
+sub
+bNEA "branch_0_ll"
+cons 0
+cons 0
+store
+cons 1
+jumpA "block_1"
+
+markA "branch_0_ll"
+cons 0
+load
+cons 5
+sub
+bNEA "branch_0_lr"
+cons 0
+cons 1
+store
+cons 1
+jumpA "block_1"
+
+markA "branch_0_lr"
+cons 0
+load
+cons 6
+sub
+bNEA "branch_0_ul"
+cons 0
+cons 1
+store
+cons 1
+jumpA "block_1"
+
+markA "branch_0_ul"
+cons 0
+load
+cons 7
+sub
+bNEA "branch_0_ur"
+cons 0
+cons 0
+store
+cons 1
+jumpA "block_1"
+
+markA "branch_0_ur"
+end
 
 markA "block_1"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_1_rl"
+bNEA "branch_1_rl"
 cons 1
 jumpA "block_2"
 
@@ -68,7 +115,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_1_rr"
+bNEA "branch_1_rr"
 cons 1
 jumpA "block_2"
 
@@ -77,7 +124,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_1_dl"
+bNEA "branch_1_dl"
 discard
 jumpA "block_10"
 
@@ -86,7 +133,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_1_dr"
+bNEA "branch_1_dr"
 discard
 jumpA "block_10"
 
@@ -95,7 +142,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_1_ll"
+bNEA "branch_1_ll"
 discard
 jumpA "block_0"
 
@@ -104,18 +151,43 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_1_lr"
+bNEA "branch_1_lr"
 discard
 jumpA "block_0"
 
 markA "branch_1_lr"
+cons 0
+load
+cons 6
+sub
+bNEA "branch_1_ul"
+cons 0
+cons 1
+store
+cons 1
+jumpA "block_2"
+
+markA "branch_1_ul"
+cons 0
+load
+cons 7
+sub
+bNEA "branch_1_ur"
+cons 0
+cons 0
+store
+cons 1
+jumpA "block_2"
+
+markA "branch_1_ur"
+end
 
 markA "block_2"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_2_rl"
+bNEA "branch_2_rl"
 jumpA "block_4"
 
 markA "branch_2_rl"
@@ -123,7 +195,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_2_rr"
+bNEA "branch_2_rr"
 cons 4
 mod
 cons 2
@@ -134,8 +206,7 @@ add
 cons 8
 mod
 cons 0
-halibut
-store
+rstore
 jumpA "block_11"
 
 markA "branch_2_rr"
@@ -143,7 +214,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_2_dl"
+bNEA "branch_2_dl"
 cons 0
 cons 6
 store
@@ -154,7 +225,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_2_dr"
+bNEA "branch_2_dr"
 cons 0
 cons 7
 store
@@ -165,7 +236,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_2_ll"
+bNEA "branch_2_ll"
 cons 2
 jumpA "block_10"
 
@@ -174,18 +245,19 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_2_lr"
+bNEA "branch_2_lr"
 discard
 jumpA "block_1"
 
 markA "branch_2_lr"
-
-markA "block_4"
 cons 0
 load
-cons 0
+cons 6
 sub
-bEZA "branch_4_rl"
+bNEA "branch_2_ul"
+cons 0
+cons 1
+store
 cons 4
 mod
 cons 2
@@ -196,8 +268,40 @@ add
 cons 8
 mod
 cons 0
-halibut
+rstore
+jumpA "block_11"
+
+markA "branch_2_ul"
+cons 0
+load
+cons 7
+sub
+bNEA "branch_2_ur"
+cons 0
+cons 0
 store
+jumpA "block_4"
+
+markA "branch_2_ur"
+end
+
+markA "block_4"
+cons 0
+load
+cons 0
+sub
+bNEA "branch_4_rl"
+cons 4
+mod
+cons 2
+mul
+cons 0
+load
+add
+cons 8
+mod
+cons 0
+rstore
 jumpA "block_5"
 
 markA "branch_4_rl"
@@ -205,7 +309,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_4_rr"
+bNEA "branch_4_rr"
 cons 4
 mod
 cons 2
@@ -216,8 +320,7 @@ add
 cons 8
 mod
 cons 0
-halibut
-store
+rstore
 jumpA "block_5"
 
 markA "branch_4_rr"
@@ -225,7 +328,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_4_dl"
+bNEA "branch_4_dl"
 jumpA "block_16"
 
 markA "branch_4_dl"
@@ -233,7 +336,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_4_dr"
+bNEA "branch_4_dr"
 jumpA "block_16"
 
 markA "branch_4_dr"
@@ -241,7 +344,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_4_ll"
+bNEA "branch_4_ll"
 jumpA "block_2"
 
 markA "branch_4_ll"
@@ -249,17 +352,62 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_4_lr"
+bNEA "branch_4_lr"
 jumpA "block_2"
 
 markA "branch_4_lr"
+cons 0
+load
+cons 6
+sub
+bNEA "branch_4_ul"
+cons 0
+cons 1
+store
+cons 4
+mod
+cons 2
+mul
+cons 0
+load
+add
+cons 8
+mod
+cons 0
+rstore
+jumpA "block_5"
+
+markA "branch_4_ul"
+cons 0
+load
+cons 7
+sub
+bNEA "branch_4_ur"
+cons 0
+cons 0
+store
+cons 4
+mod
+cons 2
+mul
+cons 0
+load
+add
+cons 8
+mod
+cons 0
+rstore
+jumpA "block_5"
+
+markA "branch_4_ur"
+end
 
 markA "block_5"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_5_rl"
+bNEA "branch_5_rl"
 cons 0
 cons 3
 store
@@ -270,7 +418,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_5_rr"
+bNEA "branch_5_rr"
 cons 0
 cons 2
 store
@@ -281,7 +429,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_5_dl"
+bNEA "branch_5_dl"
 jumpA "block_14"
 
 markA "branch_5_dl"
@@ -289,7 +437,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_5_dr"
+bNEA "branch_5_dr"
 jumpA "block_14"
 
 markA "branch_5_dr"
@@ -297,15 +445,14 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_5_ll"
+bNEA "branch_5_ll"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_4"
 
 markA "branch_5_ll"
@@ -313,25 +460,47 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_5_lr"
+bNEA "branch_5_lr"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_4"
 
 markA "branch_5_lr"
+cons 0
+load
+cons 6
+sub
+bNEA "branch_5_ul"
+cons 0
+cons 2
+store
+jumpA "block_18"
+
+markA "branch_5_ul"
+cons 0
+load
+cons 7
+sub
+bNEA "branch_5_ur"
+cons 0
+cons 3
+store
+jumpA "block_18"
+
+markA "branch_5_ur"
+end
 
 markA "block_9"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_9_rl"
+bNEA "branch_9_rl"
 cons 4
 mod
 cons 2
@@ -342,8 +511,7 @@ add
 cons 8
 mod
 cons 0
-halibut
-store
+rstore
 jumpA "block_10"
 
 markA "branch_9_rl"
@@ -351,7 +519,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_9_rr"
+bNEA "branch_9_rr"
 cons 4
 mod
 cons 2
@@ -362,8 +530,7 @@ add
 cons 8
 mod
 cons 0
-halibut
-store
+rstore
 jumpA "block_10"
 
 markA "branch_9_rr"
@@ -371,7 +538,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_9_dl"
+bNEA "branch_9_dl"
 cons 0
 cons 6
 store
@@ -382,7 +549,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_9_dr"
+bNEA "branch_9_dr"
 cons 0
 cons 7
 store
@@ -391,9 +558,12 @@ jumpA "block_9"
 markA "branch_9_dr"
 cons 0
 load
-cons 6
+cons 4
 sub
-bEZA "branch_9_ul"
+bNEA "branch_9_ll"
+cons 0
+cons 7
+store
 cons 4
 mod
 cons 2
@@ -404,8 +574,48 @@ add
 cons 8
 mod
 cons 0
-halibut
+rstore
+jumpA "block_0"
+
+markA "branch_9_ll"
+cons 0
+load
+cons 5
+sub
+bNEA "branch_9_lr"
+cons 0
+cons 6
 store
+cons 4
+mod
+cons 2
+mul
+cons 0
+load
+add
+cons 8
+mod
+cons 0
+rstore
+jumpA "block_0"
+
+markA "branch_9_lr"
+cons 0
+load
+cons 6
+sub
+bNEA "branch_9_ul"
+cons 4
+mod
+cons 2
+mul
+cons 0
+load
+add
+cons 8
+mod
+cons 0
+rstore
 jumpA "block_0"
 
 markA "branch_9_ul"
@@ -413,7 +623,7 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_9_ur"
+bNEA "branch_9_ur"
 cons 4
 mod
 cons 2
@@ -424,18 +634,18 @@ add
 cons 8
 mod
 cons 0
-halibut
-store
+rstore
 jumpA "block_0"
 
 markA "branch_9_ur"
+end
 
 markA "block_10"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_10_rl"
+bNEA "branch_10_rl"
 discard
 jumpA "block_2"
 
@@ -444,7 +654,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_10_rr"
+bNEA "branch_10_rr"
 discard
 jumpA "block_2"
 
@@ -453,7 +663,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_10_dl"
+bNEA "branch_10_dl"
 jumpA "block_22"
 
 markA "branch_10_dl"
@@ -461,7 +671,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_10_dr"
+bNEA "branch_10_dr"
 jumpA "block_22"
 
 markA "branch_10_dr"
@@ -469,15 +679,14 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_10_ll"
+bNEA "branch_10_ll"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_9"
 
 markA "branch_10_ll"
@@ -485,15 +694,14 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_10_lr"
+bNEA "branch_10_lr"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_9"
 
 markA "branch_10_lr"
@@ -501,7 +709,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_10_ul"
+bNEA "branch_10_ul"
 cons 1
 jumpA "block_1"
 
@@ -510,18 +718,19 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_10_ur"
+bNEA "branch_10_ur"
 cons 1
 jumpA "block_1"
 
 markA "branch_10_ur"
+end
 
 markA "block_11"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_11_rl"
+bNEA "branch_11_rl"
 jumpA "block_12"
 
 markA "branch_11_rl"
@@ -529,7 +738,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_11_rr"
+bNEA "branch_11_rr"
 jumpA "block_12"
 
 markA "branch_11_rr"
@@ -537,7 +746,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_11_dl"
+bNEA "branch_11_dl"
 jumpA "block_23"
 
 markA "branch_11_dl"
@@ -545,7 +754,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_11_dr"
+bNEA "branch_11_dr"
 jumpA "block_23"
 
 markA "branch_11_dr"
@@ -553,15 +762,14 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_11_ll"
+bNEA "branch_11_ll"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_2"
 
 markA "branch_11_ll"
@@ -569,15 +777,14 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_11_lr"
+bNEA "branch_11_lr"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_2"
 
 markA "branch_11_lr"
@@ -585,7 +792,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_11_ul"
+bNEA "branch_11_ul"
 cons 0
 cons 1
 store
@@ -596,20 +803,21 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_11_ur"
+bNEA "branch_11_ur"
 cons 0
 cons 0
 store
 jumpA "block_4"
 
 markA "branch_11_ur"
+end
 
 markA "block_12"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_12_rl"
+bNEA "branch_12_rl"
 cons 0
 cons 3
 store
@@ -620,7 +828,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_12_rr"
+bNEA "branch_12_rr"
 cons 0
 cons 2
 store
@@ -631,7 +839,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_12_dl"
+bNEA "branch_12_dl"
 jumpA "block_16"
 
 markA "branch_12_dl"
@@ -639,7 +847,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_12_dr"
+bNEA "branch_12_dr"
 jumpA "block_16"
 
 markA "branch_12_dr"
@@ -647,7 +855,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_12_ll"
+bNEA "branch_12_ll"
 jumpA "block_11"
 
 markA "branch_12_ll"
@@ -655,7 +863,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_12_lr"
+bNEA "branch_12_lr"
 jumpA "block_11"
 
 markA "branch_12_lr"
@@ -663,7 +871,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_12_ul"
+bNEA "branch_12_ul"
 cons 0
 cons 2
 store
@@ -674,20 +882,21 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_12_ur"
+bNEA "branch_12_ur"
 cons 0
 cons 3
 store
 jumpA "block_18"
 
 markA "branch_12_ur"
+end
 
 markA "block_14"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_14_rl"
+bNEA "branch_14_rl"
 jumpA "block_15"
 
 markA "branch_14_rl"
@@ -695,7 +904,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_14_rr"
+bNEA "branch_14_rr"
 jumpA "block_15"
 
 markA "branch_14_rr"
@@ -703,15 +912,14 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_14_dl"
+bNEA "branch_14_dl"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_16"
 
 markA "branch_14_dl"
@@ -719,15 +927,14 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_14_dr"
+bNEA "branch_14_dr"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_16"
 
 markA "branch_14_dr"
@@ -735,7 +942,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_14_ll"
+bNEA "branch_14_ll"
 cons 0
 cons 7
 store
@@ -746,7 +953,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_14_lr"
+bNEA "branch_14_lr"
 cons 0
 cons 6
 store
@@ -757,7 +964,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_14_ul"
+bNEA "branch_14_ul"
 jumpA "block_5"
 
 markA "branch_14_ul"
@@ -765,17 +972,18 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_14_ur"
+bNEA "branch_14_ur"
 jumpA "block_5"
 
 markA "branch_14_ur"
+end
 
 markA "block_15"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_15_rl"
+bNEA "branch_15_rl"
 cons 0
 cons 3
 store
@@ -786,7 +994,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_15_rr"
+bNEA "branch_15_rr"
 cons 0
 cons 2
 store
@@ -797,7 +1005,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_15_dl"
+bNEA "branch_15_dl"
 discard
 jumpA "block_16"
 
@@ -806,7 +1014,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_15_dr"
+bNEA "branch_15_dr"
 discard
 jumpA "block_16"
 
@@ -815,7 +1023,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_15_ll"
+bNEA "branch_15_ll"
 jumpA "block_14"
 
 markA "branch_15_ll"
@@ -823,7 +1031,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_15_lr"
+bNEA "branch_15_lr"
 jumpA "block_14"
 
 markA "branch_15_lr"
@@ -831,7 +1039,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_15_ul"
+bNEA "branch_15_ul"
 cons 0
 cons 2
 store
@@ -842,20 +1050,21 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_15_ur"
+bNEA "branch_15_ur"
 cons 0
 cons 3
 store
 jumpA "block_18"
 
 markA "branch_15_ur"
+end
 
 markA "block_16"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_16_rl"
+bNEA "branch_16_rl"
 jumpA "block_17"
 
 markA "branch_16_rl"
@@ -863,7 +1072,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_16_rr"
+bNEA "branch_16_rr"
 cons 0
 cons 5
 store
@@ -874,7 +1083,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_16_dl"
+bNEA "branch_16_dl"
 cons 38
 jumpA "block_29"
 
@@ -883,7 +1092,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_16_dr"
+bNEA "branch_16_dr"
 cons 0
 cons 7
 store
@@ -894,7 +1103,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_16_ll"
+bNEA "branch_16_ll"
 cons 0
 cons 7
 store
@@ -905,7 +1114,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_16_lr"
+bNEA "branch_16_lr"
 cons 0
 cons 6
 store
@@ -916,7 +1125,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_16_ul"
+bNEA "branch_16_ul"
 jumpA "block_4"
 
 markA "branch_16_ul"
@@ -924,20 +1133,21 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_16_ur"
+bNEA "branch_16_ur"
 cons 0
 cons 3
 store
 jumpA "block_18"
 
 markA "branch_16_ur"
+end
 
 markA "block_17"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_17_rl"
+bNEA "branch_17_rl"
 cons 0
 cons 3
 store
@@ -948,7 +1158,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_17_rr"
+bNEA "branch_17_rr"
 cons 0
 cons 2
 store
@@ -959,7 +1169,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_17_dl"
+bNEA "branch_17_dl"
 sub
 jumpA "block_25"
 
@@ -968,7 +1178,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_17_dr"
+bNEA "branch_17_dr"
 sub
 jumpA "block_25"
 
@@ -977,7 +1187,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_17_ll"
+bNEA "branch_17_ll"
 jumpA "block_20"
 
 markA "branch_17_ll"
@@ -985,7 +1195,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_17_lr"
+bNEA "branch_17_lr"
 jumpA "block_16"
 
 markA "branch_17_lr"
@@ -993,7 +1203,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_17_ul"
+bNEA "branch_17_ul"
 cons 0
 cons 2
 store
@@ -1004,20 +1214,21 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_17_ur"
+bNEA "branch_17_ur"
 cons 0
 cons 3
 store
 jumpA "block_26"
 
 markA "branch_17_ur"
+end
 
 markA "block_18"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_18_rl"
+bNEA "branch_18_rl"
 jumpA "block_17"
 
 markA "branch_18_rl"
@@ -1025,7 +1236,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_18_rr"
+bNEA "branch_18_rr"
 jumpA "block_17"
 
 markA "branch_18_rr"
@@ -1033,7 +1244,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_18_dl"
+bNEA "branch_18_dl"
 cons 1
 jumpA "block_20"
 
@@ -1042,7 +1253,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_18_dr"
+bNEA "branch_18_dr"
 cons 1
 jumpA "block_20"
 
@@ -1051,15 +1262,14 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_18_ll"
+bNEA "branch_18_ll"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_16"
 
 markA "branch_18_ll"
@@ -1067,15 +1277,14 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_18_lr"
+bNEA "branch_18_lr"
 cons 2
 mod
 cons 0
 load
 bxor
 cons 0
-halibut
-store
+rstore
 jumpA "block_16"
 
 markA "branch_18_lr"
@@ -1083,7 +1292,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_18_ul"
+bNEA "branch_18_ul"
 cons 0
 cons 2
 store
@@ -1094,20 +1303,21 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_18_ur"
+bNEA "branch_18_ur"
 cons 0
 cons 3
 store
 jumpA "block_18"
 
 markA "branch_18_ur"
+end
 
 markA "block_20"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_20_rl"
+bNEA "branch_20_rl"
 jumpA "block_17"
 
 markA "branch_20_rl"
@@ -1115,7 +1325,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_20_rr"
+bNEA "branch_20_rr"
 discard
 jumpA "block_24"
 
@@ -1124,7 +1334,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_20_dl"
+bNEA "branch_20_dl"
 cons 0
 cons 5
 store
@@ -1135,7 +1345,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_20_dr"
+bNEA "branch_20_dr"
 cons 0
 cons 4
 store
@@ -1146,7 +1356,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_20_ll"
+bNEA "branch_20_ll"
 cons 4
 mod
 cons 2
@@ -1157,8 +1367,7 @@ add
 cons 8
 mod
 cons 0
-halibut
-store
+rstore
 jumpA "block_16"
 
 markA "branch_20_ll"
@@ -1166,7 +1375,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_20_lr"
+bNEA "branch_20_lr"
 cons 4
 mod
 cons 2
@@ -1177,8 +1386,7 @@ add
 cons 8
 mod
 cons 0
-halibut
-store
+rstore
 jumpA "block_16"
 
 markA "branch_20_lr"
@@ -1186,7 +1394,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_20_ul"
+bNEA "branch_20_ul"
 discard
 jumpA "block_18"
 
@@ -1195,19 +1403,20 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_20_ur"
+bNEA "branch_20_ur"
 discard
 jumpA "block_18"
 
 markA "branch_20_ur"
+end
 
 markA "block_21"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_21_rl"
-mio outputcharmaybe
+bNEA "branch_21_rl"
+outputCMaybeS
 jumpA "block_22"
 
 markA "branch_21_rl"
@@ -1215,8 +1424,8 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_21_rr"
-mio outputcharmaybe
+bNEA "branch_21_rr"
+outputCMaybeS
 jumpA "block_22"
 
 markA "branch_21_rr"
@@ -1224,7 +1433,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_21_dl"
+bNEA "branch_21_dl"
 cons 0
 cons 6
 store
@@ -1235,20 +1444,69 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_21_dr"
+bNEA "branch_21_dr"
 cons 0
 cons 7
 store
 jumpA "block_21"
 
 markA "branch_21_dr"
+cons 0
+load
+cons 4
+sub
+bNEA "branch_21_ll"
+cons 0
+cons 0
+store
+outputCMaybeS
+jumpA "block_22"
+
+markA "branch_21_ll"
+cons 0
+load
+cons 5
+sub
+bNEA "branch_21_lr"
+cons 0
+cons 1
+store
+outputCMaybeS
+jumpA "block_22"
+
+markA "branch_21_lr"
+cons 0
+load
+cons 6
+sub
+bNEA "branch_21_ul"
+cons 0
+cons 1
+store
+outputCMaybeS
+jumpA "block_22"
+
+markA "branch_21_ul"
+cons 0
+load
+cons 7
+sub
+bNEA "branch_21_ur"
+cons 0
+cons 0
+store
+outputCMaybeS
+jumpA "block_22"
+
+markA "branch_21_ur"
+end
 
 markA "block_22"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_22_rl"
+bNEA "branch_22_rl"
 jumpA "block_23"
 
 markA "branch_22_rl"
@@ -1256,7 +1514,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_22_rr"
+bNEA "branch_22_rr"
 jumpA "block_16"
 
 markA "branch_22_rr"
@@ -1264,7 +1522,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_22_dl"
+bNEA "branch_22_dl"
 cons 0
 cons 6
 store
@@ -1275,7 +1533,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_22_dr"
+bNEA "branch_22_dr"
 cons 0
 cons 7
 store
@@ -1286,7 +1544,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_22_ll"
+bNEA "branch_22_ll"
 cons 0
 cons 7
 store
@@ -1297,7 +1555,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_22_lr"
+bNEA "branch_22_lr"
 sub
 jumpA "block_21"
 
@@ -1306,7 +1564,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_22_ul"
+bNEA "branch_22_ul"
 jumpA "block_10"
 
 markA "branch_22_ul"
@@ -1314,17 +1572,18 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_22_ur"
+bNEA "branch_22_ur"
 jumpA "block_10"
 
 markA "branch_22_ur"
+end
 
 markA "block_23"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_23_rl"
+bNEA "branch_23_rl"
 discard
 jumpA "block_16"
 
@@ -1333,7 +1592,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_23_rr"
+bNEA "branch_23_rr"
 discard
 jumpA "block_16"
 
@@ -1342,7 +1601,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_23_dl"
+bNEA "branch_23_dl"
 cons 0
 cons 6
 store
@@ -1353,7 +1612,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_23_dr"
+bNEA "branch_23_dr"
 cons 0
 cons 7
 store
@@ -1364,7 +1623,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_23_ll"
+bNEA "branch_23_ll"
 jumpA "block_22"
 
 markA "branch_23_ll"
@@ -1372,7 +1631,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_23_lr"
+bNEA "branch_23_lr"
 jumpA "block_22"
 
 markA "branch_23_lr"
@@ -1380,7 +1639,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_23_ul"
+bNEA "branch_23_ul"
 jumpA "block_11"
 
 markA "branch_23_ul"
@@ -1388,17 +1647,18 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_23_ur"
+bNEA "branch_23_ur"
 jumpA "block_11"
 
 markA "branch_23_ur"
+end
 
 markA "block_24"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_24_rl"
+bNEA "branch_24_rl"
 sub
 jumpA "block_25"
 
@@ -1407,7 +1667,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_24_rr"
+bNEA "branch_24_rr"
 sub
 jumpA "block_25"
 
@@ -1416,7 +1676,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_24_dl"
+bNEA "branch_24_dl"
 cons 0
 cons 5
 store
@@ -1427,7 +1687,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_24_dr"
+bNEA "branch_24_dr"
 cons 0
 cons 4
 store
@@ -1438,7 +1698,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_24_ll"
+bNEA "branch_24_ll"
 cons 1
 jumpA "block_20"
 
@@ -1447,7 +1707,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_24_lr"
+bNEA "branch_24_lr"
 cons 1
 jumpA "block_20"
 
@@ -1456,7 +1716,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_24_ul"
+bNEA "branch_24_ul"
 cons 0
 cons 2
 store
@@ -1467,20 +1727,21 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_24_ur"
+bNEA "branch_24_ur"
 cons 0
 cons 3
 store
 jumpA "block_24"
 
 markA "branch_24_ur"
+end
 
 markA "block_25"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_25_rl"
+bNEA "branch_25_rl"
 cons 2
 jumpA "block_26"
 
@@ -1489,7 +1750,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_25_rr"
+bNEA "branch_25_rr"
 cons 2
 jumpA "block_26"
 
@@ -1498,7 +1759,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_25_dl"
+bNEA "branch_25_dl"
 cons 0
 cons 5
 store
@@ -1509,7 +1770,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_25_dr"
+bNEA "branch_25_dr"
 cons 0
 cons 4
 store
@@ -1520,8 +1781,8 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_25_ll"
-mio outputcharmaybe
+bNEA "branch_25_ll"
+outputCMaybeS
 jumpA "block_24"
 
 markA "branch_25_ll"
@@ -1529,8 +1790,8 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_25_lr"
-mio outputcharmaybe
+bNEA "branch_25_lr"
+outputCMaybeS
 jumpA "block_24"
 
 markA "branch_25_lr"
@@ -1538,8 +1799,8 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_25_ul"
-mio outputcharmaybe
+bNEA "branch_25_ul"
+outputCMaybeS
 jumpA "block_17"
 
 markA "branch_25_ul"
@@ -1547,20 +1808,69 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_25_ur"
+bNEA "branch_25_ur"
 cons 0
 cons 3
 store
 jumpA "block_26"
 
 markA "branch_25_ur"
+end
 
 markA "block_26"
 cons 0
 load
+cons 0
+sub
+bNEA "branch_26_rl"
+cons 0
+cons 4
+store
+discard
+jumpA "block_25"
+
+markA "branch_26_rl"
+cons 0
+load
+cons 1
+sub
+bNEA "branch_26_rr"
+cons 0
+cons 5
+store
+discard
+jumpA "block_25"
+
+markA "branch_26_rr"
+cons 0
+load
+cons 2
+sub
+bNEA "branch_26_dl"
+cons 0
+cons 5
+store
+discard
+jumpA "block_25"
+
+markA "branch_26_dl"
+cons 0
+load
+cons 3
+sub
+bNEA "branch_26_dr"
+cons 0
+cons 4
+store
+discard
+jumpA "block_25"
+
+markA "branch_26_dr"
+cons 0
+load
 cons 4
 sub
-bEZA "branch_26_ll"
+bNEA "branch_26_ll"
 discard
 jumpA "block_25"
 
@@ -1569,7 +1879,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_26_lr"
+bNEA "branch_26_lr"
 discard
 jumpA "block_25"
 
@@ -1578,7 +1888,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_26_ul"
+bNEA "branch_26_ul"
 cons 0
 cons 2
 store
@@ -1589,20 +1899,21 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_26_ur"
+bNEA "branch_26_ur"
 cons 0
 cons 3
 store
 jumpA "block_26"
 
 markA "branch_26_ur"
+end
 
 markA "block_29"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_29_rl"
+bNEA "branch_29_rl"
 cons 0
 cons 4
 store
@@ -1613,7 +1924,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_29_rr"
+bNEA "branch_29_rr"
 cons 0
 cons 5
 store
@@ -1624,7 +1935,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_29_dl"
+bNEA "branch_29_dl"
 jumpA "block_31"
 
 markA "branch_29_dl"
@@ -1632,7 +1943,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_29_dr"
+bNEA "branch_29_dr"
 jumpA "block_31"
 
 markA "branch_29_dr"
@@ -1640,7 +1951,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_29_ll"
+bNEA "branch_29_ll"
 cons 0
 cons 7
 store
@@ -1651,7 +1962,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_29_lr"
+bNEA "branch_29_lr"
 cons 0
 cons 6
 store
@@ -1662,7 +1973,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_29_ul"
+bNEA "branch_29_ul"
 discard
 jumpA "block_16"
 
@@ -1671,18 +1982,19 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_29_ur"
+bNEA "branch_29_ur"
 discard
 jumpA "block_16"
 
 markA "branch_29_ur"
+end
 
 markA "block_31"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_31_rl"
+bNEA "branch_31_rl"
 cons 0
 cons 4
 store
@@ -1693,7 +2005,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_31_rr"
+bNEA "branch_31_rr"
 cons 0
 cons 5
 store
@@ -1704,7 +2016,7 @@ cons 0
 load
 cons 2
 sub
-bEZA "branch_31_dl"
+bNEA "branch_31_dl"
 sub
 jumpA "block_33"
 
@@ -1713,7 +2025,7 @@ cons 0
 load
 cons 3
 sub
-bEZA "branch_31_dr"
+bNEA "branch_31_dr"
 sub
 jumpA "block_33"
 
@@ -1722,7 +2034,7 @@ cons 0
 load
 cons 4
 sub
-bEZA "branch_31_ll"
+bNEA "branch_31_ll"
 cons 0
 cons 7
 store
@@ -1733,7 +2045,7 @@ cons 0
 load
 cons 5
 sub
-bEZA "branch_31_lr"
+bNEA "branch_31_lr"
 cons 0
 cons 6
 store
@@ -1744,7 +2056,7 @@ cons 0
 load
 cons 6
 sub
-bEZA "branch_31_ul"
+bNEA "branch_31_ul"
 jumpA "block_29"
 
 markA "branch_31_ul"
@@ -1752,17 +2064,18 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_31_ur"
+bNEA "branch_31_ur"
 jumpA "block_29"
 
 markA "branch_31_ur"
+end
 
 markA "block_33"
 cons 0
 load
 cons 0
 sub
-bEZA "branch_33_rl"
+bNEA "branch_33_rl"
 cons 0
 cons 4
 store
@@ -1773,7 +2086,7 @@ cons 0
 load
 cons 1
 sub
-bEZA "branch_33_rr"
+bNEA "branch_33_rr"
 cons 0
 cons 5
 store
@@ -1782,10 +2095,58 @@ jumpA "block_33"
 markA "branch_33_rr"
 cons 0
 load
+cons 2
+sub
+bNEA "branch_33_dl"
+cons 0
+cons 6
+store
+outputCMaybeS
+jumpA "block_31"
+
+markA "branch_33_dl"
+cons 0
+load
+cons 3
+sub
+bNEA "branch_33_dr"
+cons 0
+cons 7
+store
+outputCMaybeS
+jumpA "block_31"
+
+markA "branch_33_dr"
+cons 0
+load
+cons 4
+sub
+bNEA "branch_33_ll"
+cons 0
+cons 7
+store
+outputCMaybeS
+jumpA "block_31"
+
+markA "branch_33_ll"
+cons 0
+load
+cons 5
+sub
+bNEA "branch_33_lr"
+cons 0
+cons 6
+store
+outputCMaybeS
+jumpA "block_31"
+
+markA "branch_33_lr"
+cons 0
+load
 cons 6
 sub
-bEZA "branch_33_ul"
-mio outputcharmaybe
+bNEA "branch_33_ul"
+outputCMaybeS
 jumpA "block_31"
 
 markA "branch_33_ul"
@@ -1793,9 +2154,10 @@ cons 0
 load
 cons 7
 sub
-bEZA "branch_33_ur"
-mio outputcharmaybe
+bNEA "branch_33_ur"
+outputCMaybeS
 jumpA "block_31"
 
 markA "branch_33_ur"
+end
 end
