@@ -90,7 +90,7 @@ optimizeStoreID ∷ Integer → Integer → Instruction
 optimizeStoreID v = storeIDI v . fromIntegral
 
 optimizeStoreI ∷ Integer → Instruction
-optimizeStoreI = storeII . fromIntegral
+optimizeStoreI = storeII
 
 optimizeLoadD ∷ Integer → Instruction
 optimizeLoadD = loadDI . fromIntegral

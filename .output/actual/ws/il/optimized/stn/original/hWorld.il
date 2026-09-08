@@ -60,7 +60,7 @@ jumpA "read"
 markA "read_end"
 discard
 addI 1
-stored 0
+storei 0
 return
 
 markA "newline"

@@ -205,7 +205,7 @@ Info Memory
                     )
                 )
             , ILS
-                ( StoreD 0 )
+                ( StoreI 0 )
             , ICF Return
             , ICF
                 ( Mark
@@ -228,7 +228,7 @@ Info Memory
         }
     , memoryStack = fromList []
     , memoryRAM =
-        [ 110
+        [ 80
         , 108
         , 101
         , 97
@@ -338,5 +338,6 @@ Info Memory
         , 108
         , 121
         , 10
+        , 0
         ]
     }

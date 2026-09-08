@@ -397,7 +397,7 @@ Info Memory
                     )
                 )
             , ILS
-                ( StoreD 0 )
+                ( StoreI 0 )
             , ICF Return
             , ICF
                 ( Mark
