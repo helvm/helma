@@ -138,8 +138,8 @@ mio = ILS . MIO
 storeIDI ∷ Integer → ImmediateIndex → Instruction
 storeIDI v = ILS . StoreID v
 
-storeDI ∷ ImmediateIndex → Instruction
-storeDI = ILS . StoreD
+storeII ∷ ImmediateIndex → Instruction
+storeII = ILS . StoreI
 
 loadDI ∷ ImmediateIndex → Instruction
 loadDI = ILS . LoadD

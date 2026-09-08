@@ -24,7 +24,7 @@ type Label = Int
 
 data Instruction
   = ExecCmd Command
-  | StoreDPCC Course
+  | StoreIPCC Course
   | Jump Label
   | Exit
   deriving stock (Eq, Show)
@@ -86,7 +86,7 @@ handleNextBlock currentCourses (Just nb) = filterNotNop $ storeInstr ++ [ExecCmd
   targetEdge   = nb ^. targetL
   targetCourse = course targetEdge
   targetLbl    = blockIndex targetEdge
-  storeInstr   = [StoreDPCC targetCourse | currentCourses /= [targetCourse]]
+  storeInstr   = [StoreIPCC targetCourse | currentCourses /= [targetCourse]]
 
 filterNotNop ∷ [Instruction] → [Instruction]
 filterNotNop = filter (/= ExecCmd NoOperation)
@@ -119,7 +119,7 @@ renderCourses cs = mconcat $ intersperse ", " (showBuilder <$> cs)
 
 renderInstruction ∷ Instruction → LText.Builder
 renderInstruction (ExecCmd cmd)    = "    " <> toStringBuilder (showCommand cmd) <> "\n"
-renderInstruction (StoreDPCC dpcc) = "    store_dpcc " <> showBuilder dpcc <> "\n"
+renderInstruction (StoreIPCC dpcc) = "    store_dpcc " <> showBuilder dpcc <> "\n"
 renderInstruction (Jump target)    = "    jump block_" <> showBuilder target <> "\n"
 renderInstruction Exit             = "    exit\n"
 

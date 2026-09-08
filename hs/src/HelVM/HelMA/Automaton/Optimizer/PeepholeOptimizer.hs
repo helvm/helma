@@ -23,7 +23,7 @@ peepholeOptimize1 = fix optimize where
   optimize f (ConsP c : ConsP a : BranchTP t : il) = optimizeBranch t c a         <> f il
   optimize f (ConsP a : BranchTP t           : il) = optimizeBranchLabel t a      <> f il
   optimize f (ConsP a : ConsP v : StoreP     : il) = optimizeStoreID v a           : f il
-  optimize f (ConsP a : StoreP               : il) = optimizeStoreD a              : f il
+  optimize f (ConsP v : StoreP               : il) = optimizeStoreI v              : f il
   optimize f (ConsP a : LoadP                : il) = optimizeLoadD a               : f il
   optimize f (i                              : il) = i                             : f il
   optimize _                                   []  = []
@@ -89,8 +89,8 @@ moveAdd i = [moveII (i - 1) , addI]
 optimizeStoreID ∷ Integer → Integer → Instruction
 optimizeStoreID v = storeIDI v . fromIntegral
 
-optimizeStoreD ∷ Integer → Instruction
-optimizeStoreD = storeDI . fromIntegral
+optimizeStoreI ∷ Integer → Instruction
+optimizeStoreI = storeII . fromIntegral
 
 optimizeLoadD ∷ Integer → Instruction
 optimizeLoadD = loadDI . fromIntegral

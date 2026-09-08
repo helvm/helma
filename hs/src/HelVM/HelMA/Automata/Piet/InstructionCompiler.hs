@@ -52,7 +52,7 @@ checkCourses (c : cs) targetLabel =
 
 compileInstruction ∷ AG.Instruction → InstructionList
 compileInstruction (AG.ExecCmd cmd) = compileCommand cmd
-compileInstruction (AG.StoreDPCC c) = initDPCC c
+compileInstruction (AG.StoreIPCC c) = initDPCC c
 compileInstruction (AG.Jump lbl)    = [ICF (Labeled (LArtificial (showBlockLabel lbl)) Jump)]
 compileInstruction AG.Exit          = [End]
 
