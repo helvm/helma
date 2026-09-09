@@ -15,27 +15,34 @@ import qualified HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy as Mult
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Grid                    ( Grid (..) )
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
 import           Codec.Picture
 
 import qualified Data.Foldable1                                          as F1
 import qualified Data.List.NonEmpty                                      as NE
 import qualified Data.Map                                                as M
-import           Data.Vector                                             ( Vector )
 import qualified Data.Vector                                             as V
 
 import qualified Relude.Extra                                            as Extra
 
-buildMatrix ∷ Coordinates → ImageConfig → Int → Image PixelRGB8 → Matrix Color
-buildMatrix (codelWidth, codelHeight) config sizeInt image = V.generate codelHeight (buildRow codelWidth stratAdd stratMulti sizeInt image) where
-  stratAdd = additionalColor config
-  stratMulti = multicoloredCodel config
+buildMatrix ∷ Coordinates → ImageConfig → Int → Image PixelRGB8 → Grid Color
+buildMatrix (codelWidth, codelHeight) config sizeInt image =
+  Grid
+    { widthGrid  = codelWidth
+    , heightGrid = codelHeight
+    , cells      = V.generate (codelWidth * codelHeight) generateCell
+    }
+  where
+    stratAdd   = additionalColor config
+    stratMulti = multicoloredCodel config
 
-buildRow ∷ Int → AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Int → Vector Color
-buildRow codelWidth stratMulti stratAdd sizeInt image codelY = V.generate codelWidth (\codelX → buildCodel stratMulti stratAdd sizeInt image (codelX, codelY))
+    generateCell ∷ Int → Color
+    generateCell idx =
+      let (codelY, codelX) = idx `divMod` codelWidth
+       in buildCodel stratAdd stratMulti sizeInt image (codelX, codelY)
 
 buildCodel ∷ AdditionalColorStrategy → MulticoloredCodelStrategy → Int → Image PixelRGB8 → Coordinates → Color
 buildCodel stratAdd stratMulti sizeInt image coords = colorToCodel stratAdd (getCodelColor stratMulti sizeInt image coords)
