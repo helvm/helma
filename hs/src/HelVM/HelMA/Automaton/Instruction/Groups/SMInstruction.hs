@@ -3,7 +3,6 @@ module HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction where
 import           Data.Bits                                              ( Bits, complement, (.&.), (.|.) )
 
 import           HelVM.HelMA.Automaton.Instruction.Extras.Common
-import           HelVM.HelMA.Automaton.Instruction.Extras.TextExtra
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 
 import           Prettyprinter                                          ( Pretty (pretty), (<+>) )

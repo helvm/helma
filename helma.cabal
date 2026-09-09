@@ -155,7 +155,6 @@ library
     HelVM.HelMA.Automaton.Instruction.Extras.Constructors
     HelVM.HelMA.Automaton.Instruction.Extras.Patterns
     HelVM.HelMA.Automaton.Instruction.Extras.Common
-    HelVM.HelMA.Automaton.Instruction.Extras.TextExtra
 
     HelVM.HelMA.Automaton.Optimizer
     HelVM.HelMA.Automaton.Optimizer.ConstantFoldingOptimizer

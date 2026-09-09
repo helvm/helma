@@ -1,11 +1,11 @@
 module HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction where
 
-import           HelVM.HelMA.Automaton.Instruction.Extras.TextExtra
+import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 
 import           HelVM.HelIO.Collections.SList
 
-import           Prettyprinter                                      ( Pretty (pretty), (<+>) )
-import qualified Prettyprinter                                      as PP
+import           Prettyprinter                                   ( Pretty (pretty), (<+>) )
+import qualified Prettyprinter                                   as PP
 
 -- | Others
 

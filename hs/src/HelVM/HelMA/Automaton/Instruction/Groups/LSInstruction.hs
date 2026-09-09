@@ -1,7 +1,6 @@
 module HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction where
 
 import           HelVM.HelMA.Automaton.Instruction.Extras.Common
-import           HelVM.HelMA.Automaton.Instruction.Extras.TextExtra
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 
 import           Prettyprinter                                          ( Pretty (pretty), (<+>) )

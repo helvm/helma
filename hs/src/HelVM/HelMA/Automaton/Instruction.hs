@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automaton.Instruction where
 
-import           HelVM.HelMA.Automaton.Instruction.Extras.TextExtra
+import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 
 import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction
