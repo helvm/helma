@@ -6,10 +6,12 @@ import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.LSInstruction
 import           HelVM.HelMA.Automaton.Instruction.Groups.SMInstruction
 
-import           HelVM.HelMA.Automaton.ShowList
-
 import           Data.List.Index
 import qualified Data.Vector                                            as Vector
+
+import           Prettyprinter                                          ( Pretty (pretty), (<+>) )
+import qualified Prettyprinter                                          as PP
+import qualified Prettyprinter.Render.Text                              as PP.Text
 
 -- | Types
 
@@ -23,19 +25,24 @@ data Instruction
 type InstructionList   = [Instruction]
 type InstructionVector = Vector.Vector Instruction
 
+-- | Pretty instance
+
+instance Pretty Instruction where
+  pretty (ISM i) = pretty $ printSM i
+  pretty (ICF i) = pretty $ printCF i
+  pretty (ILS i) = pretty $ toLowerShow i
+  pretty  End    = pretty $ toLowerShow End
+
 -- | print
 
-printIndexedIL ∷ InstructionList → Text
-printIndexedIL il = unlines $ printIndexedI <$> indexed il
+printIndexedIL ∷ InstructionList → LText
+printIndexedIL il = PP.Text.renderLazy $ PP.layoutCompact $ PP.vsep (printIndexedI <$> indexed il) <> PP.line
 
-printIndexedI ∷ (Int , Instruction) → Text
-printIndexedI (index , i) = printI i <> " # " <> show index
+printIndexedI ∷ (Int, Instruction) → PP.Doc ann
+printIndexedI (index, i) = pretty i <+> "#" <+> pretty index
 
-printIL ∷ [Instruction] → LText
-printIL = printListToLText printI
+printIL ∷ InstructionList → LText
+printIL il = PP.Text.renderLazy $ PP.layoutCompact $ PP.vsep (pretty <$> il) <> PP.line
 
-printI ∷ Instruction → Text
-printI (ISM i) = printSM i
-printI (ICF i) = printCF i
-printI (ILS i) = toLowerShow i
-printI  End    = toLowerShow End
+printI ∷ Instruction → LText
+printI i = PP.Text.renderLazy $ PP.layoutCompact $ pretty i <> PP.line

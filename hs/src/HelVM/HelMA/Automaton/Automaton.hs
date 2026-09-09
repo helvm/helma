@@ -60,5 +60,5 @@ runAutomat = trampolineMWithLimit nextState
 
 nextState ∷ (SRAutomatonEff Symbol s r m) ⇒ SF s r m
 nextState a = nextStateForInstruction =<< currentInstruction (memoryCM a) where
-  nextStateForInstruction i = appendErrorTuple ("Automaton.nextState" , showP a) $ appendErrorTuple ("program:" , printIndexedIL $ toList program) $ appendErrorTuple ("i:" , show i) $ runInstruction i $ incrementIC a where
+  nextStateForInstruction i = appendErrorTuple ("Automaton.nextState" , showP a) $ appendErrorTuple ("program:" , toText $ printIndexedIL $ toList program) $ appendErrorTuple ("i:" , show i) $ runInstruction i $ incrementIC a where
     program = memoryProgram a
