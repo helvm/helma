@@ -67,7 +67,7 @@ store
 cons 0
 callA "write"
 cons 100
-mio inputdec
+inputD
 cons 100
 load
 callA "fact"
@@ -81,11 +81,11 @@ callA "newline"
 end
 
 markA "fact"
-copyI 0
+copy I 0
 cons 1
 sub
 bEZA "factbase"
-copyI 0
+copy I 0
 cons 1
 sub
 callA "fact"
@@ -102,9 +102,9 @@ add
 return
 
 markA "write"
-copyI 0
+copy I 0
 load
-copyI 0
+copy I 0
 bEZA "write_end"
 outputCS
 cons 1
@@ -117,11 +117,11 @@ discard
 return
 
 markA "read"
-copyI 0
-copyI 0
-mio inputchar
+copy I 0
+copy I 0
+inputC
 load
-copyI 0
+copy I 0
 cons 10
 sub
 bEZA "read_end"

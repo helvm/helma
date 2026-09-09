@@ -4,6 +4,9 @@ import           HelVM.HelMA.Automaton.Instruction.Extras.TextExtra
 
 import           HelVM.HelIO.Collections.SList
 
+import           Prettyprinter                                      ( Pretty (pretty), (<+>) )
+import qualified Prettyprinter                                      as PP
+
 -- | Others
 
 isNotJump ∷ Integral e ⇒ BranchTest → e → Bool
@@ -16,6 +19,7 @@ isJump LTZ e = e <  0
 isJump GTZ e = e >  0
 
 -- | Types
+
 data CFInstruction
   = Mark !Mark
   | Branch !BranchOperand !BranchTest
@@ -60,32 +64,29 @@ data BranchTest
   | NE
   deriving stock (Eq, Read, Show)
 
--- | Internal
+-- | Pretty instances
 
-printCF ∷ CFInstruction → Text
-printCF (Mark     i)   = "\nmark" <> printMark i
-printCF (Branch i t)   = printBranchTest t <> printBranchOperand i
-printCF (Labeled  i o) = toLowerShow o <> printLabelOperand i
-printCF (Switch   ls)  = "switch" <> printLabelList ls
-printCF           i    = toLowerShow i
+instance Pretty CFInstruction where
+  pretty (Mark i)      = PP.line <> "mark" <> pretty i
+  pretty (Branch i t)  = pretty t <> pretty i
+  pretty (Labeled i o) = pretty (toLowerShow o) <> pretty i
+  pretty (Switch ls)   = "switch" <+> PP.hsep (PP.viaShow <$> toList ls)
+  pretty Return        = pretty (toLowerShow Return)
 
-printMark ∷ Mark → Text
-printMark (MNatural    i) = "M " <> show i
-printMark (MArtificial i) = "A " <> show i
+instance Pretty Mark where
+  pretty (MNatural i)    = "M" <+> pretty i
+  pretty (MArtificial i) = "A" <+> PP.viaShow i
 
-printLabelList ∷ NonEmpty Label → Text
-printLabelList = foldMap ((" " <>) . show)
+instance Pretty LabelOperand where
+  pretty LTop            = PP.emptyDoc
+  pretty (LImmediate i)  = "I" <+> pretty i
+  pretty (LArtificial i) = "A" <+> PP.viaShow i
 
-printBranchTest ∷ BranchTest → Text
-printBranchTest t = "b" <> show t
+instance Pretty BranchOperand where
+  pretty BTop            = PP.emptyDoc
+  pretty BSwapped        = "S"
+  pretty (BImmediate i)  = "I" <+> pretty i
+  pretty (BArtificial i) = "A" <+> PP.viaShow i
 
-printBranchOperand ∷ BranchOperand → Text
-printBranchOperand  BTop           = ""
-printBranchOperand  BSwapped       = "S"
-printBranchOperand (BImmediate  i) = "I " <> show i
-printBranchOperand (BArtificial i) = "A " <> show i
-
-printLabelOperand ∷ LabelOperand → Text
-printLabelOperand  LTop           = ""
-printLabelOperand (LImmediate  i) = "I " <> show i
-printLabelOperand (LArtificial i) = "A " <> show i
+instance Pretty BranchTest where
+  pretty t = "b" <> PP.viaShow t

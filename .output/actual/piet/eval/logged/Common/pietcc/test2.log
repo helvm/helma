@@ -1,66 +1,66 @@
 Error MTIndexSafe.indexSafe:
 ALU.copy
  [i: ISM (SPure (Indexed (IImmediate 0) Copy))]
- [program: storeid 0 0 # 0
+ [program: storeID 0 0 # 0
 
 markA "block_0" # 1
-loadd 0 # 2
+loadD 0 # 2
 bNEA "branch_0_rl" # 3
 cons 12 # 4
 jumpA "block_5" # 5
 
 markA "branch_0_rl" # 6
-loadd 0 # 7
+loadD 0 # 7
 subI 1 # 8
 bNEA "branch_0_rr" # 9
 cons 12 # 10
 jumpA "block_5" # 11
 
 markA "branch_0_rr" # 12
-loadd 0 # 13
+loadD 0 # 13
 subI 2 # 14
 bNEA "branch_0_dl" # 15
-storeid 1 0 # 16
+storeID 1 0 # 16
 cons 12 # 17
 jumpA "block_5" # 18
 
 markA "branch_0_dl" # 19
-loadd 0 # 20
+loadD 0 # 20
 subI 3 # 21
 bNEA "branch_0_dr" # 22
-storeid 0 0 # 23
+storeID 0 0 # 23
 cons 12 # 24
 jumpA "block_5" # 25
 
 markA "branch_0_dr" # 26
-loadd 0 # 27
+loadD 0 # 27
 subI 4 # 28
 bNEA "branch_0_ll" # 29
-storeid 0 0 # 30
+storeID 0 0 # 30
 cons 12 # 31
 jumpA "block_5" # 32
 
 markA "branch_0_ll" # 33
-loadd 0 # 34
+loadD 0 # 34
 subI 5 # 35
 bNEA "branch_0_lr" # 36
-storeid 1 0 # 37
+storeID 1 0 # 37
 cons 12 # 38
 jumpA "block_5" # 39
 
 markA "branch_0_lr" # 40
-loadd 0 # 41
+loadD 0 # 41
 subI 6 # 42
 bNEA "branch_0_ul" # 43
-storeid 1 0 # 44
+storeID 1 0 # 44
 cons 12 # 45
 jumpA "block_5" # 46
 
 markA "branch_0_ul" # 47
-loadd 0 # 48
+loadD 0 # 48
 subI 7 # 49
 bNEA "branch_0_ur" # 50
-storeid 0 0 # 51
+storeID 0 0 # 51
 cons 12 # 52
 jumpA "block_5" # 53
 
@@ -74,59 +74,59 @@ markA "block_3" # 58
 end # 59
 
 markA "block_4" # 60
-loadd 0 # 61
+loadD 0 # 61
 bNEA "branch_4_rl" # 62
-storeid 3 0 # 63
-copyI 0 # 64
+storeID 3 0 # 63
+copy I 0 # 64
 jumpA "block_5" # 65
 
 markA "branch_4_rl" # 66
-loadd 0 # 67
+loadD 0 # 67
 subI 1 # 68
 bNEA "branch_4_rr" # 69
-storeid 2 0 # 70
-copyI 0 # 71
+storeID 2 0 # 70
+copy I 0 # 71
 jumpA "block_5" # 72
 
 markA "branch_4_rr" # 73
-loadd 0 # 74
+loadD 0 # 74
 subI 2 # 75
 bNEA "branch_4_dl" # 76
-copyI 0 # 77
+copy I 0 # 77
 jumpA "block_5" # 78
 
 markA "branch_4_dl" # 79
-loadd 0 # 80
+loadD 0 # 80
 subI 3 # 81
 bNEA "branch_4_dr" # 82
-copyI 0 # 83
+copy I 0 # 83
 jumpA "block_5" # 84
 
 markA "branch_4_dr" # 85
-loadd 0 # 86
+loadD 0 # 86
 subI 4 # 87
 bNEA "branch_4_ll" # 88
-storeid 7 0 # 89
+storeID 7 0 # 89
 outputCMaybeS # 90
 jumpA "block_3" # 91
 
 markA "branch_4_ll" # 92
-loadd 0 # 93
+loadD 0 # 93
 subI 5 # 94
 bNEA "branch_4_lr" # 95
-storeid 6 0 # 96
+storeID 6 0 # 96
 outputCMaybeS # 97
 jumpA "block_3" # 98
 
 markA "branch_4_lr" # 99
-loadd 0 # 100
+loadD 0 # 100
 subI 6 # 101
 bNEA "branch_4_ul" # 102
 outputCMaybeS # 103
 jumpA "block_3" # 104
 
 markA "branch_4_ul" # 105
-loadd 0 # 106
+loadD 0 # 106
 subI 7 # 107
 bNEA "branch_4_ur" # 108
 outputCMaybeS # 109
@@ -136,59 +136,59 @@ markA "branch_4_ur" # 111
 end # 112
 
 markA "block_5" # 113
-loadd 0 # 114
+loadD 0 # 114
 bNEA "branch_5_rl" # 115
-storeid 1 0 # 116
+storeID 1 0 # 116
 discard # 117
 jumpA "block_6" # 118
 
 markA "branch_5_rl" # 119
-loadd 0 # 120
+loadD 0 # 120
 subI 1 # 121
 bNEA "branch_5_rr" # 122
 discard # 123
 jumpA "block_6" # 124
 
 markA "branch_5_rr" # 125
-loadd 0 # 126
+loadD 0 # 126
 subI 2 # 127
 bNEA "branch_5_dl" # 128
-storeid 4 0 # 129
+storeID 4 0 # 129
 discard # 130
 jumpA "block_0" # 131
 
 markA "branch_5_dl" # 132
-loadd 0 # 133
+loadD 0 # 133
 subI 3 # 134
 bNEA "branch_5_dr" # 135
-storeid 4 0 # 136
+storeID 4 0 # 136
 discard # 137
 jumpA "block_0" # 138
 
 markA "branch_5_dr" # 139
-loadd 0 # 140
+loadD 0 # 140
 subI 4 # 141
 bNEA "branch_5_ll" # 142
 discard # 143
 jumpA "block_0" # 144
 
 markA "branch_5_ll" # 145
-loadd 0 # 146
+loadD 0 # 146
 subI 5 # 147
 bNEA "branch_5_lr" # 148
-storeid 4 0 # 149
+storeID 4 0 # 149
 discard # 150
 jumpA "block_0" # 151
 
 markA "branch_5_lr" # 152
-loadd 0 # 153
+loadD 0 # 153
 subI 6 # 154
 bNEA "branch_5_ul" # 155
 div # 156
 jumpA "block_4" # 157
 
 markA "branch_5_ul" # 158
-loadd 0 # 159
+loadD 0 # 159
 subI 7 # 160
 bNEA "branch_5_ur" # 161
 div # 162
@@ -198,61 +198,61 @@ markA "branch_5_ur" # 164
 end # 165
 
 markA "block_6" # 166
-loadd 0 # 167
+loadD 0 # 167
 bNEA "branch_6_rl" # 168
-copyI 0 # 169
+copy I 0 # 169
 jumpA "block_2" # 170
 
 markA "branch_6_rl" # 171
-loadd 0 # 172
+loadD 0 # 172
 subI 1 # 173
 bNEA "branch_6_rr" # 174
-copyI 0 # 175
+copy I 0 # 175
 jumpA "block_2" # 176
 
 markA "branch_6_rr" # 177
-loadd 0 # 178
+loadD 0 # 178
 subI 2 # 179
 bNEA "branch_6_dl" # 180
-storeid 5 0 # 181
+storeID 5 0 # 181
 cons 2 # 182
 jumpA "block_5" # 183
 
 markA "branch_6_dl" # 184
-loadd 0 # 185
+loadD 0 # 185
 subI 3 # 186
 bNEA "branch_6_dr" # 187
-storeid 4 0 # 188
+storeID 4 0 # 188
 cons 2 # 189
 jumpA "block_5" # 190
 
 markA "branch_6_dr" # 191
-loadd 0 # 192
+loadD 0 # 192
 subI 4 # 193
 bNEA "branch_6_ll" # 194
 cons 2 # 195
 jumpA "block_5" # 196
 
 markA "branch_6_ll" # 197
-loadd 0 # 198
+loadD 0 # 198
 subI 5 # 199
 bNEA "branch_6_lr" # 200
 cons 2 # 201
 jumpA "block_5" # 202
 
 markA "branch_6_lr" # 203
-loadd 0 # 204
+loadD 0 # 204
 subI 6 # 205
 bNEA "branch_6_ul" # 206
-storeid 7 0 # 207
-copyI 0 # 208
+storeID 7 0 # 207
+copy I 0 # 208
 jumpA "block_2" # 209
 
 markA "branch_6_ul" # 210
-loadd 0 # 211
+loadD 0 # 211
 subI 7 # 212
 bNEA "branch_6_ur" # 213
-copyI 0 # 214
+copy I 0 # 214
 jumpA "block_2" # 215
 
 markA "branch_6_ur" # 216

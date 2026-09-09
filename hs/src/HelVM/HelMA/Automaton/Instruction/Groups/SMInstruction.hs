@@ -6,7 +6,8 @@ import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 import           HelVM.HelMA.Automaton.Instruction.Extras.TextExtra
 import           HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction
 
-import           HelVM.HelIO.Containers.Extra
+import           Prettyprinter                                          ( Pretty (pretty), (<+>) )
+import qualified Prettyprinter                                          as PP
 
 -- | Constructors
 
@@ -81,6 +82,7 @@ toBool ∷ Integral a ⇒ a → Bool
 toBool a = a /= 0
 
 -- | Types
+
 data SMInstruction
   = SPure !SPureInstruction
   | SIO !IOInstruction
@@ -138,26 +140,23 @@ data OperatorType
   = Bitwise
   | Logical
 
--- | Internal
+-- | Pretty instances
 
-printSM ∷ SMInstruction → Text
-printSM (SPure i) = printSPure i
-printSM (SIO   i) = printIO i <> "S"
+instance Pretty SMInstruction where
+  pretty (SPure i) = pretty i
+  pretty (SIO i)   = pretty i <> "S"
 
-printSPure ∷ SPureInstruction → Text
-printSPure (Unary    i  ) = printUnary i
-printSPure (Indexed  i o) = toLowerShow o <> printIndexOperand i
-printSPure (Binary   i  ) = toLowerShow i
-printSPure (Binaries i  ) = printBinaries i
-printSPure           i    = toLowerShow i
+instance Pretty SPureInstruction where
+  pretty (Unary i)      = pretty i
+  pretty (Binary i)     = pretty (toLowerShow i)
+  pretty (Binaries ops)=PP.hcat (pretty . toLowerShow <$> ops)
+  pretty (Indexed i o)  = pretty (toLowerShow o) <+> pretty i
+  pretty i              = pretty (toLowerShow i)
 
-printBinaries ∷ (Foldable c, Functor c, Show i) ⇒ c i → Text
-printBinaries il = fmconcat $ toLowerShow <$> il
+instance Pretty UnaryOperation where
+  pretty (UImmediate i o) = pretty (toLowerShow o) <> "I" <+> pretty i
+  pretty i                = pretty (toLowerShow i)
 
-printUnary ∷ UnaryOperation → Text
-printUnary (UImmediate i o) = toLowerShow o <> "I " <> show i
-printUnary             i    = toLowerShow i
-
-printIndexOperand ∷ IndexOperand → Text
-printIndexOperand ITop           = ""
-printIndexOperand (IImmediate i) = "I " <> show i
+instance Pretty IndexOperand where
+  pretty ITop           = PP.emptyDoc
+  pretty (IImmediate i) = "I" <+> pretty i

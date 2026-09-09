@@ -1,26 +1,26 @@
 
 markM 1
-moveI 2
-moveI 2
+move I 2
+move I 2
 
 markM 2
-copyI 0
+copy I 0
 bNEI 5
 jumpI 10
 
 markM 5
-copyI 1
+copy I 1
 moddiv
 
 markA "6"
-moveI 1
+move I 1
 discard
-moveI 1
+move I 1
 jumpI 2
 
 markM 10
 bNEI 0
-moveI 1
+move I 1
 jump
 
 markM 0

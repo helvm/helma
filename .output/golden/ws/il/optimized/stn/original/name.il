@@ -1,35 +1,35 @@
-storeid 80 0
-storeid 108 1
-storeid 101 2
-storeid 97 3
-storeid 115 4
-storeid 101 5
-storeid 32 6
-storeid 101 7
-storeid 110 8
-storeid 116 9
-storeid 101 10
-storeid 114 11
-storeid 32 12
-storeid 121 13
-storeid 111 14
-storeid 117 15
-storeid 114 16
-storeid 32 17
-storeid 110 18
-storeid 97 19
-storeid 109 20
-storeid 101 21
-storeid 58 22
-storeid 32 23
-storeid 0 24
-storeid 72 30
-storeid 101 31
-storeid 108 32
-storeid 108 33
-storeid 111 34
-storeid 32 35
-storeid 0 36
+storeID 80 0
+storeID 108 1
+storeID 101 2
+storeID 97 3
+storeID 115 4
+storeID 101 5
+storeID 32 6
+storeID 101 7
+storeID 110 8
+storeID 116 9
+storeID 101 10
+storeID 114 11
+storeID 32 12
+storeID 121 13
+storeID 111 14
+storeID 117 15
+storeID 114 16
+storeID 32 17
+storeID 110 18
+storeID 97 19
+storeID 109 20
+storeID 101 21
+storeID 58 22
+storeID 32 23
+storeID 0 24
+storeID 72 30
+storeID 101 31
+storeID 108 32
+storeID 108 33
+storeID 111 34
+storeID 32 35
+storeID 0 36
 cons 0
 callA "write"
 cons 100
@@ -46,9 +46,9 @@ add
 return
 
 markA "write"
-copyI 0
+copy I 0
 load
-copyI 0
+copy I 0
 bEZA "write_end"
 outputCS
 addI 1
@@ -60,11 +60,11 @@ discard
 return
 
 markA "read"
-copyI 0
-copyI 0
-mio inputchar
+copy I 0
+copy I 0
+inputC
 load
-copyI 0
+copy I 0
 subI 10
 bEZA "read_end"
 discard
@@ -74,7 +74,7 @@ jumpA "read"
 markA "read_end"
 discard
 addI 1
-storei 0
+storeI 0
 return
 
 markA "newline"

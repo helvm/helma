@@ -3,10 +3,10 @@ markM 1
 jumpI 31
 
 markM 2
-moveI 1
+move I 1
 
 markM 3
-copyI 0
+copy I 0
 bNEI 6
 discard
 jump
@@ -17,8 +17,8 @@ jumpI 2
 
 markM 8
 cons 0
-moveI 2
-copyI 0
+move I 2
+copy I 0
 bNEI 11
 
 markM 10
@@ -28,7 +28,7 @@ bNE
 jump
 
 markM 11
-copyI 0
+copy I 0
 bNEI 14
 discard
 jumpI 18
@@ -39,7 +39,7 @@ moddiv
 
 markA "14"
 subI -48
-moveI 1
+move I 1
 jumpI 11
 
 markM 18
@@ -50,7 +50,7 @@ markM 19
 jump
 
 markM 21
-moveI 1
+move I 1
 cons 23
 jumpI 8
 
@@ -79,7 +79,7 @@ markM 25
 jump
 
 markM 26
-moveI 1
+move I 1
 cons 28
 jumpI 21
 
@@ -107,7 +107,7 @@ markM 31
 cons 3
 
 markM 32
-copyI 0
+copy I 0
 cons 33
 jumpI 26
 
@@ -116,7 +116,7 @@ cons 44
 outputCS
 cons 32
 outputCS
-copyI 0
+copy I 0
 cons 35
 jumpI 21
 
@@ -159,7 +159,7 @@ jumpI 2
 
 markM 38
 subI 1
-copyI 0
+copy I 0
 cons 40
 jumpI 26
 
@@ -168,7 +168,7 @@ cons 10
 cons 10
 outputCS
 outputCS
-copyI 0
+copy I 0
 bNEI 32
 bNEI 0
 

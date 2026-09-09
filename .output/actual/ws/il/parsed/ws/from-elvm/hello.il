@@ -380,15 +380,15 @@ end
 end
 
 markA "01000"
-copyI 0
+copy I 0
 cons 4
 sub
 bLTZA "01111"
-copyI 0
+copy I 0
 cons 6
 sub
 bLTZA "010001"
-copyI 0
+copy I 0
 cons 7
 sub
 bLTZA "010010"
@@ -400,7 +400,7 @@ discard
 jumpA "0110"
 
 markA "010001"
-copyI 0
+copy I 0
 cons 5
 sub
 bLTZA "010000"
@@ -412,11 +412,11 @@ discard
 jumpA "0100"
 
 markA "01111"
-copyI 0
+copy I 0
 cons 2
 sub
 bLTZA "01101"
-copyI 0
+copy I 0
 cons 3
 sub
 bLTZA "01110"
@@ -428,7 +428,7 @@ discard
 jumpA "010"
 
 markA "01101"
-copyI 0
+copy I 0
 cons 1
 sub
 bLTZA "01100"

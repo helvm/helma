@@ -52,11 +52,11 @@ store
 cons 0
 callA "write"
 cons 100
-mio inputdec
+inputD
 cons 0
 callA "write"
 cons 101
-mio inputdec
+inputD
 cons 100
 load
 cons 101
@@ -66,10 +66,10 @@ outputDS
 end
 
 markA "loctest"
-copyI 0
-copyI 2
+copy I 0
+copy I 2
 add
-slideI 2
+slide I 2
 return
 
 markA "add"
@@ -77,9 +77,9 @@ add
 return
 
 markA "write"
-copyI 0
+copy I 0
 load
-copyI 0
+copy I 0
 bEZA "write_end"
 outputCS
 cons 1
@@ -92,11 +92,11 @@ discard
 return
 
 markA "read"
-copyI 0
-copyI 0
-mio inputchar
+copy I 0
+copy I 0
+inputC
 load
-copyI 0
+copy I 0
 cons 10
 sub
 bEZA "read_end"

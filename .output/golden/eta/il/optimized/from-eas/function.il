@@ -1,11 +1,11 @@
 
 markM 1
-moveI 2
+move I 2
 
 markM 2
-moveI 2
+move I 2
 add
-moveI 1
+move I 1
 jump
 
 markM 0

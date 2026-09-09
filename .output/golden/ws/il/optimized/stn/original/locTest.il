@@ -1,39 +1,39 @@
-storeid 69 0
-storeid 110 1
-storeid 116 2
-storeid 101 3
-storeid 114 4
-storeid 32 5
-storeid 97 6
-storeid 32 7
-storeid 110 8
-storeid 117 9
-storeid 109 10
-storeid 98 11
-storeid 101 12
-storeid 114 13
-storeid 58 14
-storeid 32 15
-storeid 0 16
+storeID 69 0
+storeID 110 1
+storeID 116 2
+storeID 101 3
+storeID 114 4
+storeID 32 5
+storeID 97 6
+storeID 32 7
+storeID 110 8
+storeID 117 9
+storeID 109 10
+storeID 98 11
+storeID 101 12
+storeID 114 13
+storeID 58 14
+storeID 32 15
+storeID 0 16
 cons 0
 callA "write"
 cons 100
-mio inputdec
+inputD
 cons 0
 callA "write"
 cons 101
-mio inputdec
-loadd 100
-loadd 101
+inputD
+loadD 100
+loadD 101
 callA "loctest"
 outputDS
 end
 
 markA "loctest"
-copyI 0
-copyI 2
+copy I 0
+copy I 2
 add
-slideI 2
+slide I 2
 return
 
 markA "add"
@@ -41,9 +41,9 @@ add
 return
 
 markA "write"
-copyI 0
+copy I 0
 load
-copyI 0
+copy I 0
 bEZA "write_end"
 outputCS
 addI 1
@@ -55,11 +55,11 @@ discard
 return
 
 markA "read"
-copyI 0
-copyI 0
-mio inputchar
+copy I 0
+copy I 0
+inputC
 load
-copyI 0
+copy I 0
 subI 10
 bEZA "read_end"
 discard
@@ -69,7 +69,7 @@ jumpA "read"
 markA "read_end"
 discard
 addI 1
-storei 0
+storeI 0
 return
 
 markA "newline"

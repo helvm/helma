@@ -28,10 +28,10 @@ type InstructionVector = Vector.Vector Instruction
 -- | Pretty instance
 
 instance Pretty Instruction where
-  pretty (ISM i) = pretty $ printSM i
-  pretty (ICF i) = pretty $ printCF i
-  pretty (ILS i) = pretty $ toLowerShow i
-  pretty  End    = pretty $ toLowerShow End
+  pretty (ISM i) = pretty i
+  pretty (ILS i) = pretty i
+  pretty (ICF i) = pretty i
+  pretty  End    = pretty (toLowerShow End)
 
 -- | print
 

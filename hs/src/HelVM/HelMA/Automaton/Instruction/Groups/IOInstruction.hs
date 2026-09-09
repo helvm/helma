@@ -1,6 +1,6 @@
 module HelVM.HelMA.Automaton.Instruction.Groups.IOInstruction where
 
-import           HelVM.HelMA.Automaton.Instruction.Extras.Common
+import           Prettyprinter ( Pretty (pretty) )
 
 -- | Types
 
@@ -13,12 +13,17 @@ data IOInstruction
   | InputDec
   deriving stock (Eq, Read, Show)
 
--- | Type Classes
+-- | Pretty instance
 
-instance PrintAsm IOInstruction where
-  printAsm = printIO
+instance Pretty IOInstruction where
+  pretty OutputChar      = "outputC"
+  pretty OutputDec       = "outputD"
+  pretty OutputCharMaybe = "outputCMaybe"
+  pretty OutputDecMaybe  = "outputDMaybe"
+  pretty InputChar       = "inputC"
+  pretty InputDec        = "inputD"
 
--- | Internal
+-- | Internal (opcjonalny wrapper, jeśli nadal używasz printIO w innych miejscach)
 
 printIO ∷ IOInstruction → Text
 printIO OutputChar      = "outputC"

@@ -1,7 +1,7 @@
 cons 3
 
 markA "LOOP"
-copyI 0
+copy I 0
 outputDS
 cons 0
 cons 32
@@ -35,7 +35,7 @@ cons 111
 cons 98
 cons 32
 callA "prints"
-copyI 0
+copy I 0
 outputDS
 cons 0
 cons 114
@@ -87,7 +87,7 @@ cons 97
 cons 84
 callA "printsln"
 subI 1
-copyI 0
+copy I 0
 outputDS
 cons 0
 cons 108
@@ -121,7 +121,7 @@ cons 32
 callA "printsln"
 cons 0
 callA "printsln"
-copyI 0
+copy I 0
 bEZA "LOOP:1"
 jumpA "LOOP"
 
@@ -129,7 +129,7 @@ markA "LOOP:1"
 end
 
 markA "prints"
-copyI 0
+copy I 0
 bEZA "prints_end"
 outputCS
 jumpA "prints"

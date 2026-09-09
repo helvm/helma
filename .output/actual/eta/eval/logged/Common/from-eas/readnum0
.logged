@@ -7,77 +7,77 @@ markM 1 # 0
 inputCS # 1
 
 markM 2 # 2
-copyI 0 # 3
+copy I 0 # 3
 subI 32 # 4
 bNEI 5 # 5
 bNEI 1 # 6
 
 markM 5 # 7
 cons 0 # 8
-moveI 1 # 9
+move I 1 # 9
 
 markM 6 # 10
 subI 48 # 11
-moveI 1 # 12
+move I 1 # 12
 cons 10 # 13
 cons 9 # 14
 jumpI 19 # 15
 
 markM 9 # 16
 cons 0 # 17
-moveI 1 # 18
+move I 1 # 18
 
 markM 10 # 19
 sub # 20
 sub # 21
 inputCS # 22
-copyI 0 # 23
+copy I 0 # 23
 subI 32 # 24
 bNEI 14 # 25
 jumpI 17 # 26
 
 markM 14 # 27
-copyI 0 # 28
+copy I 0 # 28
 subI 10 # 29
 bNEI 16 # 30
 jumpI 17 # 31
 
 markM 16 # 32
-copyI 0 # 33
+copy I 0 # 33
 subI -1 # 34
 bNEI 6 # 35
 
 markM 17 # 36
 discard # 37
-moveI 1 # 38
+move I 1 # 38
 jump # 39
 
 markM 19 # 40
-moveI 2 # 41
-moveI 2 # 42
+move I 2 # 41
+move I 2 # 42
 cons 0 # 43
-moveI 2 # 44
-moveI 2 # 45
+move I 2 # 44
+move I 2 # 45
 
 markM 23 # 46
-copyI 0 # 47
+copy I 0 # 47
 bNEI 26 # 48
 jumpI 33 # 49
 
 markM 26 # 50
 subI 1 # 51
-moveI 2 # 52
-copyI 2 # 53
+move I 2 # 52
+copy I 2 # 53
 add # 54
-moveI 2 # 55
-moveI 2 # 56
+move I 2 # 55
+move I 2 # 56
 
 markM 32 # 57
 jumpI 23 # 58
 
 markM 33 # 59
 bNES # 60
-moveI 1 # 61
+move I 1 # 61
 jump # 62
 
 markM 0 # 63
