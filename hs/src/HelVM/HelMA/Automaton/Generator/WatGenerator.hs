@@ -111,6 +111,12 @@ genLSInstruction (MoveD src dst) = vsep
   , "i32.load"
   , "i32.store"
   ]
+genLSInstruction (LoadSubDI src val) = vsep
+  [ "i32.const" <+> pretty src
+  , "i32.load"
+  , "i32.const" <+> pretty val
+  , "i32.sub"
+  ]
 genLSInstruction (MIO ioInst) = genIOInstruction ioInst
 
 -- | 3. Generowanie instrukcji Sterowania (CPU)

@@ -10,6 +10,7 @@ import           Prettyprinter                                          ( Pretty
 data LSInstruction
   = Load --Restore --Fetch
   | LoadD !ImmediateIndex
+  | LoadSubDI ImmediateIndex Integer
   | Store --Save
   | RStore --Save
   | StoreI Integer
@@ -24,6 +25,7 @@ data LSInstruction
 instance Pretty LSInstruction where
   pretty Load            = pretty (toLowerShow Load)
   pretty (LoadD i)       = "loadD" <+> pretty i
+  pretty (LoadSubDI i v) = "loadsubDI" <+> pretty i <+> pretty v
   pretty Store           = pretty (toLowerShow Store)
   pretty RStore          = pretty (toLowerShow RStore)
   pretty (StoreI i)      = "storeI" <+> pretty i
