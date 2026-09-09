@@ -1885,7 +1885,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_46"
 
 markA "branch_30_rl"
@@ -1898,7 +1898,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_46"
 
 markA "branch_30_rr"
@@ -1910,7 +1910,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_46"
 
 markA "branch_30_dl"
@@ -1922,7 +1922,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_46"
 
 markA "branch_30_dr"
@@ -1949,7 +1949,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_46"
 
 markA "branch_30_ul"
@@ -1962,7 +1962,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_46"
 
 markA "branch_30_ur"

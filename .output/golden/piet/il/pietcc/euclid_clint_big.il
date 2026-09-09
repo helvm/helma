@@ -689,7 +689,7 @@ bNEA "branch_16_rl"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_12"
 
 markA "branch_16_rl"
@@ -699,7 +699,7 @@ bNEA "branch_16_rr"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_12"
 
 markA "branch_16_rr"
@@ -740,7 +740,7 @@ storeID 1 0
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_12"
 
 markA "branch_16_ul"
@@ -751,7 +751,7 @@ storeID 0 0
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_12"
 
 markA "branch_16_ur"

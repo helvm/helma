@@ -27,7 +27,7 @@ instance Pretty LSInstruction where
   pretty Store           = pretty (toLowerShow Store)
   pretty RStore          = pretty (toLowerShow RStore)
   pretty (StoreI i)      = "storeI" <+> pretty i
-  pretty (RStoreD i)     = "rStoreD" <+> pretty i
+  pretty (RStoreD i)     = "rstoreD" <+> pretty i
   pretty (StoreID v i)   = "storeID" <+> pretty v <+> pretty i
   pretty (MoveD src dst) = "moveD" <+> pretty src <+> pretty dst
   pretty (MIO i)         = pretty i

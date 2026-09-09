@@ -495,7 +495,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_11"
 
 markA "branch_10_rl"
@@ -507,7 +507,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_11"
 
 markA "branch_10_rr"
@@ -548,7 +548,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_11"
 
 markA "branch_10_ul"
@@ -561,7 +561,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_11"
 
 markA "branch_10_ur"
@@ -601,7 +601,7 @@ bNEA "branch_11_ll"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_10"
 
 markA "branch_11_ll"
@@ -611,7 +611,7 @@ bNEA "branch_11_lr"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_10"
 
 markA "branch_11_lr"
@@ -1226,7 +1226,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_24"
 
 markA "branch_23_rl"
@@ -1238,7 +1238,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_24"
 
 markA "branch_23_rr"
@@ -1279,7 +1279,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_24"
 
 markA "branch_23_ul"
@@ -1292,7 +1292,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_24"
 
 markA "branch_23_ur"
@@ -1330,7 +1330,7 @@ bNEA "branch_24_ll"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_23"
 
 markA "branch_24_ll"
@@ -1340,7 +1340,7 @@ bNEA "branch_24_lr"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_23"
 
 markA "branch_24_lr"
@@ -1672,7 +1672,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_40"
 
 markA "branch_33_rr"
@@ -2047,7 +2047,7 @@ bNEA "branch_40_lr"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_33"
 
 markA "branch_40_lr"

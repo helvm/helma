@@ -23,7 +23,7 @@ bNEA "branch_0_dl" # 15
 modI 2 # 16
 loadD 0 # 17
 bxor # 18
-rStoreD 0 # 19
+rstoreD 0 # 19
 jumpA "block_9" # 20
 
 markA "branch_0_dl" # 21
@@ -33,7 +33,7 @@ bNEA "branch_0_dr" # 24
 modI 2 # 25
 loadD 0 # 26
 bxor # 27
-rStoreD 0 # 28
+rstoreD 0 # 28
 jumpA "block_9" # 29
 
 markA "branch_0_dr" # 30
@@ -145,7 +145,7 @@ mulI 2 # 120
 loadD 0 # 121
 add # 122
 modI 8 # 123
-rStoreD 0 # 124
+rstoreD 0 # 124
 jumpA "block_11" # 125
 
 markA "branch_2_rr" # 126
@@ -186,7 +186,7 @@ mulI 2 # 156
 loadD 0 # 157
 add # 158
 modI 8 # 159
-rStoreD 0 # 160
+rstoreD 0 # 160
 jumpA "block_11" # 161
 
 markA "branch_2_ul" # 162
@@ -207,7 +207,7 @@ mulI 2 # 174
 loadD 0 # 175
 add # 176
 modI 8 # 177
-rStoreD 0 # 178
+rstoreD 0 # 178
 jumpA "block_5" # 179
 
 markA "branch_4_rl" # 180
@@ -219,7 +219,7 @@ mulI 2 # 185
 loadD 0 # 186
 add # 187
 modI 8 # 188
-rStoreD 0 # 189
+rstoreD 0 # 189
 jumpA "block_5" # 190
 
 markA "branch_4_rr" # 191
@@ -256,7 +256,7 @@ mulI 2 # 217
 loadD 0 # 218
 add # 219
 modI 8 # 220
-rStoreD 0 # 221
+rstoreD 0 # 221
 jumpA "block_5" # 222
 
 markA "branch_4_ul" # 223
@@ -269,7 +269,7 @@ mulI 2 # 229
 loadD 0 # 230
 add # 231
 modI 8 # 232
-rStoreD 0 # 233
+rstoreD 0 # 233
 jumpA "block_5" # 234
 
 markA "branch_4_ur" # 235
@@ -307,7 +307,7 @@ bNEA "branch_5_ll" # 261
 modI 2 # 262
 loadD 0 # 263
 bxor # 264
-rStoreD 0 # 265
+rstoreD 0 # 265
 jumpA "block_4" # 266
 
 markA "branch_5_ll" # 267
@@ -317,7 +317,7 @@ bNEA "branch_5_lr" # 270
 modI 2 # 271
 loadD 0 # 272
 bxor # 273
-rStoreD 0 # 274
+rstoreD 0 # 274
 jumpA "block_4" # 275
 
 markA "branch_5_lr" # 276
@@ -345,7 +345,7 @@ mulI 2 # 294
 loadD 0 # 295
 add # 296
 modI 8 # 297
-rStoreD 0 # 298
+rstoreD 0 # 298
 jumpA "block_10" # 299
 
 markA "branch_9_rl" # 300
@@ -357,7 +357,7 @@ mulI 2 # 305
 loadD 0 # 306
 add # 307
 modI 8 # 308
-rStoreD 0 # 309
+rstoreD 0 # 309
 jumpA "block_10" # 310
 
 markA "branch_9_rr" # 311
@@ -384,7 +384,7 @@ mulI 2 # 329
 loadD 0 # 330
 add # 331
 modI 8 # 332
-rStoreD 0 # 333
+rstoreD 0 # 333
 jumpA "block_0" # 334
 
 markA "branch_9_ll" # 335
@@ -397,7 +397,7 @@ mulI 2 # 341
 loadD 0 # 342
 add # 343
 modI 8 # 344
-rStoreD 0 # 345
+rstoreD 0 # 345
 jumpA "block_0" # 346
 
 markA "branch_9_lr" # 347
@@ -409,7 +409,7 @@ mulI 2 # 352
 loadD 0 # 353
 add # 354
 modI 8 # 355
-rStoreD 0 # 356
+rstoreD 0 # 356
 jumpA "block_0" # 357
 
 markA "branch_9_ul" # 358
@@ -421,7 +421,7 @@ mulI 2 # 363
 loadD 0 # 364
 add # 365
 modI 8 # 366
-rStoreD 0 # 367
+rstoreD 0 # 367
 jumpA "block_0" # 368
 
 markA "branch_9_ur" # 369
@@ -459,7 +459,7 @@ bNEA "branch_10_ll" # 395
 modI 2 # 396
 loadD 0 # 397
 bxor # 398
-rStoreD 0 # 399
+rstoreD 0 # 399
 jumpA "block_9" # 400
 
 markA "branch_10_ll" # 401
@@ -469,7 +469,7 @@ bNEA "branch_10_lr" # 404
 modI 2 # 405
 loadD 0 # 406
 bxor # 407
-rStoreD 0 # 408
+rstoreD 0 # 408
 jumpA "block_9" # 409
 
 markA "branch_10_lr" # 410
@@ -519,7 +519,7 @@ bNEA "branch_11_ll" # 446
 modI 2 # 447
 loadD 0 # 448
 bxor # 449
-rStoreD 0 # 450
+rstoreD 0 # 450
 jumpA "block_2" # 451
 
 markA "branch_11_ll" # 452
@@ -529,7 +529,7 @@ bNEA "branch_11_lr" # 455
 modI 2 # 456
 loadD 0 # 457
 bxor # 458
-rStoreD 0 # 459
+rstoreD 0 # 459
 jumpA "block_2" # 460
 
 markA "branch_11_lr" # 461
@@ -621,7 +621,7 @@ bNEA "branch_14_dl" # 532
 modI 2 # 533
 loadD 0 # 534
 bxor # 535
-rStoreD 0 # 536
+rstoreD 0 # 536
 jumpA "block_16" # 537
 
 markA "branch_14_dl" # 538
@@ -631,7 +631,7 @@ bNEA "branch_14_dr" # 541
 modI 2 # 542
 loadD 0 # 543
 bxor # 544
-rStoreD 0 # 545
+rstoreD 0 # 545
 jumpA "block_16" # 546
 
 markA "branch_14_dr" # 547
@@ -863,7 +863,7 @@ bNEA "branch_18_ll" # 736
 modI 2 # 737
 loadD 0 # 738
 bxor # 739
-rStoreD 0 # 740
+rstoreD 0 # 740
 jumpA "block_16" # 741
 
 markA "branch_18_ll" # 742
@@ -873,7 +873,7 @@ bNEA "branch_18_lr" # 745
 modI 2 # 746
 loadD 0 # 747
 bxor # 748
-rStoreD 0 # 749
+rstoreD 0 # 749
 jumpA "block_16" # 750
 
 markA "branch_18_lr" # 751
@@ -928,7 +928,7 @@ mulI 2 # 792
 loadD 0 # 793
 add # 794
 modI 8 # 795
-rStoreD 0 # 796
+rstoreD 0 # 796
 jumpA "block_16" # 797
 
 markA "branch_20_ll" # 798
@@ -940,7 +940,7 @@ mulI 2 # 803
 loadD 0 # 804
 add # 805
 modI 8 # 806
-rStoreD 0 # 807
+rstoreD 0 # 807
 jumpA "block_16" # 808
 
 markA "branch_20_lr" # 809

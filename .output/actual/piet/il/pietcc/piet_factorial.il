@@ -316,7 +316,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_6"
 
 markA "branch_5_rl"
@@ -328,7 +328,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_6"
 
 markA "branch_5_rr"
@@ -371,7 +371,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_6"
 
 markA "branch_5_ul"
@@ -384,7 +384,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_6"
 
 markA "branch_5_ur"
@@ -420,7 +420,7 @@ bNEA "branch_6_ll"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_5"
 
 markA "branch_6_ll"
@@ -430,7 +430,7 @@ bNEA "branch_6_lr"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_5"
 
 markA "branch_6_lr"
@@ -1428,7 +1428,7 @@ storeID 3 0
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_39"
 
 markA "branch_36_rl"
@@ -1439,7 +1439,7 @@ storeID 2 0
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_39"
 
 markA "branch_36_rr"
@@ -1449,7 +1449,7 @@ bNEA "branch_36_dl"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_39"
 
 markA "branch_36_dl"
@@ -1459,7 +1459,7 @@ bNEA "branch_36_dr"
 modI 2
 loadD 0
 bxor
-rStoreD 0
+rstoreD 0
 jumpA "block_39"
 
 markA "branch_36_dr"
@@ -1603,7 +1603,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_36"
 
 markA "branch_39_ul"
@@ -1615,7 +1615,7 @@ mulI 2
 loadD 0
 add
 modI 8
-rStoreD 0
+rstoreD 0
 jumpA "block_36"
 
 markA "branch_39_ur"
