@@ -39,14 +39,8 @@ load (LSM s r) = appendError "LSM.load" $ build =<< pop1 s where
 loadD ∷ LSU m s r element ⇒ ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
 loadD address = loadPure (fromIntegral address)
 
-loadSubDI ∷ LSU m s r element ⇒  ImmediateIndex → Integer → LoadStoreMemory s r → m $ LoadStoreMemory s r
-loadSubDI address value = sub' <=< push' value <=< loadD address
-
-push' ∷ LSU m s r element ⇒ Integer → LoadStoreMemory s r → m $ LoadStoreMemory s r
-push' value (LSM s r) = go <$> push value s where go s' = LSM s' r
-
-sub' ∷ LSU m s r element ⇒ LoadStoreMemory s r → m $ LoadStoreMemory s r
-sub' (LSM s r) = go <$> sub s where go s' = LSM s' r
+loadSubDI ∷ LSU m s r element ⇒ ImmediateIndex → Integer → LoadStoreMemory s r → m $ LoadStoreMemory s r
+loadSubDI address value (LSM s r) = pure $ LSM (push1 (RAM.genericLoad r address - fromIntegral value) s) r
 
 loadPure ∷ LSU m s r element ⇒ element → LoadStoreMemory s r → m $ LoadStoreMemory s r
 loadPure address (LSM s r) = pure $ LSM (push1 (RAM.genericLoad r address) s) r
