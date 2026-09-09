@@ -90,6 +90,9 @@ common common-options
     UnicodeSyntax
     DuplicateRecordFields
     OverloadedRecordDot
+  ghc-options:
+    -fprof-auto
+    -fprof-cafs
   if flag(ghcoptions)
     ghc-options:
       -Wall
@@ -335,8 +338,6 @@ library
     , vector
     , yjtools
 
-  ghc-options:
-
 executable helma
   import:              common-options
   hs-source-dirs:      hs/app
@@ -351,7 +352,7 @@ executable helma
   ghc-options:
     -threaded
     -rtsopts
-    -with-rtsopts=-N
+    "-with-rtsopts=-N -p -s"
 
 test-suite helma-test
   import:              common-options
@@ -449,38 +450,25 @@ test-suite helma-test
   ghc-options:
     -threaded
     -rtsopts
-    -with-rtsopts=-N
+    "-with-rtsopts=-N -p -s"
 
---benchmark helma-benchmark
---  import:              common-options
---  type:                exitcode-stdio-1.0
---  hs-source-dirs:      hs/benchmark
---  main-is:             Main.hs
---  other-modules:
+benchmark helma-benchmark
+  import:              common-options
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      hs/benchmark
+  main-is:             Main.hs
+  other-modules:
 
---    HelVM.HelMA.Automata.FileExtra
+    HelVM.HelMA.Automata.FileExtra
 
---    HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark
---    HelVM.HelMA.Automata.BrainFuck.FileExtra
+    HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark
+    HelVM.HelMA.Automata.BrainFuck.FileExtra
 
---    HelVM.HelMA.Automata.ETA.EvaluatorBenchMark
---    HelVM.HelMA.Automata.ETA.FileExtra
+    HelVM.HelMA.Automata.ETA.EvaluatorBenchMark
+    HelVM.HelMA.Automata.ETA.FileExtra
 
---    HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark
---    HelVM.HelMA.Automata.SubLeq.FileExtra
+    HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark
+    HelVM.HelMA.Automata.SubLeq.FileExtra
 
---    HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark
---    HelVM.HelMA.Automata.WhiteSpace.FileExtra
-
---  build-depends:
---      gauge
-
---    , helio
---    , helma
-
---    , filepath
-
---  ghc-options:
---    -threaded
---    -rtsopts
---    -with-rtsopts=-N
+    HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark
+    HelVM.HelMA.Automata.WhiteSpace.FileExtra
