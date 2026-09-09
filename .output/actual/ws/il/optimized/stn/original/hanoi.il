@@ -50,8 +50,7 @@ loadD 100
 loadD 101
 loadD 102
 loadD 103
-loadD 100
-subI 1
+loadsubDI 100 1
 loadD 101
 loadD 103
 loadD 102
@@ -79,8 +78,7 @@ loadD 100
 loadD 101
 loadD 102
 loadD 103
-loadD 100
-subI 1
+loadsubDI 100 1
 loadD 103
 loadD 102
 loadD 101

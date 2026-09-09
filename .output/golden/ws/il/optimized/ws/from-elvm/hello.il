@@ -39,8 +39,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store

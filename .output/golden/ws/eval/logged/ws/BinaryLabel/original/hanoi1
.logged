@@ -140,13 +140,7 @@ Info Memory
             , ILS
                 ( LoadD 103 )
             , ILS
-                ( LoadD 100 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 100 1 )
             , ILS
                 ( LoadD 101 )
             , ILS
@@ -228,13 +222,7 @@ Info Memory
             , ILS
                 ( LoadD 103 )
             , ILS
-                ( LoadD 100 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 100 1 )
             , ILS
                 ( LoadD 103 )
             , ILS

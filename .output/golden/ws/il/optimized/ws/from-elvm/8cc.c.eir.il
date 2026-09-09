@@ -10970,8 +10970,7 @@ markA "010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 52
+loadsubDI 5 52
 addI 16777216
 modI 16777216
 store
@@ -12491,8 +12490,7 @@ store
 markA "01101100"
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -12707,8 +12705,7 @@ markA "01111111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 53
+loadsubDI 5 53
 addI 16777216
 modI 16777216
 store
@@ -14034,8 +14031,7 @@ store
 markA "011011100"
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -14155,8 +14151,7 @@ markA "011100111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -14343,8 +14338,7 @@ markA "011110110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -16646,8 +16640,7 @@ markA "0110001111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -17118,8 +17111,7 @@ markA "0110110111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 7
+loadsubDI 5 7
 addI 16777216
 modI 16777216
 store
@@ -21475,8 +21467,7 @@ store
 
 markA "01100000000"
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -21890,8 +21881,7 @@ markA "01100100010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 32
+loadsubDI 5 32
 addI 16777216
 modI 16777216
 store
@@ -22168,8 +22158,7 @@ markA "01100110110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -22386,8 +22375,7 @@ store
 
 markA "01101000101"
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -22950,8 +22938,7 @@ store
 
 markA "01101110000"
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -23086,8 +23073,7 @@ markA "01101111101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -23477,8 +23463,7 @@ markA "01110011100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -23950,8 +23935,7 @@ markA "01111000001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -24225,8 +24209,7 @@ markA "01111010111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -24677,8 +24660,7 @@ markA "01111111110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -25895,8 +25877,7 @@ markA "010001100011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -26246,8 +26227,7 @@ markA "010001111111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -27724,8 +27704,7 @@ markA "010011101101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -28461,8 +28440,7 @@ store
 
 markA "010100100100"
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -28625,8 +28603,7 @@ markA "010100110001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -29277,8 +29254,7 @@ store
 
 markA "010101100000"
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -29534,8 +29510,7 @@ store
 
 markA "010101110011"
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -29803,8 +29778,7 @@ markA "010110001000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 37
+loadsubDI 5 37
 addI 16777216
 modI 16777216
 store
@@ -30557,8 +30531,7 @@ markA "010111000001"
 jumpA "010111000011"
 
 markA "010111000010"
-loadD 0
-subI 100
+loadsubDI 0 100
 bEZA "0110110010100110"
 jumpA "0110110010100101"
 
@@ -30808,8 +30781,7 @@ markA "010111010100"
 jumpA "010111010110"
 
 markA "010111010101"
-loadD 0
-subI 120
+loadsubDI 0 120
 bEZA "0110110010101001"
 jumpA "0110110010101000"
 
@@ -31059,8 +31031,7 @@ markA "010111100111"
 jumpA "010111101001"
 
 markA "010111101000"
-loadD 0
-subI 115
+loadsubDI 0 115
 bEZA "0110110010101100"
 jumpA "0110110010101011"
 
@@ -31131,8 +31102,7 @@ markA "010111101110"
 jumpA "010111110000"
 
 markA "010111101111"
-loadD 0
-subI 99
+loadsubDI 0 99
 bEZA "0110110010101111"
 jumpA "0110110010101110"
 
@@ -32619,8 +32589,7 @@ markA "011001100011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -32883,8 +32852,7 @@ markA "011001111000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -33121,8 +33089,7 @@ markA "011010001011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 257
+loadsubDI 5 257
 addI 16777216
 modI 16777216
 store
@@ -36221,8 +36188,7 @@ markA "011110100001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -36433,8 +36399,7 @@ markA "011110110010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -36961,8 +36926,7 @@ markA "011111100000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -37596,8 +37560,7 @@ markA "0100000010010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -38617,8 +38580,7 @@ markA "0100001011100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -39504,8 +39466,7 @@ markA "0100010100010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -40192,8 +40153,7 @@ markA "0100011011001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -40608,8 +40568,7 @@ markA "0100011111010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -41179,8 +41138,7 @@ markA "0100100101001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -42020,8 +41978,7 @@ markA "0100101110011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -42315,8 +42272,7 @@ markA "0100110001100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -42691,8 +42647,7 @@ markA "0100110101011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -42909,8 +42864,7 @@ markA "0100110111101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -43177,8 +43131,7 @@ markA "0100111010011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -43395,8 +43348,7 @@ markA "0100111100101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -43966,8 +43918,7 @@ markA "0101000010101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -44434,8 +44385,7 @@ markA "0101000111100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 10
+loadsubDI 5 10
 addI 16777216
 modI 16777216
 store
@@ -45034,8 +44984,7 @@ markA "0101001101110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -45696,8 +45645,7 @@ markA "0101010011111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -45992,8 +45940,7 @@ markA "0101010111000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -46338,8 +46285,7 @@ markA "0101011010011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -46683,8 +46629,7 @@ markA "0101011101111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -47045,8 +46990,7 @@ markA "0101100001010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -47665,8 +47609,7 @@ store
 markA "0101100111011"
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -48628,8 +48571,7 @@ markA "0101110001000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -50099,8 +50041,7 @@ markA "0101111110100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -51115,8 +51056,7 @@ markA "0110001000111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -51717,8 +51657,7 @@ markA "0110001111000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -51974,8 +51913,7 @@ markA "0110010001101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -52644,8 +52582,7 @@ markA "0110011000110"
 jumpA "0110011001000"
 
 markA "0110011000111"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "0110110111100001"
 jumpA "0110110111100000"
 
@@ -52795,8 +52732,7 @@ markA "0110011010011"
 jumpA "0110011010101"
 
 markA "0110011010100"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "0110110111100100"
 jumpA "0110110111100011"
 
@@ -53140,8 +53076,7 @@ markA "0110011110001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -53840,8 +53775,7 @@ markA "0110100101100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -54281,8 +54215,7 @@ markA "0110101001101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -54836,8 +54769,7 @@ markA "0110101111001"
 jumpA "0110101111011"
 
 markA "0110101111010"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "0110111000001011"
 jumpA "0110111000001010"
 
@@ -54960,8 +54892,7 @@ markA "0110110000100"
 jumpA "0110110000110"
 
 markA "0110110000101"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "0110111000001110"
 jumpA "0110111000001101"
 
@@ -55107,8 +55038,7 @@ markA "0110110010001"
 jumpA "0110110010011"
 
 markA "0110110010010"
-loadD 0
-subI 3
+loadsubDI 0 3
 bEZA "0110111000010001"
 jumpA "0110111000010000"
 
@@ -55267,8 +55197,7 @@ markA "0110110011111"
 jumpA "0110110100001"
 
 markA "0110110100000"
-loadD 0
-subI 4
+loadsubDI 0 4
 bEZA "0110111000010100"
 jumpA "0110111000010011"
 
@@ -55619,8 +55548,7 @@ markA "0110110111111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -55964,8 +55892,7 @@ markA "0110111011100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -56485,8 +56412,7 @@ markA "0111000001000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 11
+loadsubDI 5 11
 addI 16777216
 modI 16777216
 store
@@ -60631,8 +60557,7 @@ markA "0111101000111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -60959,8 +60884,7 @@ markA "0111101100010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -62148,8 +62072,7 @@ markA "0111111000001"
 jumpA "0111111000011"
 
 markA "0111111000010"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "0110111010110110"
 jumpA "0110111010110101"
 
@@ -63102,8 +63025,7 @@ markA "01000000001110"
 jumpA "01000000010000"
 
 markA "01000000001111"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "0110111011000101"
 jumpA "0110111011000100"
 
@@ -63356,8 +63278,7 @@ markA "01000000100101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -65275,8 +65196,7 @@ markA "01000010111101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -66163,8 +66083,7 @@ markA "01000100000100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -66717,8 +66636,7 @@ markA "01000100110001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -67208,8 +67126,7 @@ markA "01000101011001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -67746,8 +67663,7 @@ markA "01000110000011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -67940,8 +67856,7 @@ markA "01000110010100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -68536,8 +68451,7 @@ markA "01000111000111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -69170,8 +69084,7 @@ markA "01000111111100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -70128,8 +70041,7 @@ markA "01001001001101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -70887,8 +70799,7 @@ markA "01001010001010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -71400,8 +71311,7 @@ markA "01001010110100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -72406,8 +72316,7 @@ markA "01001100001000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -74399,8 +74308,7 @@ markA "01001110100111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -75535,8 +75443,7 @@ markA "01001111111110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -77191,8 +77098,7 @@ markA "01010010001101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -77496,8 +77402,7 @@ markA "01010010100111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -77960,8 +77865,7 @@ markA "01010011001110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -78342,8 +78246,7 @@ markA "01010011101110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -79408,8 +79311,7 @@ markA "01010101000101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -81197,8 +81099,7 @@ markA "01010111010011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -95004,8 +94905,7 @@ markA "01100111101000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -95190,8 +95090,7 @@ markA "01100111111000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -96148,8 +96047,7 @@ markA "01101001000101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -97680,8 +97578,7 @@ markA "01101010111010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -98165,8 +98062,7 @@ markA "01101011100011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -98688,8 +98584,7 @@ markA "01101100010001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -99114,8 +99009,7 @@ markA "01101100110001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -99717,8 +99611,7 @@ markA "01101101100100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -100704,8 +100597,7 @@ markA "01101110110110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -100979,8 +100871,7 @@ markA "01101111001101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -101254,8 +101145,7 @@ markA "01101111100100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -101529,8 +101419,7 @@ markA "01101111111011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -101804,8 +101693,7 @@ markA "01110000010010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -102079,8 +101967,7 @@ markA "01110000101001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -103709,8 +103596,7 @@ store
 markA "01110010111001"
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -103992,8 +103878,7 @@ store
 markA "01110011010001"
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -104108,8 +103993,7 @@ markA "01110011011011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -104664,8 +104548,7 @@ markA "01110100000101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -105900,8 +105783,7 @@ markA "01110101101110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -106086,8 +105968,7 @@ markA "01110101111110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -106375,8 +106256,7 @@ markA "01110110010101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -107224,8 +107104,7 @@ markA "01110111001111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -108150,8 +108029,7 @@ markA "01111000011010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -109916,8 +109794,7 @@ store
 markA "01111010011110"
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -110015,8 +109892,7 @@ markA "01111010101001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -110738,8 +110614,7 @@ markA "01111011100010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -111756,8 +111631,7 @@ markA "01111100101101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -112020,8 +111894,7 @@ markA "01111101000010"
 jumpA "01111101000101"
 
 markA "01111101000011"
-loadD 0
-subI 48
+loadsubDI 0 48
 bLTZA "0111001110000000"
 jumpA "0111001110000001"
 
@@ -112240,8 +112113,7 @@ markA "01111101010011"
 jumpA "01111101010110"
 
 markA "01111101010100"
-loadD 0
-subI 97
+loadsubDI 0 97
 bLTZA "0111001110000110"
 jumpA "0111001110000111"
 
@@ -112494,8 +112366,7 @@ markA "01111101100110"
 jumpA "01111101101001"
 
 markA "01111101100111"
-loadD 0
-subI 65
+loadsubDI 0 65
 bLTZA "0111001110001100"
 jumpA "0111001110001101"
 
@@ -112916,8 +112787,7 @@ markA "01111110001001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -112983,8 +112853,7 @@ markA "01111110001111"
 jumpA "01111110010001"
 
 markA "01111110010000"
-loadD 0
-subI 39
+loadsubDI 0 39
 bEZA "0111001110010011"
 jumpA "0111001110010010"
 
@@ -113002,8 +112871,7 @@ markA "01111110010001"
 jumpA "01111110010011"
 
 markA "01111110010010"
-loadD 0
-subI 34
+loadsubDI 0 34
 bEZA "0111001110010110"
 jumpA "0111001110010101"
 
@@ -113021,8 +112889,7 @@ markA "01111110010011"
 jumpA "01111110010101"
 
 markA "01111110010100"
-loadD 0
-subI 63
+loadsubDI 0 63
 bEZA "0111001110011001"
 jumpA "0111001110011000"
 
@@ -113040,8 +112907,7 @@ markA "01111110010101"
 jumpA "01111110010111"
 
 markA "01111110010110"
-loadD 0
-subI 92
+loadsubDI 0 92
 bEZA "0111001110011100"
 jumpA "0111001110011011"
 
@@ -113103,8 +112969,7 @@ markA "01111110011011"
 jumpA "01111110011101"
 
 markA "01111110011100"
-loadD 0
-subI 97
+loadsubDI 0 97
 bEZA "0111001110011111"
 jumpA "0111001110011110"
 
@@ -113154,8 +113019,7 @@ markA "01111110100000"
 jumpA "01111110100010"
 
 markA "01111110100001"
-loadD 0
-subI 98
+loadsubDI 0 98
 bEZA "0111001110100010"
 jumpA "0111001110100001"
 
@@ -113205,8 +113069,7 @@ markA "01111110100101"
 jumpA "01111110100111"
 
 markA "01111110100110"
-loadD 0
-subI 102
+loadsubDI 0 102
 bEZA "0111001110100101"
 jumpA "0111001110100100"
 
@@ -113256,8 +113119,7 @@ markA "01111110101010"
 jumpA "01111110101100"
 
 markA "01111110101011"
-loadD 0
-subI 110
+loadsubDI 0 110
 bEZA "0111001110101000"
 jumpA "0111001110100111"
 
@@ -113307,8 +113169,7 @@ markA "01111110101111"
 jumpA "01111110110001"
 
 markA "01111110110000"
-loadD 0
-subI 114
+loadsubDI 0 114
 bEZA "0111001110101011"
 jumpA "0111001110101010"
 
@@ -113358,8 +113219,7 @@ markA "01111110110100"
 jumpA "01111110110110"
 
 markA "01111110110101"
-loadD 0
-subI 116
+loadsubDI 0 116
 bEZA "0111001110101110"
 jumpA "0111001110101101"
 
@@ -113409,8 +113269,7 @@ markA "01111110111001"
 jumpA "01111110111011"
 
 markA "01111110111010"
-loadD 0
-subI 118
+loadsubDI 0 118
 bEZA "0111001110110001"
 jumpA "0111001110110000"
 
@@ -113460,8 +113319,7 @@ markA "01111110111110"
 jumpA "01111111000000"
 
 markA "01111110111111"
-loadD 0
-subI 101
+loadsubDI 0 101
 bEZA "0111001110110100"
 jumpA "0111001110110011"
 
@@ -113511,8 +113369,7 @@ markA "01111111000011"
 jumpA "01111111000110"
 
 markA "01111111000100"
-loadD 0
-subI 48
+loadsubDI 0 48
 bLTZA "0111001110110110"
 jumpA "0111001110110111"
 
@@ -113627,8 +113484,7 @@ markA "01111111001101"
 jumpA "01111111001111"
 
 markA "01111111001110"
-loadD 0
-subI 120
+loadsubDI 0 120
 bEZA "0111001110111101"
 jumpA "0111001110111100"
 
@@ -113695,8 +113551,7 @@ markA "01111111010100"
 jumpA "01111111010110"
 
 markA "01111111010101"
-loadD 0
-subI 16777215
+loadsubDI 0 16777215
 bEZA "0111001111000000"
 jumpA "0111001110111111"
 
@@ -113930,8 +113785,7 @@ markA "01111111101001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -114440,8 +114294,7 @@ markA "010000000010010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -115094,8 +114947,7 @@ markA "010000001000110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -115797,8 +115649,7 @@ markA "010000001111110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -117040,8 +116891,7 @@ markA "010000011100001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -117125,8 +116975,7 @@ markA "010000011101001"
 jumpA "010000011101011"
 
 markA "010000011101010"
-loadD 0
-subI 32
+loadsubDI 0 32
 bEZA "0111010000011010"
 jumpA "0111010000011001"
 
@@ -117144,8 +116993,7 @@ markA "010000011101011"
 jumpA "010000011101101"
 
 markA "010000011101100"
-loadD 0
-subI 11
+loadsubDI 0 11
 bEZA "0111010000011101"
 jumpA "0111010000011100"
 
@@ -117163,8 +117011,7 @@ markA "010000011101101"
 jumpA "010000011101111"
 
 markA "010000011101110"
-loadD 0
-subI 12
+loadsubDI 0 12
 bEZA "0111010000100000"
 jumpA "0111010000011111"
 
@@ -117301,8 +117148,7 @@ markA "010000011111001"
 jumpA "010000011111011"
 
 markA "010000011111010"
-loadD 0
-subI 9
+loadsubDI 0 9
 bEZA "0111010000100011"
 jumpA "0111010000100010"
 
@@ -117439,8 +117285,7 @@ markA "010000100000101"
 jumpA "010000100000111"
 
 markA "010000100000110"
-loadD 0
-subI 10
+loadsubDI 0 10
 bEZA "0111010000100110"
 jumpA "0111010000100101"
 
@@ -117458,8 +117303,7 @@ markA "010000100000111"
 jumpA "010000100001001"
 
 markA "010000100001000"
-loadD 0
-subI 13
+loadsubDI 0 13
 bEZA "0111010000101001"
 jumpA "0111010000101000"
 
@@ -117565,8 +117409,7 @@ markA "010000100010001"
 jumpA "010000100010011"
 
 markA "010000100010010"
-loadD 0
-subI 76
+loadsubDI 0 76
 bEZA "0111010000101100"
 jumpA "0111010000101011"
 
@@ -117854,8 +117697,7 @@ markA "010000100101011"
 jumpA "010000100101110"
 
 markA "010000100101100"
-loadD 0
-subI 48
+loadsubDI 0 48
 bLTZA "0111010000110100"
 jumpA "0111010000110101"
 
@@ -117970,8 +117812,7 @@ markA "010000100110101"
 jumpA "010000100111000"
 
 markA "010000100110110"
-loadD 0
-subI 97
+loadsubDI 0 97
 bLTZA "0111010000111010"
 jumpA "0111010000111011"
 
@@ -118006,8 +117847,7 @@ markA "010000100111000"
 jumpA "010000100111011"
 
 markA "010000100111001"
-loadD 0
-subI 65
+loadsubDI 0 65
 bLTZA "0111010001000000"
 jumpA "0111010001000001"
 
@@ -118042,8 +117882,7 @@ markA "010000100111011"
 jumpA "010000100111110"
 
 markA "010000100111100"
-loadD 0
-subI 77
+loadsubDI 0 77
 bLTZA "0111010001000110"
 jumpA "0111010001000111"
 
@@ -118078,8 +117917,7 @@ markA "010000100111110"
 jumpA "010000101000000"
 
 markA "010000100111111"
-loadD 0
-subI 95
+loadsubDI 0 95
 bEZA "0111010001001101"
 jumpA "0111010001001100"
 
@@ -118097,8 +117935,7 @@ markA "010000101000000"
 jumpA "010000101000010"
 
 markA "010000101000001"
-loadD 0
-subI 36
+loadsubDI 0 36
 bEZA "0111010001010000"
 jumpA "0111010001001111"
 
@@ -118196,8 +118033,7 @@ markA "010000101001001"
 jumpA "010000101001011"
 
 markA "010000101001010"
-loadD 0
-subI 47
+loadsubDI 0 47
 bEZA "0111010001010011"
 jumpA "0111010001010010"
 
@@ -118679,8 +118515,7 @@ markA "010000101110011"
 jumpA "010000101110101"
 
 markA "010000101110100"
-loadD 0
-subI 46
+loadsubDI 0 46
 bEZA "0111010001011111"
 jumpA "0111010001011110"
 
@@ -119102,8 +118937,7 @@ markA "010000110011000"
 jumpA "010000110011010"
 
 markA "010000110011001"
-loadD 0
-subI 40
+loadsubDI 0 40
 bEZA "0111010001101000"
 jumpA "0111010001100111"
 
@@ -119121,8 +118955,7 @@ markA "010000110011010"
 jumpA "010000110011100"
 
 markA "010000110011011"
-loadD 0
-subI 41
+loadsubDI 0 41
 bEZA "0111010001101011"
 jumpA "0111010001101010"
 
@@ -119140,8 +118973,7 @@ markA "010000110011100"
 jumpA "010000110011110"
 
 markA "010000110011101"
-loadD 0
-subI 44
+loadsubDI 0 44
 bEZA "0111010001101110"
 jumpA "0111010001101101"
 
@@ -119159,8 +118991,7 @@ markA "010000110011110"
 jumpA "010000110100000"
 
 markA "010000110011111"
-loadD 0
-subI 59
+loadsubDI 0 59
 bEZA "0111010001110001"
 jumpA "0111010001110000"
 
@@ -119178,8 +119009,7 @@ markA "010000110100000"
 jumpA "010000110100010"
 
 markA "010000110100001"
-loadD 0
-subI 91
+loadsubDI 0 91
 bEZA "0111010001110100"
 jumpA "0111010001110011"
 
@@ -119197,8 +119027,7 @@ markA "010000110100010"
 jumpA "010000110100100"
 
 markA "010000110100011"
-loadD 0
-subI 93
+loadsubDI 0 93
 bEZA "0111010001110111"
 jumpA "0111010001110110"
 
@@ -119216,8 +119045,7 @@ markA "010000110100100"
 jumpA "010000110100110"
 
 markA "010000110100101"
-loadD 0
-subI 123
+loadsubDI 0 123
 bEZA "0111010001111010"
 jumpA "0111010001111001"
 
@@ -119235,8 +119063,7 @@ markA "010000110100110"
 jumpA "010000110101000"
 
 markA "010000110100111"
-loadD 0
-subI 125
+loadsubDI 0 125
 bEZA "0111010001111101"
 jumpA "0111010001111100"
 
@@ -119254,8 +119081,7 @@ markA "010000110101000"
 jumpA "010000110101010"
 
 markA "010000110101001"
-loadD 0
-subI 63
+loadsubDI 0 63
 bEZA "0111010010000000"
 jumpA "0111010001111111"
 
@@ -119273,8 +119099,7 @@ markA "010000110101010"
 jumpA "010000110101100"
 
 markA "010000110101011"
-loadD 0
-subI 126
+loadsubDI 0 126
 bEZA "0111010010000011"
 jumpA "0111010010000010"
 
@@ -119372,8 +119197,7 @@ markA "010000110110011"
 jumpA "010000110110101"
 
 markA "010000110110100"
-loadD 0
-subI 58
+loadsubDI 0 58
 bEZA "0111010010000110"
 jumpA "0111010010000101"
 
@@ -119517,8 +119341,7 @@ markA "010000111000001"
 jumpA "010000111000011"
 
 markA "010000111000010"
-loadD 0
-subI 35
+loadsubDI 0 35
 bEZA "0111010010001100"
 jumpA "0111010010001011"
 
@@ -119724,8 +119547,7 @@ markA "010000111010011"
 jumpA "010000111010101"
 
 markA "010000111010100"
-loadD 0
-subI 43
+loadsubDI 0 43
 bEZA "0111010010010010"
 jumpA "0111010010010001"
 
@@ -119867,8 +119689,7 @@ markA "010000111011111"
 jumpA "010000111100001"
 
 markA "010000111100000"
-loadD 0
-subI 45
+loadsubDI 0 45
 bEZA "0111010010010101"
 jumpA "0111010010010100"
 
@@ -120314,8 +120135,7 @@ markA "010001000000101"
 jumpA "010001000000111"
 
 markA "010001000000110"
-loadD 0
-subI 42
+loadsubDI 0 42
 bEZA "0111010010100001"
 jumpA "0111010010100000"
 
@@ -120429,8 +120249,7 @@ markA "010001000001111"
 jumpA "010001000010001"
 
 markA "010001000010000"
-loadD 0
-subI 37
+loadsubDI 0 37
 bEZA "0111010010100100"
 jumpA "0111010010100011"
 
@@ -120995,8 +120814,7 @@ markA "010001000111111"
 jumpA "010001001000001"
 
 markA "010001001000000"
-loadD 0
-subI 61
+loadsubDI 0 61
 bEZA "0111010010110011"
 jumpA "0111010010110010"
 
@@ -121110,8 +120928,7 @@ markA "010001001001001"
 jumpA "010001001001011"
 
 markA "010001001001010"
-loadD 0
-subI 33
+loadsubDI 0 33
 bEZA "0111010010110110"
 jumpA "0111010010110101"
 
@@ -121225,8 +121042,7 @@ markA "010001001010011"
 jumpA "010001001010101"
 
 markA "010001001010100"
-loadD 0
-subI 38
+loadsubDI 0 38
 bEZA "0111010010111001"
 jumpA "0111010010111000"
 
@@ -121368,8 +121184,7 @@ markA "010001001011111"
 jumpA "010001001100001"
 
 markA "010001001100000"
-loadD 0
-subI 124
+loadsubDI 0 124
 bEZA "0111010010111100"
 jumpA "0111010010111011"
 
@@ -121511,8 +121326,7 @@ markA "010001001101011"
 jumpA "010001001101101"
 
 markA "010001001101100"
-loadD 0
-subI 94
+loadsubDI 0 94
 bEZA "0111010010111111"
 jumpA "0111010010111110"
 
@@ -121626,8 +121440,7 @@ markA "010001001110101"
 jumpA "010001001110111"
 
 markA "010001001110110"
-loadD 0
-subI 60
+loadsubDI 0 60
 bEZA "0111010011000010"
 jumpA "0111010011000001"
 
@@ -122221,8 +122034,7 @@ markA "010001010100111"
 jumpA "010001010101001"
 
 markA "010001010101000"
-loadD 0
-subI 62
+loadsubDI 0 62
 bEZA "0111010011010001"
 jumpA "0111010011010000"
 
@@ -122576,8 +122388,7 @@ markA "010001011000101"
 jumpA "010001011000111"
 
 markA "010001011000110"
-loadD 0
-subI 34
+loadsubDI 0 34
 bEZA "0111010011011010"
 jumpA "0111010011011001"
 
@@ -122644,8 +122455,7 @@ markA "010001011001100"
 jumpA "010001011001110"
 
 markA "010001011001101"
-loadD 0
-subI 39
+loadsubDI 0 39
 bEZA "0111010011011101"
 jumpA "0111010011011100"
 
@@ -122712,8 +122522,7 @@ markA "010001011010011"
 jumpA "010001011010101"
 
 markA "010001011010100"
-loadD 0
-subI 16777215
+loadsubDI 0 16777215
 bEZA "0111010011100000"
 jumpA "0111010011011111"
 
@@ -122898,8 +122707,7 @@ markA "010001011100100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -124730,8 +124538,7 @@ markA "010001101110111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -125695,8 +125502,7 @@ markA "010001111000100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -125881,8 +125687,7 @@ markA "010001111010100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -127576,8 +127381,7 @@ markA "010010001100010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -128044,8 +127848,7 @@ markA "010010010001001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -128343,8 +128146,7 @@ markA "010010010100010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 10
+loadsubDI 5 10
 addI 16777216
 modI 16777216
 store
@@ -128799,8 +128601,7 @@ markA "010010011001000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -129086,8 +128887,7 @@ markA "010010011100000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 10
+loadsubDI 5 10
 addI 16777216
 modI 16777216
 store
@@ -129627,8 +129427,7 @@ markA "010010100001111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 10
+loadsubDI 5 10
 addI 16777216
 modI 16777216
 store
@@ -130073,8 +129872,7 @@ markA "010010100110100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 10
+loadsubDI 5 10
 addI 16777216
 modI 16777216
 store
@@ -130651,8 +130449,7 @@ markA "010010101100011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 10
+loadsubDI 5 10
 addI 16777216
 modI 16777216
 store
@@ -131106,8 +130903,7 @@ markA "010010110001010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -131520,8 +131316,7 @@ markA "010010110101100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -131870,8 +131665,7 @@ markA "010010111001001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -132177,8 +131971,7 @@ markA "010010111100011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -132871,8 +132664,7 @@ markA "010011000010111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -133233,8 +133025,7 @@ markA "010011000110101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -133520,8 +133311,7 @@ markA "010011001001101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -133832,8 +133622,7 @@ markA "010011001100111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -134119,8 +133908,7 @@ markA "010011001111111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -134431,8 +134219,7 @@ markA "010011010011001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -134768,8 +134555,7 @@ markA "010011010110101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -135105,8 +134891,7 @@ markA "010011011010001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -135392,8 +135177,7 @@ markA "010011011101001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -135679,8 +135463,7 @@ markA "010011100000001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -135966,8 +135749,7 @@ markA "010011100011001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -136253,8 +136035,7 @@ markA "010011100110001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -136515,8 +136296,7 @@ markA "010011101000111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -136777,8 +136557,7 @@ markA "010011101011101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -137089,8 +136868,7 @@ markA "010011101110111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -137351,8 +137129,7 @@ markA "010011110001101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -137613,8 +137390,7 @@ markA "010011110100011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -137875,8 +137651,7 @@ markA "010011110111001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -138157,8 +137932,7 @@ markA "010011111010001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -138444,8 +138218,7 @@ markA "010011111101001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -138762,8 +138535,7 @@ markA "010100000000100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -139345,8 +139117,7 @@ markA "010100000110101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -139590,8 +139361,7 @@ markA "010100001001001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -141292,8 +141062,7 @@ markA "010100011001100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 14
+loadsubDI 5 14
 addI 16777216
 modI 16777216
 store
@@ -141622,8 +141391,7 @@ markA "010100011101000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 15
+loadsubDI 5 15
 addI 16777216
 modI 16777216
 store
@@ -142220,8 +141988,7 @@ markA "010100100010111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 14
+loadsubDI 5 14
 addI 16777216
 modI 16777216
 store
@@ -142587,8 +142354,7 @@ markA "010100100110110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 14
+loadsubDI 5 14
 addI 16777216
 modI 16777216
 store
@@ -142954,8 +142720,7 @@ markA "010100101010101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 14
+loadsubDI 5 14
 addI 16777216
 modI 16777216
 store
@@ -143272,8 +143037,7 @@ markA "010100101110001"
 jumpA "010100101110011"
 
 markA "010100101110010"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "0111010111011001"
 jumpA "0111010111011000"
 
@@ -143291,8 +143055,7 @@ markA "010100101110011"
 jumpA "010100101110101"
 
 markA "010100101110100"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "0111010111011100"
 jumpA "0111010111011011"
 
@@ -143310,8 +143073,7 @@ markA "010100101110101"
 jumpA "010100101110111"
 
 markA "010100101110110"
-loadD 0
-subI 3
+loadsubDI 0 3
 bEZA "0111010111011111"
 jumpA "0111010111011110"
 
@@ -143329,8 +143091,7 @@ markA "010100101110111"
 jumpA "010100101111001"
 
 markA "010100101111000"
-loadD 0
-subI 4
+loadsubDI 0 4
 bEZA "0111010111100010"
 jumpA "0111010111100001"
 
@@ -143348,8 +143109,7 @@ markA "010100101111001"
 jumpA "010100101111011"
 
 markA "010100101111010"
-loadD 0
-subI 5
+loadsubDI 0 5
 bEZA "0111010111100101"
 jumpA "0111010111100100"
 
@@ -143367,8 +143127,7 @@ markA "010100101111011"
 jumpA "010100101111101"
 
 markA "010100101111100"
-loadD 0
-subI 6
+loadsubDI 0 6
 bEZA "0111010111101000"
 jumpA "0111010111100111"
 
@@ -143518,8 +143277,7 @@ markA "010100110001010"
 jumpA "010100110001100"
 
 markA "010100110001011"
-loadD 0
-subI 7
+loadsubDI 0 7
 bEZA "0111010111101011"
 jumpA "0111010111101010"
 
@@ -143537,8 +143295,7 @@ markA "010100110001100"
 jumpA "010100110001110"
 
 markA "010100110001101"
-loadD 0
-subI 8
+loadsubDI 0 8
 bEZA "0111010111101110"
 jumpA "0111010111101101"
 
@@ -143556,8 +143313,7 @@ markA "010100110001110"
 jumpA "010100110010000"
 
 markA "010100110001111"
-loadD 0
-subI 9
+loadsubDI 0 9
 bEZA "0111010111110001"
 jumpA "0111010111110000"
 
@@ -144164,8 +143920,7 @@ markA "010100111000000"
 jumpA "010100111000010"
 
 markA "010100111000001"
-loadD 0
-subI 258
+loadsubDI 0 258
 bEZA "0111011000000110"
 jumpA "0111011000000101"
 
@@ -144183,8 +143938,7 @@ markA "010100111000010"
 jumpA "010100111000100"
 
 markA "010100111000011"
-loadD 0
-subI 259
+loadsubDI 0 259
 bEZA "0111011000001001"
 jumpA "0111011000001000"
 
@@ -144202,8 +143956,7 @@ markA "010100111000100"
 jumpA "010100111000110"
 
 markA "010100111000101"
-loadD 0
-subI 269
+loadsubDI 0 269
 bEZA "0111011000001100"
 jumpA "0111011000001011"
 
@@ -144221,8 +143974,7 @@ markA "010100111000110"
 jumpA "010100111001000"
 
 markA "010100111000111"
-loadD 0
-subI 282
+loadsubDI 0 282
 bEZA "0111011000001111"
 jumpA "0111011000001110"
 
@@ -145159,8 +144911,7 @@ markA "010101000010011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -145818,8 +145569,7 @@ markA "010101001000110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -146500,8 +146250,7 @@ markA "010101001111101"
 jumpA "010101001111111"
 
 markA "010101001111110"
-loadD 0
-subI 321
+loadsubDI 0 321
 bEZA "0111011001010001"
 jumpA "0111011001010000"
 
@@ -146551,8 +146300,7 @@ markA "010101010000010"
 jumpA "010101010000100"
 
 markA "010101010000011"
-loadD 0
-subI 322
+loadsubDI 0 322
 bEZA "0111011001010100"
 jumpA "0111011001010011"
 
@@ -146602,8 +146350,7 @@ markA "010101010000111"
 jumpA "010101010001001"
 
 markA "010101010001000"
-loadD 0
-subI 323
+loadsubDI 0 323
 bEZA "0111011001010111"
 jumpA "0111011001010110"
 
@@ -146653,8 +146400,7 @@ markA "010101010001100"
 jumpA "010101010001110"
 
 markA "010101010001101"
-loadD 0
-subI 324
+loadsubDI 0 324
 bEZA "0111011001011010"
 jumpA "0111011001011001"
 
@@ -146704,8 +146450,7 @@ markA "010101010010001"
 jumpA "010101010010011"
 
 markA "010101010010010"
-loadD 0
-subI 325
+loadsubDI 0 325
 bEZA "0111011001011101"
 jumpA "0111011001011100"
 
@@ -146755,8 +146500,7 @@ markA "010101010010110"
 jumpA "010101010011000"
 
 markA "010101010010111"
-loadD 0
-subI 326
+loadsubDI 0 326
 bEZA "0111011001100000"
 jumpA "0111011001011111"
 
@@ -146806,8 +146550,7 @@ markA "010101010011011"
 jumpA "010101010011101"
 
 markA "010101010011100"
-loadD 0
-subI 327
+loadsubDI 0 327
 bEZA "0111011001100011"
 jumpA "0111011001100010"
 
@@ -146857,8 +146600,7 @@ markA "010101010100000"
 jumpA "010101010100010"
 
 markA "010101010100001"
-loadD 0
-subI 328
+loadsubDI 0 328
 bEZA "0111011001100110"
 jumpA "0111011001100101"
 
@@ -146908,8 +146650,7 @@ markA "010101010100101"
 jumpA "010101010100111"
 
 markA "010101010100110"
-loadD 0
-subI 329
+loadsubDI 0 329
 bEZA "0111011001101001"
 jumpA "0111011001101000"
 
@@ -146959,8 +146700,7 @@ markA "010101010101010"
 jumpA "010101010101100"
 
 markA "010101010101011"
-loadD 0
-subI 330
+loadsubDI 0 330
 bEZA "0111011001101100"
 jumpA "0111011001101011"
 
@@ -147010,8 +146750,7 @@ markA "010101010101111"
 jumpA "010101010110001"
 
 markA "010101010110000"
-loadD 0
-subI 331
+loadsubDI 0 331
 bEZA "0111011001101111"
 jumpA "0111011001101110"
 
@@ -147061,8 +146800,7 @@ markA "010101010110100"
 jumpA "010101010110110"
 
 markA "010101010110101"
-loadD 0
-subI 332
+loadsubDI 0 332
 bEZA "0111011001110010"
 jumpA "0111011001110001"
 
@@ -147112,8 +146850,7 @@ markA "010101010111001"
 jumpA "010101010111011"
 
 markA "010101010111010"
-loadD 0
-subI 333
+loadsubDI 0 333
 bEZA "0111011001110101"
 jumpA "0111011001110100"
 
@@ -147163,8 +146900,7 @@ markA "010101010111110"
 jumpA "010101011000000"
 
 markA "010101010111111"
-loadD 0
-subI 334
+loadsubDI 0 334
 bEZA "0111011001111000"
 jumpA "0111011001110111"
 
@@ -147214,8 +146950,7 @@ markA "010101011000011"
 jumpA "010101011000101"
 
 markA "010101011000100"
-loadD 0
-subI 335
+loadsubDI 0 335
 bEZA "0111011001111011"
 jumpA "0111011001111010"
 
@@ -147265,8 +147000,7 @@ markA "010101011001000"
 jumpA "010101011001010"
 
 markA "010101011001001"
-loadD 0
-subI 336
+loadsubDI 0 336
 bEZA "0111011001111110"
 jumpA "0111011001111101"
 
@@ -147316,8 +147050,7 @@ markA "010101011001101"
 jumpA "010101011001111"
 
 markA "010101011001110"
-loadD 0
-subI 337
+loadsubDI 0 337
 bEZA "0111011010000001"
 jumpA "0111011010000000"
 
@@ -147367,8 +147100,7 @@ markA "010101011010010"
 jumpA "010101011010100"
 
 markA "010101011010011"
-loadD 0
-subI 338
+loadsubDI 0 338
 bEZA "0111011010000100"
 jumpA "0111011010000011"
 
@@ -147418,8 +147150,7 @@ markA "010101011010111"
 jumpA "010101011011001"
 
 markA "010101011011000"
-loadD 0
-subI 339
+loadsubDI 0 339
 bEZA "0111011010000111"
 jumpA "0111011010000110"
 
@@ -147469,8 +147200,7 @@ markA "010101011011100"
 jumpA "010101011011110"
 
 markA "010101011011101"
-loadD 0
-subI 340
+loadsubDI 0 340
 bEZA "0111011010001010"
 jumpA "0111011010001001"
 
@@ -147520,8 +147250,7 @@ markA "010101011100001"
 jumpA "010101011100011"
 
 markA "010101011100010"
-loadD 0
-subI 341
+loadsubDI 0 341
 bEZA "0111011010001101"
 jumpA "0111011010001100"
 
@@ -147571,8 +147300,7 @@ markA "010101011100110"
 jumpA "010101011101000"
 
 markA "010101011100111"
-loadD 0
-subI 342
+loadsubDI 0 342
 bEZA "0111011010010000"
 jumpA "0111011010001111"
 
@@ -147622,8 +147350,7 @@ markA "010101011101011"
 jumpA "010101011101101"
 
 markA "010101011101100"
-loadD 0
-subI 343
+loadsubDI 0 343
 bEZA "0111011010010011"
 jumpA "0111011010010010"
 
@@ -147673,8 +147400,7 @@ markA "010101011110000"
 jumpA "010101011110010"
 
 markA "010101011110001"
-loadD 0
-subI 344
+loadsubDI 0 344
 bEZA "0111011010010110"
 jumpA "0111011010010101"
 
@@ -147724,8 +147450,7 @@ markA "010101011110101"
 jumpA "010101011110111"
 
 markA "010101011110110"
-loadD 0
-subI 345
+loadsubDI 0 345
 bEZA "0111011010011001"
 jumpA "0111011010011000"
 
@@ -147775,8 +147500,7 @@ markA "010101011111010"
 jumpA "010101011111100"
 
 markA "010101011111011"
-loadD 0
-subI 346
+loadsubDI 0 346
 bEZA "0111011010011100"
 jumpA "0111011010011011"
 
@@ -147826,8 +147550,7 @@ markA "010101011111111"
 jumpA "010101100000001"
 
 markA "010101100000000"
-loadD 0
-subI 347
+loadsubDI 0 347
 bEZA "0111011010011111"
 jumpA "0111011010011110"
 
@@ -147877,8 +147600,7 @@ markA "010101100000100"
 jumpA "010101100000110"
 
 markA "010101100000101"
-loadD 0
-subI 348
+loadsubDI 0 348
 bEZA "0111011010100010"
 jumpA "0111011010100001"
 
@@ -147928,8 +147650,7 @@ markA "010101100001001"
 jumpA "010101100001011"
 
 markA "010101100001010"
-loadD 0
-subI 349
+loadsubDI 0 349
 bEZA "0111011010100101"
 jumpA "0111011010100100"
 
@@ -147979,8 +147700,7 @@ markA "010101100001110"
 jumpA "010101100010000"
 
 markA "010101100001111"
-loadD 0
-subI 350
+loadsubDI 0 350
 bEZA "0111011010101000"
 jumpA "0111011010100111"
 
@@ -148030,8 +147750,7 @@ markA "010101100010011"
 jumpA "010101100010101"
 
 markA "010101100010100"
-loadD 0
-subI 351
+loadsubDI 0 351
 bEZA "0111011010101011"
 jumpA "0111011010101010"
 
@@ -148081,8 +147800,7 @@ markA "010101100011000"
 jumpA "010101100011010"
 
 markA "010101100011001"
-loadD 0
-subI 352
+loadsubDI 0 352
 bEZA "0111011010101110"
 jumpA "0111011010101101"
 
@@ -148132,8 +147850,7 @@ markA "010101100011101"
 jumpA "010101100011111"
 
 markA "010101100011110"
-loadD 0
-subI 353
+loadsubDI 0 353
 bEZA "0111011010110001"
 jumpA "0111011010110000"
 
@@ -148183,8 +147900,7 @@ markA "010101100100010"
 jumpA "010101100100100"
 
 markA "010101100100011"
-loadD 0
-subI 354
+loadsubDI 0 354
 bEZA "0111011010110100"
 jumpA "0111011010110011"
 
@@ -148234,8 +147950,7 @@ markA "010101100100111"
 jumpA "010101100101001"
 
 markA "010101100101000"
-loadD 0
-subI 355
+loadsubDI 0 355
 bEZA "0111011010110111"
 jumpA "0111011010110110"
 
@@ -148285,8 +148000,7 @@ markA "010101100101100"
 jumpA "010101100101110"
 
 markA "010101100101101"
-loadD 0
-subI 356
+loadsubDI 0 356
 bEZA "0111011010111010"
 jumpA "0111011010111001"
 
@@ -148336,8 +148050,7 @@ markA "010101100110001"
 jumpA "010101100110011"
 
 markA "010101100110010"
-loadD 0
-subI 357
+loadsubDI 0 357
 bEZA "0111011010111101"
 jumpA "0111011010111100"
 
@@ -148387,8 +148100,7 @@ markA "010101100110110"
 jumpA "010101100111000"
 
 markA "010101100110111"
-loadD 0
-subI 358
+loadsubDI 0 358
 bEZA "0111011011000000"
 jumpA "0111011010111111"
 
@@ -148438,8 +148150,7 @@ markA "010101100111011"
 jumpA "010101100111101"
 
 markA "010101100111100"
-loadD 0
-subI 359
+loadsubDI 0 359
 bEZA "0111011011000011"
 jumpA "0111011011000010"
 
@@ -148489,8 +148200,7 @@ markA "010101101000000"
 jumpA "010101101000010"
 
 markA "010101101000001"
-loadD 0
-subI 360
+loadsubDI 0 360
 bEZA "0111011011000110"
 jumpA "0111011011000101"
 
@@ -148540,8 +148250,7 @@ markA "010101101000101"
 jumpA "010101101000111"
 
 markA "010101101000110"
-loadD 0
-subI 361
+loadsubDI 0 361
 bEZA "0111011011001001"
 jumpA "0111011011001000"
 
@@ -148591,8 +148300,7 @@ markA "010101101001010"
 jumpA "010101101001100"
 
 markA "010101101001011"
-loadD 0
-subI 362
+loadsubDI 0 362
 bEZA "0111011011001100"
 jumpA "0111011011001011"
 
@@ -148642,8 +148350,7 @@ markA "010101101001111"
 jumpA "010101101010001"
 
 markA "010101101010000"
-loadD 0
-subI 363
+loadsubDI 0 363
 bEZA "0111011011001111"
 jumpA "0111011011001110"
 
@@ -148693,8 +148400,7 @@ markA "010101101010100"
 jumpA "010101101010110"
 
 markA "010101101010101"
-loadD 0
-subI 364
+loadsubDI 0 364
 bEZA "0111011011010010"
 jumpA "0111011011010001"
 
@@ -148744,8 +148450,7 @@ markA "010101101011001"
 jumpA "010101101011011"
 
 markA "010101101011010"
-loadD 0
-subI 365
+loadsubDI 0 365
 bEZA "0111011011010101"
 jumpA "0111011011010100"
 
@@ -148869,8 +148574,7 @@ markA "010101101100101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -149165,8 +148869,7 @@ markA "010101101111110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -149623,8 +149326,7 @@ markA "010101110100100"
 jumpA "010101110100110"
 
 markA "010101110100101"
-loadD 0
-subI 9
+loadsubDI 0 9
 bEZA "0111011011100001"
 jumpA "0111011011100000"
 
@@ -149674,8 +149376,7 @@ markA "010101110101001"
 jumpA "010101110101011"
 
 markA "010101110101010"
-loadD 0
-subI 8
+loadsubDI 0 8
 bEZA "0111011011100100"
 jumpA "0111011011100011"
 
@@ -149725,8 +149426,7 @@ markA "010101110101110"
 jumpA "010101110110000"
 
 markA "010101110101111"
-loadD 0
-subI 7
+loadsubDI 0 7
 bEZA "0111011011100111"
 jumpA "0111011011100110"
 
@@ -149776,8 +149476,7 @@ markA "010101110110011"
 jumpA "010101110110101"
 
 markA "010101110110100"
-loadD 0
-subI 6
+loadsubDI 0 6
 bEZA "0111011011101010"
 jumpA "0111011011101001"
 
@@ -149827,8 +149526,7 @@ markA "010101110111000"
 jumpA "010101110111010"
 
 markA "010101110111001"
-loadD 0
-subI 5
+loadsubDI 0 5
 bEZA "0111011011101101"
 jumpA "0111011011101100"
 
@@ -149878,8 +149576,7 @@ markA "010101110111101"
 jumpA "010101110111111"
 
 markA "010101110111110"
-loadD 0
-subI 4
+loadsubDI 0 4
 bEZA "0111011011110000"
 jumpA "0111011011101111"
 
@@ -149929,8 +149626,7 @@ markA "010101111000010"
 jumpA "010101111000100"
 
 markA "010101111000011"
-loadD 0
-subI 3
+loadsubDI 0 3
 bEZA "0111011011110011"
 jumpA "0111011011110010"
 
@@ -149980,8 +149676,7 @@ markA "010101111000111"
 jumpA "010101111001001"
 
 markA "010101111001000"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "0111011011110110"
 jumpA "0111011011110101"
 
@@ -150031,8 +149726,7 @@ markA "010101111001100"
 jumpA "010101111001110"
 
 markA "010101111001101"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "0111011011111001"
 jumpA "0111011011111000"
 
@@ -150530,8 +150224,7 @@ markA "010101111110111"
 jumpA "010101111111001"
 
 markA "010101111111000"
-loadD 0
-subI 315
+loadsubDI 0 315
 bEZA "0111011100000010"
 jumpA "0111011100000001"
 
@@ -150549,8 +150242,7 @@ markA "010101111111001"
 jumpA "010101111111011"
 
 markA "010101111111010"
-loadD 0
-subI 313
+loadsubDI 0 313
 bEZA "0111011100000101"
 jumpA "0111011100000100"
 
@@ -150568,8 +150260,7 @@ markA "010101111111011"
 jumpA "010101111111101"
 
 markA "010101111111100"
-loadD 0
-subI 312
+loadsubDI 0 312
 bEZA "0111011100001000"
 jumpA "0111011100000111"
 
@@ -150587,8 +150278,7 @@ markA "010101111111101"
 jumpA "010101111111111"
 
 markA "010101111111110"
-loadD 0
-subI 318
+loadsubDI 0 318
 bEZA "0111011100001011"
 jumpA "0111011100001010"
 
@@ -150606,8 +150296,7 @@ markA "010101111111111"
 jumpA "010110000000001"
 
 markA "010110000000000"
-loadD 0
-subI 60
+loadsubDI 0 60
 bEZA "0111011100001110"
 jumpA "0111011100001101"
 
@@ -150625,8 +150314,7 @@ markA "010110000000001"
 jumpA "010110000000011"
 
 markA "010110000000010"
-loadD 0
-subI 62
+loadsubDI 0 62
 bEZA "0111011100010001"
 jumpA "0111011100010000"
 
@@ -150831,8 +150519,7 @@ markA "010110000010100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -151056,8 +150743,7 @@ markA "010110000100011"
 jumpA "010110000100101"
 
 markA "010110000100100"
-loadD 0
-subI 315
+loadsubDI 0 315
 bEZA "0111011100100011"
 jumpA "0111011100100010"
 
@@ -151075,8 +150761,7 @@ markA "010110000100101"
 jumpA "010110000100111"
 
 markA "010110000100110"
-loadD 0
-subI 313
+loadsubDI 0 313
 bEZA "0111011100100110"
 jumpA "0111011100100101"
 
@@ -151094,8 +150779,7 @@ markA "010110000100111"
 jumpA "010110000101001"
 
 markA "010110000101000"
-loadD 0
-subI 312
+loadsubDI 0 312
 bEZA "0111011100101001"
 jumpA "0111011100101000"
 
@@ -151113,8 +150797,7 @@ markA "010110000101001"
 jumpA "010110000101011"
 
 markA "010110000101010"
-loadD 0
-subI 318
+loadsubDI 0 318
 bEZA "0111011100101100"
 jumpA "0111011100101011"
 
@@ -151132,8 +150815,7 @@ markA "010110000101011"
 jumpA "010110000101101"
 
 markA "010110000101100"
-loadD 0
-subI 60
+loadsubDI 0 60
 bEZA "0111011100101111"
 jumpA "0111011100101110"
 
@@ -151151,8 +150833,7 @@ markA "010110000101101"
 jumpA "010110000101111"
 
 markA "010110000101110"
-loadD 0
-subI 62
+loadsubDI 0 62
 bEZA "0111011100110010"
 jumpA "0111011100110001"
 
@@ -152284,8 +151965,7 @@ markA "010110010001001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -152447,8 +152127,7 @@ markA "010110010010110"
 jumpA "010110010011000"
 
 markA "010110010010111"
-loadD 0
-subI 10
+loadsubDI 0 10
 bEZA "0111011101000111"
 jumpA "0111011101000110"
 
@@ -152726,8 +152405,7 @@ markA "010110010101011"
 jumpA "010110010101101"
 
 markA "010110010101100"
-loadD 0
-subI 11
+loadsubDI 0 11
 bEZA "0111011101010011"
 jumpA "0111011101010010"
 
@@ -152877,8 +152555,7 @@ markA "010110010111000"
 jumpA "010110010111010"
 
 markA "010110010111001"
-loadD 0
-subI 12
+loadsubDI 0 12
 bEZA "0111011101010110"
 jumpA "0111011101010101"
 
@@ -154988,8 +154665,7 @@ markA "010110101011101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -155020,8 +154696,7 @@ markA "010110101100000"
 jumpA "010110101100010"
 
 markA "010110101100001"
-loadD 0
-subI 256
+loadsubDI 0 256
 bEZA "0111011110010101"
 jumpA "0111011110010100"
 
@@ -155300,8 +154975,7 @@ store
 jumpA "010110101111001"
 
 markA "010110101111000"
-loadD 0
-subI 33
+loadsubDI 0 33
 bEZA "0111011110011011"
 jumpA "0111011110011010"
 
@@ -155426,8 +155100,7 @@ markA "010110110000001"
 jumpA "010110110000011"
 
 markA "010110110000010"
-loadD 0
-subI 126
+loadsubDI 0 126
 bEZA "0111011110100001"
 jumpA "0111011110100000"
 
@@ -155534,8 +155207,7 @@ markA "010110110001001"
 jumpA "010110110001011"
 
 markA "010110110001010"
-loadD 0
-subI 288
+loadsubDI 0 288
 bEZA "0111011110101010"
 jumpA "0111011110101001"
 
@@ -155655,8 +155327,7 @@ markA "010110110010011"
 jumpA "010110110010101"
 
 markA "010110110010100"
-loadD 0
-subI 290
+loadsubDI 0 290
 bEZA "0111011110101101"
 jumpA "0111011110101100"
 
@@ -155767,8 +155438,7 @@ markA "010110110011101"
 jumpA "010110110011111"
 
 markA "010110110011110"
-loadD 0
-subI 267
+loadsubDI 0 267
 bEZA "0111011110110000"
 jumpA "0111011110101111"
 
@@ -155879,8 +155549,7 @@ markA "010110110100111"
 jumpA "010110110101001"
 
 markA "010110110101000"
-loadD 0
-subI 271
+loadsubDI 0 271
 bEZA "0111011110110011"
 jumpA "0111011110110010"
 
@@ -156256,8 +155925,7 @@ markA "010110111000111"
 jumpA "010110111001001"
 
 markA "010110111001000"
-loadD 0
-subI 43
+loadsubDI 0 43
 bEZA "0111011110111100"
 jumpA "0111011110111011"
 
@@ -156463,8 +156131,7 @@ markA "010110111011000"
 jumpA "010110111011010"
 
 markA "010110111011001"
-loadD 0
-subI 45
+loadsubDI 0 45
 bEZA "0111011110111111"
 jumpA "0111011110111110"
 
@@ -156670,8 +156337,7 @@ markA "010110111101001"
 jumpA "010110111101011"
 
 markA "010110111101010"
-loadD 0
-subI 42
+loadsubDI 0 42
 bEZA "0111011111000010"
 jumpA "0111011111000001"
 
@@ -156919,8 +156585,7 @@ markA "010110111111110"
 jumpA "010111000000000"
 
 markA "010110111111111"
-loadD 0
-subI 47
+loadsubDI 0 47
 bEZA "0111011111000101"
 jumpA "0111011111000100"
 
@@ -157168,8 +156833,7 @@ markA "010111000010011"
 jumpA "010111000010101"
 
 markA "010111000010100"
-loadD 0
-subI 60
+loadsubDI 0 60
 bEZA "0111011111001000"
 jumpA "0111011111000111"
 
@@ -157384,8 +157048,7 @@ markA "010111000100100"
 jumpA "010111000100110"
 
 markA "010111000100101"
-loadD 0
-subI 62
+loadsubDI 0 62
 bEZA "0111011111001110"
 jumpA "0111011111001101"
 
@@ -157600,8 +157263,7 @@ markA "010111000110101"
 jumpA "010111000110111"
 
 markA "010111000110110"
-loadD 0
-subI 94
+loadsubDI 0 94
 bEZA "0111011111010100"
 jumpA "0111011111010011"
 
@@ -157708,8 +157370,7 @@ markA "010111000111101"
 jumpA "010111000111111"
 
 markA "010111000111110"
-loadD 0
-subI 38
+loadsubDI 0 38
 bEZA "0111011111011101"
 jumpA "0111011111011100"
 
@@ -157816,8 +157477,7 @@ markA "010111001000101"
 jumpA "010111001000111"
 
 markA "010111001000110"
-loadD 0
-subI 37
+loadsubDI 0 37
 bEZA "0111011111100110"
 jumpA "0111011111100101"
 
@@ -158065,8 +157725,7 @@ markA "010111001011010"
 jumpA "010111001011100"
 
 markA "010111001011011"
-loadD 0
-subI 312
+loadsubDI 0 312
 bEZA "0111011111101001"
 jumpA "0111011111101000"
 
@@ -158281,8 +157940,7 @@ markA "010111001101011"
 jumpA "010111001101101"
 
 markA "010111001101100"
-loadD 0
-subI 313
+loadsubDI 0 313
 bEZA "0111011111101111"
 jumpA "0111011111101110"
 
@@ -158497,8 +158155,7 @@ markA "010111001111100"
 jumpA "010111001111110"
 
 markA "010111001111101"
-loadD 0
-subI 315
+loadsubDI 0 315
 bEZA "0111011111110101"
 jumpA "0111011111110100"
 
@@ -158713,8 +158370,7 @@ markA "010111010001101"
 jumpA "010111010001111"
 
 markA "010111010001110"
-loadD 0
-subI 318
+loadsubDI 0 318
 bEZA "0111011111111011"
 jumpA "0111011111111010"
 
@@ -158929,8 +158585,7 @@ markA "010111010011110"
 jumpA "010111010100000"
 
 markA "010111010011111"
-loadD 0
-subI 319
+loadsubDI 0 319
 bEZA "0111100000000001"
 jumpA "0111100000000000"
 
@@ -159037,8 +158692,7 @@ markA "010111010100110"
 jumpA "010111010101000"
 
 markA "010111010100111"
-loadD 0
-subI 320
+loadsubDI 0 320
 bEZA "0111100000001010"
 jumpA "0111100000001001"
 
@@ -159145,8 +158799,7 @@ markA "010111010101110"
 jumpA "010111010110000"
 
 markA "010111010101111"
-loadD 0
-subI 291
+loadsubDI 0 291
 bEZA "0111100000010011"
 jumpA "0111100000010010"
 
@@ -159253,8 +158906,7 @@ markA "010111010110110"
 jumpA "010111010111000"
 
 markA "010111010110111"
-loadD 0
-subI 316
+loadsubDI 0 316
 bEZA "0111100000011100"
 jumpA "0111100000011011"
 
@@ -159461,8 +159113,7 @@ markA "010111011000111"
 jumpA "010111011001001"
 
 markA "010111011001000"
-loadD 0
-subI 317
+loadsubDI 0 317
 bEZA "0111100000100101"
 jumpA "0111100000100100"
 
@@ -159969,8 +159620,7 @@ markA "010111011110011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -164301,8 +163951,7 @@ markA "011000000110101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -165378,8 +165027,7 @@ markA "011000010001110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -165967,8 +165615,7 @@ markA "011000010111001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -166310,8 +165957,7 @@ markA "011000011010100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -166647,8 +166293,7 @@ markA "011000011110000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -166857,8 +166502,7 @@ markA "011000100000010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -167173,8 +166817,7 @@ markA "011000100011101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -168594,8 +168237,7 @@ markA "011000110010010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 6
+loadsubDI 5 6
 addI 16777216
 modI 16777216
 store
@@ -169928,8 +169570,7 @@ markA "011000111111100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -170822,8 +170463,7 @@ markA "011001001000011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -171582,8 +171222,7 @@ markA "011001010000111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 8
+loadsubDI 5 8
 addI 16777216
 modI 16777216
 store
@@ -172604,8 +172243,7 @@ markA "011001011011001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -173244,8 +172882,7 @@ markA "011001100001100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -174304,8 +173941,7 @@ markA "011001101011111"
 jumpA "011001101100001"
 
 markA "011001101100000"
-loadD 0
-subI 301
+loadsubDI 0 301
 bEZA "0111100110010000"
 jumpA "0111100110001111"
 
@@ -174355,8 +173991,7 @@ markA "011001101100100"
 jumpA "011001101100110"
 
 markA "011001101100101"
-loadD 0
-subI 309
+loadsubDI 0 309
 bEZA "0111100110010011"
 jumpA "0111100110010010"
 
@@ -174406,8 +174041,7 @@ markA "011001101101001"
 jumpA "011001101101011"
 
 markA "011001101101010"
-loadD 0
-subI 305
+loadsubDI 0 305
 bEZA "0111100110010110"
 jumpA "0111100110010101"
 
@@ -174457,8 +174091,7 @@ markA "011001101101110"
 jumpA "011001101110000"
 
 markA "011001101101111"
-loadD 0
-subI 303
+loadsubDI 0 303
 bEZA "0111100110011001"
 jumpA "0111100110011000"
 
@@ -174508,8 +174141,7 @@ markA "011001101110011"
 jumpA "011001101110101"
 
 markA "011001101110100"
-loadD 0
-subI 304
+loadsubDI 0 304
 bEZA "0111100110011100"
 jumpA "0111100110011011"
 
@@ -174559,8 +174191,7 @@ markA "011001101111000"
 jumpA "011001101111010"
 
 markA "011001101111001"
-loadD 0
-subI 302
+loadsubDI 0 302
 bEZA "0111100110011111"
 jumpA "0111100110011110"
 
@@ -174610,8 +174241,7 @@ markA "011001101111101"
 jumpA "011001101111111"
 
 markA "011001101111110"
-loadD 0
-subI 306
+loadsubDI 0 306
 bEZA "0111100110100010"
 jumpA "0111100110100001"
 
@@ -174661,8 +174291,7 @@ markA "011001110000010"
 jumpA "011001110000100"
 
 markA "011001110000011"
-loadD 0
-subI 310
+loadsubDI 0 310
 bEZA "0111100110100101"
 jumpA "0111100110100100"
 
@@ -174712,8 +174341,7 @@ markA "011001110000111"
 jumpA "011001110001001"
 
 markA "011001110001000"
-loadD 0
-subI 307
+loadsubDI 0 307
 bEZA "0111100110101000"
 jumpA "0111100110100111"
 
@@ -174763,8 +174391,7 @@ markA "011001110001100"
 jumpA "011001110001110"
 
 markA "011001110001101"
-loadD 0
-subI 308
+loadsubDI 0 308
 bEZA "0111100110101011"
 jumpA "0111100110101010"
 
@@ -174814,8 +174441,7 @@ markA "011001110010001"
 jumpA "011001110010011"
 
 markA "011001110010010"
-loadD 0
-subI 293
+loadsubDI 0 293
 bEZA "0111100110101110"
 jumpA "0111100110101101"
 
@@ -174939,8 +174565,7 @@ markA "011001110011101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -175528,8 +175153,7 @@ markA "011001111001111"
 jumpA "011001111010001"
 
 markA "011001111010000"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "0111100111000000"
 jumpA "0111100110111111"
 
@@ -175640,8 +175264,7 @@ markA "011001111011001"
 jumpA "011001111011011"
 
 markA "011001111011010"
-loadD 0
-subI 3
+loadsubDI 0 3
 bEZA "0111100111000011"
 jumpA "0111100111000010"
 
@@ -175773,8 +175396,7 @@ markA "011001111100101"
 jumpA "011001111100111"
 
 markA "011001111100110"
-loadD 0
-subI 4
+loadsubDI 0 4
 bEZA "0111100111000110"
 jumpA "0111100111000101"
 
@@ -175885,8 +175507,7 @@ markA "011001111101111"
 jumpA "011001111110001"
 
 markA "011001111110000"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "0111100111001001"
 jumpA "0111100111001000"
 
@@ -176128,8 +175749,7 @@ markA "011010000000101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -176627,8 +176247,7 @@ markA "011010000101101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -178995,8 +178614,7 @@ markA "011010011101000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -179168,8 +178786,7 @@ markA "011010011110111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -179516,8 +179133,7 @@ markA "011010100010100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -180018,8 +179634,7 @@ markA "011010100111101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -180452,8 +180067,7 @@ markA "011010101100000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -181183,8 +180797,7 @@ markA "011010110011010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -181458,8 +181071,7 @@ markA "011010110110001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -181965,8 +181577,7 @@ markA "011010111011010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -182234,8 +181845,7 @@ markA "011010111110001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -182393,8 +182003,7 @@ markA "011010111111101"
 jumpA "011010111111111"
 
 markA "011010111111110"
-loadD 0
-subI 346
+loadsubDI 0 346
 bEZA "0111101000111110"
 jumpA "0111101000111101"
 
@@ -182461,8 +182070,7 @@ markA "011011000000100"
 jumpA "011011000000110"
 
 markA "011011000000101"
-loadD 0
-subI 347
+loadsubDI 0 347
 bEZA "0111101001000001"
 jumpA "0111101001000000"
 
@@ -182480,8 +182088,7 @@ markA "011011000000110"
 jumpA "011011000001000"
 
 markA "011011000000111"
-loadD 0
-subI 348
+loadsubDI 0 348
 bEZA "0111101001000100"
 jumpA "0111101001000011"
 
@@ -182548,8 +182155,7 @@ markA "011011000001101"
 jumpA "011011000001111"
 
 markA "011011000001110"
-loadD 0
-subI 314
+loadsubDI 0 314
 bEZA "0111101001000111"
 jumpA "0111101001000110"
 
@@ -182635,8 +182241,7 @@ markA "011011000010101"
 jumpA "011011000010111"
 
 markA "011011000010110"
-loadD 0
-subI 311
+loadsubDI 0 311
 bEZA "0111101001001010"
 jumpA "0111101001001001"
 
@@ -182722,8 +182327,7 @@ markA "011011000011101"
 jumpA "011011000011111"
 
 markA "011011000011110"
-loadD 0
-subI 316
+loadsubDI 0 316
 bEZA "0111101001001101"
 jumpA "0111101001001100"
 
@@ -182790,8 +182394,7 @@ markA "011011000100100"
 jumpA "011011000100110"
 
 markA "011011000100101"
-loadD 0
-subI 38
+loadsubDI 0 38
 bEZA "0111101001010000"
 jumpA "0111101001001111"
 
@@ -182858,8 +182461,7 @@ markA "011011000101011"
 jumpA "011011000101101"
 
 markA "011011000101100"
-loadD 0
-subI 42
+loadsubDI 0 42
 bEZA "0111101001010011"
 jumpA "0111101001010010"
 
@@ -182926,8 +182528,7 @@ markA "011011000110010"
 jumpA "011011000110100"
 
 markA "011011000110011"
-loadD 0
-subI 43
+loadsubDI 0 43
 bEZA "0111101001010110"
 jumpA "0111101001010101"
 
@@ -182994,8 +182595,7 @@ markA "011011000111001"
 jumpA "011011000111011"
 
 markA "011011000111010"
-loadD 0
-subI 45
+loadsubDI 0 45
 bEZA "0111101001011001"
 jumpA "0111101001011000"
 
@@ -183062,8 +182662,7 @@ markA "011011001000000"
 jumpA "011011001000010"
 
 markA "011011001000001"
-loadD 0
-subI 126
+loadsubDI 0 126
 bEZA "0111101001011100"
 jumpA "0111101001011011"
 
@@ -183130,8 +182729,7 @@ markA "011011001000111"
 jumpA "011011001001001"
 
 markA "011011001001000"
-loadD 0
-subI 33
+loadsubDI 0 33
 bEZA "0111101001011111"
 jumpA "0111101001011110"
 
@@ -183338,8 +182936,7 @@ markA "011011001011011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -183721,8 +183318,7 @@ markA "011011001111011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -183955,8 +183551,7 @@ markA "011011010001110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -184754,8 +184349,7 @@ markA "011011011010010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -185549,8 +185143,7 @@ markA "011011100011000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -186014,8 +185607,7 @@ markA "011011101000010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -186759,8 +186351,7 @@ markA "011011110000011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -187546,8 +187137,7 @@ markA "011011111001001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -188037,8 +187627,7 @@ markA "011011111110011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -188335,8 +187924,7 @@ markA "011100000001101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -188633,8 +188221,7 @@ markA "011100000100111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -188931,8 +188518,7 @@ markA "011100001000001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -189250,8 +188836,7 @@ markA "011100001011101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -189569,8 +189154,7 @@ markA "011100001111001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -190066,8 +189650,7 @@ markA "011100010100010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 7
+loadsubDI 5 7
 addI 16777216
 modI 16777216
 store
@@ -191821,8 +191404,7 @@ markA "011100100101111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -192196,8 +191778,7 @@ markA "011100101001111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -192535,8 +192116,7 @@ markA "011100101101100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -193512,8 +193092,7 @@ markA "011100110111001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -193822,8 +193401,7 @@ markA "011100111010010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -194289,8 +193867,7 @@ markA "011100111110111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -195000,8 +194577,7 @@ markA "011101000110000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -196245,8 +195821,7 @@ markA "011101010001100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -197672,8 +197247,7 @@ markA "011101100000100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -199127,8 +198701,7 @@ markA "011101101110101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 7
+loadsubDI 5 7
 addI 16777216
 modI 16777216
 store
@@ -200961,8 +200534,7 @@ markA "011101111111110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 6
+loadsubDI 5 6
 addI 16777216
 modI 16777216
 store
@@ -202254,8 +201826,7 @@ markA "011110001100010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -202708,8 +202279,7 @@ markA "011110010001000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -204067,8 +203637,7 @@ markA "011110011110110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -205480,8 +205049,7 @@ markA "011110101101101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -206972,8 +206540,7 @@ markA "011110111100011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -207452,8 +207019,7 @@ markA "011111000001110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -208079,8 +207645,7 @@ markA "011111000111111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 7
+loadsubDI 5 7
 addI 16777216
 modI 16777216
 store
@@ -210564,8 +210129,7 @@ markA "011111100000110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -211882,8 +211446,7 @@ markA "011111101101111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -213312,8 +212875,7 @@ markA "011111111100000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -214198,8 +213760,7 @@ markA "0100000000101000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -214483,8 +214044,7 @@ markA "0100000001000000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 7
+loadsubDI 5 7
 addI 16777216
 modI 16777216
 store
@@ -216626,8 +216186,7 @@ markA "0100000011101010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -217996,8 +217555,7 @@ markA "0100000101011010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -221209,8 +220767,7 @@ markA "0100001001010101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -221504,8 +221061,7 @@ markA "0100001001101101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -221818,8 +221374,7 @@ markA "0100001010001001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 10
+loadsubDI 5 10
 addI 16777216
 modI 16777216
 store
@@ -224456,8 +224011,7 @@ markA "0100001100111000"
 jumpA "0100001100111010"
 
 markA "0100001100111001"
-loadD 0
-subI 352
+loadsubDI 0 352
 bEZA "0111111000011100"
 jumpA "0111111000011011"
 
@@ -224584,8 +224138,7 @@ markA "0100001101000011"
 jumpA "0100001101000101"
 
 markA "0100001101000100"
-loadD 0
-subI 332
+loadsubDI 0 332
 bEZA "0111111000101000"
 jumpA "0111111000100111"
 
@@ -224712,8 +224265,7 @@ markA "0100001101001110"
 jumpA "0100001101010000"
 
 markA "0100001101001111"
-loadD 0
-subI 349
+loadsubDI 0 349
 bEZA "0111111000110100"
 jumpA "0111111000110011"
 
@@ -224840,8 +224392,7 @@ markA "0100001101011001"
 jumpA "0100001101011011"
 
 markA "0100001101011010"
-loadD 0
-subI 321
+loadsubDI 0 321
 bEZA "0111111001000000"
 jumpA "0111111000111111"
 
@@ -224968,8 +224519,7 @@ markA "0100001101100100"
 jumpA "0100001101100110"
 
 markA "0100001101100101"
-loadD 0
-subI 340
+loadsubDI 0 340
 bEZA "0111111001001100"
 jumpA "0111111001001011"
 
@@ -225096,8 +224646,7 @@ markA "0100001101101111"
 jumpA "0100001101110001"
 
 markA "0100001101110000"
-loadD 0
-subI 325
+loadsubDI 0 325
 bEZA "0111111001011000"
 jumpA "0111111001010111"
 
@@ -225131,8 +224680,7 @@ markA "0100001101110011"
 jumpA "0100001101110101"
 
 markA "0100001101110100"
-loadD 0
-subI 356
+loadsubDI 0 356
 bEZA "0111111001011011"
 jumpA "0111111001011010"
 
@@ -225166,8 +224714,7 @@ markA "0100001101110111"
 jumpA "0100001101111001"
 
 markA "0100001101111000"
-loadD 0
-subI 337
+loadsubDI 0 337
 bEZA "0111111001011110"
 jumpA "0111111001011101"
 
@@ -225201,8 +224748,7 @@ markA "0100001101111011"
 jumpA "0100001101111101"
 
 markA "0100001101111100"
-loadD 0
-subI 355
+loadsubDI 0 355
 bEZA "0111111001100001"
 jumpA "0111111001100000"
 
@@ -226826,8 +226372,7 @@ markA "0100001111011110"
 jumpA "0100001111100000"
 
 markA "0100001111011111"
-loadD 0
-subI 358
+loadsubDI 0 358
 bEZA "0111111011111101"
 jumpA "0111111011111100"
 
@@ -228451,8 +227996,7 @@ markA "0100010001000001"
 jumpA "0100010001000011"
 
 markA "0100010001000010"
-loadD 0
-subI 324
+loadsubDI 0 324
 bEZA "0111111110011001"
 jumpA "0111111110011000"
 
@@ -230076,8 +229620,7 @@ markA "0100010010100100"
 jumpA "0100010010100110"
 
 markA "0100010010100101"
-loadD 0
-subI 338
+loadsubDI 0 338
 bEZA "01000000000110101"
 jumpA "01000000000110100"
 
@@ -231701,8 +231244,7 @@ markA "0100010100000111"
 jumpA "0100010100001001"
 
 markA "0100010100001000"
-loadD 0
-subI 333
+loadsubDI 0 333
 bEZA "01000000011010001"
 jumpA "01000000011010000"
 
@@ -233326,8 +232868,7 @@ markA "0100010101101010"
 jumpA "0100010101101100"
 
 markA "0100010101101011"
-loadD 0
-subI 329
+loadsubDI 0 329
 bEZA "01000000101101101"
 jumpA "01000000101101100"
 
@@ -234951,8 +234492,7 @@ markA "0100010111001101"
 jumpA "0100010111001111"
 
 markA "0100010111001110"
-loadD 0
-subI 344
+loadsubDI 0 344
 bEZA "01000001000001001"
 jumpA "01000001000001000"
 
@@ -234970,8 +234510,7 @@ markA "0100010111001111"
 jumpA "0100010111010001"
 
 markA "0100010111010000"
-loadD 0
-subI 345
+loadsubDI 0 345
 bEZA "01000001000001100"
 jumpA "01000001000001011"
 
@@ -236595,8 +236134,7 @@ markA "0100011000110010"
 jumpA "0100011000110100"
 
 markA "0100011000110011"
-loadD 0
-subI 354
+loadsubDI 0 354
 bEZA "01000001010101000"
 jumpA "01000001010100111"
 
@@ -238220,8 +237758,7 @@ markA "0100011010010101"
 jumpA "0100011010010111"
 
 markA "0100011010010110"
-loadD 0
-subI 343
+loadsubDI 0 343
 bEZA "01000001101000100"
 jumpA "01000001101000011"
 
@@ -239845,8 +239382,7 @@ markA "0100011011111000"
 jumpA "0100011011111010"
 
 markA "0100011011111001"
-loadD 0
-subI 350
+loadsubDI 0 350
 bEZA "01000001111100000"
 jumpA "01000001111011111"
 
@@ -241487,8 +241023,7 @@ markA "0100011101011101"
 jumpA "0100011101011111"
 
 markA "0100011101011110"
-loadD 0
-subI 353
+loadsubDI 0 353
 bEZA "01000010001111100"
 jumpA "01000010001111011"
 
@@ -243129,8 +242664,7 @@ markA "0100011111000010"
 jumpA "0100011111000100"
 
 markA "0100011111000011"
-loadD 0
-subI 331
+loadsubDI 0 331
 bEZA "01000010100011000"
 jumpA "01000010100010111"
 
@@ -244771,8 +244305,7 @@ markA "0100100000100111"
 jumpA "0100100000101001"
 
 markA "0100100000101000"
-loadD 0
-subI 339
+loadsubDI 0 339
 bEZA "01000010110110100"
 jumpA "01000010110110011"
 
@@ -246560,8 +246093,7 @@ markA "0100100010010110"
 jumpA "0100100010011000"
 
 markA "0100100010010111"
-loadD 0
-subI 363
+loadsubDI 0 363
 bEZA "01000011001011100"
 jumpA "01000011001011011"
 
@@ -246579,8 +246111,7 @@ markA "0100100010011000"
 jumpA "0100100010011010"
 
 markA "0100100010011001"
-loadD 0
-subI 364
+loadsubDI 0 364
 bEZA "01000011001011111"
 jumpA "01000011001011110"
 
@@ -248461,8 +247992,7 @@ markA "0100100100010100"
 jumpA "0100100100010110"
 
 markA "0100100100010101"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "01000011100000001"
 jumpA "01000011100000000"
 
@@ -248519,8 +248049,7 @@ markA "0100100100011010"
 jumpA "0100100100011100"
 
 markA "0100100100011011"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "01000011100000100"
 jumpA "01000011100000011"
 
@@ -248620,8 +248149,7 @@ markA "0100100100100011"
 jumpA "0100100100100101"
 
 markA "0100100100100100"
-loadD 0
-subI 3
+loadsubDI 0 3
 bEZA "01000011100000111"
 jumpA "01000011100000110"
 
@@ -248776,8 +248304,7 @@ markA "0100100100101111"
 jumpA "0100100100110001"
 
 markA "0100100100110000"
-loadD 0
-subI 5
+loadsubDI 0 5
 bEZA "01000011100001101"
 jumpA "01000011100001100"
 
@@ -248877,8 +248404,7 @@ markA "0100100100111000"
 jumpA "0100100100111010"
 
 markA "0100100100111001"
-loadD 0
-subI 6
+loadsubDI 0 6
 bEZA "01000011100010000"
 jumpA "01000011100001111"
 
@@ -249074,8 +248600,7 @@ markA "0100100101001010"
 jumpA "0100100101001100"
 
 markA "0100100101001011"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "01000011100011001"
 jumpA "01000011100011000"
 
@@ -249230,8 +248755,7 @@ markA "0100100101010110"
 jumpA "0100100101011000"
 
 markA "0100100101010111"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "01000011100011111"
 jumpA "01000011100011110"
 
@@ -249386,8 +248910,7 @@ markA "0100100101100010"
 jumpA "0100100101100100"
 
 markA "0100100101100011"
-loadD 0
-subI 3
+loadsubDI 0 3
 bEZA "01000011100100101"
 jumpA "01000011100100100"
 
@@ -249967,8 +249490,7 @@ markA "0100100110010000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -250449,8 +249971,7 @@ markA "0100100110111000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 7
+loadsubDI 5 7
 addI 16777216
 modI 16777216
 store
@@ -252812,8 +252333,7 @@ markA "0100101001110000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -253484,8 +253004,7 @@ markA "0100101010101011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -254824,8 +254343,7 @@ store
 markA "0100101100001111"
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -255142,8 +254660,7 @@ markA "0100101100101010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -256063,8 +255580,7 @@ markA "0100101101110110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 6
+loadsubDI 5 6
 addI 16777216
 modI 16777216
 store
@@ -256899,8 +256415,7 @@ markA "0100101110111011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -257186,8 +256701,7 @@ markA "0100101111010100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -257757,8 +257271,7 @@ markA "0100110000000011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -258063,8 +257576,7 @@ markA "0100110000011101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -258862,8 +258374,7 @@ markA "0100110001100001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -259178,8 +258689,7 @@ markA "0100110001111100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -259795,8 +259305,7 @@ markA "0100110010101111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -260160,8 +259669,7 @@ markA "0100110011001110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -260708,8 +260216,7 @@ markA "0100110011111011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -260982,8 +260489,7 @@ markA "0100110100010010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -261256,8 +260762,7 @@ markA "0100110100101001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 9
+loadsubDI 5 9
 addI 16777216
 modI 16777216
 store
@@ -261530,8 +261035,7 @@ markA "0100110101000000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -261906,8 +261410,7 @@ markA "0100110101100000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -262902,8 +262405,7 @@ markA "0100110110101111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -263468,8 +262970,7 @@ markA "0100110111011110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -263627,8 +263128,7 @@ markA "0100110111101010"
 jumpA "0100110111101100"
 
 markA "0100110111101011"
-loadD 0
-subI 123
+loadsubDI 0 123
 bEZA "01000100000001001"
 jumpA "01000100000001000"
 
@@ -263695,8 +263195,7 @@ markA "0100110111110001"
 jumpA "0100110111110011"
 
 markA "0100110111110010"
-loadD 0
-subI 336
+loadsubDI 0 336
 bEZA "01000100000001100"
 jumpA "01000100000001011"
 
@@ -263763,8 +263262,7 @@ markA "0100110111111000"
 jumpA "0100110111111010"
 
 markA "0100110111111001"
-loadD 0
-subI 334
+loadsubDI 0 334
 bEZA "01000100000001111"
 jumpA "01000100000001110"
 
@@ -263831,8 +263329,7 @@ markA "0100110111111111"
 jumpA "0100111000000001"
 
 markA "0100111000000000"
-loadD 0
-subI 357
+loadsubDI 0 357
 bEZA "01000100000010010"
 jumpA "01000100000010001"
 
@@ -263899,8 +263396,7 @@ markA "0100111000000110"
 jumpA "0100111000001000"
 
 markA "0100111000000111"
-loadD 0
-subI 328
+loadsubDI 0 328
 bEZA "01000100000010101"
 jumpA "01000100000010100"
 
@@ -263967,8 +263463,7 @@ markA "0100111000001101"
 jumpA "0100111000001111"
 
 markA "0100111000001110"
-loadD 0
-subI 342
+loadsubDI 0 342
 bEZA "01000100000011000"
 jumpA "01000100000010111"
 
@@ -264035,8 +263530,7 @@ markA "0100111000010100"
 jumpA "0100111000010110"
 
 markA "0100111000010101"
-loadD 0
-subI 351
+loadsubDI 0 351
 bEZA "01000100000011011"
 jumpA "01000100000011010"
 
@@ -264103,8 +263597,7 @@ markA "0100111000011011"
 jumpA "0100111000011101"
 
 markA "0100111000011100"
-loadD 0
-subI 323
+loadsubDI 0 323
 bEZA "01000100000011110"
 jumpA "01000100000011101"
 
@@ -264171,8 +263664,7 @@ markA "0100111000100010"
 jumpA "0100111000100100"
 
 markA "0100111000100011"
-loadD 0
-subI 327
+loadsubDI 0 327
 bEZA "01000100000100001"
 jumpA "01000100000100000"
 
@@ -264239,8 +263731,7 @@ markA "0100111000101001"
 jumpA "0100111000101011"
 
 markA "0100111000101010"
-loadD 0
-subI 322
+loadsubDI 0 322
 bEZA "01000100000100100"
 jumpA "01000100000100011"
 
@@ -264307,8 +263798,7 @@ markA "0100111000110000"
 jumpA "0100111000110010"
 
 markA "0100111000110001"
-loadD 0
-subI 326
+loadsubDI 0 326
 bEZA "01000100000100111"
 jumpA "01000100000100110"
 
@@ -264375,8 +263865,7 @@ markA "0100111000110111"
 jumpA "0100111000111001"
 
 markA "0100111000111000"
-loadD 0
-subI 335
+loadsubDI 0 335
 bEZA "01000100000101010"
 jumpA "01000100000101001"
 
@@ -264919,8 +264408,7 @@ markA "0100111001100101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -265303,8 +264791,7 @@ markA "0100111010001001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -266214,8 +265701,7 @@ markA "0100111011011010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -267049,8 +266535,7 @@ markA "0100111100011101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 7
+loadsubDI 5 7
 addI 16777216
 modI 16777216
 store
@@ -267205,8 +266690,7 @@ markA "0100111100101010"
 jumpA "0100111100101100"
 
 markA "0100111100101011"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "01000100001100011"
 jumpA "01000100001100010"
 
@@ -267256,8 +266740,7 @@ markA "0100111100101111"
 jumpA "0100111100110001"
 
 markA "0100111100110000"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "01000100001100110"
 jumpA "01000100001100101"
 
@@ -267369,8 +266852,7 @@ markA "0100111100111001"
 jumpA "0100111100111011"
 
 markA "0100111100111010"
-loadD 0
-subI 3
+loadsubDI 0 3
 bEZA "01000100001101001"
 jumpA "01000100001101000"
 
@@ -267482,8 +266964,7 @@ markA "0100111101000011"
 jumpA "0100111101000101"
 
 markA "0100111101000100"
-loadD 0
-subI 4
+loadsubDI 0 4
 bEZA "01000100001101100"
 jumpA "01000100001101011"
 
@@ -267595,8 +267076,7 @@ markA "0100111101001101"
 jumpA "0100111101001111"
 
 markA "0100111101001110"
-loadD 0
-subI 5
+loadsubDI 0 5
 bEZA "01000100001101111"
 jumpA "01000100001101110"
 
@@ -267708,8 +267188,7 @@ markA "0100111101010111"
 jumpA "0100111101011001"
 
 markA "0100111101011000"
-loadD 0
-subI 6
+loadsubDI 0 6
 bEZA "01000100001110010"
 jumpA "01000100001110001"
 
@@ -267821,8 +267300,7 @@ markA "0100111101100001"
 jumpA "0100111101100011"
 
 markA "0100111101100010"
-loadD 0
-subI 7
+loadsubDI 0 7
 bEZA "01000100001110101"
 jumpA "01000100001110100"
 
@@ -267872,8 +267350,7 @@ markA "0100111101100110"
 jumpA "0100111101101000"
 
 markA "0100111101100111"
-loadD 0
-subI 8
+loadsubDI 0 8
 bEZA "01000100001111000"
 jumpA "01000100001110111"
 
@@ -267923,8 +267400,7 @@ markA "0100111101101011"
 jumpA "0100111101101101"
 
 markA "0100111101101100"
-loadD 0
-subI 9
+loadsubDI 0 9
 bEZA "01000100001111011"
 jumpA "01000100001111010"
 
@@ -267974,8 +267450,7 @@ markA "0100111101110000"
 jumpA "0100111101110010"
 
 markA "0100111101110001"
-loadD 0
-subI 11
+loadsubDI 0 11
 bEZA "01000100001111110"
 jumpA "01000100001111101"
 
@@ -268162,8 +267637,7 @@ markA "0100111110000000"
 jumpA "0100111110000010"
 
 markA "0100111110000001"
-loadD 0
-subI 10
+loadsubDI 0 10
 bEZA "01000100010000001"
 jumpA "01000100010000000"
 
@@ -268389,8 +267863,7 @@ markA "0100111110010011"
 jumpA "0100111110010101"
 
 markA "0100111110010100"
-loadD 0
-subI 12
+loadsubDI 0 12
 bEZA "01000100010000100"
 jumpA "01000100010000011"
 
@@ -269560,8 +269033,7 @@ markA "0100111111110100"
 jumpA "0100111111110110"
 
 markA "0100111111110101"
-loadD 0
-subI 13
+loadsubDI 0 13
 bEZA "01000100010010011"
 jumpA "01000100010010010"
 
@@ -271274,8 +270746,7 @@ markA "0101000010000001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -271821,8 +271292,7 @@ markA "0101000010101100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 6
+loadsubDI 5 6
 addI 16777216
 modI 16777216
 store
@@ -271988,8 +271458,7 @@ markA "0101000010111001"
 jumpA "0101000010111011"
 
 markA "0101000010111010"
-loadD 0
-subI 256
+loadsubDI 0 256
 bEZA "01000100010110100"
 jumpA "01000100010110011"
 
@@ -272044,8 +271513,7 @@ markA "0101000010111111"
 jumpA "0101000011000001"
 
 markA "0101000011000000"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "01000100010110111"
 jumpA "01000100010110110"
 
@@ -272620,8 +272088,7 @@ markA "0101000011101100"
 jumpA "0101000011101110"
 
 markA "0101000011101101"
-loadD 0
-subI 4
+loadsubDI 0 4
 bEZA "01000100011001100"
 jumpA "01000100011001011"
 
@@ -272639,8 +272106,7 @@ markA "0101000011101110"
 jumpA "0101000011110000"
 
 markA "0101000011101111"
-loadD 0
-subI 5
+loadsubDI 0 5
 bEZA "01000100011001111"
 jumpA "01000100011001110"
 
@@ -272763,8 +272229,7 @@ markA "0101000011111001"
 jumpA "0101000011111011"
 
 markA "0101000011111010"
-loadD 0
-subI 7
+loadsubDI 0 7
 bEZA "01000100011010010"
 jumpA "01000100011010001"
 
@@ -272782,8 +272247,7 @@ markA "0101000011111011"
 jumpA "0101000011111101"
 
 markA "0101000011111100"
-loadD 0
-subI 8
+loadsubDI 0 8
 bEZA "01000100011010101"
 jumpA "01000100011010100"
 
@@ -272997,8 +272461,7 @@ markA "0101000100001110"
 jumpA "0101000100010000"
 
 markA "0101000100001111"
-loadD 0
-subI 257
+loadsubDI 0 257
 bEZA "01000100011011110"
 jumpA "01000100011011101"
 
@@ -273157,8 +272620,7 @@ markA "0101000100011100"
 jumpA "0101000100011110"
 
 markA "0101000100011101"
-loadD 0
-subI 258
+loadsubDI 0 258
 bEZA "01000100011100001"
 jumpA "01000100011100000"
 
@@ -273538,8 +273000,7 @@ markA "0101000100111100"
 jumpA "0101000100111110"
 
 markA "0101000100111101"
-loadD 0
-subI 259
+loadsubDI 0 259
 bEZA "01000100011100111"
 jumpA "01000100011100110"
 
@@ -273662,8 +273123,7 @@ markA "0101000101000111"
 jumpA "0101000101001001"
 
 markA "0101000101001000"
-loadD 0
-subI 261
+loadsubDI 0 261
 bEZA "01000100011101010"
 jumpA "01000100011101001"
 
@@ -273681,8 +273141,7 @@ markA "0101000101001001"
 jumpA "0101000101001011"
 
 markA "0101000101001010"
-loadD 0
-subI 262
+loadsubDI 0 262
 bEZA "01000100011101101"
 jumpA "01000100011101100"
 
@@ -274548,8 +274007,7 @@ markA "0101000110001111"
 jumpA "0101000110010001"
 
 markA "0101000110010000"
-loadD 0
-subI 263
+loadsubDI 0 263
 bEZA "01000100100000010"
 jumpA "01000100100000001"
 
@@ -274708,8 +274166,7 @@ markA "0101000110011101"
 jumpA "0101000110011111"
 
 markA "0101000110011110"
-loadD 0
-subI 264
+loadsubDI 0 264
 bEZA "01000100100000101"
 jumpA "01000100100000100"
 
@@ -275643,8 +275100,7 @@ markA "0101000111101000"
 jumpA "0101000111101010"
 
 markA "0101000111101001"
-loadD 0
-subI 265
+loadsubDI 0 265
 bEZA "01000100100010100"
 jumpA "01000100100010011"
 
@@ -276125,8 +275581,7 @@ markA "0101001000010000"
 jumpA "0101001000010010"
 
 markA "0101001000010001"
-loadD 0
-subI 266
+loadsubDI 0 266
 bEZA "01000100100011010"
 jumpA "01000100100011001"
 
@@ -276399,8 +275854,7 @@ markA "0101001000100111"
 jumpA "0101001000101001"
 
 markA "0101001000101000"
-loadD 0
-subI 267
+loadsubDI 0 267
 bEZA "01000100100011101"
 jumpA "01000100100011100"
 
@@ -276634,8 +276088,7 @@ markA "0101001000111011"
 jumpA "0101001000111101"
 
 markA "0101001000111100"
-loadD 0
-subI 270
+loadsubDI 0 270
 bEZA "01000100100100000"
 jumpA "01000100100011111"
 
@@ -277113,8 +276566,7 @@ markA "0101001001100011"
 jumpA "0101001001100101"
 
 markA "0101001001100100"
-loadD 0
-subI 271
+loadsubDI 0 271
 bEZA "01000100100100110"
 jumpA "01000100100100101"
 
@@ -277423,8 +276875,7 @@ markA "0101001001111101"
 jumpA "0101001001111111"
 
 markA "0101001001111110"
-loadD 0
-subI 272
+loadsubDI 0 272
 bEZA "01000100100101001"
 jumpA "01000100100101000"
 
@@ -277808,8 +277259,7 @@ markA "0101001010011101"
 jumpA "0101001010011111"
 
 markA "0101001010011110"
-loadD 0
-subI 273
+loadsubDI 0 273
 bEZA "01000100100101100"
 jumpA "01000100100101011"
 
@@ -278043,8 +277493,7 @@ markA "0101001010110001"
 jumpA "0101001010110011"
 
 markA "0101001010110010"
-loadD 0
-subI 274
+loadsubDI 0 274
 bEZA "01000100100101111"
 jumpA "01000100100101110"
 
@@ -278278,8 +277727,7 @@ markA "0101001011000101"
 jumpA "0101001011000111"
 
 markA "0101001011000110"
-loadD 0
-subI 278
+loadsubDI 0 278
 bEZA "01000100100110010"
 jumpA "01000100100110001"
 
@@ -278438,8 +277886,7 @@ markA "0101001011010011"
 jumpA "0101001011010101"
 
 markA "0101001011010100"
-loadD 0
-subI 281
+loadsubDI 0 281
 bEZA "01000100100110101"
 jumpA "01000100100110100"
 
@@ -278930,8 +278377,7 @@ markA "0101001011111100"
 jumpA "0101001011111110"
 
 markA "0101001011111101"
-loadD 0
-subI 282
+loadsubDI 0 282
 bEZA "01000100100111110"
 jumpA "01000100100111101"
 
@@ -279191,8 +278637,7 @@ markA "0101001100010010"
 jumpA "0101001100010100"
 
 markA "0101001100010011"
-loadD 0
-subI 268
+loadsubDI 0 268
 bEZA "01000100101000001"
 jumpA "01000100101000000"
 
@@ -279302,8 +278747,7 @@ markA "0101001100011100"
 jumpA "0101001100011110"
 
 markA "0101001100011101"
-loadD 0
-subI 269
+loadsubDI 0 269
 bEZA "01000100101000100"
 jumpA "01000100101000011"
 
@@ -279413,8 +278857,7 @@ markA "0101001100100110"
 jumpA "0101001100101000"
 
 markA "0101001100100111"
-loadD 0
-subI 288
+loadsubDI 0 288
 bEZA "01000100101000111"
 jumpA "01000100101000110"
 
@@ -279524,8 +278967,7 @@ markA "0101001100110000"
 jumpA "0101001100110010"
 
 markA "0101001100110001"
-loadD 0
-subI 319
+loadsubDI 0 319
 bEZA "01000100101001010"
 jumpA "01000100101001001"
 
@@ -279635,8 +279077,7 @@ markA "0101001100111010"
 jumpA "0101001100111100"
 
 markA "0101001100111011"
-loadD 0
-subI 320
+loadsubDI 0 320
 bEZA "01000100101001101"
 jumpA "01000100101001100"
 
@@ -279654,8 +279095,7 @@ markA "0101001100111100"
 jumpA "0101001100111110"
 
 markA "0101001100111101"
-loadD 0
-subI 291
+loadsubDI 0 291
 bEZA "01000100101010000"
 jumpA "01000100101001111"
 
@@ -279765,8 +279205,7 @@ markA "0101001101000110"
 jumpA "0101001101001000"
 
 markA "0101001101000111"
-loadD 0
-subI 313
+loadsubDI 0 313
 bEZA "01000100101010011"
 jumpA "01000100101010010"
 
@@ -279876,8 +279315,7 @@ markA "0101001101010000"
 jumpA "0101001101010010"
 
 markA "0101001101010001"
-loadD 0
-subI 315
+loadsubDI 0 315
 bEZA "01000100101010110"
 jumpA "01000100101010101"
 
@@ -279987,8 +279425,7 @@ markA "0101001101011010"
 jumpA "0101001101011100"
 
 markA "0101001101011011"
-loadD 0
-subI 318
+loadsubDI 0 318
 bEZA "01000100101011001"
 jumpA "01000100101011000"
 
@@ -280098,8 +279535,7 @@ markA "0101001101100100"
 jumpA "0101001101100110"
 
 markA "0101001101100101"
-loadD 0
-subI 295
+loadsubDI 0 295
 bEZA "01000100101011100"
 jumpA "01000100101011011"
 
@@ -280209,8 +279645,7 @@ markA "0101001101101110"
 jumpA "0101001101110000"
 
 markA "0101001101101111"
-loadD 0
-subI 296
+loadsubDI 0 296
 bEZA "01000100101011111"
 jumpA "01000100101011110"
 
@@ -280320,8 +279755,7 @@ markA "0101001101111000"
 jumpA "0101001101111010"
 
 markA "0101001101111001"
-loadD 0
-subI 297
+loadsubDI 0 297
 bEZA "01000100101100010"
 jumpA "01000100101100001"
 
@@ -280431,8 +279865,7 @@ markA "0101001110000010"
 jumpA "0101001110000100"
 
 markA "0101001110000011"
-loadD 0
-subI 298
+loadsubDI 0 298
 bEZA "01000100101100101"
 jumpA "01000100101100100"
 
@@ -280542,8 +279975,7 @@ markA "0101001110001100"
 jumpA "0101001110001110"
 
 markA "0101001110001101"
-loadD 0
-subI 316
+loadsubDI 0 316
 bEZA "01000100101101000"
 jumpA "01000100101100111"
 
@@ -280653,8 +280085,7 @@ markA "0101001110010110"
 jumpA "0101001110011000"
 
 markA "0101001110010111"
-loadD 0
-subI 317
+loadsubDI 0 317
 bEZA "01000100101101011"
 jumpA "01000100101101010"
 
@@ -280764,8 +280195,7 @@ markA "0101001110100000"
 jumpA "0101001110100010"
 
 markA "0101001110100001"
-loadD 0
-subI 301
+loadsubDI 0 301
 bEZA "01000100101101110"
 jumpA "01000100101101101"
 
@@ -280875,8 +280305,7 @@ markA "0101001110101010"
 jumpA "0101001110101100"
 
 markA "0101001110101011"
-loadD 0
-subI 309
+loadsubDI 0 309
 bEZA "01000100101110001"
 jumpA "01000100101110000"
 
@@ -280986,8 +280415,7 @@ markA "0101001110110100"
 jumpA "0101001110110110"
 
 markA "0101001110110101"
-loadD 0
-subI 305
+loadsubDI 0 305
 bEZA "01000100101110100"
 jumpA "01000100101110011"
 
@@ -281097,8 +280525,7 @@ markA "0101001110111110"
 jumpA "0101001111000000"
 
 markA "0101001110111111"
-loadD 0
-subI 303
+loadsubDI 0 303
 bEZA "01000100101110111"
 jumpA "01000100101110110"
 
@@ -281208,8 +280635,7 @@ markA "0101001111001000"
 jumpA "0101001111001010"
 
 markA "0101001111001001"
-loadD 0
-subI 304
+loadsubDI 0 304
 bEZA "01000100101111010"
 jumpA "01000100101111001"
 
@@ -281319,8 +280745,7 @@ markA "0101001111010010"
 jumpA "0101001111010100"
 
 markA "0101001111010011"
-loadD 0
-subI 302
+loadsubDI 0 302
 bEZA "01000100101111101"
 jumpA "01000100101111100"
 
@@ -281430,8 +280855,7 @@ markA "0101001111011100"
 jumpA "0101001111011110"
 
 markA "0101001111011101"
-loadD 0
-subI 306
+loadsubDI 0 306
 bEZA "01000100110000000"
 jumpA "01000100101111111"
 
@@ -281541,8 +280965,7 @@ markA "0101001111100110"
 jumpA "0101001111101000"
 
 markA "0101001111100111"
-loadD 0
-subI 310
+loadsubDI 0 310
 bEZA "01000100110000011"
 jumpA "01000100110000010"
 
@@ -281652,8 +281075,7 @@ markA "0101001111110000"
 jumpA "0101001111110010"
 
 markA "0101001111110001"
-loadD 0
-subI 307
+loadsubDI 0 307
 bEZA "01000100110000110"
 jumpA "01000100110000101"
 
@@ -281763,8 +281185,7 @@ markA "0101001111111010"
 jumpA "0101001111111100"
 
 markA "0101001111111011"
-loadD 0
-subI 308
+loadsubDI 0 308
 bEZA "01000100110001001"
 jumpA "01000100110001000"
 
@@ -281782,8 +281203,7 @@ markA "0101001111111100"
 jumpA "0101001111111110"
 
 markA "0101001111111101"
-loadD 0
-subI 293
+loadsubDI 0 293
 bEZA "01000100110001100"
 jumpA "01000100110001011"
 
@@ -281893,8 +281313,7 @@ markA "0101010000000110"
 jumpA "0101010000001000"
 
 markA "0101010000000111"
-loadD 0
-subI 33
+loadsubDI 0 33
 bEZA "01000100110001111"
 jumpA "01000100110001110"
 
@@ -282004,8 +281423,7 @@ markA "0101010000010000"
 jumpA "0101010000010010"
 
 markA "0101010000010001"
-loadD 0
-subI 38
+loadsubDI 0 38
 bEZA "01000100110010010"
 jumpA "01000100110010001"
 
@@ -282115,8 +281533,7 @@ markA "0101010000011010"
 jumpA "0101010000011100"
 
 markA "0101010000011011"
-loadD 0
-subI 124
+loadsubDI 0 124
 bEZA "01000100110010101"
 jumpA "01000100110010100"
 
@@ -282226,8 +281643,7 @@ markA "0101010000100100"
 jumpA "0101010000100110"
 
 markA "0101010000100101"
-loadD 0
-subI 290
+loadsubDI 0 290
 bEZA "01000100110011000"
 jumpA "01000100110010111"
 
@@ -282549,8 +281965,7 @@ markA "0101010000111111"
 jumpA "0101010001000001"
 
 markA "0101010001000000"
-loadD 0
-subI 299
+loadsubDI 0 299
 bEZA "01000100110011011"
 jumpA "01000100110011010"
 
@@ -283250,8 +282665,7 @@ markA "0101010001111010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -283673,8 +283087,7 @@ markA "0101010010011110"
 jumpA "0101010010100000"
 
 markA "0101010010011111"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "01000100110101101"
 jumpA "01000100110101100"
 
@@ -283721,8 +283134,7 @@ markA "0101010010100011"
 jumpA "0101010010100101"
 
 markA "0101010010100100"
-loadD 0
-subI 300
+loadsubDI 0 300
 bEZA "01000100110110000"
 jumpA "01000100110101111"
 
@@ -283772,8 +283184,7 @@ markA "0101010010101000"
 jumpA "0101010010101010"
 
 markA "0101010010101001"
-loadD 0
-subI 301
+loadsubDI 0 301
 bEZA "01000100110110011"
 jumpA "01000100110110010"
 
@@ -283823,8 +283234,7 @@ markA "0101010010101101"
 jumpA "0101010010101111"
 
 markA "0101010010101110"
-loadD 0
-subI 302
+loadsubDI 0 302
 bEZA "01000100110110110"
 jumpA "01000100110110101"
 
@@ -283874,8 +283284,7 @@ markA "0101010010110010"
 jumpA "0101010010110100"
 
 markA "0101010010110011"
-loadD 0
-subI 303
+loadsubDI 0 303
 bEZA "01000100110111001"
 jumpA "01000100110111000"
 
@@ -283925,8 +283334,7 @@ markA "0101010010110111"
 jumpA "0101010010111001"
 
 markA "0101010010111000"
-loadD 0
-subI 304
+loadsubDI 0 304
 bEZA "01000100110111100"
 jumpA "01000100110111011"
 
@@ -283976,8 +283384,7 @@ markA "0101010010111100"
 jumpA "0101010010111110"
 
 markA "0101010010111101"
-loadD 0
-subI 305
+loadsubDI 0 305
 bEZA "01000100110111111"
 jumpA "01000100110111110"
 
@@ -284027,8 +283434,7 @@ markA "0101010011000001"
 jumpA "0101010011000011"
 
 markA "0101010011000010"
-loadD 0
-subI 306
+loadsubDI 0 306
 bEZA "01000100111000010"
 jumpA "01000100111000001"
 
@@ -284078,8 +283484,7 @@ markA "0101010011000110"
 jumpA "0101010011001000"
 
 markA "0101010011000111"
-loadD 0
-subI 307
+loadsubDI 0 307
 bEZA "01000100111000101"
 jumpA "01000100111000100"
 
@@ -284129,8 +283534,7 @@ markA "0101010011001011"
 jumpA "0101010011001101"
 
 markA "0101010011001100"
-loadD 0
-subI 308
+loadsubDI 0 308
 bEZA "01000100111001000"
 jumpA "01000100111000111"
 
@@ -284180,8 +283584,7 @@ markA "0101010011010000"
 jumpA "0101010011010010"
 
 markA "0101010011010001"
-loadD 0
-subI 309
+loadsubDI 0 309
 bEZA "01000100111001011"
 jumpA "01000100111001010"
 
@@ -284231,8 +283634,7 @@ markA "0101010011010101"
 jumpA "0101010011010111"
 
 markA "0101010011010110"
-loadD 0
-subI 310
+loadsubDI 0 310
 bEZA "01000100111001110"
 jumpA "01000100111001101"
 
@@ -284282,8 +283684,7 @@ markA "0101010011011010"
 jumpA "0101010011011100"
 
 markA "0101010011011011"
-loadD 0
-subI 311
+loadsubDI 0 311
 bEZA "01000100111010001"
 jumpA "01000100111010000"
 
@@ -284333,8 +283734,7 @@ markA "0101010011011111"
 jumpA "0101010011100001"
 
 markA "0101010011100000"
-loadD 0
-subI 312
+loadsubDI 0 312
 bEZA "01000100111010100"
 jumpA "01000100111010011"
 
@@ -284384,8 +283784,7 @@ markA "0101010011100100"
 jumpA "0101010011100110"
 
 markA "0101010011100101"
-loadD 0
-subI 313
+loadsubDI 0 313
 bEZA "01000100111010111"
 jumpA "01000100111010110"
 
@@ -284435,8 +283834,7 @@ markA "0101010011101001"
 jumpA "0101010011101011"
 
 markA "0101010011101010"
-loadD 0
-subI 314
+loadsubDI 0 314
 bEZA "01000100111011010"
 jumpA "01000100111011001"
 
@@ -284486,8 +283884,7 @@ markA "0101010011101110"
 jumpA "0101010011110000"
 
 markA "0101010011101111"
-loadD 0
-subI 315
+loadsubDI 0 315
 bEZA "01000100111011101"
 jumpA "01000100111011100"
 
@@ -284537,8 +283934,7 @@ markA "0101010011110011"
 jumpA "0101010011110101"
 
 markA "0101010011110100"
-loadD 0
-subI 316
+loadsubDI 0 316
 bEZA "01000100111100000"
 jumpA "01000100111011111"
 
@@ -284588,8 +283984,7 @@ markA "0101010011111000"
 jumpA "0101010011111010"
 
 markA "0101010011111001"
-loadD 0
-subI 317
+loadsubDI 0 317
 bEZA "01000100111100011"
 jumpA "01000100111100010"
 
@@ -284639,8 +284034,7 @@ markA "0101010011111101"
 jumpA "0101010011111111"
 
 markA "0101010011111110"
-loadD 0
-subI 318
+loadsubDI 0 318
 bEZA "01000100111100110"
 jumpA "01000100111100101"
 
@@ -284690,8 +284084,7 @@ markA "0101010100000010"
 jumpA "0101010100000100"
 
 markA "0101010100000011"
-loadD 0
-subI 319
+loadsubDI 0 319
 bEZA "01000100111101001"
 jumpA "01000100111101000"
 
@@ -284741,8 +284134,7 @@ markA "0101010100000111"
 jumpA "0101010100001001"
 
 markA "0101010100001000"
-loadD 0
-subI 320
+loadsubDI 0 320
 bEZA "01000100111101100"
 jumpA "01000100111101011"
 
@@ -284792,8 +284184,7 @@ markA "0101010100001100"
 jumpA "0101010100001110"
 
 markA "0101010100001101"
-loadD 0
-subI 321
+loadsubDI 0 321
 bEZA "01000100111101111"
 jumpA "01000100111101110"
 
@@ -284843,8 +284234,7 @@ markA "0101010100010001"
 jumpA "0101010100010011"
 
 markA "0101010100010010"
-loadD 0
-subI 322
+loadsubDI 0 322
 bEZA "01000100111110010"
 jumpA "01000100111110001"
 
@@ -284894,8 +284284,7 @@ markA "0101010100010110"
 jumpA "0101010100011000"
 
 markA "0101010100010111"
-loadD 0
-subI 323
+loadsubDI 0 323
 bEZA "01000100111110101"
 jumpA "01000100111110100"
 
@@ -284945,8 +284334,7 @@ markA "0101010100011011"
 jumpA "0101010100011101"
 
 markA "0101010100011100"
-loadD 0
-subI 324
+loadsubDI 0 324
 bEZA "01000100111111000"
 jumpA "01000100111110111"
 
@@ -284996,8 +284384,7 @@ markA "0101010100100000"
 jumpA "0101010100100010"
 
 markA "0101010100100001"
-loadD 0
-subI 325
+loadsubDI 0 325
 bEZA "01000100111111011"
 jumpA "01000100111111010"
 
@@ -285047,8 +284434,7 @@ markA "0101010100100101"
 jumpA "0101010100100111"
 
 markA "0101010100100110"
-loadD 0
-subI 326
+loadsubDI 0 326
 bEZA "01000100111111110"
 jumpA "01000100111111101"
 
@@ -285098,8 +284484,7 @@ markA "0101010100101010"
 jumpA "0101010100101100"
 
 markA "0101010100101011"
-loadD 0
-subI 327
+loadsubDI 0 327
 bEZA "01000101000000001"
 jumpA "01000101000000000"
 
@@ -285149,8 +284534,7 @@ markA "0101010100101111"
 jumpA "0101010100110001"
 
 markA "0101010100110000"
-loadD 0
-subI 328
+loadsubDI 0 328
 bEZA "01000101000000100"
 jumpA "01000101000000011"
 
@@ -285200,8 +284584,7 @@ markA "0101010100110100"
 jumpA "0101010100110110"
 
 markA "0101010100110101"
-loadD 0
-subI 329
+loadsubDI 0 329
 bEZA "01000101000000111"
 jumpA "01000101000000110"
 
@@ -285251,8 +284634,7 @@ markA "0101010100111001"
 jumpA "0101010100111011"
 
 markA "0101010100111010"
-loadD 0
-subI 330
+loadsubDI 0 330
 bEZA "01000101000001010"
 jumpA "01000101000001001"
 
@@ -285302,8 +284684,7 @@ markA "0101010100111110"
 jumpA "0101010101000000"
 
 markA "0101010100111111"
-loadD 0
-subI 331
+loadsubDI 0 331
 bEZA "01000101000001101"
 jumpA "01000101000001100"
 
@@ -285353,8 +284734,7 @@ markA "0101010101000011"
 jumpA "0101010101000101"
 
 markA "0101010101000100"
-loadD 0
-subI 332
+loadsubDI 0 332
 bEZA "01000101000010000"
 jumpA "01000101000001111"
 
@@ -285404,8 +284784,7 @@ markA "0101010101001000"
 jumpA "0101010101001010"
 
 markA "0101010101001001"
-loadD 0
-subI 333
+loadsubDI 0 333
 bEZA "01000101000010011"
 jumpA "01000101000010010"
 
@@ -285455,8 +284834,7 @@ markA "0101010101001101"
 jumpA "0101010101001111"
 
 markA "0101010101001110"
-loadD 0
-subI 334
+loadsubDI 0 334
 bEZA "01000101000010110"
 jumpA "01000101000010101"
 
@@ -285506,8 +284884,7 @@ markA "0101010101010010"
 jumpA "0101010101010100"
 
 markA "0101010101010011"
-loadD 0
-subI 335
+loadsubDI 0 335
 bEZA "01000101000011001"
 jumpA "01000101000011000"
 
@@ -285557,8 +284934,7 @@ markA "0101010101010111"
 jumpA "0101010101011001"
 
 markA "0101010101011000"
-loadD 0
-subI 336
+loadsubDI 0 336
 bEZA "01000101000011100"
 jumpA "01000101000011011"
 
@@ -285608,8 +284984,7 @@ markA "0101010101011100"
 jumpA "0101010101011110"
 
 markA "0101010101011101"
-loadD 0
-subI 337
+loadsubDI 0 337
 bEZA "01000101000011111"
 jumpA "01000101000011110"
 
@@ -285659,8 +285034,7 @@ markA "0101010101100001"
 jumpA "0101010101100011"
 
 markA "0101010101100010"
-loadD 0
-subI 338
+loadsubDI 0 338
 bEZA "01000101000100010"
 jumpA "01000101000100001"
 
@@ -285710,8 +285084,7 @@ markA "0101010101100110"
 jumpA "0101010101101000"
 
 markA "0101010101100111"
-loadD 0
-subI 339
+loadsubDI 0 339
 bEZA "01000101000100101"
 jumpA "01000101000100100"
 
@@ -285761,8 +285134,7 @@ markA "0101010101101011"
 jumpA "0101010101101101"
 
 markA "0101010101101100"
-loadD 0
-subI 340
+loadsubDI 0 340
 bEZA "01000101000101000"
 jumpA "01000101000100111"
 
@@ -285812,8 +285184,7 @@ markA "0101010101110000"
 jumpA "0101010101110010"
 
 markA "0101010101110001"
-loadD 0
-subI 341
+loadsubDI 0 341
 bEZA "01000101000101011"
 jumpA "01000101000101010"
 
@@ -285863,8 +285234,7 @@ markA "0101010101110101"
 jumpA "0101010101110111"
 
 markA "0101010101110110"
-loadD 0
-subI 342
+loadsubDI 0 342
 bEZA "01000101000101110"
 jumpA "01000101000101101"
 
@@ -285914,8 +285284,7 @@ markA "0101010101111010"
 jumpA "0101010101111100"
 
 markA "0101010101111011"
-loadD 0
-subI 343
+loadsubDI 0 343
 bEZA "01000101000110001"
 jumpA "01000101000110000"
 
@@ -285965,8 +285334,7 @@ markA "0101010101111111"
 jumpA "0101010110000001"
 
 markA "0101010110000000"
-loadD 0
-subI 344
+loadsubDI 0 344
 bEZA "01000101000110100"
 jumpA "01000101000110011"
 
@@ -286016,8 +285384,7 @@ markA "0101010110000100"
 jumpA "0101010110000110"
 
 markA "0101010110000101"
-loadD 0
-subI 345
+loadsubDI 0 345
 bEZA "01000101000110111"
 jumpA "01000101000110110"
 
@@ -286067,8 +285434,7 @@ markA "0101010110001001"
 jumpA "0101010110001011"
 
 markA "0101010110001010"
-loadD 0
-subI 346
+loadsubDI 0 346
 bEZA "01000101000111010"
 jumpA "01000101000111001"
 
@@ -286118,8 +285484,7 @@ markA "0101010110001110"
 jumpA "0101010110010000"
 
 markA "0101010110001111"
-loadD 0
-subI 347
+loadsubDI 0 347
 bEZA "01000101000111101"
 jumpA "01000101000111100"
 
@@ -286169,8 +285534,7 @@ markA "0101010110010011"
 jumpA "0101010110010101"
 
 markA "0101010110010100"
-loadD 0
-subI 348
+loadsubDI 0 348
 bEZA "01000101001000000"
 jumpA "01000101000111111"
 
@@ -286220,8 +285584,7 @@ markA "0101010110011000"
 jumpA "0101010110011010"
 
 markA "0101010110011001"
-loadD 0
-subI 349
+loadsubDI 0 349
 bEZA "01000101001000011"
 jumpA "01000101001000010"
 
@@ -286271,8 +285634,7 @@ markA "0101010110011101"
 jumpA "0101010110011111"
 
 markA "0101010110011110"
-loadD 0
-subI 350
+loadsubDI 0 350
 bEZA "01000101001000110"
 jumpA "01000101001000101"
 
@@ -286322,8 +285684,7 @@ markA "0101010110100010"
 jumpA "0101010110100100"
 
 markA "0101010110100011"
-loadD 0
-subI 351
+loadsubDI 0 351
 bEZA "01000101001001001"
 jumpA "01000101001001000"
 
@@ -286373,8 +285734,7 @@ markA "0101010110100111"
 jumpA "0101010110101001"
 
 markA "0101010110101000"
-loadD 0
-subI 352
+loadsubDI 0 352
 bEZA "01000101001001100"
 jumpA "01000101001001011"
 
@@ -286424,8 +285784,7 @@ markA "0101010110101100"
 jumpA "0101010110101110"
 
 markA "0101010110101101"
-loadD 0
-subI 353
+loadsubDI 0 353
 bEZA "01000101001001111"
 jumpA "01000101001001110"
 
@@ -286475,8 +285834,7 @@ markA "0101010110110001"
 jumpA "0101010110110011"
 
 markA "0101010110110010"
-loadD 0
-subI 354
+loadsubDI 0 354
 bEZA "01000101001010010"
 jumpA "01000101001010001"
 
@@ -286526,8 +285884,7 @@ markA "0101010110110110"
 jumpA "0101010110111000"
 
 markA "0101010110110111"
-loadD 0
-subI 355
+loadsubDI 0 355
 bEZA "01000101001010101"
 jumpA "01000101001010100"
 
@@ -286577,8 +285934,7 @@ markA "0101010110111011"
 jumpA "0101010110111101"
 
 markA "0101010110111100"
-loadD 0
-subI 356
+loadsubDI 0 356
 bEZA "01000101001011000"
 jumpA "01000101001010111"
 
@@ -286628,8 +285984,7 @@ markA "0101010111000000"
 jumpA "0101010111000010"
 
 markA "0101010111000001"
-loadD 0
-subI 357
+loadsubDI 0 357
 bEZA "01000101001011011"
 jumpA "01000101001011010"
 
@@ -286679,8 +286034,7 @@ markA "0101010111000101"
 jumpA "0101010111000111"
 
 markA "0101010111000110"
-loadD 0
-subI 358
+loadsubDI 0 358
 bEZA "01000101001011110"
 jumpA "01000101001011101"
 
@@ -286730,8 +286084,7 @@ markA "0101010111001010"
 jumpA "0101010111001100"
 
 markA "0101010111001011"
-loadD 0
-subI 359
+loadsubDI 0 359
 bEZA "01000101001100001"
 jumpA "01000101001100000"
 
@@ -286781,8 +286134,7 @@ markA "0101010111001111"
 jumpA "0101010111010001"
 
 markA "0101010111010000"
-loadD 0
-subI 360
+loadsubDI 0 360
 bEZA "01000101001100100"
 jumpA "01000101001100011"
 
@@ -286832,8 +286184,7 @@ markA "0101010111010100"
 jumpA "0101010111010110"
 
 markA "0101010111010101"
-loadD 0
-subI 361
+loadsubDI 0 361
 bEZA "01000101001100111"
 jumpA "01000101001100110"
 
@@ -286883,8 +286234,7 @@ markA "0101010111011001"
 jumpA "0101010111011011"
 
 markA "0101010111011010"
-loadD 0
-subI 362
+loadsubDI 0 362
 bEZA "01000101001101010"
 jumpA "01000101001101001"
 
@@ -286934,8 +286284,7 @@ markA "0101010111011110"
 jumpA "0101010111100000"
 
 markA "0101010111011111"
-loadD 0
-subI 363
+loadsubDI 0 363
 bEZA "01000101001101101"
 jumpA "01000101001101100"
 
@@ -286985,8 +286334,7 @@ markA "0101010111100011"
 jumpA "0101010111100101"
 
 markA "0101010111100100"
-loadD 0
-subI 364
+loadsubDI 0 364
 bEZA "01000101001110000"
 jumpA "01000101001101111"
 
@@ -287036,8 +286384,7 @@ markA "0101010111101000"
 jumpA "0101010111101010"
 
 markA "0101010111101001"
-loadD 0
-subI 365
+loadsubDI 0 365
 bEZA "01000101001110011"
 jumpA "01000101001110010"
 
@@ -287194,8 +286541,7 @@ markA "0101010111110110"
 jumpA "0101010111111000"
 
 markA "0101010111110111"
-loadD 0
-subI 3
+loadsubDI 0 3
 bEZA "01000101001110110"
 jumpA "01000101001110101"
 
@@ -287306,8 +286652,7 @@ markA "0101011000000000"
 jumpA "0101011000000010"
 
 markA "0101011000000001"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "01000101001111001"
 jumpA "01000101001111000"
 
@@ -287382,8 +286727,7 @@ markA "0101011000000111"
 jumpA "0101011000001001"
 
 markA "0101011000001000"
-loadD 0
-subI 4
+loadsubDI 0 4
 bEZA "01000101001111100"
 jumpA "01000101001111011"
 
@@ -287544,8 +286888,7 @@ markA "0101011000010101"
 jumpA "0101011000010111"
 
 markA "0101011000010110"
-loadD 0
-subI 5
+loadsubDI 0 5
 bEZA "01000101001111111"
 jumpA "01000101001111110"
 
@@ -287595,8 +286938,7 @@ markA "0101011000011010"
 jumpA "0101011000011100"
 
 markA "0101011000011011"
-loadD 0
-subI 6
+loadsubDI 0 6
 bEZA "01000101010000010"
 jumpA "01000101010000001"
 
@@ -287646,8 +286988,7 @@ markA "0101011000011111"
 jumpA "0101011000100001"
 
 markA "0101011000100000"
-loadD 0
-subI 7
+loadsubDI 0 7
 bEZA "01000101010000101"
 jumpA "01000101010000100"
 
@@ -287838,8 +287179,7 @@ markA "0101011000110000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -288168,8 +287508,7 @@ markA "0101011001001100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -288380,8 +287719,7 @@ markA "0101011001011110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -288723,8 +288061,7 @@ markA "0101011001111011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -289128,8 +288465,7 @@ markA "0101011010011101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -289731,8 +289067,7 @@ markA "0101011011001111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -290049,8 +289384,7 @@ markA "0101011011101001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -290512,8 +289846,7 @@ store
 markA "0101011100001111"
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -290672,8 +290005,7 @@ markA "0101011100011101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -291135,8 +290467,7 @@ store
 markA "0101011101000011"
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -291295,8 +290626,7 @@ markA "0101011101010001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -291938,8 +291268,7 @@ markA "0101011110000110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -292821,8 +292150,7 @@ markA "0101011111001110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -293322,8 +292650,7 @@ markA "0101011111111001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -293558,8 +292885,7 @@ markA "0101100000001101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -293986,8 +293312,7 @@ markA "0101100000110001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -294478,8 +293803,7 @@ markA "0101100001011010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -295787,8 +295111,7 @@ markA "0101100011000101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -296513,8 +295836,7 @@ markA "0101100011111110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -297337,8 +296659,7 @@ markA "0101100100111111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -297549,8 +296870,7 @@ markA "0101100101010000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -298765,8 +298085,7 @@ markA "0101100110110000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -299065,8 +298384,7 @@ markA "0101100111001010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -299624,8 +298942,7 @@ markA "0101100111111000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -299958,8 +299275,7 @@ markA "0101101000010100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -300705,8 +300021,7 @@ markA "0101101001010010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -301195,8 +300510,7 @@ markA "0101101001111100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -301791,8 +301105,7 @@ markA "0101101010101111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -302534,8 +301847,7 @@ markA "0101101011101101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -307933,8 +307245,7 @@ markA "0101110010010010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -309195,8 +308506,7 @@ markA "0101110011110101"
 jumpA "0101110011110111"
 
 markA "0101110011110110"
-loadD 0
-subI 43
+loadsubDI 0 43
 bEZA "01000101111100111"
 jumpA "01000101111100110"
 
@@ -309268,8 +308578,7 @@ markA "0101110011111100"
 jumpA "0101110011111110"
 
 markA "0101110011111101"
-loadD 0
-subI 45
+loadsubDI 0 45
 bEZA "01000101111101010"
 jumpA "01000101111101001"
 
@@ -310658,8 +309967,7 @@ markA "0101110101101101"
 jumpA "0101110101101111"
 
 markA "0101110101101110"
-loadD 0
-subI 258
+loadsubDI 0 258
 bEZA "01000101111111111"
 jumpA "01000101111111110"
 
@@ -310922,8 +310230,7 @@ markA "0101110110000010"
 jumpA "0101110110000100"
 
 markA "0101110110000011"
-loadD 0
-subI 259
+loadsubDI 0 259
 bEZA "01000110000000010"
 jumpA "01000110000000001"
 
@@ -311117,8 +310424,7 @@ markA "0101110110010010"
 jumpA "0101110110010100"
 
 markA "0101110110010011"
-loadD 0
-subI 282
+loadsubDI 0 282
 bEZA "01000110000000101"
 jumpA "01000110000000100"
 
@@ -311325,8 +310631,7 @@ markA "0101110110100011"
 jumpA "0101110110100101"
 
 markA "0101110110100100"
-loadD 0
-subI 269
+loadsubDI 0 269
 bEZA "01000110000001000"
 jumpA "01000110000000111"
 
@@ -311777,8 +311082,7 @@ markA "0101110111001010"
 jumpA "0101110111001100"
 
 markA "0101110111001011"
-loadD 0
-subI 258
+loadsubDI 0 258
 bEZA "01000110000001011"
 jumpA "01000110000001010"
 
@@ -312055,8 +311359,7 @@ markA "0101110111100000"
 jumpA "0101110111100010"
 
 markA "0101110111100001"
-loadD 0
-subI 259
+loadsubDI 0 259
 bEZA "01000110000001110"
 jumpA "01000110000001101"
 
@@ -312250,8 +311553,7 @@ markA "0101110111110000"
 jumpA "0101110111110010"
 
 markA "0101110111110001"
-loadD 0
-subI 282
+loadsubDI 0 282
 bEZA "01000110000010001"
 jumpA "01000110000010000"
 
@@ -312458,8 +311760,7 @@ markA "0101111000000001"
 jumpA "0101111000000011"
 
 markA "0101111000000010"
-loadD 0
-subI 269
+loadsubDI 0 269
 bEZA "01000110000010100"
 jumpA "01000110000010011"
 
@@ -312887,8 +312188,7 @@ markA "0101111000100110"
 jumpA "0101111000101000"
 
 markA "0101111000100111"
-loadD 0
-subI 269
+loadsubDI 0 269
 bEZA "01000110000010111"
 jumpA "01000110000010110"
 
@@ -312958,8 +312258,7 @@ markA "0101111000101101"
 jumpA "0101111000101111"
 
 markA "0101111000101110"
-loadD 0
-subI 282
+loadsubDI 0 282
 bEZA "01000110000011010"
 jumpA "01000110000011001"
 
@@ -313095,8 +312394,7 @@ markA "0101111000111001"
 jumpA "0101111000111011"
 
 markA "0101111000111010"
-loadD 0
-subI 258
+loadsubDI 0 258
 bEZA "01000110000011101"
 jumpA "01000110000011100"
 
@@ -313267,8 +312565,7 @@ markA "0101111001001000"
 jumpA "0101111001001010"
 
 markA "0101111001001001"
-loadD 0
-subI 259
+loadsubDI 0 259
 bEZA "01000110000100000"
 jumpA "01000110000011111"
 
@@ -314697,8 +313994,7 @@ markA "0101111010111111"
 jumpA "0101111011000001"
 
 markA "0101111011000000"
-loadD 0
-subI 43
+loadsubDI 0 43
 bEZA "01000110000110101"
 jumpA "01000110000110100"
 
@@ -314770,8 +314066,7 @@ markA "0101111011000110"
 jumpA "0101111011001000"
 
 markA "0101111011000111"
-loadD 0
-subI 45
+loadsubDI 0 45
 bEZA "01000110000111000"
 jumpA "01000110000110111"
 
@@ -314843,8 +314138,7 @@ markA "0101111011001101"
 jumpA "0101111011001111"
 
 markA "0101111011001110"
-loadD 0
-subI 42
+loadsubDI 0 42
 bEZA "01000110000111011"
 jumpA "01000110000111010"
 
@@ -314862,8 +314156,7 @@ markA "0101111011001111"
 jumpA "0101111011010001"
 
 markA "0101111011010000"
-loadD 0
-subI 47
+loadsubDI 0 47
 bEZA "01000110000111110"
 jumpA "01000110000111101"
 
@@ -314881,8 +314174,7 @@ markA "0101111011010001"
 jumpA "0101111011010011"
 
 markA "0101111011010010"
-loadD 0
-subI 37
+loadsubDI 0 37
 bEZA "01000110001000001"
 jumpA "01000110001000000"
 
@@ -315433,8 +314725,7 @@ markA "0101111011111101"
 jumpA "0101111011111111"
 
 markA "0101111011111110"
-loadD 0
-subI 94
+loadsubDI 0 94
 bEZA "01000110001010110"
 jumpA "01000110001010101"
 
@@ -315452,8 +314743,7 @@ markA "0101111011111111"
 jumpA "0101111100000001"
 
 markA "0101111100000000"
-loadD 0
-subI 319
+loadsubDI 0 319
 bEZA "01000110001011001"
 jumpA "01000110001011000"
 
@@ -315471,8 +314761,7 @@ markA "0101111100000001"
 jumpA "0101111100000011"
 
 markA "0101111100000010"
-loadD 0
-subI 320
+loadsubDI 0 320
 bEZA "01000110001011100"
 jumpA "01000110001011011"
 
@@ -315490,8 +314779,7 @@ markA "0101111100000011"
 jumpA "0101111100000101"
 
 markA "0101111100000100"
-loadD 0
-subI 291
+loadsubDI 0 291
 bEZA "01000110001011111"
 jumpA "01000110001011110"
 
@@ -317741,8 +317029,7 @@ markA "0101111110110011"
 jumpA "0101111110110101"
 
 markA "0101111110110100"
-loadD 0
-subI 60
+loadsubDI 0 60
 bEZA "01000110010110110"
 jumpA "01000110010110101"
 
@@ -317853,8 +317140,7 @@ markA "0101111110111101"
 jumpA "0101111110111111"
 
 markA "0101111110111110"
-loadD 0
-subI 62
+loadsubDI 0 62
 bEZA "01000110010111001"
 jumpA "01000110010111000"
 
@@ -317965,8 +317251,7 @@ markA "0101111111000111"
 jumpA "0101111111001001"
 
 markA "0101111111001000"
-loadD 0
-subI 312
+loadsubDI 0 312
 bEZA "01000110010111100"
 jumpA "01000110010111011"
 
@@ -318077,8 +317362,7 @@ markA "0101111111010001"
 jumpA "0101111111010011"
 
 markA "0101111111010010"
-loadD 0
-subI 313
+loadsubDI 0 313
 bEZA "01000110010111111"
 jumpA "01000110010111110"
 
@@ -318189,8 +317473,7 @@ markA "0101111111011011"
 jumpA "0101111111011101"
 
 markA "0101111111011100"
-loadD 0
-subI 315
+loadsubDI 0 315
 bEZA "01000110011000010"
 jumpA "01000110011000001"
 
@@ -318301,8 +317584,7 @@ markA "0101111111100101"
 jumpA "0101111111100111"
 
 markA "0101111111100110"
-loadD 0
-subI 318
+loadsubDI 0 318
 bEZA "01000110011000101"
 jumpA "01000110011000100"
 
@@ -318780,8 +318062,7 @@ markA "0110000000001111"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -318863,8 +318144,7 @@ markA "0110000000010110"
 jumpA "0110000000011000"
 
 markA "0110000000010111"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "01000110011001110"
 jumpA "01000110011001101"
 
@@ -318935,8 +318215,7 @@ markA "0110000000011010"
 jumpA "0110000000011100"
 
 markA "0110000000011011"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "01000110011010111"
 jumpA "01000110011010110"
 
@@ -318954,8 +318233,7 @@ markA "0110000000011100"
 jumpA "0110000000011110"
 
 markA "0110000000011101"
-loadD 0
-subI 3
+loadsubDI 0 3
 bEZA "01000110011011010"
 jumpA "01000110011011001"
 
@@ -318973,8 +318251,7 @@ markA "0110000000011110"
 jumpA "0110000000100000"
 
 markA "0110000000011111"
-loadD 0
-subI 4
+loadsubDI 0 4
 bEZA "01000110011011101"
 jumpA "01000110011011100"
 
@@ -318992,8 +318269,7 @@ markA "0110000000100000"
 jumpA "0110000000100010"
 
 markA "0110000000100001"
-loadD 0
-subI 5
+loadsubDI 0 5
 bEZA "01000110011100000"
 jumpA "01000110011011111"
 
@@ -319011,8 +318287,7 @@ markA "0110000000100010"
 jumpA "0110000000100100"
 
 markA "0110000000100011"
-loadD 0
-subI 6
+loadsubDI 0 6
 bEZA "01000110011100011"
 jumpA "01000110011100010"
 
@@ -319030,8 +318305,7 @@ markA "0110000000100100"
 jumpA "0110000000100110"
 
 markA "0110000000100101"
-loadD 0
-subI 11
+loadsubDI 0 11
 bEZA "01000110011100110"
 jumpA "01000110011100101"
 
@@ -319338,8 +318612,7 @@ markA "0110000000111110"
 jumpA "0110000001000000"
 
 markA "0110000000111111"
-loadD 0
-subI 7
+loadsubDI 0 7
 bEZA "01000110011101100"
 jumpA "01000110011101011"
 
@@ -319357,8 +318630,7 @@ markA "0110000001000000"
 jumpA "0110000001000010"
 
 markA "0110000001000001"
-loadD 0
-subI 8
+loadsubDI 0 8
 bEZA "01000110011101111"
 jumpA "01000110011101110"
 
@@ -319750,8 +319022,7 @@ markA "0110000001100001"
 jumpA "0110000001100011"
 
 markA "0110000001100010"
-loadD 0
-subI 258
+loadsubDI 0 258
 bEZA "01000110011111000"
 jumpA "01000110011110111"
 
@@ -320005,8 +319276,7 @@ markA "0110000001110111"
 jumpA "0110000001111001"
 
 markA "0110000001111000"
-loadD 0
-subI 259
+loadsubDI 0 259
 bEZA "01000110011111110"
 jumpA "01000110011111101"
 
@@ -320117,8 +319387,7 @@ markA "0110000010000001"
 jumpA "0110000010000011"
 
 markA "0110000010000010"
-loadD 0
-subI 269
+loadsubDI 0 269
 bEZA "01000110100000001"
 jumpA "01000110100000000"
 
@@ -320201,8 +319470,7 @@ markA "0110000010001001"
 jumpA "0110000010001011"
 
 markA "0110000010001010"
-loadD 0
-subI 282
+loadsubDI 0 282
 bEZA "01000110100000100"
 jumpA "01000110100000011"
 
@@ -320559,8 +319827,7 @@ markA "0110000010101000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -321532,8 +320799,7 @@ markA "0110000011110101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -323730,8 +322996,7 @@ markA "0110000110100100"
 jumpA "0110000110100110"
 
 markA "0110000110100101"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "01000110100101011"
 jumpA "01000110100101010"
 
@@ -323749,8 +323014,7 @@ markA "0110000110100110"
 jumpA "0110000110101000"
 
 markA "0110000110100111"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "01000110100101110"
 jumpA "01000110100101101"
 
@@ -323861,8 +323125,7 @@ markA "0110000110110000"
 jumpA "0110000110110010"
 
 markA "0110000110110001"
-loadD 0
-subI 4
+loadsubDI 0 4
 bEZA "01000110100110001"
 jumpA "01000110100110000"
 
@@ -323880,8 +323143,7 @@ markA "0110000110110010"
 jumpA "0110000110110100"
 
 markA "0110000110110011"
-loadD 0
-subI 5
+loadsubDI 0 5
 bEZA "01000110100110100"
 jumpA "01000110100110011"
 
@@ -323899,8 +323161,7 @@ markA "0110000110110100"
 jumpA "0110000110110110"
 
 markA "0110000110110101"
-loadD 0
-subI 6
+loadsubDI 0 6
 bEZA "01000110100110111"
 jumpA "01000110100110110"
 
@@ -324011,8 +323272,7 @@ markA "0110000110111110"
 jumpA "0110000111000000"
 
 markA "0110000110111111"
-loadD 0
-subI 7
+loadsubDI 0 7
 bEZA "01000110100111010"
 jumpA "01000110100111001"
 
@@ -324122,8 +323382,7 @@ markA "0110000111000111"
 jumpA "0110000111001001"
 
 markA "0110000111001000"
-loadD 0
-subI 8
+loadsubDI 0 8
 bEZA "01000110101000011"
 jumpA "01000110101000010"
 
@@ -324141,8 +323400,7 @@ markA "0110000111001001"
 jumpA "0110000111001011"
 
 markA "0110000111001010"
-loadD 0
-subI 9
+loadsubDI 0 9
 bEZA "01000110101000110"
 jumpA "01000110101000101"
 
@@ -325333,8 +324591,7 @@ markA "0110001000101011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -325851,8 +325108,7 @@ markA "0110001001010010"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -326556,8 +325812,7 @@ markA "0110001010001000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -327318,8 +326573,7 @@ markA "0110001011000110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -330082,8 +329336,7 @@ markA "0110001110100000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -330738,8 +329991,7 @@ markA "0110001111011000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -331728,8 +330980,7 @@ markA "0110010000101110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -332373,8 +331624,7 @@ markA "0110010001100110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -333018,8 +332268,7 @@ markA "0110010010011110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -333523,8 +332772,7 @@ markA "0110010011001100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -335448,8 +334696,7 @@ markA "0110010101101100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -335753,8 +335000,7 @@ markA "0110010110000101"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -336300,8 +335546,7 @@ markA "0110010110110001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -338975,8 +338220,7 @@ markA "0110011010001101"
 jumpA "0110011010001111"
 
 markA "0110011010001110"
-loadD 0
-subI 256
+loadsubDI 0 256
 bEZA "01000111000000000"
 jumpA "01000110111111111"
 
@@ -339073,8 +338317,7 @@ markA "0110011010010110"
 jumpA "0110011010011000"
 
 markA "0110011010010111"
-loadD 0
-subI 257
+loadsubDI 0 257
 bEZA "01000111000000011"
 jumpA "01000111000000010"
 
@@ -339171,8 +338414,7 @@ markA "0110011010011111"
 jumpA "0110011010100001"
 
 markA "0110011010100000"
-loadD 0
-subI 258
+loadsubDI 0 258
 bEZA "01000111000000110"
 jumpA "01000111000000101"
 
@@ -339269,8 +338511,7 @@ markA "0110011010101000"
 jumpA "0110011010101010"
 
 markA "0110011010101001"
-loadD 0
-subI 259
+loadsubDI 0 259
 bEZA "01000111000001001"
 jumpA "01000111000001000"
 
@@ -339367,8 +338608,7 @@ markA "0110011010110001"
 jumpA "0110011010110011"
 
 markA "0110011010110010"
-loadD 0
-subI 261
+loadsubDI 0 261
 bEZA "01000111000001100"
 jumpA "01000111000001011"
 
@@ -339386,8 +338626,7 @@ markA "0110011010110011"
 jumpA "0110011010110101"
 
 markA "0110011010110100"
-loadD 0
-subI 262
+loadsubDI 0 262
 bEZA "01000111000001111"
 jumpA "01000111000001110"
 
@@ -339484,8 +338723,7 @@ markA "0110011010111100"
 jumpA "0110011010111110"
 
 markA "0110011010111101"
-loadD 0
-subI 265
+loadsubDI 0 265
 bEZA "01000111000010010"
 jumpA "01000111000010001"
 
@@ -339582,8 +338820,7 @@ markA "0110011011000101"
 jumpA "0110011011000111"
 
 markA "0110011011000110"
-loadD 0
-subI 267
+loadsubDI 0 267
 bEZA "01000111000010101"
 jumpA "01000111000010100"
 
@@ -339680,8 +338917,7 @@ markA "0110011011001110"
 jumpA "0110011011010000"
 
 markA "0110011011001111"
-loadD 0
-subI 268
+loadsubDI 0 268
 bEZA "01000111000011000"
 jumpA "01000111000010111"
 
@@ -339791,8 +339027,7 @@ markA "0110011011011000"
 jumpA "0110011011011010"
 
 markA "0110011011011001"
-loadD 0
-subI 269
+loadsubDI 0 269
 bEZA "01000111000011011"
 jumpA "01000111000011010"
 
@@ -339889,8 +339124,7 @@ markA "0110011011100001"
 jumpA "0110011011100011"
 
 markA "0110011011100010"
-loadD 0
-subI 270
+loadsubDI 0 270
 bEZA "01000111000011110"
 jumpA "01000111000011101"
 
@@ -339908,8 +339142,7 @@ markA "0110011011100011"
 jumpA "0110011011100101"
 
 markA "0110011011100100"
-loadD 0
-subI 271
+loadsubDI 0 271
 bEZA "01000111000100001"
 jumpA "01000111000100000"
 
@@ -340006,8 +339239,7 @@ markA "0110011011101100"
 jumpA "0110011011101110"
 
 markA "0110011011101101"
-loadD 0
-subI 272
+loadsubDI 0 272
 bEZA "01000111000100100"
 jumpA "01000111000100011"
 
@@ -340104,8 +339336,7 @@ markA "0110011011110101"
 jumpA "0110011011110111"
 
 markA "0110011011110110"
-loadD 0
-subI 273
+loadsubDI 0 273
 bEZA "01000111000100111"
 jumpA "01000111000100110"
 
@@ -340202,8 +339433,7 @@ markA "0110011011111110"
 jumpA "0110011100000000"
 
 markA "0110011011111111"
-loadD 0
-subI 274
+loadsubDI 0 274
 bEZA "01000111000101010"
 jumpA "01000111000101001"
 
@@ -340300,8 +339530,7 @@ markA "0110011100000111"
 jumpA "0110011100001001"
 
 markA "0110011100001000"
-loadD 0
-subI 275
+loadsubDI 0 275
 bEZA "01000111000101101"
 jumpA "01000111000101100"
 
@@ -340398,8 +339627,7 @@ markA "0110011100010000"
 jumpA "0110011100010010"
 
 markA "0110011100010001"
-loadD 0
-subI 276
+loadsubDI 0 276
 bEZA "01000111000110000"
 jumpA "01000111000101111"
 
@@ -340496,8 +339724,7 @@ markA "0110011100011001"
 jumpA "0110011100011011"
 
 markA "0110011100011010"
-loadD 0
-subI 277
+loadsubDI 0 277
 bEZA "01000111000110011"
 jumpA "01000111000110010"
 
@@ -340594,8 +339821,7 @@ markA "0110011100100010"
 jumpA "0110011100100100"
 
 markA "0110011100100011"
-loadD 0
-subI 283
+loadsubDI 0 283
 bEZA "01000111000110110"
 jumpA "01000111000110101"
 
@@ -340692,8 +339918,7 @@ markA "0110011100101011"
 jumpA "0110011100101101"
 
 markA "0110011100101100"
-loadD 0
-subI 285
+loadsubDI 0 285
 bEZA "01000111000111001"
 jumpA "01000111000111000"
 
@@ -340846,8 +340071,7 @@ markA "0110011100111001"
 jumpA "0110011100111011"
 
 markA "0110011100111010"
-loadD 0
-subI 278
+loadsubDI 0 278
 bEZA "01000111000111111"
 jumpA "01000111000111110"
 
@@ -340944,8 +340168,7 @@ markA "0110011101000010"
 jumpA "0110011101000100"
 
 markA "0110011101000011"
-loadD 0
-subI 279
+loadsubDI 0 279
 bEZA "01000111001000010"
 jumpA "01000111001000001"
 
@@ -341042,8 +340265,7 @@ markA "0110011101001011"
 jumpA "0110011101001101"
 
 markA "0110011101001100"
-loadD 0
-subI 280
+loadsubDI 0 280
 bEZA "01000111001000101"
 jumpA "01000111001000100"
 
@@ -341140,8 +340362,7 @@ markA "0110011101010100"
 jumpA "0110011101010110"
 
 markA "0110011101010101"
-loadD 0
-subI 281
+loadsubDI 0 281
 bEZA "01000111001001000"
 jumpA "01000111001000111"
 
@@ -341238,8 +340459,7 @@ markA "0110011101011101"
 jumpA "0110011101011111"
 
 markA "0110011101011110"
-loadD 0
-subI 282
+loadsubDI 0 282
 bEZA "01000111001001011"
 jumpA "01000111001001010"
 
@@ -341402,8 +340622,7 @@ markA "0110011101101011"
 jumpA "0110011101101101"
 
 markA "0110011101101100"
-loadD 0
-subI 286
+loadsubDI 0 286
 bEZA "01000111001001110"
 jumpA "01000111001001101"
 
@@ -341540,8 +340759,7 @@ markA "0110011101110110"
 jumpA "0110011101111000"
 
 markA "0110011101110111"
-loadD 0
-subI 287
+loadsubDI 0 287
 bEZA "01000111001010111"
 jumpA "01000111001010110"
 
@@ -341678,8 +340896,7 @@ markA "0110011110000001"
 jumpA "0110011110000011"
 
 markA "0110011110000010"
-loadD 0
-subI 288
+loadsubDI 0 288
 bEZA "01000111001100000"
 jumpA "01000111001011111"
 
@@ -341776,8 +340993,7 @@ markA "0110011110001010"
 jumpA "0110011110001100"
 
 markA "0110011110001011"
-loadD 0
-subI 295
+loadsubDI 0 295
 bEZA "01000111001100011"
 jumpA "01000111001100010"
 
@@ -341888,8 +341104,7 @@ markA "0110011110010100"
 jumpA "0110011110010110"
 
 markA "0110011110010101"
-loadD 0
-subI 296
+loadsubDI 0 296
 bEZA "01000111001100110"
 jumpA "01000111001100101"
 
@@ -342000,8 +341215,7 @@ markA "0110011110011110"
 jumpA "0110011110100000"
 
 markA "0110011110011111"
-loadD 0
-subI 297
+loadsubDI 0 297
 bEZA "01000111001101001"
 jumpA "01000111001101000"
 
@@ -342112,8 +341326,7 @@ markA "0110011110101000"
 jumpA "0110011110101010"
 
 markA "0110011110101001"
-loadD 0
-subI 298
+loadsubDI 0 298
 bEZA "01000111001101100"
 jumpA "01000111001101011"
 
@@ -342224,8 +341437,7 @@ markA "0110011110110010"
 jumpA "0110011110110100"
 
 markA "0110011110110011"
-loadD 0
-subI 33
+loadsubDI 0 33
 bEZA "01000111001101111"
 jumpA "01000111001101110"
 
@@ -342322,8 +341534,7 @@ markA "0110011110111011"
 jumpA "0110011110111101"
 
 markA "0110011110111100"
-loadD 0
-subI 38
+loadsubDI 0 38
 bEZA "01000111001110010"
 jumpA "01000111001110001"
 
@@ -342420,8 +341631,7 @@ markA "0110011111000100"
 jumpA "0110011111000110"
 
 markA "0110011111000101"
-loadD 0
-subI 124
+loadsubDI 0 124
 bEZA "01000111001110101"
 jumpA "01000111001110100"
 
@@ -342518,8 +341728,7 @@ markA "0110011111001101"
 jumpA "0110011111001111"
 
 markA "0110011111001110"
-loadD 0
-subI 126
+loadsubDI 0 126
 bEZA "01000111001111000"
 jumpA "01000111001110111"
 
@@ -342616,8 +341825,7 @@ markA "0110011111010110"
 jumpA "0110011111011000"
 
 markA "0110011111010111"
-loadD 0
-subI 316
+loadsubDI 0 316
 bEZA "01000111001111011"
 jumpA "01000111001111010"
 
@@ -342714,8 +341922,7 @@ markA "0110011111011111"
 jumpA "0110011111100001"
 
 markA "0110011111100000"
-loadD 0
-subI 317
+loadsubDI 0 317
 bEZA "01000111001111110"
 jumpA "01000111001111101"
 
@@ -342812,8 +342019,7 @@ markA "0110011111101000"
 jumpA "0110011111101010"
 
 markA "0110011111101001"
-loadD 0
-subI 290
+loadsubDI 0 290
 bEZA "01000111010000001"
 jumpA "01000111010000000"
 
@@ -342910,8 +342116,7 @@ markA "0110011111110001"
 jumpA "0110011111110011"
 
 markA "0110011111110010"
-loadD 0
-subI 44
+loadsubDI 0 44
 bEZA "01000111010000100"
 jumpA "01000111010000011"
 
@@ -343008,8 +342213,7 @@ markA "0110011111111010"
 jumpA "0110011111111100"
 
 markA "0110011111111011"
-loadD 0
-subI 61
+loadsubDI 0 61
 bEZA "01000111010000111"
 jumpA "01000111010000110"
 
@@ -343106,8 +342310,7 @@ markA "0110100000000011"
 jumpA "0110100000000101"
 
 markA "0110100000000100"
-loadD 0
-subI 299
+loadsubDI 0 299
 bEZA "01000111010001010"
 jumpA "01000111010001001"
 
@@ -343204,8 +342407,7 @@ markA "0110100000001100"
 jumpA "0110100000001110"
 
 markA "0110100000001101"
-loadD 0
-subI 284
+loadsubDI 0 284
 bEZA "01000111010001101"
 jumpA "01000111010001100"
 
@@ -343547,8 +342749,7 @@ store
 markA "0110100000101010"
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -343624,8 +342825,7 @@ markA "0110100000110001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -343964,8 +343164,7 @@ markA "0110100001001001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -343996,8 +343195,7 @@ markA "0110100001001100"
 jumpA "0110100001001110"
 
 markA "0110100001001101"
-loadD 0
-subI 258
+loadsubDI 0 258
 bEZA "01000111010011111"
 jumpA "01000111010011110"
 
@@ -344590,8 +343788,7 @@ markA "0110100001111011"
 jumpA "0110100001111101"
 
 markA "0110100001111100"
-loadD 0
-subI 259
+loadsubDI 0 259
 bEZA "01000111010100010"
 jumpA "01000111010100001"
 
@@ -344838,8 +344035,7 @@ markA "0110100010010001"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -345384,8 +344580,7 @@ markA "0110100010111101"
 jumpA "0110100010111111"
 
 markA "0110100010111110"
-loadD 0
-subI 7
+loadsubDI 0 7
 bEZA "01000111010100101"
 jumpA "01000111010100100"
 
@@ -345495,8 +344690,7 @@ markA "0110100011000110"
 jumpA "0110100011001000"
 
 markA "0110100011000111"
-loadD 0
-subI 8
+loadsubDI 0 8
 bEZA "01000111010101110"
 jumpA "01000111010101101"
 
@@ -345606,8 +344800,7 @@ markA "0110100011001111"
 jumpA "0110100011010001"
 
 markA "0110100011010000"
-loadD 0
-subI 1
+loadsubDI 0 1
 bEZA "01000111010110111"
 jumpA "01000111010110110"
 
@@ -345769,8 +344962,7 @@ markA "0110100011011011"
 jumpA "0110100011011101"
 
 markA "0110100011011100"
-loadD 0
-subI 2
+loadsubDI 0 2
 bEZA "01000111011000000"
 jumpA "01000111010111111"
 
@@ -345788,8 +344980,7 @@ markA "0110100011011101"
 jumpA "0110100011011111"
 
 markA "0110100011011110"
-loadD 0
-subI 4
+loadsubDI 0 4
 bEZA "01000111011000011"
 jumpA "01000111011000010"
 
@@ -345807,8 +344998,7 @@ markA "0110100011011111"
 jumpA "0110100011100001"
 
 markA "0110100011100000"
-loadD 0
-subI 3
+loadsubDI 0 3
 bEZA "01000111011000110"
 jumpA "01000111011000101"
 
@@ -345826,8 +345016,7 @@ markA "0110100011100001"
 jumpA "0110100011100011"
 
 markA "0110100011100010"
-loadD 0
-subI 5
+loadsubDI 0 5
 bEZA "01000111011001001"
 jumpA "01000111011001000"
 
@@ -345845,8 +345034,7 @@ markA "0110100011100011"
 jumpA "0110100011100101"
 
 markA "0110100011100100"
-loadD 0
-subI 6
+loadsubDI 0 6
 bEZA "01000111011001100"
 jumpA "01000111011001011"
 
@@ -345864,8 +345052,7 @@ markA "0110100011100101"
 jumpA "0110100011100111"
 
 markA "0110100011100110"
-loadD 0
-subI 11
+loadsubDI 0 11
 bEZA "01000111011001111"
 jumpA "01000111011001110"
 
@@ -346406,8 +345593,7 @@ markA "0110100100010011"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -348478,8 +347664,7 @@ markA "0110100110110000"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -349144,8 +348329,7 @@ markA "0110100111100110"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -349731,8 +348915,7 @@ markA "0110101000010100"
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store

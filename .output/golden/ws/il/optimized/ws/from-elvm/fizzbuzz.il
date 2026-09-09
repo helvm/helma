@@ -365,8 +365,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 52
+loadsubDI 5 52
 addI 16777216
 modI 16777216
 store
@@ -1671,8 +1670,7 @@ loadD 0
 store
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -1853,8 +1851,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 53
+loadsubDI 5 53
 addI 16777216
 modI 16777216
 store
@@ -3336,8 +3333,7 @@ loadD 0
 store
 moveD 3 5
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -3441,8 +3437,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -3708,8 +3703,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -3872,8 +3866,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -4630,8 +4623,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -5388,8 +5380,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 5
+loadsubDI 5 5
 addI 16777216
 modI 16777216
 store
@@ -6150,8 +6141,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -6722,8 +6712,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -7390,8 +7379,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -8281,8 +8269,7 @@ addI 8
 load
 store
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -8640,8 +8627,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 32
+loadsubDI 5 32
 addI 16777216
 modI 16777216
 store
@@ -8884,8 +8870,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -9088,8 +9073,7 @@ addI 8
 load
 store
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -9582,8 +9566,7 @@ addI 8
 load
 store
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -11959,8 +11942,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -12479,8 +12461,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 7
+loadsubDI 5 7
 addI 16777216
 modI 16777216
 store
@@ -15993,8 +15974,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -16857,8 +16837,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 6
+loadsubDI 5 6
 addI 16777216
 modI 16777216
 store
@@ -19618,8 +19597,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -19965,8 +19943,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -20382,8 +20359,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -20629,8 +20605,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -21022,8 +20997,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -22161,8 +22135,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -22448,8 +22421,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 4
+loadsubDI 5 4
 addI 16777216
 modI 16777216
 store
@@ -23777,8 +23749,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -24393,8 +24364,7 @@ addI 8
 load
 store
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -24535,8 +24505,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -25072,8 +25041,7 @@ addI 8
 load
 store
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -25297,8 +25265,7 @@ addI 8
 load
 store
 cons 0
-loadD 0
-subI 1
+loadsubDI 0 1
 addI 16777216
 modI 16777216
 store
@@ -25436,8 +25403,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -26052,8 +26018,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 38
+loadsubDI 5 38
 addI 16777216
 modI 16777216
 store
@@ -29183,8 +29148,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -29402,8 +29366,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -29599,8 +29562,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 257
+loadsubDI 5 257
 addI 16777216
 modI 16777216
 store
@@ -29929,8 +29891,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -30104,8 +30065,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -30562,8 +30522,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 3
+loadsubDI 5 3
 addI 16777216
 modI 16777216
 store
@@ -31094,8 +31053,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 2
+loadsubDI 5 2
 addI 16777216
 modI 16777216
 store
@@ -31998,8 +31956,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store
@@ -32791,8 +32748,7 @@ store
 moveD 3 5
 moveD 5 4
 cons 5
-loadD 5
-subI 1
+loadsubDI 5 1
 addI 16777216
 modI 16777216
 store

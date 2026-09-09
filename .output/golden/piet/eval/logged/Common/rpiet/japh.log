@@ -10,1478 +10,1310 @@ cons 1 # 4
 jumpA "block_1" # 5
 
 markA "branch_0_rl" # 6
-loadD 0 # 7
-subI 1 # 8
-bNEA "branch_0_rr" # 9
-cons 1 # 10
-jumpA "block_1" # 11
+loadsubDI 0 1 # 7
+bNEA "branch_0_rr" # 8
+cons 1 # 9
+jumpA "block_1" # 10
 
-markA "branch_0_rr" # 12
-loadD 0 # 13
-subI 2 # 14
-bNEA "branch_0_dl" # 15
-modI 2 # 16
-loadD 0 # 17
-bxor # 18
-rstoreD 0 # 19
-jumpA "block_9" # 20
+markA "branch_0_rr" # 11
+loadsubDI 0 2 # 12
+bNEA "branch_0_dl" # 13
+modI 2 # 14
+loadD 0 # 15
+bxor # 16
+rstoreD 0 # 17
+jumpA "block_9" # 18
 
-markA "branch_0_dl" # 21
-loadD 0 # 22
-subI 3 # 23
-bNEA "branch_0_dr" # 24
-modI 2 # 25
-loadD 0 # 26
-bxor # 27
-rstoreD 0 # 28
-jumpA "block_9" # 29
+markA "branch_0_dl" # 19
+loadsubDI 0 3 # 20
+bNEA "branch_0_dr" # 21
+modI 2 # 22
+loadD 0 # 23
+bxor # 24
+rstoreD 0 # 25
+jumpA "block_9" # 26
 
-markA "branch_0_dr" # 30
-loadD 0 # 31
-subI 4 # 32
-bNEA "branch_0_ll" # 33
-storeID 0 0 # 34
-cons 1 # 35
-jumpA "block_1" # 36
+markA "branch_0_dr" # 27
+loadsubDI 0 4 # 28
+bNEA "branch_0_ll" # 29
+storeID 0 0 # 30
+cons 1 # 31
+jumpA "block_1" # 32
 
-markA "branch_0_ll" # 37
-loadD 0 # 38
-subI 5 # 39
-bNEA "branch_0_lr" # 40
-storeID 1 0 # 41
-cons 1 # 42
-jumpA "block_1" # 43
+markA "branch_0_ll" # 33
+loadsubDI 0 5 # 34
+bNEA "branch_0_lr" # 35
+storeID 1 0 # 36
+cons 1 # 37
+jumpA "block_1" # 38
 
-markA "branch_0_lr" # 44
-loadD 0 # 45
-subI 6 # 46
-bNEA "branch_0_ul" # 47
-storeID 1 0 # 48
+markA "branch_0_lr" # 39
+loadsubDI 0 6 # 40
+bNEA "branch_0_ul" # 41
+storeID 1 0 # 42
+cons 1 # 43
+jumpA "block_1" # 44
+
+markA "branch_0_ul" # 45
+loadsubDI 0 7 # 46
+bNEA "branch_0_ur" # 47
+storeID 0 0 # 48
 cons 1 # 49
 jumpA "block_1" # 50
 
-markA "branch_0_ul" # 51
-loadD 0 # 52
-subI 7 # 53
-bNEA "branch_0_ur" # 54
-storeID 0 0 # 55
+markA "branch_0_ur" # 51
+end # 52
+
+markA "block_1" # 53
+loadD 0 # 54
+bNEA "branch_1_rl" # 55
 cons 1 # 56
-jumpA "block_1" # 57
+jumpA "block_2" # 57
 
-markA "branch_0_ur" # 58
-end # 59
+markA "branch_1_rl" # 58
+loadsubDI 0 1 # 59
+bNEA "branch_1_rr" # 60
+cons 1 # 61
+jumpA "block_2" # 62
 
-markA "block_1" # 60
-loadD 0 # 61
-bNEA "branch_1_rl" # 62
-cons 1 # 63
-jumpA "block_2" # 64
+markA "branch_1_rr" # 63
+loadsubDI 0 2 # 64
+bNEA "branch_1_dl" # 65
+discard # 66
+jumpA "block_10" # 67
 
-markA "branch_1_rl" # 65
-loadD 0 # 66
-subI 1 # 67
-bNEA "branch_1_rr" # 68
-cons 1 # 69
-jumpA "block_2" # 70
+markA "branch_1_dl" # 68
+loadsubDI 0 3 # 69
+bNEA "branch_1_dr" # 70
+discard # 71
+jumpA "block_10" # 72
 
-markA "branch_1_rr" # 71
-loadD 0 # 72
-subI 2 # 73
-bNEA "branch_1_dl" # 74
-discard # 75
-jumpA "block_10" # 76
+markA "branch_1_dr" # 73
+loadsubDI 0 4 # 74
+bNEA "branch_1_ll" # 75
+discard # 76
+jumpA "block_0" # 77
 
-markA "branch_1_dl" # 77
-loadD 0 # 78
-subI 3 # 79
-bNEA "branch_1_dr" # 80
+markA "branch_1_ll" # 78
+loadsubDI 0 5 # 79
+bNEA "branch_1_lr" # 80
 discard # 81
-jumpA "block_10" # 82
+jumpA "block_0" # 82
 
-markA "branch_1_dr" # 83
-loadD 0 # 84
-subI 4 # 85
-bNEA "branch_1_ll" # 86
-discard # 87
-jumpA "block_0" # 88
+markA "branch_1_lr" # 83
+loadsubDI 0 6 # 84
+bNEA "branch_1_ul" # 85
+storeID 1 0 # 86
+cons 1 # 87
+jumpA "block_2" # 88
 
-markA "branch_1_ll" # 89
-loadD 0 # 90
-subI 5 # 91
-bNEA "branch_1_lr" # 92
-discard # 93
-jumpA "block_0" # 94
+markA "branch_1_ul" # 89
+loadsubDI 0 7 # 90
+bNEA "branch_1_ur" # 91
+storeID 0 0 # 92
+cons 1 # 93
+jumpA "block_2" # 94
 
-markA "branch_1_lr" # 95
-loadD 0 # 96
-subI 6 # 97
-bNEA "branch_1_ul" # 98
-storeID 1 0 # 99
-cons 1 # 100
-jumpA "block_2" # 101
+markA "branch_1_ur" # 95
+end # 96
 
-markA "branch_1_ul" # 102
-loadD 0 # 103
-subI 7 # 104
-bNEA "branch_1_ur" # 105
-storeID 0 0 # 106
-cons 1 # 107
-jumpA "block_2" # 108
+markA "block_2" # 97
+loadD 0 # 98
+bNEA "branch_2_rl" # 99
+jumpA "block_4" # 100
 
-markA "branch_1_ur" # 109
-end # 110
+markA "branch_2_rl" # 101
+loadsubDI 0 1 # 102
+bNEA "branch_2_rr" # 103
+modI 4 # 104
+mulI 2 # 105
+loadD 0 # 106
+add # 107
+modI 8 # 108
+rstoreD 0 # 109
+jumpA "block_11" # 110
 
-markA "block_2" # 111
-loadD 0 # 112
-bNEA "branch_2_rl" # 113
-jumpA "block_4" # 114
+markA "branch_2_rr" # 111
+loadsubDI 0 2 # 112
+bNEA "branch_2_dl" # 113
+storeID 6 0 # 114
+jumpA "block_21" # 115
 
-markA "branch_2_rl" # 115
-loadD 0 # 116
-subI 1 # 117
-bNEA "branch_2_rr" # 118
-modI 4 # 119
-mulI 2 # 120
-loadD 0 # 121
-add # 122
-modI 8 # 123
-rstoreD 0 # 124
-jumpA "block_11" # 125
+markA "branch_2_dl" # 116
+loadsubDI 0 3 # 117
+bNEA "branch_2_dr" # 118
+storeID 7 0 # 119
+jumpA "block_21" # 120
 
-markA "branch_2_rr" # 126
-loadD 0 # 127
-subI 2 # 128
-bNEA "branch_2_dl" # 129
-storeID 6 0 # 130
-jumpA "block_21" # 131
+markA "branch_2_dr" # 121
+loadsubDI 0 4 # 122
+bNEA "branch_2_ll" # 123
+cons 2 # 124
+jumpA "block_10" # 125
 
-markA "branch_2_dl" # 132
-loadD 0 # 133
-subI 3 # 134
-bNEA "branch_2_dr" # 135
-storeID 7 0 # 136
-jumpA "block_21" # 137
+markA "branch_2_ll" # 126
+loadsubDI 0 5 # 127
+bNEA "branch_2_lr" # 128
+discard # 129
+jumpA "block_1" # 130
 
-markA "branch_2_dr" # 138
-loadD 0 # 139
-subI 4 # 140
-bNEA "branch_2_ll" # 141
-cons 2 # 142
-jumpA "block_10" # 143
+markA "branch_2_lr" # 131
+loadsubDI 0 6 # 132
+bNEA "branch_2_ul" # 133
+storeID 1 0 # 134
+modI 4 # 135
+mulI 2 # 136
+loadD 0 # 137
+add # 138
+modI 8 # 139
+rstoreD 0 # 140
+jumpA "block_11" # 141
 
-markA "branch_2_ll" # 144
-loadD 0 # 145
-subI 5 # 146
-bNEA "branch_2_lr" # 147
-discard # 148
-jumpA "block_1" # 149
+markA "branch_2_ul" # 142
+loadsubDI 0 7 # 143
+bNEA "branch_2_ur" # 144
+storeID 0 0 # 145
+jumpA "block_4" # 146
 
-markA "branch_2_lr" # 150
-loadD 0 # 151
-subI 6 # 152
-bNEA "branch_2_ul" # 153
-storeID 1 0 # 154
-modI 4 # 155
-mulI 2 # 156
-loadD 0 # 157
-add # 158
-modI 8 # 159
-rstoreD 0 # 160
-jumpA "block_11" # 161
+markA "branch_2_ur" # 147
+end # 148
 
-markA "branch_2_ul" # 162
-loadD 0 # 163
-subI 7 # 164
-bNEA "branch_2_ur" # 165
-storeID 0 0 # 166
-jumpA "block_4" # 167
+markA "block_4" # 149
+loadD 0 # 150
+bNEA "branch_4_rl" # 151
+modI 4 # 152
+mulI 2 # 153
+loadD 0 # 154
+add # 155
+modI 8 # 156
+rstoreD 0 # 157
+jumpA "block_5" # 158
 
-markA "branch_2_ur" # 168
-end # 169
+markA "branch_4_rl" # 159
+loadsubDI 0 1 # 160
+bNEA "branch_4_rr" # 161
+modI 4 # 162
+mulI 2 # 163
+loadD 0 # 164
+add # 165
+modI 8 # 166
+rstoreD 0 # 167
+jumpA "block_5" # 168
 
-markA "block_4" # 170
-loadD 0 # 171
-bNEA "branch_4_rl" # 172
-modI 4 # 173
-mulI 2 # 174
-loadD 0 # 175
-add # 176
-modI 8 # 177
-rstoreD 0 # 178
-jumpA "block_5" # 179
+markA "branch_4_rr" # 169
+loadsubDI 0 2 # 170
+bNEA "branch_4_dl" # 171
+jumpA "block_16" # 172
 
-markA "branch_4_rl" # 180
-loadD 0 # 181
-subI 1 # 182
-bNEA "branch_4_rr" # 183
-modI 4 # 184
-mulI 2 # 185
-loadD 0 # 186
-add # 187
-modI 8 # 188
-rstoreD 0 # 189
-jumpA "block_5" # 190
+markA "branch_4_dl" # 173
+loadsubDI 0 3 # 174
+bNEA "branch_4_dr" # 175
+jumpA "block_16" # 176
 
-markA "branch_4_rr" # 191
-loadD 0 # 192
-subI 2 # 193
-bNEA "branch_4_dl" # 194
-jumpA "block_16" # 195
+markA "branch_4_dr" # 177
+loadsubDI 0 4 # 178
+bNEA "branch_4_ll" # 179
+jumpA "block_2" # 180
 
-markA "branch_4_dl" # 196
-loadD 0 # 197
-subI 3 # 198
-bNEA "branch_4_dr" # 199
-jumpA "block_16" # 200
+markA "branch_4_ll" # 181
+loadsubDI 0 5 # 182
+bNEA "branch_4_lr" # 183
+jumpA "block_2" # 184
 
-markA "branch_4_dr" # 201
+markA "branch_4_lr" # 185
+loadsubDI 0 6 # 186
+bNEA "branch_4_ul" # 187
+storeID 1 0 # 188
+modI 4 # 189
+mulI 2 # 190
+loadD 0 # 191
+add # 192
+modI 8 # 193
+rstoreD 0 # 194
+jumpA "block_5" # 195
+
+markA "branch_4_ul" # 196
+loadsubDI 0 7 # 197
+bNEA "branch_4_ur" # 198
+storeID 0 0 # 199
+modI 4 # 200
+mulI 2 # 201
 loadD 0 # 202
-subI 4 # 203
-bNEA "branch_4_ll" # 204
-jumpA "block_2" # 205
+add # 203
+modI 8 # 204
+rstoreD 0 # 205
+jumpA "block_5" # 206
 
-markA "branch_4_ll" # 206
-loadD 0 # 207
-subI 5 # 208
-bNEA "branch_4_lr" # 209
-jumpA "block_2" # 210
+markA "branch_4_ur" # 207
+end # 208
 
-markA "branch_4_lr" # 211
-loadD 0 # 212
-subI 6 # 213
-bNEA "branch_4_ul" # 214
-storeID 1 0 # 215
-modI 4 # 216
-mulI 2 # 217
-loadD 0 # 218
-add # 219
-modI 8 # 220
-rstoreD 0 # 221
-jumpA "block_5" # 222
+markA "block_5" # 209
+loadD 0 # 210
+bNEA "branch_5_rl" # 211
+storeID 3 0 # 212
+jumpA "block_18" # 213
 
-markA "branch_4_ul" # 223
-loadD 0 # 224
-subI 7 # 225
-bNEA "branch_4_ur" # 226
-storeID 0 0 # 227
-modI 4 # 228
-mulI 2 # 229
-loadD 0 # 230
-add # 231
-modI 8 # 232
+markA "branch_5_rl" # 214
+loadsubDI 0 1 # 215
+bNEA "branch_5_rr" # 216
+storeID 2 0 # 217
+jumpA "block_18" # 218
+
+markA "branch_5_rr" # 219
+loadsubDI 0 2 # 220
+bNEA "branch_5_dl" # 221
+jumpA "block_14" # 222
+
+markA "branch_5_dl" # 223
+loadsubDI 0 3 # 224
+bNEA "branch_5_dr" # 225
+jumpA "block_14" # 226
+
+markA "branch_5_dr" # 227
+loadsubDI 0 4 # 228
+bNEA "branch_5_ll" # 229
+modI 2 # 230
+loadD 0 # 231
+bxor # 232
 rstoreD 0 # 233
-jumpA "block_5" # 234
+jumpA "block_4" # 234
 
-markA "branch_4_ur" # 235
-end # 236
+markA "branch_5_ll" # 235
+loadsubDI 0 5 # 236
+bNEA "branch_5_lr" # 237
+modI 2 # 238
+loadD 0 # 239
+bxor # 240
+rstoreD 0 # 241
+jumpA "block_4" # 242
 
-markA "block_5" # 237
-loadD 0 # 238
-bNEA "branch_5_rl" # 239
-storeID 3 0 # 240
-jumpA "block_18" # 241
-
-markA "branch_5_rl" # 242
-loadD 0 # 243
-subI 1 # 244
-bNEA "branch_5_rr" # 245
+markA "branch_5_lr" # 243
+loadsubDI 0 6 # 244
+bNEA "branch_5_ul" # 245
 storeID 2 0 # 246
 jumpA "block_18" # 247
 
-markA "branch_5_rr" # 248
-loadD 0 # 249
-subI 2 # 250
-bNEA "branch_5_dl" # 251
-jumpA "block_14" # 252
+markA "branch_5_ul" # 248
+loadsubDI 0 7 # 249
+bNEA "branch_5_ur" # 250
+storeID 3 0 # 251
+jumpA "block_18" # 252
 
-markA "branch_5_dl" # 253
-loadD 0 # 254
-subI 3 # 255
-bNEA "branch_5_dr" # 256
-jumpA "block_14" # 257
+markA "branch_5_ur" # 253
+end # 254
 
-markA "branch_5_dr" # 258
-loadD 0 # 259
-subI 4 # 260
-bNEA "branch_5_ll" # 261
-modI 2 # 262
-loadD 0 # 263
-bxor # 264
-rstoreD 0 # 265
-jumpA "block_4" # 266
+markA "block_9" # 255
+loadD 0 # 256
+bNEA "branch_9_rl" # 257
+modI 4 # 258
+mulI 2 # 259
+loadD 0 # 260
+add # 261
+modI 8 # 262
+rstoreD 0 # 263
+jumpA "block_10" # 264
 
-markA "branch_5_ll" # 267
-loadD 0 # 268
-subI 5 # 269
-bNEA "branch_5_lr" # 270
-modI 2 # 271
-loadD 0 # 272
-bxor # 273
-rstoreD 0 # 274
-jumpA "block_4" # 275
+markA "branch_9_rl" # 265
+loadsubDI 0 1 # 266
+bNEA "branch_9_rr" # 267
+modI 4 # 268
+mulI 2 # 269
+loadD 0 # 270
+add # 271
+modI 8 # 272
+rstoreD 0 # 273
+jumpA "block_10" # 274
 
-markA "branch_5_lr" # 276
-loadD 0 # 277
-subI 6 # 278
-bNEA "branch_5_ul" # 279
-storeID 2 0 # 280
-jumpA "block_18" # 281
+markA "branch_9_rr" # 275
+loadsubDI 0 2 # 276
+bNEA "branch_9_dl" # 277
+storeID 6 0 # 278
+jumpA "block_9" # 279
 
-markA "branch_5_ul" # 282
-loadD 0 # 283
-subI 7 # 284
-bNEA "branch_5_ur" # 285
-storeID 3 0 # 286
-jumpA "block_18" # 287
+markA "branch_9_dl" # 280
+loadsubDI 0 3 # 281
+bNEA "branch_9_dr" # 282
+storeID 7 0 # 283
+jumpA "block_9" # 284
 
-markA "branch_5_ur" # 288
-end # 289
-
-markA "block_9" # 290
+markA "branch_9_dr" # 285
+loadsubDI 0 4 # 286
+bNEA "branch_9_ll" # 287
+storeID 7 0 # 288
+modI 4 # 289
+mulI 2 # 290
 loadD 0 # 291
-bNEA "branch_9_rl" # 292
-modI 4 # 293
-mulI 2 # 294
-loadD 0 # 295
-add # 296
-modI 8 # 297
-rstoreD 0 # 298
-jumpA "block_10" # 299
+add # 292
+modI 8 # 293
+rstoreD 0 # 294
+jumpA "block_0" # 295
 
-markA "branch_9_rl" # 300
-loadD 0 # 301
-subI 1 # 302
-bNEA "branch_9_rr" # 303
-modI 4 # 304
-mulI 2 # 305
-loadD 0 # 306
-add # 307
-modI 8 # 308
-rstoreD 0 # 309
-jumpA "block_10" # 310
+markA "branch_9_ll" # 296
+loadsubDI 0 5 # 297
+bNEA "branch_9_lr" # 298
+storeID 6 0 # 299
+modI 4 # 300
+mulI 2 # 301
+loadD 0 # 302
+add # 303
+modI 8 # 304
+rstoreD 0 # 305
+jumpA "block_0" # 306
 
-markA "branch_9_rr" # 311
+markA "branch_9_lr" # 307
+loadsubDI 0 6 # 308
+bNEA "branch_9_ul" # 309
+modI 4 # 310
+mulI 2 # 311
 loadD 0 # 312
-subI 2 # 313
-bNEA "branch_9_dl" # 314
-storeID 6 0 # 315
-jumpA "block_9" # 316
+add # 313
+modI 8 # 314
+rstoreD 0 # 315
+jumpA "block_0" # 316
 
-markA "branch_9_dl" # 317
-loadD 0 # 318
-subI 3 # 319
-bNEA "branch_9_dr" # 320
-storeID 7 0 # 321
-jumpA "block_9" # 322
+markA "branch_9_ul" # 317
+loadsubDI 0 7 # 318
+bNEA "branch_9_ur" # 319
+modI 4 # 320
+mulI 2 # 321
+loadD 0 # 322
+add # 323
+modI 8 # 324
+rstoreD 0 # 325
+jumpA "block_0" # 326
 
-markA "branch_9_dr" # 323
-loadD 0 # 324
-subI 4 # 325
-bNEA "branch_9_ll" # 326
-storeID 7 0 # 327
-modI 4 # 328
-mulI 2 # 329
+markA "branch_9_ur" # 327
+end # 328
+
+markA "block_10" # 329
 loadD 0 # 330
-add # 331
-modI 8 # 332
-rstoreD 0 # 333
-jumpA "block_0" # 334
+bNEA "branch_10_rl" # 331
+discard # 332
+jumpA "block_2" # 333
 
-markA "branch_9_ll" # 335
-loadD 0 # 336
-subI 5 # 337
-bNEA "branch_9_lr" # 338
-storeID 6 0 # 339
-modI 4 # 340
-mulI 2 # 341
-loadD 0 # 342
-add # 343
-modI 8 # 344
-rstoreD 0 # 345
-jumpA "block_0" # 346
+markA "branch_10_rl" # 334
+loadsubDI 0 1 # 335
+bNEA "branch_10_rr" # 336
+discard # 337
+jumpA "block_2" # 338
 
-markA "branch_9_lr" # 347
-loadD 0 # 348
-subI 6 # 349
-bNEA "branch_9_ul" # 350
-modI 4 # 351
-mulI 2 # 352
-loadD 0 # 353
-add # 354
-modI 8 # 355
-rstoreD 0 # 356
-jumpA "block_0" # 357
+markA "branch_10_rr" # 339
+loadsubDI 0 2 # 340
+bNEA "branch_10_dl" # 341
+jumpA "block_22" # 342
 
-markA "branch_9_ul" # 358
+markA "branch_10_dl" # 343
+loadsubDI 0 3 # 344
+bNEA "branch_10_dr" # 345
+jumpA "block_22" # 346
+
+markA "branch_10_dr" # 347
+loadsubDI 0 4 # 348
+bNEA "branch_10_ll" # 349
+modI 2 # 350
+loadD 0 # 351
+bxor # 352
+rstoreD 0 # 353
+jumpA "block_9" # 354
+
+markA "branch_10_ll" # 355
+loadsubDI 0 5 # 356
+bNEA "branch_10_lr" # 357
+modI 2 # 358
 loadD 0 # 359
-subI 7 # 360
-bNEA "branch_9_ur" # 361
-modI 4 # 362
-mulI 2 # 363
-loadD 0 # 364
-add # 365
-modI 8 # 366
-rstoreD 0 # 367
-jumpA "block_0" # 368
+bxor # 360
+rstoreD 0 # 361
+jumpA "block_9" # 362
 
-markA "branch_9_ur" # 369
-end # 370
+markA "branch_10_lr" # 363
+loadsubDI 0 6 # 364
+bNEA "branch_10_ul" # 365
+cons 1 # 366
+jumpA "block_1" # 367
 
-markA "block_10" # 371
-loadD 0 # 372
-bNEA "branch_10_rl" # 373
-discard # 374
-jumpA "block_2" # 375
+markA "branch_10_ul" # 368
+loadsubDI 0 7 # 369
+bNEA "branch_10_ur" # 370
+cons 1 # 371
+jumpA "block_1" # 372
 
-markA "branch_10_rl" # 376
-loadD 0 # 377
-subI 1 # 378
-bNEA "branch_10_rr" # 379
-discard # 380
-jumpA "block_2" # 381
+markA "branch_10_ur" # 373
+end # 374
 
-markA "branch_10_rr" # 382
-loadD 0 # 383
-subI 2 # 384
-bNEA "branch_10_dl" # 385
-jumpA "block_22" # 386
+markA "block_11" # 375
+loadD 0 # 376
+bNEA "branch_11_rl" # 377
+jumpA "block_12" # 378
 
-markA "branch_10_dl" # 387
-loadD 0 # 388
-subI 3 # 389
-bNEA "branch_10_dr" # 390
-jumpA "block_22" # 391
+markA "branch_11_rl" # 379
+loadsubDI 0 1 # 380
+bNEA "branch_11_rr" # 381
+jumpA "block_12" # 382
 
-markA "branch_10_dr" # 392
-loadD 0 # 393
-subI 4 # 394
-bNEA "branch_10_ll" # 395
-modI 2 # 396
-loadD 0 # 397
-bxor # 398
-rstoreD 0 # 399
-jumpA "block_9" # 400
+markA "branch_11_rr" # 383
+loadsubDI 0 2 # 384
+bNEA "branch_11_dl" # 385
+jumpA "block_23" # 386
 
-markA "branch_10_ll" # 401
-loadD 0 # 402
-subI 5 # 403
-bNEA "branch_10_lr" # 404
-modI 2 # 405
-loadD 0 # 406
-bxor # 407
-rstoreD 0 # 408
-jumpA "block_9" # 409
+markA "branch_11_dl" # 387
+loadsubDI 0 3 # 388
+bNEA "branch_11_dr" # 389
+jumpA "block_23" # 390
 
-markA "branch_10_lr" # 410
-loadD 0 # 411
-subI 6 # 412
-bNEA "branch_10_ul" # 413
-cons 1 # 414
-jumpA "block_1" # 415
+markA "branch_11_dr" # 391
+loadsubDI 0 4 # 392
+bNEA "branch_11_ll" # 393
+modI 2 # 394
+loadD 0 # 395
+bxor # 396
+rstoreD 0 # 397
+jumpA "block_2" # 398
 
-markA "branch_10_ul" # 416
-loadD 0 # 417
-subI 7 # 418
-bNEA "branch_10_ur" # 419
-cons 1 # 420
-jumpA "block_1" # 421
+markA "branch_11_ll" # 399
+loadsubDI 0 5 # 400
+bNEA "branch_11_lr" # 401
+modI 2 # 402
+loadD 0 # 403
+bxor # 404
+rstoreD 0 # 405
+jumpA "block_2" # 406
 
-markA "branch_10_ur" # 422
-end # 423
+markA "branch_11_lr" # 407
+loadsubDI 0 6 # 408
+bNEA "branch_11_ul" # 409
+storeID 1 0 # 410
+jumpA "block_4" # 411
 
-markA "block_11" # 424
-loadD 0 # 425
-bNEA "branch_11_rl" # 426
-jumpA "block_12" # 427
+markA "branch_11_ul" # 412
+loadsubDI 0 7 # 413
+bNEA "branch_11_ur" # 414
+storeID 0 0 # 415
+jumpA "block_4" # 416
 
-markA "branch_11_rl" # 428
-loadD 0 # 429
-subI 1 # 430
-bNEA "branch_11_rr" # 431
-jumpA "block_12" # 432
+markA "branch_11_ur" # 417
+end # 418
 
-markA "branch_11_rr" # 433
-loadD 0 # 434
-subI 2 # 435
-bNEA "branch_11_dl" # 436
-jumpA "block_23" # 437
+markA "block_12" # 419
+loadD 0 # 420
+bNEA "branch_12_rl" # 421
+storeID 3 0 # 422
+jumpA "block_18" # 423
 
-markA "branch_11_dl" # 438
-loadD 0 # 439
-subI 3 # 440
-bNEA "branch_11_dr" # 441
-jumpA "block_23" # 442
+markA "branch_12_rl" # 424
+loadsubDI 0 1 # 425
+bNEA "branch_12_rr" # 426
+storeID 2 0 # 427
+jumpA "block_18" # 428
 
-markA "branch_11_dr" # 443
-loadD 0 # 444
-subI 4 # 445
-bNEA "branch_11_ll" # 446
-modI 2 # 447
-loadD 0 # 448
-bxor # 449
-rstoreD 0 # 450
-jumpA "block_2" # 451
+markA "branch_12_rr" # 429
+loadsubDI 0 2 # 430
+bNEA "branch_12_dl" # 431
+jumpA "block_16" # 432
 
-markA "branch_11_ll" # 452
-loadD 0 # 453
-subI 5 # 454
-bNEA "branch_11_lr" # 455
-modI 2 # 456
-loadD 0 # 457
-bxor # 458
-rstoreD 0 # 459
-jumpA "block_2" # 460
+markA "branch_12_dl" # 433
+loadsubDI 0 3 # 434
+bNEA "branch_12_dr" # 435
+jumpA "block_16" # 436
 
-markA "branch_11_lr" # 461
-loadD 0 # 462
-subI 6 # 463
-bNEA "branch_11_ul" # 464
-storeID 1 0 # 465
-jumpA "block_4" # 466
+markA "branch_12_dr" # 437
+loadsubDI 0 4 # 438
+bNEA "branch_12_ll" # 439
+jumpA "block_11" # 440
 
-markA "branch_11_ul" # 467
-loadD 0 # 468
-subI 7 # 469
-bNEA "branch_11_ur" # 470
-storeID 0 0 # 471
-jumpA "block_4" # 472
+markA "branch_12_ll" # 441
+loadsubDI 0 5 # 442
+bNEA "branch_12_lr" # 443
+jumpA "block_11" # 444
 
-markA "branch_11_ur" # 473
-end # 474
+markA "branch_12_lr" # 445
+loadsubDI 0 6 # 446
+bNEA "branch_12_ul" # 447
+storeID 2 0 # 448
+jumpA "block_18" # 449
 
-markA "block_12" # 475
-loadD 0 # 476
-bNEA "branch_12_rl" # 477
-storeID 3 0 # 478
-jumpA "block_18" # 479
+markA "branch_12_ul" # 450
+loadsubDI 0 7 # 451
+bNEA "branch_12_ur" # 452
+storeID 3 0 # 453
+jumpA "block_18" # 454
 
-markA "branch_12_rl" # 480
-loadD 0 # 481
-subI 1 # 482
-bNEA "branch_12_rr" # 483
-storeID 2 0 # 484
-jumpA "block_18" # 485
+markA "branch_12_ur" # 455
+end # 456
 
-markA "branch_12_rr" # 486
-loadD 0 # 487
-subI 2 # 488
-bNEA "branch_12_dl" # 489
-jumpA "block_16" # 490
+markA "block_14" # 457
+loadD 0 # 458
+bNEA "branch_14_rl" # 459
+jumpA "block_15" # 460
 
-markA "branch_12_dl" # 491
-loadD 0 # 492
-subI 3 # 493
-bNEA "branch_12_dr" # 494
-jumpA "block_16" # 495
+markA "branch_14_rl" # 461
+loadsubDI 0 1 # 462
+bNEA "branch_14_rr" # 463
+jumpA "block_15" # 464
 
-markA "branch_12_dr" # 496
-loadD 0 # 497
-subI 4 # 498
-bNEA "branch_12_ll" # 499
-jumpA "block_11" # 500
+markA "branch_14_rr" # 465
+loadsubDI 0 2 # 466
+bNEA "branch_14_dl" # 467
+modI 2 # 468
+loadD 0 # 469
+bxor # 470
+rstoreD 0 # 471
+jumpA "block_16" # 472
 
-markA "branch_12_ll" # 501
+markA "branch_14_dl" # 473
+loadsubDI 0 3 # 474
+bNEA "branch_14_dr" # 475
+modI 2 # 476
+loadD 0 # 477
+bxor # 478
+rstoreD 0 # 479
+jumpA "block_16" # 480
+
+markA "branch_14_dr" # 481
+loadsubDI 0 4 # 482
+bNEA "branch_14_ll" # 483
+storeID 7 0 # 484
+jumpA "block_9" # 485
+
+markA "branch_14_ll" # 486
+loadsubDI 0 5 # 487
+bNEA "branch_14_lr" # 488
+storeID 6 0 # 489
+jumpA "block_9" # 490
+
+markA "branch_14_lr" # 491
+loadsubDI 0 6 # 492
+bNEA "branch_14_ul" # 493
+jumpA "block_5" # 494
+
+markA "branch_14_ul" # 495
+loadsubDI 0 7 # 496
+bNEA "branch_14_ur" # 497
+jumpA "block_5" # 498
+
+markA "branch_14_ur" # 499
+end # 500
+
+markA "block_15" # 501
 loadD 0 # 502
-subI 5 # 503
-bNEA "branch_12_lr" # 504
-jumpA "block_11" # 505
+bNEA "branch_15_rl" # 503
+storeID 3 0 # 504
+jumpA "block_26" # 505
 
-markA "branch_12_lr" # 506
-loadD 0 # 507
-subI 6 # 508
-bNEA "branch_12_ul" # 509
-storeID 2 0 # 510
-jumpA "block_18" # 511
+markA "branch_15_rl" # 506
+loadsubDI 0 1 # 507
+bNEA "branch_15_rr" # 508
+storeID 2 0 # 509
+jumpA "block_26" # 510
 
-markA "branch_12_ul" # 512
-loadD 0 # 513
-subI 7 # 514
-bNEA "branch_12_ur" # 515
-storeID 3 0 # 516
-jumpA "block_18" # 517
+markA "branch_15_rr" # 511
+loadsubDI 0 2 # 512
+bNEA "branch_15_dl" # 513
+discard # 514
+jumpA "block_16" # 515
 
-markA "branch_12_ur" # 518
-end # 519
+markA "branch_15_dl" # 516
+loadsubDI 0 3 # 517
+bNEA "branch_15_dr" # 518
+discard # 519
+jumpA "block_16" # 520
 
-markA "block_14" # 520
-loadD 0 # 521
-bNEA "branch_14_rl" # 522
-jumpA "block_15" # 523
+markA "branch_15_dr" # 521
+loadsubDI 0 4 # 522
+bNEA "branch_15_ll" # 523
+jumpA "block_14" # 524
 
-markA "branch_14_rl" # 524
-loadD 0 # 525
-subI 1 # 526
-bNEA "branch_14_rr" # 527
-jumpA "block_15" # 528
+markA "branch_15_ll" # 525
+loadsubDI 0 5 # 526
+bNEA "branch_15_lr" # 527
+jumpA "block_14" # 528
 
-markA "branch_14_rr" # 529
-loadD 0 # 530
-subI 2 # 531
-bNEA "branch_14_dl" # 532
-modI 2 # 533
-loadD 0 # 534
-bxor # 535
-rstoreD 0 # 536
-jumpA "block_16" # 537
+markA "branch_15_lr" # 529
+loadsubDI 0 6 # 530
+bNEA "branch_15_ul" # 531
+storeID 2 0 # 532
+jumpA "block_18" # 533
 
-markA "branch_14_dl" # 538
-loadD 0 # 539
-subI 3 # 540
-bNEA "branch_14_dr" # 541
-modI 2 # 542
-loadD 0 # 543
-bxor # 544
-rstoreD 0 # 545
-jumpA "block_16" # 546
+markA "branch_15_ul" # 534
+loadsubDI 0 7 # 535
+bNEA "branch_15_ur" # 536
+storeID 3 0 # 537
+jumpA "block_18" # 538
 
-markA "branch_14_dr" # 547
-loadD 0 # 548
-subI 4 # 549
-bNEA "branch_14_ll" # 550
-storeID 7 0 # 551
-jumpA "block_9" # 552
+markA "branch_15_ur" # 539
+end # 540
 
-markA "branch_14_ll" # 553
-loadD 0 # 554
-subI 5 # 555
-bNEA "branch_14_lr" # 556
-storeID 6 0 # 557
-jumpA "block_9" # 558
+markA "block_16" # 541
+loadD 0 # 542
+bNEA "branch_16_rl" # 543
+jumpA "block_17" # 544
 
-markA "branch_14_lr" # 559
-loadD 0 # 560
-subI 6 # 561
-bNEA "branch_14_ul" # 562
-jumpA "block_5" # 563
+markA "branch_16_rl" # 545
+loadsubDI 0 1 # 546
+bNEA "branch_16_rr" # 547
+storeID 5 0 # 548
+jumpA "block_33" # 549
 
-markA "branch_14_ul" # 564
-loadD 0 # 565
-subI 7 # 566
-bNEA "branch_14_ur" # 567
-jumpA "block_5" # 568
+markA "branch_16_rr" # 550
+loadsubDI 0 2 # 551
+bNEA "branch_16_dl" # 552
+cons 38 # 553
+jumpA "block_29" # 554
 
-markA "branch_14_ur" # 569
-end # 570
+markA "branch_16_dl" # 555
+loadsubDI 0 3 # 556
+bNEA "branch_16_dr" # 557
+storeID 7 0 # 558
+jumpA "block_21" # 559
 
-markA "block_15" # 571
-loadD 0 # 572
-bNEA "branch_15_rl" # 573
-storeID 3 0 # 574
-jumpA "block_26" # 575
+markA "branch_16_dr" # 560
+loadsubDI 0 4 # 561
+bNEA "branch_16_ll" # 562
+storeID 7 0 # 563
+jumpA "block_21" # 564
 
-markA "branch_15_rl" # 576
-loadD 0 # 577
-subI 1 # 578
-bNEA "branch_15_rr" # 579
-storeID 2 0 # 580
-jumpA "block_26" # 581
+markA "branch_16_ll" # 565
+loadsubDI 0 5 # 566
+bNEA "branch_16_lr" # 567
+storeID 6 0 # 568
+jumpA "block_9" # 569
 
-markA "branch_15_rr" # 582
-loadD 0 # 583
-subI 2 # 584
-bNEA "branch_15_dl" # 585
-discard # 586
-jumpA "block_16" # 587
+markA "branch_16_lr" # 570
+loadsubDI 0 6 # 571
+bNEA "branch_16_ul" # 572
+jumpA "block_4" # 573
 
-markA "branch_15_dl" # 588
-loadD 0 # 589
-subI 3 # 590
-bNEA "branch_15_dr" # 591
-discard # 592
-jumpA "block_16" # 593
+markA "branch_16_ul" # 574
+loadsubDI 0 7 # 575
+bNEA "branch_16_ur" # 576
+storeID 3 0 # 577
+jumpA "block_18" # 578
 
-markA "branch_15_dr" # 594
-loadD 0 # 595
-subI 4 # 596
-bNEA "branch_15_ll" # 597
-jumpA "block_14" # 598
+markA "branch_16_ur" # 579
+end # 580
 
-markA "branch_15_ll" # 599
-loadD 0 # 600
-subI 5 # 601
-bNEA "branch_15_lr" # 602
-jumpA "block_14" # 603
+markA "block_17" # 581
+loadD 0 # 582
+bNEA "branch_17_rl" # 583
+storeID 3 0 # 584
+jumpA "block_26" # 585
 
-markA "branch_15_lr" # 604
-loadD 0 # 605
-subI 6 # 606
-bNEA "branch_15_ul" # 607
-storeID 2 0 # 608
-jumpA "block_18" # 609
+markA "branch_17_rl" # 586
+loadsubDI 0 1 # 587
+bNEA "branch_17_rr" # 588
+storeID 2 0 # 589
+jumpA "block_26" # 590
 
-markA "branch_15_ul" # 610
-loadD 0 # 611
-subI 7 # 612
-bNEA "branch_15_ur" # 613
-storeID 3 0 # 614
-jumpA "block_18" # 615
+markA "branch_17_rr" # 591
+loadsubDI 0 2 # 592
+bNEA "branch_17_dl" # 593
+sub # 594
+jumpA "block_25" # 595
 
-markA "branch_15_ur" # 616
-end # 617
+markA "branch_17_dl" # 596
+loadsubDI 0 3 # 597
+bNEA "branch_17_dr" # 598
+sub # 599
+jumpA "block_25" # 600
 
-markA "block_16" # 618
-loadD 0 # 619
-bNEA "branch_16_rl" # 620
-jumpA "block_17" # 621
+markA "branch_17_dr" # 601
+loadsubDI 0 4 # 602
+bNEA "branch_17_ll" # 603
+jumpA "block_20" # 604
 
-markA "branch_16_rl" # 622
-loadD 0 # 623
-subI 1 # 624
-bNEA "branch_16_rr" # 625
-storeID 5 0 # 626
-jumpA "block_33" # 627
+markA "branch_17_ll" # 605
+loadsubDI 0 5 # 606
+bNEA "branch_17_lr" # 607
+jumpA "block_16" # 608
 
-markA "branch_16_rr" # 628
-loadD 0 # 629
-subI 2 # 630
-bNEA "branch_16_dl" # 631
-cons 38 # 632
-jumpA "block_29" # 633
+markA "branch_17_lr" # 609
+loadsubDI 0 6 # 610
+bNEA "branch_17_ul" # 611
+storeID 2 0 # 612
+jumpA "block_26" # 613
 
-markA "branch_16_dl" # 634
-loadD 0 # 635
-subI 3 # 636
-bNEA "branch_16_dr" # 637
-storeID 7 0 # 638
-jumpA "block_21" # 639
+markA "branch_17_ul" # 614
+loadsubDI 0 7 # 615
+bNEA "branch_17_ur" # 616
+storeID 3 0 # 617
+jumpA "block_26" # 618
 
-markA "branch_16_dr" # 640
-loadD 0 # 641
-subI 4 # 642
-bNEA "branch_16_ll" # 643
-storeID 7 0 # 644
-jumpA "block_21" # 645
+markA "branch_17_ur" # 619
+end # 620
 
-markA "branch_16_ll" # 646
-loadD 0 # 647
-subI 5 # 648
-bNEA "branch_16_lr" # 649
-storeID 6 0 # 650
-jumpA "block_9" # 651
+markA "block_18" # 621
+loadD 0 # 622
+bNEA "branch_18_rl" # 623
+jumpA "block_17" # 624
 
-markA "branch_16_lr" # 652
-loadD 0 # 653
-subI 6 # 654
-bNEA "branch_16_ul" # 655
-jumpA "block_4" # 656
+markA "branch_18_rl" # 625
+loadsubDI 0 1 # 626
+bNEA "branch_18_rr" # 627
+jumpA "block_17" # 628
 
-markA "branch_16_ul" # 657
-loadD 0 # 658
-subI 7 # 659
-bNEA "branch_16_ur" # 660
-storeID 3 0 # 661
-jumpA "block_18" # 662
+markA "branch_18_rr" # 629
+loadsubDI 0 2 # 630
+bNEA "branch_18_dl" # 631
+cons 1 # 632
+jumpA "block_20" # 633
 
-markA "branch_16_ur" # 663
-end # 664
+markA "branch_18_dl" # 634
+loadsubDI 0 3 # 635
+bNEA "branch_18_dr" # 636
+cons 1 # 637
+jumpA "block_20" # 638
 
-markA "block_17" # 665
-loadD 0 # 666
-bNEA "branch_17_rl" # 667
-storeID 3 0 # 668
-jumpA "block_26" # 669
+markA "branch_18_dr" # 639
+loadsubDI 0 4 # 640
+bNEA "branch_18_ll" # 641
+modI 2 # 642
+loadD 0 # 643
+bxor # 644
+rstoreD 0 # 645
+jumpA "block_16" # 646
 
-markA "branch_17_rl" # 670
-loadD 0 # 671
-subI 1 # 672
-bNEA "branch_17_rr" # 673
-storeID 2 0 # 674
-jumpA "block_26" # 675
+markA "branch_18_ll" # 647
+loadsubDI 0 5 # 648
+bNEA "branch_18_lr" # 649
+modI 2 # 650
+loadD 0 # 651
+bxor # 652
+rstoreD 0 # 653
+jumpA "block_16" # 654
 
-markA "branch_17_rr" # 676
-loadD 0 # 677
-subI 2 # 678
-bNEA "branch_17_dl" # 679
-sub # 680
-jumpA "block_25" # 681
+markA "branch_18_lr" # 655
+loadsubDI 0 6 # 656
+bNEA "branch_18_ul" # 657
+storeID 2 0 # 658
+jumpA "block_18" # 659
 
-markA "branch_17_dl" # 682
-loadD 0 # 683
-subI 3 # 684
-bNEA "branch_17_dr" # 685
-sub # 686
-jumpA "block_25" # 687
+markA "branch_18_ul" # 660
+loadsubDI 0 7 # 661
+bNEA "branch_18_ur" # 662
+storeID 3 0 # 663
+jumpA "block_18" # 664
 
-markA "branch_17_dr" # 688
-loadD 0 # 689
-subI 4 # 690
-bNEA "branch_17_ll" # 691
-jumpA "block_20" # 692
+markA "branch_18_ur" # 665
+end # 666
 
-markA "branch_17_ll" # 693
-loadD 0 # 694
-subI 5 # 695
-bNEA "branch_17_lr" # 696
-jumpA "block_16" # 697
+markA "block_20" # 667
+loadD 0 # 668
+bNEA "branch_20_rl" # 669
+jumpA "block_17" # 670
 
-markA "branch_17_lr" # 698
-loadD 0 # 699
-subI 6 # 700
-bNEA "branch_17_ul" # 701
-storeID 2 0 # 702
-jumpA "block_26" # 703
+markA "branch_20_rl" # 671
+loadsubDI 0 1 # 672
+bNEA "branch_20_rr" # 673
+discard # 674
+jumpA "block_24" # 675
 
-markA "branch_17_ul" # 704
-loadD 0 # 705
-subI 7 # 706
-bNEA "branch_17_ur" # 707
-storeID 3 0 # 708
-jumpA "block_26" # 709
+markA "branch_20_rr" # 676
+loadsubDI 0 2 # 677
+bNEA "branch_20_dl" # 678
+storeID 5 0 # 679
+jumpA "block_33" # 680
 
-markA "branch_17_ur" # 710
-end # 711
+markA "branch_20_dl" # 681
+loadsubDI 0 3 # 682
+bNEA "branch_20_dr" # 683
+storeID 4 0 # 684
+jumpA "block_33" # 685
 
-markA "block_18" # 712
-loadD 0 # 713
-bNEA "branch_18_rl" # 714
-jumpA "block_17" # 715
+markA "branch_20_dr" # 686
+loadsubDI 0 4 # 687
+bNEA "branch_20_ll" # 688
+modI 4 # 689
+mulI 2 # 690
+loadD 0 # 691
+add # 692
+modI 8 # 693
+rstoreD 0 # 694
+jumpA "block_16" # 695
 
-markA "branch_18_rl" # 716
-loadD 0 # 717
-subI 1 # 718
-bNEA "branch_18_rr" # 719
-jumpA "block_17" # 720
+markA "branch_20_ll" # 696
+loadsubDI 0 5 # 697
+bNEA "branch_20_lr" # 698
+modI 4 # 699
+mulI 2 # 700
+loadD 0 # 701
+add # 702
+modI 8 # 703
+rstoreD 0 # 704
+jumpA "block_16" # 705
 
-markA "branch_18_rr" # 721
-loadD 0 # 722
-subI 2 # 723
-bNEA "branch_18_dl" # 724
-cons 1 # 725
-jumpA "block_20" # 726
+markA "branch_20_lr" # 706
+loadsubDI 0 6 # 707
+bNEA "branch_20_ul" # 708
+discard # 709
+jumpA "block_18" # 710
 
-markA "branch_18_dl" # 727
-loadD 0 # 728
-subI 3 # 729
-bNEA "branch_18_dr" # 730
-cons 1 # 731
-jumpA "block_20" # 732
+markA "branch_20_ul" # 711
+loadsubDI 0 7 # 712
+bNEA "branch_20_ur" # 713
+discard # 714
+jumpA "block_18" # 715
 
-markA "branch_18_dr" # 733
-loadD 0 # 734
-subI 4 # 735
-bNEA "branch_18_ll" # 736
-modI 2 # 737
-loadD 0 # 738
-bxor # 739
-rstoreD 0 # 740
-jumpA "block_16" # 741
+markA "branch_20_ur" # 716
+end # 717
 
-markA "branch_18_ll" # 742
-loadD 0 # 743
-subI 5 # 744
-bNEA "branch_18_lr" # 745
-modI 2 # 746
-loadD 0 # 747
-bxor # 748
-rstoreD 0 # 749
-jumpA "block_16" # 750
+markA "block_21" # 718
+loadD 0 # 719
+bNEA "branch_21_rl" # 720
+outputCMaybeS # 721
+jumpA "block_22" # 722
 
-markA "branch_18_lr" # 751
-loadD 0 # 752
-subI 6 # 753
-bNEA "branch_18_ul" # 754
-storeID 2 0 # 755
-jumpA "block_18" # 756
+markA "branch_21_rl" # 723
+loadsubDI 0 1 # 724
+bNEA "branch_21_rr" # 725
+outputCMaybeS # 726
+jumpA "block_22" # 727
 
-markA "branch_18_ul" # 757
-loadD 0 # 758
-subI 7 # 759
-bNEA "branch_18_ur" # 760
-storeID 3 0 # 761
-jumpA "block_18" # 762
+markA "branch_21_rr" # 728
+loadsubDI 0 2 # 729
+bNEA "branch_21_dl" # 730
+storeID 6 0 # 731
+jumpA "block_21" # 732
 
-markA "branch_18_ur" # 763
-end # 764
+markA "branch_21_dl" # 733
+loadsubDI 0 3 # 734
+bNEA "branch_21_dr" # 735
+storeID 7 0 # 736
+jumpA "block_21" # 737
 
-markA "block_20" # 765
-loadD 0 # 766
-bNEA "branch_20_rl" # 767
-jumpA "block_17" # 768
+markA "branch_21_dr" # 738
+loadsubDI 0 4 # 739
+bNEA "branch_21_ll" # 740
+storeID 0 0 # 741
+outputCMaybeS # 742
+jumpA "block_22" # 743
 
-markA "branch_20_rl" # 769
-loadD 0 # 770
-subI 1 # 771
-bNEA "branch_20_rr" # 772
-discard # 773
-jumpA "block_24" # 774
+markA "branch_21_ll" # 744
+loadsubDI 0 5 # 745
+bNEA "branch_21_lr" # 746
+storeID 1 0 # 747
+outputCMaybeS # 748
+jumpA "block_22" # 749
 
-markA "branch_20_rr" # 775
-loadD 0 # 776
-subI 2 # 777
-bNEA "branch_20_dl" # 778
-storeID 5 0 # 779
-jumpA "block_33" # 780
+markA "branch_21_lr" # 750
+loadsubDI 0 6 # 751
+bNEA "branch_21_ul" # 752
+storeID 1 0 # 753
+outputCMaybeS # 754
+jumpA "block_22" # 755
 
-markA "branch_20_dl" # 781
-loadD 0 # 782
-subI 3 # 783
-bNEA "branch_20_dr" # 784
-storeID 4 0 # 785
-jumpA "block_33" # 786
+markA "branch_21_ul" # 756
+loadsubDI 0 7 # 757
+bNEA "branch_21_ur" # 758
+storeID 0 0 # 759
+outputCMaybeS # 760
+jumpA "block_22" # 761
 
-markA "branch_20_dr" # 787
-loadD 0 # 788
-subI 4 # 789
-bNEA "branch_20_ll" # 790
-modI 4 # 791
-mulI 2 # 792
-loadD 0 # 793
-add # 794
-modI 8 # 795
-rstoreD 0 # 796
-jumpA "block_16" # 797
+markA "branch_21_ur" # 762
+end # 763
 
-markA "branch_20_ll" # 798
-loadD 0 # 799
-subI 5 # 800
-bNEA "branch_20_lr" # 801
-modI 4 # 802
-mulI 2 # 803
-loadD 0 # 804
-add # 805
-modI 8 # 806
-rstoreD 0 # 807
-jumpA "block_16" # 808
+markA "block_22" # 764
+loadD 0 # 765
+bNEA "branch_22_rl" # 766
+jumpA "block_23" # 767
 
-markA "branch_20_lr" # 809
-loadD 0 # 810
-subI 6 # 811
-bNEA "branch_20_ul" # 812
-discard # 813
-jumpA "block_18" # 814
+markA "branch_22_rl" # 768
+loadsubDI 0 1 # 769
+bNEA "branch_22_rr" # 770
+jumpA "block_16" # 771
 
-markA "branch_20_ul" # 815
-loadD 0 # 816
-subI 7 # 817
-bNEA "branch_20_ur" # 818
-discard # 819
-jumpA "block_18" # 820
+markA "branch_22_rr" # 772
+loadsubDI 0 2 # 773
+bNEA "branch_22_dl" # 774
+storeID 6 0 # 775
+jumpA "block_21" # 776
 
-markA "branch_20_ur" # 821
-end # 822
+markA "branch_22_dl" # 777
+loadsubDI 0 3 # 778
+bNEA "branch_22_dr" # 779
+storeID 7 0 # 780
+jumpA "block_21" # 781
 
-markA "block_21" # 823
-loadD 0 # 824
-bNEA "branch_21_rl" # 825
-outputCMaybeS # 826
-jumpA "block_22" # 827
+markA "branch_22_dr" # 782
+loadsubDI 0 4 # 783
+bNEA "branch_22_ll" # 784
+storeID 7 0 # 785
+jumpA "block_21" # 786
 
-markA "branch_21_rl" # 828
-loadD 0 # 829
-subI 1 # 830
-bNEA "branch_21_rr" # 831
-outputCMaybeS # 832
-jumpA "block_22" # 833
+markA "branch_22_ll" # 787
+loadsubDI 0 5 # 788
+bNEA "branch_22_lr" # 789
+sub # 790
+jumpA "block_21" # 791
 
-markA "branch_21_rr" # 834
-loadD 0 # 835
-subI 2 # 836
-bNEA "branch_21_dl" # 837
-storeID 6 0 # 838
-jumpA "block_21" # 839
+markA "branch_22_lr" # 792
+loadsubDI 0 6 # 793
+bNEA "branch_22_ul" # 794
+jumpA "block_10" # 795
 
-markA "branch_21_dl" # 840
+markA "branch_22_ul" # 796
+loadsubDI 0 7 # 797
+bNEA "branch_22_ur" # 798
+jumpA "block_10" # 799
+
+markA "branch_22_ur" # 800
+end # 801
+
+markA "block_23" # 802
+loadD 0 # 803
+bNEA "branch_23_rl" # 804
+discard # 805
+jumpA "block_16" # 806
+
+markA "branch_23_rl" # 807
+loadsubDI 0 1 # 808
+bNEA "branch_23_rr" # 809
+discard # 810
+jumpA "block_16" # 811
+
+markA "branch_23_rr" # 812
+loadsubDI 0 2 # 813
+bNEA "branch_23_dl" # 814
+storeID 6 0 # 815
+jumpA "block_21" # 816
+
+markA "branch_23_dl" # 817
+loadsubDI 0 3 # 818
+bNEA "branch_23_dr" # 819
+storeID 7 0 # 820
+jumpA "block_21" # 821
+
+markA "branch_23_dr" # 822
+loadsubDI 0 4 # 823
+bNEA "branch_23_ll" # 824
+jumpA "block_22" # 825
+
+markA "branch_23_ll" # 826
+loadsubDI 0 5 # 827
+bNEA "branch_23_lr" # 828
+jumpA "block_22" # 829
+
+markA "branch_23_lr" # 830
+loadsubDI 0 6 # 831
+bNEA "branch_23_ul" # 832
+jumpA "block_11" # 833
+
+markA "branch_23_ul" # 834
+loadsubDI 0 7 # 835
+bNEA "branch_23_ur" # 836
+jumpA "block_11" # 837
+
+markA "branch_23_ur" # 838
+end # 839
+
+markA "block_24" # 840
 loadD 0 # 841
-subI 3 # 842
-bNEA "branch_21_dr" # 843
-storeID 7 0 # 844
-jumpA "block_21" # 845
+bNEA "branch_24_rl" # 842
+sub # 843
+jumpA "block_25" # 844
 
-markA "branch_21_dr" # 846
-loadD 0 # 847
-subI 4 # 848
-bNEA "branch_21_ll" # 849
-storeID 0 0 # 850
-outputCMaybeS # 851
-jumpA "block_22" # 852
+markA "branch_24_rl" # 845
+loadsubDI 0 1 # 846
+bNEA "branch_24_rr" # 847
+sub # 848
+jumpA "block_25" # 849
 
-markA "branch_21_ll" # 853
-loadD 0 # 854
-subI 5 # 855
-bNEA "branch_21_lr" # 856
-storeID 1 0 # 857
-outputCMaybeS # 858
-jumpA "block_22" # 859
+markA "branch_24_rr" # 850
+loadsubDI 0 2 # 851
+bNEA "branch_24_dl" # 852
+storeID 5 0 # 853
+jumpA "block_33" # 854
 
-markA "branch_21_lr" # 860
-loadD 0 # 861
-subI 6 # 862
-bNEA "branch_21_ul" # 863
-storeID 1 0 # 864
-outputCMaybeS # 865
-jumpA "block_22" # 866
+markA "branch_24_dl" # 855
+loadsubDI 0 3 # 856
+bNEA "branch_24_dr" # 857
+storeID 4 0 # 858
+jumpA "block_33" # 859
 
-markA "branch_21_ul" # 867
-loadD 0 # 868
-subI 7 # 869
-bNEA "branch_21_ur" # 870
-storeID 0 0 # 871
-outputCMaybeS # 872
-jumpA "block_22" # 873
+markA "branch_24_dr" # 860
+loadsubDI 0 4 # 861
+bNEA "branch_24_ll" # 862
+cons 1 # 863
+jumpA "block_20" # 864
 
-markA "branch_21_ur" # 874
-end # 875
+markA "branch_24_ll" # 865
+loadsubDI 0 5 # 866
+bNEA "branch_24_lr" # 867
+cons 1 # 868
+jumpA "block_20" # 869
 
-markA "block_22" # 876
-loadD 0 # 877
-bNEA "branch_22_rl" # 878
-jumpA "block_23" # 879
+markA "branch_24_lr" # 870
+loadsubDI 0 6 # 871
+bNEA "branch_24_ul" # 872
+storeID 2 0 # 873
+jumpA "block_24" # 874
 
-markA "branch_22_rl" # 880
-loadD 0 # 881
-subI 1 # 882
-bNEA "branch_22_rr" # 883
-jumpA "block_16" # 884
+markA "branch_24_ul" # 875
+loadsubDI 0 7 # 876
+bNEA "branch_24_ur" # 877
+storeID 3 0 # 878
+jumpA "block_24" # 879
 
-markA "branch_22_rr" # 885
-loadD 0 # 886
-subI 2 # 887
-bNEA "branch_22_dl" # 888
-storeID 6 0 # 889
-jumpA "block_21" # 890
+markA "branch_24_ur" # 880
+end # 881
 
-markA "branch_22_dl" # 891
-loadD 0 # 892
-subI 3 # 893
-bNEA "branch_22_dr" # 894
-storeID 7 0 # 895
-jumpA "block_21" # 896
+markA "block_25" # 882
+loadD 0 # 883
+bNEA "branch_25_rl" # 884
+cons 2 # 885
+jumpA "block_26" # 886
 
-markA "branch_22_dr" # 897
-loadD 0 # 898
-subI 4 # 899
-bNEA "branch_22_ll" # 900
-storeID 7 0 # 901
-jumpA "block_21" # 902
+markA "branch_25_rl" # 887
+loadsubDI 0 1 # 888
+bNEA "branch_25_rr" # 889
+cons 2 # 890
+jumpA "block_26" # 891
 
-markA "branch_22_ll" # 903
-loadD 0 # 904
-subI 5 # 905
-bNEA "branch_22_lr" # 906
-sub # 907
-jumpA "block_21" # 908
+markA "branch_25_rr" # 892
+loadsubDI 0 2 # 893
+bNEA "branch_25_dl" # 894
+storeID 5 0 # 895
+jumpA "block_33" # 896
 
-markA "branch_22_lr" # 909
-loadD 0 # 910
-subI 6 # 911
-bNEA "branch_22_ul" # 912
-jumpA "block_10" # 913
+markA "branch_25_dl" # 897
+loadsubDI 0 3 # 898
+bNEA "branch_25_dr" # 899
+storeID 4 0 # 900
+jumpA "block_33" # 901
 
-markA "branch_22_ul" # 914
-loadD 0 # 915
-subI 7 # 916
-bNEA "branch_22_ur" # 917
-jumpA "block_10" # 918
+markA "branch_25_dr" # 902
+loadsubDI 0 4 # 903
+bNEA "branch_25_ll" # 904
+outputCMaybeS # 905
+jumpA "block_24" # 906
 
-markA "branch_22_ur" # 919
-end # 920
+markA "branch_25_ll" # 907
+loadsubDI 0 5 # 908
+bNEA "branch_25_lr" # 909
+outputCMaybeS # 910
+jumpA "block_24" # 911
 
-markA "block_23" # 921
-loadD 0 # 922
-bNEA "branch_23_rl" # 923
-discard # 924
-jumpA "block_16" # 925
+markA "branch_25_lr" # 912
+loadsubDI 0 6 # 913
+bNEA "branch_25_ul" # 914
+outputCMaybeS # 915
+jumpA "block_17" # 916
 
-markA "branch_23_rl" # 926
-loadD 0 # 927
-subI 1 # 928
-bNEA "branch_23_rr" # 929
-discard # 930
-jumpA "block_16" # 931
+markA "branch_25_ul" # 917
+loadsubDI 0 7 # 918
+bNEA "branch_25_ur" # 919
+storeID 3 0 # 920
+jumpA "block_26" # 921
 
-markA "branch_23_rr" # 932
-loadD 0 # 933
-subI 2 # 934
-bNEA "branch_23_dl" # 935
-storeID 6 0 # 936
-jumpA "block_21" # 937
+markA "branch_25_ur" # 922
+end # 923
 
-markA "branch_23_dl" # 938
-loadD 0 # 939
-subI 3 # 940
-bNEA "branch_23_dr" # 941
-storeID 7 0 # 942
-jumpA "block_21" # 943
+markA "block_26" # 924
+loadD 0 # 925
+bNEA "branch_26_rl" # 926
+storeID 4 0 # 927
+discard # 928
+jumpA "block_25" # 929
 
-markA "branch_23_dr" # 944
-loadD 0 # 945
-subI 4 # 946
-bNEA "branch_23_ll" # 947
-jumpA "block_22" # 948
+markA "branch_26_rl" # 930
+loadsubDI 0 1 # 931
+bNEA "branch_26_rr" # 932
+storeID 5 0 # 933
+discard # 934
+jumpA "block_25" # 935
 
-markA "branch_23_ll" # 949
-loadD 0 # 950
-subI 5 # 951
-bNEA "branch_23_lr" # 952
-jumpA "block_22" # 953
+markA "branch_26_rr" # 936
+loadsubDI 0 2 # 937
+bNEA "branch_26_dl" # 938
+storeID 5 0 # 939
+discard # 940
+jumpA "block_25" # 941
 
-markA "branch_23_lr" # 954
-loadD 0 # 955
-subI 6 # 956
-bNEA "branch_23_ul" # 957
-jumpA "block_11" # 958
+markA "branch_26_dl" # 942
+loadsubDI 0 3 # 943
+bNEA "branch_26_dr" # 944
+storeID 4 0 # 945
+discard # 946
+jumpA "block_25" # 947
 
-markA "branch_23_ul" # 959
-loadD 0 # 960
-subI 7 # 961
-bNEA "branch_23_ur" # 962
-jumpA "block_11" # 963
+markA "branch_26_dr" # 948
+loadsubDI 0 4 # 949
+bNEA "branch_26_ll" # 950
+discard # 951
+jumpA "block_25" # 952
 
-markA "branch_23_ur" # 964
-end # 965
+markA "branch_26_ll" # 953
+loadsubDI 0 5 # 954
+bNEA "branch_26_lr" # 955
+discard # 956
+jumpA "block_25" # 957
 
-markA "block_24" # 966
-loadD 0 # 967
-bNEA "branch_24_rl" # 968
-sub # 969
-jumpA "block_25" # 970
+markA "branch_26_lr" # 958
+loadsubDI 0 6 # 959
+bNEA "branch_26_ul" # 960
+storeID 2 0 # 961
+jumpA "block_26" # 962
 
-markA "branch_24_rl" # 971
-loadD 0 # 972
-subI 1 # 973
-bNEA "branch_24_rr" # 974
-sub # 975
-jumpA "block_25" # 976
+markA "branch_26_ul" # 963
+loadsubDI 0 7 # 964
+bNEA "branch_26_ur" # 965
+storeID 3 0 # 966
+jumpA "block_26" # 967
 
-markA "branch_24_rr" # 977
-loadD 0 # 978
-subI 2 # 979
-bNEA "branch_24_dl" # 980
-storeID 5 0 # 981
-jumpA "block_33" # 982
+markA "branch_26_ur" # 968
+end # 969
 
-markA "branch_24_dl" # 983
-loadD 0 # 984
-subI 3 # 985
-bNEA "branch_24_dr" # 986
-storeID 4 0 # 987
-jumpA "block_33" # 988
+markA "block_29" # 970
+loadD 0 # 971
+bNEA "branch_29_rl" # 972
+storeID 4 0 # 973
+jumpA "block_33" # 974
 
-markA "branch_24_dr" # 989
-loadD 0 # 990
-subI 4 # 991
-bNEA "branch_24_ll" # 992
-cons 1 # 993
-jumpA "block_20" # 994
+markA "branch_29_rl" # 975
+loadsubDI 0 1 # 976
+bNEA "branch_29_rr" # 977
+storeID 5 0 # 978
+jumpA "block_33" # 979
 
-markA "branch_24_ll" # 995
-loadD 0 # 996
-subI 5 # 997
-bNEA "branch_24_lr" # 998
-cons 1 # 999
-jumpA "block_20" # 1000
+markA "branch_29_rr" # 980
+loadsubDI 0 2 # 981
+bNEA "branch_29_dl" # 982
+jumpA "block_31" # 983
 
-markA "branch_24_lr" # 1001
-loadD 0 # 1002
-subI 6 # 1003
-bNEA "branch_24_ul" # 1004
-storeID 2 0 # 1005
-jumpA "block_24" # 1006
+markA "branch_29_dl" # 984
+loadsubDI 0 3 # 985
+bNEA "branch_29_dr" # 986
+jumpA "block_31" # 987
 
-markA "branch_24_ul" # 1007
-loadD 0 # 1008
-subI 7 # 1009
-bNEA "branch_24_ur" # 1010
-storeID 3 0 # 1011
-jumpA "block_24" # 1012
+markA "branch_29_dr" # 988
+loadsubDI 0 4 # 989
+bNEA "branch_29_ll" # 990
+storeID 7 0 # 991
+jumpA "block_21" # 992
 
-markA "branch_24_ur" # 1013
-end # 1014
+markA "branch_29_ll" # 993
+loadsubDI 0 5 # 994
+bNEA "branch_29_lr" # 995
+storeID 6 0 # 996
+jumpA "block_21" # 997
 
-markA "block_25" # 1015
-loadD 0 # 1016
-bNEA "branch_25_rl" # 1017
-cons 2 # 1018
-jumpA "block_26" # 1019
+markA "branch_29_lr" # 998
+loadsubDI 0 6 # 999
+bNEA "branch_29_ul" # 1000
+discard # 1001
+jumpA "block_16" # 1002
 
-markA "branch_25_rl" # 1020
-loadD 0 # 1021
-subI 1 # 1022
-bNEA "branch_25_rr" # 1023
-cons 2 # 1024
-jumpA "block_26" # 1025
+markA "branch_29_ul" # 1003
+loadsubDI 0 7 # 1004
+bNEA "branch_29_ur" # 1005
+discard # 1006
+jumpA "block_16" # 1007
 
-markA "branch_25_rr" # 1026
-loadD 0 # 1027
-subI 2 # 1028
-bNEA "branch_25_dl" # 1029
-storeID 5 0 # 1030
-jumpA "block_33" # 1031
+markA "branch_29_ur" # 1008
+end # 1009
 
-markA "branch_25_dl" # 1032
-loadD 0 # 1033
-subI 3 # 1034
-bNEA "branch_25_dr" # 1035
-storeID 4 0 # 1036
-jumpA "block_33" # 1037
+markA "block_31" # 1010
+loadD 0 # 1011
+bNEA "branch_31_rl" # 1012
+storeID 4 0 # 1013
+jumpA "block_33" # 1014
 
-markA "branch_25_dr" # 1038
-loadD 0 # 1039
-subI 4 # 1040
-bNEA "branch_25_ll" # 1041
-outputCMaybeS # 1042
-jumpA "block_24" # 1043
+markA "branch_31_rl" # 1015
+loadsubDI 0 1 # 1016
+bNEA "branch_31_rr" # 1017
+storeID 5 0 # 1018
+jumpA "block_33" # 1019
 
-markA "branch_25_ll" # 1044
-loadD 0 # 1045
-subI 5 # 1046
-bNEA "branch_25_lr" # 1047
-outputCMaybeS # 1048
-jumpA "block_24" # 1049
+markA "branch_31_rr" # 1020
+loadsubDI 0 2 # 1021
+bNEA "branch_31_dl" # 1022
+sub # 1023
+jumpA "block_33" # 1024
 
-markA "branch_25_lr" # 1050
+markA "branch_31_dl" # 1025
+loadsubDI 0 3 # 1026
+bNEA "branch_31_dr" # 1027
+sub # 1028
+jumpA "block_33" # 1029
+
+markA "branch_31_dr" # 1030
+loadsubDI 0 4 # 1031
+bNEA "branch_31_ll" # 1032
+storeID 7 0 # 1033
+jumpA "block_21" # 1034
+
+markA "branch_31_ll" # 1035
+loadsubDI 0 5 # 1036
+bNEA "branch_31_lr" # 1037
+storeID 6 0 # 1038
+jumpA "block_21" # 1039
+
+markA "branch_31_lr" # 1040
+loadsubDI 0 6 # 1041
+bNEA "branch_31_ul" # 1042
+jumpA "block_29" # 1043
+
+markA "branch_31_ul" # 1044
+loadsubDI 0 7 # 1045
+bNEA "branch_31_ur" # 1046
+jumpA "block_29" # 1047
+
+markA "branch_31_ur" # 1048
+end # 1049
+
+markA "block_33" # 1050
 loadD 0 # 1051
-subI 6 # 1052
-bNEA "branch_25_ul" # 1053
-outputCMaybeS # 1054
-jumpA "block_17" # 1055
+bNEA "branch_33_rl" # 1052
+storeID 4 0 # 1053
+jumpA "block_33" # 1054
 
-markA "branch_25_ul" # 1056
-loadD 0 # 1057
-subI 7 # 1058
-bNEA "branch_25_ur" # 1059
-storeID 3 0 # 1060
-jumpA "block_26" # 1061
+markA "branch_33_rl" # 1055
+loadsubDI 0 1 # 1056
+bNEA "branch_33_rr" # 1057
+storeID 5 0 # 1058
+jumpA "block_33" # 1059
 
-markA "branch_25_ur" # 1062
-end # 1063
+markA "branch_33_rr" # 1060
+loadsubDI 0 2 # 1061
+bNEA "branch_33_dl" # 1062
+storeID 6 0 # 1063
+outputCMaybeS # 1064
+jumpA "block_31" # 1065
 
-markA "block_26" # 1064
-loadD 0 # 1065
-bNEA "branch_26_rl" # 1066
-storeID 4 0 # 1067
-discard # 1068
-jumpA "block_25" # 1069
+markA "branch_33_dl" # 1066
+loadsubDI 0 3 # 1067
+bNEA "branch_33_dr" # 1068
+storeID 7 0 # 1069
+outputCMaybeS # 1070
+jumpA "block_31" # 1071
 
-markA "branch_26_rl" # 1070
-loadD 0 # 1071
-subI 1 # 1072
-bNEA "branch_26_rr" # 1073
-storeID 5 0 # 1074
-discard # 1075
-jumpA "block_25" # 1076
+markA "branch_33_dr" # 1072
+loadsubDI 0 4 # 1073
+bNEA "branch_33_ll" # 1074
+storeID 7 0 # 1075
+outputCMaybeS # 1076
+jumpA "block_31" # 1077
 
-markA "branch_26_rr" # 1077
-loadD 0 # 1078
-subI 2 # 1079
-bNEA "branch_26_dl" # 1080
-storeID 5 0 # 1081
-discard # 1082
-jumpA "block_25" # 1083
+markA "branch_33_ll" # 1078
+loadsubDI 0 5 # 1079
+bNEA "branch_33_lr" # 1080
+storeID 6 0 # 1081
+outputCMaybeS # 1082
+jumpA "block_31" # 1083
 
-markA "branch_26_dl" # 1084
-loadD 0 # 1085
-subI 3 # 1086
-bNEA "branch_26_dr" # 1087
-storeID 4 0 # 1088
-discard # 1089
-jumpA "block_25" # 1090
+markA "branch_33_lr" # 1084
+loadsubDI 0 6 # 1085
+bNEA "branch_33_ul" # 1086
+outputCMaybeS # 1087
+jumpA "block_31" # 1088
 
-markA "branch_26_dr" # 1091
-loadD 0 # 1092
-subI 4 # 1093
-bNEA "branch_26_ll" # 1094
-discard # 1095
-jumpA "block_25" # 1096
+markA "branch_33_ul" # 1089
+loadsubDI 0 7 # 1090
+bNEA "branch_33_ur" # 1091
+outputCMaybeS # 1092
+jumpA "block_31" # 1093
 
-markA "branch_26_ll" # 1097
-loadD 0 # 1098
-subI 5 # 1099
-bNEA "branch_26_lr" # 1100
-discard # 1101
-jumpA "block_25" # 1102
-
-markA "branch_26_lr" # 1103
-loadD 0 # 1104
-subI 6 # 1105
-bNEA "branch_26_ul" # 1106
-storeID 2 0 # 1107
-jumpA "block_26" # 1108
-
-markA "branch_26_ul" # 1109
-loadD 0 # 1110
-subI 7 # 1111
-bNEA "branch_26_ur" # 1112
-storeID 3 0 # 1113
-jumpA "block_26" # 1114
-
-markA "branch_26_ur" # 1115
-end # 1116
-
-markA "block_29" # 1117
-loadD 0 # 1118
-bNEA "branch_29_rl" # 1119
-storeID 4 0 # 1120
-jumpA "block_33" # 1121
-
-markA "branch_29_rl" # 1122
-loadD 0 # 1123
-subI 1 # 1124
-bNEA "branch_29_rr" # 1125
-storeID 5 0 # 1126
-jumpA "block_33" # 1127
-
-markA "branch_29_rr" # 1128
-loadD 0 # 1129
-subI 2 # 1130
-bNEA "branch_29_dl" # 1131
-jumpA "block_31" # 1132
-
-markA "branch_29_dl" # 1133
-loadD 0 # 1134
-subI 3 # 1135
-bNEA "branch_29_dr" # 1136
-jumpA "block_31" # 1137
-
-markA "branch_29_dr" # 1138
-loadD 0 # 1139
-subI 4 # 1140
-bNEA "branch_29_ll" # 1141
-storeID 7 0 # 1142
-jumpA "block_21" # 1143
-
-markA "branch_29_ll" # 1144
-loadD 0 # 1145
-subI 5 # 1146
-bNEA "branch_29_lr" # 1147
-storeID 6 0 # 1148
-jumpA "block_21" # 1149
-
-markA "branch_29_lr" # 1150
-loadD 0 # 1151
-subI 6 # 1152
-bNEA "branch_29_ul" # 1153
-discard # 1154
-jumpA "block_16" # 1155
-
-markA "branch_29_ul" # 1156
-loadD 0 # 1157
-subI 7 # 1158
-bNEA "branch_29_ur" # 1159
-discard # 1160
-jumpA "block_16" # 1161
-
-markA "branch_29_ur" # 1162
-end # 1163
-
-markA "block_31" # 1164
-loadD 0 # 1165
-bNEA "branch_31_rl" # 1166
-storeID 4 0 # 1167
-jumpA "block_33" # 1168
-
-markA "branch_31_rl" # 1169
-loadD 0 # 1170
-subI 1 # 1171
-bNEA "branch_31_rr" # 1172
-storeID 5 0 # 1173
-jumpA "block_33" # 1174
-
-markA "branch_31_rr" # 1175
-loadD 0 # 1176
-subI 2 # 1177
-bNEA "branch_31_dl" # 1178
-sub # 1179
-jumpA "block_33" # 1180
-
-markA "branch_31_dl" # 1181
-loadD 0 # 1182
-subI 3 # 1183
-bNEA "branch_31_dr" # 1184
-sub # 1185
-jumpA "block_33" # 1186
-
-markA "branch_31_dr" # 1187
-loadD 0 # 1188
-subI 4 # 1189
-bNEA "branch_31_ll" # 1190
-storeID 7 0 # 1191
-jumpA "block_21" # 1192
-
-markA "branch_31_ll" # 1193
-loadD 0 # 1194
-subI 5 # 1195
-bNEA "branch_31_lr" # 1196
-storeID 6 0 # 1197
-jumpA "block_21" # 1198
-
-markA "branch_31_lr" # 1199
-loadD 0 # 1200
-subI 6 # 1201
-bNEA "branch_31_ul" # 1202
-jumpA "block_29" # 1203
-
-markA "branch_31_ul" # 1204
-loadD 0 # 1205
-subI 7 # 1206
-bNEA "branch_31_ur" # 1207
-jumpA "block_29" # 1208
-
-markA "branch_31_ur" # 1209
-end # 1210
-
-markA "block_33" # 1211
-loadD 0 # 1212
-bNEA "branch_33_rl" # 1213
-storeID 4 0 # 1214
-jumpA "block_33" # 1215
-
-markA "branch_33_rl" # 1216
-loadD 0 # 1217
-subI 1 # 1218
-bNEA "branch_33_rr" # 1219
-storeID 5 0 # 1220
-jumpA "block_33" # 1221
-
-markA "branch_33_rr" # 1222
-loadD 0 # 1223
-subI 2 # 1224
-bNEA "branch_33_dl" # 1225
-storeID 6 0 # 1226
-outputCMaybeS # 1227
-jumpA "block_31" # 1228
-
-markA "branch_33_dl" # 1229
-loadD 0 # 1230
-subI 3 # 1231
-bNEA "branch_33_dr" # 1232
-storeID 7 0 # 1233
-outputCMaybeS # 1234
-jumpA "block_31" # 1235
-
-markA "branch_33_dr" # 1236
-loadD 0 # 1237
-subI 4 # 1238
-bNEA "branch_33_ll" # 1239
-storeID 7 0 # 1240
-outputCMaybeS # 1241
-jumpA "block_31" # 1242
-
-markA "branch_33_ll" # 1243
-loadD 0 # 1244
-subI 5 # 1245
-bNEA "branch_33_lr" # 1246
-storeID 6 0 # 1247
-outputCMaybeS # 1248
-jumpA "block_31" # 1249
-
-markA "branch_33_lr" # 1250
-loadD 0 # 1251
-subI 6 # 1252
-bNEA "branch_33_ul" # 1253
-outputCMaybeS # 1254
-jumpA "block_31" # 1255
-
-markA "branch_33_ul" # 1256
-loadD 0 # 1257
-subI 7 # 1258
-bNEA "branch_33_ur" # 1259
-outputCMaybeS # 1260
-jumpA "block_31" # 1261
-
-markA "branch_33_ur" # 1262
-end # 1263
-end # 1264
+markA "branch_33_ur" # 1094
+end # 1095
+end # 1096
 ]
  [Automaton.nextState Memory
     { memoryCM = CM
@@ -1511,13 +1343,7 @@ end # 1264
                     ( MArtificial "branch_0_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_rr" ) NE
@@ -1535,13 +1361,7 @@ end # 1264
                     ( MArtificial "branch_0_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_dl" ) NE
@@ -1567,13 +1387,7 @@ end # 1264
                     ( MArtificial "branch_0_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_dr" ) NE
@@ -1599,13 +1413,7 @@ end # 1264
                     ( MArtificial "branch_0_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_ll" ) NE
@@ -1625,13 +1433,7 @@ end # 1264
                     ( MArtificial "branch_0_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_lr" ) NE
@@ -1651,13 +1453,7 @@ end # 1264
                     ( MArtificial "branch_0_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_ul" ) NE
@@ -1677,13 +1473,7 @@ end # 1264
                     ( MArtificial "branch_0_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_ur" ) NE
@@ -1726,13 +1516,7 @@ end # 1264
                     ( MArtificial "branch_1_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_rr" ) NE
@@ -1750,13 +1534,7 @@ end # 1264
                     ( MArtificial "branch_1_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_dl" ) NE
@@ -1771,13 +1549,7 @@ end # 1264
                     ( MArtificial "branch_1_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_dr" ) NE
@@ -1792,13 +1564,7 @@ end # 1264
                     ( MArtificial "branch_1_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_ll" ) NE
@@ -1813,13 +1579,7 @@ end # 1264
                     ( MArtificial "branch_1_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_lr" ) NE
@@ -1834,13 +1594,7 @@ end # 1264
                     ( MArtificial "branch_1_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_ul" ) NE
@@ -1860,13 +1614,7 @@ end # 1264
                     ( MArtificial "branch_1_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_ur" ) NE
@@ -1905,13 +1653,7 @@ end # 1264
                     ( MArtificial "branch_2_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_rr" ) NE
@@ -1949,13 +1691,7 @@ end # 1264
                     ( MArtificial "branch_2_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_dl" ) NE
@@ -1971,13 +1707,7 @@ end # 1264
                     ( MArtificial "branch_2_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_dr" ) NE
@@ -1993,13 +1723,7 @@ end # 1264
                     ( MArtificial "branch_2_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_ll" ) NE
@@ -2017,13 +1741,7 @@ end # 1264
                     ( MArtificial "branch_2_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_lr" ) NE
@@ -2038,13 +1756,7 @@ end # 1264
                     ( MArtificial "branch_2_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_ul" ) NE
@@ -2084,13 +1796,7 @@ end # 1264
                     ( MArtificial "branch_2_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_ur" ) NE
@@ -2149,13 +1855,7 @@ end # 1264
                     ( MArtificial "branch_4_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_rr" ) NE
@@ -2193,13 +1893,7 @@ end # 1264
                     ( MArtificial "branch_4_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_dl" ) NE
@@ -2213,13 +1907,7 @@ end # 1264
                     ( MArtificial "branch_4_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_dr" ) NE
@@ -2233,13 +1921,7 @@ end # 1264
                     ( MArtificial "branch_4_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_ll" ) NE
@@ -2253,13 +1935,7 @@ end # 1264
                     ( MArtificial "branch_4_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_lr" ) NE
@@ -2273,13 +1949,7 @@ end # 1264
                     ( MArtificial "branch_4_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_ul" ) NE
@@ -2319,13 +1989,7 @@ end # 1264
                     ( MArtificial "branch_4_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_ur" ) NE
@@ -2386,13 +2050,7 @@ end # 1264
                     ( MArtificial "branch_5_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_rr" ) NE
@@ -2408,13 +2066,7 @@ end # 1264
                     ( MArtificial "branch_5_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_dl" ) NE
@@ -2428,13 +2080,7 @@ end # 1264
                     ( MArtificial "branch_5_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_dr" ) NE
@@ -2448,13 +2094,7 @@ end # 1264
                     ( MArtificial "branch_5_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_ll" ) NE
@@ -2480,13 +2120,7 @@ end # 1264
                     ( MArtificial "branch_5_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_lr" ) NE
@@ -2512,13 +2146,7 @@ end # 1264
                     ( MArtificial "branch_5_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_ul" ) NE
@@ -2534,13 +2162,7 @@ end # 1264
                     ( MArtificial "branch_5_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_ur" ) NE
@@ -2599,13 +2221,7 @@ end # 1264
                     ( MArtificial "branch_9_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_rr" ) NE
@@ -2643,13 +2259,7 @@ end # 1264
                     ( MArtificial "branch_9_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_dl" ) NE
@@ -2665,13 +2275,7 @@ end # 1264
                     ( MArtificial "branch_9_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_dr" ) NE
@@ -2687,13 +2291,7 @@ end # 1264
                     ( MArtificial "branch_9_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_ll" ) NE
@@ -2733,13 +2331,7 @@ end # 1264
                     ( MArtificial "branch_9_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_lr" ) NE
@@ -2779,13 +2371,7 @@ end # 1264
                     ( MArtificial "branch_9_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_ul" ) NE
@@ -2823,13 +2409,7 @@ end # 1264
                     ( MArtificial "branch_9_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_ur" ) NE
@@ -2887,13 +2467,7 @@ end # 1264
                     ( MArtificial "branch_10_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_rr" ) NE
@@ -2908,13 +2482,7 @@ end # 1264
                     ( MArtificial "branch_10_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_dl" ) NE
@@ -2928,13 +2496,7 @@ end # 1264
                     ( MArtificial "branch_10_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_dr" ) NE
@@ -2948,13 +2510,7 @@ end # 1264
                     ( MArtificial "branch_10_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_ll" ) NE
@@ -2980,13 +2536,7 @@ end # 1264
                     ( MArtificial "branch_10_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_lr" ) NE
@@ -3012,13 +2562,7 @@ end # 1264
                     ( MArtificial "branch_10_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_ul" ) NE
@@ -3036,13 +2580,7 @@ end # 1264
                     ( MArtificial "branch_10_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_ur" ) NE
@@ -3079,13 +2617,7 @@ end # 1264
                     ( MArtificial "branch_11_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_rr" ) NE
@@ -3099,13 +2631,7 @@ end # 1264
                     ( MArtificial "branch_11_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_dl" ) NE
@@ -3119,13 +2645,7 @@ end # 1264
                     ( MArtificial "branch_11_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_dr" ) NE
@@ -3139,13 +2659,7 @@ end # 1264
                     ( MArtificial "branch_11_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_ll" ) NE
@@ -3171,13 +2685,7 @@ end # 1264
                     ( MArtificial "branch_11_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_lr" ) NE
@@ -3203,13 +2711,7 @@ end # 1264
                     ( MArtificial "branch_11_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_ul" ) NE
@@ -3225,13 +2727,7 @@ end # 1264
                     ( MArtificial "branch_11_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_ur" ) NE
@@ -3268,13 +2764,7 @@ end # 1264
                     ( MArtificial "branch_12_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_rr" ) NE
@@ -3290,13 +2780,7 @@ end # 1264
                     ( MArtificial "branch_12_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_dl" ) NE
@@ -3310,13 +2794,7 @@ end # 1264
                     ( MArtificial "branch_12_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_dr" ) NE
@@ -3330,13 +2808,7 @@ end # 1264
                     ( MArtificial "branch_12_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_ll" ) NE
@@ -3350,13 +2822,7 @@ end # 1264
                     ( MArtificial "branch_12_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_lr" ) NE
@@ -3370,13 +2836,7 @@ end # 1264
                     ( MArtificial "branch_12_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_ul" ) NE
@@ -3392,13 +2852,7 @@ end # 1264
                     ( MArtificial "branch_12_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_ur" ) NE
@@ -3433,13 +2887,7 @@ end # 1264
                     ( MArtificial "branch_14_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_rr" ) NE
@@ -3453,13 +2901,7 @@ end # 1264
                     ( MArtificial "branch_14_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_dl" ) NE
@@ -3485,13 +2927,7 @@ end # 1264
                     ( MArtificial "branch_14_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_dr" ) NE
@@ -3517,13 +2953,7 @@ end # 1264
                     ( MArtificial "branch_14_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_ll" ) NE
@@ -3539,13 +2969,7 @@ end # 1264
                     ( MArtificial "branch_14_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_lr" ) NE
@@ -3561,13 +2985,7 @@ end # 1264
                     ( MArtificial "branch_14_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_ul" ) NE
@@ -3581,13 +2999,7 @@ end # 1264
                     ( MArtificial "branch_14_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_ur" ) NE
@@ -3622,13 +3034,7 @@ end # 1264
                     ( MArtificial "branch_15_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_rr" ) NE
@@ -3644,13 +3050,7 @@ end # 1264
                     ( MArtificial "branch_15_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_dl" ) NE
@@ -3665,13 +3065,7 @@ end # 1264
                     ( MArtificial "branch_15_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_dr" ) NE
@@ -3686,13 +3080,7 @@ end # 1264
                     ( MArtificial "branch_15_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_ll" ) NE
@@ -3706,13 +3094,7 @@ end # 1264
                     ( MArtificial "branch_15_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_lr" ) NE
@@ -3726,13 +3108,7 @@ end # 1264
                     ( MArtificial "branch_15_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_ul" ) NE
@@ -3748,13 +3124,7 @@ end # 1264
                     ( MArtificial "branch_15_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_ur" ) NE
@@ -3789,13 +3159,7 @@ end # 1264
                     ( MArtificial "branch_16_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_rr" ) NE
@@ -3811,13 +3175,7 @@ end # 1264
                     ( MArtificial "branch_16_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_dl" ) NE
@@ -3835,13 +3193,7 @@ end # 1264
                     ( MArtificial "branch_16_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_dr" ) NE
@@ -3857,13 +3209,7 @@ end # 1264
                     ( MArtificial "branch_16_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_ll" ) NE
@@ -3879,13 +3225,7 @@ end # 1264
                     ( MArtificial "branch_16_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_lr" ) NE
@@ -3901,13 +3241,7 @@ end # 1264
                     ( MArtificial "branch_16_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_ul" ) NE
@@ -3921,13 +3255,7 @@ end # 1264
                     ( MArtificial "branch_16_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_ur" ) NE
@@ -3964,13 +3292,7 @@ end # 1264
                     ( MArtificial "branch_17_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_rr" ) NE
@@ -3986,13 +3308,7 @@ end # 1264
                     ( MArtificial "branch_17_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_dl" ) NE
@@ -4008,13 +3324,7 @@ end # 1264
                     ( MArtificial "branch_17_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_dr" ) NE
@@ -4030,13 +3340,7 @@ end # 1264
                     ( MArtificial "branch_17_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_ll" ) NE
@@ -4050,13 +3354,7 @@ end # 1264
                     ( MArtificial "branch_17_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_lr" ) NE
@@ -4070,13 +3368,7 @@ end # 1264
                     ( MArtificial "branch_17_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_ul" ) NE
@@ -4092,13 +3384,7 @@ end # 1264
                     ( MArtificial "branch_17_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_ur" ) NE
@@ -4133,13 +3419,7 @@ end # 1264
                     ( MArtificial "branch_18_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_rr" ) NE
@@ -4153,13 +3433,7 @@ end # 1264
                     ( MArtificial "branch_18_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_dl" ) NE
@@ -4177,13 +3451,7 @@ end # 1264
                     ( MArtificial "branch_18_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_dr" ) NE
@@ -4201,13 +3469,7 @@ end # 1264
                     ( MArtificial "branch_18_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_ll" ) NE
@@ -4233,13 +3495,7 @@ end # 1264
                     ( MArtificial "branch_18_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_lr" ) NE
@@ -4265,13 +3521,7 @@ end # 1264
                     ( MArtificial "branch_18_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_ul" ) NE
@@ -4287,13 +3537,7 @@ end # 1264
                     ( MArtificial "branch_18_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_ur" ) NE
@@ -4328,13 +3572,7 @@ end # 1264
                     ( MArtificial "branch_20_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_rr" ) NE
@@ -4349,13 +3587,7 @@ end # 1264
                     ( MArtificial "branch_20_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_dl" ) NE
@@ -4371,13 +3603,7 @@ end # 1264
                     ( MArtificial "branch_20_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_dr" ) NE
@@ -4393,13 +3619,7 @@ end # 1264
                     ( MArtificial "branch_20_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_ll" ) NE
@@ -4437,13 +3657,7 @@ end # 1264
                     ( MArtificial "branch_20_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_lr" ) NE
@@ -4481,13 +3695,7 @@ end # 1264
                     ( MArtificial "branch_20_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_ul" ) NE
@@ -4502,13 +3710,7 @@ end # 1264
                     ( MArtificial "branch_20_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_ur" ) NE
@@ -4543,13 +3745,7 @@ end # 1264
                     ( MArtificial "branch_21_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_rr" ) NE
@@ -4564,13 +3760,7 @@ end # 1264
                     ( MArtificial "branch_21_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_dl" ) NE
@@ -4586,13 +3776,7 @@ end # 1264
                     ( MArtificial "branch_21_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_dr" ) NE
@@ -4608,13 +3792,7 @@ end # 1264
                     ( MArtificial "branch_21_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_ll" ) NE
@@ -4631,13 +3809,7 @@ end # 1264
                     ( MArtificial "branch_21_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_lr" ) NE
@@ -4654,13 +3826,7 @@ end # 1264
                     ( MArtificial "branch_21_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_ul" ) NE
@@ -4677,13 +3843,7 @@ end # 1264
                     ( MArtificial "branch_21_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_ur" ) NE
@@ -4719,13 +3879,7 @@ end # 1264
                     ( MArtificial "branch_22_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_rr" ) NE
@@ -4739,13 +3893,7 @@ end # 1264
                     ( MArtificial "branch_22_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_dl" ) NE
@@ -4761,13 +3909,7 @@ end # 1264
                     ( MArtificial "branch_22_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_dr" ) NE
@@ -4783,13 +3925,7 @@ end # 1264
                     ( MArtificial "branch_22_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_ll" ) NE
@@ -4805,13 +3941,7 @@ end # 1264
                     ( MArtificial "branch_22_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_lr" ) NE
@@ -4827,13 +3957,7 @@ end # 1264
                     ( MArtificial "branch_22_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_ul" ) NE
@@ -4847,13 +3971,7 @@ end # 1264
                     ( MArtificial "branch_22_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_ur" ) NE
@@ -4887,13 +4005,7 @@ end # 1264
                     ( MArtificial "branch_23_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_rr" ) NE
@@ -4908,13 +4020,7 @@ end # 1264
                     ( MArtificial "branch_23_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_dl" ) NE
@@ -4930,13 +4036,7 @@ end # 1264
                     ( MArtificial "branch_23_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_dr" ) NE
@@ -4952,13 +4052,7 @@ end # 1264
                     ( MArtificial "branch_23_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_ll" ) NE
@@ -4972,13 +4066,7 @@ end # 1264
                     ( MArtificial "branch_23_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_lr" ) NE
@@ -4992,13 +4080,7 @@ end # 1264
                     ( MArtificial "branch_23_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_ul" ) NE
@@ -5012,13 +4094,7 @@ end # 1264
                     ( MArtificial "branch_23_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_ur" ) NE
@@ -5053,13 +4129,7 @@ end # 1264
                     ( MArtificial "branch_24_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_rr" ) NE
@@ -5075,13 +4145,7 @@ end # 1264
                     ( MArtificial "branch_24_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_dl" ) NE
@@ -5097,13 +4161,7 @@ end # 1264
                     ( MArtificial "branch_24_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_dr" ) NE
@@ -5119,13 +4177,7 @@ end # 1264
                     ( MArtificial "branch_24_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_ll" ) NE
@@ -5143,13 +4195,7 @@ end # 1264
                     ( MArtificial "branch_24_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_lr" ) NE
@@ -5167,13 +4213,7 @@ end # 1264
                     ( MArtificial "branch_24_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_ul" ) NE
@@ -5189,13 +4229,7 @@ end # 1264
                     ( MArtificial "branch_24_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_ur" ) NE
@@ -5234,13 +4268,7 @@ end # 1264
                     ( MArtificial "branch_25_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_rr" ) NE
@@ -5258,13 +4286,7 @@ end # 1264
                     ( MArtificial "branch_25_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_dl" ) NE
@@ -5280,13 +4302,7 @@ end # 1264
                     ( MArtificial "branch_25_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_dr" ) NE
@@ -5302,13 +4318,7 @@ end # 1264
                     ( MArtificial "branch_25_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_ll" ) NE
@@ -5323,13 +4333,7 @@ end # 1264
                     ( MArtificial "branch_25_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_lr" ) NE
@@ -5344,13 +4348,7 @@ end # 1264
                     ( MArtificial "branch_25_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_ul" ) NE
@@ -5365,13 +4363,7 @@ end # 1264
                     ( MArtificial "branch_25_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_ur" ) NE
@@ -5409,13 +4401,7 @@ end # 1264
                     ( MArtificial "branch_26_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_rr" ) NE
@@ -5432,13 +4418,7 @@ end # 1264
                     ( MArtificial "branch_26_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_dl" ) NE
@@ -5455,13 +4435,7 @@ end # 1264
                     ( MArtificial "branch_26_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_dr" ) NE
@@ -5478,13 +4452,7 @@ end # 1264
                     ( MArtificial "branch_26_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_ll" ) NE
@@ -5499,13 +4467,7 @@ end # 1264
                     ( MArtificial "branch_26_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_lr" ) NE
@@ -5520,13 +4482,7 @@ end # 1264
                     ( MArtificial "branch_26_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_ul" ) NE
@@ -5542,13 +4498,7 @@ end # 1264
                     ( MArtificial "branch_26_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_ur" ) NE
@@ -5585,13 +4535,7 @@ end # 1264
                     ( MArtificial "branch_29_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_rr" ) NE
@@ -5607,13 +4551,7 @@ end # 1264
                     ( MArtificial "branch_29_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_dl" ) NE
@@ -5627,13 +4565,7 @@ end # 1264
                     ( MArtificial "branch_29_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_dr" ) NE
@@ -5647,13 +4579,7 @@ end # 1264
                     ( MArtificial "branch_29_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_ll" ) NE
@@ -5669,13 +4595,7 @@ end # 1264
                     ( MArtificial "branch_29_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_lr" ) NE
@@ -5691,13 +4611,7 @@ end # 1264
                     ( MArtificial "branch_29_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_ul" ) NE
@@ -5712,13 +4626,7 @@ end # 1264
                     ( MArtificial "branch_29_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_ur" ) NE
@@ -5754,13 +4662,7 @@ end # 1264
                     ( MArtificial "branch_31_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_31_rr" ) NE
@@ -5776,13 +4678,7 @@ end # 1264
                     ( MArtificial "branch_31_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_31_dl" ) NE
@@ -5798,13 +4694,7 @@ end # 1264
                     ( MArtificial "branch_31_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_31_dr" ) NE
@@ -5820,13 +4710,7 @@ end # 1264
                     ( MArtificial "branch_31_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_31_ll" ) NE
@@ -5842,13 +4726,7 @@ end # 1264
                     ( MArtificial "branch_31_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_31_lr" ) NE
@@ -5864,13 +4742,7 @@ end # 1264
                     ( MArtificial "branch_31_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_31_ul" ) NE
@@ -5884,13 +4756,7 @@ end # 1264
                     ( MArtificial "branch_31_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_31_ur" ) NE
@@ -5925,13 +4791,7 @@ end # 1264
                     ( MArtificial "branch_33_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_33_rr" ) NE
@@ -5947,13 +4807,7 @@ end # 1264
                     ( MArtificial "branch_33_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_33_dl" ) NE
@@ -5970,13 +4824,7 @@ end # 1264
                     ( MArtificial "branch_33_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_33_dr" ) NE
@@ -5993,13 +4841,7 @@ end # 1264
                     ( MArtificial "branch_33_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_33_ll" ) NE
@@ -6016,13 +4858,7 @@ end # 1264
                     ( MArtificial "branch_33_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_33_lr" ) NE
@@ -6039,13 +4875,7 @@ end # 1264
                     ( MArtificial "branch_33_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_33_ul" ) NE
@@ -6060,13 +4890,7 @@ end # 1264
                     ( MArtificial "branch_33_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_33_ur" ) NE
@@ -6083,7 +4907,7 @@ end # 1264
             , End
             , End
             ]
-        , programCounter = 924
+        , programCounter = 805
         , returnStack = IS []
         }
     , memoryStack = fromList []
