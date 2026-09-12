@@ -57,7 +57,7 @@ processUnvisited ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Matrix Codel
 processUnvisited image blockTable nextBlockList () = traverse_ (parseState image blockTable) . filterUnvisited nextBlockList =<< get
 
 filterUnvisited ∷ [(Course, Maybe NextBlock)] → IntMap Block → [Int]
-filterUnvisited nextBlockList visitedMap = 
+filterUnvisited nextBlockList visitedMap =
   filter (`IM.notMember` visitedMap) (mapMaybe (nextBlockToIndex . snd) nextBlockList)
 
 buildNextBlockList ∷ Matrix Codel → BlockCoordinates → [(Course, Maybe NextBlock)]

@@ -452,23 +452,23 @@ test-suite helma-test
     -rtsopts
     "-with-rtsopts=-N -p -s"
 
-benchmark helma-benchmark
-  import:              common-options
-  type:                exitcode-stdio-1.0
-  hs-source-dirs:      hs/benchmark
-  main-is:             Main.hs
-  other-modules:
+-- benchmark helma-benchmark
+--   import:              common-options
+--   type:                exitcode-stdio-1.0
+--   hs-source-dirs:      hs/benchmark
+--   main-is:             Main.hs
+--   other-modules:
 
-    HelVM.HelMA.Automata.FileExtra
+--     HelVM.HelMA.Automata.FileExtra
 
-    HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark
-    HelVM.HelMA.Automata.BrainFuck.FileExtra
+--     HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark
+--     HelVM.HelMA.Automata.BrainFuck.FileExtra
 
-    HelVM.HelMA.Automata.ETA.EvaluatorBenchMark
-    HelVM.HelMA.Automata.ETA.FileExtra
+--     HelVM.HelMA.Automata.ETA.EvaluatorBenchMark
+--     HelVM.HelMA.Automata.ETA.FileExtra
 
-    HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark
-    HelVM.HelMA.Automata.SubLeq.FileExtra
+--     HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark
+--     HelVM.HelMA.Automata.SubLeq.FileExtra
 
-    HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark
-    HelVM.HelMA.Automata.WhiteSpace.FileExtra
+--     HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark
+--     HelVM.HelMA.Automata.WhiteSpace.FileExtra
