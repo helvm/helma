@@ -90,6 +90,7 @@ type BenchParams = (CellType , ImplType)
 
 helConfig ∷ BenchConfig
 helConfig = defaultBenchConfig
-  { iterations = 1
-  , warmupIterations = 1
+  { iterations = 5
+  , warmupIterations = 5
+  , useRobustStatistics = True
   }
