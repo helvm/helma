@@ -1,4 +1,4 @@
-.PHONY: all bench build check check-whitespace clean configure exec fast golden haddock hlint hpack install main output repl report run sdist stan stylish test tix update
+.PHONY: all bench build check check-whitespace clean configure exec fast golden haddock hlint hpack install main output profile-clean profile-cost profile-heap profile-test repl report run sdist stan stylish test tix update
 
 # Ustaw bezpieczny limit wątków na podstawie dostępnego RAMu (np. 2 lub 4 zamiast bezlimitowego --jobs)
 JOBS ?= 2
@@ -18,7 +18,7 @@ check:
 check-whitespace:
 	git check-whitespace
 
-clean:
+clean: profile-clean
 	cabal new-clean
 	if test -d .cabal-sandbox; then rm -rf .cabal-sandbox; fi
 	if test -d .hpc; then rm -rf .hpc; fi
@@ -54,6 +54,20 @@ main:
 
 output:
 	if test -d .output; then rm -r .output; fi
+
+profile-test: profile-clean
+	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- +RTS -p -s
+
+profile-heap: profile-clean
+	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- +RTS -hy -l
+	@if command -v hp2pretty >/dev/null 2>&1; then hp2pretty *.hp; elif command -v hp2ps >/dev/null 2>&1; then hp2ps -c *.hp; fi
+
+profile-cost: profile-clean
+	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- +RTS -hc -l
+	@if command -v hp2pretty >/dev/null 2>&1; then hp2pretty *.hp; elif command -v hp2ps >/dev/null 2>&1; then hp2ps -c *.hp; fi
+
+profile-clean:
+	rm -f *.prof *.hp *.ps *.svg *.eventlog
 
 repl:
 	cabal new-repl lib:helma
