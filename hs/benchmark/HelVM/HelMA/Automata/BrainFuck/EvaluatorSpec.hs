@@ -1,5 +1,4 @@
-{-# LANGUAGE UnicodeSyntax #-}
-module HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark where
+module HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec where
 
 import           HelVM.HelMA.Automata.BrainFuck.Evaluator
 import           HelVM.HelMA.Automata.BrainFuck.FileExtra
@@ -15,6 +14,9 @@ import qualified Data.Sequences                              as S
 
 import           Test.Hspec                                  hiding (it)
 import           Test.Hspec.BenchGolden
+
+spec ∷ Spec
+spec = benchMarkWith helConfig
 
 cellTypes8 ∷ [CellType]
 cellTypes8 = S.reverse $ take 2 $ toList cellTypes
@@ -85,3 +87,9 @@ exec (cellType , implType) (fileName , input) = do
 
 -- | Types
 type BenchParams = (CellType , ImplType)
+
+helConfig ∷ BenchConfig
+helConfig = defaultBenchConfig
+  { iterations = 1
+  , warmupIterations = 1
+  }

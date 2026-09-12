@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark where
+module HelVM.HelMA.Automata.SubLeq.EvaluatorSpec where
 
 import           HelVM.HelMA.Automata.SubLeq.Evaluator
 import           HelVM.HelMA.Automata.SubLeq.FileExtra
@@ -9,11 +9,11 @@ import           HelVM.HelMA.Automaton.Types.RAMType
 import           Test.Hspec                            hiding (it)
 import           Test.Hspec.BenchGolden
 
-benchMarkWith ∷ BenchConfig → Spec
-benchMarkWith cfg = describe "SQ" $ forM_ (toList ramTypes) (benchMarkByRamType cfg)
+spec ∷ Spec
+spec = describe "SQ" $ forM_ (toList ramTypes) benchMarkByRamType
 
-benchMarkByRamType ∷ BenchConfig → RAMType → Spec
-benchMarkByRamType cfg t = benchGoldenWith cfg (show t) (nfAppIO exec t ∷ BenchAction)
+benchMarkByRamType ∷ RAMType → Spec
+benchMarkByRamType t = benchGoldenWith helConfig (show t) (nfAppIO exec t ∷ BenchAction)
 
 exec ∷ RAMType → IO [Text]
 exec t = forM
@@ -22,3 +22,9 @@ exec t = forM
   ] $ \(fileName , input) -> do
     let file = readSqFile fileName
     calculateOutput <$> ((ioExecMockEffWithInput input . simpleEval t) =<< file)
+
+helConfig ∷ BenchConfig
+helConfig = defaultBenchConfig
+  { iterations = 1
+  , warmupIterations = 1
+  }

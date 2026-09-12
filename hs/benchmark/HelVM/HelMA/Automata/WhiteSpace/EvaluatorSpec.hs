@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark where
+module HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec where
 
 import           HelVM.HelMA.Automata.WhiteSpace.Evaluator
 import           HelVM.HelMA.Automata.WhiteSpace.FileExtra
@@ -15,6 +15,9 @@ import           System.FilePath.Posix
 
 import           Test.Hspec                                   hiding (it)
 import           Test.Hspec.BenchGolden
+
+spec ∷ Spec
+spec = benchMarkWith helConfig
 
 benchMarkWith ∷ BenchConfig → Spec
 benchMarkWith cfg = describe "WS" $ forM_ (toList stackTypes >*< toList ramTypes) (benchMarkByStackType cfg)
@@ -41,3 +44,9 @@ simpleEvalWS t = forM
       calculateOutput <$> (ioExecMockEffWithInput input . simpleEval =<< paramsIO)
 
 type BenchParams = (StackType , RAMType)
+
+helConfig ∷ BenchConfig
+helConfig = defaultBenchConfig
+  { iterations = 1
+  , warmupIterations = 1
+  }

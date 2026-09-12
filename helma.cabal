@@ -360,8 +360,8 @@ test-suite helma-test
   hs-source-dirs:      hs/test
   main-is:             Main.hs
   other-modules:
-    Spec
     Slow
+    Spec
     SpecHook
 
     HelVM.Expectations
@@ -458,19 +458,23 @@ benchmark helma-benchmark
   hs-source-dirs:      hs/benchmark
   main-is:             Main.hs
   other-modules:
+    -- Slow
+    Spec
+    SpecHook
+
     HelVM.HelMA.Automata.FileExtra
 
     HelVM.HelMA.Automata.BrainFuck.FileExtra
-    HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark
+    HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec
 
     HelVM.HelMA.Automata.ETA.FileExtra
-    HelVM.HelMA.Automata.ETA.EvaluatorBenchMark
+    HelVM.HelMA.Automata.ETA.EvaluatorSpec
 
     HelVM.HelMA.Automata.SubLeq.FileExtra
-    HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark
+    HelVM.HelMA.Automata.SubLeq.EvaluatorSpec
 
     HelVM.HelMA.Automata.WhiteSpace.FileExtra
-    HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark
+    HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec
 
   build-depends:
       golds-gym
@@ -484,6 +488,7 @@ benchmark helma-benchmark
     , directory
     , filepath
 
+  build-tool-depends:  hspec-discover:hspec-discover == 2.*
   ghc-options:
     -threaded
     -rtsopts

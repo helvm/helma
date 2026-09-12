@@ -1,4 +1,4 @@
-module HelVM.HelMA.Automata.ETA.EvaluatorBenchMark where
+module HelVM.HelMA.Automata.ETA.EvaluatorSpec where
 
 import           HelVM.HelMA.Automata.ETA.Evaluator
 import           HelVM.HelMA.Automata.ETA.FileExtra
@@ -14,6 +14,9 @@ import           System.FilePath.Posix
 
 import           Test.Hspec                             hiding (it)
 import           Test.Hspec.BenchGolden
+
+spec ∷ Spec
+spec = benchMarkWith helConfig
 
 benchMarkWith ∷ BenchConfig → Spec
 benchMarkWith cfg = describe "ETA" $ forM_ ([defaultAutomatonType] >*< toList stackTypes) (benchMarkByStackType cfg)
@@ -57,3 +60,9 @@ ioExec (implType , stackType) dirName fileName inputs = do
     calculateOutput <$> exec
 
 type BenchParams = (AutomatonType, StackType)
+
+helConfig ∷ BenchConfig
+helConfig = defaultBenchConfig
+  { iterations = 1
+  , warmupIterations = 1
+  }
