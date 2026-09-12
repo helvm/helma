@@ -13,13 +13,14 @@ import           HelVM.HelIO.CartesianProduct
 
 import           System.FilePath.Posix
 
-import           Gauge.Main
+import           Test.Hspec                                   hiding (it)
+import           Test.Hspec.BenchGolden
 
-benchMark ∷ Benchmark
-benchMark = bgroup "WS" (benchMarkByStackType <$> (toList stackTypes >*< toList ramTypes))
+benchMarkWith ∷ BenchConfig → Spec
+benchMarkWith cfg = describe "WS" $ forM_ (toList stackTypes >*< toList ramTypes) (benchMarkByStackType cfg)
 
-benchMarkByStackType ∷ BenchParams → Benchmark
-benchMarkByStackType t = bench (show t) $ nfIO $ exec t
+benchMarkByStackType ∷ BenchConfig → BenchParams → Spec
+benchMarkByStackType cfg t = benchGoldenWith cfg (show t) (nfAppIO exec t ∷ BenchAction)
 
 exec ∷ BenchParams → IO [[Text]]
 exec = simpleEvalWS

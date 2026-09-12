@@ -12,13 +12,14 @@ import           HelVM.HelIO.CartesianProduct
 
 import           System.FilePath.Posix
 
-import           Gauge.Main
+import           Test.Hspec                             hiding (it)
+import           Test.Hspec.BenchGolden
 
-benchMark ∷ Benchmark
-benchMark = bgroup "ETA" (benchMarkByStackType <$> ([defaultAutomatonType] >*< toList stackTypes))
+benchMarkWith ∷ BenchConfig → Spec
+benchMarkWith cfg = describe "ETA" $ forM_ ([defaultAutomatonType] >*< toList stackTypes) (benchMarkByStackType cfg)
 
-benchMarkByStackType ∷ BenchParams → Benchmark
-benchMarkByStackType t = bench (show t) $ nfIO $ execAll t
+benchMarkByStackType ∷ BenchConfig → BenchParams → Spec
+benchMarkByStackType cfg t = benchGoldenWith cfg (show t) (nfAppIO execAll t ∷ BenchAction)
 
 execAll ∷ BenchParams → IO [[Text]]
 execAll t = do

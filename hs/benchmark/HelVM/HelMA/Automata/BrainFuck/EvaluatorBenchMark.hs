@@ -1,3 +1,4 @@
+{-# LANGUAGE UnicodeSyntax #-}
 module HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark where
 
 import           HelVM.HelMA.Automata.BrainFuck.Evaluator
@@ -12,7 +13,8 @@ import           HelVM.HelIO.CartesianProduct
 
 import qualified Data.Sequences                              as S
 
-import           Gauge.Main
+import           Test.Hspec                                  hiding (it)
+import           Test.Hspec.BenchGolden
 
 cellTypes8 ∷ [CellType]
 cellTypes8 = S.reverse $ take 2 $ toList cellTypes
@@ -23,19 +25,18 @@ cellTypes16 = S.reverse $ take 4 $ toList cellTypes
 cellTypes32 ∷ [CellType]
 cellTypes32 = S.reverse $ take 6 $ toList cellTypes
 
-benchMark ∷ Benchmark
-benchMark = bgroup "BF"
-  [ benchMark8
-  , benchMark16
-  , benchMark32
-  ]
+benchMarkWith ∷ BenchConfig → Spec
+benchMarkWith cfg = describe "BF" $ do
+  benchMark8 cfg
+  benchMark16 cfg
+  benchMark32 cfg
 
 -- | 8 bits
-benchMark8 ∷ Benchmark
-benchMark8 = bgroup "BF8" (benchMarkByCellType8 <$> cellTypes8 >*< toList implTypes)
+benchMark8 ∷ BenchConfig → Spec
+benchMark8 cfg = describe "BF8" $ forM_ (cellTypes8 >*< toList implTypes) (benchMarkByCellType8 cfg)
 
-benchMarkByCellType8 ∷ BenchParams → Benchmark
-benchMarkByCellType8 benchParams = bench (show benchParams) $ nfIO $ exec8 benchParams
+benchMarkByCellType8 ∷ BenchConfig → BenchParams → Spec
+benchMarkByCellType8 cfg benchParams = benchGoldenWith cfg (show benchParams) (nfAppIO exec8 benchParams ∷ BenchAction)
 
 exec8 ∷ BenchParams → IO [Text]
 exec8 t = forM
@@ -47,14 +48,14 @@ exec8 t = forM
   ] $ exec t
 
 -- | 16 bits
-benchMark16 ∷ Benchmark
-benchMark16 = bgroup "BF16" (benchMarkByCellType16 <$> cellTypes16 >*< toList implTypes)
+benchMark16 ∷ BenchConfig → Spec
+benchMark16 cfg = describe "BF16" $ forM_ (cellTypes16 >*< toList implTypes) (benchMarkByCellType16 cfg)
 
-benchMarkByCellType16 ∷ BenchParams → Benchmark
-benchMarkByCellType16 benchParams = bench (show benchParams) $ nfIO $ exec16 benchParams
+benchMarkByCellType16 ∷ BenchConfig → BenchParams → Spec
+benchMarkByCellType16 cfg benchParams = benchGoldenWith cfg (show benchParams) (nfAppIO exec16 benchParams ∷ BenchAction)
 
 exec16 ∷ BenchParams → IO [Text]
-exec16 t= forM
+exec16 t = forM
   [ ("helloWorld"            , "")
   , ("fascistHelloWorld"     , "")
 --  , ("theShortestHelloWorld" , "")
@@ -63,11 +64,11 @@ exec16 t= forM
   ] $ exec t
 
 -- | 32 bits
-benchMark32 ∷ Benchmark
-benchMark32 = bgroup "BF32" (benchMarkByCellType32 <$> cellTypes32 >*< toList implTypes)
+benchMark32 ∷ BenchConfig → Spec
+benchMark32 cfg = describe "BF32" $ forM_ (cellTypes32 >*< toList implTypes) (benchMarkByCellType32 cfg)
 
-benchMarkByCellType32 ∷ BenchParams → Benchmark
-benchMarkByCellType32 benchParams = bench (show benchParams) $ nfIO $ exec32 benchParams
+benchMarkByCellType32 ∷ BenchConfig → BenchParams → Spec
+benchMarkByCellType32 cfg benchParams = benchGoldenWith cfg (show benchParams) (nfAppIO exec32 benchParams ∷ BenchAction)
 
 exec32 ∷ BenchParams → IO [Text]
 exec32 t = forM

@@ -6,13 +6,14 @@ import           HelVM.HelMA.Automata.SubLeq.FileExtra
 import           HelVM.HelMA.Automaton.Eff.Mock
 import           HelVM.HelMA.Automaton.Types.RAMType
 
-import           Gauge.Main
+import           Test.Hspec                            hiding (it)
+import           Test.Hspec.BenchGolden
 
-benchMark ∷ Benchmark
-benchMark = bgroup "SQ" (benchMarkByRamType <$> toList ramTypes)
+benchMarkWith ∷ BenchConfig → Spec
+benchMarkWith cfg = describe "SQ" $ forM_ (toList ramTypes) (benchMarkByRamType cfg)
 
-benchMarkByRamType ∷ RAMType → Benchmark
-benchMarkByRamType t = bench (show t) $ nfIO $ exec t
+benchMarkByRamType ∷ BenchConfig → RAMType → Spec
+benchMarkByRamType cfg t = benchGoldenWith cfg (show t) (nfAppIO exec t ∷ BenchAction)
 
 exec ∷ RAMType → IO [Text]
 exec t = forM

@@ -19,18 +19,18 @@ import           Test.Hspec
 spec ∷ Spec
 spec =
   describe "Piet Interpreter Golden Tests" $ forM_ ((
-    -- [ ("99bottles"          , [""])
-    [ ("artsy_hello_world"  , [""])
+    [ ("99bottles"          , [""])
+    , ("artsy_hello_world"  , [""])
     , ("fizzbuzz"           , [""])
     , ("pi_big"            , [""])
     , ("piet_hello_world"   , [""])
     , ("valentines"         , [""])
     ] >*< ["pint"]
     ) <> (
-    -- [ ("99bottles"           , [""])
+    [ ("99bottles"           , [""])
     -- , ("cowsay"              , [""])
     -- , ("euclid_clint"        , [""])
-    [ ("fizzbuzz"            , [""])
+    , ("fizzbuzz"            , [""])
     , ("GameOfLife"          , [""])
     , ("hello_world_c1"      , [""])
     , ("hello_world_c4"      , [""])
@@ -43,8 +43,8 @@ spec =
     , ("primetest2"          , ["0\n"])
     ] >*< ["rpiet"]
     ) <> (
-    -- [ ("99bottles"           , [""])
-    [ ("adder"               , ["0\n0\n"])
+    [ ("99bottles"           , [""])
+    , ("adder"               , ["0\n0\n"])
     , ("alpha_filled"        , [""])
     -- , ("erat2"               , [""])
     -- , ("euclid_clint"        , [""])
