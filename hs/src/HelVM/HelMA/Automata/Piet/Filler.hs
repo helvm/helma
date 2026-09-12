@@ -5,13 +5,13 @@ module HelVM.HelMA.Automata.Piet.Filler
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Grid        ( Grid (..), indexMaybe )
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
 import           Control.Monad.Primitive
 import           Control.Monad.ST
 
 import qualified Data.IntMap                                 as IM
-import           Data.Vector.Mutable                         ( STVector )
+import           Data.Vector                                 ( Vector )
 import qualified Data.Vector.Generic                         as V
 import qualified Data.Vector.Mutable                         as VM
 
@@ -20,8 +20,6 @@ import qualified ListT                                       as L
 import           Relude.Extra
 
 -- TYPES & ALIASES
-
-type LocalSTMatrix s b = STVector s (Maybe b)
 
 type FillMonad a b m =
   ( Eq a
@@ -44,19 +42,19 @@ type StepRec m = Coordinates → StateT BlockCoordinates m ()
 
 data FillerParams a b s
   = FillerParams
-      { paramSourceImage :: Grid a
-      , paramFilledRefs  :: LocalSTMatrix s b
+      { paramSourceImage :: Matrix a
+      , paramFilledRefs  :: STMatrix s b
       }
 
-paramSourceImageL ∷ Lens' (FillerParams a b s) (Grid a)
+paramSourceImageL ∷ Lens' (FillerParams a b s) (Matrix a)
 paramSourceImageL = lens paramSourceImage updateSourceImage
 
-paramFilledRefsL ∷ Lens' (FillerParams a b s) (LocalSTMatrix s b)
+paramFilledRefsL ∷ Lens' (FillerParams a b s) (STMatrix s b)
 paramFilledRefsL = lens paramFilledRefs updateFilledRefs
 
 -- PUBLIC API
 
-fillAll ∷ Eq a ⇒ Grid a → (Grid Int, IntMap BlockCoordinates)
+fillAll ∷ Eq a ⇒ Matrix a → (Matrix Int, IntMap BlockCoordinates)
 fillAll image = runST $ processWithThawed image =<< thawImage image
 
 -- FILLER LOGIC
@@ -65,13 +63,7 @@ fillAllST ∷ FillStateMonad a m ⇒ m (IntMap BlockCoordinates)
 fillAllST = IM.fromList <$> L.toList processListT
 
 processListT ∷ FillStateMonad a m ⇒ ListMonad m (Int, BlockCoordinates)
-processListT = processSourceGrid =<< lift (asksView paramSourceImageL)
-
-processSourceGrid ∷ FillStateMonad a m ⇒ Grid a → ListMonad m (Int, BlockCoordinates)
-processSourceGrid grid = L.fromFoldable (V.indexed $ cells grid) >>= processIndexedCell (widthGrid grid)
-
-processIndexedCell ∷ FillStateMonad a m ⇒ Int → (Int, a) → ListMonad m (Int, BlockCoordinates)
-processIndexedCell w (idx, targetColor) = checkUnfilledAndIndex targetColor (idx `mod` w, idx `div` w)
+processListT = processSourceRow =<< (L.fromFoldable . V.indexed =<< lift (asksView paramSourceImageL))
 
 fill ∷ FillMonad a b m ⇒ a → b → Coordinates → m BlockCoordinates
 fill targetColor fillingColor seed = execStateT (fix (fillStep targetColor fillingColor) seed) []
@@ -81,21 +73,26 @@ fillStep targetColor fillingColor rec coord = void . runMaybeT $ validateColorAn
 
 -- SUB-LOGIC HELPERS
 
-processWithThawed ∷ (Eq a, PrimMonad m) ⇒ Grid a → LocalSTMatrix (PrimState m) Int → m (Grid Int, IntMap BlockCoordinates)
-processWithThawed image refs = formatResult image refs =<< runFillAllST image refs
+processWithThawed ∷ (Eq a, PrimMonad m) ⇒ Matrix a → STMatrix (PrimState m) Int → m (Matrix Int, IntMap BlockCoordinates)
+processWithThawed image refs = formatResult refs =<< runFillAllST image refs
 
-formatResult ∷ PrimMonad m ⇒ Grid a → LocalSTMatrix (PrimState m) Int → IntMap BlockCoordinates → m (Grid Int, IntMap BlockCoordinates)
-formatResult image refs positionTable = makeResultPair positionTable =<< freezeAndFormat image refs
+formatResult ∷ PrimMonad m ⇒ STMatrix (PrimState m) Int→ IntMap BlockCoordinates → m (Matrix Int, IntMap BlockCoordinates)
+formatResult refs positionTable = makeResultPair positionTable =<< freezeAndFormat refs
 
 makeResultPair ∷ Applicative m ⇒ b → a → m (a, b)
 makeResultPair positionTable filledImage = pure (filledImage, positionTable)
 
-checkUnfilledAndIndex ∷ FillStateMonad a m ⇒ a → Coordinates → ListMonad m (Int, BlockCoordinates)
-checkUnfilledAndIndex targetColor coord = checkCellState targetColor coord =<< (lift . readRefAt coord =<< lift ask)
+processSourceRow ∷ FillStateMonad a m ⇒ (Int, Vector a) → ListMonad m (Int, BlockCoordinates)
+processSourceRow (y, sourceRow) = processSourceCell y =<< L.fromFoldable (V.indexed sourceRow)
 
-readRefAt ∷ PrimMonad m ⇒ Coordinates → FillerParams a b (PrimState m) → m (Maybe b)
-readRefAt (x, y) params = VM.read (paramFilledRefs params) (y * w + x) where
-  w = widthGrid (paramSourceImage params)
+processSourceCell ∷ FillStateMonad a m ⇒ Int → (Int, a) → ListMonad m (Int, BlockCoordinates)
+processSourceCell y (x, targetColor) = checkUnfilledAndIndex targetColor (x, y)
+
+checkUnfilledAndIndex ∷ FillStateMonad a m ⇒ a → Coordinates → ListMonad m (Int, BlockCoordinates)
+checkUnfilledAndIndex targetColor coord = checkCellState targetColor coord =<< (lift . readRefAt coord =<< lift (asksView paramFilledRefsL))
+
+readRefAt ∷ PrimMonad m ⇒ Coordinates → STMatrix (PrimState m) b → m (Maybe b)
+readRefAt (x, y) filledRefs = VM.read (filledRefs V.! y) x
 
 checkCellState ∷ FillStateMonad a m ⇒ a → Coordinates → Maybe Int → ListMonad m (Int, BlockCoordinates)
 checkCellState targetColor coord filledColorMaybe =
@@ -113,41 +110,37 @@ advanceAndPair blockIndex filledPositions = lift (modify (+1)) $> (blockIndex, f
 validateColorAndUnfilled ∷ FillMonad a b m ⇒ a → Coordinates → FillStepMonad m ()
 validateColorAndUnfilled targetColor coord = validatePixel targetColor coord =<< lift (asksView paramSourceImageL)
 
-validatePixel ∷ FillMonad a b m ⇒ a → Coordinates → Grid a → FillStepMonad m ()
+validatePixel ∷ FillMonad a b m ⇒ a → Coordinates → Matrix a → FillStepMonad m ()
 validatePixel targetColor p sourceImage = checkSourceAndTargetRef targetColor p =<< hoistMaybe (lookupPixel sourceImage p)
 
 checkSourceAndTargetRef ∷ FillMonad a b m ⇒ a → Coordinates → a → FillStepMonad m ()
-checkSourceAndTargetRef targetColor coord sourceColor = guard (sourceColor == targetColor) *> (guardUnfilled =<< (lift . lift . readRefAt coord =<< lift ask))
+checkSourceAndTargetRef targetColor coord sourceColor = guard (sourceColor == targetColor) *> (guardUnfilled =<< (lift . lift . readRefAt coord =<< lift (asksView paramFilledRefsL)))
 
 guardUnfilled ∷ Monad m ⇒ Maybe b → MaybeT m ()
 guardUnfilled filledVal = guard (isNothing filledVal)
 
 markAndRecurse ∷ FillMonad a b m ⇒ b → StepRec m → Coordinates → FillStepMonad m ()
-markAndRecurse fillingColor rec coord = writeAndRecurse fillingColor rec coord =<< lift ask
+markAndRecurse fillingColor rec coord = writeAndRecurse fillingColor rec coord =<< lift (asksView paramFilledRefsL)
 
-writeAndRecurse ∷ PrimMonad m ⇒ b → StepRec m → Coordinates → FillerParams a b (PrimState m) → FillStepMonad m ()
-writeAndRecurse fillingColor rec (x, y) params =
-  modify ((x, y) :) *> lift (VM.write (paramFilledRefs params) (y * w + x) (Just fillingColor)) *> lift (mapM_ rec (getNeighbors (x, y)))
-  where w = widthGrid (paramSourceImage params)
+writeAndRecurse ∷ PrimMonad m ⇒ b → StepRec m → Coordinates → STMatrix (PrimState m) b → FillStepMonad m ()
+writeAndRecurse fillingColor rec (x, y) filledRefs = modify ((x, y) :) *> lift (VM.write (filledRefs V.! y) x (Just fillingColor)) *> lift (mapM_ rec (getNeighbors (x, y)))
 
 -- GENERAL HELPERS
 
-thawImage ∷ PrimMonad m ⇒ Grid a → m (LocalSTMatrix (PrimState m) b)
-thawImage grid = VM.replicate (widthGrid grid * heightGrid grid) Nothing
+thawImage ∷ PrimMonad m ⇒ Matrix a → m (STMatrix (PrimState m) b)
+thawImage = V.mapM (V.thaw . (Nothing <$))
 
-runFillAllST ∷ (Eq a, PrimMonad m) ⇒ Grid a → LocalSTMatrix (PrimState m) Int → m (IntMap BlockCoordinates)
+runFillAllST ∷ (Eq a, PrimMonad m) ⇒ Matrix a → STMatrix (PrimState m) Int → m (IntMap BlockCoordinates)
 runFillAllST image refs = runReaderT (evalStateT fillAllST 0) (makeParams image refs)
 
-freezeAndFormat ∷ PrimMonad m ⇒ Grid a → LocalSTMatrix (PrimState m) Int → m (Grid Int)
-freezeAndFormat grid refs = do
-  frozen <- V.freeze refs
-  pure grid { cells = V.map (fromMaybe 0) frozen }
+freezeAndFormat ∷ PrimMonad m ⇒ STMatrix (PrimState m) Int → m (Matrix Int)
+freezeAndFormat refs = fmap (fmap (fromMaybe 0)) <$> mapM V.freeze refs
 
-makeParams ∷ Grid a → LocalSTMatrix s b → FillerParams a b s
+makeParams ∷ Matrix a → STMatrix s b → FillerParams a b s
 makeParams image refs = FillerParams { paramSourceImage = image, paramFilledRefs = refs }
 
-lookupPixel ∷ Grid a → Coordinates → Maybe a
-lookupPixel = indexMaybe
+lookupPixel ∷ Matrix a → Coordinates → Maybe a
+lookupPixel img (x, y) = (V.!? x) =<< img V.!? y
 
 getNeighbors ∷ Coordinates → BlockCoordinates
 getNeighbors (x, y) = [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]
@@ -155,8 +148,8 @@ getNeighbors (x, y) = [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]
 asksView ∷ MonadReader r m ⇒ Lens' r a → m a
 asksView l = asks (view l)
 
-updateSourceImage ∷ FillerParams a b s → Grid a → FillerParams a b s
+updateSourceImage ∷ FillerParams a b s → Matrix a → FillerParams a b s
 updateSourceImage s x = s { paramSourceImage = x }
 
-updateFilledRefs ∷ FillerParams a b s → LocalSTMatrix s b → FillerParams a b s
+updateFilledRefs ∷ FillerParams a b s → STMatrix s b → FillerParams a b s
 updateFilledRefs s x = s { paramFilledRefs = x }

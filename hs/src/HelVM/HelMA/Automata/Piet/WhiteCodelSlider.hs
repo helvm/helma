@@ -11,21 +11,22 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
-import           HelVM.HelMA.Automata.Piet.Types.Grid            ( Grid, (&!) )
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.PointedCodel
 
 import           Control.Monad.Except                             ( MonadError (throwError), liftEither )
 
 import qualified Data.Set                                         as S
+import qualified Data.Vector                                      as V
 
 -- Constraint Type Aliases
 type MonadNextBlockError m = MonadError (Maybe NextBlock) m
 type MonadSlider m = (MonadState (Set Cursor) m, MonadNextBlockError m)
 
-slideOnWhiteBlock ∷ Grid Codel → Cursor → Maybe NextBlock
+slideOnWhiteBlock ∷ Matrix Codel → Cursor → Maybe NextBlock
 slideOnWhiteBlock image cur = either id (error "unreachable") . runIdentity . runExceptT . (`evalStateT` S.empty) $ slideOnWhiteBlockLoop image cur
 
-slideOnWhiteBlockLoop ∷ MonadSlider m ⇒ Grid Codel → Cursor → m ()
+slideOnWhiteBlockLoop ∷ MonadSlider m ⇒ Matrix Codel → Cursor → m ()
 slideOnWhiteBlockLoop image = fix step where
   step loop cur = processNext loop =<< liftEither (maybeToRight Nothing $ next image cur)
 
@@ -46,11 +47,11 @@ handleVisited ∷ MonadSlider m ⇒ Bool → Cursor → m ()
 handleVisited True _    = throwError Nothing
 handleVisited False cur = modify (S.insert cur)
 
-next ∷ Grid Codel → Cursor → Maybe PointedCodel
+next ∷ Matrix Codel → Cursor → Maybe PointedCodel
 next image cur = viaNonEmpty head (mapMaybe (checkCourse image cur) . take 4 $ iterate succCourse cur.course)
 
-checkCourse ∷ Grid Codel → Cursor → Course → Maybe PointedCodel
+checkCourse ∷ Matrix Codel → Cursor → Course → Maybe PointedCodel
 checkCourse image cur nextCourse@(Course nextDP _) = makePair (Cursor (move nextDP cur.position) nextCourse) =<< getNonBlackCodel image (move nextDP cur.position)
 
-getNonBlackCodel ∷ Grid Codel → Coordinates → Maybe Codel
-getNonBlackCodel image pos = checkColor =<< (image &! pos)
+getNonBlackCodel ∷ Matrix Codel → Coordinates → Maybe Codel
+getNonBlackCodel image (x, y) = checkColor =<< (image V.!? y >>= (V.!? x))

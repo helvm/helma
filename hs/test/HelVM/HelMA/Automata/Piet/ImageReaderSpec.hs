@@ -6,6 +6,7 @@ module HelVM.HelMA.Automata.Piet.ImageReaderSpec
 import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelMA.Automata.Piet.ImageReader
+import           HelVM.HelMA.Automata.Piet.TestUtils
 
 import qualified HelVM.HelMA.Automata.Piet.API.AdditionalColorStrategy   as AdditionalColor
 import           HelVM.HelMA.Automata.Piet.API.ImageConfig
@@ -13,12 +14,11 @@ import qualified HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy as Mult
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Color
-import           HelVM.HelMA.Automata.Piet.Types.Grid                     ( Grid (..) )
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
 import           Codec.Picture
-import qualified Data.Vector                                              as V
 import           Test.Hspec
 
 main ∷ IO ()
@@ -91,15 +91,8 @@ spec = do
 readImageFile ∷ MonadIO m ⇒ FilePath → m DynamicImage
 readImageFile filePath = either (error . show) pure =<< liftIO (readImage filePath)
 
-matrixToGrid ∷ [[a]] → Grid a
-matrixToGrid rows = Grid
-  { widthGrid  = maybe 0 length (viaNonEmpty head rows)
-  , heightGrid = length rows
-  , cells      = V.fromList (concat rows)
-  }
-
-blackWhiteCodels ∷ Grid Color
-blackWhiteCodels = matrixToGrid
+blackWhiteCodels ∷ Matrix Color
+blackWhiteCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
   , [Chromatic $ ChromaticColor Red Dark, Chromatic $ ChromaticColor Yellow Dark, Chromatic $ ChromaticColor Green Dark, Chromatic $ ChromaticColor Cyan Dark, Chromatic $ ChromaticColor Blue Dark, Chromatic $ ChromaticColor Magenta Dark]
@@ -109,8 +102,8 @@ blackWhiteCodels = matrixToGrid
   , [White, White, White, White, White, White]
   ]
 
-whiteBlackCodels ∷ Grid Color
-whiteBlackCodels = matrixToGrid
+whiteBlackCodels ∷ Matrix Color
+whiteBlackCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
   , [Chromatic $ ChromaticColor Red Dark, Chromatic $ ChromaticColor Yellow Dark, Chromatic $ ChromaticColor Green Dark, Chromatic $ ChromaticColor Cyan Dark, Chromatic $ ChromaticColor Blue Dark, Chromatic $ ChromaticColor Magenta Dark]
@@ -120,8 +113,8 @@ whiteBlackCodels = matrixToGrid
   , [Black, Black, Black, Black, White, White]
   ]
 
-whiteCenterCodels ∷ Grid Color
-whiteCenterCodels = matrixToGrid
+whiteCenterCodels ∷ Matrix Color
+whiteCenterCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
   , [Chromatic $ ChromaticColor Red Dark, Chromatic $ ChromaticColor Yellow Dark, Chromatic $ ChromaticColor Green Dark, Chromatic $ ChromaticColor Cyan Dark, Chromatic $ ChromaticColor Blue Dark, Chromatic $ ChromaticColor Magenta Dark]
@@ -131,8 +124,8 @@ whiteCenterCodels = matrixToGrid
   , [Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Blue Normal, White, Chromatic $ ChromaticColor Red Normal, White, White]
   ]
 
-whiteModalCodels ∷ Grid Color
-whiteModalCodels = matrixToGrid
+whiteModalCodels ∷ Matrix Color
+whiteModalCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
   , [Chromatic $ ChromaticColor Red Dark, Chromatic $ ChromaticColor Yellow Dark, Chromatic $ ChromaticColor Green Dark, Chromatic $ ChromaticColor Cyan Dark, Chromatic $ ChromaticColor Blue Dark, Chromatic $ ChromaticColor Magenta Dark]
@@ -142,8 +135,8 @@ whiteModalCodels = matrixToGrid
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, White, Chromatic $ ChromaticColor Red Normal, White, White]
   ]
 
-whiteAverageCodels ∷ Grid Color
-whiteAverageCodels = matrixToGrid
+whiteAverageCodels ∷ Matrix Color
+whiteAverageCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
   , [Chromatic $ ChromaticColor Red Dark, Chromatic $ ChromaticColor Yellow Dark, Chromatic $ ChromaticColor Green Dark, Chromatic $ ChromaticColor Cyan Dark, Chromatic $ ChromaticColor Blue Dark, Chromatic $ ChromaticColor Magenta Dark]
@@ -153,8 +146,8 @@ whiteAverageCodels = matrixToGrid
   , [White, White, Chromatic $ ChromaticColor Magenta Dark, White, White, White]
   ]
 
-nearestWhiteCodels ∷ Grid Color
-nearestWhiteCodels = matrixToGrid
+nearestWhiteCodels ∷ Matrix Color
+nearestWhiteCodels = toVector2D
   [ [Chromatic $ ChromaticColor Red Light, Chromatic $ ChromaticColor Yellow Light, Chromatic $ ChromaticColor Green Light, Chromatic $ ChromaticColor Cyan Light, Chromatic $ ChromaticColor Blue Light, Chromatic $ ChromaticColor Magenta Light]
   , [Chromatic $ ChromaticColor Red Normal, Chromatic $ ChromaticColor Yellow Normal, Chromatic $ ChromaticColor Green Normal, Chromatic $ ChromaticColor Cyan Normal, Chromatic $ ChromaticColor Blue Normal, Chromatic $ ChromaticColor Magenta Normal]
   , [Chromatic $ ChromaticColor Red Dark, Chromatic $ ChromaticColor Yellow Dark, Chromatic $ ChromaticColor Green Dark, Chromatic $ ChromaticColor Cyan Dark, Chromatic $ ChromaticColor Blue Dark, Chromatic $ ChromaticColor Magenta Dark]
@@ -164,8 +157,8 @@ nearestWhiteCodels = matrixToGrid
   , [White, White, White, White, White, White]
   ]
 
-complexCodels ∷ Grid Color
-complexCodels = matrixToGrid
+complexCodels ∷ Matrix Color
+complexCodels = toVector2D
   [ [ Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark

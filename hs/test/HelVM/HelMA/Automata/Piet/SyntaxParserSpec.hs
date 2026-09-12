@@ -7,26 +7,28 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelMA.Automata.Piet.SyntaxParser
 import           HelVM.HelMA.Automata.Piet.SyntaxTestHelper
+import           HelVM.HelMA.Automata.Piet.TestUtils
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Codel
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Grid                     ( Grid (..) )
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
+import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import qualified Data.IntMap                                    as IM
 import qualified Data.Map                                       as M
-import qualified Data.Vector                                    as V
+import qualified Data.Vector.Generic                            as V
+
 import           Test.Hspec
 
 data ImageTestCase
   = ImageTestCase
       { caseName      :: String
-      , testImage     :: Grid Codel
+      , testImage     :: Matrix Codel
       , blockTable    :: IntMap BlockCoordinates
       , expectedGraph :: Maybe SyntaxGraph
       }
@@ -34,7 +36,7 @@ data ImageTestCase
 data ErrorTestCase
   = ErrorTestCase
       { errCaseName   :: String
-      , errTestImage  :: Grid Codel
+      , errTestImage  :: Matrix Codel
       , errBlockTable :: IntMap BlockCoordinates
       , expectedErr   :: String
       }
@@ -68,7 +70,7 @@ spec = do
           xit "returns a syntax graph" $ safeToEitherLegacy res `shouldBe` Right (expectedGraph tc)
 
     forM_
-      [ ErrorTestCase "emptyImage" emptyGrid IM.empty "EmptyBlockTableError\n"
+      [ ErrorTestCase "emptyImage" V.empty IM.empty "EmptyBlockTableError\n"
       , ErrorTestCase "blackImage" blackImage blackBlockTable "IllegalInitialColorError\n"
       ] $ \tc ->
         context ("when given " ++ errCaseName tc) $ do
@@ -112,7 +114,7 @@ spec = do
         , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Green Light) OutNumber Multiply
         , TwoPixelTestCase (Chromatic $ ChromaticColor Cyan Dark) (Chromatic $ ChromaticColor Green Normal) OutChar Subtract
         ] $ \tc -> do
-          let image = matrixToGrid [[Codel (color1 tc) 0, Codel (color2 tc) 1]]
+          let image = toVector2D [[Codel (color1 tc) 0, Codel (color2 tc) 1]]
           let bTable = IM.fromList [(0, [(0, 0)]), (1, [(1, 0)])]
           let expectedG = Just $ SyntaxGraph (BlockEdge 0 rl) $
                                 IM.fromList [ ( 0
@@ -141,18 +143,9 @@ spec = do
           res <- runIO . runSafeT $ parseFilledImage (image, bTable)
           it ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ safeToEitherLegacy res `shouldBe` Right expectedG
 
-matrixToGrid ∷ [[a]] → Grid a
-matrixToGrid rows = Grid
-  { widthGrid  = maybe 0 length (viaNonEmpty head rows)
-  , heightGrid = length rows
-  , cells      = V.fromList (concat rows)
-  }
 
-emptyGrid ∷ Grid a
-emptyGrid = Grid 0 0 V.empty
-
-smallImage ∷ Grid Codel
-smallImage = matrixToGrid [[Codel (Chromatic $ ChromaticColor Red Normal) 0]]
+smallImage ∷ Matrix Codel
+smallImage = toVector2D [[Codel (Chromatic $ ChromaticColor Red Normal) 0]]
 
 smallBlockTable ∷ IntMap BlockCoordinates
 smallBlockTable = IM.fromList [(0, [(0, 0)])]
@@ -160,20 +153,20 @@ smallBlockTable = IM.fromList [(0, [(0, 0)])]
 expectedSmallGraph ∷ Maybe SyntaxGraph
 expectedSmallGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList [(0, Block M.empty)]
 
-whiteImage ∷ Grid Codel
-whiteImage = matrixToGrid [[Codel White 0]]
+whiteImage ∷ Matrix Codel
+whiteImage = toVector2D [[Codel White 0]]
 
 whiteBlockTable ∷ IntMap BlockCoordinates
 whiteBlockTable = IM.fromList [(0, [(0, 0)])]
 
-blackImage ∷ Grid Codel
-blackImage = matrixToGrid [[Codel Black 0]]
+blackImage ∷ Matrix Codel
+blackImage = toVector2D [[Codel Black 0]]
 
 blackBlockTable ∷ IntMap BlockCoordinates
 blackBlockTable = IM.fromList [(0, [(0, 0)])]
 
-distantInitialImage ∷ Grid Codel
-distantInitialImage = matrixToGrid
+distantInitialImage ∷ Matrix Codel
+distantInitialImage = toVector2D
   [ [ Codel White 0
     , Codel White 0
     , Codel White 0
@@ -207,8 +200,8 @@ expectedDistantInitialGraph = Just $ SyntaxGraph (BlockEdge 1 ur) $ IM.fromList
     )
   ]
 
-stuckImage ∷ Grid Codel
-stuckImage = matrixToGrid
+stuckImage ∷ Matrix Codel
+stuckImage = toVector2D
   [ [ Codel (Chromatic $ ChromaticColor Red Light) 0
     , Codel (Chromatic $ ChromaticColor Red Normal) 1
     , Codel White 2
@@ -251,8 +244,8 @@ expectedStuckGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList
     )
   ]
 
-rawComplexImage ∷ Grid Color
-rawComplexImage = matrixToGrid
+rawComplexImage ∷ Matrix Color
+rawComplexImage = toVector2D
   [ [ Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark
@@ -391,8 +384,8 @@ rawComplexImage = matrixToGrid
     ]
   ]
 
-complexImage ∷ Grid Codel
-complexImage = matrixToGrid
+complexImage ∷ Matrix Codel
+complexImage = toVector2D
   [ [ Codel (Chromatic $ ChromaticColor Blue Dark) 0
     , Codel (Chromatic $ ChromaticColor Blue Dark) 0
     , Codel (Chromatic $ ChromaticColor Blue Dark) 0
@@ -644,54 +637,54 @@ expectedComplexGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList
                          , (dr, Just $ NextBlock Duplicate (BlockEdge 18 dr))
                          , (ll, Just $ NextBlock Roll (BlockEdge 9 ll))
                          , (lr, Just $ NextBlock Roll (BlockEdge 9 lr))
-                         , (ul, Just $ NextBlock Pointer (BlockEdge 9 ul))
-                         , (ur, Just $ NextBlock Pointer (BlockEdge 9 ur))
+                         , (ul, Just $ NextBlock Roll (BlockEdge 9 ul))
+                         , (ur, Just $ NextBlock Roll (BlockEdge 9 ur))
                          ]
     )
   , ( 17
-    , Block $ M.fromList [ (ll, Just $ NextBlock Greater (BlockEdge 12 ll))
-                         , (lr, Just $ NextBlock Greater (BlockEdge 12 lr))
-                         , (ul, Just $ NextBlock Greater (BlockEdge 9 ul))
-                         , (ur, Just $ NextBlock Greater (BlockEdge 9 ur))
+    , Block $ M.fromList [ (rl, Just $ NextBlock (Push 1) (BlockEdge 18 rl))
+                         , (rr, Just $ NextBlock (Push 1) (BlockEdge 18 rr))
+                         , (dl, Just $ NextBlock NoOperation (BlockEdge 23 lr))
+                         , (dr, Just $ NextBlock NoOperation (BlockEdge 23 ll))
+                         , (ll, Just $ NextBlock NoOperation (BlockEdge 12 ur))
+                         , (lr, Just $ NextBlock NoOperation (BlockEdge 12 ul))
+                         , (ul, Just $ NextBlock Pop (BlockEdge 9 ul))
+                         , (ur, Just $ NextBlock Pop (BlockEdge 9 ur))
                          ]
     )
   , ( 18
-    , Block $ M.fromList [ (rl, Just $ NextBlock Greater (BlockEdge 20 rl))
-                         , (rr, Just $ NextBlock Greater (BlockEdge 20 rr))
-                         , (ul, Just $ NextBlock Multiply (BlockEdge 15 ul))
-                         , (ur, Just $ NextBlock Multiply (BlockEdge 15 ur))
-                         ]
-    )
-  , ( 20
-    , Block $ M.fromList [ (dl, Just $ NextBlock OutNumber (BlockEdge 25 dl))
-                         , (dr, Just $ NextBlock OutNumber (BlockEdge 25 dr))
-                         , (ll, Just $ NextBlock Pointer (BlockEdge 18 ll))
-                         , (lr, Just $ NextBlock Pointer (BlockEdge 18 lr))
+    , Block $ M.fromList [ (dl, Just $ NextBlock Divide (BlockEdge 25 dl))
+                         , (dr, Just $ NextBlock Divide (BlockEdge 25 dr))
+                         , (ll, Just $ NextBlock Pop (BlockEdge 17 ll))
+                         , (lr, Just $ NextBlock Pop (BlockEdge 17 lr))
+                         , (ul, Just $ NextBlock Divide (BlockEdge 15 ul))
                          ]
     )
   , ( 22
-    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation (BlockEdge 13 rl))
-                         , (rr, Just $ NextBlock NoOperation (BlockEdge 13 rr))
-                         , (dl, Just $ NextBlock NoOperation (BlockEdge 13 dl))
-                         , (dr, Just $ NextBlock NoOperation (BlockEdge 13 dr))
-                         , (ll, Just $ NextBlock NoOperation (BlockEdge 13 ll))
-                         , (lr, Just $ NextBlock NoOperation (BlockEdge 13 lr))
-                         , (ul, Just $ NextBlock NoOperation (BlockEdge 13 ul))
-                         , (ur, Just $ NextBlock NoOperation (BlockEdge 13 ur))
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation (BlockEdge 23 rl))
+                         , (rr, Just $ NextBlock NoOperation (BlockEdge 23 rr))
+                         , (ll, Just $ NextBlock NoOperation (BlockEdge 12 ur))
+                         , (lr, Just $ NextBlock NoOperation (BlockEdge 12 ul))
+                         , (ul, Just $ NextBlock NoOperation (BlockEdge 12 ul))
+                         , (ur, Just $ NextBlock NoOperation (BlockEdge 12 ur))
                          ]
     )
   , ( 23
-    , Block $ M.fromList [ (rl, Just $ NextBlock Duplicate (BlockEdge 25 rl))
-                         , (rr, Just $ NextBlock Duplicate (BlockEdge 25 rr))
-                         , (ul, Just $ NextBlock Switch (BlockEdge 12 ul))
-                         , (ur, Just $ NextBlock Switch (BlockEdge 12 ur))
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation (BlockEdge 25 rl))
+                         , (rr, Just $ NextBlock NoOperation (BlockEdge 25 rr))
+                         , (ll, Just $ NextBlock NoOperation (BlockEdge 22 ll))
+                         , (lr, Just $ NextBlock NoOperation (BlockEdge 22 lr))
+                         , (ul, Just $ NextBlock NoOperation (BlockEdge 12 ul))
+                         , (ur, Just $ NextBlock NoOperation (BlockEdge 12 ur))
                          ]
     )
   , ( 25
-    , Block $ M.fromList [ (ll, Just $ NextBlock Greater (BlockEdge 23 ll))
-                         , (lr, Just $ NextBlock Greater (BlockEdge 23 lr))
-                         , (ul, Just $ NextBlock OutNumber (BlockEdge 20 ul))
-                         , (ur, Just $ NextBlock OutNumber (BlockEdge 20 ur))
+    , Block $ M.fromList [ (rl, Just $ NextBlock NoOperation (BlockEdge 25 ll))
+                         , (rr, Just $ NextBlock NoOperation (BlockEdge 25 lr))
+                         , (ll, Just $ NextBlock NoOperation (BlockEdge 23 ll))
+                         , (lr, Just $ NextBlock NoOperation (BlockEdge 23 lr))
+                         , (ul, Just $ NextBlock Duplicate (BlockEdge 18 ul))
+                         , (ur, Just $ NextBlock Duplicate (BlockEdge 18 ur))
                          ]
     )
   ]
