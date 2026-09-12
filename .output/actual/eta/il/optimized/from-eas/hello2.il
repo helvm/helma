@@ -22,8 +22,8 @@ markM 3
 jumpI 0
 
 markM 4
-moveI 1
-copyI 0
+move I 1
+copy I 0
 bNEI 8
 discard
 jump

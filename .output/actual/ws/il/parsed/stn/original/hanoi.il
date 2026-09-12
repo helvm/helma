@@ -67,7 +67,7 @@ store
 cons 0
 callA "write"
 cons 100
-mio inputdec
+inputD
 cons 100
 load
 cons 1
@@ -78,16 +78,16 @@ end
 
 markA "hanoi"
 cons 103
-moveI 1
+move I 1
 store
 cons 102
-moveI 1
+move I 1
 store
 cons 101
-moveI 1
+move I 1
 store
 cons 100
-moveI 1
+move I 1
 store
 cons 100
 load
@@ -112,16 +112,16 @@ cons 102
 load
 callA "hanoi"
 cons 103
-moveI 1
+move I 1
 store
 cons 102
-moveI 1
+move I 1
 store
 cons 101
-moveI 1
+move I 1
 store
 cons 100
-moveI 1
+move I 1
 store
 cons 101
 load
@@ -152,16 +152,16 @@ cons 101
 load
 callA "hanoi"
 cons 103
-moveI 1
+move I 1
 store
 cons 102
-moveI 1
+move I 1
 store
 cons 101
-moveI 1
+move I 1
 store
 cons 100
-moveI 1
+move I 1
 store
 
 markA "endhanoi"
@@ -172,9 +172,9 @@ add
 return
 
 markA "write"
-copyI 0
+copy I 0
 load
-copyI 0
+copy I 0
 bEZA "write_end"
 outputCS
 cons 1
@@ -187,11 +187,11 @@ discard
 return
 
 markA "read"
-copyI 0
-copyI 0
-mio inputchar
+copy I 0
+copy I 0
+inputC
 load
-copyI 0
+copy I 0
 cons 10
 sub
 bEZA "read_end"

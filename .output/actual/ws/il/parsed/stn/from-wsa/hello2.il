@@ -17,7 +17,7 @@ callA "prints"
 end
 
 markA "prints"
-copyI 0
+copy I 0
 bEZA "prints_end"
 outputCS
 jumpA "prints"

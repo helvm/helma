@@ -149,3 +149,6 @@ loadDI = ILS . LoadD
 
 moveDI ∷ ImmediateIndex → ImmediateIndex → Instruction
 moveDI a = ILS . MoveD a
+
+loadSubDI ∷ ImmediateIndex → Integer → Instruction
+loadSubDI a v = ILS $ LoadSubDI a v

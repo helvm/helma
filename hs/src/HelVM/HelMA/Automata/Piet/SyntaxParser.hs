@@ -22,7 +22,6 @@ import           HelVM.HelIO.Control.Safe
 
 import qualified Data.Foldable1                                   as F1
 import qualified Data.IntMap                                      as IM
-import qualified Data.IntSet                                      as IS
 import qualified Data.List.NonEmpty                               as NE
 import qualified Data.Map                                         as M
 import           Data.MonoTraversable
@@ -58,7 +57,8 @@ processUnvisited ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Matrix Codel
 processUnvisited image blockTable nextBlockList () = traverse_ (parseState image blockTable) . filterUnvisited nextBlockList =<< get
 
 filterUnvisited ∷ [(Course, Maybe NextBlock)] → IntMap Block → [Int]
-filterUnvisited nextBlockList visitedMap = filter (`IS.notMember` IM.keysSet visitedMap) (mapMaybe (nextBlockToIndex . snd) nextBlockList)
+filterUnvisited nextBlockList visitedMap =
+  filter (`IM.notMember` visitedMap) (mapMaybe (nextBlockToIndex . snd) nextBlockList)
 
 buildNextBlockList ∷ Matrix Codel → BlockCoordinates → [(Course, Maybe NextBlock)]
 buildNextBlockList image blockCoords = mapMaybe (findCourseNextBlock image blockCoords (olength blockCoords)) (minMaxCoords blockCoords)
@@ -88,7 +88,7 @@ tryCourseAttempts image (Just curColor) cornerMap blockSize k crs =
 
 fetchTargetCodel ∷ Matrix Codel → Map Course Coordinates → Course → Maybe (Coordinates, Codel)
 fetchTargetCodel image cornerMap crs = makeTarget =<< M.lookup crs cornerMap where
-  makeTarget p = (targetPos,) <$> fetchNextCodel image targetPos where targetPos = move (crs.directionPointer) p
+  makeTarget p = traverseToSnd (fetchNextCodel image) targetPos where targetPos = move (crs.directionPointer) p
 
 checkTargetCodel ∷ Matrix Codel → ChromaticColor → Course → Int → Maybe (Maybe NextBlock) → Maybe (Coordinates, Codel) → Maybe (Maybe NextBlock)
 checkTargetCodel _     _        _   _         fallback Nothing                          = fallback

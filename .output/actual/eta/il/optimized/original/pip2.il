@@ -1,7 +1,7 @@
 
 markM 1
 inputCS
-copyI 0
+copy I 0
 subI -1
 bNEI 2
 discard

@@ -1,7 +1,7 @@
 
 markM 1
-moveI 1
-copyI 0
+move I 1
+copy I 0
 bNEI 5
 discard
 jump

@@ -1,6 +1,5 @@
 .PHONY: all bench build check check-whitespace clean configure exec fast golden haddock hlint hpack install main output profile-clean profile-cost profile-heap profile-test repl report run sdist stan stylish test tix update
 
-# Ustaw bezpieczny limit wątków na podstawie dostępnego RAMu (np. 2 lub 4 zamiast bezlimitowego --jobs)
 JOBS ?= 2
 
 all: update fast

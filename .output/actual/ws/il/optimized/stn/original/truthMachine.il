@@ -1,6 +1,6 @@
 cons 0
 cons 0
-mio inputdec
+inputD
 load
 bEZA "\NUL"
 

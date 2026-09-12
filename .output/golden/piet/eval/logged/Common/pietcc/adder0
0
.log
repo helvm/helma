@@ -26,13 +26,7 @@ Info Memory
                     ( MArtificial "branch_0_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_rr" ) NE
@@ -52,13 +46,7 @@ Info Memory
                     ( MArtificial "branch_0_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_dl" ) NE
@@ -78,13 +66,7 @@ Info Memory
                     ( MArtificial "branch_0_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_dr" ) NE
@@ -104,13 +86,7 @@ Info Memory
                     ( MArtificial "branch_0_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_ll" ) NE
@@ -130,13 +106,7 @@ Info Memory
                     ( MArtificial "branch_0_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_lr" ) NE
@@ -156,13 +126,7 @@ Info Memory
                     ( MArtificial "branch_0_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_ul" ) NE
@@ -182,13 +146,7 @@ Info Memory
                     ( MArtificial "branch_0_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_0_ur" ) NE
@@ -231,13 +189,7 @@ Info Memory
                     ( MArtificial "branch_1_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_rr" ) NE
@@ -257,13 +209,7 @@ Info Memory
                     ( MArtificial "branch_1_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_dl" ) NE
@@ -280,13 +226,7 @@ Info Memory
                     ( MArtificial "branch_1_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_dr" ) NE
@@ -303,13 +243,7 @@ Info Memory
                     ( MArtificial "branch_1_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_ll" ) NE
@@ -324,13 +258,7 @@ Info Memory
                     ( MArtificial "branch_1_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_lr" ) NE
@@ -345,13 +273,7 @@ Info Memory
                     ( MArtificial "branch_1_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_ul" ) NE
@@ -371,13 +293,7 @@ Info Memory
                     ( MArtificial "branch_1_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_1_ur" ) NE
@@ -420,13 +336,7 @@ Info Memory
                     ( MArtificial "branch_2_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_rr" ) NE
@@ -446,13 +356,7 @@ Info Memory
                     ( MArtificial "branch_2_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_dl" ) NE
@@ -469,13 +373,7 @@ Info Memory
                     ( MArtificial "branch_2_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_dr" ) NE
@@ -492,13 +390,7 @@ Info Memory
                     ( MArtificial "branch_2_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_ll" ) NE
@@ -513,13 +405,7 @@ Info Memory
                     ( MArtificial "branch_2_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_lr" ) NE
@@ -534,13 +420,7 @@ Info Memory
                     ( MArtificial "branch_2_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_ul" ) NE
@@ -560,13 +440,7 @@ Info Memory
                     ( MArtificial "branch_2_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_2_ur" ) NE
@@ -607,13 +481,7 @@ Info Memory
                     ( MArtificial "branch_3_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_rr" ) NE
@@ -629,13 +497,7 @@ Info Memory
                     ( MArtificial "branch_3_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_dl" ) NE
@@ -652,13 +514,7 @@ Info Memory
                     ( MArtificial "branch_3_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_dr" ) NE
@@ -675,13 +531,7 @@ Info Memory
                     ( MArtificial "branch_3_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_ll" ) NE
@@ -696,13 +546,7 @@ Info Memory
                     ( MArtificial "branch_3_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_lr" ) NE
@@ -717,13 +561,7 @@ Info Memory
                     ( MArtificial "branch_3_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_ul" ) NE
@@ -741,13 +579,7 @@ Info Memory
                     ( MArtificial "branch_3_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_3_ur" ) NE
@@ -786,13 +618,7 @@ Info Memory
                     ( MArtificial "branch_4_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_rr" ) NE
@@ -808,13 +634,7 @@ Info Memory
                     ( MArtificial "branch_4_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_dl" ) NE
@@ -831,13 +651,7 @@ Info Memory
                     ( MArtificial "branch_4_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_dr" ) NE
@@ -854,13 +668,7 @@ Info Memory
                     ( MArtificial "branch_4_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_ll" ) NE
@@ -875,13 +683,7 @@ Info Memory
                     ( MArtificial "branch_4_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_lr" ) NE
@@ -896,13 +698,7 @@ Info Memory
                     ( MArtificial "branch_4_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_ul" ) NE
@@ -920,13 +716,7 @@ Info Memory
                     ( MArtificial "branch_4_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_4_ur" ) NE
@@ -969,13 +759,7 @@ Info Memory
                     ( MArtificial "branch_5_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_rr" ) NE
@@ -995,13 +779,7 @@ Info Memory
                     ( MArtificial "branch_5_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_dl" ) NE
@@ -1018,13 +796,7 @@ Info Memory
                     ( MArtificial "branch_5_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_dr" ) NE
@@ -1041,13 +813,7 @@ Info Memory
                     ( MArtificial "branch_5_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_ll" ) NE
@@ -1062,13 +828,7 @@ Info Memory
                     ( MArtificial "branch_5_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_lr" ) NE
@@ -1083,13 +843,7 @@ Info Memory
                     ( MArtificial "branch_5_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_ul" ) NE
@@ -1111,13 +865,7 @@ Info Memory
                     ( MArtificial "branch_5_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_5_ur" ) NE
@@ -1159,13 +907,7 @@ Info Memory
                     ( MArtificial "branch_6_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_rr" ) NE
@@ -1180,13 +922,7 @@ Info Memory
                     ( MArtificial "branch_6_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_dl" ) NE
@@ -1204,13 +940,7 @@ Info Memory
                     ( MArtificial "branch_6_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_dr" ) NE
@@ -1228,13 +958,7 @@ Info Memory
                     ( MArtificial "branch_6_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_ll" ) NE
@@ -1250,13 +974,7 @@ Info Memory
                     ( MArtificial "branch_6_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_lr" ) NE
@@ -1272,13 +990,7 @@ Info Memory
                     ( MArtificial "branch_6_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_ul" ) NE
@@ -1295,13 +1007,7 @@ Info Memory
                     ( MArtificial "branch_6_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_6_ur" ) NE
@@ -1338,13 +1044,7 @@ Info Memory
                     ( MArtificial "branch_7_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_rr" ) NE
@@ -1359,13 +1059,7 @@ Info Memory
                     ( MArtificial "branch_7_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_dl" ) NE
@@ -1383,13 +1077,7 @@ Info Memory
                     ( MArtificial "branch_7_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_dr" ) NE
@@ -1407,13 +1095,7 @@ Info Memory
                     ( MArtificial "branch_7_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_ll" ) NE
@@ -1429,13 +1111,7 @@ Info Memory
                     ( MArtificial "branch_7_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_lr" ) NE
@@ -1451,13 +1127,7 @@ Info Memory
                     ( MArtificial "branch_7_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_ul" ) NE
@@ -1474,13 +1144,7 @@ Info Memory
                     ( MArtificial "branch_7_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_7_ur" ) NE
@@ -1520,13 +1184,7 @@ Info Memory
                     ( MArtificial "branch_8_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_rr" ) NE
@@ -1546,13 +1204,7 @@ Info Memory
                     ( MArtificial "branch_8_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_dl" ) NE
@@ -1570,13 +1222,7 @@ Info Memory
                     ( MArtificial "branch_8_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_dr" ) NE
@@ -1594,13 +1240,7 @@ Info Memory
                     ( MArtificial "branch_8_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_ll" ) NE
@@ -1618,13 +1258,7 @@ Info Memory
                     ( MArtificial "branch_8_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_lr" ) NE
@@ -1640,13 +1274,7 @@ Info Memory
                     ( MArtificial "branch_8_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_ul" ) NE
@@ -1666,13 +1294,7 @@ Info Memory
                     ( MArtificial "branch_8_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_8_ur" ) NE
@@ -1715,13 +1337,7 @@ Info Memory
                     ( MArtificial "branch_9_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_rr" ) NE
@@ -1739,13 +1355,7 @@ Info Memory
                     ( MArtificial "branch_9_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_dl" ) NE
@@ -1762,13 +1372,7 @@ Info Memory
                     ( MArtificial "branch_9_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_dr" ) NE
@@ -1785,13 +1389,7 @@ Info Memory
                     ( MArtificial "branch_9_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_ll" ) NE
@@ -1806,13 +1404,7 @@ Info Memory
                     ( MArtificial "branch_9_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_lr" ) NE
@@ -1827,13 +1419,7 @@ Info Memory
                     ( MArtificial "branch_9_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_ul" ) NE
@@ -1853,13 +1439,7 @@ Info Memory
                     ( MArtificial "branch_9_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_9_ur" ) NE
@@ -1899,13 +1479,7 @@ Info Memory
                     ( MArtificial "branch_10_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_rr" ) NE
@@ -1920,13 +1494,7 @@ Info Memory
                     ( MArtificial "branch_10_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_dl" ) NE
@@ -1943,13 +1511,7 @@ Info Memory
                     ( MArtificial "branch_10_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_dr" ) NE
@@ -1966,13 +1528,7 @@ Info Memory
                     ( MArtificial "branch_10_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_ll" ) NE
@@ -1987,13 +1543,7 @@ Info Memory
                     ( MArtificial "branch_10_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_lr" ) NE
@@ -2008,13 +1558,7 @@ Info Memory
                     ( MArtificial "branch_10_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_ul" ) NE
@@ -2031,13 +1575,7 @@ Info Memory
                     ( MArtificial "branch_10_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_10_ur" ) NE
@@ -2074,13 +1612,7 @@ Info Memory
                     ( MArtificial "branch_11_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_rr" ) NE
@@ -2095,13 +1627,7 @@ Info Memory
                     ( MArtificial "branch_11_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_dl" ) NE
@@ -2119,13 +1645,7 @@ Info Memory
                     ( MArtificial "branch_11_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_dr" ) NE
@@ -2143,13 +1663,7 @@ Info Memory
                     ( MArtificial "branch_11_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_ll" ) NE
@@ -2165,13 +1679,7 @@ Info Memory
                     ( MArtificial "branch_11_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_lr" ) NE
@@ -2187,13 +1695,7 @@ Info Memory
                     ( MArtificial "branch_11_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_ul" ) NE
@@ -2210,13 +1712,7 @@ Info Memory
                     ( MArtificial "branch_11_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_11_ur" ) NE
@@ -2253,13 +1749,7 @@ Info Memory
                     ( MArtificial "branch_12_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_rr" ) NE
@@ -2274,13 +1764,7 @@ Info Memory
                     ( MArtificial "branch_12_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_dl" ) NE
@@ -2298,13 +1782,7 @@ Info Memory
                     ( MArtificial "branch_12_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_dr" ) NE
@@ -2322,13 +1800,7 @@ Info Memory
                     ( MArtificial "branch_12_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_ll" ) NE
@@ -2344,13 +1816,7 @@ Info Memory
                     ( MArtificial "branch_12_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_lr" ) NE
@@ -2366,13 +1832,7 @@ Info Memory
                     ( MArtificial "branch_12_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_ul" ) NE
@@ -2389,13 +1849,7 @@ Info Memory
                     ( MArtificial "branch_12_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_12_ur" ) NE
@@ -2437,13 +1891,7 @@ Info Memory
                     ( MArtificial "branch_13_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_13_rr" ) NE
@@ -2463,13 +1911,7 @@ Info Memory
                     ( MArtificial "branch_13_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_13_dl" ) NE
@@ -2487,13 +1929,7 @@ Info Memory
                     ( MArtificial "branch_13_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_13_dr" ) NE
@@ -2511,13 +1947,7 @@ Info Memory
                     ( MArtificial "branch_13_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_13_ll" ) NE
@@ -2533,13 +1963,7 @@ Info Memory
                     ( MArtificial "branch_13_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_13_lr" ) NE
@@ -2555,13 +1979,7 @@ Info Memory
                     ( MArtificial "branch_13_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_13_ul" ) NE
@@ -2583,13 +2001,7 @@ Info Memory
                     ( MArtificial "branch_13_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_13_ur" ) NE
@@ -2634,13 +2046,7 @@ Info Memory
                     ( MArtificial "branch_14_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_rr" ) NE
@@ -2660,13 +2066,7 @@ Info Memory
                     ( MArtificial "branch_14_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_dl" ) NE
@@ -2684,13 +2084,7 @@ Info Memory
                     ( MArtificial "branch_14_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_dr" ) NE
@@ -2708,13 +2102,7 @@ Info Memory
                     ( MArtificial "branch_14_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_ll" ) NE
@@ -2732,13 +2120,7 @@ Info Memory
                     ( MArtificial "branch_14_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_lr" ) NE
@@ -2754,13 +2136,7 @@ Info Memory
                     ( MArtificial "branch_14_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_ul" ) NE
@@ -2780,13 +2156,7 @@ Info Memory
                     ( MArtificial "branch_14_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_14_ur" ) NE
@@ -2829,13 +2199,7 @@ Info Memory
                     ( MArtificial "branch_15_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_rr" ) NE
@@ -2855,13 +2219,7 @@ Info Memory
                     ( MArtificial "branch_15_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_dl" ) NE
@@ -2878,13 +2236,7 @@ Info Memory
                     ( MArtificial "branch_15_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_dr" ) NE
@@ -2901,13 +2253,7 @@ Info Memory
                     ( MArtificial "branch_15_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_ll" ) NE
@@ -2922,13 +2268,7 @@ Info Memory
                     ( MArtificial "branch_15_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_lr" ) NE
@@ -2943,13 +2283,7 @@ Info Memory
                     ( MArtificial "branch_15_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_ul" ) NE
@@ -2969,13 +2303,7 @@ Info Memory
                     ( MArtificial "branch_15_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_15_ur" ) NE
@@ -3015,13 +2343,7 @@ Info Memory
                     ( MArtificial "branch_16_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_rr" ) NE
@@ -3036,13 +2358,7 @@ Info Memory
                     ( MArtificial "branch_16_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_dl" ) NE
@@ -3059,13 +2375,7 @@ Info Memory
                     ( MArtificial "branch_16_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_dr" ) NE
@@ -3082,13 +2392,7 @@ Info Memory
                     ( MArtificial "branch_16_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_ll" ) NE
@@ -3103,13 +2407,7 @@ Info Memory
                     ( MArtificial "branch_16_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_lr" ) NE
@@ -3124,13 +2422,7 @@ Info Memory
                     ( MArtificial "branch_16_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_ul" ) NE
@@ -3147,13 +2439,7 @@ Info Memory
                     ( MArtificial "branch_16_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_16_ur" ) NE
@@ -3195,13 +2481,7 @@ Info Memory
                     ( MArtificial "branch_17_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_rr" ) NE
@@ -3221,13 +2501,7 @@ Info Memory
                     ( MArtificial "branch_17_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_dl" ) NE
@@ -3245,13 +2519,7 @@ Info Memory
                     ( MArtificial "branch_17_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_dr" ) NE
@@ -3269,13 +2537,7 @@ Info Memory
                     ( MArtificial "branch_17_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_ll" ) NE
@@ -3291,13 +2553,7 @@ Info Memory
                     ( MArtificial "branch_17_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_lr" ) NE
@@ -3313,13 +2569,7 @@ Info Memory
                     ( MArtificial "branch_17_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_ul" ) NE
@@ -3341,13 +2591,7 @@ Info Memory
                     ( MArtificial "branch_17_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_17_ur" ) NE
@@ -3392,13 +2636,7 @@ Info Memory
                     ( MArtificial "branch_18_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_rr" ) NE
@@ -3418,13 +2656,7 @@ Info Memory
                     ( MArtificial "branch_18_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_dl" ) NE
@@ -3442,13 +2674,7 @@ Info Memory
                     ( MArtificial "branch_18_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_dr" ) NE
@@ -3466,13 +2692,7 @@ Info Memory
                     ( MArtificial "branch_18_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_ll" ) NE
@@ -3490,13 +2710,7 @@ Info Memory
                     ( MArtificial "branch_18_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_lr" ) NE
@@ -3512,13 +2726,7 @@ Info Memory
                     ( MArtificial "branch_18_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_ul" ) NE
@@ -3538,13 +2746,7 @@ Info Memory
                     ( MArtificial "branch_18_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_18_ur" ) NE
@@ -3587,13 +2789,7 @@ Info Memory
                     ( MArtificial "branch_19_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_rr" ) NE
@@ -3611,13 +2807,7 @@ Info Memory
                     ( MArtificial "branch_19_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_dl" ) NE
@@ -3634,13 +2824,7 @@ Info Memory
                     ( MArtificial "branch_19_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_dr" ) NE
@@ -3657,13 +2841,7 @@ Info Memory
                     ( MArtificial "branch_19_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_ll" ) NE
@@ -3678,13 +2856,7 @@ Info Memory
                     ( MArtificial "branch_19_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_lr" ) NE
@@ -3699,13 +2871,7 @@ Info Memory
                     ( MArtificial "branch_19_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_ul" ) NE
@@ -3725,13 +2891,7 @@ Info Memory
                     ( MArtificial "branch_19_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_19_ur" ) NE
@@ -3771,13 +2931,7 @@ Info Memory
                     ( MArtificial "branch_20_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_rr" ) NE
@@ -3792,13 +2946,7 @@ Info Memory
                     ( MArtificial "branch_20_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_dl" ) NE
@@ -3815,13 +2963,7 @@ Info Memory
                     ( MArtificial "branch_20_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_dr" ) NE
@@ -3838,13 +2980,7 @@ Info Memory
                     ( MArtificial "branch_20_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_ll" ) NE
@@ -3859,13 +2995,7 @@ Info Memory
                     ( MArtificial "branch_20_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_lr" ) NE
@@ -3880,13 +3010,7 @@ Info Memory
                     ( MArtificial "branch_20_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_ul" ) NE
@@ -3903,13 +3027,7 @@ Info Memory
                     ( MArtificial "branch_20_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_20_ur" ) NE
@@ -3946,13 +3064,7 @@ Info Memory
                     ( MArtificial "branch_21_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_rr" ) NE
@@ -3967,13 +3079,7 @@ Info Memory
                     ( MArtificial "branch_21_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_dl" ) NE
@@ -3991,13 +3097,7 @@ Info Memory
                     ( MArtificial "branch_21_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_dr" ) NE
@@ -4015,13 +3115,7 @@ Info Memory
                     ( MArtificial "branch_21_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_ll" ) NE
@@ -4037,13 +3131,7 @@ Info Memory
                     ( MArtificial "branch_21_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_lr" ) NE
@@ -4059,13 +3147,7 @@ Info Memory
                     ( MArtificial "branch_21_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_ul" ) NE
@@ -4082,13 +3164,7 @@ Info Memory
                     ( MArtificial "branch_21_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_21_ur" ) NE
@@ -4128,13 +3204,7 @@ Info Memory
                     ( MArtificial "branch_22_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_rr" ) NE
@@ -4154,13 +3224,7 @@ Info Memory
                     ( MArtificial "branch_22_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_dl" ) NE
@@ -4175,13 +3239,7 @@ Info Memory
                     ( MArtificial "branch_22_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_dr" ) NE
@@ -4196,13 +3254,7 @@ Info Memory
                     ( MArtificial "branch_22_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_ll" ) NE
@@ -4217,13 +3269,7 @@ Info Memory
                     ( MArtificial "branch_22_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_lr" ) NE
@@ -4239,13 +3285,7 @@ Info Memory
                     ( MArtificial "branch_22_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_ul" ) NE
@@ -4265,13 +3305,7 @@ Info Memory
                     ( MArtificial "branch_22_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_22_ur" ) NE
@@ -4311,13 +3345,7 @@ Info Memory
                     ( MArtificial "branch_23_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_rr" ) NE
@@ -4332,13 +3360,7 @@ Info Memory
                     ( MArtificial "branch_23_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_dl" ) NE
@@ -4355,13 +3377,7 @@ Info Memory
                     ( MArtificial "branch_23_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_dr" ) NE
@@ -4378,13 +3394,7 @@ Info Memory
                     ( MArtificial "branch_23_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_ll" ) NE
@@ -4399,13 +3409,7 @@ Info Memory
                     ( MArtificial "branch_23_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_lr" ) NE
@@ -4420,13 +3424,7 @@ Info Memory
                     ( MArtificial "branch_23_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_ul" ) NE
@@ -4443,13 +3441,7 @@ Info Memory
                     ( MArtificial "branch_23_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_23_ur" ) NE
@@ -4486,13 +3478,7 @@ Info Memory
                     ( MArtificial "branch_24_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_rr" ) NE
@@ -4507,13 +3493,7 @@ Info Memory
                     ( MArtificial "branch_24_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_dl" ) NE
@@ -4531,13 +3511,7 @@ Info Memory
                     ( MArtificial "branch_24_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_dr" ) NE
@@ -4555,13 +3529,7 @@ Info Memory
                     ( MArtificial "branch_24_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_ll" ) NE
@@ -4577,13 +3545,7 @@ Info Memory
                     ( MArtificial "branch_24_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_lr" ) NE
@@ -4599,13 +3561,7 @@ Info Memory
                     ( MArtificial "branch_24_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_ul" ) NE
@@ -4622,13 +3578,7 @@ Info Memory
                     ( MArtificial "branch_24_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_24_ur" ) NE
@@ -4668,13 +3618,7 @@ Info Memory
                     ( MArtificial "branch_25_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_rr" ) NE
@@ -4694,13 +3638,7 @@ Info Memory
                     ( MArtificial "branch_25_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_dl" ) NE
@@ -4720,13 +3658,7 @@ Info Memory
                     ( MArtificial "branch_25_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_dr" ) NE
@@ -4746,13 +3678,7 @@ Info Memory
                     ( MArtificial "branch_25_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_ll" ) NE
@@ -4772,13 +3698,7 @@ Info Memory
                     ( MArtificial "branch_25_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_lr" ) NE
@@ -4798,13 +3718,7 @@ Info Memory
                     ( MArtificial "branch_25_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_ul" ) NE
@@ -4824,13 +3738,7 @@ Info Memory
                     ( MArtificial "branch_25_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_25_ur" ) NE
@@ -4870,13 +3778,7 @@ Info Memory
                     ( MArtificial "branch_26_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_rr" ) NE
@@ -4891,13 +3793,7 @@ Info Memory
                     ( MArtificial "branch_26_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_dl" ) NE
@@ -4914,13 +3810,7 @@ Info Memory
                     ( MArtificial "branch_26_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_dr" ) NE
@@ -4937,13 +3827,7 @@ Info Memory
                     ( MArtificial "branch_26_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_ll" ) NE
@@ -4958,13 +3842,7 @@ Info Memory
                     ( MArtificial "branch_26_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_lr" ) NE
@@ -4979,13 +3857,7 @@ Info Memory
                     ( MArtificial "branch_26_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_ul" ) NE
@@ -5002,13 +3874,7 @@ Info Memory
                     ( MArtificial "branch_26_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_26_ur" ) NE
@@ -5046,13 +3912,7 @@ Info Memory
                     ( MArtificial "branch_27_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_27_rr" ) NE
@@ -5068,13 +3928,7 @@ Info Memory
                     ( MArtificial "branch_27_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_27_dl" ) NE
@@ -5092,13 +3946,7 @@ Info Memory
                     ( MArtificial "branch_27_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_27_dr" ) NE
@@ -5116,13 +3964,7 @@ Info Memory
                     ( MArtificial "branch_27_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_27_ll" ) NE
@@ -5138,13 +3980,7 @@ Info Memory
                     ( MArtificial "branch_27_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_27_lr" ) NE
@@ -5160,13 +3996,7 @@ Info Memory
                     ( MArtificial "branch_27_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_27_ul" ) NE
@@ -5184,13 +4014,7 @@ Info Memory
                     ( MArtificial "branch_27_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_27_ur" ) NE
@@ -5228,13 +4052,7 @@ Info Memory
                     ( MArtificial "branch_28_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_28_rr" ) NE
@@ -5249,13 +4067,7 @@ Info Memory
                     ( MArtificial "branch_28_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_28_dl" ) NE
@@ -5272,13 +4084,7 @@ Info Memory
                     ( MArtificial "branch_28_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_28_dr" ) NE
@@ -5295,13 +4101,7 @@ Info Memory
                     ( MArtificial "branch_28_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_28_ll" ) NE
@@ -5316,13 +4116,7 @@ Info Memory
                     ( MArtificial "branch_28_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_28_lr" ) NE
@@ -5337,13 +4131,7 @@ Info Memory
                     ( MArtificial "branch_28_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_28_ul" ) NE
@@ -5360,13 +4148,7 @@ Info Memory
                     ( MArtificial "branch_28_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_28_ur" ) NE
@@ -5406,13 +4188,7 @@ Info Memory
                     ( MArtificial "branch_29_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_rr" ) NE
@@ -5432,13 +4208,7 @@ Info Memory
                     ( MArtificial "branch_29_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_dl" ) NE
@@ -5456,13 +4226,7 @@ Info Memory
                     ( MArtificial "branch_29_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_dr" ) NE
@@ -5480,13 +4244,7 @@ Info Memory
                     ( MArtificial "branch_29_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_ll" ) NE
@@ -5504,13 +4262,7 @@ Info Memory
                     ( MArtificial "branch_29_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_lr" ) NE
@@ -5526,13 +4278,7 @@ Info Memory
                     ( MArtificial "branch_29_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_ul" ) NE
@@ -5552,13 +4298,7 @@ Info Memory
                     ( MArtificial "branch_29_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_29_ur" ) NE
@@ -5623,13 +4363,7 @@ Info Memory
                     ( MArtificial "branch_30_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_30_rr" ) NE
@@ -5669,13 +4403,7 @@ Info Memory
                     ( MArtificial "branch_30_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_30_dl" ) NE
@@ -5713,13 +4441,7 @@ Info Memory
                     ( MArtificial "branch_30_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_30_dr" ) NE
@@ -5757,13 +4479,7 @@ Info Memory
                     ( MArtificial "branch_30_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_30_ll" ) NE
@@ -5778,13 +4494,7 @@ Info Memory
                     ( MArtificial "branch_30_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_30_lr" ) NE
@@ -5799,13 +4509,7 @@ Info Memory
                     ( MArtificial "branch_30_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_30_ul" ) NE
@@ -5845,13 +4549,7 @@ Info Memory
                     ( MArtificial "branch_30_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_30_ur" ) NE
@@ -5913,13 +4611,7 @@ Info Memory
                     ( MArtificial "branch_36_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_36_rr" ) NE
@@ -5936,13 +4628,7 @@ Info Memory
                     ( MArtificial "branch_36_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_36_dl" ) NE
@@ -5959,13 +4645,7 @@ Info Memory
                     ( MArtificial "branch_36_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_36_dr" ) NE
@@ -5982,13 +4662,7 @@ Info Memory
                     ( MArtificial "branch_36_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_36_ll" ) NE
@@ -6003,13 +4677,7 @@ Info Memory
                     ( MArtificial "branch_36_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_36_lr" ) NE
@@ -6024,13 +4692,7 @@ Info Memory
                     ( MArtificial "branch_36_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_36_ul" ) NE
@@ -6047,13 +4709,7 @@ Info Memory
                     ( MArtificial "branch_36_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_36_ur" ) NE
@@ -6090,13 +4746,7 @@ Info Memory
                     ( MArtificial "branch_37_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_37_rr" ) NE
@@ -6111,13 +4761,7 @@ Info Memory
                     ( MArtificial "branch_37_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_37_dl" ) NE
@@ -6134,13 +4778,7 @@ Info Memory
                     ( MArtificial "branch_37_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_37_dr" ) NE
@@ -6157,13 +4795,7 @@ Info Memory
                     ( MArtificial "branch_37_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_37_ll" ) NE
@@ -6178,13 +4810,7 @@ Info Memory
                     ( MArtificial "branch_37_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_37_lr" ) NE
@@ -6199,13 +4825,7 @@ Info Memory
                     ( MArtificial "branch_37_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_37_ul" ) NE
@@ -6222,13 +4842,7 @@ Info Memory
                     ( MArtificial "branch_37_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_37_ur" ) NE
@@ -6266,13 +4880,7 @@ Info Memory
                     ( MArtificial "branch_38_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_38_rr" ) NE
@@ -6288,13 +4896,7 @@ Info Memory
                     ( MArtificial "branch_38_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_38_dl" ) NE
@@ -6312,13 +4914,7 @@ Info Memory
                     ( MArtificial "branch_38_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_38_dr" ) NE
@@ -6336,13 +4932,7 @@ Info Memory
                     ( MArtificial "branch_38_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_38_ll" ) NE
@@ -6360,13 +4950,7 @@ Info Memory
                     ( MArtificial "branch_38_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_38_lr" ) NE
@@ -6384,13 +4968,7 @@ Info Memory
                     ( MArtificial "branch_38_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_38_ul" ) NE
@@ -6408,13 +4986,7 @@ Info Memory
                     ( MArtificial "branch_38_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_38_ur" ) NE
@@ -6453,13 +5025,7 @@ Info Memory
                     ( MArtificial "branch_39_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_39_rr" ) NE
@@ -6475,13 +5041,7 @@ Info Memory
                     ( MArtificial "branch_39_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_39_dl" ) NE
@@ -6499,13 +5059,7 @@ Info Memory
                     ( MArtificial "branch_39_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_39_dr" ) NE
@@ -6523,13 +5077,7 @@ Info Memory
                     ( MArtificial "branch_39_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_39_ll" ) NE
@@ -6545,13 +5093,7 @@ Info Memory
                     ( MArtificial "branch_39_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_39_lr" ) NE
@@ -6567,13 +5109,7 @@ Info Memory
                     ( MArtificial "branch_39_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_39_ul" ) NE
@@ -6591,13 +5127,7 @@ Info Memory
                     ( MArtificial "branch_39_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_39_ur" ) NE
@@ -6640,13 +5170,7 @@ Info Memory
                     ( MArtificial "branch_40_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_40_rr" ) NE
@@ -6664,13 +5188,7 @@ Info Memory
                     ( MArtificial "branch_40_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_40_dl" ) NE
@@ -6688,13 +5206,7 @@ Info Memory
                     ( MArtificial "branch_40_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_40_dr" ) NE
@@ -6712,13 +5224,7 @@ Info Memory
                     ( MArtificial "branch_40_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_40_ll" ) NE
@@ -6734,13 +5240,7 @@ Info Memory
                     ( MArtificial "branch_40_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_40_lr" ) NE
@@ -6756,13 +5256,7 @@ Info Memory
                     ( MArtificial "branch_40_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_40_ul" ) NE
@@ -6780,13 +5274,7 @@ Info Memory
                     ( MArtificial "branch_40_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_40_ur" ) NE
@@ -6825,13 +5313,7 @@ Info Memory
                     ( MArtificial "branch_41_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_41_rr" ) NE
@@ -6849,13 +5331,7 @@ Info Memory
                     ( MArtificial "branch_41_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_41_dl" ) NE
@@ -6873,13 +5349,7 @@ Info Memory
                     ( MArtificial "branch_41_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_41_dr" ) NE
@@ -6897,13 +5367,7 @@ Info Memory
                     ( MArtificial "branch_41_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_41_ll" ) NE
@@ -6919,13 +5383,7 @@ Info Memory
                     ( MArtificial "branch_41_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_41_lr" ) NE
@@ -6941,13 +5399,7 @@ Info Memory
                     ( MArtificial "branch_41_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_41_ul" ) NE
@@ -6963,13 +5415,7 @@ Info Memory
                     ( MArtificial "branch_41_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_41_ur" ) NE
@@ -7005,13 +5451,7 @@ Info Memory
                     ( MArtificial "branch_42_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_42_rr" ) NE
@@ -7026,13 +5466,7 @@ Info Memory
                     ( MArtificial "branch_42_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_42_dl" ) NE
@@ -7049,13 +5483,7 @@ Info Memory
                     ( MArtificial "branch_42_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_42_dr" ) NE
@@ -7072,13 +5500,7 @@ Info Memory
                     ( MArtificial "branch_42_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_42_ll" ) NE
@@ -7093,13 +5515,7 @@ Info Memory
                     ( MArtificial "branch_42_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_42_lr" ) NE
@@ -7114,13 +5530,7 @@ Info Memory
                     ( MArtificial "branch_42_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_42_ul" ) NE
@@ -7137,13 +5547,7 @@ Info Memory
                     ( MArtificial "branch_42_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_42_ur" ) NE
@@ -7180,13 +5584,7 @@ Info Memory
                     ( MArtificial "branch_43_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_43_rr" ) NE
@@ -7201,13 +5599,7 @@ Info Memory
                     ( MArtificial "branch_43_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_43_dl" ) NE
@@ -7227,13 +5619,7 @@ Info Memory
                     ( MArtificial "branch_43_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_43_dr" ) NE
@@ -7253,13 +5639,7 @@ Info Memory
                     ( MArtificial "branch_43_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_43_ll" ) NE
@@ -7277,13 +5657,7 @@ Info Memory
                     ( MArtificial "branch_43_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_43_lr" ) NE
@@ -7301,13 +5675,7 @@ Info Memory
                     ( MArtificial "branch_43_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_43_ul" ) NE
@@ -7324,13 +5692,7 @@ Info Memory
                     ( MArtificial "branch_43_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_43_ur" ) NE
@@ -7368,13 +5730,7 @@ Info Memory
                     ( MArtificial "branch_44_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_44_rr" ) NE
@@ -7390,13 +5746,7 @@ Info Memory
                     ( MArtificial "branch_44_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_44_dl" ) NE
@@ -7413,13 +5763,7 @@ Info Memory
                     ( MArtificial "branch_44_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_44_dr" ) NE
@@ -7436,13 +5780,7 @@ Info Memory
                     ( MArtificial "branch_44_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_44_ll" ) NE
@@ -7457,13 +5795,7 @@ Info Memory
                     ( MArtificial "branch_44_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_44_lr" ) NE
@@ -7478,13 +5810,7 @@ Info Memory
                     ( MArtificial "branch_44_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_44_ul" ) NE
@@ -7502,13 +5828,7 @@ Info Memory
                     ( MArtificial "branch_44_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_44_ur" ) NE
@@ -7548,13 +5868,7 @@ Info Memory
                     ( MArtificial "branch_45_rl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 1 Sub )
-                    )
-                )
+                ( LoadSubDI 0 1 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_45_rr" ) NE
@@ -7571,13 +5885,7 @@ Info Memory
                     ( MArtificial "branch_45_rr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 2 Sub )
-                    )
-                )
+                ( LoadSubDI 0 2 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_45_dl" ) NE
@@ -7594,13 +5902,7 @@ Info Memory
                     ( MArtificial "branch_45_dl" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 3 Sub )
-                    )
-                )
+                ( LoadSubDI 0 3 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_45_dr" ) NE
@@ -7617,13 +5919,7 @@ Info Memory
                     ( MArtificial "branch_45_dr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 4 Sub )
-                    )
-                )
+                ( LoadSubDI 0 4 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_45_ll" ) NE
@@ -7638,13 +5934,7 @@ Info Memory
                     ( MArtificial "branch_45_ll" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 5 Sub )
-                    )
-                )
+                ( LoadSubDI 0 5 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_45_lr" ) NE
@@ -7659,13 +5949,7 @@ Info Memory
                     ( MArtificial "branch_45_lr" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 6 Sub )
-                    )
-                )
+                ( LoadSubDI 0 6 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_45_ul" ) NE
@@ -7682,13 +5966,7 @@ Info Memory
                     ( MArtificial "branch_45_ul" )
                 )
             , ILS
-                ( LoadD 0 )
-            , ISM
-                ( SPure
-                    ( Unary
-                        ( UImmediate 7 Sub )
-                    )
-                )
+                ( LoadSubDI 0 7 )
             , ICF
                 ( Branch
                     ( BArtificial "branch_45_ur" ) NE
@@ -7712,7 +5990,7 @@ Info Memory
             , End
             , End
             ]
-        , programCounter = 2226
+        , programCounter = 1939
         , returnStack = IS []
         }
     , memoryStack = fromList []

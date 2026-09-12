@@ -13,11 +13,14 @@ import           HelVM.HelIO.Control.Safe
 
 import           Control.Type.Operator
 
+
+
 runSLI ∷ (LSU m s r element) ⇒ LSInstruction → LoadStoreMemory s r → m $ LoadStoreMemory s r
 runSLI Load                  = load
 runSLI Store                 = store
 runSLI RStore                = rstore
 runSLI (LoadD     a)         = loadD a
+runSLI (LoadSubDI a v)       = loadSubDI a v
 runSLI (StoreI    v)         = storeI v
 runSLI (RStoreD   a)         = rstoreD a
 runSLI (StoreID v a)         = storeID v a
@@ -35,6 +38,9 @@ load (LSM s r) = appendError "LSM.load" $ build =<< pop1 s where
 
 loadD ∷ LSU m s r element ⇒ ImmediateIndex → LoadStoreMemory s r → m $ LoadStoreMemory s r
 loadD address = loadPure (fromIntegral address)
+
+loadSubDI ∷ LSU m s r element ⇒ ImmediateIndex → Integer → LoadStoreMemory s r → m $ LoadStoreMemory s r
+loadSubDI address value (LSM s r) = pure $ LSM (push1 (RAM.genericLoad r address - fromIntegral value) s) r
 
 loadPure ∷ LSU m s r element ⇒ element → LoadStoreMemory s r → m $ LoadStoreMemory s r
 loadPure address (LSM s r) = pure $ LSM (push1 (RAM.genericLoad r address) s) r

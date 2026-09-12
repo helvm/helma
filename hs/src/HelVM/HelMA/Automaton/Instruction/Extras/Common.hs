@@ -1,6 +1,8 @@
 module HelVM.HelMA.Automaton.Instruction.Extras.Common where
 
-class PrintAsm a where
-  printAsm :: a → Text
+import qualified Data.Text as Text
 
 type ImmediateIndex = Int
+
+toLowerShow ∷ Show i ⇒ i → Text
+toLowerShow = Text.toLower . show

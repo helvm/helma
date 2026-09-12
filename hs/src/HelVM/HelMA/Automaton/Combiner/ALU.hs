@@ -22,8 +22,10 @@ module HelVM.HelMA.Automaton.Combiner.ALU
   , outputDecMaybe
   , pop1
   , pop2
+  , push
   , push1
   , push2
+  , pushList
   , roll
   , rollImediate
   , runALI

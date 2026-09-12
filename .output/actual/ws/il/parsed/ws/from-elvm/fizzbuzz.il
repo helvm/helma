@@ -59728,7 +59728,7 @@ cons 5
 load
 store
 cons 0
-mio inputchar
+inputC
 cons 0
 load
 cons 0
@@ -61510,7 +61510,7 @@ jumpA "01001011111"
 
 markA "01000111111"
 cons 0
-mio inputchar
+inputC
 cons 0
 load
 cons 0
@@ -64168,43 +64168,43 @@ end
 end
 
 markA "01001011111"
-copyI 0
+copy I 0
 cons 303
 sub
 bLTZA "011100001001"
-copyI 0
+copy I 0
 cons 455
 sub
 bLTZA "011110100001"
-copyI 0
+copy I 0
 cons 531
 sub
 bLTZA "011111101101"
-copyI 0
+copy I 0
 cons 569
 sub
 bLTZA "0100000010011"
-copyI 0
+copy I 0
 cons 588
 sub
 bLTZA "0100000100110"
-copyI 0
+copy I 0
 cons 597
 sub
 bLTZA "0100000101111"
-copyI 0
+copy I 0
 cons 602
 sub
 bLTZA "0100000110100"
-copyI 0
+copy I 0
 cons 604
 sub
 bLTZA "0100000110110"
-copyI 0
+copy I 0
 cons 605
 sub
 bLTZA "0100000110111"
-copyI 0
+copy I 0
 cons 606
 sub
 bLTZA "0100000111000"
@@ -64220,7 +64220,7 @@ discard
 jumpA "01001011100"
 
 markA "0100000110110"
-copyI 0
+copy I 0
 cons 603
 sub
 bLTZA "0100000110101"
@@ -64232,15 +64232,15 @@ discard
 jumpA "01001011010"
 
 markA "0100000110100"
-copyI 0
+copy I 0
 cons 599
 sub
 bLTZA "0100000110001"
-copyI 0
+copy I 0
 cons 600
 sub
 bLTZA "0100000110010"
-copyI 0
+copy I 0
 cons 601
 sub
 bLTZA "0100000110011"
@@ -64256,7 +64256,7 @@ discard
 jumpA "01001010111"
 
 markA "0100000110001"
-copyI 0
+copy I 0
 cons 598
 sub
 bLTZA "0100000110000"
@@ -64268,19 +64268,19 @@ discard
 jumpA "01001010101"
 
 markA "0100000101111"
-copyI 0
+copy I 0
 cons 592
 sub
 bLTZA "0100000101010"
-copyI 0
+copy I 0
 cons 594
 sub
 bLTZA "0100000101100"
-copyI 0
+copy I 0
 cons 595
 sub
 bLTZA "0100000101101"
-copyI 0
+copy I 0
 cons 596
 sub
 bLTZA "0100000101110"
@@ -64296,7 +64296,7 @@ discard
 jumpA "01001010010"
 
 markA "0100000101100"
-copyI 0
+copy I 0
 cons 593
 sub
 bLTZA "0100000101011"
@@ -64308,11 +64308,11 @@ discard
 jumpA "01001010000"
 
 markA "0100000101010"
-copyI 0
+copy I 0
 cons 590
 sub
 bLTZA "0100000101000"
-copyI 0
+copy I 0
 cons 591
 sub
 bLTZA "0100000101001"
@@ -64324,7 +64324,7 @@ discard
 jumpA "01001001110"
 
 markA "0100000101000"
-copyI 0
+copy I 0
 cons 589
 sub
 bLTZA "0100000100111"
@@ -64336,23 +64336,23 @@ discard
 jumpA "01001001100"
 
 markA "0100000100110"
-copyI 0
+copy I 0
 cons 578
 sub
 bLTZA "0100000011100"
-copyI 0
+copy I 0
 cons 583
 sub
 bLTZA "0100000100001"
-copyI 0
+copy I 0
 cons 585
 sub
 bLTZA "0100000100011"
-copyI 0
+copy I 0
 cons 586
 sub
 bLTZA "0100000100100"
-copyI 0
+copy I 0
 cons 587
 sub
 bLTZA "0100000100101"
@@ -64368,7 +64368,7 @@ discard
 jumpA "01001001001"
 
 markA "0100000100011"
-copyI 0
+copy I 0
 cons 584
 sub
 bLTZA "0100000100010"
@@ -64380,15 +64380,15 @@ discard
 jumpA "01001000111"
 
 markA "0100000100001"
-copyI 0
+copy I 0
 cons 580
 sub
 bLTZA "0100000011110"
-copyI 0
+copy I 0
 cons 581
 sub
 bLTZA "0100000011111"
-copyI 0
+copy I 0
 cons 582
 sub
 bLTZA "0100000100000"
@@ -64404,7 +64404,7 @@ discard
 jumpA "01001000100"
 
 markA "0100000011110"
-copyI 0
+copy I 0
 cons 579
 sub
 bLTZA "0100000011101"
@@ -64416,19 +64416,19 @@ discard
 jumpA "01001000010"
 
 markA "0100000011100"
-copyI 0
+copy I 0
 cons 573
 sub
 bLTZA "0100000010111"
-copyI 0
+copy I 0
 cons 575
 sub
 bLTZA "0100000011001"
-copyI 0
+copy I 0
 cons 576
 sub
 bLTZA "0100000011010"
-copyI 0
+copy I 0
 cons 577
 sub
 bLTZA "0100000011011"
@@ -64444,7 +64444,7 @@ discard
 jumpA "01000111111"
 
 markA "0100000011001"
-copyI 0
+copy I 0
 cons 574
 sub
 bLTZA "0100000011000"
@@ -64456,11 +64456,11 @@ discard
 jumpA "01000111101"
 
 markA "0100000010111"
-copyI 0
+copy I 0
 cons 571
 sub
 bLTZA "0100000010101"
-copyI 0
+copy I 0
 cons 572
 sub
 bLTZA "0100000010110"
@@ -64472,7 +64472,7 @@ discard
 jumpA "01000111011"
 
 markA "0100000010101"
-copyI 0
+copy I 0
 cons 570
 sub
 bLTZA "0100000010100"
@@ -64484,27 +64484,27 @@ discard
 jumpA "01000111001"
 
 markA "0100000010011"
-copyI 0
+copy I 0
 cons 550
 sub
 bLTZA "0100000000000"
-copyI 0
+copy I 0
 cons 559
 sub
 bLTZA "0100000001001"
-copyI 0
+copy I 0
 cons 564
 sub
 bLTZA "0100000001110"
-copyI 0
+copy I 0
 cons 566
 sub
 bLTZA "0100000010000"
-copyI 0
+copy I 0
 cons 567
 sub
 bLTZA "0100000010001"
-copyI 0
+copy I 0
 cons 568
 sub
 bLTZA "0100000010010"
@@ -64520,7 +64520,7 @@ discard
 jumpA "01000110110"
 
 markA "0100000010000"
-copyI 0
+copy I 0
 cons 565
 sub
 bLTZA "0100000001111"
@@ -64532,15 +64532,15 @@ discard
 jumpA "01000110100"
 
 markA "0100000001110"
-copyI 0
+copy I 0
 cons 561
 sub
 bLTZA "0100000001011"
-copyI 0
+copy I 0
 cons 562
 sub
 bLTZA "0100000001100"
-copyI 0
+copy I 0
 cons 563
 sub
 bLTZA "0100000001101"
@@ -64556,7 +64556,7 @@ discard
 jumpA "01000110001"
 
 markA "0100000001011"
-copyI 0
+copy I 0
 cons 560
 sub
 bLTZA "0100000001010"
@@ -64568,19 +64568,19 @@ discard
 jumpA "01000101111"
 
 markA "0100000001001"
-copyI 0
+copy I 0
 cons 554
 sub
 bLTZA "0100000000100"
-copyI 0
+copy I 0
 cons 556
 sub
 bLTZA "0100000000110"
-copyI 0
+copy I 0
 cons 557
 sub
 bLTZA "0100000000111"
-copyI 0
+copy I 0
 cons 558
 sub
 bLTZA "0100000001000"
@@ -64596,7 +64596,7 @@ discard
 jumpA "01000101100"
 
 markA "0100000000110"
-copyI 0
+copy I 0
 cons 555
 sub
 bLTZA "0100000000101"
@@ -64608,11 +64608,11 @@ discard
 jumpA "01000101010"
 
 markA "0100000000100"
-copyI 0
+copy I 0
 cons 552
 sub
 bLTZA "0100000000010"
-copyI 0
+copy I 0
 cons 553
 sub
 bLTZA "0100000000011"
@@ -64624,7 +64624,7 @@ discard
 jumpA "01000101000"
 
 markA "0100000000010"
-copyI 0
+copy I 0
 cons 551
 sub
 bLTZA "0100000000001"
@@ -64636,23 +64636,23 @@ discard
 jumpA "01000100110"
 
 markA "0100000000000"
-copyI 0
+copy I 0
 cons 540
 sub
 bLTZA "011111110110"
-copyI 0
+copy I 0
 cons 545
 sub
 bLTZA "011111111011"
-copyI 0
+copy I 0
 cons 547
 sub
 bLTZA "011111111101"
-copyI 0
+copy I 0
 cons 548
 sub
 bLTZA "011111111110"
-copyI 0
+copy I 0
 cons 549
 sub
 bLTZA "011111111111"
@@ -64668,7 +64668,7 @@ discard
 jumpA "01000100011"
 
 markA "011111111101"
-copyI 0
+copy I 0
 cons 546
 sub
 bLTZA "011111111100"
@@ -64680,15 +64680,15 @@ discard
 jumpA "01000100001"
 
 markA "011111111011"
-copyI 0
+copy I 0
 cons 542
 sub
 bLTZA "011111111000"
-copyI 0
+copy I 0
 cons 543
 sub
 bLTZA "011111111001"
-copyI 0
+copy I 0
 cons 544
 sub
 bLTZA "011111111010"
@@ -64704,7 +64704,7 @@ discard
 jumpA "01000011110"
 
 markA "011111111000"
-copyI 0
+copy I 0
 cons 541
 sub
 bLTZA "011111110111"
@@ -64716,19 +64716,19 @@ discard
 jumpA "01000011100"
 
 markA "011111110110"
-copyI 0
+copy I 0
 cons 535
 sub
 bLTZA "011111110001"
-copyI 0
+copy I 0
 cons 537
 sub
 bLTZA "011111110011"
-copyI 0
+copy I 0
 cons 538
 sub
 bLTZA "011111110100"
-copyI 0
+copy I 0
 cons 539
 sub
 bLTZA "011111110101"
@@ -64744,7 +64744,7 @@ discard
 jumpA "01000011001"
 
 markA "011111110011"
-copyI 0
+copy I 0
 cons 536
 sub
 bLTZA "011111110010"
@@ -64756,11 +64756,11 @@ discard
 jumpA "01000010111"
 
 markA "011111110001"
-copyI 0
+copy I 0
 cons 533
 sub
 bLTZA "011111101111"
-copyI 0
+copy I 0
 cons 534
 sub
 bLTZA "011111110000"
@@ -64772,7 +64772,7 @@ discard
 jumpA "01000010101"
 
 markA "011111101111"
-copyI 0
+copy I 0
 cons 532
 sub
 bLTZA "011111101110"
@@ -64784,31 +64784,31 @@ discard
 jumpA "01000010011"
 
 markA "011111101101"
-copyI 0
+copy I 0
 cons 493
 sub
 bLTZA "011111000111"
-copyI 0
+copy I 0
 cons 512
 sub
 bLTZA "011111011010"
-copyI 0
+copy I 0
 cons 521
 sub
 bLTZA "011111100011"
-copyI 0
+copy I 0
 cons 526
 sub
 bLTZA "011111101000"
-copyI 0
+copy I 0
 cons 528
 sub
 bLTZA "011111101010"
-copyI 0
+copy I 0
 cons 529
 sub
 bLTZA "011111101011"
-copyI 0
+copy I 0
 cons 530
 sub
 bLTZA "011111101100"
@@ -64824,7 +64824,7 @@ discard
 jumpA "01000010000"
 
 markA "011111101010"
-copyI 0
+copy I 0
 cons 527
 sub
 bLTZA "011111101001"
@@ -64836,15 +64836,15 @@ discard
 jumpA "01000001110"
 
 markA "011111101000"
-copyI 0
+copy I 0
 cons 523
 sub
 bLTZA "011111100101"
-copyI 0
+copy I 0
 cons 524
 sub
 bLTZA "011111100110"
-copyI 0
+copy I 0
 cons 525
 sub
 bLTZA "011111100111"
@@ -64860,7 +64860,7 @@ discard
 jumpA "01000001011"
 
 markA "011111100101"
-copyI 0
+copy I 0
 cons 522
 sub
 bLTZA "011111100100"
@@ -64872,19 +64872,19 @@ discard
 jumpA "01000001001"
 
 markA "011111100011"
-copyI 0
+copy I 0
 cons 516
 sub
 bLTZA "011111011110"
-copyI 0
+copy I 0
 cons 518
 sub
 bLTZA "011111100000"
-copyI 0
+copy I 0
 cons 519
 sub
 bLTZA "011111100001"
-copyI 0
+copy I 0
 cons 520
 sub
 bLTZA "011111100010"
@@ -64900,7 +64900,7 @@ discard
 jumpA "01000000110"
 
 markA "011111100000"
-copyI 0
+copy I 0
 cons 517
 sub
 bLTZA "011111011111"
@@ -64912,11 +64912,11 @@ discard
 jumpA "01000000100"
 
 markA "011111011110"
-copyI 0
+copy I 0
 cons 514
 sub
 bLTZA "011111011100"
-copyI 0
+copy I 0
 cons 515
 sub
 bLTZA "011111011101"
@@ -64928,7 +64928,7 @@ discard
 jumpA "01000000010"
 
 markA "011111011100"
-copyI 0
+copy I 0
 cons 513
 sub
 bLTZA "011111011011"
@@ -64940,23 +64940,23 @@ discard
 jumpA "01000000000"
 
 markA "011111011010"
-copyI 0
+copy I 0
 cons 502
 sub
 bLTZA "011111010000"
-copyI 0
+copy I 0
 cons 507
 sub
 bLTZA "011111010101"
-copyI 0
+copy I 0
 cons 509
 sub
 bLTZA "011111010111"
-copyI 0
+copy I 0
 cons 510
 sub
 bLTZA "011111011000"
-copyI 0
+copy I 0
 cons 511
 sub
 bLTZA "011111011001"
@@ -64972,7 +64972,7 @@ discard
 jumpA "0111111101"
 
 markA "011111010111"
-copyI 0
+copy I 0
 cons 508
 sub
 bLTZA "011111010110"
@@ -64984,15 +64984,15 @@ discard
 jumpA "0111111011"
 
 markA "011111010101"
-copyI 0
+copy I 0
 cons 504
 sub
 bLTZA "011111010010"
-copyI 0
+copy I 0
 cons 505
 sub
 bLTZA "011111010011"
-copyI 0
+copy I 0
 cons 506
 sub
 bLTZA "011111010100"
@@ -65008,7 +65008,7 @@ discard
 jumpA "0111111000"
 
 markA "011111010010"
-copyI 0
+copy I 0
 cons 503
 sub
 bLTZA "011111010001"
@@ -65020,19 +65020,19 @@ discard
 jumpA "0111110110"
 
 markA "011111010000"
-copyI 0
+copy I 0
 cons 497
 sub
 bLTZA "011111001011"
-copyI 0
+copy I 0
 cons 499
 sub
 bLTZA "011111001101"
-copyI 0
+copy I 0
 cons 500
 sub
 bLTZA "011111001110"
-copyI 0
+copy I 0
 cons 501
 sub
 bLTZA "011111001111"
@@ -65048,7 +65048,7 @@ discard
 jumpA "0111110011"
 
 markA "011111001101"
-copyI 0
+copy I 0
 cons 498
 sub
 bLTZA "011111001100"
@@ -65060,11 +65060,11 @@ discard
 jumpA "0111110001"
 
 markA "011111001011"
-copyI 0
+copy I 0
 cons 495
 sub
 bLTZA "011111001001"
-copyI 0
+copy I 0
 cons 496
 sub
 bLTZA "011111001010"
@@ -65076,7 +65076,7 @@ discard
 jumpA "0111101111"
 
 markA "011111001001"
-copyI 0
+copy I 0
 cons 494
 sub
 bLTZA "011111001000"
@@ -65088,27 +65088,27 @@ discard
 jumpA "0111101101"
 
 markA "011111000111"
-copyI 0
+copy I 0
 cons 474
 sub
 bLTZA "011110110100"
-copyI 0
+copy I 0
 cons 483
 sub
 bLTZA "011110111101"
-copyI 0
+copy I 0
 cons 488
 sub
 bLTZA "011111000010"
-copyI 0
+copy I 0
 cons 490
 sub
 bLTZA "011111000100"
-copyI 0
+copy I 0
 cons 491
 sub
 bLTZA "011111000101"
-copyI 0
+copy I 0
 cons 492
 sub
 bLTZA "011111000110"
@@ -65124,7 +65124,7 @@ discard
 jumpA "0111101010"
 
 markA "011111000100"
-copyI 0
+copy I 0
 cons 489
 sub
 bLTZA "011111000011"
@@ -65136,15 +65136,15 @@ discard
 jumpA "0111101000"
 
 markA "011111000010"
-copyI 0
+copy I 0
 cons 485
 sub
 bLTZA "011110111111"
-copyI 0
+copy I 0
 cons 486
 sub
 bLTZA "011111000000"
-copyI 0
+copy I 0
 cons 487
 sub
 bLTZA "011111000001"
@@ -65160,7 +65160,7 @@ discard
 jumpA "0111100101"
 
 markA "011110111111"
-copyI 0
+copy I 0
 cons 484
 sub
 bLTZA "011110111110"
@@ -65172,19 +65172,19 @@ discard
 jumpA "0111100011"
 
 markA "011110111101"
-copyI 0
+copy I 0
 cons 478
 sub
 bLTZA "011110111000"
-copyI 0
+copy I 0
 cons 480
 sub
 bLTZA "011110111010"
-copyI 0
+copy I 0
 cons 481
 sub
 bLTZA "011110111011"
-copyI 0
+copy I 0
 cons 482
 sub
 bLTZA "011110111100"
@@ -65200,7 +65200,7 @@ discard
 jumpA "0111100000"
 
 markA "011110111010"
-copyI 0
+copy I 0
 cons 479
 sub
 bLTZA "011110111001"
@@ -65212,11 +65212,11 @@ discard
 jumpA "0111011110"
 
 markA "011110111000"
-copyI 0
+copy I 0
 cons 476
 sub
 bLTZA "011110110110"
-copyI 0
+copy I 0
 cons 477
 sub
 bLTZA "011110110111"
@@ -65228,7 +65228,7 @@ discard
 jumpA "0111011100"
 
 markA "011110110110"
-copyI 0
+copy I 0
 cons 475
 sub
 bLTZA "011110110101"
@@ -65240,23 +65240,23 @@ discard
 jumpA "0111011010"
 
 markA "011110110100"
-copyI 0
+copy I 0
 cons 464
 sub
 bLTZA "011110101010"
-copyI 0
+copy I 0
 cons 469
 sub
 bLTZA "011110101111"
-copyI 0
+copy I 0
 cons 471
 sub
 bLTZA "011110110001"
-copyI 0
+copy I 0
 cons 472
 sub
 bLTZA "011110110010"
-copyI 0
+copy I 0
 cons 473
 sub
 bLTZA "011110110011"
@@ -65272,7 +65272,7 @@ discard
 jumpA "0111010111"
 
 markA "011110110001"
-copyI 0
+copy I 0
 cons 470
 sub
 bLTZA "011110110000"
@@ -65284,15 +65284,15 @@ discard
 jumpA "0111010101"
 
 markA "011110101111"
-copyI 0
+copy I 0
 cons 466
 sub
 bLTZA "011110101100"
-copyI 0
+copy I 0
 cons 467
 sub
 bLTZA "011110101101"
-copyI 0
+copy I 0
 cons 468
 sub
 bLTZA "011110101110"
@@ -65308,7 +65308,7 @@ discard
 jumpA "0111010010"
 
 markA "011110101100"
-copyI 0
+copy I 0
 cons 465
 sub
 bLTZA "011110101011"
@@ -65320,19 +65320,19 @@ discard
 jumpA "0111010000"
 
 markA "011110101010"
-copyI 0
+copy I 0
 cons 459
 sub
 bLTZA "011110100101"
-copyI 0
+copy I 0
 cons 461
 sub
 bLTZA "011110100111"
-copyI 0
+copy I 0
 cons 462
 sub
 bLTZA "011110101000"
-copyI 0
+copy I 0
 cons 463
 sub
 bLTZA "011110101001"
@@ -65348,7 +65348,7 @@ discard
 jumpA "0111001101"
 
 markA "011110100111"
-copyI 0
+copy I 0
 cons 460
 sub
 bLTZA "011110100110"
@@ -65360,11 +65360,11 @@ discard
 jumpA "0111001011"
 
 markA "011110100101"
-copyI 0
+copy I 0
 cons 457
 sub
 bLTZA "011110100011"
-copyI 0
+copy I 0
 cons 458
 sub
 bLTZA "011110100100"
@@ -65376,7 +65376,7 @@ discard
 jumpA "0111001001"
 
 markA "011110100011"
-copyI 0
+copy I 0
 cons 456
 sub
 bLTZA "011110100010"
@@ -65388,35 +65388,35 @@ discard
 jumpA "0111000111"
 
 markA "011110100001"
-copyI 0
+copy I 0
 cons 379
 sub
 bLTZA "011101010101"
-copyI 0
+copy I 0
 cons 417
 sub
 bLTZA "011101111011"
-copyI 0
+copy I 0
 cons 436
 sub
 bLTZA "011110001110"
-copyI 0
+copy I 0
 cons 445
 sub
 bLTZA "011110010111"
-copyI 0
+copy I 0
 cons 450
 sub
 bLTZA "011110011100"
-copyI 0
+copy I 0
 cons 452
 sub
 bLTZA "011110011110"
-copyI 0
+copy I 0
 cons 453
 sub
 bLTZA "011110011111"
-copyI 0
+copy I 0
 cons 454
 sub
 bLTZA "011110100000"
@@ -65432,7 +65432,7 @@ discard
 jumpA "0111000100"
 
 markA "011110011110"
-copyI 0
+copy I 0
 cons 451
 sub
 bLTZA "011110011101"
@@ -65444,15 +65444,15 @@ discard
 jumpA "0111000010"
 
 markA "011110011100"
-copyI 0
+copy I 0
 cons 447
 sub
 bLTZA "011110011001"
-copyI 0
+copy I 0
 cons 448
 sub
 bLTZA "011110011010"
-copyI 0
+copy I 0
 cons 449
 sub
 bLTZA "011110011011"
@@ -65468,7 +65468,7 @@ discard
 jumpA "0110111111"
 
 markA "011110011001"
-copyI 0
+copy I 0
 cons 446
 sub
 bLTZA "011110011000"
@@ -65480,19 +65480,19 @@ discard
 jumpA "0110111101"
 
 markA "011110010111"
-copyI 0
+copy I 0
 cons 440
 sub
 bLTZA "011110010010"
-copyI 0
+copy I 0
 cons 442
 sub
 bLTZA "011110010100"
-copyI 0
+copy I 0
 cons 443
 sub
 bLTZA "011110010101"
-copyI 0
+copy I 0
 cons 444
 sub
 bLTZA "011110010110"
@@ -65508,7 +65508,7 @@ discard
 jumpA "0110111010"
 
 markA "011110010100"
-copyI 0
+copy I 0
 cons 441
 sub
 bLTZA "011110010011"
@@ -65520,11 +65520,11 @@ discard
 jumpA "0110111000"
 
 markA "011110010010"
-copyI 0
+copy I 0
 cons 438
 sub
 bLTZA "011110010000"
-copyI 0
+copy I 0
 cons 439
 sub
 bLTZA "011110010001"
@@ -65536,7 +65536,7 @@ discard
 jumpA "0110110110"
 
 markA "011110010000"
-copyI 0
+copy I 0
 cons 437
 sub
 bLTZA "011110001111"
@@ -65548,23 +65548,23 @@ discard
 jumpA "0110110100"
 
 markA "011110001110"
-copyI 0
+copy I 0
 cons 426
 sub
 bLTZA "011110000100"
-copyI 0
+copy I 0
 cons 431
 sub
 bLTZA "011110001001"
-copyI 0
+copy I 0
 cons 433
 sub
 bLTZA "011110001011"
-copyI 0
+copy I 0
 cons 434
 sub
 bLTZA "011110001100"
-copyI 0
+copy I 0
 cons 435
 sub
 bLTZA "011110001101"
@@ -65580,7 +65580,7 @@ discard
 jumpA "0110110001"
 
 markA "011110001011"
-copyI 0
+copy I 0
 cons 432
 sub
 bLTZA "011110001010"
@@ -65592,15 +65592,15 @@ discard
 jumpA "0110101111"
 
 markA "011110001001"
-copyI 0
+copy I 0
 cons 428
 sub
 bLTZA "011110000110"
-copyI 0
+copy I 0
 cons 429
 sub
 bLTZA "011110000111"
-copyI 0
+copy I 0
 cons 430
 sub
 bLTZA "011110001000"
@@ -65616,7 +65616,7 @@ discard
 jumpA "0110101100"
 
 markA "011110000110"
-copyI 0
+copy I 0
 cons 427
 sub
 bLTZA "011110000101"
@@ -65628,19 +65628,19 @@ discard
 jumpA "0110101010"
 
 markA "011110000100"
-copyI 0
+copy I 0
 cons 421
 sub
 bLTZA "011101111111"
-copyI 0
+copy I 0
 cons 423
 sub
 bLTZA "011110000001"
-copyI 0
+copy I 0
 cons 424
 sub
 bLTZA "011110000010"
-copyI 0
+copy I 0
 cons 425
 sub
 bLTZA "011110000011"
@@ -65656,7 +65656,7 @@ discard
 jumpA "0110100111"
 
 markA "011110000001"
-copyI 0
+copy I 0
 cons 422
 sub
 bLTZA "011110000000"
@@ -65668,11 +65668,11 @@ discard
 jumpA "0110100101"
 
 markA "011101111111"
-copyI 0
+copy I 0
 cons 419
 sub
 bLTZA "011101111101"
-copyI 0
+copy I 0
 cons 420
 sub
 bLTZA "011101111110"
@@ -65684,7 +65684,7 @@ discard
 jumpA "0110100011"
 
 markA "011101111101"
-copyI 0
+copy I 0
 cons 418
 sub
 bLTZA "011101111100"
@@ -65696,27 +65696,27 @@ discard
 jumpA "0110100001"
 
 markA "011101111011"
-copyI 0
+copy I 0
 cons 398
 sub
 bLTZA "011101101000"
-copyI 0
+copy I 0
 cons 407
 sub
 bLTZA "011101110001"
-copyI 0
+copy I 0
 cons 412
 sub
 bLTZA "011101110110"
-copyI 0
+copy I 0
 cons 414
 sub
 bLTZA "011101111000"
-copyI 0
+copy I 0
 cons 415
 sub
 bLTZA "011101111001"
-copyI 0
+copy I 0
 cons 416
 sub
 bLTZA "011101111010"
@@ -65732,7 +65732,7 @@ discard
 jumpA "0110011110"
 
 markA "011101111000"
-copyI 0
+copy I 0
 cons 413
 sub
 bLTZA "011101110111"
@@ -65744,15 +65744,15 @@ discard
 jumpA "0110011100"
 
 markA "011101110110"
-copyI 0
+copy I 0
 cons 409
 sub
 bLTZA "011101110011"
-copyI 0
+copy I 0
 cons 410
 sub
 bLTZA "011101110100"
-copyI 0
+copy I 0
 cons 411
 sub
 bLTZA "011101110101"
@@ -65768,7 +65768,7 @@ discard
 jumpA "0110011001"
 
 markA "011101110011"
-copyI 0
+copy I 0
 cons 408
 sub
 bLTZA "011101110010"
@@ -65780,19 +65780,19 @@ discard
 jumpA "0110010111"
 
 markA "011101110001"
-copyI 0
+copy I 0
 cons 402
 sub
 bLTZA "011101101100"
-copyI 0
+copy I 0
 cons 404
 sub
 bLTZA "011101101110"
-copyI 0
+copy I 0
 cons 405
 sub
 bLTZA "011101101111"
-copyI 0
+copy I 0
 cons 406
 sub
 bLTZA "011101110000"
@@ -65808,7 +65808,7 @@ discard
 jumpA "0110010100"
 
 markA "011101101110"
-copyI 0
+copy I 0
 cons 403
 sub
 bLTZA "011101101101"
@@ -65820,11 +65820,11 @@ discard
 jumpA "0110010010"
 
 markA "011101101100"
-copyI 0
+copy I 0
 cons 400
 sub
 bLTZA "011101101010"
-copyI 0
+copy I 0
 cons 401
 sub
 bLTZA "011101101011"
@@ -65836,7 +65836,7 @@ discard
 jumpA "0110010000"
 
 markA "011101101010"
-copyI 0
+copy I 0
 cons 399
 sub
 bLTZA "011101101001"
@@ -65848,23 +65848,23 @@ discard
 jumpA "0110001110"
 
 markA "011101101000"
-copyI 0
+copy I 0
 cons 388
 sub
 bLTZA "011101011110"
-copyI 0
+copy I 0
 cons 393
 sub
 bLTZA "011101100011"
-copyI 0
+copy I 0
 cons 395
 sub
 bLTZA "011101100101"
-copyI 0
+copy I 0
 cons 396
 sub
 bLTZA "011101100110"
-copyI 0
+copy I 0
 cons 397
 sub
 bLTZA "011101100111"
@@ -65880,7 +65880,7 @@ discard
 jumpA "0110001011"
 
 markA "011101100101"
-copyI 0
+copy I 0
 cons 394
 sub
 bLTZA "011101100100"
@@ -65892,15 +65892,15 @@ discard
 jumpA "0110001001"
 
 markA "011101100011"
-copyI 0
+copy I 0
 cons 390
 sub
 bLTZA "011101100000"
-copyI 0
+copy I 0
 cons 391
 sub
 bLTZA "011101100001"
-copyI 0
+copy I 0
 cons 392
 sub
 bLTZA "011101100010"
@@ -65916,7 +65916,7 @@ discard
 jumpA "0110000110"
 
 markA "011101100000"
-copyI 0
+copy I 0
 cons 389
 sub
 bLTZA "011101011111"
@@ -65928,19 +65928,19 @@ discard
 jumpA "0110000100"
 
 markA "011101011110"
-copyI 0
+copy I 0
 cons 383
 sub
 bLTZA "011101011001"
-copyI 0
+copy I 0
 cons 385
 sub
 bLTZA "011101011011"
-copyI 0
+copy I 0
 cons 386
 sub
 bLTZA "011101011100"
-copyI 0
+copy I 0
 cons 387
 sub
 bLTZA "011101011101"
@@ -65956,7 +65956,7 @@ discard
 jumpA "0110000001"
 
 markA "011101011011"
-copyI 0
+copy I 0
 cons 384
 sub
 bLTZA "011101011010"
@@ -65968,11 +65968,11 @@ discard
 jumpA "0101111111"
 
 markA "011101011001"
-copyI 0
+copy I 0
 cons 381
 sub
 bLTZA "011101010111"
-copyI 0
+copy I 0
 cons 382
 sub
 bLTZA "011101011000"
@@ -65984,7 +65984,7 @@ discard
 jumpA "0101111101"
 
 markA "011101010111"
-copyI 0
+copy I 0
 cons 380
 sub
 bLTZA "011101010110"
@@ -65996,31 +65996,31 @@ discard
 jumpA "0101111011"
 
 markA "011101010101"
-copyI 0
+copy I 0
 cons 341
 sub
 bLTZA "011100101111"
-copyI 0
+copy I 0
 cons 360
 sub
 bLTZA "011101000010"
-copyI 0
+copy I 0
 cons 369
 sub
 bLTZA "011101001011"
-copyI 0
+copy I 0
 cons 374
 sub
 bLTZA "011101010000"
-copyI 0
+copy I 0
 cons 376
 sub
 bLTZA "011101010010"
-copyI 0
+copy I 0
 cons 377
 sub
 bLTZA "011101010011"
-copyI 0
+copy I 0
 cons 378
 sub
 bLTZA "011101010100"
@@ -66036,7 +66036,7 @@ discard
 jumpA "0101111000"
 
 markA "011101010010"
-copyI 0
+copy I 0
 cons 375
 sub
 bLTZA "011101010001"
@@ -66048,15 +66048,15 @@ discard
 jumpA "0101110110"
 
 markA "011101010000"
-copyI 0
+copy I 0
 cons 371
 sub
 bLTZA "011101001101"
-copyI 0
+copy I 0
 cons 372
 sub
 bLTZA "011101001110"
-copyI 0
+copy I 0
 cons 373
 sub
 bLTZA "011101001111"
@@ -66072,7 +66072,7 @@ discard
 jumpA "0101110011"
 
 markA "011101001101"
-copyI 0
+copy I 0
 cons 370
 sub
 bLTZA "011101001100"
@@ -66084,19 +66084,19 @@ discard
 jumpA "0101110001"
 
 markA "011101001011"
-copyI 0
+copy I 0
 cons 364
 sub
 bLTZA "011101000110"
-copyI 0
+copy I 0
 cons 366
 sub
 bLTZA "011101001000"
-copyI 0
+copy I 0
 cons 367
 sub
 bLTZA "011101001001"
-copyI 0
+copy I 0
 cons 368
 sub
 bLTZA "011101001010"
@@ -66112,7 +66112,7 @@ discard
 jumpA "0101101110"
 
 markA "011101001000"
-copyI 0
+copy I 0
 cons 365
 sub
 bLTZA "011101000111"
@@ -66124,11 +66124,11 @@ discard
 jumpA "0101101100"
 
 markA "011101000110"
-copyI 0
+copy I 0
 cons 362
 sub
 bLTZA "011101000100"
-copyI 0
+copy I 0
 cons 363
 sub
 bLTZA "011101000101"
@@ -66140,7 +66140,7 @@ discard
 jumpA "0101101010"
 
 markA "011101000100"
-copyI 0
+copy I 0
 cons 361
 sub
 bLTZA "011101000011"
@@ -66152,23 +66152,23 @@ discard
 jumpA "0101101000"
 
 markA "011101000010"
-copyI 0
+copy I 0
 cons 350
 sub
 bLTZA "011100111000"
-copyI 0
+copy I 0
 cons 355
 sub
 bLTZA "011100111101"
-copyI 0
+copy I 0
 cons 357
 sub
 bLTZA "011100111111"
-copyI 0
+copy I 0
 cons 358
 sub
 bLTZA "011101000000"
-copyI 0
+copy I 0
 cons 359
 sub
 bLTZA "011101000001"
@@ -66184,7 +66184,7 @@ discard
 jumpA "0101100101"
 
 markA "011100111111"
-copyI 0
+copy I 0
 cons 356
 sub
 bLTZA "011100111110"
@@ -66196,15 +66196,15 @@ discard
 jumpA "0101100011"
 
 markA "011100111101"
-copyI 0
+copy I 0
 cons 352
 sub
 bLTZA "011100111010"
-copyI 0
+copy I 0
 cons 353
 sub
 bLTZA "011100111011"
-copyI 0
+copy I 0
 cons 354
 sub
 bLTZA "011100111100"
@@ -66220,7 +66220,7 @@ discard
 jumpA "0101100000"
 
 markA "011100111010"
-copyI 0
+copy I 0
 cons 351
 sub
 bLTZA "011100111001"
@@ -66232,19 +66232,19 @@ discard
 jumpA "0101011110"
 
 markA "011100111000"
-copyI 0
+copy I 0
 cons 345
 sub
 bLTZA "011100110011"
-copyI 0
+copy I 0
 cons 347
 sub
 bLTZA "011100110101"
-copyI 0
+copy I 0
 cons 348
 sub
 bLTZA "011100110110"
-copyI 0
+copy I 0
 cons 349
 sub
 bLTZA "011100110111"
@@ -66260,7 +66260,7 @@ discard
 jumpA "0101011011"
 
 markA "011100110101"
-copyI 0
+copy I 0
 cons 346
 sub
 bLTZA "011100110100"
@@ -66272,11 +66272,11 @@ discard
 jumpA "0101011001"
 
 markA "011100110011"
-copyI 0
+copy I 0
 cons 343
 sub
 bLTZA "011100110001"
-copyI 0
+copy I 0
 cons 344
 sub
 bLTZA "011100110010"
@@ -66288,7 +66288,7 @@ discard
 jumpA "0101010111"
 
 markA "011100110001"
-copyI 0
+copy I 0
 cons 342
 sub
 bLTZA "011100110000"
@@ -66300,27 +66300,27 @@ discard
 jumpA "0101010101"
 
 markA "011100101111"
-copyI 0
+copy I 0
 cons 322
 sub
 bLTZA "011100011100"
-copyI 0
+copy I 0
 cons 331
 sub
 bLTZA "011100100101"
-copyI 0
+copy I 0
 cons 336
 sub
 bLTZA "011100101010"
-copyI 0
+copy I 0
 cons 338
 sub
 bLTZA "011100101100"
-copyI 0
+copy I 0
 cons 339
 sub
 bLTZA "011100101101"
-copyI 0
+copy I 0
 cons 340
 sub
 bLTZA "011100101110"
@@ -66336,7 +66336,7 @@ discard
 jumpA "0101010010"
 
 markA "011100101100"
-copyI 0
+copy I 0
 cons 337
 sub
 bLTZA "011100101011"
@@ -66348,15 +66348,15 @@ discard
 jumpA "0101010000"
 
 markA "011100101010"
-copyI 0
+copy I 0
 cons 333
 sub
 bLTZA "011100100111"
-copyI 0
+copy I 0
 cons 334
 sub
 bLTZA "011100101000"
-copyI 0
+copy I 0
 cons 335
 sub
 bLTZA "011100101001"
@@ -66372,7 +66372,7 @@ discard
 jumpA "0101001101"
 
 markA "011100100111"
-copyI 0
+copy I 0
 cons 332
 sub
 bLTZA "011100100110"
@@ -66384,19 +66384,19 @@ discard
 jumpA "0101001011"
 
 markA "011100100101"
-copyI 0
+copy I 0
 cons 326
 sub
 bLTZA "011100100000"
-copyI 0
+copy I 0
 cons 328
 sub
 bLTZA "011100100010"
-copyI 0
+copy I 0
 cons 329
 sub
 bLTZA "011100100011"
-copyI 0
+copy I 0
 cons 330
 sub
 bLTZA "011100100100"
@@ -66412,7 +66412,7 @@ discard
 jumpA "0101001000"
 
 markA "011100100010"
-copyI 0
+copy I 0
 cons 327
 sub
 bLTZA "011100100001"
@@ -66424,11 +66424,11 @@ discard
 jumpA "0101000110"
 
 markA "011100100000"
-copyI 0
+copy I 0
 cons 324
 sub
 bLTZA "011100011110"
-copyI 0
+copy I 0
 cons 325
 sub
 bLTZA "011100011111"
@@ -66440,7 +66440,7 @@ discard
 jumpA "0101000100"
 
 markA "011100011110"
-copyI 0
+copy I 0
 cons 323
 sub
 bLTZA "011100011101"
@@ -66452,23 +66452,23 @@ discard
 jumpA "0101000010"
 
 markA "011100011100"
-copyI 0
+copy I 0
 cons 312
 sub
 bLTZA "011100010010"
-copyI 0
+copy I 0
 cons 317
 sub
 bLTZA "011100010111"
-copyI 0
+copy I 0
 cons 319
 sub
 bLTZA "011100011001"
-copyI 0
+copy I 0
 cons 320
 sub
 bLTZA "011100011010"
-copyI 0
+copy I 0
 cons 321
 sub
 bLTZA "011100011011"
@@ -66484,7 +66484,7 @@ discard
 jumpA "0100111111"
 
 markA "011100011001"
-copyI 0
+copy I 0
 cons 318
 sub
 bLTZA "011100011000"
@@ -66496,15 +66496,15 @@ discard
 jumpA "0100111101"
 
 markA "011100010111"
-copyI 0
+copy I 0
 cons 314
 sub
 bLTZA "011100010100"
-copyI 0
+copy I 0
 cons 315
 sub
 bLTZA "011100010101"
-copyI 0
+copy I 0
 cons 316
 sub
 bLTZA "011100010110"
@@ -66520,7 +66520,7 @@ discard
 jumpA "0100111010"
 
 markA "011100010100"
-copyI 0
+copy I 0
 cons 313
 sub
 bLTZA "011100010011"
@@ -66532,19 +66532,19 @@ discard
 jumpA "0100111000"
 
 markA "011100010010"
-copyI 0
+copy I 0
 cons 307
 sub
 bLTZA "011100001101"
-copyI 0
+copy I 0
 cons 309
 sub
 bLTZA "011100001111"
-copyI 0
+copy I 0
 cons 310
 sub
 bLTZA "011100010000"
-copyI 0
+copy I 0
 cons 311
 sub
 bLTZA "011100010001"
@@ -66560,7 +66560,7 @@ discard
 jumpA "0100110101"
 
 markA "011100001111"
-copyI 0
+copy I 0
 cons 308
 sub
 bLTZA "011100001110"
@@ -66572,11 +66572,11 @@ discard
 jumpA "0100110011"
 
 markA "011100001101"
-copyI 0
+copy I 0
 cons 305
 sub
 bLTZA "011100001011"
-copyI 0
+copy I 0
 cons 306
 sub
 bLTZA "011100001100"
@@ -66588,7 +66588,7 @@ discard
 jumpA "0100110001"
 
 markA "011100001011"
-copyI 0
+copy I 0
 cons 304
 sub
 bLTZA "011100001010"
@@ -66600,39 +66600,39 @@ discard
 jumpA "0100101111"
 
 markA "011100001001"
-copyI 0
+copy I 0
 cons 151
 sub
 bLTZA "011001110001"
-copyI 0
+copy I 0
 cons 227
 sub
 bLTZA "011010111101"
-copyI 0
+copy I 0
 cons 265
 sub
 bLTZA "011011100011"
-copyI 0
+copy I 0
 cons 284
 sub
 bLTZA "011011110110"
-copyI 0
+copy I 0
 cons 293
 sub
 bLTZA "011011111111"
-copyI 0
+copy I 0
 cons 298
 sub
 bLTZA "011100000100"
-copyI 0
+copy I 0
 cons 300
 sub
 bLTZA "011100000110"
-copyI 0
+copy I 0
 cons 301
 sub
 bLTZA "011100000111"
-copyI 0
+copy I 0
 cons 302
 sub
 bLTZA "011100001000"
@@ -66648,7 +66648,7 @@ discard
 jumpA "0100101100"
 
 markA "011100000110"
-copyI 0
+copy I 0
 cons 299
 sub
 bLTZA "011100000101"
@@ -66660,15 +66660,15 @@ discard
 jumpA "0100101010"
 
 markA "011100000100"
-copyI 0
+copy I 0
 cons 295
 sub
 bLTZA "011100000001"
-copyI 0
+copy I 0
 cons 296
 sub
 bLTZA "011100000010"
-copyI 0
+copy I 0
 cons 297
 sub
 bLTZA "011100000011"
@@ -66684,7 +66684,7 @@ discard
 jumpA "0100100111"
 
 markA "011100000001"
-copyI 0
+copy I 0
 cons 294
 sub
 bLTZA "011100000000"
@@ -66696,19 +66696,19 @@ discard
 jumpA "0100100101"
 
 markA "011011111111"
-copyI 0
+copy I 0
 cons 288
 sub
 bLTZA "011011111010"
-copyI 0
+copy I 0
 cons 290
 sub
 bLTZA "011011111100"
-copyI 0
+copy I 0
 cons 291
 sub
 bLTZA "011011111101"
-copyI 0
+copy I 0
 cons 292
 sub
 bLTZA "011011111110"
@@ -66724,7 +66724,7 @@ discard
 jumpA "0100100010"
 
 markA "011011111100"
-copyI 0
+copy I 0
 cons 289
 sub
 bLTZA "011011111011"
@@ -66736,11 +66736,11 @@ discard
 jumpA "0100100000"
 
 markA "011011111010"
-copyI 0
+copy I 0
 cons 286
 sub
 bLTZA "011011111000"
-copyI 0
+copy I 0
 cons 287
 sub
 bLTZA "011011111001"
@@ -66752,7 +66752,7 @@ discard
 jumpA "0100011110"
 
 markA "011011111000"
-copyI 0
+copy I 0
 cons 285
 sub
 bLTZA "011011110111"
@@ -66764,23 +66764,23 @@ discard
 jumpA "0100011100"
 
 markA "011011110110"
-copyI 0
+copy I 0
 cons 274
 sub
 bLTZA "011011101100"
-copyI 0
+copy I 0
 cons 279
 sub
 bLTZA "011011110001"
-copyI 0
+copy I 0
 cons 281
 sub
 bLTZA "011011110011"
-copyI 0
+copy I 0
 cons 282
 sub
 bLTZA "011011110100"
-copyI 0
+copy I 0
 cons 283
 sub
 bLTZA "011011110101"
@@ -66796,7 +66796,7 @@ discard
 jumpA "0100011001"
 
 markA "011011110011"
-copyI 0
+copy I 0
 cons 280
 sub
 bLTZA "011011110010"
@@ -66808,15 +66808,15 @@ discard
 jumpA "0100010111"
 
 markA "011011110001"
-copyI 0
+copy I 0
 cons 276
 sub
 bLTZA "011011101110"
-copyI 0
+copy I 0
 cons 277
 sub
 bLTZA "011011101111"
-copyI 0
+copy I 0
 cons 278
 sub
 bLTZA "011011110000"
@@ -66832,7 +66832,7 @@ discard
 jumpA "0100010100"
 
 markA "011011101110"
-copyI 0
+copy I 0
 cons 275
 sub
 bLTZA "011011101101"
@@ -66844,19 +66844,19 @@ discard
 jumpA "0100010010"
 
 markA "011011101100"
-copyI 0
+copy I 0
 cons 269
 sub
 bLTZA "011011100111"
-copyI 0
+copy I 0
 cons 271
 sub
 bLTZA "011011101001"
-copyI 0
+copy I 0
 cons 272
 sub
 bLTZA "011011101010"
-copyI 0
+copy I 0
 cons 273
 sub
 bLTZA "011011101011"
@@ -66872,7 +66872,7 @@ discard
 jumpA "0100001111"
 
 markA "011011101001"
-copyI 0
+copy I 0
 cons 270
 sub
 bLTZA "011011101000"
@@ -66884,11 +66884,11 @@ discard
 jumpA "0100001101"
 
 markA "011011100111"
-copyI 0
+copy I 0
 cons 267
 sub
 bLTZA "011011100101"
-copyI 0
+copy I 0
 cons 268
 sub
 bLTZA "011011100110"
@@ -66900,7 +66900,7 @@ discard
 jumpA "0100001011"
 
 markA "011011100101"
-copyI 0
+copy I 0
 cons 266
 sub
 bLTZA "011011100100"
@@ -66912,27 +66912,27 @@ discard
 jumpA "0100001001"
 
 markA "011011100011"
-copyI 0
+copy I 0
 cons 246
 sub
 bLTZA "011011010000"
-copyI 0
+copy I 0
 cons 255
 sub
 bLTZA "011011011001"
-copyI 0
+copy I 0
 cons 260
 sub
 bLTZA "011011011110"
-copyI 0
+copy I 0
 cons 262
 sub
 bLTZA "011011100000"
-copyI 0
+copy I 0
 cons 263
 sub
 bLTZA "011011100001"
-copyI 0
+copy I 0
 cons 264
 sub
 bLTZA "011011100010"
@@ -66948,7 +66948,7 @@ discard
 jumpA "0100000110"
 
 markA "011011100000"
-copyI 0
+copy I 0
 cons 261
 sub
 bLTZA "011011011111"
@@ -66960,15 +66960,15 @@ discard
 jumpA "0100000100"
 
 markA "011011011110"
-copyI 0
+copy I 0
 cons 257
 sub
 bLTZA "011011011011"
-copyI 0
+copy I 0
 cons 258
 sub
 bLTZA "011011011100"
-copyI 0
+copy I 0
 cons 259
 sub
 bLTZA "011011011101"
@@ -66984,7 +66984,7 @@ discard
 jumpA "0100000001"
 
 markA "011011011011"
-copyI 0
+copy I 0
 cons 256
 sub
 bLTZA "011011011010"
@@ -66996,19 +66996,19 @@ discard
 jumpA "011111111"
 
 markA "011011011001"
-copyI 0
+copy I 0
 cons 250
 sub
 bLTZA "011011010100"
-copyI 0
+copy I 0
 cons 252
 sub
 bLTZA "011011010110"
-copyI 0
+copy I 0
 cons 253
 sub
 bLTZA "011011010111"
-copyI 0
+copy I 0
 cons 254
 sub
 bLTZA "011011011000"
@@ -67024,7 +67024,7 @@ discard
 jumpA "011111100"
 
 markA "011011010110"
-copyI 0
+copy I 0
 cons 251
 sub
 bLTZA "011011010101"
@@ -67036,11 +67036,11 @@ discard
 jumpA "011111010"
 
 markA "011011010100"
-copyI 0
+copy I 0
 cons 248
 sub
 bLTZA "011011010010"
-copyI 0
+copy I 0
 cons 249
 sub
 bLTZA "011011010011"
@@ -67052,7 +67052,7 @@ discard
 jumpA "011111000"
 
 markA "011011010010"
-copyI 0
+copy I 0
 cons 247
 sub
 bLTZA "011011010001"
@@ -67064,23 +67064,23 @@ discard
 jumpA "011110110"
 
 markA "011011010000"
-copyI 0
+copy I 0
 cons 236
 sub
 bLTZA "011011000110"
-copyI 0
+copy I 0
 cons 241
 sub
 bLTZA "011011001011"
-copyI 0
+copy I 0
 cons 243
 sub
 bLTZA "011011001101"
-copyI 0
+copy I 0
 cons 244
 sub
 bLTZA "011011001110"
-copyI 0
+copy I 0
 cons 245
 sub
 bLTZA "011011001111"
@@ -67096,7 +67096,7 @@ discard
 jumpA "011110011"
 
 markA "011011001101"
-copyI 0
+copy I 0
 cons 242
 sub
 bLTZA "011011001100"
@@ -67108,15 +67108,15 @@ discard
 jumpA "011110001"
 
 markA "011011001011"
-copyI 0
+copy I 0
 cons 238
 sub
 bLTZA "011011001000"
-copyI 0
+copy I 0
 cons 239
 sub
 bLTZA "011011001001"
-copyI 0
+copy I 0
 cons 240
 sub
 bLTZA "011011001010"
@@ -67132,7 +67132,7 @@ discard
 jumpA "011101110"
 
 markA "011011001000"
-copyI 0
+copy I 0
 cons 237
 sub
 bLTZA "011011000111"
@@ -67144,19 +67144,19 @@ discard
 jumpA "011101100"
 
 markA "011011000110"
-copyI 0
+copy I 0
 cons 231
 sub
 bLTZA "011011000001"
-copyI 0
+copy I 0
 cons 233
 sub
 bLTZA "011011000011"
-copyI 0
+copy I 0
 cons 234
 sub
 bLTZA "011011000100"
-copyI 0
+copy I 0
 cons 235
 sub
 bLTZA "011011000101"
@@ -67172,7 +67172,7 @@ discard
 jumpA "011101001"
 
 markA "011011000011"
-copyI 0
+copy I 0
 cons 232
 sub
 bLTZA "011011000010"
@@ -67184,11 +67184,11 @@ discard
 jumpA "011100111"
 
 markA "011011000001"
-copyI 0
+copy I 0
 cons 229
 sub
 bLTZA "011010111111"
-copyI 0
+copy I 0
 cons 230
 sub
 bLTZA "011011000000"
@@ -67200,7 +67200,7 @@ discard
 jumpA "011100101"
 
 markA "011010111111"
-copyI 0
+copy I 0
 cons 228
 sub
 bLTZA "011010111110"
@@ -67212,31 +67212,31 @@ discard
 jumpA "011100011"
 
 markA "011010111101"
-copyI 0
+copy I 0
 cons 189
 sub
 bLTZA "011010010111"
-copyI 0
+copy I 0
 cons 208
 sub
 bLTZA "011010101010"
-copyI 0
+copy I 0
 cons 217
 sub
 bLTZA "011010110011"
-copyI 0
+copy I 0
 cons 222
 sub
 bLTZA "011010111000"
-copyI 0
+copy I 0
 cons 224
 sub
 bLTZA "011010111010"
-copyI 0
+copy I 0
 cons 225
 sub
 bLTZA "011010111011"
-copyI 0
+copy I 0
 cons 226
 sub
 bLTZA "011010111100"
@@ -67252,7 +67252,7 @@ discard
 jumpA "011100000"
 
 markA "011010111010"
-copyI 0
+copy I 0
 cons 223
 sub
 bLTZA "011010111001"
@@ -67264,15 +67264,15 @@ discard
 jumpA "011011110"
 
 markA "011010111000"
-copyI 0
+copy I 0
 cons 219
 sub
 bLTZA "011010110101"
-copyI 0
+copy I 0
 cons 220
 sub
 bLTZA "011010110110"
-copyI 0
+copy I 0
 cons 221
 sub
 bLTZA "011010110111"
@@ -67288,7 +67288,7 @@ discard
 jumpA "011011011"
 
 markA "011010110101"
-copyI 0
+copy I 0
 cons 218
 sub
 bLTZA "011010110100"
@@ -67300,19 +67300,19 @@ discard
 jumpA "011011001"
 
 markA "011010110011"
-copyI 0
+copy I 0
 cons 212
 sub
 bLTZA "011010101110"
-copyI 0
+copy I 0
 cons 214
 sub
 bLTZA "011010110000"
-copyI 0
+copy I 0
 cons 215
 sub
 bLTZA "011010110001"
-copyI 0
+copy I 0
 cons 216
 sub
 bLTZA "011010110010"
@@ -67328,7 +67328,7 @@ discard
 jumpA "011010110"
 
 markA "011010110000"
-copyI 0
+copy I 0
 cons 213
 sub
 bLTZA "011010101111"
@@ -67340,11 +67340,11 @@ discard
 jumpA "011010100"
 
 markA "011010101110"
-copyI 0
+copy I 0
 cons 210
 sub
 bLTZA "011010101100"
-copyI 0
+copy I 0
 cons 211
 sub
 bLTZA "011010101101"
@@ -67356,7 +67356,7 @@ discard
 jumpA "011010010"
 
 markA "011010101100"
-copyI 0
+copy I 0
 cons 209
 sub
 bLTZA "011010101011"
@@ -67368,23 +67368,23 @@ discard
 jumpA "011010000"
 
 markA "011010101010"
-copyI 0
+copy I 0
 cons 198
 sub
 bLTZA "011010100000"
-copyI 0
+copy I 0
 cons 203
 sub
 bLTZA "011010100101"
-copyI 0
+copy I 0
 cons 205
 sub
 bLTZA "011010100111"
-copyI 0
+copy I 0
 cons 206
 sub
 bLTZA "011010101000"
-copyI 0
+copy I 0
 cons 207
 sub
 bLTZA "011010101001"
@@ -67400,7 +67400,7 @@ discard
 jumpA "011001101"
 
 markA "011010100111"
-copyI 0
+copy I 0
 cons 204
 sub
 bLTZA "011010100110"
@@ -67412,15 +67412,15 @@ discard
 jumpA "011001011"
 
 markA "011010100101"
-copyI 0
+copy I 0
 cons 200
 sub
 bLTZA "011010100010"
-copyI 0
+copy I 0
 cons 201
 sub
 bLTZA "011010100011"
-copyI 0
+copy I 0
 cons 202
 sub
 bLTZA "011010100100"
@@ -67436,7 +67436,7 @@ discard
 jumpA "011001000"
 
 markA "011010100010"
-copyI 0
+copy I 0
 cons 199
 sub
 bLTZA "011010100001"
@@ -67448,19 +67448,19 @@ discard
 jumpA "011000110"
 
 markA "011010100000"
-copyI 0
+copy I 0
 cons 193
 sub
 bLTZA "011010011011"
-copyI 0
+copy I 0
 cons 195
 sub
 bLTZA "011010011101"
-copyI 0
+copy I 0
 cons 196
 sub
 bLTZA "011010011110"
-copyI 0
+copy I 0
 cons 197
 sub
 bLTZA "011010011111"
@@ -67476,7 +67476,7 @@ discard
 jumpA "011000011"
 
 markA "011010011101"
-copyI 0
+copy I 0
 cons 194
 sub
 bLTZA "011010011100"
@@ -67488,11 +67488,11 @@ discard
 jumpA "011000001"
 
 markA "011010011011"
-copyI 0
+copy I 0
 cons 191
 sub
 bLTZA "011010011001"
-copyI 0
+copy I 0
 cons 192
 sub
 bLTZA "011010011010"
@@ -67504,7 +67504,7 @@ discard
 jumpA "010111111"
 
 markA "011010011001"
-copyI 0
+copy I 0
 cons 190
 sub
 bLTZA "011010011000"
@@ -67516,27 +67516,27 @@ discard
 jumpA "010111101"
 
 markA "011010010111"
-copyI 0
+copy I 0
 cons 170
 sub
 bLTZA "011010000100"
-copyI 0
+copy I 0
 cons 179
 sub
 bLTZA "011010001101"
-copyI 0
+copy I 0
 cons 184
 sub
 bLTZA "011010010010"
-copyI 0
+copy I 0
 cons 186
 sub
 bLTZA "011010010100"
-copyI 0
+copy I 0
 cons 187
 sub
 bLTZA "011010010101"
-copyI 0
+copy I 0
 cons 188
 sub
 bLTZA "011010010110"
@@ -67552,7 +67552,7 @@ discard
 jumpA "010111010"
 
 markA "011010010100"
-copyI 0
+copy I 0
 cons 185
 sub
 bLTZA "011010010011"
@@ -67564,15 +67564,15 @@ discard
 jumpA "010111000"
 
 markA "011010010010"
-copyI 0
+copy I 0
 cons 181
 sub
 bLTZA "011010001111"
-copyI 0
+copy I 0
 cons 182
 sub
 bLTZA "011010010000"
-copyI 0
+copy I 0
 cons 183
 sub
 bLTZA "011010010001"
@@ -67588,7 +67588,7 @@ discard
 jumpA "010110101"
 
 markA "011010001111"
-copyI 0
+copy I 0
 cons 180
 sub
 bLTZA "011010001110"
@@ -67600,19 +67600,19 @@ discard
 jumpA "010110011"
 
 markA "011010001101"
-copyI 0
+copy I 0
 cons 174
 sub
 bLTZA "011010001000"
-copyI 0
+copy I 0
 cons 176
 sub
 bLTZA "011010001010"
-copyI 0
+copy I 0
 cons 177
 sub
 bLTZA "011010001011"
-copyI 0
+copy I 0
 cons 178
 sub
 bLTZA "011010001100"
@@ -67628,7 +67628,7 @@ discard
 jumpA "010110000"
 
 markA "011010001010"
-copyI 0
+copy I 0
 cons 175
 sub
 bLTZA "011010001001"
@@ -67640,11 +67640,11 @@ discard
 jumpA "010101110"
 
 markA "011010001000"
-copyI 0
+copy I 0
 cons 172
 sub
 bLTZA "011010000110"
-copyI 0
+copy I 0
 cons 173
 sub
 bLTZA "011010000111"
@@ -67656,7 +67656,7 @@ discard
 jumpA "010101100"
 
 markA "011010000110"
-copyI 0
+copy I 0
 cons 171
 sub
 bLTZA "011010000101"
@@ -67668,23 +67668,23 @@ discard
 jumpA "010101010"
 
 markA "011010000100"
-copyI 0
+copy I 0
 cons 160
 sub
 bLTZA "011001111010"
-copyI 0
+copy I 0
 cons 165
 sub
 bLTZA "011001111111"
-copyI 0
+copy I 0
 cons 167
 sub
 bLTZA "011010000001"
-copyI 0
+copy I 0
 cons 168
 sub
 bLTZA "011010000010"
-copyI 0
+copy I 0
 cons 169
 sub
 bLTZA "011010000011"
@@ -67700,7 +67700,7 @@ discard
 jumpA "010100111"
 
 markA "011010000001"
-copyI 0
+copy I 0
 cons 166
 sub
 bLTZA "011010000000"
@@ -67712,15 +67712,15 @@ discard
 jumpA "010100101"
 
 markA "011001111111"
-copyI 0
+copy I 0
 cons 162
 sub
 bLTZA "011001111100"
-copyI 0
+copy I 0
 cons 163
 sub
 bLTZA "011001111101"
-copyI 0
+copy I 0
 cons 164
 sub
 bLTZA "011001111110"
@@ -67736,7 +67736,7 @@ discard
 jumpA "010100010"
 
 markA "011001111100"
-copyI 0
+copy I 0
 cons 161
 sub
 bLTZA "011001111011"
@@ -67748,19 +67748,19 @@ discard
 jumpA "010100000"
 
 markA "011001111010"
-copyI 0
+copy I 0
 cons 155
 sub
 bLTZA "011001110101"
-copyI 0
+copy I 0
 cons 157
 sub
 bLTZA "011001110111"
-copyI 0
+copy I 0
 cons 158
 sub
 bLTZA "011001111000"
-copyI 0
+copy I 0
 cons 159
 sub
 bLTZA "011001111001"
@@ -67776,7 +67776,7 @@ discard
 jumpA "010011101"
 
 markA "011001110111"
-copyI 0
+copy I 0
 cons 156
 sub
 bLTZA "011001110110"
@@ -67788,11 +67788,11 @@ discard
 jumpA "010011011"
 
 markA "011001110101"
-copyI 0
+copy I 0
 cons 153
 sub
 bLTZA "011001110011"
-copyI 0
+copy I 0
 cons 154
 sub
 bLTZA "011001110100"
@@ -67804,7 +67804,7 @@ discard
 jumpA "010011001"
 
 markA "011001110011"
-copyI 0
+copy I 0
 cons 152
 sub
 bLTZA "011001110010"
@@ -67816,35 +67816,35 @@ discard
 jumpA "010010111"
 
 markA "011001110001"
-copyI 0
+copy I 0
 cons 75
 sub
 bLTZA "011000100101"
-copyI 0
+copy I 0
 cons 113
 sub
 bLTZA "011001001011"
-copyI 0
+copy I 0
 cons 132
 sub
 bLTZA "011001011110"
-copyI 0
+copy I 0
 cons 141
 sub
 bLTZA "011001100111"
-copyI 0
+copy I 0
 cons 146
 sub
 bLTZA "011001101100"
-copyI 0
+copy I 0
 cons 148
 sub
 bLTZA "011001101110"
-copyI 0
+copy I 0
 cons 149
 sub
 bLTZA "011001101111"
-copyI 0
+copy I 0
 cons 150
 sub
 bLTZA "011001110000"
@@ -67860,7 +67860,7 @@ discard
 jumpA "010010100"
 
 markA "011001101110"
-copyI 0
+copy I 0
 cons 147
 sub
 bLTZA "011001101101"
@@ -67872,15 +67872,15 @@ discard
 jumpA "010010010"
 
 markA "011001101100"
-copyI 0
+copy I 0
 cons 143
 sub
 bLTZA "011001101001"
-copyI 0
+copy I 0
 cons 144
 sub
 bLTZA "011001101010"
-copyI 0
+copy I 0
 cons 145
 sub
 bLTZA "011001101011"
@@ -67896,7 +67896,7 @@ discard
 jumpA "010001111"
 
 markA "011001101001"
-copyI 0
+copy I 0
 cons 142
 sub
 bLTZA "011001101000"
@@ -67908,19 +67908,19 @@ discard
 jumpA "010001101"
 
 markA "011001100111"
-copyI 0
+copy I 0
 cons 136
 sub
 bLTZA "011001100010"
-copyI 0
+copy I 0
 cons 138
 sub
 bLTZA "011001100100"
-copyI 0
+copy I 0
 cons 139
 sub
 bLTZA "011001100101"
-copyI 0
+copy I 0
 cons 140
 sub
 bLTZA "011001100110"
@@ -67936,7 +67936,7 @@ discard
 jumpA "010001010"
 
 markA "011001100100"
-copyI 0
+copy I 0
 cons 137
 sub
 bLTZA "011001100011"
@@ -67948,11 +67948,11 @@ discard
 jumpA "010001000"
 
 markA "011001100010"
-copyI 0
+copy I 0
 cons 134
 sub
 bLTZA "011001100000"
-copyI 0
+copy I 0
 cons 135
 sub
 bLTZA "011001100001"
@@ -67964,7 +67964,7 @@ discard
 jumpA "010000110"
 
 markA "011001100000"
-copyI 0
+copy I 0
 cons 133
 sub
 bLTZA "011001011111"
@@ -67976,23 +67976,23 @@ discard
 jumpA "010000100"
 
 markA "011001011110"
-copyI 0
+copy I 0
 cons 122
 sub
 bLTZA "011001010100"
-copyI 0
+copy I 0
 cons 127
 sub
 bLTZA "011001011001"
-copyI 0
+copy I 0
 cons 129
 sub
 bLTZA "011001011011"
-copyI 0
+copy I 0
 cons 130
 sub
 bLTZA "011001011100"
-copyI 0
+copy I 0
 cons 131
 sub
 bLTZA "011001011101"
@@ -68008,7 +68008,7 @@ discard
 jumpA "010000001"
 
 markA "011001011011"
-copyI 0
+copy I 0
 cons 128
 sub
 bLTZA "011001011010"
@@ -68020,15 +68020,15 @@ discard
 jumpA "01111111"
 
 markA "011001011001"
-copyI 0
+copy I 0
 cons 124
 sub
 bLTZA "011001010110"
-copyI 0
+copy I 0
 cons 125
 sub
 bLTZA "011001010111"
-copyI 0
+copy I 0
 cons 126
 sub
 bLTZA "011001011000"
@@ -68044,7 +68044,7 @@ discard
 jumpA "01111100"
 
 markA "011001010110"
-copyI 0
+copy I 0
 cons 123
 sub
 bLTZA "011001010101"
@@ -68056,19 +68056,19 @@ discard
 jumpA "01111010"
 
 markA "011001010100"
-copyI 0
+copy I 0
 cons 117
 sub
 bLTZA "011001001111"
-copyI 0
+copy I 0
 cons 119
 sub
 bLTZA "011001010001"
-copyI 0
+copy I 0
 cons 120
 sub
 bLTZA "011001010010"
-copyI 0
+copy I 0
 cons 121
 sub
 bLTZA "011001010011"
@@ -68084,7 +68084,7 @@ discard
 jumpA "01110111"
 
 markA "011001010001"
-copyI 0
+copy I 0
 cons 118
 sub
 bLTZA "011001010000"
@@ -68096,11 +68096,11 @@ discard
 jumpA "01110101"
 
 markA "011001001111"
-copyI 0
+copy I 0
 cons 115
 sub
 bLTZA "011001001101"
-copyI 0
+copy I 0
 cons 116
 sub
 bLTZA "011001001110"
@@ -68112,7 +68112,7 @@ discard
 jumpA "01110011"
 
 markA "011001001101"
-copyI 0
+copy I 0
 cons 114
 sub
 bLTZA "011001001100"
@@ -68124,27 +68124,27 @@ discard
 jumpA "01110001"
 
 markA "011001001011"
-copyI 0
+copy I 0
 cons 94
 sub
 bLTZA "011000111000"
-copyI 0
+copy I 0
 cons 103
 sub
 bLTZA "011001000001"
-copyI 0
+copy I 0
 cons 108
 sub
 bLTZA "011001000110"
-copyI 0
+copy I 0
 cons 110
 sub
 bLTZA "011001001000"
-copyI 0
+copy I 0
 cons 111
 sub
 bLTZA "011001001001"
-copyI 0
+copy I 0
 cons 112
 sub
 bLTZA "011001001010"
@@ -68160,7 +68160,7 @@ discard
 jumpA "01101110"
 
 markA "011001001000"
-copyI 0
+copy I 0
 cons 109
 sub
 bLTZA "011001000111"
@@ -68172,15 +68172,15 @@ discard
 jumpA "01101100"
 
 markA "011001000110"
-copyI 0
+copy I 0
 cons 105
 sub
 bLTZA "011001000011"
-copyI 0
+copy I 0
 cons 106
 sub
 bLTZA "011001000100"
-copyI 0
+copy I 0
 cons 107
 sub
 bLTZA "011001000101"
@@ -68196,7 +68196,7 @@ discard
 jumpA "01101001"
 
 markA "011001000011"
-copyI 0
+copy I 0
 cons 104
 sub
 bLTZA "011001000010"
@@ -68208,19 +68208,19 @@ discard
 jumpA "01100111"
 
 markA "011001000001"
-copyI 0
+copy I 0
 cons 98
 sub
 bLTZA "011000111100"
-copyI 0
+copy I 0
 cons 100
 sub
 bLTZA "011000111110"
-copyI 0
+copy I 0
 cons 101
 sub
 bLTZA "011000111111"
-copyI 0
+copy I 0
 cons 102
 sub
 bLTZA "011001000000"
@@ -68236,7 +68236,7 @@ discard
 jumpA "01100100"
 
 markA "011000111110"
-copyI 0
+copy I 0
 cons 99
 sub
 bLTZA "011000111101"
@@ -68248,11 +68248,11 @@ discard
 jumpA "01100010"
 
 markA "011000111100"
-copyI 0
+copy I 0
 cons 96
 sub
 bLTZA "011000111010"
-copyI 0
+copy I 0
 cons 97
 sub
 bLTZA "011000111011"
@@ -68264,7 +68264,7 @@ discard
 jumpA "01100000"
 
 markA "011000111010"
-copyI 0
+copy I 0
 cons 95
 sub
 bLTZA "011000111001"
@@ -68276,23 +68276,23 @@ discard
 jumpA "01011110"
 
 markA "011000111000"
-copyI 0
+copy I 0
 cons 84
 sub
 bLTZA "011000101110"
-copyI 0
+copy I 0
 cons 89
 sub
 bLTZA "011000110011"
-copyI 0
+copy I 0
 cons 91
 sub
 bLTZA "011000110101"
-copyI 0
+copy I 0
 cons 92
 sub
 bLTZA "011000110110"
-copyI 0
+copy I 0
 cons 93
 sub
 bLTZA "011000110111"
@@ -68308,7 +68308,7 @@ discard
 jumpA "01011011"
 
 markA "011000110101"
-copyI 0
+copy I 0
 cons 90
 sub
 bLTZA "011000110100"
@@ -68320,15 +68320,15 @@ discard
 jumpA "01011001"
 
 markA "011000110011"
-copyI 0
+copy I 0
 cons 86
 sub
 bLTZA "011000110000"
-copyI 0
+copy I 0
 cons 87
 sub
 bLTZA "011000110001"
-copyI 0
+copy I 0
 cons 88
 sub
 bLTZA "011000110010"
@@ -68344,7 +68344,7 @@ discard
 jumpA "01010110"
 
 markA "011000110000"
-copyI 0
+copy I 0
 cons 85
 sub
 bLTZA "011000101111"
@@ -68356,19 +68356,19 @@ discard
 jumpA "01010100"
 
 markA "011000101110"
-copyI 0
+copy I 0
 cons 79
 sub
 bLTZA "011000101001"
-copyI 0
+copy I 0
 cons 81
 sub
 bLTZA "011000101011"
-copyI 0
+copy I 0
 cons 82
 sub
 bLTZA "011000101100"
-copyI 0
+copy I 0
 cons 83
 sub
 bLTZA "011000101101"
@@ -68384,7 +68384,7 @@ discard
 jumpA "01010001"
 
 markA "011000101011"
-copyI 0
+copy I 0
 cons 80
 sub
 bLTZA "011000101010"
@@ -68396,11 +68396,11 @@ discard
 jumpA "01001111"
 
 markA "011000101001"
-copyI 0
+copy I 0
 cons 77
 sub
 bLTZA "011000100111"
-copyI 0
+copy I 0
 cons 78
 sub
 bLTZA "011000101000"
@@ -68412,7 +68412,7 @@ discard
 jumpA "01001101"
 
 markA "011000100111"
-copyI 0
+copy I 0
 cons 76
 sub
 bLTZA "011000100110"
@@ -68424,31 +68424,31 @@ discard
 jumpA "01001011"
 
 markA "011000100101"
-copyI 0
+copy I 0
 cons 37
 sub
 bLTZA "010111111111"
-copyI 0
+copy I 0
 cons 56
 sub
 bLTZA "011000010010"
-copyI 0
+copy I 0
 cons 65
 sub
 bLTZA "011000011011"
-copyI 0
+copy I 0
 cons 70
 sub
 bLTZA "011000100000"
-copyI 0
+copy I 0
 cons 72
 sub
 bLTZA "011000100010"
-copyI 0
+copy I 0
 cons 73
 sub
 bLTZA "011000100011"
-copyI 0
+copy I 0
 cons 74
 sub
 bLTZA "011000100100"
@@ -68464,7 +68464,7 @@ discard
 jumpA "01001000"
 
 markA "011000100010"
-copyI 0
+copy I 0
 cons 71
 sub
 bLTZA "011000100001"
@@ -68476,15 +68476,15 @@ discard
 jumpA "01000110"
 
 markA "011000100000"
-copyI 0
+copy I 0
 cons 67
 sub
 bLTZA "011000011101"
-copyI 0
+copy I 0
 cons 68
 sub
 bLTZA "011000011110"
-copyI 0
+copy I 0
 cons 69
 sub
 bLTZA "011000011111"
@@ -68500,7 +68500,7 @@ discard
 jumpA "01000011"
 
 markA "011000011101"
-copyI 0
+copy I 0
 cons 66
 sub
 bLTZA "011000011100"
@@ -68512,19 +68512,19 @@ discard
 jumpA "01000001"
 
 markA "011000011011"
-copyI 0
+copy I 0
 cons 60
 sub
 bLTZA "011000010110"
-copyI 0
+copy I 0
 cons 62
 sub
 bLTZA "011000011000"
-copyI 0
+copy I 0
 cons 63
 sub
 bLTZA "011000011001"
-copyI 0
+copy I 0
 cons 64
 sub
 bLTZA "011000011010"
@@ -68540,7 +68540,7 @@ discard
 jumpA "0111110"
 
 markA "011000011000"
-copyI 0
+copy I 0
 cons 61
 sub
 bLTZA "011000010111"
@@ -68552,11 +68552,11 @@ discard
 jumpA "0111100"
 
 markA "011000010110"
-copyI 0
+copy I 0
 cons 58
 sub
 bLTZA "011000010100"
-copyI 0
+copy I 0
 cons 59
 sub
 bLTZA "011000010101"
@@ -68568,7 +68568,7 @@ discard
 jumpA "0111010"
 
 markA "011000010100"
-copyI 0
+copy I 0
 cons 57
 sub
 bLTZA "011000010011"
@@ -68580,23 +68580,23 @@ discard
 jumpA "0111000"
 
 markA "011000010010"
-copyI 0
+copy I 0
 cons 46
 sub
 bLTZA "011000001000"
-copyI 0
+copy I 0
 cons 51
 sub
 bLTZA "011000001101"
-copyI 0
+copy I 0
 cons 53
 sub
 bLTZA "011000001111"
-copyI 0
+copy I 0
 cons 54
 sub
 bLTZA "011000010000"
-copyI 0
+copy I 0
 cons 55
 sub
 bLTZA "011000010001"
@@ -68612,7 +68612,7 @@ discard
 jumpA "0110101"
 
 markA "011000001111"
-copyI 0
+copy I 0
 cons 52
 sub
 bLTZA "011000001110"
@@ -68624,15 +68624,15 @@ discard
 jumpA "0110011"
 
 markA "011000001101"
-copyI 0
+copy I 0
 cons 48
 sub
 bLTZA "011000001010"
-copyI 0
+copy I 0
 cons 49
 sub
 bLTZA "011000001011"
-copyI 0
+copy I 0
 cons 50
 sub
 bLTZA "011000001100"
@@ -68648,7 +68648,7 @@ discard
 jumpA "0110000"
 
 markA "011000001010"
-copyI 0
+copy I 0
 cons 47
 sub
 bLTZA "011000001001"
@@ -68660,19 +68660,19 @@ discard
 jumpA "0101110"
 
 markA "011000001000"
-copyI 0
+copy I 0
 cons 41
 sub
 bLTZA "011000000011"
-copyI 0
+copy I 0
 cons 43
 sub
 bLTZA "011000000101"
-copyI 0
+copy I 0
 cons 44
 sub
 bLTZA "011000000110"
-copyI 0
+copy I 0
 cons 45
 sub
 bLTZA "011000000111"
@@ -68688,7 +68688,7 @@ discard
 jumpA "0101011"
 
 markA "011000000101"
-copyI 0
+copy I 0
 cons 42
 sub
 bLTZA "011000000100"
@@ -68700,11 +68700,11 @@ discard
 jumpA "0101001"
 
 markA "011000000011"
-copyI 0
+copy I 0
 cons 39
 sub
 bLTZA "011000000001"
-copyI 0
+copy I 0
 cons 40
 sub
 bLTZA "011000000010"
@@ -68716,7 +68716,7 @@ discard
 jumpA "0100111"
 
 markA "011000000001"
-copyI 0
+copy I 0
 cons 38
 sub
 bLTZA "011000000000"
@@ -68728,27 +68728,27 @@ discard
 jumpA "0100101"
 
 markA "010111111111"
-copyI 0
+copy I 0
 cons 18
 sub
 bLTZA "010111101100"
-copyI 0
+copy I 0
 cons 27
 sub
 bLTZA "010111110101"
-copyI 0
+copy I 0
 cons 32
 sub
 bLTZA "010111111010"
-copyI 0
+copy I 0
 cons 34
 sub
 bLTZA "010111111100"
-copyI 0
+copy I 0
 cons 35
 sub
 bLTZA "010111111101"
-copyI 0
+copy I 0
 cons 36
 sub
 bLTZA "010111111110"
@@ -68764,7 +68764,7 @@ discard
 jumpA "0100010"
 
 markA "010111111100"
-copyI 0
+copy I 0
 cons 33
 sub
 bLTZA "010111111011"
@@ -68776,15 +68776,15 @@ discard
 jumpA "0100000"
 
 markA "010111111010"
-copyI 0
+copy I 0
 cons 29
 sub
 bLTZA "010111110111"
-copyI 0
+copy I 0
 cons 30
 sub
 bLTZA "010111111000"
-copyI 0
+copy I 0
 cons 31
 sub
 bLTZA "010111111001"
@@ -68800,7 +68800,7 @@ discard
 jumpA "011101"
 
 markA "010111110111"
-copyI 0
+copy I 0
 cons 28
 sub
 bLTZA "010111110110"
@@ -68812,19 +68812,19 @@ discard
 jumpA "011011"
 
 markA "010111110101"
-copyI 0
+copy I 0
 cons 22
 sub
 bLTZA "010111110000"
-copyI 0
+copy I 0
 cons 24
 sub
 bLTZA "010111110010"
-copyI 0
+copy I 0
 cons 25
 sub
 bLTZA "010111110011"
-copyI 0
+copy I 0
 cons 26
 sub
 bLTZA "010111110100"
@@ -68840,7 +68840,7 @@ discard
 jumpA "011000"
 
 markA "010111110010"
-copyI 0
+copy I 0
 cons 23
 sub
 bLTZA "010111110001"
@@ -68852,11 +68852,11 @@ discard
 jumpA "010110"
 
 markA "010111110000"
-copyI 0
+copy I 0
 cons 20
 sub
 bLTZA "010111101110"
-copyI 0
+copy I 0
 cons 21
 sub
 bLTZA "010111101111"
@@ -68868,7 +68868,7 @@ discard
 jumpA "010100"
 
 markA "010111101110"
-copyI 0
+copy I 0
 cons 19
 sub
 bLTZA "010111101101"
@@ -68880,23 +68880,23 @@ discard
 jumpA "010010"
 
 markA "010111101100"
-copyI 0
+copy I 0
 cons 9
 sub
 bLTZA "010111100011"
-copyI 0
+copy I 0
 cons 13
 sub
 bLTZA "010111100111"
-copyI 0
+copy I 0
 cons 15
 sub
 bLTZA "010111101001"
-copyI 0
+copy I 0
 cons 16
 sub
 bLTZA "010111101010"
-copyI 0
+copy I 0
 cons 17
 sub
 bLTZA "010111101011"
@@ -68912,7 +68912,7 @@ discard
 jumpA "01111"
 
 markA "010111101001"
-copyI 0
+copy I 0
 cons 14
 sub
 bLTZA "010111101000"
@@ -68924,11 +68924,11 @@ discard
 jumpA "01101"
 
 markA "010111100111"
-copyI 0
+copy I 0
 cons 11
 sub
 bLTZA "010111100101"
-copyI 0
+copy I 0
 cons 12
 sub
 bLTZA "010111100110"
@@ -68940,7 +68940,7 @@ discard
 jumpA "01011"
 
 markA "010111100101"
-copyI 0
+copy I 0
 cons 10
 sub
 bLTZA "010111100100"
@@ -68952,19 +68952,19 @@ discard
 jumpA "01001"
 
 markA "010111100011"
-copyI 0
+copy I 0
 cons 4
 sub
 bLTZA "010111011110"
-copyI 0
+copy I 0
 cons 6
 sub
 bLTZA "010111100000"
-copyI 0
+copy I 0
 cons 7
 sub
 bLTZA "010111100001"
-copyI 0
+copy I 0
 cons 8
 sub
 bLTZA "010111100010"
@@ -68980,7 +68980,7 @@ discard
 jumpA "0110"
 
 markA "010111100000"
-copyI 0
+copy I 0
 cons 5
 sub
 bLTZA "010111011111"
@@ -68992,11 +68992,11 @@ discard
 jumpA "0100"
 
 markA "010111011110"
-copyI 0
+copy I 0
 cons 2
 sub
 bLTZA "010111011100"
-copyI 0
+copy I 0
 cons 3
 sub
 bLTZA "010111011101"
@@ -69008,7 +69008,7 @@ discard
 jumpA "010"
 
 markA "010111011100"
-copyI 0
+copy I 0
 cons 1
 sub
 bLTZA "010111011011"

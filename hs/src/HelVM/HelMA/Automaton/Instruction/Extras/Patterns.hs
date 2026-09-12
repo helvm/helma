@@ -51,6 +51,9 @@ pattern MoveIP i = ISM (SPure (Indexed (IImmediate i) Move))
 pattern AddIP :: Integer → Instruction
 pattern AddIP i = ISM (SPure (Unary (UImmediate i Add)))
 
+pattern SubIP :: Integer → Instruction
+pattern SubIP i = ISM (SPure (Unary (UImmediate i Sub)))
+
 pattern BinaryP :: BinaryOperation → Instruction
 pattern BinaryP op = ISM (SPure (Binary op))
 

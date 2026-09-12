@@ -1,30 +1,30 @@
 
 markM 1
-moveI 2
-moveI 2
+move I 2
+move I 2
 
 markM 2
 cons 0
-moveI 2
-moveI 2
+move I 2
+move I 2
 
 markM 5
-copyI 0
+copy I 0
 bNEI 8
 jumpI 15
 
 markM 8
 subI 1
-moveI 2
-copyI 2
+move I 2
+copy I 2
 add
-moveI 2
-moveI 2
+move I 2
+move I 2
 jumpI 5
 
 markM 15
 bNES
-moveI 1
+move I 1
 jump
 
 markM 0

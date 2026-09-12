@@ -177,10 +177,10 @@ markA "loop"
 cons 42
 callA "write"
 cons 101
-mio inputdec
+inputD
 cons 101
 load
-copyI 0
+copy I 0
 cons (-1)
 sub
 bEZA "progend"
@@ -188,7 +188,7 @@ cons 100
 load
 add
 cons 100
-moveI 1
+move I 1
 store
 jumpA "loop"
 
@@ -207,9 +207,9 @@ add
 return
 
 markA "write"
-copyI 0
+copy I 0
 load
-copyI 0
+copy I 0
 bEZA "write_end"
 outputCS
 cons 1
@@ -222,11 +222,11 @@ discard
 return
 
 markA "read"
-copyI 0
-copyI 0
-mio inputchar
+copy I 0
+copy I 0
+inputC
 load
-copyI 0
+copy I 0
 cons 10
 sub
 bEZA "read_end"

@@ -1,12 +1,12 @@
 cons 1
 
 markA "C"
-copyI 0
+copy I 0
 outputDS
 cons 10
 outputCS
 addI 1
-copyI 0
+copy I 0
 subI 11
 bEZA "E"
 jumpA "C"
@@ -20,9 +20,9 @@ add
 return
 
 markA "write"
-copyI 0
+copy I 0
 load
-copyI 0
+copy I 0
 bEZA "write_end"
 outputCS
 addI 1
@@ -34,11 +34,11 @@ discard
 return
 
 markA "read"
-copyI 0
-copyI 0
-mio inputchar
+copy I 0
+copy I 0
+inputC
 load
-copyI 0
+copy I 0
 subI 10
 bEZA "read_end"
 discard
@@ -48,7 +48,7 @@ jumpA "read"
 markA "read_end"
 discard
 addI 1
-storei 0
+storeI 0
 return
 
 markA "newline"
