@@ -6,14 +6,14 @@ source-repository-package
   branch: master
   tag: 0.2.1.3
 
-profiling: True
+-- profiling: True
 
-profiling-detail: late-toplevel
+-- profiling-detail: late-toplevel
 
-package *
-  ghc-options: -fprof-auto
+-- package *
+--   ghc-options: -fprof-auto
 
-optimization: 2
+-- optimization: 2
 
-tests: True
-benchmarks: True
+-- tests: True
+-- benchmarks: True

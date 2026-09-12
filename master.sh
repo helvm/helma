@@ -14,3 +14,7 @@ rsync -av \
 
 rsync -av \
   helma.cabal ../helma/helma.cabal
+
+rsync -av \
+  * ../helma/*
+
