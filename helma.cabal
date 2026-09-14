@@ -287,7 +287,6 @@ library
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
     HelVM.HelMA.Automata.Piet.Types.Grid
     HelVM.HelMA.Automata.Piet.Types.Hue
-    HelVM.HelMA.Automata.Piet.Types.Matrix
     HelVM.HelMA.Automata.Piet.Types.Label
     HelVM.HelMA.Automata.Piet.Types.Labelling
     HelVM.HelMA.Automata.Piet.Types.Lightness
