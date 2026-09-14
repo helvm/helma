@@ -25,7 +25,7 @@ type MonadNextBlockError m = MonadError (Maybe NextBlock) m
 type MonadSlider m = (MonadState (Set Cursor) m, MonadNextBlockError m)
 
 slideOnWhiteBlock ∷ Matrix Codel → Cursor → Maybe NextBlock
-slideOnWhiteBlock image cur = slideOnWhiteGrid (matrixToGrid image) cur
+slideOnWhiteBlock image = slideOnWhiteGrid (matrixToGrid image)
 
 slideOnWhiteGrid ∷ Grid Codel → Cursor → Maybe NextBlock
 slideOnWhiteGrid grid cur = either id (error "unreachable") . runIdentity . runExceptT . (`evalStateT` S.empty) $ slideOnWhiteBlockLoop grid cur
