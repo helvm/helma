@@ -1,4 +1,3 @@
-{-# LANGUAGE BangPatterns #-}
 module HelVM.HelMA.Automata.Piet.Filler
   ( fillAll
   ) where
@@ -6,7 +5,7 @@ module HelVM.HelMA.Automata.Piet.Filler
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
-import           Control.Monad.ST                            ( runST )
+import           Control.Monad.ST                            ( ST , runST )
 import qualified Data.IntMap.Strict                          as IM
 import qualified Data.Vector                                 as V
 import qualified Data.Vector.Unboxed.Mutable                 as UMV
@@ -14,87 +13,67 @@ import qualified Data.Vector.Unboxed.Mutable                 as UMV
 -- PUBLIC API
 
 fillAll ∷ Eq a ⇒ Matrix a → (Matrix Int, IntMap BlockCoordinates)
-fillAll image
-  | V.null image = (V.empty, IM.empty)
-  | otherwise = runST $ do
-      let height = V.length image
-          -- Obliczamy maksymalną szerokość dla bezpiecznego rozplanowania płaskiej tablicy
-          maxWidth = V.foldl' (\acc row -> max acc (V.length row)) 0 image
-          totalSize = height * maxWidth
+fillAll image = runST $ fillST image $ matrixBounds image
 
-      if maxWidth == 0
-        then pure (V.map (const V.empty) image, IM.empty)
-        else do
-          -- -1 = nieodwiedzone / puste
-          filledRefs <- UMV.replicate totalSize (-1)
-          
-          stackX <- UMV.unsafeNew totalSize
-          stackY <- UMV.unsafeNew totalSize
+-- PRIVATE HELPERS (TOP-DOWN)
 
-          -- Bezpieczne pobieranie piksela (uwzględnia nieregularne długości wierszy)
-          let getPixel x y = (image V.! y) V.!? x
-              
-              -- Pomocniczy wskaźnik do sprawdzania długości konkretnego wiersza
-              getRowLen y = V.length (image V.! y)
+fillST ∷ Eq a ⇒ Matrix a → (Int, Int) → ST s (Matrix Int, IntMap BlockCoordinates)
+fillST _     (0, _) = pure (V.empty, IM.empty)
+fillST image (_, 0) = pure (V.map (const V.empty) image, IM.empty)
+fillST image (h, w) = formatResult image h w =<< buildState image h w
 
-          let scanGrid !y !x !currentBlockId !accMap
-                | y >= height = pure accMap
-                | x >= getRowLen y = scanGrid (y + 1) 0 currentBlockId accMap
-                | otherwise = do
-                    let idx = y * maxWidth + x
-                    val <- UMV.unsafeRead filledRefs idx
-                    if val /= -1
-                      then scanGrid y (x + 1) currentBlockId accMap
-                      else do
-                        case getPixel x y of
-                          Nothing -> scanGrid y (x + 1) currentBlockId accMap
-                          Just targetColor -> do
-                            -- Znaleźliśmy nowy blok
-                            UMV.unsafeWrite filledRefs idx currentBlockId
-                            UMV.unsafeWrite stackX 0 x
-                            UMV.unsafeWrite stackY 0 y
+buildState ∷ Eq a ⇒ Matrix a → Int → Int → ST s (UMV.MVector s Int, IntMap BlockCoordinates)
+buildState image h w = UMV.replicate (h * w) (-1) >>= \refs -> (refs,) <$> scanGrid image h w refs 0 0 0 IM.empty
 
-                            let runDfs !stackPtr !coordsAcc
-                                  | stackPtr < 0 = pure coordsAcc
-                                  | otherwise    = do
-                                      currX <- UMV.unsafeRead stackX stackPtr
-                                      currY <- UMV.unsafeRead stackY stackPtr
-                                      
-                                      let currCoord = (currX, currY)
-                                          newAcc = currCoord : coordsAcc
+scanGrid ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)
+scanGrid _ h _ _ y _ _ accMap | y >= h = pure accMap
+scanGrid image h w refs y x blockId accMap
+  | x >= rowLen y = scanGrid image h w refs (y + 1) 0 blockId accMap
+  | otherwise     = checkCell image h w refs y x blockId accMap =<< UMV.unsafeRead refs (y * w + x)
+  where
+    rowLen = V.length . (image V.!)
 
-                                      s1 <- checkAndPush targetColor currentBlockId currX (currY - 1) (stackPtr - 1)
-                                      s2 <- checkAndPush targetColor currentBlockId currX (currY + 1) s1
-                                      s3 <- checkAndPush targetColor currentBlockId (currX - 1) currY s2
-                                      s4 <- checkAndPush targetColor currentBlockId (currX + 1) currY s3
+checkCell ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → Int → ST s (IntMap BlockCoordinates)
+checkCell image h w refs y x blockId accMap (-1) = maybe (scanGrid image h w refs y (x + 1) blockId accMap) (runFill image h w refs y x blockId accMap) (getPixel image x y)
+checkCell image h w refs y x blockId accMap _    = scanGrid image h w refs y (x + 1) blockId accMap
 
-                                      runDfs s4 newAcc
+runFill ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → a → ST s (IntMap BlockCoordinates)
+runFill image h w refs y x blockId accMap targetCol =
+  processBlock image h w refs targetCol blockId [(x, y)] [] >>= \coords ->
+    scanGrid image h w refs y (x + 1) (blockId + 1) (IM.insert blockId coords accMap)
 
-                                checkAndPush targetCol blockId nx ny !sPtr
-                                  | ny >= 0 && ny < height && nx >= 0 && nx < getRowLen ny = do
-                                      let nIdx = ny * maxWidth + nx
-                                      nVal <- UMV.unsafeRead filledRefs nIdx
-                                      if nVal == -1 && getPixel nx ny == Just targetCol
-                                        then do
-                                          UMV.unsafeWrite filledRefs nIdx blockId
-                                          let nextPtr = sPtr + 1
-                                          UMV.unsafeWrite stackX nextPtr nx
-                                          UMV.unsafeWrite stackY nextPtr ny
-                                          pure nextPtr
-                                        else pure sPtr
-                                  | otherwise = pure sPtr
+processBlock ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → a → Int → BlockCoordinates → BlockCoordinates → ST s BlockCoordinates
+processBlock _ _ _ _ _ _ [] acc = pure acc
+processBlock image h w refs targetCol blockId (p : stack) acc =
+  checkAndMark image h w refs targetCol blockId p stack acc =<< UMV.unsafeRead refs (idx p w)
 
-                            blockCoords <- runDfs 0 []
-                            let newMap = IM.insert currentBlockId blockCoords accMap
-                            scanGrid y (x + 1) (currentBlockId + 1) newMap
+checkAndMark ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → a → Int → Coordinates → BlockCoordinates → BlockCoordinates → Int → ST s BlockCoordinates
+checkAndMark image h w refs targetCol blockId p stack acc (-1) =
+  UMV.unsafeWrite refs (idx p w) blockId *>
+    processBlock image h w refs targetCol blockId (validNeighbors image h p targetCol ++ stack) (p : acc)
+checkAndMark image h w refs targetCol blockId _ stack acc _ =
+  processBlock image h w refs targetCol blockId stack acc
 
-          blockMap <- scanGrid 0 0 0 IM.empty
+validNeighbors ∷ Eq a ⇒ Matrix a → Int → Coordinates → a → BlockCoordinates
+validNeighbors image h (x, y) targetCol = filter (isTarget image h targetCol) [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
 
-          -- Rekonstrukcja macierzy wyjściowej z zachowaniem dokładnych długości oryginalnych wierszy!
-          resultMatrix <- V.generateM height $ \y -> do
-            let rowLen = V.length (image V.! y)
-            V.generateM rowLen $ \x -> do
-              val <- UMV.unsafeRead filledRefs (y * maxWidth + x)
-              pure $ if val == -1 then 0 else val
+isTarget ∷ Eq a ⇒ Matrix a → Int → a → Coordinates → Bool
+isTarget image h targetCol (nx, ny) = ny >= 0 && ny < h && nx >= 0 && nx < rowLen ny && getPixel image nx ny == Just targetCol
+  where
+    rowLen y = V.length (image V.! y)
 
-          pure (resultMatrix, blockMap)
+formatResult ∷ Matrix a → Int → Int → (UMV.MVector s Int, IntMap BlockCoordinates) → ST s (Matrix Int, IntMap BlockCoordinates)
+formatResult image h w (refs, blockMap) = (, blockMap) <$> V.generateM h (\y -> V.generateM (V.length (image V.! y)) (\x -> normalizeCell <$> UMV.unsafeRead refs (y * w + x)))
+
+normalizeCell ∷ Int → Int
+normalizeCell (-1) = 0
+normalizeCell val  = val
+
+matrixBounds ∷ Matrix a → (Int, Int)
+matrixBounds img = (V.length img, V.foldl' (\acc r -> max acc (V.length r)) 0 img)
+
+getPixel ∷ Matrix a → Int → Int → Maybe a
+getPixel img x y = (V.!? x) =<< (img V.!? y)
+
+idx ∷ Coordinates → Int → Int
+idx (x, y) w = y * w + x
