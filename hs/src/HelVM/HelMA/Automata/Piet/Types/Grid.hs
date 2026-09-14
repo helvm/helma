@@ -1,4 +1,3 @@
-{-# LANGUAGE BangPatterns #-}
 module HelVM.HelMA.Automata.Piet.Types.Grid
   ( Grid (..)
   , atGrid
