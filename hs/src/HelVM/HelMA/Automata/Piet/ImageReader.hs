@@ -1,6 +1,5 @@
 module HelVM.HelMA.Automata.Piet.ImageReader
   ( readColors
-  , rgbImageToColors
   ) where
 
 import           HelVM.HelMA.Automata.Piet.MatrixBuilder
@@ -17,10 +16,10 @@ import           HelVM.HelIO.Control.Safe
 import           Codec.Picture
 
 readColors ∷ MonadSafe m ⇒ ImageConfig → DynamicImage → m (Grid Color)
-readColors config image = matrixToGrid <$> (rgbImageToColors config =<< toRGB8ImageM image)
+readColors config image = rgbImageToColors config =<< toRGB8ImageM image
 
-rgbImageToColors ∷ MonadSafe m ⇒ ImageConfig → Image PixelRGB8 → m (Matrix Color)
-rgbImageToColors config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image where
+rgbImageToColors ∷ MonadSafe m ⇒ ImageConfig → Image PixelRGB8 → m (Grid Color)
+rgbImageToColors config image = matrixToGrid <$> (checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image) where
   (codelWidth, modX) = divMod pixelWidth codelSizeInt
   (codelHeight, modY) = divMod pixelHeight codelSizeInt
   codelSizeInt = getIntCodelSize (pixelWidth, pixelHeight) image (codelSize config)
