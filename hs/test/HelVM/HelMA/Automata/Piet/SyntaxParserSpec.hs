@@ -245,7 +245,7 @@ expectedStuckGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList
   ]
 
 rawComplexImage ∷ Grid Color
-rawComplexImage = matrixToGrid $ toVector2D
+rawComplexImage = toGrid
   [ [ Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark
