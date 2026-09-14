@@ -3,6 +3,7 @@ module HelVM.HelMA.Automata.Piet.Types.Grid
   , Matrix
   , atGrid
   , discoverBlock
+  , gridToMatrix
   , inRangeGrid
   , indexMaybe
   , matrixToGrid
@@ -143,3 +144,10 @@ matrixToGrid ∷ Matrix a → Grid a
 matrixToGrid matrix = Grid w h (V.concat $ V.toList matrix) where
   h = V.length matrix
   w = maybe 0 V.length (matrix V.!? 0)
+
+gridToMatrix ∷ Grid a → Matrix a
+gridToMatrix grid = V.generate (heightGrid grid) (extractRow grid)
+
+extractRow ∷ Grid a → Int → Vector a
+extractRow grid y = V.slice (y * w) w (cells grid) where
+  w = widthGrid grid
