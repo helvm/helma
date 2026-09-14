@@ -1,155 +1,100 @@
+{-# LANGUAGE BangPatterns #-}
 module HelVM.HelMA.Automata.Piet.Filler
   ( fillAll
-  , paramFilledRefsL
-  , paramSourceImageL
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
 
-import           Control.Monad.Primitive
-import           Control.Monad.ST
-
-import qualified Data.IntMap                                 as IM
-import           Data.Vector                                 ( Vector )
-import qualified Data.Vector.Generic                         as V
-import qualified Data.Vector.Mutable                         as VM
-
-import qualified ListT                                       as L
-
-import           Relude.Extra
-
--- TYPES & ALIASES
-
-type FillMonad a b m =
-  ( Eq a
-  , PrimMonad m
-  , MonadReader (FillerParams a b (PrimState m)) m
-  )
-
-type FillStateMonad a m =
-  ( FillMonad a Int m
-  , MonadState Int m
-  )
-
-type ListMonad m a = L.ListT m a
-
-type FillStepMonad m a = MaybeT (StateT BlockCoordinates m) a
-
-type StepRec m = Coordinates → StateT BlockCoordinates m ()
-
--- DATA & LENSES
-
-data FillerParams a b s
-  = FillerParams
-      { paramSourceImage :: Matrix a
-      , paramFilledRefs  :: STMatrix s b
-      }
-
-paramSourceImageL ∷ Lens' (FillerParams a b s) (Matrix a)
-paramSourceImageL = lens paramSourceImage updateSourceImage
-
-paramFilledRefsL ∷ Lens' (FillerParams a b s) (STMatrix s b)
-paramFilledRefsL = lens paramFilledRefs updateFilledRefs
+import           Control.Monad.ST                            ( runST )
+import qualified Data.IntMap.Strict                          as IM
+import qualified Data.Vector                                 as V
+import qualified Data.Vector.Unboxed.Mutable                 as UMV
 
 -- PUBLIC API
 
 fillAll ∷ Eq a ⇒ Matrix a → (Matrix Int, IntMap BlockCoordinates)
-fillAll image = runST $ processWithThawed image =<< thawImage image
+fillAll image
+  | V.null image = (V.empty, IM.empty)
+  | otherwise = runST $ do
+      let height = V.length image
+          -- Obliczamy maksymalną szerokość dla bezpiecznego rozplanowania płaskiej tablicy
+          maxWidth = V.foldl' (\acc row -> max acc (V.length row)) 0 image
+          totalSize = height * maxWidth
 
--- FILLER LOGIC
+      if maxWidth == 0
+        then pure (V.map (const V.empty) image, IM.empty)
+        else do
+          -- -1 = nieodwiedzone / puste
+          filledRefs <- UMV.replicate totalSize (-1)
+          
+          stackX <- UMV.unsafeNew totalSize
+          stackY <- UMV.unsafeNew totalSize
 
-fillAllST ∷ FillStateMonad a m ⇒ m (IntMap BlockCoordinates)
-fillAllST = IM.fromList <$> L.toList processListT
+          -- Bezpieczne pobieranie piksela (uwzględnia nieregularne długości wierszy)
+          let getPixel x y = (image V.! y) V.!? x
+              
+              -- Pomocniczy wskaźnik do sprawdzania długości konkretnego wiersza
+              getRowLen y = V.length (image V.! y)
 
-processListT ∷ FillStateMonad a m ⇒ ListMonad m (Int, BlockCoordinates)
-processListT = processSourceRow =<< (L.fromFoldable . V.indexed =<< lift (asksView paramSourceImageL))
+          let scanGrid !y !x !currentBlockId !accMap
+                | y >= height = pure accMap
+                | x >= getRowLen y = scanGrid (y + 1) 0 currentBlockId accMap
+                | otherwise = do
+                    let idx = y * maxWidth + x
+                    val <- UMV.unsafeRead filledRefs idx
+                    if val /= -1
+                      then scanGrid y (x + 1) currentBlockId accMap
+                      else do
+                        case getPixel x y of
+                          Nothing -> scanGrid y (x + 1) currentBlockId accMap
+                          Just targetColor -> do
+                            -- Znaleźliśmy nowy blok
+                            UMV.unsafeWrite filledRefs idx currentBlockId
+                            UMV.unsafeWrite stackX 0 x
+                            UMV.unsafeWrite stackY 0 y
 
-fill ∷ FillMonad a b m ⇒ a → b → Coordinates → m BlockCoordinates
-fill targetColor fillingColor seed = execStateT (fix (fillStep targetColor fillingColor) seed) []
+                            let runDfs !stackPtr !coordsAcc
+                                  | stackPtr < 0 = pure coordsAcc
+                                  | otherwise    = do
+                                      currX <- UMV.unsafeRead stackX stackPtr
+                                      currY <- UMV.unsafeRead stackY stackPtr
+                                      
+                                      let currCoord = (currX, currY)
+                                          newAcc = currCoord : coordsAcc
 
-fillStep ∷ FillMonad a b m ⇒ a → b → StepRec m → Coordinates → StateT BlockCoordinates m ()
-fillStep targetColor fillingColor rec coord = void . runMaybeT $ validateColorAndUnfilled targetColor coord *> markAndRecurse fillingColor rec coord
+                                      s1 <- checkAndPush targetColor currentBlockId currX (currY - 1) (stackPtr - 1)
+                                      s2 <- checkAndPush targetColor currentBlockId currX (currY + 1) s1
+                                      s3 <- checkAndPush targetColor currentBlockId (currX - 1) currY s2
+                                      s4 <- checkAndPush targetColor currentBlockId (currX + 1) currY s3
 
--- SUB-LOGIC HELPERS
+                                      runDfs s4 newAcc
 
-processWithThawed ∷ (Eq a, PrimMonad m) ⇒ Matrix a → STMatrix (PrimState m) Int → m (Matrix Int, IntMap BlockCoordinates)
-processWithThawed image refs = formatResult refs =<< runFillAllST image refs
+                                checkAndPush targetCol blockId nx ny !sPtr
+                                  | ny >= 0 && ny < height && nx >= 0 && nx < getRowLen ny = do
+                                      let nIdx = ny * maxWidth + nx
+                                      nVal <- UMV.unsafeRead filledRefs nIdx
+                                      if nVal == -1 && getPixel nx ny == Just targetCol
+                                        then do
+                                          UMV.unsafeWrite filledRefs nIdx blockId
+                                          let nextPtr = sPtr + 1
+                                          UMV.unsafeWrite stackX nextPtr nx
+                                          UMV.unsafeWrite stackY nextPtr ny
+                                          pure nextPtr
+                                        else pure sPtr
+                                  | otherwise = pure sPtr
 
-formatResult ∷ PrimMonad m ⇒ STMatrix (PrimState m) Int→ IntMap BlockCoordinates → m (Matrix Int, IntMap BlockCoordinates)
-formatResult refs positionTable = makeResultPair positionTable =<< freezeAndFormat refs
+                            blockCoords <- runDfs 0 []
+                            let newMap = IM.insert currentBlockId blockCoords accMap
+                            scanGrid y (x + 1) (currentBlockId + 1) newMap
 
-makeResultPair ∷ Applicative m ⇒ b → a → m (a, b)
-makeResultPair positionTable filledImage = pure (filledImage, positionTable)
+          blockMap <- scanGrid 0 0 0 IM.empty
 
-processSourceRow ∷ FillStateMonad a m ⇒ (Int, Vector a) → ListMonad m (Int, BlockCoordinates)
-processSourceRow (y, sourceRow) = processSourceCell y =<< L.fromFoldable (V.indexed sourceRow)
+          -- Rekonstrukcja macierzy wyjściowej z zachowaniem dokładnych długości oryginalnych wierszy!
+          resultMatrix <- V.generateM height $ \y -> do
+            let rowLen = V.length (image V.! y)
+            V.generateM rowLen $ \x -> do
+              val <- UMV.unsafeRead filledRefs (y * maxWidth + x)
+              pure $ if val == -1 then 0 else val
 
-processSourceCell ∷ FillStateMonad a m ⇒ Int → (Int, a) → ListMonad m (Int, BlockCoordinates)
-processSourceCell y (x, targetColor) = checkUnfilledAndIndex targetColor (x, y)
-
-checkUnfilledAndIndex ∷ FillStateMonad a m ⇒ a → Coordinates → ListMonad m (Int, BlockCoordinates)
-checkUnfilledAndIndex targetColor coord = checkCellState targetColor coord =<< (lift . readRefAt coord =<< lift (asksView paramFilledRefsL))
-
-readRefAt ∷ PrimMonad m ⇒ Coordinates → STMatrix (PrimState m) b → m (Maybe b)
-readRefAt (x, y) filledRefs = VM.read (filledRefs V.! y) x
-
-checkCellState ∷ FillStateMonad a m ⇒ a → Coordinates → Maybe Int → ListMonad m (Int, BlockCoordinates)
-checkCellState targetColor coord filledColorMaybe =
-  guard (isNothing filledColorMaybe) *> processCell targetColor coord
-
-processCell ∷ FillStateMonad a m ⇒ a → Coordinates → ListMonad m (Int, BlockCoordinates)
-processCell targetColor coord = fillCellWithIndex targetColor coord =<< lift get
-
-fillCellWithIndex ∷ FillStateMonad a m ⇒ a → Coordinates → Int → ListMonad m (Int, BlockCoordinates)
-fillCellWithIndex targetColor coord blockIndex = advanceAndPair blockIndex =<< lift (fill targetColor blockIndex coord)
-
-advanceAndPair ∷ MonadState Int m ⇒ Int → BlockCoordinates → ListMonad m (Int, BlockCoordinates)
-advanceAndPair blockIndex filledPositions = lift (modify (+1)) $> (blockIndex, filledPositions)
-
-validateColorAndUnfilled ∷ FillMonad a b m ⇒ a → Coordinates → FillStepMonad m ()
-validateColorAndUnfilled targetColor coord = validatePixel targetColor coord =<< lift (asksView paramSourceImageL)
-
-validatePixel ∷ FillMonad a b m ⇒ a → Coordinates → Matrix a → FillStepMonad m ()
-validatePixel targetColor p sourceImage = checkSourceAndTargetRef targetColor p =<< hoistMaybe (lookupPixel sourceImage p)
-
-checkSourceAndTargetRef ∷ FillMonad a b m ⇒ a → Coordinates → a → FillStepMonad m ()
-checkSourceAndTargetRef targetColor coord sourceColor = guard (sourceColor == targetColor) *> (guardUnfilled =<< (lift . lift . readRefAt coord =<< lift (asksView paramFilledRefsL)))
-
-guardUnfilled ∷ Monad m ⇒ Maybe b → MaybeT m ()
-guardUnfilled filledVal = guard (isNothing filledVal)
-
-markAndRecurse ∷ FillMonad a b m ⇒ b → StepRec m → Coordinates → FillStepMonad m ()
-markAndRecurse fillingColor rec coord = writeAndRecurse fillingColor rec coord =<< lift (asksView paramFilledRefsL)
-
-writeAndRecurse ∷ PrimMonad m ⇒ b → StepRec m → Coordinates → STMatrix (PrimState m) b → FillStepMonad m ()
-writeAndRecurse fillingColor rec (x, y) filledRefs = modify ((x, y) :) *> lift (VM.write (filledRefs V.! y) x (Just fillingColor)) *> lift (mapM_ rec (getNeighbors (x, y)))
-
--- GENERAL HELPERS
-
-thawImage ∷ PrimMonad m ⇒ Matrix a → m (STMatrix (PrimState m) b)
-thawImage = V.mapM (V.thaw . (Nothing <$))
-
-runFillAllST ∷ (Eq a, PrimMonad m) ⇒ Matrix a → STMatrix (PrimState m) Int → m (IntMap BlockCoordinates)
-runFillAllST image refs = runReaderT (evalStateT fillAllST 0) (makeParams image refs)
-
-freezeAndFormat ∷ PrimMonad m ⇒ STMatrix (PrimState m) Int → m (Matrix Int)
-freezeAndFormat refs = fmap (fmap (fromMaybe 0)) <$> mapM V.freeze refs
-
-makeParams ∷ Matrix a → STMatrix s b → FillerParams a b s
-makeParams image refs = FillerParams { paramSourceImage = image, paramFilledRefs = refs }
-
-lookupPixel ∷ Matrix a → Coordinates → Maybe a
-lookupPixel img (x, y) = (V.!? x) =<< img V.!? y
-
-getNeighbors ∷ Coordinates → BlockCoordinates
-getNeighbors (x, y) = [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]
-
-asksView ∷ MonadReader r m ⇒ Lens' r a → m a
-asksView l = asks (view l)
-
-updateSourceImage ∷ FillerParams a b s → Matrix a → FillerParams a b s
-updateSourceImage s x = s { paramSourceImage = x }
-
-updateFilledRefs ∷ FillerParams a b s → STMatrix s b → FillerParams a b s
-updateFilledRefs s x = s { paramFilledRefs = x }
+          pure (resultMatrix, blockMap)
