@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automata.Piet.TestUtils
-  ( toVector2D
+  ( toGrid
+  , toVector2D
   , withTempFile
   ) where
 
@@ -12,6 +13,9 @@ import qualified Data.Vector.Generic                  as V
 
 import           System.Directory
 import           System.IO
+
+toGrid ∷ [[a]] → Grid a
+toGrid = matrixToGrid . V.fromList . fmap V.fromList
 
 toVector2D ∷ [[a]] → Matrix a
 toVector2D = V.fromList . fmap V.fromList
