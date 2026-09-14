@@ -1,3 +1,4 @@
+{-# LANGUAGE BangPatterns #-}
 module HelVM.HelMA.Automata.Piet.Types.Grid
   ( Grid (..)
   , atGrid
@@ -41,7 +42,7 @@ infixl 9 &!
 indexMaybe ∷ Grid a → Coordinates → Maybe a
 indexMaybe m coord
   | inRangeGrid coord m = Just $ m `unsafeIndex` coord
-  | otherwise             = Nothing
+  | otherwise           = Nothing
 {-# INLINE indexMaybe #-}
 
 newGrid ∷ Coordinates → [(Coordinates, a)] → Grid a
@@ -57,7 +58,7 @@ inRangeGrid (x, y) m = x >= 0 && x < widthGrid m && y >= 0 && y < heightGrid m
 atGrid ∷ Coordinates → Grid a → a
 atGrid coord m
   | inRangeGrid coord m = m `unsafeIndex` coord
-  | otherwise             = error $ "Grid.atGrid: Out of bounds " <> show coord
+  | otherwise           = error $ "Grid.atGrid: Out of bounds " <> show coord
 {-# INLINE atGrid #-}
 
 -- UTILS (PRIVATE / INLINE)
@@ -74,32 +75,67 @@ toIndex ∷ Int → Coordinates → Int
 toIndex w (x, y) = y * w + x
 {-# INLINE toIndex #-}
 
--- GENERIC FAST BLOCK DISCOVERY
+-- GENERIC FAST BLOCK DISCOVERY (ZERO ALLOCATION BFS)
 
 discoverBlock ∷ Eq a ⇒ Grid a → Coordinates → BlockCoordinates
 discoverBlock m startPos
   | not (inRangeGrid startPos m) = []
-  | otherwise                      = runST $ UMV.replicate (widthGrid m * heightGrid m) False >>= runBfs m startPos
+  | otherwise                    = runST $ do
+      let w = widthGrid m
+          h = heightGrid m
+          totalSize = w * h
+      
+      visited <- UMV.replicate totalSize False
+      
+      queueX <- UMV.unsafeNew totalSize
+      queueY <- UMV.unsafeNew totalSize
+      
+      let (startX, startY) = startPos
+          targetColor = m `unsafeIndex` startPos
+          startIdx = toIndex w startPos
+      
+      UMV.unsafeWrite visited startIdx True
+      UMV.unsafeWrite queueX 0 startX
+      UMV.unsafeWrite queueY 0 startY
+      
+      let loop !headIdx !tailIdx !acc =
+            if headIdx >= tailIdx
+              then pure acc
+              else do
+                x <- UMV.unsafeRead queueX headIdx
+                y <- UMV.unsafeRead queueY headIdx
+                
+                let currCoord = (x, y)
+                    newAcc = currCoord : acc
+                
+                -- Bezpośrednie sprawdzenie 4 sąsiadów bez tworzenia tymczasowych list!
+                tailIdx' <- pushNeighbour m targetColor visited queueX queueY w h (x + 1) y tailIdx
+                tailIdx'' <- pushNeighbour m targetColor visited queueX queueY w h (x - 1) y tailIdx'
+                tailIdx''' <- pushNeighbour m targetColor visited queueX queueY w h x (y + 1) tailIdx''
+                finalTail <- pushNeighbour m targetColor visited queueX queueY w h x (y - 1) tailIdx'''
+                
+                loop (headIdx + 1) finalTail newAcc
+                
+      loop 0 1 []
+{-# INLINE discoverBlock #-}
 
-runBfs ∷ Eq a ⇒ Grid a → Coordinates → UMV.MVector s Bool → ST s BlockCoordinates
-runBfs m startPos visited = bfs m (m `unsafeIndex` startPos) visited [startPos] []
-
-bfs ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → BlockCoordinates → BlockCoordinates → ST s BlockCoordinates
-bfs _ _ _ [] acc = pure acc
-bfs m targetColor visited (curr : rest) acc = UMV.unsafeRead visited idx >>= processCell m targetColor visited curr rest acc idx where
-  idx = toIndexFromGrid m curr
-
-processCell ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → Coordinates → BlockCoordinates → BlockCoordinates → Int → Bool → ST s BlockCoordinates
-processCell m targetColor visited _    rest acc _   True  = bfs m targetColor visited rest acc
-processCell m targetColor visited curr rest acc idx False = UMV.unsafeWrite visited idx True *> checkColor m targetColor visited curr rest acc (m `unsafeIndex` curr == targetColor)
-
-checkColor ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → Coordinates → BlockCoordinates → BlockCoordinates → Bool → ST s BlockCoordinates
-checkColor m targetColor visited _ rest acc False = bfs m targetColor visited rest acc
-checkColor m targetColor visited curr rest acc True  =
-  bfs m targetColor visited (validNeighbours m curr ++ rest) (curr : acc)
-
-validNeighbours ∷ Grid a → Coordinates → BlockCoordinates
-validNeighbours m (x, y) = filter (`inRangeGrid` m) [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
+pushNeighbour ∷ Eq a 
+              ⇒ Grid a → a → UMV.MVector s Bool 
+              → UMV.MVector s Int → UMV.MVector s Int 
+              → Int → Int → Int → Int → Int → ST s Int
+pushNeighbour m targetColor visited qX qY w h x y tailIdx
+  | x >= 0 && x < w && y >= 0 && y < h = do
+      let idx = y * w + x
+      isVisited <- UMV.unsafeRead visited idx
+      if not isVisited && (cells m `V.unsafeIndex` idx == targetColor)
+        then do
+          UMV.unsafeWrite visited idx True
+          UMV.unsafeWrite qX tailIdx x
+          UMV.unsafeWrite qY tailIdx y
+          pure $! tailIdx + 1
+        else pure tailIdx
+  | otherwise = pure tailIdx
+{-# INLINE pushNeighbour #-}
 
 nextCoords ∷ Grid a → Coordinates → Maybe Coordinates
 nextCoords m = Coordinates.nextCoords (widthGrid m, heightGrid m)
