@@ -68,7 +68,7 @@ spec = do
       ] $ \(config, expectedCodels) ->
         context ("when configured with " ++ show config) $ do
           res <- runIO . runSafeT $ readColors config =<< readImageFile "examples/piet/llvm/imagereader-test.png"
-          it "returns codels" $ safeToEitherLegacy res `shouldBe` Right expectedCodels
+          it "returns codels" $ safeToEitherLegacy res `shouldBe` Right (matrixToGrid expectedCodels)
 
     context "when given Nothing" $ do
       let config = ImageConfig { additionalColor = AdditionalColor.Nearest
@@ -76,7 +76,7 @@ spec = do
                                , codelSize = Nothing
                                }
       res <- runIO . runSafeT $ readColors config =<< readImageFile "examples/piet/llvm/codel10-test.png"
-      it "returns codels" $ safeToEitherLegacy res `shouldBe` Right complexCodels
+      it "returns codels" $ safeToEitherLegacy res `shouldBe` Right (matrixToGrid complexCodels)
 
     context "when given an invalid codel size" $ do
       let config = ImageConfig { additionalColor = AdditionalColor.Nearest

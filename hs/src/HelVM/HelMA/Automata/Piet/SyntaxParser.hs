@@ -31,8 +31,8 @@ import           Relude.Extra
 
 type BlockTable = IntMap BlockCoordinates
 
-parse ∷ MonadSafe m ⇒ Matrix Color → m (Maybe SyntaxGraph)
-parse image = parseFilledGridWithSplit (fillAll $ gridToMatrix grid) grid  where grid = (matrixToGrid image)
+parse ∷ MonadSafe m ⇒ Grid Color → m (Maybe SyntaxGraph)
+parse grid = parseFilledGridWithSplit (fillAll $ gridToMatrix grid) grid
 
 parseFilledGridWithSplit ∷ MonadSafe m ⇒ (Matrix Int, BlockTable) → Grid Color → m (Maybe SyntaxGraph)
 parseFilledGridWithSplit (indices, positionTable) grid = parseFilledGrid (zipGridCodel grid (matrixToGrid indices), positionTable)

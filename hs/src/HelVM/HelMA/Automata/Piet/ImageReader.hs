@@ -16,8 +16,8 @@ import           HelVM.HelIO.Control.Safe
 
 import           Codec.Picture
 
-readColors ∷ MonadSafe m ⇒ ImageConfig → DynamicImage → m (Matrix Color)
-readColors config image = rgbImageToColors config =<< toRGB8ImageM image
+readColors ∷ MonadSafe m ⇒ ImageConfig → DynamicImage → m (Grid Color)
+readColors config image = matrixToGrid <$> (rgbImageToColors config =<< toRGB8ImageM image)
 
 rgbImageToColors ∷ MonadSafe m ⇒ ImageConfig → Image PixelRGB8 → m (Matrix Color)
 rgbImageToColors config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image where
