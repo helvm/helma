@@ -1,5 +1,6 @@
 module HelVM.HelMA.Automata.Piet.WhiteCodelSlider
   ( slideOnWhiteBlock
+  , slideOnWhiteGrid
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
@@ -65,4 +66,4 @@ getNonBlackCodel (Grid w h cells) (x, y)
 matrixToGrid ∷ Matrix a → Grid a
 matrixToGrid matrix = Grid w h (V.concat $ V.toList matrix) where
   h = V.length matrix
-  w = V.foldl' (\acc r -> max acc (V.length r)) 0 matrix
+  w = maybe 0 V.length (matrix V.!? 0)
