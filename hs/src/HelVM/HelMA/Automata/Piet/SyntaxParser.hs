@@ -39,63 +39,64 @@ parseFilledImageWithSplit ∷ MonadSafe m ⇒ (Matrix Int, BlockTable) → Matri
 parseFilledImageWithSplit (indices, positionTable) image = parseFilledImage (V.zipWith (V.zipWith Codel) image indices, positionTable)
 
 parseFilledImage ∷ MonadSafe m ⇒ (Matrix Codel, BlockTable) → m (Maybe SyntaxGraph)
-parseFilledImage (image, blockTable) = parseFrom image blockTable =<< searchInitialBlock image
+parseFilledImage (image, blockTable) = parseFrom grid blockTable =<< searchInitialBlock grid image where
+  grid = matrixToGrid image
 
-parseFrom ∷ MonadSafe m ⇒ Matrix Codel → BlockTable → Maybe BlockEdge → m (Maybe SyntaxGraph)
+parseFrom ∷ MonadSafe m ⇒ Grid Codel → BlockTable → Maybe BlockEdge → m (Maybe SyntaxGraph)
 parseFrom _ _ Nothing                  = pure Nothing
-parseFrom image blockTable (Just edge) = Just . SyntaxGraph edge <$> execStateT (parseState image blockTable (view blockIndexL edge)) IM.empty
+parseFrom grid blockTable (Just edge) = Just . SyntaxGraph edge <$> execStateT (parseState grid blockTable (view blockIndexL edge)) IM.empty
 
-parseState ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Matrix Codel → BlockTable → Int → m ()
-parseState image blockTable blockIndex = justOrThrow ("MissingCodelIndexError: " <> show blockIndex) (blockTable IM.!? blockIndex) >>= processBlockState image blockTable blockIndex
+parseState ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Grid Codel → BlockTable → Int → m ()
+parseState grid blockTable blockIndex = justOrThrow ("MissingCodelIndexError: " <> show blockIndex) (blockTable IM.!? blockIndex) >>= processBlockState grid blockTable blockIndex
 
-processBlockState ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Matrix Codel → BlockTable → Int → BlockCoordinates → m ()
-processBlockState image blockTable blockIndex blockCoords = processUnvisited image blockTable (buildNextBlockList image blockCoords) =<< insertBlock blockIndex (buildNextBlockList image blockCoords)
+processBlockState ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Grid Codel → BlockTable → Int → BlockCoordinates → m ()
+processBlockState grid blockTable blockIndex blockCoords = processUnvisited grid blockTable (buildNextBlockList grid blockCoords) =<< insertBlock blockIndex (buildNextBlockList grid blockCoords)
 
 insertBlock ∷ MonadState (IntMap Block) m ⇒ Int → [(Course, Maybe NextBlock)] → m ()
 insertBlock blockIndex nextBlockList = modify (IM.insert blockIndex (Block $ M.fromList nextBlockList))
 
-processUnvisited ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Matrix Codel → BlockTable → [(Course, Maybe NextBlock)] → () → m ()
-processUnvisited image blockTable nextBlockList () = traverse_ (parseState image blockTable) . filterUnvisited nextBlockList =<< get
+processUnvisited ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Grid Codel → BlockTable → [(Course, Maybe NextBlock)] → () → m ()
+processUnvisited grid blockTable nextBlockList () = traverse_ (parseState grid blockTable) . filterUnvisited nextBlockList =<< get
 
 filterUnvisited ∷ [(Course, Maybe NextBlock)] → IntMap Block → [Int]
 filterUnvisited nextBlockList visitedMap =
   filter (`IM.notMember` visitedMap) (mapMaybe (nextBlockToIndex . snd) nextBlockList)
 
-buildNextBlockList ∷ Matrix Codel → BlockCoordinates → [(Course, Maybe NextBlock)]
-buildNextBlockList image blockCoords = mapMaybe (findCourseNextBlock image blockCoords (olength blockCoords)) (minMaxCoords blockCoords)
+buildNextBlockList ∷ Grid Codel → BlockCoordinates → [(Course, Maybe NextBlock)]
+buildNextBlockList grid blockCoords = mapMaybe (findCourseNextBlock grid blockCoords (olength blockCoords)) (minMaxCoords blockCoords)
 
-findCourseNextBlock ∷ Matrix Codel → BlockCoordinates → Int → Cursor → Maybe (Course, Maybe NextBlock)
-findCourseNextBlock image blockCoords blockSize cur = (cur.course,) <$> searchNextBlock image blockCoords cur.course blockSize
+findCourseNextBlock ∷ Grid Codel → BlockCoordinates → Int → Cursor → Maybe (Course, Maybe NextBlock)
+findCourseNextBlock grid blockCoords blockSize cur = (cur.course,) <$> searchNextBlock grid blockCoords cur.course blockSize
 
-searchInitialBlock ∷ MonadSafe m ⇒ Matrix Codel → m (Maybe BlockEdge)
-searchInitialBlock image = processInitial image =<< justOrThrow "EmptyBlockTableError" ((V.!? 0) =<< image V.!? 0)
+searchInitialBlock ∷ MonadSafe m ⇒ Grid Codel → Matrix Codel → m (Maybe BlockEdge)
+searchInitialBlock grid image = processInitial grid =<< justOrThrow "EmptyBlockTableError" ((V.!? 0) =<< image V.!? 0)
 
-processInitial ∷ MonadSafe m ⇒ Matrix Codel → Codel → m (Maybe BlockEdge)
+processInitial ∷ MonadSafe m ⇒ Grid Codel → Codel → m (Maybe BlockEdge)
 processInitial _ (Codel (Chromatic _) blockIdx) = pure $ Just $ BlockEdge blockIdx initialCourse
-processInitial image (Codel White _)            = pure $ view targetL <$> slideOnWhiteBlock (matrixToGrid image) initialCursor
+processInitial grid (Codel White _)             = pure $ view targetL <$> slideOnWhiteBlock grid initialCursor
 processInitial _ (Codel Black _)                = liftError "IllegalInitialColorError"
 
-searchNextBlock ∷ Matrix Codel → BlockCoordinates → Course → Int → Maybe (Maybe NextBlock)
-searchNextBlock image blockCoords startCourse blockSize = tryCourseAttempts image curColor cornerMap blockSize 0 startCourse where
-  curColor  = getCurColor image blockCoords
+searchNextBlock ∷ Grid Codel → BlockCoordinates → Course → Int → Maybe (Maybe NextBlock)
+searchNextBlock grid blockCoords startCourse blockSize = tryCourseAttempts grid curColor cornerMap blockSize 0 startCourse where
+  curColor  = getCurColor grid blockCoords
   cornerMap = M.fromList [ (c.course, c.position) | c <- minMaxCoords blockCoords ]
 
-tryCourseAttempts ∷ Matrix Codel → Maybe ChromaticColor → Map Course Coordinates → Int → Int → Course → Maybe (Maybe NextBlock)
-tryCourseAttempts _     Nothing         _         _         _ _   = Nothing
-tryCourseAttempts _     _               _         _         8 _   = Nothing
-tryCourseAttempts image (Just curColor) cornerMap blockSize k crs =
-  checkTargetCodel image curColor crs blockSize (nextAttempt (k + 1) (bounceCourse k crs)) (fetchTargetCodel image cornerMap crs) where
-    nextAttempt = tryCourseAttempts image (Just curColor) cornerMap blockSize
+tryCourseAttempts ∷ Grid Codel → Maybe ChromaticColor → Map Course Coordinates → Int → Int → Course → Maybe (Maybe NextBlock)
+tryCourseAttempts _    Nothing         _         _         _ _   = Nothing
+tryCourseAttempts _    _               _         _         8 _   = Nothing
+tryCourseAttempts grid (Just curColor) cornerMap blockSize k crs =
+  checkTargetCodel grid curColor crs blockSize (nextAttempt (k + 1) (bounceCourse k crs)) (fetchTargetCodel grid cornerMap crs) where
+    nextAttempt = tryCourseAttempts grid (Just curColor) cornerMap blockSize
 
-fetchTargetCodel ∷ Matrix Codel → Map Course Coordinates → Course → Maybe (Coordinates, Codel)
-fetchTargetCodel image cornerMap crs = makeTarget =<< M.lookup crs cornerMap where
-  makeTarget p = traverseToSnd (fetchNextCodel image) targetPos where targetPos = move (crs.directionPointer) p
+fetchTargetCodel ∷ Grid Codel → Map Course Coordinates → Course → Maybe (Coordinates, Codel)
+fetchTargetCodel grid cornerMap crs = makeTarget =<< M.lookup crs cornerMap where
+  makeTarget p = traverseToSnd (fetchNextCodel grid) targetPos where targetPos = move (crs.directionPointer) p
 
-checkTargetCodel ∷ Matrix Codel → ChromaticColor → Course → Int → Maybe (Maybe NextBlock) → Maybe (Coordinates, Codel) → Maybe (Maybe NextBlock)
-checkTargetCodel _     _        _   _         fallback Nothing                          = fallback
-checkTargetCodel _     _        _   _         fallback (Just (_, Codel Black _))        = fallback
-checkTargetCodel image _        crs _         _        (Just (pos, Codel White _))      = Just $ slideOnWhiteBlock (matrixToGrid image) (Cursor pos crs)
-checkTargetCodel _     curColor crs blockSize _        (Just (_, Codel (Chromatic nextColor) nextIdx)) =
+checkTargetCodel ∷ Grid Codel → ChromaticColor → Course → Int → Maybe (Maybe NextBlock) → Maybe (Coordinates, Codel) → Maybe (Maybe NextBlock)
+checkTargetCodel _    _        _   _         fallback Nothing                          = fallback
+checkTargetCodel _    _        _   _         fallback (Just (_, Codel Black _))        = fallback
+checkTargetCodel grid _        crs _         _        (Just (pos, Codel White _))      = Just $ slideOnWhiteBlock grid (Cursor pos crs)
+checkTargetCodel _    curColor crs blockSize _        (Just (_, Codel (Chromatic nextColor) nextIdx)) =
   Just $ Just $ NextBlock (commandFromTransition curColor nextColor blockSize) (BlockEdge nextIdx crs)
 
 bounceCourse ∷ Int → Course → Course
@@ -103,16 +104,18 @@ bounceCourse k
   | even k    = toggleCodelChooser 1
   | otherwise = rotateDirectionPointer 1
 
-getCurColor ∷ Matrix Codel → BlockCoordinates → Maybe ChromaticColor
-getCurColor _     []           = Nothing
-getCurColor image ((x, y) : _) = extractChromatic =<< fetchNextCodel image (x, y)
+getCurColor ∷ Grid Codel → BlockCoordinates → Maybe ChromaticColor
+getCurColor _    []           = Nothing
+getCurColor grid ((x, y) : _) = extractChromatic =<< fetchNextCodel grid (x, y)
 
 extractChromatic ∷ Codel → Maybe ChromaticColor
 extractChromatic (Codel (Chromatic c) _) = Just c
 extractChromatic _                       = Nothing
 
-fetchNextCodel ∷ Matrix Codel → Coordinates → Maybe Codel
-fetchNextCodel image (nextX, nextY) = (V.!? nextX) =<< image V.!? nextY
+fetchNextCodel ∷ Grid Codel → Coordinates → Maybe Codel
+fetchNextCodel (Grid w h cells) (x, y)
+  | x >= 0 && x < w && y >= 0 && y < h = cells V.!? (y * w + x)
+  | otherwise                           = Nothing
 
 nextBlockToIndex ∷ Maybe NextBlock → Maybe Int
 nextBlockToIndex nb = view (targetL . blockIndexL) <$> nb
