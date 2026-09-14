@@ -19,7 +19,7 @@ readColors ∷ MonadSafe m ⇒ ImageConfig → DynamicImage → m (Grid Color)
 readColors config image = rgbImageToColors config =<< toRGB8ImageM image
 
 rgbImageToColors ∷ MonadSafe m ⇒ ImageConfig → Image PixelRGB8 → m (Grid Color)
-rgbImageToColors config image = matrixToGrid <$> (checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image) where
+rgbImageToColors config image = checkDimensions (modX, modY) $> buildMatrix (codelWidth, codelHeight) config codelSizeInt image where
   (codelWidth, modX) = divMod pixelWidth codelSizeInt
   (codelHeight, modY) = divMod pixelHeight codelSizeInt
   codelSizeInt = getIntCodelSize (pixelWidth, pixelHeight) image (codelSize config)
