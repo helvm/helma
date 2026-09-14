@@ -1,6 +1,5 @@
 module HelVM.HelMA.Automata.Piet.WhiteCodelSlider
   ( slideOnWhiteBlock
-  , slideOnWhiteGrid
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
