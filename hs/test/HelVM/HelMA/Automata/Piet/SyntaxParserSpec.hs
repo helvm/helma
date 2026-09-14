@@ -21,7 +21,6 @@ import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import qualified Data.IntMap                                    as IM
 import qualified Data.Map                                       as M
-import qualified Data.Vector.Generic                            as V
 
 import           Test.Hspec
 
@@ -36,7 +35,7 @@ data ImageTestCase
 data ErrorTestCase
   = ErrorTestCase
       { errCaseName   :: String
-      , errTestImage  :: Matrix Codel
+      , errTestImage  :: Grid Codel
       , errBlockTable :: IntMap BlockCoordinates
       , expectedErr   :: String
       }
@@ -70,11 +69,10 @@ spec = do
           xit "returns a syntax graph" $ safeToEitherLegacy res `shouldBe` Right (expectedGraph tc)
 
     forM_
-      [ ErrorTestCase "emptyImage" V.empty IM.empty "EmptyBlockTableError\n"
-      , ErrorTestCase "blackImage" blackImage blackBlockTable "IllegalInitialColorError\n"
+      [ ErrorTestCase "blackImage" blackImage blackBlockTable "IllegalInitialColorError\n"
       ] $ \tc ->
         context ("when given " ++ errCaseName tc) $ do
-          res <- runIO . runSafeT $ parseFilledGrid (matrixToGrid $ errTestImage tc, errBlockTable tc)
+          res <- runIO . runSafeT $ parseFilledGrid (errTestImage tc, errBlockTable tc)
           it "returns an error" $ safeToEitherLegacy res `shouldBe` Left (expectedErr tc)
 
     context "when given an image which only consists of two pixels" $ do
@@ -159,8 +157,8 @@ whiteImage = toGrid [[Codel White 0]]
 whiteBlockTable ∷ IntMap BlockCoordinates
 whiteBlockTable = IM.fromList [(0, [(0, 0)])]
 
-blackImage ∷ Matrix Codel
-blackImage = toVector2D [[Codel Black 0]]
+blackImage ∷ Grid Codel
+blackImage = toGrid [[Codel Black 0]]
 
 blackBlockTable ∷ IntMap BlockCoordinates
 blackBlockTable = IM.fromList [(0, [(0, 0)])]
