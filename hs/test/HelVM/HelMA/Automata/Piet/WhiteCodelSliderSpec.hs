@@ -43,54 +43,54 @@ spec = describe "slideOnWhiteBlock" $ forM_ testCases runTest where
         slideOnWhiteBlock (testGrid tc) (entryCursor tc) `shouldBe` expectedResult tc
 
   testCases =
-    [ TestCase "singleCodelImage (0, 0) rl" (matrixToGrid singleCodelImage) (Cursor (0, 0) rl) Nothing
-    , TestCase "oneLoopImage (1, 1) rl" (matrixToGrid oneLoopImage) (Cursor (1, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 2 ur))
-    , TestCase "oneLoopImage (1, 1) rr" (matrixToGrid oneLoopImage) (Cursor (1, 1) rr) (Just $ NextBlock NoOperation (BlockEdge 2 ul))
-    , TestCase "gammaImage (1, 1) rl" (matrixToGrid gammaImage) (Cursor (1, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 1 rl))
-    , TestCase "gammaImage (1, 4) rl" (matrixToGrid gammaImage) (Cursor (1, 4) rl) (Just $ NextBlock NoOperation (BlockEdge 0 ll))
-    , TestCase "crossShapedImage (2, 1) rl" (matrixToGrid crossShapedImage) (Cursor (2, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
-    , TestCase "crossShapedImage (2, 1) rr" (matrixToGrid crossShapedImage) (Cursor (2, 1) rr) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
-    , TestCase "crossShapedImage (2, 1) dl" (matrixToGrid crossShapedImage) (Cursor (2, 1) dl) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
-    , TestCase "crossShapedImage (2, 1) dr" (matrixToGrid crossShapedImage) (Cursor (2, 1) dr) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
-    , TestCase "crossShapedImage (2, 1) ll" (matrixToGrid crossShapedImage) (Cursor (2, 1) ll) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
-    , TestCase "crossShapedImage (2, 1) lr" (matrixToGrid crossShapedImage) (Cursor (2, 1) lr) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
-    , TestCase "crossShapedImage (2, 1) ul" (matrixToGrid crossShapedImage) (Cursor (2, 1) ul) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
-    , TestCase "crossShapedImage (2, 1) ur" (matrixToGrid crossShapedImage) (Cursor (2, 1) ur) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
-    , TestCase "crossShapedImage (1, 2) rl" (matrixToGrid crossShapedImage) (Cursor (1, 2) rl) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
-    , TestCase "crossShapedImage (1, 2) rr" (matrixToGrid crossShapedImage) (Cursor (1, 2) rr) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
-    , TestCase "crossShapedImage (1, 2) dl" (matrixToGrid crossShapedImage) (Cursor (1, 2) dl) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
-    , TestCase "crossShapedImage (1, 2) dr" (matrixToGrid crossShapedImage) (Cursor (1, 2) dr) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
-    , TestCase "crossShapedImage (1, 2) ll" (matrixToGrid crossShapedImage) (Cursor (1, 2) ll) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
-    , TestCase "crossShapedImage (1, 2) lr" (matrixToGrid crossShapedImage) (Cursor (1, 2) lr) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
-    , TestCase "crossShapedImage (1, 2) ul" (matrixToGrid crossShapedImage) (Cursor (1, 2) ul) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
-    , TestCase "crossShapedImage (1, 2) ur" (matrixToGrid crossShapedImage) (Cursor (1, 2) ur) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
-    , TestCase "crossShapedImage (3, 2) rl" (matrixToGrid crossShapedImage) (Cursor (3, 2) rl) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
-    , TestCase "crossShapedImage (3, 2) rr" (matrixToGrid crossShapedImage) (Cursor (3, 2) rr) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
-    , TestCase "crossShapedImage (3, 2) dl" (matrixToGrid crossShapedImage) (Cursor (3, 2) dl) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
-    , TestCase "crossShapedImage (3, 2) dr" (matrixToGrid crossShapedImage) (Cursor (3, 2) dr) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
-    , TestCase "crossShapedImage (3, 2) ll" (matrixToGrid crossShapedImage) (Cursor (3, 2) ll) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
-    , TestCase "crossShapedImage (3, 2) lr" (matrixToGrid crossShapedImage) (Cursor (3, 2) lr) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
-    , TestCase "crossShapedImage (3, 2) ul" (matrixToGrid crossShapedImage) (Cursor (3, 3) ul) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
-    , TestCase "crossShapedImage (3, 2) ur" (matrixToGrid crossShapedImage) (Cursor (3, 2) ur) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
-    , TestCase "crossShapedImage (2, 3) rl" (matrixToGrid crossShapedImage) (Cursor (2, 3) rl) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
-    , TestCase "crossShapedImage (2, 3) rr" (matrixToGrid crossShapedImage) (Cursor (2, 3) rr) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
-    , TestCase "crossShapedImage (2, 3) dl" (matrixToGrid crossShapedImage) (Cursor (2, 3) dl) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
-    , TestCase "crossShapedImage (2, 3) dr" (matrixToGrid crossShapedImage) (Cursor (2, 3) dr) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
-    , TestCase "crossShapedImage (2, 3) ll" (matrixToGrid crossShapedImage) (Cursor (2, 3) ll) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
-    , TestCase "crossShapedImage (2, 3) lr" (matrixToGrid crossShapedImage) (Cursor (2, 3) lr) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
-    , TestCase "crossShapedImage (2, 3) ul" (matrixToGrid crossShapedImage) (Cursor (2, 3) ul) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
-    , TestCase "crossShapedImage (2, 3) ur" (matrixToGrid crossShapedImage) (Cursor (2, 3) ur) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
-    , TestCase "spiralImage (1, 1) rl" (matrixToGrid spiralImage) (Cursor (1, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 4 rl))
-    , TestCase "stuckImage1 (1, 1) rl" (matrixToGrid stuckImage1) (Cursor (1, 1) rl) Nothing
-    , TestCase "stuckImage2 (1, 1) rl" (matrixToGrid stuckImage2) (Cursor (1, 1) rl) Nothing
-    , TestCase "stuckImage3 (1, 1) rl" (matrixToGrid stuckImage3) (Cursor (1, 1) rl) Nothing
+    [ TestCase "singleCodelImage (0, 0) rl" singleCodelImage (Cursor (0, 0) rl) Nothing
+    , TestCase "oneLoopImage (1, 1) rl" oneLoopImage (Cursor (1, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 2 ur))
+    , TestCase "oneLoopImage (1, 1) rr" oneLoopImage (Cursor (1, 1) rr) (Just $ NextBlock NoOperation (BlockEdge 2 ul))
+    , TestCase "gammaImage (1, 1) rl" gammaImage (Cursor (1, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 1 rl))
+    , TestCase "gammaImage (1, 4) rl" gammaImage (Cursor (1, 4) rl) (Just $ NextBlock NoOperation (BlockEdge 0 ll))
+    , TestCase "crossShapedImage (2, 1) rl" crossShapedImage (Cursor (2, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
+    , TestCase "crossShapedImage (2, 1) rr" crossShapedImage (Cursor (2, 1) rr) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
+    , TestCase "crossShapedImage (2, 1) dl" crossShapedImage (Cursor (2, 1) dl) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
+    , TestCase "crossShapedImage (2, 1) dr" crossShapedImage (Cursor (2, 1) dr) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
+    , TestCase "crossShapedImage (2, 1) ll" crossShapedImage (Cursor (2, 1) ll) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
+    , TestCase "crossShapedImage (2, 1) lr" crossShapedImage (Cursor (2, 1) lr) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
+    , TestCase "crossShapedImage (2, 1) ul" crossShapedImage (Cursor (2, 1) ul) (Just $ NextBlock NoOperation (BlockEdge 5 dl))
+    , TestCase "crossShapedImage (2, 1) ur" crossShapedImage (Cursor (2, 1) ur) (Just $ NextBlock NoOperation (BlockEdge 5 dr))
+    , TestCase "crossShapedImage (1, 2) rl" crossShapedImage (Cursor (1, 2) rl) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
+    , TestCase "crossShapedImage (1, 2) rr" crossShapedImage (Cursor (1, 2) rr) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
+    , TestCase "crossShapedImage (1, 2) dl" crossShapedImage (Cursor (1, 2) dl) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
+    , TestCase "crossShapedImage (1, 2) dr" crossShapedImage (Cursor (1, 2) dr) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
+    , TestCase "crossShapedImage (1, 2) ll" crossShapedImage (Cursor (1, 2) ll) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
+    , TestCase "crossShapedImage (1, 2) lr" crossShapedImage (Cursor (1, 2) lr) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
+    , TestCase "crossShapedImage (1, 2) ul" crossShapedImage (Cursor (1, 2) ul) (Just $ NextBlock NoOperation (BlockEdge 5 rr))
+    , TestCase "crossShapedImage (1, 2) ur" crossShapedImage (Cursor (1, 2) ur) (Just $ NextBlock NoOperation (BlockEdge 5 rl))
+    , TestCase "crossShapedImage (3, 2) rl" crossShapedImage (Cursor (3, 2) rl) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
+    , TestCase "crossShapedImage (3, 2) rr" crossShapedImage (Cursor (3, 2) rr) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
+    , TestCase "crossShapedImage (3, 2) dl" crossShapedImage (Cursor (3, 2) dl) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
+    , TestCase "crossShapedImage (3, 2) dr" crossShapedImage (Cursor (3, 2) dr) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
+    , TestCase "crossShapedImage (3, 2) ll" crossShapedImage (Cursor (3, 2) ll) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
+    , TestCase "crossShapedImage (3, 2) lr" crossShapedImage (Cursor (3, 2) lr) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
+    , TestCase "crossShapedImage (3, 2) ul" crossShapedImage (Cursor (3, 3) ul) (Just $ NextBlock NoOperation (BlockEdge 5 lr))
+    , TestCase "crossShapedImage (3, 2) ur" crossShapedImage (Cursor (3, 2) ur) (Just $ NextBlock NoOperation (BlockEdge 5 ll))
+    , TestCase "crossShapedImage (2, 3) rl" crossShapedImage (Cursor (2, 3) rl) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
+    , TestCase "crossShapedImage (2, 3) rr" crossShapedImage (Cursor (2, 3) rr) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
+    , TestCase "crossShapedImage (2, 3) dl" crossShapedImage (Cursor (2, 3) dl) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
+    , TestCase "crossShapedImage (2, 3) dr" crossShapedImage (Cursor (2, 3) dr) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
+    , TestCase "crossShapedImage (2, 3) ll" crossShapedImage (Cursor (2, 3) ll) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
+    , TestCase "crossShapedImage (2, 3) lr" crossShapedImage (Cursor (2, 3) lr) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
+    , TestCase "crossShapedImage (2, 3) ul" crossShapedImage (Cursor (2, 3) ul) (Just $ NextBlock NoOperation (BlockEdge 5 ul))
+    , TestCase "crossShapedImage (2, 3) ur" crossShapedImage (Cursor (2, 3) ur) (Just $ NextBlock NoOperation (BlockEdge 5 ur))
+    , TestCase "spiralImage (1, 1) rl" spiralImage (Cursor (1, 1) rl) (Just $ NextBlock NoOperation (BlockEdge 4 rl))
+    , TestCase "stuckImage1 (1, 1) rl" stuckImage1 (Cursor (1, 1) rl) Nothing
+    , TestCase "stuckImage2 (1, 1) rl" stuckImage2 (Cursor (1, 1) rl) Nothing
+    , TestCase "stuckImage3 (1, 1) rl" stuckImage3 (Cursor (1, 1) rl) Nothing
     ]
 
-singleCodelImage ∷ Matrix Codel
-singleCodelImage = V.singleton $ V.singleton $ Codel White 0
+singleCodelImage ∷ Grid Codel
+singleCodelImage = matrixToGrid $ V.singleton $ V.singleton $ Codel White 0
 
-oneLoopImage ∷ Matrix Codel
-oneLoopImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+oneLoopImage ∷ Grid Codel
+oneLoopImage = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
 y          1
@@ -108,8 +108,8 @@ y2         1
   f '2' = Codel Black 7
   f _   = error "Unreachable"
 
-gammaImage ∷ Matrix Codel
-gammaImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+gammaImage ∷ Grid Codel
+gammaImage = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 r          g
 r       0  b
 r          c
@@ -127,8 +127,8 @@ r     1    y
   f '1' = Codel Black 8
   f _   = error "Unreachable"
 
-crossShapedImage ∷ Matrix Codel
-crossShapedImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+crossShapedImage ∷ Grid Codel
+crossShapedImage = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 *****
 **0**
 *1r2*
@@ -143,8 +143,8 @@ crossShapedImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (to
   f 'r' = Codel (Chromatic $ ChromaticColor Red Normal) 5
   f _   = error "Unreachable"
 
-spiralImage ∷ Matrix Codel
-spiralImage = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+spiralImage ∷ Grid Codel
+spiralImage = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 rrrrrrrrrrrg
 y         0g
 y 3        g
@@ -173,8 +173,8 @@ ybbbbbbbbbbb
   f '7' = Codel Black 13
   f _   = error "Unreachable"
 
-stuckImage1 ∷ Matrix Codel
-stuckImage1 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+stuckImage1 ∷ Grid Codel
+stuckImage1 = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
 y          1
@@ -192,8 +192,8 @@ y       2  1
   f '2' = Codel Black 7
   f _   = error "Unreachable"
 
-stuckImage2 ∷ Matrix Codel
-stuckImage2 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+stuckImage2 ∷ Grid Codel
+stuckImage2 = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
 y          1
@@ -211,8 +211,8 @@ y        2 1
   f '2' = Codel Black 7
   f _   = error "Unreachable"
 
-stuckImage3 ∷ Matrix Codel
-stuckImage3 = V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+stuckImage3 ∷ Grid Codel
+stuckImage3 = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
 00gb11111111
 y          1
 y          1
