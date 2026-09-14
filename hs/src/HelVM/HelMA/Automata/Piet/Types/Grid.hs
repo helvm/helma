@@ -1,9 +1,12 @@
 module HelVM.HelMA.Automata.Piet.Types.Grid
   ( Grid (..)
+  , Matrix
+  , STMatrix
   , atGrid
   , discoverBlock
   , inRangeGrid
   , indexMaybe
+  , matrixToGrid
   , newGrid
   , nextCoords
   , (&!)
@@ -14,11 +17,16 @@ import qualified HelVM.HelMA.Automata.Piet.Types.Coordinates as Coordinates
 
 import           Control.Monad.ST                            ( ST, runST )
 
+import           Data.Vector                                 ( Vector )
 import qualified Data.Vector                                 as V
+import           Data.Vector.Mutable                         ( STVector )
 import qualified Data.Vector.Mutable                         as MV
 import qualified Data.Vector.Unboxed.Mutable                 as UMV
 
 -- Grid DEFINITION
+
+type Matrix a = Vector (Vector a)
+type STMatrix s b = Vector (STVector s (Maybe b))
 
 data Grid a
   = Grid
@@ -133,3 +141,8 @@ toIndex w (x, y) = y * w + x
 totalSize ∷ Grid a → Int
 totalSize m = widthGrid m * heightGrid m
 {-# INLINE totalSize #-}
+
+matrixToGrid ∷ Matrix a → Grid a
+matrixToGrid matrix = Grid w h (V.concat $ V.toList matrix) where
+  h = V.length matrix
+  w = maybe 0 V.length (matrix V.!? 0)

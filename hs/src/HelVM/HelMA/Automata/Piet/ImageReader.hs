@@ -10,7 +10,7 @@ import           HelVM.HelMA.Automata.Piet.API.ImageConfig
 
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 
 import           HelVM.HelIO.Control.Safe
 

@@ -3,9 +3,9 @@ module HelVM.HelMA.Automata.Piet.Filler
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 
-import           Control.Monad.ST                            ( ST , runST )
+import           Control.Monad.ST                            ( ST, runST )
 import qualified Data.IntMap.Strict                          as IM
 import qualified Data.Vector                                 as V
 import qualified Data.Vector.Unboxed.Mutable                 as UMV

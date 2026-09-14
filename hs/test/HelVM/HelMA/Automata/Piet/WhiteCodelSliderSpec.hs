@@ -17,7 +17,6 @@ import           HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import qualified Data.Vector                                    as V
@@ -86,11 +85,6 @@ spec = describe "slideOnWhiteBlock" $ forM_ testCases runTest where
     , TestCase "stuckImage2 (1, 1) rl" (matrixToGrid stuckImage2) (Cursor (1, 1) rl) Nothing
     , TestCase "stuckImage3 (1, 1) rl" (matrixToGrid stuckImage3) (Cursor (1, 1) rl) Nothing
     ]
-
-matrixToGrid ∷ Matrix a → Grid a
-matrixToGrid matrix = Grid w h (V.concat $ V.toList matrix) where
-  h = V.length matrix
-  w = maybe 0 V.length (matrix V.!? 0)
 
 singleCodelImage ∷ Matrix Codel
 singleCodelImage = V.singleton $ V.singleton $ Codel White 0

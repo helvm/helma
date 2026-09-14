@@ -2,4 +2,4 @@
 module Spec
   ( spec
   ) where
-    
+

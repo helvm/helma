@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automata.SubLeq.FileExtra
 import           HelVM.HelMA.Automaton.Eff.Mock
 import           HelVM.HelMA.Automaton.Types.RAMType
 
-import           Test.Hspec                            hiding (it)
+import           Test.Hspec                            hiding ( it )
 import           Test.Hspec.BenchGolden
 
 spec ∷ Spec

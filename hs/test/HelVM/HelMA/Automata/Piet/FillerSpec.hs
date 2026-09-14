@@ -9,7 +9,7 @@ import           HelVM.HelMA.Automata.Piet.Filler
 import           HelVM.HelMA.Automata.Piet.TestUtils
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 
 import qualified Data.IntMap                                 as IM
 import qualified Data.Set                                    as S

@@ -1,7 +1,6 @@
 module HelVM.HelMA.Automata.Piet.SyntaxParser
   ( parse
   , parseFilledGrid
-  , matrixToGrid
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Filler
@@ -16,7 +15,6 @@ import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
 import           HelVM.HelMA.Automata.Piet.Types.Grid
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import           HelVM.HelIO.Control.Message
@@ -138,8 +136,3 @@ maximumOn f = F1.maximumBy (comparing f)
 
 justOrThrow ∷ MonadSafe m ⇒ Message → Maybe a → m a
 justOrThrow e = maybe (liftError e) pure
-
-matrixToGrid ∷ Matrix a → Grid a
-matrixToGrid matrix = Grid w h (V.concat $ V.toList matrix) where
-  h = V.length matrix
-  w = maybe 0 V.length (matrix V.!? 0)

@@ -7,9 +7,9 @@ module HelVM.HelMA.Automata.Piet.CodelSizeSpec
 
 import           HelVM.HelMA.Automata.Piet.CodelSize
 import           HelVM.HelMA.Automata.Piet.TestUtils
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 
-import qualified Data.Vector                            as V
+import qualified Data.Vector                          as V
 
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6

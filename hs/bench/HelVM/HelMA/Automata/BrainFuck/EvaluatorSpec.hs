@@ -12,7 +12,7 @@ import           HelVM.HelIO.CartesianProduct
 
 import qualified Data.Sequences                              as S
 
-import           Test.Hspec                                  hiding (it)
+import           Test.Hspec                                  hiding ( it )
 import           Test.Hspec.BenchGolden
 
 spec ∷ Spec

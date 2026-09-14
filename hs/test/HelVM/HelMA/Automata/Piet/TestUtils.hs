@@ -3,12 +3,12 @@ module HelVM.HelMA.Automata.Piet.TestUtils
   , withTempFile
   ) where
 
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 
 
 import           Control.Exception
 
-import qualified Data.Vector.Generic                    as V
+import qualified Data.Vector.Generic                  as V
 
 import           System.Directory
 import           System.IO

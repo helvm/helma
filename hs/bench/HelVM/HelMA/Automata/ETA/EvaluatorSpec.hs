@@ -12,7 +12,7 @@ import           HelVM.HelIO.CartesianProduct
 
 import           System.FilePath.Posix
 
-import           Test.Hspec                             hiding (it)
+import           Test.Hspec                              hiding ( it )
 import           Test.Hspec.BenchGolden
 
 spec ∷ Spec
