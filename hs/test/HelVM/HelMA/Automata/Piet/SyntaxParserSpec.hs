@@ -57,7 +57,7 @@ spec = do
   describe "parse" $ do
     xit "returns a syntax graph when given an image" $ parse rawComplexImage `shouldBe` Right expectedComplexGraph
 
-  describe "parseFilledImage" $ do
+  describe "parseFilledGrid" $ do
     forM_
       [ ImageTestCase "smallImage" smallImage smallBlockTable expectedSmallGraph
       , ImageTestCase "whiteImage" whiteImage whiteBlockTable Nothing
@@ -66,7 +66,7 @@ spec = do
       , ImageTestCase "complexImage" complexImage complexBlockTable expectedComplexGraph
       ] $ \tc ->
         context ("when given " ++ caseName tc) $ do
-          res <- runIO . runSafeT $ parseFilledImage (testImage tc, blockTable tc)
+          res <- runIO . runSafeT $ parseFilledGrid (matrixToGrid $ testImage tc, blockTable tc)
           xit "returns a syntax graph" $ safeToEitherLegacy res `shouldBe` Right (expectedGraph tc)
 
     forM_
@@ -74,7 +74,7 @@ spec = do
       , ErrorTestCase "blackImage" blackImage blackBlockTable "IllegalInitialColorError\n"
       ] $ \tc ->
         context ("when given " ++ errCaseName tc) $ do
-          res <- runIO . runSafeT $ parseFilledImage (errTestImage tc, errBlockTable tc)
+          res <- runIO . runSafeT $ parseFilledGrid (matrixToGrid $ errTestImage tc, errBlockTable tc)
           it "returns an error" $ safeToEitherLegacy res `shouldBe` Left (expectedErr tc)
 
     context "when given an image which only consists of two pixels" $ do
@@ -140,7 +140,7 @@ spec = do
                                                                    ]
                                               )
                                             ]
-          res <- runIO . runSafeT $ parseFilledImage (image, bTable)
+          res <- runIO . runSafeT $ parseFilledGrid (matrixToGrid image, bTable)
           it ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ safeToEitherLegacy res `shouldBe` Right expectedG
 
 

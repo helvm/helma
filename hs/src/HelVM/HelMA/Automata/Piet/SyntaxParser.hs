@@ -1,6 +1,7 @@
 module HelVM.HelMA.Automata.Piet.SyntaxParser
   ( parse
-  , parseFilledImage
+  , parseFilledGrid
+  , matrixToGrid
   ) where
 
 import           HelVM.HelMA.Automata.Piet.Filler
@@ -33,17 +34,16 @@ import           Relude.Extra
 type BlockTable = IntMap BlockCoordinates
 
 parse ∷ MonadSafe m ⇒ Matrix Color → m (Maybe SyntaxGraph)
-parse image = parseFilledImageWithSplit (fillAll image) image
+parse image = parseFilledGridWithSplit (fillAll image) (matrixToGrid image)
 
-parseFilledImageWithSplit ∷ MonadSafe m ⇒ (Matrix Int, BlockTable) → Matrix Color → m (Maybe SyntaxGraph)
-parseFilledImageWithSplit (indices, positionTable) image = parseFilledImage (V.zipWith (V.zipWith Codel) image indices, positionTable)
+parseFilledGridWithSplit ∷ MonadSafe m ⇒ (Matrix Int, BlockTable) → Grid Color → m (Maybe SyntaxGraph)
+parseFilledGridWithSplit (indices, positionTable) grid = parseFilledGrid (zipGridCodel grid (matrixToGrid indices), positionTable)
 
-parseFilledImage ∷ MonadSafe m ⇒ (Matrix Codel, BlockTable) → m (Maybe SyntaxGraph)
-parseFilledImage (image, blockTable) = parseFrom grid blockTable =<< searchInitialBlock grid image where
-  grid = matrixToGrid image
+parseFilledGrid ∷ MonadSafe m ⇒ (Grid Codel, BlockTable) → m (Maybe SyntaxGraph)
+parseFilledGrid (grid, blockTable) = parseFrom grid blockTable =<< searchInitialBlock grid
 
 parseFrom ∷ MonadSafe m ⇒ Grid Codel → BlockTable → Maybe BlockEdge → m (Maybe SyntaxGraph)
-parseFrom _ _ Nothing                  = pure Nothing
+parseFrom _ _ Nothing                 = pure Nothing
 parseFrom grid blockTable (Just edge) = Just . SyntaxGraph edge <$> execStateT (parseState grid blockTable (view blockIndexL edge)) IM.empty
 
 parseState ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Grid Codel → BlockTable → Int → m ()
@@ -68,8 +68,8 @@ buildNextBlockList grid blockCoords = mapMaybe (findCourseNextBlock grid blockCo
 findCourseNextBlock ∷ Grid Codel → BlockCoordinates → Int → Cursor → Maybe (Course, Maybe NextBlock)
 findCourseNextBlock grid blockCoords blockSize cur = (cur.course,) <$> searchNextBlock grid blockCoords cur.course blockSize
 
-searchInitialBlock ∷ MonadSafe m ⇒ Grid Codel → Matrix Codel → m (Maybe BlockEdge)
-searchInitialBlock grid image = processInitial grid =<< justOrThrow "EmptyBlockTableError" ((V.!? 0) =<< image V.!? 0)
+searchInitialBlock ∷ MonadSafe m ⇒ Grid Codel → m (Maybe BlockEdge)
+searchInitialBlock grid = processInitial grid =<< justOrThrow "EmptyBlockTableError" (getCodelAt grid (0, 0))
 
 processInitial ∷ MonadSafe m ⇒ Grid Codel → Codel → m (Maybe BlockEdge)
 processInitial _ (Codel (Chromatic _) blockIdx) = pure $ Just $ BlockEdge blockIdx initialCourse
@@ -113,9 +113,15 @@ extractChromatic (Codel (Chromatic c) _) = Just c
 extractChromatic _                       = Nothing
 
 fetchNextCodel ∷ Grid Codel → Coordinates → Maybe Codel
-fetchNextCodel (Grid w h cells) (x, y)
+fetchNextCodel = getCodelAt
+
+getCodelAt ∷ Grid a → Coordinates → Maybe a
+getCodelAt (Grid w h cells) (x, y)
   | x >= 0 && x < w && y >= 0 && y < h = cells V.!? (y * w + x)
   | otherwise                           = Nothing
+
+zipGridCodel ∷ Grid Color → Grid Int → Grid Codel
+zipGridCodel (Grid w1 h1 v1) (Grid _ _ v2) = Grid w1 h1 (V.zipWith Codel v1 v2)
 
 nextBlockToIndex ∷ Maybe NextBlock → Maybe Int
 nextBlockToIndex nb = view (targetL . blockIndexL) <$> nb
