@@ -455,7 +455,7 @@ test-suite helma-test
 benchmark helma-benchmark
   import:              common-options
   type:                exitcode-stdio-1.0
-  hs-source-dirs:      hs/benchmark
+  hs-source-dirs:      hs/bench
   main-is:             Main.hs
   other-modules:
     -- Slow
