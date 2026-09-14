@@ -14,6 +14,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Course
 import           HelVM.HelMA.Automata.Piet.Types.Cursor
 import           HelVM.HelMA.Automata.Piet.Types.DirectionPointer
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
@@ -71,7 +72,7 @@ searchInitialBlock image = processInitial image =<< justOrThrow "EmptyBlockTable
 
 processInitial ∷ MonadSafe m ⇒ Matrix Codel → Codel → m (Maybe BlockEdge)
 processInitial _ (Codel (Chromatic _) blockIdx) = pure $ Just $ BlockEdge blockIdx initialCourse
-processInitial image (Codel White _)            = pure $ view targetL <$> slideOnWhiteBlock image initialCursor
+processInitial image (Codel White _)            = pure $ view targetL <$> slideOnWhiteBlock (matrixToGrid image) initialCursor
 processInitial _ (Codel Black _)                = liftError "IllegalInitialColorError"
 
 searchNextBlock ∷ Matrix Codel → BlockCoordinates → Course → Int → Maybe (Maybe NextBlock)
@@ -93,7 +94,7 @@ fetchTargetCodel image cornerMap crs = makeTarget =<< M.lookup crs cornerMap whe
 checkTargetCodel ∷ Matrix Codel → ChromaticColor → Course → Int → Maybe (Maybe NextBlock) → Maybe (Coordinates, Codel) → Maybe (Maybe NextBlock)
 checkTargetCodel _     _        _   _         fallback Nothing                          = fallback
 checkTargetCodel _     _        _   _         fallback (Just (_, Codel Black _))        = fallback
-checkTargetCodel image _        crs _         _        (Just (pos, Codel White _))      = Just $ slideOnWhiteBlock image (Cursor pos crs)
+checkTargetCodel image _        crs _         _        (Just (pos, Codel White _))      = Just $ slideOnWhiteBlock (matrixToGrid image) (Cursor pos crs)
 checkTargetCodel _     curColor crs blockSize _        (Just (_, Codel (Chromatic nextColor) nextIdx)) =
   Just $ Just $ NextBlock (commandFromTransition curColor nextColor blockSize) (BlockEdge nextIdx crs)
 
@@ -128,3 +129,8 @@ maximumOn f = F1.maximumBy (comparing f)
 
 justOrThrow ∷ MonadSafe m ⇒ Message → Maybe a → m a
 justOrThrow e = maybe (liftError e) pure
+
+matrixToGrid ∷ Matrix a → Grid a
+matrixToGrid matrix = Grid w h (V.concat $ V.toList matrix) where
+  h = V.length matrix
+  w = maybe 0 V.length (matrix V.!? 0)
