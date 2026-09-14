@@ -6,6 +6,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 import           HelVM.HelMA.Automata.Piet.Types.Grid
 
 import           Control.Monad.ST                            ( ST, runST )
+
 import qualified Data.IntMap.Strict                          as IM
 import qualified Data.Vector                                 as V
 import qualified Data.Vector.Unboxed.Mutable                 as UMV
@@ -17,7 +18,7 @@ fillAll image = runST $ fillST image $ matrixBounds image
 
 -- PRIVATE HELPERS (TOP-DOWN)
 
-fillST ∷ Eq a ⇒ Matrix a → (Int, Int) → ST s (Matrix Int, IntMap BlockCoordinates)
+fillST ∷ Eq a ⇒ Matrix a → Coordinates → ST s (Matrix Int, IntMap BlockCoordinates)
 fillST _     (0, _) = pure (V.empty, IM.empty)
 fillST image (_, 0) = pure (V.map (const V.empty) image, IM.empty)
 fillST image (h, w) = formatResult image h w =<< buildState image h w
@@ -69,7 +70,7 @@ normalizeCell ∷ Int → Int
 normalizeCell (-1) = 0
 normalizeCell val  = val
 
-matrixBounds ∷ Matrix a → (Int, Int)
+matrixBounds ∷ Matrix a → Coordinates
 matrixBounds img = (V.length img, V.foldl' (\acc r -> max acc (V.length r)) 0 img)
 
 getPixel ∷ Matrix a → Int → Int → Maybe a

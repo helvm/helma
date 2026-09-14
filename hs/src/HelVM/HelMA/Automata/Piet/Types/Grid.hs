@@ -1,7 +1,6 @@
 module HelVM.HelMA.Automata.Piet.Types.Grid
   ( Grid (..)
   , Matrix
-  , STMatrix
   , atGrid
   , discoverBlock
   , inRangeGrid
@@ -19,14 +18,12 @@ import           Control.Monad.ST                            ( ST, runST )
 
 import           Data.Vector                                 ( Vector )
 import qualified Data.Vector                                 as V
-import           Data.Vector.Mutable                         ( STVector )
 import qualified Data.Vector.Mutable                         as MV
 import qualified Data.Vector.Unboxed.Mutable                 as UMV
 
 -- Grid DEFINITION
 
 type Matrix a = Vector (Vector a)
-type STMatrix s b = Vector (STVector s (Maybe b))
 
 data Grid a
   = Grid
