@@ -39,11 +39,13 @@ data Grid a
 
 instance Functor Grid where
   fmap f (Grid w h pxs) = Grid w h (fmap f pxs)
+  {-# INLINE fmap #-}
 
 -- EXPORTED FUNCTIONS & OPERATORS
 
 gridBounds ∷ Grid a → Coordinates
-gridBounds a = (heightGrid a, heightGrid a)
+gridBounds a = (widthGrid a, heightGrid a)
+{-# INLINE gridBounds #-}
 
 infixl 9 &!
 (&!) ∷ Grid a → Coordinates → Maybe a
@@ -57,7 +59,10 @@ indexMaybe m coord
 {-# INLINE indexMaybe #-}
 
 newGrid ∷ Coordinates → [(Coordinates, a)] → Grid a
-newGrid (w, h) elems = Grid w h $ V.create $ writeElems elems w =<< MV.unsafeNew (w * h)
+newGrid (w, h) elems = Grid w h $ V.create $ do
+  vec <- MV.unsafeNew (w * h)
+  writeElems elems w vec
+  pure vec
 
 inRangeGrid ∷ Coordinates → Grid a → Bool
 inRangeGrid (x, y) m = x >= 0 && x < widthGrid m && y >= 0 && y < heightGrid m
@@ -77,61 +82,64 @@ discoverBlock m startPos
 
 nextCoords ∷ Grid a → Coordinates → Maybe Coordinates
 nextCoords m = Coordinates.nextCoords (widthGrid m, heightGrid m)
+{-# INLINE nextCoords #-}
 
--- PRIVATE HELPERS (TOP-DOWN)
+-- PRIVATE HELPERS
 
-writeElems ∷ [(Coordinates, a)] → Int → MV.MVector s a → ST s (MV.MVector s a)
-writeElems elems w vec = traverse_ (uncurry $ MV.write vec . toIndex w) elems $> vec
+writeElems ∷ [(Coordinates, a)] → Int → MV.MVector s a → ST s ()
+writeElems elems w vec = traverse_ (\(coord, a) -> MV.unsafeWrite vec (toIndex w coord) a) elems
+{-# INLINE writeElems #-}
 
+-- BFS OPTIMIZED: Płaska pętla i Unsafe operacje bez alokacji krotek wewnątrz queue
 initBfs ∷ Eq a ⇒ Grid a → Coordinates → ST s BlockCoordinates
-initBfs m startPos =
-  UMV.replicate (totalSize m) False >>= \visited ->
-    UMV.unsafeNew (totalSize m) >>= \qX ->
-      UMV.unsafeNew (totalSize m) >>= \qY ->
-        setupAndLoop m startPos visited qX qY
-
-setupAndLoop ∷ Eq a ⇒ Grid a → Coordinates → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → ST s BlockCoordinates
-setupAndLoop m (startX, startY) visited qX qY =
-  UMV.unsafeWrite visited (toIndexFromGrid m (startX, startY)) True *>
-    UMV.unsafeWrite qX 0 startX *>
-      UMV.unsafeWrite qY 0 startY *>
-        loopBfs m (unsafeIndex m (startX, startY)) visited qX qY 0 1 []
+initBfs m startPos = do
+  let sz = totalSize m
+  visited <- UMV.replicate sz False
+  qX      <- UMV.unsafeNew sz
+  qY      <- UMV.unsafeNew sz
+  
+  let (startX, startY) = startPos
+  UMV.unsafeWrite visited (toIndexFromGrid m startPos) True
+  UMV.unsafeWrite qX 0 startX
+  UMV.unsafeWrite qY 0 startY
+  
+  loopBfs m (unsafeIndex m startPos) visited qX qY 0 1 []
 
 loopBfs ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Int → Int → BlockCoordinates → ST s BlockCoordinates
-loopBfs _ _ _ _ _ headIdx tailIdx acc | headIdx >= tailIdx = pure acc
-loopBfs m targetCol visited qX qY headIdx tailIdx acc =
-  UMV.unsafeRead qX headIdx >>= \x ->
-    UMV.unsafeRead qY headIdx >>= \y ->
-      pushNeighbours m targetCol visited qX qY x y tailIdx >>= \newTail ->
-        loopBfs m targetCol visited qX qY (headIdx + 1) newTail ((x, y) : acc)
-
-pushNeighbours ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Int → Int → Int → ST s Int
-pushNeighbours m targetCol visited qX qY x y tailIdx =
-  pushNeighbour m targetCol visited qX qY (x + 1) y tailIdx >>=
-    pushNeighbour m targetCol visited qX qY (x - 1) y >>=
-      pushNeighbour m targetCol visited qX qY x (y + 1) >>=
-        pushNeighbour m targetCol visited qX qY x (y - 1)
+loopBfs m targetCol visited qX qY headIdx tailIdx acc
+  | headIdx >= tailIdx = pure acc
+  | otherwise = do
+      x <- UMV.unsafeRead qX headIdx
+      y <- UMV.unsafeRead qY headIdx
+      
+      -- Wstawianie 4 sąsiadów bezpośrednio inline bez tworzenia monadycznych łańcuchów
+      let newHead = headIdx + 1
+          acc'    = (x, y) : acc
+      
+      t1 <- pushNeighbour m targetCol visited qX qY (x + 1) y tailIdx
+      t2 <- pushNeighbour m targetCol visited qX qY (x - 1) y t1
+      t3 <- pushNeighbour m targetCol visited qX qY x (y + 1) t2
+      t4 <- pushNeighbour m targetCol visited qX qY x (y - 1) t3
+      
+      loopBfs m targetCol visited qX qY newHead t4 acc'
 
 pushNeighbour ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Int → Int → Int → ST s Int
 pushNeighbour m targetCol visited qX qY x y tailIdx
-  | inRangeGrid (x, y) m = checkUnvisited m targetCol visited qX qY x y tailIdx =<< UMV.unsafeRead visited (toIndexFromGrid m (x, y))
-  | otherwise            = pure tailIdx
-
-checkUnvisited ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Int → Int → Int → Bool → ST s Int
-checkUnvisited _ _ _ _ _ _ _ tailIdx True = pure tailIdx
-checkUnvisited m targetCol visited qX qY x y tailIdx False
-  | unsafeIndex m (x, y) == targetCol = enqueueNeighbor visited qX qY x y tailIdx (toIndexFromGrid m (x, y))
-  | otherwise                         = pure tailIdx
-
-enqueueNeighbor ∷ UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Int → Int → Int → Int → ST s Int
-enqueueNeighbor visited qX qY x y tailIdx idxVal =
-  UMV.unsafeWrite visited idxVal True *>
-    UMV.unsafeWrite qX tailIdx x *>
-      UMV.unsafeWrite qY tailIdx y $>
-        (tailIdx + 1)
+  | inRangeGrid (x, y) m = do
+      let idx = toIndexFromGrid m (x, y)
+      isVis <- UMV.unsafeRead visited idx
+      if not isVis && unsafeIndex m (x, y) == targetCol
+        then do
+          UMV.unsafeWrite visited idx True
+          UMV.unsafeWrite qX tailIdx x
+          UMV.unsafeWrite qY tailIdx y
+          pure (tailIdx + 1)
+        else pure tailIdx
+  | otherwise = pure tailIdx
+{-# INLINE pushNeighbour #-}
 
 unsafeIndex ∷ Grid a → Coordinates → a
-unsafeIndex m coord = cells m `V.unsafeIndex` toIndexFromGrid m coord
+unsafeIndex m coord = V.unsafeIndex (cells m) (toIndexFromGrid m coord)
 {-# INLINE unsafeIndex #-}
 
 toIndexFromGrid ∷ Grid a → Coordinates → Int
