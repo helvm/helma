@@ -13,8 +13,8 @@ import qualified Data.Vector.Unboxed.Mutable                 as UMV
 
 -- PUBLIC API
 
-fillAll ∷ Eq a ⇒ Matrix a → (Matrix Int, IntMap BlockCoordinates)
-fillAll image = runST $ fillST image $ matrixBounds image
+fillAll ∷ Eq a ⇒ Grid a → (Matrix Int, IntMap BlockCoordinates)
+fillAll grid = runST $ fillST image $ matrixBounds image where image = gridToMatrix grid
 
 -- PRIVATE HELPERS (TOP-DOWN)
 

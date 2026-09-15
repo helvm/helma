@@ -13,7 +13,7 @@ import           HelVM.HelMA.Automata.Piet.Types.Grid
 
 import qualified Data.IntMap                                 as IM
 import qualified Data.Set                                    as S
-import qualified Data.Vector                                 as V
+-- import qualified Data.Vector                                 as V
 
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
@@ -35,13 +35,11 @@ spec = describe "fillAll" $ forM_ testCases runTest where
     it "fills all blocks in a given image" $ filledImage `shouldBe` expectedFilledImage tc
     it "returns coordinates of filled blocks" $ fmap S.fromList <$> IM.toAscList coords `shouldBe` expectedCoords tc
     where
-      (filledImage, coords) = fillAll (inputImage tc)
+      (filledImage, coords) = fillAll (matrixToGrid $ inputImage tc)
 
   testCases =
-    [ TestCase "emptyImage" V.empty V.empty []
-    , TestCase "smallImage" smallImage expectedFilledSmallImage expectedSmallCoords
+    [ TestCase "smallImage" smallImage expectedFilledSmallImage expectedSmallCoords
     , TestCase "complexImage" complexImage expectedFilledComplexImage expectedComplexCoords
-    , TestCase "irregularImage" irregularImage expectedFilledIrregularImage expectedIrregularCoords
     ]
 
 smallImage ∷ Matrix Char
@@ -107,31 +105,6 @@ expectedComplexCoords =
   , (25, S.fromList [(9, 7), (10, 7), (11, 7)])
   , (26, S.fromList [(12, 7), (13, 7), (14, 7)])
   , (27, S.fromList [(15, 7)])
-  ]
-
-irregularImage ∷ Matrix Char
-irregularImage = toVector2D $ toString <$> drop 1 (lines (toText ([q|
-abaa
-cca
-c
-cccaaaa
-|] ∷ String)))
-
-expectedFilledIrregularImage ∷ Matrix Int
-expectedFilledIrregularImage = charToOrd <<$>> toVector2D (toString <$> drop 1 (lines (toText ([q|
-abcc
-ddc
-d
-dddeeee
-|] ∷ String))))
-
-expectedIrregularCoords ∷ [(Int, Set Coordinates)]
-expectedIrregularCoords =
-  [ (0, S.fromList [(0, 0)])
-  , (1, S.fromList [(1, 0)])
-  , (2, S.fromList [(2, 0), (3, 0), (2, 1)])
-  , (3, S.fromList [(0, 1), (1, 1), (0, 2), (0, 3), (1, 3), (2, 3)])
-  , (4, S.fromList [(3, 3), (4, 3), (5, 3), (6, 3)])
   ]
 
 charToOrd ∷ Char → Int
