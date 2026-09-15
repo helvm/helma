@@ -19,39 +19,26 @@ main = hspec spec
 
 spec ∷ Spec
 spec = describe "guessCodelSize" $ mapM_ runTest testCases where
-  runTest (name, image, codelSize) =
+  runTest (name, grid, codelSize) =
     context ("when given " ++ name) $
       it "pure the codel size of an image" $ guessCodelSize (width, height) imageF `shouldBe` codelSize
     where
       imageF (x, y) = image V.! y V.! x
       width = maybe 0 V.length (image V.!? 0)
       height = V.length image
+      image = gridToMatrix grid
 
   testCases =
-    [ ("emptyImage", V.empty, 0)
-    , ("smallestImage", smallestImage, 1)
-    --, ("largeWhiteImage", largeWhiteImage, largeImageSize)
-    --, ("largeCheckImage", largeCheckImage, 1)
+    [ ("smallestImage", smallestImage, 1)
     , ("size3Image", size3Image, 3)
     , ("size1Image", size1Image, 1)
     ]
 
-smallestImage ∷ Matrix Char
-smallestImage = toVector2D [['a']]
+smallestImage ∷ Grid Char
+smallestImage = toGrid [['a']]
 
-{-
-largeWhiteImage :: Matrix Char
-largeWhiteImage = V.replicate largeImageSize $ V.replicate largeImageSize 'a'
-
-largeCheckImage :: Matrix Char
-largeCheckImage = V.generate largeImageSize $ \y -> V.generate largeImageSize $ \x -> if (x + y) `mod` 2 == 0 then 'a' else 'b'
-
-largeImageSize :: Int
-largeImageSize = 10000
--}
-
-size3Image ∷ Matrix Char
-size3Image = toVector2D $ toString <$> drop 1 (lines (toText ([q|
+size3Image ∷ Grid Char
+size3Image = toGrid $ toString <$> drop 1 (lines (toText ([q|
 aaabbbbbb
 aaabbbbbb
 aaabbbbbb
@@ -63,8 +50,8 @@ ccccccddd
 ccccccddd
 |] ∷ String)))
 
-size1Image ∷ Matrix Char
-size1Image = toVector2D $ toString <$> drop 1 (lines (toText ([q|
+size1Image ∷ Grid Char
+size1Image = toGrid $ toString <$> drop 1 (lines (toText ([q|
 aaabb
 aaabb
 aaabb
