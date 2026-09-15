@@ -6,9 +6,9 @@ source-repository-package
   branch: master
   tag: 0.2.1.3
 
-profiling: True
+-- profiling: True
 
-profiling-detail: none
+-- profiling-detail: none
 
-package *
-  ghc-options: -fno-prof-auto -fprof-late
+-- package *
+--   ghc-options: -fno-prof-auto -fprof-late
