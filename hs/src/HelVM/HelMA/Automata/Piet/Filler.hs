@@ -28,15 +28,15 @@ buildState image dim@(h, w) = UMV.replicate (h * w) (-1) >>= \refs -> (refs,) <$
 
 scanGrid ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)
 scanGrid _ (h, _) _ y _ _ accMap | y >= h = pure accMap
-scanGrid image (h, w) refs y x blockId accMap
-  | x >= rowLen y = scanGrid image (h, w) refs (y + 1) 0 blockId accMap
-  | otherwise     = checkCell image h w refs y x blockId accMap =<< UMV.unsafeRead refs (y * w + x)
+scanGrid image dim@(_, w) refs y x blockId accMap
+  | x >= rowLen y = scanGrid image dim refs (y + 1) 0 blockId accMap
+  | otherwise     = checkCell image dim refs y x blockId accMap =<< UMV.unsafeRead refs (y * w + x)
   where
     rowLen = V.length . (image V.!)
 
-checkCell ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → Int → ST s (IntMap BlockCoordinates)
-checkCell image h w refs y x blockId accMap (-1) = maybe (scanGrid image (h, w) refs y (x + 1) blockId accMap) (runFill image h w refs y x blockId accMap) (getPixel image x y)
-checkCell image h w refs y x blockId accMap _    = scanGrid image (h, w) refs y (x + 1) blockId accMap
+checkCell ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → Int → ST s (IntMap BlockCoordinates)
+checkCell image dim@(h, w) refs y x blockId accMap (-1) = maybe (scanGrid image dim refs y (x + 1) blockId accMap) (runFill image h w refs y x blockId accMap) (getPixel image x y)
+checkCell image dim refs y x blockId accMap _    = scanGrid image dim refs y (x + 1) blockId accMap
 
 runFill ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → a → ST s (IntMap BlockCoordinates)
 runFill image h w refs y x blockId accMap targetCol =
