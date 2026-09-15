@@ -3,6 +3,7 @@ module HelVM.HelMA.Automata.Piet.Types.Grid
   , Matrix
   , atGrid
   , discoverBlock
+  , gridBounds
   , gridToMatrix
   , inRangeGrid
   , indexMaybe
@@ -38,6 +39,9 @@ instance Functor Grid where
   fmap f (Grid w h pxs) = Grid w h (fmap f pxs)
 
 -- EXPORTED FUNCTIONS & OPERATORS
+
+gridBounds ∷ Grid a → Coordinates
+gridBounds a = (heightGrid a, heightGrid a)
 
 infixl 9 &!
 (&!) ∷ Grid a → Coordinates → Maybe a
