@@ -20,7 +20,7 @@ import           Text.InterpolatedString.Perl6
 data TestCase
   = TestCase
       { caseName            :: String
-      , inputImage          :: Matrix Char
+      , inputImage          :: Grid Char
       , expectedFilledImage :: Grid Int
       , expectedCoords      :: [(Int, Set Coordinates)]
       }
@@ -34,15 +34,15 @@ spec = describe "fillAll" $ forM_ testCases runTest where
     it "fills all blocks in a given image" $ filledImage `shouldBe` expectedFilledImage tc
     it "returns coordinates of filled blocks" $ fmap S.fromList <$> IM.toAscList coords `shouldBe` expectedCoords tc
     where
-      (filledImage, coords) = fillAll (matrixToGrid $ inputImage tc)
+      (filledImage, coords) = fillAll (inputImage tc)
 
   testCases =
     [ TestCase "smallImage" smallImage expectedFilledSmallImage expectedSmallCoords
     , TestCase "complexImage" complexImage expectedFilledComplexImage expectedComplexCoords
     ]
 
-smallImage ∷ Matrix Char
-smallImage = toVector2D [['a']]
+smallImage ∷ Grid Char
+smallImage = toGrid [['a']]
 
 expectedFilledSmallImage ∷ Grid Int
 expectedFilledSmallImage = toGrid [[0]]
@@ -50,8 +50,8 @@ expectedFilledSmallImage = toGrid [[0]]
 expectedSmallCoords ∷ [(Int, Set Coordinates)]
 expectedSmallCoords = [(0, S.fromList [(0, 0)])]
 
-complexImage ∷ Matrix Char
-complexImage = toVector2D $ toString <$> drop 1 (lines (toText ([q|
+complexImage ∷ Grid Char
+complexImage = toGrid $ toString <$> drop 1 (lines (toText ([q|
 GGGGGBrrr rrrMMM
 bbbBBBBB    YYY*
 bbbbRBBR  YYY**m
