@@ -19,12 +19,12 @@ fillAll grid = runST $ fillST image $ matrixBounds image where image = gridToMat
 -- PRIVATE HELPERS (TOP-DOWN)
 
 fillST ∷ Eq a ⇒ Matrix a → Coordinates → ST s (Matrix Int, IntMap BlockCoordinates)
-fillST _     (0, _)     = pure (V.empty, IM.empty)
-fillST image (_, 0)     = pure (V.map (const V.empty) image, IM.empty)
-fillST image dim@(h, w) = formatResult image dim =<< buildState image h w
+fillST _     (0, _) = pure (V.empty, IM.empty)
+fillST image (_, 0) = pure (V.map (const V.empty) image, IM.empty)
+fillST image dim    = formatResult image dim =<< buildState image dim
 
-buildState ∷ Eq a ⇒ Matrix a → Int → Int → ST s (UMV.MVector s Int, IntMap BlockCoordinates)
-buildState image h w = UMV.replicate (h * w) (-1) >>= \refs -> (refs,) <$> scanGrid image h w refs 0 0 0 IM.empty
+buildState ∷ Eq a ⇒ Matrix a → Coordinates → ST s (UMV.MVector s Int, IntMap BlockCoordinates)
+buildState image (h, w) = UMV.replicate (h * w) (-1) >>= \refs -> (refs,) <$> scanGrid image h w refs 0 0 0 IM.empty
 
 scanGrid ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)
 scanGrid _ h _ _ y _ _ accMap | y >= h = pure accMap
