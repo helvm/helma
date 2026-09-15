@@ -1,6 +1,5 @@
 module HelVM.HelMA.Automaton.Automaton
-  ( runAndDumpLogs
-  , runAutomat
+  ( runAutomat
   , start
   ) where
 
@@ -29,6 +28,7 @@ import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.Extra
 
+import           Control.Monad.Except                       ( catchError, throwError )
 import           Control.Monad.Extra
 
 import qualified Data.Sequence                              as Seq
@@ -47,7 +47,7 @@ runAutomat ∷ (SRAutomatonEff Symbol s r m) ⇒ LimitMaybe → F s r m
 runAutomat = trampolineMWithLimit nextState
 {-# INLINE runAutomat #-}
 
--- PRIVATE HELPERS (TOP-DOWN)
+-- PRIVATE HELPERS
 
 start' ∷ AppSafeEff m ⇒ InstructionList → StackType → RAMType → AutoOptions → m ()
 start' il s ListRAMType    = start'' il s []
@@ -71,6 +71,11 @@ stepNextState ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction �
 stepNextState !a !i = attachErrorContext a i $ runInstruction i (incrementIC a)
 {-# INLINE stepNextState #-}
 
+-- Leniwe dodawanie kontekstu - zapobiega generowaniu ciągów znaków show/printIndexedIL przy poprawnym biegu
 attachErrorContext ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → m b → m b
-attachErrorContext a i action = appendErrorTuple ("Automaton.nextState" , showP a) $ appendErrorTuple ("program:" , toText $ printIndexedIL $ toList $ memoryProgram a) $ appendErrorTuple ("i:" , show i) action
+attachErrorContext a i action = action `catchError` \err ->
+  appendErrorTuple ("Automaton.nextState" , showP a) $
+  appendErrorTuple ("program:" , toText $ printIndexedIL $ toList $ memoryProgram a) $
+  appendErrorTuple ("i:" , show i) $
+  throwError err
 {-# INLINE attachErrorContext #-}
