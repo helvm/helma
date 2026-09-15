@@ -1,6 +1,5 @@
 module HelVM.HelMA.Automaton.Automaton
-  ( runAutomat
-  , start
+  ( start
   ) where
 
 import           HelVM.HelMA.Automaton.API.AutomatonOptions
@@ -40,14 +39,11 @@ import           Prelude                                    hiding ( swap )
 start ∷ AppSafeEff m ⇒ InstructionList → AutomatonOptions → m ()
 start il ao = start' il (stackType ao) (ramType ao) (autoOptions ao)
 
-runAndDumpLogs ∷ (SRAutomatonEff Symbol s r m) ⇒ AutoOptions → Memory s r → m ()
-runAndDumpLogs p = logDump (dumpType p) <=< runAutomat (limit p)
-
 runAutomat ∷ (SRAutomatonEff Symbol s r m) ⇒ LimitMaybe → F s r m
 runAutomat = trampolineMWithLimit nextState
 {-# INLINE runAutomat #-}
 
--- PRIVATE HELPERS
+-- TOP-DOWN PRIVATE HELPERS
 
 start' ∷ AppSafeEff m ⇒ InstructionList → StackType → RAMType → AutoOptions → m ()
 start' il s ListRAMType    = start'' il s []
@@ -62,6 +58,9 @@ start'' il SListStackType = start''' il SList.sListEmpty
 
 start''' ∷ (SRAutomatonEff Symbol s r m) ⇒ InstructionList → s → r → AutoOptions → m ()
 start''' il s r p = runAndDumpLogs p (newMemory il s r)
+
+runAndDumpLogs ∷ (SRAutomatonEff Symbol s r m) ⇒ AutoOptions → Memory s r → m ()
+runAndDumpLogs p = logDump (dumpType p) <=< runAutomat (limit p)
 
 nextState ∷ (SRAutomatonEff Symbol s r m) ⇒ SF s r m
 nextState !a = stepNextState a =<< currentInstruction (memoryCM a)
