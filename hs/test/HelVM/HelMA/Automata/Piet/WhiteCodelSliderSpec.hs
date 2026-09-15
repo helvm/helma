@@ -19,8 +19,6 @@ import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
-import qualified Data.Vector                                    as V
-
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
 
@@ -87,10 +85,10 @@ spec = describe "slideOnWhiteBlock" $ forM_ testCases runTest where
     ]
 
 singleCodelImage ∷ Grid Codel
-singleCodelImage = matrixToGrid $ V.singleton $ V.singleton $ Codel White 0
+singleCodelImage = toGrid [[Codel White 0]]
 
 oneLoopImage ∷ Grid Codel
-oneLoopImage = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+oneLoopImage = fmap f $ toGrid $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
 y          1
@@ -109,7 +107,7 @@ y2         1
   f _   = error "Unreachable"
 
 gammaImage ∷ Grid Codel
-gammaImage = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+gammaImage = fmap f $ toGrid $ toString <$> drop 1 (lines (toText ([q|
 r          g
 r       0  b
 r          c
@@ -128,7 +126,7 @@ r     1    y
   f _   = error "Unreachable"
 
 crossShapedImage ∷ Grid Codel
-crossShapedImage = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+crossShapedImage = fmap f $ toGrid $ toString <$> drop 1 (lines (toText ([q|
 *****
 **0**
 *1r2*
@@ -144,7 +142,7 @@ crossShapedImage = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> dr
   f _   = error "Unreachable"
 
 spiralImage ∷ Grid Codel
-spiralImage = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+spiralImage = fmap f $ toGrid $ toString <$> drop 1 (lines (toText ([q|
 rrrrrrrrrrrg
 y         0g
 y 3        g
@@ -174,7 +172,7 @@ ybbbbbbbbbbb
   f _   = error "Unreachable"
 
 stuckImage1 ∷ Grid Codel
-stuckImage1 = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+stuckImage1 = fmap f $ toGrid $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
 y          1
@@ -193,7 +191,7 @@ y       2  1
   f _   = error "Unreachable"
 
 stuckImage2 ∷ Grid Codel
-stuckImage2 = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+stuckImage2 = fmap f $ toGrid $ toString <$> drop 1 (lines (toText ([q|
 0rgb11111111
 y          1
 y          1
@@ -212,7 +210,7 @@ y        2 1
   f _   = error "Unreachable"
 
 stuckImage3 ∷ Grid Codel
-stuckImage3 = matrixToGrid $ V.map (V.map f) $ toVector2D $ toString <$> drop 1 (lines (toText ([q|
+stuckImage3 = fmap f $ toGrid $ toString <$> drop 1 (lines (toText ([q|
 00gb11111111
 y          1
 y          1
@@ -228,3 +226,4 @@ y          1
   f ' ' = Codel White 5
   f '2' = Codel Black 6
   f _   = error "Unreachable"
+
