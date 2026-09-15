@@ -34,7 +34,7 @@ import qualified Data.Sequence                              as Seq
 
 import           Prelude                                    hiding ( swap )
 
--- PUBLIC API (JEDYNA FUNKCJA WEJŚCIOWA)
+-- PUBLIC API
 
 start ∷ AppSafeEff m ⇒ InstructionList → AutomatonOptions → m ()
 start il ao = start' il (stackType ao) (ramType ao) (autoOptions ao)
@@ -46,17 +46,21 @@ start' il s ListRAMType    = start'' il s []
 start' il s SeqRAMType     = start'' il s Seq.empty
 start' il s SListRAMType   = start'' il s SList.sListEmpty
 start' il s MapListRAMType = start'' il s MapList.mapListEmpty
+{-# INLINE start' #-}
 
 start'' ∷ (RAutomatonEff Symbol r m) ⇒ InstructionList → StackType → r → AutoOptions → m ()
 start'' il ListStackType  = start''' il []
 start'' il SeqStackType   = start''' il Seq.empty
 start'' il SListStackType = start''' il SList.sListEmpty
+{-# INLINE start'' #-}
 
 start''' ∷ (SRAutomatonEff Symbol s r m) ⇒ InstructionList → s → r → AutoOptions → m ()
 start''' il s r p = runAndDumpLogs p (newMemory il s r)
+{-# INLINE start''' #-}
 
 runAndDumpLogs ∷ (SRAutomatonEff Symbol s r m) ⇒ AutoOptions → Memory s r → m ()
 runAndDumpLogs p = logDump (dumpType p) <=< runAutomat (limit p)
+{-# INLINE runAndDumpLogs #-}
 
 runAutomat ∷ (SRAutomatonEff Symbol s r m) ⇒ LimitMaybe → F s r m
 runAutomat = trampolineMWithLimit nextState
