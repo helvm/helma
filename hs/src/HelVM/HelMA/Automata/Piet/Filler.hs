@@ -45,15 +45,15 @@ runFill image dim refs y x blockId accMap targetCol =
 
 processBlock ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Int → a → Int → BlockCoordinates → BlockCoordinates → ST s BlockCoordinates
 processBlock _ _ _ _ _ [] acc = pure acc
-processBlock image (h, w) refs targetCol blockId (p : stack) acc =
-  checkAndMark image h w refs targetCol blockId p stack acc =<< UMV.unsafeRead refs (idx p w)
+processBlock image dim@(_, w) refs targetCol blockId (p : stack) acc =
+  checkAndMark image dim refs targetCol blockId p stack acc =<< UMV.unsafeRead refs (idx p w)
 
-checkAndMark ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → a → Int → Coordinates → BlockCoordinates → BlockCoordinates → Int → ST s BlockCoordinates
-checkAndMark image h w refs targetCol blockId p stack acc (-1) =
+checkAndMark ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Int → a → Int → Coordinates → BlockCoordinates → BlockCoordinates → Int → ST s BlockCoordinates
+checkAndMark image dim@(h, w) refs targetCol blockId p stack acc (-1) =
   UMV.unsafeWrite refs (idx p w) blockId *>
-    processBlock image (h, w) refs targetCol blockId (validNeighbors image h p targetCol ++ stack) (p : acc)
-checkAndMark image h w refs targetCol blockId _ stack acc _ =
-  processBlock image (h, w) refs targetCol blockId stack acc
+    processBlock image dim refs targetCol blockId (validNeighbors image h p targetCol ++ stack) (p : acc)
+checkAndMark image dim refs targetCol blockId _ stack acc _ =
+  processBlock image dim refs targetCol blockId stack acc
 
 validNeighbors ∷ Eq a ⇒ Matrix a → Int → Coordinates → a → BlockCoordinates
 validNeighbors image h (x, y) targetCol = filter (isTarget image h targetCol) [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
