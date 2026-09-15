@@ -34,14 +34,10 @@ import qualified Data.Sequence                              as Seq
 
 import           Prelude                                    hiding ( swap )
 
--- PUBLIC API
+-- PUBLIC API (JEDYNA FUNKCJA WEJŚCIOWA)
 
 start ∷ AppSafeEff m ⇒ InstructionList → AutomatonOptions → m ()
 start il ao = start' il (stackType ao) (ramType ao) (autoOptions ao)
-
-runAutomat ∷ (SRAutomatonEff Symbol s r m) ⇒ LimitMaybe → F s r m
-runAutomat = trampolineMWithLimit nextState
-{-# INLINE runAutomat #-}
 
 -- TOP-DOWN PRIVATE HELPERS
 
@@ -61,6 +57,10 @@ start''' il s r p = runAndDumpLogs p (newMemory il s r)
 
 runAndDumpLogs ∷ (SRAutomatonEff Symbol s r m) ⇒ AutoOptions → Memory s r → m ()
 runAndDumpLogs p = logDump (dumpType p) <=< runAutomat (limit p)
+
+runAutomat ∷ (SRAutomatonEff Symbol s r m) ⇒ LimitMaybe → F s r m
+runAutomat = trampolineMWithLimit nextState
+{-# INLINE runAutomat #-}
 
 nextState ∷ (SRAutomatonEff Symbol s r m) ⇒ SF s r m
 nextState !a = stepNextState a =<< currentInstruction (memoryCM a)
