@@ -30,25 +30,25 @@ fillST grid
   | otherwise                                   = formatResult grid =<< buildState grid
 
 buildState ∷ Eq a ⇒ Grid a → ST s (FillState s)
-buildState grid = UMV.replicate (totalSize grid) (-1) >>= \refs -> (refs,) <$> scanGrid grid refs 0 0 0 IM.empty
+buildState grid = UMV.replicate (totalSize grid) (-1) >>= \refs -> (refs,) <$> scanGrid grid refs (0, 0) 0 IM.empty
 
-scanGrid ∷ Eq a ⇒ Grid a → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)
-scanGrid grid refs = fix $ \loop y x blockId accMap ->
-  checkScanGridLoop grid refs loop y x blockId accMap (y >= heightGrid grid) (x >= widthGrid grid)
+scanGrid ∷ Eq a ⇒ Grid a → UMV.MVector s Int → Coordinates → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)
+scanGrid grid refs = fix $ \loop coord blockId accMap ->
+  checkScanGridLoop grid refs loop coord blockId accMap (snd coord >= heightGrid grid) (fst coord >= widthGrid grid)
 
-checkScanGridLoop ∷ Eq a ⇒ Grid a → UMV.MVector s Int → (Int → Int → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)) → Int → Int → Int → IntMap BlockCoordinates → Bool → Bool → ST s (IntMap BlockCoordinates)
-checkScanGridLoop _ _ _ _ _ _ accMap True _             = pure accMap
-checkScanGridLoop _ _ loop y _ blockId accMap _ True    = loop (y + 1) 0 blockId accMap
-checkScanGridLoop grid refs loop y x blockId accMap _ _ = checkCell grid refs loop y x blockId accMap =<< UMV.unsafeRead refs (toIndexFromGrid grid (x, y))
+checkScanGridLoop ∷ Eq a ⇒ Grid a → UMV.MVector s Int → (Coordinates → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)) → Coordinates → Int → IntMap BlockCoordinates → Bool → Bool → ST s (IntMap BlockCoordinates)
+checkScanGridLoop _ _ _ _ _ accMap True _                 = pure accMap
+checkScanGridLoop _ _ loop (_, y) blockId accMap _ True   = loop (0, y + 1) blockId accMap
+checkScanGridLoop grid refs loop coord blockId accMap _ _ = checkCell grid refs loop coord blockId accMap =<< UMV.unsafeRead refs (toIndexFromGrid grid coord)
 
-checkCell ∷ Eq a ⇒ Grid a → UMV.MVector s Int → (Int → Int → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)) → Int → Int → Int → IntMap BlockCoordinates → Int → ST s (IntMap BlockCoordinates)
-checkCell grid refs loop y x blockId accMap (-1) = runFill grid refs loop y x blockId accMap (atGrid (x, y) grid)
-checkCell _ _ loop y x blockId accMap _          = loop y (x + 1) blockId accMap
+checkCell ∷ Eq a ⇒ Grid a → UMV.MVector s Int → (Coordinates → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)) → Coordinates → Int → IntMap BlockCoordinates → Int → ST s (IntMap BlockCoordinates)
+checkCell grid refs loop coord blockId accMap (-1) = runFill grid refs loop coord blockId accMap (atGrid coord grid)
+checkCell _ _ loop (x, y) blockId accMap _         = loop (x + 1, y) blockId accMap
 
-runFill ∷ Eq a ⇒ Grid a → UMV.MVector s Int → (Int → Int → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)) → Int → Int → Int → IntMap BlockCoordinates → a → ST s (IntMap BlockCoordinates)
-runFill grid refs loop y x blockId accMap targetCol =
-  scanNextCol =<< processBlock grid refs targetCol blockId [(x, y)] [] where
-    scanNextCol coords = loop y (x + 1) (blockId + 1) (IM.insert blockId coords accMap)
+runFill ∷ Eq a ⇒ Grid a → UMV.MVector s Int → (Coordinates → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)) → Coordinates → Int → IntMap BlockCoordinates → a → ST s (IntMap BlockCoordinates)
+runFill grid refs loop coord@(x, y) blockId accMap targetCol =
+  scanNextCol =<< processBlock grid refs targetCol blockId [coord] [] where
+    scanNextCol coords = loop (x + 1, y) (blockId + 1) (IM.insert blockId coords accMap)
 
 processBlock ∷ Eq a ⇒ Grid a → UMV.MVector s Int → a → Int → BlockCoordinates → BlockCoordinates → ST s BlockCoordinates
 processBlock grid refs targetCol blockId = fix $ \loop stack acc ->
