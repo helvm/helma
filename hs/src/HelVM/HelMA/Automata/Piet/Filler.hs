@@ -64,10 +64,10 @@ isTarget image h targetCol (nx, ny) = ny >= 0 && ny < h && nx >= 0 && nx < rowLe
     rowLen y = V.length (image V.! y)
 
 formatResult ∷ Matrix a → Int → Int → (UMV.MVector s Int, IntMap BlockCoordinates) → ST s (Matrix Int, IntMap BlockCoordinates)
-formatResult image h w (refs, blockMap) = (, blockMap) <$> formatResult' image h w refs
+formatResult image h w (refs, blockMap) = (, blockMap) <$> formatResult' image (h, w) refs
 
-formatResult' ∷ UMV.PrimMonad m ⇒ Matrix a → Int → Int → UMV.MVector (UMV.PrimState m) Int → m (Matrix Int)
-formatResult' image h w refs = V.generateM h (\y -> V.generateM (V.length (image V.! y)) (\x -> normalizeCell <$> UMV.unsafeRead refs (y * w + x)))
+formatResult' ∷ UMV.PrimMonad m ⇒ Matrix a → Coordinates → UMV.MVector (UMV.PrimState m) Int → m (Matrix Int)
+formatResult' image (h, w) refs = V.generateM h (\y -> V.generateM (V.length (image V.! y)) (\x -> normalizeCell <$> UMV.unsafeRead refs (y * w + x)))
 
 normalizeCell ∷ Int → Int
 normalizeCell (-1) = 0
