@@ -10,6 +10,8 @@ module HelVM.HelMA.Automata.Piet.Types.Grid
   , matrixToGrid
   , newGrid
   , nextCoords
+  , toIndexFromGrid
+  , totalSize
   , (&!)
   ) where
 

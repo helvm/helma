@@ -13,7 +13,6 @@ import           HelVM.HelMA.Automata.Piet.Types.Grid
 
 import qualified Data.IntMap                                 as IM
 import qualified Data.Set                                    as S
--- import qualified Data.Vector                                 as V
 
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
@@ -22,7 +21,7 @@ data TestCase
   = TestCase
       { caseName            :: String
       , inputImage          :: Matrix Char
-      , expectedFilledImage :: Matrix Int
+      , expectedFilledImage :: Grid Int
       , expectedCoords      :: [(Int, Set Coordinates)]
       }
 
@@ -45,8 +44,8 @@ spec = describe "fillAll" $ forM_ testCases runTest where
 smallImage ∷ Matrix Char
 smallImage = toVector2D [['a']]
 
-expectedFilledSmallImage ∷ Matrix Int
-expectedFilledSmallImage = toVector2D [[0]]
+expectedFilledSmallImage ∷ Grid Int
+expectedFilledSmallImage = toGrid [[0]]
 
 expectedSmallCoords ∷ [(Int, Set Coordinates)]
 expectedSmallCoords = [(0, S.fromList [(0, 0)])]
@@ -63,8 +62,8 @@ cccRRRRRR*****mm
  y    CC ggg   *
 |] ∷ String)))
 
-expectedFilledComplexImage ∷ Matrix Int
-expectedFilledComplexImage = charToOrd <<$>> toVector2D (toString <$> drop 1 (lines (toText ([q|
+expectedFilledComplexImage ∷ Grid Int
+expectedFilledComplexImage = matrixToGrid $ charToOrd <<$>> toVector2D (toString <$> drop 1 (lines (toText ([q|
 aaaaabcccdeeefff
 gggbbbbbddddhhhi
 ggggjbbjddhhhkkl

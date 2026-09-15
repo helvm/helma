@@ -34,8 +34,8 @@ type BlockTable = IntMap BlockCoordinates
 parse ∷ MonadSafe m ⇒ Grid Color → m (Maybe SyntaxGraph)
 parse grid = parseFilledGridWithSplit (fillAll grid) grid
 
-parseFilledGridWithSplit ∷ MonadSafe m ⇒ (Matrix Int, BlockTable) → Grid Color → m (Maybe SyntaxGraph)
-parseFilledGridWithSplit (indices, positionTable) grid = parseFilledGrid (zipGridCodel grid (matrixToGrid indices), positionTable)
+parseFilledGridWithSplit ∷ MonadSafe m ⇒ (Grid Int, BlockTable) → Grid Color → m (Maybe SyntaxGraph)
+parseFilledGridWithSplit (indices, positionTable) grid = parseFilledGrid (zipGridCodel grid indices, positionTable)
 
 parseFilledGrid ∷ MonadSafe m ⇒ (Grid Codel, BlockTable) → m (Maybe SyntaxGraph)
 parseFilledGrid (grid, blockTable) = parseFrom grid blockTable =<< searchInitialBlock grid
