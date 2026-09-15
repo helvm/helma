@@ -70,11 +70,10 @@ stepNextState ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction �
 stepNextState !a !i = attachErrorContext a i $ runInstruction i (incrementIC a)
 {-# INLINE stepNextState #-}
 
--- Leniwe dodawanie kontekstu - zapobiega generowaniu ciągów znaków show/printIndexedIL przy poprawnym biegu
 attachErrorContext ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → m b → m b
 attachErrorContext a i action = action `catchError` \err ->
   appendErrorTuple ("Automaton.nextState" , showP a) $
   appendErrorTuple ("program:" , toText $ printIndexedIL $ toList $ memoryProgram a) $
   appendErrorTuple ("i:" , show i) $
   throwError err
-{-# INLINE attachErrorContext #-}
+{-# NOINLINE attachErrorContext #-}
