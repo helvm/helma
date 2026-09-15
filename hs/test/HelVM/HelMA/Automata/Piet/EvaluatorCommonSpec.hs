@@ -77,10 +77,10 @@ spec =
     let img = readImage fullPath
     let implType = Common
     forM_ inputs $ \input -> do
-      let mock = (ioExecMockEffWithInput (toText input) . simpleEval) =<< img
+      let mock = (ioExecDynamicMockEffWithInput (toText input) . simpleEval) =<< img
       let path = show implType </> dirName </> fileName <> input
       describe path $ do
         it ("output" </> path) $
-          calculateOutput <$> mock `goldenShouldIO` buildAbsolutePietOutFileName path
+          calculateDynamicOutput <$> mock `goldenShouldIO` buildAbsolutePietOutFileName path
         it ("logged" </> path) $
-          calculateLogsWithLevelInfo <$> mock `goldenShouldIO` buildAbsolutePietLogFileName path
+          calculateDynamicLogs <$> mock `goldenShouldIO` buildAbsolutePietLogFileName path
