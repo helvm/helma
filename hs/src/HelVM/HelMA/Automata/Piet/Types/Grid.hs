@@ -33,18 +33,18 @@ data Grid a
   = Grid
       { widthGrid  :: {-# UNPACK #-} !Int
       , heightGrid :: {-# UNPACK #-} !Int
-      , cells      :: !(V.Vector a)
+      , cells      :: !(Vector a)
       }
   deriving stock (Eq, Show)
 
 instance Functor Grid where
-  fmap f (Grid w h pxs) = Grid w h (fmap f pxs)
+  fmap f g = g { cells = fmap f g.cells }
   {-# INLINE fmap #-}
 
 -- EXPORTED FUNCTIONS & OPERATORS
 
 gridBounds ∷ Grid a → Coordinates
-gridBounds a = (widthGrid a, heightGrid a)
+gridBounds g = (g.widthGrid, g.heightGrid)
 {-# INLINE gridBounds #-}
 
 infixl 9 &!
@@ -53,115 +53,103 @@ infixl 9 &!
 {-# INLINE (&!) #-}
 
 indexMaybe ∷ Grid a → Coordinates → Maybe a
-indexMaybe m coord
-  | inRangeGrid coord m = Just $ unsafeIndex m coord
-  | otherwise           = Nothing
+indexMaybe g coord = bool Nothing (Just $ unsafeIndex coord g) $ inRangeGrid coord g
 {-# INLINE indexMaybe #-}
 
 newGrid ∷ Coordinates → [(Coordinates, a)] → Grid a
-newGrid (w, h) elems = Grid w h $ V.create $ do
-  vec <- MV.unsafeNew (w * h)
-  writeElems elems w vec
-  pure vec
+newGrid (w, h) elems = Grid w h $ V.create $ writeElems elems w =<< MV.unsafeNew (w * h)
 
 inRangeGrid ∷ Coordinates → Grid a → Bool
-inRangeGrid (x, y) m = x >= 0 && x < widthGrid m && y >= 0 && y < heightGrid m
+inRangeGrid (x, y) g = x >= 0 && x < g.widthGrid && y >= 0 && y < g.heightGrid
 {-# INLINE inRangeGrid #-}
 
 atGrid ∷ Coordinates → Grid a → a
-atGrid coord m
-  | inRangeGrid coord m = unsafeIndex m coord
-  | otherwise           = error $ "Grid.atGrid: Out of bounds " <> show coord
+atGrid coord g = bool (error $ "Grid.atGrid: Out of bounds " <> show coord) (unsafeIndex coord g) $ inRangeGrid coord g
 {-# INLINE atGrid #-}
 
 discoverBlock ∷ Eq a ⇒ Grid a → Coordinates → BlockCoordinates
-discoverBlock m startPos
-  | inRangeGrid startPos m = runST $ initBfs m startPos
-  | otherwise              = []
+discoverBlock g startPos = bool [] (runST $ initBfs startPos g) $ inRangeGrid startPos g
 {-# INLINE discoverBlock #-}
 
 nextCoords ∷ Grid a → Coordinates → Maybe Coordinates
-nextCoords m = Coordinates.nextCoords (widthGrid m, heightGrid m)
+nextCoords g = Coordinates.nextCoords (g.widthGrid, g.heightGrid)
 {-# INLINE nextCoords #-}
+
+matrixToGrid ∷ Matrix a → Grid a
+matrixToGrid m = Grid (maybe 0 V.length $ m V.!? 0) (V.length m) (V.concat $ V.toList m)
+
+gridToMatrix ∷ Grid a → Matrix a
+gridToMatrix g = V.generate g.heightGrid $ extractRow g
+
+toIndexFromGrid ∷ Coordinates → Grid a → Int
+toIndexFromGrid coord g = toIndex g.widthGrid coord
+{-# INLINE toIndexFromGrid #-}
+
+totalSize ∷ Grid a → Int
+totalSize g = g.widthGrid * g.heightGrid
+{-# INLINE totalSize #-}
 
 -- PRIVATE HELPERS
 
-writeElems ∷ [(Coordinates, a)] → Int → MV.MVector s a → ST s ()
-writeElems elems w vec = traverse_ (\(coord, a) -> MV.unsafeWrite vec (toIndex w coord) a) elems
+writeElems ∷ [(Coordinates, a)] → Int → MV.MVector s a → ST s (MV.MVector s a)
+writeElems elems w vec = vec <$ traverse_ (passElem w vec) elems
 {-# INLINE writeElems #-}
 
--- BFS OPTIMIZED: Płaska pętla i Unsafe operacje bez alokacji krotek wewnątrz queue
-initBfs ∷ Eq a ⇒ Grid a → Coordinates → ST s BlockCoordinates
-initBfs m startPos = do
-  let sz = totalSize m
-  visited <- UMV.replicate sz False
-  qX      <- UMV.unsafeNew sz
-  qY      <- UMV.unsafeNew sz
-  
-  let (startX, startY) = startPos
-  UMV.unsafeWrite visited (toIndexFromGrid m startPos) True
-  UMV.unsafeWrite qX 0 startX
-  UMV.unsafeWrite qY 0 startY
-  
-  loopBfs m (unsafeIndex m startPos) visited qX qY 0 1 []
+passElem ∷ Int → MV.MVector s a → (Coordinates, a) → ST s ()
+passElem w vec (coord, val) = MV.unsafeWrite vec (toIndex w coord) val
+{-# INLINE passElem #-}
 
-loopBfs ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Int → Int → BlockCoordinates → ST s BlockCoordinates
-loopBfs m targetCol visited qX qY headIdx tailIdx acc
-  | headIdx >= tailIdx = pure acc
-  | otherwise = do
-      x <- UMV.unsafeRead qX headIdx
-      y <- UMV.unsafeRead qY headIdx
-      
-      -- Wstawianie 4 sąsiadów bezpośrednio inline bez tworzenia monadycznych łańcuchów
-      let newHead = headIdx + 1
-          acc'    = (x, y) : acc
-      
-      t1 <- pushNeighbour m targetCol visited qX qY (x + 1) y tailIdx
-      t2 <- pushNeighbour m targetCol visited qX qY (x - 1) y t1
-      t3 <- pushNeighbour m targetCol visited qX qY x (y + 1) t2
-      t4 <- pushNeighbour m targetCol visited qX qY x (y - 1) t3
-      
-      loopBfs m targetCol visited qX qY newHead t4 acc'
+initBfs ∷ Eq a ⇒ Coordinates → Grid a → ST s BlockCoordinates
+initBfs startPos g = join $ setupAndLoop startPos g <$> UMV.replicate sz False <*> UMV.unsafeNew sz <*> UMV.unsafeNew sz
+  where sz = totalSize g
 
-pushNeighbour ∷ Eq a ⇒ Grid a → a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Int → Int → Int → ST s Int
-pushNeighbour m targetCol visited qX qY x y tailIdx
-  | inRangeGrid (x, y) m = do
-      let idx = toIndexFromGrid m (x, y)
-      isVis <- UMV.unsafeRead visited idx
-      if not isVis && unsafeIndex m (x, y) == targetCol
-        then do
-          UMV.unsafeWrite visited idx True
-          UMV.unsafeWrite qX tailIdx x
-          UMV.unsafeWrite qY tailIdx y
-          pure (tailIdx + 1)
-        else pure tailIdx
-  | otherwise = pure tailIdx
-{-# INLINE pushNeighbour #-}
+setupAndLoop ∷ Eq a ⇒ Coordinates → Grid a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → ST s BlockCoordinates
+setupAndLoop (x, y) g visited qX qY =
+  UMV.unsafeWrite visited (toIndexFromGrid (x, y) g) True
+    *> UMV.unsafeWrite qX 0 x
+    *> UMV.unsafeWrite qY 0 y
+    *> loopBfs (unsafeIndex (x, y) g) visited qX qY g 0 1 []
 
-unsafeIndex ∷ Grid a → Coordinates → a
-unsafeIndex m coord = V.unsafeIndex (cells m) (toIndexFromGrid m coord)
+loopBfs ∷ Eq a ⇒ a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Grid a → Int → Int → BlockCoordinates → ST s BlockCoordinates
+loopBfs targetCol visited qX qY g = fix $ \self headIdx tailIdx acc →
+  bool (stepBfs self targetCol visited qX qY g headIdx tailIdx acc) (pure acc) (headIdx >= tailIdx)
+
+stepBfs ∷ Eq a ⇒ (Int → Int → BlockCoordinates → ST s BlockCoordinates) → a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Grid a → Int → Int → BlockCoordinates → ST s BlockCoordinates
+stepBfs self targetCol visited qX qY g headIdx tailIdx acc =
+  (,) <$> UMV.unsafeRead qX headIdx <*> UMV.unsafeRead qY headIdx >>= \(x, y) →
+    pushNeighbours targetCol visited qX qY g x y tailIdx >>= \newTail →
+      self (headIdx + 1) newTail ((x, y) : acc)
+
+pushNeighbours ∷ Eq a ⇒ a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Grid a → Int → Int → Int → ST s Int
+pushNeighbours targetCol visited qX qY g x y tailIdx =
+  pushNeighbour targetCol visited qX qY g (x + 1) y tailIdx
+    >>= pushNeighbour targetCol visited qX qY g (x - 1) y
+    >>= pushNeighbour targetCol visited qX qY g x (y + 1)
+    >>= pushNeighbour targetCol visited qX qY g x (y - 1)
+
+pushNeighbour ∷ Eq a ⇒ a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Grid a → Int → Int → Int → ST s Int
+pushNeighbour targetCol visited qX qY g x y tailIdx =
+  bool (pure tailIdx) (checkUnvisited targetCol visited qX qY g x y tailIdx =<< UMV.unsafeRead visited idx) $ inRangeGrid (x, y) g
+  where idx = toIndexFromGrid (x, y) g
+
+checkUnvisited ∷ Eq a ⇒ a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Grid a → Int → Int → Int → Bool → ST s Int
+checkUnvisited _ _ _ _ _ _ _ tailIdx True = pure tailIdx
+checkUnvisited targetCol visited qX qY g x y tailIdx False =
+  bool (pure tailIdx) (enqueueNeighbor visited qX qY x y tailIdx $ toIndexFromGrid (x, y) g) $ unsafeIndex (x, y) g == targetCol
+
+enqueueNeighbor ∷ UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Int → Int → Int → Int → ST s Int
+enqueueNeighbor visited qX qY x y tailIdx idxVal =
+  (tailIdx + 1) <$ UMV.unsafeWrite visited idxVal True
+    <* UMV.unsafeWrite qX tailIdx x
+    <* UMV.unsafeWrite qY tailIdx y
+
+extractRow ∷ Grid a → Int → Vector a
+extractRow g y = V.slice (y * g.widthGrid) g.widthGrid g.cells
+
+unsafeIndex ∷ Coordinates → Grid a → a
+unsafeIndex coord g = V.unsafeIndex g.cells $ toIndexFromGrid coord g
 {-# INLINE unsafeIndex #-}
-
-toIndexFromGrid ∷ Grid a → Coordinates → Int
-toIndexFromGrid m = toIndex (widthGrid m)
-{-# INLINE toIndexFromGrid #-}
 
 toIndex ∷ Int → Coordinates → Int
 toIndex w (x, y) = y * w + x
 {-# INLINE toIndex #-}
-
-totalSize ∷ Grid a → Int
-totalSize m = widthGrid m * heightGrid m
-{-# INLINE totalSize #-}
-
-matrixToGrid ∷ Matrix a → Grid a
-matrixToGrid matrix = Grid w h (V.concat $ V.toList matrix) where
-  h = V.length matrix
-  w = maybe 0 V.length (matrix V.!? 0)
-
-gridToMatrix ∷ Grid a → Matrix a
-gridToMatrix grid = V.generate (heightGrid grid) (extractRow grid)
-
-extractRow ∷ Grid a → Int → Vector a
-extractRow grid y = V.slice (y * w) w (cells grid) where
-  w = widthGrid grid
