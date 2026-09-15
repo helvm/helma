@@ -39,21 +39,21 @@ checkCell image dim refs y x blockId accMap (-1) = maybe (scanGrid image dim ref
 checkCell image dim refs y x blockId accMap _    = scanGrid image dim refs y (x + 1) blockId accMap
 
 runFill ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → a → ST s (IntMap BlockCoordinates)
-runFill image dim@(h, w) refs y x blockId accMap targetCol =
-  processBlock image h w refs targetCol blockId [(x, y)] [] >>= \coords ->
+runFill image dim refs y x blockId accMap targetCol =
+  processBlock image dim refs targetCol blockId [(x, y)] [] >>= \coords ->
     scanGrid image dim refs y (x + 1) (blockId + 1) (IM.insert blockId coords accMap)
 
-processBlock ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → a → Int → BlockCoordinates → BlockCoordinates → ST s BlockCoordinates
-processBlock _ _ _ _ _ _ [] acc = pure acc
-processBlock image h w refs targetCol blockId (p : stack) acc =
+processBlock ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Int → a → Int → BlockCoordinates → BlockCoordinates → ST s BlockCoordinates
+processBlock _ _ _ _ _ [] acc = pure acc
+processBlock image (h, w) refs targetCol blockId (p : stack) acc =
   checkAndMark image h w refs targetCol blockId p stack acc =<< UMV.unsafeRead refs (idx p w)
 
 checkAndMark ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → a → Int → Coordinates → BlockCoordinates → BlockCoordinates → Int → ST s BlockCoordinates
 checkAndMark image h w refs targetCol blockId p stack acc (-1) =
   UMV.unsafeWrite refs (idx p w) blockId *>
-    processBlock image h w refs targetCol blockId (validNeighbors image h p targetCol ++ stack) (p : acc)
+    processBlock image (h, w) refs targetCol blockId (validNeighbors image h p targetCol ++ stack) (p : acc)
 checkAndMark image h w refs targetCol blockId _ stack acc _ =
-  processBlock image h w refs targetCol blockId stack acc
+  processBlock image (h, w) refs targetCol blockId stack acc
 
 validNeighbors ∷ Eq a ⇒ Matrix a → Int → Coordinates → a → BlockCoordinates
 validNeighbors image h (x, y) targetCol = filter (isTarget image h targetCol) [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
