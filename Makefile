@@ -1,4 +1,4 @@
-.PHONY: all bench build check check-whitespace clean configure exec fast golden haddock hlint hpack install main output profile-clean profile-cost profile-heap profile-test repl report run sdist stan stylish test tix update
+.PHONY: all bench build check check-whitespace clean configure exec fast golden haddock hlint hpack install main output profile-clean profile-cost profile-heap profile-test profile-piet repl report run sdist stan stylish test tix update
 
 JOBS ?= 2
 
@@ -53,6 +53,9 @@ main:
 
 output:
 	if test -d .output; then rm -r .output; fi
+
+profile-piet: profile-clean
+	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- -m "EvaluatorCommon" +RTS -p -s
 
 profile-test: profile-clean
 	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- +RTS -p -s

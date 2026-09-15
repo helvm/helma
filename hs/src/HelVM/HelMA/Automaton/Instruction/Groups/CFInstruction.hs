@@ -2,8 +2,6 @@ module HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction where
 
 import           HelVM.HelMA.Automaton.Instruction.Extras.Common
 
-import           HelVM.HelIO.Collections.SList
-
 import           Prettyprinter                                   ( Pretty (pretty), (<+>) )
 import qualified Prettyprinter                                   as PP
 
@@ -50,7 +48,7 @@ data BranchOperand
 --data Artificial = Integer | Label
 --
 
-type Label = SString --FIXME Artificial
+type Label = Text
 
 data LabelOperation
   = Call
