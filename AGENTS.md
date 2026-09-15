@@ -72,4 +72,3 @@ Special Rules for Haskell:
   - Do not use `pure ()`, use `pass`
   - Use operators `<*>` `<$>` `$` `.` `<.>` `<=<`, arrow operations and others popular oberatoes if it is posible
   - Use `type-operators`
-
