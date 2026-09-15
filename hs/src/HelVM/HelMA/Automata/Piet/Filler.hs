@@ -35,13 +35,13 @@ scanGrid image dim@(_, w) refs y x blockId accMap
     rowLen = V.length . (image V.!)
 
 checkCell ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → Int → ST s (IntMap BlockCoordinates)
-checkCell image dim@(h, w) refs y x blockId accMap (-1) = maybe (scanGrid image dim refs y (x + 1) blockId accMap) (runFill image h w refs y x blockId accMap) (getPixel image x y)
+checkCell image dim refs y x blockId accMap (-1) = maybe (scanGrid image dim refs y (x + 1) blockId accMap) (runFill image dim refs y x blockId accMap) (getPixel image x y)
 checkCell image dim refs y x blockId accMap _    = scanGrid image dim refs y (x + 1) blockId accMap
 
-runFill ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → a → ST s (IntMap BlockCoordinates)
-runFill image h w refs y x blockId accMap targetCol =
+runFill ∷ Eq a ⇒ Matrix a → Coordinates → UMV.MVector s Int → Int → Int → Int → IntMap BlockCoordinates → a → ST s (IntMap BlockCoordinates)
+runFill image dim@(h, w) refs y x blockId accMap targetCol =
   processBlock image h w refs targetCol blockId [(x, y)] [] >>= \coords ->
-    scanGrid image (h, w) refs y (x + 1) (blockId + 1) (IM.insert blockId coords accMap)
+    scanGrid image dim refs y (x + 1) (blockId + 1) (IM.insert blockId coords accMap)
 
 processBlock ∷ Eq a ⇒ Matrix a → Int → Int → UMV.MVector s Int → a → Int → BlockCoordinates → BlockCoordinates → ST s BlockCoordinates
 processBlock _ _ _ _ _ _ [] acc = pure acc
