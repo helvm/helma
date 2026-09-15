@@ -19,9 +19,9 @@ fillAll grid = runST $ fillST image $ matrixBounds image where image = gridToMat
 -- PRIVATE HELPERS (TOP-DOWN)
 
 fillST ∷ Eq a ⇒ Matrix a → Coordinates → ST s (Matrix Int, IntMap BlockCoordinates)
-fillST _     (0, _) = pure (V.empty, IM.empty)
-fillST image (_, 0) = pure (V.map (const V.empty) image, IM.empty)
-fillST image (h, w) = formatResult image h w =<< buildState image h w
+fillST _     (0, _)     = pure (V.empty, IM.empty)
+fillST image (_, 0)     = pure (V.map (const V.empty) image, IM.empty)
+fillST image dim@(h, w) = formatResult image dim =<< buildState image h w
 
 buildState ∷ Eq a ⇒ Matrix a → Int → Int → ST s (UMV.MVector s Int, IntMap BlockCoordinates)
 buildState image h w = UMV.replicate (h * w) (-1) >>= \refs -> (refs,) <$> scanGrid image h w refs 0 0 0 IM.empty
@@ -63,8 +63,8 @@ isTarget image h targetCol (nx, ny) = ny >= 0 && ny < h && nx >= 0 && nx < rowLe
   where
     rowLen y = V.length (image V.! y)
 
-formatResult ∷ Matrix a → Int → Int → (UMV.MVector s Int, IntMap BlockCoordinates) → ST s (Matrix Int, IntMap BlockCoordinates)
-formatResult image h w (refs, blockMap) = (, blockMap) <$> formatResult' image (h, w) refs
+formatResult ∷ Matrix a → Coordinates → (UMV.MVector s Int, IntMap BlockCoordinates) → ST s (Matrix Int, IntMap BlockCoordinates)
+formatResult image p (refs, blockMap) = (, blockMap) <$> formatResult' image p refs
 
 formatResult' ∷ UMV.PrimMonad m ⇒ Matrix a → Coordinates → UMV.MVector (UMV.PrimState m) Int → m (Matrix Int)
 formatResult' image (h, w) refs = V.generateM h (\y -> V.generateM (V.length (image V.! y)) (\x -> normalizeCell <$> UMV.unsafeRead refs (y * w + x)))
