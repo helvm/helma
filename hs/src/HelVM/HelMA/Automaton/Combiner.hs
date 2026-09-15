@@ -19,10 +19,11 @@ import           Prelude                                hiding ( swap )
 -- | Core of Combiner
 
 runInstruction ∷ (SRAutomatonEff Symbol s r m) ⇒ Instruction → SF s r m
-runInstruction (ISM      i) a = Trampoline.continue . updateStack   a <$> runALI i (memoryStack a)
-runInstruction (ILS      i) a = Trampoline.continue . updateFromLSM a <$> runSLI i (toLSM a)
-runInstruction (ICF      i) a = Trampoline.continue . updateFromCPM a <$> runCFI i (toCPM a)
-runInstruction  End         a = end a
+runInstruction (ISM i) !a = Trampoline.continue . updateStack   a <$> runALI i (memoryStack a)
+runInstruction (ILS i) !a = Trampoline.continue . updateFromLSM a <$> runSLI i (toLSM a)
+runInstruction (ICF i) !a = Trampoline.continue . updateFromCPM a <$> runCFI i (toCPM a)
+runInstruction  End    !a = end a
+{-# INLINE runInstruction #-}
 
 pop2ForStack ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → m (Symbol , Symbol , Memory s r)
 pop2ForStack a = build <$> pop2 (memoryStack a) where
@@ -30,6 +31,7 @@ pop2ForStack a = build <$> pop2 (memoryStack a) where
 
 push1ForStack ∷ Stack s Symbol ⇒ Symbol → Memory s r → Memory s r
 push1ForStack e a = a { memoryStack = push1 e (memoryStack a) }
+{-# INLINE push1ForStack #-}
 
 end ∷ (SRAutomatonEff Symbol s r m) ⇒ SF s r m
 end = pure . Trampoline.break
@@ -45,16 +47,20 @@ newMemory il = Memory (newCM il)
 -- | Updaters
 
 incrementIC ∷ Memory s r → Memory s r
-incrementIC m = m { memoryCM = incrementPC $ memoryCM m}
+incrementIC m = m { memoryCM = incrementPC $ memoryCM m }
+{-# INLINE incrementIC #-}
 
 updateStack ∷ Memory s r → s → Memory s r
-updateStack m s = m {memoryStack = s}
+updateStack m s = m { memoryStack = s }
+{-# INLINE updateStack #-}
 
 updateFromCPM ∷ Memory s r → CentralProcessingMemory s → Memory s r
-updateFromCPM m cpm = m { memoryCM = controlMemory cpm, memoryStack = alm cpm}
+updateFromCPM m (CPM cm s) = m { memoryCM = cm, memoryStack = s }
+{-# INLINE updateFromCPM #-}
 
 updateFromLSM ∷ Memory s r → LoadStoreMemory s r → Memory s r
-updateFromLSM m lsu = m {memoryStack = stack lsu , memoryRAM = ram lsu}
+updateFromLSM m (LSM s r) = m { memoryStack = s, memoryRAM = r }
+{-# INLINE updateFromLSM #-}
 
 -- | Accessors
 
@@ -65,10 +71,12 @@ memoryProgramCounter ∷ Memory s r → InstructionCounter
 memoryProgramCounter = programCounter . memoryCM
 
 toCPM ∷ Memory s r → CentralProcessingMemory s
-toCPM a = CPM { controlMemory = memoryCM a , alm = memoryStack a }
+toCPM (Memory cm s _) = CPM cm s
+{-# INLINE toCPM #-}
 
 toLSM ∷ Memory s r → LoadStoreMemory s r
-toLSM a = LSM { stack = memoryStack a, ram = memoryRAM a }
+toLSM (Memory _ s r) = LSM s r
+{-# INLINE toLSM #-}
 
 -- | Types
 
@@ -81,8 +89,8 @@ type MemorySame s r = Same (Memory s r)
 -- | Data types
 data Memory s r
   = Memory
-      { memoryCM    :: ControlMemory
-      , memoryStack :: s
-      , memoryRAM   :: r
+      { memoryCM    :: !ControlMemory
+      , memoryStack :: !s
+      , memoryRAM   :: !r
       }
   deriving stock (Show)

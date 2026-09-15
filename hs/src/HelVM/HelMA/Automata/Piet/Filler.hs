@@ -33,8 +33,10 @@ fillST grid
   | otherwise                                   = formatResult grid =<< buildState grid
 
 buildState ∷ Eq a ⇒ Grid a → ST s (FillState s)
-buildState grid = (refs,) <$> scanGrid grid refs (0, 0) 0 IM.empty =<< UMV.replicate (totalSize grid) (-1)
-  where refs = undefined -- oszustwo dla typu, zastąpione w pętli monadycznej poniżej
+buildState grid = scanAndTuple grid =<< UMV.replicate (totalSize grid) (-1)
+
+scanAndTuple ∷ Eq a ⇒ Grid a → UMV.MVector s Int → ST s (FillState s)
+scanAndTuple grid refs = (refs,) <$> scanGrid grid refs (0, 0) 0 IM.empty
 
 scanGrid ∷ Eq a ⇒ Grid a → UMV.MVector s Int → Coordinates → Int → IntMap BlockCoordinates → ST s (IntMap BlockCoordinates)
 scanGrid grid refs = fix $ \loop coord blockId accMap →

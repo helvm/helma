@@ -90,6 +90,7 @@ common common-options
     UnicodeSyntax
     DuplicateRecordFields
     OverloadedRecordDot
+    BangPatterns
   ghc-options:
     -O2
     -fexpose-all-unfoldings
@@ -447,7 +448,7 @@ test-suite helma-test
   ghc-options:
     -threaded
     -rtsopts
-    "-with-rtsopts=-N -s -p"
+    "-with-rtsopts=-N -s"
 
 benchmark helma-benchmark
   import:              common-options
