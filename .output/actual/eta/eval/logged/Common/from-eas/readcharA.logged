@@ -6,6 +6,8 @@ Info Memory
             ]
         , programCounter = 2
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList []
         }
     , memoryStack = fromList [ 65 ]
     , memoryRAM = []

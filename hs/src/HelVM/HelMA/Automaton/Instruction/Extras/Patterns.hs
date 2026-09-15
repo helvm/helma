@@ -20,6 +20,15 @@ isMark (MarkP _) = True
 isMark        _  = False
 {-# INLINE isMark #-}
 
+extractNat ∷ Instruction → Maybe Natural
+extractNat (ICF (Mark (MNatural n))) = Just n
+extractNat _                         = Nothing
+
+extractArt ∷ Instruction → Maybe Label
+extractArt (ICF (Mark (MArtificial l))) = Just l
+extractArt _                            = Nothing
+
+
 checkNaturalMark ∷ Natural → Instruction → Bool
 checkNaturalMark n (MNaturalP n') = n == n'
 checkNaturalMark _            _   = False

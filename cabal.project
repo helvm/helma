@@ -8,12 +8,7 @@ source-repository-package
 
 -- profiling: True
 
--- profiling-detail: late-toplevel
+-- profiling-detail: none
 
 -- package *
---   ghc-options: -fprof-auto
-
--- optimization: 2
-
--- tests: True
--- benchmarks: True
+--   ghc-options: -fno-prof-auto -fprof-late

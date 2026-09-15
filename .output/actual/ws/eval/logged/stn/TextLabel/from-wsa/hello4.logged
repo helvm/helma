@@ -104,6 +104,21 @@ Info Memory
             ]
         , programCounter = 16
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList
+            [
+                ( "prints"
+                , 16
+                )
+            ,
+                ( "prints_end"
+                , 21
+                )
+            ,
+                ( "printsln"
+                , 24
+                )
+            ]
         }
     , memoryStack = fromList []
     , memoryRAM = []

@@ -417,6 +417,81 @@ end # 97
             ]
         , programCounter = 5
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList
+            [
+                ( "block_0"
+                , 1
+                )
+            ,
+                ( "block_1"
+                , 49
+                )
+            ,
+                ( "branch_0_dl"
+                , 18
+                )
+            ,
+                ( "branch_0_dr"
+                , 23
+                )
+            ,
+                ( "branch_0_ll"
+                , 29
+                )
+            ,
+                ( "branch_0_lr"
+                , 35
+                )
+            ,
+                ( "branch_0_rl"
+                , 7
+                )
+            ,
+                ( "branch_0_rr"
+                , 13
+                )
+            ,
+                ( "branch_0_ul"
+                , 41
+                )
+            ,
+                ( "branch_0_ur"
+                , 47
+                )
+            ,
+                ( "branch_1_dl"
+                , 67
+                )
+            ,
+                ( "branch_1_dr"
+                , 73
+                )
+            ,
+                ( "branch_1_ll"
+                , 79
+                )
+            ,
+                ( "branch_1_lr"
+                , 85
+                )
+            ,
+                ( "branch_1_rl"
+                , 55
+                )
+            ,
+                ( "branch_1_rr"
+                , 61
+                )
+            ,
+                ( "branch_1_ul"
+                , 90
+                )
+            ,
+                ( "branch_1_ur"
+                , 95
+                )
+            ]
         }
     , memoryStack = fromList []
     , memoryRAM = [ 3 ]

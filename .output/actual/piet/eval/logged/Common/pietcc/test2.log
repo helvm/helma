@@ -862,6 +862,161 @@ end # 190
             ]
         , programCounter = 153
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList
+            [
+                ( "block_0"
+                , 1
+                )
+            ,
+                ( "block_2"
+                , 49
+                )
+            ,
+                ( "block_3"
+                , 51
+                )
+            ,
+                ( "block_4"
+                , 53
+                )
+            ,
+                ( "block_5"
+                , 99
+                )
+            ,
+                ( "block_6"
+                , 145
+                )
+            ,
+                ( "branch_0_dl"
+                , 17
+                )
+            ,
+                ( "branch_0_dr"
+                , 23
+                )
+            ,
+                ( "branch_0_ll"
+                , 29
+                )
+            ,
+                ( "branch_0_lr"
+                , 35
+                )
+            ,
+                ( "branch_0_rl"
+                , 6
+                )
+            ,
+                ( "branch_0_rr"
+                , 11
+                )
+            ,
+                ( "branch_0_ul"
+                , 41
+                )
+            ,
+                ( "branch_0_ur"
+                , 47
+                )
+            ,
+                ( "branch_4_dl"
+                , 70
+                )
+            ,
+                ( "branch_4_dr"
+                , 75
+                )
+            ,
+                ( "branch_4_ll"
+                , 81
+                )
+            ,
+                ( "branch_4_lr"
+                , 87
+                )
+            ,
+                ( "branch_4_rl"
+                , 59
+                )
+            ,
+                ( "branch_4_rr"
+                , 65
+                )
+            ,
+                ( "branch_4_ul"
+                , 92
+                )
+            ,
+                ( "branch_4_ur"
+                , 97
+                )
+            ,
+                ( "branch_5_dl"
+                , 116
+                )
+            ,
+                ( "branch_5_dr"
+                , 122
+                )
+            ,
+                ( "branch_5_ll"
+                , 127
+                )
+            ,
+                ( "branch_5_lr"
+                , 133
+                )
+            ,
+                ( "branch_5_rl"
+                , 105
+                )
+            ,
+                ( "branch_5_rr"
+                , 110
+                )
+            ,
+                ( "branch_5_ul"
+                , 138
+                )
+            ,
+                ( "branch_5_ur"
+                , 143
+                )
+            ,
+                ( "branch_6_dl"
+                , 161
+                )
+            ,
+                ( "branch_6_dr"
+                , 167
+                )
+            ,
+                ( "branch_6_ll"
+                , 172
+                )
+            ,
+                ( "branch_6_lr"
+                , 177
+                )
+            ,
+                ( "branch_6_rl"
+                , 150
+                )
+            ,
+                ( "branch_6_rr"
+                , 155
+                )
+            ,
+                ( "branch_6_ul"
+                , 183
+                )
+            ,
+                ( "branch_6_ur"
+                , 188
+                )
+            ]
         }
     , memoryStack = fromList []
     , memoryRAM = [ 1 ]

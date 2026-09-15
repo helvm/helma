@@ -26,7 +26,7 @@ source-repository head
   location:            https://github.com/helvm/helma
 
 flag ghcoptions
-  description:         compile with options
+  description:         compile with extra warnings and options
   manual:              True
   default:             False
 
@@ -91,8 +91,9 @@ common common-options
     DuplicateRecordFields
     OverloadedRecordDot
   ghc-options:
-    -fprof-auto
-    -fprof-cafs
+    -O2
+    -fexpose-all-unfoldings
+    -fspecialise-aggressively
   if flag(ghcoptions)
     ghc-options:
       -Wall
@@ -104,16 +105,13 @@ common common-options
       -Wnoncanonical-monad-instances
       -fhide-source-paths
 --      -Wmissing-export-lists FIXME
-       -Wpartial-fields
+      -Wpartial-fields
       -Wmissing-deriving-strategies
       -fwrite-ide-info
       -hiedir=.hie
 --      -Wunused-packages
       -fprint-potential-instances
       -Werror
-      -O2
-      -fexpose-all-unfoldings
-      -fspecialise-aggressively
 
 library
   import:              common-options
@@ -351,7 +349,7 @@ executable helma
   ghc-options:
     -threaded
     -rtsopts
-    "-with-rtsopts=-N -p -s"
+    "-with-rtsopts=-N -s"
 
 test-suite helma-test
   import:              common-options
@@ -491,4 +489,4 @@ benchmark helma-benchmark
   ghc-options:
     -threaded
     -rtsopts
-    "-with-rtsopts=-N"
+    "-with-rtsopts=-N -s"

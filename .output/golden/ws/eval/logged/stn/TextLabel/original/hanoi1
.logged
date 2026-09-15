@@ -405,6 +405,41 @@ Info Memory
             ]
         , programCounter = 32
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList
+            [
+                ( "add"
+                , 98
+                )
+            ,
+                ( "endhanoi"
+                , 96
+                )
+            ,
+                ( "hanoi"
+                , 32
+                )
+            ,
+                ( "newline"
+                , 129
+                )
+            ,
+                ( "read"
+                , 113
+                )
+            ,
+                ( "read_end"
+                , 124
+                )
+            ,
+                ( "write"
+                , 101
+                )
+            ,
+                ( "write_end"
+                , 109
+                )
+            ]
         }
     , memoryStack = fromList []
     , memoryRAM =

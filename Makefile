@@ -1,15 +1,17 @@
-.PHONY: all bench build check check-whitespace clean configure exec fast golden haddock hlint hpack install main output profile-clean profile-cost profile-heap profile-test repl report run sdist stan stylish test tix update
+.PHONY: all bench build check check-whitespace clean configure exec fast golden haddock hlint hpack install main output profile-clean profile-cost profile-heap profile-test profile-test-match repl report run sdist stan stylish test tix update
 
 JOBS ?= 2
+
+MATCH ?= Piet Interpreter Golden Tests
 
 all: update fast
 
 bench:
 	rm -f helma-benchmark.tix
-	cabal new-bench --jobs=$(JOBS) -f ghcoptions
+	cabal bench --jobs=$(JOBS) -f ghcoptions
 
 build:
-	cabal new-build --jobs=$(JOBS) -f ghcoptions
+	cabal build --jobs=$(JOBS) -f ghcoptions
 
 check:
 	cabal check
@@ -18,7 +20,7 @@ check-whitespace:
 	git check-whitespace
 
 clean: profile-clean
-	cabal new-clean
+	cabal clean
 	if test -d .cabal-sandbox; then rm -rf .cabal-sandbox; fi
 	if test -d .hpc; then rm -rf .hpc; fi
 	if test -d .hie; then rm -rf .hie; fi
@@ -29,7 +31,7 @@ configure:
 
 exec:
 	make tix
-	cabal new-exec --jobs=$(JOBS) helma
+	cabal run --jobs=$(JOBS) helma
 
 fast: main report sdist install
 
@@ -37,7 +39,7 @@ golden:
 	if test -d .output/golden; then rm -r .output/golden; fi
 
 haddock:
-	cabal new-haddock
+	cabal haddock
 
 hlint:
 	./hlint.sh
@@ -54,22 +56,27 @@ main:
 output:
 	if test -d .output; then rm -r .output; fi
 
+
+profile-test-match: profile-clean
+	cabal run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-late" -- -m "$(MATCH)" +RTS -p -i0.2 -s
+
 profile-test: profile-clean
-	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- +RTS -p -s
+	cabal run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-late" -- +RTS -p -i0.1 -s
 
 profile-heap: profile-clean
-	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- +RTS -hy -l
+	cabal run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-late" -- +RTS -hy -l
 	@if command -v hp2pretty >/dev/null 2>&1; then hp2pretty *.hp; elif command -v hp2ps >/dev/null 2>&1; then hp2ps -c *.hp; fi
 
 profile-cost: profile-clean
-	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- +RTS -hc -l
+	cabal run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-late" -- +RTS -hc -l
 	@if command -v hp2pretty >/dev/null 2>&1; then hp2pretty *.hp; elif command -v hp2ps >/dev/null 2>&1; then hp2ps -c *.hp; fi
+
 
 profile-clean:
 	rm -f *.prof *.hp *.ps *.svg *.eventlog
 
 repl:
-	cabal new-repl lib:helma
+	cabal repl lib:helma
 
 report:
 	make haddock stan hlint
@@ -77,7 +84,7 @@ report:
 
 run:
 	make tix
-	cabal new-run --jobs=$(JOBS) helma
+	cabal run --jobs=$(JOBS) helma
 
 sdist:
 	cabal sdist
@@ -90,7 +97,7 @@ stylish:
 	stylish-haskell -r -v -i hs
 
 test:
-	cabal new-test --jobs=$(JOBS) --test-show-details=streaming -f ghcoptions
+	cabal test --jobs=$(JOBS) --test-show-details=streaming -f ghcoptions
 
 tix:
 	rm -f helma.tix

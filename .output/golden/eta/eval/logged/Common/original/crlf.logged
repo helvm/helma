@@ -40,6 +40,21 @@ Info Memory
             ]
         , programCounter = 12
         , returnStack = IS []
+        , naturalLabelMap = fromList
+            [
+                ( 0
+                , 10
+                )
+            ,
+                ( 1
+                , 0
+                )
+            ,
+                ( 3
+                , 2
+                )
+            ]
+        , artificialLabelMap = fromList []
         }
     , memoryStack = fromList []
     , memoryRAM = []

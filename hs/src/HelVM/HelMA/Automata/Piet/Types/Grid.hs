@@ -12,6 +12,7 @@ module HelVM.HelMA.Automata.Piet.Types.Grid
   , nextCoords
   , toIndexFromGrid
   , totalSize
+  , unsafeIndex
   , (&!)
   ) where
 

@@ -327,6 +327,41 @@ Info Memory
             ]
         , programCounter = 83
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList
+            [
+                ( "add"
+                , 83
+                )
+            ,
+                ( "loop"
+                , 60
+                )
+            ,
+                ( "newline"
+                , 114
+                )
+            ,
+                ( "progend"
+                , 75
+                )
+            ,
+                ( "read"
+                , 98
+                )
+            ,
+                ( "read_end"
+                , 109
+                )
+            ,
+                ( "write"
+                , 86
+                )
+            ,
+                ( "write_end"
+                , 94
+                )
+            ]
         }
     , memoryStack = fromList []
     , memoryRAM =

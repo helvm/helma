@@ -2528,6 +2528,625 @@ Info Memory
             ]
         , programCounter = 469
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList
+            [
+                ( "block_0"
+                , 1
+                )
+            ,
+                ( "block_1"
+                , 47
+                )
+            ,
+                ( "block_10"
+                , 322
+                )
+            ,
+                ( "block_11"
+                , 371
+                )
+            ,
+                ( "block_12"
+                , 415
+                )
+            ,
+                ( "block_13"
+                , 467
+                )
+            ,
+                ( "block_14"
+                , 469
+                )
+            ,
+                ( "block_15"
+                , 523
+                )
+            ,
+                ( "block_16"
+                , 572
+                )
+            ,
+                ( "block_17"
+                , 616
+                )
+            ,
+                ( "block_19"
+                , 664
+                )
+            ,
+                ( "block_20"
+                , 708
+                )
+            ,
+                ( "block_23"
+                , 752
+                )
+            ,
+                ( "block_3"
+                , 92
+                )
+            ,
+                ( "block_5"
+                , 138
+                )
+            ,
+                ( "block_6"
+                , 180
+                )
+            ,
+                ( "block_7"
+                , 228
+                )
+            ,
+                ( "block_8"
+                , 276
+                )
+            ,
+                ( "branch_0_dl"
+                , 16
+                )
+            ,
+                ( "branch_0_dr"
+                , 21
+                )
+            ,
+                ( "branch_0_ll"
+                , 27
+                )
+            ,
+                ( "branch_0_lr"
+                , 33
+                )
+            ,
+                ( "branch_0_rl"
+                , 6
+                )
+            ,
+                ( "branch_0_rr"
+                , 11
+                )
+            ,
+                ( "branch_0_ul"
+                , 39
+                )
+            ,
+                ( "branch_0_ur"
+                , 45
+                )
+            ,
+                ( "branch_10_dl"
+                , 337
+                )
+            ,
+                ( "branch_10_dr"
+                , 347
+                )
+            ,
+                ( "branch_10_ll"
+                , 353
+                )
+            ,
+                ( "branch_10_lr"
+                , 359
+                )
+            ,
+                ( "branch_10_rl"
+                , 327
+                )
+            ,
+                ( "branch_10_rr"
+                , 332
+                )
+            ,
+                ( "branch_10_ul"
+                , 364
+                )
+            ,
+                ( "branch_10_ur"
+                , 369
+                )
+            ,
+                ( "branch_11_dl"
+                , 387
+                )
+            ,
+                ( "branch_11_dr"
+                , 393
+                )
+            ,
+                ( "branch_11_ll"
+                , 398
+                )
+            ,
+                ( "branch_11_lr"
+                , 403
+                )
+            ,
+                ( "branch_11_rl"
+                , 376
+                )
+            ,
+                ( "branch_11_rr"
+                , 381
+                )
+            ,
+                ( "branch_11_ul"
+                , 408
+                )
+            ,
+                ( "branch_11_ur"
+                , 413
+                )
+            ,
+                ( "branch_12_dl"
+                , 430
+                )
+            ,
+                ( "branch_12_dr"
+                , 435
+                )
+            ,
+                ( "branch_12_ll"
+                , 440
+                )
+            ,
+                ( "branch_12_lr"
+                , 445
+                )
+            ,
+                ( "branch_12_rl"
+                , 420
+                )
+            ,
+                ( "branch_12_rr"
+                , 425
+                )
+            ,
+                ( "branch_12_ul"
+                , 455
+                )
+            ,
+                ( "branch_12_ur"
+                , 465
+                )
+            ,
+                ( "branch_14_dl"
+                , 487
+                )
+            ,
+                ( "branch_14_dr"
+                , 495
+                )
+            ,
+                ( "branch_14_ll"
+                , 500
+                )
+            ,
+                ( "branch_14_lr"
+                , 505
+                )
+            ,
+                ( "branch_14_rl"
+                , 474
+                )
+            ,
+                ( "branch_14_rr"
+                , 479
+                )
+            ,
+                ( "branch_14_ul"
+                , 513
+                )
+            ,
+                ( "branch_14_ur"
+                , 521
+                )
+            ,
+                ( "branch_15_dl"
+                , 539
+                )
+            ,
+                ( "branch_15_dr"
+                , 545
+                )
+            ,
+                ( "branch_15_ll"
+                , 550
+                )
+            ,
+                ( "branch_15_lr"
+                , 555
+                )
+            ,
+                ( "branch_15_rl"
+                , 528
+                )
+            ,
+                ( "branch_15_rr"
+                , 533
+                )
+            ,
+                ( "branch_15_ul"
+                , 565
+                )
+            ,
+                ( "branch_15_ur"
+                , 570
+                )
+            ,
+                ( "branch_16_dl"
+                , 589
+                )
+            ,
+                ( "branch_16_dr"
+                , 594
+                )
+            ,
+                ( "branch_16_ll"
+                , 599
+                )
+            ,
+                ( "branch_16_lr"
+                , 604
+                )
+            ,
+                ( "branch_16_rl"
+                , 578
+                )
+            ,
+                ( "branch_16_rr"
+                , 584
+                )
+            ,
+                ( "branch_16_ul"
+                , 609
+                )
+            ,
+                ( "branch_16_ur"
+                , 614
+                )
+            ,
+                ( "branch_17_dl"
+                , 634
+                )
+            ,
+                ( "branch_17_dr"
+                , 640
+                )
+            ,
+                ( "branch_17_ll"
+                , 646
+                )
+            ,
+                ( "branch_17_lr"
+                , 652
+                )
+            ,
+                ( "branch_17_rl"
+                , 622
+                )
+            ,
+                ( "branch_17_rr"
+                , 628
+                )
+            ,
+                ( "branch_17_ul"
+                , 657
+                )
+            ,
+                ( "branch_17_ur"
+                , 662
+                )
+            ,
+                ( "branch_19_dl"
+                , 681
+                )
+            ,
+                ( "branch_19_dr"
+                , 686
+                )
+            ,
+                ( "branch_19_ll"
+                , 691
+                )
+            ,
+                ( "branch_19_lr"
+                , 696
+                )
+            ,
+                ( "branch_19_rl"
+                , 670
+                )
+            ,
+                ( "branch_19_rr"
+                , 676
+                )
+            ,
+                ( "branch_19_ul"
+                , 701
+                )
+            ,
+                ( "branch_19_ur"
+                , 706
+                )
+            ,
+                ( "branch_1_dl"
+                , 63
+                )
+            ,
+                ( "branch_1_dr"
+                , 68
+                )
+            ,
+                ( "branch_1_ll"
+                , 73
+                )
+            ,
+                ( "branch_1_lr"
+                , 78
+                )
+            ,
+                ( "branch_1_rl"
+                , 53
+                )
+            ,
+                ( "branch_1_rr"
+                , 58
+                )
+            ,
+                ( "branch_1_ul"
+                , 84
+                )
+            ,
+                ( "branch_1_ur"
+                , 90
+                )
+            ,
+                ( "branch_20_dl"
+                , 725
+                )
+            ,
+                ( "branch_20_dr"
+                , 730
+                )
+            ,
+                ( "branch_20_ll"
+                , 735
+                )
+            ,
+                ( "branch_20_lr"
+                , 740
+                )
+            ,
+                ( "branch_20_rl"
+                , 714
+                )
+            ,
+                ( "branch_20_rr"
+                , 720
+                )
+            ,
+                ( "branch_20_ul"
+                , 745
+                )
+            ,
+                ( "branch_20_ur"
+                , 750
+                )
+            ,
+                ( "branch_23_dl"
+                , 770
+                )
+            ,
+                ( "branch_23_dr"
+                , 776
+                )
+            ,
+                ( "branch_23_ll"
+                , 781
+                )
+            ,
+                ( "branch_23_lr"
+                , 786
+                )
+            ,
+                ( "branch_23_rl"
+                , 758
+                )
+            ,
+                ( "branch_23_rr"
+                , 764
+                )
+            ,
+                ( "branch_23_ul"
+                , 791
+                )
+            ,
+                ( "branch_23_ur"
+                , 796
+                )
+            ,
+                ( "branch_3_dl"
+                , 109
+                )
+            ,
+                ( "branch_3_dr"
+                , 114
+                )
+            ,
+                ( "branch_3_ll"
+                , 119
+                )
+            ,
+                ( "branch_3_lr"
+                , 124
+                )
+            ,
+                ( "branch_3_rl"
+                , 98
+                )
+            ,
+                ( "branch_3_rr"
+                , 104
+                )
+            ,
+                ( "branch_3_ul"
+                , 130
+                )
+            ,
+                ( "branch_3_ur"
+                , 136
+                )
+            ,
+                ( "branch_5_dl"
+                , 153
+                )
+            ,
+                ( "branch_5_dr"
+                , 158
+                )
+            ,
+                ( "branch_5_ll"
+                , 163
+                )
+            ,
+                ( "branch_5_lr"
+                , 168
+                )
+            ,
+                ( "branch_5_rl"
+                , 143
+                )
+            ,
+                ( "branch_5_rr"
+                , 148
+                )
+            ,
+                ( "branch_5_ul"
+                , 173
+                )
+            ,
+                ( "branch_5_ur"
+                , 178
+                )
+            ,
+                ( "branch_6_dl"
+                , 195
+                )
+            ,
+                ( "branch_6_dr"
+                , 200
+                )
+            ,
+                ( "branch_6_ll"
+                , 205
+                )
+            ,
+                ( "branch_6_lr"
+                , 210
+                )
+            ,
+                ( "branch_6_rl"
+                , 185
+                )
+            ,
+                ( "branch_6_rr"
+                , 190
+                )
+            ,
+                ( "branch_6_ul"
+                , 218
+                )
+            ,
+                ( "branch_6_ur"
+                , 226
+                )
+            ,
+                ( "branch_7_dl"
+                , 246
+                )
+            ,
+                ( "branch_7_dr"
+                , 254
+                )
+            ,
+                ( "branch_7_ll"
+                , 259
+                )
+            ,
+                ( "branch_7_lr"
+                , 264
+                )
+            ,
+                ( "branch_7_rl"
+                , 233
+                )
+            ,
+                ( "branch_7_rr"
+                , 238
+                )
+            ,
+                ( "branch_7_ul"
+                , 269
+                )
+            ,
+                ( "branch_7_ur"
+                , 274
+                )
+            ,
+                ( "branch_8_dl"
+                , 293
+                )
+            ,
+                ( "branch_8_dr"
+                , 298
+                )
+            ,
+                ( "branch_8_ll"
+                , 304
+                )
+            ,
+                ( "branch_8_lr"
+                , 310
+                )
+            ,
+                ( "branch_8_rl"
+                , 282
+                )
+            ,
+                ( "branch_8_rr"
+                , 287
+                )
+            ,
+                ( "branch_8_ul"
+                , 315
+                )
+            ,
+                ( "branch_8_ur"
+                , 320
+                )
+            ]
         }
     , memoryStack = fromList []
     , memoryRAM = [ 5 ]

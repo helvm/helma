@@ -414,6 +414,61 @@ Info Memory
             ]
         , programCounter = 90
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList
+            [
+                ( "f_finished_1"
+                , 33
+                )
+            ,
+                ( "f_finished_2"
+                , 66
+                )
+            ,
+                ( "f_finished_3"
+                , 62
+                )
+            ,
+                ( "f_finished_4"
+                , 85
+                )
+            ,
+                ( "f_start_1"
+                , 24
+                )
+            ,
+                ( "f_start_2"
+                , 36
+                )
+            ,
+                ( "f_start_3"
+                , 41
+                )
+            ,
+                ( "f_start_4"
+                , 69
+                )
+            ,
+                ( "nodraw"
+                , 82
+                )
+            ,
+                ( "prints"
+                , 90
+                )
+            ,
+                ( "prints_end"
+                , 95
+                )
+            ,
+                ( "printsln"
+                , 98
+                )
+            ,
+                ( "st"
+                , 0
+                )
+            ]
         }
     , memoryStack = fromList []
     , memoryRAM =

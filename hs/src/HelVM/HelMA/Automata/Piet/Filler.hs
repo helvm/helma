@@ -61,16 +61,21 @@ checkProcessStack grid refs targetCol blockId loop (p : stack) acc =
   checkAndMark grid refs targetCol blockId loop p stack acc =<< UMV.unsafeRead refs (toIndexFromGrid p grid)
 
 checkAndMark ∷ Eq a ⇒ Grid a → UMV.MVector s Int → a → Int → (BlockCoordinates → BlockCoordinates → ST s BlockCoordinates) → Coordinates → BlockCoordinates → BlockCoordinates → Int → ST s BlockCoordinates
-checkAndMark grid refs targetCol blockId loop p stack acc (-1) =
+checkAndMark grid refs targetCol blockId loop p@(x, y) stack acc (-1) =
   UMV.unsafeWrite refs (toIndexFromGrid p grid) blockId
-    *> loop (validNeighbors grid p targetCol ++ stack) (p : acc)
+    *> loop (pushNeighbors grid targetCol [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)] stack) (p : acc)
 checkAndMark _ _ _ _ loop _ stack acc _ = loop stack acc
 
-validNeighbors ∷ Eq a ⇒ Grid a → Coordinates → a → BlockCoordinates
-validNeighbors grid (x, y) targetCol = filter (isTarget grid targetCol) [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
+pushNeighbors ∷ Eq a ⇒ Grid a → a → BlockCoordinates → BlockCoordinates → BlockCoordinates
+pushNeighbors grid targetCol candidates stack = foldl' (pushIfTarget grid targetCol) stack candidates
+
+pushIfTarget ∷ Eq a ⇒ Grid a → a → BlockCoordinates → Coordinates → BlockCoordinates
+pushIfTarget grid targetCol stack p = bool stack (p : stack) $ isTarget grid targetCol p
+{-# INLINE pushIfTarget #-}
 
 isTarget ∷ Eq a ⇒ Grid a → a → Coordinates → Bool
-isTarget grid targetCol p = inRangeGrid p grid && atGrid p grid == targetCol
+isTarget grid targetCol p = inRangeGrid p grid && unsafeIndex p grid == targetCol
+{-# INLINE isTarget #-}
 
 formatResult ∷ Grid a → FillState s → ST s FillResult
 formatResult grid (refs, blockMap) = formatGrid blockMap <$> UV.freeze refs

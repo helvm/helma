@@ -248,6 +248,41 @@ Info Memory
             ]
         , programCounter = 35
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList
+            [
+                ( "add"
+                , 46
+                )
+            ,
+                ( "fact"
+                , 35
+                )
+            ,
+                ( "factbase"
+                , 44
+                )
+            ,
+                ( "newline"
+                , 77
+                )
+            ,
+                ( "read"
+                , 61
+                )
+            ,
+                ( "read_end"
+                , 72
+                )
+            ,
+                ( "write"
+                , 49
+                )
+            ,
+                ( "write_end"
+                , 57
+                )
+            ]
         }
     , memoryStack = fromList []
     , memoryRAM =
