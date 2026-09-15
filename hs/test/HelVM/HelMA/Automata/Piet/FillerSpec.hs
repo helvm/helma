@@ -63,7 +63,7 @@ cccRRRRRR*****mm
 |] ∷ String)))
 
 expectedFilledComplexImage ∷ Grid Int
-expectedFilledComplexImage = matrixToGrid $ charToOrd <<$>> toVector2D (toString <$> drop 1 (lines (toText ([q|
+expectedFilledComplexImage = charToOrd <$> toGrid (toString <$> drop 1 (lines (toText ([q|
 aaaaabcccdeeefff
 gggbbbbbddddhhhi
 ggggjbbjddhhhkkl
