@@ -25,17 +25,15 @@ withLimit !n !a = (n - 1 , a)
 {-# INLINE withLimit #-}
 
 trampolineM ∷ Monad m ⇒ (a → m (Either b a)) → a → m b
-trampolineM f = fix $ \loop !acc → step loop acc =<< f acc
-  where
-    step _    _   (Left b)  = pure b
-    step loop _   (Right a) = loop a
+trampolineM f = fix $ \loop !acc → step loop acc =<< f acc where
+  step _    _   (Left b)  = pure b
+  step loop _   (Right a) = loop a
 {-# INLINE trampolineM #-}
 
 trampoline ∷ (a → Either b a) → a → b
-trampoline f = fix $ \loop !acc → step loop (f acc)
-  where
-    step _    (Left b)  = b
-    step loop (Right a) = loop a
+trampoline f = fix $ \loop !acc → step loop (f acc) where
+  step _    (Left b)  = b
+  step loop (Right a) = loop a
 {-# INLINE trampoline #-}
 
 continue ∷ a → Either b a

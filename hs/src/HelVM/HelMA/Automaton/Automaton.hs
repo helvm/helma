@@ -35,8 +35,19 @@ import qualified Data.Sequence                              as Seq
 
 import           Prelude                                    hiding ( swap )
 
+-- PUBLIC API
+
 start ∷ AppSafeEff m ⇒ InstructionList → AutomatonOptions → m ()
 start il ao = start' il (stackType ao) (ramType ao) (autoOptions ao)
+
+runAndDumpLogs ∷ (SRAutomatonEff Symbol s r m) ⇒ AutoOptions → Memory s r → m ()
+runAndDumpLogs p = logDump (dumpType p) <=< runAutomat (limit p)
+
+runAutomat ∷ (SRAutomatonEff Symbol s r m) ⇒ LimitMaybe → F s r m
+runAutomat = trampolineMWithLimit nextState
+{-# INLINE runAutomat #-}
+
+-- PRIVATE HELPERS (TOP-DOWN)
 
 start' ∷ AppSafeEff m ⇒ InstructionList → StackType → RAMType → AutoOptions → m ()
 start' il s ListRAMType    = start'' il s []
@@ -52,13 +63,14 @@ start'' il SListStackType = start''' il SList.sListEmpty
 start''' ∷ (SRAutomatonEff Symbol s r m) ⇒ InstructionList → s → r → AutoOptions → m ()
 start''' il s r p = runAndDumpLogs p (newMemory il s r)
 
-runAndDumpLogs ∷ (SRAutomatonEff Symbol s r m) ⇒ AutoOptions → Memory s r →  m ()
-runAndDumpLogs p = logDump (dumpType p) <=< runAutomat (limit p)
-
-runAutomat ∷ (SRAutomatonEff Symbol s r m) ⇒ LimitMaybe → F s r m
-runAutomat = trampolineMWithLimit nextState
-
 nextState ∷ (SRAutomatonEff Symbol s r m) ⇒ SF s r m
-nextState a = nextStateForInstruction =<< currentInstruction (memoryCM a) where
-  nextStateForInstruction i = appendErrorTuple ("Automaton.nextState" , showP a) $ appendErrorTuple ("program:" , toText $ printIndexedIL $ toList program) $ appendErrorTuple ("i:" , show i) $ runInstruction i $ incrementIC a where
-    program = memoryProgram a
+nextState !a = stepNextState a =<< currentInstruction (memoryCM a)
+{-# INLINE nextState #-}
+
+stepNextState ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → m (MemorySame s r)
+stepNextState !a !i = attachErrorContext a i $ runInstruction i (incrementIC a)
+{-# INLINE stepNextState #-}
+
+attachErrorContext ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → m b → m b
+attachErrorContext a i action = appendErrorTuple ("Automaton.nextState" , showP a) $ appendErrorTuple ("program:" , toText $ printIndexedIL $ toList $ memoryProgram a) $ appendErrorTuple ("i:" , show i) action
+{-# INLINE attachErrorContext #-}
