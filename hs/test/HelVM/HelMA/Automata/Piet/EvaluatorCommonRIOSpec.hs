@@ -86,8 +86,8 @@ spec =
     forM_ inputs $ \input → do
       let path   = "CommonRIO" </> dirName </> fileName <> input
       describe fullPath $ do
+        let img = readImageIO fullPath
         xit path $ do
-          let img    = readImageIO fullPath
           let result = (runTestEnv (toText input) . void . runAsRIOResult . simpleEval) =<< img
           result `goldenShouldIO` buildAbsolutePietOutFileName path
 
