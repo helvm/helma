@@ -1,39 +1,39 @@
+{-# LANGUAGE BangPatterns #-}
 module HelVM.HelMA.Automaton.Trampoline where
 
 import           Control.Type.Operator
 
 import           Prelude               hiding ( break )
 
-testMaybeLimit ∷ LimitMaybe
-testMaybeLimit = Just $ fromIntegral (maxBound :: Int)
+-- PUBLIC API
 
 trampolineMWithLimit ∷ Monad m ⇒ (a → m $ Same a) → LimitMaybe → a → m a
-trampolineMWithLimit f Nothing  !x = trampolineM f x
-trampolineMWithLimit f (Just n) !x = trampolineM (actMWithLimit f) (n , x)
+trampolineMWithLimit f Nothing   !x = loopNoLimit f x
+trampolineMWithLimit f (Just !n) !x = loopWithLimit f (fromIntegral n) x
+{-# INLINE trampolineMWithLimit #-}
 
-actMWithLimit ∷ Monad m ⇒ (a → m $ Same a) → WithLimit a → m $ EitherWithLimit a
-actMWithLimit f (!n , !x) = checkN n where
-  checkN 0 = pure $ break x
-  checkN _ = next n <$> f x
+-- PRIVATE OPTIMIZED LOOPS
 
-next ∷ Natural → Same a → EitherWithLimit a
-next n a = withLimit n <$> a
-{-# INLINE next #-}
+loopNoLimit ∷ Monad m ⇒ (a → m $ Same a) → a → m a
+loopNoLimit f !acc = f acc >>= either pure (loopNoLimit f)
+{-# INLINE loopNoLimit #-}
 
-withLimit ∷ Natural → a → WithLimit a
-withLimit !n !a = (n - 1 , a)
-{-# INLINE withLimit #-}
+loopWithLimit ∷ Monad m ⇒ (a → m $ Same a) → Word64 → a → m a
+loopWithLimit _ 0  !acc = pure acc
+loopWithLimit f !n !acc = f acc >>= either pure (loopWithLimit f (n - 1))
+{-# INLINE loopWithLimit #-}
+
+-- UTILITIES / LEGACY HELPERS (for compatibility)
+
+testMaybeLimit ∷ LimitMaybe
+testMaybeLimit = Just $ fromIntegral (maxBound ∷ Int)
 
 trampolineM ∷ Monad m ⇒ (a → m (Either b a)) → a → m b
-trampolineM f = fix $ \loop !acc → step loop acc =<< f acc where
-  step _    _   (Left b)  = pure b
-  step loop _   (Right a) = loop a
+trampolineM f !acc = f acc >>= either pure (trampolineM f)
 {-# INLINE trampolineM #-}
 
 trampoline ∷ (a → Either b a) → a → b
-trampoline f = fix $ \loop !acc → step loop (f acc) where
-  step _    (Left b)  = b
-  step loop (Right a) = loop a
+trampoline f !acc = either id (trampoline f) (f acc)
 {-# INLINE trampoline #-}
 
 continue ∷ a → Either b a
@@ -45,9 +45,6 @@ break = Left
 {-# INLINE break #-}
 
 type LimitMaybe = Maybe Natural
-
 type EitherWithLimit a = Either a $ WithLimit a
-
 type WithLimit a = (Natural , a)
-
 type Same a = Either a a
