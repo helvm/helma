@@ -76,13 +76,12 @@ stepNextState !a !i = attachErrorContext a i $ runInstruction i (incrementIC a)
 {-# INLINE stepNextState #-}
 
 attachErrorContext ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → m b → m b
-attachErrorContext a i action = action `catchError` \err -> buildErrorAndThrow a i err
+attachErrorContext a i action = action `catchError` buildErrorAndThrow a i
 {-# INLINE attachErrorContext #-}
 
 buildErrorAndThrow ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → Messages → m b
-buildErrorAndThrow a i err =
-  let !ctx1 = ("Automaton.nextState" , showP a)
-      !ctx2 = ("program:" , toText $ printIndexedIL $ toList$ memoryProgram a)
-      !ctx3 = ("i:" , show i)
-   in appendErrorTuple ctx1 $ appendErrorTuple ctx2 $ appendErrorTuple ctx3$ throwError err
+buildErrorAndThrow a i err = appendErrorTuple ctx1 $ appendErrorTuple ctx2 $  appendErrorTuple ctx3 $ throwError err where
+  !ctx1 = ("Automaton.nextState", showP a)
+  !ctx2 = ("program:", toText $ printIndexedIL $ toList $ memoryProgram a)
+  !ctx3 = ("i:", show i)
 {-# NOINLINE buildErrorAndThrow #-}
