@@ -5,46 +5,34 @@ module HelVM.HelMA.Automata.Piet.CodelSize
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
 
 guessCodelSize ∷ Eq a ⇒ Coordinates → (Coordinates → a) → Int
-guessCodelSize (width, height) pixelAccessor = groupGCD pixelAccessor (horizontalPositionBlocks width height) `gcd'` groupGCD pixelAccessor (verticalPositionBlocks width height)
+guessCodelSize (width, height) pixelAccessor = groupGCD (sameRows pixelAccessor width) height `gcd'` groupGCD (sameColumns pixelAccessor height) width
 
-horizontalPositionBlocks ∷ Int → Int → [BlockCoordinates]
-horizontalPositionBlocks width height = generate height (buildRow width)
+sameRows ∷ Eq a ⇒ (Coordinates → a) → Int → Int → Int → Bool
+sameRows pixelAccessor width = samePixels pixelAccessor makePair width
 
-buildRow ∷ Int → Int → BlockCoordinates
-buildRow w y = generate w (`makePair` y)
+sameColumns ∷ Eq a ⇒ (Coordinates → a) → Int → Int → Int → Bool
+sameColumns pixelAccessor height = samePixels pixelAccessor (flip makePair) height
 
-verticalPositionBlocks ∷ Int → Int → [BlockCoordinates]
-verticalPositionBlocks width height = generate width (buildCol height)
+samePixels ∷ Eq a ⇒ (Coordinates → a) → (Int → Int → Coordinates) → Int → Int → Int → Bool
+samePixels pixelAccessor makeCoordinates size position1 position2 = all (samePixel pixelAccessor makeCoordinates position1 position2) [0 .. size - 1]
 
-buildCol ∷ Int → Int → BlockCoordinates
-buildCol h x = generate h (x `makePair`)
+samePixel ∷ Eq a ⇒ (Coordinates → a) → (Int → Int → Coordinates) → Int → Int → Int → Bool
+samePixel pixelAccessor makeCoordinates position1 position2 index = pixelAccessor (makeCoordinates index position1) == pixelAccessor (makeCoordinates index position2)
 
 makePair ∷ a → b → (a, b)
 makePair x y = (x, y)
 
-groupGCD ∷ Eq a ⇒ (i → a) → [[i]] → Int
-groupGCD f = fix (groupGCDStep f)
+groupGCD ∷ (Int → Int → Bool) → Int → Int
+groupGCD _     size | size <= 0 = 0
+groupGCD equal size             = uncurry gcd' $ foldl' (groupGCDStep equal) (0, 1) [1 .. size - 1]
 
-groupGCDStep ∷ Eq a ⇒ (i → a) → ([[i]] → Int) → [[i]] → Int
-groupGCDStep _ _ [] = 0
-groupGCDStep _ rec ([] : rest) = rec rest
-groupGCDStep f rec (positions@(_ : _) : rest) = n `gcd'` rec (nextPositions : rest) where
-  (n, nextPositions) = countSameElems f positions
-
-countSameElems ∷ Eq a ⇒ (i → a) → [i] → (Int, [i])
-countSameElems _ []         = (0, [])
-countSameElems f (pos : xs) = fix (countSameElemsStep f (f pos)) 0 (pos : xs)
-
-countSameElemsStep ∷ Eq a ⇒ (i → a) → a → (Int → [i] → (Int, [i])) → Int → [i] → (Int, [i])
-countSameElemsStep _ _ _ acc [] = (acc, [])
-countSameElemsStep f firstVal rec acc (x : xs)
-  | f x == firstVal = rec (acc + 1) xs
-  | otherwise       = (acc, x : xs)
+groupGCDStep ∷ (Int → Int → Bool) → (Int, Int) → Int → (Int, Int)
+groupGCDStep _     (1, _) _ = (1, 0)
+groupGCDStep equal (g, n) i
+  | equal (i - 1) i = (g, n + 1)
+  | otherwise       = (gcd' g n, 1)
 
 gcd' ∷ Integral a ⇒ a → a → a
 gcd' 1 _ = 1
 gcd' _ 1 = 1
 gcd' a b = gcd a b
-
-generate ∷ Int → (Int → a) → [a]
-generate n f = f <$> [0 .. n - 1]
