@@ -74,15 +74,6 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) ⇒ MonadEff (
   putChars        = lift . putChars
   flush           = lift flush
 
--- instance RIO.HasLogFunc env ⇒ MonadEff (RIO.RIO Env) where
---   getContentsBS   = liftIO LByteString.getContents
---   getContentsText = liftIO LText.getContents
---   getChar         = liftIO IO.getChar
---   getChars        = getLine
---   putChar         = liftIO . IO.putChar
---   putChars        = liftIO . putText
---   flush           = liftIO flushIO
-
 instance {-# OVERLAPPING #-} MonadEff (RIO.RIO Env.Env) where
   getContentsBS   = Env.getContentsBSRio
   getContentsText = Env.getContentsTextRio
