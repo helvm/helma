@@ -9,6 +9,7 @@ import           HelVM.HelMA.Automaton.API.AppOptions
 import           HelVM.HelMA.Automaton.API.Emit
 import qualified HelVM.HelMA.Automaton.API.Env         as Env
 import           HelVM.HelMA.Automaton.API.EvalOptions
+
 import           HelVM.HelMA.Automaton.Extra
 
 import           HelVM.HelMA.Automata.Piet.API.Options ( simpleOptions )
@@ -94,13 +95,12 @@ runTestEnv ∷ Text → RIO.RIO Env.Env () → IO Text
 runTestEnv inputText action = do
   outputRef ← newIORef (mempty ∷ String)
   inputRef  ← newIORef (toString inputText)
-  let stdio  = testStdIO outputRef inputRef
-  let fileIO = testFileIO
-  logOptions ← RIO.logOptionsHandle RIO.stderr False
-  RIO.withLogFunc (captureLogOptions logOptions) $ \logFunc → do
-    let env = Env.Env fileIO stdio testAppOptions logFunc
-    RIO.runRIO env action
-    toText <$> readIORef outputRef
+  let stdio   = testStdIO outputRef inputRef
+  let fileIO  = testFileIO
+  let logFunc = RIO.mkLogFunc (\_ _ _ _ → pass)
+  let env     = Env.Env fileIO stdio testAppOptions logFunc
+  RIO.runRIO env action
+  toText <$> readIORef outputRef
 
 testStdIO ∷ IORef String → IORef String → Env.StdIO
 testStdIO outputRef inputRef = Env.StdIO
@@ -143,9 +143,3 @@ testAppOptions = AppOptions
   , langCommand = PietCommand simpleOptions
   , file        = ""
   }
-
-captureLogOptions ∷ RIO.LogOptions → RIO.LogOptions
-captureLogOptions = RIO.setLogMinLevel RIO.LevelDebug
-  . RIO.setLogVerboseFormat False
-  . RIO.setLogUseColor False
-  . RIO.setLogUseTime False
