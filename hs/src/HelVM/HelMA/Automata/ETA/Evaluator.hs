@@ -50,11 +50,11 @@ import           Prelude                                     hiding ( divMod )
 
 import qualified RIO
 
-runRio ∷ Has env ⇒ AutomatonType → RIO.RIO env ()
+runRio ∷ AutomatonType → RIO.RIO Env ()
 runRio i = runWIthOptions =<< optionsRio where
   runWIthOptions o = run (App.emit o) i . App.evalParams o =<< readSourceFileRio
 
-run ∷ Has env ⇒ Emit.Emit → AutomatonType → EvalParams → RIO.RIO env ()
+run ∷ Emit.Emit → AutomatonType → EvalParams → RIO.RIO Env ()
 run Emit.No   i = runAsRIO . evalParams i
 run Emit.IL   _ = putLTextLnRio <=< runAsRIO . uncurry emitIL . toInstructionParams
 run Emit.TL   _ = putLTextLnRio . emitTL . source

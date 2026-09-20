@@ -31,11 +31,11 @@ import qualified Data.Sequence                          as Seq
 
 import qualified RIO
 
-runRio ∷ Has env ⇒ RIO.RIO env ()
+runRio ∷ RIO.RIO Env ()
 runRio = runWithOptions =<< optionsRio where
   runWithOptions o =  run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
-run ∷ Has env ⇒ Emit.Emit → EvalParams → RIO.RIO env ()
+run ∷ Emit.Emit → EvalParams → RIO.RIO Env ()
 run Emit.No   = runAsRIO . evalParams
 run Emit.IL   = putLTextLnRio . show . tokenize . source
 run Emit.TL   = putLTextLnRio . show . tokenize . source

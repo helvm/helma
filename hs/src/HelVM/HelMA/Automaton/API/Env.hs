@@ -11,10 +11,14 @@ module HelVM.HelMA.Automaton.API.Env
   , envLogFuncL
   , envOptionsL
   , envStdIOL
+  , getCharRio
+  , getCharsRio
   , getContentsBSRio
   , getContentsTextRio
   , logFuncRio
   , optionsRio
+  , putCharRio
+  , putCharsRio
   , putLBSLnRio
   , putLTextLnRio
   , readImageRio
@@ -43,6 +47,10 @@ data StdIO
       , stdGetContentsText :: IO LText
       , stdPutLBSLn        :: LByteString -> IO ()
       , stdGetContentsBS   :: IO LByteString
+      , stdPutChar         :: Char -> IO ()
+      , stdGetChar         :: IO Char
+      , stdPutChars        :: Text -> IO ()
+      , stdGetChars        :: IO Text
       }
 
 data Env
@@ -118,6 +126,18 @@ putLBSLnRio lbs = RIO.liftIO . (`stdPutLBSLn` lbs) =<< RIO.view stdIOL
 
 getContentsBSRio ∷ Has env ⇒ RIO.RIO env LByteString
 getContentsBSRio = RIO.liftIO . stdGetContentsBS =<< RIO.view stdIOL
+
+putCharRio ∷ HasStdIO env ⇒ Char → RIO.RIO env ()
+putCharRio c = RIO.liftIO . (`stdPutChar` c) =<< RIO.view stdIOL
+
+getCharRio ∷ HasStdIO env ⇒ RIO.RIO env Char
+getCharRio = RIO.liftIO . stdGetChar =<< RIO.view stdIOL
+
+putCharsRio ∷ HasStdIO env ⇒ Text → RIO.RIO env ()
+putCharsRio t = RIO.liftIO . (`stdPutChars` t) =<< RIO.view stdIOL
+
+getCharsRio ∷ HasStdIO env ⇒ RIO.RIO env Text
+getCharsRio = RIO.liftIO . stdGetChars =<< RIO.view stdIOL
 
 optionsRio ∷ Has env ⇒ RIO.RIO env AppOptions
 optionsRio = RIO.view appOptionsL

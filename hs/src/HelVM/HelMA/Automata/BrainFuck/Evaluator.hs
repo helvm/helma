@@ -35,11 +35,11 @@ import qualified RIO
 
 import           Text.Pretty.Simple
 
-runRio ∷ Has env ⇒ ImplType → RIO.RIO env ()
+runRio ∷ ImplType → RIO.RIO Env ()
 runRio t = runWithOptions =<< optionsRio where
   runWithOptions o = run (App.emit o) t . App.evalParams o =<< readSourceFileRio
 
-run ∷ Has env ⇒ Emit.Emit → ImplType → EvalParams → RIO.RIO env ()
+run ∷ Emit.Emit → ImplType → EvalParams → RIO.RIO Env ()
 run Emit.No i = runAsRIO . evalParams i
 run Emit.IL i = putLTextLnRio <=< runAsRIO . emitIL i True . source
 run Emit.TL _ = putLTextLnRio . emitTL . source

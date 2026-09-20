@@ -20,11 +20,11 @@ runAsRIO action = do
   result <- runExceptT $ runLoggingT action logOutput
   either ((*> RIO.exitFailure) . RIO.logError . RIO.display . errorsToText) pure result
 
-readSourceFile ∷ Has env ⇒ Exec → String → RIO.RIO env Source
+readSourceFile ∷ Exec → String → RIO.RIO Env Source
 readSourceFile True = pure . toText
 readSourceFile _    = readTextFileRio
 
-fallback ∷ Has env ⇒ EvalParams → RIO.RIO env ()
+fallback ∷ EvalParams → RIO.RIO Env ()
 fallback = putLTextLnRio . show . source
 
 toRioLevel ∷ LogLevel → RIO.LogLevel
