@@ -404,6 +404,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.Piet.FileExtra
     HelVM.HelMA.Automata.Piet.FillerSpec
     HelVM.HelMA.Automata.Piet.ImageReaderSpec
+    HelVM.HelMA.Automata.Piet.RioRunner
     HelVM.HelMA.Automata.Piet.SyntaxParserSpec    
     HelVM.HelMA.Automata.Piet.SyntaxTestHelper
     HelVM.HelMA.Automata.Piet.SyntaxVisualizerSpec
