@@ -26,7 +26,7 @@ source-repository head
   location:            https://github.com/helvm/helma
 
 flag ghcoptions
-  description:         compile with options
+  description:         compile with extra warnings and options
   manual:              True
   default:             False
 
@@ -90,9 +90,11 @@ common common-options
     UnicodeSyntax
     DuplicateRecordFields
     OverloadedRecordDot
+    BangPatterns
   ghc-options:
-    -fprof-auto
-    -fprof-cafs
+    -O2
+    -fexpose-all-unfoldings
+    -fspecialise-aggressively
   if flag(ghcoptions)
     ghc-options:
       -Wall
@@ -104,16 +106,13 @@ common common-options
       -Wnoncanonical-monad-instances
       -fhide-source-paths
 --      -Wmissing-export-lists FIXME
-       -Wpartial-fields
+      -Wpartial-fields
       -Wmissing-deriving-strategies
       -fwrite-ide-info
       -hiedir=.hie
 --      -Wunused-packages
       -fprint-potential-instances
       -Werror
-      -O2
-      -fexpose-all-unfoldings
-      -fspecialise-aggressively
 
 library
   import:              common-options
@@ -287,7 +286,6 @@ library
     HelVM.HelMA.Automata.Piet.Types.DirectionPointer
     HelVM.HelMA.Automata.Piet.Types.Grid
     HelVM.HelMA.Automata.Piet.Types.Hue
-    HelVM.HelMA.Automata.Piet.Types.Matrix
     HelVM.HelMA.Automata.Piet.Types.Label
     HelVM.HelMA.Automata.Piet.Types.Labelling
     HelVM.HelMA.Automata.Piet.Types.Lightness
@@ -333,6 +331,7 @@ library
     , prettyprinter
     , primitive
     , safe
+    , slist
     , transformers
     , type-operators
     , vector
@@ -352,7 +351,7 @@ executable helma
   ghc-options:
     -threaded
     -rtsopts
-    "-with-rtsopts=-N -p -s"
+    "-with-rtsopts=-N -s"
 
 test-suite helma-test
   import:              common-options
@@ -360,8 +359,8 @@ test-suite helma-test
   hs-source-dirs:      hs/test
   main-is:             Main.hs
   other-modules:
-    Spec
     Slow
+    Spec
     SpecHook
 
     HelVM.Expectations
@@ -400,10 +399,12 @@ test-suite helma-test
     HelVM.HelMA.Automata.Piet.EmitterSpec
     HelVM.HelMA.Automata.Piet.EvaluatorCollisionSpec
     HelVM.HelMA.Automata.Piet.EvaluatorCommonSpec
+    HelVM.HelMA.Automata.Piet.EvaluatorCommonRIOSpec
     HelVM.HelMA.Automata.Piet.EvaluatorStepStateSpec
     HelVM.HelMA.Automata.Piet.FileExtra
     HelVM.HelMA.Automata.Piet.FillerSpec
     HelVM.HelMA.Automata.Piet.ImageReaderSpec
+    HelVM.HelMA.Automata.Piet.RioRunner
     HelVM.HelMA.Automata.Piet.SyntaxParserSpec    
     HelVM.HelMA.Automata.Piet.SyntaxTestHelper
     HelVM.HelMA.Automata.Piet.SyntaxVisualizerSpec
@@ -452,23 +453,44 @@ test-suite helma-test
     -rtsopts
     "-with-rtsopts=-N -s"
 
--- benchmark helma-benchmark
---   import:              common-options
---   type:                exitcode-stdio-1.0
---   hs-source-dirs:      hs/benchmark
---   main-is:             Main.hs
---   other-modules:
+benchmark helma-benchmark
+  import:              common-options
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      hs/bench
+  main-is:             Main.hs
+  other-modules:
+    -- Slow
+    Spec
+    SpecHook
 
---     HelVM.HelMA.Automata.FileExtra
+    HelVM.HelMA.Automata.FileExtra
 
---     HelVM.HelMA.Automata.BrainFuck.EvaluatorBenchMark
---     HelVM.HelMA.Automata.BrainFuck.FileExtra
+    HelVM.HelMA.Automata.BrainFuck.FileExtra
+    HelVM.HelMA.Automata.BrainFuck.EvaluatorSpec
 
---     HelVM.HelMA.Automata.ETA.EvaluatorBenchMark
---     HelVM.HelMA.Automata.ETA.FileExtra
+    HelVM.HelMA.Automata.ETA.FileExtra
+    HelVM.HelMA.Automata.ETA.EvaluatorSpec
 
---     HelVM.HelMA.Automata.SubLeq.EvaluatorBenchMark
---     HelVM.HelMA.Automata.SubLeq.FileExtra
+    HelVM.HelMA.Automata.SubLeq.FileExtra
+    HelVM.HelMA.Automata.SubLeq.EvaluatorSpec
 
---     HelVM.HelMA.Automata.WhiteSpace.EvaluatorBenchMark
---     HelVM.HelMA.Automata.WhiteSpace.FileExtra
+    HelVM.HelMA.Automata.WhiteSpace.FileExtra
+    HelVM.HelMA.Automata.WhiteSpace.EvaluatorSpec
+
+  build-depends:
+      golds-gym
+    , hspec
+    , deepseq
+
+    , helio
+    , helma
+  
+    , containers
+    , directory
+    , filepath
+
+  build-tool-depends:  hspec-discover:hspec-discover == 2.*
+  ghc-options:
+    -threaded
+    -rtsopts
+    "-with-rtsopts=-N -s"

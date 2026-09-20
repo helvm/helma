@@ -549,6 +549,29 @@ Info Memory
             ]
         , programCounter = 127
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList
+            [
+                ( "LOOP"
+                , 1
+                )
+            ,
+                ( "LOOP:1"
+                , 125
+                )
+            ,
+                ( "prints"
+                , 127
+                )
+            ,
+                ( "prints_end"
+                , 132
+                )
+            ,
+                ( "printsln"
+                , 135
+                )
+            ]
         }
     , memoryStack = fromList [ 0 ]
     , memoryRAM = []

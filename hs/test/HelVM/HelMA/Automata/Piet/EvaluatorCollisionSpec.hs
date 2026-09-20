@@ -76,14 +76,14 @@ spec =
     )) $ \((fileName , inputs) , dirName ) -> do
     let filePath = dirName </> fileName <.> "png"
     let fullPath = "examples" </> "piet" </> filePath
-    let img = readImage fullPath
+    let img = readImageIO fullPath
     let implType = Custom
     let implPietType = Collision
     forM_ inputs $ \input -> do
-      let mock = (ioExecMockEffWithInput (toText input) . simpleEvalCustom (implPietType, Nothing)) =<< img
+      let mock = (ioExecDynamicMockEffWithInput (toText input) . simpleEvalCustom (implPietType, Nothing)) =<< img
       let path = show implType </> show implPietType </> dirName </> fileName <> input
       describe path $ do
         it ("output" </> path) $
-          calculateOutput <$> mock `goldenShouldIO` buildAbsolutePietOutFileName path
+          calculateDynamicOutput <$> mock `goldenShouldIO` buildAbsolutePietOutFileName path
         it ("logged" </> path) $
-          calculateLogsWithLevelDebug <$> mock `goldenShouldIO` buildAbsolutePietLogFileName path
+          calculateDynamicLogs <$> mock `goldenShouldIO` buildAbsolutePietLogFileName path

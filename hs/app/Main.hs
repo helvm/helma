@@ -65,6 +65,10 @@ defaultStdIO = StdIO
   , stdGetContentsText = liftIO LText.getContents
   , stdPutLBSLn        = putLBSLn
   , stdGetContentsBS   = liftIO LByteString.getContents
+  , stdPutChar         = IO.putChar
+  , stdGetChar         = IO.getChar
+  , stdPutChars        = putText
+  , stdGetChars        = getLine
   }
 
 readDynamicImage ∷ MonadIO m ⇒ FilePath → m Picture.DynamicImage

@@ -25,11 +25,11 @@ import           HelVM.HelMA.Automaton.Extra
 
 import qualified RIO
 
-runRio ∷ Has env ⇒ RIO.RIO env ()
+runRio ∷ RIO.RIO Env ()
 runRio = runWithOptions =<< optionsRio where
   runWithOptions o = run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
-run ∷ Has env ⇒  Emit → EvalParams → RIO.RIO env ()
+run ∷  Emit → EvalParams → RIO.RIO Env ()
 run No = runAsRIO . evalParams
 run _  = fallback
 

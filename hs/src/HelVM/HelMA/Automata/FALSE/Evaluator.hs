@@ -15,11 +15,11 @@ import           HelVM.HelIO.Control.Safe
 import qualified RIO
 import           Text.Pretty.Simple                   ( pShowNoColor )
 
-runRio ∷ Has env ⇒ RIO.RIO env ()
+runRio ∷ RIO.RIO Env ()
 runRio = runWIthOptions =<< optionsRio where
   runWIthOptions o = run (App.emit o) . App.evalParams o =<< readSourceFileRio
 
-run ∷ Has env ⇒ Emit → EvalParams → RIO.RIO env ()
+run ∷ Emit → EvalParams → RIO.RIO Env ()
 run No = const $ error "FALSE is not supported now"
 run IL = putLTextLnRio <=< runAsRIO . emitTL . source
 run TL = putLTextLnRio <=< runAsRIO . emitTL . source

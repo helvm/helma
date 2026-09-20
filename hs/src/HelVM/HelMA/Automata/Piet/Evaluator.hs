@@ -55,13 +55,13 @@ import qualified RIO
 
 type ImageInput = (ImageConfig, DynamicImage)
 
-runRio ∷ Has env ⇒ Options → RIO.RIO env ()
+runRio ∷ Options → RIO.RIO Env ()
 runRio o = runWithOptions o =<< optionsRio
 
-runWithOptions ∷ Has env ⇒ Options → AppOptions → RIO.RIO env ()
+runWithOptions ∷ Options → AppOptions → RIO.RIO Env ()
 runWithOptions o ao = run (emit ao) (evalOptions ao) o =<< readImageRio (file ao)
 
-run ∷ Has env ⇒ Emit → EvalOptions → Options → DynamicImage → RIO.RIO env ()
+run ∷ Emit → EvalOptions → Options → DynamicImage → RIO.RIO Env ()
 run No eo o = runAsRIO . evalParamsByType (fromMaybe Custom (automatonType o)) eo o
 run IL eo o = putLTextLnRio <=< (runAsRIO . emitIL (optLevel $ parserOptions eo) . imageInput o)
 run TL _  o = putLTextLnRio <=< (runAsRIO . emitCommands . imageInput o)
@@ -72,10 +72,10 @@ evalParamsByType Common eo = evalCommon eo
 evalParamsByType Custom _  = evalCustom
 
 simpleEval ∷ AppSafeEff m ⇒ DynamicImage → m ()
-simpleEval = evalCommon simpleEvalOptions simplePietOptions
+simpleEval = evalCommon simpleEvalOptions simpleOptions
 
 simpleEvalCustom ∷ AppSafeEff m ⇒ (ImplType , Maybe CodelSize) → DynamicImage → m ()
-simpleEvalCustom = evalCustom . simplePietOptions2
+simpleEvalCustom = evalCustom . customOptions
 
 evalCommon ∷ AppSafeEff m ⇒ EvalOptions → Options → DynamicImage → m ()
 evalCommon eo o = flip Automaton.start (automatonOptions eo) <=< generateIL (optLevel $ parserOptions eo) . imageInput o

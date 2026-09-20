@@ -90,7 +90,7 @@ il ∷ FilePath → IO Text
 il path = toText <$> ilL path
 
 ilL ∷ FilePath → IO LText
-ilL = emitILIO <=< readImage
+ilL = emitILIO <=< readImageIO
 
 emitILIO ∷ DynamicImage → IO LText
 emitILIO = safeToIO . emitIL AllOptimizations . (defaultConfig, )
@@ -99,7 +99,7 @@ asm ∷ FilePath → IO Text
 asm path = toText <$> asmL path
 
 asmL ∷ FilePath → IO LText
-asmL = asmTextIO <=< readImage
+asmL = asmTextIO <=< readImageIO
 
 asmTextIO ∷ DynamicImage → IO LText
 asmTextIO = safeToIO . emitCommands . (defaultConfig, )
@@ -108,7 +108,7 @@ dot ∷ FilePath → IO Text
 dot path = toText <$> dotL path
 
 dotL ∷ FilePath → IO LText
-dotL = emitDotIO <=< readImage
+dotL = emitDotIO <=< readImageIO
 
 emitDotIO ∷ DynamicImage → IO LText
 emitDotIO = safeToIO . emitDot . (defaultConfig, )

@@ -16,7 +16,6 @@ import qualified HelVM.HelMA.Automata.Piet.Types.Command                as Piet
 import           HelVM.HelMA.Automata.Piet.Types.Course
 
 import qualified Data.Text                                              as T
-import           HelVM.HelIO.Collections.SList                          ( sListFromList )
 
 compileToIL ∷ AG.AssemblyProgram → InstructionList
 compileToIL prog = initDPCC (AG.entryDPCC prog) <> foldMap compileBlock (AG.blocks prog) <> [End]
@@ -127,10 +126,10 @@ courseToVal ∷ Course → Integer
 courseToVal (Course dp cc) = toInteger (fromEnum dp * 2 + fromEnum cc)
 
 showBlockLabel ∷ AG.Label → CFInstructionLabel
-showBlockLabel lbl = sListFromList $ toString ("block_" <> show lbl ∷ Text)
+showBlockLabel lbl = "block_" <> show lbl ∷ Text
 
 showBranchLabel ∷ AG.Label → [Course] → CFInstructionLabel
-showBranchLabel lbl cs = sListFromList $ toString ("branch_" <> show lbl <> "_" <> T.intercalate "_" (toText . showCourse <$> cs))
+showBranchLabel lbl cs = "branch_" <> show lbl <> "_" <> T.intercalate "_" (toText . showCourse <$> cs)
 
 showBranchBodyLabel ∷ AG.Label → [Course] → CFInstructionLabel
-showBranchBodyLabel lbl cs = sListFromList $ toString ("body_" <> show lbl <> "_" <> T.intercalate "_" (toText . showCourse <$> cs))
+showBranchBodyLabel lbl cs = "body_" <> show lbl <> "_" <> T.intercalate "_" (toText . showCourse <$> cs)

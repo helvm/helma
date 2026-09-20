@@ -9,8 +9,8 @@ import           HelVM.HelMA.Automata.Piet.API.MulticoloredCodelStrategy
 
 import           HelVM.HelMA.Automaton.API.AutomatonType
 
-simplePietOptions ∷ Options
-simplePietOptions = Options
+simpleOptions ∷ Options
+simpleOptions = Options
   Nothing
   defaultImplType
   Nothing
@@ -18,8 +18,8 @@ simplePietOptions = Options
   Nothing
   Nothing
 
-simplePietOptions2 ∷ (ImplType, Maybe CodelSize) → Options
-simplePietOptions2 (i, cs) = Options
+customOptions ∷ (ImplType, Maybe CodelSize) → Options
+customOptions (i, cs) = Options
   Nothing
   i
   Nothing

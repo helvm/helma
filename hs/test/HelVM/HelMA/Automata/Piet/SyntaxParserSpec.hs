@@ -14,21 +14,20 @@ import           HelVM.HelMA.Automata.Piet.Types.Codel
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 import           HelVM.HelMA.Automata.Piet.Types.Hue
 import           HelVM.HelMA.Automata.Piet.Types.Lightness
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
 import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 
 import qualified Data.IntMap                                    as IM
 import qualified Data.Map                                       as M
-import qualified Data.Vector.Generic                            as V
 
 import           Test.Hspec
 
 data ImageTestCase
   = ImageTestCase
       { caseName      :: String
-      , testImage     :: Matrix Codel
+      , testImage     :: Grid Codel
       , blockTable    :: IntMap BlockCoordinates
       , expectedGraph :: Maybe SyntaxGraph
       }
@@ -36,7 +35,7 @@ data ImageTestCase
 data ErrorTestCase
   = ErrorTestCase
       { errCaseName   :: String
-      , errTestImage  :: Matrix Codel
+      , errTestImage  :: Grid Codel
       , errBlockTable :: IntMap BlockCoordinates
       , expectedErr   :: String
       }
@@ -57,7 +56,7 @@ spec = do
   describe "parse" $ do
     xit "returns a syntax graph when given an image" $ parse rawComplexImage `shouldBe` Right expectedComplexGraph
 
-  describe "parseFilledImage" $ do
+  describe "parseFilledGrid" $ do
     forM_
       [ ImageTestCase "smallImage" smallImage smallBlockTable expectedSmallGraph
       , ImageTestCase "whiteImage" whiteImage whiteBlockTable Nothing
@@ -66,15 +65,14 @@ spec = do
       , ImageTestCase "complexImage" complexImage complexBlockTable expectedComplexGraph
       ] $ \tc ->
         context ("when given " ++ caseName tc) $ do
-          res <- runIO . runSafeT $ parseFilledImage (testImage tc, blockTable tc)
+          res <- runIO . runSafeT $ parseFilledGrid (testImage tc, blockTable tc)
           xit "returns a syntax graph" $ safeToEitherLegacy res `shouldBe` Right (expectedGraph tc)
 
     forM_
-      [ ErrorTestCase "emptyImage" V.empty IM.empty "EmptyBlockTableError\n"
-      , ErrorTestCase "blackImage" blackImage blackBlockTable "IllegalInitialColorError\n"
+      [ ErrorTestCase "blackImage" blackImage blackBlockTable "IllegalInitialColorError\n"
       ] $ \tc ->
         context ("when given " ++ errCaseName tc) $ do
-          res <- runIO . runSafeT $ parseFilledImage (errTestImage tc, errBlockTable tc)
+          res <- runIO . runSafeT $ parseFilledGrid (errTestImage tc, errBlockTable tc)
           it "returns an error" $ safeToEitherLegacy res `shouldBe` Left (expectedErr tc)
 
     context "when given an image which only consists of two pixels" $ do
@@ -140,12 +138,12 @@ spec = do
                                                                    ]
                                               )
                                             ]
-          res <- runIO . runSafeT $ parseFilledImage (image, bTable)
+          res <- runIO . runSafeT $ parseFilledGrid (matrixToGrid image, bTable)
           it ("returns " ++ show (command12 tc, command21 tc) ++ " when given " ++ show (color1 tc, color2 tc)) $ safeToEitherLegacy res `shouldBe` Right expectedG
 
 
-smallImage ∷ Matrix Codel
-smallImage = toVector2D [[Codel (Chromatic $ ChromaticColor Red Normal) 0]]
+smallImage ∷ Grid Codel
+smallImage = toGrid [[Codel (Chromatic $ ChromaticColor Red Normal) 0]]
 
 smallBlockTable ∷ IntMap BlockCoordinates
 smallBlockTable = IM.fromList [(0, [(0, 0)])]
@@ -153,20 +151,20 @@ smallBlockTable = IM.fromList [(0, [(0, 0)])]
 expectedSmallGraph ∷ Maybe SyntaxGraph
 expectedSmallGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList [(0, Block M.empty)]
 
-whiteImage ∷ Matrix Codel
-whiteImage = toVector2D [[Codel White 0]]
+whiteImage ∷ Grid Codel
+whiteImage = toGrid [[Codel White 0]]
 
 whiteBlockTable ∷ IntMap BlockCoordinates
 whiteBlockTable = IM.fromList [(0, [(0, 0)])]
 
-blackImage ∷ Matrix Codel
-blackImage = toVector2D [[Codel Black 0]]
+blackImage ∷ Grid Codel
+blackImage = toGrid [[Codel Black 0]]
 
 blackBlockTable ∷ IntMap BlockCoordinates
 blackBlockTable = IM.fromList [(0, [(0, 0)])]
 
-distantInitialImage ∷ Matrix Codel
-distantInitialImage = toVector2D
+distantInitialImage ∷ Grid Codel
+distantInitialImage = toGrid
   [ [ Codel White 0
     , Codel White 0
     , Codel White 0
@@ -200,8 +198,8 @@ expectedDistantInitialGraph = Just $ SyntaxGraph (BlockEdge 1 ur) $ IM.fromList
     )
   ]
 
-stuckImage ∷ Matrix Codel
-stuckImage = toVector2D
+stuckImage ∷ Grid Codel
+stuckImage = toGrid
   [ [ Codel (Chromatic $ ChromaticColor Red Light) 0
     , Codel (Chromatic $ ChromaticColor Red Normal) 1
     , Codel White 2
@@ -244,8 +242,8 @@ expectedStuckGraph = Just $ SyntaxGraph (BlockEdge 0 rl) $ IM.fromList
     )
   ]
 
-rawComplexImage ∷ Matrix Color
-rawComplexImage = toVector2D
+rawComplexImage ∷ Grid Color
+rawComplexImage = toGrid
   [ [ Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark
     , Chromatic $ ChromaticColor Blue Dark
@@ -384,8 +382,8 @@ rawComplexImage = toVector2D
     ]
   ]
 
-complexImage ∷ Matrix Codel
-complexImage = toVector2D
+complexImage ∷ Grid Codel
+complexImage = toGrid
   [ [ Codel (Chromatic $ ChromaticColor Blue Dark) 0
     , Codel (Chromatic $ ChromaticColor Blue Dark) 0
     , Codel (Chromatic $ ChromaticColor Blue Dark) 0

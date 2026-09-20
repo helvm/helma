@@ -3,6 +3,8 @@ Info Memory
         { program = [ End ]
         , programCounter = 1
         , returnStack = IS []
+        , naturalLabelMap = fromList []
+        , artificialLabelMap = fromList []
         }
     , memoryStack = fromList []
     , memoryRAM = []

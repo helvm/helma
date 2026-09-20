@@ -14,17 +14,24 @@ import           Control.Monad.Logger
 import qualified RIO
 
 runAsRIO ∷ (MonadIO m, MonadReader env m, Has env) ⇒ LoggingT (SafeT m) a → m a
-runAsRIO action = do
-  logFunc <- RIO.view RIO.logFuncL
-  let logOutput _ source level msg =  RIO.runRIO logFunc $ RIO.logGeneric source (toRioLevel level) (RIO.displayBytesUtf8 $ fromLogStr msg)
-  result <- runExceptT $ runLoggingT action logOutput
-  either ((*> RIO.exitFailure) . RIO.logError . RIO.display . errorsToText) pure result
+runAsRIO action = either (const RIO.exitFailure) pure =<< runAsRIOResult action
 
-readSourceFile ∷ Has env ⇒ Exec → String → RIO.RIO env Source
+runAsRIOResult ∷ (MonadIO m, MonadReader env m, Has env) ⇒ LoggingT (SafeT m) a → m (Either Messages a)
+runAsRIOResult action = RIO.view RIO.logFuncL
+  >>= runExceptT . runLoggingT action . logOutput
+  >>= \res → res <$ whenLeft_ res logSafeError
+
+logOutput ∷ (MonadIO m, RIO.HasLogFunc env) ⇒ env → p → RIO.LogSource → LogLevel → LogStr → m ()
+logOutput logFunc _ source level msg = RIO.runRIO logFunc $ RIO.logGeneric source (toRioLevel level) (RIO.displayBytesUtf8 $ fromLogStr msg)
+
+logSafeError ∷ (MonadIO m, MonadReader env m, Has env) ⇒ Messages → m ()
+logSafeError = RIO.logError . RIO.display . errorsToText
+
+readSourceFile ∷ Exec → String → RIO.RIO Env Source
 readSourceFile True = pure . toText
 readSourceFile _    = readTextFileRio
 
-fallback ∷ Has env ⇒ EvalParams → RIO.RIO env ()
+fallback ∷ EvalParams → RIO.RIO Env ()
 fallback = putLTextLnRio . show . source
 
 toRioLevel ∷ LogLevel → RIO.LogLevel

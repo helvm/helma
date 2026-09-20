@@ -7,10 +7,10 @@ import           HelVM.HelMA.Automaton.Instruction.Groups.CFInstruction
 
 import           HelVM.HelMA.Automaton.API.LabelType
 
-import           HelVM.HelIO.Collections.SList
 import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.Digit.ToDigit
 
+import           Control.Applicative.Tools
 import           Control.Monad.Extra
 
 parseIndex ∷ MonadSafe m ⇒ ParserFromTokenList m ImmediateIndex
@@ -47,11 +47,17 @@ parseExtra maker = loop act . ([] , ) where
   act (acc ,  N : tl) = Right $ moveSafe (maker acc , tl)
   act (acc ,  t : tl) = Left (t : acc , tl)
 
-parseDigitString ∷ MonadSafe m ⇒ ParserFromTokenList m SString
-parseDigitString tl = moveSafe =<< parseString' makeDigitStringFromList tl
+parseDigitString ∷ MonadSafe m ⇒ ParserFromTokenList m Text
+parseDigitString tl = moveSafe =<< parseString' makeDigitStringFromList' tl
 
-parseAsciiString ∷ MonadSafe m ⇒ ParserFromTokenList m SString
-parseAsciiString tl = moveSafe =<< parseString' makeAsciiString28FromList tl
+parseAsciiString ∷ MonadSafe m ⇒ ParserFromTokenList m Text
+parseAsciiString tl = moveSafe =<< parseString' makeAsciiString28FromList' tl
+
+makeDigitStringFromList' ∷ MonadSafe m ⇒ TokenList → m Text
+makeDigitStringFromList'  = (toText . toList) <.> makeDigitStringFromList
+
+makeAsciiString28FromList' ∷ MonadSafe m ⇒ TokenList → m Text
+makeAsciiString28FromList' = (toText . toList) <.> makeAsciiString28FromList
 
 moveSafe ∷ MonadSafe m ⇒ (m a , TokenList) → m (a , TokenList)
 moveSafe (a , tl) = appendErrorTuple ("TokenList" , show tl) $ ( , tl) <$> a

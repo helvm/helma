@@ -39,11 +39,11 @@ import           Prelude                                       hiding ( swap )
 
 import qualified RIO
 
-runRio ∷ Has env ⇒ TokenType → RIO.RIO env ()
+runRio ∷ TokenType → RIO.RIO Env ()
 runRio t = runWithOptions =<< optionsRio where
   runWithOptions o = run (App.emit o) t . App.evalParams o =<< readSourceFileRio
 
-run ∷ Has env ⇒ Emit → TokenType → EvalParams → RIO.RIO env ()
+run ∷ Emit → TokenType → EvalParams → RIO.RIO Env ()
 run No   t = runAsRIO . evalParams t
 run IL   t = putLTextLnRio <=< runAsRIO . emitIL t
 run TL   t = putLTextLnRio . emitTL t . source

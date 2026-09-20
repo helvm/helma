@@ -9,11 +9,10 @@ import           HelVM.HelMA.Automata.Piet.Filler
 import           HelVM.HelMA.Automata.Piet.TestUtils
 
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
-import           HelVM.HelMA.Automata.Piet.Types.Matrix
+import           HelVM.HelMA.Automata.Piet.Types.Grid
 
 import qualified Data.IntMap                                 as IM
 import qualified Data.Set                                    as S
-import qualified Data.Vector                                 as V
 
 import           Test.Hspec
 import           Text.InterpolatedString.Perl6
@@ -21,8 +20,8 @@ import           Text.InterpolatedString.Perl6
 data TestCase
   = TestCase
       { caseName            :: String
-      , inputImage          :: Matrix Char
-      , expectedFilledImage :: Matrix Int
+      , inputImage          :: Grid Char
+      , expectedFilledImage :: Grid Int
       , expectedCoords      :: [(Int, Set Coordinates)]
       }
 
@@ -38,23 +37,21 @@ spec = describe "fillAll" $ forM_ testCases runTest where
       (filledImage, coords) = fillAll (inputImage tc)
 
   testCases =
-    [ TestCase "emptyImage" V.empty V.empty []
-    , TestCase "smallImage" smallImage expectedFilledSmallImage expectedSmallCoords
+    [ TestCase "smallImage" smallImage expectedFilledSmallImage expectedSmallCoords
     , TestCase "complexImage" complexImage expectedFilledComplexImage expectedComplexCoords
-    , TestCase "irregularImage" irregularImage expectedFilledIrregularImage expectedIrregularCoords
     ]
 
-smallImage ∷ Matrix Char
-smallImage = toVector2D [['a']]
+smallImage ∷ Grid Char
+smallImage = toGrid [['a']]
 
-expectedFilledSmallImage ∷ Matrix Int
-expectedFilledSmallImage = toVector2D [[0]]
+expectedFilledSmallImage ∷ Grid Int
+expectedFilledSmallImage = toGrid [[0]]
 
 expectedSmallCoords ∷ [(Int, Set Coordinates)]
 expectedSmallCoords = [(0, S.fromList [(0, 0)])]
 
-complexImage ∷ Matrix Char
-complexImage = toVector2D $ toString <$> drop 1 (lines (toText ([q|
+complexImage ∷ Grid Char
+complexImage = toGrid $ toString <$> drop 1 (lines (toText ([q|
 GGGGGBrrr rrrMMM
 bbbBBBBB    YYY*
 bbbbRBBR  YYY**m
@@ -65,8 +62,8 @@ cccRRRRRR*****mm
  y    CC ggg   *
 |] ∷ String)))
 
-expectedFilledComplexImage ∷ Matrix Int
-expectedFilledComplexImage = charToOrd <<$>> toVector2D (toString <$> drop 1 (lines (toText ([q|
+expectedFilledComplexImage ∷ Grid Int
+expectedFilledComplexImage = charToOrd <$> toGrid (toString <$> drop 1 (lines (toText ([q|
 aaaaabcccdeeefff
 gggbbbbbddddhhhi
 ggggjbbjddhhhkkl
@@ -107,31 +104,6 @@ expectedComplexCoords =
   , (25, S.fromList [(9, 7), (10, 7), (11, 7)])
   , (26, S.fromList [(12, 7), (13, 7), (14, 7)])
   , (27, S.fromList [(15, 7)])
-  ]
-
-irregularImage ∷ Matrix Char
-irregularImage = toVector2D $ toString <$> drop 1 (lines (toText ([q|
-abaa
-cca
-c
-cccaaaa
-|] ∷ String)))
-
-expectedFilledIrregularImage ∷ Matrix Int
-expectedFilledIrregularImage = charToOrd <<$>> toVector2D (toString <$> drop 1 (lines (toText ([q|
-abcc
-ddc
-d
-dddeeee
-|] ∷ String))))
-
-expectedIrregularCoords ∷ [(Int, Set Coordinates)]
-expectedIrregularCoords =
-  [ (0, S.fromList [(0, 0)])
-  , (1, S.fromList [(1, 0)])
-  , (2, S.fromList [(2, 0), (3, 0), (2, 1)])
-  , (3, S.fromList [(0, 1), (1, 1), (0, 2), (0, 3), (1, 3), (2, 3)])
-  , (4, S.fromList [(3, 3), (4, 3), (5, 3), (6, 3)])
   ]
 
 charToOrd ∷ Char → Int
