@@ -80,7 +80,7 @@ attachErrorContext a i action = action `catchError` buildErrorAndThrow a i
 {-# INLINE attachErrorContext #-}
 
 buildErrorAndThrow ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → Messages → m b
-buildErrorAndThrow a i err = appendErrorTuple ctx1 $ appendErrorTuple ctx2 $  appendErrorTuple ctx3 $ throwError err where
+buildErrorAndThrow a i err = appendErrorTuple ctx1 $ appendErrorTuple ctx2 $ appendErrorTuple ctx3 $ throwError err where
   !ctx1 = ("Automaton.nextState", showP a)
   !ctx2 = ("program:", toText $ printIndexedIL $ toList $ memoryProgram a)
   !ctx3 = ("i:", show i)
