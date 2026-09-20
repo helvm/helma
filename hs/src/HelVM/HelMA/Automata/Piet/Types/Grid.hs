@@ -140,11 +140,8 @@ processNeighbours ∷ BfsLoop s → a → UMV.MVector s Bool → UMV.MVector s I
 processNeighbours self _ _ _ _ _ headIdx _ acc x y newTail = self (headIdx + 1) newTail ((x, y) : acc)
 
 push4Neighbours ∷ Eq a ⇒ a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Grid a → Int → Int → Int → ST s Int
-push4Neighbours targetCol visited qX qY g x y tailIdx =
-  pushNeighbour targetCol visited qX qY g (x + 1) y tailIdx
-    >>= pushNeighbour targetCol visited qX qY g (x - 1) y
-    >>= pushNeighbour targetCol visited qX qY g x (y + 1)
-    >>= pushNeighbour targetCol visited qX qY g x (y - 1)
+push4Neighbours targetCol visited qX qY g x y tailIdx = go x (y - 1) =<< go x (y + 1) =<< go (x - 1) y =<< go (x + 1) y tailIdx where
+  go = pushNeighbour targetCol visited qX qY g
 
 pushNeighbour ∷ Eq a ⇒ a → UMV.MVector s Bool → UMV.MVector s Int → UMV.MVector s Int → Grid a → Int → Int → Int → ST s Int
 pushNeighbour targetCol visited qX qY g x y tailIdx

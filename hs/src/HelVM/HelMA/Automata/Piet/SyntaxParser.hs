@@ -45,10 +45,13 @@ parseFrom _ _ Nothing                 = pure Nothing
 parseFrom grid blockTable (Just edge) = Just . SyntaxGraph edge <$> execStateT (parseState grid blockTable (view blockIndexL edge)) IM.empty
 
 parseState ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Grid Codel → BlockTable → Int → m ()
-parseState grid blockTable blockIndex = justOrThrow ("MissingCodelIndexError: " <> show blockIndex) (blockTable IM.!? blockIndex) >>= processBlockState grid blockTable blockIndex
+parseState grid blockTable blockIndex = processBlockState grid blockTable blockIndex =<< justOrThrow ("MissingCodelIndexError: " <> show blockIndex) (blockTable IM.!? blockIndex) 
 
 processBlockState ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Grid Codel → BlockTable → Int → BlockCoordinates → m ()
-processBlockState grid blockTable blockIndex blockCoords = processUnvisited grid blockTable (buildNextBlockList grid blockCoords) =<< insertBlock blockIndex (buildNextBlockList grid blockCoords)
+processBlockState grid blockTable blockIndex = processNextBlockList grid blockTable blockIndex . buildNextBlockList grid
+
+processNextBlockList ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Grid Codel → BlockTable → Int → [(Course, Maybe NextBlock)] → m ()
+processNextBlockList grid blockTable blockIndex nextBlockList = processUnvisited grid blockTable nextBlockList =<< insertBlock blockIndex nextBlockList
 
 insertBlock ∷ MonadState (IntMap Block) m ⇒ Int → [(Course, Maybe NextBlock)] → m ()
 insertBlock blockIndex nextBlockList = modify (IM.insert blockIndex (Block $ M.fromList nextBlockList))

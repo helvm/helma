@@ -42,8 +42,8 @@ testStdIO outputRef inputRef = StdIO
   }
 
 getCharFrom ∷ IORef Text → IO Char
-getCharFrom ref = readIORef ref >>= \t →
-  maybe (fail "RioRunner: unexpected EOF") (\(c, rest) → writeIORef ref rest $> c) (Text.uncons t)
+getCharFrom ref = go =<< readIORef ref where
+  go t = maybe (fail "RioRunner: unexpected EOF") (\(c, rest) → writeIORef ref rest $> c) (Text.uncons t)
 
 getCharsFrom ∷ IORef Text → IO Text
 getCharsFrom ref = do
