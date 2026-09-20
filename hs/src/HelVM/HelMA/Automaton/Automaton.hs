@@ -23,6 +23,7 @@ import           HelVM.HelMA.Automaton.Combiner.CPU         as CPU
 import qualified HelVM.HelIO.Collections.MapList            as MapList
 import qualified HelVM.HelIO.Collections.SList              as SList
 
+import           HelVM.HelIO.Control.Message
 import           HelVM.HelIO.Control.Safe
 
 import           HelVM.HelIO.Extra
@@ -75,9 +76,13 @@ stepNextState !a !i = attachErrorContext a i $ runInstruction i (incrementIC a)
 {-# INLINE stepNextState #-}
 
 attachErrorContext ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → m b → m b
-attachErrorContext a i action = action `catchError` \err ->
-  appendErrorTuple ("Automaton.nextState" , showP a) $
-  appendErrorTuple ("program:" , toText $ printIndexedIL $ toList $ memoryProgram a) $
-  appendErrorTuple ("i:" , show i) $
-  throwError err
-{-# NOINLINE attachErrorContext #-}
+attachErrorContext a i action = action `catchError` \err -> buildErrorAndThrow a i err
+{-# INLINE attachErrorContext #-}
+
+buildErrorAndThrow ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → Messages → m b
+buildErrorAndThrow a i err =
+  let !ctx1 = ("Automaton.nextState" , showP a)
+      !ctx2 = ("program:" , toText $ printIndexedIL $ toList$ memoryProgram a)
+      !ctx3 = ("i:" , show i)
+   in appendErrorTuple ctx1 $ appendErrorTuple ctx2 $ appendErrorTuple ctx3$ throwError err
+{-# NOINLINE buildErrorAndThrow #-}
