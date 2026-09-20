@@ -45,7 +45,7 @@ parseFrom _ _ Nothing                 = pure Nothing
 parseFrom grid blockTable (Just edge) = Just . SyntaxGraph edge <$> execStateT (parseState grid blockTable (view blockIndexL edge)) IM.empty
 
 parseState ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Grid Codel → BlockTable → Int → m ()
-parseState grid blockTable blockIndex = processBlockState grid blockTable blockIndex =<< justOrThrow ("MissingCodelIndexError: " <> show blockIndex) (blockTable IM.!? blockIndex) 
+parseState grid blockTable blockIndex = processBlockState grid blockTable blockIndex =<< justOrThrow ("MissingCodelIndexError: " <> show blockIndex) (blockTable IM.!? blockIndex)
 
 processBlockState ∷ (MonadSafe m, MonadState (IntMap Block) m) ⇒ Grid Codel → BlockTable → Int → BlockCoordinates → m ()
 processBlockState grid blockTable blockIndex = processNextBlockList grid blockTable blockIndex . buildNextBlockList grid
