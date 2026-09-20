@@ -55,7 +55,7 @@ output:
 	if test -d .output; then rm -r .output; fi
 
 profile-piet: profile-clean
-	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- -m "EvaluatorCommon" +RTS -p -s
+	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- -m "EvaluatorCommonRIO" +RTS -p -s
 
 profile-test: profile-clean
 	cabal new-run --jobs=$(JOBS) -f ghcoptions helma-test --enable-profiling --ghc-options="-fprof-auto" -- +RTS -p -s

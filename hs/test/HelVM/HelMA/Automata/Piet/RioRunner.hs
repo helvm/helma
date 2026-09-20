@@ -10,28 +10,29 @@ import           HelVM.HelMA.Automaton.API.EvalOptions
 import           HelVM.HelMA.Automata.Piet.API.Options ( simpleOptions )
 import           HelVM.HelMA.LangCommand
 
+import qualified Data.Text.Lazy.Builder                as Builder
 import qualified RIO
 
 runTestEnv ∷ Text → RIO.RIO Env () → IO Text
 runTestEnv inputText action = do
-  outputRef ← newIORef (mempty ∷ String)
+  outputRef ← newIORef mempty
   inputRef  ← newIORef (toString inputText)
   let stdio   = testStdIO outputRef inputRef
   let fileIO  = testFileIO
   let logFunc = RIO.mkLogFunc (\_ _ _ _ → pass)
   let env     = Env fileIO stdio testAppOptions logFunc
   RIO.runRIO env action
-  toText <$> readIORef outputRef
+  toText . Builder.toLazyText <$> readIORef outputRef
 
-testStdIO ∷ IORef String → IORef String → StdIO
+testStdIO ∷ IORef Builder.Builder → IORef String → StdIO
 testStdIO outputRef inputRef = StdIO
-  { stdPutLTextLn      = \t → modifyIORef outputRef (<> toString t <> "\n")
+  { stdPutLTextLn      = \t → modifyIORef outputRef (<> Builder.fromText (toText t) <> Builder.singleton '\n')
   , stdGetContentsText = fromStrict . toText <$> readIORef inputRef
   , stdPutLBSLn        = const pass
   , stdGetContentsBS   = pure mempty
-  , stdPutChar         = \c → modifyIORef outputRef (<> [c])
+  , stdPutChar         = \c → modifyIORef outputRef (<> Builder.singleton c)
   , stdGetChar         = getCharFrom inputRef
-  , stdPutChars        = \t → modifyIORef outputRef (<> toString t)
+  , stdPutChars        = \t → modifyIORef outputRef (<> Builder.fromText t)
   , stdGetChars        = getCharsFrom inputRef
   }
 
