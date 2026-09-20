@@ -74,7 +74,7 @@ spec =
     )) $ \((fileName , inputs) , dirName ) -> do
     let filePath = dirName </> fileName <.> "png"
     let fullPath = "examples" </> "piet" </> filePath
-    let img = readImage fullPath
+    let img = readImageIO fullPath
     let implType = Common
     forM_ inputs $ \input -> do
       let mock = (ioExecDynamicMockEffWithInput (toText input) . simpleEval) =<< img

@@ -76,7 +76,7 @@ spec =
     )) $ \((fileName , inputs) , dirName ) -> do
     let filePath = dirName </> fileName <.> "png"
     let fullPath = "examples" </> "piet" </> filePath
-    let img = readImage fullPath
+    let img = readImageIO fullPath
     let implType = Custom
     let implPietType = StepState
     forM_ inputs $ \input -> do

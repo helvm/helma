@@ -399,6 +399,7 @@ test-suite helma-test
     HelVM.HelMA.Automata.Piet.EmitterSpec
     HelVM.HelMA.Automata.Piet.EvaluatorCollisionSpec
     HelVM.HelMA.Automata.Piet.EvaluatorCommonSpec
+    HelVM.HelMA.Automata.Piet.EvaluatorCommonRIOSpec
     HelVM.HelMA.Automata.Piet.EvaluatorStepStateSpec
     HelVM.HelMA.Automata.Piet.FileExtra
     HelVM.HelMA.Automata.Piet.FillerSpec
