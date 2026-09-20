@@ -17,11 +17,12 @@ runAsRIO ∷ (MonadIO m, MonadReader env m, Has env) ⇒ LoggingT (SafeT m) a �
 runAsRIO action = either (const RIO.exitFailure) pure =<< runAsRIOResult action
 
 runAsRIOResult ∷ (MonadIO m, MonadReader env m, Has env) ⇒ LoggingT (SafeT m) a → m (Either Messages a)
-runAsRIOResult action = do
-  logFunc <- RIO.view RIO.logFuncL
-  let logOutput _ source level msg =  RIO.runRIO logFunc $ RIO.logGeneric source (toRioLevel level) (RIO.displayBytesUtf8 $ fromLogStr msg)
-  result <- runExceptT $ runLoggingT action logOutput
-  either logSafeError (const pass) result $> result
+runAsRIOResult action = RIO.view RIO.logFuncL
+  >>= runExceptT . runLoggingT action . logOutput
+  >>= \res → res <$ whenLeft_ res logSafeError
+
+logOutput :: (MonadIO m, RIO.HasLogFunc env) => env -> p -> RIO.LogSource -> LogLevel -> LogStr -> m ()
+logOutput logFunc _ source level msg = RIO.runRIO logFunc $ RIO.logGeneric source (toRioLevel level) (RIO.displayBytesUtf8 $ fromLogStr msg)
 
 logSafeError ∷ (MonadIO m, MonadReader env m, Has env) ⇒ Messages → m ()
 logSafeError = RIO.logError . RIO.display . errorsToText
