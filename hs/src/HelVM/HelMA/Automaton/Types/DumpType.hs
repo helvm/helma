@@ -1,14 +1,12 @@
 module HelVM.HelMA.Automaton.Types.DumpType where
 
-import           HelVM.HelMA.Automaton.Eff.MonadEff
-
 import           Control.Monad.Logger
 
-import qualified Data.Text.Lazy                     as LT
-import qualified Data.Text.Lazy.Builder             as B
-import           Text.Pretty.Simple                 ( pShowNoColor )
+import qualified Data.Text.Lazy         as LT
+import qualified Data.Text.Lazy.Builder as B
+import           Text.Pretty.Simple     ( pShowNoColor )
 
-logDump ∷ (AppSafeEff m, Show d) ⇒ DumpType → d → m ()
+logDump ∷ (MonadLogger m, Show d) ⇒ DumpType → d → m ()
 logDump No     _ = pass
 logDump Ugly   d = logInfoNL $ B.toLazyText $ B.fromString $ show d
 logDump Pretty d = logInfoNL $ pShowNoColor d
