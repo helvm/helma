@@ -4,20 +4,14 @@ module HelVM.HelMA.Automaton.Eff.MonadEff
   , MonadEff (..)
   ) where
 
-import           HelVM.HelIO.Control.Safe
+import           HelVM.HelMA.Automaton.API.Env
 
+import           HelVM.HelIO.Control.Safe
 import           HelVM.HelIO.ReadText
 
 import           Control.Monad.Logger
 
-import qualified Data.ByteString.Lazy          as LByteString
-import qualified Data.Text.Lazy.IO             as LText
-
-import qualified HelVM.HelMA.Automaton.API.Env as Env
-
 import qualified RIO
-
-import qualified System.IO                     as IO
 
 type AppSafeEff m = (MonadSafe m , AppEff m)
 
@@ -56,15 +50,6 @@ class Monad m => MonadEff m where
 
   flush          = pass
 
-instance MonadEff IO where
-  getContentsBS   = LByteString.getContents
-  getContentsText = LText.getContents
-  getChar         = IO.getChar
-  getChars        = getLine
-  putChar         = IO.putChar
-  putChars        = putText
-  flush           = flushIO
-
 instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) ⇒ MonadEff (t m) where
   getContentsBS   = lift getContentsBS
   getContentsText = lift getContentsText
@@ -74,16 +59,11 @@ instance {-# OVERLAPPABLE #-} (MonadTrans t, Monad m, MonadEff m) ⇒ MonadEff (
   putChars        = lift . putChars
   flush           = lift flush
 
-instance {-# OVERLAPPING #-} MonadEff (RIO.RIO Env.Env) where
-  getContentsBS   = Env.getContentsBSRio
-  getContentsText = Env.getContentsTextRio
-  getChar         = Env.getCharRio
-  getChars        = Env.getCharsRio
-  putChar         = Env.putCharRio
-  putChars        = Env.putCharsRio
+instance {-# OVERLAPPING #-} MonadEff (RIO.RIO Env) where
+  getContentsBS   = getContentsBSRio
+  getContentsText = getContentsTextRio
+  getChar         = getCharRio
+  getChars        = getCharsRio
+  putChar         = putCharRio
+  putChars        = putCharsRio
   flush           = pass
-
----- Internal
-
-flushIO ∷ IO ()
-flushIO = hFlush stdout
