@@ -6,7 +6,7 @@ import           HelVM.HelMA.Automaton.Types.DumpType
 fastAutoOptions ∷ AutoOptions
 fastAutoOptions = AutoOptions
   { limit        = Nothing
-  , dumpType     = Pretty
+  , dumpType     = No
   }
 
 simpleAutoOptions ∷ AutoOptions
