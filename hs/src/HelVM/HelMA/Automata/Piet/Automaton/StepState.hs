@@ -47,31 +47,31 @@ initialState prog = AutomatonMemory
   }
 
 start ∷ AppSafeEff m ⇒ Program → m ()
-start = Trampoline.trampolineM interpretStep . initialState
+start = void . Trampoline.trampolineM interpretStep . initialState
 
-interpretStep ∷ AppSafeEff m ⇒ AutomatonMemory → m (Either () AutomatonMemory)
+interpretStep ∷ AppSafeEff m ⇒ AutomatonMemory → m (Same AutomatonMemory)
 interpretStep (AutomatonMemory (ChromaticStep p) mem) = stepChromatic p mem
 interpretStep (AutomatonMemory (WhiteStep limit) mem) = pure $ stepWhite limit mem
 
 -- STEP HANDLERS
 
-stepChromatic ∷ AppSafeEff m ⇒ Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
+stepChromatic ∷ AppSafeEff m ⇒ Maybe PreviousColor → Memory → m (Same AutomatonMemory)
 stepChromatic p mem = evalPixel (currentPixel mem) p mem
 
 {-# INLINE stepWhite #-}
-stepWhite ∷ Int → Memory → Either () AutomatonMemory
+stepWhite ∷ Int → Memory → Same AutomatonMemory
 stepWhite limit mem
-  | limit <= 0 = Trampoline.break ()
+  | limit <= 0 = Trampoline.break $ AutomatonMemory (ChromaticStep Nothing) mem
   | otherwise  = Trampoline.continue $ checkWhitePixel (currentPixel mem) limit mem
 
 -- PIXEL HANDLERS
 
-evalPixel ∷ AppSafeEff m ⇒ Color → Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
+evalPixel ∷ AppSafeEff m ⇒ Color → Maybe PreviousColor → Memory → m (Same AutomatonMemory)
 evalPixel (Chromatic color) p m = evalChromaticPixel color p m
 evalPixel White             _ m = pure $ Trampoline.continue $ evalWhitePixel m
 evalPixel Black             _ _ = liftError "Entered black block, terminate"
 
-evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → Maybe PreviousColor → Memory → m (Either () AutomatonMemory)
+evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → Maybe PreviousColor → Memory → m (Same AutomatonMemory)
 evalChromaticPixel color previous mem = makeNext <$> applyPreviousColor previous color mem where
   makeNext mem' = handleNext (nonBlackSuccMemory mem' mStats) color (blockCodelCount mem') mem'
   mStats        = getMaskInfo mem
@@ -90,9 +90,9 @@ checkWhitePixel _     _     mem = AutomatonMemory (ChromaticStep Nothing) mem
 -- HELPER FUNCTIONS
 
 {-# INLINE handleNext #-}
-handleNext ∷ Maybe Cursor → ChromaticColor → Int → Memory → Either () AutomatonMemory
+handleNext ∷ Maybe Cursor → ChromaticColor → Int → Memory → Same AutomatonMemory
 handleNext (Just ic) color count mem = Trampoline.continue $ AutomatonMemory
   { stepState = ChromaticStep (Just (color, count))
   , memory    = setCursor ic mem
   }
-handleNext Nothing _ _ _ = Trampoline.break ()
+handleNext Nothing _ _ mem = Trampoline.break $ AutomatonMemory (ChromaticStep Nothing) mem

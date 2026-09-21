@@ -28,7 +28,7 @@ loopWithLimit f !n !acc = f acc >>= either pure (loopWithLimit f (n - 1))
 testMaybeLimit ∷ LimitMaybe
 testMaybeLimit = Just $ fromIntegral (maxBound ∷ Int)
 
-trampolineM ∷ Monad m ⇒ (a → m (Either b a)) → a → m b
+trampolineM ∷ Monad m ⇒ (a → m (Same a)) → a → m a
 trampolineM f !acc = f acc >>= either pure (trampolineM f)
 {-# INLINE trampolineM #-}
 
