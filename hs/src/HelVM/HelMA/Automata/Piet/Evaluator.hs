@@ -73,7 +73,7 @@ evalParamsByType Common eo = evalCommon eo
 evalParamsByType Custom _  = evalCustom
 
 fastEval ∷ AppSafeEff m ⇒ DynamicImage → m ()
-fastEval = evalCommon simpleEvalOptions simpleOptions
+fastEval = evalCommon fastEvalOptions simpleOptions
 
 simpleEval ∷ AppSafeEff m ⇒ DynamicImage → m ()
 simpleEval = evalCommon simpleEvalOptions simpleOptions
