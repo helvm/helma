@@ -138,11 +138,11 @@ data CentralProcessingMemory ll
 
 data ControlMemory
   = CM
-      { program            :: InstructionVector
-      , programCounter     :: InstructionCounter
-      , returnStack        :: InstructionStack
-      , naturalLabelMap    :: Map.Map Natural InstructionAddress
-      , artificialLabelMap :: Map.Map Label InstructionAddress
+      { program            :: !InstructionVector
+      , programCounter     :: {-# UNPACK #-} !InstructionCounter
+      , returnStack        :: !InstructionStack
+      , naturalLabelMap    :: !(Map.Map Natural InstructionAddress)
+      , artificialLabelMap :: !(Map.Map Label InstructionAddress)
       }
   deriving stock (Show)
 
