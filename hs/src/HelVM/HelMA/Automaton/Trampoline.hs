@@ -32,7 +32,7 @@ trampolineM ∷ Monad m ⇒ (a → m (Same a)) → a → m a
 trampolineM f !acc = f acc >>= either pure (trampolineM f)
 {-# INLINE trampolineM #-}
 
-trampoline ∷ (a → Either b a) → a → b
+trampoline ∷ (a → Same a) → a → a
 trampoline f !acc = either id (trampoline f) (f acc)
 {-# INLINE trampoline #-}
 
