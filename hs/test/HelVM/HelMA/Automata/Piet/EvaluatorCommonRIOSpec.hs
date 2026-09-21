@@ -80,6 +80,6 @@ spec =
       let path   = "CommonRIO" </> dirName </> fileName <> input
       let img = readImageIO fullPath
       describe fullPath $ do
-        let result = (runTestEnv (toText input) . void . runAsRIOResult' . simpleEval) =<< img
+        let result = (runTestEnv (toText input) . void . runAsRIOResult' . fastEval) =<< img
         it path $
           result `goldenShouldIO` buildAbsolutePietOutFileName path

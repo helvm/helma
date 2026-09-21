@@ -63,7 +63,7 @@ testAppOptions = AppOptions
   { verbosity   = minBound
   , emit        = No
   , exec        = False
-  , evalOptions = simpleEvalOptions
+  , evalOptions = fastEvalOptions
   , langCommand = PietCommand simpleOptions
   , file        = ""
   }

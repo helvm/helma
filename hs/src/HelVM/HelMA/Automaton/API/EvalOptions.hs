@@ -11,6 +11,12 @@ import           HelVM.HelMA.Automaton.Types.IntCellType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
 
+fastEvalOptions ∷ EvalOptions
+fastEvalOptions = EvalOptions
+  simpleParserOptions
+  simpleMemoryOptions
+  fastAutoOptions
+
 simpleEvalOptions ∷ EvalOptions
 simpleEvalOptions = EvalOptions
   simpleParserOptions

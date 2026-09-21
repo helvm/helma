@@ -3,6 +3,7 @@ module HelVM.HelMA.Automata.Piet.Evaluator
   , emitDot
   , emitIL
   , evalCustom
+  , fastEval
   , run
   , runRio
   , simpleEval
@@ -70,6 +71,9 @@ run _  _  o = putLTextLnRio <=< (runAsRIO . emitDot . imageInput o)
 evalParamsByType ∷ AppSafeEff m ⇒ AutomatonType → EvalOptions → Options → DynamicImage → m ()
 evalParamsByType Common eo = evalCommon eo
 evalParamsByType Custom _  = evalCustom
+
+fastEval ∷ AppSafeEff m ⇒ DynamicImage → m ()
+fastEval = evalCommon simpleEvalOptions simpleOptions
 
 simpleEval ∷ AppSafeEff m ⇒ DynamicImage → m ()
 simpleEval = evalCommon simpleEvalOptions simpleOptions
