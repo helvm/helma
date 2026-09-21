@@ -36,11 +36,11 @@ trampoline ∷ (a → Same a) → a → a
 trampoline f !acc = either id (trampoline f) (f acc)
 {-# INLINE trampoline #-}
 
-continue ∷ a → Either b a
+continue ∷ a → Same a
 continue = Right
 {-# INLINE continue #-}
 
-break ∷ b → Either b a
+break ∷ a → Same a
 break = Left
 {-# INLINE break #-}
 
