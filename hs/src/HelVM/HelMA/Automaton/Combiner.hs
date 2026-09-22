@@ -80,7 +80,6 @@ toLSM (Memory _ s r) = LSM s r
 
 -- | Types
 
--- type SF s r m = Memory s r → m $ MemorySame s r
 type SF s r m = Memory s r → SameT m (Memory s r)
 
 type F s r m = Memory s r → m $ Memory s r
