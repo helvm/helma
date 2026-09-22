@@ -43,14 +43,14 @@ initialState p = AutomatonMemory
 start ∷ AppSafeEff m ⇒ Program → m ()
 start = void . Trampoline.trampolineM transition . initialState
 
-transition ∷ AppSafeEff m ⇒ AutomatonMemory → m (Same AutomatonMemory)
+transition ∷ AppSafeEff m ⇒ AutomatonMemory → SameT m AutomatonMemory
 transition autoMem
   | autoMem ^. collisionCountL >= 8 = Trampoline.break autoMem <$ logDebugN "Max collisions reached (8). Terminating."
   | otherwise                       = stepByColour (nextColour (autoMem ^. memoryL)) autoMem
 
 -- STEP & COLOR HANDLERS
 
-stepByColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → m (Same AutomatonMemory)
+stepByColour ∷ AppSafeEff m ⇒ Maybe Color → AutomatonMemory → SameT m AutomatonMemory
 stepByColour Nothing               autoMem = transition (doIfCollided autoMem)
 stepByColour (Just Black)          autoMem = transition (doIfCollided autoMem)
 stepByColour (Just White)          autoMem = transition (stepWhite autoMem)
@@ -60,7 +60,7 @@ stepByColour (Just (Chromatic c')) autoMem = stepChromatic c' autoMem
 stepWhite ∷ AutomatonMemory → AutomatonMemory
 stepWhite autoMem = autoMem & memoryL %~ stepWhitePixel
 
-stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → m (Same AutomatonMemory)
+stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → SameT m AutomatonMemory
 stepChromatic c' autoMem = makeNext <$> stepMemory c' oldMem (advancePosition oldMem) where
   makeNext nextMem = Trampoline.continue $ resetCollision autoMem { memory = nextMem }
   oldMem           = autoMem ^. memoryL
