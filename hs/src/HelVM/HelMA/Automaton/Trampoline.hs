@@ -44,7 +44,6 @@ breakM ∷ Monad m ⇒ a → SameT m a
 breakM = pure . Left
 {-# INLINE breakM #-}
 
-
 type LimitMaybe = Maybe Natural
 type EitherWithLimit a = Either a $ WithLimit a
 type WithLimit a = (Natural , a)
