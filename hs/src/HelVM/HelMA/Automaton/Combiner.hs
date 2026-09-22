@@ -34,7 +34,7 @@ push1ForStack e a = a { memoryStack = push1 e (memoryStack a) }
 {-# INLINE push1ForStack #-}
 
 end ∷ (SRAutomatonEff Symbol s r m) ⇒ SF s r m
-end = pure . Trampoline.break
+end = Trampoline.breakM
 
 -- | Constructors
 

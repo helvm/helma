@@ -41,14 +41,14 @@ doInstruction (Just S) u                        = Trampoline.continue . updateSt
 doInstruction (Just E) u                        = Trampoline.continue . updateStack u <$> divMod (memoryStack u)
 
 -- | Control
-doInstruction (Just R) u                        = pure $ Trampoline.continue  u
-doInstruction (Just A) (Memory iu@(IM il ic) s) = pure $ Trampoline.continue  ((Memory iu . flipPush1 s . genericNextLabel il) ic)
+doInstruction (Just R) u                        = Trampoline.continueM  u
+doInstruction (Just A) (Memory iu@(IM il ic) s) = Trampoline.continueM  ((Memory iu . flipPush1 s . genericNextLabel il) ic)
 doInstruction (Just T) u                        = transfer u
 doInstruction Nothing u                         = end u
 
 transfer ∷ (SAutomatonEff e s m) ⇒ Memory s → SameT m (Memory s)
 transfer = branch <=< pop2ForStack where
-  branch (_ , 0 , u) = pure $ Trampoline.continue  u
+  branch (_ , 0 , u) = Trampoline.continueM  u
   branch (0 , _ , u) = end u
   branch (l , _ , u) = Trampoline.continue  . updateAddress u <$> genericFindAddress (memoryProgram u) l
 
@@ -58,7 +58,7 @@ pop2ForStack u = build <$> pop2 (memoryStack u) where
 
 -- | Terminate instruction
 end ∷ (SAutomatonEff e s m) ⇒ Memory s → SameT m (Memory s)
-end = pure . Trampoline.break
+end = Trampoline.breakM
 
 -- | Memory methods
 

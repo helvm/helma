@@ -37,7 +37,7 @@ doEnd ∷ RAutomatonEff e r m ⇒ Automaton e r → SameT m (Automaton e r)
 doEnd = pure . Trampoline.break
 
 doInstruction ∷ RAutomatonEff e r m ⇒ e → e → Automaton e r → SameT m (Automaton e r)
-doInstruction src dst (Automaton ic ram) = pure $ Trampoline.continue $ Automaton ic' $ store dst diff ram where
+doInstruction src dst (Automaton ic ram) = Trampoline.continueM $ Automaton ic' $ store dst diff ram where
   diff = genericLoad ram dst - genericLoad ram src
   ic'
     | diff <= 0 = genericLoad ram $ ic + 2
