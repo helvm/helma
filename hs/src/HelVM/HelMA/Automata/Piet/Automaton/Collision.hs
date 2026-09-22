@@ -45,7 +45,7 @@ start = void . Trampoline.trampolineM transition . initialState
 
 transition ∷ AppSafeEff m ⇒ AutomatonMemory → SameT m AutomatonMemory
 transition autoMem
-  | autoMem ^. collisionCountL >= 8 = Trampoline.break autoMem <$ logDebugN "Max collisions reached (8). Terminating."
+  | autoMem ^. collisionCountL >= 8 = Trampoline.breakM autoMem <* logDebugN "Max collisions reached (8). Terminating."
   | otherwise                       = stepByColour (nextColour (autoMem ^. memoryL)) autoMem
 
 -- STEP & COLOR HANDLERS

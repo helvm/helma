@@ -34,7 +34,7 @@ doInputChar address (Automaton ic ram) = Trampoline.continue . next3Automaton ic
 
 -- | Terminate instruction
 doEnd ∷ RAutomatonEff e r m ⇒ Automaton e r → SameT m (Automaton e r)
-doEnd = pure . Trampoline.break
+doEnd = Trampoline.breakM
 
 doInstruction ∷ RAutomatonEff e r m ⇒ e → e → Automaton e r → SameT m (Automaton e r)
 doInstruction src dst (Automaton ic ram) = Trampoline.continueM $ Automaton ic' $ store dst diff ram where

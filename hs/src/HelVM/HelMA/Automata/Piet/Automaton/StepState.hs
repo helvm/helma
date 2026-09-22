@@ -51,7 +51,7 @@ start = void . Trampoline.trampolineM interpretStep . initialState
 
 interpretStep ∷ AppSafeEff m ⇒ AutomatonMemory → SameT m AutomatonMemory
 interpretStep (AutomatonMemory (ChromaticStep p) mem) = stepChromatic p mem
-interpretStep (AutomatonMemory (WhiteStep limit) mem) = pure $ stepWhite limit mem
+interpretStep (AutomatonMemory (WhiteStep limit) mem) = stepWhite limit mem
 
 -- STEP HANDLERS
 
@@ -59,10 +59,10 @@ stepChromatic ∷ AppSafeEff m ⇒ Maybe PreviousColor → Memory → SameT m Au
 stepChromatic p mem = evalPixel (currentPixel mem) p mem
 
 {-# INLINE stepWhite #-}
-stepWhite ∷ Int → Memory → Same AutomatonMemory
+stepWhite ∷ Monad m ⇒ Int → Memory → SameT m AutomatonMemory
 stepWhite limit mem
-  | limit <= 0 = Trampoline.break $ AutomatonMemory (ChromaticStep Nothing) mem
-  | otherwise  = Trampoline.continue $ checkWhitePixel (currentPixel mem) limit mem
+  | limit <= 0 = Trampoline.breakM $ AutomatonMemory (ChromaticStep Nothing) mem
+  | otherwise  = Trampoline.continueM $ checkWhitePixel (currentPixel mem) limit mem
 
 -- PIXEL HANDLERS
 
@@ -72,7 +72,7 @@ evalPixel White             _ m = pure $ Trampoline.continue $ evalWhitePixel m
 evalPixel Black             _ _ = liftError "Entered black block, terminate"
 
 evalChromaticPixel ∷ AppSafeEff m ⇒ ChromaticColor → Maybe PreviousColor → Memory → SameT m AutomatonMemory
-evalChromaticPixel color previous mem = makeNext <$> applyPreviousColor previous color mem where
+evalChromaticPixel color previous mem = makeNext =<< applyPreviousColor previous color mem where
   makeNext mem' = handleNext (nonBlackSuccMemory mem' mStats) color (blockCodelCount mem') mem'
   mStats        = getMaskInfo mem
 
@@ -90,9 +90,9 @@ checkWhitePixel _     _     mem = AutomatonMemory (ChromaticStep Nothing) mem
 -- HELPER FUNCTIONS
 
 {-# INLINE handleNext #-}
-handleNext ∷ Maybe Cursor → ChromaticColor → Int → Memory → Same AutomatonMemory
-handleNext (Just ic) color count mem = Trampoline.continue $ AutomatonMemory
+handleNext ∷ Monad m ⇒ Maybe Cursor → ChromaticColor → Int → Memory → SameT m AutomatonMemory
+handleNext (Just ic) color count mem = Trampoline.continueM $ AutomatonMemory
   { stepState = ChromaticStep (Just (color, count))
   , memory    = setCursor ic mem
   }
-handleNext Nothing _ _ mem = Trampoline.break $ AutomatonMemory (ChromaticStep Nothing) mem
+handleNext Nothing _ _ mem = Trampoline.breakM $ AutomatonMemory (ChromaticStep Nothing) mem
