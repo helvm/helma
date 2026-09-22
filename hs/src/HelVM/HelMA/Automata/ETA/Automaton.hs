@@ -29,16 +29,16 @@ nextState (Memory iu s) = build =<< nextIM iu where build (t , iu') = doInstruct
 
 doInstruction ∷ (SAutomatonEff e s m) ⇒ Maybe Token → Memory s → SameT m (Memory s)
 -- | IO instructions
-doInstruction (Just O) u                        = Trampoline.continue . updateStack u <$> outputChar (memoryStack u)
-doInstruction (Just I) u                        = Trampoline.continue . updateStack u <$> inputChar (memoryStack u)
+doInstruction (Just O) u                        = Trampoline.continueM . updateStack u =<< outputChar (memoryStack u)
+doInstruction (Just I) u                        = Trampoline.continueM . updateStack u =<< inputChar (memoryStack u)
 
 -- | Stack instructions
-doInstruction (Just N) (Memory iu s)            = build <$> parseNumber iu where build (symbol , iu') = Trampoline.continue (Memory iu' (push1 symbol s))
-doInstruction (Just H) u                        = Trampoline.continue . updateStack u <$> halibut (memoryStack u)
+doInstruction (Just N) (Memory iu s)            = build =<< parseNumber iu where build (symbol , iu') = Trampoline.continueM (Memory iu' (push1 symbol s))
+doInstruction (Just H) u                        = Trampoline.continueM . updateStack u =<< halibut (memoryStack u)
 
 -- | Arithmetic
-doInstruction (Just S) u                        = Trampoline.continue . updateStack u <$> sub (memoryStack u)
-doInstruction (Just E) u                        = Trampoline.continue . updateStack u <$> divMod (memoryStack u)
+doInstruction (Just S) u                        = Trampoline.continueM . updateStack u =<< sub (memoryStack u)
+doInstruction (Just E) u                        = Trampoline.continueM . updateStack u =<< divMod (memoryStack u)
 
 -- | Control
 doInstruction (Just R) u                        = Trampoline.continueM  u
@@ -50,7 +50,7 @@ transfer ∷ (SAutomatonEff e s m) ⇒ Memory s → SameT m (Memory s)
 transfer = branch <=< pop2ForStack where
   branch (_ , 0 , u) = Trampoline.continueM  u
   branch (0 , _ , u) = end u
-  branch (l , _ , u) = Trampoline.continue  . updateAddress u <$> genericFindAddress (memoryProgram u) l
+  branch (l , _ , u) = Trampoline.continueM . updateAddress u =<< genericFindAddress (memoryProgram u) l
 
 pop2ForStack ∷ (SAutomatonEff e s m) ⇒ Memory s → m (e , e , Memory s)
 pop2ForStack u = build <$> pop2 (memoryStack u) where

@@ -19,9 +19,9 @@ import           Prelude                                hiding ( swap )
 -- | Core of Combiner
 
 runInstruction ∷ (SRAutomatonEff Symbol s r m) ⇒ Instruction → SF s r m
-runInstruction (ISM i) !a = Trampoline.continue . updateStack   a <$> runALI i (memoryStack a)
-runInstruction (ILS i) !a = Trampoline.continue . updateFromLSM a <$> runSLI i (toLSM a)
-runInstruction (ICF i) !a = Trampoline.continue . updateFromCPM a <$> runCFI i (toCPM a)
+runInstruction (ISM i) !a = Trampoline.continueM . updateStack   a =<< runALI i (memoryStack a)
+runInstruction (ILS i) !a = Trampoline.continueM . updateFromLSM a =<< runSLI i (toLSM a)
+runInstruction (ICF i) !a = Trampoline.continueM . updateFromCPM a =<< runCFI i (toCPM a)
 runInstruction  End    !a = end a
 {-# INLINE runInstruction #-}
 

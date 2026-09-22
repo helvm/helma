@@ -61,8 +61,8 @@ stepWhite ∷ AutomatonMemory → AutomatonMemory
 stepWhite autoMem = autoMem & memoryL %~ stepWhitePixel
 
 stepChromatic ∷ AppSafeEff m ⇒ ChromaticColor → AutomatonMemory → SameT m AutomatonMemory
-stepChromatic c' autoMem = makeNext <$> stepMemory c' oldMem (advancePosition oldMem) where
-  makeNext nextMem = Trampoline.continue $ resetCollision autoMem { memory = nextMem }
+stepChromatic c' autoMem = makeNext =<< stepMemory c' oldMem (advancePosition oldMem) where
+  makeNext nextMem = Trampoline.continueM $ resetCollision autoMem { memory = nextMem }
   oldMem           = autoMem ^. memoryL
 
 -- COLLISION STATE MANAGEMENT
