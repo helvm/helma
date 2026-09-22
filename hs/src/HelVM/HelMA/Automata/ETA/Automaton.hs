@@ -24,10 +24,10 @@ import           Prelude                                 hiding ( divMod )
 runAutomat ∷ (SAutomatonEff e s m) ⇒ Maybe Natural → Memory s → m $ Memory s
 runAutomat = trampolineMWithLimit nextState
 
-nextState ∷ (SAutomatonEff e s m) ⇒ Memory s → m $ MemorySame s
+nextState ∷ (SAutomatonEff e s m) ⇒ Memory s → SameT m (Memory s)
 nextState (Memory iu s) = build =<< nextIM iu where build (t , iu') = doInstruction t (Memory iu' s)
 
-doInstruction ∷ (SAutomatonEff e s m) ⇒ Maybe Token → Memory s → m $ MemorySame s
+doInstruction ∷ (SAutomatonEff e s m) ⇒ Maybe Token → Memory s → SameT m (Memory s)
 -- | IO instructions
 doInstruction (Just O) u                        = Trampoline.continue . updateStack u <$> outputChar (memoryStack u)
 doInstruction (Just I) u                        = Trampoline.continue . updateStack u <$> inputChar (memoryStack u)
@@ -46,7 +46,7 @@ doInstruction (Just A) (Memory iu@(IM il ic) s) = pure $ Trampoline.continue  ((
 doInstruction (Just T) u                        = transfer u
 doInstruction Nothing u                         = end u
 
-transfer ∷ (SAutomatonEff e s m) ⇒ Memory s → m $ MemorySame s
+transfer ∷ (SAutomatonEff e s m) ⇒ Memory s → SameT m (Memory s)
 transfer = branch <=< pop2ForStack where
   branch (_ , 0 , u) = pure $ Trampoline.continue  u
   branch (0 , _ , u) = end u
@@ -57,7 +57,7 @@ pop2ForStack u = build <$> pop2 (memoryStack u) where
   build (s1 , s2 , s') = (s1 , s2 , updateStack u s')
 
 -- | Terminate instruction
-end ∷ (SAutomatonEff e s m) ⇒ Memory s → m $ MemorySame s
+end ∷ (SAutomatonEff e s m) ⇒ Memory s → SameT m (Memory s)
 end = pure . Trampoline.break
 
 -- | Memory methods
@@ -75,8 +75,6 @@ memoryProgram ∷ Memory s → TokenVector
 memoryProgram = program . memoryIM
 
 -- | Types
-
-type MemorySame s = Same (Memory s)
 
 data Memory s
   = Memory
