@@ -37,20 +37,13 @@ trampoline f !acc = either id (trampoline f) (f acc)
 {-# INLINE trampoline #-}
 
 continueM ∷ Monad m ⇒ a → SameT m a
-continueM  = pure . continue
+continueM  = pure . Right
 {-# INLINE continueM #-}
 
-continue ∷ a → Same a
-continue = Right
-{-# INLINE continue #-}
-
 breakM ∷ Monad m ⇒ a → SameT m a
-breakM = pure . break
+breakM = pure . Left
 {-# INLINE breakM #-}
 
-break ∷ a → Same a
-break = Left
-{-# INLINE break #-}
 
 type LimitMaybe = Maybe Natural
 type EitherWithLimit a = Either a $ WithLimit a
