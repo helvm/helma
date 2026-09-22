@@ -84,8 +84,6 @@ type SF s r m = Memory s r → SameT m (Memory s r)
 
 type F s r m = Memory s r → m $ Memory s r
 
-type MemorySame s r = Same (Memory s r)
-
 -- | Data types
 data Memory s r
   = Memory

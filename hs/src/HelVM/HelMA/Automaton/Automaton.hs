@@ -71,7 +71,7 @@ nextState ∷ (SRAutomatonEff Symbol s r m) ⇒ SF s r m
 nextState !a = stepNextState a =<< currentInstruction (memoryCM a)
 {-# INLINE nextState #-}
 
-stepNextState ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → m (MemorySame s r)
+stepNextState ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → SameT m (Memory s r)
 stepNextState !a !i = attachErrorContext a i $ runInstruction i (incrementIC a)
 {-# INLINE stepNextState #-}
 
