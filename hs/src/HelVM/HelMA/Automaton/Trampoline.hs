@@ -1,53 +1,51 @@
+{-# LANGUAGE BangPatterns #-}
 module HelVM.HelMA.Automaton.Trampoline where
 
 import           Control.Type.Operator
 
 import           Prelude               hiding ( break )
 
+-- PUBLIC API
+
+trampolineMWithLimit ∷ Monad m ⇒ (a → SameT m a) → LimitMaybe → a → m a
+trampolineMWithLimit f Nothing   !x = loopNoLimit f x
+trampolineMWithLimit f (Just !n) !x = loopWithLimit f (fromIntegral n) x
+{-# INLINE trampolineMWithLimit #-}
+
+-- PRIVATE OPTIMIZED LOOPS
+
+loopNoLimit ∷ Monad m ⇒ (a → SameT m a) → a → m a
+loopNoLimit f !acc = f acc >>= either pure (loopNoLimit f)
+{-# INLINE loopNoLimit #-}
+
+loopWithLimit ∷ Monad m ⇒ (a → SameT m a) → Word64 → a → m a
+loopWithLimit _ 0  !acc = pure acc
+loopWithLimit f !n !acc = f acc >>= either pure (loopWithLimit f (n - 1))
+{-# INLINE loopWithLimit #-}
+
+-- UTILITIES / LEGACY HELPERS (for compatibility)
+
 testMaybeLimit ∷ LimitMaybe
-testMaybeLimit = Just $ fromIntegral (maxBound :: Int)
+testMaybeLimit = Just $ fromIntegral (maxBound ∷ Int)
 
-trampolineMWithLimit ∷ Monad m ⇒ (a → m $ Same a) → LimitMaybe → a → m a
-trampolineMWithLimit f Nothing  !x = trampolineM f x
-trampolineMWithLimit f (Just n) !x = trampolineM (actMWithLimit f) (n , x)
-
-actMWithLimit ∷ Monad m ⇒ (a → m $ Same a) → WithLimit a → m $ EitherWithLimit a
-actMWithLimit f (!n , !x) = checkN n where
-  checkN 0 = pure $ break x
-  checkN _ = next n <$> f x
-
-next ∷ Natural → Same a → EitherWithLimit a
-next n a = withLimit n <$> a
-{-# INLINE next #-}
-
-withLimit ∷ Natural → a → WithLimit a
-withLimit !n !a = (n - 1 , a)
-{-# INLINE withLimit #-}
-
-trampolineM ∷ Monad m ⇒ (a → m (Either b a)) → a → m b
-trampolineM f = fix $ \loop !acc → step loop acc =<< f acc where
-  step _    _   (Left b)  = pure b
-  step loop _   (Right a) = loop a
+trampolineM ∷ Monad m ⇒ (a → SameT m a) → a → m a
+trampolineM f !acc = f acc >>= either pure (trampolineM f)
 {-# INLINE trampolineM #-}
 
-trampoline ∷ (a → Either b a) → a → b
-trampoline f = fix $ \loop !acc → step loop (f acc) where
-  step _    (Left b)  = b
-  step loop (Right a) = loop a
+trampoline ∷ (a → Same a) → a → a
+trampoline f !acc = either id (trampoline f) (f acc)
 {-# INLINE trampoline #-}
 
-continue ∷ a → Either b a
-continue = Right
-{-# INLINE continue #-}
+continueM ∷ Monad m ⇒ a → SameT m a
+continueM  = pure . Right
+{-# INLINE continueM #-}
 
-break ∷ b → Either b a
-break = Left
-{-# INLINE break #-}
+breakM ∷ Monad m ⇒ a → SameT m a
+breakM = pure . Left
+{-# INLINE breakM #-}
 
 type LimitMaybe = Maybe Natural
-
 type EitherWithLimit a = Either a $ WithLimit a
-
 type WithLimit a = (Natural , a)
-
+type SameT m a = m $ Same a
 type Same a = Either a a

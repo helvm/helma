@@ -9,7 +9,7 @@ import qualified RIO
 import           System.FilePath.Posix
 
 readImageIO ∷ FilePath → IO Picture.DynamicImage
-readImageIO path = Picture.readImage path >>= either RIO.throwString pure
+readImageIO = either RIO.throwString pure <=< Picture.readImage
 
 buildAbsolutePietOutFileName ∷ FilePath → FilePath
 buildAbsolutePietOutFileName path = "piet" </> "eval" </> "output" </> path <.> "output"
