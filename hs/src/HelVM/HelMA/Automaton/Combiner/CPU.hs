@@ -89,10 +89,12 @@ labeledArtificialInstruction i l cpm = appendError "CPM.labeledArtificialInstruc
 findAddressForNaturalLabel ∷ (MonadSafe m , DynamicLabel n) ⇒ n → CentralProcessingMemory ll → m InstructionAddress
 findAddressForNaturalLabel n cpm
   | n < 0     = liftError $ show n
-  | otherwise = liftMaybeOrErrorTuple ("Undefined label", show n) $ Map.lookup (fromIntegral n) (naturalLabelMap $ controlMemory cpm)
+  | otherwise = maybe (liftErrorTuple ("Undefined label", show n)) pure $ Map.lookup (fromIntegral n) $ naturalLabelMap $ controlMemory cpm
+{-# INLINE findAddressForNaturalLabel #-}
 
 findAddressForArtificialLabel ∷ MonadSafe m ⇒ Label → CentralProcessingMemory ll → m InstructionAddress
-findAddressForArtificialLabel l cpm = liftMaybeOrErrorTuple ("Undefined label", show l) $ Map.lookup l (artificialLabelMap $ controlMemory cpm)
+findAddressForArtificialLabel l cpm = maybe (liftErrorTuple ("Undefined label", show l)) pure $ Map.lookup l $ artificialLabelMap $ controlMemory cpm
+{-# INLINE findAddressForArtificialLabel #-}
 
 --
 
