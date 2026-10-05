@@ -1,10 +1,20 @@
 {-# LANGUAGE BangPatterns #-}
-module HelVM.HelMA.Automaton.Trampoline where
+module HelVM.HelMA.Automaton.Trampoline
+  ( LimitMaybe
+  , SameT
+  , break
+  , breakM
+  , continue
+  , continueM
+  , testMaybeLimit
+  , trampoline
+  , trampolineM
+  , trampolineMWithLimit
+  ) where
 
+-- import           Control.Monad.Loop
 import           Control.Type.Operator
-
 import qualified Data.Strict.Either    as Strict
-
 import           Prelude               hiding ( break )
 
 -- PUBLIC API
@@ -19,7 +29,7 @@ trampolineM = loopNoLimit
 
 trampoline ∷ (a → Same a) → a → a
 trampoline f = fix loop where
-  loop go !acc = flip stepPure go $ f acc
+  loop go !acc = stepPure (f acc) go
 {-# INLINE trampoline #-}
 
 continueM ∷ Monad m ⇒ a → SameT m a
@@ -45,30 +55,29 @@ testMaybeLimit = Just $ fromIntegral (maxBound ∷ Int)
 
 loopNoLimit ∷ Monad m ⇒ (a → SameT m a) → a → m a
 loopNoLimit f = fix loop where
-  loop go !acc = flip step go =<< f acc
+  loop go !acc = stepM go =<< f acc
 {-# INLINE loopNoLimit #-}
 
 loopWithLimit ∷ Monad m ⇒ (a → SameT m a) → Word64 → a → m a
 loopWithLimit f = fix loop where
   loop go !n !acc | n == 0    = pure acc
-                  | otherwise = flip step (go (n - 1)) =<< f acc
+                  | otherwise = stepM (go (n - 1)) =<< f acc
 {-# INLINE loopWithLimit #-}
 
-step ∷ Monad m ⇒ Step a → (a → m a) → m a
-step (Strict.Left !acc)    _ = pure acc
-step (Strict.Right !acc) go  = go acc
-{-# INLINE step #-}
+stepM ∷ Monad m ⇒ (a → m a) → Step a → m a
+stepM _  (Strict.Left !acc)  = pure acc
+stepM go (Strict.Right !acc) = go acc
+{-# INLINE stepM #-}
 
 stepPure ∷ Step a → (a → a) → a
-stepPure (Strict.Left !acc)    _ = acc
-stepPure (Strict.Right !acc) go  = go acc
+stepPure (Strict.Left !acc)  _  = acc
+stepPure (Strict.Right !acc) go = go acc
 {-# INLINE stepPure #-}
+
 
 -- DATA TYPES AND ALIASES
 
 type LimitMaybe = Maybe Natural
-type EitherWithLimit a = Either a $ WithLimit a
-type WithLimit a = (Natural , a)
 type SameT m a = m $ Same a
 type Same a = Step a
 type Step a = Strict.Either a a
