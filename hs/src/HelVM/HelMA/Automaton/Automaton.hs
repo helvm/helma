@@ -5,10 +5,14 @@ module HelVM.HelMA.Automaton.Automaton
 import           HelVM.HelMA.Automaton.API.AutomatonOptions
 import           HelVM.HelMA.Automaton.API.AutoOptions
 
-import           HelVM.HelMA.Automaton.Instruction
+import           HelVM.HelMA.Automaton.Combiner
+import           HelVM.HelMA.Automaton.Combiner.CPU         as CPU
 
 import           HelVM.HelMA.Automaton.Eff.AutomatonEff
 import           HelVM.HelMA.Automaton.Eff.MonadEff
+
+import           HelVM.HelMA.Automaton.Instruction
+import           HelVM.HelMA.Automaton.LazyLogger
 
 import           HelVM.HelMA.Automaton.Symbol
 import           HelVM.HelMA.Automaton.Trampoline           as Trampoline
@@ -16,9 +20,6 @@ import           HelVM.HelMA.Automaton.Trampoline           as Trampoline
 import           HelVM.HelMA.Automaton.Types.DumpType
 import           HelVM.HelMA.Automaton.Types.RAMType
 import           HelVM.HelMA.Automaton.Types.StackType
-
-import           HelVM.HelMA.Automaton.Combiner
-import           HelVM.HelMA.Automaton.Combiner.CPU         as CPU
 
 import qualified HelVM.HelIO.Collections.MapList            as MapList
 import qualified HelVM.HelIO.Collections.SList              as SList
@@ -30,7 +31,6 @@ import           HelVM.HelIO.Extra
 
 import           Control.Monad.Except                       ( catchError, throwError )
 import           Control.Monad.Extra
-import           Control.Monad.Logger
 
 import qualified Data.Sequence                              as Seq
 
@@ -78,7 +78,7 @@ nextState !a = stepNextState a =<< currentInstruction (memoryCM a)
 {-# INLINE nextState #-}
 
 stepNextState ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → SameT m (Memory s r)
-stepNextState !a !i = logDebugN (show i) *> runInstruction i (incrementIC a)
+stepNextState !a !i = logDebugNL (show i) *> runInstruction i (incrementIC a)
 {-# INLINE stepNextState #-}
 
 attachErrorContext ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Messages → m b

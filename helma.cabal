@@ -158,6 +158,8 @@ library
     HelVM.HelMA.Automaton.Instruction.Extras.Patterns
     HelVM.HelMA.Automaton.Instruction.Extras.Common
 
+    HelVM.HelMA.Automaton.LazyLogger
+
     HelVM.HelMA.Automaton.Optimizer
     HelVM.HelMA.Automaton.Optimizer.ConstantFoldingOptimizer
     HelVM.HelMA.Automaton.Optimizer.DeadCodeOptimizer
