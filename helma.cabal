@@ -332,6 +332,7 @@ library
     , primitive
     , safe
     , slist
+    , strict
     , transformers
     , type-operators
     , vector

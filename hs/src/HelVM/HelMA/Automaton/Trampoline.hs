@@ -3,6 +3,8 @@ module HelVM.HelMA.Automaton.Trampoline where
 
 import           Control.Type.Operator
 
+import qualified Data.Strict.Either    as Strict
+
 import           Prelude               hiding ( break )
 
 -- PUBLIC API
@@ -21,19 +23,19 @@ trampoline f = fix loop where
 {-# INLINE trampoline #-}
 
 continueM ∷ Monad m ⇒ a → SameT m a
-continueM = pure . Continue
+continueM = pure . Strict.Right
 {-# INLINE continueM #-}
 
 breakM ∷ Monad m ⇒ a → SameT m a
-breakM = pure . Break
+breakM = pure . Strict.Left
 {-# INLINE breakM #-}
 
 continue ∷ a → Step a
-continue = Continue
+continue = Strict.Right
 {-# INLINE continue #-}
 
 break ∷ a → Step a
-break = Break
+break = Strict.Left
 {-# INLINE break #-}
 
 testMaybeLimit ∷ LimitMaybe
@@ -53,24 +55,20 @@ loopWithLimit f = fix loop where
 {-# INLINE loopWithLimit #-}
 
 step ∷ Monad m ⇒ Step a → (a → m a) → m a
-step (Break !acc)    _  = pure acc
-step (Continue !acc) go = go acc
+step (Strict.Left !acc)    _ = pure acc
+step (Strict.Right !acc) go  = go acc
 {-# INLINE step #-}
 
 stepPure ∷ Step a → (a → a) → a
-stepPure (Break !acc)    _  = acc
-stepPure (Continue !acc) go = go acc
+stepPure (Strict.Left !acc)    _ = acc
+stepPure (Strict.Right !acc) go  = go acc
 {-# INLINE stepPure #-}
 
 -- DATA TYPES AND ALIASES
-
-data Step a
-  = Break !a
-  | Continue !a
-  deriving stock (Eq, Read, Show)
 
 type LimitMaybe = Maybe Natural
 type EitherWithLimit a = Either a $ WithLimit a
 type WithLimit a = (Natural , a)
 type SameT m a = m $ Same a
 type Same a = Step a
+type Step a = Strict.Either a a
