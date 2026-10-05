@@ -1,6 +1,10 @@
+Debug ILS (StoreID 0 0)
+Debug ICF (Mark (MArtificial "block_0"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_0_rl") NE)
+Debug ISM (SPure (Unary (UImmediate 2 Mod)))
 Error Empty IsSequence for unconsSafe
 ALU.pop1
- [i: ISM (SPure (Unary (UImmediate 2 Mod)))]
  [program: storeID 0 0 # 0
 
 markA "block_0" # 1
@@ -31438,7 +31442,7 @@ end # 7033
             , End
             , End
             ]
-        , programCounter = 4
+        , programCounter = 0
         , returnStack = IS []
         , naturalLabelMap = fromList []
         , artificialLabelMap = fromList
@@ -36813,6 +36817,6 @@ end # 7033
             ]
         }
     , memoryStack = fromList []
-    , memoryRAM = [ 0 ]
+    , memoryRAM = []
     }]
 

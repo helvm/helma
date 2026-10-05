@@ -1,6 +1,11 @@
+Debug ILS (StoreID 0 0)
+Debug ICF (Mark (MArtificial "block_0"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_0_rl") NE)
+Debug ILS (StoreID 3 0)
+Debug ISM (SPure (Binary LGT))
 Error Empty IsSequence for uncons2Safe
 ALU.pop2
- [i: ISM (SPure (Binary LGT))]
  [program: storeID 0 0 # 0
 
 markA "block_0" # 1
@@ -415,7 +420,7 @@ end # 97
             , End
             , End
             ]
-        , programCounter = 5
+        , programCounter = 0
         , returnStack = IS []
         , naturalLabelMap = fromList []
         , artificialLabelMap = fromList
@@ -494,6 +499,6 @@ end # 97
             ]
         }
     , memoryStack = fromList []
-    , memoryRAM = [ 3 ]
+    , memoryRAM = []
     }]
 

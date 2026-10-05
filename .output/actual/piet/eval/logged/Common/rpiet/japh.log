@@ -1,6 +1,103 @@
+Debug ILS (StoreID 0 0)
+Debug ICF (Mark (MArtificial "block_0"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_0_rl") NE)
+Debug ISM (SPure (Cons 1))
+Debug ICF (Labeled (LArtificial "block_1") Jump)
+Debug ICF (Mark (MArtificial "block_1"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_1_rl") NE)
+Debug ISM (SPure (Cons 1))
+Debug ICF (Labeled (LArtificial "block_2") Jump)
+Debug ICF (Mark (MArtificial "block_2"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_2_rl") NE)
+Debug ICF (Labeled (LArtificial "block_4") Jump)
+Debug ICF (Mark (MArtificial "block_4"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_4_rl") NE)
+Debug ISM (SPure (Unary (UImmediate 4 Mod)))
+Debug ISM (SPure (Unary (UImmediate 2 Mul)))
+Debug ILS (LoadD 0)
+Debug ISM (SPure (Binary Add))
+Debug ISM (SPure (Unary (UImmediate 8 Mod)))
+Debug ILS (RStoreD 0)
+Debug ICF (Labeled (LArtificial "block_5") Jump)
+Debug ICF (Mark (MArtificial "block_5"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_5_rl") NE)
+Debug ICF (Mark (MArtificial "branch_5_rl"))
+Debug ILS (LoadSubDI 0 1)
+Debug ICF (Branch (BArtificial "branch_5_rr") NE)
+Debug ICF (Mark (MArtificial "branch_5_rr"))
+Debug ILS (LoadSubDI 0 2)
+Debug ICF (Branch (BArtificial "branch_5_dl") NE)
+Debug ICF (Labeled (LArtificial "block_14") Jump)
+Debug ICF (Mark (MArtificial "block_14"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_14_rl") NE)
+Debug ICF (Mark (MArtificial "branch_14_rl"))
+Debug ILS (LoadSubDI 0 1)
+Debug ICF (Branch (BArtificial "branch_14_rr") NE)
+Debug ICF (Mark (MArtificial "branch_14_rr"))
+Debug ILS (LoadSubDI 0 2)
+Debug ICF (Branch (BArtificial "branch_14_dl") NE)
+Debug ISM (SPure (Unary (UImmediate 2 Mod)))
+Debug ILS (LoadD 0)
+Debug ISM (SPure (Binary BXor))
+Debug ILS (RStoreD 0)
+Debug ICF (Labeled (LArtificial "block_16") Jump)
+Debug ICF (Mark (MArtificial "block_16"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_16_rl") NE)
+Debug ICF (Mark (MArtificial "branch_16_rl"))
+Debug ILS (LoadSubDI 0 1)
+Debug ICF (Branch (BArtificial "branch_16_rr") NE)
+Debug ICF (Mark (MArtificial "branch_16_rr"))
+Debug ILS (LoadSubDI 0 2)
+Debug ICF (Branch (BArtificial "branch_16_dl") NE)
+Debug ICF (Mark (MArtificial "branch_16_dl"))
+Debug ILS (LoadSubDI 0 3)
+Debug ICF (Branch (BArtificial "branch_16_dr") NE)
+Debug ILS (StoreID 7 0)
+Debug ICF (Labeled (LArtificial "block_21") Jump)
+Debug ICF (Mark (MArtificial "block_21"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_21_rl") NE)
+Debug ICF (Mark (MArtificial "branch_21_rl"))
+Debug ILS (LoadSubDI 0 1)
+Debug ICF (Branch (BArtificial "branch_21_rr") NE)
+Debug ICF (Mark (MArtificial "branch_21_rr"))
+Debug ILS (LoadSubDI 0 2)
+Debug ICF (Branch (BArtificial "branch_21_dl") NE)
+Debug ICF (Mark (MArtificial "branch_21_dl"))
+Debug ILS (LoadSubDI 0 3)
+Debug ICF (Branch (BArtificial "branch_21_dr") NE)
+Debug ICF (Mark (MArtificial "branch_21_dr"))
+Debug ILS (LoadSubDI 0 4)
+Debug ICF (Branch (BArtificial "branch_21_ll") NE)
+Debug ICF (Mark (MArtificial "branch_21_ll"))
+Debug ILS (LoadSubDI 0 5)
+Debug ICF (Branch (BArtificial "branch_21_lr") NE)
+Debug ICF (Mark (MArtificial "branch_21_lr"))
+Debug ILS (LoadSubDI 0 6)
+Debug ICF (Branch (BArtificial "branch_21_ul") NE)
+Debug ICF (Mark (MArtificial "branch_21_ul"))
+Debug ILS (LoadSubDI 0 7)
+Debug ICF (Branch (BArtificial "branch_21_ur") NE)
+Debug ILS (StoreID 0 0)
+Debug ISM (SIO OutputCharMaybe)
+Debug ICF (Labeled (LArtificial "block_22") Jump)
+Debug ICF (Mark (MArtificial "block_22"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_22_rl") NE)
+Debug ICF (Labeled (LArtificial "block_23") Jump)
+Debug ICF (Mark (MArtificial "block_23"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_23_rl") NE)
+Debug ISM (SPure Discard)
 Error Empty IsSequence for unconsSafe
 Error for discard
- [i: ISM (SPure Discard)]
  [program: storeID 0 0 # 0
 
 markA "block_0" # 1
@@ -4907,7 +5004,7 @@ end # 1096
             , End
             , End
             ]
-        , programCounter = 805
+        , programCounter = 0
         , returnStack = IS []
         , naturalLabelMap = fromList []
         , artificialLabelMap = fromList
@@ -5778,6 +5875,6 @@ end # 1096
             ]
         }
     , memoryStack = fromList []
-    , memoryRAM = [ 0 ]
+    , memoryRAM = []
     }]
 

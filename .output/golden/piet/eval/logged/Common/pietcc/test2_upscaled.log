@@ -1,6 +1,24 @@
+Debug ILS (StoreID 0 0)
+Debug ICF (Mark (MArtificial "block_0"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_0_rl") NE)
+Debug ISM (SPure (Cons 12))
+Debug ICF (Labeled (LArtificial "block_5") Jump)
+Debug ICF (Mark (MArtificial "block_5"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_5_rl") NE)
+Debug ILS (StoreID 1 0)
+Debug ISM (SPure Discard)
+Debug ICF (Labeled (LArtificial "block_6") Jump)
+Debug ICF (Mark (MArtificial "block_6"))
+Debug ILS (LoadD 0)
+Debug ICF (Branch (BArtificial "branch_6_rl") NE)
+Debug ICF (Mark (MArtificial "branch_6_rl"))
+Debug ILS (LoadSubDI 0 1)
+Debug ICF (Branch (BArtificial "branch_6_rr") NE)
+Debug ISM (SPure (Indexed (IImmediate 0) Copy))
 Error MTIndexSafe.indexSafe:
 ALU.copy
- [i: ISM (SPure (Indexed (IImmediate 0) Copy))]
  [program: storeID 0 0 # 0
 
 markA "block_0" # 1
@@ -860,7 +878,7 @@ end # 190
             , End
             , End
             ]
-        , programCounter = 153
+        , programCounter = 0
         , returnStack = IS []
         , naturalLabelMap = fromList []
         , artificialLabelMap = fromList
@@ -1019,6 +1037,6 @@ end # 190
             ]
         }
     , memoryStack = fromList []
-    , memoryRAM = [ 1 ]
+    , memoryRAM = []
     }]
 

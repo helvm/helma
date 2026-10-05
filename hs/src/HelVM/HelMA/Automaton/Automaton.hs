@@ -30,6 +30,7 @@ import           HelVM.HelIO.Extra
 
 import           Control.Monad.Except                       ( catchError, throwError )
 import           Control.Monad.Extra
+import           Control.Monad.Logger
 
 import qualified Data.Sequence                              as Seq
 
@@ -39,6 +40,7 @@ import           Prelude                                    hiding ( swap )
 
 start ∷ AppSafeEff m ⇒ InstructionList → AutomatonOptions → m ()
 start il ao = start' il (stackType ao) (ramType ao) (autoOptions ao)
+{-# INLINE start #-}
 
 -- TOP-DOWN PRIVATE HELPERS
 
@@ -60,8 +62,12 @@ start''' il s r p = runAndDumpLogs p (newMemory il s r)
 {-# INLINE start''' #-}
 
 runAndDumpLogs ∷ (SRAutomatonEff Symbol s r m) ⇒ AutoOptions → Memory s r → m ()
-runAndDumpLogs p = logDump (dumpType p) <=< runAutomat (limit p)
+runAndDumpLogs p mem = logDump (dumpType p) =<< runAndCatch p mem
 {-# INLINE runAndDumpLogs #-}
+
+runAndCatch ∷ (SRAutomatonEff Symbol s r m) ⇒ AutoOptions → Memory s r → m (Memory s r)
+runAndCatch p mem = runAutomat (limit p) mem `catchError` attachErrorContext mem
+{-# INLINE runAndCatch #-}
 
 runAutomat ∷ (SRAutomatonEff Symbol s r m) ⇒ LimitMaybe → F s r m
 runAutomat = trampolineMWithLimit nextState
@@ -72,16 +78,11 @@ nextState !a = stepNextState a =<< currentInstruction (memoryCM a)
 {-# INLINE nextState #-}
 
 stepNextState ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → SameT m (Memory s r)
-stepNextState !a !i = attachErrorContext a i $ runInstruction i (incrementIC a)
+stepNextState !a !i = logDebugN (show i) *> runInstruction i (incrementIC a)
 {-# INLINE stepNextState #-}
 
-attachErrorContext ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → m b → m b
-attachErrorContext a i action = action `catchError` buildErrorAndThrow a i
-{-# INLINE attachErrorContext #-}
-
-buildErrorAndThrow ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → Messages → m b
-buildErrorAndThrow a i err = appendErrorTuple ctx1 $ appendErrorTuple ctx2 $ appendErrorTuple ctx3 $ throwError err where
+attachErrorContext ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Messages → m b
+attachErrorContext a err = appendErrorTuple ctx1 $ appendErrorTuple ctx2 $ throwError err where
   !ctx1 = ("Automaton.nextState", showP a)
   !ctx2 = ("program:", toText $ printIndexedIL $ toList $ memoryProgram a)
-  !ctx3 = ("i:", show i)
-{-# NOINLINE buildErrorAndThrow #-}
+{-# NOINLINE attachErrorContext #-}
