@@ -30,7 +30,7 @@ trampolineM f = fix loop where
 
 trampoline ∷ (a → Same a) → a → a
 trampoline f = fix loop where
-  loop go !acc = stepPure (f acc) go
+  loop go !acc = step (f acc) go
 {-# INLINE trampoline #-}
 
 continueM ∷ Monad m ⇒ a → SameT m a
@@ -65,11 +65,10 @@ stepM _  (Strict.Left !acc)  = pure acc
 stepM go (Strict.Right !acc) = go acc
 {-# INLINE stepM #-}
 
-stepPure ∷ Step a → (a → a) → a
-stepPure (Strict.Left !acc)  _  = acc
-stepPure (Strict.Right !acc) go = go acc
-{-# INLINE stepPure #-}
-
+step ∷ Step a → (a → a) → a
+step (Strict.Left !acc)  _  = acc
+step (Strict.Right !acc) go = go acc
+{-# INLINE step #-}
 
 -- DATA TYPES AND ALIASES
 
