@@ -20,11 +20,12 @@ import           Prelude               hiding ( break )
 -- PUBLIC API
 
 trampolineMWithLimit ∷ Monad m ⇒ (a → SameT m a) → LimitMaybe → a → m a
-trampolineMWithLimit f = maybe (loopNoLimit f) (loopWithLimit f . fromIntegral)
+trampolineMWithLimit f = maybe (trampolineM f) (loopWithLimit f . fromIntegral)
 {-# INLINE trampolineMWithLimit #-}
 
 trampolineM ∷ Monad m ⇒ (a → SameT m a) → a → m a
-trampolineM = loopNoLimit
+trampolineM f = fix loop where
+  loop go !acc = stepM go =<< f acc
 {-# INLINE trampolineM #-}
 
 trampoline ∷ (a → Same a) → a → a
@@ -33,11 +34,11 @@ trampoline f = fix loop where
 {-# INLINE trampoline #-}
 
 continueM ∷ Monad m ⇒ a → SameT m a
-continueM = pure . Strict.Right
+continueM = pure . continue
 {-# INLINE continueM #-}
 
 breakM ∷ Monad m ⇒ a → SameT m a
-breakM = pure . Strict.Left
+breakM = pure . break
 {-# INLINE breakM #-}
 
 continue ∷ a → Step a
@@ -52,11 +53,6 @@ testMaybeLimit ∷ LimitMaybe
 testMaybeLimit = Just $ fromIntegral (maxBound ∷ Int)
 
 -- PRIVATE OPTIMIZED LOOPS
-
-loopNoLimit ∷ Monad m ⇒ (a → SameT m a) → a → m a
-loopNoLimit f = fix loop where
-  loop go !acc = stepM go =<< f acc
-{-# INLINE loopNoLimit #-}
 
 loopWithLimit ∷ Monad m ⇒ (a → SameT m a) → Word64 → a → m a
 loopWithLimit f = fix loop where
