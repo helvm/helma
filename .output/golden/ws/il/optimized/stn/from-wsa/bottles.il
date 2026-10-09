@@ -1,5 +1,4 @@
 cons 3
-
 markA "LOOP"
 copy I 0
 outputDS
@@ -124,20 +123,16 @@ callA "printsln"
 copy I 0
 bEZA "LOOP:1"
 jumpA "LOOP"
-
 markA "LOOP:1"
 end
-
 markA "prints"
 copy I 0
 bEZA "prints_end"
 outputCS
 jumpA "prints"
-
 markA "prints_end"
 discard
 return
-
 markA "printsln"
 callA "prints"
 cons 10

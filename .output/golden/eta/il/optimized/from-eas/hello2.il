@@ -1,4 +1,3 @@
-
 markM 1
 cons 0
 cons 10
@@ -17,22 +16,17 @@ cons 101
 cons 72
 cons 3
 jumpI 4
-
 markM 3
 jumpI 0
-
 markM 4
 move I 1
 copy I 0
 bNEI 8
 discard
 jump
-
 markM 8
 outputCS
 jumpI 4
-
 markM 10
-
 markM 0
 end

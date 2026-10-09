@@ -67,10 +67,8 @@ store
 cons 23
 cons 16
 store
-
 markA "00"
 jumpA "01"
-
 markA "01"
 cons 3
 cons 5
@@ -142,7 +140,6 @@ add
 cons 0
 load
 store
-
 markA "010"
 cons 1
 cons 4
@@ -182,23 +179,17 @@ cons 0
 sub
 bEZA "01001"
 jumpA "01010"
-
 markA "01010"
 cons 1
 jumpA "01011"
-
 markA "01001"
 cons 0
-
 markA "01011"
 bEZA "0100"
-
 markA "011"
 jumpA "0101"
-
 markA "0100"
 jumpA "0111"
-
 markA "0101"
 cons 1
 cons 4
@@ -270,7 +261,6 @@ add
 cons 16777216
 mod
 store
-
 markA "0110"
 cons 1
 cons 4
@@ -367,7 +357,6 @@ cons 16777216
 mod
 store
 jumpA "010"
-
 markA "0111"
 cons 0
 cons 0
@@ -378,7 +367,6 @@ load
 store
 end
 end
-
 markA "01000"
 copy I 0
 cons 4
@@ -394,11 +382,9 @@ sub
 bLTZA "010010"
 discard
 jumpA "0111"
-
 markA "010010"
 discard
 jumpA "0110"
-
 markA "010001"
 copy I 0
 cons 5
@@ -406,11 +392,9 @@ sub
 bLTZA "010000"
 discard
 jumpA "0101"
-
 markA "010000"
 discard
 jumpA "0100"
-
 markA "01111"
 copy I 0
 cons 2
@@ -422,11 +406,9 @@ sub
 bLTZA "01110"
 discard
 jumpA "011"
-
 markA "01110"
 discard
 jumpA "010"
-
 markA "01101"
 copy I 0
 cons 1
@@ -434,7 +416,6 @@ sub
 bLTZA "01100"
 discard
 jumpA "01"
-
 markA "01100"
 discard
 jumpA "00"

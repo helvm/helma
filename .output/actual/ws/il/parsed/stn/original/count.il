@@ -1,5 +1,4 @@
 cons 1
-
 markA "C"
 copy I 0
 outputDS
@@ -12,15 +11,12 @@ cons 11
 sub
 bEZA "E"
 jumpA "C"
-
 markA "E"
 discard
 end
-
 markA "add"
 add
 return
-
 markA "write"
 copy I 0
 load
@@ -30,12 +26,10 @@ outputCS
 cons 1
 add
 jumpA "write"
-
 markA "write_end"
 discard
 discard
 return
-
 markA "read"
 copy I 0
 copy I 0
@@ -49,7 +43,6 @@ discard
 cons 1
 add
 jumpA "read"
-
 markA "read_end"
 discard
 cons 1
@@ -57,7 +50,6 @@ add
 cons 0
 store
 return
-
 markA "newline"
 cons 10
 cons 13

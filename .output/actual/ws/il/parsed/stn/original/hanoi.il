@@ -75,7 +75,6 @@ cons 3
 cons 2
 callA "hanoi"
 end
-
 markA "hanoi"
 cons 103
 move I 1
@@ -163,14 +162,11 @@ store
 cons 100
 move I 1
 store
-
 markA "endhanoi"
 return
-
 markA "add"
 add
 return
-
 markA "write"
 copy I 0
 load
@@ -180,12 +176,10 @@ outputCS
 cons 1
 add
 jumpA "write"
-
 markA "write_end"
 discard
 discard
 return
-
 markA "read"
 copy I 0
 copy I 0
@@ -199,7 +193,6 @@ discard
 cons 1
 add
 jumpA "read"
-
 markA "read_end"
 discard
 cons 1
@@ -207,7 +200,6 @@ add
 cons 0
 store
 return
-
 markA "newline"
 cons 10
 cons 13

@@ -58,7 +58,6 @@ cons 0
 callA "write"
 callA "newline"
 storeID 0 100
-
 markA "loop"
 cons 42
 callA "write"
@@ -74,7 +73,6 @@ cons 100
 move I 1
 store
 jumpA "loop"
-
 markA "progend"
 discard
 cons 60
@@ -83,11 +81,9 @@ loadD 100
 outputDS
 callA "newline"
 end
-
 markA "add"
 add
 return
-
 markA "write"
 copy I 0
 load
@@ -96,12 +92,10 @@ bEZA "write_end"
 outputCS
 addI 1
 jumpA "write"
-
 markA "write_end"
 discard
 discard
 return
-
 markA "read"
 copy I 0
 copy I 0
@@ -113,13 +107,11 @@ bEZA "read_end"
 discard
 addI 1
 jumpA "read"
-
 markA "read_end"
 discard
 addI 1
 storeI 0
 return
-
 markA "newline"
 cons 10
 cons 13

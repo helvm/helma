@@ -1,4 +1,3 @@
-
 markA "st"
 cons 0
 cons 93
@@ -23,7 +22,6 @@ cons 114
 cons 112
 callA "printsln"
 cons 0
-
 markA "f_start_1"
 copy I 0
 cons 100
@@ -37,18 +35,15 @@ store
 cons 1
 add
 jumpA "f_start_1"
-
 markA "f_finished_1"
 discard
 cons 2
-
 markA "f_start_2"
 copy I 0
 cons 11
 sub
 bEZA "f_finished_2"
 cons 2
-
 markA "f_start_3"
 copy I 0
 cons 100
@@ -76,17 +71,14 @@ store
 cons 1
 add
 jumpA "f_start_3"
-
 markA "f_finished_3"
 discard
 cons 1
 add
 jumpA "f_start_2"
-
 markA "f_finished_2"
 discard
 cons 2
-
 markA "f_start_4"
 copy I 0
 cons 100
@@ -102,28 +94,23 @@ outputDS
 cons 0
 cons 32
 callA "prints"
-
 markA "nodraw"
 cons 1
 add
 jumpA "f_start_4"
-
 markA "f_finished_4"
 discard
 cons 0
 callA "printsln"
 end
-
 markA "prints"
 copy I 0
 bEZA "prints_end"
 outputCS
 jumpA "prints"
-
 markA "prints_end"
 discard
 return
-
 markA "printsln"
 callA "prints"
 cons 10

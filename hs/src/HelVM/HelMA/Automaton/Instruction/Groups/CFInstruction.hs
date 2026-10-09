@@ -65,7 +65,7 @@ data BranchTest
 -- | Pretty instances
 
 instance Pretty CFInstruction where
-  pretty (Mark i)      = PP.line <> "mark" <> pretty i
+  pretty (Mark i)      = "mark" <> pretty i
   pretty (Branch i t)  = pretty t <> pretty i
   pretty (Labeled i o) = pretty (toLowerShow o) <> pretty i
   pretty (Switch ls)   = "switch" <+> PP.hsep (PP.viaShow <$> toList ls)

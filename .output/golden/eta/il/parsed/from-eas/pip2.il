@@ -1,4 +1,3 @@
-
 markM 1
 inputCS
 cons 0
@@ -16,14 +15,11 @@ bNE
 cons 1
 cons 0
 bNE
-
 markM 2
 outputCS
 cons 1
 cons 1
 bNE
-
 markM 3
-
 markM 0
 end

@@ -1,7 +1,5 @@
-
 markM 1
 jumpI 32
-
 markA "1"
 bNE
 cons 2
@@ -12,11 +10,9 @@ moddiv
 bNEI 4
 cons 2
 outputCS
-
 markM 2
 move I 1
 jumpI 3
-
 markA "2"
 inputCS
 outputCS
@@ -26,11 +22,9 @@ bNE
 sub
 halibut
 jumpI 3
-
 markM 3
 copy I 0
 jumpI 4
-
 markA "3"
 sub
 bNE
@@ -40,55 +34,44 @@ bNE
 sub
 cons 18828800
 cons 4
-
 markM 4
 bNEI 6
 discard
 jump
-
 markM 6
 outputCS
 jumpI 2
-
 markM 8
 cons 0
 move I 2
 copy I 0
 bNEI 11
-
 markM 10
 cons 48
 outputCS
 bNE
 jump
-
 markM 11
 copy I 0
 bNEI 14
 discard
 jumpI 18
-
 markM 14
 cons 10
 moddiv
-
 markA "14"
 subI -48
 move I 1
 jumpI 11
-
 markM 18
 cons 19
 jumpI 2
-
 markM 19
 jump
-
 markM 20
 move I 1
 cons 22
 jumpI 8
-
 markM 22
 cons 0
 cons 114
@@ -100,7 +83,6 @@ cons 102
 cons 111
 cons 32
 jumpI 23
-
 markM 23
 cons 115
 cons 101
@@ -111,19 +93,15 @@ cons 111
 cons 98
 cons 32
 jumpI 24
-
 markM 24
 cons 25
 jumpI 2
-
 markM 25
 jump
-
 markM 26
 move I 1
 cons 28
 jumpI 20
-
 markM 28
 cons 0
 cons 108
@@ -133,7 +111,6 @@ cons 119
 cons 32
 cons 101
 jumpI 29
-
 markM 29
 cons 104
 cons 116
@@ -142,14 +119,11 @@ cons 110
 cons 111
 cons 32
 jumpI 30
-
 markM 30
 cons 31
 jumpI 2
-
 markM 31
 jump
-
 markA "31"
 sub
 bNEI 32
@@ -160,15 +134,12 @@ moddiv
 inputCS
 cons 1814
 jumpA "32"
-
 markM 32
 cons 99
-
 markM 33
 copy I 0
 cons 34
 jumpI 26
-
 markM 34
 cons 44
 outputCS
@@ -177,7 +148,6 @@ outputCS
 copy I 0
 cons 36
 jumpI 20
-
 markM 36
 cons 10
 outputCS
@@ -214,15 +184,12 @@ cons 97
 cons 84
 cons 43
 jumpI 2
-
 markM 43
 subI 1
-
 markM 44
 copy I 0
 cons 45
 jumpI 26
-
 markM 45
 cons 10
 cons 10
@@ -231,8 +198,6 @@ outputCS
 copy I 0
 bNEI 33
 bNEI 0
-
 markM 48
-
 markM 0
 end

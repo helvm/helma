@@ -26,11 +26,9 @@ cons 0
 callA "write"
 callA "newline"
 end
-
 markA "add"
 add
 return
-
 markA "write"
 copy I 0
 load
@@ -39,12 +37,10 @@ bEZA "write_end"
 outputCS
 addI 1
 jumpA "write"
-
 markA "write_end"
 discard
 discard
 return
-
 markA "read"
 copy I 0
 copy I 0
@@ -56,13 +52,11 @@ bEZA "read_end"
 discard
 addI 1
 jumpA "read"
-
 markA "read_end"
 discard
 addI 1
 storeI 0
 return
-
 markA "newline"
 cons 10
 cons 13

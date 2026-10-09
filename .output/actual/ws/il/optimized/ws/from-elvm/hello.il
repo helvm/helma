@@ -21,10 +21,8 @@ storeID 33 20
 storeID 10 21
 storeID 0 22
 storeID 16 23
-
 markA "00"
 jumpA "01"
-
 markA "01"
 moveD 5 3
 cons 3
@@ -56,7 +54,6 @@ loadD 1
 addI 8
 loadD 0
 store
-
 markA "010"
 moveD 4 1
 cons 1
@@ -78,23 +75,17 @@ store
 loadD 0
 bEZA "01001"
 jumpA "01010"
-
 markA "01010"
 cons 1
 jumpA "01011"
-
 markA "01001"
 cons 0
-
 markA "01011"
 bEZA "0100"
-
 markA "011"
 jumpA "0101"
-
 markA "0100"
 jumpA "0111"
-
 markA "0101"
 moveD 4 1
 cons 1
@@ -131,7 +122,6 @@ loadD 5
 addI 16777217
 modI 16777216
 store
-
 markA "0110"
 moveD 4 1
 cons 1
@@ -181,13 +171,11 @@ addI 16777217
 modI 16777216
 store
 jumpA "010"
-
 markA "0111"
 storeID 0 0
 moveD 0 1
 end
 end
-
 markA "01000"
 copy I 0
 subI 4
@@ -200,22 +188,18 @@ subI 7
 bLTZA "010010"
 discard
 jumpA "0111"
-
 markA "010010"
 discard
 jumpA "0110"
-
 markA "010001"
 copy I 0
 subI 5
 bLTZA "010000"
 discard
 jumpA "0101"
-
 markA "010000"
 discard
 jumpA "0100"
-
 markA "01111"
 copy I 0
 subI 2
@@ -225,18 +209,15 @@ subI 3
 bLTZA "01110"
 discard
 jumpA "011"
-
 markA "01110"
 discard
 jumpA "010"
-
 markA "01101"
 copy I 0
 subI 1
 bLTZA "01100"
 discard
 jumpA "01"
-
 markA "01100"
 discard
 jumpA "00"

@@ -45,4 +45,4 @@ printIL ∷ InstructionList → LText
 printIL il = PP.Text.renderLazy $ PP.layoutCompact $ PP.vsep (pretty <$> il) <> PP.line
 
 printI ∷ Instruction → LText
-printI i = PP.Text.renderLazy $ PP.layoutCompact $ pretty i <> PP.line
+printI i = PP.Text.renderLazy $ PP.layoutCompact $ pretty i

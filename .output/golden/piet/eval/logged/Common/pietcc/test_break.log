@@ -7,118 +7,100 @@ Debug ISM (SPure (Binary LGT))
 Error Empty IsSequence for uncons2Safe
 ALU.pop2
  [program: storeID 0 0 # 0
-
 markA "block_0" # 1
 loadD 0 # 2
 bNEA "branch_0_rl" # 3
 storeID 3 0 # 4
 lgt # 5
 jumpA "block_1" # 6
-
 markA "branch_0_rl" # 7
 loadsubDI 0 1 # 8
 bNEA "branch_0_rr" # 9
 storeID 2 0 # 10
 lgt # 11
 jumpA "block_1" # 12
-
 markA "branch_0_rr" # 13
 loadsubDI 0 2 # 14
 bNEA "branch_0_dl" # 15
 lgt # 16
 jumpA "block_1" # 17
-
 markA "branch_0_dl" # 18
 loadsubDI 0 3 # 19
 bNEA "branch_0_dr" # 20
 lgt # 21
 jumpA "block_1" # 22
-
 markA "branch_0_dr" # 23
 loadsubDI 0 4 # 24
 bNEA "branch_0_ll" # 25
 storeID 3 0 # 26
 lgt # 27
 jumpA "block_1" # 28
-
 markA "branch_0_ll" # 29
 loadsubDI 0 5 # 30
 bNEA "branch_0_lr" # 31
 storeID 2 0 # 32
 lgt # 33
 jumpA "block_1" # 34
-
 markA "branch_0_lr" # 35
 loadsubDI 0 6 # 36
 bNEA "branch_0_ul" # 37
 storeID 2 0 # 38
 lgt # 39
 jumpA "block_1" # 40
-
 markA "branch_0_ul" # 41
 loadsubDI 0 7 # 42
 bNEA "branch_0_ur" # 43
 storeID 3 0 # 44
 lgt # 45
 jumpA "block_1" # 46
-
 markA "branch_0_ur" # 47
 end # 48
-
 markA "block_1" # 49
 loadD 0 # 50
 bNEA "branch_1_rl" # 51
 storeID 7 0 # 52
 lgt # 53
 jumpA "block_0" # 54
-
 markA "branch_1_rl" # 55
 loadsubDI 0 1 # 56
 bNEA "branch_1_rr" # 57
 storeID 6 0 # 58
 lgt # 59
 jumpA "block_0" # 60
-
 markA "branch_1_rr" # 61
 loadsubDI 0 2 # 62
 bNEA "branch_1_dl" # 63
 storeID 6 0 # 64
 lgt # 65
 jumpA "block_0" # 66
-
 markA "branch_1_dl" # 67
 loadsubDI 0 3 # 68
 bNEA "branch_1_dr" # 69
 storeID 7 0 # 70
 lgt # 71
 jumpA "block_0" # 72
-
 markA "branch_1_dr" # 73
 loadsubDI 0 4 # 74
 bNEA "branch_1_ll" # 75
 storeID 7 0 # 76
 lgt # 77
 jumpA "block_0" # 78
-
 markA "branch_1_ll" # 79
 loadsubDI 0 5 # 80
 bNEA "branch_1_lr" # 81
 storeID 6 0 # 82
 lgt # 83
 jumpA "block_0" # 84
-
 markA "branch_1_lr" # 85
 loadsubDI 0 6 # 86
 bNEA "branch_1_ul" # 87
 lgt # 88
 jumpA "block_0" # 89
-
 markA "branch_1_ul" # 90
 loadsubDI 0 7 # 91
 bNEA "branch_1_ur" # 92
 lgt # 93
 jumpA "block_0" # 94
-
 markA "branch_1_ur" # 95
 end # 96
 end # 97

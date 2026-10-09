@@ -14,17 +14,14 @@ cons 101
 cons 72
 callA "printsln"
 end
-
 markA "prints"
 copy I 0
 bEZA "prints_end"
 outputCS
 jumpA "prints"
-
 markA "prints_end"
 discard
 return
-
 markA "printsln"
 callA "prints"
 cons 10
