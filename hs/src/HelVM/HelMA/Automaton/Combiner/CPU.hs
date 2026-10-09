@@ -20,18 +20,22 @@ runCFI (Branch  o t) = branchInstruction t o
 runCFI (Labeled o i) = labeledInstruction i o
 runCFI (Switch   ls) = switchInstruction ls
 runCFI  Return       = popAddress
+{-# INLINE runCFI #-}
 
 popAddress ∷ ALU m ll element ⇒ CentralProcessingMemory ll → m $ CentralProcessingMemory ll
 popAddress (CPM (CM il _ (IS (a : is)) nm am) s) = pure $ CPM (CM il a (IS is) nm am) s
 popAddress (CPM (CM il _ (IS      [] ) _  _ ) _) = liftErrorWithTupleList "Empty Return Stack" [("il" , show il)]
+{-# INLINE popAddress #-}
 
 cpmPop1 ∷ ALU m ll element ⇒ CentralProcessingMemory ll → m (element , CentralProcessingMemory ll)
 cpmPop1 (CPM cm s) = build <$> pop1 s where
    build (l , s') = (l , CPM cm s')
+{-# INLINE cpmPop1 #-}
 
 cpmPop2 ∷ ALU m ll element ⇒ CentralProcessingMemory ll → m (element , element , CentralProcessingMemory ll)
 cpmPop2 (CPM cm s) = build <$> pop2 s where
    build (l1 , l2 , s') = (l1 , l2 , CPM cm s')
+{-# INLINE cpmPop2 #-}
 
 --
 
@@ -39,7 +43,7 @@ switchInstruction ∷ ALU m ll element ⇒ NonEmpty Label → CentralProcessingS
 switchInstruction ls = appendError "CPM.switchInstruction" . (buildSwitch ls <=< cpmPop1)
 
 buildSwitch ∷ ALU m ll element ⇒ NonEmpty Label → (element , CentralProcessingMemory ll) → m (CentralProcessingMemory ll)
-buildSwitch ls (e , cpm) = flip jump cpm <$> (flip findAddressForArtificialLabel cpm =<< indexSafe (toList ls) (mod (fromIntegral e) $ length ls))
+buildSwitch ls (e , CPM cm s) = flip jump (CPM cm s) <$> (flip findAddressForArtificialLabel cm =<< indexSafe (toList ls) (mod (fromIntegral e) $ length ls))
 
 --
 
@@ -48,32 +52,35 @@ branchInstruction t  BSwapped       = branchSwappedInstruction    t
 branchInstruction t  BTop           = branchTopInstruction        t
 branchInstruction t (BImmediate  l) = branchImmediateInstruction  t l
 branchInstruction t (BArtificial l) = branchArtificialInstruction t l
+{-# INLINE branchInstruction #-}
 
 branchSwappedInstruction ∷ (ALU m ll element , Show element) ⇒ BranchTest → CentralProcessingStep ll m
-branchSwappedInstruction t cpm = build =<< cpmPop2 cpm where
-  build (e , l , cpm') = branch t e (findAddressForNaturalLabel l) cpm'
+branchSwappedInstruction t (CPM cm s) = build =<< pop2 s where
+  build (e , l , s')
+    | isJump t e = flip jump (CPM cm s') <$> findAddressForNaturalLabel l cm
+    | otherwise  = pure $ CPM cm s'
 {-# INLINE branchSwappedInstruction #-}
 
 branchTopInstruction ∷ (ALU m ll element , Show element) ⇒ BranchTest → CentralProcessingStep ll m
-branchTopInstruction t cpm = build =<< cpmPop2 cpm where
-  build (l , e , cpm') = branch t e (findAddressForNaturalLabel l) cpm'
+branchTopInstruction t (CPM cm s) = build =<< pop2 s where
+  build (l , e , s')
+    | isJump t e = flip jump (CPM cm s') <$> findAddressForNaturalLabel l cm
+    | otherwise  = pure $ CPM cm s'
 {-# INLINE branchTopInstruction #-}
 
 branchImmediateInstruction ∷ (ALU m ll element, DynamicLabel l) ⇒ BranchTest → l → CentralProcessingStep ll m
-branchImmediateInstruction t l cpm = build =<< cpmPop1 cpm where
-  build (e , cpm') = branch t e (findAddressForNaturalLabel l) cpm'
+branchImmediateInstruction t l (CPM cm s) = build =<< pop1 s where
+  build (e , s')
+    | isJump t e = flip jump (CPM cm s') <$> findAddressForNaturalLabel l cm
+    | otherwise  = pure $ CPM cm s'
 {-# INLINE branchImmediateInstruction #-}
 
 branchArtificialInstruction ∷ ALU m ll element ⇒ BranchTest → Label → CentralProcessingStep ll m
-branchArtificialInstruction t l cpm = build =<< cpmPop1 cpm where
-  build (e , cpm') = branch t e (findAddressForArtificialLabel l) cpm'
+branchArtificialInstruction t l (CPM cm s) = build =<< pop1 s where
+  build (e , s')
+    | isJump t e = flip jump (CPM cm s') <$> findAddressForArtificialLabel l cm
+    | otherwise  = pure $ CPM cm s'
 {-# INLINE branchArtificialInstruction #-}
-
-branch ∷ ALU m ll element ⇒ BranchTest → element → (CentralProcessingMemory ll → m InstructionCounter) → CentralProcessingStep ll m
-branch t e findAddr cpm
-  | isJump t e = flip jump cpm <$> findAddr cpm
-  | otherwise  = pure cpm
-{-# INLINE branch #-}
 
 --
 
@@ -81,27 +88,29 @@ labeledInstruction ∷ (ALU m ll element , Show element) ⇒ LabelOperation → 
 labeledInstruction  i LTop            = labeledTopInstruction        i
 labeledInstruction  i (LImmediate  l) = labeledImmediateInstruction  i l
 labeledInstruction  i (LArtificial l) = labeledArtificialInstruction i l
+{-# INLINE labeledInstruction #-}
 
 labeledTopInstruction ∷ (ALU m ll element , Show element) ⇒ LabelOperation → CentralProcessingStep ll m
-labeledTopInstruction i cpm = uncurry (labeledImmediateInstruction i) =<< cpmPop1 cpm
+labeledTopInstruction i (CPM cm s) = build =<< pop1 s where
+  build (l , s') = flip (labeled i) (CPM cm s') <$> findAddressForNaturalLabel l cm
 {-# INLINE labeledTopInstruction #-}
 
 labeledImmediateInstruction ∷ (ALU m ll element, DynamicLabel l) ⇒ LabelOperation → l → CentralProcessingStep ll m
-labeledImmediateInstruction i l cpm = flip (labeled i) cpm <$> findAddressForNaturalLabel l cpm
+labeledImmediateInstruction i l (CPM cm s) = flip (labeled i) (CPM cm s) <$> findAddressForNaturalLabel l cm
 {-# INLINE labeledImmediateInstruction #-}
 
 labeledArtificialInstruction ∷ ALU m ll element ⇒ LabelOperation → Label → CentralProcessingStep ll m
-labeledArtificialInstruction i l cpm = flip (labeled i) cpm <$> findAddressForArtificialLabel l cpm
+labeledArtificialInstruction i l (CPM cm s) = flip (labeled i) (CPM cm s) <$> findAddressForArtificialLabel l cm
 {-# INLINE labeledArtificialInstruction #-}
 
-findAddressForNaturalLabel ∷ (MonadSafe m , DynamicLabel n) ⇒ n → CentralProcessingMemory ll → m InstructionAddress
-findAddressForNaturalLabel n cpm
+findAddressForNaturalLabel ∷ (MonadSafe m , DynamicLabel n) ⇒ n → ControlMemory → m InstructionAddress
+findAddressForNaturalLabel n cm
   | n < 0     = liftError $ show n
-  | otherwise = maybe (liftErrorTuple ("Undefined label", show n)) pure $ Map.lookup (fromIntegral n) $ naturalLabelMap $ controlMemory cpm
+  | otherwise = maybe (liftErrorTuple ("Undefined label", show n)) pure $ Map.lookup (fromIntegral n) cm.naturalLabelMap
 {-# INLINE findAddressForNaturalLabel #-}
 
-findAddressForArtificialLabel ∷ MonadSafe m ⇒ Label → CentralProcessingMemory ll → m InstructionAddress
-findAddressForArtificialLabel l cpm = maybe (liftErrorTuple ("Undefined label", show l)) pure $ Map.lookup l $ artificialLabelMap $ controlMemory cpm
+findAddressForArtificialLabel ∷ MonadSafe m ⇒ Label → ControlMemory → m InstructionAddress
+findAddressForArtificialLabel l cm = maybe (liftErrorTuple ("Undefined label", show l)) pure $ Map.lookup l cm.artificialLabelMap
 {-# INLINE findAddressForArtificialLabel #-}
 
 --
@@ -109,12 +118,15 @@ findAddressForArtificialLabel l cpm = maybe (liftErrorTuple ("Undefined label", 
 labeled ∷ LabelOperation → InstructionCounter → CentralProcessingMemory ll → CentralProcessingMemory ll
 labeled Jump = jump
 labeled Call = call
+{-# INLINE labeled #-}
 
 jump ∷ InstructionCounter → CentralProcessingMemory ll → CentralProcessingMemory ll
 jump a (CPM (CM il _ is nm am) s) = CPM (CM il a is nm am) s
+{-# INLINE jump #-}
 
 call ∷ InstructionCounter → CentralProcessingMemory ll → CentralProcessingMemory ll
 call a (CPM (CM il ic (IS is) nm am) s) = CPM (CM il a (IS (ic : is)) nm am) s
+{-# INLINE call #-}
 
 -- | ControlMemory methods
 
@@ -131,7 +143,8 @@ currentInstruction (CM il ic _ _ _) = maybe err pure $ il Vector.!? ic where
 {-# INLINE currentInstruction #-}
 
 incrementPC ∷ ControlMemory → ControlMemory
-incrementPC cu = cu { programCounter = 1 + programCounter cu }
+incrementPC (CM il ic is nm am) = CM il (ic + 1) is nm am
+{-# INLINE incrementPC #-}
 
 cpmProgram ∷ CentralProcessingMemory al → InstructionVector
 cpmProgram = program . controlMemory

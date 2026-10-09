@@ -9,12 +9,14 @@ import qualified Prettyprinter                                   as PP
 
 isNotJump ∷ Integral e ⇒ BranchTest → e → Bool
 isNotJump t = not . isJump t
+{-# INLINE isNotJump #-}
 
 isJump ∷ Integral e ⇒ BranchTest → e → Bool
 isJump NE  e = e /= 0
 isJump EZ  e = e == 0
 isJump LTZ e = e <  0
 isJump GTZ e = e >  0
+{-# INLINE isJump #-}
 
 -- | Types
 

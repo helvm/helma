@@ -47,7 +47,7 @@ newMemory il = Memory (newCM il)
 -- | Updaters
 
 incrementIC ∷ Memory s r → Memory s r
-incrementIC m = m { memoryCM = incrementPC $ memoryCM m }
+incrementIC (Memory cm s r) = Memory (incrementPC cm) s r
 {-# INLINE incrementIC #-}
 
 updateStack ∷ Memory s r → s → Memory s r
