@@ -126,7 +126,9 @@ newCM il = CM vec 0 (IS []) natMap artMap where
   artMap = Map.fromList [ (l, idx) | (idx, instr) <- indexed, Just l <- [extractArt instr] ]
 
 currentInstruction ∷ MonadSafe m ⇒ ControlMemory → m Instruction
-currentInstruction (CM il ic _ _ _) = indexSafe il ic
+currentInstruction (CM il ic _ _ _) = maybe err pure $ il Vector.!? ic where
+  err = liftError "Instruction counter out of bounds"
+{-# INLINE currentInstruction #-}
 
 incrementPC ∷ ControlMemory → ControlMemory
 incrementPC cu = cu { programCounter = 1 + programCounter cu }

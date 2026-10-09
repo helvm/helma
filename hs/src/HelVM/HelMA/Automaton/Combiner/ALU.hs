@@ -48,8 +48,10 @@ import           HelVM.HelIO.Containers.MTIndexSafe
 import           HelVM.HelIO.SequencesExtra
 
 import           Control.Applicative.Tools
+import           Control.Monad.Except                                   ( throwError )
 
 import           Data.Bits                                              ( Bits )
+import qualified Data.DList                                             as D
 import           Data.MonoTraversable
 import           Data.Sequences
 
@@ -136,7 +138,7 @@ indexedInstruction i (IImmediate n) = indexedInstructionImmediate i n
 
 -- | Indexed instructions
 indexedInstructionTop ∷ SafeStack m ll element ⇒ IndexedOperation → ll → m ll
-indexedInstructionTop op = appendError "ALU.indexedInstructionTop" . build <=< unconsSafe where
+indexedInstructionTop op = build <=< pop1 where
   build (e , l) = indexedInstructionImmediate op (fromIntegral e) l
 
 indexedInstructionImmediate ∷ SafeStack m ll element ⇒ IndexedOperation → ImmediateIndex → ll → m ll
@@ -190,10 +192,14 @@ copy i = appendError "ALU.copy" . teeMap flipPush1 (atSafe i)
 
 -- | Pop instructions
 pop1 ∷ SafeStack m ll element ⇒ ll →  m (element , ll)
-pop1 = appendError "ALU.pop1" . unconsSafe
+pop1 = maybe err pure . uncons where
+  err = throwError $ D.fromList ["Empty IsSequence for unconsSafe" , "ALU.pop1"]
+{-# INLINE pop1 #-}
 
 pop2 ∷ SafeStack m ll element ⇒ ll → m (element , element , ll)
-pop2 = appendError "ALU.pop2" . uncons2Safe
+pop2 = maybe err pure . uncons2 where
+  err = throwError $ D.fromList ["Empty IsSequence for uncons2Safe" , "ALU.pop2"]
+{-# INLINE pop2 #-}
 
 -- | Push instructions
 push ∷ SafeStack m ll element ⇒ Integer → ll → m ll
