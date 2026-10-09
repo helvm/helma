@@ -8,6 +8,7 @@ import           HelVM.HelMA.Automata.Piet.WhiteCodelSlider
 
 import           HelVM.HelMA.Automata.Piet.Types.ChromaticColor
 import           HelVM.HelMA.Automata.Piet.Types.Codel
+import           HelVM.HelMA.Automata.Piet.Types.CodelChooser
 import           HelVM.HelMA.Automata.Piet.Types.Color
 import           HelVM.HelMA.Automata.Piet.Types.Command
 import           HelVM.HelMA.Automata.Piet.Types.Coordinates
@@ -20,9 +21,7 @@ import           HelVM.HelMA.Automata.Piet.Types.SyntaxGraph
 import           HelVM.HelIO.Control.Message
 import           HelVM.HelIO.Control.Safe
 
-import qualified Data.Foldable1                                   as F1
 import qualified Data.IntMap                                      as IM
-import qualified Data.List.NonEmpty                               as NE
 import qualified Data.Map                                         as M
 import           Data.MonoTraversable
 import qualified Data.Vector                                      as V
@@ -64,10 +63,15 @@ filterUnvisited nextBlockList visitedMap =
   filter (`IM.notMember` visitedMap) (mapMaybe (nextBlockToIndex . snd) nextBlockList)
 
 buildNextBlockList ∷ Grid Codel → BlockCoordinates → [(Course, Maybe NextBlock)]
-buildNextBlockList grid blockCoords = mapMaybe (findCourseNextBlock grid blockCoords (olength blockCoords)) (minMaxCoords blockCoords)
+buildNextBlockList grid blockCoords =
+  mapMaybe (findCourseNextBlock grid cornerMap curColor blockSize) cursors where
+    blockSize = olength blockCoords
+    curColor  = getCurColor grid blockCoords
+    cursors   = minMaxCoords blockCoords
+    cornerMap = M.fromList [ (c.course, c.position) | c <- cursors ]
 
-findCourseNextBlock ∷ Grid Codel → BlockCoordinates → Int → Cursor → Maybe (Course, Maybe NextBlock)
-findCourseNextBlock grid blockCoords blockSize cur = (cur.course,) <$> searchNextBlock grid blockCoords cur.course blockSize
+findCourseNextBlock ∷ Grid Codel → Map Course Coordinates → Maybe ChromaticColor → Int → Cursor → Maybe (Course, Maybe NextBlock)
+findCourseNextBlock grid cornerMap curColor blockSize cur = (cur.course,) <$> searchNextBlock grid cornerMap curColor cur.course blockSize
 
 searchInitialBlock ∷ MonadSafe m ⇒ Grid Codel → m (Maybe BlockEdge)
 searchInitialBlock grid = processInitial grid =<< justOrThrow "EmptyBlockTableError" (getCodelAt grid (0, 0))
@@ -77,10 +81,8 @@ processInitial _ (Codel (Chromatic _) blockIdx) = pure $ Just $ BlockEdge blockI
 processInitial grid (Codel White _)             = pure $ view targetL <$> slideOnWhiteBlock grid initialCursor
 processInitial _ (Codel Black _)                = liftError "IllegalInitialColorError"
 
-searchNextBlock ∷ Grid Codel → BlockCoordinates → Course → Int → Maybe (Maybe NextBlock)
-searchNextBlock grid blockCoords startCourse blockSize = tryCourseAttempts grid curColor cornerMap blockSize 0 startCourse where
-  curColor  = getCurColor grid blockCoords
-  cornerMap = M.fromList [ (c.course, c.position) | c <- minMaxCoords blockCoords ]
+searchNextBlock ∷ Grid Codel → Map Course Coordinates → Maybe ChromaticColor → Course → Int → Maybe (Maybe NextBlock)
+searchNextBlock grid cornerMap curColor startCourse blockSize = tryCourseAttempts grid curColor cornerMap blockSize 0 startCourse
 
 tryCourseAttempts ∷ Grid Codel → Maybe ChromaticColor → Map Course Coordinates → Int → Int → Course → Maybe (Maybe NextBlock)
 tryCourseAttempts _    Nothing         _         _         _ _   = Nothing
@@ -128,14 +130,86 @@ nextBlockToIndex ∷ Maybe NextBlock → Maybe Int
 nextBlockToIndex nb = view (targetL . blockIndexL) <$> nb
 
 minMaxCoords ∷ BlockCoordinates → [Cursor]
-minMaxCoords positions = processPositions (nonEmpty positions)
+minMaxCoords []       = []
+minMaxCoords (p : ps) = cursorsFromCorners $ foldl' updateCorners (initCorners p) ps
 
-processPositions ∷ Maybe (NE.NonEmpty Coordinates) → [Cursor]
-processPositions (Just nePositions) = [ Cursor (maximumOn f nePositions) crs | (crs, f) <- fs ]
-processPositions Nothing            = []
+cursorsFromCorners ∷ Corners → [Cursor]
+cursorsFromCorners c =
+  [ Cursor c.cR_L (Course DPRight CCLeft)
+  , Cursor c.cR_R (Course DPRight CCRight)
+  , Cursor c.cD_L (Course DPDown  CCLeft)
+  , Cursor c.cD_R (Course DPDown  CCRight)
+  , Cursor c.cL_L (Course DPLeft  CCLeft)
+  , Cursor c.cL_R (Course DPLeft  CCRight)
+  , Cursor c.cU_L (Course DPUp    CCLeft)
+  , Cursor c.cU_R (Course DPUp    CCRight)
+  ]
 
-maximumOn ∷ Ord b ⇒ (a → b) → NE.NonEmpty a → a
-maximumOn f = F1.maximumBy (comparing f)
+updateCorners ∷ Corners → Coordinates → Corners
+updateCorners c p = Corners
+  (pickRL c.cR_L p)
+  (pickRR c.cR_R p)
+  (pickDL c.cD_L p)
+  (pickDR c.cD_R p)
+  (pickLL c.cL_L p)
+  (pickLR c.cL_R p)
+  (pickUL c.cU_L p)
+  (pickUR c.cU_R p)
+
+initCorners ∷ Coordinates → Corners
+initCorners p = Corners p p p p p p p p
+
+pickRL ∷ Coordinates → Coordinates → Coordinates
+pickRL old@(ox, oy) new@(nx, ny)
+  | nx > ox || (nx == ox && ny < oy) = new
+  | otherwise                        = old
+
+pickRR ∷ Coordinates → Coordinates → Coordinates
+pickRR old@(ox, oy) new@(nx, ny)
+  | nx > ox || (nx == ox && ny > oy) = new
+  | otherwise                        = old
+
+pickDL ∷ Coordinates → Coordinates → Coordinates
+pickDL old@(ox, oy) new@(nx, ny)
+  | ny > oy || (ny == oy && nx > ox) = new
+  | otherwise                        = old
+
+pickDR ∷ Coordinates → Coordinates → Coordinates
+pickDR old@(ox, oy) new@(nx, ny)
+  | ny > oy || (ny == oy && nx < ox) = new
+  | otherwise                        = old
+
+pickLL ∷ Coordinates → Coordinates → Coordinates
+pickLL old@(ox, oy) new@(nx, ny)
+  | nx < ox || (nx == ox && ny > oy) = new
+  | otherwise                        = old
+
+pickLR ∷ Coordinates → Coordinates → Coordinates
+pickLR old@(ox, oy) new@(nx, ny)
+  | nx < ox || (nx == ox && ny < oy) = new
+  | otherwise                        = old
+
+pickUL ∷ Coordinates → Coordinates → Coordinates
+pickUL old@(ox, oy) new@(nx, ny)
+  | ny < oy || (ny == oy && nx < ox) = new
+  | otherwise                        = old
+
+pickUR ∷ Coordinates → Coordinates → Coordinates
+pickUR old@(ox, oy) new@(nx, ny)
+  | ny < oy || (ny == oy && nx > ox) = new
+  | otherwise                        = old
+
+data Corners
+  = Corners
+      { cR_L :: !Coordinates
+      , cR_R :: !Coordinates
+      , cD_L :: !Coordinates
+      , cD_R :: !Coordinates
+      , cL_L :: !Coordinates
+      , cL_R :: !Coordinates
+      , cU_L :: !Coordinates
+      , cU_R :: !Coordinates
+      }
 
 justOrThrow ∷ MonadSafe m ⇒ Message → Maybe a → m a
 justOrThrow e = maybe (liftError e) pure
