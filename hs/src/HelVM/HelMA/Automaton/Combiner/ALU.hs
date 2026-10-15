@@ -215,10 +215,12 @@ genericPush1 ∷ (Integral v , Num element , Stack ll element) ⇒ v → ll → 
 genericPush1 = push1 . fromIntegral
 
 push1 ∷ Stack ll element ⇒ element → ll → ll
-push1 e = pushList [e]
+push1 = cons
+{-# INLINE push1 #-}
 
 push2 ∷ Stack ll element ⇒ element → element → ll → ll
-push2 e e' = pushList [e , e']
+push2 e e' = cons e . cons e'
+{-# INLINE push2 #-}
 
 pushList ∷ Stack ll element ⇒ [element] → ll → ll
 pushList es l = fromList es <> l
