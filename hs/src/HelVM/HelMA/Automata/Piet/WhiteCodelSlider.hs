@@ -48,12 +48,21 @@ handleVisited True _    = throwError Nothing
 handleVisited False cur = modify (S.insert cur)
 
 next ∷ Grid Codel → Cursor → Maybe PointedCodel
-next grid cur = viaNonEmpty head (mapMaybe (checkCourse grid cur) . take 4 $ iterate succCourse cur.course)
+next grid cur =
+  checkCourse grid cur c0 <|>
+  checkCourse grid cur c1 <|>
+  checkCourse grid cur c2 <|>
+  checkCourse grid cur c3 where
+    c0 = cur.course
+    c1 = succCourse c0
+    c2 = succCourse c1
+    c3 = succCourse c2
 
 checkCourse ∷ Grid Codel → Cursor → Course → Maybe PointedCodel
-checkCourse grid cur nextCourse@(Course nextDP _) = makePair (Cursor (move nextDP cur.position) nextCourse) =<< getNonBlackCodel grid (move nextDP cur.position)
+checkCourse grid cur nextCourse@(Course nextDP _) = makePair (Cursor pos nextCourse) =<< getNonBlackCodel grid pos where
+  !pos = move nextDP cur.position
 
 getNonBlackCodel ∷ Grid Codel → Coordinates → Maybe Codel
 getNonBlackCodel (Grid w h cells) (x, y)
-  | x >= 0 && x < w && y >= 0 && y < h = checkColor =<< (cells V.!? (y * w + x))
+  | x >= 0 && x < w && y >= 0 && y < h = checkColor $ V.unsafeIndex cells (y * w + x)
   | otherwise                           = Nothing
