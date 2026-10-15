@@ -86,6 +86,10 @@ autoOptionsParser = AutoOptions
                    <> value    defaultDumpType
                    <> showDefault
                    )
+  <*> switch       (  long    "debug"
+                   <> help    "Enable instruction-level debug logging"
+                   <> showDefault
+                   )
 
 memoryOptionsParser ∷ Parser MemoryOptions
 memoryOptionsParser = MemoryOptions

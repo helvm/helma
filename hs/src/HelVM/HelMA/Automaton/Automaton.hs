@@ -66,11 +66,13 @@ runAndDumpLogs p mem = logDump (dumpType p) =<< runAndCatch p mem
 {-# INLINE runAndDumpLogs #-}
 
 runAndCatch ∷ (SRAutomatonEff Symbol s r m) ⇒ AutoOptions → Memory s r → m (Memory s r)
-runAndCatch p mem = runAutomat (limit p) mem `catchError` attachErrorContext mem
+runAndCatch p mem = runAutomat p mem `catchError` attachErrorContext mem
 {-# INLINE runAndCatch #-}
 
-runAutomat ∷ (SRAutomatonEff Symbol s r m) ⇒ LimitMaybe → F s r m
-runAutomat = trampolineMWithLimit nextState
+runAutomat ∷ (SRAutomatonEff Symbol s r m) ⇒ AutoOptions → F s r m
+runAutomat p
+  | p.debug   = trampolineMWithLimit nextStateDebug p.limit
+  | otherwise = trampolineMWithLimit nextState p.limit
 {-# INLINE runAutomat #-}
 
 nextState ∷ (SRAutomatonEff Symbol s r m) ⇒ SF s r m
@@ -78,8 +80,16 @@ nextState !a = stepNextState a =<< currentInstruction (memoryCM a)
 {-# INLINE nextState #-}
 
 stepNextState ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → SameT m (Memory s r)
-stepNextState !a !i = logDebugNL (show i) *> runInstruction i (incrementIC a)
+stepNextState !a !i = runInstruction i (incrementIC a)
 {-# INLINE stepNextState #-}
+
+nextStateDebug ∷ (SRAutomatonEff Symbol s r m) ⇒ SF s r m
+nextStateDebug !a = stepNextStateDebug a =<< currentInstruction (memoryCM a)
+{-# INLINE nextStateDebug #-}
+
+stepNextStateDebug ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Instruction → SameT m (Memory s r)
+stepNextStateDebug !a !i = logDebugNL (show i) *> runInstruction i (incrementIC a)
+{-# INLINE stepNextStateDebug #-}
 
 attachErrorContext ∷ (SRAutomatonEff Symbol s r m) ⇒ Memory s r → Messages → m b
 attachErrorContext a err = appendErrorTuple ctx1 $ appendErrorTuple ctx2 $ throwError err where

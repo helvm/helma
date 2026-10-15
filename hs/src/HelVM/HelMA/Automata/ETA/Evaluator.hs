@@ -94,4 +94,4 @@ customEval tl SeqStackType   = eval tl Seq.empty
 customEval tl SListStackType = eval tl SList.sListEmpty
 
 eval ∷ (SAutomatonEff Symbol s m) ⇒ TokenList → s → AutoOptions → m ()
-eval tl s (AutoOptions limit dt) = logDump dt =<< runAutomat limit (newMemory tl s)
+eval tl s o = logDump o.dumpType =<< runAutomat o.limit (newMemory tl s)
